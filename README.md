@@ -1,6 +1,6 @@
 ### Staging URL
 
-[http://gemfire.github.io/apache-gemfire-staging/](http://gemfire.github.io/apache-gemfire-staging/)
+[http://project-geode.github.io/docs/](http://project-geode.github.io/docs/)
 
 ### Changes
 
@@ -12,7 +12,7 @@ To add a second-level page (e.g. /community/secondarypage), add a .md file to th
 
 ### URLs
 
-For now, you will need to add /apache-gemfire-staging/ in front of your in-site links to get them to work.  Once we move to a custom domain, this necessity will go away.
+For now, you will need to add /docs/ in front of your in-site links to get them to work.  Once we move to a custom domain, this necessity will go away.
 
 ### Technologies
 
@@ -22,13 +22,13 @@ For now, you will need to add /apache-gemfire-staging/ in front of your in-site 
 
 ### Run locally
 
-Until there's a custom domain, running locally will look broken due to needing to have /apache-gemfire-staging/ in the URLs. 
+Until there's a custom domain, running locally will look broken due to needing to have /docs/ in the URLs. 
 
 Ignore the _site directory.  This directory is rebuilt every time Jekyll rebuilds the site and will not be committed to GitHub.
 
 ```
-git clone git@github.com:gemfire/apache-gemfire-staging.git
-cd apache-gemfire-staging
+git clone git@github.com:project-geode/docs.git
+cd docs
 git checkout gh-pages
 gem install jekyll
 jekyll serve

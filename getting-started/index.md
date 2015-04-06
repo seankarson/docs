@@ -7,7 +7,7 @@ slug: getting-started
 # Getting Started
 
 ##Get Haptic 
-Download it [here](http://gemfire.github.io/apache-gemfire-staging/download/)
+Download it [here](/docs/download/)
 
 ##Learn the basics (Videos)
 GemFire Introductory Course (free) on [Pivotal Academy](https://pivotallms.biglms.com/courses/PivotalAcademy/GF101/2014_Q3/info)
@@ -73,7 +73,7 @@ here, here, and here..... (luke's code, training example, spatial example) other
 Find the latest Project Haptic Documentation [here](https://github.com/gemfire/docs-gemfire)
 
 
-+ [Download](/apache-gemfire-staging/download) the latest release — you can run locally on your laptop natively, or as a VM.
++ [Download](/docs/download) the latest release — you can run locally on your laptop natively, or as a VM.
 + Read the [quick start guide](https://github.com/gemfire/apache-gemfire-staging/wiki).
 + Watch videos on how to get started
 + Learn how to deploy on a cluster.
