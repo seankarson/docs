@@ -1,27 +1,26 @@
 ---
 layout: default
-title: Project Haptic | Getting Started
+title: Project Geode | Getting Started
 slug: getting-started
 ---
 
 # Getting Started
 
-##Get Haptic 
+##Get Geode 
 Download it [here](/docs/download/)
 
-##Learn the basics (Videos)
-GemFire Introductory Course (free) on [Pivotal Academy](https://pivotallms.biglms.com/courses/PivotalAcademy/GF101/2014_Q3/info)
-[Introduction to GemFire](https://pivotallms.biglms.com/courses/PivotalAcademy/GF101/2014_Q3/courseware/35450076c39b43299f3a764f53401b7c/12a94352b2894734ab545e35d2029f34/)
+##Learn the basics (Videos) (NOTE: GemFire is a commercial version of Geode)
+[Introduction to GemFire](https://s3.amazonaws.com/gemfire-intro/Lesson+00+Introduction.mp4)
 
-[Introduction to GemFire: Architecture nad Use Cases](https://pivotallms.biglms.com/courses/PivotalAcademy/GF101/2014_Q3/courseware/35450076c39b43299f3a764f53401b7c/fe8f30a924834f6ba157381d299bb400/)
+[Introduction to GemFire:Architecture and Use Cases](https://s3.amazonaws.com/gemfire-intro/Lesson+01+Gem+Architecture.mp4)
 
-[Introduction to GemFire:Installation and Configuration](https://pivotallms.biglms.com/courses/PivotalAcademy/GF101/2014_Q3/courseware/35450076c39b43299f3a764f53401b7c/1c85f7feb03c474ea37df85dc80d2940/)
+[Introduction to GemFire:Installation and Configuration](https://s3.amazonaws.com/gemfire-intro/Lesson+02+Gem+Install+and+Config.mp4)
 
-[Introduction to GemFire:Tools](https://pivotallms.biglms.com/courses/PivotalAcademy/GF101/2014_Q3/courseware/35450076c39b43299f3a764f53401b7c/30a35f663a0e43b2a45a951b06ddf41d/)
+[Introduction to GemFire:Tools](https://s3.amazonaws.com/gemfire-intro/Lesson+03+Gem+Tools.mp4)
 
-[Introduction to GemFire:Additional Features](https://pivotallms.biglms.com/courses/PivotalAcademy/GF101/2014_Q3/courseware/35450076c39b43299f3a764f53401b7c/6f4effe27f57483a877237c3d3691897/)
+[Introduction to GemFire:Advanced Features](https://s3.amazonaws.com/gemfire-intro/Lesson+04+Gem+Advance+Features.mp4)
 
-[Introduction to GemFire:Conclusion](https://pivotallms.biglms.com/courses/PivotalAcademy/GF101/2014_Q3/courseware/35450076c39b43299f3a764f53401b7c/f3952acb640444c1a85a88631099c849/)
+[Introduction to GemFire:Conclusion](https://s3.amazonaws.com/gemfire-intro/Lesson+05+Conclusion.mp4)
 
 
 ##Understand some examples
