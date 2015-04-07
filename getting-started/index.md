@@ -9,7 +9,9 @@ slug: getting-started
 ##Get Geode 
 Download it [here](/docs/download/)
 
-##Learn the basics (Videos) (NOTE: GemFire is a commercial version of Geode)
+##Learn the basics (Videos) 
+**(NOTE: GemFire is a commercial version of Geode)**
+
 [Introduction to GemFire](https://s3.amazonaws.com/gemfire-intro/Lesson+00+Introduction.mp4)
 
 [Introduction to GemFire:Architecture and Use Cases](https://s3.amazonaws.com/gemfire-intro/Lesson+01+Gem+Architecture.mp4)
@@ -22,27 +24,32 @@ Download it [here](/docs/download/)
 
 [Introduction to GemFire:Conclusion](https://s3.amazonaws.com/gemfire-intro/Lesson+05+Conclusion.mp4)
 
-
 ##Understand some examples
+Fast Foot Demo - updates from Luke on Friday
+
+[Getting Started with Geode](https://github.com/project-geode/docs/wiki#geode-in-5-minutes)
+
 here, here, and here..... (luke's code, training example, spatial example) others?
 
 ##Dive into How Tos
 <table>
   <tr>
     <td>
-    <b>Using</b></br>
+    <b>Develop</b></br>
         <ul>
-        <li><a href="https://github.com/gemfire/apache-gemfire-staging/wiki/CacheWriter-and-CacheListener-Best-Practices">CacheListeners and Writers</a></li>
-        <li>Function Best Practices</li>
-        <li>Persistence Best Practices</li>
-        <li>Querying Haptic</li>
+        <li><a href="https://github.com/project-geode/docs/wiki/CacheWriter-and-CacheListener-Best-Practices">CacheListeners and Writers</a></li>
+        <li><a href="https://github.com/project-geode/docs/wiki/Function-Best-Practices">Function Best Practices</a></li>
+        <li><a href="https://github.com/project-geode/docs/wiki/Native-Disk-Persistence">Persistence Best Practices</a></li>
+        </li><a href="https://github.com/project-geode/docs/wiki/PDX-Serialization-Internals">PDX Serialization Internals</a></li>
+        <li>Querying Geode</li>
+        <li><a href="https://github.com/project-geode/docs/wiki/Debugging-Geode-Applications">Debugging Geode Applications</a></li>
 
     </td>
     <td> 
-          <b>Architecting </b><br>
+          <b>Design</b><br>
           <ul>
-            <li>Data Architecture in Haptic</li>
-            <li><a href="https://github.com/gemfire/apache-gemfire-staging/wiki/Running-Haptic-In-Embedded-Mode">Embedded Architecture</a> </li>
+            <li>Data Architecture in Geode</li>
+            <li><a href="https://github.com/project-geode/docs/wiki/Running-in-Embedded-Mode">Running in Embedded Mode</a></li>
             <li>Client Server Architecture</li>
             <li>Moving from memcached to gemcached</li>
             
@@ -51,7 +58,7 @@ here, here, and here..... (luke's code, training example, spatial example) other
 
     </td>
     <td> 
-          <b>Administering</b><br>
+          <b>Troubleshooting</b><br>
           <ul>
             <li>Sizing</li>
             <li>What to Monitor</li>
