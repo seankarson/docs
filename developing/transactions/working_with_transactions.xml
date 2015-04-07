@@ -1,0 +1,288 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE dita PUBLIC "-//OASIS//DTD DITA Composite//EN" "ditabase.dtd">
+<dita>
+  <topic id="topic_tx2_gs4_5k">
+    <title>Working with <keyword keyref="product_name"/> Cache Transactions</title>
+    <shortdesc>This section contains guidelines and additional information on working with <keyword
+        keyref="product_name"/> and its cache transactions.</shortdesc>
+  </topic>
+  <concept id="concept_vx2_gs4_5k">
+    <title>Setting Global Copy on Read </title>
+    <conbody>
+      <p>Copy-on-read is not specifically a transaction setting, but if you are using transactions,
+        you probably want copy-on-read behavior. To enable global copy-on-read for all reads, modify
+        cache.xml or use the Java API.</p>
+      <p>Using cache.xml:
+        <codeblock>&lt;cache lock-lease="120" lock-timeout="60" search-timeout="300"copy-on-read=<b>"true"</b>></codeblock></p>
+      <p>API:
+        <codeblock>Cache c = CacheFactory.getInstance(system) c.setCopyOnRead(true);</codeblock>The
+        copy-on-read attribute and the operations affected by the attribute setting are discussed in
+        detail in <xref
+          href="../../basic_config/data_entries_custom_classes/managing_data_entries.xml#managing_data_entries"
+        />.</p>
+    </conbody>
+  </concept>
+  <concept id="concept_fdr_wht_vk">
+    <title>Making a Safe Change Within a Transaction Using CopyHelper.copy </title>
+    <conbody>
+      <p>If you do not have <codeph>copy-on-read</codeph> set globally and are using replicated
+        regions, you must explicitly make copies of the cache objects that you are modifying in your
+        transactions. You can use <codeph>CopyHelper.copy</codeph> to make these copies.</p>
+      <p>For
+        example:<codeblock>CacheTransactionManager cTxMgr = cache.getCacheTransactionManager();
+cTxMgr.begin(); Object o = (StringBuffer)r.get("stringBuf");
+StringBuffer s = (StringBuffer) CopyHelper.copy(o);
+s.append("Changes unseen before commit. Read Committed."); 
+r.put("stringBuf", s); cTxMgr.commit();</codeblock></p>
+    </conbody>
+  </concept>
+  <concept id="concept_ihn_zmt_vk">
+    <title>Transactions and Functions</title>
+    <conbody>
+      <p>You can run a function inside a transaction and you can run a transaction inside a
+        function, as long as your combination of functions and transactions does not result in
+        nested transactions. You cannot call a function from inside a transaction if the function
+        runs its own transaction.</p>
+      <p>You can also have multiple functions participate within a single transaction.</p>
+      <p>If you are suspending and resuming a transaction with multiple function calls, all function
+        calls participating in the transaction must execute on the same member.</p>
+      <p>See <xref
+          href="transactional_function_example.xml#concept_22331B3DBFAB4C0BA95EF103BFB71257"
+          type="concept" format="dita" scope="local"/> for an example.</p>
+    </conbody>
+  </concept>
+  <concept id="concept_ty1_vnt_vk">
+    <title>Using Queries and Indexes with Transactions</title>
+    <conbody>
+      <p>Queries and indexes reflect the cache and ignore the changes made by ongoing transactions.
+        If you do a query from inside a transaction, the query does not reflect the changes you made
+        inside that transaction.</p>
+    </conbody>
+  </concept>
+  <concept id="concept_ksh_twz_vk">
+    <title>Collections and Region.Entry Instances in Transactions</title>
+    <conbody>
+      <p>Collections and region entries used in a transaction must be created inside the
+        transaction. After the transaction has completed, the application can no longer use any
+        region entry or collection or associated iterator created within the transaction. If you try
+        to use these, you get an <codeph>IllegalStateException</codeph>.</p>
+      <p>Region collection operations include <codeph>Region.keySet</codeph>,
+          <codeph>Region.entrySet</codeph>, and <codeph>Region.values</codeph>. You can create
+        instances of <codeph>Region.Entry</codeph> through the <codeph>Region.getEntry</codeph>
+        operation or by looking at the contents of the result returned by a
+          <codeph>Region.entrySet</codeph> operation.</p>
+    </conbody>
+  </concept>
+  <concept id="concept_vyt_txz_vk">
+    <title>Using Eviction and Expiration Operations</title>
+    <conbody>
+      <p>Entry expiration and LRU eviction affect the committed state. They are not part of the
+        transaction, and they cannot be rolled back.</p>
+      <section>
+        <title>About Eviction</title>
+        <p>LRU eviction operations do not cause write conflicts with existing transactions, despite
+          destroying or invalidating entries. LRU eviction is deferred on entries modified by the
+          transaction until the commit completes. Because anything touched by the transaction has
+          had its LRU clock reset, eviction of those entries is not likely to happen immediately
+          after the commit.</p>
+        <p>When a transaction commits its changes in a region with distributed scope, the operation
+          can invoke eviction controllers in the remote caches, as well as in the local cache.</p>
+      </section>
+      <section>
+        <title>Configure Expiration</title>
+        <p>Local expiration actions do not cause write conflicts, but distributed expiration can
+          cause conflicts and prevent transactions from committing in the members receiving the
+          distributed operation. <ul id="ul_ayp_gyz_vk">
+            <li>When you are using transactions on local, preloaded or empty regions, make
+              expiration local if possible. For every instance of that region, configure an
+              expiration action of local invalidate or local destroy. In a cache.xml declaration,
+              use a line similar to
+                this:<codeblock>&lt;expiration-attributes timeout="60" action="local-invalidate"/></codeblock><p>In
+                regions modified by a transaction, local expiration is suspended. Expiration
+                operations are batched and deferred per region until the transactions complete. Once
+                cleanup starts, the manager processes pending expirations. Transaction that need to
+                change the region wait until the expirations are complete.</p></li>
+            <li>With partitioned and replicated regions, you cannot use local expiration. When you
+              are using distributed expiration, the expiration is not suspended during a
+              transaction, and expiration operations distributed from another member can cause write
+              conflicts. In replicated regions, you can avoid conflicts by setting up your
+              distributed system this way: <ul id="ul_bb5_myz_vk">
+                <li>Choose an instance of the region to drive region-wide expiration. Use a
+                  replicated region, if there is one.</li>
+                <li>Configure distributed expiration only in that region instance. The expiration
+                  action must be either invalidate or destroy. In a cache.xml declaration, use a
+                  line similar to
+                  this:<codeblock>&lt;expiration-attributes timeout="300" action="destroy"/></codeblock></li>
+                <li>Run your transactions in the member where you configured expiration.</li>
+              </ul></li>
+          </ul></p>
+      </section>
+    </conbody>
+  </concept>
+  <concept id="transactions_and_consistency">
+    <title>Transactions and Consistent Regions</title>
+    <conbody>
+      <p>A transaction that modifies a region having consistency checking enabled generates all
+        necessary version information for region updates when the transaction commits. </p>
+      <p>If a transaction modifies a normal, preloaded or empty region, the transaction is first
+        delegated to a <keyword keyref="product_name"/> member that holds a replicate for the region. This behavior is
+        similar to the transactional behavior for partitioned regions, where the partitioned region
+        transaction is forwarded to a member that hosts the primary for the partitioned region
+        update. </p>
+      <p>The limitation for transactions with a normal, preloaded or empty region is that, when
+        consistency checking is enabled, a transaction cannot perform a
+          <codeph>localDestroy</codeph> or <codeph>localInvalidate</codeph> operation against the
+        region. <keyword keyref="product_name"/> throws an <codeph>UnsupportedOperationInTransactionException</codeph>
+        exception in such cases. An application should use a <codeph>Destroy</codeph> or
+          <codeph>Invalidate</codeph> operation in place of a <codeph>localDestroy</codeph> or
+          <codeph>localInvalidate</codeph> when consistency checks are enabled. </p>
+    </conbody>
+  </concept>
+  <concept id="concept_u5b_ryz_vk">
+    <title>Suspending and Resuming Transactions</title>
+    <conbody>
+      <p><keyword keyref="product_name"/> APIs provide the ability to suspend and resume
+        transactions. The ability to suspend and resume is useful when a thread must perform some
+        operations that should not be part of the transaction before the transaction can
+        complete.</p>
+      <p>When a transaction is suspended, it loses the transactional view of the cache. None of the
+        previous operations (before calling suspend) are visible to the thread. Subsequently any
+        operations that are performed by the thread do not participate in the suspended
+        transaction.</p>
+      <p>When a transaction is resumed, the resuming thread assumes the transactional view. A
+        transaction that is suspended on a member must be resumed on the same member. Before
+        resuming a transaction, you may want to check if the transaction exists on the member and
+        whether it is suspended.</p>
+      <p>You may optionally use the <codeph>tryResume</codeph> method.</p>
+      <p>If the member with the primary copy of the data crashes, the transactional view that
+        applied to that data is lost. The secondary member for the data will not be able to resume
+        any transactions suspended on the crashed member. You will need to take remedial steps to
+        retry the transaction on a new primary copy of the data.</p>
+      <p>If a suspended transaction is not touched for a period of time, <keyword keyref="product_name"/> cleans it up
+        automatically. By default, the timeout for a suspended transaction is 30 minutes and can be
+        configured using the system property <codeph>gemfire.suspendedtxTimeout</codeph>. For
+        example, to modify the default, you could set <codeph>gemfire.suspendedtxTimeout=60</codeph>
+        (time in minutes).</p>
+    </conbody>
+  </concept>
+  <concept id="concept_ysx_nf1_wk">
+    <title>Using Cache Writer and Cache Listener Plug-Ins</title>
+    <conbody>
+      <p>All standard <keyword keyref="product_name"/> application plug-ins work with transactions.
+        In addition, the transaction interface offers specialized plug-ins that support
+        transactional operation. </p>
+      <note>No direct interaction exists between client transactions and client application
+        plug-ins. When a client runs a transaction, <keyword keyref="product_name"/> calls the
+        plug-ins that are installed on the transaction's server delegate and its server host. Client
+        application plug-ins are not called for operations inside the transaction or for the
+        transaction as a whole. When the transaction is committed, the changes to the server cache
+        are sent to the client cache according to client interest registration. These events can
+        result in calls to the client's <codeph>CacheListener</codeph>s, as with any other events
+        received from the server. </note>
+      <p>The <codeph>EntryEvent</codeph> that the callbacks receive has a unique <keyword
+          keyref="product_name"/> transaction ID, so the cache listener can associate each event, as
+        it occurs, with a particular transaction. <codeph>EntryEvent</codeph>s that are not part of
+        a transaction return null instead of a transaction ID. <ul
+          id="ul_13E121CD255D4C7692787F5DCAF075A5">
+          <li id="li_46F1FD8534274841B0EDEE90C83E8D45"><codeph>CacheLoader</codeph>. When a cache
+            loader is called by a transaction operation, values loaded by the cache loader may cause
+            a write conflict when the transaction commits. </li>
+          <li id="li_3FAD0B7CB54F4133AE01E0ABFC26B173"><codeph>CacheWriter</codeph>. During a
+            transaction, if a cache writer exists, its methods are invoked as usual for all
+            operations, as the operations are called in the transactions. The
+              <codeph>netWrite</codeph> operation is not used. The only cache writer used is the one
+            in the member where the transactional data resides. </li>
+          <li id="li_8B057E2FA8174DAFADFE9DB32BA00E2F"><codeph>CacheListener</codeph>. The cache
+            listener callbacks - local and remote - are triggered after the transaction commits. The
+            system sends the conflated transaction events, in the order they were stored. </li>
+        </ul>For more information on writing cache event handlers, see <xref
+          href="../events/implementing_cache_event_handlers.xml#implementing_cache_event_handlers"
+        />.</p>
+    </conbody>
+  </concept>
+  <concept id="concept_ocw_vf1_wk">
+    <title>Configuring Transaction Plug-In Event Handlers</title>
+    <conbody>
+      <p><keyword keyref="product_name"/> has two types of transaction plug-ins-- Transaction
+        Writers and Transaction Listeners. You can optionally install one transaction writer and one
+        or more transaction listener per cache. </p>
+      <p>Like JTA global transactions, you can use transaction plug-in event handlers to coordinate
+        <keyword keyref="product_name"/> cache transaction activity with an external data store. However, you typically use
+        JTA global transactions when <keyword keyref="product_name"/> is running as a peer data
+        store with your external data stores. Transaction writers and listeners are typically used
+        when <keyword keyref="product_name"/> is acting as a front end cache to your backend
+          database.<note>You can also use transaction plug-in event handlers when running JTA global
+          transactions. </note></p>
+      <section>
+        <title>TransactionWriter</title>
+        <p>When you commit a transaction, if a transaction writer is installed in the cache where
+          the data updates were performed, it is called. The writer can do whatever work you need,
+          including aborting the transaction. </p>
+        <p>The transaction writer is the last place that an application can rollback a transaction.
+          If the transaction writer throws any exception, the transaction is rolled back. For
+          example, you might use a transaction writer to update a backend data source before the
+          <keyword keyref="product_name"/> cache transaction completes the commit. If the backend data source update fails,
+          the transaction writer implementation can throw a <xref
+            href="http://gemfire.docs.pivotal.io/javadocs/japi/com/gemstone/gemfire/cache/TransactionWriterException.html"
+            format="html" scope="external">TransactionWriterException</xref> to veto the
+          transaction.</p>
+        <p>A typical usage scenario would be to use the transaction writer to prepare the commit on
+          the external database. Then in a transaction listener, you can apply the commit on the
+          database.</p>
+      </section>
+      <section>
+        <title>Transaction Listeners</title>
+        <p>When the transaction ends, its thread calls the transaction listener to perform the
+          appropriate follow-up for successful commits, failed commits, or voluntary rollbacks. The
+          transaction that caused the listener to be called no longer exists by the time the
+          listener code executes. </p>
+        <p>Transaction listeners have access to the transactional view and thus are not affected by
+          non-transactional update operations. <codeph>TransactionListener</codeph> methods cannot
+          make transactional changes or cause a rollback. They can, however, start a new
+          transaction. Multiple transactions on the same cache can cause concurrent invocation of
+            <codeph>TransactionListener</codeph> methods, so implement methods that do the
+          appropriate synchronization of the multiple threads for thread-safe operation. </p>
+        <p>A transaction listener can preserve the result of a transaction, perhaps to compare with
+          other transactions, or for reference in case of a failed commit. When a commit fails and
+          the transaction ends, the application cannot just retry the transaction, but must build up
+          the data again. For most applications, the most efficient action is just to start a new
+          transaction and go back through the application logic again. </p>
+        <p>The rollback and failed commit operations are local to the member where the transactional
+          operations are run. When a successful commit writes to a distributed or partitioned
+          region, however, the transaction results are distributed to other members the same as
+          other updates. The transaction listener on the receiving members reflect the changes the
+          transaction makes in that member, not the originating member. Any exceptions thrown by the
+          transaction listener are caught by <keyword keyref="product_name"/> and logged. </p>
+        <p>If you implement a transaction listener, you can configure one or more listeners as a
+          cache attribute.</p>
+        <p>To configure a transaction listener, add a <codeph>cache-transaction-manager</codeph>
+          configuration to the cache definition and define one or more instances of
+            <codeph>transaction-listener</codeph> there. The only parameter to this
+            <codeph>transaction-listener</codeph> is <codeph>URL</codeph>, which must be a string,
+          as shown in the following cache.xml example.</p>
+        <p>
+          <note>The <codeph>cache-transaction-manager</codeph> allows listeners to be established.
+            This attribute does not install a different transaction manager.</note>
+        </p>
+        <p>Using
+          cache.xml:<codeblock>&lt;cache search-timeout="60">
+           &lt;cache-transaction-manager>
+             &lt;transaction-listener>
+               &lt;class-name>com.company.data.MyTransactionListener&lt;/class-name>
+                 &lt;parameter name="URL">
+                    &lt;string>jdbc:cloudscape:rmi:MyData&lt;/string>
+                 &lt;/parameter>
+             &lt;/transaction-listener>
+             &lt;transaction-listener>
+              . . .   
+             &lt;/transaction-listener> 
+          &lt;/cache-transaction-manager>
+               . . . 
+        &lt;/cache></codeblock></p>
+        <p>Using the Java
+          API:<codeblock>CacheTransactionManager manager = cache.getCacheTransactionManager(); 
+manager.addListener(new LoggingTransactionListener());</codeblock></p>
+      </section>
+    </conbody>
+  </concept>
+</dita>

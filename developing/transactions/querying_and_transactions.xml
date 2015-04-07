@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "http://docs.oasis-open.org/dita/v1.1/OS/dtd/concept.dtd">
+<concept id="querying_and_transactions"> 
+  <title>Queries and Indexes with Transactions</title> 
+  <prolog><metadata><keywords><keyword>gemfire queries
+			 transactions</keyword><keyword>gemfire indexes
+			 transactions</keyword></keywords></metadata>
+  </prolog> 
+  <conbody> 
+	 <section id="section_881D2FF6761B4D689DDB46C650E2A2E1">
+		<p>Queries and indexes reflect the cache and ignore the changes made by
+		  ongoing transactions. If you do a query from inside a transaction, the query
+		  does not reflect the changes you made inside that transaction. 
+		</p>
+	 </section> 
+  </conbody> 
+</concept> 

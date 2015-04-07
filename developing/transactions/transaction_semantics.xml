@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "http://docs.oasis-open.org/dita/v1.1/OS/dtd/concept.dtd">
+<concept id="transaction_semantics">
+	<title><keyword keyref="product_name"/> Cache Transaction Semantics</title>
+	<conbody>
+		<p><keyword keyref="product_name"/> transaction semantics differs in some ways from the
+			semantics of traditional relational databases. </p>
+		<section id="section_8362ACD06C784B5BBB0B7E986F760169">
+			<title>Atomicity</title>
+			<p>A common database technique to achieve atomicity is two-phase locking on rows. This
+				provides coordination between the current transaction and other transactions with
+				overlapping changes. Holding write locks prevents reads of transactional changes
+				until all changes are complete, providing all or nothing behavior. If problems occur
+				during a transaction, perhaps due to relational constraints or storage limitations,
+				the locks protect other processes from reading until the problems can be resolved.
+				The resolution often involves reverting data back to the original pre-transaction
+				state. Rolling back a database transaction in this case would require releasing
+				write locks. </p>
+			<p>A common distributed technique for all or nothing behavior is the Two Phase Commit
+				Protocol, which requires all processes participating in the transaction to agree to
+				commit or abort the transaction. </p>
+			<p>The all or nothing behavior of <keyword keyref="product_name"/> transactions is
+				implemented using a per thread transaction state which collects all transactional
+				changes. The set of Entry changes are atomically reserved by a reservation system.
+				The reservation blocks other, intersecting transactions from proceeding, allowing
+				the commit to check for conflicts and reserve resources in an all-or-nothing fashion
+				prior to making changes to the data. </p>
+			<p>Since <keyword keyref="product_name"/> is distributed, the transaction state is
+				distributed to the appropriate members and processed in a batch, to protect against
+				application failure in the middle of the commit. After all changes have been made,
+				locally and remotely, the reservation is released. </p>
+			<p>Rolling back the transaction is as simple as discarding the transaction state. </p>
+			<p>Reads do not use the reservation system and so are very fast. </p>
+			<p>This system has traits similar to the Multiversion Concurrency Control algorithm: <ul
+					id="ul_93036FFA8B3D4543AEE40C101171CF89">
+					<li id="li_48B918945E7B44F4B1586575B53BA0DA">Each thread can write new versions
+						of entry data without impacting read performance </li>
+					<li id="li_0C58F6573FD64C928E5FAE04BFFAA221">Reads view only the most recent
+						committed version of an entry </li>
+				</ul>
+			</p>
+		</section>
+		<section id="section_7C287DA4A5134780B3199CE074E3F890">
+			<title>Consistency</title>
+			<p>Database consistency is often described in terms of referential integrity. References
+				between tables are often described in terms of primary and foreign key constraints.
+				A database transaction that updates multiple columns, potentially in different
+				tables, must ensure that all updates are completed to maintain consistency in an
+				atomic fashion. </p>
+			<p>For <keyword keyref="product_name"/> the application controls the consistency between
+				regions and their entries. <keyword keyref="product_name"/> transactions use the
+				reservation system to ensure that changes to all entries in all regions are
+				committed. Once a reservation is obtained, <keyword keyref="product_name"/> does a
+				conflict check to ensure that the entries scheduled for change are in the same state
+				as they were when the transaction first accessed them. </p>
+		</section>
+		<section id="section_126A24EC499D4CF39AE766A0B526A9A5">
+			<title>Isolation</title>
+			<p><keyword keyref="product_name"/> isolates transactions at the process thread level.
+				So while a transaction is in progress, its changes are only visible inside the
+				thread that is running the transaction. Threads inside the same process and in other
+				processes do not see the changes until after the commit finishes. Relational
+				database transactions often isolate changes per JDBC connection. </p>
+			<p><keyword keyref="product_name"/> reads, like get and getEntry, are volatile, meaning
+				they do not use locks. This makes reads very fast with respect to other entry
+				operations. It also allows transactional writes to proceed without being slowed down
+				by in-progress reads. </p>
+			<p>Visibility, related to isolation, is the atomic nature in which committed writes are
+				viewable by read operations. Reads during a <keyword keyref="product_name"/>
+				transaction have repeatable read isolation, so once the committed value reference is
+				read for a given key, it always returns the same reference. If a transaction write,
+				like put or invalidate, deletes a value for a key that has already been read,
+				subsequent reads return the transactional reference. </p>
+		</section>
+		<section id="section_F092E368724945BCBF8E5DCB36B97EB4">
+			<title>Durability</title>
+			<p>Relational databases provide durability by using disk storage for recovery and
+				transaction logging. <keyword keyref="product_name"/> does not support on-disk or
+				in-memory durability for transactions. </p>
+		</section>
+	</conbody>
+</concept>

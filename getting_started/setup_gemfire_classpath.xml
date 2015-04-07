@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept id="concept_ivh_glr_l4">
+ <title>CLASSPATH Settings for <keyword keyref="product_name"/> Processes</title>
+ <shortdesc>This topic describes how <keyword keyref="product_name"/> processes set their
+  CLASSPATH.</shortdesc>
+ <conbody>
+  <p>To simplify CLASSPATH environment settings, <keyword keyref="product_name"/> has organized all
+   application libraries required by <keyword keyref="product_name"/> processes into
+    <codeph>*-dependencies.jar</codeph> files. All dependency JAR files are located in
+    <codeph>$GEMFIRE/lib</codeph> directory. When starting a server or locator process using
+    <codeph>gfsh</codeph>, the required application JAR files are automatically loaded into the
+   process's CLASSPATH for you.</p>
+  <p>
+   <note>To embed <keyword keyref="product_name"/> in your application, add
+     <codeph>$GEMFIRE/lib/gemfire-core-dependencies.jar</codeph> to your CLASSPATH.</note>
+  </p>
+  <p>The following table lists the dependency JAR files associated with various <keyword
+    keyref="product_name"/> processes:<table frame="all" id="table_slb_p4s_l4">
+    <tgroup cols="2">
+     <colspec colname="c1" colnum="1" colwidth="1*"/>
+     <colspec colname="c2" colnum="2" colwidth="3.22*"/>
+     <thead>
+      <row>
+       <entry><keyword keyref="product_name"/> Process</entry>
+       <entry>Associated JAR Files</entry>
+      </row>
+     </thead>
+     <tbody>
+      <row>
+       <entry>gfsh</entry>
+       <entry>gfsh-dependencies.jar</entry>
+      </row>
+      <row>
+       <entry>server</entry>
+       <entry>server-dependencies.jar<note> Use this library for all standalone or embedded <keyword
+          keyref="product_name"/> processes (including Java clients) that host cache
+        data.</note></entry>
+      </row>
+      <row>
+       <entry>locator</entry>
+       <entry>locator-dependencies.jar</entry>
+      </row>
+      <row>
+       <entry>Pulse</entry>
+       <entry>pulse-dependencies.jar</entry>
+      </row>
+     </tbody>
+    </tgroup>
+   </table></p>
+  <section>
+   <title>Modifying the CLASSPATH in gfsh-Managed Processes</title>
+   <p>There are two options for updating the CLASSPATH of <keyword keyref="product_name"/> server
+    and locator processes that are started on the gfsh command line.</p>
+   <p><b>Option 1:</b> Specify the <codeph>--classpath</codeph> parameter upon process startup. For
+    example, to modify the CLASSPATH of a locator:
+    <codeblock>gfsh> start locator --name=locator1 --classpath=/path/to/applications/classes.jar</codeblock>And
+    to modify the CLASSPATH of a
+    server:<codeblock>gfsh> start server --name=server1 --classpath=/path/to/applications/classes.jar</codeblock>Any
+    application classes supplied by the user are <i>prepended</i> to the server or locator's
+    CLASSPATH minus the <codeph>gemfire.jar</codeph>, which always appears first on the CLASSPATH
+    for security reasons.</p>
+   <p><b>Option 2:</b> Define the CLASSPATH environment variable in your OS environment. Then,
+    specify the <codeph>--include-system-classpath</codeph> parameter upon process startup. For
+    example:<codeblock>gfsh> start locator --name=locator1 --include-system-classpath</codeblock>
+    The same can also be done for server
+    processes:<codeblock>gfsh> start server --name=server1 --include-system-classpath</codeblock>This
+    option <i>appends</i> the contents of the system CLASSPATH environment variable to the locator
+    or server's CLASSPATH upon startup.</p>
+  </section>
+  <section>
+   <title>Setting the CLASSPATH for Applications and Standalone Java Processes</title>
+   <p>If you are starting a <keyword keyref="product_name"/> process programmatically (standalone or
+    embedded), we recommend that you specify the CLASSPATH upon program execution using the
+     <codeph>java -classpath</codeph> or <codeph>java -cp</codeph> command-line option. This method
+    is preferred to setting the CLASSPATH as an environment variable since it allows you to set the
+    value individually for each application without affecting other applications and without other
+    applications modifying its value.</p>
+   <p>For example, to start up a <keyword keyref="product_name"/> locator process using the
+    LocatorLauncher API, you can execute the following on the command
+    line:<codeblock>prompt# java -cp "$GEMFIRE/lib/locator-dependencies.jar"
+<b>com.gemstone.gemfire.distributed.LocatorLauncher</b> start locator1
+&lt;locator-launcher-options&gt;
+</codeblock></p>
+   <p>To start up a <keyword keyref="product_name"/> server process using the ServerLauncher
+    API:<codeblock>prompt# java -cp "$GEMFIRE/lib/server-dependencies.jar:/path/to/your/applications/classes.jar"
+<b>com.gemstone.gemfire.distributed.ServerLauncher</b> start server1
+&lt;server-launcher-options&gt;
+</codeblock>Note
+    that in addition to the <codeph>*-dependencies.jar</codeph> file associated with the process,
+    you must also specify any custom application JARs that you wish to access in your <keyword
+     keyref="product_name"/> process. For example, if you are planning on using a customized
+    compressor on your regions, you should specify the application JAR that contains the compressor
+    application you wish to use.</p>
+   <p>To start up an application with an embedded
+    cache:<codeblock>java -cp "$GEMFIRE/lib/server-dependencies.jar:/path/to/your/applications/classes.jar"
+<b>com.mycompany.package.ApplicationWithEmbeddedCache</b></codeblock></p>
+   <p>
+    <note>Another method for updating the CLASSPATH of a server process with your own applications
+     is to use the <codeph>gfsh deploy</codeph> command. Deploying application JAR files will
+     automatically update the CLASSPATH of all members that are targeted for deployment. See <xref
+      href="../configuring/cluster_config/deploying_application_jars.xml#concept_4436C021FB934EC4A330D27BD026602C"
+     /> for more details.</note>
+   </p>
+  </section>
+ </conbody>
+</concept>

@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "http://docs.oasis-open.org/dita/v1.1/OS/dtd/concept.dtd">
+<concept id="region_shortcuts">
+	<title>Region Shortcuts and Custom Named Region Attributes</title>
+	<shortdesc id="shortdesc_797EA6C27AFF4F21B3BE2D09EFB01F95"><keyword keyref="product_name"/> provides region shortcut
+		settings, with preset region configurations for the most common region types. For the
+		easiest configuration, start with a shortcut setting and customize as needed. You can also
+		store your own custom configurations in the cache for use by multiple regions. </shortdesc>
+	<conbody>
+		<section id="section_D9E58754D2B0435FA2986DBBF3063D4C">
+			<p>You configure automated management of data regions and their entries through region
+				shortcuts and region attributes. These region configuration settings determine such
+				things as where the data resides, how the region is managed in memory, membership
+				roles and reliability behavior, and the automatic loading, distribution, and
+				expiration of data entries. </p>
+			<note>Whenever possible, use region shortcuts to configure your region, and further
+				customize behavior using region attributes. The shortcut settings are preset with
+				the most common region configurations. </note>
+			<p><keyword keyref="product_name"/> provides a number of predefined, shortcut region attributes settings for your
+				use. You can also define your own custom region attributes and store them with an
+				identifier for later retrieval. Both types of stored attributes are referred to as
+				named region attributes. You can create and store your attribute settings in the
+					<codeph>cache.xml</codeph> file and through the API. </p>
+			<p>Retrieve region shortcuts and custom named attributes by providing the ID to the
+				region creation, in the <codeph>refid</codeph> attribute setting. This example uses
+				the shortcut REPLICATE attributes to create a region:
+				<codeblock>&lt;region name="testREP" refid="REPLICATE"/&gt;</codeblock>You can
+				create your own named attributes as needed, by providing an <codeph>id</codeph> in
+				your region attributes declaration. The following region declaration: <ol
+					id="ol_23CD656E678647DC80C01984B3EB5FD8">
+					<li id="li_A8667200E9D64A4780EC189004F4B6C2">Retrieves all of the attribute
+						settings provided by the persistent partitioned region shortcut </li>
+					<li id="li_F317DBCB6BA447968BFDB7868AEF49B4">Modifies the shortcut attribute
+						settings by specifying a disk store name to use for persistence </li>
+					<li id="li_A138DF505EE9468FADCF98AD6026C94A">Assigns the new attribute settings
+						to the new region named <codeph>testPR</codeph>
+					</li>
+					<li id="li_85126EACDDF14F0FB8C70F1F99F9B39D">Stores the attribute settings in a
+						new custom attributes named <codeph>testPRPersist</codeph>:
+						<codeblock>&lt;disk-store name="testDiskStore" &gt;
+	&lt;disk-dirs&gt;
+		&lt;disk-dir&gt;PRPersist1&lt;/disk-dir&gt;
+		&lt;disk-dir&gt;PRPersist2&lt;/disk-dir&gt;
+	&lt;/disk-dirs&gt;
+&lt;/disk-store&gt;
+&lt;region name="testPR" &gt;
+	&lt;region-attributes id="testPRPersist"
+		refid="PARTITION_PERSISTENT" disk-store-name="testDiskStore"/&gt;
+&lt;/region&gt;</codeblock>
+					</li>
+				</ol>
+			</p>
+		</section>
+		<section id="section_20548383511141B19EBC053E36877B1A">
+			<title>Shortcut Attribute Options</title>
+			<p>You can select the most common region attributes settings from <keyword keyref="product_name"/>’s predefined
+				named region attributes in these classes: <ul
+					id="ul_820c4d30-05ba-45cd-9cee-3f4ae2b9f1ec">
+					<li id="li_19EA18F02D76487D94DE1DA552EC6FD4"
+								><b><codeph>com.gemstone.gemfire.cache.RegionShortcut</codeph></b>.
+						For peers and servers. </li>
+					<li id="li_C7B5BBC6E7224227BE4706A9EC599279"
+								><b><codeph>com.gemstone.gemfire.cache.client.ClientRegionShortcut</codeph></b>.
+						For clients. </li>
+				</ul>
+			</p>
+			<p>Shortcut attributes are a convenience only. They are just named attributes that
+				<keyword keyref="product_name"/> has already stored for you. You can override their settings by storing new
+				attributes with the same id as the predefined attributes. </p>
+			<p>For a full list of all available region shortcuts, see <xref
+					href="../../reference/topics/region_shortcuts_table.xml#reference_ufj_5kz_4k"
+				/>.</p>
+			<p>The <codeph><b>com.gemstone.gemfire.cache.RegionShortcut</b></codeph> Javadocs give
+				complete listings of the options. </p>
+		</section>
+		<section id="section_D0975C76572E41F79C1A6EE7CF371251">
+			<title>RegionShortcuts for Peers and Servers</title>
+			<p>These are the primary options available in the region shortcut settings. The names
+				listed appear in the shortcut identifier alone or in combination, like
+					"<codeph>PARTITION</codeph>" in <codeph>PARTITION</codeph>,
+					<codeph>PARTITION_PROXY</codeph>, and <codeph>PARTITION_REDUNDANT</codeph>. </p>
+			<p><b>Cache Data Storage Mode</b>l <ul id="ul_D9A50013FFFB49128B410A9ABD596E66">
+					<li id="li_5065B95544524AEC882ADE14C2989A1D"><b>
+							<codeph>PARTITION</codeph>
+						</b>. Creates a partitioned region. This is a data store for the region. You
+						can also specify these options with <codeph>PARTITION</codeph>: <ul
+							id="ul_DC6FF98A2EA44F8F8F0E1543BE364956">
+							<li id="li_8F1BA52EF511485F8139B056DEEAEEA9"><b>
+									<codeph>PROXY</codeph></b>. Data is not stored in the local
+								cache and the member is a data accessor to the region. This requires
+								other members to create non-proxy copies of the region, so the data
+								is stored somewhere. </li>
+							<li id="li_E39E49C8DDFD46B196473AA3C5814D08"><b>
+									<codeph>REDUNDANT</codeph></b>. The region stores a secondary
+								copy of all data, for high availability. </li>
+						</ul>
+					</li>
+					<li id="li_597CA0F2759B493D8D9B57A7C4649200"><b>
+							<codeph>REPLICATE</codeph></b>. Creates a replicated region. This is a
+						data store for the region. You can also specify these options with
+							<codeph>REPLICATE</codeph>: <ul id="ul_0E5CA9075B2646B59295CEBFF5E41165">
+							<li id="li_11FAE9EC28E34156B3ED80A41A632D82"><b>
+									<codeph>PROXY</codeph></b>. Data is not stored in the local
+								cache and the member is a data accessor to the region. This requires
+								other members to create non-proxy copies of the region, so the data
+								is stored somewhere. </li>
+						</ul>
+					</li>
+					<li id="li_000B4E9F318F45CC92ED1A2A8BD48D30"><b>
+							<codeph>LOCAL</codeph></b>. Creates a region private to the defining
+						member. </li>
+				</ul>
+			</p>
+			<p>
+				<b>Data Eviction</b>
+				<ul id="ul_56400136-a3ec-405c-8be6-85e905f24fe7">
+					<li id="li_22574613843A4A4F801BA21CD255145A"><b>
+							<codeph>HEAP_LRU</codeph></b>. Causes least recently used data to be
+						evicted from memory when the <keyword keyref="product_name"/> resource manager determines that the
+						cache has reached configured storage limits. </li>
+				</ul>
+			</p>
+			<p>
+				<b>Disk Storage</b>
+			</p>
+			<p>You can specify these alone or in combination: <ul
+					id="ul_f3060b17-f409-4ef8-a8d4-7ebb38456d9f">
+					<li id="li_0384201AFC094583B5C39C7B490285A4"><b>
+							<codeph>PERSISTENT</codeph></b>. Backs up all data to disk, in addition
+						to storing it in memory. </li>
+					<li id="li_2442669D038D42A5890E9D5AECC5BEDD"><b>
+							<codeph>OVERFLOW</codeph></b>. Moves data out of memory and on to disk,
+						when memory use becomes too high. </li>
+				</ul>
+			</p>
+		</section>
+		<section id="section_BD136ACEB8274B17ACFB9A5954D116E4">
+			<title>ClientRegionShortcuts for Clients</title>
+			<p>These are the primary options available in the client region shortcut settings. The
+				names listed appear in the shortcut identifier alone or in combination, like
+					"<codeph>PROXY</codeph>" in <codeph>PROXY</codeph> and
+					<codeph>CACHING_PROXY</codeph>. </p>
+			<p>
+				<b>Communication with Servers and Data Storage</b>
+				<ul id="ul_CF5E1132ACAB47EF99A5D5108C253187">
+					<li id="li_87B53AA4FC944B14B5A62F3C76EECF1C"><b>
+							<codeph>PROXY</codeph></b>. Does not store data in the client cache, but
+						connects the region to the servers for data requests and updates, interest
+						registrations, and so on. The client is a data accessor to the region. </li>
+					<li id="li_D78C6E9F212748E8A4149D753CFDF6BB"><b>
+							<codeph>CACHING_PROXY</codeph></b>. Stores data in the client cache and
+						connects the region to the servers for data requests and updates, interest
+						registrations, and so on. </li>
+					<li id="li_ABA85330993E456EA3BDF95F22CFC151"><b>
+							<codeph>LOCAL</codeph></b>. Stores data in the client cache and does not
+						connect the region to the servers. This is a client-side-only region. Note
+						that this is not the same as setting the region's <codeph>scope</codeph>
+						attribute to <codeph>LOCAL</codeph>. </li>
+				</ul>
+			</p>
+			<p>
+				<b>Data Eviction</b>
+				<ul>
+					<li id="li_F4237E924A1E45FAAB2D124F02711317"><b>
+							<codeph>HEAP_LRU</codeph></b>. Causes least recently used data to be
+						evicted from memory when the <keyword keyref="product_name"/> resource manager determines that the
+						cache has reached configured storage limits. </li>
+				</ul>
+			</p>
+			<p>
+				<b>Disk Storage</b>
+			</p>
+			<p>With the LOCAL and CACHING data storage shortcut options, you can also specify these
+				disk storage options, alone or in combination: <ul>
+					<li id="li_398C63AA94EE42F19E961C2E5A3FD587"><b>
+							<codeph>PERSISTENT</codeph></b>. Backs up all data to disk, in addition
+						to storing it in memory. </li>
+					<li id="li_09CE7241EE4E47F1A5FE31EE21B81DDE"><b>
+							<codeph>OVERFLOW</codeph></b>. Moves data out of memory and on to disk,
+						when memory use becomes too high. </li>
+				</ul>
+			</p>
+		</section>
+	</conbody>
+</concept>

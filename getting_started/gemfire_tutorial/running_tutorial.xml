@@ -1,0 +1,654 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "http://docs.oasis-open.org/dita/dtd/concept.dtd">
+<concept id="tutorial_overview">
+	<title>Running the Tutorial</title>
+	<shortdesc id="shortdesc_916295A4A3D3481EBAC2E7920BEB48BA">The tutorial shows a sample social
+		networking application that stores people's profiles and posts. Each person has a profile
+		that lists their friends, and each person can write posts. </shortdesc>
+	<conbody>
+		<p>Running the tutorial encompasses the following areas: </p>
+		<ul id="ul_B7BB097FCBB04DDC907C758C7C0DC8B8">
+			<li id="li_D76CECE8C6714935AD4BCCDDF14D1B59">
+				<xref
+					href="running_tutorial.xml#tutorial_overview/section_19EFE6AD37C045DDA86149B138FB67C7"
+					type="section" format="dita" scope="local"/>
+			</li>
+			<li id="li_FE602D3865D442A083FC0467D9334137">
+				<xref
+					href="running_tutorial.xml#tutorial_overview/section_53DB74E97CAC4B5F885B2A2FEC279EA6"
+					type="section" format="dita" scope="local"/>
+			</li>
+			<li id="li_29F82CD4150043758A05829E64E29081">
+				<xref
+					href="running_tutorial.xml#tutorial_overview/section_DAB47B1B42F445C9BE83B817AA772AD1"
+					type="section" format="dita" scope="local"/>
+			</li>
+			<li id="li_69ECA29B676F4144894F0DB94913D647">
+				<xref
+					href="running_tutorial.xml#tutorial_overview/section_D1EB696CD2FD467CA8A7C8B847A2EBEC"
+					type="section" format="dita" scope="local"/>
+			</li>
+			<li id="li_A524D13E29EF4C5484D6F4AD69589481">
+				<xref
+					href="running_tutorial.xml#tutorial_overview/section_F8D85A1CE8074243A6B2F54171C5D98E"
+					type="section" format="dita" scope="local"/>
+			</li>
+			<li id="li_A38A258A0FA946BBB4D126D41159B8CF">
+				<xref
+					href="running_tutorial.xml#tutorial_overview/section_A4C0352B63E2446F8BF73DB21E6B8D88"
+					type="section" format="dita" scope="local"/>
+			</li>
+			<li id="li_65385D17B18C43EA90E422D1323272DB">
+				<xref
+					href="running_tutorial.xml#tutorial_overview/section_E728D18E3A194745B0696C430B50C02E"
+					type="section" format="dita" scope="local"/>
+			</li>
+			<li id="li_0991B5EAEEE64140A3C2950F21A46B9A">
+				<xref
+					href="running_tutorial.xml#tutorial_overview/section_7EB34C41E4184DBAA1D4EAF2EFD082B8"
+					type="section" format="dita" scope="local"/>
+			</li>
+		</ul>
+		<section id="section_19EFE6AD37C045DDA86149B138FB67C7">
+			<title>Prerequisites</title>
+			<p> Before you begin, verify that you meet the prerequisites: </p>
+			<ul id="ul_8C5430AD2A384C1B849982FA140B8165">
+				<li id="li_CDB4ACB9F8064CD690C2D2A34991685B">Verify that you have installed a
+					supported version of Java. See <xref
+						href="../system_requirements/supported_configurations.xml#system_requirements"
+					/> for supported Java versions. </li>
+				<li id="li_30CC6003483341CCB9E9E26D2E5EE17D">Install and configure <keyword
+						keyref="product_name_long"/> and the product examples. Set the JAVA_HOME,
+					PATH, GF_JAVA, and GEMFIRE environment variables as required for your
+					environment. See <xref
+						href="../install_intro.xml#concept_5111C7EDF7D24CA2BCE5959006453415"
+						type="concept" format="dita" scope="local"/> and <xref scope="local"
+						href="../topics/setting_up_the_product_examples.xml#setting_up_the_product_examples"
+						type="concept" format="dita"/>. </li>
+				<li id="li_4826570B78424553AC3B34A8718F060F">Open several terminal sessions. </li>
+			</ul>
+		</section>
+		<section id="section_53DB74E97CAC4B5F885B2A2FEC279EA6">
+			<title>Part 1: Start a Locator</title>
+			<p>JVMs running <keyword keyref="product_name"/> discover each other through multicast
+				messaging or through a TCP locator service, which is called a locator. Multicasting
+				is a good way to run quick tests, but it is less robust and flexible than the
+				locator service. The locator runs as a separate process to which each new member
+				connects to first discover the list of available peers. Clients connect to the
+				locator to get server connection information. For more information, see <xref
+					href="../../topologies_and_comm/topology_concepts/how_member_discovery_works.xml#how_member_discovery_works"
+					type="concept" format="dita" scope="local"/>. For this example, we use a
+				locator. </p>
+			<p>
+				<fig id="fig_A4302B2655624148A94DC557BEFF277A">
+					<title>Peer Discovery Using a Locator</title>
+					<image alt="Peer discovery using a locator"
+						href="../../common/images/DistributedSystem.png"
+						id="image_6EFC421869FD4F6795104A90E2A33D0A" placement="inline"/>
+				</fig>
+			</p>
+			<ol id="ol_4E74B4BC29E14F5381D00305741D11A4">
+				<li>Change directories to a working directory (if necessary, create a directory)
+					where you have write permissions. For example:
+					<codeblock>$ cd /Users/username/&lt;tutorial_working_directory></codeblock></li>
+				<li>Create a jar file with the Java classes required for this tutorial. You will
+					deploy this jar file later using the <cmdname>deploy</cmdname> command. For
+					example:<codeblock>$ jar cf tutorial.jar -C $GEMFIRE/SampleCode/tutorial/classes .</codeblock>
+				</li>
+				<li>Start the gfsh command-line interface using the following
+						command:<codeblock>$ gfsh
+    _________________________     __
+   / _____/ ______/ ______/ /____/ /
+  / /  __/ /___  /_____  / _____  / 
+ / /__/ / ____/  _____/ / /    / /  
+/______/_/      /______/_/    /_/    v8.1.0
+
+Monitor and Manage GemFire
+</codeblock><p>Keep
+						the window where this gfsh command-line interface is running open. You will
+						use this window to run gfsh commands through out this tutorial.</p>
+				</li>
+				<li id="li_905162098BC9455EBD4BD0929FB7C642"><b>Start a locator</b>. <p>Type the
+						following command at the gfsh prompt:
+						<codeblock>gfsh>start locator --name=locator1 --port=55221</codeblock>
+					</p>The locator process runs in the background, listening for connections on
+					port 55221. To stop the process, you can type <codeph>gfsh stop locator
+						--dir=locator1</codeph>. But don't stop it yet. </li>
+			</ol>
+		</section>
+		<section id="section_DAB47B1B42F445C9BE83B817AA772AD1">
+			<title>Part 2: Create a Cache and Start Peers</title>
+			<p>You will store the data on several <keyword keyref="product_name"/> peers. The first
+				step to starting up a <keyword keyref="product_name"/> peer is to create a
+					<codeph>com.gemstone.gemfire.cache.Cache</codeph>. The cache is the central
+				component of <keyword keyref="product_name"/>. It manages connections to other
+					<keyword keyref="product_name"/> peers. For more information, see <xref
+					format="dita" href="../../basic_config/the_cache/chapter_overview.xml#the_cache"
+					scope="local" type="concept"/>. </p>
+			<ol id="ol_726E12E1E586479BA772457195D9270A">
+				<li id="li_C61B6796869C4B16A575304200DD0CC7">
+					<b>Use a text editor or your favorite IDE to open the GemfireDAO.java file in
+						the tutorial application source code</b>. This file is located
+						<i>&lt;product_directory&gt;</i>/SampleCode/tutorial/src/com/gemstone/gemfire/tutorial/storage
+					directory where <i>&lt;product_directory&gt;</i> corresponds to the location
+					where you installed <keyword keyref="product_name"/>. Look at the cache creation
+					in the initPeer method in GemfireDAO.java. The first thing this method does is
+					create a cache:
+					<codeblock outputclass="language-java">Cache cache = new CacheFactory()
+      .set("locators", "localhost[55221]")
+      .set("mcast-port", "0")
+      .set("log-level", "error")
+      .create();</codeblock>Secondly,
+					it configures the cache: <ul id="ul_134F0531F1F142F39185808BD13565A4">
+						<li id="li_D7F510AA489A44D985CC8707D5A86D1A">The <keyword
+								keyref="product_name"/> locators property tells the cache which
+							locators to use to discover other <keyword keyref="product_name"/> JVMs. </li>
+						<li id="li_65AE7141E2E24C01A1FB8EF98B9E282D">The mcast-port property tells
+								<keyword keyref="product_name"/> not to use multicast discovery to
+							find peers. </li>
+						<li id="li_0F22822942B94F558E253CB121F8968D">The log-level property controls
+							the log level of <keyword keyref="product_name"/>'s internal logging.
+							Here it is set to "error" to limit the amount of messaging that will
+							show up in the console. </li>
+					</ul>When this code is run, after the call to create finishes, this peer will
+					discover other peers and connect to them. </li>
+				<li id="li_0E4D186D68444C43A93BF708B6605931"><b>Run the Peer application in two
+						terminal sessions</b>. You already have one window open where you started
+					the locator. Start another terminal window. In each window, run the Peer
+					application:
+					<codeblock>$ java -cp "$GEMFIRE/SampleCode/tutorial/classes:$GEMFIRE/lib/server-dependencies.jar" \
+com.gemstone.gemfire.tutorial.Peer</codeblock>The
+					peers start up and connect to each other. You should see the interactive command
+					prompt for the tutorial's social networking application in each window:
+					<codeblock>
+Commands:
+person [name] [friend] [friend] ...
+  Add a person. The person's name and friends cannot
+		contain spaces
+post [author] [text]
+  Add a post.
+people
+  List all people.
+posts
+  List all posts.
+quit
+  Exit the shell.
+&gt;
+</codeblock>
+				</li>
+			</ol>
+		</section>
+		<section id="section_D1EB696CD2FD467CA8A7C8B847A2EBEC">
+			<title>Part 3: Create Replicated Regions</title>
+			<p>The <keyword keyref="product_name"/>
+				<codeph>com.gemstone.gemfire.cache.Region</codeph> interface defines a key-value
+				collection. <codeph>Region</codeph> extends the
+					<codeph>java.util.concurrent.ConcurrentMap</codeph> interface. The simplest type
+				of region is a replicated region. Every peer that hosts a replicated region stores a
+				copy of the entire region locally. Changes to the replicated region are sent
+				synchronously to all peers that host the region. For more information on regions,
+				see <xref format="dita"
+					href="../../basic_config/data_regions/chapter_overview.xml#data_regions"
+					scope="local" type="concept"/>. </p>
+			<p>This procedure walks you through the creation of a replicated region called People. </p>
+			<p>
+				<image href="../../common/images/Replicated_Region_Put_Get.png" placement="break"
+					id="image_BD5928F82F894D24A4D08F8AE3D008FE"/>
+			</p>
+			<p>Perform the following steps: </p>
+			<ol id="ol_3B9229FCEC61410C8E790B2A1444E8AD">
+				<li id="li_5F37BF6FDA6A4B9596D5E224DA74865F"><b>Look at the initPeer method in
+						GemfireDAO.java to see where it creates the people region</b>. <p> To create
+						a <codeph>com.gemstone.gemfire.cache.Region</codeph>, you use a
+							<codeph>com.gemstone.gemfire.cache.RegionFactory</codeph> class. This is
+						the code in <codeph>initPeer</codeph> method that creates the people region: </p>
+					<codeblock outputclass="language-java">    people = cache.&lt;String, Profile&gt;createRegionFactory(REPLICATE)
+      .addCacheListener(listener)
+      .create("people");</codeblock>The
+					people region is constructed with
+						<codeph>com.gemstone.gemfire.cache.RegionShortcut.REPLICATE</codeph>, which
+					tells the factory to start with the configuration for a replicated region. This
+					method adds a cache listener to the region. You can use a cache listener to
+					receive notifications when the data in the region changes. This sample
+					application includes a <codeph>LoggingCacheListener</codeph> class, which prints
+					changes to the region to <codeph>System.out</codeph> and lets you see how
+					entries are distributed. </li>
+				<li id="li_4E8F86690CAB4701BDAA6949E27D9F10"><b>Look at the addPerson method</b>. It
+					adds the entry to the region by calling the put method of Region.
+					<codeblock outputclass="language-java">  public void addPerson(String name, Profile profile) {
+    people.put(name, profile);
+  }</codeblock>Calling
+					put on the people region distributes the person to all other peers that host
+					that region. After this call completes, each peer will have a copy of this
+					person. </li>
+				<li id="li_D9D26CD6EED6467D82281805B36D4F95"><b>Add people</b>. In one of your
+					terminal windows, type: <codeblock>person Isabella
+person Ethan</codeblock> You
+					will see the users show up in the other window:
+					<codeblock>In region people created key Isabella value Profile [friends=[]]
+In region people created key Ethan value Profile [friends=[]]</codeblock>
+				</li>
+			</ol>
+		</section>
+		<section id="section_F8D85A1CE8074243A6B2F54171C5D98E">
+			<title>Part 4: Create Partitioned Regions</title>
+			<p>You expect to create a lot of posts. Because of that, you do not want to host a copy
+				of the posts on every server. Thus you store them in a partitioned region. The API
+				to use the partitioned region is the same as that for a replicated region, but the
+				data is stored differently. A partitioned region lets you control how many copies of
+				your data will exist in the distributed system. The data is partitioned over all
+				peers that host the partitioned region. <keyword keyref="product_name"/>
+				automatically maintains the number of copies of each partition that you request. </p>
+			<image href="../../common/images/Partitioned_Region_Put.png"
+				id="image_69136F8C78664B019CE835495828B3F9" placement="break"/>
+			<p>In the above diagram, the application code writes the post "I like toast" to two
+				JVMs; it stores a primary copy in one peer (JVM 2) and a redundant copy in another
+				peer (JVM 3). You will also notice that while each post appears in the local data of
+				two peers, the logical view contains all three posts. </p>
+			<ol id="ol_223624F716304AE08CA79F8C1E517078">
+				<li id="li_5E443A00CE38473EBFAF472C769B2781"><b>Look at the code that creates the
+						posts region</b>. You can create partitioned regions with the
+						PARTITION_<i>XXX</i> shortcuts. <p>To create the posts region, the
+							<codeph>initPeer</codeph> method uses the
+							<codeph>com.gemstone.gemfire.cache.RegionShortcut.PARTITION_REDUNDANT</codeph>
+						shortcut to tell <keyword keyref="product_name"/> to create a partitioned
+						region that keeps one primary and one redundant copy of each post on
+						different machines.
+						<codeblock outputclass="language-java">posts =  cache.&lt;PostID, String&gt;createRegionFactory(PARTITION_REDUNDANT)
+      .addCacheListener(listener)
+      .create("posts");</codeblock></p>
+				</li>
+				<li id="li_61467F75C78B4FA1B2475ED994683F34"><b>Start another terminal window and
+						launch the peer application in that window</b>.
+					<codeblock>$ java -cp "$GEMFIRE/SampleCode/tutorial/classes:$GEMFIRE/lib/server-dependencies.jar" com.gemstone.gemfire.tutorial.Peer</codeblock>You
+					should have three peers running now. Each post you create will be stored in only
+					two of these peers. </li>
+				<li id="li_F9F5AA606BA54DEFB92548D65161AC89"><b>Add some posts to the posts
+						region</b>.
+					<codeblock>&gt; post Isabella I like toast
+&gt; post Isabella LOL!
+&gt; post Ethan Hello</codeblock>
+					You see that the listener in only one of the JVMs is invoked for each post. For
+					example, in only one of your open terminal windows, a message for each of your
+					posts similar to the following appears:
+					<codeblock>&gt; In region posts created key PostID [author=Isabella, timestamp=1375987268621]
+value  I like toast</codeblock>That's
+					because partitioned regions make one copy of the post the primary copy. By
+					default <keyword keyref="product_name"/> only invokes the listener in the peer
+					that holds the primary copy of each post. </li>
+				<li id="li_E4A1AFE4CFB84C5F915E05443AE2D7A3"><b>From any window, list the available
+						posts with the posts command</b>. <p><?xm-replace_text Paragraph?>
+					</p>You should be able to list all posts, because <keyword keyref="product_name"
+					/> fetches them from the peer that hosts each post.
+					<codeblock>&gt; posts
+Isabella: I like toast
+Ethan: Hello
+Isabella: LOL!</codeblock>
+					If you kill one of the JVMs, you should still be able to list all posts. You can
+					bring that member back up and kill another one, and you should still see all of
+					the posts. </li>
+				<li id="li_EEB61C76776A49F8994EA803EF491B2E"><b>Kill your peers before moving on to
+						the next section</b>. Type <userinput>quit</userinput> in each window. </li>
+			</ol>
+		</section>
+		<section id="section_A4C0352B63E2446F8BF73DB21E6B8D88">
+			<title>Part 5: Set Up Client/Server Caching</title>
+			<p>You have a fully working system now, but the UI code is running in the same member in
+				which you are storing data. That works well for some use cases, but it may be
+				undesirable for others. For example, if you have a Web server for the UI layer, you
+				may want to increase or decrease the number of Web servers without modifying your
+				data servers. Or you may need to host only 100 GB of data, but have thousands of
+				clients that might access it. For these use cases, it makes more sense to have
+				dedicated <keyword keyref="product_name"/> servers and access the data through a
+					<keyword keyref="product_name"/> client. </p>
+			<p><keyword keyref="product_name"/> servers are <keyword keyref="product_name"/> peers,
+				but they also listen on a separate port for connections from <keyword
+					keyref="product_name"/> clients. <keyword keyref="product_name"/> clients
+				connect to a limited number of these cache servers. </p><image
+				href="../../common/images/Client.png" id="image_6D983C2DE6D144DA90C85DCDAF12B6E3"
+				placement="break"/>Like regular peers, <keyword keyref="product_name"/> servers
+			still need to define the regions they will host. You could take the peer code you
+			already have and create a <codeph>com.gemstone.gemfire.cache.server.CacheServer</codeph>
+			instance programmatically, but this example shows you how to define the regions and
+			create a configuration for the distributed system using the gfsh command-line interface.
+				<ol id="ol_0043A606522644E4B09C3A7BBC8AEC15">
+				<li id="li_3010DAF241D6474C83D36989127BAAA9"><b> From the gfsh command-line
+						interface that you started in Part 1, start two cache servers</b>. <p>Type
+						the following command at the gfsh prompt:
+						<codeblock>gfsh>start server --name=<b>server1</b> --locators=localhost[55221] --server-port=0</codeblock>
+						This command automatically creates a working directory for this server named
+							<codeph>server1</codeph> under
+							<codeph>&lt;tutorial_working_directory></codeph> where you executed the
+						command. </p>
+					<p>Next start a second cache server by executing the following command in the
+						same terminal:
+						<codeblock>gfsh>start server --name=<b>server2</b> --locators=localhost[55221] --server-port=0</codeblock>This
+						command automatically creates a working directory for this server named
+							<codeph>server2</codeph> under
+							<codeph>&lt;tutorial_working_directory></codeph> where you executed the
+						command. </p><p> You should now have two <keyword keyref="product_name"/>
+						peers (cache servers) that are listening for client connections. </p></li>
+				<li>Check whether you are still connected to the running
+					locator:<codeblock>gfsh>describe connection</codeblock>If connected, you should
+					see a message like the
+					following:<codeblock>
+Connection Endpoints
+-------------------------------
+ubuntu.local[1099]</codeblock>If
+					you are no longer connected, connect <codeph>gfsh</codeph> to the currently
+					running locator by executing the following
+					command:<codeblock>gfsh>connect --locator=localhost[55221]</codeblock></li>
+				<li>Deploy the jar file containing the Java classes for this tutorial that you
+					created in Part 1 by running the following command in the gfsh command-line
+					interface: <codeblock>gfsh>deploy --jar=tutorial.jar</codeblock><p>The
+							<filepath>tutorial.jar</filepath> file contains the Java class you
+						specify as the cache listener when creating regions in the next
+					step.</p></li>
+				<li>Create the two regions required for the Social Networking application by running
+					the following commands in the gfsh command-line interface:
+					<codeblock>gfsh>create region --name=people --type=REPLICATE --cache-listener=com.gemstone.gemfire.tutorial.storage.LoggingCacheListener</codeblock><codeblock>gfsh>create region --name=posts --type=PARTITION_REDUNDANT --cache-listener=com.gemstone.gemfire.tutorial.storage.LoggingCacheListener</codeblock>
+				</li>
+				<li id="li_122D30EB05B1465BA623FACA3645F727">
+					<b>Use a text editor or your favorite IDE to open the GemfireDAO.java file in
+						the tutorial application code</b>. This file is located
+						<i>&lt;product_directory&gt;</i><codeph>/SampleCode/tutorial/src/com/gemstone/gemfire/tutorial/storage</codeph>
+					directory where <i>&lt;product_directory&gt;</i> corresponds to the location
+					where you installed Pivotal GemFire. <ol
+						id="ol_42650A310737411294BC73E5A0869F73">
+						<li id="li_09AC86DB76C6448EB987C43BCEA032F7"><b>Look at the code in
+								GemfireDAO.java to see how it starts a client.</b>
+							<p>Starting a <keyword keyref="product_name"/> client is very similar to
+								starting a <keyword keyref="product_name"/> peer. In the <keyword
+									keyref="product_name"/> client, you create an instance of
+									<codeph>com.gemstone.gemfire.cache.client.ClientCache</codeph>,
+								which connects to the locator to discover servers. </p>
+							<p outputclass="">Examine the GemfireDAO.initClient method. The first
+								thing the method does is create a <codeph>ClientCache</codeph>:
+								<codeblock outputclass="language-java">ClientCache cache = new ClientCacheFactory()
+      .addPoolLocator("localhost", 55221)
+      .setPoolSubscriptionEnabled(true)
+      .setPoolSubscriptionRedundancy(1)
+      .set("log-level", "error")
+      .create();</codeblock>Once
+								you create a ClientCache, it maintains a pool of connections to the
+								servers similar to a JDBC connection pool. However, with <keyword
+									keyref="product_name"/> you do not need to retrieve connections
+								from the pool and return them. That happens automatically as you
+								perform operations on the regions. The pool locator property tells
+								the client how to discover the servers. The client uses the same
+								locator that the peers do to discover cache servers. Setting the
+								subscription enabled and subscription redundancy properties allow
+								the client to subscribe to updates for entries that change in the
+								server regions. You are going to subscribe to notifications about
+								any people that are added. The updates are sent asynchronously to
+								the client. Because the updates are sent asynchronously, they need
+								to be queued on the server side. The subscription redundancy setting
+								controls how many copies of the queue are kept on the server side.
+								Setting the redundancy level to 1 means that you can lose 1 server
+								without missing any updates. </p>
+						</li>
+						<li id="li_9411095DD6AE4DF5ADAA983D4D2906C5"><b>Look at the code that
+								creates a proxy region called posts in the client</b>. <p
+								outputclass="">Creating regions in the client is similar to creating
+								regions in a peer. There are two main types of client regions,
+									<codeph>PROXY</codeph> regions and
+									<codeph>CACHING_PROXY</codeph> regions. PROXY regions store no
+								data on the client. CACHING_PROXY regions allow the client to store
+								keys locally on the client. This example uses a lot of posts, so you
+								won't cache any posts on the client. You can create a proxy region
+								with the shortcut PROXY. Look at the GemFireDAO.initPeer method.
+								This method creates the posts region like this:
+								<codeblock outputclass="language-java">    posts = cache.&lt;PostID, String&gt;createClientRegionFactory(PROXY)
+      .create("posts");</codeblock>
+							</p>
+						</li>
+						<li id="li_73B80FEB0714411E8157AAAA156D0EBC"><b>Look at the code that
+								creates a caching proxy region called people in the client</b>.
+								<p>You do not have many people, so for this sample the client caches
+								all people on the client. First you create a region that has local
+								storage enabled. You can create a region with local storage on the
+								client with ClientRegionShortcut.CACHING_PROXY. In the initClient
+								method, here's where the people region is created.
+								<codeblock outputclass="language-java">    people = cache.&lt;String, Profile&gt;createClientRegionFactory(CACHING_PROXY)
+      .addCacheListener(listener)
+      .create("people");</codeblock>
+							</p>
+						</li>
+						<li id="li_A4128061642B4B5188E383AFB9D01817"><b>Look at the code that calls
+								the registerInterest method to subscribe to notifications from the
+								server</b>. <p>By creating a CACHING_PROXY, you told <keyword
+									keyref="product_name"/> to cache any people that you create from
+								this client. However, you can also choose to receive any updates to
+								the people region that occur on other peers or other clients by
+								invoking the registerInterest methods on the client. In this case
+								you want to register interest in all people, so you cache the entire
+								people region on the client. The regular expression ".*" matches all
+								keys in the people region. </p>
+							<p>Look at the initClient method. The next line calls
+								registerInterestRegex:
+								<codeblock outputclass="language-java">    people.registerInterestRegex(".*");</codeblock>When
+								the registerInterestRegex method is invoked, the client downloads
+								all existing people from the server. When a new person is added on
+								the server it is pushed to the client. </p>
+						</li>
+						<li id="li_1BFE359F22D5419782A4763B4DA04DC0"><b>Look at the code that
+								iterates over keys from the client</b>. <p>Look at the getPeople and
+								getPosts methods in GemFireDAO.
+								<codeblock outputclass="language-java">  public Set&lt;String&gt; getPeople() {
+    return people.keySet();
+  }
+  
+  public Set&lt;PostID&gt; getPosts() {
+    if(isClient) {
+      return posts.keySetOnServer();
+    } else {
+      return posts.keySet();
+    }
+  }
+</codeblock>
+							</p>
+							<p>GemFireDAO.getPeople calls people.keySet(), whereas
+								GemFireDAO.getPosts calls posts.keySetOnServer() for the client.
+								That's because the keySet method returns the keys that are stored
+								locally on the client. For the People region you can use your
+								locally cached copy of the keys, but for the Post region you need to
+								go to the server to get the list of keys. </p>
+						</li>
+					</ol>
+				</li>
+				<li id="li_9D532CD07A5B44ACA203C0726A4395ED"><b>Open two terminal windows, and start
+						the client application in both terminals</b>. <p>Type the following command
+						to start the client:
+						<codeblock>$ java -cp "$GEMFIRE/SampleCode/tutorial/classes:$GEMFIRE/lib/server-dependencies.jar" \ 
+com.gemstone.gemfire.tutorial.Client</codeblock>Add
+						people and posts from one of the clients. For example, add a person:
+						<codeblock>&gt;person Ethan Isabella
+</codeblock>Notice that the following
+						message appears in both clients:
+						<codeblock>In region people created key Ethan value Profile [friends=[Isabella]]</codeblock>In
+						either one of the client windows, add another people and add some posts:
+						<codeblock>&gt;person Isabella Ethan
+&gt;post Ethan Waaa!!! 
+&gt;post Isabella I want toast</codeblock>Switch
+						to the other client window, and observe that the data you entered with one
+						client can be seen by the other client:
+						<codeblock>&gt;people
+Ethan
+Isabella
+&gt;posts
+Ethan:  Waaa!!!
+Isabella: I want toast</codeblock>
+						Leave the clients running for the next part. </p>
+				</li>
+			</ol>
+		</section>
+		<section id="section_E728D18E3A194745B0696C430B50C02E">
+			<title>Part 6: Add and Stop Cache Servers (Peers)</title>
+			<p>You can dynamically add peers to the system while it is running. The new peers are
+				automatically discovered by the other peers and the client. The new peers
+				automatically receive a copy of any replicated regions they create. However,
+				partitioned regions do not automatically redistribute data to the new peer unless
+				you explicitly instruct <keyword keyref="product_name"/> to rebalance the partitioned region. With
+				the <codeph>gfsh start server</codeph> command, you can pass a command line flag
+				indicating that the new peer should trigger a rebalance of all partitioned regions. </p>
+			<ol id="ol_F90F807A83E04CBA9876C551981B6C99">
+				<li id="li_4A9CE09C52C847BA9EE49A7A805EBC90"><b>Add a new peer</b>. <p>Type the
+						following command at the gfsh command prompt:
+						<codeblock>gfsh>start server --name=server3 --locators=localhost[55221] --server-port=0 <b>--rebalance</b></codeblock>This
+						command will automatically create a working directory for this server named
+							<codeph>server3</codeph> under the
+							<codeph>&lt;product_directory&gt;/SampleCode/tutorial</codeph> directory
+						where you executed the command. </p>
+				</li>
+				<li id="li_CFBAA6E99D824A49A5D78AF1E8A49BA4"><b>Stop the cache servers</b>. <ol
+						id="ol_6F5DB232D3FD4F0A8BE17C2F6D0BE542">
+						<li id="li_B8E00A7E7EB046778C0189B049EDD97A">Stop the first cache server by
+							entring the following command in the gfsh shell:
+							<codeblock>gfsh>stop server --dir=server1</codeblock>
+						</li>
+						<li>In the client application terminal, observe that the data you entered is
+							still available and the client automatically ignores the dead
+							server.<codeblock>&gt;people
+Ethan
+Isabella
+&gt;posts
+Ethan:  Waaa!!!
+Isabella: I want toast</codeblock></li>
+						<li id="li_18EBE1EB1687447E90E43D66D20A9FDD"><b>Stop the distributed
+								system</b>. You can leave the client running. Run the following
+							command in the gfsh
+							window:<codeblock>gfsh>shutdown --include-locators=true
+</codeblock></li>
+					</ol>
+				</li>
+			</ol>
+		</section>
+		<section id="section_7EB34C41E4184DBAA1D4EAF2EFD082B8">
+			<title>Part 7: Configure Persistence</title>
+			<p><keyword keyref="product_name"/> supports shared-nothing persistence. Each member writes its portion of the
+				region data to its own disk files. For the People region, each peer will be writing
+				the entire region to its own disk files. For the Posts region, a copy of each post
+				will reside on two different peers. </p>
+			<image href="../../common/images/Persistence.png"
+				id="image_C9641A6221294CDB8B377AF6A4B33B47" placement="break"/>
+			<ol id="ol_BACFF74544E34CBA832FD2876A6A1786">
+				<li id="li_96820F7EA4AA42B59BE3DF5E45B68BA6"><b>Walk through configuring a
+						persistence region</b>. We will now create a new configuration that uses
+					persistence regions. To do this, we start a new locator. Because shared
+					configurations are stored by locators, we can create a new configuration by
+					starting a new locator. Note that the <codeph>shutdown</codeph> command you
+					issued in the last step stops all servers and locators in the distributed
+					system. </li>
+				<li>Start the gfsh command-line interface by running the following
+					command:<codeblock>$ gfsh
+    _________________________     __
+   / _____/ ______/ ______/ /____/ /
+  / /  __/ /___  /_____  / _____  / 
+ / /__/ / ____/  _____/ / /    / /  
+/______/_/      /______/_/    /_/    v8.1.0
+
+Monitor and Manage GemFire
+</codeblock></li>
+				<li>Start a new locator by running the following command in the gfsh command-line
+					interface:<codeblock>gfsh>start locator --name=locator2 --port=55221</codeblock></li>
+				<li id="li_DBACEC4D6ECF49C8943CBBD3FFA8EA42"><b>Start two servers</b>. Enter the
+					following commands in the gfsh command-line interface:<codeblock>gfsh>start server --name=server1 --locators=localhost[55221] --server-port=0</codeblock><codeblock>gfsh>start server --name=server2 --locators=localhost[55221] --server-port=0</codeblock>
+					<p> This command uses working directories for these servers named
+							<codeph>server1</codeph> and <codeph>server2</codeph> under
+							<codeph>&lt;tutorial_working_directory></codeph> where you executed the
+						command. These directories were created in an previous step when you started
+						server1 and server2 for the first time. Note that we do not have to issue
+						the deploy command to deploy the <codeph>tutorial.jar</codeph> file because
+						the jar file already exists in the server directories. </p>
+				</li>
+				<li>Create the two regions required for the Social Networking application by running
+					the following commands in the gfsh command-line
+						interface:<codeblock>gfsh>create region --name=people --type=REPLICATE_PERSISTENT \
+--cache-listener=com.gemstone.gemfire.tutorial.storage.LoggingCacheListener</codeblock><codeblock>gfsh>create region --name=posts --type=PARTITION_REDUNDANT_PERSISTENT \
+--cache-listener=com.gemstone.gemfire.tutorial.storage.LoggingCacheListener</codeblock><p>Note
+						that, unlike the earlier step where you created regions without persistence,
+						these create region commands specify the region types as
+							<codeph>REPLICATE_PERSISTENT</codeph> and
+							<codeph>PARTITION_REDUNDANT_PERSISTENT</codeph> respectively.</p></li>
+				<li id="li_B8A84C121EA64A88A2B540A2DECB4CD1"><b>Add some posts from the client</b>.
+					<codeblock>> post Isabella Hello
+> post Ethan Goodbye
+> posts
+Ethan:  Goodbye
+Isabella:  Hello
+</codeblock></li>
+				<li id="li_1C9FBFC6BBBE4F99A3CDA745E0924749"><b>Kill both servers and restart them
+						to make sure the posts are recovered</b>. Run the following commands in the
+					gfsh
+						window:<codeblock>gfsh>stop server --dir=server1</codeblock><codeblock>gfsh>stop server --dir=server2</codeblock><p>When
+						you restart persistent members, you call <b>gfsh start server</b> in
+							parallel for each server. </p><p>The reason is that <keyword keyref="product_name"/> ensures that
+						your complete data set is recovered before allowing the JVMs to start.
+						Remember that each member is persisting only part of the Posts region. Each
+								<keyword keyref="product_name"/> member waits until all posts are available before starting. This
+						protects you from seeing an incomplete view of the posts region. </p><p>To
+						start the servers in parallel, open a new terminal window, run the following
+						command:</p><p><b>Unix</b>
+					</p><p>
+						<codeblock>$ gfsh start server --name=server1 --locators=localhost[55221] --server-port=0 \
+&amp; gfsh start server --name=server2 --locators=localhost[55221] --server-port=0 &amp;</codeblock>
+					</p><p><b>Windows</b>
+					</p><codeblock>prompt&gt; start /B gfsh start server --name=server1 --locators=localhost[55221]  --server-port=0
+prompt&gt; start /B gfsh start server --name=server2 --locators=localhost[55221] --server-port=0</codeblock>
+				</li>
+				<li><b>Wait a few seconds to ensure the servers are back up, and then view the posts
+						from the client.</b>
+					<codeblock>> posts
+Ethan:  Goodbye
+Isabella:  Hello</codeblock>
+				</li>
+				<li>Shutdown the Client applications by typing <codeph>quit</codeph> at the
+					prompt.</li>
+				<li>Check whether you are still connected to the running
+					locator:<codeblock>gfsh>describe connection</codeblock>If connected, you should
+					see a message like the
+					following:<codeblock>
+Connection Endpoints
+-------------------------------
+ubuntu.local[1099]</codeblock>If
+					you are no longer connected, connect <codeph>gfsh</codeph> to the currently
+					running locator by executing the following
+					command:<codeblock>gfsh>connect --locator=localhost[55221]</codeblock></li>
+				<li><b>Stop the distributed system</b>. Run the following command in the gfsh
+					window:<codeblock>gfsh>shutdown --include-locators=true
+</codeblock></li>
+				<li>Review the cluster configuration created on the locator. Under the locator's
+					working directory, look at the cluster-config directory. <p>gfsh creates a
+						cluster configuration by writing out gemfire.properties files and cache.xml
+						files in the <filepath>cluster-config/cluster</filepath> subdirectory of the
+						locator's directory. For example, the cache.xml file created after running
+						this example looks like the following. (The file is named
+							<filepath>cluster.xml</filepath>.)</p><codeblock outputclass="language-xml">&lt;?xml version="1.0" encoding="UTF-8"?>
+&lt;cache xsi:schemaLocation="<xref href="http://schema.pivotal.io/gemfire/cache" format="html" scope="external">http://schema.pivotal.io/gemfire/cache</xref> <xref href="http://schema.pivotal.io/gemfire/cache/cache-8.1.xsd" format="html" scope="external">http://schema.pivotal.io/gemfire/cache/cache-8.1.xsd</xref>"
+    lock-lease="120" lock-timeout="60" search-timeout="300" is-server="false" copy-on-read="false" version="8.1”
+    xmlns="<xref href="http://schema.pivotal.io/gemfire/cache" format="html" scope="external">http://schema.pivotal.io/gemfire/cache</xref>"
+    xmlns:xsi="<xref href="http://www.w3.org/2001/XMLSchema-instance" format="html" scope="external">http://www.w3.org/2001/XMLSchema-instance</xref>">
+  &lt;!-- Add Region Elements Here -->
+  &lt;region name="people">
+    &lt;region-attributes scope="distributed-ack" data-policy="persistent-replicate">
+      &lt;cache-listener>
+        &lt;class-name>com.gemstone.gemfire.tutorial.storage.LoggingCacheListener&lt;/class-name>
+      &lt;/cache-listener>
+    &lt;/region-attributes>
+  &lt;/region>
+  &lt;region name="posts">
+    &lt;region-attributes data-policy="persistent-partition">
+      &lt;partition-attributes redundant-copies="1"/>
+      &lt;cache-listener>
+        &lt;class-name>com.gemstone.gemfire.tutorial.storage.LoggingCacheListener&lt;/class-name>
+      &lt;/cache-listener>
+    &lt;/region-attributes>
+  &lt;/region>
+&lt;/cache></codeblock><p>For
+						more information about using gfsh and cluster configurations, see <xref
+							href="../../deploying/gfsh/gfsh_persist.xml#concept_r22_hyw_bl"
+					/>.</p></li>
+			</ol>
+		</section>
+	</conbody>
+</concept>

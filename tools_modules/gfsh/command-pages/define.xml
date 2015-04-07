@@ -1,0 +1,86 @@
+<?xml version="1.0"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept id="concept_B70E7B27CEF1496CB3B7217B15FF4726">
+	<title>define index</title>
+	<shortdesc>Define an index that can be used when executing queries. Then, you can execute a
+		single command to create multiple indexes all at once using <codeph>create defined
+			indexes</codeph>.</shortdesc>
+	<conbody>
+		<p>
+			<b> Availability:</b> Online or offline. </p>
+		<p>
+			<b>Syntax:</b>
+			<codeblock>define index --name=value --expression=value --region=value [--type=value]</codeblock>
+		</p>
+		<table id="table_B6D7C12CE550464CB7D6B2159BD94A1E">
+			<title>Parameters</title>
+			<tgroup cols="3">
+				<colspec colname="col1" colnum="1" colwidth="1.00*"/>
+				<colspec colname="col2" colnum="2" colwidth="3.12*"/>
+				<colspec colname="newCol3" colnum="3" colwidth="1*"/>
+				<thead>
+					<row>
+						<entry colname="col1">Name </entry>
+						<entry colname="col2">Description</entry>
+						<entry>Default Value</entry>
+					</row>
+				</thead>
+				<tbody>
+					<row>
+						<entry colname="col1">
+							<parmname>--name </parmname>
+						</entry>
+						<entry colname="col2"><i>Required.</i> Name of the index to define.</entry>
+						<entry/>
+					</row>
+					<row>
+						<entry colname="col1">
+							<parmname>--expression</parmname>
+						</entry>
+						<entry colname="col2"><i>Required.</i> Field of the region values that are
+							referenced by the index.</entry>
+						<entry/>
+					</row>
+					<row>
+						<entry colname="col1">
+							<parmname>--region</parmname>
+						</entry>
+						<entry colname="col2"><i>Required.</i> Name/Path of the region which
+							corresponds to the "from" clause in a query.</entry>
+						<entry/>
+					</row>
+					<row>
+						<entry colname="col1">
+							<parmname>--type</parmname>
+						</entry>
+						<entry colname="col2">Type of the index. Valid values are: range, key and
+							hash.</entry>
+						<entry>range</entry>
+					</row>
+				</tbody>
+			</tgroup>
+		</table>
+		<p>
+			<b>Example Commands:</b>
+			<codeblock>gfsh> define index --name=myIndex1 --expression=exp1 --region=/exampleRegion 
+
+gfsh> define index --name=myIndex2 --expression=”c.exp2” --region="/exampleRegion e, e.collection1 c" 
+
+gfsh> define index --name=myIndex3 --expression=exp3 --region=/exampleRegion --type=hash 
+
+//then to create the indexes, execute:
+
+gfsh> create defined indexes
+ </codeblock>
+		</p>
+		<p>
+			<b>Sample Output:</b>
+			<codeblock>gfsh>define index --name=myIndex1 --expression=exp1 --region=/exampleRegion
+Index successfully defined with following details
+Name       : myIndex1
+Expression : exp1
+RegionPath : /exampleRegion
+</codeblock>
+		</p>
+	</conbody>
+</concept>

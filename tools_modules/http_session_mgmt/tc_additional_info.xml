@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "http://docs.oasis-open.org/dita/v1.1/OS/dtd/concept.dtd">
+<concept id="tc_additional_info">
+	<title>General Information on HTTP Session Management</title>
+	<shortdesc>This section provides information on sticky load balancers, session expiration,
+		additional <keyword keyref="product_name"/> property changes, serialization and more. </shortdesc>
+	<conbody>
+		<section id="section_78F53B3F4301466EA0E5DF277CF33A71">
+			<title>Sticky Load Balancers</title>
+			<p>Typically, session replication will be used in conjunction with a load balancer
+				enabled for sticky sessions. This involves, among other things, establishing a JVM
+				route (<codeph>JVMRoute=value</codeph>). Refer to <xref format="html"
+					href="http://static.springsource.com/projects/ers/4.0/getting-started/htmlsingle/getting-started.html"
+					scope="external">SpringSource ERS</xref> as a possible <xref format="html"
+					href="http://static.springsource.com/projects/ers/4.0/getting-started/htmlsingle/getting-started.html#load-balancing"
+					scope="external">load balancing</xref> solution. </p>
+		</section>
+		<section id="section_C7C4365EA2D84636AE1586F187007EC4">
+			<title>Session Expiration</title>
+			<p>To set the session expiration value, you must change the
+					<codeph>session-timeout</codeph> value specified in your application server's
+					<codeph>WEB-INF/web.xml</codeph> file. This value will override the <keyword
+					keyref="product_name"/> inactive interval specified by
+					<codeph>maxInactiveInterval</codeph> within <codeph>context.xml</codeph>. </p>
+		</section>
+		<section id="section_5CE5FF6F55DB462E8B2A336A0AF7515E">
+			<title>Making Additional <keyword keyref="product_name"/> Property Changes</title>
+			<p>If you want to change additional <keyword keyref="product_name"/> property values,
+				refer to instructions on manually changing property values as specified in the
+					<keyword keyref="product_name"/> module documentation for Tomcat (<xref
+					href="tomcat_changing_gf_default_cfg.xml#tomcat_changing_gf_default_cfg"
+					type="concept" format="dita" scope="local"/>) and Application Servers (<xref
+					href="weblogic_changing_gf_default_cfg.xml#weblogic_changing_gf_default_cfg"
+					type="concept" format="dita" scope="local"/>). </p>
+		</section>
+		<section id="section_0013BDC875A44344B7B062F46AFA073C">
+			<title>Module Version Information</title>
+			<p>To acquire <keyword keyref="product_name"/> module version information, look in the
+				web server's log file for the following message: </p>
+			<codeblock>Nov 8, 2010 12:12:12 PM 
+com.gemstone.gemfire.modules.session.catalina.AbstractCacheLifecycleListener 
+lifecycleEvent
+INFO: Initializing GemFire Modules Version 1.1</codeblock>
+		</section>
+		<section>
+			<title>Object Serialization</title>
+			<p>Objects managed by the HTTP Session Management Module must be serializable since the
+				session's objects are serialized before being stored in the region.</p>
+		</section>
+	</conbody>
+</concept>

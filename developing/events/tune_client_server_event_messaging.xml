@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "http://docs.oasis-open.org/dita/v1.1/OS/dtd/concept.dtd">
+<concept id="client_server_event_messaging">
+	<title>Tuning Client/Server Event Messaging</title>
+	<conbody>
+		<section id="section_0894E034A285456EA01D5903248F9B3B">
+			<p>The server uses an asynchronous messaging queue to send events to its clients. Every
+				event in the queue originates in an operation performed by a thread in a client, a
+				server, or an application in the server’s or some other distributed system. The
+				event message has a unique identifier composed of the originating thread’s ID
+				combined with its member’s distributed system member ID, and the sequential ID of
+				the operation. So the event messages originating in any single thread can be grouped
+				and ordered by time from lowest sequence ID to highest. Servers and clients track
+				the highest sequential ID for each member thread ID. </p>
+			<p>A single client thread receives and processes messages from the server, tracking
+				received messages to make sure it does not process duplicate sends. It does this
+				using the process IDs from originating threads. </p>
+			<p>
+				<image placement="break" id="image_656BDF5E745F4C6D92C844C423102948"
+					href="../../images_svg/tune_cs_event_messaging.svg"/>
+			</p>
+			<p>The client’s message tracking list holds the highest sequence ID of any message
+				received for each originating thread. The list can become quite large in systems
+				where there are many different threads coming and going and doing work on the cache.
+				After a thread dies, its tracking entry is not needed. To avoid maintaining tracking
+				information for threads that have died, the client expires entries that have had no
+				activity for more than the <codeph>subscription-message-tracking-timeout</codeph>.
+			</p>
+		</section>
+		<section id="section_3652F372F6424B8F908AA13ED051166B"> </section>
+	</conbody>
+</concept>

@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "http://docs.oasis-open.org/dita/v1.1/OS/dtd/concept.dtd">
+<concept id="indexing_guidelines">
+	<title>Tips and Guidelines on Using Indexes</title>
+	<shortdesc>Optimizing your queries with indexes requires a cycle of careful planning, testing,
+		and tuning. Poorly-defined indexes can degrade the performance of your queries instead of
+		improving it. This section gives guidelines for index usage in the query service. </shortdesc>
+	<conbody>
+		<section id="section_A8885DFC334243508C4563C9692E0801">
+			<p>When creating indexes, keep in mind the following: </p>
+			<ul id="ul_D11E8735415E4372A080751496B32004">
+				<li id="li_ED7FD1B37A00490ABCCFDFC49AE85D04">Indexes incur maintenance costs as they
+					must be updated when the indexed data changes. An index that requires many
+					updates and is not used very often may require more system resources than using
+					no index at all. </li>
+				<li id="li_51231BCB72774F8082A97C9806CBA437">Indexes consume memory. </li>
+				<li id="li_A6B6C9A09ADD4625B42A2012B25568D0">Indexes have limited support on
+					overflow regions. See <xref
+						href="indexes_with_overflow_regions.xml#concept_87BE7DB32C714EB0BF7532AF93569328"
+						type="concept" format="dita" scope="local"/> for details. </li>
+				<li>If you are creating multiple indexes on the same region, first define your
+					indexes and then create the indexes all at once to avoid iterating over the
+					region multiple times. See <xref
+						href="create_multiple_indexes.xml#topic_omf_pxn_jq"/> for details.</li>
+			</ul>
+		</section>
+		<section id="section_A8AFAA243B5C43DD9BB9F9235A48AF53">
+			<title> Tips for Writing Queries that Use Indexes</title>
+			<p>As with query processors that run against relational databases, the way a query is
+				written can greatly affect execution performance. Among other things, whether
+				indexes are used depends on how each query is stated. These are some of the things
+				to consider when optimizing your <keyword keyref="product_name"/> queries for
+				performance: </p>
+			<ul id="ul_833384B6F6774C3BA5BF6CE622FFE7A1">
+				<li id="li_6D6F5BF5D6FB4DA9AFED3A3892E7AF38">In general an index will improve query
+					performance if the FROM clauses of the query and index match exactly. </li>
+				<li id="li_A67AD152B41942749AA5FEA961EEBA63">The query evaluation engine does not
+					have a sophisticated cost-based optimizer. It has a simple optimizer which
+					selects best index (one) or multiple indexes based on the index size and the
+					operator that is being evaluated. </li>
+				<li id="li_717A1FB3EE5B4ABF801DCE9ACDF3F201">For AND operators, you may get better
+					results if the conditions that use indexes and conditions that are more
+					selective come before other conditions in the query. </li>
+				<li id="li_FC9A23B9F1CC487689E5482D78EEACE4">Indexes are not used in expressions
+					that contain NOT, so in a WHERE clause of a query, <codeph>qty &gt;= 10</codeph>
+					could have an index on <codeph>qty</codeph> applied for efficiency. However,
+						<codeph>NOT(qty &lt; 10)</codeph> could not have the same index applied. </li>
+				<li>Whenever possible, provide a hint to allow the query engine to prefer a specific
+					index. See <xref href="query_index_hints.xml#topic_cfb_mxn_jq"/></li>
+			</ul>
+		</section>
+	</conbody>
+</concept>

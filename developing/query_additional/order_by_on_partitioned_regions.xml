@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept id="concept_6AA29F49254B4C85A5DCE127A8FEE13A">
+	<title>Using ORDER BY on Partitioned Regions</title>
+	<shortdesc><?xm-replace_text Short Description?>
+	</shortdesc>
+	<conbody>
+		<p> To execute a query with an ORDER BY clause on a partitioned region, the fields specified
+			in the ORDER BY clause must be part of the projection list. </p>
+		<p>When an ORDER BY clause is used with a partition region query, the query is executed
+			separately on each region host, the local query coordinator, and all remote members. The
+			results are all gathered by the query coordinator. The cumulative result set is built by
+			applying ORDER BY on the gathered results. If the LIMIT clause is also used in the
+			query, ORDER BY and LIMIT are applied on each node before each node’s results are
+			returned to the coordinator. Then the clauses are applied to the cumulative result set
+			to get the final result set, which is returned to the calling application. </p>
+		<p>
+			<b>Example:</b>
+			<codeblock>// This query works because p.status is part of projection list
+select distinct p.ID, p.status from /region p where p.ID &gt; 5 order by p.status
+// This query works providing status is part of the value indicated by *
+select distinct * from /region where ID &gt; 5 order by status </codeblock>
+		</p>
+	</conbody>
+</concept>

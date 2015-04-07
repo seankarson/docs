@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<!-- Created with XMetaL (http://www.xmetal.com) -->
+<concept id="concept_4DA48227015249E9B54416155044B50C"> 
+  <title>Importing and Exporting Cache Snapshots</title> 
+  <shortdesc><?xm-replace_text Short Description?>
+  </shortdesc> 
+  <conbody>
+	 <p>The snapshot export/import feature allows a user (or more specifically
+		an admin) to save the data in a region and later on to load that data into a
+		region. The snapshot may be taken on one distributed system and loaded into
+		another distributed system. A typical usage would be to capture data from a
+		production system and move it into a smaller QA or development system. Another
+		usage would be to capture the state of a system at known points in time that
+		can be easily reloaded.
+	 </p>
+	 <p>The snapshot file contains all of the data from a particular region. The
+		snapshot is a binary file that can be directly imported into a region or read
+		entry-by-entry for further processing or transformation into other formats.
+	 </p>
+  </conbody>
+</concept>

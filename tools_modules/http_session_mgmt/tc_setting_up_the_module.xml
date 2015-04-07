@@ -1,0 +1,218 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "http://docs.oasis-open.org/dita/v1.1/OS/dtd/concept.dtd">
+<concept id="tc_setting_up_the_module">
+	<title>Setting Up the HTTP Module for tc Server</title>
+	<shortdesc>To set up the HTTP Module for tc Server, start a tc Server instance with the
+		appropriate tc Server template based on your preferred topology. </shortdesc>
+	<conbody>
+		<ul id="ul_01641081B21E426B935AAA9D9BD0292C">
+			<li id="li_05716911AA0240C997071EFA7AF364A7">
+				<xref
+					href="tc_setting_up_the_module.xml#tc_setting_up_the_module/section_564B0D4008E343D7AF2791A1271B1F8E"
+					type="section" format="dita" scope="local"/>
+			</li>
+			<li id="li_CCA809BEE0E94FDF89F4FE4FD2CC6B21">
+				<xref
+					href="tc_setting_up_the_module.xml#tc_setting_up_the_module/section_4A929DC016C646F39B1AA98A57C13D9A"
+					type="section" format="dita" scope="local"/>
+			</li>
+			<li id="li_FE79D42C5987494EBB7A9950EA149279">
+				<xref
+					href="tc_setting_up_the_module.xml#tc_setting_up_the_module/section_DC0A4F7CDB9E4C64BFFB6FAED0CC205A"
+					type="section" format="dita" scope="local"/>
+			</li>
+			<li id="li_6137CEAF1607423EB3F57693CDBC0A43">
+				<xref
+					href="tc_setting_up_the_module.xml#tc_setting_up_the_module/section_B6AA6C00DBBD44E68649BDB793578694"
+					type="section" format="dita" scope="local"/>
+			</li>
+			<li id="li_D43C444D8F2249C0BCEF532829908F56">
+				<xref
+					href="tc_setting_up_the_module.xml#tc_setting_up_the_module/section_AD2D138068DA4BCFBD20E004B02C9ADE"
+					type="section" format="dita" scope="local"/>
+			</li>
+			<li id="li_49578C264A354B218108988B47FE7B88">
+				<xref
+					href="tc_setting_up_the_module.xml#tc_setting_up_the_module/section_B2396FB0879248DBA85ADFDBBEFA987E"
+					type="section" format="dita" scope="local"/>
+			</li>
+		</ul>
+		<p>Refer to <xref scope="local"
+				href="common_gemfire_topologies.xml#common_gemfire_topologies" type="concept"
+				format="dita"/> for more information. </p>
+		<p>
+			<note> In the procedures that follow, you may be required to log in as root or use sudo
+				to run the commands in Unix, especially if you installed Pivotal tc Server from RPM
+				using yum. </note>
+		</p>
+		<section id="section_564B0D4008E343D7AF2791A1271B1F8E">
+			<title>Peer-to-Peer Setup</title>
+			<image href="../../images_svg/http_module_p2p.svg" placement="break"
+				id="image_1D905D29A04B4A908D3A84479709AF4B"/>
+			<p>To run <keyword keyref="product_name"/> in a peer-to-peer configuration, create a tc
+				Server instance using the supplied "gemfire-p2p" template: </p>
+			<codeblock>In Unix:
+  prompt$ ./tcruntime-instance.sh create my_instance_name --template gemfire-p2p
+
+In Windows:
+  prompt&gt; tcruntime-instance.bat create my_instance_name --template gemfire-p2p</codeblock>
+			<p>If you do not make any further configuration changes, peers attempt to locate each
+				other using a default multicast channel. You can change the multicast port, as shown
+				in <xref
+					href="tc_changing_gf_default_cfg.xml#tc_changing_gf_default_cfg/use_a_diff_mc_port"
+					type="section" format="dita" scope="local">Using a Different Multicast
+					Port</xref>. Alternatively, peers can discover each other using locators, which
+				provide both discovery and load balancing services. Refer to <xref
+					href="tc_changing_gf_default_cfg.xml#tc_changing_gf_default_cfg/p2p_cfg_using_locators"
+					type="section" format="dita" scope="local">Peer-to-peer Configuration Using
+					Locators</xref> for more information. </p>
+			<p>If you need to pin your tc Server instance to a specific version of the tc Runtime,
+				specify the <codeph>--version</codeph> parameter in your command to create the tc
+				Server instance. See <xref
+					href="tc_setting_up_the_module.xml#tc_setting_up_the_module/section_DC0A4F7CDB9E4C64BFFB6FAED0CC205A"
+					type="section" format="dita" scope="local"/>
+			</p>
+		</section>
+		<section id="section_4A929DC016C646F39B1AA98A57C13D9A">
+			<title>Client/Server Setup</title>
+			<image href="../../images_svg/http_module_cs.svg" placement="break"
+				id="image_EBA7F840AB5A4FB2BDB040D0A55A125B"/>
+			<p>When you run <keyword keyref="product_name"/> in a client/server configuration, the
+				application server (tc Server) operates as a <keyword keyref="product_name"/>
+				client. Create a tc Server instance using the supplied "gemfire-cs" template: </p>
+			<codeblock>In Unix: 
+  prompt$ ./tcruntime-instance.sh create my_instance_name --template gemfire-cs
+
+In Windows:
+  prompt&gt; tcruntime-instance.bat create my_instance_name --template gemfire-cs</codeblock>
+			<p>If you need to pin your tc Server instance to a specific version of the tc Runtime,
+				specify the <codeph>--version</codeph> parameter in your command to create the tc
+				Server instance. See <xref
+					href="tc_setting_up_the_module.xml#tc_setting_up_the_module/section_DC0A4F7CDB9E4C64BFFB6FAED0CC205A"
+					type="section" format="dita" scope="local"/>
+			</p>
+			<p>Because the application server operates as a <keyword keyref="product_name"/> client
+				in this configuration, you must manually launch a <keyword keyref="product_name"/>
+				cache server. You can do this with the following script (which should be installed
+				into the <codeph>bin</codeph> subdirectory for the applicable template): </p>
+			<codeblock>In Unix: 
+  prompt$ ./cacheserver.sh start
+  
+In Windows:
+  prompt&gt; cacheserver.bat start</codeblock>
+			<p>If you plan to use the deprecated cacheserver script that comes with the standalone
+					<keyword keyref="product_name"/> product instead of the cacheserver script that
+				is provided with the module, you must manually add the following JAR files and
+				directory to the server's classpath:</p>
+			<ul id="ul_x21_wmm_hp">
+				<li>$GEMFIRE/lib/gemfire-modules.jar</li>
+				<li><i>INSTANCE_DIR</i>/lib/servlet-api.jar</li>
+				<li><i>INSTANCE_DIR</i>/lib/catalina.jar</li>
+				<li><i>INSTANCE_DIR</i>/bin/tomcat-util.jar</li>
+				<li><i>INSTANCE_DIR</i>/bin/tomcat-juli.jar</li>
+				<li><i>INSTANCE_DIR</i>/conf</li>
+			</ul>
+			<p>where <i>INSTANCE_DIR</i> is the location of the tc Server instance you created with
+				the <keyword keyref="product_name"/> template. These items are automatically added
+				to the classpath by the supplied cacheserver.sh (or cacheserver.bat) script that
+				comes with the tc Server HTTP Session Management module. </p>
+			<p>With no further configuration changes, the client and server attempt to locate each
+				other on the same system using a default port (40404). Although this is useful for
+				testing purposes, you would not normally deploy a client/server configuration in
+				this way. Refer to <xref
+					href="tc_changing_gf_default_cfg.xml#tc_changing_gf_default_cfg/section_client_server_loc"
+					type="section" format="dita" scope="local">Client/Server Configuration Using
+					Locators</xref> for information on creating and using locators, which provide
+				both discovery and load balancing services. </p>
+			<note>Because the client/server configuration uses a local client cache by default, it
+				is important to set up your application server for sticky sessions so that
+				application clients access the same application server across a session interval.
+				See <xref href="tc_additional_info.xml#tc_additional_info" type="concept"
+					format="dita" scope="local"/> for more information. </note>
+		</section>
+		<section id="section_DC0A4F7CDB9E4C64BFFB6FAED0CC205A">
+			<title>Pinning a tc Server Runtime Instance to a Specific Version</title>
+			<p>You can pin a specific version of the tc Server runtime when creating your tc Server
+				instance. To specify the version, use the <codeph>--version</codeph> parameter when
+				executing the <codeph>tcruntime-instance.sh</codeph> or
+					<codeph>tcruntime-instance.bat</codeph> script. For example:
+				<codeblock>In Unix:
+prompt$ ./tcruntime-instance.sh create --version 6.0.32.A.RELEASE \
+my_instance_name --template gemfire-cs
+
+In Windows:
+prompt&gt; tcruntime-instance.bat create my_instance_name --template gemfire-cs</codeblock>When
+				you pin the tc Server runtime instance to a specific version, the created instance
+				will always use the specified version, even if you install a more recent version of
+				the tc Server runtime. If you do not specify the --version parameter, the tc Server
+				runtime is automatically pinned to the highest version that you have installed. </p>
+			<p>To determine the list of available versions, search for
+						<codeph>INSTALL_DIR/tomcat-<i>XXX</i></codeph> directories where <i>XXX</i>
+				follows a pattern such as 6.0.32.A.RELEASE. </p>
+		</section>
+		<section id="section_B6AA6C00DBBD44E68649BDB793578694">
+			<title>Starting the Application Server</title>
+			<p>Once you've created a tc Server instance, you are ready to start the instance. </p>
+			<codeblock>In Unix: 
+  prompt$ ./tcruntime-ctl.sh my_instance_name start
+  
+In Windows:
+  prompt&gt; ./tcruntime-ctl.bat my_instance_name start
+</codeblock>
+			<p>Refer to the <xref format="html"
+					href="http://www.vmware.com/products/vfabric-tcserver" scope="external">tc
+					Server</xref> documentation for more information. Once started, <keyword
+					keyref="product_name"/> will automatically launch within the application server
+				process. </p>
+			<note><keyword keyref="product_name"/> session state management provides its own
+				clustering functionality. If you are using <keyword keyref="product_name"/>, you
+				should NOT turn on Tomcat clustering as well. </note>
+		</section>
+		<section id="section_AD2D138068DA4BCFBD20E004B02C9ADE">
+			<title>Verifying That <keyword keyref="product_name"/> Started</title>
+			<p>You can verify that <keyword keyref="product_name"/> has successfully started by
+				inspecting the Tomcat log file. For example: </p>
+			<codeblock>Nov 8, 2010 12:12:12 PM
+com.gemstone.gemfire.modules.session.catalina.ClientServerCacheLifecycleListener
+createOrRetrieveCache
+INFO: Created GemFireCache[id = 2066231378; isClosing = false; 
+   created = Mon Nov 08 12:12:12 PDT 2010; server = false; 
+   copyOnRead = false; lockLease = 120; lockTimeout = 60]
+</codeblock>
+			<p>Information is also logged within the <keyword keyref="product_name"/> log file,
+				which by default is named "gemfire_modules.log". </p>
+		</section>
+		<section id="section_B2396FB0879248DBA85ADFDBBEFA987E">
+			<title>Configuring Non-Sticky Session Replication</title>
+			<p>Some situations require that sessions be 'non-sticky', which means that client
+				requests can be directed to any server in a cluster of application servers instead
+				of the same server each time. To achieve this, you must configure your deployment as
+				described for the following topologies. </p>
+			<p>
+				<b>Peer-to-Peer</b>
+			</p>
+			<p>For peer-to-peer topologies, apply the following settings to enable non-sticky
+				sessions to work correctly: <ul id="ul_krx_uum_kj">
+					<li id="li_A04FBC410C814A8DB14243272E8F0CED">Java system property
+							<codeph>gemfire.loadClassOnEveryDeserialization=true</codeph>. Set this
+						property by editing the <codeph>bin/setenv.sh</codeph> file. </li>
+					<li id="li_459BC6F95992416C838EF1D99C35141D"
+							><codeph>prefer.deserialized.form=false</codeph>. Set this property in
+							<codeph>conf/catalina.properties</codeph>. </li>
+				</ul>
+			</p>
+			<p>
+				<b>Client-server</b>
+			</p>
+			<p>For client-server topologies, only the Java system property
+					<codeph>gemfire.loadClassOnEveryDeserialization=true</codeph> must be set, in
+					the<codeph>bin/setenv.sh file</codeph>. </p>
+			<p>
+				<note>Non-sticky sessions cause a performance impact because sessions need to be
+					re-created every time a request hits a different server. This may not be
+					noticeable when the session attributes are small, but may become more evident as
+					the session attributes increase in size and/or number. </note>
+			</p>
+		</section>
+	</conbody>
+</concept>

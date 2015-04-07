@@ -1,0 +1,156 @@
+<?xml version="1.0"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept id="concept_A27835BC34B94AF0AFFFFE1E0A204EFE">
+	<title>Transaction Run in Multiple Regions Example</title>
+	<shortdesc>This example creates a Customer and Order partitioned region, and then updates a
+		customer and one customer order in a transaction. </shortdesc>
+	<conbody>
+		<section id="section_73662C16E0BF4E4780F737C45DBD3137">
+			<p>
+				<codeblock>/**
+ * An example for using Transactions.
+ * Creates a Customer and Order partitioned region, and then
+ * updates the customer and one customer order in a transaction.
+*/
+public class TransactionalPeer {
+/** The region for storing customer information*/
+	private Region&lt;CustomerId, String&gt; custRegion;
+/** The region for storing order information of a customer*/
+	private Region&lt;OrderId, String&gt; orderRegion;
+	
+	private static final int MAX_KEYS_IN_REGION = 10;
+
+	public TransactionalPeer(boolean isEmpty) {
+		createCache();
+		createRegions(isEmpty);
+	}
+
+	/**
+	 * Connects to the distributed system and creates the cache
+	 */
+	protected void createCache() {
+		Properties props = new Properties();
+		system = DistributedSystem.connect(props);
+		cache = CacheFactory.create(system);
+	}
+	
+	/**
+	 * Creates the customer and order regions
+	 * @param isEmpty true if these regions should not store data locally, false otherwise
+	 */
+	protected void createRegions(boolean isEmpty) {
+		PartitionAttributesFactory paf = 
+			new PartitionAttributesFactory&lt;CustomerId, String&gt;();
+		paf.setPartitionResolver(new CustomerOrderResolver());
+		if (isEmpty) {
+			paf.setLocalMaxMemory(0);
+		}
+		AttributesFactory af = new AttributesFactory&lt;CustomerId, String&gt;();
+		af.setDataPolicy(DataPolicy.PARTITION);
+		af.addCacheListener(new LoggingCacheListener());
+		af.setPartitionAttributes(paf.create());
+		custRegion = cache.createRegion("customer", af.create());
+		
+		paf = new PartitionAttributesFactory&lt;OrderId, String&gt;();
+		paf.setColocatedWith("customer");
+		paf.setPartitionResolver(new CustomerOrderResolver());
+		if (isEmpty) {
+			paf.setLocalMaxMemory(0);
+		}
+		af = new AttributesFactory&lt;OrderId, String&gt;();
+		af.setDataPolicy(DataPolicy.PARTITION);
+		af.addCacheListener(new LoggingCacheListener());
+		af.setPartitionAttributes(paf.create());
+		orderRegion = cache.createRegion("order", af.create());
+	}
+	
+	/**
+	 * Runs the example by asking for user input for the type of transaction
+	 * to be run
+	 * @throws IOException if there is Exception while reading user input 
+	 * 
+	 */
+	private void runExample() throws IOException {
+		System.out.println("Please start the other JVM and press enter to populate regions");
+		BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+		reader.readLine();
+		if (custRegion.size() == 0) {
+			System.out.println("Populating region...");
+			populateRegion();
+			System.out.println("Complete");
+		} else {
+			System.out.println("Regions already populated");
+		}
+		Random random = new Random();
+		while (true) {
+			System.out.println("Press 1 to run a transaction, 2 to run a transactional function");
+			String input = reader.readLine();
+			CustomerId custToUpdate = new CustomerId(random.nextInt(MAX_KEYS_IN_REGION+1));
+			OrderId orderToUpdate = new OrderId(random.nextInt(100), custToUpdate);
+			if ("1".equals(input.trim())) {
+				CacheTransactionManager mgr = cache.getCacheTransactionManager();
+
+				System.out.println("Starting a transaction...");
+				mgr.begin();
+				int randomInt = random.nextInt(1000);
+				System.out.println("for customer region updating "+custToUpdate);
+				custRegion.put(custToUpdate, "updatedCustomer_"+randomInt);
+				System.out.println("for order region updating "+orderToUpdate);
+				orderRegion.put(orderToUpdate, "newOrder_"+randomInt);
+				mgr.commit();
+				System.out.println("transaction completed");
+			} else if ("2".equals(input.trim())) {
+				System.out.println("Executing Function");
+				Set filter = new HashSet();
+				filter.add(custToUpdate);
+				System.out.println("Invoking Function");
+				//please refer to the function service documentation for more information
+				FunctionService.onRegion(custRegion).withFilter(filter).withArgs(
+						orderToUpdate).execute(new TransactionalFunction()).getResult();
+				System.out.println("Function invocation completed");
+			} else {
+				continue;
+			}
+		}
+	}
+	
+	/**
+	 * gets us started by putting some data in the customer
+	 * and order regions
+	 */
+	private void populateRegion() {
+		for (int i=0; i&lt;MAX_KEYS_IN_REGION/2; i++) {
+			CustomerId custId = new CustomerId(i);
+			OrderId orderId = new OrderId(i, custId);
+			custRegion.put(custId, "customer_"+i);
+			orderRegion.put(orderId, "order_"+i);
+		}
+	}
+	public static void main(String[] args) throws IOException {
+		boolean isEmpty = false;
+		if (args.length &gt; 1) {
+			showUsage();
+			System.exit(1);
+		} else if (args.length == 1) {
+			if ("empty".equalsIgnoreCase(args[0])) {
+				isEmpty = true;
+			} else {
+				showUsage();
+				System.exit(1);
+			}
+		}
+		TransactionalPeer peer = new TransactionalPeer(isEmpty);
+		peer.runExample();
+	}
+
+	/**
+	 * prints the usage
+	 */
+	private static void showUsage() {
+		System.out.println("java TransactionalPeer [empty]");
+	}
+}</codeblock>
+			</p>
+		</section>
+	</conbody>
+</concept>

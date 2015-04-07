@@ -1,0 +1,420 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "http://docs.oasis-open.org/dita/v1.1/OS/dtd/concept.dtd">
+<concept id="example_data_and_runs"> 
+  <title> Data in Querying Examples and Sample Query Runs</title> 
+  <prolog audience="basic"> 
+  </prolog> 
+  <conbody> 
+	 <section id="section_FEBE9757748E4AC69F5E56CF9003806D"> 
+		<p>This topic describes the sample data structure used for most of the
+		  querying examples in this guide. It also walks through some queries run against
+		  a set of sample data and describes the query results. 
+		</p> 
+	 </section> 
+	 <section id="section_4CF6EAA8F9244716A95F2C4B3E29C11A"> 
+		<title>Example Portfolios Region</title> 
+		<p> 
+		  <codeblock>Class Portfolio { 
+  String id; /* This id is used as the entry key and is stored here */ 
+  String type; 
+  String status; 
+  Map positions; /* The value is the Position, with secId used as the key*/ 
+} 
+Class Position { 
+  private String secId; 
+  private double mktValue; 
+  private double qty; 
+}</codeblock> 
+		</p> 
+	 </section> 
+	 <section id="section_2D34FB0F7948419999A2DDB698B65266"> 
+		<title>Sample Data for Example Queries</title> 
+		<table id="table_66A523F48D31428BB18577C71A783722"> 
+		  <tgroup cols="6"> 
+			 <colspec colname="1" colnum="1" colwidth="*"/> 
+			 <colspec colname="2" colnum="2" colwidth="*"/> 
+			 <colspec colname="3" colnum="3" colwidth="*"/> 
+			 <colspec colname="4" colnum="4" colwidth="*"/> 
+			 <colspec colname="5" colnum="5" colwidth="*"/> 
+			 <colspec colname="6" colnum="6" colwidth="*"/> 
+			 <thead> 
+				<row> 
+				  <entry>id 
+				  </entry> 
+				  <entry>type 
+				  </entry> 
+				  <entry>status 
+				  </entry> 
+				  <entry>positions.secId 
+				  </entry> 
+				  <entry>positions.mktValue 
+				  </entry> 
+				  <entry>positions.qty 
+				  </entry> 
+				</row> 
+			 </thead> 
+			 <tbody> 
+				<row> 
+				  <entry>XYZ-1 
+				  </entry> 
+				  <entry>xyz 
+				  </entry> 
+				  <entry>active 
+				  </entry> 
+				  <entry>XXX 
+				  </entry> 
+				  <entry>27.34 
+				  </entry> 
+				  <entry>1000.00 
+				  </entry> 
+				</row> 
+				<row> 
+				  <entry/> 
+				  <entry/> 
+				  <entry/> 
+				  <entry>XXX 
+				  </entry> 
+				  <entry>26.31 
+				  </entry> 
+				  <entry>1200.00 
+				  </entry> 
+				</row> 
+				<row> 
+				  <entry/> 
+				  <entry/> 
+				  <entry/> 
+				  <entry>XXZ 
+				  </entry> 
+				  <entry>24.30 
+				  </entry> 
+				  <entry>1500.00 
+				  </entry> 
+				</row> 
+				<row> 
+				  <entry>XYZ-2 
+				  </entry> 
+				  <entry>xyz 
+				  </entry> 
+				  <entry>active 
+				  </entry> 
+				  <entry>YYY 
+				  </entry> 
+				  <entry>18.29 
+				  </entry> 
+				  <entry>5000.00 
+				  </entry> 
+				</row> 
+				<row> 
+				  <entry>ABC-1 
+				  </entry> 
+				  <entry>abc 
+				  </entry> 
+				  <entry>active 
+				  </entry> 
+				  <entry>AAA 
+				  </entry> 
+				  <entry>24.30 
+				  </entry> 
+				  <entry>10.00 
+				  </entry> 
+				</row> 
+				<row> 
+				  <entry/> 
+				  <entry/> 
+				  <entry/> 
+				  <entry>AAB 
+				  </entry> 
+				  <entry>23.10 
+				  </entry> 
+				  <entry>15.00 
+				  </entry> 
+				</row> 
+				<row> 
+				  <entry>ABC-2 
+				  </entry> 
+				  <entry>abc 
+				  </entry> 
+				  <entry>inactive 
+				  </entry> 
+				  <entry>BBB 
+				  </entry> 
+				  <entry>50.41 
+				  </entry> 
+				  <entry>100.00 
+				  </entry> 
+				</row> 
+				<row> 
+				  <entry/> 
+				  <entry/> 
+				  <entry/> 
+				  <entry>BBC 
+				  </entry> 
+				  <entry>55.00 
+				  </entry> 
+				  <entry>90.00 
+				  </entry> 
+				</row> 
+			 </tbody> 
+		  </tgroup> 
+		</table> 
+	 </section> 
+	 <section id="section_D75850FA83AA41FDB528D08C3B459252"> 
+		<title>Example Queries, Coding, and Results</title> 
+		<p>This is a sampling of the queries that you could run against
+		  /portfolios , and the query results for the data in the previous table. For the
+		  first several, the coding examples are included to show how to run the queries
+		  through the API. 
+		<ul id="ul_4D99090A0B0B468291841EAAB5D31B08"> 
+		  <li id="li_A178B40F095E4EFF82ECBBC637FE9C77">Retrieve all portfolios
+			 that are active 
+			 <table id="table_18EAC98B4946456F96905207E0676D50"> 
+				<tgroup cols="2"> 
+				  <colspec colname="1" colnum="1" colwidth="*"/> 
+				  <colspec colname="2" colnum="2" colwidth="*"/> 
+				  <tbody> 
+					 <row> 
+						<entry>Query string 
+						</entry> 
+						<entry> 
+						  <codeblock>SELECT DISTINCT * FROM /portfolios
+    WHERE status = 'active' </codeblock> 
+						</entry> 
+					 </row> 
+					 <row> 
+						<entry>Results 
+						</entry> 
+						<entry>Collection of Portfolio instances for IDs: XYZ-1 ,
+						  XYZ-2 , ABC-1 
+						</entry> 
+					 </row> 
+					 <row> 
+						<entry>Code 
+						</entry> 
+						<entry> 
+						  <codeblock>Region region = ... 
+SelectResults results = region.query("status = 'active'"); 
+for (Iterator iter = results.iterator(); iter.hasNext(); ) 
+{ 
+  Portfolio activePortfolio = (Portfolio) iter.next(); 
+  ... 
+} </codeblock> 
+						</entry> 
+					 </row> 
+					 <row> 
+						<entry>Notes 
+						</entry> 
+						<entry>This example code uses a 
+						  <codeph>Region</codeph> query shortcut method. 
+						</entry> 
+					 </row> 
+				  </tbody> 
+				</tgroup> 
+			 </table> 
+		  </li> 
+		  <li id="li_D91CA72B2C054ABC96EBD47BE4C29B71">Retrieve all portfolios
+			 that are active and have type XYZ 
+			 <table id="table_9DF4F642DF584E71977162956953A177"> 
+				<tgroup cols="2"> 
+				  <colspec colname="1" colnum="1" colwidth="*"/> 
+				  <colspec colname="2" colnum="2" colwidth="*"/> 
+				  <tbody> 
+					 <row> 
+						<entry>Query string 
+						</entry> 
+						<entry> 
+						  <codeblock>SELECT DISTINCT * FROM /portfolios
+    WHERE status = 'active' AND "type" = 'XYZ' </codeblock> 
+						</entry> 
+					 </row> 
+					 <row> 
+						<entry>Results 
+						</entry> 
+						<entry>Collection of Portfolio instances for ids: XYZ-1 ,
+						  XYZ-2 
+						</entry> 
+					 </row> 
+					 <row> 
+						<entry>Code 
+						</entry> 
+						<entry> 
+						  <codeblock>String queryString =
+  "SELECT DISTINCT * FROM /portfolios "
+  + "WHERE status = 'active' AND \"type\" = 'XYZ'";
+Query query = qryService.newQuery(queryString);
+SelectResults results = (SelectResults)query.execute();
+for (Iterator iter = results.iterator(); iter.hasNext(); )
+{
+  Portfolio activeXYZPortfolio = (Portfolio) iter.next();
+  ...
+} </codeblock> 
+						</entry> 
+					 </row> 
+					 <row> 
+						<entry>Notes 
+						</entry> 
+						<entry>This code uses the 
+						  <ph
+							conref="../../product_short_name.xml#ditacomponent_4CDD0B39CDD54D2AAF1CBC81A1FDBA19/ph_2E41EB9BE730428A970C1C206D14DC09"><?xm-replace_text Phrase?></ph>
+						  query service, but could use a 
+						  <codeph>Region</codeph> query shortcut instead. The 
+						  <codeph>type</codeph> attribute is passed to the query
+						  engine in double quotes to distinguish it from the query keyword of the same
+						  name. 
+						</entry> 
+					 </row> 
+				  </tbody> 
+				</tgroup> 
+			 </table> 
+		  </li> 
+		  <li id="li_78DBEA7EA6584264B0D218672F47DD6F">Get the ID and status of
+			 all portfolios with positions in secId ‘YYY’. 
+			 <table id="table_9083992CE67E49DE8889709614095CEF"> 
+				<tgroup cols="2"> 
+				  <colspec colname="1" colnum="1" colwidth="*"/> 
+				  <colspec colname="2" colnum="2" colwidth="*"/> 
+				  <tbody> 
+					 <row> 
+						<entry>Query string 
+						</entry> 
+						<entry> 
+						  <codeblock>IMPORT cacheRunner.Position;
+SELECT DISTINCT id, status FROM /portfolios
+    WHERE NOT (SELECT DISTINCT * FROM positions.values posnVal TYPE
+    Position WHERE posnVal.secId='YYY').isEmpty </codeblock> 
+						</entry> 
+					 </row> 
+					 <row> 
+						<entry>Results 
+						</entry> 
+						<entry>Collection of 
+						  <codeph>Struct</codeph> instances each containing an id
+						  field and a status field. For this data, the 
+						  <codeph>Collection</codeph> length is 1, and the 
+						  <codeph>Struct</codeph> contains data from the entry with
+						  id XYZ-2 , like this: [struct(id:XYZ-2,status:active)] 
+						</entry> 
+					 </row> 
+					 <row> 
+						<entry>Code 
+						</entry> 
+						<entry> 
+						  <codeblock>String queryString =
+  "SELECT DISTINCT id, status FROM /portfolios "
+  + "WHERE NOT "
+  + "(SELECT DISTINCT * FROM positions.values posnVal TYPE Position"
+  + "WHERE posnVal.secId='YYY').isEmpty ";
+  Query query = qryService.newQuery(queryString);
+SelectResults results = (SelectResults)query.execute();
+for (Iterator iter = results.iterator(); iter.hasNext(); )
+{
+  Struct struct = (Struct) iter.next();
+  int id = ((Integer) struct.get("id")).intValue();
+  String status = (String) struct.get("status");
+  ...
+}  </codeblock> 
+						</entry> 
+					 </row> 
+					 <row> 
+						<entry>Notes 
+						</entry> 
+						<entry>This query uses the 
+						  <codeph>TYPE</codeph> keyword to tell the querying engine
+						  the class to associate with 
+						  <codeph>positions.values</codeph>. 
+						  <p>The inner SELECT statement (on positions) is performed
+							 in its own context, or scope, with access to the outer scope owned by the outer
+							 SELECT statement (on /portfolios). The FROM in the outer SELECT creates a
+							 collection of /portfolios entry values. For each iteration of this outer
+							 collection, the FROM clause of inner SELECT, creates a collection of 
+							 <codeph>Map</codeph> values. Thus for every outer SELECT
+							 iteration, the inner SELECT iterates over the complete 
+							 <codeph>Collection</codeph> created. 
+						  </p> 
+						</entry> 
+					 </row> 
+				  </tbody> 
+				</tgroup> 
+			 </table> 
+		  </li> 
+		  <li id="li_5BF3AA81337A4E2DB503D3CDC8A05F23">Get distinct positions
+			 from all active portfolios with at least a $25.00 market value. 
+			 <table id="table_FEE75BB83F504ABBB3DFC565BD5AA925"> 
+				<tgroup cols="2"> 
+				  <colspec colname="1" colnum="1" colwidth="*"/> 
+				  <colspec colname="2" colnum="2" colwidth="*"/> 
+				  <tbody> 
+					 <row> 
+						<entry>Query string 
+						</entry> 
+						<entry> 
+						  <codeblock>IMPORT cacheRunner.Position;
+SELECT DISTINCT posnVal
+    FROM /portfolios qryP, qryP.positions.values posnVal TYPE Position
+    WHERE qryP.status = 'active' AND posnVal.mktValue &gt;= 25.00 </codeblock> 
+						</entry> 
+					 </row> 
+					 <row> 
+						<entry>Results 
+						</entry> 
+						<entry>Collection of Position instances with secId : XXX ,
+						  XXY 
+						</entry> 
+					 </row> 
+					 <row> 
+						<entry>Notes 
+						</entry> 
+						<entry>The queries assign iterator variable names to the
+						  collections in the FROM clause. In this example, the variable 
+						  <codeph>qryP</codeph> is the iterator for the entry values
+						  in the 
+						  <codeph>/portfolios</codeph> region. This variable is used
+						  in the second part of the FROM clause to access the values of the positions 
+						  <codeph>Map</codeph> for each entry value. 
+						</entry> 
+					 </row> 
+				  </tbody> 
+				</tgroup> 
+			 </table> 
+		  </li> 
+		  <li id="li_CEDED5DADBAC45AFA66167DC3A11C3CA">Get distinct entry keys
+			 and positions from active portfolios with at least a $25.00 market value. 
+			 <table id="table_13C5502481F4401E8DA60C0CA73CC590"> 
+				<tgroup cols="2"> 
+				  <colspec colname="1" colnum="1" colwidth="*"/> 
+				  <colspec colname="2" colnum="2" colwidth="*"/> 
+				  <tbody> 
+					 <row> 
+						<entry>Query string 
+						</entry> 
+						<entry> 
+						  <codeblock>IMPORT cacheRunner.Position;
+SELECT DISTINCT key, posnVal
+    FROM /portfolios.entrySet, value.positions.values posnVal TYPE Position
+    WHERE posnVal.mktValue &gt;= 25.00 </codeblock> 
+						</entry> 
+					 </row> 
+					 <row> 
+						<entry>Results 
+						</entry> 
+						<entry>A SelectResults of Struct instances containing key,
+						  Position pairs [struct(key:XYZ-1,posnVal:Position [secId=XXX mktValue=27.34
+						  qty=1000.00]), struct(key:XYZ-1,posnVal:Position [secId=XXY mktValue=26.31
+						  qty=1200.00])] 
+						</entry> 
+					 </row> 
+					 <row> 
+						<entry>Notes 
+						</entry> 
+						<entry>Retrieving the entry keys allows you to access the
+						  cached region entries if you need to update them. 
+						</entry> 
+					 </row> 
+				  </tbody> 
+				</tgroup> 
+			 </table> 
+		  </li> 
+		</ul> 
+		</p> 
+	 </section> 
+  </conbody> 
+</concept> 

@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "http://docs.oasis-open.org/dita/v1.1/OS/dtd/concept.dtd">
+<concept id="writing_callbacks_that_modify_the_cache">
+	<title>How to Safely Modify the Cache from an Event Handler Callback</title>
+	<shortdesc>Event handlers are synchronous. If you need to change the cache or perform any other
+		distributed operation from event handler callbacks, be careful to avoid activities that
+		might block and affect your overall system performance. </shortdesc>
+	<conbody>
+		<section id="section_98E49363C91945DEB0A3B2FD9A209969">
+			<title>Operations to Avoid in Event Handlers</title>
+			<p>Do not perform distributed operations of any kind directly from your event handler.
+					<keyword keyref="product_name"/> is a highly distributed system and many
+				operations that may seem local invoke distributed operations. </p>
+			<p>These are common distributed operations that can get you into trouble: <ul
+					id="ul_E3B41D3231DB4CFCB9873485DEA0B92D">
+					<li id="li_DDE87E9BE39541B0ACB342E501D8779C">Calling <codeph>Region</codeph>
+						methods, on the event's region or any other region. </li>
+					<li id="li_794199ECF1A9448B9FE855884466F628">Using the <keyword
+							keyref="product_name"/>
+						<codeph>DistributedLockService</codeph>. </li>
+					<li id="li_E2EFB47E16B046FE844C3424B2012096">Modifying region attributes. </li>
+					<li id="li_A44D404555644F21B5E7016701DDB64D">Executing a function through the
+							<keyword keyref="product_name"/>
+						<codeph>FunctionService</codeph>. </li>
+				</ul>
+			</p>
+			<p>To be on the safe side, do not make any calls to the <keyword keyref="product_name"/>
+				API directly from your event handler. Make all <keyword keyref="product_name"/> API
+				calls from within a separate thread or executor. </p>
+		</section>
+		<section id="section_78648D4177E14EA695F0B059E336137C">
+			<title>How to Perform Distributed Operations Based on Events</title>
+			<p>If you need to use the <keyword keyref="product_name"/> API from your handlers, make
+				your work asynchronous to the event handler. You can spawn a separate thread or use
+				a solution like the <codeph>java.util.concurrent.Executor</codeph> interface. The
+					<codeph>Executor</codeph> interface is available in JDK version 1.5 and above. </p>
+			<p>This example shows a serial executor where the callback creates a
+					<codeph>Runnable</codeph> that can be pulled off a queue and run by another
+				object. This preserves the ordering of events.
+				<codeblock>public void afterCreate(EntryEvent event) {
+  final Region otherRegion = cache.getRegion("/otherRegion");
+  final Object key = event.getKey();
+  final Object val = event.getNewValue();
+
+  serialExecutor.execute(new Runnable() {
+    public void run() {
+      try {
+        otherRegion.create(key, val);
+      }
+      catch (com.gemstone.gemfire.cache.RegionDestroyedException e) {
+        ...
+      }
+      catch (com.gemstone.gemfire.cache.EntryExistsException e) {
+        ...
+      }
+    }
+  });
+  }</codeblock>
+			</p>
+			<p>For additional information on the <codeph>Executor</codeph>, see the
+					<codeph>SerialExecutor</codeph> example on the Oracle Java web site. </p>
+		</section>
+	</conbody>
+</concept>

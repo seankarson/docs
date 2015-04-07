@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE task PUBLIC "-//OASIS//DTD DITA Task//EN" "http://docs.oasis-open.org/dita/v1.1/OS/dtd/task.dtd">
+<task id="create_a_region_with_cacheXML">
+	<title>Creating a Region Through the cache.xml File</title>
+	<shortdesc>A common way to create a data region in the <keyword keyref="product_name_long"/>
+		cache is through <codeph>cache.xml</codeph> declarations. </shortdesc>
+	<taskbody>
+		<prereq id="prereq_A4A515AD3388456E9E83CD88C27F0B8D">
+			<p>Before you start, configure your <codeph>&lt;cache&gt;</codeph> or
+					<codeph>&lt;client-cache&gt;</codeph> in your <codeph>cache.xml</codeph> file
+				and determine the region shortcut and other attributes settings your region needs.
+				The <codeph>cache.xml</codeph> file must conform to the schema definition provided
+				in the product's <codeph>cache-8.1.xsd</codeph>. </p>
+		</prereq>
+		<context id="context_E4AC95B5DC0F4DB692F8C80566E6E9C7">Region creation is subject to
+			attribute consistency checks, both internal to the cache and, if the region is not
+			local, between all caches where the region is defined. The requirements for consistency
+			between region attributes are detailed in the online Java API documentation. </context>
+		<steps id="steps_8553A4B6268947ADA6D7F2C960F308A6">
+			<step id="step_3E3A2B0360334CF9B07B31966BBC1C2C">
+				<cmd>In your <codeph>cache.xml</codeph> file, create a
+						<codeph>&lt;region&gt;</codeph> element for your new region as a subelement
+					to the <codeph>&lt;cache&gt;</codeph> element or the
+						<codeph>&lt;client-cache&gt;</codeph> element. </cmd>
+			</step>
+			<step id="step_8ED3D06AD3D94E1CA864A38BBCA75D57">
+				<cmd>Define your region’s name and a region attributes shortcut setting, if one
+					applies. Find the shortcut setting that most closely fits your region
+					configuration. </cmd>
+			</step>
+			<step id="step_989E403FF660488BBD06338AC487F836">
+				<cmd>Add other attributes as needed to customize the region’s behavior. </cmd>
+			</step>
+		</steps>
+		<result id="result_8E11B7C1901149CF9F96751325C210E1">When you start your member with the
+				<codeph>cache.xml</codeph> file, the region will be created. </result>
+		<example id="example_EF879346AF63447FB56EECB03EA748A9">
+			<title>Examples</title>
+			<p>Partitioned Region Declaration
+				<codeblock>&lt;region name="myRegion" refid="PARTITION"/&gt;</codeblock>
+			</p>
+			<p>Partitioned Region Declaration with Backup to Disk
+				<codeblock>&lt;region name="myRegion" refid="PARTITION_PERSISTENT"/&gt;</codeblock>
+			</p>
+			<p>Partitioned Region Declaration with HA and Modified Storage Capacity in Host Member
+				<codeblock>&lt;region name="myRegion" refid="PARTITION_REDUNDANT"&gt;
+	&lt;region-attributes&gt;
+	    &lt;partition-attributes local-max-memory="512" /&gt;
+	&lt;/region-attributes&gt;
+&lt;/region&gt;</codeblock>
+			</p>
+			<p>Replicated Region Declaration
+				<codeblock>&lt;region name="myRegion" refid="REPLICATE"/&gt;</codeblock>
+			</p>
+			<p>Replicated Region Declaration with Event Listener and Expiration
+				<codeblock>&lt;region name="myRegion" refid="REPLICATE"&gt;
+	&lt;region-attributes statistics-enabled="true"&gt;
+		&lt;entry-time-to-live&gt;
+			&lt;expiration-attributes timeout="60" action="destroy"/&gt;
+		&lt;/entry-time-to-live&gt;
+        &lt;cache-listener&gt;
+            &lt;class-name&gt;myPackage.MyCacheListener&lt;/class-name&gt;
+        &lt;/cache-listener&gt;
+    &lt;/region-attributes&gt;
+&lt;/region&gt;</codeblock>
+			</p>
+		</example>
+	</taskbody>
+</task>

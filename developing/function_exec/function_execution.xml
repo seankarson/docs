@@ -1,0 +1,400 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "http://docs.oasis-open.org/dita/v1.1/OS/dtd/concept.dtd">
+<concept id="function_execution">
+	<title>Executing a Function in <keyword keyref="product_name_long"/></title>
+	<conbody>
+		<section id="section_BE483D79B81C49EE9855F506ED5AB014">
+			<p>In this procedure it is assumed that you have your members and regions defined where
+				you want to run functions. </p>
+			<p>Main tasks: <ol id="ol_61EDD679C23F42BFBF3BD6135D8355F4">
+					<li id="li_2C9D602F261F4912A3B344836EA43C60">Write the function code. </li>
+					<li id="li_F817EF01CDE54B4AB2370144D41BD00F">Register the function on all
+						servers where you want to execute the function. The easiest way to register
+						a function is to use the <codeph>gfsh</codeph>
+						<codeph>deploy</codeph> command to deploy the JAR file containing the
+						function code. Deploying the JAR automatically registers the function for
+						you. See <xref scope="local"
+							href="function_execution.xml#function_execution/section_164E27B88EC642BA8D2359B18517B624"
+							type="section" format="dita"/> for details. Alternatively, you can write
+						the XML or application code to register the function. See <xref
+							href="function_execution.xml#function_execution/section_1D1056F843044F368FB76F47061FCD50"
+							type="section" format="dita" scope="local"/> for details. </li>
+					<li id="li_A539C20E9DAD432CA7BC9710BC4850AA">Write the application code to run
+						the function and, if the function returns results, to handle the results. </li>
+					<li id="li_79F342421DA643B8A3C4434EB7C65C33">If your function returns results
+						and you need special results handling, code a custom
+							<codeph>ResultsCollector</codeph> implementation and use it in your
+						function execution. </li>
+				</ol>
+			</p>
+		</section>
+		<section id="section_7D43B0C628D54F579D5C434D3DF69B3C">
+			<title>Write the Function Code </title>
+			<p>To write the function code, you implement the <codeph>Function</codeph> interface or
+				extend the <codeph>FunctionAdapter</codeph> class. Both are in the
+					<codeph>com.gemstone.gemfire.cache.execute</codeph> package. The adapter class
+				provides some default implementations for methods, which you can override. </p>
+			<p>Code the methods you need for the function. These steps do not have to be done in
+				this order. <ol id="ol_effbfb21-0d0f-445c-9696-0e7c8019828e">
+					<li id="li_66BD41CE304247179797CED74455C35A">Code <codeph>getId</codeph> to
+						return a unique name for your function. You can use this name to access the
+						function through the <codeph>FunctionService</codeph> API. </li>
+					<li id="li_9D19BAF5317E42A9861FDAE2B37A46B3">For high availability: <ol
+							id="ol_245349BCBDE54EFB831F2495DBFF1ED0">
+							<li id="li_7FCCCBB82CDA44638D68302444BEE327">Code <codeph>isHa</codeph>
+								to return true to indicate to <keyword keyref="product_name"/> that
+								it can re-execute your function after one or more members fails </li>
+							<li id="li_933FA8732D564DBDA2D7D072F098C570">Code your function to
+								return a result </li>
+							<li id="li_B359E16BCA7B4BFABA262FD435CFE702">Code
+									<codeph>hasResult</codeph> to return true </li>
+						</ol>
+					</li>
+					<li id="li_C06EF411ACA1421BBFD58429CAF5A36D">Code <codeph>hasResult</codeph> to
+						return true if your function returns results to be processed and false if
+						your function does not return any data - the fire and forget function.
+							<codeph>FunctionAdapter</codeph>
+						<codeph>hasResult</codeph> returns true by default. </li>
+					<li id="li_34928260139D45EDAE565F0F0E2D52F9">If the function will be executed on
+						a region, code <codeph>optimizeForWrite</codeph> to return false if your
+						function only reads from the cache, and true if your function updates the
+						cache. The method only works if, when you are running the function, the
+							<codeph>Execution</codeph> object is obtained through a
+							<codeph>FunctionService</codeph>
+						<codeph>onRegion</codeph> call. <codeph>FunctionAdapter</codeph>
+						<codeph>optimizeForWrite</codeph> returns false by default. </li>
+					<li id="li_1B3F66ECE2744FC997347ACD5FE06884">Code the <codeph>execute</codeph>
+						method to perform the work of the function. <ol
+							id="ol_B84E30BF83EA4E438BADBC54BDB6F7F0">
+							<li id="li_060296643354416B904DBF97F15F2F23">Make
+									<codeph>execute</codeph> thread safe to accommodate simultaneous
+								invocations. </li>
+							<li id="li_3BC8A425F3B84DA497586454BB485DBD">For high availability, code
+									<codeph>execute</codeph> to accommodate multiple identical calls
+								to the function. Use the <codeph>RegionFunctionContext</codeph>
+								<codeph>isPossibleDuplicate</codeph> to determine whether the call
+								may be a high-availability re-execution. This boolean is set to true
+								on execution failure and is false otherwise. <note>The
+										<codeph>isPossibleDuplicate</codeph> boolean can be set
+									following a failure from another member’s execution of the
+									function, so it only indicates that the execution might be a
+									repeat run in the current member. </note>
+							</li>
+							<li id="li_DCA9A2BF2E1B4DA397DC1F3582E77F16">Use the function context to
+								get information about the execution and the data: <ul
+									id="ul_F924D867109A4F69B721C78F109F2AAF">
+									<li id="li_40990F1EA26048B08AC27DC0C620DFA3">The context holds
+										the function ID, the <codeph>ResultSender</codeph> object
+										for passing results back to the originator, and function
+										arguments provided by the member where the function
+										originated. </li>
+									<li id="li_2453BEAFC0B8489AA85AD35CA53003CF">The context
+										provided to the function is the
+											<codeph>FunctionContext</codeph>, which is automatically
+										extended to <codeph>RegionFunctionContext</codeph> if you
+										get the <codeph>Execution</codeph> object through a
+											<codeph>FunctionService</codeph>
+										<codeph>onRegion</codeph> call. </li>
+									<li id="li_A5CAF0DB522D4B13B409000336D07F20">For data dependent
+										functions, the <codeph>RegionFunctionContext</codeph> holds
+										the <codeph>Region</codeph> object, the <codeph>Set</codeph>
+										of key filters, and a boolean indicating multiple identical
+										calls to the function, for high availability
+										implementations. </li>
+									<li id="li_D69D7203AB44450F98917332B89A12C5">For partitioned
+										regions, the <codeph>PartitionRegionHelper</codeph> provides
+										access to additional information and data for the region.
+										For single regions, use
+											<codeph>getLocalDataForContext</codeph>. For colocated
+										regions, use
+											<codeph>getLocalColocatedRegions</codeph>.<note>When you
+											use
+												<codeph>PartitionRegionHelper.getLocalDataForContext</codeph>,
+												<codeph>putIfAbsent</codeph> may not return expected
+											results if you are working on local data set instead of
+											the region.</note>
+									</li>
+								</ul>
+							</li>
+							<li>To propagate an error condition or exception back to the caller of
+								the function, throw a FunctionException from the
+									<codeph>execute</codeph> method. <keyword keyref="product_name"
+								/> transmits the exception back to the caller as if it had been
+								thrown on the calling side. See the Java API documentation for <xref
+									href="http://gemfire.docs.pivotal.io/latest/javadocs/japi/com/gemstone/gemfire/cache/execute/FunctionException.html/"
+									format="html" scope="external">FunctionException</xref> for more
+								information.</li>
+						</ol>
+					</li>
+				</ol>
+			</p>
+			<p>Example function code: </p>
+			<p>
+				<codeblock>package quickstart;
+
+import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.Set;
+
+import com.gemstone.gemfire.cache.execute.FunctionAdapter;
+import com.gemstone.gemfire.cache.execute.FunctionContext;
+import com.gemstone.gemfire.cache.execute.RegionFunctionContext;
+import com.gemstone.gemfire.cache.partition.PartitionRegionHelper;
+
+public class MultiGetFunction extends FunctionAdapter {
+
+  public void execute(FunctionContext fc) { 
+	if(! (fc instanceof RegionFunctionContext)){
+	   throw new FunctionException("This is a data aware function, and has 
+to be called using FunctionService.onRegion.");
+    }
+    RegionFunctionContext context = (RegionFunctionContext)fc;
+    Set keys = context.getFilter();
+    Set keysTillSecondLast = new HashSet(); 
+    int setSize = keys.size();
+    Iterator keysIterator = keys.iterator();
+    for(int i = 0; i &lt; (setSize -1); i++)
+    {
+      keysTillSecondLast.add(keysIterator.next());
+    }
+    for (Object k : keysTillSecondLast) {
+      context.getResultSender().sendResult(
+          (Serializable)PartitionRegionHelper.getLocalDataForContext(context)
+              .get(k));
+    }
+    Object lastResult = keysIterator.next();
+    context.getResultSender().lastResult(
+        (Serializable)PartitionRegionHelper.getLocalDataForContext(context)
+            .get(lastResult));
+  }
+
+  public String getId() {
+    return getClass().getName();
+  }
+}</codeblock>
+			</p>
+		</section>
+		<section id="section_164E27B88EC642BA8D2359B18517B624">
+			<title>Register the Function Automatically by Deploying a JAR</title>
+			<p>When you deploy a JAR file that contains a Function (in other words, contains a class
+				that implements the Function interface), the Function will be automatically
+				registered via the <codeph>FunctionService.registerFunction</codeph> method. </p>
+			<p>To register a function by using <codeph>gfsh</codeph>: <ol
+					id="ol_BC87AAB773E24C49872FD0435BAE77DE">
+					<li id="li_5789DCEF2B2D49A6B6C5B0D748395076">Package your class files into a JAR
+						file. </li>
+					<li id="li_9484BD172BEC4494915575ACFF91C9FD">Start a <codeph>gfsh</codeph>
+						prompt. If necessary, start a Locator and connect to the <keyword
+							keyref="product_name"/> distributed system where you want to run the
+						function. </li>
+					<li id="li_0A205F210385474F87A9B9C962D75796">At the gfsh prompt, type the
+						following command:
+						<codeblock>gfsh&gt;deploy --jar=group1_functions.jar</codeblock>where
+						group1_functions.jar corresponds to the JAR file that you created in step 1.
+					</li>
+				</ol>If another JAR file is deployed (either with the same JAR filename or another
+				filename) with the same Function, the new implementation of the Function will be
+				registered, overwriting the old one. If a JAR file is undeployed, any Functions that
+				were auto-registered at the time of deployment will be unregistered. Since deploying
+				a JAR file that has the same name multiple times results in the JAR being
+				un-deployed and re-deployed, Functions in the JAR will be unregistered and
+				re-registered each time this occurs. If a Function with the same ID is registered
+				from multiple differently named JAR files, the Function will be unregistered if
+				either of those JAR files is re-deployed or un-deployed. </p>
+			<p>See <xref
+					href="../../configuring/cluster_config/deploying_application_jars.xml#concept_4436C021FB934EC4A330D27BD026602C"
+					type="concept" format="dita" scope="local"/> for more details on deploying JAR
+				files. </p>
+		</section>
+		<section id="section_1D1056F843044F368FB76F47061FCD50">
+			<title>Register the Function Programmatically</title>
+			<p>This section applies to functions that are invoked using the
+					<codeph>Execution.execute(String functionId)</codeph> signature. When this
+				method is invoked, the calling application sends the function ID to all members
+				where the <codeph>Function.execute</codeph> is to be run. Receiving members use the
+				ID to look up the function in the local <codeph>FunctionService</codeph>. In order
+				to do the lookup, all of the receiving member must have previously registered the
+				function with the function service. </p>
+			<p>The alternative to this is the <codeph>Execution.execute(Function function)</codeph>
+				signature. When this method is invoked, the calling application serializes the
+				instance of <codeph>Function</codeph> and sends it to all members where the
+					<codeph>Function.execute</codeph> is to be run. Receiving members deserialize
+				the <codeph>Function</codeph> instance, create a new local instance of it, and run
+				execute from that. This option is not available for non-Java client invocation of
+				functions on servers. </p>
+			<p>Your Java servers must register functions that are invoked by non-Java clients. You
+				may want to use registration in other cases to avoid the overhead of sending
+					<codeph>Function</codeph> instances between members. </p>
+			<p>Register your function using one of these methods: <ul
+					id="ul_31CA4EA177914D9AA168C21B4F9FC1A6">
+					<li id="li_5EFA0E9F7F724F4784163DF7AF669151">XML:
+						<codeblock>&lt;cache&gt;
+    ...
+    &lt;/region&gt;
+&lt;function-service&gt;
+  &lt;function&gt;
+    &lt;class-name&gt;com.bigFatCompany.tradeService.cache.func.TradeCalc&lt;/class-name&gt;
+  &lt;/function&gt;
+&lt;/function-service&gt;</codeblock>
+					</li>
+					<li id="li_3B761E54F1E04CEB8C15E1C500DD54C0">Java: <codeblock>myFunction myFun = new myFunction();
+FunctionService.registerFunction(myFun);</codeblock>
+						<note>Modifying a function instance after registration has no effect on the
+							registered function. If you want to execute a new function, you must
+							register it with a different identifier. </note>
+					</li>
+				</ul>
+			</p>
+		</section>
+		<section id="section_6A0F4C9FB77C477DA5D995705C8BDD5E">
+			<title>Run the Function</title>
+			<p>This assumes you’ve already followed the steps for writing and registering the
+				function. </p>
+			<p>In every member where you want to explicitly execute the function and process the
+				results, you can use the <codeph>gfsh</codeph> command line to run the function or
+				you can write an application to run the function. </p>
+			<p>
+				<b>Running the Function Using gfsh</b>
+				<ol id="ol_2CCD1625F9B345F4866B34DD05997E8C">
+					<li id="li_ADD43FA36A784073ADABC710B6E325CB">Start a gfsh prompt. </li>
+					<li id="li_B9A442CE010944FC98E9AC4F435D1A54">If necessary, start a Locator and
+						connect to the <keyword keyref="product_name"/> distributed system where you
+						want to run the function. </li>
+					<li id="li_4922A87045574BE6A9F69C011C6C62B4">At the gfsh prompt, type the
+						following command:
+						<codeblock>gfsh&gt; execute function --id=<i>function_id</i></codeblock>Where
+							<i>function_id</i> equals the unique ID assigned to the function. You
+						can obtain this ID using the <codeph>Function.getId</codeph> method. </li>
+				</ol>
+			</p>
+			<p>See <xref
+					href="../../tools_modules/gfsh/quick_ref_commands_by_area.xml#topic_8BB061D1A7A9488C819FE2B7881A1278"
+					type="topic" format="dita" scope="local"/> for more <codeph>gfsh</codeph>
+				commands related to functions. </p>
+			<p>
+				<b>Running the Function via API Calls</b>
+				<ol id="ol_e958138e-9c22-4316-b8b1-e369807b9832">
+					<li id="li_58D585B692134282B93BFBD2FE5746A2">Use one of the
+							<codeph>FunctionService</codeph>
+						<codeph>on*</codeph> methods to create an <codeph>Execute</codeph> object.
+						The <codeph>on*</codeph> methods, <codeph>onRegion</codeph>,
+							<codeph>onMembers</codeph>, etc., define the highest level where the
+						function is run. For colocated partitioned regions, use
+							<codeph>onRegion</codeph> and specify any one of the colocated regions.
+						The function run using <codeph>onRegion</codeph> is referred to as a data
+						dependent function - the others as data-independent functions. </li>
+					<li id="li_BB41419F5D994364A561E61CF747B30E">Use the <codeph>Execution</codeph>
+						object as needed for additional function configuration. You can: <ul
+							id="ul_3ea74639-f5ee-4409-afea-71a74ce27768">
+							<li id="li_770A8F9CC0B14A17A14B2F2CBFEB9216">Provide a key
+									<codeph>Set</codeph> to <codeph>withFilters</codeph> to narrow
+								the execution scope for <codeph>onRegion</codeph>
+								<codeph>Execution</codeph> objects. You can retrieve the key set in
+								your <codeph>Function</codeph>
+								<codeph>execute</codeph> method through
+									<codeph>RegionFunctionContext.getFilter</codeph>. </li>
+							<li id="li_90F8C16EFC204FBB8AD7CE4654F164C5">Provide function arguments
+								to <codeph>withArgs</codeph>. You can retrieve these in your
+									<codeph>Function</codeph>
+								<codeph>execute</codeph> method through
+									<codeph>FunctionContext.getArguments</codeph>. </li>
+							<li id="li_A35B249F344A4F8E99889E98CED3C783">Define a custom
+									<codeph>ResultCollector</codeph>
+							</li>
+						</ul>
+					</li>
+					<li id="li_17F4779769C844638AA160973884F169">Call the <codeph>Execution</codeph>
+						object to <codeph>execute</codeph> method to run the function. </li>
+					<li id="li_CDFB63F1600441B28C899487307695ED">If the function returns results,
+						call <codeph>getResult</codeph> from the results collector returned from
+							<codeph>execute</codeph> and code your application to do whatever it
+						needs to do with the results. <note>For high availability, you must call the
+								<codeph>getResult</codeph> method. </note>
+					</li>
+				</ol>
+			</p>
+			<p>Example of running the function - for executing members: </p>
+			<codeblock>MultiGetFunction function = new MultiGetFunction();
+FunctionService.registerFunction(function);
+    
+writeToStdout("Press Enter to continue.");
+stdinReader.readLine();
+    
+Set keysForGet = new HashSet();
+keysForGet.add("KEY_4");
+keysForGet.add("KEY_9");
+keysForGet.add("KEY_7");
+
+Execution execution = FunctionService.onRegion(exampleRegion)
+    .withFilter(keysForGet)
+    .withArgs(Boolean.TRUE)
+    .withCollector(new MyArrayListResultCollector());
+
+ResultCollector rc = execution.execute(function);
+// Retrieve results, if the function returns results
+List result = (List)rc.getResult();</codeblock>
+		</section>
+		<section id="section_F2AFE056650B4BF08BC865F746BFED38">
+			<title>Write a Custom Results Collector </title>
+			<p>This topic applies to functions that return results. </p>
+			<p>When you execute a function that returns results, the function stores the results
+				into a <codeph>ResultCollector</codeph> and returns the
+					<codeph>ResultCollector</codeph> object. The calling application can then
+				retrieve the results through the <codeph>ResultCollector</codeph>
+				<codeph>getResult</codeph> method. Example:
+				<codeblock>ResultCollector rc = execution.execute(function);
+List result = (List)rc.getResult();</codeblock>
+			</p>
+			<p><keyword keyref="product_name"/>’s default <codeph>ResultCollector</codeph> collects
+				all results into an <codeph>ArrayList</codeph>. Its <codeph>getResult</codeph>
+				methods block until all results are received. Then they return the full result set. </p>
+			<p>To customize results collecting: <ol id="ol_d6f29311-d9ed-40b1-8375-1691c5e87c9c">
+					<li id="li_11D471980B324907A24A252BB03200B6">Write a class that extends
+							<codeph>ResultCollector</codeph> and code the methods to store and
+						retrieve the results as you need. Note that the methods are of two types:
+							<ol id="ol_31FA910CE11E41A2BE6C2F5C329CC44A">
+							<li id="li_2739D7E1ED6D4A458EF1F619BD99F493"><codeph>addResult</codeph>
+								and <codeph>endResults</codeph> are called by <keyword
+									keyref="product_name"/> when results arrive from the
+									<codeph>Function</codeph> instance <codeph>SendResults</codeph>
+								methods </li>
+							<li id="li_9FBC8DD4A83C4C1C825D7E8B6E0B6A9F"><codeph>getResult</codeph>
+								is available to your executing application (the one that calls
+									<codeph>Execution.execute</codeph>) to retrieve the results
+							</li>
+						</ol>
+					</li>
+					<li id="li_F5E5D5DD41DE4414AB5BAF900854638F">Use high availability for
+							<codeph>onRegion</codeph> functions that have been coded for it: <ol
+							id="ol_D5422DD905744D0784A315186A0F93DF">
+							<li id="li_E4091080BD714D03BB839C6EDA656534">Code the
+									<codeph>ResultCollector</codeph>
+								<codeph>clearResults</codeph> method to remove any partial results
+								data. This readies the instance for a clean function re-execution. </li>
+							<li id="li_D84C83770E894B9EB8F4A5F54DF9A198">When you invoke the
+								function, call the result collector <codeph>getResult</codeph>
+								method. This enables the high availability functionality. </li>
+						</ol>
+					</li>
+					<li id="li_CCBC639703AE4C4E92BC953FD034981B">In your member that calls the
+						function execution, create the <codeph>Execution</codeph> object using the
+							<codeph>withCollector</codeph> method, and passing it your custom
+						collector. Example:
+						<codeblock>Execution execution = FunctionService.onRegion(exampleRegion)
+    .withFilter(keysForGet)
+    .withArgs(Boolean.TRUE)
+    .withCollector(new MyArrayListResultCollector());</codeblock>
+					</li>
+				</ol>
+			</p>
+		</section>
+		<section id="section_638E1FB9B08F4CC4B62C07DDB3661C14">
+			<title>Targeting Single Members of a Member Group or Entire Member Groups</title>
+			<p>To execute a data independent function on a group of members or one member in a group
+				of members, you can write your own nested function. You will need to write one
+				nested function if you are executing the function from client to server and another
+				nested function if you are executing a function from server to all members. </p>
+		</section>
+	</conbody>
+</concept>

@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept id="concept_2E9F15B2FE9041238B54736103396BF7">
+	<title>IMPORT Statement</title>
+	<shortdesc> </shortdesc>
+	<conbody>
+		<p>It is sometimes necessary for an OQL query to refer to the class of an object. In cases
+			where the same class name resides in two different namescopes (packages), you must be
+			able to differentiate the classes having the same name. </p>
+		<p>The <b>IMPORT</b> statement is used to establish a name for a class in a query. </p>
+		<p>
+			<codeblock>IMPORT package.Position;
+SELECT DISTINCT * FROM /exampleRegion, positions.values positions TYPE Position WHERE positions.mktValue &gt;= 25.00
+</codeblock>
+		</p>
+	</conbody>
+</concept>

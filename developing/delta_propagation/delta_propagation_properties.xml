@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "http://docs.oasis-open.org/dita/v1.1/OS/dtd/concept.dtd">
+<concept id="delta_propagation_properties">
+	<title>Delta Propagation Properties</title>
+	<shortdesc>This topic describes the properties that can be used to configure delta
+		propagation.</shortdesc>
+	<conbody>
+		<p>Delta propagation properties can be configured through the API and through the
+				<codeph>gemfire.properties</codeph> and <codeph>cache.xml</codeph> files. </p>
+		<section id="section_561D6DA876E24469B7536E98AB12F676">
+			<title>delta-propagation</title>
+			<p>A <codeph>gemfire.properties</codeph> boolean that enables or disables delta
+				propagation. When false, full entry values are sent for every update. The default
+				setting is true, which enables delta propagation. </p>
+			<p>Disable delta propagation as follows: <ul id="ul_D79DEF5F70FF402AAC84F2E986B94B73">
+					<li id="li_86074428AE9D411F94DCF2188CBBB7BF"
+						><codeph>gemfire.properties</codeph>:
+						<codeblock>delta-propagation=false</codeblock>
+					</li>
+					<li id="li_E5C616BFE27D4601B926E1A56F8683D9">API:
+						<codeblock outputclass="language-java">Properties props = new Properties();
+props.setProperty("delta-propagation", false);
+this.cache = new ClientCacheFactory(props).create();</codeblock>
+					</li>
+				</ul>
+			</p>
+		</section>
+		<section id="section_7D4590512D1548FD94F81C8726A2CA44">
+			<title>cloning-enabled</title>
+			<p>A region attributes boolean that affects how <codeph>fromDelta</codeph> applies
+				deltas to the local cache. When true, the updates are applied to a clone of the
+				value and then the clone is saved to the cache. When false, the value is modified in
+				place in the cache. The default value is false. </p>
+			<p>Exceptions to this behavior: <ul id="ul_813FE29533364E42B53D8A9B29B8805D">
+					<li id="li_B53244A0B6104168BC7DA06CEE7FFCA9">If the <codeph>Cache</codeph>
+						attribute <codeph>copy-on-read</codeph> is true, cloning is enabled,
+						regardless of what this attribute is set to. </li>
+				</ul>
+			</p>
+			<p>Cloning can be expensive, but it ensures that the new object is fully initialized
+				with the delta before any application code sees it. </p>
+			<p>When cloning is enabled, by default <keyword keyref="product_name"/> does a deep copy
+				of the object, using serialization. You may be able to improve performance by
+				implementing <codeph>java.lang.Cloneable</codeph> and then implementing the
+					<codeph>clone</codeph> method, making a deep copy of anything to which a delta
+				may be applied. The goal is to reduce significantly the overhead of copying the
+				object while still retaining the isolation needed for your deltas. </p>
+			<p>Without cloning: <ul id="ul_3A485298D7E34F92ADDD748C425C5484">
+					<li id="li_005857ED4556401A8BA4DC2DAA27EEE6">It is possible for application code
+						to read the entry value as it is being modified, possibly seeing the value
+						in an intermediate, inconsistent state, with just part of the delta applied.
+						You may choose to resolve this issue by having your application code
+						synchronize on reads and writes. </li>
+					<li id="li_D0E07D8812164372B150251A86816583"><keyword keyref="product_name"/>
+						loses any reference to the old value because the old value is transformed in
+						place into the new value. Because of this, your
+							<codeph>CacheListener</codeph> sees the same new value returned for
+							<codeph>EntryEvent.getOldValue</codeph> and
+							<codeph>EntryEvent.getNewValue</codeph> . </li>
+					<li id="li_5CFFA5F347D14870AAF1C24DB52EDFE0">Exceptions thrown from
+							<codeph>fromDelta</codeph> may leave your cache in an inconsistent
+						state. Without cloning, any interruption of the delta application could
+						leave you with some of the fields in your cached object changed and others
+						unchanged. If you do not use cloning, keep this in mind when you program
+						your error handling in your <codeph>fromDelta</codeph> implementation. </li>
+				</ul>
+			</p>
+			<p>With cloning: <ul id="ul_E7D746003E334D15BC125950077E1001">
+					<li id="li_47921CAF619642658F49D13F2EC5C34A">The <codeph>fromDelta</codeph>
+						method generates more garbage in memory. </li>
+					<li id="li_9EC7482981CA4DF4A30700EAC2255E3A">Performance is reduced. </li>
+				</ul>
+			</p>
+			<p>Enable cloning as follows: <ul id="ul_BC54740329F846759AD65145EE552699">
+					<li id="li_31F83246432D482D908B6D0EECDEF5DC"><codeph>cache.xml</codeph>:
+						<codeblock outputclass="language-xml">&lt;region name="region_with_cloning"&gt;
+    &lt;region-attributes refid="REPLICATE" cloning-enabled="true"&gt;
+    &lt;/region-attributes&gt;
+&lt;/region&gt;</codeblock>
+					</li>
+					<li id="li_144A536234AB424987608947DDAEB4E4" outputclass="">API:
+						<codeblock outputclass="language-java">RegionFactory rf = cache.createRegionFactory(REPLICATE);
+rf.setCloningEnabled(true);
+custRegion = rf.create("customer");</codeblock></li>
+					<li outputclass=""
+						>gfsh:<codeblock outputclass="language-bourne">gfsh>create region --name="region_with_cloning" --type=REPLICATE
+--enable-cloning=true</codeblock>
+					</li>
+				</ul>
+			</p>
+		</section>
+	</conbody>
+</concept>

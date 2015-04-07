@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "http://docs.oasis-open.org/dita/v1.1/OS/dtd/concept.dtd">
+<concept id="authentication_whats_next"> 
+  <title>REMOVE_JMX and Authentication</title> 
+  <prolog><metadata><keywords><keyword>gemfire jmx
+			 authentication</keyword><keyword>gemfire
+			 Agent.connectToSystem</keyword></keywords></metadata>
+  </prolog> 
+  <conbody> 
+	 <section id="section_FDDE53CAD3B14FA6B987D8CE638EFCA7"> 
+		<p>If you use a JMX agent to administer and manage an
+		  authentication-enabled 
+		  <ph
+			conref="../../product_short_name.xml#ditacomponent_4CDD0B39CDD54D2AAF1CBC81A1FDBA19/ph_2E41EB9BE730428A970C1C206D14DC09"><?xm-replace_text Phrase?></ph>
+		  distributed system, the agent must provide security credentials. Security
+		  properties cannot be passed to a JMX Agent on the command line, but they can be
+		  supplied at startup by adding the security-specific system properties to the
+		  agent's properties file 
+		  <codeph>agent.properties</codeph>. With the properties specified, the
+		  call to 
+		  <codeph>Agent.connectToSystem</codeph> causes the agent to be
+		  authenticated with the distributed system. 
+		  <ph
+		  conref="../../product_short_name.xml#ditacomponent_4CDD0B39CDD54D2AAF1CBC81A1FDBA19/ph_2E41EB9BE730428A970C1C206D14DC09"><?xm-replace_text Phrase?></ph>
+		  security does not manage RMI clients to the JMX Agent. Once connected, the JMX
+		  Agent is considered authenticated and any RMI client has access to the
+		  connected distributed system. For RMI client authentication, use MX4J security.
+		  See 
+		  <xref href="../jmx/chapter_overview.xml#setting_up_logging"
+		  type="concept" format="dita" scope="local"><?xm-replace_text OLD_Java Management Extensions (JMX)?></xref>.
+		  
+		</p> 
+	 </section> 
+  </conbody> 
+</concept> 

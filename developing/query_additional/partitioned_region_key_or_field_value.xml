@@ -1,0 +1,75 @@
+<?xml version="1.0"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept id="concept_3010014DFBC9479783B2B45982014454">
+  <title>Optimizing Queries on Data Partitioned by a Key or Field Value</title>
+  <shortdesc> </shortdesc>
+  <conbody>
+    <p>You can improve query performance on data that is partitioned by key or a field value by
+      creating a key index and then executing the query using the <codeph>FunctionService</codeph>
+      with the key or field value used as filter. </p>
+    <p>The following is an example how to optimize a query that will be run on data partitioned by
+      region key value. In the following example, data is partitioned by the "orderId" field. <ol
+        id="ol_62ED93A7FDAA498F9632203E75FA5C19">
+        <li id="li_87D7CFCC60304BD0A27B5900D9374A40">Create a key index on the orderId field. See
+            <xref
+            href="../query_index/creating_key_indexes.xml#concept_09E29507AF0D42CF81D261B030D0B7C8"
+            type="concept" format="dita" scope="local"/> for more details. </li>
+        <li id="li_24E158D079FE4F95B723C70E6018014D">Execute the query using the function service
+          with orderId provided as the filter to the function context. For example:
+          <codeblock>/**
+ * Execute MyFunction for query on data partitioned by orderId key
+ *
+ */
+public class TestFunctionQuery {
+
+  public static void main(String[] args) {
+
+    Set filter =  new HashSet();
+    ResultCollector rcollector = null;
+
+    //Filter data based on orderId  = '12345'
+    filter.add(12345);
+
+    //Query to get all orders that match ID 12345 and amount &gt; 1000
+    String qStr = "SELECT * FROM /Orders WHERE orderId = '12345' AND amount &gt; 1000";
+
+    try {
+      Function func = new MyFunction("testFunction");
+
+      Region region = CacheFactory.getAnyInstance().getRegion("myPartitionRegion");
+
+      //Function will be routed to one node containing the bucket
+      //for ID=1 and query will execute on that bucket.
+      rcollector = FunctionService
+          .onRegion(region)
+          .withArgs(qStr)
+          .withFilter(filter)
+          .execute(func);
+
+      Object result = rcollector.getResult();
+
+      //Results from one or multiple nodes.
+      ArrayList resultList = (ArrayList)result;
+
+      List queryResults = new ArrayList();
+
+      if (resultList.size()!=0) {
+        for (Object obj: resultList) {
+          if (obj != null) {
+            queryResults.addAll((ArrayList)obj);
+          }
+        }
+      }
+      printResults(queryResults);
+
+    } catch (FunctionException ex) {
+        getLogger().info(ex);
+    }
+  }
+}
+</codeblock>
+        </li>
+      </ol>
+    </p>
+  </conbody>
+</concept>

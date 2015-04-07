@@ -1,0 +1,136 @@
+<?xml version="1.0"?>
+<!DOCTYPE topic PUBLIC "-//OASIS//DTD DITA Topic//EN" "topic.dtd">
+<topic
+	id="topic_7B158074B27A4FEF9D38E7C369905C72">
+	<title>Deploying and Configuring a Gemcached Server</title>
+	<shortdesc>You can configure and deploy Gemcached servers in a Java class or by using the gfsh
+		command-line interface. </shortdesc>
+	<body>
+		<p>The following sections describe how to configure and deploy an embedded Gemcached server.
+			You can configure and start a GemCached server either by invoking a Java class that
+			calls the cache server's <codeph>start()</codeph> method, or by starting the cache
+			server using the gfsh command line. </p>
+		<section
+			id="section_17E7E4058D914334B9C5AC2E3DC1F7F2">
+			<title>Embedding a Gemcached server in a <keyword keyref="product_name"/> Java Application</title>
+
+			<p>The <codeph>com.gemstone.gemfire.memcached</codeph> package contains a single class,
+					<codeph>GemFireMemcachedServer</codeph>. (See the <xref
+					href="http://static.springsource.org/spring-gemfire/docs/current/api/"
+					scope="external"
+					format="html"><keyword keyref="product_name"/> Javadocs</xref>.) Use this class to configure and embed a
+				Gemcached server in a <keyword keyref="product_name"/> cache server. For example, the following statement
+				creates and starts an embedded Gemcached server on port number 5555 using the binary
+				protocol: </p>
+			<codeblock>GemFireMemcachedServer server = 
+  new GemFireMemcachedServer(5555, Protocol.BINARY);server.start(); 
+		  </codeblock>
+			<note>By default, Gemcached servers use the ASCII protocol. </note>
+			<p>When you start a Gemcached server, by default, it creates a
+					<codeph>RegionShortcut.PARTITION</codeph> region named
+					<codeph>gemcached</codeph> where data used by memcached clients is stored. You
+				can alter these defaults by configuring the region using the
+					<filepath>cache.xml</filepath> or <filepath>gemfire.properties</filepath> files.
+				See <xref
+					href="../../basic_config/config_concepts/chapter_overview.xml#setting_distributed_properties"
+					type="concept"
+					format="dita"
+					scope="local"><?xm-replace_text Distributed System and Cache Configuration?></xref>.
+			</p>
+		</section>
+		<section
+			id="section_58A3FFED5BBB4F92A79FBD50421DC3F3">
+			<title>Starting a Gemcached Server Using a gfsh Command</title>
+			<p>You can also start a Gemcached server with the gfsh command-line interface. Use the
+				following syntax:
+				<codeblock>gfsh&gt;start server 
+  --name=<userinput>&lt;server_name&gt;</userinput> 
+  --server-port=<userinput>&lt;port_number&gt;</userinput> 
+  --memcached-port=<userinput>&lt;port_number&gt;</userinput>
+  --memcached-protocol=<userinput>BINARY|ASCII</userinput></codeblock>
+			</p>
+			<note>
+				<p>You can also set the memcached port number and protocol in the
+						<filepath>gemfire.properties</filepath> file. </p>
+				<p> If the <filepath>memcached-port</filepath> property is not specified, the
+					embedded Gemcached server is not started. </p>
+			</note>
+		</section>
+		<section
+			id="section_E5587FE56A21424FBAEE8CF61DF34219">
+			<title>Configuring a Gemcached Server with the <filepath>gemfire.properties</filepath>
+				File</title>
+			<p>You can set the following properties in the <filepath>gemfire.properties</filepath>
+				file that are used when starting Gemcached servers: </p>
+			<table
+				id="table_3F586259E06E42C4BD82AD661B3AFEA4">
+				<title>Gemcached Properties</title>
+				<tgroup
+					cols="2">
+					<colspec
+						colnum="1"
+						colname="col1"
+						colwidth="*"/>
+					<colspec
+						colnum="2"
+						colname="col2"
+						colwidth="*"/>
+					<thead>
+						<row>
+							<entry
+								colname="col1">
+								<p>Property </p>
+							</entry>
+							<entry
+								colname="col2">
+								<p>Description </p>
+							</entry>
+						</row>
+					</thead>
+					<tbody>
+						<row>
+							<entry
+								colname="col1">
+								<codeph>memcached-port</codeph>
+							</entry>
+							<entry
+								colname="col2">
+								<p>The port number where the Gemcached server listens for
+									connections from memcached clients. </p>
+								<p>If the port number is set to 0 or the
+										<codeph>memcached-port</codeph> parameter is omitted, the
+									Gemcached server does not start. </p>
+							</entry>
+						</row>
+						<row>
+							<entry
+								colname="col1">
+								<codeph>memcached-protocol</codeph>
+							</entry>
+							<entry
+								colname="col2">
+								<p>Memcached supports both ASCII and binary communication protocols.
+									(See <xref
+										href="https://github.com/memcached/memcached/blob/master/doc/protocol.txt"
+										scope="external"
+										format="html">Memcached protocol</xref> By default,
+									Gemcached uses the ASCII protocol. </p>
+								<p>Set one of the following values: </p>
+								<ul
+									id="ul_31657A5668A549639DFDF1323183AD4C">
+									<li
+										id="li_5E7DABAF198B475F9981C823EFE4CB10"><codeph>ASCII</codeph>
+										(default) </li>
+									<li
+										id="li_21AB93B1414544C199FB5E2272339C61">
+										<codeph>BINARY</codeph>
+									</li>
+								</ul>
+							</entry>
+						</row>
+					</tbody>
+				</tgroup>
+			</table>
+		</section>
+	</body>
+</topic>

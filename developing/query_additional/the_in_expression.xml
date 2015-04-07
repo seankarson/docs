@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "http://docs.oasis-open.org/dita/v1.1/OS/dtd/concept.dtd">
+<concept id="the_in_expression"> 
+  <title>IN Expression</title> 
+  <prolog audience="basic"> 
+  </prolog> 
+  <conbody> 
+	 <section id="section_83F779E24F6F4F83A45F2B8EFB29687B"> 
+		<p>The IN expression is a boolean indicating if one expression is present
+		  inside a collection of expressions of compatible type. The determination is
+		  based on the expressions' equals semantics. 
+		</p> 
+		<p>If 
+		  <codeph>e1</codeph> and 
+		  <codeph>e2</codeph> are expressions, 
+		  <codeph>e2</codeph> is a collection, and 
+		  <codeph>e1</codeph> is an object or a literal whose type is a subtype
+		  or the same type as the elements of 
+		  <codeph>e2</codeph>, then 
+		  <codeph>e1 IN e2</codeph> is an expression of type boolean. 
+		</p> 
+		<p>The expression returns: 
+		<ul id="ul_2DB695F6FE364C9A93A162E84A9C0D8F"> 
+		  <li id="li_AA00FED209F44DC78886151B044089E1">TRUE if e1 is not
+			 UNDEFINED and is contained in collection e2 
+		  </li> 
+		  <li id="li_BB2DA7F60AA448C5BFCF28D33BAF5953">FALSE if e1 is not
+			 UNDEFINED and is not contained in collection e2 # 
+		  </li> 
+		  <li id="li_D0901771813C4845999853656AEC6FC0">UNDEFINED if e1 is
+			 UNDEFINED 
+		  </li> 
+		</ul> 
+		</p> 
+		<p>For example, 
+		  <codeph>2 IN SET(1, 2, 3)</codeph> is TRUE. 
+		</p> 
+		<p>Another example is when the collection you are querying into is
+		  defined by a subquery. This query looks for companies that have an active
+		  portfolio on file: 
+		  <codeblock>SELECT name, address FROM /company 
+  WHERE id IN (SELECT id FROM /portfolios WHERE status = 'active')</codeblock> 
+		</p> 
+		<p>The interior SELECT statement returns a collection of ids for all
+		  /portfolios entries whose status is active. The exterior SELECT iterates over
+		  /company, comparing each entry’s id with this collection. For each entry, if
+		  the IN expression returns TRUE, the associated name and address are added to
+		  the outer SELECT’s collection. 
+		</p> 
+	 </section> 
+  </conbody> 
+</concept> 

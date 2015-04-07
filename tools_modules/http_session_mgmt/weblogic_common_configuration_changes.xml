@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "http://docs.oasis-open.org/dita/v1.1/OS/dtd/concept.dtd">
+<concept id="weblogic_common_cfg_changes">
+	<title>Common <keyword keyref="product_name"/> Configuration Changes for AppServers</title>
+	<conbody>
+		<section id="section_0124499478F94E5A93029DE7CFED4819">
+			<title>Using a Different Multicast Port</title>
+			<p> For a <keyword keyref="product_name"/> peer-to-peer member to communicate on a
+				different multicast port than the default (10334), use the mcast-port property in
+				the web.xml file either by manual configuration or by using <codeph>-p
+					gemfire.property.mcast-port=10445</codeph> option to the
+					<codeph>modify_war</codeph> script. </p>
+			<codeblock>&lt;filter&gt;
+    &lt;filter-name&gt;gemfire-session-filter&lt;/filter-name&gt;
+    &lt;filter-class&gt;
+      com.gemstone.gemfire.modules.session.filter.SessionCachingFilter
+    &lt;/filter-class&gt;
+    &lt;init-param&gt;
+        &lt;param-name&gt;cache-type&lt;/param-name&gt;
+        &lt;param-value&gt;peer-to-peer&lt;/param-value&gt;
+    &lt;/init-param&gt;
+    &lt;init-param&gt;
+        &lt;param-name&gt;gemfire.property.mcast-port&lt;/param-name&gt;
+        &lt;param-value&gt;10445&lt;/param-value&gt;
+    &lt;/init-param&gt;
+&lt;/filter&gt;</codeblock>
+			<p>This example uses port 10445 as the multicast port. </p>
+		</section>
+		<section id="section_38D803A7E8474188898963F456188543">
+			<title>Overriding Region Attributes</title>
+			<p>When using the HTTP Session Management Module, you cannot override region attributes
+				directly on the cache server. You must place all region attribute definitions in the
+				region attributes template that you customize within the application server. For
+				example, to specify a different name for the region's disk store, you could add the
+				new disk-store-name specification to the region attributes template and then
+				reference the template on the cache server.
+				<codeblock>&lt;region-attributes id="MY_SESSIONS" refid="PARTITION_REDUNDANT_PERSISTENT_OVERFLOW" 
+<b>disk-store-name="mystore"</b>&gt;
+  ...
+&lt;/region-attributes&gt;
+</codeblock>Then
+				on the cache server side, reference the modified region attributes template to allow
+				the region to use the disk-store-name attribute:
+				<codeblock>&lt;region name="gemfire_modules_sessions" refid="MY_SESSIONS"/&gt;</codeblock>
+				Next, you must specify the region attributes ID as a value for the
+					<codeph>region_attributes_id</codeph> parameter in web.xml. For example, if you
+				want to enable the <codeph>region-attributes</codeph> in the above example for a
+				specific Web application, you would configure the Web application's web.xml in the
+				following manner:
+				<codeblock>&lt;filter&gt;
+  ...
+    &lt;init-param&gt;
+        &lt;param-name&gt;gemfire.cache.region_attributes_id&lt;/param-name&gt;
+        &lt;param-value&gt;MY_SESSIONS&lt;/param-value&gt;
+    &lt;/init-param&gt;
+  ...
+&lt;/filter&gt;</codeblock>
+			</p>
+		</section>
+		<section id="p2p_locators">
+			<title>Peer-to-Peer Configuration Using Locators</title>
+			<p> By default, <keyword keyref="product_name"/> peers discover each other using
+				multicast communication on a known port (as specified by the mcast-port system
+				parameter). Alternatively, you can configure member discovery using one or more
+				dedicated locators. A locator provides both discovery and load balancing services.
+				</p><image href="../../images_svg/http_module_p2p_with_locator.svg"
+				placement="break" id="image_86E949E0F1AD4E9EB67605EFA4E97E13"/> To run <keyword
+				keyref="product_name"/> with one or more locators instead of a multicast port, use
+			the locators property in the web.xml file or the <b>-p
+				gemfire.property.locators=hostname[10334]</b> option to the
+				<codeph>modify_war</codeph> script: <codeblock>&lt;filter&gt;
+    &lt;filter-name&gt;gemfire-session-filter&lt;/filter-name&gt;
+    &lt;filter-class&gt;
+      com.gemstone.gemfire.modules.session.filter.SessionCachingFilter
+    &lt;/filter-class&gt;
+    &lt;init-param&gt;
+        &lt;param-name&gt;cache-type&lt;/param-name&gt;
+        &lt;param-value&gt;peer-to-peer&lt;/param-value&gt;
+    &lt;/init-param&gt;
+    &lt;init-param&gt;
+        &lt;param-name&gt;gemfire.property.locators&lt;/param-name&gt;
+        &lt;param-value&gt;hostname[10334]&lt;/param-value&gt;
+    &lt;/init-param&gt;
+&lt;/filter&gt; </codeblock>
+			<p>This example uses a locator at <codeph>hostname</codeph> on port
+					<codeph>10334</codeph>. </p>
+			<p>You must be sure when you specify a locator that you specifically launch a locator
+				correctly at this location. You can do this using the <codeph>gemfire</codeph>
+				command-line tool found in the <codeph>bin</codeph> subdirectory of the HTTP module
+				distribution. </p>
+			<codeblock>In Unix:
+  ./gemfire.sh start-locator -port=10334
+  
+In Windows:
+  gemfire.bat start-locator -port=10334</codeblock>
+			<p>This example starts a locator that listens on port 10334. </p>
+		</section>
+		<section id="section_621D805DB63F46AFBC1EE8D25E4169D8">
+			<title>Client/Server Configuration Using Locators</title>
+			<p>By default, <keyword keyref="product_name"/> clients and servers discover each other
+				on a pre-defined port on the localhost. This is not typically the way you would
+				deploy a client/server configuration. A preferred solution is to use one or more
+				dedicated locators. A locator provides both discovery and load balancing services. </p>
+			<p>
+				<image href="../../images_svg/http_module_cs_with_locator.svg" placement="break"
+					id="image_BDF2273487EA4FEB9895D02A6F6FD445"/>
+			</p>
+			<p>To run <keyword keyref="product_name"/> with one or more locators instead of a
+				multicast port, add locator information to the <codeph>cache-client.xml</codeph>
+				file in the AppServer module instance's <codeph>conf</codeph> subdirectory: </p>
+			<codeblock>  &lt;pool name="sessions"&gt;
+    &lt;locator host="hostname" port="10334"/&gt;
+  &lt;/pool&gt;</codeblock>
+			<p>This example tells the <keyword keyref="product_name"/> client (which is the process
+				running the application server) to use a locator at <codeph>hostname</codeph> on
+				port <codeph>10334</codeph>. </p>
+			<p>You must now launch a locator correctly at this location. You can do this using the
+					<codeph>gemfire</codeph> command-line tool found in the <codeph>bin</codeph>
+				subdirectory of the HTTP module distribution. </p>
+			<codeblock>./gemfire start-locator -port=10334</codeblock>
+			<p>This example starts a locator that listens on port 10334. </p>
+			<p>You also need to tell the <keyword keyref="product_name"/> server to use a locator
+				when you launch the server. You can do this through a command-line argument when you
+				start up the server with the script provided in the <codeph>bin</codeph>
+				subdirectory wherever you installed the <keyword keyref="product_name"/> HTTP
+				module: </p>
+			<codeblock>In Unix: 
+  prompt$ ./cacheserver.sh start locators=hostname[port]
+  
+In Windows:
+  prompt&gt; cacheserver.bat start locators=hostname[port]</codeblock>
+			<p>If you are running more than one locator, use a comma-separated list of locators.
+			</p>
+		</section>
+	</conbody>
+</concept>

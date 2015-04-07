@@ -1,0 +1,44 @@
+<?xml version="1.0"?>
+<!DOCTYPE topic PUBLIC "-//OASIS//DTD DITA Topic//EN" "topic.dtd">
+<topic
+	id="topic_849581E507544E63AF23793FBC47D778">
+	<title>Advantages of Gemcached over Memcached</title>
+	<shortdesc>The standard memcached architecture has inherent architectural challenges that make
+		memcached applications difficult to write, maintain, and scale. Using Gemcached with Pivotal
+		<keyword keyref="product_name"/> addresses these challenges. </shortdesc>
+	<body>
+		<p><b>Data consistency</b>. Memcached clients must maintain a list of servers where the
+			distributed data is stored. Each client must maintain an identical list, with each list
+			ordered in the same way. It is the responsibility of the application logic to maintain
+			and propagate this list. If some clients do not have the correct list, the client can
+			retrieve stale data. In <keyword keyref="product_name"/> clusters, all members communicate with each other to
+			maintain data consistency, which eliminates the need to code these behaviors in the
+			memcached clients. </p>
+		<p><b>High availability</b>.When a memcached server becomes unavailable, memcached clusters
+			are subject to failures or degraded performance because clients must directly query the
+			backend database. Memcached-based applications must be coded to handle these failures,
+			while <keyword keyref="product_name"/> clusters handle such failures natively. </p>
+		<p><b>Faster cluster startup time</b>. When a memcached cluster fails and a restart is
+			required, the data must be reloaded and distributed to the cluster members while
+			simultaneously processing requests for data. These startup activities can be
+			time-consuming. When a <keyword keyref="product_name"/> cluster restarts, data can be reloaded from other
+			in-memory, redundant copies of the data or from disk, without having to query the back
+			end database. </p>
+		<p><b>Better handling of network segmentation</b>. Large deployments of memcached can use
+			hundreds of servers to manage data. If, due to network segmentation, some clients cannot
+			connect to all nodes of a partition, the clients will have to fetch the data from the
+			backend database to avoid hosting stale data. <keyword keyref="product_name"/> clusters handle network
+			segmentation to ensure that client responses are consistent. </p>
+		<p><b>Automatic scalability</b>. If you need to add capacity to a memcached cluster, you
+			must propagate a new server list to all clients. As new clients come on line with the
+			new list, older clients may not have a consistent view of the data in the cluster, which
+			can result in inconsistent data in the servers. Because new <keyword keyref="product_name"/> cache server members
+			automatically discover each other, memcached clients do not need to maintain a complete
+			server list. You can add capacity simply by adding servers. </p>
+		<p><b>Scalable client connections</b>. A memcached client may need to access multiple pieces
+			of data stored on multiple servers, which can result in clients having a TCP connection
+			open to every server. When a memcached client accesses a Gemcached server, only a single
+			connection to a Gemcached server instance is required. The Gemcached server manages the
+			distribution of data using <keyword keyref="product_name"/>'s standard features. </p>
+	</body>
+</topic>

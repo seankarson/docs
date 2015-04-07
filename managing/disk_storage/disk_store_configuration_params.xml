@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "http://docs.oasis-open.org/dita/v1.1/OS/dtd/concept.dtd">
+<concept id="disk_store_configuration_params">
+	<title>Disk Store Configuration Parameters</title>
+	<shortdesc>You define your disk stores by using the <codeph>gfsh create disk-store</codeph>
+		command or in <codeph>&lt;disk-store&gt;</codeph> subelements of your cache declaration in
+			<codeph>cache.xml</codeph>. All disk stores are available for use by all of your regions
+		and queues. </shortdesc>
+	<conbody>
+		<p>These <codeph>&lt;disk-store&gt;</codeph> attributes and subelements have corresponding
+				<codeph>gfsh create disk-store</codeph> command-line parameters as well as getter
+			and getter methods in the <codeph>com.gemstone.gemfire.cache.DiskStoreFactory</codeph>
+			and <codeph>com.gemstone.gemfire.cache.DiskStore</codeph> APIs. </p>
+		<section id="section_77273B9B5EA54227A2D25682BD77BAC3">
+			<title>Disk Store Configuration Attributes and Elements</title>
+			<table id="table_1A820D3A021F4F7C94E686EF083DC6A8">
+				<tgroup cols="3">
+					<colspec colname="1" colnum="1" colwidth="1.41*"/>
+					<colspec colname="2" colnum="2" colwidth="1*"/>
+					<colspec colname="3" colnum="3" colwidth="1.2*"/>
+					<thead>
+						<row>
+							<entry>disk-store attribute </entry>
+							<entry>Description </entry>
+							<entry>Default </entry>
+						</row>
+					</thead>
+					<tbody>
+						<row>
+							<entry>
+								<codeph>name</codeph>
+							</entry>
+							<entry>String used to identify this disk store. All regions and queues
+								select their disk store by specifying this name. </entry>
+							<entry>DEFAULT</entry>
+						</row>
+						<row>
+							<entry>
+								<codeph>allow-force-compaction</codeph>
+							</entry>
+							<entry>Boolean indicating whether to allow manual compaction through the
+								API or command-line tools. </entry>
+							<entry>false </entry>
+						</row>
+						<row>
+							<entry>
+								<codeph>auto-compact</codeph>
+							</entry>
+							<entry>Boolean indicating whether to automatically compact a file when
+								it reaches the <codeph>compaction-threshold</codeph>. </entry>
+							<entry>true </entry>
+						</row>
+						<row>
+							<entry>
+								<codeph>compaction-threshold</codeph>
+							</entry>
+							<entry>Percentage of garbage allowed in the file before it is eligible
+								for compaction. Garbage is created by entry destroys, entry updates,
+								and region destroys and creates. Surpassing this percentage does not
+								make compaction occur—it makes the file eligible to be compacted
+								when a compaction is done. </entry>
+							<entry>50 </entry>
+						</row>
+						<row>
+							<entry>
+								<codeph>disk-usage-critical-percentage</codeph>
+							</entry>
+							<entry>Disk usage above this threshold generates an error message and
+								shuts down the member's cache. For example, if the threshold is set
+								to 99%, then falling under 10 GB of free disk space on a 1 TB drive
+								generates the error and shuts down the cache.<p>Set to "0" (zero) to
+									disable.</p></entry>
+							<entry>99</entry>
+						</row>
+						<row>
+							<entry>
+								<codeph>disk-usage-warning-percentage</codeph>
+							</entry>
+							<entry>Disk usage above this threshold generates a warning message. For
+								example, if the threshold is set to 90%, then on a 1 TB drive
+								falling under 100 GB of free disk space generates the warning.<p>Set
+									to "0" (zero) to disable.</p></entry>
+							<entry>90</entry>
+						</row>
+						<row>
+							<entry>
+								<codeph>max-oplog-size</codeph>
+							</entry>
+							<entry>The largest size, in megabytes, to allow an operation log to
+								become before automatically rolling to a new file. This size is the
+								combined sizes of the oplog files. </entry>
+							<entry>1024 </entry>
+						</row>
+						<row>
+							<entry>
+								<codeph>queue-size</codeph>
+							</entry>
+							<entry>For asynchronous queueing. The maximum number of operations to
+								allow into the write queue before automatically flushing the queue.
+								Operations that would add entries to the queue block until the queue
+								is flushed. A value of zero implies no size limit. Reaching this
+								limit or the time-interval limit will cause the queue to flush. </entry>
+							<entry>0 </entry>
+						</row>
+						<row>
+							<entry>
+								<codeph>time-interval</codeph>
+							</entry>
+							<entry>For asynchronous queueing. The number of milliseconds that can
+								elapse before data is flushed to disk. Reaching this limit or the
+								queue-size limit causes the queue to flush. </entry>
+							<entry>1000 </entry>
+						</row>
+						<row>
+							<entry>
+								<codeph>write-buffer-size</codeph>
+							</entry>
+							<entry>Size of the buffer, in bytes, used to write to disk. </entry>
+							<entry>32768 </entry>
+						</row>
+					</tbody>
+				</tgroup>
+			</table>
+			<p>
+				<table id="table_1E730FBC84CA4B889A204017CE6B4B43" frame="all">
+					<tgroup cols="3" align="left">
+						<colspec colname="1" colnum="1" colwidth="*"/>
+						<colspec colname="2" colnum="2" colwidth="*"/>
+						<colspec colname="3" colnum="3" colwidth="*"/>
+						<thead>
+							<row>
+								<entry><codeph>disk-store</codeph> subelement </entry>
+								<entry>Description </entry>
+								<entry>Default </entry>
+							</row>
+						</thead>
+						<tbody>
+							<row>
+								<entry>
+									<codeph>&lt;disk-dirs&gt;</codeph>
+								</entry>
+								<entry>Defines the system directories where the disk store is
+									written and their maximum sizes. </entry>
+								<entry><codeph>.</codeph> with no size limit </entry>
+							</row>
+						</tbody>
+					</tgroup>
+				</table>
+			</p>
+		</section>
+		<section id="section_366001C72D674AF69B2CED91BFA73A9B">
+			<title>disk-dirs Element</title>
+			<p>The <codeph>&lt;disk-dirs&gt;</codeph> element defines the host system directories to
+				use for the disk store. It contains one or more single
+					<codeph>&lt;disk-dir&gt;</codeph> elements with the following contents: <ul
+					id="ul_901E14A85C5B4B93BBDD05BB8ADC1C75">
+					<li id="li_3C6793DBC4624A6A8880682299369B4E">The directory specification,
+						provided as the text of the <codeph>disk-dir</codeph> element. </li>
+					<li id="li_5D674F58F2534EA4AC207675AD704716">An optional
+							<codeph>dir-size</codeph> attribute specifying the maximum amount of
+						space, in megabytes, to use for the disk store in the directory. By default,
+						there is no limit. The space used is calculated as the combined sizes of all
+						oplog files. </li>
+				</ul>
+			</p>
+			<p>You can specify any number of <codeph>disk-dir</codeph> subelements to the
+					<codeph>disk-dirs</codeph> element. The data is spread evenly among the active
+				disk files in the directories, keeping within any limits you set. </p>
+			<p>Example:
+				<codeblock>&lt;disk-dirs&gt;
+	&lt;disk-dir&gt;/host1/users/gf/memberA_DStore&lt;/disk-dir&gt;
+	&lt;disk-dir&gt;/host2/users/gf/memberA_DStore&lt;/disk-dir&gt; 
+	&lt;disk-dir dir-size="20480"&gt;/host3/users/gf/memberA_DStore&lt;/disk-dir&gt; 
+&lt;/disk-dirs&gt;</codeblock>
+			</p>
+			<note>The directories must exist when the disk store is created or the system throws an
+				exception. <keyword keyref="product_name"/> does not create directories. </note>
+			<p>Use different disk-dir specifications for different disk stores. You cannot use the
+				same directory for the same named disk store in two different members. </p>
+		</section>
+	</conbody>
+</concept>

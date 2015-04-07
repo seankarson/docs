@@ -1,0 +1,44 @@
+<?xml version="1.0"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept id="concept_B70E7B27CEF1496CB3B7217B15FF4726">
+	<title>debug</title>
+	<shortdesc>Enable or disable debugging output in <codeph>gfsh</codeph>. </shortdesc>
+	<conbody>
+		<p>
+			<b> Availability:</b> Online or offline. </p>
+		<p><b>Syntax:</b>
+			<codeblock>debug --state=value</codeblock>
+		</p>
+		<table id="table_B6D7C12CE550464CB7D6B2159BD94A1E">
+			<title>Parameters</title>
+			<tgroup cols="3">
+				<colspec colname="col1" colnum="1" colwidth="1.00*"/>
+				<colspec colname="col2" colnum="2" colwidth="3.12*"/>
+				<colspec colname="newCol3" colnum="3" colwidth="1*"/>
+				<thead>
+					<row>
+						<entry colname="col1">Name </entry>
+						<entry colname="col2">Description</entry>
+						<entry>Default Value</entry>
+					</row>
+				</thead>
+				<tbody>
+					<row>
+						<entry colname="col1"><parmname>--state </parmname></entry>
+						<entry colname="col2">Whether to turn debugging ON or OFF. Valid options
+							are: ON, OFF (Case insensitive) </entry>
+						<entry>OFF</entry>
+					</row>
+				</tbody>
+			</tgroup>
+		</table>
+		<p><b>Example Commands:</b>
+			<codeblock>debug --state=off
+debug --state=on</codeblock>
+		</p>
+		<p><b>Sample Output:</b>
+			<codeblock>gfsh&gt;debug --state=on
+Debug is on</codeblock>
+		</p>
+	</conbody>
+</concept>

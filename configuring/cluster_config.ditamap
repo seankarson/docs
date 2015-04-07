@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE bookmap PUBLIC "-//OASIS//DTD DITA BookMap//EN" "bookmap.dtd">
+<bookmap id="bookmap_kiwngi93826jnbws">
+ <booktitle>
+  <mainbooktitle>Configuring and Running a Cluster</mainbooktitle>
+ </booktitle>
+ <part href="chapter_overview.xml">
+  <topicref href="cluster_config/gfsh_persist.xml"/>
+  <topicref href="cluster_config/persisting_configurations.xml" type="task"/>
+  <topicref format="dita" href="cluster_config/deploying_application_jars.xml"/>
+  <topicref format="dita" href="cluster_config/using_member_groups.xml"
+   navtitle="Using Member Groups" scope="local" type="concept"/>
+  <topicref href="cluster_config/export-import.xml"/>
+  <topicref href="cluster_config/gfsh_config_troubleshooting.xml"/>
+  <topicref href="cluster_config/gfsh_load_from_shared_dir.xml"/>
+  <topicref href="cluster_config/gfsh_remote.xml" type="task"/>
+  <topicref href="running/deploying_config_files.xml">
+   <topicref href="running/deploy_config_files_intro.xml"/>
+   <topicref href="running/default_file_specs.xml"/>
+   <topicref href="running/change_file_spec.xml"/>
+   <topicref href="running/deploying_config_jar_files.xml"/>
+  </topicref>
+  <topicref href="running/starting_up_shutting_down.xml">
+   <topicref href="running/startup_shutdown_intro.xml"/>
+   <topicref href="running/starting_up.xml"/>
+   <topicref href="running/shutting_down.xml"/>
+  </topicref>
+  <topicref href="running/running_the_locator.xml"/>
+  <topicref href="running/running_the_cacheserver.xml"/>
+  <topicref href="running/managing_output_files.xml"/>
+  <topicref format="dita" href="running/firewall_ports_config.xml"
+   navtitle="Firewall Considerations" scope="local" type="concept">
+   <topicref href="running/firewalls_connections.xml" navtitle="Firewalls and Connections"/>
+   <topicref href="running/firewalls_ports.xml" navtitle="Firewalls and Ports"/>
+  </topicref>
+ </part>
+</bookmap>

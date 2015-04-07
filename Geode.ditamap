@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE bookmap PUBLIC "-//OASIS//DTD DITA BookMap//EN" "bookmap.dtd">
+<bookmap id="docs.opengem.io">
+	<booktitle>
+		<mainbooktitle>
+			<keyword keyref="product_name_long"/>
+			<keyword keyref="product_version"/>
+		</mainbooktitle>
+	</booktitle>
+	<frontmatter>
+		<keydef keys="product_name_long">
+			<topicmeta>
+				<keywords>
+					<keyword>Project Geode</keyword>
+				</keywords>
+			</topicmeta>
+		</keydef>
+		<keydef keys="product_name">
+			<topicmeta>
+				<keywords>
+					<keyword>Geode</keyword>
+				</keywords>
+			</topicmeta>
+		</keydef>
+		<keydef keys="product_version">
+			<topicmeta>
+				<keywords>
+					<keyword>1.0</keyword>
+				</keywords>
+			</topicmeta>
+		</keydef>
+		<keydef keys="product_jar">
+			<topicmeta>
+				<keywords>
+					<keyword>geode.jar</keyword>
+				</keywords>
+			</topicmeta>
+		</keydef>
+	</frontmatter>
+	<part href="about_geode.xml" type="topic"/>
+	<part format="ditamap" href="supported_configs/supported_configurations.ditamap"/>
+	<part format="ditamap" href="UserGuide_Geode.ditamap"/>
+</bookmap>

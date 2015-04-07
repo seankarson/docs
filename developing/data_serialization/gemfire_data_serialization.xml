@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "http://docs.oasis-open.org/dita/v1.1/OS/dtd/concept.dtd">
+<concept id="gemfire_data_serialization">
+	<title><keyword keyref="product_name"/> Data Serialization (DataSerializable and
+		DataSerializer)</title>
+	<shortdesc id="shortdesc_A3EC53CFF24841029C5516F42DB2D155"><keyword keyref="product_name"/> 's
+			<codeph>DataSerializable</codeph> interface gives you quick serialization of your
+		objects. </shortdesc>
+	<conbody>
+		<section id="section_0C84D6BF5E9748CB865E6BB944A077DE">
+			<title>Data Serialization with the DataSerializable Interface</title>
+			<p><keyword keyref="product_name"/> 's <codeph>DataSerializable</codeph> interface gives
+				you faster and more compact data serialization than the standard Java serialization
+				or <keyword keyref="product_name"/> PDX serialization. However, while <keyword
+					keyref="product_name"/>
+				<codeph>DataSerializable</codeph> interface is generally more performant than
+					<keyword keyref="product_name"/> 's <codeph>PdxSerializable</codeph>, it
+				requires full deserialization on the server and then reserialization to send the
+				data back to the client. </p>
+			<p>You can further speed serialization by registering the instantiator for your
+					<codeph>DataSerializable</codeph> class through <codeph>Instantiator</codeph>,
+				eliminating the need for reflection to find the right serializer. You can provide
+				your own serialization through the API. </p>
+			<p>The recommended way to register your custom <codeph>Instantiator</codeph> is by
+				specifying it in the <codeph>serialization-registration</codeph> element of
+				cache.xml. </p>
+			<p>For more information, see the online Java documentation for
+					<codeph>DataSerializable</codeph> and <codeph>DataSerializer</codeph>. </p>
+			<p>
+				<b>Example cache.xml:</b>
+			</p>
+			<p>The following provides an example of how to register an instantiator using
+				cache.xml.<codeblock>&lt;serialization-registration>
+&lt;instantiator id="30">
+   &lt;class-name>com.package.MyClass&lt;/class-name>
+&lt;/instantiator>
+&lt;/serialization-registration></codeblock></p>
+			<p>In addition to speeding standard object serialization, you can use the
+					<codeph>DataSerializable</codeph> interface to serialize any custom objects you
+				store in the cache. </p>
+		</section>
+		<section id="section_B21408E7090C41B08BF300146F87648B">
+			<title>Serializing Your Domain Object with DataSerializer</title>
+			<p>You can also use <codeph>DataSerializer</codeph> to serialize domain objects. It
+				serializes data in the same way as <codeph>DataSerializable</codeph> but allows you
+				to serialize classes without modifying the domain class code. </p>
+			<p>See the JavaDocs on <xref
+					href="http://gemfire.docs.pivotal.io/latest/javadocs/japi/com/gemstone/gemfire/DataSerializable.html"
+					format="html" scope="external">DataSerializable</xref> and <xref
+					href="http://gemfire.docs.pivotal.io/latest/javadocs/japi/com/gemstone/gemfire/DataSerializer.html"
+					format="html" scope="external">DataSerializer</xref> for more information. </p>
+		</section>
+	</conbody>
+</concept>

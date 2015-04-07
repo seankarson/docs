@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "http://docs.oasis-open.org/dita/v1.1/OS/dtd/concept.dtd">
+<concept id="performance_considerations">
+	<title>Performance Considerations</title>
+	<shortdesc>This topic covers considerations for improving query performance.</shortdesc>
+	<conbody>
+		<section id="section_2DA52BD8C72A4D01982CA8A44954ADAF">
+			<p>Some general performance tips: </p>
+			<ul id="ul_30CF4188749A411B98124E006F200927">
+				<li id="li_0E29FD1020B3496B8AABED2B4019D36B">Improve query performance whenever
+					possible by creating indexes. See <xref
+						href="../query_index/indexing_guidelines.xml#indexing_guidelines"
+						type="concept" format="dita" scope="local"/> for some scenarios for using
+					indexes. </li>
+				<li id="li_BFC412DF35D94F72BBFC9DD9A07A83EF">Use bind parameters for frequently used
+					queries. When you use a bind parameter, the query is compiled once. This
+					improves the subsequent performance of the query when it is re-run. See <xref
+						href="../query_additional/using_query_bind_parameters.xml#concept_173E775FE46B47DF9D7D1E40680D34DF"
+						type="concept" format="dita" scope="local"/> for more details. </li>
+				<li id="li_354ACFA96A324C85A313071B3E32C5F2">When querying partitioned regions,
+					execute the query using the FunctionService. This function allows you to target
+					a particular node, which will improve performance greatly by avoiding query
+					distribution. See <xref
+						href="../query_additional/query_on_a_single_node.xml#concept_30B18A6507534993BD55C2C9E0544A97"
+						type="concept" format="dita" scope="local"/> for more information. </li>
+				<li id="li_A12ED5C034B84FA79B9E4794EC998BB3">Use key indexes when querying data that
+					has been partitioned by a key or field value. See <xref
+						href="../query_additional/partitioned_region_key_or_field_value.xml#concept_3010014DFBC9479783B2B45982014454"
+						type="concept" format="dita" scope="local"/>. </li>
+				<li id="li_40505026D43547C3AABE4D70BBE64178">The size of a query result set depends
+					on the restrictiveness of the query and the size of the total data set. A
+					partitioned region can hold much more data than other types of regions, so there
+					is more potential for larger result sets on partitioned region queries. This
+					could cause the member receiving the results to run out of memory if the result
+					set is very large. </li>
+			</ul>
+		</section>
+	</conbody>
+</concept>

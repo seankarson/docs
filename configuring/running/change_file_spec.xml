@@ -1,0 +1,58 @@
+<?xml version="1.0"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+
+<concept id="concept_93C4153BA11E4F25AAB0721691F59283"> 
+  <title>Changing the File Specifications</title> 
+  <shortdesc>You can change all file specifications in the 
+	 <codeph>gemfire.properties</codeph> file and at the command line. 
+  </shortdesc>
+  <prolog><metadata><keywords><keyword>gemfire file
+			 specifications</keyword></keywords></metadata>
+  </prolog> 
+  <conbody> 
+  	<note><keyword keyref="product_name"/>
+		applications can use the API to pass 
+		<codeph>java.lang.System properties</codeph> to the distributed system
+		connection. This changes file specifications made at the command line and in
+		the 
+		<codeph>gemfire.properties</codeph>. You can verify an application’s
+		property settings in the configuration information logged at application
+		startup. The configuration is listed when the 
+		<codeph>gemfire.properties</codeph> 
+		<codeph>log-level</codeph> is set to 
+		<codeph>config</codeph> or lower. 
+	 </note> 
+	 <p>This invocation of the application, 
+		<codeph>testApplication.TestApp1</codeph>, provides non-default
+		specifications for both the 
+		<codeph>cache.xml</codeph> and 
+		<codeph>gemfire.properties</codeph>: 
+		<codeblock>java -Dgemfire.cache-xml-file=
+/gemfireSamples/examples/dist/cacheRunner/queryPortfolios.xml 
+-DgemfirePropertyFile=defaultConfigs/gemfire.properties
+testApplication.TestApp1 </codeblock> 
+	 </p> 
+	 <p>The gfsh start server command can use the same specifications: 
+		<codeblock>gfsh&gt;server start 
+-J-Dgemfire.cache-xml-file=/gemfireSamples/examples/dist/cacheRunner/queryPortfolios.xml 
+-J-DgemfirePropertyFile=defaultConfigs/gemfire.properties</codeblock> 
+	 </p> 
+	 <p>You can also change the specifications for the 
+		<codeph>cache.xml</codeph> file inside the 
+		<codeph>gemfire.properties</codeph> file. 
+	 </p> 
+	 <note>Specifications in 
+		<codeph>gemfire.properties</codeph> files cannot use environment
+		variables. 
+	 </note> 
+	 <p>Example 
+		<codeph>gemfire.properties</codeph> file with non-default 
+		<codeph>cache.xml</codeph> specification: 
+		<codeblock>#Tue May 09 17:53:54 PDT 2006
+mcast-address=224.0.0.250
+mcast-port=10333
+locators=
+cache-xml-file=/gemfireSamples/examples/dist/cacheRunner/queryPortfolios.xml</codeblock> 
+	 </p> 
+  </conbody> 
+</concept> 

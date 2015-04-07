@@ -1,0 +1,381 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE task PUBLIC "-//OASIS//DTD DITA Task//EN" "task.dtd">
+<task id="task_bt3_z1v_dl">
+    <title>Tutorial: Creating and Using a Cluster Configuration</title>
+    <shortdesc>A short walk-through that demonstrates how to use gfsh to create a cluster
+        configuration for a <keyword keyref="product_name_long"/> cluster. </shortdesc>
+    <taskbody>
+        <prereq>
+            <note>This tutorial requires that you install and configure <keyword
+                    keyref="product_name_long"/> for your environment. See <xref
+                    href="../../getting_started/installation/install_intro.xml#concept_5111C7EDF7D24CA2BCE5959006453415"
+                />. This tutorial can be performed on a single computer. </note>
+        </prereq>
+        <context>
+            <p>The <codeph>gfsh</codeph> command-line tool allows you to configure and start a
+                    <keyword keyref="product_name_long"/> cluster. The cluster configuration service
+                uses <keyword keyref="product_name_long"/> locators to store the configuration at
+                the group and cluster levels and serves these configurations to new members as they
+                are started. The locators store the configurations in a hidden region that is
+                available to all locators and also write the configuration data to disk as XML
+                files. Configuration data is updated as gfsh commands are executed. </p>
+            <p>This section provides a walk-through example of configuring a simple <keyword
+                    keyref="product_name_long"/> cluster and then re-using that configuration in a
+                new context.</p>
+        </context>
+        <steps>
+            <step>
+                <cmd>Create a working directory (For
+                        example:<codeph>/home/username/my_gemfire</codeph>) and switch to the new
+                    directory. This directory will contain the configurations for your cluster.
+                </cmd>
+            </step>
+            <step>
+                <cmd>Start the <cmdname>gfsh</cmdname> command-line tool. For example:</cmd>
+                <info>
+                    <codeblock>$ gfsh</codeblock>
+                </info>
+                <stepresult>The gfsh command prompt
+                    displays.<codeblock>    _________________________     __
+   / _____/ ______/ ______/ /____/ /
+  / /  __/ /___  /_____  / _____  / 
+ / /__/ / ____/  _____/ / /    / /  
+/______/_/      /______/_/    /_/    v8.1.0
+
+Monitor and Manage GemFire
+gfsh></codeblock></stepresult>
+            </step>
+            <step>
+                <cmd>Start a locator using the command in the following example:</cmd>
+                <info>
+                    <codeblock>gfsh>start locator --name=locator1
+Starting a GemFire Locator in /Users/username/my_gemfire/locator1...
+.............................
+Locator in /Users/username/my_gemfire/locator1 on 10.0.0.13[10334] as locator1 is currently online.
+Process ID: 5203
+Uptime: 15 seconds
+GemFire Version: 8.1.0
+Java Version: 1.7.0_71
+Log File: /Users/username/my_gemfire/locator1/locator1.log
+JVM Arguments: -Dgemfire.enable-cluster-configuration=true 
+-Dgemfire.load-cluster-configuration-from-dir=false 
+-Dgemfire.launcher.registerSignalHandlers=true -Djava.awt.headless=true 
+-Dsun.rmi.dgc.server.gcInterval=9223372036854775806
+Class-Path: /Users/username/Pivotal_GemFire_810_b50582_Linux/lib/gemfire.jar
+:/Users/username/Pivotal_GemFire_810_b50582_Linux/lib/locator-dependencies.jar
+
+Successfully connected to: [host=10.0.0.13, port=1099]
+
+Cluster configuration service is up and running.
+
+</codeblock>
+                </info>
+                <stepresult>Note that <cmdname>gfsh</cmdname> responds with a message indicating
+                    that the cluster configuration service is up and running. If you see a message
+                    indicating a problem, review the locator log file for possible errors. The path
+                    to the log file is displayed in the output from
+                    <codeph>gfsh</codeph>.</stepresult>
+            </step>
+            <step>
+                <cmd>Start <keyword keyref="product_name_long"/> servers using the commands in the
+                    following example:</cmd>
+                <info>
+                    <codeblock>gfsh><b>start server --name=server1 --group=group1
+</b>Starting a GemFire Server in /Users/username/my_gemfire/server1...
+.....
+Server in /Users/username/my_gemfire/server1 on 10.0.0.13[40404] as server1 is currently online.
+Process ID: 5627
+Uptime: 2 seconds
+GemFire Version: 8.1.0
+Java Version: 1.7.0_71
+Log File: /Users/username/my_gemfire/server1/server1.log
+JVM Arguments: -Dgemfire.default.locators=10.0.0.13[10334] -Dgemfire.groups=group1 
+-Dgemfire.use-cluster-configuration=true -XX:OnOutOfMemoryError=kill -KILL %p 
+-Dgemfire.launcher.registerSignalHandlers=true -Djava.awt.headless=true 
+-Dsun.rmi.dgc.server.gcInterval=9223372036854775806
+Class-Path: /Users/username/Pivotal_GemFire_810_b50582_Linux/lib/gemfire.jar
+:/Users/username/Pivotal_GemFire_810_b50582_Linux/lib/server-dependencies.jar
+
+gfsh><b>start server --name=server2 --group=group1 --server-port=40405</b>
+Starting a GemFire Server in /Users/username/my_gemfire/server2...
+.....
+Server in /Users/username/my_gemfire/server2 on 10.0.0.13[40405] as server2 is currently online.
+Process ID: 5634
+Uptime: 2 seconds
+GemFire Version: 8.1.0
+Java Version: 1.7.0_71
+Log File: /Users/username/my_gemfire/server2/server2.log
+JVM Arguments: -Dgemfire.default.locators=10.0.0.13[10334] -Dgemfire.groups=group1 
+-Dgemfire.use-cluster-configuration=true -XX:OnOutOfMemoryError=kill -KILL %p 
+-Dgemfire.launcher.registerSignalHandlers=true -Djava.awt.headless=true 
+-Dsun.rmi.dgc.server.gcInterval=9223372036854775806
+Class-Path: /Users/username/Pivotal_GemFire_810_b50582_Linux/lib/gemfire.jar
+:/Users/username/Pivotal_GemFire_810_b50582_Linux/lib/server-dependencies.jar
+
+gfsh><b>start server --name=server3 --server-port=40406</b>
+Starting a GemFire Server in /Users/username/my_gemfire/server3...
+.....
+Server in /Users/username/my_gemfire/server3 on 10.0.0.13[40406] as server3 is currently online.
+Process ID: 5637
+Uptime: 2 seconds
+GemFire Version: 8.1.0
+Java Version: 1.7.0_71
+Log File: /Users/username/my_gemfire/server3/server3.log
+JVM Arguments: -Dgemfire.default.locators=10.0.0.13[10334] 
+-Dgemfire.use-cluster-configuration=true -XX:OnOutOfMemoryError=kill -KILL %p 
+-Dgemfire.launcher.registerSignalHandlers=true -Djava.awt.headless=true 
+-Dsun.rmi.dgc.server.gcInterval=9223372036854775806
+Class-Path: /Users/username/Pivotal_GemFire_810_b50582_Linux/lib/gemfire.jar
+:/Users/username/Pivotal_GemFire_810_b50582_Linux/lib/server-dependencies.jar
+</codeblock>
+                </info>
+                <stepresult>Note that the gfsh commands you used to start <codeph>server1</codeph>
+                    and <codeph>server2</codeph> specify a group named <codeph>group1</codeph> while
+                    the command for <codeph>server3</codeph> did not specify a group name.
+                </stepresult>
+            </step>
+            <step>
+                <cmd>Create some regions using the commands in the following example:</cmd>
+                <info>
+                    <codeblock>gfsh><b>create region --name=region1 --group=group1 --type=REPLICATE</b>
+Member  | Status
+------- | --------------------------------------
+server2 | Region "/region1" created on "server2"
+server1 | Region "/region1" created on "server1"
+
+gfsh><b>create region --name=region2 --type=REPLICATE</b>
+Member  | Status
+------- | --------------------------------------
+server1 | Region "/region2" created on "server1"
+server2 | Region "/region2" created on "server2"
+server3 | Region "/region2" created on "server3"
+
+</codeblock>
+                </info>
+                <stepresult>Note that <codeph>region1</codeph> is created on all cache servers that
+                    specified the group named <codeph>group1</codeph> when starting the cache server
+                        (<codeph>server1</codeph> and <codeph>server2</codeph>, in this example).
+                        <codeph>region2</codeph> is created on all members because no group was
+                    specified.</stepresult>
+            </step>
+            <step>
+                <cmd>Deploy jar files. Use the gfsh <cmdname>deploy</cmdname> command to deploy
+                    application jar files to all members or to a specified group of members. The
+                    following example deploys the <filepath>mail.jar</filepath> and
+                        <filepath>mx4j.jar</filepath> files from the Pivotal GemFire distribution.
+                    (Note: This is only an example, you do not need to deploy these files to use the
+                    Cluster Configuration Service. Alternately, you can use any two jar files for
+                    this demonstration.)</cmd>
+                <info>
+                    <codeblock>gfsh><b>deploy --group=group1 --jar=${SYS_GEMFIRE_DIR}/lib/mail.jar</b>
+Post substitution: deploy --group=group1 --jar=/Users/username/Pivotal_GemFire_810_b50582_Linux/lib/mail.jar
+Member  | Deployed JAR | Deployed JAR Location
+------- | ------------ | -------------------------------------------------
+server1 | mail.jar     | /Users/username/my_gemfire/server1/vf.gf#mail.jar#1
+server2 | mail.jar     | /Users/username/my_gemfire/server2/vf.gf#mail.jar#1
+
+gfsh><b>deploy --jar=${SYS_GEMFIRE_DIR}/lib/mx4j.jar</b>
+Post substitution: deploy --jar=/Users/username/Pivotal_GemFire_810_b50582_Linux/lib/mx4j.jar
+Member  | Deployed JAR | Deployed JAR Location
+------- | ------------ | -------------------------------------------------
+server1 | mx4j.jar     | /Users/username/my_gemfire/server1/vf.gf#mx4j.jar#1
+server2 | mx4j.jar     | /Users/username/my_gemfire/server2/vf.gf#mx4j.jar#1
+server3 | mx4j.jar     | /Users/username/my_gemfire/server3/vf.gf#mx4j.jar#1
+</codeblock>
+                </info>
+                <stepresult>Note that the <filepath>mail.jar</filepath> file was deployed only to
+                    the members of <codeph>group1</codeph> and the <filepath>mx4j.jar</filepath> was
+                    deployed to all members.</stepresult>
+            </step>
+            <step>
+                <cmd>Export the cluster configuration. </cmd>
+                <info>You can use the gfsh <cmdname>export cluster-configuration</cmdname> command
+                    to create a zip file that contains the cluster's persisted configuration. The
+                    zip file contains a copy of the contents of the
+                        <filepath>cluster_config</filepath> directory. For
+                    example:<codeblock>gfsh>export cluster-configuration --zip-file-name=myClusterConfig.zip --dir=/Users/username</codeblock></info>
+                <stepresult><keyword keyref="product_name_long"/> writes the cluster configuration
+                    to the specified zip file.
+                        <codeblock>Downloading cluster configuration : /Users/username/myClusterConfig.zip
+</codeblock><p>The
+                        remaining steps demonstrate how to use the cluster configuration you just
+                        created. </p></stepresult>
+            </step>
+            <step>
+                <cmd>Shutdown the cluster using the following commands: </cmd>
+                <info>
+                    <codeblock>gfsh><b>shutdown --include-locators=true</b>
+As a lot of data in memory will be lost, including possibly events in queues, do you 
+really want to shutdown the entire distributed system? (Y/n): Y
+Shutdown is triggered
+
+gfsh>
+No longer connected to 10.0.0.13[1099].
+gfsh>
+</codeblock>
+                </info>
+            </step>
+            <step>
+                <cmd>Exit the gfsh command shell:</cmd>
+                <info>
+                    <codeblock>gfsh><b>quit</b>
+Exiting...</codeblock>
+                </info>
+            </step>
+            <step>
+                <cmd>Create a new working directory (for example: <filepath>new_gemfire</filepath>)
+                    and switch to the new directory. </cmd>
+            </step>
+            <step>
+                <cmd>Start the gfsh command shell: </cmd>
+                <info>
+                    <codeblock>$ gfsh</codeblock>
+                </info>
+            </step>
+            <step>
+                <cmd>Start a new locator. For example:</cmd>
+                <info>
+                    <codeblock>gfsh><b>start locator --name=locator2 --port=10335</b>
+Starting a GemFire Locator in /Users/username/new_gemfire/locator2...
+.............................
+Locator in /Users/username/new_gemfire/locator2 on 10.0.0.13[10335] as locator2 is currently online.
+Process ID: 5749
+Uptime: 15 seconds
+GemFire Version: 8.1.0
+Java Version: 1.7.0_71
+Log File: /Users/username/new_gemfire/locator2/locator2.log
+JVM Arguments: -Dgemfire.enable-cluster-configuration=true 
+-Dgemfire.load-cluster-configuration-from-dir=false 
+-Dgemfire.launcher.registerSignalHandlers=true -Djava.awt.headless=true 
+-Dsun.rmi.dgc.server.gcInterval=9223372036854775806
+Class-Path: /Users/username/Pivotal_GemFire_810_b50582_Linux/lib/gemfire.jar
+:/Users/username/Pivotal_GemFire_810_b50582_Linux/lib/locator-dependencies.jar
+
+Successfully connected to: [host=10.0.0.13, port=1099]
+
+Cluster configuration service is up and running.
+</codeblock>
+                </info>
+            </step>
+            <step>
+                <cmd>Import the cluster configuration using the <cmdname>import
+                        cluster-configuration</cmdname> command. For example: </cmd>
+                <info>
+                    <codeblock>gfsh><b>import cluster-configuration --zip-file-name=/Users/username/myClusterConfig.zip</b>
+Cluster configuration successfully imported
+</codeblock>
+                </info>
+                <stepresult>Note that the <filepath>locator2</filepath> directory now contains a
+                        <filepath>cluster_config</filepath> subdirectory.</stepresult>
+            </step>
+            <step>
+                <cmd>Start a server that does not reference a group:</cmd>
+                <info>
+                    <codeblock>gfsh><b>start server --name=server4 --server-port=40414</b>
+Starting a GemFire Server in /Users/username/new_gemfire/server4...
+........
+Server in /Users/username/new_gemfire/server4 on 10.0.0.13[40414] as server4 is currently online.
+Process ID: 5813
+Uptime: 4 seconds
+GemFire Version: 8.1.0
+Java Version: 1.7.0_71
+Log File: /Users/username/new_gemfire/server4/server4.log
+JVM Arguments: -Dgemfire.default.locators=10.0.0.13[10335]
+-Dgemfire.use-cluster-configuration=true -XX:OnOutOfMemoryError=kill -KILL %p
+-Dgemfire.launcher.registerSignalHandlers=true -Djava.awt.headless=true
+-Dsun.rmi.dgc.server.gcInterval=9223372036854775806
+Class-Path: /Users/username/Pivotal_GemFire_810_b50582_Linux/lib/gemfire.jar
+:/Users/username/Pivotal_GemFire_810_b50582_Linux/lib/server-dependencies.jar
+</codeblock>
+                </info>
+            </step>
+            <step>
+                <cmd>Start another server that references <codeph>group1</codeph>:</cmd>
+                <info>
+                    <codeblock>
+gfsh><b>start server --name=server5 --group=group1 --server-port=40415</b>
+Starting a GemFire Server in /Users/username/new_gemfire/server5...
+.....
+Server in /Users/username/new_gemfire/server2 on 10.0.0.13[40415] as server5 is currently online.
+Process ID: 5954
+Uptime: 2 seconds
+GemFire Version: 8.1.0
+Java Version: 1.7.0_71
+Log File: /Users/username/new_gemfire/server5/server5.log
+JVM Arguments: -Dgemfire.default.locators=10.0.0.13[10335] -Dgemfire.groups=group1 
+-Dgemfire.use-cluster-configuration=true -XX:OnOutOfMemoryError=kill -KILL %p 
+-Dgemfire.launcher.registerSignalHandlers=true -Djava.awt.headless=true 
+-Dsun.rmi.dgc.server.gcInterval=9223372036854775806
+Class-Path: /Users/username/Pivotal_GemFire_810_b50582_Linux/lib/gemfire.jar
+:/Users/username/Pivotal_GemFire_810_b50582_Linux/lib/server-dependencies.jar
+</codeblock>
+                </info>
+            </step>
+            <step>
+                <cmd>Use the <cmdname>list regions</cmdname> command to display the configured
+                    regions. Note that region1 and region2, which were configured in the original
+                    cluster level are available.</cmd>
+                <info>
+                    <codeblock>gfsh><b>list regions</b>
+List of regions
+---------------
+region1
+region2
+</codeblock>
+                </info>
+            </step>
+            <step>
+                <cmd>Use the <cmdname>describe region</cmdname> command to see which members host
+                    each region. Note that region1 is only hosted by server5 because server5 was
+                    started using the group1 configuration. region2 is hosted on both server4 and
+                    server5 because region2 was created without a group specified.</cmd>
+                <info>
+                    <codeblock>gfsh><b>describe region --name=region1</b>
+..........................................................
+Name            : region1
+Data Policy     : replicate
+Hosting Members : server5
+
+Non-Default Attributes Shared By Hosting Members  
+
+ Type  | Name | Value
+------ | ---- | -----
+Region | size | 0
+
+
+gfsh><b>describe region --name=region2</b>
+..........................................................
+Name            : region2
+Data Policy     : replicate
+Hosting Members : server5
+                  server4
+
+Non-Default Attributes Shared By Hosting Members  
+
+ Type  | Name | Value
+------ | ---- | -----
+Region | size | 0
+</codeblock>
+                </info>
+                <stepresult>This new cluster uses the same configuration as the original system. You
+                    can start any number of servers using this cluster configuration. All servers
+                    will receive the cluster-level configuration. Servers that specify
+                        <codeph>group1</codeph> also receive the <codeph>group1</codeph>
+                    configuration. </stepresult>
+            </step>
+            <step>
+                <cmd>Shutdown your cluster using the following commands:</cmd>
+                <info>
+                    <codeblock>gfsh><b>shutdown --include-locators=true</b>
+As a lot of data in memory will be lost, including possibly events in queues,
+  do you really want to shutdown the entire distributed system? (Y/n): <b>Y</b>
+Shutdown is triggered
+
+gfsh>
+No longer connected to 10.0.0.13[1099].
+</codeblock>
+                </info>
+            </step>
+        </steps>
+    </taskbody>
+</task>

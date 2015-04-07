@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "http://docs.oasis-open.org/dita/dtd/concept.dtd">
+<concept id="tutorial_overview">
+	<title><keyword keyref="product_name_long"/> Features Demonstrated in the Tutorial</title>
+	<shortdesc id="shortdesc_916295A4A3D3481EBAC2E7920BEB48BA">Use the tutorial to explore <keyword
+			keyref="product_name_long"/>'s main features. </shortdesc>
+	<conbody>
+		<section id="section_F084118C3D6C4A64A096E5158F389789">
+			<p>
+				<simpletable id="simpletable_312D6275BAAB417EA44BC0D722CBF1EC" relcolwidth="1* 6*">
+					<strow>
+						<stentry><keyword keyref="product_name"/> distributed system</stentry>
+						<stentry>JVMs running <keyword keyref="product_name"/> form a distributed
+							system. Each JVM is a <keyword keyref="product_name"/> peer member in
+							the distributed system. A peer member connects to a <keyword
+								keyref="product_name"/> distributed system and shares data with
+							other peer members through data regions that are configured to
+							distribute events among themselves. <p>To start a <keyword
+									keyref="product_name"/> peer, you create a <keyword
+									keyref="product_name"/> cache in each member. The cache manages
+								the connectivity to other <keyword keyref="product_name"/> peers.
+								Peers discover each other through multicast messaging or a TCP
+								locator service. </p></stentry>
+					</strow>
+					<strow>
+						<stentry>Regions</stentry>
+						<stentry>Regions are an abstraction on top of the distributed system. A
+							region lets you store data in many JVMs in the system without regard to
+							which peer's memory the data is stored in. Regions give you a map
+							interface that transparently fetches your data from the appropriate
+							cache. The Region class extends the java.util.Map interface, but it also
+							supports querying and transactions.</stentry>
+					</strow>
+					<strow>
+						<stentry>Replicated regions</stentry>
+						<stentry>A replicated region keeps a full copy of the region on each
+								<keyword keyref="product_name"/> peer.</stentry>
+					</strow>
+					<strow>
+						<stentry>Partitioned regions</stentry>
+						<stentry>Partitioned regions allow you to configure the number of copies of
+							data in your distributed system. <keyword keyref="product_name"/>
+							partitions your data so that each peer only stores a part of the region
+							contents.</stentry>
+					</strow>
+					<strow>
+						<stentry>Client caching</stentry>
+						<stentry>A <keyword keyref="product_name"/> distributed system is a mesh
+							network, where all peers are connected directly to all other peers.
+								<keyword keyref="product_name"/> also supports clients of the
+							distributed system, which are connected only to a few of the peers in
+							the distributed system. When peers are configured for client
+							connections, they become servers to the clients as well as peers.
+							Clients can have their own local cache of data from their server's
+							distributed system, and they can update their local cache by registering
+							with the server to receive changes to the data. </stentry>
+					</strow>
+					<strow>
+						<stentry>Shared-nothing persistence</stentry>
+						<stentry><keyword keyref="product_name"/> supports shared-nothing
+							persistence, where each peer persists its partition of the data set to
+							its local disk. <keyword keyref="product_name"/> persistence also allows
+							you to maintain a configurable number of copies of your data on
+							disk.</stentry>
+					</strow>
+					<strow>
+						<stentry>Cluster configuration service</stentry>
+						<stentry>When you configure a <keyword keyref="product_name"/> cluster using
+							gfsh, the cluster configuration service uses locators to save and share
+							a configuration to members of a cluster. </stentry>
+					</strow>
+				</simpletable>
+			</p>
+			<p> </p>
+		</section>
+	</conbody>
+</concept>

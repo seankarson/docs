@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE topic PUBLIC "-//OASIS//DTD DITA Topic//EN" "topic.dtd">
+<topic
+  id="topic_itv_mg5_m4">
+  <title>GET /gemfire-api/v1</title>
+  <shortdesc>List all available resources (regions) in the <keyword keyref="product_name"/>
+    cluster.</shortdesc>
+  <body>
+    <section>
+      <title>Resource URL</title>
+      <codeblock>http://&lt;<i>hostname_or_http-service-bind-address</i>>:&lt;<i>http-service-port</i>>/gemfire-api/v1</codeblock>
+    </section>
+    <section>
+      <title>Parameters</title>
+      <p>None.</p>
+    </section>
+    <section>
+      <title>Example Request</title>
+      <p>
+        <codeblock>GET /gemfire/v1/
+Accept: application/json</codeblock>
+      </p>
+    </section>
+    <section>
+      <title>Example Success Response</title>
+      <codeblock>
+Response Payload: application/json
+
+<b>200 OK</b>
+Server: Apache-Coyote/1.1
+Location: http://localhost:8080/gemfire-api/v1
+Content-Type: application/json
+Transfer-Encoding: chunked 
+Date: Sat, 18 Jan 2014 20:05:47 GMT
+ {
+    "regions": [
+        {
+            "name": "customers",
+            "type": "REPLICATE",
+            "key-constraint": "java.lang.String",
+            "value-constraint": "com.gemstone.gemfire.pdx.PdxInstance"
+        },
+        {
+            "name": "items",
+            "type": "REPLICATE",
+            "key-constraint": null,
+            "value-constraint": null
+        },
+        {
+            "name": "orders",
+            "type": "PARTITION",
+            "key-constraint": null,
+            "value-constraint": null
+        },
+        {
+            "name": "primitiveKVStore",
+            "type": "PARTITION",
+            "key-constraint": null,
+            "value-constraint": null
+        },
+        {
+            "name": "empty_region",
+            "type": "EMPTY",
+            "key-constraint": "java.lang.String",
+            "value-constraint": "com.gemstone.gemfire.pdx.PdxInstance"
+        }
+    ]
+}</codeblock>
+    </section>
+    <section>
+      <title>Error Codes</title>
+      <simpletable
+        frame="all"
+        relcolwidth="1.0* 1.87*"
+        id="simpletable_vfq_33v_m4">
+        <sthead>
+          <stentry>Status Code</stentry>
+          <stentry>Description</stentry>
+        </sthead>
+        <strow>
+          <stentry>404 NOT FOUND</stentry>
+          <stentry>No regions were found at the provided endpoint.</stentry>
+        </strow>
+        <strow>
+          <stentry>500 INTERNAL SERVER ERROR</stentry>
+          <stentry>Encountered error at server:</stentry>
+        </strow>
+      </simpletable>
+    </section>
+  </body>
+</topic>

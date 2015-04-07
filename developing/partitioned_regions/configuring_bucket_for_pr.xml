@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "http://docs.oasis-open.org/dita/v1.1/OS/dtd/concept.dtd">
+<concept id="configuring_total_buckets">
+	<title>Configuring the Number of Buckets for a Partitioned Region</title>
+	<shortdesc id="shortdesc_1B09D44F6D77466FAA1F271D6A5A3862">Decide how many buckets to assign to
+		your partitioned region and set the configuration accordingly. </shortdesc>
+	<conbody>
+		<section id="section_DF52B2BF467F4DB4B8B3D16A79EFCA39">
+			<p>The total number of buckets for the partitioned region determines the granularity of
+				data storage and thus how evenly the data can be distributed. <keyword
+					keyref="product_name"/> distributes the buckets as evenly as possible across the
+				data stores. The number of buckets is fixed after region creation. </p>
+			<p>The partition attribute <codeph>total-num-buckets</codeph> sets the number for the
+				entire partitioned region across all participating members. Set it using one of the
+				following: <ul id="ul_38e5c582-c595-4b88-b4be-57e43bf77ecf">
+					<li id="li_4FA315CC0A05455099F9D779F2FA1AE2">XML:
+						<codeblock outputclass="language-xml">&lt;region name="PR1"&gt; 
+  &lt;region-attributes refid="PARTITION"&gt; 
+    &lt;partition-attributes total-num-buckets="7"/&gt; 
+  &lt;/region-attributes&gt; 
+&lt;/region&gt; </codeblock>
+					</li>
+					<li id="li_3B98E3CE47EF434881A1DE709D4B1173">Java:
+						<codeblock outputclass="language-java">RegionFactory rf = 
+	cache.createRegionFactory(RegionShortcut.PARTITION);
+rf.setPartitionAttributes(new PartitionAttributesFactory().setTotalNumBuckets(7).create());
+custRegion = rf.create("customer");</codeblock></li>
+					<li>gfsh:<p>Use the <parmname>--total-num-buckets</parmname> parameter of the
+								<cmdname>create region</cmdname> command. For
+							example:<codeblock>gfsh>create region --name="PR1" --type=PARTITION --total-num-buckets=7</codeblock></p>
+					</li>
+				</ul>
+			</p>
+		</section>
+		<section id="section_C956D9BA41C546F89D07DCFE901E539F">
+			<title>Calculate the Total Number of Buckets for a Partitioned Region</title>
+			<p>Follow these guidelines to calculate the total number of buckets for the partitioned
+				region: <ul id="ul_72C6333BD6AD40C3B93B4648DBB342A5">
+					<li id="li_6C28895141F641768DB399676A75AD29">Use a prime number. This provides
+						the most even distribution. </li>
+					<li id="li_D8E7F80C0B6B4C6EBD09CE2E1758C522">Make it at least four times as
+						large as the number of data stores you expect to have for the region. The
+						larger the ratio of buckets to data stores, the more evenly the load can be
+						spread across the members. Note that there is a trade-off between load
+						balancing and overhead, however. Managing a bucket introduces significant
+						overhead, especially with higher levels of redundancy. </li>
+				</ul>
+			</p>
+			<p>You are trying to avoid the situation where some members have significantly more data
+				entries than others. For example, compare the next two figures. This figure shows a
+				region with three data stores and seven buckets. If all the entries are accessed at
+				about the same rate, this configuration creates a hot spot in member M3, which has
+				about fifty percent more data than the other data stores. M3 is likely to be a slow
+				receiver and potential point of failure. </p>
+			<p>
+				<image placement="break" id="image_04B05CE3C732430C84D967A062D9EDDA"
+					href="../../images_svg/partitioned_data_buckets_1.svg"/>
+			</p>
+			<p>Configuring more buckets gives you fewer entries in a bucket and a more balanced data
+				distribution. This figure uses the same data as before but increases the number of
+				buckets to 13. Now the data entries are distributed more evenly. </p>
+			<p>
+				<image placement="break" id="image_326202046D07414391BA5CBA474920CA"
+					href="../../images_svg/partitioned_data_buckets_2.svg"/>
+			</p>
+		</section>
+	</conbody>
+</concept>

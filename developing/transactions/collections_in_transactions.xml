@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "http://docs.oasis-open.org/dita/v1.1/OS/dtd/concept.dtd">
+<concept id="collections_in_transactions"> 
+  <title>Collections and Region.Entry Instances in Transactions</title> 
+  <prolog><metadata><keywords><keyword>GemFire transaction region
+			 entries</keyword><keyword>gemfire collection
+			 transactions</keyword></keywords></metadata>
+  </prolog> 
+  <conbody> 
+	 <section id="section_881D2FF6761B4D689DDB46C650E2A2E1"> 
+		<p>Collections and region entries used in a transaction must be created
+		  inside the transaction. After the transaction has completed, the application
+		  can no longer use any region entry or collection or associated iterator created
+		  within the transaction. If you try to use these, you get an 
+		  <codeph>IllegalStateException.</codeph> 
+		</p> 
+		<p>Region collection operations include 
+		  <codeph>Region.keySet</codeph>, 
+		  <codeph>Region.entrySet</codeph>, and 
+		  <codeph>Region.values</codeph>. You can create instances of 
+		  <codeph>Region.Entry</codeph> through the 
+		  <codeph>Region.getEntry</codeph> operation or by looking at the
+		  contents of the result returned by a 
+		  <codeph>Region.entrySet</codeph> operation. 
+		</p> 
+	 </section> 
+  </conbody> 
+</concept> 

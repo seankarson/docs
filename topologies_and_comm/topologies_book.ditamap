@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE bookmap PUBLIC "-//OASIS//DTD DITA BookMap//EN" "bookmap.dtd">
+<bookmap id="bookmap_1ADB67EEBA1A450B9894911C5AD5AC0F">
+	<booktitle>
+		<mainbooktitle>Topologies and Communication</mainbooktitle>
+	</booktitle>
+	<part format="dita" href="book_intro.xml" navtitle="Topologies and Communication" type="concept">
+		<topicref href="topology_concepts/chapter_overview.xml">
+			<topicref href="topology_concepts/topology_types.xml"/>
+			<topicref href="topology_concepts/member_communication.xml"/>
+			<topicref href="topology_concepts/how_member_discovery_works.xml"/>
+			<topicref href="topology_concepts/how_communication_works.xml"/>
+			<topicref href="topology_concepts/using_bind_addresses.xml"/>
+			<topicref href="topology_concepts/IPv4_and_IPv6.xml"/>
+		</topicref>
+		<topicref href="p2p_configuration/chapter_overview.xml">
+			<topicref href="p2p_configuration/setting_up_a_p2p_system.xml"/>
+			<topicref href="p2p_configuration/setting_up_peer_communication.xml"/>
+			<topicref format="dita" href="p2p_configuration/configuring_peer_member_groups.xml"/>
+		</topicref>
+		<topicref href="cs_configuration/chapter_overview.xml">
+			<topicref href="cs_configuration/standard_client_server_deployment.xml"/>
+			<topicref href="topology_concepts/how_server_discovery_works.xml"/>
+			<topicref href="topology_concepts/how_the_pool_manages_connections.xml" type="concept"/>
+			<topicref href="cs_configuration/setting_up_a_client_server_system.xml" type="task"/>
+			<topicref href="cs_configuration/configure_servers_into_logical_groups.xml"/>
+			<topicref href="cs_configuration/client_server_example_configurations.xml"/>
+			<topicref href="cs_configuration/client_server_whats_next.xml"/>
+		</topicref>
+	</part>
+</bookmap>

@@ -1,0 +1,315 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE bookmap PUBLIC "-//OASIS//DTD DITA BookMap//EN" "bookmap.dtd">
+<bookmap id="bookmap_6C35AD3506A94B8696F5B1C50B47058E">
+	<booktitle>
+		<mainbooktitle>Developing with <keyword keyref="product_name_long"/></mainbooktitle>
+	</booktitle>
+	<part format="dita" href="book_intro.xml">
+		<topicref format="dita" href="region_options/chapter_overview.xml">
+			<topicref format="dita" href="region_options/storage_distribution_options.xml"/>
+			<topicref format="dita" href="region_options/region_types.xml"/>
+			<topicref format="dita" href="region_options/data_hosts_and_accessors.xml"/>
+			<topicref href="region_options/dynamic_region_creation.xml"/>
+		</topicref>
+		<topicref format="dita" href="partitioned_regions/chapter_overview.xml">
+			<topicref href="partitioned_regions/how_partitioning_works.xml"/>
+			<topicref href="partitioned_regions/managing_partitioned_regions.xml"/>
+			<topicref href="partitioned_regions/configuring_bucket_for_pr.xml"/>
+			<topicref format="dita"
+				href="partitioned_regions/overview_custom_partitioning_and_data_colocation.xml">
+				<topicref format="dita"
+					href="partitioned_regions/custom_partitioning_and_data_colocation.xml"/>
+				<topicref href="partitioned_regions/using_custom_partition_resolvers.xml"/>
+				<topicref href="partitioned_regions/colocating_partitioned_region_data.xml"/>
+			</topicref>
+			<topicref format="dita" href="partitioned_regions/overview_how_pr_ha_works.xml">
+				<topicref href="partitioned_regions/how_pr_ha_works.xml"/>
+				<topicref href="partitioned_regions/configuring_ha_for_pr.xml">
+					<topicref format="dita" href="partitioned_regions/set_pr_redundancy.xml"/>
+					<topicref format="dita" href="partitioned_regions/set_redundancy_zones.xml"/>
+					<topicref format="dita" href="partitioned_regions/set_enforce_unique_host.xml"/>
+					<topicref format="dita"
+						href="partitioned_regions/set_crash_redundancy_recovery.xml"/>
+					<topicref format="dita"
+						href="partitioned_regions/set_join_redundancy_recovery.xml"/>
+				</topicref>
+			</topicref>
+			<topicref format="dita" href="partitioned_regions/overview_how_pr_single_hop_works.xml">
+				<topicref href="partitioned_regions/how_pr_single_hop_works.xml"/>
+				<topicref href="partitioned_regions/configure_pr_single_hop.xml"/>
+			</topicref>
+			<topicref href="partitioned_regions/rebalancing_pr_data.xml"/>
+			<topicref href="partitioned_regions/checking_region_redundancy.xml" type="topic"/>
+			<topicref href="partitioned_regions/moving_partitioned_data.xml" type="topic"/>
+		</topicref>
+		<topicref format="dita" href="distributed_regions/chapter_overview.xml">
+			<topicref href="distributed_regions/how_distribution_works.xml"/>
+			<topicref href="distributed_regions/choosing_level_of_dist.xml"/>
+			<topicref href="distributed_regions/how_replication_works.xml"/>
+			<topicref href="distributed_regions/managing_distributed_regions.xml"/>
+			<topicref href="distributed_regions/locking_in_global_regions.xml"/>
+		</topicref>
+		<topicref format="dita" href="distributed_regions/region_entry_versions.xml">
+			<topicref format="dita"
+				href="distributed_regions/how_region_versioning_works.xml#topic_7A4B6C6169BD4B1ABD356294F744D236"/>
+			<topicref format="dita"
+				href="distributed_regions/how_region_versioning_works.xml#topic_B64891585E7F4358A633C792F10FA23E"/>
+			<topicref format="dita"
+				href="distributed_regions/how_region_versioning_works.xml#topic_0BDACA590B2C4974AC9C450397FE70B2"/>
+			<topicref format="dita"
+				href="distributed_regions/how_region_versioning_works.xml#topic_C5B74CCDD909403C815639339AA03758"/>
+			<topicref format="dita"
+				href="distributed_regions/how_region_versioning_works.xml#topic_321B05044B6641FCAEFABBF5066BD399"/>
+			<topicref format="dita"
+				href="distributed_regions/how_region_versioning_works.xml#topic_32ACFA5542C74F3583ECD30467F352B0"
+			/>
+		</topicref>
+		<topicref format="dita" href="management_all_region_types/chapter_overview.xml">
+			<topicref href="storing_data_on_disk/chapter_overview.xml">
+				<topicref href="storing_data_on_disk/how_persist_overflow_work.xml"/>
+				<topicref href="storing_data_on_disk/storing_data_on_disk.xml"/>
+				<topicref href="storing_data_on_disk/overflow_config_examples.xml"/>
+			</topicref>
+			<topicref href="eviction/chapter_overview.xml">
+				<topicref href="eviction/how_eviction_works.xml"/>
+				<topicref href="eviction/configuring_data_eviction.xml"/>
+			</topicref>
+			<topicref href="expiration/chapter_overview.xml" navtitle="Expiration" type="concept">
+				<topicref href="expiration/how_expiration_works.xml"/>
+				<topicref href="expiration/configuring_data_expiration.xml"/>
+			</topicref>
+			<topicref format="dita" href="outside_data_sources/sync_outside_data.xml">
+				<topicref href="outside_data_sources/chapter_overview.xml"/>
+				<topicref href="outside_data_sources/how_data_loaders_work.xml"/>
+				<topicref href="outside_data_sources/implementing_data_loaders.xml"/>
+			</topicref>
+		</topicref>
+		<topicref format="dita" href="data_serialization/chapter_overview.xml">
+			<topicref href="data_serialization/data_serialization_options.xml"/>
+			<topicref href="data_serialization/gemfire_pdx_serialization.xml">
+				<topicref format="dita" href="data_serialization/PDX_Serialization_Features.xml"/>
+				<topicref format="dita" href="data_serialization/use_pdx_high_level_steps.xml"/>
+				<topicref format="dita" href="data_serialization/auto_serialization.xml">
+					<topicref format="dita"
+						href="data_serialization/autoerialization_with_class_pattern_strings.xml"/>
+					<topicref format="dita"
+						href="data_serialization/extending_the_autoserializer.xml"/>
+				</topicref>
+				<topicref href="data_serialization/use_pdx_serializer.xml"/>
+				<topicref format="dita" href="data_serialization/use_pdx_serializable.xml"/>
+				<topicref format="dita" href="data_serialization/program_application_for_pdx.xml"/>
+				<topicref format="dita" href="data_serialization/jsonformatter_pdxinstances.xml"/>
+				<topicref format="dita" href="data_serialization/using_PdxInstanceFactory.xml"/>
+				<topicref format="dita" href="data_serialization/persist_pdx_metadata_to_disk.xml"/>
+				<topicref format="dita" href="data_serialization/using_pdx_region_entry_keys.xml"/>
+			</topicref>
+			<topicref href="data_serialization/gemfire_data_serialization.xml"/>
+			<topicref href="data_serialization/java_serialization.xml"/>
+		</topicref>
+		<topicref format="dita" href="events/chapter_overview.xml">
+			<topicref href="events/how_events_work.xml">
+				<topicref href="events/how_cache_events_work.xml"/>
+				<topicref href="events/how_client_server_distribution_works.xml"/>
+				<topicref href="events/list_of_event_handlers_and_events.xml"/>
+			</topicref>
+			<topicref href="events/event_handler_overview.xml">
+				<topicref href="events/implementing_cache_event_handlers.xml"
+					navtitle="Implementing Cache Event Handlers" type="concept"/>
+				<topicref href="events/implementing_write_behind_event_handler.xml"/>
+				<topicref href="events/writing_callbacks_that_modify_the_cache.xml"/>
+				<topicref href="events/cache_event_handler_examples.xml"/>
+			</topicref>
+			<topicref format="dita" href="events/configure_p2p_event_messaging.xml"/>
+			<topicref format="dita" href="events/configure_client_server_event_messaging.xml">
+				<topicref href="events/configuring_highly_available_servers.xml">
+					<topicref href="events/ha_event_messaging_whats_next.xml"/>
+				</topicref>
+				<topicref href="events/implementing_durable_client_server_messaging.xml">
+					<topicref href="events/durable_event_messaging_whats_next.xml"/>
+				</topicref>
+				<topicref format="dita" href="events/tune_client_server_event_messaging.xml">
+					<topicref format="dita" href="events/conflate_server_subscription_queue.xml"/>
+					<topicref format="dita" href="events/limit_server_subscription_queue_size.xml"/>
+					<topicref format="dita" href="events/tune_client_message_tracking_timeout.xml"/>
+				</topicref>
+			</topicref>
+		</topicref>
+		<topicref format="dita" href="delta_propagation/chapter_overview.xml">
+			<topicref href="delta_propagation/how_delta_propagation_works.xml"/>
+			<topicref href="delta_propagation/when_to_use_delta_prop.xml"/>
+			<topicref href="delta_propagation/delta_propagation_properties.xml"/>
+			<topicref href="delta_propagation/implementing_delta_propagation.xml"/>
+			<topicref format="dita" href="delta_propagation/errors_in_delta_propagation.xml"/>
+			<topicref href="delta_propagation/delta_propagation_example.xml"/>
+		</topicref>
+		<topicref format="dita" href="querying_basics/chapter_overview.xml" navtitle="Querying"
+			type="concept">
+			<topicref format="dita" href="../getting_started/querying_quick_reference.xml" type="reference"/>
+			<topicref format="dita" href="querying_basics/query_basics.xml">
+				<topicref href="querying_basics/oql_compared_to_sql.xml"/>
+				<topicref href="querying_basics/running_a_query.xml"/>
+				<topicref href="querying_basics/what_is_a_query_string.xml">
+					<topicref format="dita" href="query_select/the_import_statement.xml"/>
+					<topicref href="query_select/the_from_clause.xml"/>
+					<topicref href="query_select/the_where_clause.xml"/>
+					<topicref format="dita" href="query_select/the_select_statement.xml"/>
+				</topicref>
+				<topicref format="dita" href="query_additional/query_language_features.xml">
+					<topicref format="dita" href="querying_basics/supported_character_sets.xml"/>
+					<topicref format="dita" href="query_additional/supported_keywords.xml" type="reference"/>
+					<topicref format="dita" href="query_additional/case_sensitivity.xml"/>
+					<topicref format="dita" href="querying_basics/comments_in_query_strings.xml"/>
+					<topicref href="querying_basics/query_grammar_and_reserved_words.xml"/>
+					<topicref href="query_additional/operators.xml"/>
+					<topicref format="dita" href="querying_basics/reserved_words.xml"/>
+					<topicref href="query_additional/literals.xml"/>
+				</topicref>
+				<topicref format="dita"
+					href="querying_basics/restrictions_and_unsupported_features.xml"/>
+			</topicref>
+			<topicref format="dita" href="query_additional/advanced_querying.xml">
+				<topicref href="querying_basics/performance_considerations.xml"/>
+				<topicref format="dita" href="querying_basics/monitor_queries_for_low_memory.xml" type="topic"/>
+				<topicref format="dita" href="query_additional/using_query_bind_parameters.xml"/>
+				<topicref format="dita" href="query_index/query_index.xml">
+					<topicref href="query_index/indexing_guidelines.xml"/>
+					<topicref href="query_index/creating_an_index.xml"/>
+					<topicref format="dita" href="query_index/creating_key_indexes.xml"/>
+					<topicref format="dita" href="query_index/creating_hash_indexes.xml"/>
+					<topicref href="query_index/creating_map_indexes.xml" type="topic"/>
+					<topicref href="query_index/create_multiple_indexes.xml" type="topic"/>
+					<topicref format="dita" href="query_index/maintaining_indexes.xml"/>
+					<topicref href="query_index/query_index_hints.xml" type="topic"/>
+					<topicref format="dita" href="query_index/indexes_on_single_region_queries.xml"/>
+					<topicref format="dita"
+						href="query_index/using_indexes_with_equijoin_queries.xml"/>
+					<topicref format="dita" href="query_index/indexes_with_overflow_regions.xml"/>
+					<topicref format="dita"
+						href="query_index/using_indexes_with_equijoin_queries_multiple_regions.xml"/>
+					<topicref format="dita" href="query_index/index_samples.xml"/>
+				</topicref>
+				<topicref href="querying_basics/querying_partitioned_regions.xml">
+					<topicref format="dita"
+						href="query_additional/order_by_on_partitioned_regions.xml"/>
+					<topicref format="dita" href="query_additional/query_on_a_single_node.xml"/>
+					<topicref format="dita"
+						href="query_additional/partitioned_region_key_or_field_value.xml"/>
+					<topicref format="dita"
+						href="partitioned_regions/join_query_partitioned_regions.xml"/>
+					<topicref href="query_additional/partitioned_region_query_restrictions.xml"/>
+				</topicref>
+				<topicref format="dita" href="query_additional/query_debugging.xml"/>
+			</topicref>
+		</topicref>
+		<topicref format="dita" href="transactions/chapter_overview.xml" navtitle="Transactions"
+			scope="local" type="topic">
+			<topicref href="transactions/about_transactions.xml" type="topic"/>
+			<topicref href="transactions/about_transactions.xml#concept_w3b_wh3_5k"/>
+			<topicref href="transactions/cache_transactions.xml" type="topic">
+				<topicref href="transactions/cache_transaction_performance.xml"/>
+				<topicref href="transactions/data_location_cache_transactions.xml"/>
+				<topicref href="transactions/run_a_cache_transaction.xml" type="task"/>
+				<topicref href="transactions/run_a_cache_transaction_with_external_db.xml"/>
+				<topicref format="dita" href="transactions/working_with_transactions.xml">
+					<topicref href="transactions/working_with_transactions.xml#concept_vx2_gs4_5k"
+						type="topic"/>
+					<topicref href="transactions/working_with_transactions.xml#concept_fdr_wht_vk"/>
+					<topicref href="transactions/working_with_transactions.xml#concept_ihn_zmt_vk"/>
+					<topicref href="transactions/working_with_transactions.xml#concept_ty1_vnt_vk"/>
+					<topicref href="transactions/working_with_transactions.xml#concept_ksh_twz_vk"/>
+					<topicref href="transactions/working_with_transactions.xml#concept_vyt_txz_vk"/>
+					<topicref
+						href="transactions/working_with_transactions.xml#transactions_and_consistency"/>
+					<topicref href="transactions/working_with_transactions.xml#concept_u5b_ryz_vk"/>
+					<topicref href="transactions/working_with_transactions.xml#concept_ysx_nf1_wk"/>
+					<topicref href="transactions/working_with_transactions.xml#concept_ocw_vf1_wk"/>
+					<topicref href="transactions/transaction_event_management.xml"/>
+				</topicref>
+				<topicref href="transactions/how_cache_transactions_work.xml#topic_fls_1j1_wk"
+					type="topic">
+					<topicref href="transactions/how_cache_transactions_work.xml#concept_hls_1j1_wk"/>
+					<topicref href="transactions/how_cache_transactions_work.xml#concept_sbj_lj1_wk"/>
+					<topicref
+						href="transactions/cache_transactions_by_region_type.xml#topic_nlq_sk1_wk"
+						type="topic">
+						<topicref
+							href="transactions/cache_transactions_by_region_type.xml#concept_ysk_xj1_wk"/>
+						<topicref
+							href="transactions/cache_transactions_by_region_type.xml#concept_nl5_pk1_wk"/>
+						<topicref
+							href="transactions/cache_transactions_by_region_type.xml#concept_omy_341_wk"
+						/>
+					</topicref>
+					<topicref href="transactions/client_server_transactions.xml" type="topic">
+						<topicref
+							href="transactions/client_server_transactions.xml#how_gemfire_runs_clients"/>
+						<topicref
+							href="transactions/client_server_transactions.xml#client_cache_access"/>
+						<topicref
+							href="transactions/client_server_transactions.xml#client_app_plugins"/>
+						<topicref
+							href="transactions/client_server_transactions.xml#client_transaction_failures"
+						/>
+					</topicref>
+					<topicref
+						href="transactions/transactional_and_nontransactional_ops.xml#transactional_and_nontransactional_ops"
+						type="topic">
+						<topicref
+							href="transactions/transactional_and_nontransactional_ops.xml#transactional_operations"/>
+						<topicref
+							href="transactions/transactional_and_nontransactional_ops.xml#non_transactional_operations">
+							<topicref
+								href="transactions/transactional_and_nontransactional_ops.xml#entry_operations"/>
+							<topicref
+								href="transactions/transactional_and_nontransactional_ops.xml#region_operations"/>
+							<topicref
+								href="transactions/transactional_and_nontransactional_ops.xml#cache_operations"
+							/>
+						</topicref>
+						<topicref
+							href="transactions/transactional_and_nontransactional_ops.xml#no-ops"/>
+					</topicref>
+					<topicref href="transactions/transaction_semantics.xml"/>
+				</topicref>
+			</topicref>
+			<topicref format="dita" href="transactions/JTA_transactions_with_GemFire.xml">
+				<topicref href="transactions/JTA_transactions_with_GemFire.xml#concept_cp1_zx1_wk">
+					<topicref href="transactions/JTA_transactions_with_GemFire.xml#task_j3g_3mn_1l"
+					/>
+				</topicref>
+				<topicref href="transactions/JTA_transactions_with_GemFire.xml#concept_csy_vfb_wk"
+					type="concept">
+					<topicref href="transactions/JTA_transactions_with_GemFire.xml#task_sln_x3b_wk"
+						type="task"/>
+				</topicref>
+				<topicref
+					href="transactions/JTA_transactions_with_GemFire.xml#concept_8567sdkbigige">
+					<topicref href="transactions/JTA_transactions_with_GemFire.xml#task_qjv_khb_wk"
+						type="task">
+						<topicref format="dita"
+							href="transactions/configuring_db_connections_using_JNDI.xml" type="topic"/>
+						<topicref format="dita"
+							href="transactions/configuring_db_connections_using_JNDI.xml#topic_F67EC20067124A618A8099AB4CBF634C"
+						type="topic"/>
+					</topicref>
+				</topicref>
+				<topicref href="transactions/cache_plugins_with_jta.xml"/>
+				<topicref href="transactions/turning_off_jta.xml"/>
+			</topicref>
+			<topicref format="dita" href="transactions/monitor_troubleshoot_transactions.xml"/>
+			<topicref format="dita" href="transactions/transaction_coding_examples.xml">
+				<topicref format="dita" href="transactions/transactions_overview.xml"/>
+				<topicref format="dita" href="transactions/transaction_suspend_resume_example.xml"/>
+				<topicref format="dita" href="transactions/transaction_multiple_regions_example.xml"/>
+				<topicref format="dita" href="transactions/transactional_function_example.xml"/>
+				<topicref href="transactions/transaction_jta_gemfire_example.xml"/>
+				<topicref href="transactions/jca_adapter_example.xml"/>
+			</topicref>
+		</topicref>
+		<topicref format="dita" href="function_exec/chapter_overview.xml">
+			<topicref format="dita" href="function_exec/function_execution_use_cases.xml"/>
+			<topicref href="function_exec/how_function_execution_works.xml"/>
+			<topicref href="function_exec/function_execution.xml"/>
+		</topicref>
+	</part>
+</bookmap>

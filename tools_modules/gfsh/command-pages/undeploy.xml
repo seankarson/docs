@@ -1,0 +1,73 @@
+<?xml version="1.0"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept id="concept_234FEC313B4A468E8851DD9B1B759B98">
+	<title>undeploy</title>
+	<shortdesc>Undeploy the JAR files that were deployed on members or groups using
+			<codeph>deploy</codeph> command. </shortdesc>
+	<conbody>
+		<p> If <codeph>--jar</codeph> is not specified, the command will undeploy all deployed JARs.
+			If <codeph>--group</codeph> is not specified, the command applies to the entire cluster.
+			Note that this command can't unload the classes that were loaded during deployment.
+			Member(s) should be restarted for that. </p>
+		<p><b> Availability:</b> Online. You must be connected in <codeph>gfsh</codeph> to a JMX
+			Manager member to use this command. </p>
+		<p><b>Syntax:</b>
+			<codeblock>undeploy [--jar=&lt;jar to be undeployed&gt;] [--group=&lt;member-group-name&gt;]</codeblock>
+			<table id="table_EF6A53D594D4492D9D8240BEA5B702E7">
+				<title>Parameters</title>
+				<tgroup cols="3">
+					<colspec colname="col1" colnum="1" colwidth="1.00*"/>
+					<colspec colname="col2" colnum="2" colwidth="2.00*"/>
+					<colspec colname="newCol3" colnum="3" colwidth="1*"/>
+					<thead>
+						<row>
+							<entry colname="col1">Name </entry>
+							<entry colname="col2">Description</entry>
+							<entry colname="col3">Default Value</entry>
+						</row>
+					</thead>
+					<tbody>
+						<row>
+							<entry colname="col1"><parmname>--group</parmname>
+							</entry>
+							<entry colname="col2">Group(s) from which the specified JAR(s) will be
+								undeployed. </entry>
+							<entry>undeploy will occur on all members. </entry>
+						</row>
+						<row>
+							<entry colname="col1"><parmname>--jar</parmname>
+							</entry>
+							<entry colname="col2">JAR or JARs to be undeployed.</entry>
+							<entry>All JARs will be undeployed. </entry>
+						</row>
+					</tbody>
+				</tgroup>
+			</table>
+		</p>
+		<p><b>Example Commands:</b>
+			<codeblock>undeploy --jar=domain-objects.jar
+undeploy --group=Group1</codeblock>
+		</p>
+		<p><b>Sample Output:</b>
+			<codeblock>gfsh&gt;undeploy --jar=domain-objects.jar
+
+  Member   |  Un-Deployed JAR   |         Un-Deployed From JAR Location        
+---------- | ------------------ | ---------------------------------------------
+datanode10 | domain-objects.jar | /usr/local/gemfire/deploy/GF#domain-objects#1
+datanode11 | domain-objects.jar | /usr/local/gemfire/deploy/GF#domain-objects#1 
+
+
+gfsh&gt; undeploy --group=Group1
+
+ Member   |     Un-Deployed JAR     |             Un-Deployed From JAR Location        
+--------- | ----------------------- | ------------------------------------------------------
+datanode1 | group1_functions.jar    | /usr/local/gemfire/deploy/GF#group1_functions.jar#1
+datanode1 | group1_dependencies.jar | /usr/local/gemfire/deploy/GF#group1_dependencies.jar#1 
+datanode2 | group1_functions.jar    | /usr/local/gemfire/deploy/GF#group1_functions.jar#1
+datanode2 | group1_dependencies.jar | /usr/local/gemfire/deploy/GF#group1_dependencies.jar#1</codeblock>
+		</p>
+		<p><b>Error Messages:</b>
+			<codeblock>No JAR Files Found</codeblock>
+		</p>
+	</conbody>
+</concept>

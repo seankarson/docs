@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "http://docs.oasis-open.org/dita/v1.1/OS/dtd/concept.dtd">
+<concept id="handling_missing_disk_stores">
+	<title>Handling Missing Disk Stores</title>
+	<conbody>
+		<section id="section_9345819FC27E41FB94F5E54979B7C506">
+			<p>This section applies to disk stores that hold the latest copy of your data for at
+				least one region. </p>
+		</section>
+		<section id="section_9E8FBB7935F34239AD5E65A3E857EEAA">
+			<title>Show Missing Disk Stores</title>
+			<p>Using <codeph>gfsh</codeph>, the <codeph>show missing-disk-stores</codeph> command
+				lists all disk stores with most recent data that are being waited on by other
+				members. </p>
+			<p>For replicated regions, this command only lists missing members that are preventing
+				other members from starting up. For partitioned regions, this command also lists any
+				offline data stores, even when other data stores for the region are online, because
+				their offline status may be causing <codeph>PartitionOfflineExceptions</codeph> in
+				cache operations or preventing the system from satisfying redundancy. </p>
+			<p>Example: <codeblock>gfsh&gt;show missing-disk-stores
+          Disk Store ID             |   Host    |               Directory                                           
+------------------------------------ | --------- | -------------------------------------
+60399215-532b-406f-b81f-9b5bd8d1b55a | excalibur | /usr/local/gemfire/deploy/disk_store1</codeblock>
+				<note> You need to be connected to JMX Manager in <codeph>gfsh</codeph> to run this
+					command. </note>
+			</p>
+			<p>
+				<note>The disk store directories listed for missing disk stores may not be the
+					directories you have currently configured for the member. The list is retrieved
+					from the other running members—the ones who are reporting the missing member.
+					They have information from the last time the missing disk store was online. If
+					you move your files and change the member’s configuration, these directory
+					locations will be stale. </note>
+			</p>
+			<p>Disk stores usually go missing because their member fails to start. The member can
+				fail to start for a number of reasons, including: <ul
+					id="ul_EC27DB5CA63A485DBC659078D6A48540">
+					<li id="li_5EFAC1F824364D77BB7AF04CBA97EC50">Disk store file corruption. You can
+						check on this by validating the disk store. </li>
+					<li id="li_3FBB8BD66FC0425F9E7142BACA2FF4EF">Incorrect distributed system
+						configuration for the member </li>
+					<li id="li_39C9C85625A1495FA722759D04365F13">Network partitioning </li>
+					<li id="li_5F0CE3F6C3834B5EB880764D4CE07140">Drive failure </li>
+				</ul>
+			</p>
+		</section>
+		<section id="section_FDF161F935054AB190D9DB0D7930CEAA">
+			<title>Revoke Missing Disk Stores</title>
+			<p>This section applies to disk stores for which both of the following are true: <ul
+					id="ul_3990F53A29814E91BD2BB04069FCEBD3">
+					<li id="li_C4CF0C4461CA4493907CEFE3C532D8F5">Disk stores that have the most
+						recent copy of data for one or more regions or region buckets. </li>
+					<li id="li_11A2EDAB88854F85A4D85F831D95B942">Disk stores that are unrecoverable,
+						such as when you have deleted them, or their files are corrupted or on a
+						disk that has had a catastrophic failure. </li>
+				</ul>
+			</p>
+			<p>When you cannot bring the latest persisted copy online, use the revoke command to
+				tell the other members to stop waiting for it. Once the store is revoked, the system
+				finds the remaining most recent copy of data and uses that. </p>
+			<note>Once revoked, a disk store cannot be reintroduced into the system. </note>
+			<p>Use gfsh show missing-disk-stores to properly identify the disk store you need to
+				revoke. The revoke command takes the disk store ID as input, as listed by that
+				command. </p>
+			<p>Example:
+				<codeblock>gfsh&gt;revoke missing-disk-store --id=60399215-532b-406f-b81f-9b5bd8d1b55a
+Missing disk store successfully revoked</codeblock>
+			</p>
+			<p> </p>
+		</section>
+	</conbody>
+</concept>

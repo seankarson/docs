@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "http://docs.oasis-open.org/dita/v1.1/OS/dtd/concept.dtd">
+<concept id="JTA_transactions_with_GemFire"> 
+  <title>About the vFabric GemFire JTA</title> 
+  <prolog><metadata><keywords><keyword>GemFire JTA</keyword><keyword>GemFire
+			 JTA transactions</keyword><keyword>GemFire JTA
+			 support</keyword></keywords></metadata>
+  </prolog> 
+  <conbody> 
+	 <section id="section_C95DAA0419264058A287A3B01B2D9CF1"> 
+		<p>While a global transaction is running, each cache operation that would
+		  participate in a 
+		  <ph
+			conref="../../product_short_name.xml#ditacomponent_4CDD0B39CDD54D2AAF1CBC81A1FDBA19/ph_2E41EB9BE730428A970C1C206D14DC09"><?xm-replace_text Phrase?></ph>
+		  transaction tries to join through JTA synchronization. If the global
+		  transaction has been marked for rollback, however, the 
+		  <ph
+			conref="../../product_short_name.xml#ditacomponent_4CDD0B39CDD54D2AAF1CBC81A1FDBA19/ph_2E41EB9BE730428A970C1C206D14DC09"><?xm-replace_text Phrase?></ph>
+		  operation is not allowed to join and the cache operation call throws a 
+		  <codeph>FailedSynchronizationException</codeph>. 
+		</p> 
+		<p>JTA provides direct coordination between the 
+		  <ph
+			conref="../../product_short_name.xml#ditacomponent_4CDD0B39CDD54D2AAF1CBC81A1FDBA19/ph_2E41EB9BE730428A970C1C206D14DC09"><?xm-replace_text Phrase?></ph>
+		  cache and another transactional resource, such as a database. Using JTA, your
+		  application controls all transactions in the same standard way, whether the
+		  transactions act on the 
+		  <ph
+			conref="../../product_short_name.xml#ditacomponent_4CDD0B39CDD54D2AAF1CBC81A1FDBA19/ph_2E41EB9BE730428A970C1C206D14DC09"><?xm-replace_text Phrase?></ph>
+		  cache, a JDBC resource, or both together. When a JTA global transaction is
+		  done, the 
+		  <ph
+			conref="../../product_short_name.xml#ditacomponent_4CDD0B39CDD54D2AAF1CBC81A1FDBA19/ph_2E41EB9BE730428A970C1C206D14DC09"><?xm-replace_text Phrase?></ph>
+		  transaction and the database transaction are both complete. 
+		</p> 
+		<p>The 
+		  <ph
+			conref="../../product_short_name.xml#ditacomponent_4CDD0B39CDD54D2AAF1CBC81A1FDBA19/ph_2E41EB9BE730428A970C1C206D14DC09"><?xm-replace_text Phrase?></ph>
+		  JTA is initialized when the cache is initialized. If a global transaction
+		  exists when you use the cache, the cache operations automatically enlist
+		  themselves with the transaction, where appropriate. Operations on a region
+		  automatically detect and become associated with the existing global transaction
+		  through JTA synchronization. If the global transaction has been marked for
+		  rollback, any cache operation that attempts to enlist throws a 
+		  <codeph>FailedSynchronizationException.</codeph> 
+		</p> 
+		<p>The 
+		  <ph
+			conref="../../product_short_name.xml#ditacomponent_4CDD0B39CDD54D2AAF1CBC81A1FDBA19/ph_2E41EB9BE730428A970C1C206D14DC09"><?xm-replace_text Phrase?></ph>
+		  cache transaction's commit or rollback is triggered when the global transaction
+		  commits or rolls back. When the global transaction is committed using the 
+		  <codeph>UserTransaction</codeph> interface, the transactions of any
+		  registered JTA resources are committed, including the 
+		  <ph
+		  conref="../../product_short_name.xml#ditacomponent_4CDD0B39CDD54D2AAF1CBC81A1FDBA19/ph_2E41EB9BE730428A970C1C206D14DC09"><?xm-replace_text Phrase?></ph>
+		  cache transaction. If the cache or database transaction fails to commit 
+		  <codeph>UserTransaction</codeph> throws a 
+		  <codeph>TransactionRolledBackException</codeph>. If a commit or
+		  rollback is attempted directly on a 
+		  <ph
+		  conref="../../product_short_name.xml#ditacomponent_4CDD0B39CDD54D2AAF1CBC81A1FDBA19/ph_2E41EB9BE730428A970C1C206D14DC09"><?xm-replace_text Phrase?></ph>
+		  transaction that is registered with JTA, that action throws an 
+		  <codeph>IllegalStateException.</codeph> 
+		</p> 
+		<p>If there are a cache writer and cache loader with transactional data
+		  sources, the writer and loader participate in the transaction. If the JTA rolls
+		  back its transaction, the changes made by the cache loader and the cache writer
+		  are rolled back. 
+		</p> 
+		<p>You can disable JTA for any region by setting the region attribute 
+		  <codeph>ignore-jta</codeph> to true. 
+		</p> 
+	 </section> 
+  </conbody> 
+</concept> 

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE topic PUBLIC "-//OASIS//DTD DITA Topic//EN" "topic.dtd">
+<topic
+  id="topic_snl_542_xp">
+  <title>Creating Indexes on Map Fields ("Map Indexes")</title>
+  <shortdesc>To assist with the quick lookup of multiple values in a Map (or HashMap) type field,
+    you can create an index (sometimes referred to as a "map index") on specific (or all) keys in
+    that field. </shortdesc>
+  <body>
+    <p>For example, you could create a map index to support the following
+      query:<codeblock>SELECT * fROM /users u WHERE u.name['first'] = ‘John’ OR u.name['last'] = ‘Smith’</codeblock></p>
+    <p>The map index extends regular range indexes created on single key by maintaining indexes for
+      other specified keys, or for all keys if <codeph>*</codeph> is used. The underlying structure
+      of the map index can be thought of as a wrapper around all these indexes.</p>
+    <p>The following Java code samples provide examples of how to create a map index:</p>
+    <p>
+      <codeblock>QueryService qs = cache.getQueryService();
+
+//This will create indexes for for keys 'PVTL' and 'VMW'
+qs.createIndex("indexName", "p.positions['PVTL', 'VMW']", "/portfolio p");</codeblock>
+    </p>
+    <p>
+      <codeblock>QueryService qs = cache.getQueryService();
+
+//This will create indexes for all keys
+qs.createIndex("indexName", "p.positions[*]", "/portfolio p");</codeblock>
+    </p>
+    <p>In gfsh, the equivalents are:</p>
+    <p>
+      <codeblock>gfsh>create index --name="IndexName" --expression="p.positions['PVTL', 'VMW']" --region="/portfolio p"
+
+gfsh>create index --name="IndexName" --expression="p.positions[*]" --region="/portfolio p"</codeblock>
+    </p>
+    <p>In order to create or query a map index, you must use the bracket notation to list the map
+      field keys you wish to index or query. For example: <codeph>[*]</codeph>,
+        <codeph>['keyX1','keyX2’]</codeph>. Note that using <codeph>p.pos.get('keyX1')</codeph> will
+      not create or query the map index. </p>
+    <p>
+      <note>You can still query against Map or HashMap fields without querying against a map index.
+        For example, you can always create a regular range query on a single key in any Map or
+        HashMap field. However, note that subsequent query lookups will be limited to a single
+        key.</note>
+    </p>
+  </body>
+</topic>

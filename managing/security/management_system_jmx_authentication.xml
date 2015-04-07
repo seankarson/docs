@@ -1,0 +1,63 @@
+<?xml version="1.0"?>
+<!DOCTYPE topic PUBLIC "-//OASIS//DTD DITA Topic//EN" "topic.dtd">
+<topic id="topic_06B28974C3D34C019418C92B1FC189C8">
+	<title>Setting Up JMX Authentication for <keyword keyref="product_name"/> Management and Monitoring</title>
+	<shortdesc> To force JMX clients such as <codeph>gfsh</codeph> and <keyword keyref="product_name"/> Pulse to authenticate
+		into the <keyword keyref="product_name"/> management system, you must configure the JMX Manager node. </shortdesc>
+	<body>
+		<p>By default, the JMX manager allows clients without credentials to connect. To set up JMX
+			authentication for the management system: <ol id="ol_0F67C8B1EE584E8BAFA1B52D0EF3FBEC">
+				<li id="li_13A1A9F3E2DE476BA88374EAA4E66634">Verify that the
+					<codeph>jmx-manager</codeph> <keyword keyref="product_name"/> property is set to true on any node
+					that you want to be able to become a JMX Manager and authenticate clients. If
+					this property is set to false or not specified, then all other jmx-manager-*
+					properties are ignored. </li>
+				<li id="li_4ED6801E01B74845AC22AAF1817B8AD4">Create a password file that contains
+					entries for the user names and passwords you want to grant access to <keyword keyref="product_name"/>'s
+					management and monitoring system. For example:
+					<codeblock>
+#the gemfiremonitor user has password Abc!@#
+#the gemfiremanager user has password 123Gh2!
+
+gemfiremonitor Abc!@#
+gemfiremanager 123Gh2!</codeblock>
+				</li>
+				<li id="li_7E8ADDFB522746D9A99A731EF3ED7022">On each of your JMX Manager-enabled
+					nodes, set the property <codeph>jmx-manager-password-file</codeph> to
+					the name of the file you created in step 2. This will require clients to
+					authenticate when connecting to a JMX Manager node in <keyword keyref="product_name"/>. </li>
+				<li id="li_EE1534A8603841F89EDDB2DDA3448865">If you wish to further restrict access
+					to system operations, you can also set up an access file for the JMX Manager.
+					The access file indicates whether the users listed in the password file have the
+					ability to read system MBeans (monitor the system) or whether they can
+					additionally modify MBeans (perform operations). For example, you can define the
+					following:
+					<codeblock>
+#the gemfiremonitor user has readonly access
+#the gemfiremanager user has readwrite access
+
+gemfiremonitor readonly
+gemfiremanager readwrite</codeblock>
+				</li>
+				<li id="li_DC1623D94F8A4FA0B0A8CB8673EBCCAC">On each of your JMX Manager-enabled
+					nodes, set the <keyword keyref="product_name"/> property <codeph>jmx-manager-access-file</codeph> to the
+					name of the file you created in step 4. This will associate MBean permissions to
+					the users who authenticate to the JMX Manager node in <keyword keyref="product_name"/>. </li>
+				<li id="li_09F5231FD0BE4A7FBAC9AAE0E79E4644">If desired, enable SSL for your JMX
+					Manager connections. If you enable SSL for <keyword keyref="product_name"/> peer-to-peer connections,
+					then by default the same SSL configuration is applied to the JMX manager. You
+					can override the SSL configuration for JMX clients by configuring JMX manager
+					configuration properties (such as <codeph>jmx-manager-ssl</codeph>) in the
+						<codeph>gfsecurity.properties</codeph> file. See <xref
+						href="implementing_ssl.xml#implementing_ssl" type="concept" format="dita"
+						scope="local"/>. </li>
+			</ol>
+		</p>
+		<p> </p>
+		<p>For more information on the format of the password and access file, see <xref
+				href="http://docs.oracle.com/javase/6/docs/technotes/guides/management/agent.html"
+				scope="external" format="html"
+				><?xm-replace_text http://docs.oracle.com/javase/6/docs/technotes/guides/management/agent.html?></xref>.
+		</p>
+	</body>
+</topic>

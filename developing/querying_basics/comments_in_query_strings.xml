@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept id="concept_60EDB51391AA4BB395136E08843AB5BC">
+  <title>Comments in Query Strings</title>
+  <shortdesc><?xm-replace_text Short Description?>
+  </shortdesc>
+  <prolog>
+    <metadata>
+      <keywords>
+        <keyword>gemfire query comments</keyword>
+      </keywords>
+    </metadata>
+  </prolog>
+  <conbody>
+    <p>Comment lines being with -- (double dash). Comment blocks begin with /* and end with */. For
+      example:
+      <codeblock>SELECT * --my comment FROM /exampleRegion /* here is
+a comment */ WHERE status = ‘active’
+</codeblock>
+    </p>
+  </conbody>
+</concept>

@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "http://docs.oasis-open.org/dita/v1.1/OS/dtd/concept.dtd">
+<concept id="type_conversions"> 
+  <title>Type Conversions</title> 
+  <prolog audience="basic"> 
+  </prolog> 
+  <conbody> 
+	 <section id="section_C4FE2578BF1B4C668B3A8D59EAE502E3"> 
+		<p>The vFabric 
+		  <ph
+			conref="../../product_short_name.xml#ditacomponent_4CDD0B39CDD54D2AAF1CBC81A1FDBA19/ph_2E41EB9BE730428A970C1C206D14DC09"><?xm-replace_text Phrase?></ph>
+		  query processor performs implicit conversions and promotions under certain
+		  cases in order to evaluate expressions that contain different types. The query
+		  processor performs binary numeric promotion, method invocation conversion, and
+		  temporal type conversion. 
+		</p> 
+	 </section> 
+	 <section id="section_A5FDD0E8F1EE44FC878120685D64B913"> 
+		<title>Binary Numeric Promotion</title> 
+		<p>The query processor performs binary numeric promotion on the operands
+		  of the following operators: 
+		<ul id="ul_3986CA11A40144D6AAA5E1489C4327FB"> 
+		  <li id="li_12A34C2414934E07A83A951F2E0EA990">Comparison operators &lt;,
+			 &lt;=, &gt;, and &gt;= 
+		  </li> 
+		  <li id="li_4FC1FC12ECA0441B9D386916FD278B96">Equality operators = and
+			 &lt;&gt; 
+		  </li> 
+		</ul> 
+		</p> 
+		<p>Binary numeric promotion widens the operands in a numeric expression
+		  to the widest representation used by any of the operands. In each expression,
+		  the query processor applies the following rules in order until a conversion is
+		  made: 
+		<ol id="ol_D2243E74EECF4531AC920E655A966D0A"> 
+		  <li id="li_A145C7DD5C5B44D09BFBF2B336806B36">If either operand is of
+			 type 
+			 <codeph>double</codeph>, the other is converted to 
+			 <codeph>double</codeph> 
+		  </li> 
+		  <li id="li_8F35B0604BCF4542B979E7A70AD5B11C">If either operand is of
+			 type 
+			 <codeph>float</codeph>, the other is converted to 
+			 <codeph>float</codeph> 
+		  </li> 
+		  <li id="li_A3135D78510A4ACDBE946695F497018B">If either operand is of
+			 type 
+			 <codeph>long</codeph>, the other is converted to 
+			 <codeph>long</codeph> 
+		  </li> 
+		  <li id="li_3AACE19ECA134BDAA93DF99656A34B76">Both operands are
+			 converted to type 
+			 <codeph>int</codeph> 
+		  </li> 
+		</ol> 
+		</p>This is the same behavior as in Java except that 
+		<codeph>char</codeph>s are not considered to be numeric in the 
+		<ph
+		 conref="../../product_short_name.xml#ditacomponent_4CDD0B39CDD54D2AAF1CBC81A1FDBA19/ph_2E41EB9BE730428A970C1C206D14DC09"><?xm-replace_text Phrase?></ph>
+		query language and so are not included in these promotions. 
+	 </section> 
+	 <section id="section_9612D3BF546544D692E1154288CC0EA1"> 
+		<title>Method Invocation Conversion</title> 
+		<p>Method invocation conversion in the query language follows the same
+		  rules as Java method invocation conversion, except that the query language uses
+		  runtime types instead of compile time types, and handles null arguments
+		  differently than in Java. 
+		</p> 
+		<p>One aspect of using runtime types is that an argument with a null
+		  value has no typing information, and so can be matched with any type parameter.
+		  When a null argument is used, if the query processor cannot determine the
+		  proper method to invoke based on the non-null arguments, it throws an 
+		  <codeph>AmbiguousNameException</codeph>. 
+		</p> 
+	 </section> 
+	 <section id="section_62F2C66ACD354991B7950E59EB6F613D"> 
+		<title>Temporal Type Conversion</title> 
+		<p>The temporal types that the query language supports include the Java
+		  types 
+		  <codeph>java.util.Date</codeph>, 
+		  <codeph>java.sql.Date</codeph>, 
+		  <codeph>java.sql.Time</codeph>, and 
+		  <codeph>java.sql.Timestamp</codeph>, which are all treated the same and
+		  can be compared and used in indexes. When compared with each other, these types
+		  are all treated as nanosecond quantities. 
+		</p> 
+	 </section> 
+  </conbody> 
+</concept> 

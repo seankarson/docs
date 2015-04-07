@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "http://docs.oasis-open.org/dita/v1.1/OS/dtd/concept.dtd">
+<concept id="system_requirements">
+	<title><keyword keyref="product_name_long"/>Supported Configurations </title>
+	<shortdesc id="shortdesc_92D228BA03E642648E4843A72B96D5F6"><keyword keyref="product_name_long"/>
+		is supported on a variety of platforms. </shortdesc>
+	<conbody>
+		<p>The supported configurations tables are organized by the 32-bit and 64-bit platforms on
+			which <keyword keyref="product_name_long"/> standalone runs. </p>
+		<ul id="ul_BEAF012B69214636BCAD2D14A9ABBC08">
+			<li><xref href="#system_requirements/section_937FF0E606164F3EA0A965AA7DDD246D"
+					format="dita"/></li>
+			<li><xref href="#system_requirements/section_j1b_4p3_tq" type="section" format="dita"
+				/></li>
+			<li><xref href="#system_requirements/section_cg1_zp3_tq" type="section" format="dita"
+				/></li>
+		</ul>
+		<p>
+			<note>Running <keyword keyref="product_name_long"/> clusters with a mix of different
+				platforms is not recommended. Use a consistent platform on all machines in your
+				cluster. </note>
+		</p>
+		<section id="section_937FF0E606164F3EA0A965AA7DDD246D">
+			<title>Supported Platforms</title>
+			<table id="table_584752EF01A54FD89D2DDB9080B6C6B0">
+				<tgroup cols="3">
+					<colspec align="left" colname="os" colnum="1" colwidth="1.24*"/>
+					<colspec colname="processor" colnum="2" colwidth="1.12*"/>
+					<colspec colname="col04" colnum="3" colwidth="1.01*"/>
+					<thead>
+						<row>
+							<entry>Operating System </entry>
+							<entry colname="processor">Processor and Architecture </entry>
+							<entry colname="col04">Supported JVM</entry>
+						</row>
+					</thead>
+					<tbody>
+						<row>
+							<entry colname="os">CentOS 7</entry>
+							<entry colname="processor">x86 (32-bit and 64-bit)</entry>
+							<entry colname="col4">Oracle Java SE 7, Update 75 and Later</entry>
+						</row>
+						<row>
+							<entry colname="os">Mac OS X 10.8**</entry>
+							<entry colname="processor">x86 (64-bit) </entry>
+							<entry colname="col4">Oracle Java SE 7, Update 75 and Later</entry>
+						</row>
+						<row>
+							<entry colname="os">Mac OS X 10.9**</entry>
+							<entry colname="processor">x86 (64-bit) </entry>
+							<entry colname="col4">Oracle Java SE 7, Update 75 and Later</entry>
+						</row>
+						<row>
+							<entry colname="os">RHEL 5 </entry>
+							<entry colname="processor">x86 (32-bit and 64-bit) </entry>
+							<entry colname="col4">Oracle Java SE 7, Update 75 and Later</entry>
+						</row>
+						<row>
+							<entry colname="os">RHEL 6 </entry>
+							<entry colname="processor">x86 (32-bit and 64-bit)</entry>
+							<entry colname="col4">Oracle Java SE 7, Update 75 and Later</entry>
+						</row>
+						<row>
+							<entry colname="os">RHEL 7**</entry>
+							<entry colname="processor">x86 (64-bit) </entry>
+							<entry colname="col4">Oracle Java SE 7, Update 75 and Later</entry>
+						</row>
+						<row>
+							<entry>Solaris 10 </entry>
+							<entry colname="processor">SPARC (32-bit and 64-bit) </entry>
+							<entry colname="col4">Oracle Java SE 7, Update 75 and Later</entry>
+						</row>
+						<row>
+							<entry>Solaris 11**</entry>
+							<entry colname="processor">SPARC (32-bit and 64-bit) </entry>
+							<entry colname="col4">Oracle Java SE 7, Update 75 and Later</entry>
+						</row>
+						<row>
+							<entry>SUSE Linux Enterprise Server 11</entry>
+							<entry colname="processor">x86 (32-bit and 64-bit)</entry>
+							<entry colname="col4">Oracle Java SE 7, Update 75 and Later</entry>
+						</row>
+						<row>
+							<entry>Windows 2008 Server R2</entry>
+							<entry colname="processor">x86 (32-bit and 64-bit)</entry>
+							<entry colname="col4">Oracle Java SE 7, Update 75 and Later</entry>
+						</row>
+						<row>
+							<entry>Windows 2012 Server**</entry>
+							<entry colname="processor">x86 (32-bit and 64-bit)</entry>
+							<entry colname="col4">Oracle Java SE 7, Update 75 and Later</entry>
+						</row>
+						<row>
+							<entry>Windows 2012 Server R2** </entry>
+							<entry colname="processor">x86 (32-bit and 64-bit)</entry>
+							<entry colname="col4">Oracle Java SE 7, Update 75 and Later</entry>
+						</row>
+						<row>
+							<entry>Windows 7 Enterprise </entry>
+							<entry colname="processor">x86 (32-bit and 64-bit)</entry>
+							<entry colname="col4">Oracle Java SE 7, Update 75 and Later</entry>
+						</row>
+						<row>
+							<entry colname="os">Windows 7 (versions other than Enterprise)** </entry>
+							<entry colname="processor">x86 (32-bit and 64-bit)</entry>
+							<entry colname="col4">Oracle Java SE 7, Update 75 and Later</entry>
+						</row>
+						<row>
+							<entry colname="os">Windows 8**</entry>
+							<entry colname="processor">x86 (32-bit and 64-bit)</entry>
+							<entry colname="col4">Oracle Java SE 7, Update 75 and Later</entry>
+						</row>
+						<row>
+							<entry colname="os">Windows 8.1**</entry>
+							<entry colname="processor">x86 (32-bit and 64-bit)</entry>
+							<entry colname="col4">Oracle Java SE 7, Update 75 and Later</entry>
+						</row>
+						<row>
+							<entry>Ubuntu 10.x** </entry>
+							<entry colname="processor">x86 (64-bit) </entry>
+							<entry colname="col4">Oracle Java SE 7, Update 75 and Later</entry>
+						</row>
+						<row>
+							<entry>Ubuntu 12.04**</entry>
+							<entry colname="processor">x86 (64-bit)</entry>
+							<entry colname="col4">Oracle Java SE 7, Update 75 and Later</entry>
+						</row>
+						<row>
+							<entry>Ubuntu 14.04</entry>
+							<entry colname="processor" align="left">x86 (64-bit)</entry>
+							<entry colname="col4">Oracle Java SE 7, Update 75 and Later</entry>
+						</row>
+					</tbody>
+				</tgroup>
+			</table>
+			<p>*The Microsoft Loopback Adapter is not supported. </p>
+			<p>**Indicates operating systems that have not been fully tested but are still known to
+				work. </p>
+		</section>
+		<section id="section_j1b_4p3_tq">
+			<title>Java Support Notes</title>
+			<p><keyword keyref="product_name_long"/>
+				<keyword keyref="product_version"/> requires Java SE 7.</p>
+			<p>The <keyword keyref="product_name_long"/> does not include Java. You must download
+				and install a supported JRE or JDK on each system running <keyword
+					keyref="product_name_long"/>. <keyword keyref="product_name_long"/> recommends
+				the installation of a full JDK (and not just a JRE) to obtain better performance
+				with <codeph>gfsh</codeph>
+				<codeph>status</codeph> and <codeph>stop</codeph> commands.</p>
+		</section>
+		<section id="section_cg1_zp3_tq">
+			<title>Filesystem Type for Linux and Solaris Platforms</title>
+			<p>For optimal disk-store performance, we recommend the use of <codeph>ext4</codeph>
+				filesystems when operating on Linux or Solaris platforms.</p>
+		</section>
+	</conbody>
+</concept>

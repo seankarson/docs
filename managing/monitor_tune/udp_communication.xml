@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "http://docs.oasis-open.org/dita/v1.1/OS/dtd/concept.dtd">
+<concept id="udp_comm">
+	<title>UDP Communication</title>
+	<shortdesc>You can make configuration adjustments to improve multicast and unicast UDP
+		performance of peer-to-peer communication. </shortdesc>
+	<conbody>
+		<p>You can tune your <keyword keyref="product_name"/> UDP messaging to maximize throughput.
+			There are two main tuning goals: to use the largest reasonable datagram packet sizes and
+			to reduce retransmission rates. These actions reduce messaging overhead and overall
+			traffic on your network while still getting your data where it needs to go. <keyword
+				keyref="product_name"/> also provides statistics to help you decide when to change
+			your UDP messaging settings. </p>
+		<p>Before you begin, you should understand <keyword keyref="product_name"/>
+			<xref href="../../basic_config/book_intro.xml#basic_config_management" type="concept"
+				format="dita" scope="local"
+				><?xm-replace_text Basic Configuration and Programming?></xref>. See also the
+			general communication tuning and multicast-specific tuning covered in <xref
+				href="socket_communication.xml#socket_comm" type="concept" format="dita"
+				scope="local"><?xm-replace_text Socket Communication?></xref> and <xref
+				href="multicast_communication.xml#multicast" type="concept" format="dita"
+				scope="local"><?xm-replace_text Multicast Communication?></xref>. </p>
+		<section id="section_4089ACC33AF34FA888BAE3CA3602A730">
+			<title>UDP Datagram Size</title>
+			<p>You can change the UDP datagram size with the <keyword keyref="product_name"/>
+				property udp-fragment-size. This is the maximum packet size for transmission over
+				UDP unicast or multicast sockets. When possible, smaller messages are combined into
+				batches up to the size of this setting. </p>
+			<p>Most operating systems set a maximum transmission size of 64k for UDP datagrams, so
+				this setting should be kept under 60k to allow for communication headers. Setting
+				the fragment size too high can result in extra network traffic if your network is
+				subject to packet loss, as more data must be resent for each retransmission. If many
+				UDP retransmissions appear in DistributionStats, you maybe achieve better throughput
+				by lowering the fragment size. </p>
+		</section>
+		<section id="section_B9882A4EBA004599B2207B9CB1D3ADC9">
+			<title>UDP Flow Control</title>
+			<p>UDP protocols typically have a flow control protocol built into them to keep
+				processes from being overrun by incoming no-ack messages. The <keyword
+					keyref="product_name"/> UDP flow control protocol is a credit based system in
+				which the sender has a maximum number of bytes it can send before getting its byte
+				credit count replenished, or recharged, by its receivers. While its byte credits are
+				too low, the sender waits. The receivers do their best to anticipate the sender’s
+				recharge requirements and provide recharges before they are needed. If the senders
+				credits run too low, it explicitly requests a recharge from its receivers. </p>
+			<p>This flow control protocol, which is used for all multicast and unicast no-ack
+				messaging, is configured using a three-part <keyword keyref="product_name"/>
+				property mcast-flow-control. This property is composed of: <ul
+					id="ul_9B55968F6ECC4DAD918FD044EB3AE68D">
+					<li id="li_D0007D7F88994AC2B656D75B76736F75">byteAllowance—Determines how many
+						bytes (also referred to as credits) can be sent before receiving a recharge
+						from the receiving processes. </li>
+					<li id="li_4114FEA99CFA4C05BDF8108B442EC76B">rechargeThreshold—Sets a lower
+						limit on the ratio of the sender’s remaining credit to its byteAllowance.
+						When the ratio goes below this limit, the receiver automatically sends a
+						recharge. This reduces recharge request messaging from the sender and helps
+						keep the sender from blocking while waiting for recharges. </li>
+					<li id="li_75D42ABE68844FE5A221944237DE3094">rechargeBlockMs—Tells the sender
+						how long to wait while needing a recharge before explicitly requesting one.
+					</li>
+				</ul>
+			</p>
+			<p>In a well-tuned system, where consumers of cache events are keeping up with
+				producers, the byteAllowance can be set high to limit flow-of-control messaging and
+				pauses. JVM bloat or frequent message retransmissions are an indication that cache
+				events from producers are overrunning consumers. </p>
+		</section>
+		<section id="section_FB1F54A41D2643A29DB416D309ED4C56">
+			<title>UDP Retransmission Statistics</title>
+			<p><keyword keyref="product_name"/> stores retransmission statistics for its senders and
+				receivers. You can use these statistics to help determine whether your flow control
+				and fragment size settings are appropriate for your system. </p>
+			<p>The retransmission rates are stored in the DistributionStats ucastRetransmits and
+				mcastRetransmits. For multicast, there is also a receiver-side statistic
+				mcastRetransmitRequests that can be used to see which processes aren't keeping up
+				and are requesting retransmissions. There is no comparable way to tell which
+				receivers are having trouble receiving unicast UDP messages. </p>
+		</section>
+	</conbody>
+</concept>

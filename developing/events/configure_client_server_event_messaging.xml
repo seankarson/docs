@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "http://docs.oasis-open.org/dita/v1.1/OS/dtd/concept.dtd">
+<concept id="receiving_events_from_servers">
+	<title>Configuring Client/Server Event Messaging </title>
+	<shortdesc>You can receive events from your servers for server-side cache events and query
+		result changes. </shortdesc>
+	<conbody>
+		<section id="section_F21FB253CCC244708CB953B6D5866A91">
+			<p> For cache updates, you can configure to receive entry keys and values or just entry
+				keys, with the data retrieved lazily when requested. The queries are run
+				continuously against server cache events, with the server sending the deltas for
+				your query result sets. </p>
+			<p>Before you begin, set up your client/server installation and configure and program
+				your basic event messaging. </p>
+			<p>Servers receive updates for all entry events in their client's client regions. </p>
+			<p>To receive entry events in the client from the server: <ol
+					id="ol_45F1BFD68F2546C2AC2A3607672F85F1">
+					<li id="li_4C4D794ABE8F466FB9EBEBCF48389A08">Set the client pool
+							<codeph>subscription-enabled</codeph> to true. See <xref
+							href="../../reference/topics/client-cache.xml#cc-pool"/>. </li>
+					<li id="li_75B14BE02AF04526BF5C2DE3C6E31B30">Program the client to register
+						interest in the entries you need. <p>
+							<note>This must be done through the API. </note>
+						</p>
+						<p>Register interest in all keys, a key list, individual keys, or by
+							comparing key strings to regular expressions. By default, no entries are
+							registered to receive updates. Specify whether the server is to send
+							values with entry update events. Interest registration is only available
+							through the API. <ol id="ol_2efd510d-cbf5-4d9b-879f-912a1b0b147c">
+								<li id="li_6880FE72C05241C69B4316DB13A44E5F">Get an instance of the
+									region where you want to register interest. </li>
+								<li id="li_AA91FDCE9CE740F2A81668EF66BBF4B9">Use the regions's
+										<codeph>registerInterest</codeph>* methods to specify the
+									entries you want. Examples: <codeblock>// Register interest in a single key and download its entry 
+// at this time, if it is available in the server cache 
+Region region1 = . . . ;
+region1.registerInterest("key-1"); 
+                    
+// Register Interest in a List of Keys but do not do an initial bulk load
+// do not send values for creater/update events - just send key with invalidation
+Region region2 = . . . ; 
+List list = new ArrayList();
+list.add("key-1"); 
+list.add("key-2"); 
+list.add("key-3"); 
+list.add("key-4");
+region2.registerInterest(list, InterestResultPolicy.NONE, false); 
+                    
+// Register interest in all keys and download all available keys now
+Region region3 = . . . ;
+region3.registerInterest("ALL_KEYS", InterestResultPolicy.KEYS); 
+                    
+// Register Interest in all keys matching a regular expression 
+Region region1 = . . . ; 
+region1.registerInterestRegex("[a-zA-Z]+_[0-9]+"); </codeblock>
+									<p>You can call the register interest methods multiple times for
+										a single region. Each interest registration adds to the
+										server’s list of registered interest criteria for the
+										client. So if a client registers interest in key ‘A’, then
+										registers interest in regular expression "B*", the server
+										will send updates for all entries with key ‘A’ or key
+										beginning with the letter ‘B’. </p>
+								</li>
+								<li id="li_253F35CAA44241DC9420F77E8965C580">For highly available
+									event messaging, configure server redundancy. See <xref
+										href="configuring_highly_available_servers.xml#configuring_highly_available_servers"
+										format="dita" scope="local"/>. </li>
+								<li id="li_3F23BA50904149539D1A533B27FF940B">To have events enqueued
+									for your clients during client downtime, configure durable
+									messaging. See <xref
+										href="implementing_durable_client_server_messaging.xml#implementing_durable_client_server_messaging"
+										format="dita" scope="local"/>. </li>
+							</ol>
+						</p></li>
+				</ol>
+			</p>
+		</section>
+	</conbody>
+</concept>

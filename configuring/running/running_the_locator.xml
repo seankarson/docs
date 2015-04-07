@@ -1,0 +1,267 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "http://docs.oasis-open.org/dita/v1.1/OS/dtd/concept.dtd">
+<concept id="running_the_locator">
+	<title>Running <keyword keyref="product_name"/> Locator Processes</title>
+	<shortdesc id="shortdesc_C1677A850E2F497D8BFCFCAAC86533FC">The locator is a <keyword
+			keyref="product_name_long"/> process that tells new, connecting members where running
+		members are located and provides load balancing for server use. </shortdesc>
+	<conbody>
+		<section id="section_E9C98E8756524552BEA9B0CA49A2069E">
+			<p>You can run locators as peer locators, server locators, or both: </p>
+			<ul id="ul_C0C09B6E46CC4224B7629F120656B6ED">
+				<li id="li_2C0ECBB74B134AC38BF2A84CDF310901">Peer locators give joining members
+					connection information to members already running in the locator's distributed
+					system. </li>
+				<li id="li_8D7F0F933A2940F794B5486CF0C957D3">Server locators give clients connection
+					information to servers running in the locator's distributed system. Server
+					locators also monitor server load and send clients to the least-loaded servers.
+				</li>
+			</ul>
+			<p>By default, locators run as peer and server locators. </p>
+			<p>You can run the locator standalone or embedded within another <keyword
+					keyref="product_name"/> process. Running your locators standalone provides the
+				highest reliability and availability of the locator service as a whole. </p>
+		</section>
+		<section id="section_0733348268AF4D5F8851B999A6A36C53">
+			<title>Locator Configuration and Log Files</title>
+			<p>Locator configuration and log files have the following properties: </p>
+			<ul id="ul_FBBF9569984E4B65848F5AA202DFF8C2">
+				<li>When you start a standalone locator using <codeph>gfsh</codeph>,
+						<codeph>gfsh</codeph> will automatically load the required JAR files
+						(<codeph>$GEMFIRE/lib/locator-dependencies.jar</codeph> into the CLASSPATH
+					of the JVM process. If you start a standalone locator using the
+						<codeph>LocatorLauncher</codeph> API, you must specify
+						<codeph>$GEMFIRE/lib/locator-dependencies.jar</codeph> inside the command
+					used to launch the locator process. For more information on CLASSPATH settings
+					in <keyword keyref="product_name"/>, see <xref
+						href="../../getting_started/setup_gemfire_classpath.xml#concept_ivh_glr_l4"
+					/>. You can modify the CLASSPATH by specifying the --classpath or parameter</li>
+				<li id="li_2BB86FA6977646CF923BCB5B878ECD57">Locators are members of the distributed
+					system just like any other member. In terms of <codeph>mcast-port</codeph> and
+						<codeph>locators</codeph> configuration, a locator should be configured in
+					the same manner as a server. Therefore, if there are two other locators in the
+					distributed system, each locator should reference the other locators (just like
+					a server member would). For
+					example:<codeblock>gfsh> start locator --name=locator1 --port=9009 --mcast-port=0 \
+--locators='host1[9001],host2[9003]'</codeblock></li>
+				<li id="li_8EBB79B43C034DBD89C168DF2EB3374C">You can configure locators by using
+						<codeph>gemfire.properties</codeph> or by specifying start-up parameters on
+					the command line. If you are specifying the locator's configuration in a
+					properties file, locators require the same <codeph>gemfire.properties</codeph>
+					settings as other members of the distributed system and the same
+						<codeph>gfsecurity.properties</codeph> settings if you are using a separate,
+					restricted access security settings file. <p>For example, to configure both
+						locators and a multicast port in <codeph>gemfire.properties:</codeph>
+						<codeblock>locators=host1[9001],host2[9003]
+mcast-port=0</codeblock>
+					</p>
+				</li>
+				<li id="li_9A89FB6EDCC647B183E46A005C56F22E">There is no cache configuration
+					specific to locators. </li>
+				<li id="li_BF00E9451D6E41209BA463B669499F01">For logging output, the locator creates
+					a log file in its current working directory. Log file output defaults to
+							<codeph><i>locator_name</i>.log</codeph> in the locator's working
+					directory. If you restart a locator with a previously used locator name, the
+					existing <i>locator_name</i>.log file is automatically renamed for you (for
+					example, <codeph>locator1-01-01.log</codeph> or
+						<codeph>locator1-02-01.log</codeph>). You can modify the level of logging
+					details in this file by specifying a level in the <codeph>--log-level</codeph>
+					argument when starting up the locator. </li>
+				<li id="li_8A961063A8F1448AAFF2C54155129D46">By default, a locator will start in a
+					subdirectory (named after the locator) under the directory where
+						<codeph>gfsh</codeph> is executed. This subdirectory is considered the
+					current working directory. You can also specify a different working directory
+					when starting the locator in <codeph>gfsh</codeph>. </li>
+				<li>By default, a locator that has been shutdown and disconnected due to a network
+					partition event or member unresponsiveness will restart itself and automatically
+					try to reconnect to the existing distributed system. When a locator is in the
+					reconnecting state, it provides no discovery services for the distributed
+					system. See <xref
+						href="../../managing/autoreconnect/member-reconnect.xml#concept_22EE6DDE677F4E8CAF5786E17B4183A9"
+					/> for more details.</li>
+			</ul>
+		</section>
+		<section>
+			<title>Locators and the Cluster Configuration Service</title>
+			<p>Locators use the cluster configuration service to save configurations that apply to
+				all cluster members, or to members of a specified group. The configurations are
+				saved in the Locator's directory and are propagated to all locators in a distributed
+				system. When you start servers using gfsh, the servers receive the group-level and
+				cluster-level configurations from the locators. </p>
+			<p>See<xref href="../cluster_config/gfsh_persist.xml#concept_r22_hyw_bl"/>. </p>
+		</section>
+		<section id="section_FF25228E30624E04ACA8784A2183D585">
+			<title>Start the Locator</title>
+			<p>Use the following guidelines to start the locator: </p>
+			<ul id="ul_E68D1DF72C5A41C992D99D92A55EA1E1">
+				<li id="li_6683E6E99E5D4CE9996309EAADA37499"><b>Standalone locator</b>. Start a
+					standalone locator in one of these ways: <ul
+						id="ul_95A227C9D8A74EFD95EC09D0B46B99BF">
+						<li id="li_D5C019CFD76F4F69A2DA324746941636">Use the <codeph>gfsh</codeph>
+							command-line utility. See <xref
+								href="../../tools_modules/gfsh/chapter_overview.xml#concept_36339CCA6323430D8B61EE8DC5F64DCB"
+								type="concept" format="dita" scope="local"/> for more information on
+							using <codeph>gfsh</codeph>. The syntax for starting the <p>Example
+								commands: </p>
+							<codeblock>gfsh&gt;start locator --name=locator1
+
+gfsh&gt; start locator --name=locator2 --bind-address=192.168.129.205 --port=13489
+</codeblock>
+						</li>
+						<li id="li_61BB9717C59846C9A7A5D4F2387C1AEA">Start the locator using the
+								<codeph>main</codeph> method in the
+								<codeph>com.gemstone.gemfire.distributed.LocatorLauncher</codeph>
+							class and the Java executable. For example:
+								<codeblock>working/directory/of/Locator/process$java -server -classpath "$GEMFIRE/lib/locator-dependencies.jar:/path/to/application/classes.jar" \
+ com.gemstone.gemfire.distributed.LocatorLauncher start Locator1 --port=11235 --redirect-output</codeblock><p>
+								Specifically, you use the <codeph>LocatorLauncher</codeph> class API
+								to run an embedded Locator service in Java application processes
+								that you have created. The directory where you execute the java
+								command becomes the working directory for the locator process.</p>
+						</li>
+						<li>When starting up multiple locators, do not start them up in parallel (in
+							other words, simultaneously). As a best practice, you should wait
+							approximately 30 seconds for the first locator to complete startup
+							before starting any other locators. To check the successful startup of a
+							locator, check for locator log files. To view the uptime of a running
+							locator, you can use the <codeph>gfsh status locator</codeph>
+							command.</li>
+					</ul>
+				</li>
+				<li id="li_5AF8201E427541B3A9887432CFBCB0ED"><b>Embedded (co-located) locator</b>.
+					Manage a co-located locator at member startup or through the APIs: <ul
+						id="ul_497CD894DDE644A8A77FAEA682496B15">
+						<li id="li_F5FDF4BABD0E4C85849CCEED8E92770B">Use the
+								<codeph>gemfire.properties</codeph>
+							<codeph>start-locator</codeph> setting to start the locator
+							automatically inside your <keyword keyref="product_name"/> member. See
+								<xref
+								href="../../reference/topics/gemfire_properties.xml#gemfire_properties"
+								type="concept" format="dita" scope="local"/>. The locator stops
+							automatically when the member exits. The property has the following
+							syntax:
+								<codeblock>#gemfire.properties
+start-locator=[address]port[,server={true|false},peer={true|false}]</codeblock><p>Example:
+							</p><codeblock>#gemfire.properties
+start-locator=13489</codeblock>
+						</li>
+						<li id="li_280C749F6D32412494D642C4455252CC">Use
+								<codeph>com.gemstone.gemfire.distributed.LocatorLauncher</codeph>
+							API to start the locator inside your code. Use the
+								<codeph>LocatorLauncher.Builder</codeph> class to construct an
+							instance of the <codeph>LocatorLauncher</codeph>, and then use the
+								<codeph>start()</codeph> method to start a Locator service embedded
+							in your Java application process. The other methods in the
+								<codeph>LocatorLauncher</codeph> class provide status information
+							about the locator and allow you to stop the locator.
+							<codeblock>import com.gemstone.gemfire.distributed.LocatorLauncher;
+
+ public class MyEmbeddedLocator {
+
+    public static void main(String[] args){
+        LocatorLauncher locatorLauncher  = new LocatorLauncher.Builder()
+          .setMemberName("locator1")
+          .setPort(13489)
+          .build();
+
+          locatorLauncher.start();  
+
+          System.out.println("Locator successfully started");
+        }
+    }</codeblock>Here's
+							another example that embeds the locator within an application, starts it
+							and then checks the status of the locator before allowing other members
+							to access
+							it:<codeblock>package example;
+
+import ...
+
+class MyApplication implements Runnable {
+
+  private final LocatorLauncher locatorLauncher;
+  
+  public MyApplication(final String... args) {
+    validateArgs(args);
+
+    locatorLauncher = new LocatorLauncher.Builder()
+      .setMemberName(args[0])
+      .setPort(Integer.parseInt(args[1])
+      .setRedirectOutput(true)
+      .build();
+  }
+
+  protected void args(final String[] args) {
+    ...
+  }
+
+  public void run() {
+    ...
+
+    // start the Locator in-process
+    locatorLauncher.start();
+
+    // wait for Locator to start and be ready to accept member (client) connections
+    locatorLauncher.waitOnStatusResponse(30, 5, TimeUnit.SECONDS);
+
+    ...
+  }
+
+  public static void main(final String... args) {
+    new MyApplication(args).run();
+  }
+
+}</codeblock>
+							Then to execute the application, you would
+							run:<codeblock>/working/directory/of/MyApplication$ java -server -classpath "$GEMFIRE/lib/locator-dependencies.jar:/path/to/application/classes.jar" example.MyApplication Locator1 11235</codeblock>The
+							directory where you execute the java command becomes the working
+							directory for the locator process.</li>
+					</ul>
+				</li>
+			</ul>
+		</section>
+		<section id="section_F58F229D5C7048E9915E0EC470F9A923">
+			<title>Check Locator Status</title>
+			<p>If you are connected to the distributed system in <codeph>gfsh</codeph>, you can
+				check the status of a running Locator by providing the Locator name. For example:
+				<codeblock>gfsh&gt;status locator --name=locator1</codeblock>
+			</p>
+			<p>If you are not connected to a distributed system, you can check the status of a local
+				Locator by providing the process ID, the Locator's hostname and port, or the
+				Locator's current working directory. For example:
+				<codeblock>gfsh&gt;status locator --pid=2986</codeblock>or
+				<codeblock>gfsh&gt;status locator --host=host1 --port=1035</codeblock>or
+				<codeblock>$ gfsh status locator --dir=&lt;<i>locator_working_directory</i>&gt;</codeblock>where
+					&lt;<i>locator_working_directory</i>&gt; corresponds to the local working
+				directory where the locator is running. </p>
+			<p>If successful, the command returns the following information (with the JVM arguments
+				that were provided at startup):
+				<codeblock>stymon@ubuntu:~$ gfsh status locator --dir=locator1
+Locator in /home/stymon/locator1 on ubuntu.local[10334] as locator1 is currently online.
+Process ID: 2359
+Uptime: 17 minutes 3 seconds
+GemFire Version: 8.0.0
+Java Version: 1.7.0_65
+Log File: /home/stymon/locator1/locator1.log
+JVM Arguments: -Dgemfire.enable-cluster-configuration=true -Dgemfire.load-cluster-configuration-from-dir=false
+ -Dgemfire.launcher.registerSignalHandlers=true -Djava.awt.headless=true -Dsun.rmi.dgc.server.gcInterval=9223372036854775806
+Class-Path: /home/stymon/Pivotal_GemFire_800_b48319_Linux/lib/locator-dependencies.jar:/usr/local/java/lib/tools.jar
+
+Cluster configuration service is up and running.
+</codeblock>
+			</p>
+		</section>
+		<section id="section_0E4DDED6AB784B0CAFBAD538B227F487">
+			<title>Stop the Locator</title>
+			<p>If you are connected to the distributed system in <codeph>gfsh</codeph>, you can stop
+				a running locator by providing the locator name. For example:
+				<codeblock>gfsh&gt;stop locator --name=locator1</codeblock>
+			</p>
+			<p>If you are not connected to a distributed system, you can stop a local locator by
+				specifying the locator's process ID or the locator's current working directory. For
+				example: <codeblock>gfsh&gt;stop locator --pid=2986</codeblock>or
+				<codeblock>gfsh&gt;stop locator --dir=&lt;locator_working_directory&gt;</codeblock>where
+					&lt;<i>locator_working_directory</i>&gt; corresponds to the local working
+				directory where the locator is running. </p>
+		</section>
+	</conbody>
+</concept>

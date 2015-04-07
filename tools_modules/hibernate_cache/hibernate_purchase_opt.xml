@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "http://docs.oasis-open.org/dita/v1.1/OS/dtd/concept.dtd">
+<concept id="http_purchase">
+  <title>HTTP Session Management and GemFire Purchase Options</title>
+
+  <prolog audience="basic"/>
+
+  <conbody>
+    <p>The way you plan to use GemFire's HTTP Session Management Module  will determine the particular GemFire offerings that are
+    right for you. The table below should provide some guidance.</p>
+
+    <simpletable relcolwidth="1* 4*" id="simpletable_F2939FC9C1B940D492A8847EFDD22220">
+      <sthead>
+        <stentry>Product</stentry>
+
+        <stentry>When To Use It</stentry>
+      </sthead>
+
+      <strow>
+        <stentry>Application Cache Node </stentry>
+
+        <stentry>If you plan to set up a peer-to-peer configuration, you will
+        need to purchase an Application Cache Node for each peer.
+        Additionally, unless you purchase the Unlimited Client Upgrade
+        (specified below), you will need to purchase an Application Cache Node
+        for each client in a client/server configuration. </stentry>
+      </strow>
+
+      <strow>
+        <stentry>Data Management Node </stentry>
+
+        <stentry>If you plan to set up a client/server configuration, a Data
+        Management Node is required for each server. Unless you purchase an
+        Unlimited Client Upgrade, you will need to purchase an Application
+        Cache Node for each client in a client/server configuration.
+        </stentry>
+      </strow>
+
+      <strow>
+        <stentry>Global WAN Upgrade </stentry>
+
+        <stentry>This upgrade is needed to connect Data Management Nodes
+        together when you have multiple geographical regions. A Global WAN
+        Upgrade must be applied to all Data Management Nodes in a data grid.
+        </stentry>
+      </strow>
+
+      <strow>
+        <stentry>Unlimited Client Upgrade </stentry>
+
+        <stentry>This upgrade allows unlimited client connectivity to a Data
+        Management Node. It is a cost effective way to meet the needs of
+        high-client topologies.</stentry>
+      </strow>
+    </simpletable>
+
+    <p>To better understand which node types are necessary for which
+    configurations, refer to these illustrations.</p>
+
+    <section id="section_6A9B24429F56413EAE73B57027FBB1A0"><title>Peer-to-Peer Node Purchase Requirements</title><image href="../../common/images/p2p_node_types.png" placement="break" id="image_E3482529621D41868F4ED7E39AA36449"/></section>
+
+    <section id="section_946F4A28FC4747F79FF149FFC6CF2503"><title>Client/Server Node Purchase Requirements</title><image href="../../common/images/cs_node_types.png" placement="break" id="image_94E0572798E84034975404FE75739A5F"/></section>
+
+    <section id="section_C392B38F45104F08A2A319E2F6139BFC"><title>Multi-site (WAN) Node Purchase Requirements</title><image href="../../common/images/gateway_node_types.png" placement="break" id="image_EDFCF346886E47DEB9F53FC2AD9E8671"/><p>For further information about GemFire purchase
+    options, refer to <xref format="html" href="http://www.vmware.com/products/vfabric-gemfire/buy.html" scope="external">How to Buy VMware vFabric GemFire</xref>.</p></section>
+  </conbody>
+</concept>

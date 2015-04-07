@@ -1,0 +1,120 @@
+<?xml version="1.0"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<!-- Created with XMetaL (http://www.xmetal.com) -->
+<concept id="concept_B479C7625B024DF5B74C5C97678645FB"> 
+  <title>Default File Specifications and Search Locations</title> 
+  <shortdesc>Each file has a default name, a set of file search locations, and
+	 a system property you can use to override the defaults. 
+  </shortdesc>
+  <prolog><metadata><keywords><keyword>gemfire file
+			 specifications</keyword><keyword>gemfire configuration
+			 directories</keyword><keyword>gemfire search
+			 locations</keyword></keywords></metadata>
+  </prolog> 
+  <conbody> 
+	 <p>To use the default specifications, place the file at the top level of
+		its directory or jar file. The system properties are standard file
+		specifications that can have absolute or relative pathnames and filenames. 
+	 </p> 
+	 <p> 
+		<note>If you do not specify an absolute file path and name, the search
+		  examines all search locations for the file. 
+		</note> 
+	 </p> 
+	 <p> 
+	 <table id="table_010684479E7E4BBFB59E31650B697FC8"> 
+		<tgroup cols="3"> 
+		  <colspec colname="1" colnum="1" colwidth="*"/> 
+		  <colspec colname="2" colnum="2" colwidth="*"/> 
+		  <colspec colname="3" colnum="3" colwidth="*"/> 
+		  <thead> 
+			 <row> 
+				<entry>Default File Specification 
+				</entry> 
+				<entry>Search Locations for Relative File Specifications 
+				</entry> 
+				<entry>Available Property for File Specification 
+				</entry> 
+			 </row> 
+		  </thead> 
+		  <tbody> 
+			 <row> 
+				<entry> 
+				  <codeph>gemfire.properties</codeph> 
+				</entry> 
+				<entry> 
+				  <ol id="ol_D6CD699D3BBF4F799436E3CE7F46D218"> 
+					 <li id="li_A71408626AB348B3AD2A083F53B019FF">current directory 
+					 </li> 
+					 <li id="li_ECCCEC061BB24B01B4E348B5285D9E19">home directory 
+					 </li> 
+					 <li id="li_F7277BAC7005400F8052461B48BA5F20">CLASSPATH 
+					 </li> 
+				  </ol> 
+				</entry> 
+				<entry> As a Java system property, use 
+				  <codeph>gemfirePropertyFile</codeph> 
+				</entry> 
+			 </row> 
+			 <row> 
+				<entry> 
+				  <codeph>cache.xml</codeph> 
+				</entry> 
+				<entry> 
+				  <ol id="ol_6795BFCF5E094EBFA973D0F3EDECD3BB"> 
+					 <li id="li_FDBCE582E309424C9157FC9EF34A1FC5">current directory 
+					 </li> 
+					 <li id="li_C1431D444C6F4AE0B1CB7BA3EE1A94FA">CLASSPATH 
+					 </li> 
+				  </ol> 
+				</entry> 
+				<entry> In 
+				  <codeph>gemfire.properties</codeph>, use the 
+				  <codeph>cache-xml-file</codeph> property 
+				</entry> 
+			 </row> 
+		  </tbody> 
+		</tgroup> 
+	 </table> 
+	 </p> 
+	 <p> 
+	 </p> 
+	 <p>Examples of valid 
+		<codeph>gemfirePropertyFile</codeph> specifications: 
+	 <ul id="ul_E2F19DC107A346FDA044D6B16D004FBB"> 
+		<li id="li_4263F6C847D84F56AFBC8886B3E4AA2B"> 
+		  <codeph>/zippy/users/jpearson/gemfiretest/gemfire.properties</codeph> 
+		</li> 
+		<li id="li_2D5EE7D5DE8A48F79A2E2D55559B946F"> 
+		  <codeph>c:\gemfiretest\gemfire.prp</codeph> 
+		</li> 
+		<li id="li_73275933F3074DF2BEC2C919F19EB9E1"> 
+		  <codeph>myGF.properties</codeph> 
+		</li> 
+		<li id="li_3781070D6881409BB4A3128B4992AB9F"> 
+		  <codeph>test1/gfprops</codeph> 
+		</li> 
+	 </ul> 
+	 </p> 
+	 <p>For the 
+	 	<codeph>test1/gfprops</codeph> specification, if you launch your <keyword keyref="product_name"/>
+		system member from 
+	 	<codeph>/testDir</codeph> in a Unix file system, <keyword keyref="product_name"/>
+		looks for the file in this order until it finds the file or exhausts all
+		locations: 
+	 <ol id="ol_0344A30CC9E34CD28D9A98F8E2498F34"> 
+		<li id="li_5CC4E0B318A44522B09B2DD63EBF57E0"> 
+		  <codeph>/testDir/test1/gfprops</codeph> 
+		</li> 
+		<li id="li_C98502AADFC749BC839CECAC96F806D2"> 
+		  <codeph>&lt;yourHomeDir&gt;/test1/gfprops</codeph> 
+		</li> 
+		<li id="li_C9EE7910E10B4EFF8390A7CC45CEE3ED">under every location in your
+		  
+		  <codeph>CLASSPATH</codeph> for 
+		  <codeph>test1/gfprops</codeph> 
+		</li> 
+	 </ol> 
+	 </p> 
+  </conbody> 
+</concept> 

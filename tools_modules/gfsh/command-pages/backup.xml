@@ -1,0 +1,71 @@
+<?xml version="1.0"?>
+<!DOCTYPE dita PUBLIC "-//OASIS//DTD DITA Composite//EN" "ditabase.dtd">
+<dita>
+  <topic id="topic_E74ED23CB60342538B2175C326E7D758">
+    <title>backup disk-store</title>
+    <shortdesc>Back up persistent data from all members to the specified directory. </shortdesc>
+    <body>
+      <p>The specified directory must exist on all members, but it can be a local directory on each
+        machine. This command ensures that backup files are not corrupted by concurrent operations.
+        Backing up a running system using the operating system copy command is not recommended. </p>
+      <p>You can also use this command to perform an incremental backup. See <xref format="dita"
+          href="../../../managing/disk_storage/backup_restore_disk_store.xml#backup_restore_disk_store"
+          scope="local" type="concept"/> for more information on incremental backup. </p>
+      <p><b> Availability:</b> Online. You must be connected in <codeph>gfsh</codeph> to a JMX
+        Manager member to use this command. </p>
+      <p><b>Syntax:</b>
+        <codeblock>backup disk-store --dir=value [--baseline-dir=value]
+</codeblock>
+        <table id="table_2277A2CE8F6E4731B45FEFA2B1366DB6">
+          <title>Parameters</title>
+          <tgroup cols="2">
+            <colspec colnum="1" colname="col1" colwidth="*"/>
+            <colspec colnum="2" colname="col2" colwidth="*"/>
+            <thead>
+              <row>
+                <entry colname="col1">Name </entry>
+                <entry colname="col2">Description</entry>
+              </row>
+            </thead>
+            <tbody>
+              <row>
+                <entry colname="col1"><parmname>--dir</parmname>
+                </entry>
+                <entry colname="col2"><i> Required.</i> Directory to which backup files are written.
+                </entry>
+              </row>
+              <row>
+                <entry colname="col1"><parmname>--baseline-dir</parmname>
+                </entry>
+                <entry colname="col2"> Directory that contains the baseline backup used for
+                  comparison during an incremental backup. <p>An incremental backup operation backs
+                    up any data that is not present in the directory specified in
+                      <parmname>--baseline-dir</parmname>. If the member cannot find previously
+                    backed up data or if the previously backed up data is corrupt, the command
+                    performs a full backup on that member. </p>
+                </entry>
+              </row>
+            </tbody>
+          </tgroup>
+        </table>
+      </p>
+      <p><b>Example Commands:</b>
+        <codeblock>backup disk-store --dir=data/backups
+
+backup disk-store --dir=data/backup/disk-store --baselineDir=data/backups/2012-09-24-17-08-50</codeblock>
+      </p>
+      <p><b>Sample Output:</b>
+      </p>
+      <p>
+        <codeblock>gfsh&gt;backup disk-store --dir=data/backups
+The following disk stores were backed up successfully
+
+Member  |                 UUID                 |              Directory               | Host
+------- | ------------------------------------ | ------------------------------------ | ---------------
+server2 | a6bb11f0-0baa-45c9-b23e-64876d02a586 | c:\PivotalGemFire70\Latest\server2\. | 192.168.129.129
+server1 | 8dc365bd-c086-4af4-99d0-86b0b521aa04 | c:\PivotalGemFire70\Latest\server1\. | 192.168.129.129
+</codeblock>
+      </p>
+    </body>
+  </topic>
+</dita>

@@ -1,0 +1,71 @@
+<?xml version="1.0"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept id="concept_89A129F729DF4D3B9056C8D9016AA760">
+	<title>query</title>
+	<shortdesc>Run queries against <keyword keyref="product_name"/> regions. </shortdesc>
+	<conbody>
+		<p> Run the specified OQL query as a single quoted string and displays results in pages
+			allows to move between pages. If limit is not set in the query, then a default limit of
+			1000 (derived from GFSH environment variable APP_FETCH_SIZE) will be applied. Page size
+			is derived from GFSH environment variable APP_COLLECTION_LIMIT (default value=20). </p>
+		<p>
+			<note>This command should not be executed from <codeph>gfsh</codeph> if the objects
+				being queried contain cyclic references. </note>
+		</p>
+		<p><b> Availability:</b> Online. You must be connected in <codeph>gfsh</codeph> to a JMX
+			Manager member to use this command. </p>
+		<p><b>Syntax:</b>
+			<codeblock>query --query=value [--step-name=value] [--interactive=value]</codeblock>
+			<table id="table_B5376EAEEFA84A69B059E5A9684DE5B2">
+				<title>Parameters</title>
+				<tgroup cols="3">
+					<colspec colname="col1" colnum="1" colwidth="1.00*"/>
+					<colspec colname="col2" colnum="2" colwidth="2.76*"/>
+					<colspec colname="newCol3" colnum="3" colwidth="1*"/>
+					<thead>
+						<row>
+							<entry colname="col1">Name </entry>
+							<entry colname="col2">Description</entry>
+							<entry colname="col3">Default Value</entry>
+						</row>
+					</thead>
+					<tbody>
+						<row>
+							<entry colname="col1"><parmname>--query </parmname></entry>
+							<entry colname="col2"><i>Required. </i>The OQL string. </entry>
+							<entry/>
+						</row>
+						<row>
+							<entry colname="col1"><parmname>--interactive</parmname>
+							</entry>
+							<entry colname="col2">Specifies whether or not this query is
+								interactive. If false, then all results will be displayed at once. </entry>
+							<entry>true</entry>
+						</row>
+					</tbody>
+				</tgroup>
+			</table>
+		</p>
+		<p><b>Example Commands:</b>
+			<codeblock>query --query="select * from /region1/region12" --interactive
+
+\\ Using variables set using 'set variable' for substitution in the query:
+query --query="select * from /region1 r1 where r1.id='${PERSON_ID}'"
+query --query="select * from ${EMPLOYEE_REGION} e1 where e1.id='${PERSON_ID}'"</codeblock>
+		</p>
+		<p><b>Sample Output:</b>
+			<codeblock>gfsh&gt;query --query='SELECT * FROM /region2'
+
+Result     : true
+startCount : 0
+endCount   : 20
+Rows       : 1
+
+Result
+-----------------
+('Hello World!!')
+
+NEXT_STEP_NAME : END</codeblock>
+		</p>
+	</conbody>
+</concept>

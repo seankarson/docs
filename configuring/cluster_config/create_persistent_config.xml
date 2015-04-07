@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE task PUBLIC "-//OASIS//DTD DITA Task//EN" "task.dtd">
+<task id="task_hrm_rl4_kl">
+    <title>Creating a Cluster Configuration </title>
+    <shortdesc>As you configure a Pivotal GemFire cluster using gfsh commands, gfsh saves a set of shared configuration files that you can use to start additional servers or to export the configurations for use in another cluster. </shortdesc>
+    <taskbody>
+        <context>
+            <p>The following high-level steps create a basic Pivotal GemFire cluster. As you issue the gfsh commands to configure your cluster, the Cluster Configuration Service creates and saves the shared configurations to the locator directory. The configuration is replicated to all locators in the cluster.</p>
+        </context>
+        <steps>
+            <step>
+                <cmd>Start gfsh.</cmd>
+                <info>Start the gfsh command-line interface using the following command:<codeblock>$ gfsh
+    _________________________     __
+   / _____/ ______/ ______/ /____/ /
+  / /  __/ /___  /_____  / _____  / 
+ / /__/ / ____/  _____/ / /    / /  
+/______/_/      /______/_/    /_/    v8.0
+
+Monitor and Manage GemFire
+</codeblock><p>For more information about the options for starting gfsh, see <xref
+                            href="../../tools_modules/gfsh/starting_gfsh.xml#concept_DB959734350B488BBFF91A120890FE61"/>.</p></info>
+            </step>
+            <step>
+                <cmd>Start one or more locators. </cmd>
+                <info><codeblock>gfsh>start locator --name=locator1 --port=40401
+Starting a GemFire Locator in /home/erawlings/gf80/jul9/startup/locator1...
+.............................
+Locator in /home/erawlings/gf80/jul9/startup/locator1 on 172.16.196.144[40401] as locator1 is currently online.
+Process ID: 3759
+Uptime: 15 seconds
+GemFire Version: 7.5.Beta
+Java Version: 1.6.0_33
+Log File: /home/erawlings/gf80/jul9/startup/locator1/locator1.log
+JVM Arguments: -Dgemfire.enable-shared-configuration=true -Dgemfire.load-shared-configuration-from-dir=false -Dgemfire.launcher.registerSignalHandlers=true -Djava.awt.headless=true -Dsun.rmi.dgc.server.gcInterval=9223372036854775806
+Class-Path: /home/erawlings/gf80/jul9/lib/locator-dependencies.jar:/home/erawlings/java/lib/tools.jar
+
+Successfully connected to: [host=172.16.196.144, port=1099]
+
+Shared configuration service is up and running.
+ </codeblock>For more information about the <cmdname>start locator</cmdname> command, see <xref
+                        href="../../tools_modules/gfsh/command-pages/start.xml#topic_591260CF25D64562A0EDD7260D2AC6D4"/>.</info>
+            </step>
+            <step>
+                <cmd>Start one or more servers. Use the group parameter to specify a shared configuration that only applies to all members of the group. </cmd>
+                <info><p>
+                        <codeblock>gfsh&gt;start server --name=server1 --server-port=40411</codeblock>
+                    </p>
+                    <p>If the server starts successfully, the following output appears: <codeblock>gfsh>start server --name=server1 --server-port=40411
+Starting a GemFire Server in /home/erawlings/gf80/jul9/startup/server1...
+.............
+Server in /home/erawlings/gf80/jul9/startup/server1 on 172.16.196.144[40411] as server1 is currently online.
+Process ID: 4003
+Uptime: 9 seconds
+GemFire Version: 7.5.Beta
+Java Version: 1.6.0_33
+Log File: /home/erawlings/gf80/jul9/startup/server1/server1.log
+JVM Arguments: -Dgemfire.default.locators=172.16.196.144[40401] -Dgemfire.use-shared-configuration=true -XX:OnOutOfMemoryError="kill -9 %p" -Dgemfire.launcher.registerSignalHandlers=true -Djava.awt.headless=true -Dsun.rmi.dgc.server.gcInterval=9223372036854775806
+Class-Path: /home/erawlings/gf80/jul9/lib/server-dependencies.jar:/home/erawlings/java/lib/tools.jar
+
+
+</codeblock></p>See <xref
+                        href="../../tools_modules/gfsh/command-pages/start.xml#topic_3764EE2DB18B4AE4A625E0354471738A"/>.</info>
+            </step>
+            <step>
+                <cmd>Create regions, gateways, queues, disk stores, and other Pivotal GemFire objects as required for your Pivotal GemFire cluster. </cmd>
+                <info>See <xref
+                        href="../../tools_modules/gfsh/gfsh_quick_reference.xml#topic_1D44F3DEB9CE457DB3A65891003C6389"/>. For example, the following command creates a PARTITION region: <codeblock>gfsh>create region --name=regionA --type=PARTITION 
+Member  | Status
+------- | --------------------------------------
+server1 | Region "/regionA" created on "server1"
+</codeblock></info>
+            </step>
+            <step>
+                <cmd>Deploy jar files. Use the gfsh <cmdname>deploy</cmdname> command to deploy application jar files to all members or to a specified group of members. For example:</cmd>
+                <info>
+                    <codeblock>gfsh>deploy --jar=../lib/myApp.jar
+Member  | Deployed JAR | Deployed JAR Location
+------- | ------------ | ------------------------------------------------------------
+server1 | myApp.jar    | /home/erawlings/gf80/jul9/startup2/server1/vf.gf#myApp.jar#1
+</codeblock>
+                    <p>See <xref
+                            href="../../tools_modules/gfsh/command-pages/deploy.xml#concept_6B38CB283BC048778A8E3908C1BDF221"/></p>
+                </info>
+            </step>
+            <step>
+                <cmd>Examine the cluster configuration. </cmd>
+                <info>In the directory from which you started gfsh, examine the contents of the <filepath>locator1</filepath> directory. The <filepath>shared_config/cluster</filepath> subdirectory contains the configuration files and deployed jar files for the cluster. For example:</info>
+                <info><image
+                        href="common/images/ccs_dir.png"
+                        id="image_ntq_2zr_s4"/>
+                </info>
+            </step>
+        </steps>
+    </taskbody>
+</task>

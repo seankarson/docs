@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "http://docs.oasis-open.org/dita/v1.1/OS/dtd/concept.dtd">
+<concept id="handling_network_partitioning">
+	<title>Configure <keyword keyref="product_name_long"/> to Handle Network Partitioning</title>
+	<shortdesc>This section lists the configuration steps for network partition detection. </shortdesc>
+	<conbody>
+		<section id="section_EAF1957B6446491A938DEFB06481740F">
+			<p>The system uses a combination of member coordinators and system members, designated
+				as lead members, to detect and resolve network partitioning problems. <ol
+					id="ol_4D41D7E7ABD64FBA96A1C1075E1D0B7C">
+					<li id="li_0CBFE55931764F89A7DD9EB50F2EED54">Network partition detection can
+						work in multicast or in locator-based environments. If you are using
+						locators for member discovery, use multiple locators. See <xref
+							href="../../topologies_and_comm/p2p_configuration/setting_up_a_p2p_system.xml#setting_up_membership"
+							type="concept" format="dita" scope="local"/>. </li>
+					<li id="li_1D5D74CEB2C140149357D9300FD41E33">Enable partition detection
+						consistently in all system members by setting this in their
+							<codeph>gemfire.properties</codeph>: <codeblock>enable-network-partition-detection=true</codeblock>
+						<p>Enable network partition detection in all locators and in any other
+							process that should be sensitive to network partitioning. Processes that
+							do not have network partition detection enabled are not eligible to be
+							the lead member, so their failure will not trigger declaration of a
+							network partition. </p><p>All system members should have the same
+							setting for <codeph>enable-network-partition-detection</codeph>. If they
+							don’t, the system throws a <codeph>GemFireConfigException</codeph> upon
+							startup. </p>
+					</li>
+					<li id="li_041FAD4374304D66B5BCDDE26A0AEAA3">You must set
+							<codeph>enable-network-partition-detection</codeph> to true if you are
+						using persistent partitioned regions. You <b>must</b> set
+							<codeph>enable-network-partition-detection</codeph> to true if you are
+						using persistent regions (partitioned or replicated). If you create a
+						persistent region and <codeph>enable-network-partition-detection</codeph> to
+						set to false, you will receive the following warning
+						message:<codeblock>Creating persistent region {0}, but enable-network-partition-detection is set to false.
+      Running with network partition detection disabled can lead to an unrecoverable system in the
+      event of a network split."</codeblock>
+					</li>
+					<li id="li_89FC37CD3A1B4B6097F4C5427FB642ED">Configure regions you want to
+						protect from network partitioning with <codeph>DISTRIBUTED_ACK</codeph> or
+							<codeph>GLOBAL</codeph>
+						<codeph>scope</codeph>. Do not use <codeph>DISTRIBUTED_NO_ACK</codeph>
+						<codeph>scope</codeph>. The region configurations provided in the region
+						shortcut settings use <codeph>DISTRIBUTED_ACK</codeph> scope. This setting
+						prevents operations from performed throughout the distributed system before
+						a network partition is detected. <note>GemFire issues an alert if it detects
+							distributed-no-ack regions when network partition detection is enabled:
+							<codeblock>Region {0} is being created with scope {1} but enable-network-partition-detection is enabled in the distributed system. 
+This can lead to cache inconsistencies if there is a network failure.</codeblock>
+						</note>
+					</li>
+					<li id="li_413E2A707E874315B675816B75DDE198">These other configuration
+						parameters affect or interact with network partitioning detection. Check
+						whether they are appropriate for your installation and modify as needed. <ul
+							id="ul_0A3F55D1993A4BCEABEB600416A6AF07">
+							<li id="li_16A3B19AC5BB4D538B4A223C8A3CD9D3">If you have network
+								partition detection enabled, the threshold percentage value for
+								allowed membership weight loss is automatically configured to 51.
+								You cannot modify this value. (<b>Note:</b> The weight loss
+								calculation uses standard rounding. Therefore, a value of 50.51 is
+								rounded to 51 and will cause a network partition.) </li>
+							<li id="li_BD8192404E6448BE97A082DC145C6BC4">Failure detection is
+								initiated if a member's <codeph>gemfire.properties</codeph>
+								<codeph>ack-wait-threshold</codeph> (default is 15 seconds) and
+									<codeph>ack-severe-alert-threshold</codeph> (15 seconds) elapses
+								before receiving a response to a message. If you modify the
+									<codeph>ack-wait-threshold</codeph> configuration value, you
+								should modify <codeph>ack-severe-alert-threshold</codeph> to match
+								the other configuration value. </li>
+							<li id="li_9A3280732F9C4C93AE17C2C9185C907B">If the system has clients
+								connecting to it, the clients' <codeph>cache.xml</codeph>
+								<codeph>&lt;cache&gt; &lt;pool&gt; read-timeout</codeph> should be
+								set to at least three times the <codeph>member-timeout</codeph>
+								setting in the server's <codeph>gemfire.properties</codeph>. The
+								default <codeph>&lt;cache&gt; &lt;pool&gt; read-timeout</codeph>
+								setting is 10000 milliseconds. </li>
+							<li id="li_44107C9E1D4F4976BD9EF9F719248CC5">You can adjust the default
+								weights of members by specifying the system property
+									<codeph>gemfire.member-weight</codeph> upon startup. For
+								example, if you have some VMs that host a needed service, you could
+								assign them a higher weight upon startup. </li>
+							<li>By default, members that are forced out of the distributed system by
+								a network partition event will automatically restart and attempt to
+								reconnect. Data members will attempt to reinitialize the cache. See
+									<xref
+									href="../autoreconnect/member-reconnect.xml#concept_22EE6DDE677F4E8CAF5786E17B4183A9"
+								/>. You can modify the number of times that a member will try to
+								reconnect by specifying the <codeph>max-num-reconnect-tries</codeph>
+								property.</li>
+						</ul>
+					</li>
+				</ol>
+			</p>
+		</section>
+	</conbody>
+</concept>

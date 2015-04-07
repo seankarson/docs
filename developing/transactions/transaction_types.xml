@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept id="concept_w3b_wh3_5k">
+ <title>Types of Transactions</title>
+ <shortdesc> GemFire supports two kinds of transactions: GemFire cache transactions and JTA global
+  transactions .</shortdesc>
+ <conbody>
+  <p>GemFire cache transactions are used to group the execution of cache operations and to gain
+   control offered by transactional commit and rollback. Applications create cache transactions by
+   using an instance of the GemFire CacheTransactionManager to start and terminate transactions.
+   During the transaction, cache operations are performed and distributed through GemFire as usual.
+   See <xref href="#bookmark=id.3busck5gaibq">GemFire Cache Transactions</xref> for details on how
+   to run a GemFire cache transaction and how these transactions work.</p>
+  <p>JTA global transactions allow you to use the standard Java interface (JTA) to coordinate
+   GemFire transactions with JDBC transactions. When performing JTA global transactions, you have
+   the option of using GemFire’s own implementation of JTA or a third party’s implementation
+   (typically application servers like WebLogic or JBoss) of JTA. In addition, some third party JTA
+   implementations allow you to set GemFire as a “last resource” to ensure transactional consistency
+   across data sources in the event that GemFire or another data source becomes unavailable. For
+   global transactions, applications use java:/UserTransaction to start and terminate transactions
+   while GemFire cache operations are performed in the same manner as regular GemFire cache
+   transactions. See JTA Global Transactions for details on JTA Global transactions.</p>
+ </conbody>
+</concept>

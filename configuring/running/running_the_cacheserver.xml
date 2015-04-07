@@ -1,0 +1,229 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "http://docs.oasis-open.org/dita/v1.1/OS/dtd/concept.dtd">
+<concept id="running_the_cacheserver">
+	<title>Running <keyword keyref="product_name"/> Server Processes</title>
+	<shortdesc id="shortdesc_EEB94897E8D54EB9B77F1E2C1702D9DB">A <keyword keyref="product_name_long"
+		/> server is a process that runs as a long-lived, configurable member of a distributed
+		system. </shortdesc>
+	<conbody>
+		<section id="section_6C2B495518C04064A181E7917CA81FC1">
+			<p>The <keyword keyref="product_name"/> server is used primarily for hosting long-lived
+				data regions and for running standard <keyword keyref="product_name"/> processes
+				such as the server in a client/server configuration. You can start and stop servers
+				using the following methods: <ul id="ul_183E8771AC75410A8DAC849B2FE331A1">
+					<li id="li_D963D963762C478FB93FABEBA8986209">The <codeph>gfsh</codeph> tool
+						allows you to manage <keyword keyref="product_name"/> server processes from
+						the command line. </li>
+					<li id="li_3F91723200E24E23BD25C40EB3CF20D5">You can also start, stop and manage
+						the <keyword keyref="product_name"/> servers through the
+							<codeph>com.gemstone.gemfire.distributed.ServerLauncher</codeph> API.
+						The <codeph>ServerLauncher</codeph> API can only be used for <keyword
+							keyref="product_name"/> Servers that were started with
+							<codeph>gfsh</codeph> or with the <codeph>ServerLauncher</codeph> class
+						itself. See the JavaDocs for additional specifics on using the
+							<codeph>ServerLauncher</codeph> API. </li>
+				</ul>
+			</p>
+		</section>
+		<section id="section_E15FB1B039CE4F6CB2E4B5618D7ECAA1">
+			<title>Default Server Configuration and Log Files</title>
+			<p> The gfsh server commands use a working directory for its configuration files and log
+				files. These are the defaults and configuration options: <ul
+					id="ul_99BEF82619984AF0966C9C63E3CD7985">
+					<li>When you start a standalone server using <codeph>gfsh</codeph>,
+							<codeph>gfsh</codeph> will automatically load the required JAR files
+							(<codeph>$GEMFIRE/lib/server-dependencies.jar</codeph> and
+							<codeph>$JAVA_HOME/lib/tools.jar</codeph>-- assuming JAVA_HOME points to
+						an installed JDK) into the CLASSPATH of the JVM process. If you start a
+						standalone server using the ServerLauncher API, you must
+							<codeph>$GEMFIRE/lib/server-dependencies.jar</codeph> inside your
+						command to launch the process. For more information on CLASSPATH settings in
+							<keyword keyref="product_name"/>, see <xref
+							href="../../getting_started/setup_gemfire_classpath.xml#concept_ivh_glr_l4"
+						/>.</li>
+					<li id="li_01CE20B4D7B24580A31FD64CFB9DBE01">Servers are configured like any
+						other <keyword keyref="product_name"/> process, with
+							<codeph>gemfire.properties</codeph> and shared cluster configuration
+						files. It is not programmable except through application plug-ins.
+						Typically, you provide the <codeph>gemfire.properties</codeph> file and the
+							<codeph>gfsecurity.properties</codeph> file (if you are using a
+						separate, restricted access security settings file). You can also specify a
+							<codeph>cache.xml</codeph> file in the cache server’s working directory. </li>
+					<li>By default, a new server started with gfsh receives its initial cache
+						configuration from the cluster configuration service. (Assuming the server
+						has been started in a distributed system that contains a locator running the
+						cluster configuration service.) If you specify a group when starting the
+						server, the server also receives configurations that apply to a group. The
+						shared configuration consists of cache.xml files, gemfire.properties files,
+						and deployed jar files. You can disable use of the cluster configuration
+						service by specifying <codeph>--use-cluster-configuration=false</codeph>
+						when starting the server using gfsh. <p>See<xref
+								href="../cluster_config/gfsh_persist.xml#concept_r22_hyw_bl"/>.
+						</p></li>
+					<li>If you are using the Spring Framework, you can specify a Spring
+						ApplicationContext XML file when starting up your server in gfsh by using
+						the <codeph>--spring-xml-location</codeph> command-line option. This option
+						allows you to bootstrap your <keyword keyref="product_name"/> server process
+						with your Spring application's configuration. See <xref
+							href="http://docs.spring.io/spring/docs/3.2.x/spring-framework-reference/html/resources.html#resources-app-ctx"
+							format="html" scope="external">Spring documentation</xref> for more
+						information on this file.</li>
+					<li id="li_A37136B0C1C74F5E8B8A6DE985E23F3A">For logging output, log file output
+						defaults to <codeph><i>server_name</i>.log</codeph> in the cache server's
+						working directory. If you restart a server with the same server name, the
+						existing <i>server_name</i>.log file is automatically renamed for you (for
+						example, <codeph>server1-01-01.log</codeph> or
+							<codeph>server1-02-01.log</codeph>). You can modify the level of logging
+						details in this file by specifying a level in the
+							<codeph>--log-level</codeph> argument when starting up the server. </li>
+					<li id="li_8A961063A8F1448AAFF2C54155129D46">By default, the server will start
+						in a subdirectory (named after the server's specified
+							<codeph>--name</codeph>) under the directory where <codeph>gfsh</codeph>
+						is executed. This subdirectory is considered the current working directory.
+						You can also specify a different working directory when starting the cache
+						server in <codeph>gfsh</codeph>. </li>
+					<li>By default, a server process that has been shutdown and disconnected due to
+						a network partition event or member unresponsiveness will restart itself and
+						automatically try to reconnect to the existing distributed system. See <xref
+							href="../../managing/autoreconnect/member-reconnect.xml#concept_22EE6DDE677F4E8CAF5786E17B4183A9"
+						/> for more details.</li>
+					<li>You can pass JVM parameters to the server's JVM by using the
+								<codeph>--J=-D<i>property.name</i>=<i>value</i></codeph> upon server
+						startup. These parameters can be Java properties or <keyword
+							keyref="product_name"/> configuration properties such as
+							<codeph>gemfire.jmx-manager</codeph>. For
+						example:<codeblock>gfsh&gt;start server --name=server1 --J=-Dgemfire.jmx-manager=true \
+--J=-Dgemfire.jmx-manager-start=true --J=-Dgemfire.http-port=8080</codeblock></li>
+					<li>Pivotal recommends that you do not use the
+							<codeph>-XX:+UseCompressedStrings</codeph> and
+							<codeph>-XX:+UseStringCache</codeph> JVM configuration properties when
+						starting up servers. These JVM options can cause issues with data corruption
+						and compatibility.</li>
+				</ul>
+			</p>
+		</section>
+		<section id="section_07001480D33745139C3707EDF8166D86">
+			<title>Start the Server</title>
+			<p>The startup syntax for <keyword keyref="product_name"/> servers in
+					<codeph>gfsh</codeph>
+				is:<codeblock conref="../../tools_modules/gfsh/command-pages/start.xml#topic_3764EE2DB18B4AE4A625E0354471738A/start-server-syntax"/>
+				See <xref
+					href="../../tools_modules/gfsh/command-pages/start.xml#topic_3764EE2DB18B4AE4A625E0354471738A"
+				/> for a detailed reference on all the parameters of the command. </p>
+			<p>
+				<note>When both <codeph>--max-heap</codeph> and <codeph>--initial-heap</codeph> are
+					specified during Server startup, additional GC parameters are specified
+					internally by <keyword keyref="product_name"/>'s Resource Manager. If you do not
+					want the additional default GC properties set by the Resource Manager, then use
+					the <codeph>-Xms</codeph> &amp; <codeph>-Xmx</codeph> JVM options. See <xref
+						scope="local"
+						href="../../managing/heap_use/controlling_heap_use.xml#configuring_resource_manager"
+						type="concept" format="dita"/> for more information. </note>
+			</p>
+			<p>These following gfsh <codeph>start server</codeph> start sequences specify a
+				cache.xml file for cache configuration, different incoming client connection ports,
+				and use a multicast port for peer discovery:
+				<codeblock>gfsh&gt;start server --name=server1 --mcast-port=10338 \
+--cache-xml-file=../ServerConfigs/cache.xml --server-port=40404
+
+gfsh&gt;start server --name=server2 --mcast-port=10338 \
+--cache-xml-file=../ServerConfigs/cache.xml --server-port=40405
+</codeblock>
+				Note that since the servers are using multicast, the servers do not use the cluster
+				configuration service for initial cache configuration. To use the cluster
+				configuration service, you must first start a locator running the cluster
+				configuration service first. </p>
+			<p>Here, the multicast port and <codeph>cache.xml</codeph> file specifications are in a
+					<codeph>gemfire.properties</codeph> file:
+				<codeblock>#contents of D:\gfeserver\gemfire.properties 
+#Tue May 09 17:53:54 PDT 2006 
+mcast-port=10338 
+cache-xml-file=D:\gfeserver\cacheCS.xml</codeblock>To
+				start the server using this <codeph>gemfire.properties</codeph> file, you can enter
+				the following command:
+				<codeblock>gfsh&gt;start server --name=server1 \
+--properties-file=D:\gfeserver\gemfire.properties</codeblock>
+			</p>
+			<p>To start a server with an embedded JMX Manager, you can enter the following command:
+				<codeblock>gfsh&gt;start server --name=server2 \
+--J=-Dgemfire.jmx-manager=true --J=-Dgemfire.jmx-manager-start=true
+</codeblock>
+			</p>
+			<p>To start a server and provide JVM configuration settings, you can issue a command
+				like the
+				following:<codeblock>gfsh>start server --name=server3 \
+--J=-Xms80m,-Xmx80m --J=-XX:+UseConcMarkSweepGC,-XX:CMSInitiatingOccupancyFraction=65</codeblock><note/></p>
+		</section>
+		<section>
+			<title>Start the Server Programmatically</title>
+			<p>Use <codeph>com.gemstone.gemfire.distributed.ServerLauncher</codeph> API to start the
+				cache server process inside your code. Use the <codeph>ServerLauncher.Builder
+				</codeph>class to construct an instance of the ServerLauncher, and then use the
+					<codeph>start()</codeph> method to start a server service embedded in your Java
+				application process. The other methods in the ServerLauncher class provide status
+				information about the server and allow you to stop the
+				server.<codeblock>import com.gemstone.gemfire.distributed.ServerLauncher;
+
+ public class MyEmbeddedServer {
+
+    public static void main(String[] args){
+        ServerLauncher serverLauncher  = new ServerLauncher.Builder()
+          .setMemberName("server1")
+	   .setServerPort(40405)
+          .set("jmx-manager", "true")
+          .set("jmx-manager-start", "true")
+          .build();
+
+          serverLauncher.start();  
+
+          System.out.println("Cache server successfully started");
+        }
+    }
+</codeblock>
+			</p>
+		</section>
+		<section id="section_F58F229D5C7048E9915E0EC470F9A923">
+			<title>Check Server Status</title>
+			<p>If you are connected to the distributed system in <codeph>gfsh</codeph>, you can
+				check the status of a running cache server by providing the server name. For
+				example: <codeblock>gfsh&gt;status server --name=server1</codeblock>
+			</p>
+			<p>If you are not connected to a distributed system, you can check the status of a local
+				cache server by providing the process ID or the server's current working directory.
+				For example: <codeblock>gfsh&gt;status server --pid=2484</codeblock>or
+				<codeblock>$ gfsh status server --dir=&lt;server_working_directory&gt;</codeblock>where
+					&lt;<i>server_working_directory</i>&gt; corresponds to the local working
+				directory where the cache server is running. </p>
+			<p>If successful, the command returns the following information (with the JVM arguments
+				that were provided at startup):
+				<codeblock>stymon@ubuntu:~$ gfsh status server --dir=server4
+Server in /home/stymon/server4 on ubuntu.local[40404] as server4 is currently online.
+Process ID: 3324
+Uptime: 1 minute 5 seconds
+GemFire Version: 8.0.0
+Java Version: 1.7.0_65
+Log File: /home/stymon/server4/server4.log
+JVM Arguments: 
+...</codeblock>
+			</p>
+		</section>
+		<section id="section_0E4DDED6AB784B0CAFBAD538B227F487">
+			<title>Stop Server</title>
+			<p>If you are connected to the distributed system in <codeph>gfsh</codeph>, you can stop
+				a running cache server by providing the server name. For example:
+				<codeblock>gfsh&gt;stop server --name=server1</codeblock>
+			</p>
+			<p>If you are not connected to a distributed system, you can stop a local cache server
+				by specify the server's current working directory or the process ID. For example:
+				<codeblock>gfsh&gt;stop server --pid=2484</codeblock> or
+				<codeblock>gfsh&gt;stop server --dir=&lt;server_working_directory&gt;</codeblock>where
+					&lt;<i>server_working_directory</i>&gt; corresponds to the local working
+				directory where the cache server is running. </p>
+			<p>You can also use the <codeph>gfsh</codeph>
+				<codeph>shutdown</codeph> command to shut down all cache servers in an orderly
+				fashion. This is useful if you are using persistent regions. See <xref
+					href="shutting_down.xml#concept_47C4C4F5E59948B694B394B0A57C5ECC" type="concept"
+					format="dita" scope="local"/> for more details. </p>
+		</section>
+	</conbody>
+</concept>

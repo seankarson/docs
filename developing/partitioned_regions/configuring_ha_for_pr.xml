@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE task PUBLIC "-//OASIS//DTD DITA Task//EN" "http://docs.oasis-open.org/dita/v1.1/OS/dtd/task.dtd">
+<task id="configuring_pr_redundancy">
+	<title>Configure High Availability for a Partitioned Region</title>
+	<shortdesc id="shortdesc_F066E067A9344A3D9C12B412271748FD">Configure in-memory high availability
+		for your partitioned region. Set other high-availability options, like redundancy zones and
+		redundancy recovery strategies. </shortdesc>
+	<taskbody>
+		<prereq id="prereq_24F9A9CB39684C1C80864D0201A36C52"> </prereq>
+		<context id="context_C989964C130E4512A6CAB06265FB8B2F">
+			<p>Here are the main steps for configuring high availability for a partitioned region.
+				See later sections for details. </p>
+		</context>
+		<steps id="steps_C1F6891D69524F40B31E9C4DE87404B1">
+			<step id="step_BDAD3A50F869464299530086FEBC0996">
+				<cmd>Set the number of redundant copies the system should maintain of the region
+					data. See <xref href="set_pr_redundancy.xml#set_pr_redundancy" type="task"
+						format="dita" scope="local"/>. </cmd>
+			</step>
+			<step id="step_697DE2907DC84431850D7331B489240D">
+				<cmd>(Optional) If you want to group your data store members into redundancy zones,
+					configure them accordingly. See <xref
+						href="set_redundancy_zones.xml#set_redundancy_zones" format="dita"
+						scope="local"/>. </cmd>
+			</step>
+			<step id="step_24C6411FD34B451790B4DFF15E07E41F">
+				<cmd>(Optional) If you want <keyword keyref="product_name"/> to only place redundant
+					copies on different physical machines, configure for that. See <xref
+						href="set_enforce_unique_host.xml#set_pr_redundancy" format="dita"
+						scope="local"/>. </cmd>
+			</step>
+			<step id="step_DEC3ADA987F0452DA17B3D93B976761D">
+				<cmd>Decide how to manage redundancy recovery and change <keyword
+						keyref="product_name"/>'s default behavior as needed. </cmd>
+				<substeps id="substeps_A55B7BECE5A347B4B3576EC4872901BC">
+					<substep id="substep_364F45B777D04068BAC49498FEF293FB">
+						<cmd><b>After a member crashes</b>. If you want automatic redundancy
+							recovery, change the configuration for that. See <xref
+								href="set_crash_redundancy_recovery.xml#set_crash_redundancy_recovery"
+								format="dita" scope="local"/>. </cmd>
+					</substep>
+					<substep id="substep_E2EBBF59F3C44FFF9DEBFE8157E591DD">
+						<cmd><b>After a member joins</b>. If you do <i>not</i> want immediate,
+							automatic redundancy recovery, change the configuration for that. See
+								<xref
+								href="set_join_redundancy_recovery.xml#set_join_redundancy_recovery"
+								format="dita" scope="local"/>. </cmd>
+					</substep>
+				</substeps>
+			</step>
+			<step id="step_1193A0A10460435C96362A8C396318E3">
+				<cmd>For all but fixed partitioned regions, review the points at which you kick off
+					rebalancing. Redundancy recovery is done automatically at the start of any
+					rebalancing. This is most important if you run with no automated recovery after
+					member crashes or joins. See <xref
+						href="rebalancing_pr_data.xml#rebalancing_pr_data" type="concept"
+						format="dita" scope="local"/>. </cmd>
+			</step>
+		</steps>
+		<postreq id="postreq_4E717E2C73A0490F82FC32D8887FE6AB">
+			<p>During runtime, you can add capacity by adding new members for the region. For
+				regions that do not use fixed partitioning, you can also kick off a rebalancing
+				operation to spread the region buckets among all members. </p>
+		</postreq>
+	</taskbody>
+</task>

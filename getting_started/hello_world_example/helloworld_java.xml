@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "http://docs.oasis-open.org/dita/dtd/concept.dtd">
+<concept
+	id="helloworld_java">
+	<title
+		id="hello_world_java">HelloWorldProducer.java and helloworld/HelloWorldConsumer.java</title>
+	<shortdesc
+		id="shortdesc_15ABB5AFBC204D129FA5C13A9279087D">These example programs are Java applications
+		that use the <keyword keyref="product_name"/> distributed caching API to connect to other applications and share data
+		in memory. </shortdesc>
+	<conbody>
+		<p>The files are in the <keyword keyref="product_name"/> helloworld examples package of classes. They both use the
+			<keyword keyref="product_name"/> Cache, CacheFactory, and Region APIs. </p>
+		<p>
+			<b>Example Programs Common Package and Import Declarations</b>
+		</p>
+		<p>In addition to the packages shown, the consumer program imports a couple of Java APIs for
+			detecting keystrokes. </p>
+		<codeblock>package helloworld;
+
+import com.gemstone.gemfire.cache.Cache;
+import com.gemstone.gemfire.cache.CacheFactory;
+import com.gemstone.gemfire.cache.Region;
+</codeblock>
+		<p>
+			<b>Creating Caches and Connecting to Each Other</b>
+		</p>
+		<p>The HelloWorldProducer and HelloWorldConsumer programs create their cache, specifying the XML
+			file to use. The cache creation automatically creates the distributed system using the
+			gemfire.properties file settings. The distributed system is what connects the two
+			programs to each other.  </p>
+		<codeblock outputclass="language-java">Cache cache = new CacheFactory()
+      .set("cache-xml-file", "xml/HelloWorld.xml")
+      .create();
+</codeblock>
+		<p>
+			<b>Getting the Data Region</b>
+		</p>
+		<p>The programs get the example region that was declared in the XML file.
+				<draft-comment>Same query as preceding; clarify. </draft-comment>
+		</p>
+		<codeblock outputclass="language-java">Region&lt;String,String&gt; exampleRegion = cache.getRegion("exampleRegion");
+</codeblock>
+		<p>
+			<b>Working in the Cache</b>
+		</p>
+		<p>The producer puts data into the region and reports its activities to standard output. </p>
+		<codeblock outputclass="language-java">   System.out.println("Putting entry: Hello, World");
+    exampleRegion.put("Hello", "World");
+    System.out.println("Putting entry: Hello, Moon!");
+    exampleRegion.put("Hello", "Moon!");
+</codeblock>
+		<p>Because of how their data regions are configured in the XML file, the data put by the
+			producer is automatically pushed to the consumer's cache. </p>
+		<p>The consumer application code does nothing with the data, but its region's listener
+			handles the data events. </p>
+		<p>
+			<b>Closing the Cache and Disconnecting</b>
+		</p>
+		<p
+			outputclass="">The applications close their cache and disconnect from the distributed system.<codeblock outputclass="language-java">cache.close();</codeblock></p>
+	</conbody>
+</concept>

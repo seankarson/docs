@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "http://docs.oasis-open.org/dita/v1.1/OS/dtd/concept.dtd">
+<concept id="indexing">
+	<title>Creating, Listing and Removing Indexes</title>
+	<shortdesc>The <keyword keyref="product_name"/>
+		<codeph>QueryService</codeph> API provides methods to create, list and remove the index. You
+		can also use <codeph>gfsh</codeph> command-line interface to create, list and remove
+		indexes, and use cache.xml to create an index. </shortdesc>
+	<conbody>
+		<section id="section_565C080FBDD0443C8504DF372E3C32C8"><title>Creating
+				Indexes</title><p>Indexes can be created programmatically, by using the
+					<codeph>gfsh</codeph> command line interface or by using cache.xml. </p><p> To
+				create an index, use one of the following <codeph>QueryService</codeph> methods:
+				</p><ul id="ul_08B210D9F91748698502A1030EF4408B">
+				<li id="li_DD87F681EDEE4AEEAA7666BFC25AC475"><codeph>createIndex</codeph>. Creates
+					the default type of index, a range index. Use this type of index if you will be
+					writing queries that will be doing any kind of comparison operation besides an
+					equality comparison. </li>
+				<li id="li_690C4A6210A642199A5839641BEB1B93"><codeph>createKeyIndex</codeph>.
+					Creates a key index. See <xref
+						href="creating_key_indexes.xml#concept_09E29507AF0D42CF81D261B030D0B7C8"
+						type="concept" format="dita" scope="local"/> for more information. </li>
+				<li id="li_7199C52E19574CB1873E168A33BA153C"><codeph>createHashIndex</codeph>.
+					Creates a hash index. See <xref
+						href="creating_hash_indexes.xml#concept_5C7614F71F394C62ACA1BDC5684A7AC4"
+						type="concept" format="dita" scope="local"/> for more information. </li>
+				<li><codeph>createDefinedIndexes</codeph>. Creates multiple indexes that were
+					previously defined using <codeph>defineIndex</codeph>. See <xref
+						href="create_multiple_indexes.xml#topic_omf_pxn_jq"/> for more
+					information.</li>
+			</ul> The following sections provide examples of index creation: <p><b>Using gfsh:</b>
+				<codeblock>
+gfsh&gt; create index --name=myIndex --expression=status --region=/exampleRegion
+gfsh&gt; create index --name=myKeyIndex --type=key --expression=id --region=/exampleRegion
+gfsh&gt; create index --name=myHashIndex --type=hash --expression=mktValue --region=/exampleRegion
+</codeblock>
+				See <xref
+					href="../../tools_modules/gfsh/quick_ref_commands_by_area.xml#topic_688C66526B4649AFA51C0F72F34FA45E"
+					type="topic" format="dita" scope="local"/> for more examples. </p><p>
+				<b>Using Java API: </b>
+				<codeblock>QueryService qs = cache.getQueryService();
+ qs.createIndex("myIndex", "status", "/exampleRegion");
+ qs.createKeyIndex("myKeyIndex", "id", "/exampleRegion");
+ qs.createHashIndex("myHashIndex", "mktValue", "/exampleRegion");
+</codeblock>
+			</p><p>
+				<b>Using cache.xml:</b>
+				<codeblock>&lt;region name=exampleRegion&gt;
+ &lt;region-attributes . . . &gt;
+ &lt;/region-attributes&gt;
+ &lt;index name="myIndex" from-clause="/exampleRegion" expression="status"/&gt;
+ &lt;index name="myKeyIndex" from-clause="/exampleRegion" expression="id" key-index="true"/&gt;
+ &lt;index name="myHashIndex" from-clause="/exampleRegion p" expression="p.mktValue" type="hash"/&gt;
+ ...
+&lt;/region&gt;
+</codeblock>
+				<note>If you do not specify the type of index in cache.xml, the type defaults to
+					"range". </note>
+			</p></section>
+		<section id="section_40089270C67A49FFA0C749E287F722F8">
+			<title>Listing Indexes</title>
+			<p>To retrieve a list of indexes from the cache or region, use the
+					<codeph>QueryService.getIndexes</codeph> method or the <codeph>gfsh</codeph>
+				command line interface. </p>
+			<p>
+				<b>Using gfsh:</b>
+				<codeblock>
+gfsh&gt; list indexes
+gfsh&gt; list indexes --with-stats
+</codeblock>
+			</p>
+			<p>
+				<b>Using Java API: </b>
+				<codeblock>QueryService qs = cache.getQueryService();
+ qs.getIndexes(); //returns a collection of all indexes in the cache
+ qs.getIndexes(exampleRegion); //returns a collection of all indexes in exampleRegion
+ qs.getIndexes(exampleRegion, myKeyIndex); //returns the index named myKeyIndex from the exampleRegion
+</codeblock>
+			</p>
+		</section>
+		<section id="section_ACBFB76C539A405D90B05856CB79BEFF">
+			<title>Removing Indexes</title>
+			<p>To remove an index or all indexes from the cache or region, use the
+					<codeph>QueryService.removeIndexes</codeph> method or the <codeph>gfsh</codeph>
+				command line interface. </p>
+			<p>
+				<b>Using gfsh:</b>
+				<codeblock>
+gfsh&gt; destroy index
+gfsh&gt; destroy index --name=myIndex
+gfsh&gt; destroy index --region=/exampleRegion</codeblock>
+			</p>
+			<p>
+				<b>Using Java API: </b>
+				<codeblock>QueryService qs = cache.getQueryService();
+ qs.removeIndexes(); //removes all indexes from the cache
+ qs.removeIndexes(myKeyIndex); //removes the index named myKeyIndex
+ qs.removeIndexes(exampleRegion); //removes all indexes from the exampleRegion
+</codeblock>
+			</p>
+		</section>
+	</conbody>
+</concept>

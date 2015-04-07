@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "http://docs.oasis-open.org/dita/v1.1/OS/dtd/concept.dtd">
+<concept id="implementing_cache_event_handlers">
+	<title>Implementing Cache Event Handlers</title>
+	<shortdesc id="shortdesc_C312D5A323854BE3BCDDD60820806086">Depending on your installation and
+		configuration, cache events can come from local operations, peers, servers, and remote
+		sites. Event handlers register their interest in one or more events and are notified when
+		the events occur. </shortdesc>
+	<prolog>
+		<metadata>
+			<keywords>
+				<keyword>gemfire cache event handlers</keyword>
+			</keywords>
+		</metadata>
+	</prolog>
+	<conbody>
+		<section id="section_9286E8C6B3C54089888E1680B4F43692">
+			<p>For each type of handler, <keyword keyref="product_name"/> provides a convenience class with empty stubs for
+				the interface callback methods. </p>
+			<note>Write-behind cache listeners are created by extending the
+					<codeph>AsyncEventListener</codeph> interface, and they are configured with an
+					<codeph>AsyncEventQueue</codeph> that you assign to one or more regions. See
+					<xref scope="local"
+					href="implementing_write_behind_event_handler.xml#implementing_write_behind_cache_event_handling"
+					type="concept" format="dita"/>. </note>
+			<p>
+				<b>Procedure</b>
+				<ol id="ol_9016EDE9E0B64AA4AA0182935A90660B">
+					<li id="li_495484CC3EF3452CB636432744125649"> Decide which events your
+						application needs to handle. For each region, decide which events you want
+						to handle. For the cache, decide whether to handle transaction events. </li>
+					<li id="li_EF0499C9961F4EE6B570E653A79BE1A2">For each event, decide which
+						handlers to use. The <codeph>*Listener</codeph> and
+							<codeph>*Adapter</codeph> classes in
+							<codeph>com.gemstone.gemfire.cache.util</codeph> show the options. </li>
+					<li id="li_1B40CD950F364280B83D58532CFECF00">Program each event handler: <p
+							id="program_cache_event_handler">
+							<ol id="ol_413E3118514C484194D7008360E10A92">
+								<li id="li_AC1B977A8EDC4EA783803B40BB591FBF">Extend the handler's
+									adapter class. </li>
+								<li id="li_C1C9011677F145EDBDC5596ECADAC042">If you want to declare
+									the handler in the <codeph>cache.xml</codeph>, implement the
+										<codeph>com.gemstone.gemfire.cache.Declarable</codeph>
+									interface as well. </li>
+								<li id="li_3C2CAC8BFF59485B9E39E17BA95B1611">Implement the handler's
+									callback methods as needed by your application. <note>Improperly
+										programmed event handlers can block your distributed system.
+										Cache events are synchronous. To modify your cache or
+										perform distributed operations based on events, avoid
+										blocking your system by following the guidelines in <xref
+											scope="local"
+											href="writing_callbacks_that_modify_the_cache.xml#writing_callbacks_that_modify_the_cache"
+											type="concept" format="dita"/>. </note>
+									<p> Example:
+										<codeblock>package myPackage;
+import com.gemstone.gemfire.cache.Declarable;
+import com.gemstone.gemfire.cache.EntryEvent;
+import com.gemstone.gemfire.cache.util.CacheListenerAdapter;
+import java.util.Properties;
+                        
+public class MyCacheListener extends CacheListenerAdapter implements Declarable {
+/** Processes an afterCreate event.
+ * @param event The afterCreate EntryEvent received
+*/
+  public void afterCreate(EntryEvent event) {
+    String eKey = event.getKey();
+    String eVal = event.getNewValue();
+      ... do work with event info
+  }
+    ... process other event types                     
+}
+                        </codeblock>
+									</p>
+								</li>
+							</ol>
+						</p>
+					</li>
+					<li id="li_0C5501593E624EBBA8DA4AB25C39DE3B">Install the event handlers, either
+						through the API or the <codeph>cache.xml</codeph>. <p>XML Region Event
+							Handler Installation: </p>
+						<codeblock>&lt;region name="trades"&gt;
+  &lt;region-attributes ... &gt;
+    &lt;!-- Cache listener --&gt;
+    &lt;cache-listener&gt;
+      &lt;class-name&gt;myPackage.MyCacheListener&lt;/class-name&gt;
+    &lt;cache-listener&gt;
+  &lt;/region-attributes&gt;
+&lt;/region&gt;</codeblock>
+						<p>Java Region Event Handler Installation: </p>
+						<codeblock>RegionFactory rf = cache.createRegionFactory(RegionShortcut.PARTITION);
+rf.addCacheListener(new MyCacheListener());
+tradesRegion = rf.create("trades");</codeblock>
+						<p>XML Transaction Writer and Listener Installation: </p>
+						<codeblock>&lt;cache search-timeout="60"&gt;
+	  &lt;cache-transaction-manager&gt;
+	    &lt;transaction-listener&gt;
+	      &lt;class-name&gt;com.company.data.MyTransactionListener&lt;/class-name&gt;
+			    &lt;parameter name="URL"&gt;
+			      &lt;string&gt;jdbc:cloudscape:rmi:MyData&lt;/string&gt;
+			    &lt;/parameter&gt;
+		   &lt;/transaction-listener&gt; 
+		   &lt;transaction-listener&gt;
+	     	. . . 
+		   &lt;/transaction-listener&gt; 
+		   &lt;transaction-writer&gt;
+		    	&lt;class-name&gt;com.company.data.MyTransactionWriter&lt;/class-name&gt;
+			    &lt;parameter name="URL"&gt;
+			     	&lt;string&gt;jdbc:cloudscape:rmi:MyData&lt;/string&gt;
+			    &lt;/parameter&gt;
+			    &lt;parameter 
+			      ...
+			    &lt;/parameter&gt;
+		   &lt;/transaction-writer&gt; 
+	  &lt;/cache-transaction-manager&gt;
+	  . . . 
+&lt;/cache&gt;</codeblock>
+					</li>
+				</ol>
+			</p>
+			<p>The event handlers are initialized automatically during region creation when you
+				start the member. </p>
+		</section>
+		<section id="section_C62E9535C43B4BC5A7AA7B8B4125D1EB">
+			<title>Installing Multiple Listeners on a Region</title>
+			<p>XML:
+				<codeblock>&lt;region name="exampleRegion"&gt;
+  &lt;region-attributes&gt;
+    . . .
+    &lt;cache-listener&gt;
+      &lt;class-name&gt;myCacheListener1&lt;/class-name&gt;
+    &lt;/cache-listener&gt;
+    &lt;cache-listener&gt;
+      &lt;class-name&gt;myCacheListener2&lt;/class-name&gt;
+    &lt;/cache-listener&gt;
+    &lt;cache-listener&gt;
+      &lt;class-name&gt;myCacheListener3&lt;/class-name&gt;
+    &lt;/cache-listener&gt;
+  &lt;/region-attributes&gt;
+&lt;/region&gt;</codeblock>
+			</p>
+			<p>API:
+				<codeblock>AttributesFactory fac = new AttributesFactory(this.currRegion.getAttributes()); 
+fac.setScope(Scope.DISTRIBUTED_NO_ACK); 
+CacheListener listener1 = new myCacheListener1(); 
+CacheListener listener2 = new myCacheListener2(); 
+CacheListener listener3 = new myCacheListener3(); 
+fac.initCacheListeners(new CacheListener[] { listener1, listener2, listener3}); 
+Region nr = cache.createRegion(name, fac.create()); 
+regionDefaultAttrMap.put(nr.getFullPath(), fac.create());</codeblock>
+			</p>
+		</section>
+	</conbody>
+</concept>

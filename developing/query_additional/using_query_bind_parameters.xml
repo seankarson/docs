@@ -1,0 +1,64 @@
+<?xml version="1.0"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept id="concept_173E775FE46B47DF9D7D1E40680D34DF">
+	<title>Using Query Bind Parameters</title>
+	<shortdesc><?xm-replace_text Short Description?>Using query bind parameters in <keyword
+			keyref="product_name"/> queries is similar to using prepared statements in SQL where
+		parameters can be set during query execution. This allows user to build a query once and
+		execute it multiple times by passing the query conditions during run time. </shortdesc>
+	<conbody>
+		<p> The use of query bind parameters is now supported in Client-to-Server queries. </p>
+		<p>The query parameters are identified by a dollar sign, $ , followed by a digit that
+			represents the parameter's position in the parameter array passed to the execute method.
+			Counting begins at 1, so $1 references the first bound attribute, $2 the second
+			attribute, and so on. </p>
+		<p>The Query interface provides an overloaded execute method that accepts parameters inside
+			an Object array. See the <xref
+				href="http://gemfire.docs.pivotal.io/javadocs/japi/com/gemstone/gemfire/cache/query/Query.html"
+				format="html" scope="external">Query.execute</xref> JavaDocs for more details. </p>
+		<p>The 0th element of the Object array is used for the first query parameter, and so on. If
+			the parameter count or parameter types do not match the query specification, the execute
+			method throws an exception. Specifically, if you pass in the wrong number of parameters,
+			the method call throws a <codeph>QueryParameterCountInvalidException</codeph>. If a
+			parameter object type is not compatible with what is expected, the method call throws a
+				<codeph>TypeMismatchException</codeph>. </p>
+		<p> In the following example, the first parameter, the integer <b>2</b>, is bound to the
+			first element in the object array. The second parameter, <b>active</b>, is bound to the
+			second element. </p>
+		<section id="section_7F5A800E2DA643F2B30162EF45DBA390">
+			<title>Sample Code</title>
+			<p>
+				<codeblock>// Identify your query string.
+ String queryString = SELECT DISTINCT * FROM /exampleRegion p WHERE p.status = $1;
+
+// Get QueryService from Cache.
+QueryService queryService = cache.getQueryService();
+
+// Create the Query Object.
+Query query = queryService.newQuery(queryString);
+
+// Set query parameters.
+Object[] params = new Object[1];
+params[0] = "active";
+
+// Execute Query locally. Returns results set.
+SelectResults results = (SelectResults)query.execute(params);
+
+// Find the Size of the ResultSet.
+ int size = results.size();
+</codeblock>
+			</p>
+		</section>
+		<section id="section_90B4A0010CDA481581B650AE6D9EBA34">
+			<title>Using Query Bind Parameters in the Path Expression</title>
+			<p>Additionally the query engine supports the use of query bind parameter in place of a
+				region path. When you specify a bind parameter in the query's FROM clause, the
+				parameter's referenced value must be bound to a collection. </p>
+			<p>For example, the following query can be used on any collection by passing in the
+				collection as a query parameter value. In this query you could pass in a Region
+				Object for $1, but not the String name of a region.
+				<codeblock>SELECT DISTINCT * FROM $1 p WHERE p.status = $2</codeblock>
+			</p>
+		</section>
+	</conbody>
+</concept>

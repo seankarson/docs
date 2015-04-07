@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "http://docs.oasis-open.org/dita/v1.1/OS/dtd/concept.dtd">
+<concept id="query_grammar_and_reserved_words">
+	<title>Query Language Grammar</title>
+	<conbody>
+		<section id="section_F6DF7EBA0201463F9F19645849748D54">
+			<title>Language Grammar</title>
+			<p>Notation used in the grammar: <dl>
+					<dlentry>
+						<dt>n </dt>
+						<dd>A nonterminal symbol that has to appear at some place within the grammar
+							on the left side of a rule. All nonterminal symbols have to be derived
+							to be terminal symbols. </dd>
+					</dlentry>
+					<dlentry>
+						<dt>
+							<b>
+								<i>t</i>
+							</b>
+						</dt>
+						<dd>A terminal symbol (shown in italic bold). </dd>
+					</dlentry>
+					<dlentry>
+						<dt>x y </dt>
+						<dd>x followed by y </dd>
+					</dlentry>
+					<dlentry>
+						<dt>x | y </dt>
+						<dd>x or y </dd>
+					</dlentry>
+					<dlentry>
+						<dt>(x | y) </dt>
+						<dd>x or y </dd>
+					</dlentry>
+					<dlentry>
+						<dt>[ x ] </dt>
+						<dd>x or empty </dd>
+					</dlentry>
+					<dlentry>
+						<dt>{ x } </dt>
+						<dd>A possibly empty sequence of x. </dd>
+					</dlentry>
+					<dlentry>
+						<dt>
+							<i>comment</i>
+						</dt>
+						<dd>descriptive text </dd>
+					</dlentry>
+				</dl>
+			</p>
+			<p>Grammar list:
+				<codeblock>symbol ::= expression
+query_program ::= [ imports semicolon ] query [semicolon]
+imports ::= import { semicolon import }
+import ::= <b>IMPORT</b> qualifiedName [ AS identifier ]
+query ::= selectExpr | expr
+selectExpr ::= <b>SELECT DISTINCT</b> projectionAttributes fromClause [ whereClause ]
+projectionAttributes ::= <b>*</b> | projectionList
+projectionList ::= projection { comma projection }
+projection ::= field | expr [ <b>AS</b> identifier ]
+field ::= identifier colon expr
+fromClause ::= <b>FROM</b> iteratorDef { comma iteratorDef }
+iteratorDef ::= expr [ [ <b>AS</b> ] identifier ] [ <b>TYPE</b> identifier ] | identifier <b>IN</b> expr [ <b>TYPE</b> identifier ]
+whereClause ::= <b>WHERE</b> expr
+expr ::= castExpr
+castExpr ::= orExpr | left_paren identifier right_paren castExpr
+orExpr ::= andExpr { <b>OR</b> andExpr }
+andExpr ::= equalityExpr { <b>AND</b> equalityExpr }
+equalityExpr ::= relationalExpr { ( <b>=</b> | <b>&lt;&gt;</b> | <b>!=</b> ) relationalExpr }
+relationalExpr ::= inExpr { ( <b>&lt;</b> | <b>&lt;=</b> | <b>&gt;</b> | <b>&gt;=</b> ) inExpr }
+inExpr ::= unaryExpr { <b>IN</b> unaryExpr }
+unaryExpr ::= [ <b>NOT</b> ] unaryExpr
+postfixExpr ::= primaryExpr { left_bracket expr right_bracket }
+        | primaryExpr { dot identifier [ argList ] }
+argList ::= left_paren [ valueList ] right_paren
+qualifiedName ::= identifier { dot identifier }
+primaryExpr ::= functionExpr
+        | identifier [ argList ]
+        | undefinedExpr
+        | collectionConstruction
+        | queryParam
+        | literal
+        | ( query )
+        | region_path
+functionExpr ::= <b>ELEMENT</b> left_paren query right_paren
+        | <b>NVL</b> left_paren query comma query right_paren
+        | <b>TO_DATE</b> left_paren query right_paren
+undefinedExpr ::= <b>IS_UNDEFINED</b> left_paren query right_paren
+        | <b>IS_DEFINED</b> left_paren query right_paren
+collectionConstruction ::= <b>SET</b> left_paren [ valueList ] right_paren
+valueList ::= expr { comma expr }
+queryParam ::= <b>$</b> integerLiteral
+region_path ::= forward_slash region_name { forward_slash region_name }
+region_name ::= name_character { name_character }
+identifier ::= letter { name_character }
+literal ::= booleanLiteral
+        | integerLiteral
+        | longLiteral
+        | doubleLiteral
+        | floatLiteral
+        | charLiteral
+        | stringLiteral
+        | dateLiteral
+        | timeLiteral
+        | timestampLiteral
+        | <b>NULL</b>
+        | <b>UNDEFINED</b>
+booleanLiteral ::= <b>TRUE</b> | <b>FALSE</b>
+integerLiteral ::= [ dash ] digit { digit }
+longLiteral ::= integerLiteral <b>L</b>
+floatLiteral ::= [ dash ] digit { digit } dot digit { digit } [ ( <b>E</b> | <b>e</b> ) [ plus | dash ] digit { digit } ] <b>F</b>
+doubleLiteral ::= [ dash ] digit { digit } dot digit { digit } [ ( <b>E</b> | <b>e</b> ) [ plus | dash ] digit { digit } ] [ <b>D</b> ]
+charLiteral ::= <b>CHAR</b> single_quote character single_quote
+stringLiteral ::= single_quote { character } single_quote
+dateLiteral ::= <b>DATE</b> single_quote integerLiteral dash integerLiteral dash integerLiteral single_quote
+timeLiteral ::= <b>TIME</b> single_quote integerLiteral colon
+        integerLiteral colon integerLiteral single_quote
+timestampLiteral ::= <b>TIMESTAMP</b> single_quote
+        integerLiteral dash integerLiteral dash integerLiteral integerLiteral colon
+        integerLiteral colon
+        digit { digit } [ dot digit { digit } ] single_quote
+letter ::= any unicode letter
+character ::= any unicode character except 0xFFFF
+name_character ::= letter | digit | underscore
+digit ::= any unicode digit </codeblock>
+			</p>
+			<p>The expressions in the following are all terminal characters:
+				<codeblock>dot ::= <b>.</b>
+left_paren ::= <b>(</b>
+right_paren ::= <b>)</b>
+left_bracket ::= <b>[</b>
+right_bracket ::= <b>]</b>
+single_quote ::= <b>’</b>
+underscore ::= <b>_</b>
+forward_slash ::= <b>/</b>
+comma ::= <b>,</b>
+semicolon ::= <b>;</b>
+colon ::= <b>:</b>
+dash ::= <b>-</b>
+plus ::= <b>+</b>
+            </codeblock>
+			</p>
+		</section>
+		<section id="section_B074373F2ED44DC7B98652E70ABC5D5D">
+			<title>Language Notes</title>
+			<p>
+				<ul id="ul_D5F9477D022546D28E4588F061A7F9F5">
+					<li id="li_E56B9DB2A99849F8966A393D5A46CB28">Query language keywords such as
+						SELECT, NULL, and DATE are case-insensitive. Identifiers such as attribute
+						names, method names, and path expressions are case-sensitive. </li>
+					<li id="li_5B4FD9410A964E1BB91710AAD99F091C">Comment lines begin with -- (double
+						dash). </li>
+					<li id="li_6F3E2B62149F4DD5B98918AF7A438ECF">Comment blocks begin with /* and
+						end with */. </li>
+					<li id="li_C5D1D78CE2404E80A6A7192E586B33EB">String literals are delimited by
+						single-quotes. Embedded single-quotes are doubled. <p>Examples:
+							<codeblock>'Hello' value = Hello
+'He said, ''Hello''' value = He said, 'Hello'</codeblock>
+						</p>
+					</li>
+					<li id="li_FA3F0601F90B4D8E946EDF73127675E9">Character literals begin with the
+						CHAR keyword followed by the character in single quotation marks. The
+						single-quotation mark character itself is represented as CHAR '''' (with
+						four single quotation marks). </li>
+					<li id="li_D8F057DDEF8D4F1DB08BC802D88ABFAE">In the TIMESTAMP literal, there is
+						a maximum of nine digits after the decimal point. </li>
+				</ul>
+			</p>
+		</section>
+	</conbody>
+</concept>

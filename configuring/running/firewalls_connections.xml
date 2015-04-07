@@ -1,0 +1,42 @@
+<?xml version="1.0"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept id="concept_64DA5C72D9DF4A83948A3675B4A65FEA">
+	<title>Firewalls and Connections</title>
+	<shortdesc>Be aware of possible connection problems that can result from running a firewall on
+		your machine. </shortdesc>
+	<conbody>
+		<p><keyword keyref="product_name_long"/> is a network-centric distributed system, so if you
+			have a firewall running on your machine it could cause connection problems. For example,
+			your connections may fail if your firewall places restrictions on inbound or outbound
+			permissions for Java-based sockets. You may need to modify your firewall configuration
+			to permit traffic to Java applications running on your machine. The specific
+			configuration depends on the firewall you are using. </p>
+		<p>As one example, firewalls may close connections to <keyword keyref="product_name"/> due
+			to timeout settings. If a firewall senses no activity in a certain time period, it may
+			close a connection and open a new connection when activity resumes, which can cause some
+			confusion about which connections you have. </p>
+		<p>For more information on how <keyword keyref="product_name"/> client and servers connect, see the following topics: </p>
+		<ul id="ul_EAC842BEE42F4FFC9154CC0B1047060C">
+			<li id="li_39D9FD05912C460BBEE12668FC0224A0"><xref
+					href="../../topologies_and_comm/topology_concepts/how_the_pool_manages_connections.xml#how_the_pool_manages_connections"
+					type="concept" format="dita" scope="local"
+					><?xm-replace_text How Client/Server Connections Work?></xref>
+			</li>
+			<li id="li_64A2D984FD664036826FEFFD4D77A46F"><xref
+					href="../../managing/monitor_tune/socket_communication.xml#socket_comm"
+					type="concept" format="dita" scope="local"
+					><?xm-replace_text Socket Communication?></xref>
+			</li>
+			<li id="li_008F115412134723BD996E689A6A4DE0"><xref
+					href="../../managing/monitor_tune/performance_controls_controlling_socket_use.xml#perf"
+					type="concept" format="dita" scope="local"
+					><?xm-replace_text Controlling Socket Use?></xref>
+			</li>
+			<li id="li_31BBF9CD4BA0468F96C26C2027A3C150"><xref
+					href="../../managing/monitor_tune/socket_communication_setting_socket_buffer_sizes.xml#socket_comm"
+					type="concept" format="dita" scope="local"
+					><?xm-replace_text Setting Socket Buffer Sizes?></xref>
+			</li>
+		</ul>
+	</conbody>
+</concept>

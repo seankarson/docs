@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "http://docs.oasis-open.org/dita/v1.1/OS/dtd/concept.dtd">
+<concept id="http_weblogic_first"> 
+  <title>HTTP Session Management Module for AppServers</title> 
+  <shortdesc> You implement session caching with the HTTP Session Management
+	 Module for AppServers with a special filter, defined in the 
+	 <codeph>web.xml</codeph>, which is configured to intercept and wrap all
+	 requests. 
+  </shortdesc> 
+  <conbody> 
+	 <p>You can use this HTTP module with a variety of applicaiton servers. Wrapping each request
+	 	allows the interception of <codeph>getSession()</codeph> calls to be handled by <keyword keyref="product_name"/>
+			instead of the native container. This approach is a generic solution, which is supported
+			by any container that implements the Servlet 2.4 specification. (See <xref
+				href="quick_start.xml#quick_start"/> for a list of tested application servers.)</p> 
+  </conbody>
+</concept>

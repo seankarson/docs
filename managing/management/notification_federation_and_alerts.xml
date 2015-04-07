@@ -1,0 +1,61 @@
+<?xml version="1.0"?>
+<!DOCTYPE topic PUBLIC "-//OASIS//DTD DITA Topic//EN" "topic.dtd">
+<topic id="topic_212EE5A2ABAB4E8E8EF71807C9ECEF1A">
+	<title>Notification Federation</title>
+	<shortdesc> All notifications emitted from managed nodes are federated to all JMX Managers in
+		the system. </shortdesc>
+	<body>
+		<p>These notifications are federated and then emitted by the DistributedSystemMXBean. If you
+			attach a <codeph>javax.management.NotificationListener</codeph> to your
+			DistributedSystemMXBean, the NotificationListener can listen to notifications from all
+			MemberMXBeans and all CacheServerMXBeans. </p>
+		<section id="section_2909371D90764736B3AC7BE9E4BC1BE4">
+			<title> Attaching Listeners to MXBeans</title>
+			<p>When you attach a notification listener to the DistributedSystemMXBean, the
+				DistributedSystemMXBean then acts as the notification hub for the entire distributed
+				system. You do not have to attach a listener to each individual member or cache
+				server MBean in order to listen to all the notifications in the distributed system.
+			</p>The following is an example of attaching a NotificationListener to an MBean using
+			the JMX MBeanServer API: <codeblock>NotificationListener myListener = ...
+ObjectName mbeanName = ... 
+MBeanServer.addNotificationListener(mbeanName, myListener, null, null);  </codeblock>
+			<p>JMX Managers will emit notifications for all distributed system members with two
+				exceptions: <ul id="ul_kjn_1xw_wj">
+					<li id="li_CCB2BD5C4683486294C2AD514A21C9F2">If you use cache.xml to define
+						resources such as regions and disks, then notifications for these resources
+						are not federated to the JMX Manager. In those cases, the
+						DistributedSystemMXBean cannot emit those notifications. </li>
+					<li id="li_6DB504460C284C50AF1F15ABC5C83D3A">If a JMX Manager is started after a
+						resource has been created, the JMX Manager cannot emit notifications for
+						that resource. </li>
+				</ul>
+			</p>
+		</section>
+		<section id="section_7463D13112D54406953416356835E290">
+			<title>System Alert Notifications</title>
+			<p>System alerts are <keyword keyref="product_name"/> alerts wrapped within a JMX
+				notification. The JMX Manager registers itself as an alert listener with each member
+				of the system, and by default, it receives all messages logged with the SEVERE alert
+				level by any node in the distributed system. Consequently, the
+				DistributedSystemMXBean will then emit notifications for these alerts on behalf of
+				the DistributedSystem. </p>
+			<p>By default, the JMX Manager registers itself to send notifications only for SEVERE
+				level alerts. To change the alert level that the JMX Manager will send notifications
+				for, use the <codeph>DistributedMXBean.changeAlertLevel</codeph> method. Possible
+				alert levels to set are WARNING, ERROR, SEVERE, and NONE. After changing the level,
+				the JMX Manager will only emit that level of log message as notifications. </p>
+			<p>Notification objects include <b>type</b>, <b>source</b> and <b>message</b>
+				attributes. System alerts also include the <b>userData</b> attribute. For system
+				alerts, the notification object attributes correspond to the following: <ul
+					id="ul_F3559BE838F74787BECE76FBD4B47C38">
+					<li id="li_D7B051D19B374946A25E3413E50C92AF"><b>type</b>: system.alert </li>
+					<li id="li_66DA89D71D0042FCA4A3A5EA046F9FA8"><b>source</b>: Distributed System
+						ID </li>
+					<li id="li_4F4C018747FC4AEA9D3C6672709A6EED"><b>message</b>: alert message </li>
+					<li id="li_9F2C786A97154D07BEAB60B10B6F1E00"><b>userData</b>: name or ID of the
+						member that raised the alert </li>
+				</ul>
+			</p>
+		</section>
+	</body>
+</topic>

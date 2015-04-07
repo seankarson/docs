@@ -1,0 +1,143 @@
+<?xml version="1.0"?>
+<!DOCTYPE dita PUBLIC "-//OASIS//DTD DITA Composite//EN" "ditabase.dtd">
+<dita>
+	<topic id="topic_686158E9AFBD47518BE1B4BEB232C190">
+		<title>External Interfaces, Ports, and Services</title>
+		<shortdesc>A number of Pivotal GemFire processes use either UDP or TCP/IP ports to
+			communicate with other processes or clients. </shortdesc>
+		<body>
+			<p>For example: <ul id="ul_FC7D81D6601C43FDA0C0DFE33A6C24C9">
+					<li id="li_F9C3CC761E6E496C985D6E0D726041C1">Pivotal GemFire members can use
+						multicast to locate and communicate with peer members. You specify multicast
+						addresses and multicast ports in your <codeph>gemfire.properties</codeph>
+						file or as parameters on the command-line if starting the members using
+							<codeph>gfsh</codeph>. </li>
+					<li id="li_54B80D5A800E4A09B21E3876BE3174CD">GemFire clients connect to a
+						locator to discover cache servers. </li>
+					<li id="li_A2CE6FC5F6F1481EB7C929D683C0316E">GemFire clients and servers
+						discover each other on a predefined port (40404 by default) on the
+						localhost. </li>
+					<li id="li_8DF6D650031641C7A8947CC590CC8715">JMX clients (such as
+							<codeph>gfsh</codeph> and JConsole) can connect to JMX Managers and
+						other manageable GemFire members on the pre-defined RMI port 1099. You can
+						configure a different port if necessary. </li>
+					<li id="li_8B9F17E1997B495B94B5BB80D6CABB3E">Each gateway receiver usually has a
+						port range where it listens for incoming communication. </li>
+				</ul>
+			</p>
+			<p>See <xref
+					href="../../deploying/topics/firewalls_ports.xml#concept_5ED182BDBFFA4FAB89E3B81366EBC58E"
+					type="concept" format="dita" scope="local"
+					><?xm-replace_text Firewalls and Ports?></xref> for the complete list of ports
+				used by GemFire, their default values, and how to configure them if you do not want
+				to use the default value. </p>
+			<p>Pivotal GemFire does not have any external interfaces or services that need to be
+				enabled or opened. </p>
+		</body>
+	</topic>
+	<topic id="topic_263072624B8D4CDBAD18B82E07AA44B6">
+		<title>Resources That Must Be Protected</title>
+		<shortdesc>Certain GemFire configuration files should be readable and writeable <i>only</i>
+			by the dedicated user who runs GemFire servers. </shortdesc>
+		<body>
+			<ul id="ul_7B8136339DDE4955B0065F32DB24FD1A">
+				<li id="li_EEA5978CFEF64865886B60EAA6E8BF85">
+					<codeph>gemfire.properties</codeph>
+				</li>
+				<li id="li_10AFD68D0AD344C98651D662DF789306">
+					<codeph>cache.xml</codeph>
+				</li>
+				<li id="li_97D728EF676F45ED9C07C76E0B39B873">
+					<codeph>gfsecurity.properties</codeph>
+					<note>A default <filepath>gfsecurity.properties</filepath> is not provided in
+						the <filepath>defaultConfigs</filepath> directory. If you choose to use this
+						properties file, you must create it manually. See <xref
+							href="where_to_place_sec_settings.xml#implementing_security"/> for more
+						information.</note></li>
+			</ul>
+			<p>The default location of the <filepath>gemfire.properties</filepath> and
+					<filepath>cache.xml</filepath> configuration files is the
+					<codeph>defaultConfigs</codeph> child directory of the main GemFire installation
+				directory. </p>
+		</body>
+	</topic>
+	<topic id="topic_5B6DF783A14241399DC25C6EE8D0048A">
+		<title>Log File Locations</title>
+		<shortdesc>By default, the log files are located in the working directory used when you
+			started the corresponding processes. </shortdesc>
+		<body>
+			<p>For GemFire members (locators and cache servers), you can also specify a custom
+				working directory location when you start each process. See <xref scope="local"
+					href="../logging/logging.xml#concept_30DB86B12B454E168B80BB5A71268865"
+					type="concept" format="dita"><?xm-replace_text Logging?></xref> for more
+				details. </p>
+			<p>The GemFire log files are as follows: </p>
+			<ul id="ul_4E4C900D836545F595339F3D6FBFEDC4">
+				<li id="li_333D1D84C80547A39701C36135A02314">
+					<codeph><i>locator-name</i>.log</codeph>: Contains logging information for the
+					locator process. </li>
+				<li id="li_74B5A46FE8AE4B44A3A07B0E5DD6B0D5">
+					<codeph><i>server-name</i>.log</codeph>: Contains logging information for a
+					cache server process. </li>
+				<li id="li_D9D11B2E352C4493BFD4F23D8090C644">
+					<codeph>gfsh-<i>%u</i>_<i>%g</i>.log</codeph>: Contains logging information of
+					an individual gfsh environment and session. <note>By default,
+							<codeph>gfsh</codeph> session logging is disabled. To enable gfsh
+						logging, you must set the Java system property <codeph>-Dgfsh.
+								log-level=<i>desired_log_level</i></codeph>. See <xref
+							href="../../tools_modules/gfsh/configuring_gfsh.xml#concept_3B9C6CE2F64841E98C33D9F6441DF487"
+						/> for more information.</note></li>
+			</ul>
+			<p>These log files should be readable and writable <i>only</i> by the dedicated user who
+				runs the GemFire servers. </p>
+			<p>If you contact Pivotal technical support for help with an issue and the support
+				engineer requests that you submit log files to help resolve the problem, Pivotal
+				recommends that you remove all sensitive information from the logs before
+				submitting. </p>
+		</body>
+	</topic>
+	<topic id="topic_E3A290F0EE334AD09359AB978D82E66F">
+		<title> User Accounts Created at Installation</title>
+		<shortdesc>When you install Pivotal GemFire on Red Hat Enterprise Linux (RHEL) using the
+			RPM, a user account is automatically created. </shortdesc>
+		<body>
+			<p>This user has the following characteristics: </p>
+			<ul id="ul_CF590246022549CC942C32F7DBECE649">
+				<li id="li_F7A0913B6CDD4A188A15D5B021CCA281"> ID: <codeph>gemfire</codeph>
+				</li>
+				<li id="li_3E7F58BA50C743E5993BCF53B76054A1"> Group: <codeph>pivotal</codeph>
+				</li>
+				<li id="li_C55AB70516B04A518D1580AD82B35ABA"> Non-interactive, which means that you
+					cannot directly log in to the RHEL computer as this user. Rather, you must log
+					in as <codeph>root</codeph> or user with appropriate <codeph>sudo</codeph>
+					privileges and <codeph>su - gemfire</codeph>. </li>
+			</ul>
+			<p>The GemFire installation directory is owned by the <codeph>gemfire</codeph> user,
+				with group <codeph>pivotal</codeph>. </p>
+			<p>When you install GemFire on Windows or from a <codeph>*.zip</codeph> or
+					<codeph>*.tar.gz</codeph> file, a user account is <i>not</i> automatically
+				created for you. </p>
+		</body>
+	</topic>
+	<topic id="topic_9E11E5A8769E4D1FBA55398F4FD72674">
+		<title>Obtaining and Installing Security Updates</title>
+		<shortdesc>New versions of Pivotal GemFire often include important security fixes, so
+			Pivotal recommends you keep up to date with the latest releases. </shortdesc>
+		<body>
+			<p> For details about any security fixes in a particular release, see the <xref
+					href="http://www.pivotal.io/security" scope="external" format="html">Pivotal
+					security page</xref>. </p>
+			<p>To download the latest <codeph>*.zip</codeph> or <codeph>*.tar.gz</codeph>
+				distributions of the Pivotal GemFire, go to the <xref
+					href="https://network.pivotal.io/products/pivotal-gemfire" format="html"
+					scope="external">Pivotal GemFire Download Center</xref>. For additional download
+				and installation instructions, see <xref
+					href="../../getting_started/install_intro.xml#concept_5111C7EDF7D24CA2BCE5959006453415"
+				/>.</p>
+			<p>For detailed upgrade information, see <xref
+					href="../../getting_started/upgrade_from.xml#concept_0129F6A1D0EB42C4A3D24861AF2C5425"
+					type="concept" format="dita" scope="local"
+					><?xm-replace_text Before You Upgrade?></xref>. </p>
+		</body>
+	</topic>
+</dita>

@@ -1,0 +1,158 @@
+<?xml version="1.0"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept id="concept_0129F6A1D0EB42C4A3D24861AF2C5425">
+	<title>Windows/Unix/Linux: Install <keyword keyref="product_name_long"/> from a ZIP or tar
+		File</title>
+	<shortdesc>For Windows, Solaris and all other Linux users, use the ZIP or TAR distribution to
+		install and configure <keyword keyref="product_name_long"/> on every physical and virtual
+		machine where you will run <keyword keyref="product_name_long"/>. </shortdesc>
+	<conbody>
+		<section id="section_B7EABDDDA7B94F2DBB0E1C6D98FFECBD">
+			<title>Prerequisites</title>
+			<p>Before you install the <keyword keyref="product_name_long"/>, you must complete the
+				following prerequisites: <ul id="ul_D07CD91A7ABC422BBEA4EC8F484AE25A">
+					<li id="li_77454C94B7984BF391D50BD6331E2E1B">Confirm that your system meets the
+						hardware and software requirements described in <xref
+							href="../system_requirements/supported_configurations.xml"
+							type="concept" format="dita" scope="local"/>. </li>
+					<li id="li_F97833C3CC0340F5974F27249A32C84B">From the <xref
+							href="http://www.pivotal.io/big-data/pivotal-gemfire" scope="external"
+							format="html">Pivotal GemFire product page</xref>, locate
+							<b>Downloads</b>. Download the tar.gz distribution of <keyword
+							keyref="product_name_long"/> source code.</li>
+					<li>Using <codeph>gradle</codeph>, build the source code and distribution files.
+						See <xref format="html" scope="external"
+							href="https://github.com/project-geode/docs/wiki/Building-and-Running-Geode-from-Source"
+							>https://github.com/project-geode/docs/wiki/Building-and-Running-Geode-from-Source</xref>
+						for details on how to build <keyword keyref="product_name"/>. </li>
+					<li id="li_74BAEF313F6E4F0FB18F9D5C744C9673">Know how to configure environment
+						variables for your system. If you have not done so already, set the
+						JAVA_HOME environment variable to point to a Java runtime installation
+						supported by <keyword keyref="product_name"/>. (You should find a bin
+						directory under JAVA_HOME.) </li>
+				</ul>
+			</p>
+		</section>
+		<section id="section_D3326496B2BB47A7AB0CFC1A5E266842">
+			<title>Procedure</title>
+			<p>Use the following procedure to install <keyword keyref="product_name_long"/>: <ol
+					id="ol_E68D8EE5BC324BECA5CE23F76079C07D">
+					<li id="li_4D26A45461BC4ECF981A2F368D6001FA">Navigate to the directory where you
+						built the <keyword keyref="product_name"/> software. Locate the build
+						distribution you wish to use under
+							<codeph>gemfire-assembly/build/distributions</codeph>. Copy either the
+						.zip or .tar file to the target machine where you want to install <keyword
+							keyref="product_name"/>. Unzip the .zip file or expand the .tar file.
+							<ul id="ul_EDDCCEFFBFBC4948AD565E4ADF7F68D9">
+							<li id="li_A339E66D6F1E4CCBABFD8FE8767FD45D"> If you are using the
+								command line, type the following command:
+								<codeblock>$ unzip gemfire-1.0.0.0-SNAPSHOT.zip -d <i>path_to_product</i></codeblock>or<codeblock>$ tar -xvf gemfire-1.0.0.0-SNAPSHOT.tar -C <i>path_to_product</i></codeblock>
+							</li>
+							<li>Alternatively, unzip the .zip file directly with any common ZIP
+								extraction tool suitable for your operating system.</li>
+						</ul>
+					</li>
+					<li>Configure the JAVA_HOME environment variable. <p>If you will be using the
+								<codeph>gfsh</codeph> command-line utility or managing servers and
+							locators with the <codeph>ServerLauncher</codeph> and
+								<codeph>LocatorLauncher</codeph> APIs, then you must set JAVA_HOME
+							to a JDK installation. For example: </p><ul id="ul_xsx_v1w_1q">
+							<li><b>UNIX and Linux (Bourne and Korn shells - sh, ksh, bash)</b>
+								<codeblock>JAVA_HOME=/usr/java/jdk1.7.0_75
+export JAVA_HOME
+</codeblock>
+							</li>
+							<li><b>Windows</b>
+								<codeblock>set JAVA_HOME=c:\Program Files\Java\jdk1.7.0_75 
+</codeblock>
+							</li>
+						</ul></li>
+					<li>Add <keyword keyref="product_name"/> scripts to your the PATH environment
+						variable. For example:<ul id="ul_cyz_clw_1q">
+							<li><b>UNIX and Linux (Bourne and Korn shells - sh, ksh, bash)</b>
+								<codeblock>
+PATH=$PATH:$JAVA_HOME/bin:<i>path_to_product</i>/bin
+export PATH</codeblock>
+							</li>
+							<li><b>Windows</b>
+								<codeblock>set PATH=%PATH%;%JAVA_HOME%\bin;%GEMFIRE%\bin 
+</codeblock></li>
+						</ul></li>
+					<li id="li_0C4D260BFBDC4C92B8A27DF0A0C277B3">The following step only applies to
+						environments where you are running <keyword keyref="product_name"/>
+						processes or <keyword keyref="product_name"/> client applications outside of
+						gfsh. The gfsh (as well as the deprecated cacheserver) script sets these
+						environment variable for you. If you are running <keyword
+							keyref="product_name"/> processes or applications outside of gfsh, then
+						configure the following environment variables for <keyword
+							keyref="product_name"/>. <ul id="ul_842074AB6B184702A17667831288C0F4">
+							<li id="li_ABB4F057AA744A298CBD9B9D5AAA5098">Set the GEMFIRE environment
+								variable to point to your <keyword keyref="product_name"/>
+								installation top-level directory. (You should see
+									<codeph>bin</codeph>, <codeph>lib</codeph>,
+								<codeph>dtd</codeph>, and other directories under GEMFIRE.) The
+								following variables definitions are examples; your installation path
+								may vary depending on where you install GemFire and the version you
+								are installing. <ul id="ul_108DF74AD43342688871BD8A7AD186CF">
+									<li id="li_695B5257CADB4942B5D845CCBB66D6A2"><b>UNIX and Linux
+											(Bourne and Korn shells - sh, ksh, bash)</b>
+										<codeblock>GEMFIRE=<i>path_to_product</i>
+export GEMFIRE</codeblock>
+									</li>
+									<li id="li_A2F59E274DF24EFBAA39741ED845B78E"
+										><b>Windows</b><codeblock>set GEMFIRE=C:\<i>path_to_product</i></codeblock></li>
+								</ul>
+							</li>
+							<li id="li_DCDA0941828D49BEAA5F986DE001135F">Configure your GF_JAVA
+								environment variables as shown in these examples. GF_JAVA must point
+								to the <codeph>java</codeph> executable file under your JAVA_HOME.
+								(If you have not done so already, you should also set your JAVA_HOME
+								variable to a supported Java installation.) <ul
+									id="ul_E503DF1FFE464473819F9C5EE4A10F3F">
+									<li id="li_D1E236D1263240418EEB6F14679F3476"><b>UNIX and Linux
+											(Bourne and Korn shells - sh, ksh, bash)</b>
+										<codeblock>
+GF_JAVA=$JAVA_HOME/bin/java
+export GF_JAVA  </codeblock>
+									</li>
+									<li id="li_79E7C01507CD42A0B09503989CE7520F"><b>Windows</b>
+										<codeblock>
+set GF_JAVA=%JAVA_HOME%\bin\java.exe 
+</codeblock>
+									</li>
+								</ul>
+							</li>
+						</ul>
+					</li>
+					<li>Type <codeph>gfsh version</codeph> at the command line and verify that the
+						output lists the version of <keyword keyref="product_name"/> that you wished
+						to install. For example:<codeblock># gfsh
+v8.1.0</codeblock>If you want more
+						detailed version information such as the date of the build, build number and
+						JDK version being used, type <codeph>gfsh version --full</codeph>.</li>
+					<li id="li_B157DAF7F75E4269AC5C903502B0F18D">Repeat this procedure for every
+						virtual or physical machine on which you will run <keyword
+							keyref="product_name"/>. </li>
+					<li id="li_8B493C17275C4B708D9E40891E439A18">If you need to uninstall <keyword
+							keyref="product_name"/>, see <xref
+							href="../uninstall_gemfire.xml#concept_B16847461FB8481191BD92D73902B4CC"
+							type="concept" format="dita" scope="local"/>. </li>
+				</ol>
+			</p>
+		</section>
+		<section id="section_20C315551AF349BFB0A8B0543199ABDE">
+			<title>What to Do Next</title>
+			<p>After you install <keyword keyref="product_name"/> from a .zip or tar file, you
+				perform the following tasks: <ul id="ul_C643A5E35D5D40FC8252C677D14D3CD5">
+					<li>For a really quick introduction to <keyword keyref="product_name"/>, try
+							<xref
+							href="../15_minute_quickstart_gfsh.xml#topic_FE3F28ED18E145F787431EC87B676A76"
+						/>. </li>
+					<li>To learn about the cluster Configuration Service, see <xref
+							href="../../configuring/cluster_config/persisting_configurations.xml#task_bt3_z1v_dl"
+						/>.</li>
+				</ul>
+			</p>
+		</section>
+	</conbody>
+</concept>

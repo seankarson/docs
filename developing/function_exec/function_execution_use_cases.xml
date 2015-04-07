@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "http://docs.oasis-open.org/dita/v1.1/OS/dtd/concept.dtd">
+<concept id="function_execution_use_cases">
+	<title>Use Cases for Function Execution</title>
+	<conbody>
+		<section id="section_881D2FF6761B4D689DDB46C650E2A2E1">The function execution service
+			provides solutions for these application use cases: <ul
+				id="ul_F7D59C66B0644A8FA2FE4A9F0A52A6BB">
+				<li id="li_5522C5F0CB4445D28A8F984B99F69F8F">An application that executes a
+					server-side transaction or carries out data updates using the <keyword
+						keyref="product_name"/> distributed locking service. </li>
+				<li id="li_C19A58298C5C4CFA9E86E17963C0D02A">An application that needs to initialize
+					some of its components once on each server, which might be used later by
+					executed functions. </li>
+				<li id="li_22B405A0EACF45E2B8832355349D9D85">Initialization and startup of a
+					third-party service, such as a messaging service. </li>
+				<li id="li_D9D5CC17617D4001A54D70BD506876F6">Any arbitrary aggregation operation
+					that requires iteration over local data sets that can be done more efficiently
+					through a single call to the cache server. </li>
+				<li id="li_33796010E69D4F8D9D268CE566FADF11">Any kind of external resource
+					provisioning that can be done by executing a function on a server. </li>
+			</ul>
+		</section>
+	</conbody>
+</concept>

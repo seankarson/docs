@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "http://docs.oasis-open.org/dita/v1.1/OS/dtd/concept.dtd">
+<concept id="configure_pdx_serialization"> 
+  <title>Using PDX Serialization</title> 
+  <shortdesc>To use PDX serialization, you can configure and use vFabric
+	 GemFire's reflection-based autoserializer, or you can program the serialization
+	 of your objects by using the PDX interfaces and classes. 
+  </shortdesc> 
+  <prolog audience="basic"/> 
+  <conbody> 
+	 <p>Optionally, program your application code to deserialize individual
+		fields out of PDX representations of your serialized objects. You may also need
+		to persist your PDX metadata to disk for recovery on startup. 
+	 </p> 
+  </conbody>
+</concept>

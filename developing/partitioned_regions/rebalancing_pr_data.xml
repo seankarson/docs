@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "http://docs.oasis-open.org/dita/v1.1/OS/dtd/concept.dtd">
+<concept id="rebalancing_pr_data">
+	<title>Rebalancing Partitioned Region Data</title>
+	<shortdesc id="shortdesc_EF4D0A2DAB794AF8947E178876823415">In a distributed system with minimal
+		contention to the concurrent threads reading or updating from the members, you can use
+		rebalancing to dynamically increase or decrease your data and processing capacity. </shortdesc>
+	<conbody>
+		<section id="section_D3649ADD28DB4FF78C47A3E428C80510">
+			<p>Rebalancing is a member operation. It affects all partitioned regions defined by the
+				member, regardless of whether the member hosts data for the regions. The rebalancing
+				operation performs two tasks: <ol id="ol_d5bb92f6-f96a-429a-a536-e5fc52dab5a2">
+					<li id="li_63A45700885144BA83CCAE32AB013CEA">If the configured partition region
+						redundancy is not satisfied, rebalancing does what it can to recover
+						redundancy. See <xref
+							href="configuring_ha_for_pr.xml#configuring_pr_redundancy" format="dita"
+						/>. </li>
+					<li id="li_C1289E38524E4075867B732D4553809E">Rebalancing moves the partitioned
+						region data buckets between host members as needed to establish the most
+						fair balance of data and behavior across the distributed system. </li>
+				</ol>
+			</p>
+			<p>For efficiency, when starting multiple members, trigger the rebalance a single time,
+				after you have added all members. </p>
+			<p>
+				<note> If you have transactions running in your system, be careful in planning your
+					rebalancing operations. Rebalancing may move data between members, which could
+					cause a running transaction to fail with a TransactionDataRebalancedException.
+					Fixed custom partitioning prevents rebalancing altogether. All other data
+					partitioning strategies allow rebalancing and can result in this exception
+					unless you run your transactions and your rebalancing operations at different
+					times. </note>
+			</p>
+			<p>Kick off a rebalance using one of the following: <ul
+					id="ul_24D520AEB104495FB2B1F23404EB02E7">
+					<li id="li_6303FCD77EFF4936AA3DF887C537CA7F"><codeph>gfsh</codeph> command.
+						First, starting a <codeph>gfsh</codeph> prompt and connect to the <keyword
+							keyref="product_name"/> distributed system. Then type the following
+						command: <codeblock>gfsh&gt;rebalance</codeblock> Optionally, you can
+						specify regions to include or exclude from rebalancing, specify a time-out
+						for the rebalance operation or just <xref
+							href="rebalancing_pr_data.xml#rebalancing_pr_data/section_495FEE48ED60433BADB7D36C73279C89"
+							type="section" format="dita" scope="local">simulate a rebalance
+							operation</xref>. Type <codeph>help rebalance</codeph> or see <xref
+							href="../../tools_modules/gfsh/command-pages/rebalance.xml#concept_213FDC5574474CE1AC28444DA202E05B"
+							type="concept" format="dita" scope="local"/> for more information. </li>
+					<li id="li_CF31E2F6944540F0A1B838625E47E153">API call:
+						<codeblock>ResourceManager manager = cache.getResourceManager(); 
+RebalanceOperation op = manager.createRebalanceFactory().start(); 
+//Wait until the rebalance is complete and then get the results
+RebalanceResults results = op.getResults(); 
+//These are some of the details we can get about the run from the API
+System.out.println("Took " + results.getTotalTime() + " milliseconds\n"); 
+System.out.println("Transfered " + results.getTotalBucketTransferBytes()+ "bytes\n");</codeblock>
+					</li>
+				</ul>
+			</p>
+			<p>You can also just simulate a rebalance through the API, to see if it's worth it to
+				run:
+				<codeblock>ResourceManager manager = cache.getResourceManager(); 
+RebalanceOperation op = manager.createRebalanceFactory().simulate(); 
+RebalanceResults results = op.getResults(); 
+System.out.println("Rebalance would transfer " + results.getTotalBucketTransferBytes() +" bytes "); 
+System.out.println(" and create " + results.getTotalBucketCreatesCompleted() + " buckets.\n");</codeblock>
+			</p>
+		</section>
+		<section id="section_1592413D533D454D9E5ACFCDC4685DD1">
+			<title>How Partitioned Region Rebalancing Works</title>
+			<p>The rebalancing operation runs asynchronously. </p>
+			<p>As a general rule, rebalancing is performed on one partitioned region at a time. For
+				regions that have co-located data, the rebalancing works on the regions as a group,
+				maintaining the data co-location between the regions. </p>
+			<p>You can continue to use your partitioned regions normally while rebalancing is in
+				progress. Read operations, write operations, and function executions continue while
+				data is moving. If a function is executing on a local data set, you may see a
+				performance degradation if that data moves to another host during function
+				execution. Future function invocations are routed to the correct member. </p>
+			<p><keyword keyref="product_name"/> tries to ensure that each member has the same
+				percentage of its available space used for each partitioned region. The percentage
+				is configured in the <codeph>partition-attributes</codeph>
+				<codeph>local-max-memory</codeph> setting. </p>
+			<p>Partitioned region rebalancing: <ul id="ul_3F12E1D923704763B4F7AFC7D62382AD">
+					<li id="li_3107CBB858AD48C3832766AE2FC803E9">Does not allow the
+							<codeph>local-max-memory</codeph> setting to be exceeded unless LRU
+						eviction is enabled with overflow to disk. </li>
+					<li id="li_F6C0EBC41F3944C58732E72CB9927C38">Places multiple copies of the same
+						bucket on different host IP addresses whenever possible. </li>
+					<li id="li_A2BF6F0EB1F0427EA7875C6D8276374E">Resets entry time to live and idle
+						time statistics during bucket migration. </li>
+					<li id="li_004C4A383FE244C39A9B4285BE360DEA">Replaces offline members. </li>
+				</ul>
+			</p>
+		</section>
+		<section id="section_BE71EE52DE1A4275BC7854CA597797F4">
+			<title>When to Rebalance a Partitioned Region</title>
+			<p>You typically want to trigger rebalancing when capacity is increased or reduced
+				through member startup, shut down or failure. </p>
+			<p>You may also need to rebalance when: <ul id="ul_8ac29c0f-ec2e-4d37-9c50-23c0b1f7bf6d">
+					<li id="li_679B1EFC055A4407B4ACA42C640025B3">You use redundancy for high
+						availability and have configured your region to not automatically recover
+						redundancy after a loss. In this case, <keyword keyref="product_name"/> only
+						restores redundancy when you invoke a rebalance. See <xref
+							href="configuring_ha_for_pr.xml#configuring_pr_redundancy" format="dita"
+							scope="local"/>. </li>
+					<li id="li_1B3ABCDAA5B341D4B4ADC2C6F19738D9">You have uneven hashing of data.
+						Uneven hashing can occur if your keys do not have a hash code method, which
+						ensures uniform distribution, or if you use a
+							<codeph>PartitionResolver</codeph> to collocate your partitioned region
+						data (see <xref
+							href="colocating_partitioned_region_data.xml#colocating_partitioned_region_data"
+							format="dita" scope="local"/>). In either case, some buckets may receive
+						more data than others. Rebalancing can be used to even out the load between
+						data stores by putting fewer buckets on members that are hosting large
+						buckets. </li>
+				</ul>
+			</p>
+		</section>
+		<section id="section_495FEE48ED60433BADB7D36C73279C89">
+			<title>How to Simulate Region Rebalancing</title>
+			<p>You can simulate the rebalance operation before moving any actual data around by
+				executing the <codeph>rebalance</codeph> command with the following option:
+				<codeblock>gfsh&gt;rebalance --simulate</codeblock></p>
+			<p>
+				<note>If you are using <codeph>heap_lru</codeph> for data eviction, you may notice a
+					difference between your simulated results and your actual rebalancing results.
+					This discrepancy can be due to the VM starting to evict entries after you
+					execute the simulation. Then when you perform an actual rebalance operation, the
+					operation will make different decisions based on the newer heap size. </note>
+			</p>
+			<p> </p>
+		</section>
+	</conbody>
+</concept>

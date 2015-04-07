@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "http://docs.oasis-open.org/dita/v1.1/OS/dtd/concept.dtd">
+<concept id="maintaining_queryable_data"> 
+  <title>Maintain Queryable Data</title> 
+  <prolog audience="basic"> 
+  </prolog> 
+  <conbody> 
+	 <section id="section_BE84E10F4BBE4F3AA2DDF75F5B9DBCCB"> 
+		<p>Follow these guidelines in the regions you want to query: 
+		<ul id="ul_43BB8E92D9DE4EE1ACFE885098CFC39F"> 
+		  <li id="li_F4EA4FA9684244B895EED1D7855573B7"> 
+			 <p id="naming_regions_for_querying">Restrict your region names to
+				alphanumeric characters and the underscore character. 
+			 </p> 
+		  </li> 
+		  <li id="li_1BD778E350D64871869BDD97C29877C1">In regions you query,
+			 store objects of the same type. Querying and indexing against non-homogeneous
+			 data causes exceptions. You can, however, use different subtypes. To ensure
+			 that your data remains consistent for your queries, use the 
+			 <codeph>key-constraint</codeph> and 
+			 <codeph>value-constraint</codeph> region attributes, which restrict
+			 the types of keys and values allowed in the region. Do this everywhere you work
+			 with the region. For example, in a client/server installation, if you are
+			 populating server regions from the client, make sure to define the same
+			 constraints in the client as you do in the server. 
+		  </li> 
+		  <li id="li_F15C5E2B84DE4766B89FCD8ADF2AE0DE">For the objects you query,
+			 implement the 
+			 <codeph>equals</codeph> and 
+			 <codeph>hashCode</codeph> methods. The methods must conform to the
+			 properties and behavior documented in the online Java API documentation for 
+			 <xref
+			  href="http://download.oracle.com/javase/6/docs/api/java/lang/Object.html"
+			  format="html" scope="external">java.lang.Object</xref>. Inconsistent query
+			 results may occur if these methods are absent. 
+		  </li> 
+		  <li id="li_EA8AF6FF151C4E39A2ECFD53651983E2">For regions you index, do
+			 not specify overflow in the region's 
+			 <codeph>eviction-attributes</codeph>. Creating an index on an
+			 overflow region throws an 
+			 <codeph>UnsupportedOperationException</codeph>. 
+		  </li> 
+		</ul>
+		</p> 
+	 </section> 
+  </conbody> 
+</concept> 

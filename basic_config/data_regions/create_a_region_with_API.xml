@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE task PUBLIC "-//OASIS//DTD DITA Task//EN" "http://docs.oasis-open.org/dita/v1.1/OS/dtd/task.dtd">
+<task id="create_a_region_with_API">
+	<title>Creating a Region Through the API</title>
+	<shortdesc>You can use the <keyword keyref="product_name"/> caching API to create regions in
+		your cache after startup. For run-time region creation, you need to use the API. </shortdesc>
+	<taskbody>
+		<prereq id="prereq_602BEEFA895B4574A8CB71C6B9D09531">
+			<p>Before you start, configure your <codeph>Cache</codeph> or
+					<codeph>ClientCache</codeph> and determine the region shortcut and other
+				attributes settings your region needs. </p>
+		</prereq>
+		<context id="context_CB39BA1CEABB471D966C181BD4FDFDD7">Region creation is subject to
+			attribute consistency checks, both internal to the cache and, if the region is not
+			local, between all caches where the region is defined. The requirements for consistency
+			between region attributes are detailed in the online Java API documentation. </context>
+		<steps id="steps_4C3A6A03090242AC950EAB8CC24882D5">
+			<step id="step_119E7F3069824E60A8E93F2CEE09B8FC">
+				<cmd>Use a region shortcut to create your region factory. </cmd>
+				<choices id="choices_C8D8BBFF8AD74D4FA78947D25559F1CA">
+					<choice id="choice_34EF0C8B215D47D58C8B06AB4B4364C2">In peers and servers, use
+							<codeph>com.gemstone.gemfire.cache.RegionFactory</codeph>. </choice>
+					<choice id="choice_56E2832223DD4E62808A128C01687BAD">In clients, use
+							<codeph>com.gemstone.gemfire.cache.client.ClientRegionFactory</codeph>.
+					</choice>
+				</choices>
+			</step>
+			<step id="step_E533411B3F434DF68A3EA3FEE96E1648">
+				<cmd>(Optional) Use the region factory to further configure your region. </cmd>
+			</step>
+			<step id="step_28A0FEC9D43B42E2BBD0D5A2EC5B0D17">
+				<cmd>Create your region from the configured region factory. </cmd>
+			</step>
+		</steps>
+		<result id="result_D1275754C1114E648C910BE7EE6AB744">When you run your member with the
+			region creation code, the region will be created in the cache. </result>
+		<example id="example_BF7F1A7807FA494490C93ED7554A8291">
+			<title>Examples</title>
+			<p>Creating a partitioned region using RegionFactory:
+				<codeblock>RegionFactory rf = 	
+	cache.createRegionFactory(RegionShortcut.PARTITION);
+rf.addCacheListener(new LoggingCacheListener());
+custRegion = rf.create("customer");</codeblock>
+			</p>
+			<p>Creating a modified partitioned region using RegionFactory:
+				<codeblock>PartitionAttributesFactory paf = new PartitionAttributesFactory&lt;CustomerId, String&gt;();
+paf.setPartitionResolver(new CustomerOrderResolver());
+
+RegionFactory rf = 
+	cache.createRegionFactory(RegionShortcut.PARTITION);
+rf.setPartitionAttributes(paf.create());
+rf.addCacheListener(new LoggingCacheListener());
+custRegion = rf.create("customer");</codeblock>
+			</p>
+			<p>Creating a client region with a pool specification using ClientRegionFactory:
+				<codeblock>ClientRegionFactory&lt;String,String&gt; cRegionFactory = 
+	cache.createClientRegionFactory(PROXY);
+Region&lt;String, String&gt; region = 
+	cRegionFactory.setPoolName("Pool3").create("DATA");</codeblock>
+			</p>
+		</example>
+	</taskbody>
+</task>

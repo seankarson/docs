@@ -1,0 +1,128 @@
+<?xml version="1.0"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept id="concept_731ECA5E40E943CBA5C1198A0745D8EE">
+	<title>Useful gfsh Shell Variables</title>
+	<shortdesc>You can use the built-in <codeph>gfsh</codeph> shell variables in scripts. </shortdesc>
+	<conbody>
+		<p>You can also use the <codeph>set variable</codeph> command to modify shell behavior or to
+			define your own variables. </p>
+		<p>To see a list of all gfsh shell variables and their current values, use the following
+			command: <codeblock>gfsh&gt;echo --string=$*</codeblock>To obtain the current value of
+			an existing variable, use the following command syntax (the variable must be enclosed in
+			braces):<codeblock>gfsh&gt;echo --string=${<varname>VARIABLE</varname>}</codeblock> For
+			example: <codeblock>gfsh&gt;echo --string=${SYS_CLASSPATH}</codeblock></p>
+		<p>
+			<b> System Variables</b>
+			<table id="table_F8726AE976B14447A79889AEF45ECAFC">
+				<tgroup cols="2">
+					<colspec colnum="1" colname="col2" colwidth="*"/>
+					<colspec colnum="2" colname="col3" colwidth="*"/>
+					<tbody>
+						<row>
+							<entry>SYS_CLASSPATH </entry>
+							<entry>CLASSPATH of the gfsh JVM (read only). </entry>
+						</row>
+						<row>
+							<entry colname="col2">SYS_GEMFIRE_DIR </entry>
+							<entry colname="col3">Product directory where Pivotal <keyword
+									keyref="product_name"/> has been installed (read only). </entry>
+						</row>
+						<row>
+							<entry>SYS_HOST_NAME </entry>
+							<entry>Host from which gfsh is started (read only). </entry>
+						</row>
+						<row>
+							<entry>SYS_JAVA_VERSION </entry>
+							<entry>Java version used (read only). </entry>
+						</row>
+						<row>
+							<entry>SYS_OS </entry>
+							<entry>OS name (read only). </entry>
+						</row>
+						<row>
+							<entry colname="col2">SYS_OS_LINE_SEPARATOR </entry>
+							<entry colname="col3">Line separator (\ or ^) variable that you can use
+								when writing gfsh scripts. (read only). </entry>
+						</row>
+						<row>
+							<entry>SYS_USER </entry>
+							<entry>User name (read only). </entry>
+						</row>
+						<row>
+							<entry>SYS_USER_HOME </entry>
+							<entry>User's home directory (read only). </entry>
+						</row>
+					</tbody>
+				</tgroup>
+			</table>
+		</p>
+		<p> </p>
+		<p>
+			<b>GFSH Environment Variables</b>
+			<table id="table_0D440983EF0649CF99E7E55A311C72D4">
+				<tgroup cols="2">
+					<colspec colnum="1" colname="col2" colwidth="*"/>
+					<colspec colnum="2" colname="col3" colwidth="*"/>
+					<tbody>
+						<row>
+							<entry>APP_COLLECTION_LIMIT </entry>
+							<entry>Number of items in the embedded collection of a result to be
+								iterated Values: 1-100. Default value is 20. </entry>
+						</row>
+						<row>
+							<entry>APP_FETCH_SIZE </entry>
+							<entry>Fetch size to be used while querying. Values: 0 - 2147483647.
+								Default value is 1000. </entry>
+						</row>
+						<row>
+							<entry>APP_LAST_EXIT_STATUS </entry>
+							<entry>Last command exit status. Similar to $? (Unix) and %errorlevel%
+								(Windows). Values: 0 (successful), 1 (error), 2(crash) (read only).
+							</entry>
+						</row>
+						<row>
+							<entry colname="col2">APP_LOGGING_ENABLED</entry>
+							<entry colname="col3">Whether gfsh logging is enabled. Default: false
+								(read only). You can enable gfsh logging by setting the
+									<codeph>gfsh.log-level</codeph> Java system property to a <xref
+									href="http://docs.oracle.com/javase/6/docs/api/java/util/logging/Level.html"
+									format="html" scope="external">supported Java log
+								level</xref>.</entry>
+						</row>
+						<row>
+							<entry colname="col2">APP_LOG_FILE </entry>
+							<entry colname="col3">Path and name of current gfsh log file (read
+								only). </entry>
+						</row>
+						<row>
+							<entry colname="col2">APP_NAME </entry>
+							<entry colname="col3">Name of the application-- "gfsh" (read only).
+							</entry>
+						</row>
+						<row>
+							<entry colname="col2">APP_PWD </entry>
+							<entry colname="col3">Current working directory where gfsh was launched
+								(read only). </entry>
+						</row>
+						<row>
+							<entry colname="col2">APP_QUERY_RESULTS_DISPLAY_MODE </entry>
+							<entry colname="col3">Toggle the display mode for returning query
+								results. Values: table or catalog. Default value is table. </entry>
+						</row>
+						<row>
+							<entry>APP_QUIET_EXECUTION </entry>
+							<entry>Whether the execution should be in quiet mode. Values (case
+								insensitive): true, false. Default value is false. </entry>
+						</row>
+						<row>
+							<entry>APP_RESULT_VIEWER</entry>
+							<entry>Unix only. Set this variable to <codeph>external</codeph> to
+								enable viewing of the output using the UNIX <codeph>less</codeph>
+								command. Default value is basic (gfsh).</entry>
+						</row>
+					</tbody>
+				</tgroup>
+			</table>
+		</p>
+	</conbody>
+</concept>

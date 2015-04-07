@@ -1,0 +1,269 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "http://docs.oasis-open.org/dita/v1.1/OS/dtd/concept.dtd">
+<concept id="defining_disk_stores">
+	<title>Designing and Configuring Disk Stores</title>
+	<shortdesc>You define disk stores in your cache, then you assign them to your regions and queues
+		by setting the <codeph>disk-store-name</codeph> attribute in your region and queue
+		configurations. </shortdesc>
+	<conbody>
+		<p>
+			<note>Besides the disk stores you specify, <keyword keyref="product_name_long"/> has a
+				default disk store that it uses when disk use is configured with no disk store name
+				specified. By default, this disk store is saved to the application’s working
+				directory. You can change its behavior, as indicated in <xref
+					href="using_disk_stores.xml#defining_disk_stores/section_37BC5A4D84B34DB49E489DD4141A4884"
+					type="section" format="dita" scope="local"/> and <xref
+					href="using_the_default_disk_store.xml#using_the_default_disk_store"
+					type="concept" format="dita" scope="local"/>. </note>
+			<ul id="ul_3AA2F87DCB404E528C9E5C73EE9FD3D4">
+				<li id="li_02C6746343A143159C49F728263512A2">
+					<xref
+						href="using_disk_stores.xml#defining_disk_stores/section_0CD724A12EE4418587046AAD9EEC59C5"
+						type="section" format="dita" scope="local"/>
+				</li>
+				<li id="li_18A56F60A2314DD9B03D00EA9574885F">
+					<xref
+						href="using_disk_stores.xml#defining_disk_stores/section_37BC5A4D84B34DB49E489DD4141A4884"
+						type="section" format="dita" scope="local"/>
+				</li>
+				<li id="li_3B6DDD08CA0A414186C3030D94C23867">
+					<xref
+						href="using_disk_stores.xml#defining_disk_stores/section_AFB254CA9C5A494A8E335352A6849C16"
+						type="section" format="dita" scope="local"/>
+				</li>
+			</ul>
+		</p>
+		<section id="section_0CD724A12EE4418587046AAD9EEC59C5">
+			<title>Design Your Disk Stores</title>
+			<p>Before you begin, you should understand <keyword keyref="product_name"/>
+				<xref href="../../basic_config/book_intro.xml#basic_config_management"
+					type="concept" format="dita" scope="local"/>. <ol
+					id="ol_4C758B1E5FE34E3499AF2918DB68B917">
+					<li id="li_9759033182A44184A17BC5D950B1D3B1">Work with your system designers and
+						developers to plan for anticipated disk storage requirements in your testing
+						and production caching systems. Take into account space and functional
+						requirements. <ul id="ul_79346A6496884BC3A198803D684B3874">
+							<li id="li_2553D4245FC0441D8CD0C95BD37F8706">For efficiency, separate
+								data that is only overflowed in separate disk stores from data that
+								is persisted or persisted and overflowed. Regions can be overflowed,
+								persisted, or both. Server subscription queues are only overflowed. </li>
+							<li id="li_80AF531CF48C41C8BCC9A84EB8E37FA6">When calculating your disk
+								requirements, figure in your data modification patterns and your
+								compaction strategy. <keyword keyref="product_name"/> creates each
+								oplog file at the max-oplog-size, which defaults to 1 GB. Obsolete
+								operations are only removed from the oplogs during compaction, so
+								you need enough space to store all operations that are done between
+								compactions. For regions where you are doing a mix of updates and
+								deletes, if you use automatic compaction, a good upper bound for the
+								required disk space is
+								<codeblock>(1 / (1 - (compaction_threshold/100)) ) * data size</codeblock>where
+								data size is the total size of all the data you store in the disk
+								store. So, for the default compaction-threshold of 50, the disk
+								space is roughly twice your data size. Note that the compaction
+								thread could lag behind other operations, causing disk use to rise
+								above the threshold temporarily. If you disable automatic
+								compaction, the amount of disk required depends on how many obsolete
+								operations accumulate between manual compactions. </li>
+						</ul>
+					</li>
+					<li id="li_635267546C5244D69AAE65266F1D4161">Work with your host system
+						administrators to determine where to place your disk store directories,
+						based on your anticipated disk storage requirements and the available disks
+						on your host systems. <ul id="ul_0CCA26F81F3F40C8941E473DDB48DAF9">
+							<li id="li_2774F62B44894438945572ED4AE45CAA">Make sure the new storage
+								does not interfere with other processes that use disk on your
+								systems. If possible, store your files to disks that are not used by
+								other processes, including virtual memory or swap space. If you have
+								multiple disks available, for the best performance, place one
+								directory on each disk. </li>
+							<li id="li_6D2FAE8473124DE298DCA489BB72437F">Use different directories
+								for different members. You can use any number of directories for a
+								single disk store. </li>
+						</ul>
+					</li>
+				</ol>
+			</p>
+		</section>
+		<section id="section_37BC5A4D84B34DB49E489DD4141A4884">
+			<title>Create and Configure Your Disk Stores</title>
+			<ol id="ol_02101CD6B0D44A85B118364E49E3AF46">
+				<li id="li_94F869433141415ABBEB47D744125B1F">In the locations you have chosen,
+					create all directories you will specify for your disk stores to use. <keyword
+						keyref="product_name"/> throws an exception if the specified directories are
+					not available when a disk store is created. You do not need to populate these
+					directories with anything. </li>
+				<li id="li_0D395A30FC6A42F9816E6937199A426E">Open a <codeph>gfsh</codeph> prompt and
+					connect to the distributed system. </li>
+				<li>At the <codeph>gfsh</codeph> prompt, create and configure a disk store: <ol
+						id="ol_CC326000C0054B6F9492C69E88F7CC32">
+						<li id="li_665391653C0A47EB939891329E93BBEA">Specify the name
+								(<codeph>--name</codeph>) of the disk-store. <ul id="ul_h5z_nqy_n4">
+								<li>Choose disk store names that reflect how the stores should be
+									used and that work for your operating systems. Disk store names
+									are used in the disk file names: <ul id="ul_uvm_4qy_n4">
+										<li>Use disk store names that satisfy the file naming
+											requirements for your operating system. For example, if
+											you store your data to disk in a Windows system, your
+											disk store names could not contain any of these reserved
+											characters, &lt; &gt; : " / \ | ? *. </li>
+										<li>Do not use very long disk store names. The full file
+											names must fit within your operating system limits. On
+											Linux, for example, the standard limitation is 255
+											characters. </li>
+									</ul></li>
+							</ul><codeblock>gfsh>create disk-store <b>--name=serverOverflow</b> --dir=c:\overflow_data#20480 </codeblock></li>
+						<li>Configure the directory locations (<codeph>--dir</codeph>) and the
+							maximum space to use for the store (specified after the disk directory
+							name by # and the maximum number in
+							megabytes).<codeblock>gfsh>create disk-store --name=serverOverflow <b>--dir=c:\overflow_data#20480</b></codeblock></li>
+						<li id="li_49F155693ACC4E4E93F12FCE94B651FF">Optionally, you can configure
+							the store’s file compaction behavior. In conjunction with this, plan and
+							program for any manual compaction. <p>Example:
+								<codeblock>gfsh>create disk-store --name=serverOverflow --dir=c:\overflow_data#20480 \
+<b>--compaction-threshold=40 --auto-compact=false --allow-force-compaction=true</b></codeblock></p>
+						</li>
+						<li id="li_A45088825BEE4742B114474C3DA4D227">If needed, configure the
+							maximum size (in MB) of a single oplog. When the current files reach
+							this size, the system rolls forward to a new file. You get better
+							performance with relatively small maximum file sizes. <p>Example:
+								<codeblock>gfsh>create disk-store --name=serverOverflow --dir=c:\overflow_data#20480 \
+--compaction-threshold=40 --auto-compact=false --allow-force-compaction=true \
+<b>--max-oplog-size=512</b></codeblock>
+							</p>
+						</li>
+						<li id="li_E6D6E0C9EE754A74BB12957C0A0E5BD8">If needed, modify queue
+							management parameters for asynchronous queueing to the disk store. You
+							can configure any region for synchronous or asynchronous queueing
+							(region attribute <codeph>disk-synchronous</codeph>). Server queues and
+							gateway sender queues always operate synchronously. When either the
+								<codeph>queue-size</codeph> (number of operations) or
+								<codeph>time-interval</codeph> (milliseconds) is reached, enqueued
+							data is flushed to disk. You can also synchronously flush unwritten data
+							to disk through the <codeph>DiskStore</codeph>
+							<codeph>flushToDisk</codeph> method. <p>Example:
+								<codeblock>gfsh>create disk-store --name=serverOverflow --dir=c:\overflow_data#20480 \
+--compaction-threshold=40 --auto-compact=false --allow-force-compaction=true \
+--max-oplog-size=512 <b>--queue-size=10000</b> <b>--time-interval=15</b></codeblock>
+							</p>
+						</li>
+						<li id="li_43B2133B68B74D7B8560AD397E6ADF79">If needed, modify the size
+							(specified in bytes) of the buffer used for writing to disk. <p>Example:
+								<codeblock>gfsh>create disk-store --name=serverOverflow --dir=c:\overflow_data#20480 \
+--compaction-threshold=40 --auto-compact=false --allow-force-compaction=true \
+--max-oplog-size=512 --queue-size=10000 --time-interval=15 <b>--write-buffer-size=65536</b></codeblock>
+							</p>
+						</li>
+						<li>If needed, modify the <codeph>disk-usage-warning-percentage</codeph> and
+								<codeph>disk-usage-critical-percentage</codeph> thresholds that
+							determine the percentage (default: 90%) of disk usage that will trigger
+							a warning and the percentage (default: 99%) of disk usage that will
+							generate an error and shut down the member cache.
+								<p>Example:<codeblock>gfsh>create disk-store --name=serverOverflow --dir=c:\overflow_data#20480 \
+--compaction-threshold=40 --auto-compact=false --allow-force-compaction=true \
+--max-oplog-size=512 --queue-size=10000 --time-interval=15 --write-buffer-size=65536 \
+<b>--disk-usage-warning-percentage=80</b> <b>--disk-usage-critical-percentage=98</b></codeblock></p>
+						</li>
+					</ol>
+				</li>
+			</ol>
+			<p>The following is the complete disk store cache.xml configuration example:
+				<codeblock>&lt;disk-store name="serverOverflow" compaction-threshold="40" 
+	       auto-compact="false" allow-force-compaction="true"
+   	    max-oplog-size="512" queue-size="10000"  
+   	    time-interval="15" write-buffer-size="65536"
+		disk-usage-warning-percentage="80"
+		disk-usage-critical-percentage="98"&gt;
+	   &lt;disk-dirs&gt;
+		      &lt;disk-dir&gt;c:\overflow_data&lt;/disk-dir&gt;
+		      &lt;disk-dir dir-size="20480"&gt;d:\overflow_data&lt;/disk-dir&gt;
+	   &lt;/disk-dirs&gt;
+&lt;/disk-store&gt;</codeblock></p>
+			<p>
+				<note>As an alternative to defining cache.xml on every server in the cluster-- if
+					you have the cluster configuration service enabled, when you create a disk store
+					in <codeph>gfsh</codeph>, you can share the disk store's configuration with the
+					rest of cluster. See <xref
+						href="../../configuring/cluster_config/gfsh_persist.xml#concept_r22_hyw_bl"
+					/>.</note>
+			</p>
+			<table frame="all" id="table_90850e59-9601-4714-a305-1f2ba839c04b">
+				<tgroup cols="1">
+					<colspec colname="topic_link" colnum="1"/>
+					<thead>
+						<row>
+							<entry>Related Topics </entry>
+						</row>
+					</thead>
+					<tbody>
+						<row>
+							<entry>
+								<codeph>com.gemstone.gemfire.cache.DiskStore</codeph>
+							</entry>
+						</row>
+					</tbody>
+				</tgroup>
+			</table>
+		</section>
+		<section>
+			<title>Modifying Disk Stores</title>
+			<p>You can modify an offline disk store by using the <xref
+					href="../../tools_modules/gfsh/command-pages/alter.xml#topic_99BCAD98BDB5470189662D2F308B68EB"
+				/> command. If you are modifying the default disk store configuration, use "DEFAULT"
+				as the disk-store name.</p>
+		</section>
+		<section id="section_AFB254CA9C5A494A8E335352A6849C16">
+			<title>Configuring Regions, Queues, and PDX Serialization to Use the Disk Stores</title>
+			<p>The following are examples of using already created and named disk stores for
+				Regions, Queues, and PDX Serialization. </p>
+			<p>Example of using a disk store for region persistence and overflow: <ul
+					id="ul_wf4_j3z_n4">
+					<li>gfsh:<codeblock>gfsh>create region --name=regionName --type=PARTITION_PERSISTENT_OVERFLOW \
+--disk-store=serverPersistOverflow</codeblock></li>
+					<li>cache.xml<codeblock>&lt;region refid="PARTITION_PERSISTENT_OVERFLOW" disk-store-name="persistOverflow1"/&gt;</codeblock></li>
+				</ul></p>
+			<p>Example of using a named disk store for server subscription queue overflow
+				(cache.xml): </p>
+			<codeblock>&lt;cache-server port="40404"&gt;
+   &lt;client-subscription 
+      eviction-policy="entry" 
+      capacity="10000"
+      disk-store-name="queueOverflow2"/&gt;
+&lt;/cache-server&gt;</codeblock>
+			<p>Example of using a named disk store for PDX serialization metadata (cache.xml): </p>
+			<codeblock>&lt;pdx read-serialized="true" 
+    persistent="true" 
+    disk-store-name="SerializationDiskStore"&gt;
+&lt;/pdx&gt;</codeblock>
+			<table frame="all" id="table_C83F7CA128204781B52961392EBBB13B">
+				<tgroup cols="1">
+					<colspec colname="topic_link" colnum="1"/>
+					<thead>
+						<row>
+							<entry>Related Topics </entry>
+						</row>
+					</thead>
+					<tbody>
+						<row>
+							<entry>
+								<xref href="../../reference/topics/cache_xml.xml#region-attributes"
+								/>
+							</entry>
+						</row>
+						<row>
+							<entry>
+								<xref href="../../reference/topics/elements_ref.xml"/>
+							</entry>
+						</row>
+						<row>
+							<entry>
+								<xref
+									href="../../developing/data_serialization/chapter_overview.xml#data_serialization"
+									type="concept" format="dita" scope="local"/>
+							</entry>
+						</row>
+					</tbody>
+				</tgroup>
+			</table>
+		</section>
+	</conbody>
+</concept>

@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<!DOCTYPE dita PUBLIC "-//OASIS//DTD DITA Composite//EN" "ditabase.dtd">
+<dita>
+	<topic id="topic_36C918B4202D45F3AC225FFD23B11D7C">
+		<title>JMX Manager Operations</title>
+		<shortdesc>Any member can host an embedded JMX Manager, which provides a federated view of
+			all MBeans for the distributed system. The member can be configured to be a manager at
+			startup or anytime during its life by invoking the appropriate API calls on the
+			ManagementService. </shortdesc>
+		<body>
+			<p>You need to have a JMX Manager started in your distributed system in order to use
+					<keyword keyref="product_name"/> management and monitoring tools such as <xref
+					href="../../tools_modules/gfsh/chapter_overview.xml#concept_36339CCA6323430D8B61EE8DC5F64DCB"
+					type="concept" format="dita" scope="local">gfsh</xref> and <xref
+					href="../../tools_modules/pulse/chapter_overview.xml#concept_600D5DC7303548BB96F5E3D1941C77C2"
+					type="concept" format="dita" scope="local"><keyword keyref="product_name"/>
+					Pulse</xref>. </p>
+			<p>
+				<note>Each node that acts as the JMX Manager has additional memory requirements
+					depending on the number of resources that it is managing and monitoring. Being a
+					JMX Manager can increase the memory footprint of any process, including locator
+					processes. See <xref
+						href="../../reference/topics/memory_requirements_for_cache_data.xml#calculating_memory_requirements"
+					/> for more information on calculating memory overhead on your <keyword
+						keyref="product_name"/> processes.</note>
+			</p>
+		</body>
+	</topic>
+</dita>

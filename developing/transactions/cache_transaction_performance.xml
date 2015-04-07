@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept id="concept_osz_pb1_wk">
+  <title>Cache Transaction Performance</title>
+  <shortdesc>Cache transaction performance can vary depending on the type of regions you are
+    using.</shortdesc>
+  <conbody>
+    <p>The most common region configurations for use with transactions are distributed replicated
+      and partitioned:<ul id="ul_efh_qlt_vk">
+        <li>Replicated regions are better suited for running transactions on small to mid-size data
+          sets. To ensure all or nothing behavior, at commit time, distributed transactions use the
+          global reservation system of the <keyword keyref="product_name"/> distributed lock
+          service. This works well as long as the data set is reasonably small.</li>
+        <li>Partitioned regions are the right choice for highly-performant, scalable operations.
+          Transactions on partitioned regions use only local locking, and only send messages to the
+          redundant data stores at commit time. Because of this, these transactions perform much
+          better than distributed transactions. There are no global locks, so partitioned
+          transactions are extremely scalable as well.</li>
+      </ul>
+    </p>
+  </conbody>
+</concept>

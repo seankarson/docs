@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "http://docs.oasis-open.org/dita/v1.1/OS/dtd/concept.dtd">
+<concept id="cache_const">
+	<title>Maintaining Cache Consistency</title>
+	<shortdesc>Maintaining data consistency between caches in a distributed <keyword keyref="product_name"/> system is vital
+		for ensuring its functional integrity and preventing data loss. </shortdesc>
+	<conbody>
+		<section id="section_lf3_lvn_nr">
+			<title>General Guidelines</title>
+			<p><b>Before Restarting a Region with a Disk Store, Consider the State of the Entire
+					Region</b>
+			</p>
+			<p>
+				<note>If you revoke a member’s disk store, do not restart that member with its disk
+					stores—in isolation—at a later time. </note>
+			</p>
+			<p><keyword keyref="product_name"/> stores information about your persisted data and
+				prevents you from starting a member with a revoked disk store in the running system.
+				But <keyword keyref="product_name"/> cannot stop you from starting a revoked member
+				in isolation, and running with its revoked data. This is an unlikely situation, but
+				it is possible to do: <ol id="ol_18E53E2D32C54A74A6A70807EB57B67A">
+					<li id="li_6E470518D8AF4CE693CAE20A96D9E74E">Members A and B are running, both
+						storing Region data to disk. </li>
+					<li id="li_2E1B75604CA74EBF9D59B67FC0C4CF35">Member A goes down. </li>
+					<li id="li_5B7ED16A2F784DD1B4901B4AC6445A9F">Member B goes down. </li>
+					<li id="li_5BB12B3BB8384744BE9CB36D9060AE0C">At this point, Member B has the
+						most recent disk data. </li>
+					<li id="li_4FD27E7487534CD3B20FB6D393532442">Member B is not usable. Perhaps its
+						host machine is down or cut off temporarily. </li>
+					<li id="li_F34FF95B97F3488084AA4FDE30B63A3D">To get the system up and running,
+						you start Member A, and use the command line tool to revoke Member B’s
+						status as member with the most recent data. The system loads Member A’s data
+						and you run forward with that. </li>
+					<li id="li_E330660089144EF59B7D5BB8A1988DF8">Member A is stopped. </li>
+					<li id="li_5193FD2159AB43D19FDAAD781D0F3745">At this point, both Member A and
+						Member B have information in their disk files indicating they are the gold
+						copy members. </li>
+					<li id="li_8004618BCDEA4784AB21998512865473">If you start Member B, it will load
+						its data from disk. </li>
+					<li id="li_9CC04A067C7B44068D024B75273E99BB">When you start Member A, the system
+						will recognize the incompatible state and report an exception, but by this
+						point, you have good data in both files, with no way to combine them. </li>
+				</ol>
+			</p>
+			<p><b>Understand Cache Transactions</b>
+			</p>
+			<p>Understanding the operation of <keyword keyref="product_name"/> transactions can help you minimize situations
+				where the cache could get out of sync. </p>
+			<p>Transactions do not work in distributed regions with global scope. </p>
+			<p>Transactions provide consistency within one cache, but the distribution of results to
+				other members is not as consistent. </p>
+			<p>Multiple transactions in a cache can create inconsistencies because of read committed
+				isolation. Since multiple threads cannot participate in a transaction, most
+				applications will be running multiple transactions. </p>
+			<p>An in-place change to directly alter a key’s value without doing a put can result in
+				cache inconsistencies. With transactions, it creates additional difficulties because
+				it breaks read committed isolation. If at all possible, use copy-on-read instead. </p>
+			<p>In distributed-no-ack scope, two conflicting transactions in different members can
+				commit simultaneously, overwriting each other as the changes are distributed. </p>
+			<p>If a cache writer exists during a transaction, then each transaction write operation
+				triggers a cache writer’s related call. Regardless of the region’s scope, a
+				transaction commit can invoke a cache writer only in the local cache and not in the
+				remote caches. </p>
+			<p>A region in a cache with transactions may not stay in sync with a region of the same
+				name in another cache without transactions. </p>
+			<p>Two applications running the same sequence of operations in their transactions may
+				get different results. This could occur because operations happening outside a
+				transaction in one of the members can overwrite the transaction, even in the process
+				of committing. This could also occur if the results of a large transaction exceed
+				the machine’s memory or the capacity of <keyword keyref="product_name"/>. Those limits can vary by machine,
+				so the two members may not be in sync. </p>
+		</section>
+	</conbody>
+</concept>

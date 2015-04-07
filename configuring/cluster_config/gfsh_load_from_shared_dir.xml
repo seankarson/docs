@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept
+  id="concept_hbk_sgb_y4">
+  <title>Loading Existing Configuration Files into Cluster Configuration</title>
+  <shortdesc>To load an existing cache.xml or gemfire.properties configuration file into a new
+    cluster, use the <codeph>--load-cluster-configuration-from-dir</codeph> parameter when starting
+    up the locator.</shortdesc>
+  <conbody>
+    <p>You can use this technique to migrate a single server's configuration into the cluster
+      configuration service. To load an existing cache.xml file or cluster configuration into a
+      cluster, perform the following steps:</p>
+    <ol
+      id="ol_gxh_53b_y4">
+      <li>Make sure the locator is not currently running.</li>
+      <li>Within the locator's working directory, create a <codeph>cluster_config/cluster</codeph>
+        directory if the directory does not already exist.</li>
+      <li>Copy the desired configuration files (cache.xml or gemfire.properties, or both) into the
+          <codeph>cluster_config/cluster</codeph> directory.</li>
+      <li>Rename the configuration files as follows:<ul
+          id="ul_wdg_hjb_y4">
+          <li>Rename <filepath>cache.xml</filepath> to <filepath>cluster.xml</filepath></li>
+          <li>Rename <filepath>gemfire.properties</filepath> to
+              <filepath>cluster.properties</filepath></li>
+        </ul></li>
+      <li>Start the locator in gfsh as
+        follows:<codeblock>gfsh>start locator --name=&lt;locator_name> --enable-cluster-configuration=true --load-cluster-configuration-from-dir=true</codeblock>After
+        successful startup, the locator should report that the "Cluster configuration service is up
+        and running." Any servers that join this cluster and have
+          <codeph>--use-cluster-configuration</codeph> set to true will pick up these configuration
+        files.</li>
+    </ol>
+    <p>
+      <note>If you make any manual modifications to the cluster.xml or cluster.properties (or
+        group_name.xml or group_name.properties) files, you must stop the locator and then restart
+        the locator using the <codeph>--load-cluster-configuration-from-dir</codeph> parameter.
+        Direct file modifications are not picked up iby the cluster configuration service without a
+        locator restart.</note>
+    </p>
+  </conbody>
+</concept>

@@ -1,0 +1,118 @@
+<?xml version="1.0"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept id="concept_4F288B1F9579422FA481FBE2C3ADD007">
+	<title>Reserved Words</title>
+	<shortdesc><?xm-replace_text Short Description?>
+	</shortdesc>
+	<conbody>
+		<section id="section_3415163C3EFB46A6BE873E2606C9DE0F">
+			<title>Reserved Words</title>
+			<p>These words are reserved for the query language and may not be used as identifiers.
+				The words with asterisk (*) after them are not currently used by <keyword
+					keyref="product_name"/>, but are reserved for future implementation. </p>
+			<table id="table_47129D9A19254E54AF86DA22E10E4674">
+				<tgroup cols="4">
+					<colspec colname="1" colnum="1" colwidth="*"/>
+					<colspec colname="2" colnum="2" colwidth="*"/>
+					<colspec colname="3" colnum="3" colwidth="*"/>
+					<colspec colname="4" colnum="4" colwidth="*"/>
+					<tbody>
+						<row>
+							<entry>
+								<codeblock>abs*
+all
+and 
+andthen* 
+any* 
+array 
+as 
+asc 
+avg* 
+bag* 
+boolean 
+by 
+byte 
+char 
+collection
+count 
+date 
+declare* 
+define*
+desc </codeblock>
+							</entry>
+							<entry>
+								<codeblock>dictionary 
+distinct 
+double 
+element 
+enum* 
+except* 
+exists* 
+false 
+first* 
+flatten* 
+float 
+for* 
+from 
+group* 
+having* 
+import 
+in 
+int 
+intersect* 
+interval* </codeblock>
+							</entry>
+							<entry>
+								<codeblock>is_defined 
+is_undefined 
+last* 
+like
+limit
+list* 
+listtoset* 
+long 
+map 
+max* 
+min* 
+mod* 
+nil 
+not 
+null 
+nvl 
+octet 
+or 
+order </codeblock>
+							</entry>
+							<entry>
+								<codeblock>orelse* 
+query* 
+select 
+set 
+short 
+some* 
+string 
+struct* 
+sum* 
+time 
+timestamp 
+to_date 
+true 
+type 
+undefine* 
+undefined 
+union* 
+unique* 
+where</codeblock>
+							</entry>
+						</row>
+					</tbody>
+				</tgroup>
+			</table>
+			<p>To access any method, attribute, or named object that has the same name as a query
+				language reserved word, enclose the name within double quotation marks. </p>
+			<p>Examples: <codeblock>SELECT DISTINCT "type" FROM /portfolios WHERE status = 'active'</codeblock>
+				<codeblock>SELECT DISTINCT * FROM /region1 WHERE emps."select"() &lt; 100000 </codeblock>
+			</p>
+		</section>
+	</conbody>
+</concept>

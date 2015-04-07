@@ -1,0 +1,72 @@
+<?xml version="1.0"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept id="concept_F231D2158D1A4EC8A8D83EFA1C4EF90D">
+	<title>Sample Social Networking Application</title>
+	<shortdesc>The <keyword keyref="product_name"/> tutorial uses a sample social networking application. To support this
+		application, the tutorial includes two sample regions and two sample application classes. </shortdesc>
+	<conbody>
+		<section id="section_886B8D2D702D40FB8CD5BE6559B3F804">
+			<p>To store the sample social networking data the application uses two regions; one
+				holds people and the other holds posts. </p>
+			<p>
+				<table id="table_1E851A046FF145A1969EBBDD3DFA2AC9">
+					<title>People Region</title>
+					<tgroup cols="3" align="left">
+						<thead>
+							<row>
+								<entry>Entry field </entry>
+								<entry>key </entry>
+								<entry>value </entry>
+							</row>
+						</thead>
+						<tbody>
+							<row>
+								<entry>Type </entry>
+								<entry>String </entry>
+								<entry>com.gemstone.gemfire.tutorial.model.Profile </entry>
+							</row>
+							<row>
+								<entry>Description </entry>
+								<entry>The person's name </entry>
+								<entry>The profile of this person </entry>
+							</row>
+						</tbody>
+					</tgroup>
+				</table>
+			</p>
+			<p>
+				<table id="table_8296A5489DA344DA8802711838932D79">
+					<title>Posts region</title>
+					<tgroup cols="3" align="left">
+						<thead>
+							<row>
+								<entry>Entry field </entry>
+								<entry>key </entry>
+								<entry>value </entry>
+							</row>
+						</thead>
+						<tbody>
+							<row>
+								<entry>Type </entry>
+								<entry>com.gemstone.gemfire.tutorial.model.PostID </entry>
+								<entry>String </entry>
+							</row>
+							<row>
+								<entry>Description </entry>
+								<entry>A unique ID for this post </entry>
+								<entry>The text of the post </entry>
+							</row>
+						</tbody>
+					</tgroup>
+				</table>
+			</p>
+			<p>The Profile class holds a set of friends belonging to one person. A PostID is an
+				author's name and a timestamp. The author's name should match a key (the person's
+				name) in the people region, but that constraint is not enforced in this simple
+				application. </p>
+			<image href="../../common/images/UML_for_Social_Networking.png"
+				id="image_B03FDB916B11413195D0808336DB2303" placement="break"/>
+			<p>A simple command line UI enables you to add people and posts to the system. </p>
+		</section>
+	</conbody>
+</concept>

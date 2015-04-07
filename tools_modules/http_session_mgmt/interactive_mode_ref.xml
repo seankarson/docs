@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "http://docs.oasis-open.org/dita/v1.1/OS/dtd/concept.dtd">
+<concept id="interactive_mode_ref">
+	<title>Interactive Configuration Reference for the tc Server Module </title>
+	<shortdesc>This section describes each prompt when entering into interactive configuration mode
+		of the <keyword keyref="product_name"/> HTTP Session Management Module for tc Server. </shortdesc>
+	<conbody>
+		<p> See <xref href="tc_changing_gf_default_cfg.xml#tc_changing_gf_default_cfg"
+				type="concept" format="dita" scope="local"/> for specific pointers on how to use the
+			interactive mode for common configuration changes. </p>
+		<codeblock>  Please enter a value for 'gemfire.maximum.vm.heap.size.mb'. Default '512':
+  Please enter a value for 'gemfire.initial.vm.heap.size.mb'. Default '512':
+  Please enter a value for 'gemfire.cms.initiating.heap.percentage'. Default '50':</codeblock>
+		<p>The above properties allow you to fine-tune your JVM heap and garbage collector. For more
+			information, refer to <xref
+				href="../../managing/heap_use/chapter_overview.xml#resource_manager" type="concept"
+				format="dita" scope="local"/>.
+			<codeblock>  Please specify whether to enable a GemFire listener that logs session create, 
+  update, destroy and expiration events. Default 'false':</codeblock>
+		</p>
+		<p>The above property determines whether a debug cache listener is added to the session
+			region. When true, info-level messages are logged to the <keyword keyref="product_name"
+			/> log when sessions are created, updated, invalidated, or expired. </p>
+		<codeblock>With the gemfire-p2p template:
+  Please specify whether to maintain a local GemFire cache. Default 'false':
+  
+With the gemfire-cs template:
+  Please specify whether to maintain a local GemFire cache. Default 'true':</codeblock>
+		<p>The above property determines whether a local cache is enabled; if this parameter is set
+			to true, the app server load balancer should be configured for sticky session mode. </p>
+		<codeblock>With the gemfire-p2p template:
+  Please enter the id of the attributes of the GemFire region used to cache 
+      sessions.
+  Default 'REPLICATE':
+
+With the gemfire-cs template:
+  Please enter the id of the attributes of the <keyword keyref="product_name"/> region used to cache 
+      sessions.
+  Default 'PARTITION_REDUNDANT':</codeblock>
+		<p>The above property determines the ID of the attributes for the cache region; possible
+			values include PARTITION, PARTITION_REDUNDANT, PARTITION_PERSISTENT, REPLICATE,
+			REPLICATE_PERSISTENT, and any other region shortcut that can be found in <xref
+				href="../../basic_config/data_regions/region_shortcuts.xml#region_shortcuts"
+				type="concept" format="dita" scope="local"
+				><?xm-replace_text Region Shortcuts and Custom Named Region Attributes?></xref>.
+			When using a partitioned region attribute, it is recommended that you use
+			PARTITION_REDUNDANT (rather than PARTITION) to ensure that the failure of a server does
+			not result in lost session data. </p>
+		<codeblock>  Please enter the name of the GemFire region used to cache sessions. 
+  Default 'gemfire_modules_sessions':</codeblock>
+		<p>The above property determines the <keyword keyref="product_name"/> region name. </p>
+		<codeblock>  Please enter the port that Tomcat Shutdown should listen on. Default '-1':
+  Please enter the port that the JMX socket listener should listen on. 
+      Default '6969':</codeblock>
+		<p>The above properties are application server properties. </p>
+		<codeblock>  Please enter a value for 'bio.http.port'. Default '8080':
+  Please enter a value for 'bio.https.port'. Default '8443':</codeblock>
+		<p>tc Server requires information about connector ports. <codeph>bio.http.port</codeph> is
+			the http port for tc Server and <codeph>bio.https.port</codeph> is the secure http port
+			for tc Server. </p>
+		<codeblock>With the gemfire-p2p template:
+  Please enter the name of the GemFire cache configuration file. 
+  Default 'cache-peer.xml':
+  
+With the gemfire-cs template:
+  Please enter the name of the GemFire cache configuration file. 
+  Default 'cache-client.xml':</codeblock>
+		<p>You can change the name of the cache configuration file with the above property. If you
+			do change this value, be sure to include an xml file by that name in the
+				<codeph>conf</codeph> subdirectory. </p>
+		<codeblock>  Please enter the percentage of heap at which updates to the cache are refused.
+  0.0 means disabled. Default '0.0':
+  Please enter the percentage of heap at which sessions will be evicted from the 
+  local cache. Default '80.0':</codeblock>
+		<p>The above properties allow you to control the critical and eviction watermarks for the
+			heap. By default, the critical watermark is disabled (set to 0.0) and the eviction
+			watermark is set to 80%. </p>
+		<codeblock>Applicable to the gemfire-p2p template ONLY:
+  Please enter the list of locators used by GemFire members to discover each other. 
+  The format is a comma-separated list of host[port]. Default ' ':</codeblock>
+		<p>The above property specifies the list of locators. For more information on locators,
+			refer to <xref
+				href="tc_changing_gf_default_cfg.xml#tc_changing_gf_default_cfg/p2p_cfg_using_locators"
+				type="section" format="dita" scope="local">Peer-to-peer Configuration Using
+				Locators</xref>. </p>
+		<codeblock>  Please enter the name of the file used to log GemFire messages. 
+  Default 'gemfire_modules.log':</codeblock>
+		<p>The above property determines the filename for the <keyword keyref="product_name"/> log
+			file. </p>
+		<codeblock>Applicable to the gemfire-p2p template ONLY:
+  Please enter the port used by GemFire members to discover each other using 
+  multicast networking. Default '10334': </codeblock>
+		<p>The above property specifies the port used for multicast discovery. When using locators,
+			this value should be 0. For more information on multicast discovery, refer to <xref
+				href="tc_changing_gf_default_cfg.xml#tc_changing_gf_default_cfg/use_a_diff_mc_port"
+				type="section" format="dita" scope="local">Using a Different Multicast Port</xref>. </p>
+		<codeblock>Applicable to the gemfire-p2p template ONLY:
+  Please specify whether to rebalance the GemFire cache at startup.
+  Default 'false':</codeblock>
+		<p>This property allows you to rebalance a partitioned <keyword keyref="product_name"/>
+			cache when a new <keyword keyref="product_name"/> peer starts up. </p>
+		<codeblock>  Please enter the name of the file used to store GemFire statistics. 
+  Default 'gemfire_modules.gfs':
+</codeblock>
+		<p>The above property determines the filename for the <keyword keyref="product_name"/>
+			statistics file. </p>
+		<codeblock>  Please specify whether GemFire statistic sampling should be enabled. 
+  Default 'false':</codeblock>
+		<p>The above property determines whether statistics sampling should occur. See <xref
+				href="../../managing/statistics/chapter_overview.xml#statistics" type="concept"
+				format="dita" scope="local"/> for more information. </p>
+	</conbody>
+</concept>

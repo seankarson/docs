@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "http://docs.oasis-open.org/dita/v1.1/OS/dtd/concept.dtd">
+<concept id="distributed_system_member_configuration">
+	<title>Distributed System Members</title>
+	<shortdesc id="shortdesc_CCB358DE4836432785185F5482665F97">Distributed system members are
+		programs that connect to a <keyword keyref="product_name_long"/> distributed system. You
+		configure members to belong to a single distributed system, and you can optionally configure
+		them to be clients or servers to members in other distributed systems. </shortdesc>
+	<conbody>
+		<section id="section_326B2609B67E4FBE9BF2074C3B211E50">
+			<title>Member Overview</title>
+			<p>Distributed system members (or simply "members") connect to the <keyword
+					keyref="product_name"/> system when they create the <keyword
+					keyref="product_name"/> data cache. The members' distributed system is
+				configured through <keyword keyref="product_name"/> properties. See <xref
+					href="../../reference/topics/gemfire_properties.xml#gemfire_properties"
+					type="concept" format="dita" scope="local"/>. <keyword keyref="product_name"/>
+				properties specify all necessary information for system member startup,
+				initialization, and communication. </p>
+			<note>You cannot change a member's properties while the member is connected to the
+				distributed system. </note>
+			<p>Use the properties to define: <ul id="ul_bf5a420b-1732-49c5-b999-1630e74e7ef9">
+					<li id="li_37BB8C96F9524F7988629333A6136DD5">How to find and communicate with
+						other system members </li>
+					<li id="li_A201D1C9F9D74F77AB841D2C434D3150">How to perform logging and
+						statistics activities </li>
+					<li id="li_1DCD0A06D34C4F689092022A96C1D011">Which persistent configuration or
+							<codeph>cache.xml</codeph> file to use for cache and data region
+						initialization </li>
+					<li id="li_3A3D51B3B95444C988F61FD70A99F2B9">Other options, including event
+						conflation, how to handle network loss, and security settings </li>
+				</ul>
+			</p>
+		</section>
+		<section id="section_E755E9E4A31149C980561D617A99A002">
+			<title>Distributed System Membership and System Topologies</title>
+			<p>Every <keyword keyref="product_name"/> process is a member of a distributed system,
+				even if the distributed system is defined as standalone, with just one member. You
+				can run an individual distributed system in isolation or you can combine systems for
+				vertical and horizontal scaling. See <xref
+					href="../../topologies_and_comm/topology_concepts/chapter_overview.xml"/>. <ul
+					id="ul_D86A9A00CCBA4217BFF3E60948BC0A8B">
+					<li id="li_D26747B1FB3947279105414165979447"><b>Peer-to-Peer Distributed
+							Systems</b>. Members that define the same member discovery properties
+						belong to the same distributed system and are peers to one another. </li>
+					<li id="li_58030CD703274E5AB4D1FA032D8F4042"><b>Client/Server Installations</b>.
+						The client/server topology uses relationships that you configure between
+						members of multiple distributed systems. You configure some or all of the
+						peers in one distributed system to act as cache servers to clients
+						connecting from outside the system. Each server can host many client
+						processes, managing cache access for all in an efficient, vertically
+						hierarchical cache configuration. You configure the client applications to
+						connect to the servers, using a client cache configuration. Clients run as
+						members of standalone <keyword keyref="product_name"/> distributed systems,
+						with no peers, so all data updates and requests go to the servers. </li>
+				</ul>
+			</p>
+		</section>
+	</conbody>
+</concept>

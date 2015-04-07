@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "http://docs.oasis-open.org/dita/dtd/concept.dtd">
+<concept id="hibernate_why_use_gemfire">
+	<title id="hib_why_use_gemfire">Why Use <keyword keyref="product_name"/> with Hibernate?</title>
+	<shortdesc>Using <keyword keyref="product_name_long"/> with Hibernate improves performance and
+		scalability, gives you flexible caching options, and more. </shortdesc>
+	<conbody>
+		<ul id="ul_5AB3E83C8E754851A0F0874C157954F1">
+			<li id="li_2162B9E643EC4984B78B9252E5D86326">
+				<p><b>General</b>
+					<ul id="ul_4F715812FDFA45A197C04814661082EF">
+						<li id="li_D07F5B3B9B2845FC916BCA466AB3E052"><keyword keyref="product_name"
+							/>'s L2 cache solution improves Hibernate performance </li>
+						<li id="li_E1F559B7BFD34456A795F52426492450">Reduces traffic to your
+							database server </li>
+						<li id="li_4394101653DB43A8A29ED0CA3DFB1143">Simple to configure: requires
+							just a few changes to <codeph>hibernate.cfg.xml</codeph>
+						</li>
+						<li id="li_E97A17F7202C418C96DDD6CC7436DD65">Flexible caching options,
+							supporting several local and distributed configurations </li>
+						<li id="li_FFF9D9C793004088BFB3E1A3EA7174D6">Access to many of the <keyword
+								keyref="product_name"/> features </li>
+					</ul>
+				</p>
+			</li>
+			<li id="li_0B7C620ECB6A4B11AC733A2D5ED713B1">
+				<p><b>Performance</b>
+					<ul id="ul_2002D6E8B8334E4A91CF19D25BAB40FC">
+						<li id="li_87EC0E055E0D4857B7BD6E3A6550CEF1">Mesh-like architecture provides
+							single hop access to any entity </li>
+						<li id="li_2E9A228EA52A476C81FB6117A320BE39">Designed to minimize
+							serialization costs </li>
+					</ul>
+				</p>
+			</li>
+			<li id="li_F69A37EFF354410EA517076CC25AF940">
+				<p><b>Scalability</b>
+					<ul id="ul_FF2BF13176F042D5BD693936C177395D">
+						<li id="li_A1D202B608AD4BB2A3A496CC09B8569A">Data can be partitioned across
+							the entire cluster </li>
+						<li id="li_38B9FAEE972C4680A4415B6DE093B1F0">Smart heap utilization / smart
+							eviction algorithm </li>
+						<li id="li_C9C7064DCD694F669993AC775A41A17B">Supports all Hibernate
+							concurrency strategies (read only, read/write, non-strict read/write,
+							transactional) </li>
+						<li id="li_A175A369E88948F2B6EBC373F8271FB5">Ensures data consistency
+							without expensive distributed locks </li>
+						<li id="li_086FF220E0974E0E8CBEA663F02E4D3A">Overflow to disk on each system
+							member (i.e. shared nothing persistence) </li>
+						<li id="li_CE650FB3038E4FCB9A98F138B4D9C9B0">Supports tiered caching </li>
+					</ul>
+				</p>
+			</li>
+		</ul>
+	</conbody>
+</concept>

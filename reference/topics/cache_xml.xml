@@ -1,0 +1,4114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE dita PUBLIC "-//OASIS//DTD DITA Composite//EN" "ditabase.dtd">
+<dita>
+	<topic id="cache_xml_cache">
+		<title>&lt;cache&gt; Element Reference</title>
+		<shortdesc>This section documents the <filepath>cache.xml</filepath> sub-elements used for
+				<keyword keyref="product_name"/> server configuration. All elements are sub-elements
+			of the <codeph>&lt;cache&gt;</codeph> element. </shortdesc>
+		<body>
+			<p>For <keyword keyref="product_name"/> client configuration, see <xref
+					href="client-cache.xml#cc-client-cache"/>. </p>
+			<p><b>API</b>:<codeph>com.gemstone.gemfire.cache.CacheFactory</codeph>
+			</p>
+			<table id="table_B079C5A320194B3A98AD82DDB67DA43D">
+				<title>&lt;cache&gt; Element Attributes</title>
+				<tgroup cols="3">
+					<colspec colname="1" colnum="1" colwidth="1.60*"/>
+					<colspec colname="2" colnum="2" colwidth="4.14*"/>
+					<colspec colname="3" colnum="2" colwidth="1.00*"/>
+					<thead>
+						<row>
+							<entry>Attribute </entry>
+							<entry>Description </entry>
+							<entry>Default </entry>
+						</row>
+					</thead>
+					<tbody>
+						<row>
+							<entry>copy-on-read </entry>
+							<entry>
+								<p>Boolean indicating whether entry value retrieval methods return
+									direct references to the entry value objects in the cache
+									(false) or copies of the objects (true). </p>
+							</entry>
+							<entry>False </entry>
+						</row>
+						<row>
+							<entry>is-server </entry>
+							<entry>
+								<p>Boolean indicating whether this member is a cache server. </p>
+							</entry>
+							<entry>False </entry>
+						</row>
+						<row>
+							<entry>lock-timeout </entry>
+							<entry>
+								<p>The timeout, in seconds, for implicit object lock requests. This
+									setting affects automatic locking only, and does not apply to
+									manual locking. If a lock request does not return before the
+									specified timeout period, it is cancelled and returns with a
+									failure. </p>
+							</entry>
+							<entry>60 </entry>
+						</row>
+						<row>
+							<entry>lock-lease </entry>
+							<entry>
+								<p>The timeout, in seconds, for implicit and explicit object lock
+									leases. This affects both automatic locking and manual locking.
+									Once a lock is obtained, it can remain in force for the lock
+									lease time period before being automatically cleared by the
+									system. </p>
+							</entry>
+							<entry>120 </entry>
+						</row>
+						<row>
+							<entry>message-sync-interval </entry>
+							<entry>
+								<p>Used for client subscription queue synchronization when this
+									member acts as a server to clients and server redundancy is
+									used. Sets the frequency (in seconds) at which the primary
+									server sends messages to its secondary servers to remove queued
+									events that have already been processed by the clients. </p>
+							</entry>
+							<entry>1 </entry>
+						</row>
+						<row>
+							<entry>search-timeout </entry>
+							<entry>
+								<p>How many seconds a <codeph>netSearch</codeph> operation can wait
+									for data before timing out. You may want to change this based on
+									your knowledge of the network load or other factors. </p>
+							</entry>
+							<entry>300 </entry>
+						</row>
+					</tbody>
+				</tgroup>
+			</table>
+			<p>
+				<b>Example:</b>
+				<codeblock outputclass="language-xml">&lt;cache&gt;
+  &lt;cache-server port="40404" /&gt;
+  &lt;region name="root"&gt;
+    &lt;region-attributes refid="REPLICATE"/&gt;
+    &lt;region name="cs_region" refid="REPLICATE"&gt;
+      &lt;region-attributes&gt;
+        &lt;cache-loader&gt;
+          &lt;class-name&gt;cacheRunner.StringLoader&lt;/class-name&gt;
+        &lt;/cache-loader&gt;
+          &lt;cache-listener&gt;
+          &lt;class-name&gt;cacheRunner.LoggingCacheListener&lt;/class-name&gt;
+        &lt;/cache-listener&gt;
+      &lt;/region-attributes&gt;
+    &lt;/region&gt;
+  &lt;/region&gt;
+&lt;/cache&gt;
+
+</codeblock>
+			</p>
+		</body>
+	</topic>
+	<topic id="cache-transaction-manager">
+		<title>&lt;cache-transaction-manager&gt;</title>
+		<body>
+			<p>Specifies a transaction listener. </p>
+			<p>
+				<b>API: </b>
+				<codeph>CacheTransactionManager</codeph>
+			</p>
+			<p>
+				<b>Example: </b>
+			</p>
+			<codeblock outputclass="language-xml">&lt;cache search-timeout="60"&gt;
+   &lt;cache-transaction-manager&gt;
+     &lt;transaction-listener&gt;
+       &lt;class-name&gt;com.company.data.MyTransactionListener&lt;/class-name&gt;
+       &lt;parameter name="URL"&gt;
+         &lt;string&gt;jdbc:cloudscape:rmi:MyData&lt;/string&gt;
+       &lt;/parameter&gt;
+     &lt;/transaction-listener&gt;
+     &lt;transaction-listener&gt;... &lt;/transaction-listener&gt; 
+     &lt;transaction-writer&gt;
+       &lt;class-name&gt;com.company.data.MyTransactionWriter&lt;/class-name&gt;
+       &lt;parameter name="URL"&gt;
+         &lt;string&gt;jdbc:cloudscape:rmi:MyData&lt;/string&gt;
+       &lt;/parameter&gt;
+       &lt;parameter&gt;
+     &lt;/transaction-writer&gt;
+   &lt;/cache-transaction-manager&gt; .. .
+&lt;/cache&gt;
+</codeblock>
+		</body>
+	</topic>
+	<topic id="transaction-listener">
+		<title>&lt;transaction-listener&gt;</title>
+		<body>
+			<p>When a transaction ends, its thread calls the TransactionListener to perform the
+				appropriate follow-up for successful commits, failed commits, or voluntary
+				rollbacks. </p>
+			<p>Specify the Java class and its initialization parameters with the
+					<codeph>&lt;class-name&gt;</codeph> and <codeph>&lt;parameter&gt;</codeph>
+				sub-elements. See <xref format="dita" href="cache_xml.xml#class-name_parameter"
+					scope="local" type="topic"><?xm-replace_text and ?></xref>. </p>
+		</body>
+	</topic>
+	<topic id="transaction-writer">
+		<title>&lt;transaction-writer&gt;</title>
+		<body>
+			<p> When you commit a transaction, a TransactionWriter can perform additional tasks,
+				including aborting the transaction. </p>
+			<p>Specify the Java class and its initialization parameters with the
+					<codeph>&lt;class-name&gt;</codeph> and <codeph>&lt;parameter&gt;</codeph>
+				sub-elements. See <xref format="dita" href="cache_xml.xml#class-name_parameter"
+					scope="local" type="topic"><?xm-replace_text and ?></xref>. </p>
+		</body>
+	</topic>
+	<topic id="dynamic-region-factory">
+		<title>&lt;dynamic-region-factory&gt;</title>
+		<shortdesc/>
+		<body>
+			<p>The <codeph>&lt;dynamic-region-factory></codeph> element configures a dynamic region
+				factory for this cache. You can use this element to dynamically create regions in
+				your application code. Use the <apiname>createDynamicRegion()</apiname> method of
+				the <apiname>com.gemstone.gemfire.cache.DynamicRegionFactory</apiname> class in your
+				Java code to dynamically create regions. <note>You can not use this element to
+					dynamically create <i>partitioned</i> regions. </note></p>
+			<p>Pivotal Inc. recommends that you use functions to dynamically create regions. See
+					<xref
+					href="../../developing/region_options/dynamic_region_creation.xml#concept_tr5_rdp_wk"
+				/>.</p>
+			<p> The optional <codeph>&lt;disk-dir></codeph> sub-element specifies the directory to
+				store the persistent files that are used for dynamic region bookkeeping. It defaults
+				to the current directory. </p>
+			<p>Set the <codeph>pool-name</codeph> attribute to set the name of the connection pool
+				used by client applications in a client/server cache configuration. Do not specify
+				the <codeph>pool-name</codeph> attribute in servers or peers. </p>
+			<p>
+				<b>API: </b>
+				<codeph>com.gemstone.gemfire.cache.DynamicRegionFactory</codeph>
+			</p>
+			<table id="table_6B7271DE968946CC9757FE241E9F872C">
+				<title>Attributes</title>
+				<tgroup cols="3">
+					<colspec colname="1" colnum="1" colwidth="1.58*"/>
+					<colspec colname="2" colnum="2" colwidth="4.12*"/>
+					<colspec colname="col3" colnum="3" colwidth="1*"/>
+					<thead>
+						<row>
+							<entry>Attribute </entry>
+							<entry>Description </entry>
+							<entry colname="col3">Default </entry>
+						</row>
+					</thead>
+					<tbody>
+						<row>
+							<entry>disable-persist-backup </entry>
+							<entry>When set to <userinput>false</userinput>, the factory is
+								persisted on disk. </entry>
+							<entry colname="col3">false</entry>
+						</row>
+						<row>
+							<entry>disable-register-interest </entry>
+							<entry>When set to <userinput>false</userinput>, client regions created
+								by the factory register interest in all keys in a corresponding
+								server cache region.</entry>
+							<entry colname="col3">false</entry>
+						</row>
+						<row>
+							<entry>pool-name </entry>
+							<entry>The name of a connection pool used by the client factory to
+								communicate with the server-side factory.</entry>
+							<entry colname="col3">none</entry>
+						</row>
+					</tbody>
+				</tgroup>
+			</table>
+			<p>
+				<b>Example: </b>
+			</p>
+			<codeblock outputclass="language-xml">&lt;dynamic-region-factory 
+     pool-name=myPool>
+     &lt;disk-dir>/home/gemfire/myDiskdir&lt;/disk-dir>
+&lt;/dynamic-region-factory>
+</codeblock>
+		</body>
+		<topic conref="#disk-dir" id="id_utn_c3p_wk">
+			<title/>
+		</topic>
+	</topic>
+	<topic id="async-event-queue">
+		<title>&lt;async-event-queue&gt;</title>
+		<body>
+			<p>Configures a queue for sending region events to an AsyncEventListener implementation
+				(for example, for write-behind event handling). </p>
+			<p>
+				<b>API: </b>
+				<codeph>com.gemstone.gemfire.cache.asyncqueue.AsyncEventQueue</codeph>
+			</p>
+			<table id="table_5CEA4FE481D741E4913C098B67735714">
+				<title>Attributes of &lt;async-event-queue&gt;</title>
+				<tgroup cols="3">
+					<colspec colname="1" colnum="1" colwidth="1.6*"/>
+					<colspec colname="2" colnum="2" colwidth="4.1*"/>
+					<colspec colname="col3" colnum="3" colwidth="1*"/>
+					<thead>
+						<row>
+							<entry>Attribute </entry>
+							<entry>Description </entry>
+							<entry colname="col3">Default </entry>
+						</row>
+					</thead>
+					<tbody>
+						<row>
+							<entry>id </entry>
+							<entry>Unique identifier for the queue. This attribute is required. </entry>
+							<entry colname="col3">null </entry>
+						</row>
+						<row>
+							<entry>parallel </entry>
+							<entry>Value of "true" or "false" that specifies the type of queue that
+									<keyword keyref="product_name"/> creates. </entry>
+							<entry colname="col3">false </entry>
+						</row>
+						<row>
+							<entry>batch-size </entry>
+							<entry id="entry_umb_jl1_dk">Maximum number of messages that a batch can
+								contain. </entry>
+							<entry colname="col3">100 </entry>
+						</row>
+						<row>
+							<entry>batch-time-interval </entry>
+							<entry>Maximum number of milliseconds that can elapse between sending
+								batches. </entry>
+							<entry colname="col3">5 </entry>
+						</row>
+						<row>
+							<entry>enable-batch-conflation </entry>
+							<entry>Boolean value that determines whether <keyword
+									keyref="product_name"/> should conflate messages. </entry>
+							<entry colname="col3">false </entry>
+						</row>
+						<row>
+							<entry>disk-store-name </entry>
+							<entry id="entry_gtz_ml1_dk">Named disk store to use for storing queue
+								overflow, or for persisting the queue. If you specify a value, the
+								named disk store must exist. If you specify a null value, <keyword
+									keyref="product_name"/> uses the default disk store for overflow
+								and queue persistence. </entry>
+							<entry colname="col3">null specifies the default disk store </entry>
+						</row>
+						<row>
+							<entry>disk-synchronous </entry>
+							<entry>For regions that write to disk, boolean that specifies whether
+								disk writes are done synchronously for the region. </entry>
+							<entry colname="col3">true </entry>
+						</row>
+						<row>
+							<entry>dispatcher-threads </entry>
+							<entry>Number of dispatcher threads that are used to process region
+								events from the queue. </entry>
+							<entry colname="col3">5 </entry>
+						</row>
+						<row>
+							<entry>maximum-queue-memory </entry>
+							<entry id="entry_pqr_pl1_dk">Maximum amount of memory in megabytes that
+								the queue can consume before overflowing to disk. </entry>
+							<entry colname="col3">100 mb </entry>
+						</row>
+						<row>
+							<entry>order-policy </entry>
+							<entry>When the <codeph>dispatcher-threads</codeph> attribute is greater
+								than 1, <codeph>order-policy</codeph> configures the way in which
+								multiple dispatcher threads process region events from the queue.
+								This attribute can have one of the following values: <ul
+									id="ul_87C9EC51FD0748BC8A0764228FB846EC">
+									<li id="li_077C7E43E3E142DAB0CD1DE845EDC013"><b>key</b>. When
+										distributing region events from the local queue, multiple
+										dispatcher threads preserve the order of key updates. </li>
+									<li id="li_9E9D3C86E58E42C58EF55C185CCDEAEE"><b>thread</b>. When
+										distributing region events from the local queue, multiple
+										dispatcher threads preserve the order in which a given
+										thread added region events to the queue. </li>
+									<li id="li_1650EC02139D49B39AFF37A5A0A6022B"><b>partition</b>.
+										This option is valid for parallel event queues. When
+										distributing region events from the local queue, multiple
+										dispatcher threads preserve the order in which region events
+										were added to the local queue. For a partitioned region,
+										this means that all region events delivered to a specific
+										partition are delivered in the same order to the remote
+											<keyword keyref="product_name"/> site. For a distributed
+										region, this means that all key updates delivered to the
+										local queue are distributed to the remote site in the same
+										order. </li>
+								</ul>
+							</entry>
+							<entry colname="col3">key </entry>
+						</row>
+						<row>
+							<entry>persistent </entry>
+							<entry id="entry_xsv_kl1_dk">Boolean value that determines whether
+									<keyword keyref="product_name"/> persists this queue. </entry>
+							<entry colname="col3">False </entry>
+						</row>
+					</tbody>
+				</tgroup>
+			</table>
+			<p>
+				<b>Example: </b>
+			</p>
+			<codeblock outputclass="language-xml">&lt;cache&gt;
+   &lt;async-event-queue 
+    id="sampleQueue" 
+    persistent="true"
+    disk-store-name="exampleStore" 
+    parallel="false"&gt;
+      &lt;async-event-listener&gt;
+         &lt;class-name&gt;MyAsyncEventListener&lt;/class-name&gt;
+         &lt;parameter name="url"&gt; 
+           &lt;string&gt;jdbc:db2:SAMPLE&lt;/string&gt; 
+         &lt;/parameter&gt; 
+         &lt;parameter name="username"&gt; 
+           &lt;string&gt;gfeadmin&lt;/string&gt; 
+         &lt;/parameter&gt; 
+         &lt;parameter name="password"&gt; 
+           &lt;string&gt;admin1&lt;/string&gt; 
+         &lt;/parameter&gt;
+      &lt;/async-event-listener&gt;
+   &lt;/async-event-queue&gt;
+    ...
+&lt;/cache&gt;
+</codeblock>
+		</body>
+	</topic>
+	<topic id="async-event-listener">
+		<title>&lt;async-event-listener&gt;</title>
+		<body>
+			<p>An AsyncEventListener receives callbacks for events that change region data. You can
+				use an AsyncEventListener implementation as a write-behind cache event handler to
+				synchronize region updates with a database. </p>
+			<p>Specify the Java class and its initialization parameters with the
+					<codeph>&lt;class-name&gt;</codeph> and <codeph>&lt;parameter&gt;</codeph>
+				sub-elements. See <xref format="dita" href="cache_xml.xml#class-name_parameter"
+					scope="local" type="topic"/>. </p>
+			<p>
+				<b>API: </b>
+				<codeph>com.gemstone.gemfire.cache.asyncqueue.AsyncEventListener</codeph>
+			</p>
+			<p>
+				<b>Example: </b>
+			</p>
+			<codeblock outputclass="language-xml">...
+    &lt;async-event-listener&gt;
+         &lt;class-name&gt;MyAsyncEventListener&lt;/class-name&gt;
+         &lt;parameter name="url"&gt; 
+           &lt;string&gt;jdbc:db2:SAMPLE&lt;/string&gt; 
+         &lt;/parameter&gt; 
+         &lt;parameter name="username"&gt; 
+           &lt;string&gt;gfeadmin&lt;/string&gt; 
+         &lt;/parameter&gt; 
+         &lt;parameter name="password"&gt; 
+           &lt;string&gt;admin1&lt;/string&gt; 
+         &lt;/parameter&gt; 
+    &lt;/async-event-listener&gt;
+...
+</codeblock>
+		</body>
+	</topic>
+	<topic id="cache-server">
+		<title>&lt;cache-server&gt;</title>
+		<shortdesc> </shortdesc>
+		<body>
+			<p>Configures the cache to serve region data to clients in a client/server caching
+				system. This element indicates the port the server listens on for client
+				communication. </p>
+			<p>The <codeph>cacheserver</codeph> process uses only <codeph>cache.xml</codeph>
+				configuration. For application servers, you can set the same configuration
+				properties using the <codeph>com.gemstone.gemfire.cache.server.CacheServer</codeph>
+				and <codeph>com.gemstone.gemfire.cache.Cache</codeph> interfaces. For detailed
+				information, see the online Java API documentation. </p>
+			<p>
+				<b>API: </b>
+				<codeph>com.gemstone.gemfire.cache.server.CacheServer</codeph>
+			</p>
+			<table id="table_78A30804A5394C2AA190579C8A1E22D8">
+				<title>Attributes of &lt;cache-server&gt;</title>
+				<tgroup cols="3">
+					<colspec colname="1" colnum="1" colwidth="1.6*"/>
+					<colspec colname="2" colnum="2" colwidth="4.1*"/>
+					<colspec colname="col3" colnum="3" colwidth="1*"/>
+					<thead>
+						<row>
+							<entry>Attribute </entry>
+							<entry>Description </entry>
+							<entry colname="col3">Default Value </entry>
+						</row>
+					</thead>
+					<tbody>
+						<row>
+							<entry id="bindaddress_Prop">bind-address </entry>
+							<entry>Hostname or IP address that the server is to listen on for client
+								connections. If null, the server listens on the machine’s default
+								address. </entry>
+							<entry colname="col3">null </entry>
+						</row>
+						<row>
+							<entry id="entry_lqz_chj_54">hostname-for-clients </entry>
+							<entry>Hostname or IP address to pass to the client as the location
+								where the server is listening. When the server connects to the
+								locator it tells the locator the host and port where it is listening
+								for client connections. If the host the server uses by default is
+								one that the client can’t translate into an IP address, the client
+								will have no route to the server’s host and won’t be able to find
+								the server. For this situation, you must supply the server’s
+								alternate hostname for the locator to pass to the client. If null,
+								the server’s <codeph>bind-address</codeph> setting is used. </entry>
+							<entry colname="col3">null </entry>
+						</row>
+						<row>
+							<entry>load-poll-interval </entry>
+							<entry>Frequency, in milliseconds, to poll the load probe for load
+								information on the server. </entry>
+							<entry colname="col3">5000 <p>(5 seconds) </p>
+							</entry>
+						</row>
+						<row>
+							<entry id="entry_kyz_shj_54">max-connections </entry>
+							<entry>Maximum number of client connections for the server. When the
+								maximum is reached, the server refuses additional client
+								connections. <note>Set this at least as high as max-threads. </note>
+							</entry>
+							<entry colname="col3">800 </entry>
+						</row>
+						<row>
+							<entry>max-threads </entry>
+							<entry>Maximum number of threads allowed in this server to service
+								client connections. When the limit is reached, server threads begin
+								servicing multiple connections. A zero setting causes the server to
+								use a thread for every client connection. <note>Set this no higher
+									than max-connections. </note>
+							</entry>
+							<entry colname="col3">0 </entry>
+						</row>
+						<row>
+							<entry>maximum-message-count </entry>
+							<entry>Maximum number of messages allowed in a subscription queue. When
+								the queue reaches this limit, messages block. <note>Used only if
+										<codeph>client-subscription</codeph> is not configured.
+								</note>
+							</entry>
+							<entry colname="col3">230000 </entry>
+						</row>
+						<row>
+							<entry>maximum-time-between-pings </entry>
+							<entry>Maximum time, in milliseconds, the server allows to pass between
+								messages or pings indicating a client is healthy. <note>A setting of
+									0 or a negative number turns off client health monitoring. Be
+									careful not to do this accidentally. </note>
+							</entry>
+							<entry colname="col3">60000 <p> (1 minute) </p>
+							</entry>
+						</row>
+						<row>
+							<entry>message-time-to-live </entry>
+							<entry>Setting used for highly available subscription queues. The
+								expiration time, in seconds, for non-durable messages in the
+								secondary server’s client subscription queue. The system removes
+								non-durable messages that have been in the queue beyond this time.
+								If set to 0 (zero), the messages are never removed. <note>Set this
+									high enough to avoid removing messages that are still valid, to
+									aovid losing messages during server failover. </note>
+							</entry>
+							<entry colname="col3">180 <p>(3 minutes) </p>
+							</entry>
+						</row>
+						<row>
+							<entry id="entry_kxs_thj_54">port </entry>
+							<entry>Port that the server listens on for client communication. </entry>
+							<entry colname="col3">40404 </entry>
+						</row>
+						<row>
+							<entry id="socketbuffersize_Prop">socket-buffer-size </entry>
+							<entry>Size for socket buffers used for server-to-client communication. </entry>
+							<entry colname="col3">32768 </entry>
+						</row>
+						<row>
+							<entry id="entry_gqq_nhj_54">tcp-no-delay</entry>
+							<entry>When set to true, enables TCP_NODELAY for <keyword
+									keyref="product_name"/> server connections to clients. </entry>
+							<entry colname="col3">false</entry>
+						</row>
+					</tbody>
+				</tgroup>
+			</table>
+			<p>
+				<b>Example: </b>
+			</p>
+			<codeblock outputclass="language-xml">&lt;cache&gt;
+    &lt;cache-server 
+     port="40404" 
+      /&gt;
+   ...
+&lt;/cache&gt;</codeblock>
+		</body>
+	</topic>
+	<topic id="group">
+		<title>&lt;group&gt;</title>
+		<shortdesc> </shortdesc>
+		<body>
+			<p>Deprecated as of GemFire 7.0. Specify server groups in the gemfire.properties file.
+				See <xref
+					href="../../topologies_and_comm/cs_configuration/configure_servers_into_logical_groups.xml#configure_servers_into_logical_groups"
+					>Organizing Servers Into Logical Member Groups</xref>. </p>
+		</body>
+	</topic>
+	<topic id="client-subscription">
+		<title>&lt;client-subscription&gt;</title>
+		<shortdesc> </shortdesc>
+		<body>
+			<p>Overflow specification for client subscription queues. Sets a capacity limit on the
+				in-memory queue and specifies where to overflow when capacity is reached. By default
+				no overflow is used. Specified in three parts: </p>
+			<p><b>Default: </b> no overflow </p>
+			<p>
+				<b>API: </b>
+				<codeph/>
+			</p>
+			<table id="table_7A3AC0C448185019B1382600182">
+				<title>Attributes</title>
+				<tgroup cols="3">
+					<colspec colname="1" colnum="1" colwidth="1.6*"/>
+					<colspec colname="2" colnum="2" colwidth="4.1*"/>
+					<colspec colname="col3" colnum="3" colwidth="1*"/>
+					<thead>
+						<row>
+							<entry>Attribute </entry>
+							<entry>Description </entry>
+							<entry colname="col3">Default </entry>
+						</row>
+					</thead>
+					<tbody>
+						<row>
+							<entry>eviction-policy </entry>
+							<entry>How the capacity is calculated. The options are mem for memory
+								use, entry for message count, and null for no overflow. </entry>
+							<entry colname="col3">null </entry>
+						</row>
+						<row>
+							<entry>capacity </entry>
+							<entry>. Used if eviction-policy is not none. Specified in megabytes for
+								mem and as a positive integer for entry </entry>
+							<entry colname="col3">1 </entry>
+						</row>
+						<row>
+							<entry>disk-store-name </entry>
+							<entry>Used if eviction-policy is not none. Default: default disk store.
+								If specified, the disk-store-name must specify a disk store that is
+								already defined in the cache. </entry>
+							<entry colname="col3">default disk store </entry>
+						</row>
+						<row>
+							<entry>overflow-directory </entry>
+							<entry>DEPRECATED as of GemFire version 6.5. See the
+									<codeph>disk-store-name</codeph> attribute of the element <xref
+									format="dita" href="cache_xml.xml#region-attributes"
+									scope="local" type="topic"
+									><?xm-replace_text Element ID :region-attributes?></xref>. </entry>
+							<entry colname="col3"/>
+						</row>
+					</tbody>
+				</tgroup>
+			</table>
+			<p>
+				<b>Example: </b>
+			</p>
+			<codeblock outputclass="language-xml">&lt;cache-server port=4444&gt;
+&lt;/cache&gt;</codeblock>
+		</body>
+	</topic>
+	<topic id="group_94832834789285">
+		<title>&lt;group&gt;</title>
+		<shortdesc> </shortdesc>
+		<body>
+			<p>Deprecated as of GemFire 7.0. Specify server groups in the gemfire.properties file.
+				See <xref
+					href="../../topologies_and_comm/cs_configuration/configure_servers_into_logical_groups.xml#configure_servers_into_logical_groups"
+					> Organizing Servers Into Logical Member Groups</xref>. </p>
+		</body>
+	</topic>
+	<topic id="client-subscription_342334234">
+		<title>&lt;client-subscription&gt;</title>
+		<shortdesc> </shortdesc>
+		<body>
+			<p>Overflow specification for client subscription queues. Sets a capacity limit on the
+				in-memory queue and specifies where to overflow when capacity is reached. By default
+				no overflow is used. Specified in three parts: <ul id="ul_pls_g5v_dm">
+					<li>eviction-policy</li>
+					<li>capacity</li>
+					<li>disk-store-name</li>
+				</ul></p>
+			<p><b>Default: </b> no overflow </p>
+			<p>
+				<b>API: </b>
+				<codeph>com.gemstone.gemfire.cache.server.CacheServer.getClientSubscriptionConfig</codeph>
+			</p>
+			<table id="table_CA85C7A3AC0C448185019B1382600182">
+				<title>Attributes</title>
+				<tgroup cols="3">
+					<colspec colname="1" colnum="1" colwidth="1.6*"/>
+					<colspec colname="2" colnum="2" colwidth="4.1*"/>
+					<colspec colname="col3" colnum="3" colwidth="1*"/>
+					<thead>
+						<row>
+							<entry>Attribute </entry>
+							<entry>Description </entry>
+							<entry colname="col3">Default </entry>
+						</row>
+					</thead>
+					<tbody>
+						<row>
+							<entry>eviction-policy </entry>
+							<entry>How the capacity is calculated. The options are mem for memory
+								use, entry for message count, and null for no overflow. </entry>
+							<entry colname="col3">null </entry>
+						</row>
+						<row>
+							<entry>capacity </entry>
+							<entry>Used if eviction-policy is not none. Specified in megabytes for
+								mem and as a positive integer for entry. </entry>
+							<entry colname="col3">1 </entry>
+						</row>
+						<row>
+							<entry>disk-store-name </entry>
+							<entry>Used if eviction-policy is not none. Default: default disk store.
+								If specified, the disk-store-name must specify a disk store that is
+								already defined in the cache. </entry>
+							<entry colname="col3">default disk store </entry>
+						</row>
+						<row>
+							<entry>overflow-directory </entry>
+							<entry>DEPRECATED as of GemFire version 6.5. See the
+									<codeph>disk-store-name</codeph> attribute of the element <xref
+									format="dita" href="cache_xml.xml#region-attributes"
+									scope="local" type="topic"/>. </entry>
+							<entry colname="col3"/>
+						</row>
+					</tbody>
+				</tgroup>
+			</table>
+			<p>
+				<b>Example: </b>
+			</p>
+			<codeblock outputclass="language-xml">&lt;cache-server port=4444&gt;
+   &lt;client-subscription 
+     eviction-policy="entry" 
+     capacity=35 
+     disk-store-name="OverflowDir"&gt;
+   &lt;/client-subscription&gt;
+ &lt;/cache-server&gt;
+</codeblock>
+		</body>
+	</topic>
+	<topic id="custom-load-probe">
+		<title>&lt;custom-load-probe&gt;</title>
+		<shortdesc> </shortdesc>
+		<body>
+			<p>Application plug-in used to provide current and predicted server load information to
+				the server locators. </p>
+			<p>Specify the Java class and its initialization parameters with the
+					<codeph>&lt;class-name&gt;</codeph> and <codeph>&lt;parameter&gt;</codeph>
+				sub-elements. See <xref format="dita" href="cache_xml.xml#class-name_parameter"
+					scope="local" type="topic"/>. </p>
+			<p><b>Default:</b> If this is not defined, the default <keyword keyref="product_name"/>
+				load probe is used.</p>
+			<p>
+				<b>API:</b>
+				<codeph>com.gemstone.gemfire.cache.server.setLoadProbe</codeph>
+			</p>
+			<p>
+				<b>Example: </b>
+			</p>
+			<codeblock outputclass="language-xml">&lt;custom-load-probe&gt;
+    &lt;class-name&gt;
+     myPackage.MyLoadProbe
+    &lt;/class-name&gt;
+  &lt;/custom-load-probe&gt;
+</codeblock>
+		</body>
+	</topic>
+	<topic id="bridge-server">
+		<title>&lt;bridge-server&gt;</title>
+		<shortdesc> </shortdesc>
+		<body>
+			<p>DEPRECATED as of GemFire version 5.7. See <xref format="dita"
+					href="cache_xml.xml#cache-server" scope="local" type="topic"/>. </p>
+		</body>
+	</topic>
+	<topic id="pool">
+		<title>&lt;pool&gt;</title>
+		<shortdesc> </shortdesc>
+		<body>
+			<p>Use for client caches. Defines a client's server pool used to communicate with
+				servers running in a different distributed system. </p>
+			<p>
+				<b>API: </b>
+				<codeph>com.gemstone.gemfire.cache.client.PoolFactory</codeph>
+			</p>
+			<table id="table_14D991AC65A6414BB71EF7AC67B59771">
+				<title>Attributes</title>
+				<tgroup cols="3">
+					<colspec colname="1" colnum="1" colwidth="1.6*"/>
+					<colspec colname="2" colnum="2" colwidth="4.1*"/>
+					<colspec colname="col3" colnum="3" colwidth="1*"/>
+					<thead>
+						<row>
+							<entry>Attribute </entry>
+							<entry>Description </entry>
+							<entry colname="col3">Default </entry>
+						</row>
+					</thead>
+					<tbody>
+						<row>
+							<entry>free-connection-timeout </entry>
+							<entry>Amount of time a thread will wait to get a pool connection before
+								timing out with an exception. This timeout keeps threads from
+								waiting indefinitely when the pool’s
+									<codeph>max-connections</codeph> has been reached and all
+								connections in the pool are in use by other threads. </entry>
+							<entry colname="col3">10000 </entry>
+						</row>
+						<row>
+							<entry>idle-timeout </entry>
+							<entry>Maximum time, in milliseconds, a pool connection can stay open
+								without being used when there are more than
+									<codeph>min-connections</codeph> in the pool. Pings over the
+								connection do not count as connection use. If set to -1, there is no
+								idle timeout. </entry>
+							<entry colname="col3">5000 </entry>
+						</row>
+						<row>
+							<entry>load-conditioning-interval </entry>
+							<entry>Amount of time, in milliseconds, a pool connection can remain
+								open before being eligible for silent replacement to a less-loaded
+								server. </entry>
+							<entry colname="col3">300000 <p>(5 minutes) </p>
+							</entry>
+						</row>
+						<row>
+							<entry>max-connections </entry>
+							<entry>Maximum number of pool connections the pool can create. If the
+								maximum connections are in use, an operation requiring a
+								client-to-server connection blocks until a connection becomes
+								available or the <codeph>free-connection-timeout</codeph> is
+								reached. If set to -1, there is no maximum. The setting must
+								indicate a cap greater than <codeph>min-connections</codeph>.
+									<note>If you need to use this to cap your pool connections, you
+									should disable the pool attribute
+										<codeph>pr-single-hop-enabled</codeph>. Leaving single hop
+									enabled can increase thrashing and lower performance. </note>
+							</entry>
+							<entry colname="col3">-1 </entry>
+						</row>
+						<row>
+							<entry>min-connections </entry>
+							<entry>Minimum number of pool connections to keep available at all
+								times. Used to establish the initial connection pool. If set to 0
+								(zero), no connection is created until an operation requires it.
+								This number is the starting point, with more connections added later
+								as needed, up to the <codeph>max-connection</codeph> setting. The
+								setting must be an integer greater than or equal to 0. </entry>
+							<entry colname="col3">1 </entry>
+						</row>
+						<row>
+							<entry>multiuser-authentication </entry>
+							<entry>Used for installations with security where you want to
+								accommodate multiple users within a single client. If set to true,
+								the pool provides authorization for multiple user instances in the
+								same client application, and each user accesses the cache through
+								its own <codeph>RegionService</codeph> instance. If false, the
+								client either uses no authorization or just provides credentials for
+								the single client process. </entry>
+							<entry colname="col3">false </entry>
+						</row>
+						<row>
+							<entry>name </entry>
+							<entry>Name of this pool. Used in the client region pool-name to assign
+								this pool to a region in the client cache. <note>This is a required
+									property with no default setting. </note>
+							</entry>
+							<entry colname="col3">none </entry>
+						</row>
+						<row>
+							<entry>ping-interval </entry>
+							<entry>How often to communicate with the server to show the client is
+								alive, set in milliseconds. Pings are only sent when the
+								ping-interval elapses between normal client messages. <note>Set this
+									lower than the server’s
+										<codeph>maximum-time-between-pings</codeph>. </note>
+							</entry>
+							<entry colname="col3">10000 </entry>
+						</row>
+						<row>
+							<entry>pr-single-hop-enabled </entry>
+							<entry>Setting used to improve access to partitioned region data in the
+								servers. Indicates whether to use metadata about the partitioned
+								region data storage locations to decide where to send some data
+								requests. This allows a client to send a data operation directly to
+								the server hosting the key. Without this, the client contacts any
+								available server and that server contacts the data store. This is
+								used only for operations that can be carried out on a
+								server-by-server basis, like put, get, and destroy. </entry>
+							<entry colname="col3">true </entry>
+						</row>
+						<row>
+							<entry>read-timeout </entry>
+							<entry>Maximum time, in milliseconds, for the client to wait for a
+								response from a server. </entry>
+							<entry colname="col3">10000 </entry>
+						</row>
+						<row>
+							<entry>retry-attempts </entry>
+							<entry>Number of times to retry a client request before giving up. If
+								one server fails, the pool moves to the next, and so on until it is
+								successful or it hits this limit. If the available servers are fewer
+								than this setting, the pool will retry servers that have already
+								failed until it reaches the limit. If this is set to -1, the pool
+								tries every available server once. </entry>
+							<entry colname="col3">-1 </entry>
+						</row>
+						<row>
+							<entry>server-group </entry>
+							<entry>Logical named server group to use from the pool. A null value
+								uses the global server group to which all servers belong. <note>This
+									is only used when the <codeph>locator</codeph> list is defined.
+								</note>
+							</entry>
+							<entry colname="col3">null </entry>
+						</row>
+						<row>
+							<entry>socket-buffer-size </entry>
+							<entry>Size for socket buffers from the client to the server. Default:
+								32768. </entry>
+							<entry colname="col3">32768 </entry>
+						</row>
+						<row>
+							<entry>statistic-interval </entry>
+							<entry>Interval, in milliseconds, at which to send client statistics to
+								the server. If set to -1, statistics are not sent. </entry>
+							<entry colname="col3">-1 </entry>
+						</row>
+						<row>
+							<entry>subscription-ack-interval </entry>
+							<entry>Time, in milliseconds, between messages to the primary server to
+								acknowledge event receipt. <note>Used only when
+										<codeph>subscription-redundancy</codeph> is not ‘0’ (zero).
+								</note>
+							</entry>
+							<entry colname="col3">100</entry>
+						</row>
+						<row>
+							<entry>subscription-enabled </entry>
+							<entry>Boolean indicating whether the server should connect back to the
+								client and automatically sends server-side cache update information.
+								Any bind address information for the client is automatically passed
+								to the server for use in the callbacks. </entry>
+							<entry colname="col3">false </entry>
+						</row>
+						<row>
+							<entry>subscription-message- <p>tracking-timeout </p>
+							</entry>
+							<entry>Time-to-live, in milliseconds, for entries in the client’s
+								message tracking list. </entry>
+							<entry colname="col3">900000 <p>(15 minutes) </p>
+							</entry>
+						</row>
+						<row>
+							<entry>subscription-redundancy </entry>
+							<entry>Number of servers to use as backup to the primary for highly
+								available subscription queue management. If set to 0, none are used.
+								If set to -1, all available servers are used. </entry>
+							<entry colname="col3">0 </entry>
+						</row>
+						<row>
+							<entry>thread-local-connections </entry>
+							<entry>Boolean specifying whether connections are sticky. True causes
+								the connection to stick to the thread for multiple requests. False
+								causes each connection to be returned to the pool after a request
+								finishes. A sticky connection is returned to the pool when the
+								thread releases it through the <codeph>Pool</codeph> method
+									<codeph>releaseThreadLocalConnection</codeph>, when the
+									<codeph>idle-timeout</codeph> is reached, or when the pool is
+								destroyed. </entry>
+							<entry colname="col3">false </entry>
+						</row>
+					</tbody>
+				</tgroup>
+			</table>
+			<p>
+				<b>Example: </b>
+			</p>
+			<codeblock outputclass="language-xml">&lt;pool 
+   name="publisher" 
+   subscription-enabled="true"&gt;
+     &lt;locator 
+       host="myLocatorAddress1" 
+       port="12345"/&gt;
+     &lt;locator 
+       host="myLocatorAddress2" 
+       port="45678"/&gt;
+&lt;/pool&gt;
+</codeblock>
+		</body>
+	</topic>
+	<topic id="locator">
+		<title>&lt;locator&gt;</title>
+		<shortdesc> </shortdesc>
+		<body>
+			<p>Addresses and ports of the locators to connect to. You can define multiple locators
+				for the pool. <note>Provide a locator list or <codeph>server</codeph> list, but not
+					both. </note>
+			</p>
+			<p>
+				<b>API: </b>
+				<codeph>com.gemstone.gemfire.distributed.LocatorLauncher</codeph>
+			</p>
+			<table id="table_10BEB4E1383B475795ED4E290676E058">
+				<title>Attributes</title>
+				<tgroup cols="3">
+					<colspec colname="1" colnum="1" colwidth="1.6*"/>
+					<colspec colname="2" colnum="2" colwidth="4.1*"/>
+					<colspec colname="col3" colnum="3" colwidth="1*"/>
+					<thead>
+						<row>
+							<entry>Attribute </entry>
+							<entry>Description </entry>
+							<entry colname="col3">Default </entry>
+						</row>
+					</thead>
+					<tbody>
+						<row>
+							<entry>host </entry>
+							<entry>Hostname of the locator </entry>
+							<entry colname="col3"/>
+						</row>
+						<row>
+							<entry>port </entry>
+							<entry>Port number of the locator </entry>
+							<entry colname="col3"/>
+						</row>
+					</tbody>
+				</tgroup>
+			</table>
+			<p>
+				<b>Example: </b>
+			</p>
+			<codeblock outputclass="language-xml">&lt;pool ...>
+&lt;locator 
+       host="myLocatorHost" 
+       port="12345"/&gt;
+</codeblock>
+		</body>
+	</topic>
+	<topic id="server">
+		<title>&lt;server&gt;</title>
+		<shortdesc/>
+		<body>
+			<p>Addresses and ports of the servers to connect to. <note>Provide a server list or
+						<codeph>locator</codeph> list, but not both. </note>
+			</p>
+			<p>
+				<b>Default: </b>
+			</p>
+			<p>
+				<b>API: </b>
+				<codeph>com.gemstone.gemfire.distributed.ServerLauncher</codeph>
+			</p>
+			<table id="table_BD0B19AA44FF4CA68BBBC785E46E03F1">
+				<title>Attributes</title>
+				<tgroup cols="3">
+					<colspec colname="1" colnum="1" colwidth="1.6*"/>
+					<colspec colname="2" colnum="2" colwidth="4.1*"/>
+					<colspec colname="col3" colnum="3" colwidth="1*"/>
+					<thead>
+						<row>
+							<entry>Attribute </entry>
+							<entry>Description </entry>
+							<entry colname="col3">Default </entry>
+						</row>
+					</thead>
+					<tbody>
+						<row>
+							<entry>host </entry>
+							<entry>Hostname of the server </entry>
+							<entry colname="col3"/>
+						</row>
+						<row>
+							<entry>port </entry>
+							<entry>Port number of the server </entry>
+							<entry colname="col3"/>
+						</row>
+					</tbody>
+				</tgroup>
+			</table>
+			<p>
+				<b>Example: </b>
+			</p>
+			<codeblock outputclass="language-xml">&lt;pool ...>
+   &lt;server 
+       host="myServerHost" 
+       port="123456"/&gt;
+&lt;/pool></codeblock>
+		</body>
+	</topic>
+	<topic id="disk-store">
+		<title>&lt;disk-store&gt;</title>
+		<shortdesc> </shortdesc>
+		<body>
+			<p>Defines a pool of one or more disk stores, which can be used by regions, and client
+				subscription queues. </p>
+			<p><b>Default: </b>The cache default disk store, named "DEFAULT", is used when disk is
+				used but no disk store is named. </p>
+			<p>
+				<b>API: </b>
+				<codeph>com.gemstone.gemfire.cache.DiskStore</codeph>
+			</p>
+			<table id="table_C90DEC71FBD74C2F98E5447E961E899F">
+				<title>Attributes</title>
+				<tgroup cols="3">
+					<colspec colname="1" colnum="1" colwidth="1.6*"/>
+					<colspec colname="2" colnum="2" colwidth="4.1*"/>
+					<colspec colname="col3" colnum="3" colwidth="1*"/>
+					<thead>
+						<row>
+							<entry>Attribute </entry>
+							<entry>Description </entry>
+							<entry colname="col3">Default </entry>
+						</row>
+					</thead>
+					<tbody>
+						<row>
+							<entry>name </entry>
+							<entry id="disk-store_name">The name of the Disk Store. </entry>
+							<entry colname="col3"/>
+						</row>
+						<row>
+							<entry>auto-compact </entry>
+							<entry id="entry_z2j_dbz_ck">Set to true to automatically compact the
+								disk files. </entry>
+							<entry colname="col3"/>
+						</row>
+						<row>
+							<entry>compaction-threshold </entry>
+							<entry id="entry_u2q_dbz_ck">The threshold at which an oplog will become
+								compactable. Until it reaches this threshold the oplog will not be
+								compacted. <p>The threshold is a percentage in the range 0 to 100.
+								</p>
+							</entry>
+							<entry colname="col3"/>
+						</row>
+						<row>
+							<entry>allow-force-compaction </entry>
+							<entry id="entry_vpv_dbz_ck">Set to true to allow disk compaction to be
+								forced on this disk store. </entry>
+							<entry colname="col3"/>
+						</row>
+						<row>
+							<entry>max-oplog-size </entry>
+							<entry id="entry_qjb_2bz_ck">The maximum size, in megabytes, of an oplog
+								(operation log) file. </entry>
+							<entry colname="col3"/>
+						</row>
+						<row>
+							<entry>time-interval </entry>
+							<entry id="entry_och_2bz_ck">The number of milliseconds that can elapse
+								before unwritten data is written to disk. </entry>
+							<entry colname="col3"/>
+						</row>
+						<row>
+							<entry>write-buffer-size </entry>
+							<entry id="entry_edm_2bz_ck">The size of the write buffer that this disk
+								store uses when writing data to disk. Larger values may increase
+								performance but use more memory. The disk store allocates one direct
+								memory buffer of this size. </entry>
+							<entry colname="col3"/>
+						</row>
+						<row id="row_c4v_2bz_ck">
+							<entry>queue-size </entry>
+							<entry id="entry_jcr_fbz_ck">Maximum number of operations that can be
+								asynchronously queued to be written to disk. </entry>
+							<entry colname="col3"/>
+						</row>
+						<row>
+							<entry>disk-usage-warning-percentage</entry>
+							<entry>Disk usage above this threshold generates a warning message. For
+								example, if the threshold is set to 90%, then on a 1 TB drive
+								falling under 100 GB of free disk space generates the warning.<p>Set
+									to "0" (zero) to disable.</p></entry>
+							<entry colname="col3">90</entry>
+						</row>
+						<row>
+							<entry>disk-usage-critical-percentage</entry>
+							<entry>Disk usage above this threshold generates an error message and
+								shuts down the member's cache. For example, if the threshold is set
+								to 99%, then falling under 10 GB of free disk space on a 1 TB drive
+								generates the error and shuts down the cache.<p>Set to "0" (zero) to
+									disable.</p></entry>
+							<entry colname="col3">99</entry>
+						</row>
+					</tbody>
+				</tgroup>
+			</table>
+			<p>
+				<b>Example: </b>
+			</p>
+			<codeblock outputclass="language-xml">&lt;disk-store 
+    name="DEFAULT" 
+    allow-force-compaction="true"&gt;
+	 &lt;disk-dirs&gt;
+	  	&lt;disk-dir&gt;/export/thor/customerData&lt;/disk-dir&gt;
+	  	&lt;disk-dir&gt;/export/odin/customerData&lt;/disk-dir&gt;
+	  	&lt;disk-dir&gt;/export/embla/customerData&lt;/disk-dir&gt;
+	 &lt;/disk-dirs&gt;
+&lt;/disk-store&gt;
+</codeblock>
+		</body>
+	</topic>
+	<topic id="disk-dirs">
+		<title>&lt;disk-dirs&gt;</title>
+		<shortdesc> </shortdesc>
+		<body>
+			<p>DEPRECATED as of GemFire version 6.5. See the <codeph>disk-store-name</codeph>
+				attribute of the <xref format="dita" href="cache_xml.xml#region-attributes"
+					scope="local" type="topic"/> element. </p>
+		</body>
+	</topic>
+	<topic id="disk-dir">
+		<title>&lt;disk-dir&gt;</title>
+		<shortdesc> </shortdesc>
+		<body>
+			<p>Specifies a region or disk store's disk directory. </p>
+			<table id="table_877FDB097F454F33AE90FB16FAD212AE">
+				<title>Attributes</title>
+				<tgroup cols="3">
+					<colspec colname="1" colnum="1" colwidth="1.63*"/>
+					<colspec colname="2" colnum="2" colwidth="4.2*"/>
+					<colspec colname="col3" colnum="3" colwidth="1*"/>
+					<thead>
+						<row>
+							<entry>Attribute </entry>
+							<entry>Description </entry>
+							<entry colname="col3">Default </entry>
+						</row>
+					</thead>
+					<tbody>
+						<row>
+							<entry>dir-size </entry>
+							<entry>Maximum amount of space to use for the disk store, in megabytes. </entry>
+							<entry colname="col3">214748364 <p>(2 petabytes) </p>
+							</entry>
+						</row>
+					</tbody>
+				</tgroup>
+			</table>
+			<p>
+				<b>Example: </b>
+			</p>
+			<codeblock outputclass="language-xml">&lt;disk-dir 
+    dir-size="20480"&gt;/host3/users/gf/memberA_DStore&lt;/disk-dir&gt; 
+</codeblock>
+		</body>
+	</topic>
+	<topic id="pdx">
+		<title>&lt;pdx&gt;</title>
+		<shortdesc> </shortdesc>
+		<body>
+			<p>Specifies the configuration for the Portable Data eXchange (PDX) method of
+				serialization. </p>
+			<p><b>API: </b>
+				<codeph>com.gemstone.gemfire.cache.CacheFactory.setPdxReadSerialized</codeph>,
+					<codeph>setPdxDiskStore</codeph>, <codeph>setPdxPersistent</codeph>,
+					<codeph>setPdxIgnoreUnreadFields</codeph> and
+					<codeph>com.gemstone.gemfire.cache.ClientCacheFactory.setPdxReadSerialized</codeph>,
+					<codeph>setPdxDiskStore</codeph>, <codeph>setPdxPersistent</codeph>,
+					<codeph>setPdxIgnoreUnreadFields</codeph>
+			</p>
+			<table id="table_DE49C41CAD444DA9B01F055C401920BF">
+				<title>Attributes</title>
+				<tgroup cols="3">
+					<colspec colname="1" colnum="1" colwidth="1.6*"/>
+					<colspec colname="2" colnum="2" colwidth="4.1*"/>
+					<colspec colname="col3" colnum="3" colwidth="1*"/>
+					<thead>
+						<row>
+							<entry>Attribute</entry>
+							<entry>Description</entry>
+							<entry colname="col3">Default</entry>
+						</row>
+					</thead>
+					<tbody>
+						<row>
+							<entry>read-serialized </entry>
+							<entry>Set it to true if you want PDX deserialization to produce a
+								PdxInstance instead of an instance of the domain class. </entry>
+							<entry colname="col3"/>
+						</row>
+						<row>
+							<entry>ignore-unread-fields </entry>
+							<entry>Set it to true if you do not want unread PDX fields to be
+								preserved during deserialization. You can use this option to save
+								memory. Set to true only in members that are only reading data from
+								the cache. </entry>
+							<entry colname="col3"/>
+						</row>
+						<row>
+							<entry>persistent </entry>
+							<entry>Set to true if you are using persistent regions. This causes the
+								PDX type information to be written to disk. </entry>
+							<entry colname="col3"/>
+						</row>
+						<row>
+							<entry>disk-store-name </entry>
+							<entry>If using persistence, this attribute allows you to configure the
+								disk store that the PDX type data will be stored in. By default, the
+								default disk store is used. </entry>
+							<entry colname="col3"/>
+						</row>
+					</tbody>
+				</tgroup>
+			</table>
+			<p>
+				<b>Example: </b>
+			</p>
+			<codeblock outputclass="language-xml">&lt;cache&gt;
+  &lt;pdx persistent="true" disk-store-name="myDiskStore"&gt;
+    &lt;pdx-serializer&gt;
+      &lt;class-name&gt;
+       com.gemstone.gemfire.pdx.ReflectionBasedAutoSerializer
+      &lt;/class-name&gt;
+    &lt;parameter name="classes"&gt;
+      &lt;string&gt;com.company.domain.DomainObject&lt;/string&gt;&gt;
+    &lt;/parameter&gt;
+  &lt;/pdx-serializer&gt;
+ &lt;/pdx&gt;
+  ...
+&lt;/cache&gt;
+</codeblock>
+		</body>
+	</topic>
+	<topic id="pdx-serializer_24898989679">
+		<title>&lt;pdx-serializer&gt;</title>
+		<shortdesc> </shortdesc>
+		<body>
+			<p>Allows you to configure the PdxSerializer for this <keyword keyref="product_name"/>
+				member. </p>
+			<p>Specify the Java class and its initialization parameters with the
+					<codeph>&lt;class-name&gt;</codeph> and <codeph>&lt;parameter&gt;</codeph>
+				sub-elements. See <xref format="dita" href="cache_xml.xml#class-name_parameter"
+					scope="local" type="topic"/>. </p>
+			<p>
+				<b>Default: </b>
+			</p>
+			<p>
+				<b>API: </b>
+				<codeph>com.gemstone.gemfire.cache.CacheFactory.setPdxSerializer</codeph>
+			</p>
+			<p>
+				<b>Example: </b>
+			</p>
+			<codeblock outputclass="language-xml">&lt;cache&gt;
+  &lt;pdx&gt;
+    &lt;pdx-serializer&gt;
+     &lt;class-name&gt;com.company.ExamplePdxSerializer&lt;/class-name&gt;
+    &lt;/pdx-serializer&gt;
+  &lt;/pdx&gt; 
+  ...
+&lt;/cache&gt;
+</codeblock>
+		</body>
+	</topic>
+	<topic id="region-attributes">
+		<title>&lt;region-attributes&gt;</title>
+		<body>
+			<p>Specifies a region attributes template that can be named (by <codeph>id</codeph>) and
+				referenced (by <codeph>refid</codeph>) later in the <codeph>cache.xml</codeph> and
+				through the API. </p>
+			<p><b>API: </b><codeph>com.gemstone.gemfire.cache.RegionFactory</codeph> or
+					<codeph>com.gemstone.gemfire.cache.ClientRegionFactory</codeph>
+			</p>
+			<table id="table_028B4DC4FB72488AB6359AAA13E0B5B0">
+				<title>Attributes</title>
+				<tgroup cols="3">
+					<colspec colname="1" colnum="1" colwidth="1.6*"/>
+					<colspec colname="2" colnum="2" colwidth="4.1*"/>
+					<colspec colname="3" colnum="3" colwidth="1*"/>
+					<thead>
+						<row>
+							<entry>Attribute </entry>
+							<entry>Description </entry>
+							<entry colname="col3">Default </entry>
+						</row>
+					</thead>
+					<tbody>
+						<row>
+							<entry>concurrency-level </entry>
+							<entry>Gives an estimate of the maximum number of application threads
+								that will concurrently access a region entry at one time. This
+								attribute does not apply to partitioned regions. This attribute
+								helps <keyword keyref="product_name"/> optimize the use of system
+								resources and reduce thread contention. This sets an initial
+								parameter on the underlying
+									<codeph>java.util.ConcurrentHashMap</codeph> used for storing
+								region entries. <note> Before you modify this, read the concurrency
+									level description, then see the Java API documentation for
+										<codeph>java.util.ConcurrentHashMap</codeph>. </note>
+								<p><b>API:</b>
+									<codeph>setConcurrencyLevel</codeph>
+								</p>
+								<p><b>Example: </b>
+									<codeblock outputclass="language-xml">&lt;region-attributes 
+  concurrency-level="10"&gt;
+&lt;/region-attributes&gt;</codeblock>
+								</p>
+							</entry>
+							<entry colname="col3">16 (threads) </entry>
+						</row>
+						<row>
+							<entry>data-policy</entry>
+							<entry>
+								<p> Specifies how the local cache handles data for a region. This
+									setting controls behavior such as local data storage and region
+									initialization. <note>Configure the most common options using
+										the region shortcuts, <codeph>RegionShortcut</codeph> and
+											<codeph>ClientRegionShortcut</codeph>. The default
+											<codeph>data-policy</codeph> of <codeph>normal</codeph>
+										specifies local cache storage. The empty policy specifies no
+										local storage. In the region shortcuts, empty corresponds to
+										the settings with the string <codeph>PROXY</codeph>. You can
+										use an empty region for event delivery to and from the local
+										cache without the memory overhead of data storage. </note>
+								</p>
+								<p>You can specify the following data policies: </p>
+								<p>
+									<simpletable frame="none"
+										id="simpletable_BD0EC23DBC274011ADD8733191150742"
+										relcolwidth="1.0* 5.26*">
+										<strow>
+											<stentry>empty</stentry>
+											<stentry>No data storage in the local cache. The region
+												always appears empty. Use this for event delivery to
+												and from the local cache without the memory overhead
+												of data storage - zero-footprint producers that only
+												distribute data to others and zero-footprint
+												consumers that only see events. To receive events
+												with this, set the region's
+												<codeph>subscription-attributes</codeph>
+												<codeph>interest-policy</codeph> to all.</stentry>
+										</strow>
+										<strow>
+											<stentry>normal</stentry>
+											<stentry>Data used locally (accessed with
+												<codeph>get</codeph>s, stored with
+												<codeph>put</codeph>s, etc.) is stored in the
+												local cache. This policy allows the contents in the
+												cache to differ from other caches.</stentry>
+										</strow>
+										<strow>
+											<stentry>partition</stentry>
+											<stentry>Data is partitioned across local and remote
+												caches using the automatic data distribution
+												behavior of partitioned regions. Additional
+												configuration is done in the
+												<codeph>partition-attributes</codeph>.</stentry>
+										</strow>
+										<strow>
+											<stentry>replicate</stentry>
+											<stentry>The region is initialized with the data from
+												other caches. After initialization, all events for
+												the distributed region are automatically copied into
+												the local region, maintaining a replica of the
+												entire distributed region in the local cache.
+												Operations that would cause the contents to differ
+												with other caches are not allowed. This is
+												compatible with local <codeph>scope</codeph>,
+												behaving the same as for normal.</stentry>
+										</strow>
+										<strow>
+											<stentry>persistent-partition</stentry>
+											<stentry>Behaves the same as <codeph>partition</codeph>
+												and also persists data to disk.</stentry>
+										</strow>
+										<strow>
+											<stentry>persistent-replicate</stentry>
+											<stentry>Behaves the same as <codeph>replicate</codeph>
+												and also persists data to disk.</stentry>
+										</strow>
+										<strow>
+											<stentry>preloaded</stentry>
+											<stentry>Initializes like a replicated region, then,
+												once initialized, behaves like a normal
+												region.</stentry>
+										</strow>
+									</simpletable>
+									<b>API: </b>
+									<codeph>setDataPolicy</codeph>
+								</p>
+								<p><b>Example</b>:
+									<codeblock outputclass="language-xml">&lt;region-attributes 
+  data-policy="replicate"&gt; 
+&lt;/region-attributes&gt;</codeblock>This
+									is similar to using a region shortcut
+									with<codeph>refid</codeph>, however when you use the REPLICATE
+									region shortcut, it automatically sets the region's scope to
+										<codeph>distributed-ack</codeph>.
+									<codeblock outputclass="language-xml">&lt;region-attributes 
+  refid="REPLICATE"&gt; 
+&lt;/region-attributes&gt;</codeblock>
+									If you use <codeph>data-policy</codeph>, you must set the scope
+									explicitly. </p>
+							</entry>
+							<entry colname="col3">normal </entry>
+						</row>
+						<row>
+							<entry>early-ack </entry>
+							<entry>Deprecated </entry>
+							<entry colname="col3"/>
+						</row>
+						<row>
+							<entry>enable-async-conflation </entry>
+							<entry>
+								<p> For TCP/IP distributions between peers, specifies whether to
+									allow aggregation of asynchronous messages sent by the producer
+									member for the region. This is a special-purpose voolean
+									attribute that applies only when asynchronous queues are used
+									for slow consumers. A false value disables conflation so that
+									all asynchronous messages are sent individually. This
+									special-purpose attribute gives you extra control over
+									peer-to-peer communication between distributed regions using
+									TCP/IP. This attribute does not apply to client/server
+									communication or to communication using the UDP unicast or IP
+									multicast protocols. <note>To use this attribute, the
+											<codeph>multicast-enabled</codeph> region attribute
+											<codeph>disable-tcp</codeph> in
+											<codeph>gemfire.properties</codeph> must be false (the
+										default for both). In addition, asynchronous queues must be
+										enabled for slow consumers, specified with the
+											<codeph>async</codeph>* gemfire properties. </note>
+								</p>
+								<p>
+									<b>API: </b>
+									<codeph>setEnableAsyncConflation</codeph>
+								</p>
+								<p>
+									<b>Example:</b>
+									<codeblock outputclass="language-xml">&lt;region-attributes 
+  enable-async-conflation="false"&gt;
+&lt;/region-attributes&gt;</codeblock>
+								</p>
+							</entry>
+							<entry colname="col3">true </entry>
+						</row>
+						<row>
+							<entry>enable-gateway </entry>
+							<entry>
+								<p>Determines whether the gateway is enabled for the region. When
+									set to true, events in the region are sent to the defined
+									gateway hubs. </p>Used only with GemFire version 6.x gateway
+								configurations. For GemFire 7.0 configuration, see the
+									<codeph>gateway-sender-id</codeph> attribute of the
+									<codeph>&lt;region-attributes&gt;</codeph> element. </entry>
+							<entry colname="col3">false </entry>
+						</row>
+						<row>
+							<entry>enable-subscription-conflation </entry>
+							<entry>
+								<p> Boolean for server regions that specifies whether the server can
+									conflate its messages to the client. A true value enables
+									conflation. <note>The client can override this setting with the
+											<codeph>conflate-events</codeph> property in its
+											<codeph>gemfire.properties</codeph>. </note>
+								</p>
+								<p>
+									<b>API: </b>
+									<codeph>setEnableSubscriptionConflation</codeph>
+								</p>
+								<p>
+									<b>Example:</b>
+									<codeblock outputclass="language-xml">&lt;region-attributes 
+ enable-subscription-conflation="true"&gt;
+ &lt;/region-attributes&gt;</codeblock>
+								</p>
+							</entry>
+							<entry colname="col3">false </entry>
+						</row>
+						<row>
+							<entry>gateway-sender-ids </entry>
+							<entry>
+								<p> Specifies one or more gateway sender IDs to use for distributing
+									region events to remote <keyword keyref="product_name"/> sites.
+									Specify multiple IDs as a comma-separated list. </p>
+								<p>
+									<b>API: </b>
+									<codeph>addGatewaySenderId</codeph>
+								</p>
+								<p>
+									<b>Example:</b>
+									<codeblock outputclass="language-xml">&lt;region-attributes 
+  gateway-sender-ids="nwsender,swsender"&gt;
+&lt;/region-attributes&gt;</codeblock>
+								</p>
+							</entry>
+							<entry colname="col3">not set </entry>
+						</row>
+						<row>
+							<entry>async-event-queue-ids </entry>
+							<entry>Specifies one or more asynchronous event queues to use for
+								distributing region events an <codeph>AsyncEventListener</codeph>
+								implementation (for example, for write-behind cache event handling).
+								Specify multiple IDs as a comma-separated list. <p><b>API</b>:
+										<codeph>addAsyncEventQueueId</codeph>
+								</p><b>Example</b>:
+								<codeblock outputclass="language-xml">&lt;region-attributes 
+  async-event-queue-ids="customerqueue,ordersqueue"&gt;
+&lt;/region-attributes&gt;</codeblock>
+							</entry>
+							<entry colname="col3">not set </entry>
+						</row>
+						<row>
+							<entry>hub-id </entry>
+							<entry>
+								<p>If the <codeph>enable-gateway</codeph> attribute is set to true,
+									a comma-separated list of gateway hub IDs that receive events
+									from the region. </p>
+								<p>Used only with GemFire version 6.x gateway configurations. For
+									GemFire 7.0 configuration, see the
+										<codeph>gateway-sender-id</codeph> attribute of the
+										<codeph>&lt;region-attributes&gt;</codeph> element. </p>
+							</entry>
+							<entry colname="col3">null </entry>
+						</row>
+						<row>
+							<entry>id </entry>
+							<entry>
+								<p> Stores the region attribute settings in the cache with this
+									identifier. Once stored, the attributes can be retrieved using
+									the region attribute <codeph>refid</codeph>. </p>
+								<p>
+									<b>API: </b>
+									<codeph>setId</codeph>
+								</p>
+								<p>
+									<b>Example:</b>
+									<codeblock outputclass="language-xml">&lt;region-attributes 
+  id="persistent-replicated"&gt;
+&lt;/region-attributes&gt;</codeblock>
+								</p>
+							</entry>
+							<entry colname="col3">not set </entry>
+						</row>
+						<row>
+							<entry>ignore-jta </entry>
+							<entry>
+								<p> Boolean that determines whether operations on this region
+									participate in active JTA transactions or ignore them and
+									operate outside of the transactions. This is primarily used in
+									cache loaders, writers, and listeners that need to perform
+									non-transactional operations on a region, such as caching a
+									result set. </p>
+								<p>
+									<b>API: </b>
+									<codeph>setIgnoreJTA</codeph>
+								</p>
+								<p>
+									<b>Example:</b>
+									<codeblock outputclass="language-xml">&lt;region-attributes 
+  ignore-jta="true"&gt;
+&lt;/region-attributes&gt;</codeblock>
+								</p>
+							</entry>
+							<entry colname="col3">false </entry>
+						</row>
+						<row>
+							<entry>index-update-type </entry>
+							<entry>
+								<p> Specifies whether region indexes are maintained synchronously
+									with region modifications, or asynchronously in a background
+									thread. In the <codeph>cache.xml</codeph> file, this is set as a
+									value, asynchronous or synchronous, assigned to the
+										<codeph>index-update-type</codeph> region attribute. Set
+									this through the API by passing a boolean to the
+										<codeph>setIndexMaintenanceSynchronous</codeph> method. </p>
+								<p>
+									<b>API: </b>
+									<codeph>setIndexMaintenanceSynchronous</codeph>
+								</p>
+								<p>
+									<b>Example:</b>
+									<codeblock outputclass="language-xml">&lt;region-attributes 
+  index-update-type="asynchronous"&gt;
+&lt;/region-attributes&gt;</codeblock>
+								</p>
+							</entry>
+							<entry colname="col3">synchronous updates </entry>
+						</row>
+						<row>
+							<entry>initial-capacity </entry>
+							<entry>
+								<p> Together with the <codeph>load-factor</codeph> region attribute,
+									sets the initial parameters on the underlying
+										<codeph>java.util.ConcurrentHashMap</codeph> used for
+									storing region entries. </p>
+								<p>
+									<b>API: </b>
+									<codeph>setInitialCapacity</codeph>
+								</p>
+								<p>
+									<b>Example:</b>
+									<codeblock outputclass="language-xml">&lt;region-attributes 
+  initial-capacity="20"&gt;
+&lt;/region-attributes&gt;</codeblock>
+								</p>
+							</entry>
+							<entry colname="col3">16 </entry>
+						</row>
+						<row>
+							<entry>is-lock-grantor </entry>
+							<entry>
+								<p> Determines whether this member defines itself as the lock
+									grantor for the region at region creation time. This only
+									specifies whether the member becomes lock grantor at creation
+									and does not reflect the current state of the member’s lock
+									grantor status. The member’s lock grantor status may change if
+									another member subsequently defines the region with
+										<codeph>is-lock-grantor</codeph> set to true. This attribute
+									is only relevant for regions with <codeph>global</codeph>
+									<codeph>scope</codeph>, as only they allow locking. It affects
+									implicit and explicit locking. </p>
+								<p>
+									<b>API: </b>
+									<codeph>setLockGrantor</codeph>
+								</p>
+								<p>
+									<b>Example:</b>
+									<codeblock outputclass="language-xml">&lt;region-attributes 
+  is-lock-grantor="true"&gt;
+&lt;/region-attributes&gt;</codeblock>
+								</p>
+							</entry>
+							<entry colname="col3">false </entry>
+						</row>
+						<row>
+							<entry>load-factor </entry>
+							<entry>
+								<p> Together with the initial-capacity region attribute, sets the
+									initial parameters on the underlying
+										<codeph>java.util.ConcurrentHashMap</codeph> used for
+									storing region entries. This must be a floating point number
+									between 0 and 1, inclusive. <note>Before you set this attribute,
+										read the discussion of initial capacity and load factor,
+										then see the Java API documentation for
+											<codeph>java.util.ConcurrentHashMap</codeph>. </note>
+								</p>
+								<p>
+									<b>API: </b>
+									<codeph>setLoadFactor</codeph>
+								</p>
+								<p>
+									<b>Example:</b>
+									<codeblock outputclass="language-xml">&lt;region-attributes 
+  load-factor="0.85"&gt;
+&lt;/region-attributes&gt;</codeblock>
+								</p>
+							</entry>
+							<entry colname="col3">.75 </entry>
+						</row>
+						<row>
+							<entry>mirror-type </entry>
+							<entry> Deprecated </entry>
+							<entry colname="col3"/>
+						</row>
+						<row>
+							<entry>multicast-enabled </entry>
+							<entry>
+								<p> Boolean that specifies whether distributed operations on a
+									region should use multicasting. To enable this, multicast must
+									be enabled for the distributed system with the
+										<codeph>mcast-port</codeph>
+									<codeph>gemfire.properties</codeph> setting. </p>
+								<p>
+									<b>API: </b>
+									<codeph>setMulticastEnabled</codeph>
+								</p>
+								<p>
+									<b>Example:</b>
+									<codeblock outputclass="language-xml">&lt;region-attributes 
+  multicast-enabled="true"&gt;
+&lt;/region-attributes&gt;</codeblock>
+								</p>
+							</entry>
+							<entry colname="col3">false </entry>
+						</row>
+						<row>
+							<entry>persist-backup </entry>
+							<entry>Deprecated </entry>
+							<entry colname="col3"/>
+						</row>
+						<row>
+							<entry>pool-name </entry>
+							<entry>
+								<p> Identifies the region as a client region and specifies the
+									server pool the region is to use. The named pool must be defined
+									in the client cache before the region is created. If this is not
+									set, the region does not connect to the servers as a client
+									region. </p>
+								<p>
+									<b>API: </b>
+									<codeph>setPoolName</codeph>
+								</p>
+								<p>
+									<b>Examples:</b>
+								</p>
+								<p>This declaration creates the region as a client region with a
+									server pool named DatabasePool. This pool-name specification is
+									required, as there are multiple pools in the client cache:
+									<codeblock outputclass="language-xml">&lt;client-cache&gt;
+	&lt;pool name="DatabasePool" 
+   subscription-enabled="true"&gt;
+		...
+	&lt;/pool&gt;
+	&lt;pool &gt;
+   name="OtherPool" 
+   subscription-enabled="true"&gt;
+		...
+	&lt;/pool&gt;
+	&lt;region ...
+		&lt;region-attributes 
+          pool-name="DatabasePool"&gt; 
+		&lt;/region-attributes&gt;
+		...</codeblock>
+								</p>
+								<p>This declaration creates the region as a client region assigned
+									the single pool that is defined for the client cache. Here the
+									pool-name specification is implied to be the only pool that
+									exists in the cache:
+									<codeblock outputclass="language-xml">&lt;client-cache&gt;
+	&lt;pool 
+   name="publisher" 
+   subscription-enabled="true"&gt;
+		...
+	&lt;/pool&gt;
+	&lt;region 
+   name="myRegion" 
+   refid="CACHING_PROXY"&gt;
+	&lt;/region&gt;
+&lt;/client-cache&gt;</codeblock>
+								</p>
+							</entry>
+							<entry colname="col3">not set </entry>
+						</row>
+						<row>
+							<entry>disk-store-name </entry>
+							<entry>
+								<p> Assigns the region to the disk store with this name from the
+									disk stores defined for the cache. Persist region data to disk
+									by defining the region as persistent using the Shortcut
+									Attribute Options or data-policy settings. Overflow data to disk
+									by implementing LRU eviction-attributes with an action of
+									overflow to disk. Each disk store defines the file system
+									directories to use, how data is written to disk, and other disk
+									storage maintenance properties. In addition, the
+										<codeph>disk-synchronous</codeph> region attribute specifies
+									whether writes are done synchronously or asynchronously. </p>
+								<p>
+									<b>API: </b>
+									<codeph>setDiskStoreName</codeph>
+								</p>
+								<p>
+									<b>Example:</b>
+									<codeblock outputclass="language-xml">&lt;region-attributes 
+  disk-store-name="myStoreA" &gt;
+&lt;/region-attributes&gt;</codeblock>
+								</p>
+							</entry>
+							<entry colname="col3">null </entry>
+						</row>
+						<row>
+							<entry>disk-synchronous </entry>
+							<entry>
+								<p> For regions that write to disk, boolean that specifies whether
+									disk writes are done synchronously for the region. </p>
+								<p>
+									<b>API: </b>
+									<codeph>setDiskSynchronous</codeph>
+								</p>
+								<p>
+									<b>Example:</b>
+									<codeblock outputclass="language-xml">&lt;region-attributes 
+  disk-store-name="myStoreA" 
+  disk-synchronous="true"&gt;
+&lt;/region-attributes&gt;</codeblock>
+								</p>
+							</entry>
+							<entry colname="col3">true </entry>
+						</row>
+						<row>
+							<entry>publisher </entry>
+							<entry>Deprecated </entry>
+							<entry colname="col3"/>
+						</row>
+						<row>
+							<entry>refid </entry>
+							<entry>
+								<p>Retrieves region shortcuts and user-defined named region
+									attributes for attributes initialization </p>
+								<p>
+									<b>API: </b>
+									<codeph>setRefId</codeph>
+								</p>
+								<p>
+									<b>Example:</b>
+									<codeblock outputclass="language-xml">&lt;region-attributes 
+  refid="persistent-replicated"&gt;
+  &lt;!-- Override any stored 
+    attribute settings that you 
+    need to ... --&gt;
+&lt;/region-attributes&gt;</codeblock>
+								</p>
+							</entry>
+							<entry colname="col3">not set </entry>
+						</row>
+						<row>
+							<entry id="scope">scope </entry>
+							<entry>
+								<p> Definition: Determines how updates to region entries are
+									distributed to the other caches in the distributed system where
+									the region and entry are defined. Scope also determines whether
+									to allow remote invocation of some of the region’s event
+									handlers, and wether to use region entry versions to provide
+									consistent updates across replicated regions. <note>You can
+										configure the most common of these options with <keyword
+											keyref="product_name"/>’s region shortccuts in
+											<codeph>RegionShortcut</codeph> and
+											<codeph>ClientRegionShortcut</codeph>. </note>
+									<note>Server regions that are not partitioned must be replicated
+										with <codeph>distributed-ack</codeph> or
+											<codeph>global</codeph> scope. The region shortcuts that
+										specify <codeph>REPLICATE</codeph> have
+											<codeph>distributed-ack</codeph> scope. </note>
+								</p>
+								<p>Set one of the following scope values: </p>
+								<p>
+									<simpletable frame="none"
+										id="simpletable_C04247CE5D2D404DA0893782C4198ED0"
+										relcolwidth="* *">
+										<strow>
+											<stentry>local</stentry>
+											<stentry>No distribution. The region is visible only to
+												threads running inside the member.</stentry>
+										</strow>
+										<strow>
+											<stentry>distributed-no-ack</stentry>
+											<stentry>Events are distributed to remote caches with no
+												acknowledgement required.</stentry>
+										</strow>
+										<strow>
+											<stentry>distributed-ack</stentry>
+											<stentry>Events are distributed to remote caches with
+												receipt acknowledgement required. Region entry
+												versions are used to provide consistent updates
+												across members of the distributed system.</stentry>
+										</strow>
+										<strow>
+											<stentry>global</stentry>
+											<stentry>Events are distributed to remote caches with
+												global locking to ensure distributed cache
+												consistency.</stentry>
+										</strow>
+									</simpletable>
+									<b>API: </b>
+									<codeph>setScope</codeph>
+								</p>
+								<p>
+									<b>Example:</b>
+									<codeblock outputclass="language-xml">&lt;region-attributes 
+  scope="distributed-ack"&gt;
+&lt;/region-attributes&gt;</codeblock>
+								</p>
+							</entry>
+							<entry colname="col3">distributed-no-ack </entry>
+						</row>
+						<row>
+							<entry>statistics-enabled </entry>
+							<entry id="prop_region-attributes_statistics-enabled">Boolean specifying
+								whether to gather statistics on the region. Must be true to use
+								expiration on the region. <keyword keyref="product_name"/> provides
+								a standard set of statistics for cached regions and region entries,
+								which give you information for fine-tuning your distributed system.
+								Unlike other <keyword keyref="product_name"/> statistics, statistics
+								for local and distributed regions are not archived and cannot be
+								charted. They are kept in instances of
+									<codeph>com.gemstone.gemfire.cache.CacheStatistics</codeph> and
+								made available through the region and its entries through the
+									<codeph>Region.getStatistics</codeph> and
+									<codeph>Region.Entry.getStatistics</codeph> methods. <p><b>API:
+										</b><codeph>setStatisticsEnabled</codeph>
+								</p>
+								<p><b>Example:</b>
+									<codeblock outputclass="language-xml">&lt;region-attributes 
+  statistics-enabled="true"&gt;
+&lt;/region-attributes&gt;</codeblock>
+								</p>
+							</entry>
+							<entry colname="col3">false </entry>
+						</row>
+						<row>
+							<entry>cloning-enabled </entry>
+							<entry>
+								<p id="region-attributes_cloning-enabled">Determines how
+										<codeph>fromDelta</codeph> applies deltas to the local cache
+									for delta propagation. When true, the updates are applied to a
+									clone of the value and then the clone is saved to the cache.
+									When false, the value is modified in place in the cache. </p>
+								<p>
+									<b>API:</b>
+									<codeph>setCloningEnabled</codeph>
+								</p>
+								<p>
+									<b>Example: </b>
+									<codeblock outputclass="language-xml">&lt;region-attributes 
+  cloning-enabled="true"&gt;
+&lt;/region-attributes&gt;</codeblock>
+								</p>
+							</entry>
+							<entry colname="col3">false </entry>
+						</row>
+						<row>
+							<entry>concurrency-checks-enabled </entry>
+							<entry>
+								<p>Determines whether members perform checks to provide consistent
+									handling for concurrent or out-of-order updates to distributed
+									regions. See <xref format="dita"
+										href="../../developing/distributed_regions/region_entry_versions.xml#topic_CF2798D3E12647F182C2CEC4A46E2045"
+										scope="local" type="topic"/> and <xref format="dita"
+										href="../../developing/distributed_regions/how_region_versioning_works.xml#topic_0BDACA590B2C4974AC9C450397FE70B2"
+										scope="local" type="topic"/>. <note>Applications that use a
+											<codeph>client-cache</codeph> may want to disable
+										concurrency checking in order to see all events for a
+										region. <keyword keyref="product_name"/> server members can
+										continue using concurrency checks for the region, but they
+										will pass all events to the client cache. This configuration
+										ensures that the client sees all events, but it does not
+										prevent the client cache from becoming out-of-sync with the
+										server cache. </note>
+								</p>
+								<p>
+									<b>API:</b>
+									<codeph>setConcurrencyChecksEnabled</codeph>
+								</p>
+								<p>
+									<b>Example:</b>
+								</p>
+								<codeblock outputclass="language-xml">&lt;region-attributes 
+ concurrency-checks-enabled="true"&gt;
+&lt;/region-attributes&gt;</codeblock>
+							</entry>
+							<entry colname="col3">true </entry>
+						</row>
+					</tbody>
+				</tgroup>
+			</table>
+		</body>
+	</topic>
+	<topic id="key-constraint">
+		<title>&lt;key-constraint&gt;</title>
+		<shortdesc> </shortdesc>
+		<body>
+			<p>Defines the type of object to be allowed for the region entry keys. This must be a
+				fully-qualified class name. The attribute ensures that the keys for the region
+				entries are all of the same class. If key-constraint is not used, the region’s keys
+				can be of any class. This attribute, along with value-constraint, is useful for
+				querying and indexing because it provides object type information to the query
+				engine. <note>Set the constraint in every cache where you create or update the
+					region entries. For client/server installations, match
+					constraints between client and server and between distributed systems. The
+					constraint is only checked in the cache that does the entry <codeph>put</codeph>
+					or <codeph>create</codeph> operation. To avoid deserializing the object, the
+					constraint is not checked when the entry is distributed to other caches. </note>
+			</p>
+			<p><b>Default: </b> not set </p>
+			<p>
+				<b>API: </b>
+				<codeph>com.gemstone.gemfire.cache.RegionFactory.setKeyConstraint</codeph>
+			</p>
+			<p>
+				<b>Example: </b>
+			</p>
+			<codeblock outputclass="language-xml">&lt;region-attributes&gt;
+  &lt;key-constraint&gt;
+   java.lang.String
+  &lt;/key-constraint&gt;
+&lt;/region-attributes&gt;
+</codeblock>
+		</body>
+	</topic>
+	<topic id="value-constraint">
+		<title>&lt;value-constraint&gt;</title>
+		<shortdesc> </shortdesc>
+		<body>
+			<p>Defines the type of object to be allowed for the region entry values. This must be a
+				fully-qualified class name. If value constraint isn’t used, the region’s value can
+				be of any class. This attribute, along with <codeph>key-constraint</codeph>, is
+				useful for querying and indexing because it provides object type information to the
+				query engine. <note>Set the constraint in every cache where you create or update the
+					region entries. For client/server installations, match
+					constraints between client and server and between distributed systems. The
+					constraint is only checked in the cache that does the entry <codeph>put</codeph>
+					or <codeph>create</codeph> operation. To avoid deserializing the object, the
+					constraint is not checked when the entry is distributed to other caches. </note>
+			</p>
+			<p><b>Default: </b> not set </p>
+			<p>
+				<b>API: </b>
+				<codeph>com.gemstone.gemfire.cache.RegionFactory.setValueConstraint</codeph>
+			</p>
+			<p>
+				<b>Example: </b>
+			</p>
+			<codeblock outputclass="language-xml">&lt;region-attributes&gt;
+  &lt;value-constraint&gt;
+   cacheRunner.Portfolio
+  &lt;/value-constraint&gt;
+&lt;/region-attributes&gt;
+</codeblock>
+		</body>
+	</topic>
+	<topic id="region-time-to-live">
+		<title>&lt;region-time-to-live&gt;</title>
+		<shortdesc> </shortdesc>
+		<body>
+			<p>Expiration setting that specifies how long the region can remain in the cache without
+				anyone accessing or updating it. </p>
+			<p><b>Default: </b>not set - no expiration of this type </p>
+			<p>
+				<b>API: </b>
+				<codeph>com.gemstone.gemfire.cache.RegionFactory.setRegionTimeToLive</codeph>
+			</p>
+			<p>
+				<b>Example: </b>
+			</p>
+			<codeblock outputclass="language-xml">&lt;region-attributes 
+  statistics-enabled="true"&gt;
+  &lt;region-time-to-live&gt;
+    &lt;expiration-attributes 
+      timeout="3600" 
+      action="local-destroy"/&gt;
+  &lt;/region-time-to-live&gt;
+&lt;/region-attributes&gt;
+</codeblock>
+		</body>
+	</topic>
+	<topic id="expiration-attributes">
+		<title>&lt;expiration-attributes&gt;</title>
+		<shortdesc> </shortdesc>
+		<body>
+			<p>Within the <codeph>entry-time-to-live</codeph> or <codeph>entry-idle-time</codeph>
+				element, this element specifies the expiration rules for removing old region entries
+				that you are not using. You can destroy or invalidate entries, either locally or
+				across the distributed system. Within the <codeph>region-time-to-live</codeph> or
+					<codeph>region-idle-time</codeph> element, this element specifies the expiration
+				rules for the entire region. </p>
+			<p><b>API: </b>See APIs for <codeph>entry-time-to-live</codeph>,
+					<codeph>entry-idle-time</codeph>, <codeph>region-time-to-live</codeph>,
+					<codeph>region-idle-time</codeph>
+			</p>
+			<table id="table_E9AFB36CA3C345CEBF10F2AE482D9878">
+				<title>Attributes</title>
+				<tgroup cols="3">
+					<colspec colname="1" colnum="1" colwidth="1.6*"/>
+					<colspec colname="2" colnum="2" colwidth="4.1*"/>
+					<colspec colname="col3" colnum="3" colwidth="1*"/>
+					<thead>
+						<row>
+							<entry>Attribute </entry>
+							<entry>Description </entry>
+							<entry colname="col3">Default </entry>
+						</row>
+					</thead>
+					<tbody>
+						<row>
+							<entry>timeout </entry>
+							<entry id="expiration-attributes_timeout">Number of seconds before a
+								region or an entry expires. If timeout is not specified, it defaults
+								to zero (which means no expiration). </entry>
+							<entry colname="col3">0 </entry>
+						</row>
+						<row>
+							<entry>action </entry>
+							<entry id="expiration-attributes_action">Action that should take place
+								when a region or an entry expires. <p>Select one of the following
+									expiration actions: <simpletable frame="none"
+										id="simpletable_AE6B71F0AEB04D5FB2B72814BE9D3E46"
+										relcolwidth="1.0* 3.61*">
+										<strow>
+											<stentry><option>local-destroy</option></stentry>
+											<stentry>Removes the region or entry from the local
+												cache, but does not distribute the removal operation
+												to remote members. You cannot use this action on
+												partitioned region entries.</stentry>
+										</strow>
+										<strow>
+											<stentry><option>destroy</option></stentry>
+											<stentry>Removes the region or entry completely from the
+												cache. Destroy actions are distributed according to
+												the region's distribution settings. Use this option
+												when the region or entry is no longer needed for any
+												application in the distributed system.</stentry>
+										</strow>
+										<strow>
+											<stentry><option>invalidate</option></stentry>
+											<stentry>Default expiration action. Marks an entry or
+												all entries in the region as invalid. Distributes
+												the invalidation according to the region's scope.
+												This is the proper choice when the region or the
+												entry is no longer valid for any application in the
+												distributed system.</stentry>
+										</strow>
+										<strow>
+											<stentry><option>local-invalidate</option></stentry>
+											<stentry>Marks an entry or all entries in the region as
+												invalid but does not distribute the operation. You
+												cannot use this action on partitioned region
+												entries. Local region invalidation is only supported
+												for regions that are not configured as replicated
+												regions.</stentry>
+										</strow>
+									</simpletable>
+								</p>
+							</entry>
+							<entry colname="col3">invalidate </entry>
+						</row>
+					</tbody>
+				</tgroup>
+			</table>
+			<p>
+				<b>Example: </b>
+			</p>
+			<codeblock outputclass="language-xml">&lt;region-attributes 
+  statistics-enabled="true"&gt;
+   &lt;entry-time-to-live&gt;
+      &lt;expiration-attributes 
+        timeout="60" 
+        action="local-destroy"/&gt;
+   &lt;/entry-time-to-live&gt;
+&lt;/region-attributes&gt;
+</codeblock>
+		</body>
+	</topic>
+	<topic id="custom-expiry">
+		<title>&lt;custom-expiry&gt;</title>
+		<shortdesc> </shortdesc>
+		<body>
+			<p>Specifies the custom class that implements
+					<codeph>com.gemstone.gemfire.cache.CustomExpiry</codeph>. You define this class
+				in order to override the region-wide settings for specific entries. See <xref
+					format="dita"
+					href="../../developing/expiration/configuring_data_expiration.xml#configuring_data_expiration"
+					scope="local" type="concept"/> for an example. </p>
+			<p>Specify the Java class and its initialization parameters with the
+					<codeph>&lt;class-name&gt;</codeph> and <codeph>&lt;parameter&gt;</codeph>
+				sub-elements. See <xref format="dita" href="cache_xml.xml#class-name_parameter"
+					scope="local" type="topic"/>. </p>
+			<p><b>API:
+					</b><codeph>com.gemstone.gemfire.cache.RegionFactory.setCustomEntryIdleTimeout</codeph>,
+					<codeph>setCustomeEntryTimeToLive</codeph>
+			</p>
+			<p>
+				<b>Example: </b>
+			</p>
+			<codeblock outputclass="language-xml">&lt;region-attributes&gt;
+    &lt;expiration-attributes 
+       timeout="60" 
+       action="local-destroy"&gt;
+      &lt;custom-expiry&gt; 
+        &lt;class-name&gt;
+          com.megaconglomerate.mypackage.MyClass
+        &lt;/class-name&gt; 
+      &lt;/custom-expiry&gt;
+&lt;/region-attributes&gt;
+</codeblock>
+			<p>Specify the Java class and its initialization parameters with the
+					<codeph>&lt;class-name&gt;</codeph> and <codeph>&lt;parameter&gt;</codeph>
+				sub-elements. See <xref format="dita" href="cache_xml.xml#class-name_parameter"
+					scope="local" type="topic"/>. </p>
+		</body>
+	</topic>
+	<topic id="region-idle-time">
+		<title>&lt;region-idle-time&gt;</title>
+		<shortdesc> </shortdesc>
+		<body>
+			<p>Expiration setting that specifies how long the region can remain in the cache without
+				anyone accessing it. <note>To ensure reliable read behavior across the partitioned
+					region, use <codeph>region-time-to-live</codeph> for region expiration instead
+					of this setting. </note>
+			</p>
+			<p><b>Default: </b>not set - no expiration of this type </p>
+			<p>
+				<b>API: </b>
+				<codeph>com.gemstone.gemfire.cache.RegionFactory.setRegionIdleTimeout</codeph>
+			</p>
+			<p>
+				<b>Example: </b>
+			</p>
+			<codeblock outputclass="language-xml">&lt;region-attributes statistics-enabled="true"&gt;
+  &lt;region-idle-time&gt;
+    &lt;expiration-attributes 
+      timeout="3600" 
+      action="local-destroy"/&gt;
+  &lt;/region-idle-time&gt;
+&lt;/region-attributes&gt;
+</codeblock>
+		</body>
+	</topic>
+	<topic conref="#expiration-attributes" id="region-idle-time_expiration-attributes">
+		<title>&lt;expiration-attributes&gt;</title>
+	</topic>
+	<topic conref="#custom-expiry" id="region-idle-time_custom-expiry">
+		<title>&lt;custom-expiry&gt;</title>
+		<shortdesc><?xm-replace_text Short Description?>
+		</shortdesc>
+		<body>
+			<p><?xm-replace_text Paragraph?>
+			</p>
+		</body>
+	</topic>
+	<topic id="entry-time-to-live">
+		<title>&lt;entry-time-to-live&gt;</title>
+		<shortdesc> </shortdesc>
+		<body>
+			<p>Expiration setting that specifies how long the region’s entries can remain in the
+				cache without anyone accessing or updating them. See <xref format="dita"
+					href="#expiration-attributes" scope="local" type="topic"/> for details. </p>
+			<p><b>Default: </b>not set - no expiration of this type. </p>
+			<p>
+				<b>API: </b>
+				<codeph>com.gemstone.gemfire.cache.RegionFactory.setEntryTimeToLive</codeph>
+			</p>
+			<p>
+				<b>Example: </b>
+			</p>
+			<codeblock outputclass="language-xml">&lt;region-attributes
+  statistics-enabled="true"&gt;
+  &lt;entry-time-to-live&gt;
+    &lt;expiration-attributes
+     timeout="60"
+     action="local-destroy"/&gt;
+  &lt;/entry-time-to-live&gt;
+&lt;/region-attributes&gt;
+</codeblock>
+		</body>
+	</topic>
+	<topic conref="#expiration-attributes" id="entry-time-to-live_expiration-attributes">
+		<title>&lt;expiration-attributes&gt;</title>
+	</topic>
+	<topic conref="#custom-expiry" id="entry-time-to-live_custom_expiry">
+		<title>&lt;custom-expiry&gt;</title>
+		<shortdesc><?xm-replace_text Short Description?>
+		</shortdesc>
+		<body>
+			<p><?xm-replace_text Paragraph?>
+			</p>
+		</body>
+	</topic>
+	<topic id="entry-idle-time">
+		<title>&lt;entry-idle-time&gt;</title>
+		<shortdesc> </shortdesc>
+		<body>
+			<p>Expiration setting that specifies how long the region’s entries can remain in the
+				cache without anyone accessing them. See <xref format="dita"
+					href="#expiration-attributes" scope="local" type="topic"
+					><?xm-replace_text Element ID :expiration-attributes?></xref> for details.
+					<note>To ensure reliable read behavior across the partitioned region, use
+						<codeph>entry-time-to-live</codeph> for entry expiration instead of this
+					setting. </note>
+			</p>
+			<p>
+				<b>API: </b>
+				<codeph>com.gemstone.gemfire.cache.RegionFactory.setEntryIdleTimeout</codeph>
+			</p>
+			<p>
+				<b>Example: </b>
+			</p>
+			<codeblock outputclass="language-xml">&lt;region-attributes 
+  statistics-enabled="true"&gt;
+  &lt;entry-idle-time&gt;
+    &lt;expiration-attributes 
+      timeout="60" 
+      action="local-invalidate"/&gt;
+    &lt;/expiration-attributes&gt;
+  &lt;/entry-idle-time&gt;
+&lt;/region-attributes&gt;
+</codeblock>
+		</body>
+	</topic>
+	<topic conref="#expiration-attributes" id="entry-idle-time_expiration-attributes">
+		<title>&lt;expiration-attributes&gt;</title>
+	</topic>
+	<topic conref="#custom-expiry" id="entry-idle-time_custom-expiry">
+		<title>&lt;custom-expiry&gt;</title>
+		<shortdesc><?xm-replace_text Short Description?>
+		</shortdesc>
+		<body>
+			<p><?xm-replace_text Paragraph?>
+			</p>
+		</body>
+	</topic>
+	<topic id="disk-write-attributes">
+		<title>&lt;disk-write-attributes&gt;</title>
+		<shortdesc> </shortdesc>
+		<body>
+			<p>DEPRECATED as of GemFire version 6.5. See <xref format="dita"
+					href="cache_xml.xml#disk-store" scope="local" type="topic"/>
+			</p>
+		</body>
+	</topic>
+	<topic id="asynchronous-writes">
+		<title>&lt;asynchronous-writes&gt;</title>
+		<shortdesc> </shortdesc>
+		<body>
+			<p>DEPRECATED as of GemFire version 6.5. See <xref format="dita"
+					href="cache_xml.xml#disk-store" scope="local" type="topic"/>
+			</p>
+		</body>
+	</topic>
+	<topic id="synchronous-writes">
+		<title>&lt;synchronous-writes&gt;</title>
+		<shortdesc> </shortdesc>
+		<body>
+			<p>DEPRECATED as of GemFire version 6.5. See <xref format="dita"
+					href="cache_xml.xml#disk-store" scope="local" type="topic"/>
+			</p>
+		</body>
+	</topic>
+	<topic id="topic_lfd_jkm_t3">
+		<title>&lt;disk-dirs&gt;</title>
+		<body>
+			<p><codeph>&lt;disk-dirs&gt;</codeph> as a sub-element of
+					<codeph>&lt;region-attributes&gt;</codeph> is deprecated as of GemFire version
+				6.5. See the disk-store-name attribute of the <xref format="dita"
+					href="#region-attributes"/> element. </p>
+		</body>
+	</topic>
+	<topic id="partition-attributes">
+		<title>&lt;partition-attributes&gt;</title>
+		<shortdesc> </shortdesc>
+		<body>
+			<p>Defines the region as partitioned and controls partitioning behavior. This is set
+				during the region creation in the first data store for the partitioned region.
+					<note>With the exception of <codeph>local-max-memory</codeph>, all members
+					defining a partitioned region must use the same partition attribute settings.
+				</note>
+			</p>
+			<p>
+				<b>API: </b>
+				<codeph>com.gemstone.gemfire.cache.RegionFactory.setPartitionAttributes</codeph>
+			</p>
+			<table id="table_5CB4AC52DDA94E60A2B8325BA31E1253">
+				<title>Attributes</title>
+				<tgroup cols="3">
+					<colspec colname="1" colnum="1" colwidth="1.6*"/>
+					<colspec colname="2" colnum="2" colwidth="4.1*"/>
+					<colspec colname="col3" colnum="3" colwidth="1*"/>
+					<thead>
+						<row>
+							<entry>Attribute </entry>
+							<entry>Description </entry>
+							<entry colname="col3">Default </entry>
+						</row>
+					</thead>
+					<tbody>
+						<row>
+							<entry>colocated-with </entry>
+							<entry>The full name of a region to colocate with this region. The named
+								region must exist before this region is created. </entry>
+							<entry colname="col3">null </entry>
+						</row>
+						<row>
+							<entry>local-max-memory </entry>
+							<entry>Maximum megabytes of memory set aside for this region in the
+								local member. This is all memory used for this partitioned region -
+								for primary buckets and any redundant copies. This value must be
+								smaller than the Java settings for the initial or maximum JVM heap.
+								When the memory use goes above this value, <keyword
+									keyref="product_name"/> issues a warning, but operation
+								continues. Besides setting the maximum memory to use for the member,
+								this setting also tells <keyword keyref="product_name"/> how to
+								balance the load between members where the region is defined. For
+								example, if one member sets this value to twice the value of another
+								member’s setting, <keyword keyref="product_name"/> works to keep the
+								ratio between the first and the second at two-to-one, regardless of
+								how little memory the region consumes. This is a local parameter
+								that applies only to the local member. A value of 0 disables local
+								data caching. </entry>
+							<entry colname="col3">90% (of local heap) </entry>
+						</row>
+						<row>
+							<entry>recovery-delay </entry>
+							<entry>Applies when <codeph>redundant-copies</codeph> is greater than
+								zero. The number of milliseconds to wait after a member crashes
+								before reestablishing redundancy for the region. A setting of -1
+								disables automatic recovery of redundancy after member failure. </entry>
+							<entry colname="col3">-1 </entry>
+						</row>
+						<row>
+							<entry>redundant-copies </entry>
+							<entry>Number of extra copies that the partitioned region must maintain
+								for each entry. Range: 0-3. If you specify 1, this partitioned
+								region maintains the original and one backup, for a total of two
+								copies. A value of 0 disables redundancy. </entry>
+							<entry colname="col3">0 </entry>
+						</row>
+						<row>
+							<entry>startup-recovery-delay </entry>
+							<entry>Applies when <codeph>redundant-copies</codeph> is greater than
+								zero. The number of milliseconds a newly started member should wait
+								before trying to satisfy redundancy of region data stored on other
+								members. A setting of -1 disables automatic recovery of redundancy
+								after new members join. </entry>
+							<entry colname="col3">0 </entry>
+						</row>
+						<row>
+							<entry>total-max-memory </entry>
+							<entry>Maximum combined megabytes of memory to be used by all processes
+								hosting this region for all copies, primary and redundant. </entry>
+							<entry colname="col3">
+								<codeph> Integer.MAX_VALUE</codeph>
+							</entry>
+						</row>
+						<row>
+							<entry>total-num-buckets </entry>
+							<entry>Total number of buckets or data storage areas allotted for the
+								entire partitioned region in the distributed cache. As data moves
+								from one member to another, the entries in a bucket move as one
+								unit. This value should be a prime number at least four times the
+								number of data stores. More buckets increases overhead, however,
+								especially when redundant-copies = 2 or 3 . </entry>
+							<entry colname="col3">113 </entry>
+						</row>
+					</tbody>
+				</tgroup>
+			</table>
+			<p>
+				<b>Example: </b>
+			</p>
+			<codeblock outputclass="language-xml">&lt;region-attributes&gt;
+  &lt;partition-attributes 
+   redundant-copies="1" 
+   total-num-buckets= "613"/&gt;
+&lt;/region-attributes&gt;
+</codeblock>
+		</body>
+	</topic>
+	<topic id="partition-resolver">
+		<title>&lt;partition-resolver&gt;</title>
+		<body>
+			<p>Describes a custom PartitionResolver for a region. </p>
+			<p>
+				<b>API: </b>
+				<codeph>com.gemstone.gemfire.cache.PartitionAttributesFactory.setPartitionResolver</codeph>
+			</p>
+			<p>Specify the Java class and its initialization parameters with the
+					<codeph>&lt;class-name&gt;</codeph> and <codeph>&lt;parameter&gt;</codeph>
+				sub-elements. See <xref format="dita" href="cache_xml.xml#class-name_parameter"
+					scope="local" type="topic"><?xm-replace_text and ?></xref>. </p>
+			<table id="table_7644DF062B5A4B04AFA806F87FB0912A">
+				<title>Attributes</title>
+				<tgroup cols="3">
+					<colspec colname="1" colnum="1" colwidth="1.6*"/>
+					<colspec colname="2" colnum="2" colwidth="4.1*"/>
+					<colspec colname="col3" colnum="3" colwidth="1*"/>
+					<thead>
+						<row>
+							<entry>Attribute </entry>
+							<entry>Description </entry>
+							<entry colname="col3">Default </entry>
+						</row>
+					</thead>
+					<tbody>
+						<row>
+							<entry>name </entry>
+							<entry>The name of this custom PartitionResolver. </entry>
+							<entry colname="col3"/>
+						</row>
+					</tbody>
+				</tgroup>
+			</table>
+			<p>
+				<b>Example: </b>
+			</p>
+			<codeblock outputclass="language-xml">&lt;region name="trades"&gt;
+  &lt;region-attributes&gt;
+      &lt;partition-attributes&gt;
+          &lt;partition-resolver name="TradesPartitionResolver"&gt; 
+              &lt;class-name&gt;myPackage.TradesPartitionResolver
+              &lt;/class-name&gt;
+          &lt;/partition-resolver&gt;
+      &lt;/partition-attributes&gt;
+  &lt;/region-attributes&gt;
+&lt;/region&gt;
+</codeblock>
+		</body>
+	</topic>
+	<topic id="partition-listener">
+		<title>&lt;partition-listener&gt;</title>
+		<body>
+			<p>Defines a custom PartitionListener for a partitioned region. </p>
+			<p>Specify the Java class and its initialization parameters with the
+					<codeph>&lt;class-name&gt;</codeph> and <codeph>&lt;parameter&gt;</codeph>
+				sub-elements. See <xref format="dita" href="cache_xml.xml#class-name_parameter"
+					scope="local" type="topic"><?xm-replace_text and ?></xref>. </p>
+			<p>
+				<b>API: </b>
+				<codeph>com.gemstone.gemfire.cache.PartitionAttributesFactory.PartitionListener</codeph>
+			</p>
+			<p>
+				<b>Example: </b>
+			</p>
+			<codeblock outputclass="language-xml">&lt;partition-attributes redundant-copies="1"&gt;
+     &lt;partition-listener&gt;
+         &lt;class-name&gt;com.myCompany.ColocatingPartitionListener&lt;/class-name.
+          &lt;parameter name="viewRegions"&gt;
+              &lt;string&gt;/customer/ViewA,/customer/ViewB&lt;/string&gt;
+          &lt;/parameter&gt;             
+     &lt;/partition-listener&gt;
+ &lt;/partition-attributes&gt;
+</codeblock>
+		</body>
+	</topic>
+	<topic id="fixed-partition-attributes">
+		<title>&lt;fixed-partition-attributes&gt;</title>
+		<shortdesc> </shortdesc>
+		<body>
+			<p>Describes a partition in a Fixed Partitioned Region. </p>
+			<p>
+				<b>API: </b>
+				<codeph>com.gemstone.gemfire.cache.PartitionAttributesFactory.addFixedPartitionAttributes</codeph>
+			</p>
+			<table id="table_E3929FDFD5A24946919936F67D6DE46E">
+				<title>Attributes</title>
+				<tgroup cols="3">
+					<colspec colname="1" colnum="1" colwidth="1.6*"/>
+					<colspec colname="2" colnum="2" colwidth="4.1*"/>
+					<colspec colname="col3" colnum="3" colwidth="1*"/>
+					<thead>
+						<row>
+							<entry>Attribute </entry>
+							<entry>Description </entry>
+							<entry colname="col3">Default </entry>
+						</row>
+					</thead>
+					<tbody>
+						<row>
+							<entry>partition-name </entry>
+							<entry>The name of this fixed partition. </entry>
+							<entry colname="col3"/>
+						</row>
+						<row>
+							<entry>is-primary </entry>
+							<entry>Set to true if this partition is the primary partition. </entry>
+							<entry colname="col3">false </entry>
+						</row>
+						<row>
+							<entry>num-buckets </entry>
+							<entry>The number of buckets assigned to this partition. </entry>
+							<entry colname="col3"/>
+						</row>
+					</tbody>
+				</tgroup>
+			</table>
+			<p>
+				<b>Example: </b>
+			</p>
+			<codeblock outputclass="language-xml">&lt;cache&gt;
+   &lt;region name="Trades"&gt;
+      &lt;region-attributes&gt;
+         &lt;partition-attributes 
+          redundant-copies="1"&gt; 
+          &lt;partition-resolver name="QuarterFixedPartitionResolver"&gt;
+             &lt;fixed-partition-attributes 
+               partition-name="Q1" 
+               is-primary="true"/&gt;
+             &lt;fixed-partition-attributes 
+               partition-name="Q3" 
+               is-primary="false" 
+               num-buckets="6"/&gt;
+         &lt;/partition-attributes&gt; 
+      &lt;/region-attributes&gt;
+   &lt;/region&gt;
+&lt;/cache&gt;
+</codeblock>
+		</body>
+	</topic>
+	<topic id="membership-attributes">
+		<title>&lt;membership-attributes&gt;</title>
+		<shortdesc> </shortdesc>
+		<body>
+			<p>Establishes reliability requirements and behavior for a region. Use this to configure
+				the region to require one or more membership roles to be running in the system for
+				reliable access to the region. You can set up your own roles, such as producer or
+				backup, specifying each role as a string. Membership attributes have no effect
+				unless one or more required roles are specified. </p>
+			<p>
+				<b>API: </b>
+				<codeph>com.gemstone.gemfire.cache.RegionFactory.setMembershipAttributes</codeph>
+			</p>
+			<table id="table_EBF62709899C48CFA1D2032656F95D0F">
+				<title>Attributes</title>
+				<tgroup cols="3">
+					<colspec colname="1" colnum="1" colwidth="1.6*"/>
+					<colspec colname="2" colnum="2" colwidth="4.1*"/>
+					<colspec colname="col3" colnum="3" colwidth="1*"/>
+					<thead>
+						<row>
+							<entry>Attribute </entry>
+							<entry>Description </entry>
+							<entry colname="col3">Default </entry>
+						</row>
+					</thead>
+					<tbody>
+						<row>
+							<entry>loss-action </entry>
+							<entry>
+								<p>Set one of the following values to specify how access to the
+									region is affected when one or more required roles are lost. </p>
+								<p>
+									<simpletable id="simpletable_9EDC21706B9B44B58E71A0E0C83FF71B">
+										<strow>
+											<stentry>full-access</stentry>
+											<stentry>Access to the region is unaffected when
+												required roles are missing.</stentry>
+										</strow>
+										<strow>
+											<stentry>limited-access</stentry>
+											<stentry>Only local access to the region is allowed when
+												required roles are missing.</stentry>
+										</strow>
+										<strow>
+											<stentry>no-access</stentry>
+											<stentry>The region is unavailable when required roles
+												are missing.</stentry>
+										</strow>
+										<strow>
+											<stentry>reconnect</stentry>
+											<stentry>Loss of required roles causes the entire cache
+												to be closed.</stentry>
+										</strow>
+									</simpletable>
+								</p>
+							</entry>
+							<entry colname="col3">no_access </entry>
+						</row>
+						<row>
+							<entry>resumption-action </entry>
+							<entry>
+								<p>Specifies how the region is affected by resumption of reliability
+									when one or more missing required roles return to the
+									distributed membership. Set one of the following values:
+										<simpletable
+										id="simpletable_2A6A9BFDA75943DA9907AFB5B28CDF7F">
+										<strow>
+											<stentry>none</stentry>
+											<stentry>No special action takes place when reliability
+												resumes.</stentry>
+										</strow>
+										<strow>
+											<stentry>reinitialize</stentry>
+											<stentry>Resumption of reliability causes the region to
+												be cleared of all data and replicated regions will
+												do a new getInitialImage operation to repopulate the
+												region.</stentry>
+										</strow>
+									</simpletable>
+								</p>
+							</entry>
+							<entry colname="col3">reinitialize </entry>
+						</row>
+					</tbody>
+				</tgroup>
+			</table>
+			<p>
+				<b>Example: </b>
+			</p>
+			<codeblock outputclass="language-xml">&lt;!-- If there is no "producer" member 
+  running, do not allow access to the region --&gt;
+&lt;region-attributes&gt;
+  &lt;membership-attributes 
+    loss-action="no-access" 
+    resumption-action="none"&gt;
+    &lt;required-role 
+      name="producer"&gt;
+    &lt;/required-role&gt;
+  &lt;/membership-attributes&gt;
+&lt;/region-attributes&gt;
+</codeblock>
+		</body>
+	</topic>
+	<topic id="required-role">
+		<title>&lt;required-role&gt;</title>
+		<shortdesc> </shortdesc>
+		<body>
+			<p>Specifies a role that is required for reliable access to the region. </p>
+			<p>
+				<b>API: </b>
+				<codeph>com.gemstone.gemfire.cache.MembershipAttributes</codeph>
+			</p>
+			<table id="table_8DE73CB4967F4906ACEF6FFFB91186B7">
+				<title>Attributes</title>
+				<tgroup cols="3">
+					<colspec colname="1" colnum="1" colwidth="1.6*"/>
+					<colspec colname="2" colnum="2" colwidth="4.1*"/>
+					<colspec colname="col3" colnum="3" colwidth="1*"/>
+					<thead>
+						<row>
+							<entry>Attribute </entry>
+							<entry>Description </entry>
+							<entry colname="col3">Default </entry>
+						</row>
+					</thead>
+					<tbody>
+						<row>
+							<entry>name </entry>
+							<entry>The name of the required role. </entry>
+							<entry colname="col3"/>
+						</row>
+					</tbody>
+				</tgroup>
+			</table>
+			<p>
+				<b>Example: </b>
+			</p>
+			<codeblock outputclass="language-xml">&lt;membership-attributes 
+  loss-action="no-access" 
+  resumption-action="none"&gt;
+    &lt;required-role name="producer"/&gt;
+&lt;/membership-attributes&gt;
+</codeblock>
+		</body>
+	</topic>
+	<topic id="subscription-attributes">
+		<title>&lt;subscription-attributes&gt;</title>
+		<shortdesc> </shortdesc>
+		<body>
+			<p>Specifies subscriber requirements and behavior for the region. There is one
+				subscription attribute, <codeph>interest-policy</codeph>, that defines which
+				distributed entry events are delivered to the local region. </p>
+			<p>
+				<note>The interest policy determines which events are delivered, but the
+						<codeph>data-policy</codeph> determines how the events are applied to the
+					cache. </note>
+			</p>
+			<p>
+				<b>API: </b>
+				<codeph>com.gemstone.gemfire.cache.RegionFactory.setSubscriptionAttributes</codeph>
+			</p>
+			<table id="table_63C8ADF9549740BCA4CA8F1CFB7CD75F">
+				<title>Attributes</title>
+				<tgroup cols="3">
+					<colspec colname="1" colnum="1" colwidth="1.6*"/>
+					<colspec colname="2" colnum="2" colwidth="4.1*"/>
+					<colspec colname="col3" colnum="3" colwidth="1*"/>
+					<thead>
+						<row>
+							<entry>Attribute </entry>
+							<entry>Description </entry>
+							<entry colname="col3">Default </entry>
+						</row>
+					</thead>
+					<tbody>
+						<row>
+							<entry>interest-policy </entry>
+							<entry>The two <codeph>interest-policy</codeph> options are: <p>
+									<simpletable frame="none"
+										id="simpletable_0B7297387A7B4464871F938C807B4BD1">
+										<strow>
+											<stentry>cache-content</stentry>
+											<stentry>The default, registers interest in events only
+												for entries that are already in the local region.
+												For partitioned regions, the local member must hold
+												the primary copy of the entry’s data.</stentry>
+										</strow>
+										<strow>
+											<stentry>all</stentry>
+											<stentry>Registers interest in events for all entries
+												that are anywhere in the distributed or partitioned
+												region, regardless of whether they are already
+												present in the local cache.</stentry>
+										</strow>
+									</simpletable>
+								</p>
+							</entry>
+							<entry colname="col3">cache-content </entry>
+						</row>
+					</tbody>
+				</tgroup>
+			</table>
+			<p>
+				<b>Example: </b>
+			</p>
+			<codeblock outputclass="language-xml">&lt;region-attributes&gt;
+  &lt;subscription-attributes 
+   interest-policy="all"/&gt;
+&lt;/region-attributes&gt;
+</codeblock>
+		</body>
+	</topic>
+	<topic id="topic_qsb_pnw_bm">
+		<title>&lt;cache-loader></title>
+		<shortdesc/>
+		<body>
+			<p>An event-handler plug-in that allows you to program for cache misses. At most, one
+				cache loader can be defined in each member for the region. For distributed regions,
+				a cache loader may be invoked remotely from other members that have the region
+				defined. When an entry get results in a cache miss in a region with a cache loader
+				defined, the loader’s <apiname>load</apiname> method is called. This method is
+				usually programmed to retrieve data from an outside data source, but it can do
+				anything required by your application. </p>
+			<p>For partitioned regions, if you want to have a cache loader, install an instance of
+				the cache loader in every data store. Partitioned regions support partitioned
+				loading, where each cache loader loads only the data entries in the local member. If
+				data redundancy is configured, data is loaded only if the local member holds the
+				primary copy.</p>
+			<p>
+				<b>API:</b>
+				<codeph>com.gemstone.gemfire.cache.RegionFactory.setCacheLoader</codeph>
+			</p>
+			<p>
+				<b>Example:</b>
+				<codeblock outputclass="language-xml">&lt;region-attributes&gt;
+  &lt;cache-loader&gt;
+    &lt;class-name&gt;quickstart.SimpleCacheLoader&lt;/class-name&gt;
+  &lt;/cache-loader&gt;
+&lt;/region-attributes&gt;</codeblock>
+			</p>
+		</body>
+	</topic>
+	<topic id="topic_h53_pnw_bm">
+		<title>&lt;cache-writer></title>
+		<shortdesc/>
+		<body>
+			<p>An event-handler plug-in that allows you to receive before-event notification for
+				changes to the region and its entries. It also has the ability to abort events. At
+				most, one cache writer can be defined in each member for the region. A cache writer
+				may be invoked remotely from other members that have the region defined.</p>
+			<p>
+				<b>API:</b>
+				<codeph>com.gemstone.gemfire.cache.RegionFactory.setCacheWriter</codeph>
+			</p>
+			<p>
+				<b>Example:</b>
+				<codeblock outputclass="language-xml">&lt;region-attributes&gt;
+  &lt;cache-writer&gt;
+    &lt;class-name&gt;quickstart.SimpleCacheWriter&lt;/class-name&gt;
+  &lt;/cache-writer&gt;
+&lt;/region-attributes&gt;</codeblock>
+			</p>
+		</body>
+	</topic>
+	<topic id="cache-listener">
+		<title>&lt;cache-listener&gt;</title>
+		<shortdesc> </shortdesc>
+		<body>
+			<p>An event-handler plug-in that receives after-event notification of changes to the
+				region and its entries. Any number of cache listeners can be defined for a region in
+				any member. <keyword keyref="product_name"/> offers several listener types with
+				callbacks to handle data and process events. Depending on the
+					<codeph>data-policy</codeph> and the <codeph>interest-policy</codeph>
+				subscription attributes, a cache listener may receive only events that originate in
+				the local cache, or it may receive those events along with events that originate
+				remotely. </p>
+			<p>Specify the Java class for the cache listener and its initialization parameters with
+				the <codeph>&lt;class-name&gt;</codeph> and <codeph>&lt;parameter&gt;</codeph>
+				sub-elements. See <xref format="dita" href="cache_xml.xml#class-name_parameter"
+					scope="local" type="topic"/>. </p>
+			<p>
+				<b>API: </b>
+				<codeph>com.gemstone.gemfire.cache.RegionFactory.addCacheListener</codeph>
+			</p>
+			<p>
+				<b>Example: </b>
+			</p>
+			<codeblock outputclass="language-xml">&lt;region-attributes&gt;
+  &lt;cache-listener&gt;
+    &lt;class-name&gt;
+      quickstart.SimpleCacheListener
+    &lt;/class-name&gt;
+  &lt;/cache-listener&gt;
+&lt;/region-attributes&gt;
+</codeblock>
+		</body>
+	</topic>
+	<topic id="topic_pcd_t25_44">
+		<title>&lt;compressor></title>
+		<body>
+			<p>A compressor registers a custom class that extends <codeph>Compressor</codeph> to
+				support compression on a region.</p>
+			<p>
+				<b>Example: </b>
+			</p>
+			<codeblock outputclass="language-xml"> ...
+&lt;compressor>
+&lt;class-name&gt;
+            &lt;parameter&gt;
+               &lt;string&gt;
+               &lt;declarable&gt;
+&lt;/compressor>
+...</codeblock>
+		</body>
+	</topic>
+	<topic id="eviction-attributes">
+		<title>&lt;eviction-attributes&gt;</title>
+		<shortdesc> </shortdesc>
+		<body>
+			<p>Specifies whether and how to control a region’s size. Size is controlled by removing
+				least recently used (LRU) entries to make space for new ones. This may be done
+				through destroy or overflow actions. You can configure your region for
+				lru-heap-percentage with an eviction action of local-destroy using <keyword
+					keyref="product_name"/>’s stored region attributes. </p>
+			<p><b>Default: </b> Uses the lru-entry-count algorithm. </p>
+			<p>
+				<b>API: </b>
+				<codeph>com.gemstone.gemfire.cache.RegionFactory.setEvictionAttributes</codeph>
+			</p>
+			<p>
+				<b>Example: </b>
+			</p>
+			<codeblock outputclass="language-xml">&lt;region-attributes&gt;
+  &lt;eviction-attributes&gt; 
+    &lt;lru-entry-count 
+      maximum="1000" 
+      action="overflow-to-disk"/&gt;
+  &lt;/eviction-attributes&gt;
+&lt;/region-attributes
+</codeblock>
+		</body>
+	</topic>
+	<topic id="lru-entry-count">
+		<title>&lt;lru-entry-count&gt;</title>
+		<shortdesc> </shortdesc>
+		<body>
+			<p>Using the maximum attribute, specifies maximum region capacity based on entry count. </p>
+			<table id="lru-entry-count_attributes">
+				<title>Attributes</title>
+				<tgroup cols="3">
+					<colspec colname="1" colnum="1" colwidth="1.6*"/>
+					<colspec colname="2" colnum="2" colwidth="4.1*"/>
+					<colspec colname="col3" colnum="3" colwidth="1*"/>
+					<thead>
+						<row>
+							<entry>Attribute </entry>
+							<entry>Description </entry>
+							<entry colname="col3">Default </entry>
+						</row>
+					</thead>
+					<tbody>
+						<row>
+							<entry>action </entry>
+							<entry>Set one of the following eviction actions: <p>
+									<simpletable frame="none"
+										id="simpletable_8E0C063A277C47ADBEDA44D554A6ED65">
+										<strow>
+											<stentry>local-destroy</stentry>
+											<stentry>Entry is destroyed locally. Not available for
+												replicated regions.</stentry>
+										</strow>
+										<strow>
+											<stentry>overflow-to-disk</stentry>
+											<stentry>Entry is overflowed to disk and the value set
+												to null in memory. For partitioned regions, this
+												provides the most reliable read behavior across the
+												region.</stentry>
+										</strow>
+									</simpletable>
+								</p>
+							</entry>
+							<entry colname="col3">local-destroy </entry>
+						</row>
+						<row>
+							<entry>maximum </entry>
+							<entry>The maximum number of entries allowed in a region. </entry>
+							<entry colname="col3"/>
+						</row>
+					</tbody>
+				</tgroup>
+			</table>
+		</body>
+	</topic>
+	<topic id="lru-heap-percentage">
+		<title>&lt;lru-heap-percentage&gt;</title>
+		<shortdesc> </shortdesc>
+		<body>
+			<p>Runs evictions when the <keyword keyref="product_name"/> resource manager says to.
+				The manager orders evictions when the total cache size is over the heap percentage
+				limit specified in the manager configuration. You can declare a Java class that
+				implements the ObjectSizer interface to measure the size of objects in the Region. </p>
+			<p>Specify the Java class and its initialization parameters with the
+					<codeph>&lt;class-name&gt;</codeph> and <codeph>&lt;parameter&gt;</codeph>
+				sub-elements. See <xref format="dita" href="cache_xml.xml#class-name_parameter"
+					scope="local" type="topic"><?xm-replace_text and ?></xref>. </p>
+			<table id="table_BE5E06D0A882475986AD06D396A6C9D5">
+				<title>Attributes</title>
+				<tgroup cols="3">
+					<colspec colname="1" colnum="1" colwidth="1.6*"/>
+					<colspec colname="2" colnum="2" colwidth="4.1in"/>
+					<colspec colname="col3" colnum="3" colwidth="1*"/>
+					<thead>
+						<row>
+							<entry>Attribute </entry>
+							<entry>Description </entry>
+							<entry colname="col3">Default </entry>
+						</row>
+					</thead>
+					<tbody>
+						<row>
+							<entry>action </entry>
+							<entry>Set one of the following eviction actions: <p>
+									<simpletable frame="none"
+										id="simpletable_76A13055FEE84E3A94253649DBA1FA07">
+										<strow>
+											<stentry>local-destroy</stentry>
+											<stentry>Entry is destroyed locally. Not available for
+												replicated regions.</stentry>
+										</strow>
+										<strow>
+											<stentry>overflow-to-disk</stentry>
+											<stentry>Entry is overflowed to disk and the value set
+												to null in memory. For partitioned regions, this
+												provides the most reliable read behavior across the
+												region.</stentry>
+										</strow>
+									</simpletable>
+								</p>
+							</entry>
+							<entry colname="col3">local-destroy </entry>
+						</row>
+					</tbody>
+				</tgroup>
+			</table>
+		</body>
+	</topic>
+	<topic id="lru-memory-size">
+		<title>&lt;lru-memory-size&gt;</title>
+		<shortdesc> </shortdesc>
+		<body>
+			<p>Using the maximum attribute, specifies maximum region capacity based on the amount of
+				memory used, in megabytes. You can declare a Java class that implements the
+				ObjectSizer interface to measure the size of objects in the Region. </p>
+			<p>Specify the Java class and its initialization parameters with the
+					<codeph>&lt;class-name&gt;</codeph> and <codeph>&lt;parameter&gt;</codeph>
+				sub-elements. See <xref format="dita" href="cache_xml.xml#class-name_parameter"
+					scope="local" type="topic"><?xm-replace_text and ?></xref>. </p>
+			<table id="table_FF23FEF0F5884955B7AA55370790F357">
+				<title>Attributes</title>
+				<tgroup cols="3">
+					<colspec colname="1" colnum="1" colwidth="1.6*"/>
+					<colspec colname="2" colnum="2" colwidth="4.1*"/>
+					<colspec colname="col3" colnum="3" colwidth="1*"/>
+					<thead>
+						<row>
+							<entry>Attribute </entry>
+							<entry>Description </entry>
+							<entry colname="col3">Default </entry>
+						</row>
+					</thead>
+					<tbody>
+						<row>
+							<entry>action </entry>
+							<entry>Set one of the following eviction actions: <p>
+									<simpletable frame="none"
+										id="simpletable_752CF50B6BA545228E50C48AA1E6CA06">
+										<strow>
+											<stentry>local-destroy</stentry>
+											<stentry>Entry is destroyed locally. Not available for
+												replicated regions.</stentry>
+										</strow>
+										<strow>
+											<stentry>overflow-to-disk</stentry>
+											<stentry>Entry is overflowed to disk and the value set
+												to null in memory. For partitioned regions, this
+												provides the most reliable read behavior across the
+												region.</stentry>
+										</strow>
+									</simpletable>
+								</p>
+							</entry>
+							<entry colname="col3">local-destroy </entry>
+						</row>
+						<row>
+							<entry>maximum </entry>
+							<entry>The maximum amount of memory used in the region, in megabytes. </entry>
+							<entry colname="col3"/>
+						</row>
+					</tbody>
+				</tgroup>
+			</table>
+		</body>
+	</topic>
+	<topic id="jndi-bindings">
+		<title>&lt;jndi-bindings&gt;</title>
+		<shortdesc> </shortdesc>
+		<body>
+			<p>Specifies the binding for a data-source used in transaction management. See <xref
+					format="dita"
+					href="../../developing/transactions/configuring_db_connections_using_JNDI.xml#topic_A5E3A67C808D48C08E1F0DC167C5C494"
+					scope="local" type="topic"/>. </p>
+			<p>
+				<b>Example: </b>
+			</p>
+			<codeblock outputclass="language-xml">&lt;jndi-bindings&gt;
+      &lt;jndi-binding type="<b>XAPooledDataSource</b>" 
+	jndi-name="<b>newDB2trans</b>" 
+	init-pool-size="<b>20</b>" 
+	max-pool-size="<b>100</b>"
+	idle-timeout-seconds="20"
+	blocking-timeout-seconds="<b>5</b>" 
+	login-timeout-seconds="<b>10</b>"
+	<b>xa-datasource-class="org.apache.derby.jdbc.EmbeddedXADataSource"</b>
+	user-name="mitul" 
+	password="<b>encrypted(83f0069202c571faf1ae6c42b4ad46030e4e31c17409e19a)</b>"&gt;
+         &lt;config-property&gt;
+          &lt;config-property-name&gt;<b>Description</b>&lt;/config-property-name&gt;
+          &lt;config-property-type&gt;<b>java.lang.String</b>&lt;/config-property-type&gt;
+          &lt;config-property-value&gt;<b>pooled_transact</b>&lt;/config-property-value&gt;
+       &lt;/config-property&gt;
+          &lt;config-property&gt;
+             &lt;config-property-name&gt;<b>DatabaseName</b>&lt;/config-property-name&gt;
+             &lt;config-property-type&gt;<b>java.lang.String</b>&lt;/config-property-type&gt;
+             &lt;config-property-value&gt;<b>newDB</b>&lt;/config-property-value&gt;
+          &lt;/config-property&gt;
+          &lt;config-property&gt;
+             &lt;config-property-name&gt;<b>CreateDatabase</b>&lt;/config-property-name&gt;
+             &lt;config-property-type&gt;<b>java.lang.String</b>&lt;/config-property-type&gt;
+             &lt;config-property-value&gt;<b>create</b>&lt;/config-property-value&gt;
+          &lt;/config-property&gt;		 
+       . . .
+      &lt;/jndi-binding&gt;
+   &lt;/jndi-bindings&gt;
+</codeblock>
+		</body>
+	</topic>
+	<topic id="jndi-binding">
+		<title>&lt;jndi-binding&gt;</title>
+		<body>
+			<p>For every datasource that is bound to the JNDI tree, there should be one
+					<codeph>&lt;jndi-binding&gt;</codeph> element. This element describes the
+				property and the configuration of the datasource. <keyword keyref="product_name"/>
+				uses the attributes of the <codeph>&lt;jndi-binding&gt;</codeph> element for
+				configuration. Use the <codeph>&lt;config-property&gt;</codeph> element to configure
+				properties for the datasource. </p>
+			<p>Pivotal recommends that you set the username and password with the
+					<codeph>user-name</codeph> and <codeph>password</codeph> jndi-binding attributes
+				rather than using the <codeph>&lt;config-property&gt;</codeph> element. </p>
+			<table id="table_ACB9FB992BD8456AB2052017C2B2CCB4">
+				<title>Attributes</title>
+				<tgroup cols="3">
+					<colspec colname="1" colnum="1" colwidth="1.6*"/>
+					<colspec colname="2" colnum="2" colwidth="4.1*"/>
+					<colspec colname="col3" colnum="3" colwidth="1*"/>
+					<thead>
+						<row>
+							<entry>Attribute </entry>
+							<entry>Description </entry>
+							<entry colname="col3">Default </entry>
+						</row>
+					</thead>
+					<tbody>
+						<row>
+							<entry>blocking-timeout-seconds </entry>
+							<entry>The number of seconds that a connection remains associated with a
+								transaction. If this value is exceeded, the connection is
+								disassociated from the transaction. </entry>
+							<entry colname="col3">120 </entry>
+						</row>
+						<row>
+							<entry>conn-pooled-datasource-class </entry>
+							<entry>Java class used for the <codeph>PooledDataSource</codeph> type. </entry>
+							<entry colname="col3"/>
+						</row>
+						<row>
+							<entry>connection-url </entry>
+							<entry>URL for connecting to the datasource. <note>If you are connecting
+									to a JCA data source driver that implements XA transactions
+									(where the jndi-binding type is <b>XAPooledDataSource</b>), do
+									not use this attribute. Instead, define configuration properties
+									for your database. See <xref href="#config-property"
+										format="dita"/> for an example.</note></entry>
+							<entry colname="col3"/>
+						</row>
+						<row>
+							<entry>idle-timeout-seconds </entry>
+							<entry>The maximum number of seconds that a connection can remain idle
+								in a pool. When this threshold is reached, the connection is
+								removed. </entry>
+							<entry colname="col3">600 </entry>
+						</row>
+						<row>
+							<entry>init-pool-size </entry>
+							<entry>The initial pool size of a PooledConnection (an XAConnection or a
+								non-XAConnection). </entry>
+							<entry colname="col3">10 </entry>
+						</row>
+						<row>
+							<entry>jdbc-driver-class </entry>
+							<entry>Java class used for the <codeph>SimpleDataSource</codeph> type. </entry>
+							<entry colname="col3"/>
+						</row>
+						<row>
+							<entry>jndi-name </entry>
+							<entry>The <codeph>jndi-name</codeph> attribute is the key binding
+								parameter. If the value of jndi-name is a DataSource, it is bound as
+								java:/myDatabase, where myDatabase is the name you assign to your
+								data source. If the data source cannot be bound to JNDI at runtime,
+									<keyword keyref="product_name"/> logs a warning. </entry>
+							<entry colname="col3"/>
+						</row>
+						<row>
+							<entry>login-timeout-seconds </entry>
+							<entry>
+								<p>The maximum number of seconds for which a thread seeking a
+									connection from a connection pool may be blocked. If the thread
+									is unable to obtain connection in the stipulated time, a
+										<apiname>PoolException</apiname> is thrown </p>
+								<p>If a connection is available the thread returns immediately. </p>
+								<p>If an existing connection is not available and the maximum number
+									of connections in the pool has not been reached, a new
+									connection is created and the thread returns immediately with
+									the connection. </p>
+								<p>If a connection is not available, the thread blocks for the
+									specified time while waiting for an available connection. </p>
+							</entry>
+							<entry colname="col3">30 </entry>
+						</row>
+						<row>
+							<entry>managed-conn-factory-class </entry>
+							<entry>If the Resource Adapter is of type
+									<apiname>ManagedDataSource</apiname>, this class becomes the
+								source of the <apiname>PooledConnection</apiname>. (This class
+								interface complies with the J2CA Java 2 Connector Architecture.) </entry>
+							<entry colname="col3"/>
+						</row>
+						<row>
+							<entry>max-pool-size </entry>
+							<entry> The maximum size of the PooledConnection. </entry>
+							<entry colname="col3">30 </entry>
+						</row>
+						<row>
+							<entry>password </entry>
+							<entry>Password to access the datasource. </entry>
+							<entry colname="col3"/>
+						</row>
+						<row>
+							<entry>transaction-type </entry>
+							<entry>When the <codeph>type</codeph> attribute is set to
+									<codeph>ManagedDataSource</codeph>, specifies the type of
+								transaction. Set one of the following
+									<codeph>transaction-type</codeph>s: <p>
+									<simpletable frame="all" id="simpletable_qsj_wkt_1j"
+										relcolwidth="1.0* 1.0*">
+										<strow>
+											<stentry>XATransaction</stentry>
+											<stentry>Select this option when you want to use
+												a<apiname>ManagedConnection</apiname> interface
+												with a Java Transaction Manager to define
+												transaction boundries. This option allows a
+												<apiname>ManagedDataSource</apiname> to
+												participate in a transaction with a <keyword
+												keyref="product_name"/> cache.</stentry>
+										</strow>
+										<strow>
+											<stentry>NoTransaction</stentry>
+											<stentry>No transactional behavior is used.</stentry>
+										</strow>
+										<strow>
+											<stentry>LocalTransaction</stentry>
+											<stentry>Select this option when using a
+												<apiname>ManagedDataSource</apiname> that is not
+												managed by the Java Transaction manager.</stentry>
+										</strow>
+									</simpletable>
+								</p>
+							</entry>
+							<entry colname="col3"> none </entry>
+						</row>
+						<row>
+							<entry>type </entry>
+							<entry>
+								<p>Set one of the following types: <simpletable
+										id="simpletable_8016BD8CDEDB452AB6F1B5A785BEACFB">
+										<strow>
+											<stentry>XAPooledDataSource</stentry>
+											<stentry>Pooled SQL connections. For this type, you must
+												also set the <codeph>xa-datasource-class</codeph>
+												attribute.</stentry>
+										</strow>
+										<strow>
+											<stentry>ManagedDataSource</stentry>
+											<stentry>JNDI binding type for the J2EE Connector
+												Architecture (JCA). ManagedConnectionFactory. For
+												information on the ManagedConnection interface, See:
+												<xref format="html"
+												href="http://docs.oracle.com/javaee/6/api/javax/resource/spi/ManagedConnection.html"
+												scope="external"
+												><?xm-replace_text http://docs.oracle.com/javaee/6/api/javax/resource/spi/ManagedConnection.html?></xref>.</stentry>
+										</strow>
+										<strow>
+											<stentry>PooledDataSource</stentry>
+											<stentry>Pooled SQL connections. For this type, you must
+												also set the
+												<codeph>conn-pooled-datasource-class</codeph>
+												attribute.</stentry>
+										</strow>
+										<strow>
+											<stentry>SimpleDataSource</stentry>
+											<stentry> Single SQL connection. No pooling of SQL
+												connections is done. Connections are generated on
+												the fly and cannot be reused. For this type, you
+												must also set the <codeph>jdbc-driver-class</codeph>
+												attribute.</stentry>
+										</strow>
+									</simpletable>
+								</p>
+							</entry>
+							<entry colname="col3">none </entry>
+						</row>
+						<row>
+							<entry>user-name </entry>
+							<entry>User name to access to the datasource. </entry>
+							<entry colname="col3"/>
+						</row>
+						<row>
+							<entry>xa-datasource-class </entry>
+							<entry>Java class used for the <codeph>XAPooledDataSource</codeph> type. </entry>
+							<entry colname="col3"/>
+						</row>
+					</tbody>
+				</tgroup>
+			</table>
+		</body>
+	</topic>
+	<topic id="config-property">
+		<title>&lt;config-property&gt;</title>
+		<shortdesc> </shortdesc>
+		<body>
+			<p>A configuration property of the datasource. Use the sub-elements to identify the
+				name, datatype, and value of the property. </p>
+			<p>
+				<b>Default: </b>
+			</p>
+			<p>
+				<b>API: </b>
+				<codeph/>
+			</p>
+			<p>
+				<b>Example: </b>
+			</p>
+			<codeblock outputclass="language-xml">
+&lt;config-property&gt;
+     &lt;config-property-name&gt;<b>DatabaseName</b>&lt;/config-property-name&gt;
+     &lt;config-property-type&gt;<b>java.lang.String</b>&lt;/config-property-type&gt;
+     &lt;config-property-value&gt;<b>newDB</b>&lt;/config-property-value&gt;
+&lt;/config-property&gt;
+
+</codeblock>
+			<p>Configuration properties vary depending on the database vendor. See <xref
+					href="../../developing/transactions/configuring_db_connections_using_JNDI.xml#topic_A5E3A67C808D48C08E1F0DC167C5C494"
+				/> for examples of different configuration property configurations.</p>
+		</body>
+	</topic>
+	<topic id="config-property-name">
+		<title>&lt;config-property-name&gt;</title>
+		<shortdesc> </shortdesc>
+		<body>
+			<p>The name of this datasource property. </p>
+		</body>
+	</topic>
+	<topic id="config-property-type">
+		<title>&lt;config-property-type&gt;</title>
+		<shortdesc> </shortdesc>
+		<body>
+			<p>The data type of this datasource property. </p>
+		</body>
+	</topic>
+	<topic id="config-property-value">
+		<title>&lt;config-property-value&gt;</title>
+		<shortdesc> </shortdesc>
+		<body>
+			<p>The value of this datasource property. </p>
+		</body>
+	</topic>
+	<topic id="region">
+		<title>&lt;region&gt;</title>
+		<shortdesc> </shortdesc>
+		<body>
+			<p>Defines a region in the cache. See <xref format="dita" href="#region-attributes"/>
+				for more details on configuring regions. You can specify zero or more subregions
+				within a region. See <xref
+					href="../../basic_config/data_regions/managing_data_regions.xml#data_regions/section_jn1_sry_5m"
+				/> for restrictions on creating subregions. For example, you cannot create a
+				partitioned subregion.</p>
+			<p>
+				<b>Default: </b>
+			</p>
+			<p><b>API: </b><codeph>com.gemstone.gemfire.cache.RegionFactory</codeph> or
+					<codeph>com.gemstone.gemfire.cache.ClientRegionFactory</codeph>
+			</p>
+			<table id="table_4D95B5BF161844CE8DE2E11A3ED40041">
+				<title>Attributes</title>
+				<tgroup cols="3">
+					<colspec colname="1" colnum="1" colwidth="1.6*"/>
+					<colspec colname="2" colnum="2" colwidth="4.1*"/>
+					<colspec colname="col3" colnum="3" colwidth="1*"/>
+					<thead>
+						<row>
+							<entry>Attribute </entry>
+							<entry>Description </entry>
+							<entry colname="col3">Default </entry>
+						</row>
+					</thead>
+					<tbody>
+						<row>
+							<entry colname="1">name </entry>
+							<entry colname="2">Specify the name for the region. See <xref
+									format="dita"
+									href="../../basic_config/data_regions/create_a_region_with_cacheXML.xml#create_a_region_with_cacheXML"
+									scope="local" type="task"/> for details. </entry>
+							<entry colname="col3"/>
+						</row>
+						<row>
+							<entry>refid </entry>
+							<entry>Used to apply predefined attributes to the region being defined.
+								If the nested "region-attributes" element has its own "refid", then
+								it will cause the "refid" on the region to be ignored. The "refid"
+								region attriibute can be set to the name of a RegionShortcut or a
+								ClientRegionShortcut. For more information, see <xref format="dita"
+									href="../../basic_config/data_regions/region_shortcuts.xml#region_shortcuts"
+									scope="local" type="concept"/> and <xref format="dita"
+									href="../../basic_config/data_regions/store_retrieve_region_shortcuts.xml#region_shortcuts"
+									scope="local" type="concept"/>. </entry>
+							<entry colname="col3"/>
+						</row>
+					</tbody>
+				</tgroup>
+			</table>
+			<p>
+				<b>Example: </b>
+			</p>
+			<codeblock outputclass="language-xml">
+&lt;!--Using region shortcut--&gt;
+&lt;region 
+  name="PartitionedRegion" 
+  <b>refid="PARTITIION_REDUNDANT"</b>&gt;
+...
+&lt;/region&gt;
+
+&lt;!-- Retrieving and storing attributes --&gt;
+&lt;region-attributes 
+  id="myPartition" 
+  refid="PARTITION_REDUNDANT"&gt;
+	&lt;partition-attributes 
+   local-max-memory="512"/&gt;
+&lt;/region-attributes&gt;
+
+&lt;!-- Attributes are retrieved and applied in the first region --&gt;
+&lt;region name="PartitionedRegion1" <b>refid="myPartition"</b>/&gt;
+</codeblock>
+			<p>See<xref format="dita" href="#region-attributes"/> for a complete listing of region
+				attributes. </p>
+		</body>
+	</topic>
+	<topic id="index">
+		<title>&lt;index&gt;</title>
+		<shortdesc> </shortdesc>
+		<body>
+			<p>Describes an index to be created on a region. The index node, if any, should all come
+				immediately after the "region-attributes" node. The "name" attribute is a required
+				field which identifies the name of the index. See <xref format="dita"
+					href="../../developing/query_index/query_index.xml#indexing" scope="local"
+					type="concept"/> for more information on indexes. You can create either a
+				functional index with the <codeph>&lt;functional&gt;</codeph> sub-element or a
+				primary-key index with the <codeph>&lt;primary-key&gt;</codeph> element. </p>
+			<p>
+				<b>Default: </b>
+			</p>
+			<p>
+				<b>API: </b>
+				<codeph>com.gemstone.gemfire.cache.query.QueryService.createIndex, createKeyIndex,
+					createHashIndex</codeph>
+			</p>
+			<table id="table_43625CFF95114DADB2F07052F3743BCC">
+				<title>Attributes</title>
+				<tgroup cols="3">
+					<colspec colname="1" colnum="1" colwidth="1.6*"/>
+					<colspec colname="2" colnum="2" colwidth="4.1*"/>
+					<colspec colname="col3" colnum="3" colwidth="1*"/>
+					<thead>
+						<row>
+							<entry>Attribute </entry>
+							<entry>Description </entry>
+							<entry colname="col3">Default </entry>
+						</row>
+					</thead>
+					<tbody>
+						<row>
+							<entry>name </entry>
+							<entry>Required. Name of the index. </entry>
+							<entry colname="col3"/>
+						</row>
+						<row>
+							<entry>from-clause </entry>
+							<entry>Specifies the collection(s) of objects that the index ranges
+								over. The from-clause must only contain one and only one region
+								path. </entry>
+							<entry colname="col3"/>
+						</row>
+						<row>
+							<entry>expression </entry>
+							<entry>Specifies the lookup value of the index. </entry>
+							<entry colname="col3"/>
+						</row>
+						<row>
+							<entry>imports </entry>
+							<entry>String containing the imports used to create the index. String
+								should be specified in the query language syntax with each import
+								statement separated by a semicolon. The imports statement provides
+								packages and classes used in variable typing in the indexed and FROM
+								expressions. </entry>
+							<entry colname="col3"/>
+						</row>
+						<row>
+							<entry>key-index </entry>
+							<entry>True or false. Whether the index should be a key index. If true,
+								the region key specified in the indexed expression is used to
+								evaluate queries </entry>
+							<entry colname="col3"/>
+						</row>
+						<row>
+							<entry>type </entry>
+							<entry>Possible values are "hash" or "range". </entry>
+							<entry colname="col3">range </entry>
+						</row>
+					</tbody>
+				</tgroup>
+			</table>
+			<p>
+				<b>Example: </b>
+			</p>
+			<codeblock outputclass="language-xml">&lt;region name=exampleRegion&gt;
+ &lt;region-attributes . . . &gt;
+ &lt;/region-attributes&gt;
+ &lt;index 
+  name="myIndex" 
+  from-clause="/exampleRegion" 
+  expression="status"/&gt;
+ &lt;index 
+  name="myKeyIndex" 
+  from-clause="/exampleRegion" 
+  expression="id" key-index="true"/&gt;
+ &lt;index 
+  name="myHashIndex" 
+  from-clause="/exampleRegion p" 
+  expression="p.mktValue" type="hash"/&gt;
+ ...
+&lt;/region&gt;</codeblock>
+		</body>
+	</topic>
+	<topic id="functional">
+		<title>&lt;functional&gt;</title>
+		<shortdesc> </shortdesc>
+		<body>
+			<p>Defines a functional index. Deprecated after GemFire 6.6.1. Use the
+					<codeph>type</codeph> attribute of <codeph>&lt;index></codeph> instead.</p>
+			<table id="table_C65C25E8B75C4DF798156A2E2180C43E">
+				<title>Attributes</title>
+				<tgroup cols="3">
+					<colspec colname="1" colnum="1" colwidth="1.6*"/>
+					<colspec colname="2" colnum="2" colwidth="4.1*"/>
+					<colspec colname="col3" colnum="3" colwidth="1*"/>
+					<thead>
+						<row>
+							<entry>Attribute </entry>
+							<entry>Description </entry>
+							<entry colname="col3">Default </entry>
+						</row>
+					</thead>
+					<tbody>
+						<row>
+							<entry>expression </entry>
+							<entry>Specifies the collection(s) of objects that the index ranges
+								over. The from-clause must only contain one and only one region
+								path. </entry>
+							<entry colname="col3"/>
+						</row>
+						<row>
+							<entry>from-clause </entry>
+							<entry>Specifies the lookup value of the index. </entry>
+							<entry colname="col3"/>
+						</row>
+						<row>
+							<entry>imports </entry>
+							<entry>String containing the imports used to create the index. String
+								should be specified in the query language syntax with each import
+								statement separated by a semicolon. The imports statement provides
+								packages and classes used in variable typing in the indexed and FROM
+								expressions. </entry>
+							<entry colname="col3"/>
+						</row>
+					</tbody>
+				</tgroup>
+			</table>
+		</body>
+	</topic>
+	<topic id="primary-key">
+		<title>&lt;primary-key&gt;</title>
+		<shortdesc> </shortdesc>
+		<body>
+			<p>Defines a primary-key index. Deprecated after GemFire 6.6.1. Use the
+					<codeph>key-index</codeph> attribute of <codeph>&lt;index></codeph> instead</p>
+			<table id="table_6ABEBC08A1D34B689FB2032C6BFE6934">
+				<title>Attributes</title>
+				<tgroup cols="3">
+					<colspec colname="1" colnum="1" colwidth="1.6*"/>
+					<colspec colname="2" colnum="2" colwidth="4.1*"/>
+					<colspec colname="col3" colnum="3" colwidth="1*"/>
+					<thead>
+						<row>
+							<entry>Attribute </entry>
+							<entry>Description </entry>
+							<entry colname="col3">Default </entry>
+						</row>
+					</thead>
+					<tbody>
+						<row>
+							<entry>field </entry>
+							<entry>The field used to create the primary-key index. </entry>
+							<entry colname="col3"/>
+						</row>
+					</tbody>
+				</tgroup>
+			</table>
+		</body>
+	</topic>
+	<topic id="entry">
+		<title>&lt;entry&gt;</title>
+		<shortdesc> </shortdesc>
+		<body>
+			<p>An "entry" element describes an entry to be added to a region. Note that if an entry
+				with the given key already exists in the region, it will be replaced. </p>
+			<p>
+				<b>Default: </b>
+			</p>
+			<p><b>API: </b>
+				<codeph>com.gemstone.gemfire.cache.Region.create</codeph>, <codeph>put</codeph>,
+					<codeph>get</codeph>, <codeph>putAll</codeph>, <codeph>getAll</codeph>
+			</p>
+			<p>
+				<b>Example: </b>
+			</p>
+			<codeblock outputclass="language-xml">&lt;region ...&gt;
+ &lt;region-attributes ...&gt;
+   ...
+ &lt;/region-attributes&gt;
+ &lt;entry&gt;
+   &lt;key&gt;&lt;string&gt;MyKey&lt;/string&gt;&lt;/key&gt;
+   &lt;value&gt;&lt;string&gt;MyValue&lt;/string&gt;&lt;/value&gt;
+ &lt;/entry&gt;
+&lt;/region&gt;
+
+</codeblock>
+		</body>
+	</topic>
+	<topic id="key">
+		<title>&lt;key&gt;</title>
+		<shortdesc> </shortdesc>
+		<body>
+			<p>Required. Describes the key in a region entry. A key can contain either a
+				&lt;string&gt; or a &lt;declarable&gt; sub-element. </p>
+		</body>
+	</topic>
+	<topic conref="#string" id="topic_A078318F712F4247949DAE2287AB200A">
+		<title>&lt;template&gt;</title>
+		<shortdesc>?? </shortdesc>
+		<body/>
+	</topic>
+	<topic conref="#declarable" id="topic_F13E9F4907E6424E8BB117CE45BD8D42">
+		<title><?xm-replace_text Topic Title?></title>
+		<shortdesc>?? </shortdesc>
+		<body>
+			<p>??P </p>
+		</body>
+	</topic>
+	<topic id="value">
+		<title>&lt;value&gt;</title>
+		<shortdesc> </shortdesc>
+		<body>
+			<p>Required. Describes the value of a region entry. A <codeph>&lt;value&gt;</codeph> can
+				contain either a <codeph>&lt;string&gt;</codeph> or a
+					<codeph>&lt;declarable&gt;</codeph> sub-element. </p>
+		</body>
+	</topic>
+	<topic conref="#string" id="topic_356674E93DE14A93849E2142ED363079">
+		<title>&lt;template&gt;</title>
+		<shortdesc>?? </shortdesc>
+		<body/>
+	</topic>
+	<topic conref="#declarable" id="topic_37650AC8AB054B6092458D8D0281D6C5">
+		<title><?xm-replace_text Topic Title?></title>
+		<shortdesc>?? </shortdesc>
+		<body>
+			<p>??P </p>
+		</body>
+	</topic>
+	<topic id="region_region">
+		<title>&lt;region&gt;</title>
+		<shortdesc> </shortdesc>
+		<body>
+			<p> When nested within a <codeph>&lt;region&gt;</codeph> element, defines a subregion.
+				See <xref
+					href="../../basic_config/data_regions/managing_data_regions.xml#data_regions/section_jn1_sry_5m"
+				/> for restrictions on creating subregions. For example, you cannot create a
+				partitioned subregion.</p>
+			<p>See <xref format="dita" href="cache_xml.xml#region" scope="local" type="topic"/>
+			</p>
+		</body>
+	</topic>
+	<topic id="vm-root-region">
+		<title>&lt;vm-root-region&gt;</title>
+		<shortdesc> </shortdesc>
+		<body>
+			<p>DEPRECATED </p>
+		</body>
+	</topic>
+	<topic id="function-service">
+		<title>&lt;function-service&gt;</title>
+		<shortdesc> </shortdesc>
+		<body>
+			<p>Configures the behavior of the function execution service. </p>
+			<p>
+				<b>Example: </b>
+			</p>
+			<codeblock outputclass="language-xml">&lt;cache&gt;
+    ...
+    &lt;/region&gt;
+&lt;function-service&gt;
+  &lt;function&gt;
+    &lt;class-name&gt;com.myCompany.tradeService.cache.func.TradeCalc&lt;/class-name&gt;
+  &lt;/function&gt;
+&lt;/function-service&gt;
+</codeblock>
+		</body>
+	</topic>
+	<topic id="function">
+		<title>&lt;function&gt;</title>
+		<shortdesc> </shortdesc>
+		<body>
+			<p>Defines a function for registration in the function service </p>
+			<p>Specify the Java class for the function and its initialization parameters with the
+					<codeph>&lt;class-name&gt;</codeph> and <codeph>&lt;parameter&gt;</codeph>
+				sub-elements. See <xref format="dita" href="cache_xml.xml#class-name_parameter"
+					scope="local" type="topic"/>. </p>
+			<p>
+				<b>Default: </b>
+			</p>
+			<p>
+				<b>API: </b>
+				<codeph>com.gemstone.gemfire.cache.execute.FunctionService</codeph>
+			</p>
+			<p>
+				<b>Example: </b>
+			</p>
+			<codeblock outputclass="language-xml">&lt;function&gt;
+  &lt;class-name&gt;
+    com.myCompany.tradeService.cache.func.TradeCalc
+  &lt;/class-name&gt;
+&lt;/function&gt;
+</codeblock>
+		</body>
+	</topic>
+	<topic id="resource-manager">
+		<title>&lt;resource-manager&gt;</title>
+		<shortdesc> </shortdesc>
+		<body>
+			<p>A memory monitor that tracks cache size as a percentage of total tenured heap and
+				controls size by restricting access to the cache and prompting eviction of old
+				entries from the cache. Used in conjunction with settings for JVM memory and Java
+				garbage collection. </p>
+			<p>
+				<b>API: </b>
+				<codeph>com.gemstone.gemfire.cache.control.ResourceManager</codeph>
+			</p>
+			<table id="table_1132A19E9DC54A67B8C7A625338E346D">
+				<title>Attributes </title>
+				<tgroup cols="3">
+					<colspec colname="1" colnum="1" colwidth="1.6*"/>
+					<colspec colname="2" colnum="2" colwidth="4.1*"/>
+					<colspec colname="col3" colnum="3" colwidth="1*"/>
+					<thead>
+						<row>
+							<entry>Attribute </entry>
+							<entry>Description </entry>
+							<entry colname="col3">Default </entry>
+						</row>
+					</thead>
+					<tbody>
+						<row>
+							<entry>critical-heap-percentage </entry>
+							<entry>Percentage of heap at or above which the cache is considered in
+								danger of becoming inoperable due to garbage collection pauses or
+								out of memory exceptions. </entry>
+							<entry colname="col3">0 </entry>
+						</row>
+						<row>
+							<entry>eviction-heap-percentage </entry>
+							<entry>
+								<p>Set the percentage of heap at or above which the eviction should
+									begin on Regions configured for HeapLRU eviction. </p>
+								<p>Changing this value may cause eviction to begin immediately. </p>
+								<p>Only one change to this attribute or critical heap percentage
+									will be allowed at any given time and its effect will be fully
+									realized before the next change is allowed. This feature
+									requires additional VM flags to perform properly. See
+										<codeph>setCriticalHeapPercentage()</codeph> for details.
+								</p>
+							</entry>
+							<entry colname="col3">
+								<ul id="ul_A07F93B86A05498F901C1B07291E0FE7">
+									<li id="li_9D1C806315DE4F41BD27519A626741E2">0, If no region is
+										configured with heap eviction </li>
+									<li id="li_4E428613B42940CB9D0A96AE6D7C8FB9">If
+											<codeph>critical-heap-percentage</codeph> is set to a
+										non-zero value, 5% less than that value. </li>
+									<li id="li_AD34B3A77DB44F72A46E7BA3DB1190BD">80%, if
+											<codeph>critical-heap-percentage</codeph> is not
+										configured. </li>
+								</ul>
+							</entry>
+						</row>
+					</tbody>
+				</tgroup>
+			</table>
+			<p>
+				<b>Example: </b>
+			</p>
+			<codeblock outputclass="language-xml">&lt;cache>
+...
+   &lt;resource-manager 
+      critical-heap-percentage="99.9" 
+      eviction-heap=-percentage="85"/>
+...
+&lt;/cache>
+</codeblock>
+		</body>
+	</topic>
+	<topic id="serialization-registration">
+		<title>&lt;serialization-registration&gt;</title>
+		<shortdesc> </shortdesc>
+		<body>
+			<p>Set of serializer or instantiator tags to register customer DataSerializer extensions
+				or DataSerializable implementations respectively. </p>
+			<p>
+				<b>Example: </b>
+			</p>
+			<codeblock outputclass="language-xml">&lt;serialization-registration&gt;
+    &lt;instantiator id="30"&gt;        
+       &lt;class-name&gt;com.package.MyClass&lt;/class-name&gt;
+    &lt;/instantiator&gt;
+&lt;/serialization-registration&gt; 
+</codeblock>
+		</body>
+	</topic>
+	<topic id="serializer">
+		<title>&lt;serializer&gt;</title>
+		<shortdesc> </shortdesc>
+		<body>
+			<p>Allows you to configure the DataSerializer for this <keyword keyref="product_name"/>
+				member. It registers a custom class which extends DataSerializer to support custom
+				serialization of non-modifiable object types inside <keyword keyref="product_name"
+				/>. </p>
+			<p>Specify the Java class for the <codeph>DataSerializer</codeph> and its initialization
+				parameters with the <codeph>&lt;class-name&gt;</codeph> sub-element. </p>
+			<p><b>API: </b> You can also register a <codeph>DataSerializer</codeph> by using the
+					<codeph>com.gemstone.gemfire.DataSerializer.register</codeph> API. Use the
+					<codeph>com.gemstone.gemfire.Instantiator</codeph> API to register a
+					<codeph>DataSerializable</codeph> implementation. </p>
+		</body>
+	</topic>
+	<topic id="instantiator">
+		<title>&lt;instantiator&gt;</title>
+		<shortdesc> </shortdesc>
+		<body>
+			<p>An Instantiator registers a custom class which implements the
+					<codeph>DataSerializable</codeph> interface to support custom object
+				serialization inside <keyword keyref="product_name"/>. </p>
+			<p>Specify the Java class and its initialization parameters with the
+					<codeph>&lt;class-name&gt;</codeph> sub-element. </p>
+			<p>
+				<b>API: </b>
+				<codeph>DataSerializable</codeph>
+			</p>
+			<p>You can also directly specify <codeph>&lt;instantiator&gt;</codeph> as a sub-element
+				of <codeph>&lt;cache&gt;</codeph>. Use the
+					<codeph>com.gemstone.gemfire.Instantiator</codeph> API to register a
+					<codeph>DataSerializable</codeph> implementation as the serialization framework
+				for the cache. The following table lists the attribute that can be specified for an
+					<codeph>&lt;instantiator&gt;</codeph>. </p>
+			<table id="table_AEEBB1AB95174276B95861A55C07FBB1">
+				<title>Attributes</title>
+				<tgroup cols="3">
+					<colspec colname="1" colnum="1" colwidth="1.6*"/>
+					<colspec colname="2" colnum="2" colwidth="4.1*"/>
+					<colspec colname="col3" colnum="3" colwidth="1*"/>
+					<thead>
+						<row>
+							<entry>Attribute </entry>
+							<entry>Description </entry>
+							<entry colname="col3">Default </entry>
+						</row>
+					</thead>
+					<tbody>
+						<row>
+							<entry>id </entry>
+							<entry>Required. ID that the Instantiator should associate with the
+									<codeph>DataSerializable</codeph> type. </entry>
+							<entry colname="col3"/>
+						</row>
+					</tbody>
+				</tgroup>
+			</table>
+		</body>
+	</topic>
+	<topic id="backup">
+		<title>&lt;backup></title>
+		<shortdesc> </shortdesc>
+		<body>
+			<p>Defines additional files or directories that should be backed up when the system wide
+				backup command is invoked. Disk stores with persistent data are automatically backed
+				up and do not need to be listed with this element. </p>
+			<p>
+				<b>Example: </b>
+			</p>
+			<codeblock outputclass="language-xml">&lt;backup&gt;./systemConfig/gf.jar&lt;/backup&gt;
+&lt;backup&gt;/users/jpearson/gfSystemInfo/myCustomerConfig.doc&lt;/backup&gt;
+</codeblock>
+		</body>
+	</topic>
+	<topic id="initializer">
+		<title>&lt;initializer></title>
+		<shortdesc> </shortdesc>
+		<body>
+			<p>Used to specify a callback class (and optionally its parameters) that will be run
+				after the cache is initialized. This element can be specified for both server and
+				client caches. </p>
+			<p>Specify the Java class and its initialization parameters with the
+					<codeph>&lt;class-name&gt;</codeph> and <codeph>&lt;parameter&gt;</codeph>
+				sub-elements. See <xref format="dita" href="cache_xml.xml#class-name_parameter"
+					scope="local" type="topic"/>. </p>
+			<p>
+				<b>Default: </b>
+			</p>
+			<p>
+				<b>API: </b>
+				<codeph>Declarable</codeph>
+			</p>
+			<p>
+				<b>Example: </b>
+			</p>
+			<codeblock outputclass="language-xml">&lt;initializer>
+   &lt;class-name&gt;MyInitializer&lt;/class-name&gt;
+      &lt;parameter name="members"&gt;
+         &lt;string&gt;2&lt;/string&gt;
+      &lt;/parameter&gt;
+&lt;/initializer&gt;
+</codeblock>
+		</body>
+	</topic>
+	<topic conref="#declarable" id="topic_BDE840596CD24A7A8754A56E7D31FE3F">
+		<title><?xm-replace_text Topic Title?></title>
+		<shortdesc>?? </shortdesc>
+		<body>
+			<p>??P </p>
+		</body>
+	</topic>
+	<topic id="class-name_parameter">
+		<title>&lt;class-name&gt; and &lt;parameter&gt;</title>
+		<shortdesc> </shortdesc>
+		<body>
+			<p>Specify the name of a Java class with the <codeph>&lt;class-name&gt;</codeph>
+				sub-element. </p>
+			<p>Specify initialization parameters for the class using the
+					<codeph>&lt;parameter&gt;</codeph> sub-element. Use the <codeph>name</codeph>
+				attribute to specify the name of the parameter and specify its value in the content
+				of the <xref format="dita" href="cache_xml.xml#string" scope="local" type="topic"
+					>&lt;string&gt;</xref> sub-element or by specifying a Java class with the <xref
+					format="dita" href="cache_xml.xml#declarable" scope="local" type="topic"
+					>&lt;declarable&gt;</xref> sub-element. </p>
+			<p>
+				<b>Example: </b>
+			</p>
+			<p>The following transaction writer configuration example specifies a Java class named
+					<codeph>com.company.data.MyTransactionWritet</codeph>. The class is initialized
+				with a parameter named <codeph>URL</codeph> whose value is
+					<codeph>jdbc:cloudscape:rmi:MyData</codeph>.
+				<codeblock outputclass="language-xml">&lt;transaction-writer&gt;
+       &lt;class-name&gt;com.company.data.MyTransactionWriter&lt;/class-name&gt;
+       &lt;parameter name="URL"&gt;
+         &lt;string&gt;jdbc:cloudscape:rmi:MyData&lt;/string&gt;
+       &lt;/parameter&gt;
+&lt;/transaction-writer&gt;
+</codeblock>
+			</p>
+		</body>
+	</topic>
+	<topic id="declarable">
+		<title>&lt;declarable&gt;</title>
+		<shortdesc> </shortdesc>
+		<body>
+			<p>Specifies a Declarable object to be placed in a Region entry. </p>
+			<p>Specify the Java class and its initialization parameters with the
+					<codeph>&lt;class-name&gt;</codeph> and <codeph>&lt;parameter&gt;</codeph>
+				sub-elements. See <xref format="dita" href="cache_xml.xml#class-name_parameter"
+					scope="local" type="topic"/>. </p>
+			<p>
+				<b>API: </b>
+				<codeph>Declarable</codeph>
+			</p>
+			<p>
+				<b>Example: </b>
+			</p>
+			<codeblock outputclass="language-xml">&lt;parameter name="cacheserver"&gt;
+  &lt;declarable&gt;
+    &lt;class-name&gt;com.gemstone.gemfire.addon.cache.CacheServerInitializer&lt;/class-name&gt;
+	&lt;parameter name="system.property.prefix"&gt;
+  	&lt;string&gt;cacheserver&lt;/string&gt;
+	&lt;/parameter&gt;
+  &lt;/declarable&gt;
+&lt;/parameter&gt;</codeblock>
+		</body>
+	</topic>
+	<topic id="string">
+		<title>&lt;string&gt;</title>
+		<shortdesc> </shortdesc>
+		<body>
+			<p>Specifies a String to be placed in a Region entry. </p>
+			<p>
+				<b>Example: </b>
+			</p>
+			<codeblock outputclass="language-xml">&lt;region ...&gt;
+ &lt;region-attributes ...&gt;
+   ...
+ &lt;/region-attributes&gt;
+ &lt;entry&gt;
+   &lt;key&gt;&lt;string&gt;MyKey&lt;/string&gt;&lt;/key&gt;
+   &lt;value&gt;&lt;string&gt;MyValue&lt;/string&gt;&lt;/value&gt;
+ &lt;/entry&gt;
+&lt;/region&gt;
+</codeblock>
+		</body>
+	</topic>
+</dita>

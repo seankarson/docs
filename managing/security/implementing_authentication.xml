@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "http://docs.oasis-open.org/dita/v1.1/OS/dtd/concept.dtd">
+<concept id="implementing_authentication">
+	<title>Implementing Authentication</title>
+	<shortdesc><keyword keyref="product_name_long"/> provides a flexible framework for your security
+		authentication plug-ins. You choose the method of authentication, such as LDAP or PKCS, and
+		program the plug-ins accordingly. </shortdesc>
+	<conbody>
+		<section id="section_C31BA8EEE6134F0EBE6761D70EF7DE41">
+			<title>Procedure</title>
+			<p> Use the following procedure to implement authentication in your <keyword
+					keyref="product_name"/> application: <ol
+					id="ol_5F8DECE10E674BFFA9E9F508415721F1">
+					<li id="li_59EE39C99DCA480C85FA9754574CA15F">Determine the method of
+						authentication, such as LDAP or PKCS, that you will use. It is assumed that
+						you know how to use it. </li>
+					<li id="li_B133CD2FA7A9412DA349CA5E59765626">Determine any special properties
+						required for your authentication's credentials initialization and decide how
+						you will get the properties to the initialization method. Depending on how
+						sensitive the properties are and on your application requirements, you may
+						do a combination of these: <ul id="ul_1CED196973C340509CC719B2D97F7EB0">
+							<li id="li_ED12929AB0924D2C91497F2182F00B1E">Pass the additional
+								properties through the <codeph>gemfire.properties</codeph> file (or
+									<codeph>gfsecurity.properties</codeph> file if you are creating
+								a special restricted access file for security configuration)
+								settings or programmatically, using the <codeph>set</codeph> methods
+								in the <codeph>ClientCacheFactory</codeph>, before the call to the
+									<codeph>create</codeph> method. All properties starting with
+									<codeph>security-</codeph> are automatically passed to the
+									<codeph>AuthInitialize</codeph> implementation. </li>
+							<li id="li_EF965B5249804034AABB4546D4DA8C60">Obtain the properties
+								dynamically in the <codeph>AuthInitialize.getCredentials</codeph>
+								method. </li>
+						</ul>
+					</li>
+					<li id="li_E8D8CD0EE5B047AFA26AFAAC19B07B06">For joining members, program and
+						configure the credentials initialization plug-in: <ol
+							id="ol_18FD60544F3240EE92F73632E9170363">
+							<li id="li_24A7343F13C94EBF84FB091995D77064">Create an implementation of
+								the <keyword keyref="product_name"/>
+								<codeph>com.gemstone.gemfire.security.AuthInitialize</codeph>
+								interface. <ol id="ol_7A076E5AFE094FCBBAB67444DEBB08D3">
+									<li id="li_85B1A8BA63654C7C8125EB03CA9E4304">Program a public
+										static method to return an instance of the class. </li>
+									<li id="li_D8DCFC163D724E93A59CD89B0DC2703F">Program the
+											<codeph>getCredentials</codeph> method to create all
+										properties required by the <codeph>Authorize</codeph> method
+										via the member's credentials. </li>
+								</ol>
+							</li>
+							<li id="li_16D6962F468D4E5D8FB5F3647A1C3205">For peers and locators, set
+								the <codeph>gemfire.properties</codeph> (or
+									<codeph>gfsecurity.properties</codeph> file if you are creating
+								a special restricted access file for security configuration)
+									<codeph>security-peer-auth-init</codeph> to the fully qualified
+								name of the static method you programmed that returns an instance of
+								the class. In these examples, the method is named
+									<codeph>create</codeph>. Example:
+								<codeblock>//Peer init example where myAuthInitImpl.create returns the 
+//instance of AuthInitialize 
+security-peer-auth-init=myAuthPkg.myAuthInitImpl.create</codeblock>
+							</li>
+							<li id="li_6EC717D17BF848BD8CE40BEB9C7CAD77">For clients, set the
+									<codeph>gemfire.properties</codeph> (or
+									<codeph>gfsecurity.properties</codeph> file if you are creating
+								a special restricted access file for security configuration)
+									<codeph>security-client-auth-init</codeph> to the fully
+								qualified name of the method you programmed that returns an instance
+								of the AuthInitialize class. Example:
+								<codeblock>//Client init example where myAuthInitImpl.create returns 
+//the instance of AuthInitialize 
+security-client-auth-init=myAuthPkg.myAuthInitImpl.create</codeblock>
+							</li>
+							<li id="li_D84B3FBDB76C4D00BA70A523C4B2D4CE">For all members, set any
+								additional <codeph>gemfire.properties</codeph> (or
+									<codeph>gfsecurity.properties</codeph> file if you are creating
+								a special restricted access file for security configuration)
+									<codeph>security-*</codeph> properties required by your
+									<codeph>AuthInitialize</codeph> implementation. </li>
+						</ol>
+					</li>
+					<li id="li_73CE792453D44E59816DA29C654C3495">For authorizing members, program
+						and configure the credentials authorization plug-in: <ol
+							id="ol_796CF06C67B94C8A8C118BC318FCC704">
+							<li id="li_14810975F47B4F22BBF9CB9ECC626ADC">Implement the <keyword
+									keyref="product_name"/>
+								<codeph>com.gemstone.gemfire.security.Authenticator</codeph>
+								interface: <ol id="ol_6A51E84A38974516B4AFBAE6C380CA71">
+									<li id="li_62C63A333BAC4248BA1161B4A3FA271D">Program a public
+										static, zero-argument method to return an instance of the
+										class. </li>
+									<li id="li_49F62BEB2C0D44A0A0F61E9664BE6552">Program the
+											<codeph>authenticate</codeph> method to authenticate the
+										credentials and return a
+											<codeph>java.security.Principal</codeph> object. </li>
+								</ol>
+							</li>
+							<li id="li_3F0E20BCB19C45389E3588239EEF1356">For peers and locators set
+								the <codeph>gemfire.properties</codeph> (or
+									<codeph>gfsecurity.properties</codeph> file if you are creating
+								a special restricted access file for security configuration)
+									<codeph>security-peer-authenticator</codeph> to the fully
+								qualified name of the method that returns an instance of the
+									<codeph>Authenticator</codeph> class. Example:
+								<codeblock>//Peer auth example where myAuthenticatorImpl.create 
+//returns the instance of Authenticator
+security-peer-authenticator=myAuthPkg.myAuthenticatorImpl.create</codeblock>
+							</li>
+							<li id="li_1D914E2476B14B6E99DC58ED7D82B187">For servers, set the
+									<codeph>gemfire.properties</codeph> (or
+									<codeph>gfsecurity.properties</codeph> file if you are creating
+								a special restricted access file for security
+									configuration)<codeph>security-client-authenticator</codeph> to
+								the fully qualified name of the method that returns an instance of
+								the Authenticator class. Example:
+								<codeblock>//Client auth example where myAuthenticatorImpl.create 
+//returns the instance of Authenticator
+security-client-authenticator=myAuthPkg.myAuthenticatorImpl.create</codeblock>
+							</li>
+							<li id="li_71AC6C0827024DA0957F17F2F561956E">For all members, set any
+								additional <codeph>gemfire.properties</codeph> (or
+									<codeph>gfsecurity.properties</codeph> file if you are creating
+								a special restricted access file for security
+									configuration)<codeph>security-*</codeph> properties required by
+								your <codeph>Authenticator</codeph> implementation. </li>
+						</ol>
+					</li>
+					<li id="li_8C0AF19AB3D04F4F893B9307894880D2">For all members, provide the list
+						of authenticated locators in the <codeph>gemfire.properties</codeph>. </li>
+				</ol>
+			</p>
+		</section>
+		<section id="section_0ECD014AA498429FA72B1DB8FB9C040B">
+			<title>Locators That Require Authentication</title>
+			<p>Co-located locators, such as those started with the LocatorLauncher API, do not
+				require security settings because they do not join the distributed system as
+				individual members. </p>
+			<p>All other standalone locators, including those started with the <codeph>gfsh start
+					locator</codeph> command must be configured with the correct security settings.
+			</p>
+		</section>
+	</conbody>
+</concept>

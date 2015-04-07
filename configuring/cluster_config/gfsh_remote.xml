@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE task PUBLIC "-//OASIS//DTD DITA Task//EN" "task.dtd">
+<task
+    id="task_nyb_mhn_44">
+    <title>Using gfsh to Manage a Remote Cluster Over HTTP or HTTPS</title>
+    <shortdesc>You can connect gfsh via HTTP or HTTPS to a remote cluster and manage the cluster
+        using gfsh commands. </shortdesc>
+    <taskbody>
+        <context>
+            <p>To connect gfsh using the HTTP protocol to a remote GemFire cluster:</p>
+        </context>
+        <steps>
+            <step>
+                <cmd>Launch gfsh. See <xref
+                        href="../../tools_modules/gfsh/starting_gfsh.xml#concept_DB959734350B488BBFF91A120890FE61"/>.
+                </cmd>
+            </step>
+            <step>
+                <cmd>When starting the remote cluster on the remote host, you can optionally specify
+                        <codeph>--http-bind-address</codeph> and
+                        <codeph>--http-service-port</codeph> as GemFire properties when starting up
+                    your JMX manager (server or locator). These properties can be then used in the
+                    URL used when connecting from your local system to the HTTP service in the
+                    remote cluster. For example:</cmd>
+                <stepresult>
+                    <p><codeblock>gfsh>start server --name=server1 --J=-Dgemfire.jmx-manager=true \
+--J=-Dgemfire.jmx-manager-start=true -J=-Dgemfire.http-service-port=8080 \
+--J=-Dgemfire.http-service-bind-address=my.remote.cluster</codeblock>This
+                        command must be executed directly on the host machine that will ultimately
+                        act as the remote GemFire server that hosts the HTTP service for remote
+                        administration. (You cannot launch a GemFire server remotely.)</p>
+                </stepresult>
+            </step>
+            <step>
+                <cmd>On your local system, run the gfsh <cmdname>connect</cmdname> command to
+                    connect to the remote system. Include the <codeph>--use-http</codeph> and
+                        <codeph>--url</codeph> parameters. For example:</cmd>
+                <stepresult>
+                    <codeblock>gfsh>connect --use-http=true --url="http://my.remote.cluster:8080/gemfire/v1"
+
+Successfully connected to: GemFire Manager's HTTP service @ http://my.remote.cluster:8080/gemfire/v1</codeblock>
+                    <p>See <xref
+                            href="../../tools_modules/gfsh/command-pages/connect.xml#concept_C2DCEE6743304549825C9B62E66DBADF"/>.</p>
+                    <p>gfsh is now connected to the remote system. Most gfsh commands will now
+                        execute on the remote system; however, there are exceptions. The following
+                        commands are executed on the local cluster :</p>
+                    <ul
+                        id="ul_orq_pbc_rq">
+                        <li><codeph>alter disk-store</codeph>
+                        </li>
+                        <li><codeph>compact offline-disk-store</codeph>
+                        </li>
+                        <li><codeph>describe offline-disk-store</codeph>
+                        </li>
+                        <li><codeph>help</codeph>
+                        </li>
+                        <li><codeph>hint</codeph>
+                        </li>
+                        <li><codeph>sh</codeph> (for executing OS commands)</li>
+                        <li><codeph>sleep</codeph>
+                        </li>
+                        <li><codeph>start jconsole</codeph> (however, you can connect JConsole to a
+                            remote cluster when gfsh is connected to the cluster via JMX)</li>
+                        <li><codeph>start jvisualvm</codeph>
+                        </li>
+                        <li><codeph>start locator</codeph>
+                        </li>
+                        <li><codeph>start server</codeph>
+                        </li>
+                        <li><codeph>start vsd</codeph>
+                        </li>
+                        <li><codeph>status locator</codeph>*</li>
+                        <li><codeph>status server</codeph>*</li>
+                        <li><codeph>stop locator</codeph>*</li>
+                        <li><codeph>stop server</codeph>*</li>
+                        <li><codeph>run</codeph> (for executing gfsh scripts)</li>
+                        <li><codeph>validate disk-store</codeph>
+                        </li>
+                        <li><codeph>version</codeph>
+                        </li>
+                    </ul>
+                    <p>* You can stop and obtain the status of <i>remote locators and servers </i>
+                        when gfsh is connected to the cluster via JMX or HTTP/S by using the
+                            <codeph>--name</codeph> option for these
+                            <codeph>stop</codeph>/<codeph>status</codeph> commands. If you are using
+                        the <codeph>--pid</codeph> or <codeph>--dir</codeph> option for these
+                        commands, then the<codeph> stop</codeph>/<codeph>status</codeph> commands
+                        are executed only locally.</p>
+                </stepresult>
+            </step>
+        </steps>
+        <postreq>
+            <p>To configure SSL for the remote connection (HTTPS), specify the GemFire configuration
+                parameters in <filepath>gemfire.properties</filepath> or
+                    <filepath>gfsecurity-properties</filepath> or upon server startup:</p>
+            <ul
+                id="ul_old_3cc_rq">
+                <li>http-service-ssl-enabled</li>
+                <li>http-service-ssl-require-authentication</li>
+                <li>http-service-ssl-protocols</li>
+                <li>http-service-ssl-ciphers</li>
+                <li>http-service-ssl-keystore</li>
+                <li>http-service-ssl-keystore-password</li>
+                <li>http-service-ssl-keystore-type</li>
+                <li>http-service-ssl-truststore</li>
+                <li>http-service-ssl-truststore-password</li>
+            </ul>
+            <p
+                dir="ltr">See <xref
+                    href="../../managing/security/ssl_overview.xml#ssl"/> for details on configuring
+                these parameters.</p>
+            <p
+                dir="ltr">The above parameters also apply to all HTTP services hosted on the
+                configured JMX Manager, which can include the following:</p>
+            <ul
+                id="ul_mmd_3cc_rq">
+                <li>Developer REST API service</li>
+                <li>Pulse monitoring tool</li>
+            </ul>
+        </postreq>
+    </taskbody>
+</task>

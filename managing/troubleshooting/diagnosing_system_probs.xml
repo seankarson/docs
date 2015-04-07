@@ -1,0 +1,943 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "http://docs.oasis-open.org/dita/v1.1/OS/dtd/concept.dtd">
+<concept id="diagnosing_system_probs">
+	<title>Diagnosing System Problems</title>
+	<shortdesc>This section provides possible causes and suggested responses for system problems. </shortdesc>
+	<prolog>
+		<metadata>
+			<keywords>
+				<keyword>gemfire troubleshooting</keyword>
+				<keyword>gemfire system problems</keyword>
+			</keywords>
+		</metadata>
+	</prolog>
+	<conbody>
+		<ul id="ul_DCBB82D70CEF4C60A0AE7D576C2B53C1">
+			<li id="li_D2037DA431B04E0C974A14ABA45FC1AA">
+				<xref
+					href="diagnosing_system_probs.xml#diagnosing_system_probs/section_7BC1FF8CE0FC492CB49235FC4BC4060B"
+					type="section" format="dita" scope="local"
+					><?xm-replace_text Locator does not start?></xref>
+			</li>
+			<li id="li_15BD4EAA7C444DD2A3ED22F6C398C6BC">
+				<xref
+					href="diagnosing_system_probs.xml#diagnosing_system_probs/section_D51F5FA86ABA43C699B593D890BC3E28"
+					type="section" format="dita" scope="local"
+					><?xm-replace_text Application or cache server process does not start?></xref>
+			</li>
+			<li id="li_3681EF27E5194F91AF4848B181DC0BD9">
+				<xref
+					href="diagnosing_system_probs.xml#diagnosing_system_probs/section_53D97CED679443F28E20E8B08C699056"
+					type="section" format="dita" scope="local">Application or cache server does not
+					join the distributed system</xref>
+			</li>
+			<li id="li_42B14374EF814428B9B5D2CC9E3B03F9">
+				<xref
+					href="diagnosing_system_probs.xml#diagnosing_system_probs/section_D607C96A6CBE42FD880F1463A20A8BEF"
+					type="section" format="dita" scope="local"
+					><?xm-replace_text Member process seems to hang?></xref>
+			</li>
+			<li id="li_B8EFBF5E18B94271BE8D57B3EDFDC456">
+				<xref
+					href="diagnosing_system_probs.xml#diagnosing_system_probs/section_E3B4A6DB81AB4C659C6093D2D61EFD71"
+					type="section" format="dita" scope="local"
+					><?xm-replace_text Member process does not read settings from the      gemfire.properties file?></xref>
+			</li>
+			<li id="li_F16E44E64F5342788436A27D7FF2721E">
+				<xref
+					href="diagnosing_system_probs.xml#diagnosing_system_probs/section_B0698527A4DF4D84877B1AF66291ABFD"
+					type="section" format="dita" scope="local">Cache creation fails - must match
+					DOCTYPE root </xref>
+			</li>
+			<li id="li_57C89A992034413F858C0218B2BEC0BA">
+				<xref
+					href="diagnosing_system_probs.xml#diagnosing_system_probs/section_B2DAD06E80A4475D96FF2ACCF30FE198"
+					type="section" format="dita" scope="local">Cache isn’t configured
+					properly</xref>
+			</li>
+			<li id="li_6C7751BDFB93443D8B351933735AB318">
+				<xref
+					href="diagnosing_system_probs.xml#diagnosing_system_probs/section_6B4E2AD4ECBB4C08B8F1DB5E07AFE7F6"
+					type="section" format="dita" scope="local">Unexpected results for keySetOnServer
+					and containsKeyOnServer </xref>
+			</li>
+			<li id="li_BEF11F1E595A4F69985F8531B6A24D45">
+				<xref
+					href="diagnosing_system_probs.xml#diagnosing_system_probs/section_9276E09D9FAC408E899F73B7068E80C6"
+					type="section" format="dita" scope="local">Data operation returns
+					PartitionOfflineException</xref>
+			</li>
+			<li id="li_8DBD8B07F44B48509EDAA60DDA107C32">
+				<xref
+					href="diagnosing_system_probs.xml#diagnosing_system_probs/section_A3BB709B754949C6981C431F1F8023D6"
+					type="section" format="dita" scope="local">Entries are not being evicted or
+					expired as expected</xref>
+			</li>
+			<li id="li_DC31902842AE49359210E710CAF42C01">
+				<xref
+					href="diagnosing_system_probs.xml#diagnosing_system_probs/section_346C62F16B19491E83B59B0A51D9E2B6"
+					type="section" format="dita" scope="local">Can’t find the log file</xref>
+			</li>
+			<li id="li_6E9D1255119F43AF8AB00035435EDC3A">
+				<xref
+					href="diagnosing_system_probs.xml#diagnosing_system_probs/section_3CFAA7BA258B43A795AEAB09F9DD9AAB"
+					type="section" format="dita" scope="local"
+					><?xm-replace_text OutOfMemoryError?></xref>
+			</li>
+			<li id="li_8CC671F491E14BDEA65936245F12ADB8">
+				<xref
+					href="diagnosing_system_probs.xml#diagnosing_system_probs/section_B49BD03F4CA241C7BED4A2C4D5936A7A"
+					type="section" format="dita" scope="local"
+					>PartitionedRegionDistributionException</xref>
+			</li>
+			<li id="li_6B51410309474EACAD871C45D17F587C">
+				<xref
+					href="diagnosing_system_probs.xml#diagnosing_system_probs/section_7DE15A6C99974821B6CA418BC2AF98F1"
+					type="section" format="dita" scope="local"
+					>PartitionedRegionStorageException</xref>
+			</li>
+			<li id="li_C9E0855F191540158B654231103930C0">
+				<xref
+					href="diagnosing_system_probs.xml#diagnosing_system_probs/section_AFA1D06BC3AA44A4AB0593FD1EF0B0B7"
+					type="section" format="dita" scope="local">Application crashes without producing
+					an exception</xref>
+			</li>
+			<li id="li_06EA92FCC28E4D73A08377FC5DEEC341">
+				<xref
+					href="diagnosing_system_probs.xml#diagnosing_system_probs/section_06C68EA0DACC46C58AA88E98C19AD2D8"
+					type="section" format="dita" scope="local">Timeout alert</xref>
+			</li>
+			<li id="li_FB1C255641AE472FAEE969AF12B591A9">
+				<xref
+					href="diagnosing_system_probs.xml#diagnosing_system_probs/section_66D11C8E84F941B58800EDB52194B087"
+					type="section" format="dita" scope="local">Member produces
+					SocketTimeoutException</xref>
+			</li>
+			<li id="li_AD77F604B66C4674BB98D28CA9215803">
+				<xref
+					href="diagnosing_system_probs.xml#diagnosing_system_probs/section_8C7CB2EA0A274DAF90083FECE0BF3B1F"
+					type="section" format="dita" scope="local">Member logs
+					ForcedDisconnectException, Cache and DistributedSystem forcibly closed</xref>
+			</li>
+			<li id="li_24952A14A96D4EF898C8724EA2B4AD85">
+				<xref
+					href="diagnosing_system_probs.xml#diagnosing_system_probs/section_778D150443044847B1C73B9E02BE247B"
+					type="section" format="dita" scope="local">Members cannot see each other</xref>
+			</li>
+			<li id="li_EE184C15DCE94783AC838FB4229ED85B">
+				<xref
+					href="diagnosing_system_probs.xml#diagnosing_system_probs/section_2B3EEEF9C3A9444B9897F6C83DECFF3F"
+					type="section" format="dita" scope="local">Some new members are not seen by
+					existing members</xref>
+			</li>
+			<li id="li_799D11386CDD4D54AB4B51EB102985E2">
+				<xref
+					href="diagnosing_system_probs.xml#diagnosing_system_probs/section_E31AFADE4A3A45C7A6EABB67697CFF33"
+					type="section" format="dita" scope="local">One part of the distributed system
+					cannot see another part</xref>
+			</li>
+			<li id="li_4703A7B669C74735879B8103EDA8B62A">
+				<xref
+					href="diagnosing_system_probs.xml#diagnosing_system_probs/section_04CEF27475924E5D9860BEE6D64C49E2"
+					type="section" format="dita" scope="local"
+					><?xm-replace_text Data distribution has stopped, though member processes are     running?></xref>
+			</li>
+			<li id="li_975EBD308A5D49FB8897C729E99FA701">
+				<xref
+					href="diagnosing_system_probs.xml#diagnosing_system_probs/section_7A6113ED20044B8C868483AABC45216E"
+					type="section" format="dita" scope="local">Distributed-ack operations take a
+					very long time to complete</xref>
+			</li>
+			<li id="li_F3F6461DF4F8451B89948A0B2D04B571">
+				<xref
+					href="diagnosing_system_probs.xml#diagnosing_system_probs/section_E5DB25F2CC454510A9E58790C09C8CE3"
+					type="section" format="dita" scope="local">Slow system performance</xref>
+			</li>
+			<li id="li_38E900A7DEFD4D3580CA806EB1A4BD85">
+				<xref
+					href="diagnosing_system_probs.xml#diagnosing_system_probs/section_F93DD765FF2A43439D3FF7936F8883DE"
+					type="section" format="dita" scope="local">Can’t get Windows performance
+					data</xref>
+			</li>
+			<li id="li_0E6E967E9B0A4789B3581D310847A38D">
+				<xref
+					href="diagnosing_system_probs.xml#diagnosing_system_probs/section_E70C332303A242BEAE9D2C0A2EE70E0A"
+					type="section" format="dita" scope="local"
+					><?xm-replace_text Java applications on 64-bit platforms hang or use 100% CPU?></xref>
+			</li>
+		</ul>
+		<section id="section_7BC1FF8CE0FC492CB49235FC4BC4060B">
+			<title>Locator does not start</title>
+			<p>Locator startup fails with an error like this: </p>
+			<p>
+				<codeblock>ERROR: Operation "start-locator" failed because: Start of locator failed.
+The end of "/gemfire/GemFire65/bin/start_locator.log"
+contained this message: "[severe 2010/10/14 11:49:49.119 CEST &lt;main&gt;
+tid=0x1] Could not start locator
+com.gemstone.gemfire.GemFireConfigException: Unable to contact a Locator
+service.  Operation either timed out or Locator does not exist.
+Configured list of locators is "[192.168.2.1&lt;v0&gt;:41111]". 	at
+com.gemstone.org.jgroups.protocols.TCPGOSSIP.sendGetMembersRequest(TCPGOSS
+IP.java:189) 	at
+com.gemstone.org.jgroups.protocols.PingSender.run(PingSender.java:86) 	at
+java.lang.Thread.run(Thread.java:637) "..</codeblock>
+			</p>
+			<p>This indicates a mismatch somewhere in the address, port pairs used for locator
+				startup and configuration. The address you use for locator startup must match the
+				address you list for the locator in the <codeph>gemfire.properties</codeph> locators
+				specification. Every member of the locator’s distributed system, including the
+				locator itself, must have the complete locators specification in the
+					<codeph>gemfire.properties</codeph>. </p>
+			<p>Response: <ul id="ul_33B602C8F563414B92866F19E5E53DB2">
+					<li id="li_C2422FAABB474E33ABC55B3A013A6078">Check that your locators
+						specification includes the address you are using to start your locator. </li>
+					<li id="li_F2DB718413874579AFAE38F9798F9BA8">If you use a bind address, you must
+						use numeric addresses for the locator specification. The bind address will
+						not resolve to the machine’s default address. </li>
+					<li id="li_4A12158680FC4439B8FF258545BCC917">If you are using a 64-bit Linux
+						system, check whether your system is experiencing the leap second bug. See
+							<xref
+							href="diagnosing_system_probs.xml#diagnosing_system_probs/section_E70C332303A242BEAE9D2C0A2EE70E0A"
+							type="section" format="dita" scope="local"
+							><?xm-replace_text Java applications on 64-bit platforms hang or use 100% CPU?></xref>
+						for more information. </li>
+				</ul>
+			</p>
+		</section>
+		<section id="section_D51F5FA86ABA43C699B593D890BC3E28">
+			<title>Application or cache server process does not start</title>
+			<p>If the process tries to start and then silently disappears, on Windows this indicates
+				a memory problem. </p>
+			<p>Response: <ul id="ul_E8C2F8E6F9464560862CF8B7AB016205">
+					<li id="li_1B34D014EAE74474892589C8A3EB6A44">On a Windows host, decrease the
+						maximum JVM heap size. This property is specified on the
+							<codeph>gfsh</codeph> command line:
+						<codeblock>gfsh&gt;start server --name=<varname>server_name</varname> --max-heap=1024m</codeblock>
+						For details, see <xref
+							href="../monitor_tune/system_member_performance_jvm_mem_settings.xml#sys_mem_perf"
+							type="concept" format="dita" scope="local"
+							><?xm-replace_text JVM Memory Settings and System Performance?></xref>. </li>
+					<li id="li_AAD98591B44D48EDA3E7F4E37C587906">If this doesn’t work, try
+						rebooting. </li>
+				</ul>
+			</p>
+		</section>
+		<section id="section_53D97CED679443F28E20E8B08C699056">
+			<title>Application or cache server does not join the distributed system</title>
+			<p>Response: Check these possible causes. <ul id="ul_0DFAB59504B64FEB97B8F513CF3D3DB2">
+					<li id="li_C1838398808F476899C2A52A568AD5B6">Network problem—the most common
+						cause. First, try to ping the other hosts. </li>
+					<li id="li_9C91A6047A9A48B19CBD30A44D8BDD0D">Firewall problems. If members of
+						your distributed <keyword keyref="product_name"/> system are located outside
+						the LAN, check whether the firewall is blocking communication. <keyword
+							keyref="product_name"/> is a network-centric distributed system, so if
+						you have a firewall running on your machine, it could cause connection
+						problems. For example, your connections may fail if your firewall places
+						restrictions on inbound or outbound permissions for Java-based sockets. You
+						may need to modify your firewall configuration to permit traffic to Java
+						applications running on your machine. The specific configuration depends on
+						the firewall you are using. </li>
+					<li id="li_EA860AF4F60B470D932BDC91B1158DCD">Wrong multicast port (when using
+						multicast for membership and discovery). Check the
+							<codeph>gemfire.properties</codeph> file of this application or cache
+						server to see that the mcast-port is configured correctly. If you are
+						running multiple distributed systems at your site, each distributed system
+						must use a unique multicast port. </li>
+					<li id="li_99C9B12E0DC546E5A9760D5717E0B190">Can’t connect to locator (when
+						using TCP for discovery). <ul id="ul_F997C16436D943E78F7EAC29FBA380C2">
+							<li id="whatever">Check for an error message that includes this string:
+								<codeblock>[severe 2005/10/24 11:21:02.908 PDT nameFromGemfireProperties DownHandler
+		(FD_SOCK) nid=0xf] GossipClient.getInfo(): exception connecting to host
+		localhost:30303: java.net.ConnectException: Connection refused</codeblock>
+								This error means that the application or cache server is configured
+								to connect to a non-existent locator. </li>
+							<li id="li_9A76E52F8E5D49A892C5000BD0C390C0">Check that the locators
+								attribute in this process’s <codeph>gemfire.properties</codeph> has
+								the correct IP address for the locator. </li>
+							<li id="li_5CCFFA92339240238F21DF824BC76D97">Check that the locator
+								process is running. If not, see instructions for related problem,
+									<xref scope="local"
+									href="diagnosing_system_probs.xml#diagnosing_system_probs/section_04CEF27475924E5D9860BEE6D64C49E2"
+									type="section" format="dita"
+									><?xm-replace_text Data distribution has stopped, though member processes are     running?></xref>. </li>
+							<li id="li_D271D64524E549EEAA5F811BBC41F2D1">Bind address set
+								incorrectly on a multi-homed host. When you specify the bind
+								address, use the IP address rather than the host name. Sometimes
+								multiple network adapters are configured with the same hostname. See
+									<xref
+									href="../../topologies_and_comm/topology_concepts/using_bind_addresses.xml#using_bind_addresses"
+									format="dita"><?xm-replace_text Using Bind Addresses?></xref>.
+							</li>
+						</ul>
+					</li>
+					<li id="li_0D5328457A4E49D198386F2289E5DDE0">Wrong version of <keyword
+							keyref="product_name"/> . A version mismatch can cause the process to
+						hang or crash. Check the software version with the gemfire version command. </li>
+					<li id="li_27314CDD0A21421E8D21B9DC2CCCA64C">Bad IP address in the system hosts
+						file. Check that the addresses in your hosts file are valid. If this is the
+						problem, the failing member’s log file may contain a message of this type:
+						<codeblock>com.gemstone.gemfire.ForcedDisconnectException: Attempt to
+connect to distributed system timed out
+at 
+com.gemstone.org.jgroups.protocols.pbcast.GMS.down(GMS.java:786)
+at . . . </codeblock>
+					</li>
+				</ul>
+			</p>
+		</section>
+		<section id="section_D607C96A6CBE42FD880F1463A20A8BEF">
+			<title>Member process seems to hang</title>
+			<p>Response: <ul id="ul_80767E765BF84BA488C9FA8777ADF8AC">
+					<li id="li_674154D94A5B4C4AAF21325F953D859D"><b>During initialization</b>—For
+						persistent regions, the member may be waiting for another member with more
+						recent data to start and load from its disk stores. See <xref
+							href="../disk_storage/chapter_overview.xml#disk_storage" format="dita"
+							>Disk Storage</xref>. Wait for the initialization to finish or time out.
+						The process could be busy—some caches have millions of entries, and they can
+						take a long time to load. Look for this especially with cache servers,
+						because their regions are typically replicas and therefore store all the
+						entries in the region. Applications, on the other hand, typically store just
+						a subset of the entries. For partitioned regions, if the initialization
+						eventually times out and produces an exception, the system architect needs
+						to repartition the data. </li>
+					<li id="li_400788F4E80B4A79B154F3FBC32D4385"><b>For a running
+						process</b>—Investigate whether another member is initializing. Under some
+						optional distributed system configurations, a process can be required to
+						wait for a response from other processes before it proceeds. </li>
+				</ul>
+			</p>
+		</section>
+		<section id="section_E3B4A6DB81AB4C659C6093D2D61EFD71">
+			<title>Member process does not read settings from the
+					<codeph>gemfire.properties</codeph> file</title>
+			<p>Either the process can’t find the configuration file or, if it is an application, it
+				may be doing programmatic configuration. </p>
+			<p>Response: <ul id="ul_914C29B4E7AC463092DD62F398A5DBE8">
+					<li id="li_249306A681F6422AAC0CA6A620C4087C">Check that the
+							<codeph>gemfire.properties</codeph> file is in the right directory. </li>
+					<li id="li_C4A18FF54FAC4072A87DDE29D7A5EB4F">Make sure the process is not
+						picking up settings from another <codeph>gemfire.properties</codeph> file
+						earlier in the search path. <keyword keyref="product_name"/> looks for a
+							<codeph>gemfire.properties</codeph> file in the current working
+						directory, the home directory, and the CLASSPATH, in that order. </li>
+					<li id="li_4B676727C39A499F89D42C75E13E0B32">For an application, check the
+						documentation to see whether it does programmatic configuration. If so, the
+						properties that are set programmatically cannot be reset in a
+							<codeph>gemfire.properties</codeph> file. See your application’s
+						customer support group for configuration changes. </li>
+				</ul>
+			</p>
+		</section>
+		<section id="section_B0698527A4DF4D84877B1AF66291ABFD">
+			<title>Cache creation fails - must match schema definition root</title>
+			<p>System member startup fails with an error like one of these: </p>
+			<p>
+				<codeblock>Exception in thread "main" com.gemstone.gemfire.cache.CacheXmlException: 
+While reading Cache XML file:/C:/gemfire/client_cache.xml. 
+Error while parsing XML, caused by org.xml.sax.SAXParseException: 
+Document root element "client-cache", must match DOCTYPE root "cache".</codeblock>
+			</p>
+			<p>
+				<codeblock>Exception in thread "main" com.gemstone.gemfire.cache.CacheXmlException: 
+While reading Cache XML file:/C:/gemfire/cache.xml. 
+Error while parsing XML, caused by org.xml.sax.SAXParseException: 
+Document root element "cache", must match DOCTYPE root "client-cache".</codeblock>
+			</p>
+			<p><keyword keyref="product_name"/> declarative cache creation uses one of two root
+				element pairs: <codeph>cache</codeph> or <codeph>client-cache</codeph>. The name
+				must be the same in both places. </p>
+			<p>Response: <ul id="ul_12E815D1B6634DCDA0F30440517D3E49">
+					<li id="li_7D411F6ED5B94F498985927B9F45BBD3">Modify your
+							<codeph>cache.xml</codeph> file so it has the proper XML namespace and
+						schema definition. </li>
+				</ul>
+			</p>
+			<p>
+				<b>For peers and servers:</b>
+			</p>
+			<codeblock>&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;cache
+    xmlns="<xref href="http://schema.pivotal.io/gemfire/cache" format="html" scope="external">http://schema.pivotal.io/gemfire/cache</xref>"
+    xmlns:xsi="<xref href="http://www.w3.org/2001/XMLSchema-instance" format="html" scope="external">http://www.w3.org/2001/XMLSchema-instance</xref>"
+    xsi:schemaLocation="<xref href="http://schema.pivotal.io/gemfire/cache" format="html" scope="external">http://schema.pivotal.io/gemfire/cache</xref> <xref href="http://schema.pivotal.io/gemfire/cache/cache-8.1.xsd" format="html" scope="external">http://schema.pivotal.io/gemfire/cache/cache-8.1.xsd</xref>"
+    version="8.1”&gt;
+...
+&lt;/cache&gt;</codeblock>
+			<p>
+				<b>For clients:</b>
+			</p>
+			<codeblock outputclass="language-xml">&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;client-cache
+    xmlns="<xref href="http://schema.pivotal.io/gemfire/cache" format="html" scope="external">http://schema.pivotal.io/gemfire/cache</xref>"
+    xmlns:xsi="<xref href="http://www.w3.org/2001/XMLSchema-instance" format="html" scope="external">http://www.w3.org/2001/XMLSchema-instance</xref>"
+    xsi:schemaLocation="<xref href="http://schema.pivotal.io/gemfire/cache" format="html" scope="external">http://schema.pivotal.io/gemfire/cache</xref> <xref href="http://schema.pivotal.io/gemfire/cache/cache-8.1.xsd" format="html" scope="external">http://schema.pivotal.io/gemfire/cache/cache-8.1.xsd</xref>"
+    version="8.1"&gt;
+...
+&lt;/client-cache&gt;</codeblock>
+		</section>
+		<section id="section_B2DAD06E80A4475D96FF2ACCF30FE198">
+			<title>Cache isn’t configured properly</title>
+			<p>An empty cache can be a normal condition. Some applications start with an empty cache
+				and populate it programmatically, but others are designed to bulk load data during
+				initialization. </p>
+			<p>Response: </p>
+			<p>If your application should start with a full cache but it comes up empty, check these
+				possible causes: <ul id="ul_99b24bf1-b542-4140-bb09-693292100882">
+					<li id="li_A84BAF14781B4EB79EDDE245669D47FD"><b>No regions</b>—If the cache has
+						no regions, the process isn’t reading the cache configuration file. Check
+						that the name and location of the cache configuration file match those
+						configured in the cache-xml-file attribute in
+							<codeph>gemfire.properties</codeph>. If they match, the process may not
+						be reading <codeph>gemfire.properties</codeph>. See <xref scope="local"
+							href="diagnosing_system_probs.xml#diagnosing_system_probs/section_E3B4A6DB81AB4C659C6093D2D61EFD71"
+							type="section" format="dita"
+							><?xm-replace_text Member process does not read settings from the      gemfire.properties file?></xref>. </li>
+					<li id="li_7FBA1A6D6EF64EDFA42842A3B57194C1"><b>Regions without data</b>—If the
+						cache starts with regions, but no data, this process may not have joined the
+						correct distributed system. Check the log file for messages that indicate
+						other members. If you don’t see any, the process may be running alone in its
+						own distributed system. In a process that is clearly part of the correct
+						distributed system, regions without data may indicate an implementation
+						design error.</li>
+				</ul>
+			</p>
+		</section>
+		<section id="section_6B4E2AD4ECBB4C08B8F1DB5E07AFE7F6">
+			<title>Unexpected results for keySetOnServer and containsKeyOnServer</title>
+			<p>Client calls to keySetOnServer and containsKeyOnServer can return incomplete or
+				inconsistent results if your server regions are not configured as partitioned or
+				replicated regions. </p>
+			<p>A non-partitioned, non-replicate server region may not hold all data for the
+				distributed region, so these methods would operate on a partial view of the data
+				set. </p>
+			<p>In addition, the client methods use the least loaded server for each method call, so
+				may use different servers for two calls. If the servers do not have a consistent
+				view in their local data set, responses to client requests will vary. </p>
+			<p>The consistent view is only guaranteed by configuring the server regions with
+				partitioned or replicate data-policy settings. Non-server members of the server
+				system can use any allowable configuration as they are not available to take client
+				requests. </p>
+			<p>The following server region configurations give inconsistent results. These
+				configurations allow different data on different servers. There is no additional
+				messaging on the servers, so no union of keys across servers or checking other
+				servers for the key in question. <ul id="ul_8E10E71B2DAE4614A732842EDD774EDD">
+					<li id="li_3DDE5C42AB75450A9136BAD52575FD7E">Normal </li>
+					<li id="li_C65D7649B24A4816AC3F30F810731B8F">Mix (replicated, normal, empty) for
+						a single distributed region. Inconsistent results depending on which server
+						the client sends the request to </li>
+				</ul>
+			</p>
+			<p>These configurations provide consistent results: <ul
+					id="ul_F818D79A7B474D16B637A095864800A7">
+					<li id="li_C489523FC23B4E39ADA1461DCDC40C38">Partitioned server region </li>
+					<li id="li_BDD53053414B471D96DCDA31A5A3FC8F">Replicated server region </li>
+					<li id="li_37BE657F7B0C43D7B84EF380D2E30F4C">Empty server region: keySetOnServer
+						returns the empty set and containsKeyOnServer returns false </li>
+				</ul>
+			</p>
+			<p>Response: Use a partitioned or replicate data-policy for your server regions. This is
+				the only way to provide a consistent view to clients of your server data set. See
+					<xref
+					href="../../developing/region_options/chapter_overview.xml#determining_storage_and_dist"
+					format="dita">Region Data Storage and Distribution Options</xref>. </p>
+		</section>
+		<section id="section_9276E09D9FAC408E899F73B7068E80C6">
+			<title>Data operation returns PartitionOfflineException</title>
+			<p>In partitioned regions that are persisted to disk, if you have any members offline,
+				the partitioned region will still be available but may have some buckets represented
+				only in offline disk stores. In this case, methods that access the bucket entries
+				return a PartitionOfflineException, similar to this: </p>
+			<p>
+				<codeblock>com.gemstone.gemfire.cache.persistence.PartitionOfflineException: 
+Region /__PR/_B__root_partitioned__region_7 has persistent data that is no 
+longer online stored at these locations: 
+[/10.80.10.64:/export/straw3/users/jpearson/bugfix_Apr10/testCL/hostB/backupDirectory 
+created at timestamp 1270834766733 version 0]</codeblock>
+			</p>
+			<p>Response: Bring the missing member online, if possible. This restores the buckets to
+				memory and you can work with them again. If the missing member cannot be brought
+				back online, or the disk stores for the member are corrupt, you may need to revoke
+				the member, which will allow the system to create the buckets in new members and
+				resume operations with the entries. See <xref
+					href="../disk_storage/handling_missing_disk_stores.xml#handling_missing_disk_stores"
+					type="concept" format="dita" scope="local"
+					><?xm-replace_text Handling Missing Disk Stores?></xref>. </p>
+		</section>
+		<section id="section_A3BB709B754949C6981C431F1F8023D6">
+			<title>Entries are not being evicted or expired as expected</title>
+			<p>Check these possible causes. <ul id="ul_709B87F7966448D98C2E6FFE076BD23E">
+					<li id="li_963CAEDF1BA94780865069CCF9D9DBBE">Transactions—Entries that are old
+						enough for eviction may remain in the cache if they are involved in a
+						transaction. Further, transactions never time out, so if a transaction
+						hangs, the entries involved in the transaction will remain stuck in the
+						cache. If you have a process with a hung transaction, you may need to end
+						the process to remove the transaction. In your application programming, do
+						not leave transactions open ended. Program all transactions to end with a
+						commit or a rollback. See <xref
+							href="../../developing/transactions/working_with_transactions.xml#concept_vyt_txz_vk"
+						/>. </li>
+					<li id="li_940BFF0CB1004D13935D5A48A42A0B14">Partitioned regions—For performance
+						reasons, eviction and expiration behave differently in partitioned regions
+						and can cause entries to be removed before you expect. See <xref
+							href="../../developing/eviction/chapter_overview.xml#eviction"
+							format="dita"><?xm-replace_text Eviction?></xref> and <xref
+							href="../../developing/expiration/chapter_overview.xml#expiration"
+							format="dita"><?xm-replace_text Expiration?></xref>. </li>
+				</ul>
+			</p>
+		</section>
+		<section id="section_346C62F16B19491E83B59B0A51D9E2B6">
+			<title>Can’t find the log file</title>
+			<p>Operating without a log file can be a normal condition, so the process does not log a
+				warning. </p>
+			<p>Response: <ul id="ul_FFCE754666CE4EC4AA746154EA151FCE">
+					<li id="li_91C5569EC80749C6869A21C37ADEAC7B">Check whether the log-file
+						attribute is configured in <codeph>gemfire.properties</codeph>. If not,
+						logging defaults to standard output, and on Windows it may not be visible at
+						all. </li>
+					<li id="li_1C88C36A01204C18A3D4B7E469D9A019">If log-file is configured
+						correctly, the process may not be reading
+							<codeph>gemfire.properties</codeph>. See <xref scope="local"
+							href="diagnosing_system_probs.xml#diagnosing_system_probs/section_E3B4A6DB81AB4C659C6093D2D61EFD71"
+							type="section" format="dita"
+							><?xm-replace_text Member process does not read settings from the      gemfire.properties file?></xref>.
+					</li>
+				</ul>
+			</p>
+		</section>
+		<section id="section_3CFAA7BA258B43A795AEAB09F9DD9AAB">
+			<title>OutOfMemoryError</title>
+			<p>An application gets an OutOfMemoryError if it needs more object memory than the
+				process is able to give. The messages include java.lang.OutOfMemoryError. </p>
+			<p>Response: </p>
+			<p>The process may be hitting its virtual address space limits. The virtual address
+				space has to be large enough to accommodate the heap, code, data, and dynamic link
+				libraries (DLLs). <ul id="ul_5E909E05B153497DBABC508D0F9CC31B">
+					<li id="li_120B0CFBB5824E09960CE929A2128027">If your application is out of
+						memory frequently, you may want to profile it to determine the cause. </li>
+					<li id="li_01C0699B91A34B6F8A751131E1B6E524">If you suspect your heap size is
+						set too low, you can increase direct memory by resetting the maximum heap
+						size, using -Xmx. For details, see <xref
+							href="../monitor_tune/system_member_performance_jvm_mem_settings.xml#sys_mem_perf"
+							type="concept" format="dita" scope="local"
+							><?xm-replace_text JVM Memory Settings and System Performance?></xref>. </li>
+					<li id="li_6ED3C0978E9A4EB79C911E39FBD687A2">You may need to lower the thread
+						stack size. The default thread stack size is quite large: 512kb on Sparc and
+						256kb on Intel for 1.3 and 1.4 32-bit JVMs, 1mb with the 64-bit Sparc 1.4
+						JVM; and 128k for 1.2 JVMs. If you have thousands of threads then you might
+						be wasting a significant amount of stack space. If this is your problem, the
+						error may be this:
+						<codeblock>OutOfMemoryError: unable to create new native thread</codeblock>
+						The minimum setting in 1.3 and 1.4 is 64kb, and in 1.2 is 32kb. You can
+						change the stack size using the -Xss flag, like this: -Xss64k </li>
+					<li id="li_66C81AEF38744B0FB534239A88C41BBA">You can also control memory use by
+						setting entry limits for the regions. </li>
+				</ul>
+			</p>
+			<table frame="all" id="table_438761BCCDEF4C2F8E800A146DEA7942">
+				<tgroup cols="1">
+					<colspec colname="topic_link" colnum="1"/>
+					<thead>
+						<row>
+							<entry>Related Topics </entry>
+						</row>
+					</thead>
+					<tbody>
+						<row>
+							<entry>
+								<xref href="../heap_use/chapter_overview.xml#resource_manager"
+									type="concept" format="dita" scope="local"
+									><?xm-replace_text Heap Use and Management?></xref>
+							</entry>
+						</row>
+						<row>
+							<entry>
+								<xref
+									href="../../reference/topics/memory_requirements_for_cache_data.xml#calculating_memory_requirements"
+									type="concept" format="dita" scope="local"
+									><?xm-replace_text Memory Requirements for Cached Data?></xref>
+							</entry>
+						</row>
+						<row>
+							<entry>
+								<xref
+									href="../monitor_tune/system_member_performance_jvm_mem_settings.xml#sys_mem_perf"
+									type="concept" format="dita" scope="local"
+									><?xm-replace_text JVM Memory Settings and System Performance?></xref>
+							</entry>
+						</row>
+						<row>
+							<entry>
+								<xref
+									href="../../developing/management_all_region_types/chapter_overview.xml#storing_data_on_disk"
+									type="concept" format="dita" scope="local"
+									><?xm-replace_text General Region Data Management?></xref>
+							</entry>
+						</row>
+						<row>
+							<entry>Java Memory Management Whitepaper: <xref
+									href="http://java.sun.com/j2se/reference/whitepapers/memorymanagement_whitepaper.pdf"
+									scope="external" format="html"
+									>http://java.sun.com/j2se/reference/whitepapers/memorymanagement_whitepaper.pdf</xref>
+							</entry>
+						</row>
+					</tbody>
+				</tgroup>
+			</table>
+		</section>
+		<section id="section_B49BD03F4CA241C7BED4A2C4D5936A7A">
+			<title>PartitionedRegionDistributionException</title>
+			<p>The com.gemstone.gemfire.cache.PartitionedRegionDistributionException appears when
+					<keyword keyref="product_name"/> fails after many attempts to complete a
+				distributed operation. This exception indicates that no data store member can be
+				found to perform a destroy, invalidate, or get operation. </p>
+			<p>Response: <ul id="ul_65E85BDE85824210B207CD313C295BEF">
+					<li id="li_043E0DD48B7B4A2F8FE4522DB5BF7080">Check the network for traffic
+						congestion or a broken connection to a member. </li>
+					<li id="li_88960FE8606441F6AB95B8287F806714">Look at the overall installation
+						for problems, such as operations at the application level set to a higher
+						priority than the <keyword keyref="product_name"/> processes. </li>
+					<li id="li_CC1FCD13A1334B6CB599A12B4D6648AF">If you keep seeing
+						PartitionedRegionDistributionException, you should evaluate whether you need
+						to start more members. </li>
+				</ul>
+			</p>
+		</section>
+		<section id="section_7DE15A6C99974821B6CA418BC2AF98F1">
+			<title>PartitionedRegionStorageException</title>
+			<p>The com.gemstone.gemfire.cache.PartitionedRegionStorageException appears when
+					<keyword keyref="product_name"/> can’t create a new entry. This exception arises
+				from a lack of storage space for put and create operations or for get operations
+				with a loader. PartitionedRegionStorageException often indicates data loss or
+				impending data loss. </p>
+			<p>The text string indicates the cause of the exception, as in these examples: </p>
+			<p>
+				<codeblock>Unable to allocate sufficient stores for a bucket in the partitioned region....</codeblock>
+			</p>
+			<p>
+				<codeblock>Ran out of retries attempting to allocate a bucket in the partitioned region....</codeblock>
+			</p>
+			<p>Response: <ul id="ul_DA8E859F385E45DAA3B90AD29D624138">
+					<li id="li_455FE460BFE84F3F8B29AAD2DC2550E9">Check the network for traffic
+						congestion or a broken connection to a member. </li>
+					<li id="li_F522923D61EF45C98BEB853D80046F70">Look at the overall installation
+						for problems, such as operations at the application level set to a higher
+						priority than the <keyword keyref="product_name"/> processes. </li>
+					<li id="li_379316C766F949479EBD37E50FB0CFE4">If you keep seeing
+						PartitionedRegionStorageException, you should evaluate whether you need to
+						start more members. </li>
+				</ul>
+			</p>
+		</section>
+		<section id="section_AFA1D06BC3AA44A4AB0593FD1EF0B0B7">
+			<title>Application crashes without producing an exception</title>
+			<p>If an application crashes without any exception, this may be caused by an object
+				memory problem. The process is probably hitting its virtual address space limits.
+				For details, see <xref scope="local"
+					href="diagnosing_system_probs.xml#diagnosing_system_probs/section_3CFAA7BA258B43A795AEAB09F9DD9AAB"
+					type="section" format="dita"><?xm-replace_text OutOfMemoryError?></xref>. </p>
+			<p>Response: Control memory use by setting entry limits for the regions. </p>
+			<table frame="all" id="table_55BEB5EB18D6423EB5A56A9624B5C96E">
+				<tgroup cols="1">
+					<colspec colname="topic_link" colnum="1"/>
+					<thead>
+						<row>
+							<entry>Related Topics </entry>
+						</row>
+					</thead>
+					<tbody>
+						<row>
+							<entry>
+								<xref scope="local"
+									href="../heap_use/chapter_overview.xml#resource_manager"
+									type="concept" format="dita"
+									><?xm-replace_text Heap Use and Management?></xref>
+							</entry>
+						</row>
+						<row>
+							<entry>
+								<xref
+									href="../../reference/topics/memory_requirements_for_cache_data.xml#calculating_memory_requirements"
+									type="concept" format="dita" scope="local"
+									><?xm-replace_text Memory Requirements for Cached Data?></xref>
+							</entry>
+						</row>
+						<row>
+							<entry>
+								<xref
+									href="../monitor_tune/system_member_performance_jvm_mem_settings.xml#sys_mem_perf"
+									type="concept" format="dita" scope="local"
+									><?xm-replace_text JVM Memory Settings and System Performance?></xref>
+							</entry>
+						</row>
+						<row>
+							<entry>
+								<xref
+									href="../../developing/management_all_region_types/chapter_overview.xml#storing_data_on_disk"
+									type="concept" format="dita" scope="local"
+									><?xm-replace_text General Region Data Management?></xref>
+							</entry>
+						</row>
+						<row>
+							<entry> Java Memory Management Whitepaper: <xref
+									href="http://java.sun.com/j2se/reference/whitepapers/memorymanagement_whitepaper.pdf"
+									scope="external" format="html"
+									>http://java.sun.com/j2se/reference/whitepapers/memorymanagement_whitepaper.pdf</xref>
+							</entry>
+						</row>
+					</tbody>
+				</tgroup>
+			</table>
+		</section>
+		<section id="section_06C68EA0DACC46C58AA88E98C19AD2D8">
+			<title>Timeout alert</title>
+			<p>If a distributed message does not get a response within a specified time, it sends an
+				alert to signal that something might be wrong with the system member that hasn’t
+				responded. The alert is logged in the sender’s log as a warning. </p>
+			<p>A timeout alert can be considered normal. </p>
+			<p>Response: <ul id="ul_16277AEBD62F4DE9895436493DA7297F">
+					<li id="li_E0B8EB01D1334A2CA1B56054B8F37376">If you’re seeing a lot of timeouts
+						and you haven’t seen them before, check whether your network is flooded. </li>
+					<li id="li_0378F32F3D09405D85376B8048ADD982">If you see these alerts constantly
+						during normal operation, consider raising the ack-wait-threshold above the
+						default 15 seconds. </li>
+				</ul>
+			</p>
+		</section>
+		<section id="section_66D11C8E84F941B58800EDB52194B087">
+			<title>Member produces SocketTimeoutException</title>
+			<p>A client and server produces a SocketTimeoutException when it stops waiting for a
+				response from the other side of the connection and closes the socket. This exception
+				typically happens on the handshake or when establishing a callback connection. </p>
+			<p>Response: </p>
+			<p>Increase the default socket timeout setting for the member. This timeout is set
+				separately for the client Pool. For a client/server configuration, adjust the
+				"read-timeout" value as described in <xref
+					href="../../reference/topics/client-cache.xml#cc-pool"/> or use the
+					<codeph>com.gemstone.gemfire.cache.client.PoolFactory.setReadTimeout</codeph>
+				method. </p>
+		</section>
+		<section id="section_8C7CB2EA0A274DAF90083FECE0BF3B1F">
+			<title>Member logs ForcedDisconnectException, Cache and DistributedSystem forcibly
+				closed</title>
+			<p>A distributed system member’s Cache and DistributedSystem are forcibly closed by the
+				system membership coordinator if it becomes sick or too slow to respond to heartbeat
+				requests. When this happens, listeners receive RegionDestroyed notification with an
+				opcode of FORCED_DISCONNECT. The <keyword keyref="product_name"/> log file for the
+				member shows a ForcedDisconnectException with the message </p>
+			<p>
+				<codeblock>This member has been forced out of the distributed system because it did not respond 
+within member-timeout milliseconds</codeblock>
+			</p>
+			<p>Response: </p>
+			<p>To minimize the chances of this happening, you can increase the DistributedSystem
+				property member-timeout. Take care, however, as this setting also controls the
+				length of time required to notice a network failure. It should not be set too high.
+			</p>
+		</section>
+		<section id="section_778D150443044847B1C73B9E02BE247B">
+			<title>Members cannot see each other</title>
+			<p>Suspect a network problem or a problem in the configuration of transport for memory
+				and discovery. </p>
+			<p>Response: <ul id="ul_2ACAA07701614362BC44664AAA7E18DE">
+					<li id="li_97D9B36B0F24473A81A6D096BE1E27D5">Check your network monitoring tools
+						to see whether the network is down or flooded. </li>
+					<li id="li_2DD4858435F44F0B95D14D57DA8BA4E5">If you are using multi-homed hosts,
+						make sure a bind address is set and consistent for all system members. For
+						details, see <xref
+							href="../../topologies_and_comm/topology_concepts/using_bind_addresses.xml#using_bind_addresses"
+							type="concept" format="dita" scope="local"
+							><?xm-replace_text Using Bind Addresses?></xref>. </li>
+					<li id="li_56CC57760306415DBFE1F1A8D1B6094E">If TCP, check that all the
+						applications and cache servers are using the same locator address. </li>
+					<li id="li_7FD79E6CD4CB474BBDD195DFE98DB0D7">If multicast: <ul
+							id="ul_362218FB27A04DE197BFBA8E40B01BF2">
+							<li id="li_5523134893B5449F9FC4ADE2C710A033">Check that all the
+								applications and cache servers are using the same multicast IP
+								address and port. </li>
+							<li id="li_A8B3AD8DFF2543CD82C04AEE18C8A4A7">Confirm that the multicast
+								IP address and port are a valid combination. </li>
+							<li id="li_ADC26682941B499BB63F90E7FCE5B9AA">Confirm that multicast is
+								enabled on the network. For details, see <xref
+									href="../../topologies_and_comm/topology_concepts/how_member_discovery_works.xml#how_member_discovery_works"
+									type="concept" format="dita" scope="local"
+									><?xm-replace_text How Member Discovery Works?></xref>. </li>
+						</ul>
+					</li>
+				</ul>
+			</p>
+		</section>
+		<section id="section_2B3EEEF9C3A9444B9897F6C83DECFF3F">
+			<title>Some new members are not seen by existing members</title>
+			<p>If your application creates many, many short-lived members, the system may fail to
+				recognize some new members as they appear. When a member departs the distributed
+				system, <keyword keyref="product_name"/> ignores all messages from that member’s
+				address for a period of time called the shun sunset. This keeps the system from
+				trying to process a dead member’s spurious messages. If you have members joining and
+				using departed member’s addresses before the shun sunset has passed, the system will
+				not recognize them. </p>
+			<p>Response: </p>
+			<p>Set the shun sunset low enough to allow the system to recognize your new members. The
+				default sunset is 90 seconds. You can change it using the system property
+				JGroups.SHUN_SUNSET, which is specified in seconds. </p>
+			<p>Note that the available pool of "wildcard" ports on Windows is much smaller than on
+				Linux or Solaris, so this problem is more likely to be seen on Windows. </p>
+		</section>
+		<section id="section_E31AFADE4A3A45C7A6EABB67697CFF33">
+			<title>One part of the distributed system cannot see another part</title>
+			<p>This situation can leave your caches in an inconsistent state. In networking circles,
+				this kind of network outage is called the "split brain problem." </p>
+			<p>Response: <ul id="ul_17FB5B6D337A40EFBFE82B05A407A87D">
+					<li id="li_E8538CAD087C46BA903FC02F571A66F0">Restart all the processes to ensure
+						data consistency. </li>
+					<li id="li_9856435CAE1E41CA912B14223680220C">Going forward, set up network
+						monitoring tools to detect these kinds of outages quickly. </li>
+					<li id="li_DBB892C1AB324EEF8ACFBB5CF30B6D0B">Enable network partition detection.
+					</li>
+				</ul>
+			</p>
+			<table frame="all" id="table_50738BDD953448D7A79E8AF88E2A0794">
+				<tgroup cols="1">
+					<colspec colname="topic_link" colnum="1"/>
+					<thead>
+						<row>
+							<entry>Related Topics </entry>
+						</row>
+					</thead>
+					<tbody>
+						<row>
+							<entry>
+								<xref href="recovering_from_network_outages.xml#rec_network_crash"
+									type="concept" format="dita" scope="local"
+									><?xm-replace_text Recovering from Network Outages?></xref>
+							</entry>
+						</row>
+					</tbody>
+				</tgroup>
+			</table>
+		</section>
+		<section id="section_04CEF27475924E5D9860BEE6D64C49E2">
+			<title>Data distribution has stopped, though member processes are running</title>
+			<p>Suspect a problem with the network, the locator, or the multicast configuration,
+				depending on the transport your distributed system is using. </p>
+			<p>Response: <ul id="ul_8D37B278FEF44069B752C7F92706465A">
+					<li id="li_962017DB591B430DBB9DD65E1FD5E4CB">Check the health of your system
+						members. Search the logs for this string:
+						<codeblock>Uncaught exception</codeblock>An uncaught exception means a
+						severe error, often an OutOfMemoryError. See <xref scope="local"
+							href="diagnosing_system_probs.xml#diagnosing_system_probs/section_3CFAA7BA258B43A795AEAB09F9DD9AAB"
+							type="section" format="dita"
+						><?xm-replace_text OutOfMemoryError?></xref>. </li>
+					<li id="li_0E9E1C5F422C4E3BA82E7B1D093DFD5B">Check your network monitoring tools
+						to see whether the network is down or flooded. </li>
+					<li id="li_D637FEB0F24D4E70A49B582D4C2EA8B4">If you are using multicast, check
+						whether the existing configuration is no long appropriate for the current
+						network traffic. </li>
+					<li id="li_A153287B7F0945138D6CB6F8403A6653">If you are using locators for
+						membership and discovery, check whether the locators have stopped. For a
+						list of the locators in use, check the locators property in one of the
+						application <codeph>gemfire.properties</codeph> files. <ul
+							id="ul_8E7A4EA3874A466894D2ED580F6168B2">
+							<li id="li_A50A01D59D35494C8D4EB53955A18312">Restart the locator
+								processes on the same hosts, if possible. The distributed system
+								begins normal operation, and data distribution restarts
+								automatically. </li>
+							<li id="li_218F34A42E8647878943A8CF2AD0FE7C">If a locator must be moved
+								to another host or a different IP address, complete these steps: <ol
+									id="ol_A705E9A857E34D89800DFE98074AE862">
+									<li id="li_6E4FFE43611E4173BC97B44E53AFABC5">Shut down all the
+										members of the distributed system in the usual order. </li>
+									<li id="li_A7E9FE1283434A5EB58FAFECB46C2F09">Restart the locator
+										process in its new location. </li>
+									<li id="li_54D08E086E8048BDAE2F7EF639580817">Edit all the
+										gemfire.properties files to change this locator’s IP address
+										in the locators attribute. </li>
+									<li id="li_7D1D4FBBF35E49E5A983893B5E5D0B63">Restart the
+										applications and cache servers in the usual order. </li>
+								</ol>
+							</li>
+						</ul>
+					</li>
+					<li id="li_900DC282FC41445D9AB013BC70342F22">Create a watchdog daemon or service
+						on each locator host to restart the locator process when it stops </li>
+				</ul>
+			</p>
+		</section>
+		<section id="section_7A6113ED20044B8C868483AABC45216E">
+			<title>Distributed-ack operations take a very long time to complete</title>
+			<p>This problem can occur in systems with a great number of distributed-no-ack
+				operations. That is, the presence of many no-ack operations can cause ack operation
+				to take a long time to complete. </p>
+			<p>Response: </p>
+			<p>For information on alleviating this problem, see <xref
+					href="../monitor_tune/slow_messages.xml#slow_mess" type="concept" format="dita"
+					scope="local"><?xm-replace_text Slow distributed-ack Messages?></xref>. </p>
+		</section>
+		<section id="section_E5DB25F2CC454510A9E58790C09C8CE3">
+			<title>Slow system performance</title>
+			<p>Slow system performance is sometimes caused by a buffer size that is too small for
+				the objects being distributed. </p>
+			<p>Response: </p>
+			<p>If you are experiencing slow performance and are sending large objects (multiple
+				megabytes), try increasing the socket buffer size settings in your system. For more
+				information, see <xref href="../monitor_tune/socket_communication.xml#socket_comm"
+					type="concept" format="dita" scope="local"
+					><?xm-replace_text Socket Communication?></xref>. </p>
+		</section>
+		<section id="section_F93DD765FF2A43439D3FF7936F8883DE">
+			<title>Can’t get Windows performance data</title>
+			<p>Attempting to run performance measurements for <keyword keyref="product_name"/> on
+				Windows can produce this error message: </p>
+			<p>
+				<codeblock>Can't get Windows performance data. RegQueryValueEx returned 5</codeblock>
+			</p>
+			<p>This error can occur because incorrect information is returned when a Win32
+				application calls the ANSI version of RegQueryValueEx Win32 API with
+				HKEY_PERFORMANCE_DATA. This error is described in Microsoft KB article ID 226371 at
+					<xref href="http://support.microsoft.com/kb/226371/en-us" scope="external"
+					format="html">http://support.microsoft.com/kb/226371/en-us</xref>. </p>
+			<p>Response: </p>
+			<p>To successfully acquire Windows performance data, you need to verify that you have
+				the proper registry key access permissions in the system registry. In particular,
+				make sure that Perflib in the following registry path is readable (KEY_READ access)
+				by the <keyword keyref="product_name"/> process: </p>
+			<p>
+				<codeblock>HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Perflib</codeblock>
+			</p>
+			<p>An example of reasonable security on the performance data would be to grant
+				administrators KEY_ALL_ACCESS access and interactive users KEY_READ access. This
+				particular configuration would prevent non-administrator remote users from querying
+				performance data. </p>
+			<p>See <xref href="http://support.microsoft.com/kb/310426" scope="external"
+					format="html"><?xm-replace_text http://support.microsoft.com/kb/310426?></xref>
+				and <xref href="http://support.microsoft.com/kb/146906" scope="external"
+					format="html"><?xm-replace_text http://support.microsoft.com/kb/146906?></xref>
+				for instructions about how to ensure that <keyword keyref="product_name"/> processes
+				have access to the registry keys associated with performance. </p>
+		</section>
+		<section id="section_E70C332303A242BEAE9D2C0A2EE70E0A">
+			<title>Java applications on 64-bit platforms hang or use 100% CPU</title>
+			<p>If your Java applications suddenly start to use 100% CPU, you may be experiencing the
+				leap second bug. This bug is found in the Linux kernel and can severely affect Java
+				programs. In particular, you may notice that method invocations using
+					<codeph>Thread.sleep(n)</codeph> where <codeph>n</codeph> is a small number will
+				actually sleep for much longer period of time than defined by the method. To verify
+				that you are experiencing this bug, check the host's <codeph>dmesg</codeph> output
+				for the following message: </p>
+			<p>
+				<msgblock>[10703552.860274] Clock: inserting leap second 23:59:60 UTC</msgblock>
+			</p>
+			<p>To fix this problem, issue the following commands on your affected Linux machines:
+				<codeblock>prompt&gt; /etc/init.d/ntp stop
+prompt&gt; date -s "$(date)"</codeblock>
+			</p>
+			<p>See the following web site for more information: </p>
+			<p>
+				<xref
+					href="http://blog.wpkg.org/2012/07/01/java-leap-second-bug-30-june-1-july-2012-fix/"
+					scope="external" format="html"
+					>http://blog.wpkg.org/2012/07/01/java-leap-second-bug-30-june-1-july-2012-fix/</xref>
+			</p>
+		</section>
+	</conbody>
+</concept>

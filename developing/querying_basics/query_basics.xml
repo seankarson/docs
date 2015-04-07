@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "http://docs.oasis-open.org/dita/v1.1/OS/dtd/concept.dtd">
+<concept id="querying_with_oql">
+	<title>Basic Querying</title>
+	<shortdesc>This section provides a high-level introduction to <keyword keyref="product_name"/>
+		querying such as building a query string and describes query language features. </shortdesc>
+	<conbody>
+		<section id="section_828A9660B5014DCAA883A58A45E6B51A">
+			<p><keyword keyref="product_name"/> provides a SQL-like querying language that allows
+				you to access data stored in <keyword keyref="product_name"/> regions. Since
+					<keyword keyref="product_name"/> regions are key-value stores where values can
+				range from simple byte arrays to complex nested objects, <keyword
+					keyref="product_name"/> uses a query syntax based on OQL (Object Query Language)
+				to query region data. OQL and SQL have many syntactical similarities, however they
+				have significant differences. For example, while OQL does not offer all of the
+				capabilities of SQL like aggregates, OQL does allow you to execute queries on
+				complex object graphs, query object attributes and invoke object methods. </p>
+			<p>The syntax of a typical <keyword keyref="product_name"/> OQL query is:
+				<codeblock>[IMPORT package]
+SELECT [DISTINCT] projectionList
+FROM collection1, [collection2, …]
+[WHERE clause]
+[ORDER BY order_criteria [desc]]
+</codeblock>Therefore,
+				a simple <keyword keyref="product_name"/> OQL query resembles the following:
+				<codeblock>SELECT DISTINCT * FROM /exampleRegion WHERE status = ‘active’</codeblock>
+			</p>
+			<p> An important characteristic of <keyword keyref="product_name"/> querying to note is
+				that by default, <keyword keyref="product_name"/> queries on the values of a region
+				and not on keys. To obtain keys from a region, you must use the keySet path
+				expression on the queried region. For example,
+					<codeph>/exampleRegion.keySet</codeph>. </p>
+			<p>For those new to the <keyword keyref="product_name"/> querying, see also the <xref
+					href="../../getting_started/querying_quick_reference.xml#reference_D5CE64F5FD6F4A808AEFB748C867189E"
+					type="reference" format="dita" scope="local"/>. </p>
+		</section>
+	</conbody>
+</concept>

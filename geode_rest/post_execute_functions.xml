@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE topic PUBLIC "-//OASIS//DTD DITA Topic//EN" "topic.dtd">
+<topic id="topic_itv_mg5_m4">
+  <title>POST /gemfire-api/v1/functions/{functionId}</title>
+  <shortdesc>Execute <keyword keyref="product_name"/> function on entire cluster or on a specified
+    region, members and member groups.</shortdesc>
+  <body>
+    <section>
+      <title>Resource URL</title>
+      <codeblock>/gemfire-api/v1/functions/{functionId}?[&amp;onRegion=regionname|&amp;onMembers=member1,member2,...,memberN|&amp;onGroups=group1,group2,...,groupN]</codeblock>
+    </section>
+    <section>
+      <title>Parameters</title>
+      <p>
+        <simpletable frame="all" relcolwidth="1.0* 2.13* 1.0*" id="simpletable_bqn_nx5_m4">
+          <sthead>
+            <stentry>Parameter</stentry>
+            <stentry>Description</stentry>
+            <stentry>Example</stentry>
+          </sthead>
+          <strow>
+            <stentry>{functionId}</stentry>
+            <stentry>Required. The name of the function to execute.</stentry>
+            <stentry>AddFreeItemToOrders</stentry>
+          </strow>
+          <strow>
+            <stentry>onRegion</stentry>
+            <stentry>Optional. Specify the target region for the function. You can only invoke a
+              function on a single region.</stentry>
+            <stentry>onRegion=regionname</stentry>
+          </strow>
+          <strow>
+            <stentry>onMembers</stentry>
+            <stentry>Optional. Specify the target members of the function. For multiple members,
+              specify a comma-delimited list of member names.</stentry>
+            <stentry>onMembers=member1,member2</stentry>
+          </strow>
+          <strow>
+            <stentry>onGroups</stentry>
+            <stentry>Optional. Specify the target members of the function. For multiple members,
+              specify a comma-delimited list of member group names.</stentry>
+            <stentry>onGroups=membergroup1,membergroup2</stentry>
+          </strow>
+          <strow>
+            <stentry>
+              <i>function arguments</i>
+            </stentry>
+            <stentry>Passed in the request body (JSON). The content of the args can depend on how
+              the function is defined. Use @type to declare argument types and @value for specifying
+              a scalar value.</stentry>
+            <stentry>For
+              example:<codeblock>
+[
+        {
+             "@type":  "double",
+             "@value": 210
+        },
+        {
+             "@type":  "com.gemstone.gemfire.web.rest.domain.Item",
+             "itemNo":  "599",
+             "description":  "Part X Free on Bumper Offer",
+             "quantity":  "2",
+             "unitprice":  "5",
+             "totalprice":  "10.00"
+        }
+]</codeblock></stentry>
+          </strow>
+        </simpletable>
+      </p>
+    </section>
+    <section><title>Example
+      Requests</title><codeblock>Request Payload: application/json
+POST /gemfire-api/v1/functions/AddFreeItemToOrders
+Accept: application/json
+Content-Type: application/json
+
+[
+        {
+             "@type":  "double",
+             "@value": 210
+        },
+        {
+             "@type":  "com.gemstone.gemfire.web.rest.domain.Item",
+             "itemNo":  "599",
+             "description":  "Part X Free on Bumper Offer",
+             "quantity":  "2",
+             "unitprice":  "5",
+             "totalprice":  "10.00"
+        }
+]
+</codeblock>Another
+      example:<codeblock>Request Payload: null
+
+POST /gemfire-api/v1/functions/getDeliveredOrders
+Accept: application/json</codeblock></section>
+    <section><title>Example Success
+      Responses</title><codeblock>Response Payload: null
+200 OK
+Location:http: //localhost:8080/gemfire-api/v1/functions/AddFreeItemToOrders</codeblock>Another
+      example
+      response:<codeblock>Response Payload: application/json
+
+200 OK
+Content-Length: 316
+Content-Type: application/json
+Location: http://localhost:8080/gemfire-api/v1/functions/getDeliveredOrders
+[
+    {
+         "purchaseOrderNo":  "1121",
+         "deliveryDate":  "Thu Feb 20 00:00:00 IST 2014"
+    },
+    {
+         "purchaseOrderNo":  "777",
+         "deliveryDate":  "Thu Feb 20 00:00:00 IST 2014"
+    },
+    {
+        ...
+    }
+]</codeblock></section>
+    <section>
+      <title>Error Codes</title>
+      <p>
+        <simpletable frame="all" relcolwidth="1.0* 3.75*" id="simpletable_byx_kx5_m4">
+          <sthead>
+            <stentry>Status Code</stentry>
+            <stentry>Description</stentry>
+          </sthead>
+          <strow>
+            <stentry>500 INTERNAL SERVER ERROR</stentry>
+            <stentry>Error encountered at <keyword keyref="product_name"/> server. Check the HTTP
+              response body for a stack trace of the exception. <ul id="ul_rxk_yth_y4">
+                <li>The Region identified by name (%1$s) could not found!</li>
+                <li>Could not found the specified members in disributed system!</li>
+                <li>no member(s) are found belonging to the provided group(s)!</li>
+                <li>Disributed system does not contain any valid data node to run the specified
+                  function!</li>
+                <li>Key is of an inappropriate type for this region!</li>
+                <li>Specified key is null and this region does not permit null keys!</li>
+                <li>Server has encountered low memory condition!</li>
+                <li>Input parameter is null!</li>
+                <li>Could not convert function results into Restful (JSON) format!</li>
+                <li>Function has returned results that could not be converted into Restful (JSON)
+                  format!</li>
+                <li>Server has encountered an error while processing function execution!</li>
+              </ul>
+            </stentry>
+          </strow>
+        </simpletable>
+      </p>
+    </section>
+  </body>
+</topic>

@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "http://docs.oasis-open.org/dita/v1.1/OS/dtd/concept.dtd">
+
+<concept id="tomcat_additional_info">
+  <title>Additional Information</title>
+
+  <conbody>
+    <section id="section_B7FFAF8A6D6D4B8E9C76CF31B9EAD36E"><title>Related Links</title><ul id="ul_83D4C68A848D48EB8F95F02349D230B7">
+        <li id="li_AE64C6D614A34F92A56C1B656B0D0142"><xref format="html" href="http://www.gemstone.com/products/gemfire" scope="external">GemFire Product Page</xref></li>
+
+        
+
+        <li id="li_339E5F7C66A84098BDDAB7FBD6A62CBA"><xref format="html" href="http://community.gemstone.com/display/gemfire/GemFire+Enterprise" scope="external">GemFire Community Site</xref></li>
+
+        <li id="li_346E292D4A2642CA979D66AB6340CEA5"><xref format="html" href="http://www.springsource.com/products/tcserver" scope="external">SpringSource tc Server</xref></li>
+
+        <li id="li_A3C9B4C15A834400AE4312D2C7EFF96D"><xref format="html" href="http://tomcat.apache.org/" scope="external">Apache Tomcat</xref></li>
+      </ul></section>
+
+    <section id="section_F40D5792AF7C4425AB255B69E832D932"><title>Sticky Load Balancers</title><p>Typically, session
+    replication will be used in conjunction with a load balancer enabled for
+    sticky sessions. This involves, among other things, establishing a JVM
+    route (<codeph>JVMRoute=value</codeph>). Refer to <xref format="html" href="http://static.springsource.com/projects/ers/4.0/getting-started/htmlsingle/getting-started.html" scope="external">SpringSource ERS</xref> as a possible <xref format="html" href="http://static.springsource.com/projects/ers/4.0/getting-started/htmlsingle/getting-started.html#load-balancing" scope="external">load balancing</xref> solution.</p></section>
+
+    <section id="section_session_exp"><title>Session Expiration</title><p>To set the session expiration
+    value, you must change the <codeph>session-timeout</codeph> value
+    specified in Tomcat's <codeph>WEB-INF/web.xml</codeph> file. This value
+    will override the GemFire inactive interval specified by
+    <codeph>maxInactiveInterval</codeph> within
+    <codeph>context.xml</codeph>.</p></section>
+
+    <section id="section_69F0A6C27A0249619716F6B3EB36917E"><title>Using the <codeph>gemfire</codeph> Command-line
+    Tool</title><p>GemFire provides the <codeph>gemfire</codeph> command-line
+    tool to perform basic administrative tasks. <codeph>gemfire.sh</codeph>
+    (for Unix) and <codeph>gemfire.bat</codeph> (for Windows) should be
+    located in the <codeph>/bin</codeph> subdirectory. Refer to <xref href="../../deploying/topics/gemfire_command_line_utility.xml#gemfire_command_line_utility" type="concept" format="dita" scope="local"><?xm-replace_text The gemfire Command-Line Utility?></xref> for more information on this
+    tool.</p></section>
+
+    
+
+    <section id="section_76F85B5A9DEE429B9EEC7566ECC429C9"><title>Module Version Information</title><p>To acquire GemFire
+    module version information, look in the Tomcat log file for the following
+    message:</p><codeblock>Nov 8, 2010 12:12:12 PM 
+com.gemstone.gemfire.modules.session.catalina.AbstractCacheLifecycleListener 
+    lifecycleEvent
+INFO: Initializing GemFire Modules Version 1.1</codeblock></section>
+  </conbody>
+</concept>

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "http://docs.oasis-open.org/dita/v1.1/OS/dtd/concept.dtd">
+<concept id="data_hosts_and_accessors">
+	<title>Region Data Stores and Data Accessors</title>
+	<shortdesc>Understand the difference between members that store data for a region and members
+		that only act as data accessors to the region. </shortdesc>
+	<conbody>
+		<section id="section_0EF33633F97B4C63AC34F523259AD310">
+			<p>In most cases, when you define a data region in a member’s cache, you also specify
+				whether the member is a data store. Members that store data for a region are
+				referred to as data stores or data hosts. Members that do not store data are
+				referred to as accessor members, or empty members. Any member, store or accessor,
+				that defines a region can access it, put data into it, and receive events from other
+				members. To configure a region so the member is a data accessor, you use
+				configurations that specify no local data storage for the region. Otherwise, the
+				member is a data store for the region. </p>
+		</section>
+	</conbody>
+</concept>

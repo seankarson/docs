@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "http://docs.oasis-open.org/dita/v1.1/OS/dtd/concept.dtd">
+<concept id="security">
+	<title>Security</title>
+	<shortdesc>The security framework establishes trust between members and authorizes cache
+		operations from clients based on that trust. You establish trust by verifying credentials
+		when one process connects to another. </shortdesc>
+	<conbody>
+		<p>For example: <ul id="ul_47D572C43C5E4D6D897F752679562B09">
+				<li id="li_C4810CEAAC3C493E8E5FB19BCAF480B7">New members connect to the locator in a
+					peer-to-peer topology. </li>
+				<li id="li_E3A37CB9D5A149BEB5D45F2B8F00339E">Clients connect to cache servers. </li>
+				<li id="li_26E1EF34086F4CB38418F3AE34C9D43F">A Diffie-Hellman key exchange encrypts
+					sensitive credentials. </li>
+			</ul>
+		</p>
+	</conbody>
+</concept>

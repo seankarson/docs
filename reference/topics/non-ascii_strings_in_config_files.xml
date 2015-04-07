@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept
+	id="concept_D3BC1489F5D8494799E8D2A8FE7EE81D">
+	<title>Using Non-ASCII Strings in <keyword keyref="product_name_long"/> Property Files</title>
+	<shortdesc>You can specify Unicode (non-ASCII) characters in <keyword keyref="product_name_long"/> property files by
+		using a <codeph>\uXXXX</codeph> escape sequence. </shortdesc>
+	<conbody>
+		<p>For a supplementary character, you need two escape sequences, one for each of the two
+			UTF-16 code units. The XXXX denotes the 4 hexadecimal digits for the value of the UTF-16
+			code unit. For example, a properties file might have the following entries:
+			<codeblock>
+s1=hello there
+s2=\u3053\u3093\u306b\u3061\u306f</codeblock>For example, in
+				<codeph>gemfire.properties</codeph>, you might write:
+			<codeblock>log-file=my\u00df.log</codeblock> to indicate the desired propery definition
+			of <codeph>log-file=myß.log</codeph>. </p>
+		<p> If you have edited and saved the file in a non-ASCII encoding, you can convert it to
+			ASCII with the <codeph>native2ascii</codeph> tool included in your Oracle Java
+			distribution. For example, you might want to do this when editing a properties file in
+			Shift_JIS, a popular Japanese encoding. </p>
+		<p>For more information on internationalization in Java, see <xref
+				href="http://www.oracle.com/technetwork/java/javase/tech/intl-139810.html"
+				scope="external"
+				format="html"><?xm-replace_text http://www.oracle.com/us/technologies/java/faq-jsp-138165.html?></xref>. </p>
+	</conbody>
+</concept>

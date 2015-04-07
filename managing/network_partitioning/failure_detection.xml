@@ -1,0 +1,85 @@
+<?xml version="1.0"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept id="concept_CFD13177F78C456095622151D6EE10EB">
+	<title>Failure Detection and Membership Views</title>
+	<shortdesc><keyword keyref="product_name"/> uses failure detection to remove unresponsive
+		members from membership views. </shortdesc>
+	<conbody>
+		<section id="section_1AAE6C92FED249EFBA476D8A480B8E51">
+			<title>Failure Detection</title>
+			<p>Network partitioning has a failure detection protocol that is not subject to hanging
+				when NICs or machines fail. Failure detection works by detecting missing datagram
+				heartbeats from the peer to the left in the membership view (see "Membership Views"
+				below for the view layout), followed by attempting to form a TCP/IP connection, and
+				then sending a <codeph>VERIFY_SUSPECT</codeph> datagram message to all other
+				processes. Those processes all quickly send several <codeph>ARE_YOU_DEAD</codeph>
+				datagram messages to the suspect process. If the process does not answer one of
+				these messages with an <codeph>I_AM_NOT_DEAD</codeph> response, the process is
+				kicked out of membership. It is sent a message to disconnect the distributed system
+				and close the cache. </p>
+			<p>Failure detection processing is also initiated on a member if the
+					<codeph>gemfire.properties</codeph>
+				<codeph>ack-wait-threshold</codeph> elapses before receiving a response to a
+				message, if a TCP/IP connection cannot be made to the member for peer-to-peer (P2P)
+				messaging, and if no other traffic is detected from the member. For this kind of
+				failure detection, the operator must also have set the
+					<codeph>ack-severe-alert-threshold</codeph> in gemfire.properties. </p>
+			<note>The TCP connection ping is not used for connection keep alive purposes; it is only
+				used to detect failed members. See <xref
+					href="../../managing/monitor_tune/socket_tcp_keepalive.xml#topic_jvc_pw3_34"/>
+				for TCP keep alive configuration.</note>
+			<p> If a new membership view is sent out that includes one or more failed processes, the
+				locator will log new quorum weight calculations. At any point, if quorum loss is
+				detected due to unresponsive processes, the locator will also log a severe level
+				message to identify the failed processes:
+				<msgblock>Possible loss of quorum detected due to loss of {0} cache processes: {1}</msgblock>
+				where {0} is the number of processes that failed and {1} lists the processes. </p>
+		</section>
+		<section id="section_1170FBBD6B7A483AB2C2A837F1B8876D">
+			<title>Membership Views</title>
+			<p>The following is a sample membership view:
+				<codeblock>[info 2012/01/06 11:44:08.164 PST bridgegemfire1 &lt;UDP Incoming Message Handler&gt; tid=0x1f] 
+Membership: received new view  [ent(5767)&lt;v0&gt;:8700|16] [ent(5767)&lt;v0&gt;:8700/44876, 
+ent(5829)&lt;v1&gt;:48034/55334, ent(5875)&lt;v2&gt;:4738/54595, ent(5822)&lt;v5&gt;:49380/39564, 
+ent(8788)&lt;v7&gt;:24136/53525]
+</codeblock>
+			</p>
+			<p>The components of the membership view are as follows: <ul
+					id="ul_3C12E714584948F2ADEA3B63133D3DF4">
+					<li id="li_E9AAC2351C224D818202173E04EC4E47">The first part of the view
+							(<codeph>[ent(5767)&lt;v0&gt;:8700|16]</codeph> in the example above)
+						corresponds to the view ID. It identifies: <ul
+							id="ul_AF1E294AFC304D178063E011DDD18DAC">
+							<li id="li_5A8E7FF9610B4BD4875F55E1D6144809">the address and processId
+								of the membership coordinator-- <codeph>ent(5767)</codeph> in
+								example above. </li>
+							<li id="li_6748D2256165438C8E89728DE40B7D3D">the view-number
+									(<codeph>&lt;vXX&gt;</codeph>) of the membership view that the
+								member first appeared in-- <codeph>&lt;v0&gt;</codeph> in example
+								above. </li>
+							<li id="li_420AE8F73C29465EA2C319C07CF79A36">membership-port of the
+								membership coordinator-- <codeph>8700</codeph> in the example above. </li>
+							<li id="li_21BBDE55A66A4042BA862307A3D21E83">view-number--
+									<codeph>16</codeph> in the example above </li>
+						</ul>
+					</li>
+					<li id="li_BA278D2923A149E2B0BA2F857941CC8D">The second part of the view lists
+						all of the member processes in the current view.
+							<codeph>[ent(5767)&lt;v0&gt;:8700/44876,
+							ent(5829)&lt;v1&gt;:48034/55334, ent(5875)&lt;v2&gt;:4738/54595,
+							ent(5822)&lt;v5&gt;:49380/39564,
+							ent(8788)&lt;v7&gt;:24136/53525]</codeph> in the example above. </li>
+					<li id="li_F4BC28A13E1A421C9A3F80AF748404B0">The overall format of each listed
+						member is:<codeph>Address(processId)&lt;vXX&gt;:membership-port/distribution
+							port</codeph>. The membership coordinator is almost always the first
+						member in the view and the rest are ordered by age. </li>
+					<li id="li_C397C4CDBE6048E3A880F31B2F89AE75">The membership-port is the JGroups
+						TCP UDP port that it uses to send datagrams. The distribution-port is the
+						TCP/IP port that is used for cache messaging. </li>
+					<li id="li_C5CB0158A33E42F1AEBC939181906696">Each member watches the member to
+						its left for failure detection purposes. </li>
+				</ul>
+			</p>
+		</section>
+	</conbody>
+</concept>

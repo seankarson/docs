@@ -1,0 +1,47 @@
+<?xml version="1.0"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<!-- Created with XMetaL (http://www.xmetal.com) -->
+<concept id="concept_E6D5DCFCDFC0433EA2A9AD7AB9B904D6"> 
+  <title>use</title> 
+  <shortdesc><?xm-replace_text Short Description?>
+  </shortdesc> 
+  <conbody> 
+	 <p><?xm-replace_text Paragraph?>
+	 </p> 
+	 <section id="section_2F424FA975F44E0890E8943AF385A5BA"> 
+		<title>use region</title> 
+		<p>Navigate to the give region on the command line &amp; set the command
+		  execution context to that region. Availability of commands might change after
+		  changing the context. The commands executed after this command can use the
+		  changed context. (NOTE: This command execution will be local in the shell.)
+		</p> 
+		<p><b>Syntax:</b> 
+		  <codeblock>use region &lt;region-path&gt;</codeblock> 
+		  <table id="table_DCD3BE1B9ADD47C39893B0DCCD55527A">
+			 <tgroup cols="2"><colspec colnum="1" colname="col1"
+				colwidth="1.00*"/><colspec colnum="2" colname="col2" colwidth="2.86*"/>
+				<tbody>
+				  <row>
+					 <entry colname="col1">region-path
+					 </entry>
+					 <entry colname="col2"> Region Path to navigate to
+					 </entry>
+				  </row>
+				</tbody>
+			 </tgroup>
+		  </table>
+		</p> 
+		<p><b>Example Commands:</b> 
+		  <codeblock>(1) use region region1; 
+(2) use region /region1/region12;
+(3) use region /;</codeblock> 
+		</p> 
+		<p><b>Sample Output:</b> 
+		  <codeblock><?xm-replace_text Codeblock?></codeblock> 
+		</p> 
+		<p><b>Error Messages:</b> 
+		  <codeblock><?xm-replace_text Codeblock?></codeblock> 
+		</p> 
+	 </section> 
+  </conbody> 
+</concept> 

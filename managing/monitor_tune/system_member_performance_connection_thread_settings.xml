@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "http://docs.oasis-open.org/dita/v1.1/OS/dtd/concept.dtd">
+<concept id="sys_mem_perf">
+	<title>Connection Thread Settings and Performance</title>
+	<shortdesc>When many peer processes are started concurrently, you can improve the distributed
+		system connect time can by setting the p2p.HANDSHAKE_POOL_SIZE system property value to the
+		expected number of members. </shortdesc>
+	<prolog>
+		<metadata>
+			<keywords>
+				<keyword>gemfire connection thread settings</keyword>
+				<keyword>gemfire HANDSHAKE_POOL_SIZE</keyword>
+				<keyword>gemfire concurrent startup</keyword>
+			</keywords>
+		</metadata>
+	</prolog>
+	<conbody>
+		<p> This property controls the number of threads that can be used to establish new TCP/IP
+			connections between peer caches. The threads are discarded if they are idle for 60
+			seconds. </p>
+		<p>The default value for p2p.HANDSHAKE_POOL_SIZE is 10. This command-line specification sets
+			the number of threads to 100: </p>
+		<p>
+			<codeblock>-Dp2p.HANDSHAKE_POOL_SIZE=100</codeblock>
+		</p>
+	</conbody>
+</concept>

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "http://docs.oasis-open.org/dita/v1.1/OS/dtd/concept.dtd">
+<concept id="managing_replica_preloaded_regions"> 
+  <title>Manage Replicated and Preloaded Regions</title> 
+  <prolog audience="basic"> 
+  </prolog> 
+  <conbody> 
+	 <section id="section_2D34EEEF4D0C470F898FAA1A3762FA6A"> 
+		<p>This topic provides information specific to managing replicated and
+		  preloaded data regions. 
+		<ol id="ol_D388EA52F6004884A0EC05A99E21E734"> 
+		  <li id="li_181176B0FF354372BA5D279D00A214B7">To create a replicated
+			 region, use one of the 
+			 <codeph>REPLICATE</codeph> 
+			 <b><codeph>com.gemstone.gemfire.cache.RegionShortcut</codeph>&gt;</b>
+			 settings. To create a preloaded region, set your region 
+			 <codeph>data-policy</codeph> to 
+			 <codeph>preloaded</codeph>. This 
+			 <codeph>cache.xml</codeph> declaration creates a replicated region: 
+			 <codeblock>&lt;region-attributes refid="REPLICATE"&gt; 
+&lt;/region-attributes&gt;</codeblock>
+		  </li> 
+		</ol>
+		</p> 
+	 </section> 
+  </conbody> 
+</concept> 

@@ -1,0 +1,262 @@
+<?xml version="1.0"?>
+<!DOCTYPE dita PUBLIC "-//OASIS//DTD DITA Composite//EN" "ditabase.dtd">
+<dita>
+	<topic id="topic_F48990A6A37144988D49E132E17E117C">
+		<title>Operating System Guidelines</title>
+		<shortdesc>Use the latest supported version of the guest OS, and use Java large paging. </shortdesc>
+		<body>
+			<ul id="ul_88611090776D40C6B6DD895EBFFA5EE6">
+				<li id="li_3DC593052F764CCEA6393FD56A359235"><b>Use the latest supported version of
+						the guest operating system</b>. This guideline is probably the most
+					important. Upgrade the guest OS to a recent version supported by <keyword
+						keyref="product_name"/>. For example, for RHEL, use at least version 7.0 or
+					for SLES, use at least 11.0. For Windows, use Windows Server 2012. For RedHat
+					Linux users, it is particularly beneficial to use RHEL 7 since there are
+					specific enhancements in the RHEL 7 release that improve virtualized latency
+					sensitive workloads. See <xref
+						href="../../getting_started/system_requirements/supported_configurations.xml#system_requirements"
+						type="concept" format="dita" scope="local"/> for a list of supported
+					operating system versions. </li>
+				<li id="li_331CB7AEE27E45BBBEC8EBEF850FA481"><b>Use Java large paging in guest
+						OS</b>. Configure Java on the guest OS to use large pages. Add the following
+					command line option when launching Java:
+					<codeblock>-XX:+UseLargePages</codeblock>
+				</li>
+			</ul>
+		</body>
+	</topic>
+	<topic id="topic_D8393B1A75364E46B0F959F0DE820E9E">
+		<title>NUMA, CPU, and BIOS Settings</title>
+		<shortdesc>This section provides VMware- recommended NUMA, CPU, and BIOS settings for your
+			hardware and virtual machines. </shortdesc>
+		<body>
+			<ul id="ul_8A816D224486427682ACF8612BCA64A8">
+				<li id="li_261588E3657547CCA3EF030509D0F465">Always enable hyper-threading, and do
+					not overcommit CPU. </li>
+				<li id="li_A7A56800203E4B0CBE73D1004ACB9641">For most production <keyword
+						keyref="product_name_long"/> servers, always use virtual machines with at
+					least two vCPUs . </li>
+				<li id="li_A6AFA8AA264E4DE0B146E0CD69CAC5E9">Apply non-uniform memory access (NUMA)
+					locality by sizing virtual machines to fit within the NUMA node. </li>
+				<li id="li_0A1FF45E023C4DA291D6A5C1AB1BADAB">VMware recommends the following BIOS
+					settings: <ul id="ul_E7FAA963C6B4455F9CD53117FF2C1BDE">
+						<li id="li_E843EDAB4C3A4B52B5E4A2DA31412E58"><b>BIOS Power Management
+								Mode:</b> Maximum Performance. </li>
+						<li id="li_9BD2523A5C6848DF88BC25E4BFAA37AD"><b>CPU Power and Performance
+								Management Mode:</b> Maximum Performance. </li>
+						<li id="li_8B7ADCC8CAC54338BB8375A2513106B5"><b>Processor Settings:</b>Turbo
+							Mode enabled. </li>
+						<li id="li_4B55F43DEC2C4E4186328D04B5BE6938"><b>Processor Settings:</b>C
+							States disabled. </li>
+					</ul>
+				</li>
+			</ul>
+			<note>Settings may vary slightly depending on your hardware make and model. Use the
+				settings above or equivalents as needed. </note>
+		</body>
+	</topic>
+	<topic id="topic_7A5F1EAD7A6C4E21BB1FF7CF3B625BC5">
+		<title>Physical and Virtual NIC Settings</title>
+		<shortdesc>These guidelines help you reduce latency. </shortdesc>
+		<body>
+			<p>
+				<ul id="ul_24796EAA43D942348FD12ACB9564FAB6">
+					<li id="li_449A0120571A4EFE83630A97ADA95FFB"><b>Physical NIC:</b> VMware
+						recommends that you disable interrupt coalescing on the physical NIC of your
+						ESXi host by using the following command:
+						<codeblock>ethtool -C vmnicX rx-usecs 0 rx-frames 1 rx-usecs-irq 0 rx-frames-irq 0</codeblock>where
+							<codeph>vmnicX</codeph> is the physical NIC as reported by the ESXi
+						command: <codeblock>esxcli network nic list</codeblock>You can verify that
+						your settings have taken effect by issuing the command:
+						<codeblock>ethtool -C vmnicX</codeblock> If you restart the ESXi host, the
+						above configuration must be reapplied. <note>Disabling interrupt coalescing
+							can reduce latency in virtual machines; however, it can impact
+							performance and cause higher CPU utilization. It can also defeat the
+							benefits of Large Receive Offloads (LRO) because some physical NICs
+							(such as Intel 10GbE NICs) automatically disable LRO when interrupt
+							coalescing is disabled. See <xref href="http://kb.vmware.com/kb/1027511"
+								scope="external" format="html"
+								>http://kb.vmware.com/kb/1027511</xref> for more details. </note>
+					</li>
+					<li id="li_D213367EE0C34FA2A3DE01BAD8B2D630"><b>Virtual NIC:</b> Use the
+						following guidelines when configuring your virtual NICs: <ul
+							id="ul_864BB83906B2422896AE1ED31344505F">
+							<li id="li_5594E9DEBD9A4BAFB658FF01A703B8B3">Use VMXNET3 virtual NICs
+								for your latency-sensitive or otherwise performance-critical virtual
+								machines. See <xref href="http://kb.vmware.com/kb/1001805"
+									scope="external" format="html"
+									>http://kb.vmware.com/kb/1001805</xref> for details on selecting
+								the appropriate type of virtual NIC for your virtual machine. </li>
+							<li id="li_561C6D712168491F8EE43DAA5836520E">VMXNET3 supports adaptive
+								interrupt coalescing that can help drive high throughput to virtual
+								machines that have multiple vCPUs with parallelized workloads
+								(multiple threads), while minimizing latency of virtual interrupt
+								delivery. However, if your workload is extremely sensitive to
+								latency, VMware recommends that you disable virtual interrupt
+								coalescing for your virtual NICs. You can do this programmatically
+								via API or by editing your virtual machine's .vmx configuration
+								file. Refer to your vSphere API Reference or VMware ESXi
+								documentation for specific instructions. </li>
+						</ul>
+					</li>
+				</ul>
+			</p>
+		</body>
+	</topic>
+	<topic id="topic_E6EB8AB6CCEF435A98B48B867FE9BFEB">
+		<title>VMware vSphere vMotion and DRS Cluster Usage</title>
+		<shortdesc>This topic discusses use limitations of vSphere vMotion, including the use of it
+			with DRS. </shortdesc>
+		<body>
+			<ul id="ul_DB594A6BF3234659ACF15878F68F78BF">
+				<li id="li_56F6A99F155A4395A80EB966BB8BB5D8">When you first commission the data
+					management system, place VMware vSphere Distributed Resource Scheduler™ (DRS) in
+					manual mode to prevent an automatic VMware vSphere vMotion® operation that can
+					affect response times. </li>
+				<li id="li_C01EF45FC5684DB78889B10B8DFC4436">Reduce or eliminate the use of vMotion
+					to migrate <keyword keyref="product_name"/> virtual machines when they are under
+					heavy load. </li>
+				<li id="li_6A4C6B3892284E628C882585B8A7CB9E">Do not allow vMotion migrations with
+						<keyword keyref="product_name_long"/> locator processes, as the latency
+					introduced to this process can cause other members of the <keyword
+						keyref="product_name_long"/> servers to falsely suspect that other members
+					are dead. </li>
+				<li id="li_AE1A07FC8C9146B6B8C71C5503BBE94B">Use dedicated <keyword
+						keyref="product_name_long"/> vSphere DRS clusters. This is especially
+					important when you consider that the physical NIC and virtual NIC are
+					specifically tuned to disable Interrupt Coalescing on every NIC of an ESXi host
+					in the cluster. This type of tuning benefits <keyword keyref="product_name"/>
+					workloads, but it can hurt other non-<keyword keyref="product_name_long"/>
+					workloads that are memory throughput-bound as opposed to latency sensitive as in
+					the case of <keyword keyref="product_name_long"/> workloads. </li>
+				<li id="li_506B95DE753C420BAB4DF7B3C4B39E03"> If using a dedicated vSphere DRS
+					cluster is not an option, and <keyword keyref="product_name_long"/> must run in
+					a shared DRS cluster, make sure that DRS rules are set up not to perform vMotion
+					migrations on <keyword keyref="product_name"/> virtual machines. </li>
+				<li id="li_A86ED26F18554E31B9348CF68AE35F47">If you must use vMotion for migration,
+					VMware recommends that all vMotion migration activity of <keyword
+						keyref="product_name_long"/> members occurs over 10GbE, during periods of
+					low activity and scheduled maintenance windows. </li>
+			</ul>
+		</body>
+	</topic>
+	<topic id="topic_E53BBF3D09A54953B02DCE2BD00D51E0">
+		<title>Placement and Organization of Virtual Machines</title>
+		<shortdesc>This section provides guidelines on JVM instances and placement of redundant
+			copies of cached data. </shortdesc>
+		<body>
+			<ul id="ul_61A9101EC2354DF19D72B8359FBC962E">
+				<li id="li_D865CCE6F6194A0CB6B2E58F21E32304">Have one JVM instance per virtual
+					machine. </li>
+				<li id="li_392CDA194AF14ACCBBECBC7A1595BACD">Increasing the heap space to service
+					the demand for more data is better than installing a second instance of a JVM on
+					a single virtual machine. If increasing the JVM heap size is not an option,
+					consider placing the second JVM on a separate newly created virtual machine,
+					thus promoting more effective horizontal scalability. As you increase the number
+					of <keyword keyref="product_name_long"/> servers, also increase the number of
+					virtual machines to maintain a 1:1:1 ratio among the <keyword
+						keyref="product_name_long"/> server, the JVM, and the virtual machines. </li>
+				<li id="li_FD2BBCFA665146B496F390CAB345878A">Size for a minimum of four vCPU virtual
+					machines with one <keyword keyref="product_name_long"/> server running in one
+					JVM instance. This allows ample CPU cycles for the garbage collector, and the
+					rest for user transactions. </li>
+				<li id="li_B4A8B95F28D044D4B432A24F3919705A">Because <keyword
+						keyref="product_name_long"/> can place redundant copies of cached data on
+					any virtual machine, it is possible to inadvertently place two redundant data
+					copies on the same ESX/ESXi host. This is not optimal if a host fails. To create
+					a more robust configuration, use VM1-to-VM2 anti-affinity rules, to indicate to
+					vSphere that VM1 and VM2 can never be placed on the same host because they hold
+					redundant data copies. </li>
+			</ul>
+		</body>
+	</topic>
+	<topic id="topic_567308E9DE07406BB5BF420BE77B6558">
+		<title>Virtual Machine Memory Reservation</title>
+		<shortdesc>This section provides guidelines for sizing and setting memory. </shortdesc>
+		<body>
+			<ul id="ul_56DF96F4FA4B4E03A6BDE75C6BE41AFF">
+				<li id="li_DCB9E01325E54BDE90F5241B3C6A581D">Set memory reservation at the virtual
+					machine level so that ESXi provides and locks down the needed physical memory
+					upon virtual machine startup. Once allocated, ESXi does not allow the memory to
+					be taken away. </li>
+				<li id="li_B4CC140884C54E73BB9E03691AAE9FC7">Do not overcommit memory for <keyword
+						keyref="product_name"/> hosts. </li>
+				<li id="li_4A1E097BC52444749253232FDCE0116E">When sizing memory for a <keyword
+						keyref="product_name"/> server within one JVM on one virtual machine, the
+					total reserved memory for the virtual machine should not exceed what is
+					available within one NUMA node for optimal performance. </li>
+			</ul>
+		</body>
+	</topic>
+	<topic id="topic_424B940584044CF6A685E86802548A27">
+		<title>vSphere High Availability and <keyword keyref="product_name_long"/></title>
+		<shortdesc>On <keyword keyref="product_name_long"/> virtual machines, disable vSphere High
+			Availability (HA). </shortdesc>
+		<body>
+			<p>If you are using a dedicated <keyword keyref="product_name_long"/> DRS cluster, then
+				you can disable HA across the cluster. However, if you are using a shared cluster,
+				exclude <keyword keyref="product_name"/> virtual machines from vSphere HA. </p>
+			<p> Additionally, to support high availability, you can also set up anti-affinity rules
+				between the <keyword keyref="product_name_long"/> virtual machines to prevent two
+					<keyword keyref="product_name_long"/> servers from running on the same ESXi host
+				within the same DRS cluster. </p>
+		</body>
+	</topic>
+	<topic id="topic_913B15841C4249A68697F3D91281A645">
+		<title>Storage Guidelines</title>
+		<shortdesc>This section provides storage guidelines for persistence files, binaries, logs,
+			and more. </shortdesc>
+		<body>
+			<ul id="ul_A02A4D35B2B148A196F60DFA586BA3F2">
+				<li id="li_568C06074F5E45378D31205337E3DEAD">Use the PVSCSI driver for I/O intensive
+						<keyword keyref="product_name_long"/> workloads. </li>
+				<li id="li_C765F5B066D7426CB11CF62907AD399B">Align disk partitions at the VMFS and
+					guest operating system levels. </li>
+				<li id="li_14A8AC059B4B45D986586892667D66D8">Provision VMDK files as
+					eagerzeroedthick to avoid lazy zeroing for <keyword keyref="product_name_long"/>
+					members. </li>
+				<li id="li_4A3793103BE8429E852749AAFBD0EA0F">Use separate VMDKs for <keyword
+						keyref="product_name_long"/> persistence files, binaries, and logs. </li>
+				<li id="li_8C8D9856E6D547D1977AB9CA54DB2CC8">Map a dedicated LUN to each VMDK. </li>
+				<li id="li_8BBBAE81BF734ABDB078418EF9CA959B">For Linux virtual machines, use NOOP
+					scheduling as the I/O scheduler instead of Completely Fair Queuing (CFQ).
+					Starting with the Linux kernel 2.6, CFQ is the default I/O scheduler in many
+					Linux distributions. See <xref href="http://kb.vmware.com/kb/2011861"
+						scope="external" format="html">http://kb.vmware.com/kb/2011861</xref> for
+					more information. </li>
+			</ul>
+		</body>
+	</topic>
+	<topic id="topic_628F038FD4954E56BF4192F17FD3D119">
+		<title>Additional Resources</title>
+		<shortdesc>VMware provides additional resources for optimizing vSphere, Java applications,
+			and <keyword keyref="product_name_long"/>. </shortdesc>
+		<body>
+			<ul id="ul_2F95804AB24643BEB81892B231CDEE64">
+				<li id="li_5EBDCC61E6F547B4B8612658151831CF">"Performance Best Practices for VMware
+					vSphere 5.0" - <xref
+						href="http://www.vmware.com/pdf/Perf_Best_Practices_vSphere5.0.pdf"
+						scope="external" format="html"
+						>http://www.vmware.com/pdf/Perf_Best_Practices_vSphere5.0.pdf</xref>
+				</li>
+				<li id="li_3CB3CB7EE3C44DC8BCAB9A6695275239">"Best Practices for Performance Tuning
+					of Latency-Sensitive Workloads in vSphere Virtual Machines" - <xref
+						href="http://www.vmware.com/files/pdf/techpaper/VMW-Tuning-Latency-Sensitive-Workloads.pdf"
+						scope="external" format="html"
+						>http://www.vmware.com/files/pdf/techpaper/VMW-Tuning-Latency-Sensitive-Workloads.pdf</xref>
+				</li>
+				<li id="li_1C35B5F8974141BC8680354BAC64308A">"Enterprise Java Applications on VMware
+					- Best Practices Guide" - <xref
+						href="http://www.vmware.com/resources/techresources/1087" scope="external"
+						format="html">http://www.vmware.com/resources/techresources/1087</xref>
+				</li>
+				<li id="li_1F2BFFCACFF745F1839F2A7CA92F5B59">"High Performance Data with VMware
+					Pivotal™ GemFire® Best Practices Guide" - <xref
+						href="https://www.vmware.com/files/pdf/techpaper/vmw-vfabric-gemFire-best-practices-guide.pdf"
+						scope="external" format="html"
+						>https://www.vmware.com/files/pdf/techpaper/vmw-vfabric-gemFire-best-practices-guide.pdf</xref>
+				</li>
+			</ul>
+		</body>
+	</topic>
+</dita>

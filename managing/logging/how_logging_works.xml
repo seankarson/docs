@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "http://docs.oasis-open.org/dita/v1.1/OS/dtd/concept.dtd">
+<concept id="how_logging_works">
+	<title>How <keyword keyref="product_name"/> Logging Works</title>
+	<shortdesc><keyword keyref="product_name_long"/> uses Apache Log4j 2 as the basis for its
+		logging system. </shortdesc>
+	<conbody>
+		<p><keyword keyref="product_name"/> uses <xref href="http://logging.apache.org/log4j/2.x/"
+				format="html" scope="external">Apache Log4j 2</xref> API and Core libraries as the
+			basis for its logging system. Log4j 2 API is a popular and powerful front-end logging
+			API used by all the <keyword keyref="product_name"/> classes to generate log statements.
+			Log4j 2 Core is a backend implementation for logging; you can route any of the front-end
+			logging API libraries to log to this backend. <keyword keyref="product_name"/> uses the
+			Core backend to run two custom Log4j 2 Appenders: <b>AlertAppender</b> and
+				<b>LogWriterAppender</b>. </p>
+		<p><keyword keyref="product_name"/> has been tested with Log4j 2.1.</p>
+		<p>
+			<note>For this reason, <keyword keyref="product_name"/> now always requires the
+				following JARs to be in the classpath: <codeph>log4j-api-2.1.jar</codeph>,
+					<codeph>log4j-core-2.1.jar</codeph>. Both of these JARs are distributed in the
+					<codeph>$GEMFIRE/lib</codeph> directory and included in the appropriate
+					<codeph>*-dependencies.jar</codeph> convenience libraries.</note>
+		</p>
+		<p><b>AlertAppender</b> is the component that generates <keyword keyref="product_name"/>
+			alerts that are then managed by the JMX Management and Monitoring system. See <xref
+				href="../management/notification_federation_and_alerts.xml#topic_212EE5A2ABAB4E8E8EF71807C9ECEF1A"
+			/> for more details.</p>
+		<p><b>LogWriterAppender</b> is the component that is configured by all the
+				<codeph>log-*</codeph>
+			<keyword keyref="product_name"/> properties such as <codeph>log-file</codeph>,
+				<codeph>log-file-size-limit</codeph> and <codeph>log-disk-space-limit</codeph>.</p>
+		<p>Both of these appenders are created and controlled programmatically. You configure their
+			behavior with the <codeph>log-*</codeph>
+			<keyword keyref="product_name"/> properties and the alert level that is configured
+			within the JMX Management &amp; Monitoring system. These appenders do not currently
+			support configuration within a <filepath>log4j2.xml</filepath> config file.</p>
+		<p>Advanced users may wish to define their own <filepath>log4j2.xml</filepath>. See <xref
+				href="configuring_log4j2.xml#concept_c4k_1qf_jq"/> for more details.</p>
+	</conbody>
+</concept>

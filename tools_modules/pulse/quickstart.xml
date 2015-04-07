@@ -1,0 +1,1091 @@
+<?xml version="1.0"?>
+<!DOCTYPE dita PUBLIC "-//OASIS//DTD DITA Composite//EN" "ditabase.dtd">
+<dita>
+	<topic id="topic_523F6DE33FE54307BBE8F83BB7D9355D">
+		<title>Pulse Quick Start (Embedded Mode)</title>
+		<shortdesc>Use Pulse in embedded mode to monitor a <keyword keyref="product_name"/>
+			deployment directly from a <keyword keyref="product_name"/> JMX Manager. By default, the
+			embedded Pulse application connects to the local JMX Manager that hosts the Pulse
+			application. Optionally, configure Pulse to connect to a <keyword keyref="product_name"
+			/> system of your choice. </shortdesc>
+		<body>
+			<note><keyword keyref="product_name"/> cannot start Pulse in embedded mode if you run
+				the <keyword keyref="product_name"/> member itself inside of a Tomcat server
+				instance. <keyword keyref="product_name"/> displays an error message if you attempt
+				to start an embedded Pulse application using this configuration. See <xref
+					href="quickstart.xml#topic_795C97B46B9843528961A094EE520782" type="topic"
+					format="dita" scope="local"/> instead. </note>
+			<p>To run Pulse in embedded mode: <ol id="ol_953D2A0C17B54B929A7215423425372D">
+					<li id="li_C66E9CFB5CFF425FB9A629AA64BECCFA">
+						<p>Configure a <keyword keyref="product_name"/> member to run as a JMX
+							Manager node, specifying the HTTP port on which you will access the
+							Pulse Web application (port 7070 by default). For example, the following
+							command starts a <keyword keyref="product_name"/> locator as a JMX
+							Manager node, using the default HTTP port 7070 for the Pulse
+							application:
+							<codeblock>gfsh
+gfsh&gt; start locator --name=loc1</codeblock>
+						</p>
+						<note><keyword keyref="product_name"/> locators become JMX Manager nodes by
+							default. To start a non-locator member as a JMX Manager node, include
+							the <codeph>--J=-Dgemfire.jmx-manager=true</codeph> option. To specify a
+							non-default port number for the HTTP service that hosts the Pulse
+							application, include the
+									<codeph>--J=-Dgemfire.http-service-port=<i>port_number</i></codeph>
+							option when starting the JMX Manager node. </note>
+						<p>When the JMX Manager node boots, it starts an embedded Tomcat instance
+							and deploys the Pulse Web application at the specified or default HTTP
+							port or 7070 by default. </p>
+						<p><codeph>gfsh</codeph> automatically connects to the manager when you
+							start it in this way. If you already started a manager process earlier,
+							use the <codeph>connect</codeph> command in <codeph>gfsh</codeph> to
+							connect to that process. </p>
+					</li>
+					<li id="li_F83552FCFB834AD993E56F92FA774656">
+						<p>Access the embedded Pulse application from a Web browser. If you are
+							connected to the <keyword keyref="product_name"/> cluster using gfsh,
+							use the <codeph>start pulse</codeph> command to load the correct URL in
+							your browser: <codeblock>gfsh&gt; start pulse</codeblock>
+						</p>
+						<p>Or, enter the URL http://<i>address</i>:<i>http-service-port</i>/pulse
+							directly in your Web browser, substituting the address and HTTP port of
+							the manager. For example, you access Pulse on the local locator machine
+							from Step 1 at the URL http://localhost:7070/pulse. </p>
+					</li>
+					<li id="li_316CDCB6AC304C2E9AD54D3129B49724">If you have configured
+						authentication for the Pulse application, enter the username and password of
+						a valid Pulse account in the login screen. Otherwise, enter the default
+						"admin" in both fields. Click <b>Sign In</b> to continue. <p>See <xref
+								scope="local"
+								href="quickstart.xml#topic_AC9FFAA6FB044279BAED7A3E099E07AC"
+								type="topic" format="dita"/>. </p>
+					</li>
+					<li id="li_810340A19E834A7C8033A0DB853CD0B8">After you log in, Pulse displays
+						the main cluster view for the local distributed system. See <xref
+							href="quickstart.xml#topic_F0ECE9E8179541CCA3D6C5F4FBA84404"
+							type="topic" format="dita" scope="local"/>. </li>
+				</ol>
+			</p>
+			<note>When running in embedded mode, the Pulse application connects only to the JMX
+				Manager running in the locator or member that hosts Pulse. This enables you to
+				monitor all members of that distributed system. </note>
+		</body>
+	</topic>
+	<topic id="topic_795C97B46B9843528961A094EE520782">
+		<title>Hosting Pulse on a Web Application Server</title>
+		<shortdesc>Host Pulse on a dedicated Web application server to make the Pulse application
+			available at a consistent address, or to use SSL for accessing the Pulse application.
+			When you host Pulse in this way, you also configure Pulse to connect to a specific
+			locator or JMX Manager node for monitoring. </shortdesc>
+		<body>
+			<p>To host Pulse on a Web application server: <ol
+					id="ol_E06DD255F588414BBD5CD8A8F7A3969F">
+					<li id="li_03845BE53E56471B9F923D9B488EEA8E">Set the
+							<codeph>http-service-port</codeph> property to zero
+							(<codeph>-Dgemfire.http-service-port=0</codeph>) when you start your
+							<keyword keyref="product_name"/> JMX Manager nodes. Setting this
+						property to zero disables the embedded Web server for hosting the Pulse
+						application. </li>
+					<li id="li_5DA8BECE62B146ED865557468A163932">
+						<p>Create a <filepath>pulse.properties</filepath> file somewhere in the
+							classpath of your Web application server. For example, if you are
+							hosting Pulse on Tomcat, create the
+								<filepath>pulse.properties</filepath> file in the
+								<filepath>$TOMCAT_SERVER/lib</filepath> directory. </p>
+					</li>
+					<li id="li_2CC54310EDF34237AFDFD02949C6E4D4">Define the following configuration
+						properties in the <filepath>pulse.properties</filepath> file: <table
+							id="table_9C0EA1396A8341878F30F0D563238F6B">
+							<tgroup cols="2">
+								<colspec colnum="1" colname="col1" colwidth="*"/>
+								<colspec colnum="2" colname="col2" colwidth="*"/>
+								<thead>
+									<row>
+										<entry colname="col1">Property </entry>
+										<entry colname="col2">Description </entry>
+									</row>
+								</thead>
+								<tbody>
+									<row>
+										<entry colname="col1"><codeph>pulse.useLocator</codeph>
+										</entry>
+										<entry colname="col2">Specify "true" to configure Pulse to
+											connect to a <keyword keyref="product_name"/> Locator
+											member, or "false" to connect directly to a JMX Manager.
+												<p>When Pulse connects to a <keyword
+												keyref="product_name"/> locator, the locator
+												provides the address and port of an available JMX
+												Manager to use for monitoring the distributed
+												system. In most production deployments, you should
+												connect Pulse to a locator instance; this allows
+												Pulse to provide monitoring services using any
+												available JMX Manager. </p>
+											<p>If you specify "false," Pulse connects directly to a
+												specific JMX Manager. If this manager is not
+												available, the Pulse connection fails, even if
+												another JMX Manager is available in the distributed
+												system. </p>
+										</entry>
+									</row>
+									<row>
+										<entry colname="col1"><codeph>pulse.host</codeph>
+										</entry>
+										<entry colname="col2">Specify the DNS name or IP address of
+											the <keyword keyref="product_name"/> locator or JMX
+											Manager machine to which Pulse should connect. You
+											specify either a locator or JMX Manager address
+											depending on how you configured the
+												<codeph>pulse.useLocator</codeph> property. </entry>
+									</row>
+									<row>
+										<entry colname="col1"><codeph>pulse.port</codeph>
+										</entry>
+										<entry colname="col2">Specify the port number of the
+												<keyword keyref="product_name"/> locator or the HTTP
+											port number of the JMX Manager to which Pulse should
+											connect. You specify either a locator or JMX Manager
+											port depending on how you configured the
+												<codeph>pulse.useLocator</codeph> property. <p>If
+												you configured
+												<codeph>pulse.useLocator=false</codeph>, then
+												<codeph>pulse.port</codeph> must correspond to the
+												<codeph>http-service-port</codeph> setting of the
+												JMX Manager. </p>
+										</entry>
+									</row>
+									<row>
+										<entry colname="col1"><codeph>pulse.jmxUserName</codeph>
+										</entry>
+										<entry colname="col2">If you configured authentication for
+											the <keyword keyref="product_name"/> JMX Manager node,
+											specify a valid JMX user name that the Pulse application
+											will use to authenticate to the JMX Manager. <note>The
+												JMX account that Pulse uses must have both read and
+												write privileges. </note>
+											<p>See <xref scope="local"
+												href="../../managing/management/jmx_manager_operations.xml#topic_263072624B8D4CDBAD18B82E07AA44B6"
+												type="topic" format="dita"/> for information about
+												configuring authentication for JMX Manager nodes.
+											</p>
+										</entry>
+									</row>
+									<row>
+										<entry colname="col1"><codeph>pulse.jmxUserPassword</codeph>
+										</entry>
+										<entry colname="col2">Specify the password of the JMX user
+											account to use for authentication at startup. </entry>
+									</row>
+								</tbody>
+							</tgroup>
+						</table>
+						<p>For example, with this configuration Pulse connects to the locator at
+							mylocator[10334] and accesses any available JMX Manager:
+							<codeblock>pulse.useLocator=true
+pulse.host=locsrv.gemstone.com
+pulse.port=10334
+pulse.jmxUserName=pulseapp
+pulse.jmxUserPassword=pulsepass</codeblock>
+						</p>
+						<p>With this configuration Pulse accesses only the JMX Manager instance at
+							manager1[8080]:
+							<codeblock>pulse.useLocator=false
+pulse.host=jmxsrv.gemstone.com
+pulse.port=8080
+pulse.jmxUserName=pulseapp
+pulse.jmxUserPassword=pulsepass</codeblock>
+						</p>
+					</li>
+					<li id="li_7B562C0CAEFA43B5926DFADE003961AC">(Optional.) Configure
+						authentication for the Pulse Web application using the instructions in <xref
+							href="quickstart.xml#topic_AC9FFAA6FB044279BAED7A3E099E07AC"
+							type="topic" format="dita" scope="local"/>. </li>
+					<li id="li_D3EB4CA9D8074DB0BFC19E4946E36D34">Deploy the Pulse Web application to
+						your application server. <keyword keyref="product_name"/> installs the
+							<filepath>pulse.war</filepath> file in the
+							<filepath>tools/Pulse</filepath> subdirectory of your <keyword
+							keyref="product_name"/> installation directory. Depending on your
+						application server, you may need to copy the <filepath>pulse.war</filepath>
+						file to a deployment directory or use a configuration tool to deploy the
+						file. </li>
+					<li id="li_AC5D2505A5BA467788E577D57A595413">
+						<p>Access the Pulse application using the address, port, and application URL
+							that you configure in your Web application server. For example, with
+							Tomcat the default URL is http://<i>address</i>:8080/pulse. Your
+							application server provides options for configuring the address, port,
+							and application name; substitute the correct items to access the
+							deployed Pulse application. </p>
+						<p>Pulse connects to the locator or JMX Manager that you configured in the
+								<codeph>pulse.properties</codeph> file, authenticating using the
+							credentials that you configured in the file. </p>
+					</li>
+					<li id="li_7570C6D5D1C54EE2B6C18941B534CD39">If you have configured
+						authentication for the Pulse application, enter the username and password of
+						a valid Pulse account in the login screen. Otherwise, enter the default
+						"admin" in both fields. Click <b>Sign In</b> to continue. <p>See <xref
+								scope="local"
+								href="quickstart.xml#topic_AC9FFAA6FB044279BAED7A3E099E07AC"
+								type="topic" format="dita"/>. </p>
+					</li>
+					<li id="li_195772D5D14347D3B0DB2DAF9C586772">After you log in, Pulse displays
+						the main cluster view for the distributed system to which it has connected.
+						See <xref href="quickstart.xml#topic_F0ECE9E8179541CCA3D6C5F4FBA84404"
+							type="topic" format="dita" scope="local"/>. </li>
+				</ol>
+			</p>
+		</body>
+	</topic>
+	<topic id="topic_AC9FFAA6FB044279BAED7A3E099E07AC">
+		<title>Configuring Pulse Authentication</title>
+		<shortdesc>Pulse requires all users to authenticate themselves before they can use the Pulse
+			Web application. If you have configured JMX authentication on the <keyword
+				keyref="product_name"/> JMX Manager node, the Pulse Web application itself may also
+			need to authenticate itself to the <keyword keyref="product_name"/> JMX Manager node on
+			startup. </shortdesc>
+		<body>
+			<section id="section_D31C25130C3D470083DAC76AE64DD1B6">
+				<title>Authenticating the Pulse Application to the JMX Manager</title>
+				<p>If you run Pulse in embedded mode, the Pulse application runs on the JMX Manager
+					node and no JMX authentication is required. You do not need to specify valid JMX
+					credentials to start an embedded Pulse application. </p>
+				<p>If you host Pulse on a Web Application server (non-embedded mode) and you
+					configure JMX authentication on the <keyword keyref="product_name"/> manager
+					node, then the Pulse Web application must authenticate itself with the manager
+					node when it starts. Specify the credentials of a valid JMX user account in the
+						<filepath>pulse.properties</filepath> file, as described in <xref
+						href="quickstart.xml#topic_795C97B46B9843528961A094EE520782" type="topic"
+						format="dita" scope="local"/>. </p>
+				<note>The credentials that you specify must have both read and write privileges in
+					the JMX Manager node. See <xref scope="local"
+						href="../../managing/management/jmx_manager_operations.xml#topic_263072624B8D4CDBAD18B82E07AA44B6"
+						type="topic" format="dita"/>. </note>
+			</section>
+			<section id="section_E3703ED899354839BE51278D3AE79062">
+				<title>Authenticating Pulse Users</title>
+				<p>Pulse implements user authentication using the Spring security framework. The
+					authentication configuration is specified in the
+						<filepath>spring-security.xml</filepath> file, which is stored in the
+						<filepath>WEB-INF</filepath> directory of Pulse WAR file. The
+						<filepath>spring-security.xml</filepath> file contains bean definitions for
+					role-based resource access, authentication profiles, and authentication
+					handlers. The file also contains a default authentication manager bean
+					definition.</p>
+				<p>Pulse uses a profile-based authentication configuration. You can can choose to
+					use either the default configuration profile or a custom configuration. The
+					default profile uses the Spring security simple in-memory User Details Service
+					to define a single user with the credentials:<simpletable frame="all"
+						relcolwidth="1.0* 1.0*" id="simpletable_ntf_qg2_xn">
+						<strow>
+							<stentry>User Name:</stentry>
+							<stentry>admin</stentry>
+						</strow>
+						<strow>
+							<stentry>Password:</stentry>
+							<stentry>admin</stentry>
+						</strow>
+						<strow>
+							<stentry>Role:</stentry>
+							<stentry>ROLE_USER</stentry>
+						</strow>
+					</simpletable></p>
+				<p>Pulse uses this default authentication profile if you do not specify a profile
+					when starting the application, or if you specify the default profile at startup
+					using the system
+					property:<codeblock>-Dspring.profiles.active=pulse.authentication.default</codeblock></p>
+				<p>You can also configure Pulse to use a custom authentication configuration by
+					specifying activating the custom profile at startup with the system
+					property:<codeblock>-Dspring.profiles.active=pulse.authentication.custom</codeblock></p>
+				<p>Using a custom configuration enables you to use either the simple in-memory User
+					Details Service or an external properties file to authenticate users to the
+					application. Even if you choose to use the default Spring security simple
+					in-memory User Details Service, using a custom authentication configuration
+					enables you to define your own user credentials rather than using the default
+					"admin" account. </p>
+				<note><keyword keyref="product_name"/> also supports using an LDAP provider for
+					Pulse authentication. See <xref
+						href="#topic_AC9FFAA6FB044279BAED7A3E099E07AC/section_kjx_ylq_kq"
+						format="dita"/></note>
+				<p>To configure and use a custom authentication configuration:<ol id="ol_nt4_d32_xn">
+						<li>Create a directory in which you will store the custom authentication
+							configuration. For
+							example:<codeblock>$ mkdir /opt/pulse-config</codeblock></li>
+						<li>Ensure that the new directory you created is available on the Java
+							CLASSPATH:<codeblock>$ export CLASSPATH=$CLASSPATH:/opt/pulse-config</codeblock></li>
+						<li>Create a new text file named
+								<filepath>pulse-authentication-custom.xml</filepath> in the new
+							directory:<codeblock>$ touch /opt/pulse-config/pulse-authentication-custom.xml</codeblock></li>
+						<li>Use a text editor to add the bean definitions for the authentication
+							managers and providers that you want to use. The following listings show
+							the example file contents for using the in-memory User Details Service
+							and an external properties file:<p><b>Example
+									pulse-authentication-custom.xml for Spring simple in-memory User
+									Details
+								Service</b><codeblock>&lt;beans:beans >
+  &lt;authentication-manager>
+    &lt;authentication-provider>
+      &lt;user-service id="userDetailsService">
+        &lt;user name="<varname>john</varname>" password="<varname>johnspassword</varname>" authorities="ROLE_USER " />
+        &lt;user name="<varname>bob</varname>" password="<varname>bobspassword</varname>" authorities="ROLE_USER" />
+      &lt;/user-service>
+    &lt;/authentication-provider>
+  &lt;/authentication-manager>
+&lt;/beans:beans></codeblock></p><p><b>Example
+									pulse-authentication-custom.xml for external properties
+								file</b><codeblock>&lt;beans:beans >
+  &lt;authentication-manager>
+    &lt;authentication-provider>
+      &lt;user-service properties="classpath:pulse-users.properties">
+      &lt;/user-service>
+    &lt;/authentication-provider>
+  &lt;/authentication-manager>
+&lt;/beans:beans></codeblock></p><p>With
+								file-based authentication mechanism, you define the names and
+								passwords for valid Pulse users in a
+									<filepath>pulse-users.properties</filepath> file, which must be
+								available in the classpath of the Pulse application. Each line in
+								the <filepath>pulse-users.properties</filepath> file defines the
+								username, password, and access level for a Pulse user with the
+								format:
+								<codeblock><i>username</i>=<i>password</i>,<i>role</i>,{enabled | disabled}</codeblock>The
+									<i>role</i> entry must correspond to a valid Spring security
+								role. For example, this entry shows the default "admin" user enabled
+								with basic user access:
+								<codeblock>admin=admin,ROLE_USER,enabled</codeblock>
+							</p></li>
+						<li>When you start <keyword keyref="product_name"/> members, specify the
+							custom authentication profile using the
+								<codeph>-Dspring.profiles.active=pulse.authentication.custom</codeph>
+							system property. For
+							example:<codeblock>gfsh> start server --name=server1 --J=-Dspring.profiles.active=pulse.authentication.custom</codeblock></li>
+						<li>Start Pulse and log in using credentials that are authorized in the
+							custom configuration.</li>
+					</ol></p>
+			</section>
+			<section id="section_kjx_ylq_kq">
+				<title>Using LDAP Authentication in Pulse</title>
+				<p>This section provides instructions for using LDAP authentication with Pulse in
+					either embedded and non-embedded mode.</p>
+				<p>
+					<b>Embedded Mode (Jetty)</b>
+				</p>
+				<p>To configure LDAP for Pulse:</p>
+				<ol id="ol_vfq_wtq_kq">
+					<li>Create a directory in which you will store the LDAP authentication
+						configuration. For
+						example:<codeblock>$ mkdir /opt/pulse-config</codeblock>The directory name
+						and location are up to you-- just make sure you use the same name when
+						specifying the CLASSPATH for the <keyword keyref="product_name"/> JMX
+						Manager process.</li>
+					<li>Create a file named <filepath>pulse-authentication-custom.xml</filepath>
+						with contents similar to the following and place it under the directory you
+						created in step 1. For
+						example:<codeblock>&lt;beans:beans xmlns="http://www.springframework.org/schema/security"
+   	xmlns:beans="http://www.springframework.org/schema/beans"
+   	xmlns:context="http://www.springframework.org/schema/context"
+   	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+   	xsi:schemaLocation="http://www.springframework.org/schema/beans
+   	http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
+               http://www.springframework.org/schema/security
+               http://www.springframework.org/schema/security/spring-security-3.1.xsd
+               http://www.springframework.org/schema/context
+   	http://www.springframework.org/schema/context/spring-context-3.2.xsd">
+   	
+        &lt;ldap-server url="ldap://ldap.gemstone.com:389/dc=gemstone,dc=com" />
+
+        &lt;authentication-manager>
+           &lt;ldap-authentication-provider user-dn-pattern="uid={0},ou=ldapTesting"  
+            group-search-base="cn=PULSEUSER,ou=Groups" group-search-filter="memberUid={1}">
+           &lt;/ldap-authentication-provider>
+       &lt;/authentication-manager>
+ 
+&lt;/beans:beans></codeblock>LDAP
+						authentication in Pulse is hardcoded to use the PULSEUSER user group. Make
+						sure you have have created users for this group.</li>
+					<li>When starting the JMX Manager from gfsh, use the following
+						commands:<codeblock>gfsh>start locator --name=loc --J=-Dspring.profiles.active=pulse.authentication.custom --classpath=/opt/pulse-config</codeblock>or
+						<codeblock>gfsh>start server --name=server1 --J=-Dspring.profiles.active=pulse.authentication.custom --classpath=/opt/pulse-config</codeblock></li>
+					<li>Start Pulse and log in using credentials that are authorized in the LDAP
+						configuration.</li>
+				</ol>
+				<p>
+					<b>Non-Embedded (Standalone Web Server) Mode (Tomcat)</b>
+				</p>
+				<p>To configure LDAP for Pulse:</p>
+				<ol id="ol_jgb_mwq_kq">
+					<li>Create a directory in which you will store the LDAP authentication
+						configuration. For
+						example:<codeblock>$ mkdir /opt/pulse-config</codeblock></li>
+					<li>The directory name and location of the Pulse configuration files are up to
+						you-- just make sure you use the same name when specifying the CLASSPATH for
+						the Tomcat server.</li>
+					<li>Pass in the Spring profile when starting the web server. In Tomcat, all the
+						VM arguments are set in the variable CATALINA_OPTS, which you can define in
+						your environment configuration file setenv.bat or setenv.sh. <p>For example,
+							under %CATALINA_HOME%/bin or $CATALINA_HOME/bin, you can create a setenv
+							batch file or script file (if not already present) that sets the
+							following. On
+						Windows:</p><codeblock>set CATALINA_OPTS=-Dspring.profiles.active=pulse.authentication.custom
+set "CLASSPATH=C:\pulse-config"</codeblock>or
+						in
+						Unix/Linux:<codeblock>CATALINA_OPTS=-Dspring.profiles.active=pulse.authentication.custom
+export CATALINA_OPTS
+CLASSPATH=$CLASSPATH:/opt/pulse-config</codeblock></li>
+					<li>Create a file named <filepath>pulse-authentication-custom.xml</filepath>
+						with contents similar to the following and place it under the directory you
+						created in step 1. For
+						example:<codeblock>&lt;beans:beans xmlns="http://www.springframework.org/schema/security"
+   	xmlns:beans="http://www.springframework.org/schema/beans"
+   	xmlns:context="http://www.springframework.org/schema/context"
+   	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+   	xsi:schemaLocation="http://www.springframework.org/schema/beans
+   	http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
+               http://www.springframework.org/schema/security
+               http://www.springframework.org/schema/security/spring-security-3.1.xsd
+               http://www.springframework.org/schema/context
+   	http://www.springframework.org/schema/context/spring-context-3.2.xsd">
+   	
+        &lt;ldap-server url="ldap://ldap.gemstone.com:389/dc=gemstone,dc=com" />
+
+        &lt;authentication-manager>
+           &lt;ldap-authentication-provider user-dn-pattern="uid={0},ou=ldapTesting"  
+            group-search-base="cn=PULSEUSER,ou=Groups" group-search-filter="memberUid={1}">
+           &lt;/ldap-authentication-provider>
+       &lt;/authentication-manager>
+ 
+&lt;/beans:beans></codeblock>LDAP
+						authentication in Pulse is hardcoded to use the PULSEUSER user group. Make
+						sure you have have created users for this group.</li>
+					<li>Deploy the application and start the server. </li>
+				</ol>
+			</section>
+			<section>
+				<title>Configuring Pulse to Use HTTPS </title>
+				<p>You can configure Pulse to use HTTPS in either embedded or non-embedded mode.</p>
+				<p>In non-embedded mode where you are running Pulse on a standalone Web application
+					server, you must use the Web server's SSL configuration to make the HTTP
+					requests secure.</p>
+				<p>In embedded mode, the <keyword keyref="product_name"/> uses an embedded Jetty
+					server to host the Pulse Web application. To make the embedded server use HTTPS,
+					you must configure the following <keyword keyref="product_name"/> configuration
+					parameters in <filepath>gemfire.properties</filepath> or
+						<filepath>gfsecurity-properties</filepath>:</p>
+				<ul id="ul_hl4_rqq_kq">
+					<li>http-service-ssl-enabled</li>
+					<li>http-service-ssl-require-authentication</li>
+					<li>http-service-ssl-protocols</li>
+					<li>http-service-ssl-ciphers</li>
+					<li>http-service-ssl-keystore</li>
+					<li>http-service-ssl-keystore-password</li>
+					<li>http-service-ssl-keystore-type</li>
+					<li>http-service-ssl-truststore</li>
+					<li>http-service-ssl-truststore-password</li>
+				</ul>
+				<p dir="ltr">See <xref href="../../managing/security/ssl_overview.xml#ssl"/> for
+					details on configuring these parameters.</p>
+				<p dir="ltr">The above parameters apply to all HTTP services hosted on the JMX
+					Manager, which includes the following:</p>
+				<ul id="ul_vnp_vrq_kq">
+					<li>Developer REST API service</li>
+					<li>Management REST API service (for remote cluster management)</li>
+					<li>Pulse monitoring tool</li>
+				</ul>
+				<p dir="ltr">When the above properties are configured, all HTTP services become
+					SSL-enabled and you must configure your client applications accordingly. For
+					SSL-enabled Pulse, you will need to configure your browsers with proper
+					certificates. </p>
+			</section>
+		</body>
+	</topic>
+	<topic id="topic_F0ECE9E8179541CCA3D6C5F4FBA84404">
+		<title>Using Pulse Views</title>
+		<shortdesc>Pulse provides a variety of different views to help you monitor <keyword
+				keyref="product_name"/> clusters, members, and regions. </shortdesc>
+		<body>
+			<section>
+				<p>The following sections provide an overview of the main Pulse views: <ul
+						id="ul_DC9EBD24A54B44579B355B6E384AD8A3">
+						<li id="li_28EC4D83F1154AAAAB85D8C67617B9FF"><xref scope="local"
+								href="quickstart.xml#topic_F0ECE9E8179541CCA3D6C5F4FBA84404/section_9794B5754E474E10ABFBCD8B1DA240F8"
+								type="section" format="dita"/>
+						</li>
+						<li id="li_C5783061B3834039A4049DEBA96AD1C9"><xref scope="local"
+								href="quickstart.xml#topic_F0ECE9E8179541CCA3D6C5F4FBA84404/section_3629814A3DF64D31A190495782DB0DBF"
+								type="section" format="dita"/>
+						</li>
+						<li id="li_208034A8BC48450A93027EA3B6947BA2"><xref scope="local"
+								href="quickstart.xml#topic_F0ECE9E8179541CCA3D6C5F4FBA84404/section_D151776BAC8B4704A71F37F8B5CE063D"
+								type="section" format="dita"/>
+						</li>
+						<li><xref
+								href="#topic_F0ECE9E8179541CCA3D6C5F4FBA84404/sec_pulsedatabrowser"
+								format="dita"/></li>
+						<li><xref href="#topic_F0ECE9E8179541CCA3D6C5F4FBA84404/section_bfk_sc3_wn"
+								format="dita"/></li>
+					</ul>
+				</p>
+			</section>
+			<section id="section_9794B5754E474E10ABFBCD8B1DA240F8">
+				<title>Cluster View</title>
+				<p>The cluster view is a high-level overview of the <keyword keyref="product_name"/>
+					distributed system. It is displayed immediately after you log into Pulse.
+					Information displays around the perimeter of the cluster view show statistics
+					such as memory usage, JVM pauses, and throughput. You can use the cluster view
+					to drill down into details for individual members and regions in the distributed
+						system.<image id="image_CC7B54903DF24030850E55965CDB6EC4"
+						href="../../images/pulse_cluster_view.png" placement="break" width="6.5in"
+						align="left"/>
+				</p>
+				<p>Use these basic controls while in Cluster view: <ol
+						id="ol_C0F76CB7C8904F63BC3A2F1AF91681E3">
+						<li>Click Members or Data to display information about <keyword
+								keyref="product_name"/> members or data regions in the distributed
+							system.</li>
+						<li id="li_8A820336235F46A1AFBB02C698EA3294">Click the display icons to
+							display the <keyword keyref="product_name"/> members using icon view,
+							block view, or table view. Note that icon view is available only when
+							displaying Members.<p>For example, the following shows <keyword
+									keyref="product_name"/> Members displayed in table view:</p>
+							<image href="../../images/member_view_list.png" id="image_npw_sq3_wn"
+								/><ul id="ul_x4q_b3r_54">
+								<li>While in block view or table view, click the name of a <keyword
+										keyref="product_name"/> member to display additional
+									information in the <xref
+										href="quickstart.xml#topic_F0ECE9E8179541CCA3D6C5F4FBA84404/section_3629814A3DF64D31A190495782DB0DBF"
+										type="section" format="dita" scope="local"
+										outputclass="noPageCitation"/>.</li>
+								<li>Click Topology, Server Groups, or Redundancy Zones to filter the
+									view based on all members in the topology, configured server
+									groups, or configured redundancy zones.</li>
+							</ul><p>The following shows <keyword keyref="product_name"/> Regions
+								displayed in table view:</p><image
+								href="../../images/pulse-region-detail.png" id="image_glp_1jr_54"
+								/><ul id="ul_z2b_m3r_54">
+								<li>While in block view or table view, click the name of a <keyword
+										keyref="product_name"/> region to display additional
+									information in the <xref scope="local"
+										href="quickstart.xml#topic_F0ECE9E8179541CCA3D6C5F4FBA84404/section_D151776BAC8B4704A71F37F8B5CE063D"
+										type="section" format="dita" outputclass="noPageCitation"
+									/>.</li>
+							</ul></li>
+						<li id="li_332A502FCF6549CD98738E26459E91F4">While in icon view, click a
+							host machine icon to display the <keyword keyref="product_name"/>
+							members on that machine. </li>
+						<li id="li_6065E4348F054D33A245BC5932BA4142">In the Alerts pane, click the
+							severity tabs to filter the message display by the level of severity.
+						</li>
+					</ol>
+				</p>
+				<p>
+					<b>Cluster View Screen Components</b>
+				</p>
+				<p>The following table describes the data pieces displayed on the Cluster View
+						screen.<simpletable frame="all" relcolwidth="1.0* 2.57*"
+						id="simpletable_i5t_jst_qn">
+						<sthead>
+							<stentry>Screen Component</stentry>
+							<stentry>Description</stentry>
+						</sthead>
+						<strow>
+							<stentry><b>Cluster Status</b></stentry>
+							<stentry>Overall status of the distributed system being monitored.
+								Possible statuses include Normal, Warning, or Severe.</stentry>
+						</strow>
+						<strow>
+							<stentry>Total Heap</stentry>
+							<stentry>Total amount of memory (in GB) allocated to the Java heap
+								across all members.</stentry>
+						</strow>
+						<strow>
+							<stentry>Members</stentry>
+							<stentry>Total number of members in the cluster.</stentry>
+						</strow>
+						<strow>
+							<stentry>Servers</stentry>
+							<stentry>Total number of servers in the cluster.</stentry>
+						</strow>
+						<strow>
+							<stentry>Clients</stentry>
+							<stentry>Total number of clients in the cluster.</stentry>
+						</strow>
+						<strow>
+							<stentry>Locators</stentry>
+							<stentry>Total number of locators in the cluster.</stentry>
+						</strow>
+						<strow>
+							<stentry>Regions</stentry>
+							<stentry>Total number of regions in the cluster.</stentry>
+						</strow>
+						<strow>
+							<stentry>Functions</stentry>
+							<stentry>Total number of functions registered in the cluster.</stentry>
+						</strow>
+						<strow>
+							<stentry>Subscriptions</stentry>
+							<stentry>Total number of client event subscriptions.</stentry>
+						</strow>
+						<strow>
+							<stentry><b>Cluster Members</b></stentry>
+							<stentry>Graphical, block, or table view of the members in the
+								cluster.</stentry>
+						</strow>
+						<strow>
+							<stentry>Topology</stentry>
+							<stentry>Organizes cluster members by DistributedMember Id.</stentry>
+						</strow>
+						<strow>
+							<stentry>Server Groups</stentry>
+							<stentry>Organizes cluster members by server group membership. If no
+								server groups are configured, all members appear under the "Default"
+								server group.</stentry>
+						</strow>
+						<strow>
+							<stentry>Redundancy Zones</stentry>
+							<stentry>Organizes cluster members by redundancy zones. If no redundancy
+								zones are configured, all members appear under the "Default"
+								zone.</stentry>
+						</strow>
+						<strow>
+							<stentry>Host Machine</stentry>
+							<stentry>When you mouse over a machine icon in Topology View, a pop-up
+								appears with the following machine statistics:<ul id="ul_onc_5rh_wn">
+									<li><i>CPU Usage</i>. Percentage of CPU being used by <keyword
+											keyref="product_name"/> processes on the machine.</li>
+									<li><i>Memory Usage</i>. Amount of memory (in MB) being used by
+											<keyword keyref="product_name"/> processes.</li>
+									<li><i>Load Avg</i>. Average number of threads on the host
+										machine that are in the run queue or are waiting for disk
+										I/O over the last minutes. Corresponds to the Linux System
+										statistic loadAverage1. If the load average is not
+										available, a negative value is shown.</li>
+									<li><i>Sockets</i>. Number of sockets currently open on the
+										machine.</li>
+								</ul></stentry>
+						</strow>
+						<strow>
+							<stentry>Member</stentry>
+							<stentry>When you mouse over a member icon in Graphical View, a pop-up
+								appears with the following member statistics:<ul id="ul_tsj_mth_wn">
+									<li><i>CPU Usage</i>. Percentage of CPU being used by the
+											<keyword keyref="product_name"/> member process.</li>
+									<li><i>Threads</i>. Number of threads running on the
+										member.</li>
+									<li><i>JVM Pauses</i>. Number of times the JVM used by the
+										member process has paused due to garbage collection or
+										excessive CPU usage.</li>
+									<li><i>Regions</i>. Number of regions hosted on the member
+										process.</li>
+									<li><i>Clients</i>. Number of client currently connected to the
+										member process.</li>
+									<li><i>Gateway Sender</i>. Number of gateway senders configured
+										on the member.</li>
+									<li><i>Port</i>. Server port of the cache server member where
+										clients can connect and perform cache operations.</li>
+									<li><i>GemFire Version</i>. The version of the <keyword
+											keyref="product_name"/> member.</li>
+								</ul></stentry>
+						</strow>
+						<strow>
+							<stentry>Member</stentry>
+							<stentry>In List View, the following data fields are displayed for each
+									member:<ul id="ul_ew1_bp3_wn">
+									<li><i>ID</i>. DistributedMember Id of the member.</li>
+									<li><i>Name</i>. Name of the member.</li>
+									<li><i>Host</i>. Hostname or IP address where the member is
+										running.</li>
+									<li><i>Heap Usage</i>. Amount of JVM heap memory being used by
+										the member process.</li>
+									<li><i>CPU Usage</i>. Percentage of CPU being used by the
+											<keyword keyref="product_name"/> member process.</li>
+									<li><i>Uptime</i>. How long the member has been up and
+										running.</li>
+									<li><i>Clients</i>. Number of clients currently connected to the
+										member. It will have a value only if the member acts as a
+										CacheServer.</li>
+								</ul></stentry>
+						</strow>
+						<strow>
+							<stentry><b>Key Statistics</b></stentry>
+							<stentry>Displays a few key performance measurements of the distributed
+								system (over the last 15 minutes).</stentry>
+						</strow>
+						<strow>
+							<stentry>Write/Sec</stentry>
+							<stentry>Number of write operations per second that have occurred across
+								the cluster. Each put/putAll operation counts as a write; for
+								example, a putAll of 50 entries is counted as one write.</stentry>
+						</strow>
+						<strow>
+							<stentry>Read/Sec</stentry>
+							<stentry>Number of read operations per second that have occurred across
+								the cluster.</stentry>
+						</strow>
+						<strow>
+							<stentry>Queries/Sec</stentry>
+							<stentry>Number of queries per second that have been executed across the
+								cluster.</stentry>
+						</strow>
+						<strow>
+							<stentry><b>No. of JVM Pauses</b></stentry>
+							<stentry>Number of times the JVM has paused during the last five minutes
+								to perform garbage collection.</stentry>
+						</strow>
+						<strow>
+							<stentry><b>Disk Throughput</b></stentry>
+							<stentry>Total disk throughput for all disks in cluster.</stentry>
+						</strow>
+						<strow>
+							<stentry><b>Alerts View</b></stentry>
+							<stentry>Displays alerts for the cluster.</stentry>
+						</strow>
+					</simpletable></p>
+			</section>
+			<section id="section_3629814A3DF64D31A190495782DB0DBF">
+				<title>Member View</title>
+				<p>When you select an individual <keyword keyref="product_name"/> member in Cluster
+					View, Pulse displays the regions available on that member, as well as
+					member-specific information such as the configured listen ports.<image
+						id="image_EDBD3D333B2741DCAA5CB94719B507B7"
+						href="../../images/pulse_member_view.png" placement="break" width="6.5in"
+						align="left"/>
+				</p>
+				<p>Use these basic controls while in Member View: <ol
+						id="ol_ECC9232ABD344DD288CD3B2F2E9892AB">
+						<li id="li_A6BE844083F84B57A1C4990AFC9B4D62">Click the display icons to
+							display regions using block view or table view. </li>
+						<li id="li_E48126EA3EE14644B7052352032E6A48">Use the drop down menu to
+							select a specific member or search for specific members by name. </li>
+						<li id="li_259FB414031B493E91B573F50996B779">Click <b>Cluster View</b> to
+							return to Cluster View. See <xref
+								href="quickstart.xml#topic_F0ECE9E8179541CCA3D6C5F4FBA84404/section_9794B5754E474E10ABFBCD8B1DA240F8"
+								type="section" format="dita" scope="local"/>. </li>
+						<li id="li_407504D5CFD2484488BE1A99BF21675C">Click <b>Data Browser</b> to
+							query region data. See <xref
+								href="#topic_F0ECE9E8179541CCA3D6C5F4FBA84404/sec_pulsedatabrowser"
+								format="dita"/>. </li>
+					</ol>
+				</p>
+				<p>
+					<b>Member View Screen Components</b>
+				</p>
+				<p>The following table describes the data elements displayed on the Member View
+						screen.<simpletable frame="all" relcolwidth="1.0* 2.57*"
+						id="simpletable_rp4_vj3_wn">
+						<sthead>
+							<stentry>Screen Component</stentry>
+							<stentry>Description</stentry>
+						</sthead>
+						<strow>
+							<stentry><b>Member Status</b></stentry>
+							<stentry>Overall status of the member being monitored. Possible statuses
+								include Normal, Warning, or Severe. </stentry>
+						</strow>
+						<strow>
+							<stentry>Regions</stentry>
+							<stentry>Total number of regions hosted on the member.</stentry>
+						</strow>
+						<strow>
+							<stentry>Threads</stentry>
+							<stentry>Total number of threads being executed on the member.</stentry>
+						</strow>
+						<strow>
+							<stentry>Sockets</stentry>
+							<stentry>Total number of sockets currently open on the member.</stentry>
+						</strow>
+						<strow>
+							<stentry>Load Avg.</stentry>
+							<stentry>Average number of threads on the member that are in the run
+								queue or are waiting for disk I/O over the last minute. Corresponds
+								to the Linux System statistic loadAverage1. If the load average is
+								not available, a negative value is shown.</stentry>
+						</strow>
+						<strow>
+							<stentry>Clients</stentry>
+							<stentry>Current number of client connections to the member.</stentry>
+						</strow>
+						<strow>
+							<stentry><b>Member Regions</b></stentry>
+							<stentry>Block or table view of the regions hosted on the member.
+							</stentry>
+						</strow>
+						<strow>
+							<stentry>Regions</stentry>
+							<stentry>When you mouse over a region in block view, a pop-up appears
+								with the following data fields:<ul id="ul_xnn_3dj_wn">
+									<li><i>Name</i>. Region name.</li>
+									<li><i>Type</i>. For example, REPLICATE, PARTITION.</li>
+									<li><i>EntryCount</i>. Number of entries in the region.</li>
+									<li><i>EntrySize</i>. The aggregate entry size (in bytes) of all
+										entries. For replicated regions this field will only provide
+										a value if the eviction algorithm has been set to
+										EvictionAlgorithm#LRU_ MEMORY. All partition regions will
+										have this value. However, the value includes redundant
+										entries and will also count the size of all the secondary
+										entries on the node.</li>
+								</ul></stentry>
+						</strow>
+						<strow>
+							<stentry>Regions</stentry>
+							<stentry>In table view, the following fields are listed for each
+									region:<ul id="ul_kcg_b2j_wn">
+									<li><i>Name</i>. Region name.</li>
+									<li><i>Type</i>. For example, REPLICATE, PARTITION.</li>
+									<li><i>EntryCount</i>. Number of entries in the region.</li>
+									<li><i>EntrySize</i>. The aggregate entry size (in bytes) of all
+										entries. For replicated regions this field will only provide
+										a value if the eviction algorithm has been set to
+										EvictionAlgorithm#LRU_ MEMORY. All partition regions will
+										have this value. However, the value includes redundant
+										entries and will also count the size of all the secondary
+										entries on the node.</li>
+									<li><i>Scope</i>. Scope configured for the region.</li>
+									<li><i>Disk Store Name</i>. Name of disk stores (if any)
+										associated with the region.</li>
+									<li><i>Disk Synchronous</i>. True if writes to disk are set to
+										synchronous and false if not. This field reflects the
+										configured disk-synchronous region attribute.</li>
+									<li><i>Gateway Enabled</i>. Whether gateway sender and receiver
+										configurations have been defined on members hosting this
+										region. </li>
+								</ul></stentry>
+						</strow>
+						<strow>
+							<stentry><b>Member Clients</b></stentry>
+							<stentry>In table view, the following fields are listed for each
+									client:<ul id="ul_vrz_pgj_wn">
+									<li><i>Id</i>. DistributedMember ID of the client process.</li>
+									<li><i>Name</i>. Name of the client process.</li>
+									<li><i>Host</i>. Hostname or IP address of the client
+										process.</li>
+									<li><i>Connected</i>. Whether the client process is currently
+										connected to the member. </li>
+									<li><i>Queue Size</i>. The size of the queue used by server to
+										send events in case of a subscription enabled client or a
+										client that has continuous queries running on the server. </li>
+									<li><i>CPU Usage</i>. Percentage of CPU being used by the client
+										process. </li>
+									<li><i>Uptime</i>. Amount of time the client process has been
+										running. </li>
+									<li><i>Threads</i>. Threads being used by the member
+										clients</li>
+									<li><i>Gets</i>. Total number of successful get requests
+										completed.</li>
+									<li><i>Puts</i>. Total number of successful put requests
+										completed.</li>
+								</ul></stentry>
+						</strow>
+						<strow>
+							<stentry><b>Key Statistics</b></stentry>
+							<stentry>Displays a few key performance measurements for the member
+								(over the last 15 minutes).</stentry>
+						</strow>
+						<strow>
+							<stentry>% CPU Usage</stentry>
+							<stentry>Percentage of CPU used by the member.</stentry>
+						</strow>
+						<strow>
+							<stentry>Read/Sec</stentry>
+							<stentry>Number of read operations per second that have occurred on the
+								member.</stentry>
+						</strow>
+						<strow>
+							<stentry>Write/Sec</stentry>
+							<stentry>Number of write operations per second that have occurred on the
+								member. Each put/putAll operation counts as a write; for example, a
+								putAll of 50 entries is counted as one write.</stentry>
+						</strow>
+						<strow>
+							<stentry><b>Memory Usage</b></stentry>
+							<stentry>Total memory used on the member in MB.</stentry>
+						</strow>
+						<strow>
+							<stentry><b>No. of JVM Pauses</b></stentry>
+							<stentry>Number of times the JVM has paused during the last five minutes
+								due to garbage collection or excessive CPU usage.</stentry>
+						</strow>
+						<strow>
+							<stentry><b>Disk Throughput</b></stentry>
+							<stentry>Rate of disk writes on the member.</stentry>
+						</strow>
+					</simpletable></p>
+			</section>
+			<section id="section_D151776BAC8B4704A71F37F8B5CE063D">
+				<title>Region View</title>
+				<p>The Pulse Region View provides a comprehensive overview of all regions in the
+						<keyword keyref="product_name"/> distributed system:<image
+						id="image_A533852E38654E79BE5628E938E170EB"
+						href="../../images/pulse_data_view.png" placement="break" width="6.5in"
+						align="left"/>
+				</p>
+				<p>Use these basic controls while in Region View: <ol
+						id="ol_1462167D70BA40C09F15659AE29EFA73">
+						<li id="li_4E4F2E748A8644728C41E242686CA255">Click the display icons to
+							display all members that host the region using block view or table view.
+								<p>(Click the name of a member to change to that member's <xref
+									href="quickstart.xml#topic_F0ECE9E8179541CCA3D6C5F4FBA84404/section_3629814A3DF64D31A190495782DB0DBF"
+									type="section" format="dita" scope="local"
+									outputclass="noPageCitation"/>.)</p></li>
+						<li id="li_F0503DD1B1F54F56B34BF1B84234612E">Search for specific members
+							that host the current region.</li>
+						<li>Hover over a member name to display information such as the region entry
+							count, entry size, and throughput on that member.</li>
+						<li id="li_EA895A396C614935A21D6ACA8DF5C864">Click <xref
+								href="quickstart.xml#topic_F0ECE9E8179541CCA3D6C5F4FBA84404/section_9794B5754E474E10ABFBCD8B1DA240F8"
+								type="section" format="dita" scope="local"
+								outputclass="noPageCitation"/> or <xref
+								href="#topic_F0ECE9E8179541CCA3D6C5F4FBA84404/sec_pulsedatabrowser"
+								format="dita" outputclass="noPageCitation"/> to go to those
+							screens.</li>
+					</ol>
+				</p>
+				<p>
+					<b>Region View Screen Components</b>
+				</p>
+				<p>The following table describes the data elements displayed on the Region View
+						screen.<simpletable frame="all" relcolwidth="1.0* 2.57*"
+						id="simpletable_bqw_p3j_wn">
+						<sthead>
+							<stentry>Screen Component</stentry>
+							<stentry>Description</stentry>
+						</sthead>
+						<strow>
+							<stentry><b>Region Members</b></stentry>
+							<stentry>Lists information about <keyword keyref="product_name"/>
+								members that host the region, either in block view or table view.
+							</stentry>
+						</strow>
+						<strow>
+							<stentry>Region Member (Detail View)</stentry>
+							<stentry>When you hover over a region member in block view, a pop-up
+								appears with the following data fields:<ul id="ul_njl_423_yn">
+									<li><i>Member Name</i>. The name of the <keyword
+											keyref="product_name"/> member hosting the region.</li>
+									<li><i>EntryCount</i>. Number of entries for the region on that
+										member.</li>
+									<li><i>EntrySize</i>. The aggregate entry size (in bytes) of all
+										entries on that member. For replicated regions this field
+										will only provide a value if the eviction algorithm has been
+										set to EvictionAlgorithm#LRU_ MEMORY. All partition regions
+										will have this value. However, the value includes redundant
+										entries and will also count the size of all the secondary
+										entries on the node. </li>
+									<li><i>Accessor</i>. Indicates whether the member is an accessor
+										member.</li>
+									<li><i>Reads/Writes</i>. Summary of reads and writes served from
+										memory and from disk stores over the last 15 minutes.</li>
+								</ul></stentry>
+						</strow>
+						<strow>
+							<stentry>Region Member (Table View)</stentry>
+							<stentry>In table view, the following fields are listed for each region
+									member:<ul id="ul_pnj_p23_yn">
+									<li><i>ID</i>. The unique member ID.</li>
+									<li><i>Name</i>. Region name.</li>
+									<li><i>Host</i>. Member hostname.</li>
+									<li><i>Heap Usage</i>. The total amount of heap used on the
+										member in MB.</li>
+									<li><i>CPU Usage</i>. CPU usage as a percent of available
+										CPU.</li>
+									<li><i>Uptime</i>. The amount of time elapsed since the member
+										started.</li>
+									<li><i>Accessor</i>. Indicates whether the member is an accessor
+										member.</li>
+								</ul></stentry>
+						</strow>
+						<strow>
+							<stentry><b>Region Detail</b></stentry>
+							<stentry>When you have selected a region, the right hand pane displays
+								the following information about the region:<ul id="ul_dq4_sch_yn">
+									<li><i>Name</i>. Name of the region.</li>
+									<li><i>Region Path</i>. Path for the region.</li>
+									<li><i>Type</i>. For example, REPLICATE, PARTITION</li>
+									<li><i>Members</i>. Number of members that are hosting the
+										region.</li>
+									<li><i>Empty Nodes</i>. Nodes where the region DataPolicy is
+										defined as EMPTY or where LocalMaxMemory is set to 0.</li>
+									<li><i>Entry Count</i>. Total number of entries in the
+										region.</li>
+									<li><i>Disk Usage</i>. Persistent data usage.</li>
+									<li><i>Persistence</i>. Indicates whether the region's data is
+										persisted to disk.</li>
+									<li><i>Memory Usage</i>. The amount of memory used and total
+										available memory (also shown as a percentage).</li>
+									<li><i>Reads/Writes</i>. Summary of reads and writes served from
+										memory and from disk stores over the last 15 minutes.</li>
+								</ul></stentry>
+						</strow>
+					</simpletable></p>
+			</section>
+			<section id="sec_pulsedatabrowser">
+				<title>Data Browser</title>
+				<p>The Pulse Data Browser enables you to query region data. Note that there are two
+					key attributes available on <xref
+						href="../../managing/management/list_of_gemfire_mbeans_full.xml#topic_14E3721DD0CF47D7AD8C742DFBE9FB9C/section_4D7A4C82DD974BB5A5E52B34A6D888B4"
+						outputclass="noPageCitation"/> that you can use to configure limits for the
+					result sets displayed in Data Browser:<ul id="ul_rrw_b41_y4">
+						<li><codeph>QueryResultSetLimit</codeph> limits the number of rows that Data
+							Browser queries return. 1000 rows are displayed by default.</li>
+						<li><codeph>QueryCollectionsDepth</codeph> limits the number of elements of
+							a collection that Data Browser queries return. This attribute applies to
+							query results contain collections such as Map, List, and so forth. The
+							default value is 100 elements.</li>
+					</ul></p>
+				<p>See the <codeph>com.gemstone.gemfire.management.DistributedSystemMXBean</codeph>
+					JavaDocs for information on available MBean methods and attributes. </p>
+				<p>The following shows an example Data Browser view:<image
+						href="../../images/pulse-data-browser.png" placement="break" width="6.5in"
+						align="left" id="image_hhp_dz2_44"/>
+				</p>
+				<p>Use these basic controls while in Data Browser view: <ol id="ol_jhp_dz2_44">
+						<li>Search for the name of a specific region. </li>
+						<li>Select one or more regions to display the <keyword keyref="product_name"
+							/> members that host those regions. The hosting <keyword
+								keyref="product_name"/> members appear in the Region Members
+							section. </li>
+						<li>Select one or more members from the Region Members section to restrict
+							query results to those members. </li>
+						<li>Type in the text of a query to execute. See <xref
+								href="../../developing/querying_basics/chapter_overview.xml#querying_with_oql"
+							/>.</li>
+						<li>Display a list of previously-executed queries. Double-click on a query
+							from the history list to copy it to the Query Editor, or delete the
+							query from your history.</li>
+						<li>Execute your query or clear the contents of the Query Editor.</li>
+						<li>View the current query results.</li>
+						<li>Export the query results to a text file.</li>
+						<li>Return to <xref
+								href="quickstart.xml#topic_F0ECE9E8179541CCA3D6C5F4FBA84404/section_9794B5754E474E10ABFBCD8B1DA240F8"
+								type="section" format="dita" scope="local"
+								outputclass="noPageCitation"/>. </li>
+					</ol>
+				</p>
+			</section>
+			<section id="section_bfk_sc3_wn">
+				<title>Alerts Widget</title>
+				<p>The Alerts Widget appears in the right portion of the screen and displays a list
+					of alerts.</p>
+				<p> The alerts displayed for the cluster appear based on the alertLevel field set in
+					the DistributedSystemMXBean. By default, log messages with the level of SEVERE
+					are shown as alerts. You can modify the level by using the
+						<codeph>DistributedMXBean.changeAlertLevel</codeph> method. See <xref
+						href="../../managing/management/notification_federation_and_alerts.xml#topic_212EE5A2ABAB4E8E8EF71807C9ECEF1A/section_7463D13112D54406953416356835E290"
+					/> ofr more information.</p>
+				<p>
+					<image href="../../images/pulse_alerts_widget.png" id="image_jrc_smt_qn"/>
+				</p>
+				<p>Use these basic controls in the Alerts Widget:<ol id="ol_tkg_rkt_qn">
+						<li>Select an alert level to view only alerts with a specific severity.</li>
+						<li>Enter text in the search box to filter the list of alerts.</li>
+						<li>Select an alert and click Clear to remove it from the alert list.</li>
+						<li>Click <b>Clear All</b> to remove all alerts from the widget.</li>
+						<li>Double-click an alert to open a pop-up window that displays the full
+							text of the alert message.</li>
+						<li>Click the check mark in an alert pop-up window to acknowledge the alert.
+							Acknowledged alerts display a check mark in the list of alerts.</li>
+						<li>Triple-click the alert in the pop-up or in the alert list to select the
+							message text. You can then copy and paste the text into another
+							application.</li>
+						<li>Click the <b>X</b> to close the pop-up alert window.</li>
+					</ol></p>
+			</section>
+		</body>
+	</topic>
+</dita>

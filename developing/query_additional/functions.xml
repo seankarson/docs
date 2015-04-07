@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "http://docs.oasis-open.org/dita/v1.1/OS/dtd/concept.dtd">
+<concept id="functions">
+    <title>Functions</title>
+    <prolog audience="basic">
+    </prolog>
+    <conbody>
+        <section>
+            <p>The query language supports these functions: <ul>
+                    <li><b>ELEMENT(expr)</b>. Extracts a single element from a collection or array. This function throws a <codeph>FunctionDomainException</codeph> if the argument is not a collection or array with exactly one element. </li>
+                    <li><b>IS_DEFINED(expr)</b>. Returns TRUE if the expression does not evaluate to UNDEFINED.</li>
+                    <li><b>IS_UNDEFINED(expr)</b>. Returns TRUE if the expression evaluates to UNDEFINED. In most queries, undefined values are not included in the query results. The IS_UNDEFINED function allows undefined values to be included, so you can identify elements with undefined values. </li>
+                    <li><b>NVL(expr1, expr2)</b>. Returns expr2 if expr1 is null. The expressions can be bind arguments, path expressions, or literals.</li>
+                    <li><b>TO_DATE (date_str, format_str)</b>. Returns a Java <codeph>Date</codeph> class object. The arguments must be <codeph>String</codeph>s with <codeph>date_str</codeph> representing the date and <codeph>format_str</codeph> representing the format used by <codeph>date_str</codeph>. The <codeph>format_str</codeph> you provide is parsed using <codeph>java.text.SimpleDateFormat</codeph>. </li>
+                </ul>This example returns a boolean indicating whether the single portfolio instance is active:<codeblock>ELEMENT(SELECT DISTINCT * FROM /portfolios WHERE id = 'XYZ-1').status = 'active'</codeblock>This returns all portfolios with an undefined value for status. <codeblock>SELECT DISTINCT * FROM /portfolios pflo 
+    WHERE IS_UNDEFINED(pflo.status)</codeblock></p>
+        </section>
+    </conbody>
+</concept>

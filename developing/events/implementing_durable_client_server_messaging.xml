@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "http://docs.oasis-open.org/dita/v1.1/OS/dtd/concept.dtd">
+<concept id="implementing_durable_client_server_messaging">
+	<title>Implementing Durable Client/Server Messaging</title>
+	<conbody>
+		<section id="section_7A0D0B7D1F2748C7BA7479E0FD5C6BFA">
+			<p>Use durable messaging for subscriptions that you need maintained for your clients
+				even when your clients are down or disconnected. You can configure any of your event
+				subscriptions as durable. Events for durable queries and subscriptions are saved in
+				queue when the client is disconnected and played back when the client reconnects.
+				Other queries and subscriptions are removed from the queue. </p>
+			<p>Use durable messaging for client/server installations that use event subscriptions. </p>
+			<p>These are the high-level tasks described in this topic: </p>
+			<ol id="ol_235DF52AA06048D5B5BCDC4B6336354E">
+				<li id="li_7C0C43A2ACA04F34B5944A6A1B315E41">Configure your client as durable </li>
+				<li id="li_96EB4A387ED54C7BA71C2D7432635CBD">Decide which subscriptions should be
+					durable and configure accordingly </li>
+				<li id="li_5AAA411BFBA5461680FD59DBFE7B0ED9">Program your client to manage durable
+					messaging for disconnect, reconnect, and event handling </li>
+			</ol>
+		</section>
+		<section id="section_643EB5FA6F09463C80646786394F1E02">
+			<title>Configure the Client as Durable</title>
+			<p>Use one of the following methods: <ul id="ul_A54F40A08DC04DC2924CD312F54B77FD">
+					<li id="li_7BDFF0632DE9452C93881FA4C0EAF569"><codeph>gemfire.properties</codeph>
+						file:
+						<codeblock>durable-client-id=31 
+durable-client-timeout=200 </codeblock>
+					</li>
+					<li id="li_7418B8B60AE44F8E976BB44928005DCD">Java:
+						<codeblock>Properties props = new Properties(); 
+props.setProperty("durable-client-id", "31"); 
+props.setProperty("durable-client-timeout", "" + 200); 
+DistributedSystem ds = DistributedSystem.connect(props);</codeblock>
+					</li>
+				</ul>
+			</p>
+		</section>
+		<section id="section_B8E01FE4B5A347EB96085DA3194F6AE8">
+			<p>The <codeph>durable-client-id</codeph> indicates that the client is durable and gives
+				the server an identifier to correlate the client to its durable messages. For a
+				non-durable client, this id is an empty string. The ID can be any number that is
+				unique among the clients attached to servers in the same distributed system. </p>
+			<p>The <codeph>durable-client-timeout</codeph> tells the server how long to wait for
+				client reconnect. When this timeout is reached, the server stops storing to the
+				client's message queue and discards any stored messages. The default is 300 seconds.
+				This is a tuning parameter. If you change it, take into account the normal activity
+				of your application, the average size of your messages, and the level of risk you
+				can handle, both in lost messages and in the servers' capacity to store enqueued
+				messages. Assuming that no messages are being removed from the queue, how long can
+				the server run before the queue reaches the maximum capacity? How many durable
+				clients can the server handle? To assist with tuning, use the <keyword
+					keyref="product_name"/> message queue statistics for durable clients through the
+				disconnect and reconnect cycles. </p>
+		</section>
+		<section id="section_0FBD23CC79784E588135FE93306EC0A4">
+			<title>Program the Client to Manage Durable Messaging</title>
+			<p>Program your durable client to be durable-messaging aware when it disconnects,
+				reconnects, and handles events from the server. <ol
+					id="ol_09522205F2E54F39864D1887425AAB75">
+					<li id="li_25D30E5C54B44E578C8CF6A925E98EDC">Disconnect with a request to keep
+						your queues active by using <codeph>Pool.close</codeph> or
+							<codeph>ClientCache.close</codeph> with the boolean
+							<codeph>keepalive</codeph> parameter. <p>
+							<codeblock>clientCache.close(true);</codeblock>
+						</p>
+					</li>
+					<li id="li_E76A7C1D669843438AB092925CF4E226">Program your durable client's
+						reconnection to: <ol id="ol_2021825BD7424BBF9073DC72360B6D8F">
+							<li>If desired, detect whether the previously registered subscription
+								queue is available upon durable client reconnection and the count of
+								pending events in the queue. Based on the results, you can then
+								decide whether to receive the remaining events or close the cache if
+								the number is too large. <p>For example, for a client with only the
+									default pool
+									created:<codeblock>int pendingEvents = cache.getDefaultPool().getPendingEventCount();
+
+if (pendingEvents == -2) { // client connected for the first time  … // continue
+} 
+else if (pendingEvents == -1) { // client reconnected but after the timeout period  
+… // handle possible data loss
+} 
+else { // pendingEvents >= 0  
+… // decide to invoke readyForEvents() or cache.close(false)/pool.destroy()
+}</codeblock>For
+									a client with multiple
+									pools:<codeblock>int pendingEvents = 0;
+
+int pendingEvents1 = PoolManager.find(“pool1”).getPendingEventCount();
+
+pendingEvents += (pendingEvents1 &gt; 0) ? pendingEvents1 : 0;
+
+int pendingEvents2 = PoolManager.find(“pool2”).getPendingEventCount();
+
+pendingEvents += (pendingEvents2 &gt; 0) ? pendingEvents2 : 0;
+
+// process individual pool counts separately.</codeblock></p>
+								The <codeph>getPendingEventCount</codeph> API can return the
+								following possible values:<ul id="ul_nvy_xk1_hq">
+									<li>A value representing a count of events pending at the
+										server. Note that this count is an approximate value based
+										on the time the durable client pool connected or reconnected
+										to the server. Any number of invocations will return the
+										same value.</li>
+									<li>A zero value if there are no events pending at server for
+										this client pool</li>
+									<li>A negative value indicates that no queue is available at the
+										server for the client pool. <ul id="ul_lp3_fl1_hq">
+											<li>-1 indicates that the client pool has reconnected to
+												the server after its durable-client-timeout period
+												has elapsed. The pool's subscription queue has been
+												removed possibly causing data loss.</li>
+											<li>A value of -2 indicates that this client pool has
+												connected to server for the first time.</li>
+										</ul></li>
+								</ul></li>
+							<li id="li_52C4414ED67D457093A648DE43E0CDBC">Connect, initialize the
+								client cache, regions, and any cache listeners. </li>
+							<li id="li_4071FF39FE9C43FD98C780B982544BB0">Run all interest
+								registration calls. <note>Registering interest with
+										<codeph>InterestResultPolicy.KEYS_VALUES</codeph>
+									initializes the client cache with the <i>current</i> values of
+									specified keys. If concurrency checking is enabled for the
+									region, any earlier (older) region events that are replayed to
+									the client are ignored and are not sent to configured listeners.
+									If your client must process all replayed events for a region,
+									register with <codeph>InterestResultPolicy.KEYS</codeph> or
+										<codeph>InterestResultPolicy.NONE</codeph> when
+									reconnecting. Or, disable concurrency checking for the region in
+									the client cache. See <xref
+										href="../distributed_regions/region_entry_versions.xml#topic_CF2798D3E12647F182C2CEC4A46E2045"
+										type="topic" format="dita" scope="local"/>. </note>
+							</li>
+							<li id="li_CA153397A92C4B1284BA5DEE87D5DF94">Call
+									<codeph>ClientCache.readyForEvents</codeph> so the server will
+								replay stored events. If the ready message is sent earlier, the
+								client may lose events. </li>
+						</ol>
+						<p>
+							<codeblock>ClientCache clientCache = ClientCacheFactory.create(); 
+// Here, create regions, listeners that are not defined in the cache.xml . . .
+// Here, run all register interest calls before doing anything else
+clientCache.readyForEvents(); </codeblock>
+						</p>
+					</li>
+					<li id="li_9DC06E9766AA4102BE594733D11D9FAD">When you program your durable
+						client <codeph>CacheListener</codeph>: <ol
+							id="ol_1AAA8604CCA34F1C8A7EFA238FD0C0EF">
+							<li id="li_4BCA88805BEB4C89B7DBBCF78BA01B2D">Implement the callback
+								methods to behave properly when stored events are replayed. The
+								durable client’s <codeph>CacheListener</codeph> must be able to
+								handle having events played after the fact. Generally listeners
+								receive events very close to when they happen, but the durable
+								client may receive events that occurred minutes before and are not
+								relevant to current cache state. </li>
+							<li id="li_83C29334D8924CA4BBE58771075D4CCD">Consider whether to use the
+									<codeph>CacheListener</codeph> callback method,
+									<codeph>afterRegionLive</codeph>, which is provided specifically
+								for the end of durable event replay. You can use it to perform
+								application-specific operations before resuming normal event
+								handling. If you do not wish to use this callback, and your listener
+								is an instance of <codeph>CacheListener</codeph> (instead of a
+									<codeph>CacheListenerAdapter</codeph>) implement
+									<codeph>afterRegionLive</codeph> as an empty method. </li>
+						</ol>
+					</li>
+				</ol>
+			</p>
+		</section>
+	</conbody>
+</concept>

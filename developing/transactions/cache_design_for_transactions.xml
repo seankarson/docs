@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "http://docs.oasis-open.org/dita/v1.1/OS/dtd/concept.dtd">
+<concept id="cache_design_for_transactions"> 
+  <title>Cache Design for Transactions</title> 
+  <prolog><metadata><keywords><keyword>gemfire transaction cache
+			 design</keyword><keyword>gemfire cache design</keyword><keyword>gemfire
+			 functions and transactions</keyword><keyword>gemfire transaction
+			 performance</keyword><keyword>gemfire transaction data
+			 location</keyword></keywords></metadata>
+  </prolog> 
+  <conbody> 
+	 <section id="section_881D2FF6761B4D689DDB46C650E2A2E1"> 
+		<p>You can run transactions on any type of cache region except regions
+		  with global scope. A transaction attempted on these regions throws 
+		  <codeph>UnsupportedOperationExeption.</codeph> 
+		</p>
+		<p>By default, GemFire does not allow transactions on persistent regions.
+		  You can enable the use of transactions on persistent regions by setting the
+		  gemfire property 
+		  <codeph>gemfire.ALLOW_PERSISTENT_TRANSACTIONS</codeph> to 
+		  <codeph>true</codeph>.
+		</p>
+		<p>
+		  <note>The discussions on transactions in this guide use replicated and
+			 partitioned regions. If you use non-replicated distributed regions, follow the
+			 guidelines for replicated regions. 
+		  </note> 
+		</p> 
+	 </section> 
+	 <section id="section_E0C4B7D2E4414F099788A5A441FF0E03"> 
+		<title>Performance</title> 
+		<p>The most common region configurations for use with transactions are
+		  distributed replicated and partitioned: 
+		<ul id="ul_22F57520C7D04AC085526D3C64E14483"> 
+		  <li id="li_E8CF3AABACC34AB8A5A16326BF7119F9">Replicated regions are
+			 better suited for running transactions on small to mid-size data sets. To
+			 ensure all or nothing behavior, at commit time, distributed transactions use
+			 the global reservation system of the GemFire
+			 distributed lock service. This works well as long as the data set is reasonably
+			 small. 
+		  </li> 
+		  <li id="li_8FBD8E73E2FE437D8BE9013775323B9A">Partitioned regions are
+			 the right choice for highly-performant, scalable operations. Transactions on
+			 partitioned regions use only local locking, and only send messages to the
+			 redundant data stores at commit time. Because of this, these transactions
+			 perform much better than distributed transactions. There are no global locks,
+			 so partitioned transactions are extremely scalable as well. 
+		  </li> 
+		</ul> 
+		</p> 
+	 </section> 
+	 <section id="section_14FF9932C7134C5584A14246BB4D4FF6"> 
+		<title>Data Location</title> 
+		<p>Transactions must be run on a data set hosted entirely by one member. 
+		<ul id="ul_FD35B3E19901460DBE992AF2EF44F0BC"> 
+		  <li id="li_F0F6CCF27D0D49F79AA9EE85EC20BEE1">For replicated or other
+			 distributed regions, the transaction uses only the data set in the member where
+			 the transaction is run. 
+		  </li> 
+		  <li id="li_55FE1CA7A16F492A9EB4F0DF8DF219B6">For partitioned regions,
+			 you must co-locate all your transactional data in a single member. 
+		  </li> 
+		  <li id="li_EE546AF344B84CC59EC32AA775129812">For transactions run on
+			 partitioned and distributed region mixes, you must co-locate the partitioned
+			 region data and make sure the distributed region data is available in any
+			 member hosting the partitioned region data. 
+		  </li> 
+		</ul> 
+		</p> 
+		<p>For transactions involving partitioned regions, any member with the
+		  regions defined can run the transactional application, regardless of whether
+		  the member hosts data for the regions. If the transactional data resides on a
+		  remote member, the transaction is carried out by proxy in the member hosting
+		  the data. The member hosting the data is referred to as the transactional data
+		  host. 
+		</p> 
+	 </section> 
+	 <section id="section_22A0B8DD651047EDB45B480EEAB0481E"> 
+		<title>Transactions and Functions</title> 
+		<p>You can run a function inside a transaction and you can run a
+		  transaction inside a function, as long as your combination of functions and
+		  transactions does not result in nested transactions. You cannot call a function
+		  from inside a transaction if the function runs its own transaction. 
+		</p> 
+		<p>You can also have multiple functions participate within a single
+		  transaction. 
+		</p> 
+		<p>If you are suspending and resuming a transaction with multiple
+		  function calls, all function calls participating in the transaction must
+		  execute on the same member. 
+		  <draft-comment>Added caveat above. 
+		  </draft-comment> 
+		</p> 
+	 </section> 
+  </conbody> 
+</concept> 

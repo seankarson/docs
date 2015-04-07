@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "http://docs.oasis-open.org/dita/v1.1/OS/dtd/concept.dtd">
+<concept id="use_pdx_serializer">
+	<title>Serializing Your Domain Object with a PdxSerializer</title>
+	<shortdesc>For a domain object that you cannot or do not want to modify, use the
+			<codeph>PdxSerializer</codeph> class to serialize and deserialize the object's fields.
+		You use one <codeph>PdxSerializer</codeph> implementation for the entire cache, programming
+		it for all of the domain objects that you handle in this way. </shortdesc>
+	<conbody>
+		<p>With <codeph>PdxSerializer</codeph>, you leave your domain object as-is and handle the
+			serialization and deserialization in the separate serializer. You register the
+			serializer in your cache PDX configuration. Program the serializer to handle all of the
+			domain objects you need. </p>
+		<p>If you write your own <codeph>PdxSerializer</codeph> and you also use the
+				<codeph>ReflectionBasedAutoSerializer</codeph>, then the
+				<codeph>PdxSerializer</codeph> needs to own the
+				<codeph>ReflectionBasedAutoSerializer</codeph> and delegate to it. A Cache can only
+			have a single <codeph>PdxSerializer</codeph> instance. </p>
+		<p>
+			<note>The <codeph>PdxSerializer</codeph>
+				<codeph>toData</codeph> and <codeph>fromData</codeph> methods differ from those for
+					<codeph>PdxSerializable</codeph>. They have different parameters and results.
+			</note>
+		</p>
+		<p> </p>
+		<p>
+			<b>Procedure</b>
+			<ol id="ol_AD5CB17A66BA46ABA7201D455D265A2B">
+				<li>In the domain classes that you wish to PDX serialize, make sure each class has a
+					zero-arg constructor. For
+					example:<codeblock>public PortfolioPdx(){}</codeblock></li>
+				<li id="li_0E06E68C4431429F909D697D8BD5A530">If you have not already implemented
+						<codeph>PdxSerializer</codeph> for some other domain object, perform these
+					steps: <ol id="ol_ED579995AB954C77904EF0F986ACEAC7">
+						<li id="li_0636D8D4830C4480908A64DFBA9F18EA">Create a new class as your
+							cache-wide serializer and make it implement
+								<codeph>PdxSerializer</codeph>. If you want to declare your new
+							class in the <codeph>cache.xml</codeph> file, have it also implement
+								<codeph>Declarable</codeph>. <p>Example:
+								<codeblock outputclass="language-java">import com.gemstone.gemfire.cache.Declarable;
+import com.gemstone.gemfire.pdx.PdxReader;
+import com.gemstone.gemfire.pdx.PdxSerializer;
+import com.gemstone.gemfire.pdx.PdxWriter;
+
+public class ExamplePdxSerializer implements PdxSerializer, Declarable {
+...
+</codeblock>
+							</p>
+						</li>
+						<li id="li_EE0DDC897BDF4268A0EDA607A806EF23">In your cache pdx
+							configuration, register the serializer class in the cache's
+								<codeph>&lt;pdx&gt;</codeph>
+							<codeph>&lt;pdx-serializer&gt;</codeph>
+							<codeph>&lt;class-name&gt;</codeph> attribute. <p>Example:
+								<codeblock outputclass="language-xml">// Configuration setting PDX serializer for the cache
+&lt;cache&gt;
+  &lt;pdx&gt;
+    &lt;pdx-serializer&gt;
+     &lt;class-name&gt;com.company.ExamplePdxSerializer&lt;/class-name&gt;
+    &lt;/pdx-serializer&gt;
+  &lt;/pdx&gt; 
+  ...
+&lt;/cache&gt;</codeblock>
+								Or use the <codeph>CacheFactory.setPdxSerializer </codeph> API. </p>
+							<p>
+								<codeblock outputclass="language-java">
+Cache c = new CacheFactory
+   .setPdxSerializer(new ExamplePdxSerializer())
+   .create();</codeblock>
+							</p>
+						</li>
+					</ol><note>You cannot specify a custom <codeph>pdx-serializer</codeph> class
+						using gfsh, however the <cmdname>configure pdx</cmdname> command
+						automatically configures the
+							<apiname>com.gemstone.gemfire.pdx.ReflectionBasedAutoSerializer</apiname>
+						class. See <xref
+							href="../../tools_modules/gfsh/command-pages/configure.xml#topic_jdkdiqbgphqh"
+						/>.</note>
+				</li>
+				<li id="li_DE4C113670904EF0959410240C020940">Program
+						<codeph>PdxSerializer.toData</codeph> to recognize, cast, and handle your
+					domain object: <ol id="ol_E022809209F34C65A029DA2538A06CFE">
+						<li id="li_1E458430F89B42D29F0D4EB6781458E4">Write each standard Java data
+							field of your domain class using the <codeph>PdxWriter</codeph> write
+							methods. </li>
+						<li id="li_DE6BCF3B23CC45D5B9E35A437EF63FDD">Call the
+								<codeph>PdxWriter</codeph>
+							<codeph>markIdentityField</codeph> method for each field you want to
+							have <keyword keyref="product_name"/> use to identify your object. Put
+							this after the field's write method. <keyword keyref="product_name"/> uses this information to
+							compare objects for operations like distinct queries. If you do not set
+							as least one identity field, then the <codeph>equals</codeph> and
+								<codeph>hashCode</codeph> methods will use all PDX fields to compare
+							objects and consequently, will not perform as well. It is important that
+							the fields used by your <codeph>equals</codeph> and
+								<codeph>hashCode</codeph> implementations are the same fields that
+							you mark as identity fields. </li>
+						<li id="li_E34C3F50479A45D6A040C0A9ABC81DA4">For a particular version of
+							your class, you need to consistently write the same named field each
+							time. The field names or number of fields must not change from one
+							instance to another for the same class version. </li>
+						<li id="li_8FA1BF971E994A7E97389A25F2EA1651">For best performance, do fixed
+							width fields first and then variable length fields. </li>
+						<li id="li_88695D6C104146F69C328B2A5FE97218">If desired, you can check the
+							portability of the object before serializing it by adding the
+								<codeph>checkPortability</codeph> parameter when using the<codeph>
+								PdxWriter</codeph>
+							<codeph>writeObject</codeph>, <codeph>writeObjectArray</codeph>, and
+								<codeph>writeField</codeph> methods. </li>
+					</ol>
+					<p>Example <codeph>toData</codeph> code:
+						<codeblock outputclass="language-java">public boolean toData(Object o, PdxWriter writer)
+  {
+    if(!(o instanceof PortfolioPdx)) {
+      return false;
+    }
+
+    PortfolioPdx instance = (PortfolioPdx) o;
+    writer.writeInt("id", instance.id)
+    //identity field
+    .markIdentityField("id")
+    .writeDate("creationDate", instance.creationDate)
+    .writeString("pkid", instance.pkid)
+    .writeObject("positions", instance.positions)
+    .writeString("type", instance.type)
+    .writeString("status", instance.status)
+    .writeStringArray("names", instance.names)
+    .writeByteArray("newVal", instance.newVal)
+
+    return true;
+  }
+</codeblock>
+					</p>
+					<ol id="ol_7C84B288BD16459F99F88162FE6925C9">
+						<li id="li_A31789487D1D481F87A1626BD4893CE2">Program
+								<codeph>PdxSerializer.fromData</codeph> to create an instance of
+							your class, read your data fields from the serialized form into the
+							object's fields using the <codeph>PdxReader</codeph> read methods, and
+							return the created object. <p>Provide the same names that you did in
+									<codeph>toData</codeph> and call the read operations in the same
+								order as you called the write operations in your
+									<codeph>toData</codeph> implementation. </p><keyword
+								keyref="product_name"/> provides the domain class type and
+								<codeph>PdxReader</codeph> to the <codeph>fromData</codeph> method.
+								<p>Example <codeph>fromData</codeph> code: </p>
+							<codeblock outputclass="language-java">  public Object fromData(Class&lt;?&gt; clazz, PdxReader reader)
+  {
+    if(!clazz.equals(PortfolioPdx.class)) {
+      return null;
+    }
+
+    PortfolioPdx instance = new PortfolioPdx();
+    instance.id = reader.readInt("id");
+    instance.creationDate = reader.readDate("creationDate");
+    instance.pkid = reader.readString("pkid");
+    instance.positions = (Map&lt;String, PositionPdx&gt;)reader.readObject("positions");
+    instance.type = reader.readString("type");
+    instance.status = reader.readString("status");
+    instance.names = reader.readStringArray("names");
+    instance.newVal = reader.readByteArray("newVal");
+
+    return instance;
+  }</codeblock>
+						</li>
+					</ol>
+				</li>
+				<li id="li_1FAFBAF3E83B47AA90DB24971FAF46AB">If desired, you can also enable extra
+					validation in your use of <codeph>PdxWriter</codeph>. You can set this by
+					setting the system property <codeph>gemfire.validatePdxWriters</codeph> to
+						<b>true</b>. Note that you should only set this option if you are debugging
+					new code as this option can decrease system performance. </li>
+			</ol>
+		</p>
+	</conbody>
+</concept>

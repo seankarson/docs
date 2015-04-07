@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE task PUBLIC "-//OASIS//DTD DITA Task//EN" "http://docs.oasis-open.org/dita/v1.1/OS/dtd/task.dtd">
+<task id="setting_up_a_client_server_system">
+	<title>Configuring a Client/Server System</title>
+	<shortdesc>Configure your server and client processes and data regions to run your client/server
+		system. </shortdesc>
+	<taskbody>
+		<prereq id="prereq_DF75AF89838F485BAEEF622C9F84F5BA">
+			<b>Prerequisites</b>
+			<ul id="ul_2FD1AB100D0147C892486C126477BE65">
+				<li id="li_BE5007821EC94C49B15B73668278AD1D">Configure your server system using
+					locators for member discovery. See <xref format="dita"
+						href="../p2p_configuration/setting_up_a_p2p_system.xml#setting_up_membership"
+						scope="local" type="concept"/> and <xref format="dita"
+						href="../../basic_config/the_cache/managing_a_peer_server_cache.xml#creating_and_closing_a_peer_cache"
+						scope="local" type="concept"/>. </li>
+				<li id="li_7B5992BCEA194585A1788864FB0F370F">Configure your clients as standalone
+					applications. See <xref format="dita"
+						href="../../basic_config/the_cache/managing_a_client_cache.xml#managing_a_client_cache"
+						scope="local" type="concept"/>. </li>
+				<li id="li_8A7F17C158004CDFAAA56867D81FA79E">Be familiar with cache region
+					configuration. See <xref format="dita"
+						href="../../basic_config/data_regions/chapter_overview.xml#data_regions"
+						scope="local" type="concept"/>. </li>
+				<li id="li_FD158B2F36BD4235B92466BEF56622A4">Be familiar with server and client
+					configuration properties. See <xref
+						href="../../reference/topics/elements_ref.xml#topic_7B1CABCAD056499AA57AF3CFDBF8ABE3"
+					/>. </li>
+			</ul>
+			<b>Procedure</b>
+		</prereq>
+		<steps id="steps_9E1648F3E2D941D39ECF5BCAA49490A1">
+			<step id="step_E5B9E26857144F70B8F129ED9E8BFC62">
+				<cmd>Configure servers to listen for clients by completing one or both of the
+					following tasks. </cmd>
+				<choices id="choices_F5C710600F5340608737B8EDF9DD9CD8">
+					<choice id="choice_5DFC1E3F920E47978D0F14D2A47D9536">Configure each application
+						server as a server by specifying the <codeph>&lt;cache-server&gt;</codeph>
+						element in the application's <codeph>cache.xml</codeph> and optionally
+						specifying a non-default port to listen on for client connections. <p>For
+							example: </p>
+						<codeblock>&lt;cache-server port="40404" ... /&gt;</codeblock>
+					</choice>
+					<choice id="choice_D4D38594E4D34CE4AF3F80D1F6F64CB6">Optional. Configure each
+							<codeph>cacheserver</codeph> process with a non-default port to listen
+						on for client connections. <p>For example: </p>
+						<codeblock>prompt&gt; cacheserver start -port="44454"</codeblock>
+					</choice>
+				</choices>
+			</step>
+			<step id="step_3552BA0E33854C9A8018E54C7DCA2221">
+				<cmd>Configure clients to connect to servers. In the client
+						<codeph>cache.xml</codeph>, use the server system's locator list to
+					configure your client server pools and configure your client regions to use the
+					pools. </cmd>
+				<info>For example:
+					<codeblock>&lt;client-cache&gt;
+  &lt;pool name="publisher" subscription-enabled="true"&gt;
+    &lt;locator host="lucy" port="41111"/&gt; 
+    &lt;locator host="lucy" port="41111"/&gt; 
+  &lt;/pool&gt;
+  ...
+  &lt;region name="clientRegion" ...
+    &lt;region-attributes pool-name="publisher" ...</codeblock>You
+					do not need to provide the complete list of locators to the clients at startup,
+					but you should provide as complete a list as possible. The locators maintain a
+					dynamic list of locators and servers and provide the information to the clients
+					as needed. </info>
+			</step>
+			<step id="step_087FF49445EA447FB76C32182D19DD2F">
+				<cmd>Configure the server data regions for client/server work, following these
+					guidelines. These do not need to be performed in this order. </cmd>
+				<substeps id="substeps_BC26A058397E44299368C5153639CCC7">
+					<substep id="substep_A0102A43139C4DF78B44AF1EBE5493A5">
+						<cmd>Configure your server regions as partitioned or replicated, to provide
+							a coherent cache view of server data to all clients. </cmd>
+						<info>
+							<note>If you do not configure your server regions as partitioned or
+								replicated, you can get unexpected results with calls that check
+								server region contents, such as <codeph>keySetOnServer</codeph> and
+									<codeph>containsKeyOnServer</codeph>. You might get only partial
+								results, and you might also get inconsistent responses from two
+								consecutive calls. These results occur because the servers report
+								only on their local cache content and, without partitioned or
+								replicated regions, they might not have a complete view of the data
+								in their local caches. </note>
+						</info>
+					</substep>
+					<substep id="substep_658B8AA9E90E46AEBC2D092C92DAE252">
+						<cmd>When you define your replicated server regions, use any of the
+								<codeph>REPLICATE</codeph>
+							<codeph>RegionShortcut</codeph> settings except for
+								<codeph>REPLICATE_PROXY</codeph>. Replicated server regions must
+							have <codeph>distributed-ack</codeph> or <codeph>global</codeph>
+							<codeph>scope</codeph>, and every server that defines the region must
+							store data. The region shortcuts use <codeph>distributed-ack</codeph>
+							scope and all non-proxy settings store data. </cmd>
+					</substep>
+					<substep id="substep_BBE8959FC2DE426DA260433994C18028">
+						<cmd>When you define your partitioned server regions, use the
+								<codeph>PARTITION</codeph>
+							<codeph>RegionShortcut</codeph> options. </cmd>
+						<info>You can have local data storage in some servers and no local storage
+							in others. </info>
+					</substep>
+				</substeps>
+			</step>
+		</steps>
+		<result id="result_C08421BEB3204B6D84237A6E9780EB22">When you start the server and client
+			systems, the client regions will use the server regions for cache misses, event
+			subscriptions, querying, and other caching activities. </result>
+		<postreq id="postreq_F377D647AE8340B093AED29CE5A14A70">
+			<p>
+				<b>What to do next</b>
+			</p>
+			<p>Configure your clients to use the cache and to subscribe to events from the servers
+				as needed by your application. See <xref format="dita"
+					href="../../developing/events/configure_client_server_event_messaging.xml#receiving_events_from_servers"
+					scope="local" type="concept"/>. </p>
+		</postreq>
+	</taskbody>
+</task>

@@ -1,0 +1,365 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "http://docs.oasis-open.org/dita/v1.1/OS/dtd/concept.dtd">
+<concept id="quick_start">
+	<title>HTTP Session Management Quick Start</title>
+	<shortdesc>In this section you download, install, and set up the HTTP Session Management
+		modules. </shortdesc>
+	<conbody>
+		<section id="section_6A4A00B6DA404E10A5C29E5E31101445">
+			<title>Quick Start Instructions</title>
+			<ol id="ol_40C7EB2429AA41F8884418EB835E26A9">
+				<li id="li_924BC991E6FC42728433EC21798AD144">Download and install one of the
+					application servers supported by <keyword keyref="product_name_long"/>. <p>
+						<table id="table_5F7D42DF4901436C95F0902B9801DBB2">
+							<tgroup cols="3" align="left">
+								<colspec colnum="1" colname="col1" colwidth="1.54*"/>
+								<colspec colname="col02" colnum="2" colwidth="1.00*"/>
+								<colspec colnum="3" colname="col2" colwidth="2.86*"/>
+								<thead>
+									<row>
+										<entry colname="col1">Supported Application Server </entry>
+										<entry colname="col02">Version </entry>
+										<entry colname="col2">Download Location </entry>
+									</row>
+								</thead>
+								<tbody>
+									<row>
+										<entry colname="col1">tc Server </entry>
+										<entry colname="col02">2.5 </entry>
+										<entry colname="col2"><xref
+												href="https://my.vmware.com/web/vmware/info/slug/datacenter_downloads/vmware_vfabric_tc_server/2_5"
+												scope="external" format="html"
+												>https://my.vmware.com/web/vmware/info/slug/datacenter_downloads/vmware_vfabric_tc_server/2_5</xref>
+										</entry>
+									</row>
+									<row>
+										<entry colname="col1">tc Server </entry>
+										<entry colname="col02">2.6 </entry>
+										<entry colname="col2"><xref
+												href="https://my.vmware.com/web/vmware/info/slug/datacenter_downloads/vmware_vfabric_tc_server/2_5"
+												scope="external" format="html"
+												>https://my.vmware.com/web/vmware/info/slug/datacenter_downloads/vmware_vfabric_tc_server/2_6</xref>
+										</entry>
+									</row>
+									<row>
+										<entry colname="col1">tc Server </entry>
+										<entry colname="col02">2.7 </entry>
+										<entry colname="col2"><xref
+												href="https://my.vmware.com/web/vmware/info/slug/application_platform/vmware_vfabric_tc_server/2_7"
+												scope="external" format="html"
+												>https://my.vmware.com/web/vmware/info/slug/application_platform/vmware_vfabric_tc_server/2_7</xref>
+										</entry>
+									</row>
+									<row>
+										<entry colname="col1">tc Server </entry>
+										<entry colname="col02">2.8 </entry>
+										<entry colname="col2"><xref
+												href="https://my.vmware.com/web/vmware/info/slug/application_platform/vmware_vfabric_tc_server/2_8"
+												scope="external" format="html"
+												>https://my.vmware.com/web/vmware/info/slug/application_platform/vmware_vfabric_tc_server/2_8</xref>
+										</entry>
+									</row>
+									<row>
+										<entry colname="col1">tc Server</entry>
+										<entry colname="col02">2.9</entry>
+										<entry colname="col2"><xref
+												href="https://network.pivotal.io/products/pivotal-tcserver"
+												format="html" scope="external"
+												>https://network.pivotal.io/products/pivotal-tcserver</xref></entry>
+									</row>
+									<row>
+										<entry colname="col1">tc Server</entry>
+										<entry colname="col02">3.0</entry>
+										<entry colname="col2"><xref
+												href="https://network.pivotal.io/products/pivotal-tcserver"
+												format="html" scope="external"
+												>https://network.pivotal.io/products/pivotal-tcserver</xref></entry>
+									</row>
+									<row>
+										<entry colname="col1">Tomcat </entry>
+										<entry colname="col02">6.0 </entry>
+										<entry colname="col2"><xref
+												href="http://tomcat.apache.org/download-60.cgi"
+												scope="external" format="html"
+												>http://tomcat.apache.org/download-60.cgi</xref>
+										</entry>
+									</row>
+									<row>
+										<entry colname="col1">Tomcat </entry>
+										<entry colname="col02">7.0 </entry>
+										<entry colname="col2"><xref
+												href="http://tomcat.apache.org/download-70.cgi"
+												scope="external" format="html"
+												>http://tomcat.apache.org/download-70.cgi</xref>
+										</entry>
+									</row>
+									<row>
+										<entry colname="col1">WebLogic</entry>
+										<entry colname="col02">11g (10.3.x)</entry>
+										<entry colname="col2"><xref
+												href="http://www.oracle.com/technetwork/middleware/weblogic/overview/index.html"
+												format="html" scope="external"
+												>http://www.oracle.com/technetwork/middleware/weblogic/overview/index.html
+											</xref>
+										</entry>
+									</row>
+									<row>
+										<entry colname="col1">WebSphere </entry>
+										<entry colname="col02">7, 8 </entry>
+										<entry colname="col2"><xref
+												href="http://www.ibm.com/developerworks/downloads/ws/was/"
+												format="html" scope="external"
+												>http://www.ibm.com/developerworks/downloads/ws/was/</xref>
+										</entry>
+									</row>
+									<row>
+										<entry colname="col1">JBoss </entry>
+										<entry colname="col02">5, 6, 7 </entry>
+										<entry colname="col2"><xref
+												href="http://www.jboss.org/jbossas/downloads/"
+												format="html" scope="external"
+												>http://www.jboss.org/jbossas/downloads/</xref>
+										</entry>
+									</row>
+								</tbody>
+							</tgroup>
+						</table>
+					</p><p>
+						<note>This table lists all application server versions that have been tested
+							with the <keyword keyref="product_name"/> HTTP Session Management
+							modules. However, the generic HTTP Session Management Module for
+							AppServers is implemented as a servlet filter and should work on any
+							application server platform that supports the Java Servlet 2.4
+							specification. </note>
+					</p>
+				</li>
+				<li id="li_E0A5E62E8CA44EB8B960BF365781E4F7">If you have not done so already, click
+					on "Download" button on the <xref
+						href="https://network.pivotal.io/products/pivotal-gemfire" scope="external"
+						format="html">product download page</xref> to download <keyword
+						keyref="product_name_long"/>. </li>
+				<li id="li_F2DF845ED3E64270AF6F097EFA87472A">The HTTP Session Management Modules
+					installation .zip files are located in the <b>tools/Modules</b> directory of the
+						<keyword keyref="product_name"/> product download. Locate the .zip file for
+					the HTTP Session Management Module that you wish to install. Unzip the
+					appropriate HTTP Session Management Module into the specified directory for your
+					application server: <p>
+						<table id="table_A96D977BD01D45C9A80AD7BA8AF05E8A">
+							<tgroup cols="4">
+								<colspec colnum="1" colname="col1" colwidth="1.54*"/>
+								<colspec colname="col02" colnum="2" colwidth="1.00*"/>
+								<colspec colname="col3" colnum="3" colwidth="2.13*"/>
+								<colspec colnum="4" colname="col2" colwidth="2.86*"/>
+								<thead>
+									<row>
+										<entry colname="col1">Supported Application Server </entry>
+										<entry colname="col02">Version </entry>
+										<entry colname="col3">Module </entry>
+										<entry colname="col2">Target Location for Module </entry>
+									</row>
+								</thead>
+								<tbody>
+									<row>
+										<entry colname="col1">tc Server </entry>
+										<entry colname="col02">2.5 </entry>
+										<entry colname="col3">HTTP Session Management Module for
+											Pivotal tc Server </entry>
+										<entry colname="col2"><codeph>&lt;tc Server root
+												dir&gt;/templates</codeph>
+										</entry>
+									</row>
+									<row>
+										<entry colname="col1">tc Server </entry>
+										<entry colname="col02">2.6 </entry>
+										<entry colname="col3">HTTP Session Management Module for
+											Pivotal tc Server </entry>
+										<entry colname="col2"><codeph>&lt;tc Server root
+												dir&gt;/templates</codeph>
+										</entry>
+									</row>
+									<row>
+										<entry colname="col1">tc Server </entry>
+										<entry colname="col02">2.7 </entry>
+										<entry colname="col3">HTTP Session Management Module for
+											Pivotal tc Server </entry>
+										<entry colname="col2"><codeph>&lt;tc Server root
+												dir&gt;/templates</codeph>
+										</entry>
+									</row>
+									<row>
+										<entry colname="col1">tc Server </entry>
+										<entry colname="col02">2.8 </entry>
+										<entry colname="col3">HTTP Session Management Module for
+											Pivotal tc Server </entry>
+										<entry colname="col2"><codeph>&lt;tc Server root
+												dir&gt;/templates</codeph>
+										</entry>
+									</row>
+									<row>
+										<entry colname="col1">tc Server</entry>
+										<entry colname="col02">2.9</entry>
+										<entry colname="col3">HTTP Session Management Module for
+											Pivotal tc Server</entry>
+										<entry colname="col2"><codeph>&lt;tc Server root
+												dir&gt;/templates</codeph></entry>
+									</row>
+									<row>
+										<entry colname="col1">tc Server</entry>
+										<entry colname="col02">3.0</entry>
+										<entry colname="col3">HTTP Session Management Module for
+											Pivotal tc Server 3.0</entry>
+										<entry colname="col2"><codeph>&lt;tc Server root
+												dir&gt;/templates</codeph></entry>
+									</row>
+									<row>
+										<entry colname="col1">Tomcat </entry>
+										<entry colname="col02">6.0 </entry>
+										<entry colname="col3">HTTP Session Management Module for
+											Tomcat </entry>
+										<entry colname="col2"><codeph>$CATALINA_HOME</codeph>
+										</entry>
+									</row>
+									<row>
+										<entry colname="col1">Tomcat </entry>
+										<entry colname="col02">7.0 </entry>
+										<entry colname="col3">HTTP Session Management Module for
+											Tomcat </entry>
+										<entry colname="col2"><codeph>$CATALINA_HOME</codeph>
+										</entry>
+									</row>
+									<row>
+										<entry colname="col1">WebLogic </entry>
+										<entry colname="col02">11g (10.3.x) </entry>
+										<entry colname="col3">HTTP Session Management Module for
+											AppServers </entry>
+										<entry colname="col2"><i>any directory</i>
+										</entry>
+									</row>
+									<row>
+										<entry colname="col1">WebSphere </entry>
+										<entry colname="col02">7, 8 </entry>
+										<entry colname="col3">HTTP Session Management Module for
+											AppServers </entry>
+										<entry colname="col2"><i>any directory</i>
+										</entry>
+									</row>
+									<row>
+										<entry colname="col1">JBoss </entry>
+										<entry colname="col02">5, 6, 7 </entry>
+										<entry colname="col3">HTTP Session Management Module for
+											AppServers </entry>
+										<entry colname="col2"><i>any directory</i>
+										</entry>
+									</row>
+								</tbody>
+							</tgroup>
+						</table>
+					</p>
+				</li>
+				<li id="li_9EFF8F59898B4CE1AADF0B5FEEF23D90">Complete the appropriate set up
+					instructions for your application server described in the following sections:
+						<ul id="ul_A23E0FEB96D64318A6587C1E9C3976E1">
+						<li id="li_B4CD84181C2949588AA34D7A7E5745A3"><xref
+								href="quick_start.xml#quick_start/section_EE60463F524A46B7B83CE74C1C3E8E0E"
+								type="section" format="dita" scope="local"/>
+						</li>
+						<li id="li_9125CB4630144AC4ABE3CA110F18335A"><xref
+								href="quick_start.xml#quick_start/section_4689A4FA609A4F4FB091F03E9BECA4DB"
+								type="section" format="dita" scope="local"/>
+						</li>
+						<li id="li_0B32776A5E944BAF8AE104FC9B4885B0"><xref
+								href="quick_start.xml#quick_start/section_1587C3E55F06406EBD4AB13014A406D4"
+								type="section" format="dita" scope="local"/>
+						</li>
+					</ul>
+				</li>
+			</ol>
+		</section>
+		<section id="section_EE60463F524A46B7B83CE74C1C3E8E0E">
+			<title>Additional Quick Start Instructions for tc Server Module</title>
+			<p>These steps provide a basic starting point for using the tc Server module. For more
+				configuration options, see <xref href="session_mgmt_tcserver.xml#http_tc_server"
+					type="concept" format="dita" scope="local"/>. <ol
+					id="ol_9F97B5EC18E34D278BEF7D128CDE0E57">
+					<li id="li_FD4958D29B714ADFABCA63F0BE6BB1A4">Navigate to the root directory of
+						tc Server. </li>
+					<li id="li_FFFD7643081341EABE6B8F1EAA5E2C79"> Create a <keyword
+							keyref="product_name"/> instance using one of the provided templates and
+						start the instance. For example: <codeblock>
+prompt$ ./tcruntime-instance.sh create my_instance_name --template gemfire-p2p
+prompt$ ./tcruntime-ctl.sh my_instance_name start</codeblock>
+						<p>This will create and run a <keyword keyref="product_name"/> instance
+							using the peer-to-peer topology and default configuration values.
+							Another <keyword keyref="product_name"/> instance on another system can
+							be created and started in the same way. </p>
+						<p>If you need to pin your tc Server instance to a specific tc Server
+							runtime version, use the --version parameter when creating the instance.
+							See <xref
+								href="tc_setting_up_the_module.xml#tc_setting_up_the_module/section_DC0A4F7CDB9E4C64BFFB6FAED0CC205A"
+								type="section" format="dita" scope="local"/> for details. </p>
+					</li>
+				</ol>
+			</p>
+		</section>
+		<section id="section_4689A4FA609A4F4FB091F03E9BECA4DB">
+			<title>Additional Quick Start Instructions for Tomcat Module</title>
+			<p>These steps provide a basic starting point for using the Tomcat module. For more
+				configuration options, see <xref href="session_mgmt_tomcat.xml#http_tomcat_first"
+					type="concept" format="dita" scope="local"/>. <ol
+					id="ol_88CF6319267D4C65AA872BD695C1065C">
+					<li id="li_A72CA5E5A2324B7F9A42D765985FA005">Modify Tomcat's
+							<codeph>server.xml</codeph> and <codeph>context.xml</codeph> files.
+						Configuration is slightly different depending on the topology you are
+						setting up and the version of Tomcat you are using. <p>For example, in a
+							peer-to-peer configuration using Tomcat 7, you would add the following
+							entry within the <codeph>&lt;server&gt;</codeph> element of server.xml:
+							<codeblock>&lt;Listener className="com.gemstone.gemfire.modules.session.catalina.
+                         PeerToPeerCacheLifecycleListener"/&gt;</codeblock>and
+							the following entry within the <codeph>&lt;context&gt;</codeph> tag in
+							the context.xml file:
+							<codeblock>&lt;Manager className="com.gemstone.gemfire.modules.session.catalina.
+                         Tomcat7DeltaSessionManager"/&gt; </codeblock>See
+								<xref
+								href="tomcat_setting_up_the_module.xml#tomcat_setting_up_the_module"
+								type="concept" format="dita" scope="local"/> for additional
+							instructions. </p>
+					</li>
+					<li id="li_ED8F2832336D4F96B1BC34E4C60B0A30">Restart the application server.
+					</li>
+				</ol>
+			</p>
+		</section>
+		<section id="section_1587C3E55F06406EBD4AB13014A406D4">
+			<title>Additional Instructions for AppServers Module</title>
+			<p>These steps provide a basic starting point for using the AppServers module with
+				WebLogic, WebSphere or JBoss. For more configuration options, see <xref
+					href="session_mgmt_weblogic.xml#http_weblogic_first" type="concept"
+					format="dita" scope="local"/>. <note>
+					<ul id="ul_8844FFA8319F44BFAF3DDF1E430B73EC">
+						<li id="li_0052B12E1C6E4EF79B7A0B80655DD4C4">The <codeph>modify_war</codeph>
+							script, described below, relies on files within the distribution tree
+							and should not be run outside of a complete distribution. </li>
+						<li id="li_62394ABDF3FF411FB4322BA51517253E">The <codeph>modify_war</codeph>
+							script is a <codeph>bash</codeph> script and does not run on Windows.
+						</li>
+					</ul>
+				</note>
+			</p>
+			<p>To set up the AppServers module, perform the following steps: <ol
+					id="ol_1E95779A48AE4BDFBADF625FC70C4566">
+					<li id="li_692B4060F5014E6BA129EDDE8E7A2B55">Run the <codeph>modify_war</codeph>
+						script against an existing .war or .ear file to integrate the necessary
+						components. The example below will create a configuration suitable for a
+						peer-to-peer <keyword keyref="product_name"/> system, placing the necessary
+						libraries into <codeph>WEB-INF/lib</codeph> for wars and
+							<codeph>lib</codeph> for ears and modifying any <codeph>web.xml</codeph>
+						files: <codeblock>prompt$ bin/modify_war -w my-app.war -x</codeblock>
+					</li>
+					<li id="li_31E336DE04E8414EAE5D4762B8683D87"> A new war file will be created
+						called <codeph>session-my-app.war</codeph>. This file can now be deployed to
+						the server. </li>
+				</ol>
+			</p>
+		</section>
+	</conbody>
+</concept>

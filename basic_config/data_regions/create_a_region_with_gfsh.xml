@@ -1,0 +1,67 @@
+<?xml version="1.0"?>
+<!DOCTYPE task PUBLIC "-//OASIS//DTD DITA Task//EN" "task.dtd">
+<task id="task_75639BFA7847461D9E006E91B728BB44">
+	<title>Creating a Region with gfsh</title>
+	<shortdesc>A simple and fast way to create a data region in the <keyword
+			keyref="product_name_long"/> cache is to use the <codeph>gfsh</codeph> command-line
+		tool. </shortdesc>
+	<taskbody>
+		<prereq id="prereq_602BEEFA895B4574A8CB71C6B9D09531">
+			<p>Before you start, configure your <codeph>Cache</codeph> or
+					<codeph>ClientCache</codeph> and determine the region shortcut and other
+				attributes settings your region needs. </p>
+		</prereq>
+		<context id="context_CB39BA1CEABB471D966C181BD4FDFDD7">Region creation is subject to
+			attribute consistency checks, both internal to the cache and, if the region is not
+			local, between all caches where the region is defined. The requirements for consistency
+			between region attributes are detailed in the online Java API documentation. </context>
+		<steps id="steps_BACDDC3133A448FBB32BD8EC32C5A500">
+			<step id="step_CCA3939999A74B8FAFE0922F1827E245">
+				<cmd>Start a <codeph>gfsh</codeph> prompt. </cmd>
+			</step>
+			<step id="step_349B9B16293342539BED24EFB63A40E0">
+				<cmd>Connect to a server that is currently acting as a JMX Manager node. </cmd>
+			</step>
+			<step id="step_3967754A5A894D86BD43A5CE8CF4AEAA">
+				<cmd>Enter the <codeph>create region</codeph> command providing any desired region
+					attributes as arguments. </cmd>
+				<stepresult>For example:
+					<codeblock>gfsh&gt;create region --name=region1 --type=REPLICATE</codeblock> See
+						<xref
+						href="../../tools_modules/gfsh/command-pages/create.xml#topic_54B0985FEC5241CA9D26B0CE0A5EA863"
+						type="topic" format="dita" scope="local"/> for more details and examples.
+				</stepresult>
+			</step>
+			<step id="step_B635408A5AC64A078C13888482CDC543">
+				<cmd>Add data into the region by using the <xref
+						href="../../tools_modules/gfsh/command-pages/import.xml#topic_jw2_2ld_2l"
+					/>command or <xref format="dita"
+						href="../../tools_modules/gfsh/command-pages/put.xml#concept_2ECE1BB23A814A13924C93422E7EBC5E"
+						scope="local" type="concept">put</xref> gfsh command. </cmd>
+			</step>
+			<step id="step_FB018B9592F542AA9A12B802D2458C8F">
+				<cmd>After you modify data in the region you can use the <xref
+						href="../../tools_modules/gfsh/command-pages/export.xml#topic_263B70069BFC4A7185F86B3272011734"
+						type="topic" format="dita" scope="local"/> command to generate a snapshot of
+					the current region's data for later use. </cmd>
+			</step>
+			<step id="step_AC381DF4A7B04ADC86E53E423287831C">
+				<cmd>Export the configuration files of your server so that you can save your
+					region's configuration and recreate the region with the same attributes the next
+					time you start up your cache server. See <xref
+						href="../../tools_modules/gfsh/command-pages/export.xml#topic_C7C69306F93743459E65D46537F4A1EE"
+						type="topic" format="dita" scope="local"/> for details. </cmd>
+				<info>
+					<note>The cluster configuration service, which is enabled by default,
+						automatically saves the configuration on the locators in the distributed
+						system. After you use the gfsh create region command, any new servers that
+						you start that attach to the same locator receive the same configuration.
+						You can also create alternate configurations within a distributed system by
+						specifying a group when creating the region and starting servers. See <xref
+							href="../../configuring/cluster_config/gfsh_persist.xml#concept_r22_hyw_bl"
+						/>.</note>
+				</info>
+			</step>
+		</steps>
+	</taskbody>
+</task>

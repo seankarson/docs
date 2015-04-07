@@ -1,0 +1,80 @@
+<?xml version="1.0"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept id="concept_213FDC5574474CE1AC28444DA202E05B">
+	<title>rebalance</title>
+	<shortdesc> Rebalance partitioned regions. </shortdesc>
+	<conbody>
+		<p>The default is for all partitioned regions to be rebalanced. </p>
+		<p><b> Availability:</b> Online. You must be connected in <codeph>gfsh</codeph> to a JMX
+			Manager member to use this command. </p>
+		<p><b>Syntax:</b>
+			<codeblock>rebalance [--include-region=value(,value)*] 
+[--exclude-region=value(,value)*] [--time-out=value] [--simulate(=value)?]</codeblock>
+			<table id="table_344D149905BA4E7B88EB3301DE1DD6FF">
+				<title>Parameters</title>
+				<tgroup cols="3">
+					<colspec colname="col1" colnum="1" colwidth="1.00*"/>
+					<colspec colname="col2" colnum="2" colwidth="3.51*"/>
+					<colspec colname="newCol3" colnum="3" colwidth="1*"/>
+					<thead>
+						<row>
+							<entry colname="col1">Name </entry>
+							<entry colname="col2">Description</entry>
+							<entry colname="col3">Default Value</entry>
+						</row>
+					</thead>
+					<tbody>
+						<row>
+							<entry colname="col1"><parmname>--include-region</parmname>
+							</entry>
+							<entry colname="col2"> Partitioned Region paths to be included for
+								rebalance operation. Includes take precedence over excludes. </entry>
+							<entry/>
+						</row>
+						<row>
+							<entry colname="col1"><parmname>--exclude-region </parmname></entry>
+							<entry colname="col2">Partitioned Region paths to be excluded for
+								rebalance operation. </entry>
+							<entry/>
+						</row>
+						<row>
+							<entry colname="col1"><parmname>--time-out</parmname>
+							</entry>
+							<entry colname="col2"> Time to wait (in seconds) before GFSH returns to
+								a prompt while rebalancing continues in the background. </entry>
+							<entry>-1 (wait for rebalancing to complete</entry>
+						</row>
+						<row>
+							<entry colname="col1"><parmname>--simulate</parmname>
+							</entry>
+							<entry colname="col2"> Whether to only simulate rebalancing. The
+								--time-out parameter is not available when simulating.</entry>
+							<entry>false</entry>
+						</row>
+					</tbody>
+				</tgroup>
+			</table>
+		</p>
+		<p><b>Example Commands:</b>
+			<codeblock>rebalance --include-region=/region3 --simulate=true</codeblock>
+		</p>
+		<p><b>Sample Output:</b>
+			<codeblock>rebalance
+1. server1  host1(3467):12435:12423
+Row  Rebalanced Stats               | Value 
+---  ----------------               | ----- 
+1    TotalBucketCreateBytes         | 0 
+2    TotalBucketCreateTime          | 0 
+3    TotalBucketCreatesCompleted    | 0 
+4    TotalBucketTransferBytes       | 0 
+5    TotalBucketTransferTime        | 0 
+6    TotalBucketTransfersCompleted  | 0 
+7    TotalPrimaryTransferTime       | 0 
+8    TotalPrimaryTransfersCompleted | 0 
+9    TotalTime                      | 56
+
+Rebalance complete on host1(3467):12435:12423.
+ </codeblock>
+		</p>
+	</conbody>
+</concept>

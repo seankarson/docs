@@ -1,0 +1,61 @@
+<?xml version="1.0"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<!-- Created with XMetaL (http://www.xmetal.com) -->
+<concept id="concept_22551CABF07B4512B5159DDAE036722D"> 
+  <title>revoke missing-disk-store</title> 
+  <shortdesc>Instruct the member(s) of a distributed system to stop waiting for
+	 a disk store to be available. 
+  </shortdesc> 
+  <conbody> 
+	 <p> Only revoke a disk store if its files are lost as it will no longer be
+		recoverable after revoking is initiated. Use the "show missing-disk-store"
+		command to get descriptions of missing disk stores. 
+	 </p> 
+	 <p><b> Availability:</b> Online. You must be connected in 
+		<codeph>gfsh</codeph> to a JMX Manager member to use this command. 
+	 </p> 
+	 <p><b>Syntax:</b> 
+		<codeblock>revoke missing-disk-store --id=value</codeblock> 
+		<table id="table_FE2FB522A1124E3A9675D633C3A4D7D6">
+				<title>Parameters</title> 
+		  <tgroup cols="2"><colspec colnum="1" colname="col1"
+			 colwidth="1.00*"/><colspec colnum="2" colname="col2" colwidth="3.57*"/> 
+		  	<thead>
+		  		<row>
+		  			<entry
+		  				colname="col1">Name </entry>
+		  			<entry
+		  				colname="col2">Description</entry>
+		  		
+		  		</row>
+		  	</thead> <tbody> 
+				<row> 
+				  <entry colname="col1"><codeph>id</codeph> 
+				  </entry> 
+				  <entry
+								colname="col2"><i>Required. </i>ID of the missing disk store to be revoked. </entry> 
+				</row> 
+			 </tbody> 
+		  </tgroup> 
+		</table> 
+	 </p> 
+	 <p><b>Example Commands:</b> 
+		<codeblock>revoke missing-disk-store --id=60399215-532b-406f-b81f-9b5bd8d1b55a
+</codeblock> 
+	 </p> 
+	 <p><b>Sample Output:</b> 
+		<codeblock>gfsh&gt;revoke missing-disk-store --id=60399215-532b-406f-b81f-9b5bd8d1b55a
+Missing disk store successfully revoked
+</codeblock> 
+	 </p> 
+	 <p><b>Error Messages:</b> 
+	 </p> 
+	 <p>Example of 
+		<codeph>revoke missing-disk-store</codeph> when the disk store cannot be
+		found: 
+		<codeblock>gfsh&gt; revoke missing-disk-store --id=60399215-532b-406f-b81f
+
+Unable to find missing disk store to revoke</codeblock> 
+	 </p> 
+  </conbody> 
+</concept> 

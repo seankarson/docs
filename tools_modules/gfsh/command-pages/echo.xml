@@ -1,0 +1,74 @@
+<?xml version="1.0"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept id="concept_2828E2617F6A49D7BB811917BE268704">
+	<title>echo</title>
+	<shortdesc>Echo the given text, which may include system and user variables. </shortdesc>
+	<conbody>
+		<p>The command can also echo gfsh environment properties (using '<xref
+				href="set.xml#concept_E9CC746480464556AA8FF69EB991776E" type="concept" format="dita"
+				scope="local">set variable</xref>' command) if variable name is pre-pended with '$'
+			- like UNIX. </p>
+		<p>See <xref
+				href="../useful_gfsh_shell_variables.xml#concept_731ECA5E40E943CBA5C1198A0745D8EE"
+				type="concept" format="dita" scope="local"
+				><?xm-replace_text Useful gfsh Shell Variables?></xref> for a list of gfsh
+			environment variables. </p>
+		<p><b> Availability:</b> Online or offline. </p>
+		<p><b>Syntax:</b>
+			<codeblock>
+echo [--string=value]</codeblock>
+			<table id="table_9172A25D12684164B221A699F35F7487">
+				<title>Parameters</title>
+				<tgroup cols="2">
+					<colspec colnum="1" colname="col1" colwidth="1.00*"/>
+					<colspec colnum="2" colname="col2" colwidth="4.27*"/>
+					<thead>
+						<row>
+							<entry colname="col1">Name </entry>
+							<entry colname="col2">Description</entry>
+						</row>
+					</thead>
+					<tbody>
+						<row>
+							<entry colname="col1"><parmname>--string </parmname>
+							</entry>
+							<entry colname="col2"> String to be echoed. For example,
+									<codeph>SYS_USER variable is set to ${SYS_USER}</codeph>.
+							</entry>
+						</row>
+					</tbody>
+				</tgroup>
+			</table>
+		</p>
+		<p><b>Example Commands:</b>
+			<codeblock>
+echo --string="Hello World!"
+echo --string="Hello World! This is ${SYS_USER}"
+echo --string=${APP_FETCH_SIZE}
+
+//To see all the variable set in the shell:
+echo --string=$*</codeblock>
+		</p>
+		<p><b>Sample Output:</b>
+			<codeblock>gfsh&gt;echo --string=$*
+           Property            | Value
+------------------------------ | -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+APP_FETCH_SIZE                 | 1000
+APP_LAST_EXIT_STATUS           | 0
+APP_LOG_FILE                   | /home/stymon/gfsh-2013-03-04_12-13-44.log
+APP_NAME                       | gfsh
+APP_PWD                        | /home/stymon
+APP_QUERY_RESULTS_DISPLAY_MODE | table
+APP_QUIET_EXECUTION            | false
+SYS_CLASSPATH                  | /home/stymon/Pivotal_GemFire_701_b40169/lib/gemfire.jar:/home/stymon/Pivotal_GemFire_701_b40169/lib/antlr.jar:/home/stymon/Pivotal_GemFire_701_b40169/lib/gfsh-dependencies.jar:/home/stymon/Pivotal_GemFire_701_b40169/lib/pulse-dependencies.jar:.:/home/stymon/Pivotal_GemFire_701_b40169/lib/gemfire.jar:/home/stymon/Pivotal_GemFire_701_b40169/lib/antlr.jar:/home/stymon/Pivotal_GemFire_701_b40169/lib/gfSecurityImpl.jar:/home/stymon/Pivotal_GemFire_701_b40169/lib/jackson-core-asl-1.9.9.jar:/home/stymon/Pivotal_GemFire_701_b40169/lib/commons-logging.jar:/home/stymon/Pivotal_GemFire_701_b40169/lib/tomcat-embed-core.jar:/home/stymon/Pivotal_GemFire_701_b40169/lib/tomcat-embed-logging-juli.jar:/home/stymon/Pivotal_GemFire_701_b40169/lib/tomcat-embed-jasper.jar:/home/stymon/Pivotal_GemFire_701_b40169/SampleCode/tutorial/classes:/home/stymon/Pivotal_GemFire_701_b40169/SampleCode/helloworld/classes:/home/stymon/Pivotal_GemFire_701_b40169/SampleCode/quickstart/classes:/home/stymon/Pivotal_GemFire_701_b40169/SampleCode/examples/dist/classes:/usr/java/jdk1.6.0_38/jre/../lib/tools.jar
+SYS_GEMFIRE_DIR                | /home/stymon/Pivotal_GemFire_701_b40169
+SYS_HOST_NAME                  | stymon
+SYS_JAVA_VERSION               | 1.6.0_38
+SYS_OS                         | Linux
+SYS_OS_LINE_SEPERATOR          | 
+SYS_USER                       | stymon
+SYS_USER_HOME                  | /home/stymon
+</codeblock>
+		</p>
+	</conbody>
+</concept>

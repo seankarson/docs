@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept
+  id="concept_nw2_5gs_xk">
+  <title>Turning Off JTA Transactions </title>
+  <shortdesc>You can configure regions to not participate in any JTA global transaction.</shortdesc>
+  <conbody>
+    <p>The <codeph>ignore-jta</codeph> region attribute is a boolean that tells the cache to ignore
+      any in-progress JTA transactions when performing cache operations. It is primarily used for
+      cache loaders, cache writers, and cache listeners that need to perform non-transactional
+      operations on a region, such as caching a result set. It is set per region, so some regions
+      can participate in JTA transactions, while others avoid participating in them. This example
+      sets the <codeph>ignore-jta</codeph> region attribute in the cache.xml file. </p>
+    <p>cache.xml
+      :<codeblock>&lt;region name="bridge_region">
+   &lt;region-attributes scope="local" ignore-jta="true" statistics-enabled="true"/> 
+       &lt;cache-writer> . . . &lt;/cache-writer>
+    &lt;/region-attributes> 
+&lt;/region></codeblock></p>
+    <p>API: </p>
+    <p>Using the API, you can turn off JTA transactions using <codeph>RegionFactory</codeph> and its
+      method <codeph>setIgnoreJTA(boolean)</codeph>. The current setting for a region can be fetched
+      from a region's <codeph>RegionAttributes</codeph> by using the <codeph>getIgnoreJTA</codeph>
+      method.</p>
+  </conbody>
+</concept>

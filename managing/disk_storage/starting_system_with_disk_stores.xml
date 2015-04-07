@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "http://docs.oasis-open.org/dita/v1.1/OS/dtd/concept.dtd">
+<concept id="starting_system_with_disk_stores">
+	<title>Starting a System with Disk Stores</title>
+	<shortdesc>Starting members with persisted data at the same time gives you the most efficient
+		startup. </shortdesc>
+	<conbody>
+		<section id="section_D0A7403707B847749A22BF9221A2C823">
+			<p>To start a system with disk stores: <ol id="ol_872ca5d8-8d37-4566-b5a7-4d98be2d29c6">
+					<li id="li_6BD1656398CD493F8B27445F75C4A982"><b>Start all members with persisted
+							data first and at the same time</b>. Exactly how you do this depends on
+						your members. <p>When you start members with persisted data in parallel, you
+							get the most efficient system startup. While they are initializing their
+							caches, the members determine which have the most recent region data,
+							and initialize their caches from that. </p>
+						<p>
+							<note>For replicates, where you can define persistence only in some of
+								the region's host members, start the persistent replicates before
+								the non-persistent replicates to make sure the data is recovered
+								from disk. </note>
+						</p>
+						<p>This is an example bash script for starting members in parallel. The
+							script waits for the startup to finish and exits with an error status if
+							one of the jobs fails.
+							<codeblock>#!/bin/bash
+ssh servera "cd /my/directory;  gfsh server start --name=servera &amp;
+ssh serverb "cd /my/directory; gfsh server start --name=serverb &amp;
+
+STATUS=0;
+for job in `jobs -p`
+do
+echo $job
+wait $job;
+JOB_STATUS=$?;
+test $STATUS -eq 0 &amp;&amp; STATUS=$JOB_STATUS;
+done
+exit $STATUS;</codeblock>
+						</p>
+					</li>
+					<li id="li_A8707DF00C7446D3864028598A14406E"><b>Respond to hangs on member
+							startup</b>. If a most recent disk store does not come online, your
+						other members will wait indefinitely rather than come online with stale
+						data. Check for missing disk stores with the gfsh <codeph>show
+							missing-disk-stores</codeph> command. See <xref
+							href="handling_missing_disk_stores.xml#handling_missing_disk_stores"
+							type="concept" format="dita" scope="local"
+							><?xm-replace_text Handling Missing Disk Stores?></xref>. <ol
+							id="ol_2B2D9F9E1B11478F85120A9E6E6EDC30">
+							<li id="li_23DFA910B1A643BC82A6A3CEEE3DB1EB">If no disk stores are
+								missing, your cache initialization is slow for some other reason.
+								Check the information on member hangs in <xref
+									href="../../managing/troubleshooting/diagnosing_system_probs.xml#diagnosing_system_probs"
+									type="concept" format="dita" scope="local"
+									><?xm-replace_text Diagnosing System Problems?></xref>. </li>
+							<li id="li_703DD70716944BE793535FCE6E23E7B3">If disk stores are missing
+								that you think should be there: <ol
+									id="ol_BA4C7EC43C76432987AD690F3FDB46B6">
+									<li id="li_7B9C66674B094AB2851AB992117B13C7">Make sure you have
+										started the member. Check the logs for any failure messages.
+										See <xref scope="local"
+											href="../logging/logging.xml#concept_30DB86B12B454E168B80BB5A71268865"
+											type="concept" format="dita"
+											><?xm-replace_text Logging?></xref>. </li>
+									<li id="li_A1798A07319048CA8C80BF37B7FD22E9">Make sure your disk
+										store files are accessible. If you have moved your member or
+										disk store files, you must update your disk store
+										configuration to match. </li>
+								</ol>
+							</li>
+							<li id="li_EEE3DB74D6B84095A30F5673E704192F">If disk stores are missing
+								that you know are lost, because you have deleted them or their files
+								are otherwise unavailable, revoke them so the startup can continue.
+								See <xref
+									href="handling_missing_disk_stores.xml#handling_missing_disk_stores"
+									type="concept" format="dita" scope="local"
+									><?xm-replace_text Handling Missing Disk Stores?></xref>. </li>
+						</ol>
+					</li>
+				</ol>
+			</p>
+		</section>
+	</conbody>
+</concept>

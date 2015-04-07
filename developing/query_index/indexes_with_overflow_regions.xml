@@ -1,0 +1,41 @@
+<?xml version="1.0"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept id="concept_87BE7DB32C714EB0BF7532AF93569328">
+	<title>Using Indexes with Overflow Regions</title>
+	<shortdesc><?xm-replace_text Short Description?> You can use indexes when querying on overflow
+		regions; however, there are caveats. </shortdesc>
+	<conbody>
+		<p> The following are caveats for querying overflow regions:</p>
+		<p>
+			<ul id="ul_10E41860185245D7B53A2B66EC48530D">
+				<li id="li_0703C5DAECF345D48FF343D10886372F">You must use synchronous index
+					maintenance for the region. This is the default maintenance setting. </li>
+				<li id="li_7E5B2996E8494E999AE8F60AB3B6FDB3">The index FROM clause must specify only
+					one iterator, and it must refer to the keys or entry values. The index cannot
+					refer to the region’s entrySet.</li>
+				<li id="li_064E24A0E972483891774669708FC258">The index data itself is not stored on
+					(overflowed to) disk . </li>
+			</ul>
+		</p>
+		<p>
+			<b>Examples:</b>
+		</p>
+		<p>The following example index creation calls DO NOT work for overflow regions.
+			<codeblock>// This index will not work on an overflow region because there are two iterators in the FROM clause.
+createIndex("secIdIndex", "b.secId","/portfolios pf, pf.positions.values b");
+
+// This index will not work on an overflow region because the FROM clause specifies the entrySet
+createIndex("indx1", "entries.value.getID", "/exampleRegion.entrySet() entries");
+</codeblock></p>
+		<p>The following example indexes will work for overflow regions.
+			<codeblock>createIndex("pkidIndex", "p.pkid", "/Portfolios p");
+
+createIndex("indx1", "ks.toString", "/portfolio.keys() ks");
+</codeblock></p>
+		<p>The same working examples in
+			gfsh:<codeblock>gfsh> create index -name="pkidIndex" --expression="p.pkid" --region="/Portfolios p"
+
+gfsh> create index -name="indx1" --expression="ks.toString" --region="/portfolio.keys() ks"
+</codeblock></p>
+	</conbody>
+</concept>

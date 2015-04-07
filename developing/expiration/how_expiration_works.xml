@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "http://docs.oasis-open.org/dita/v1.1/OS/dtd/concept.dtd">
+<concept id="how_expiration_works">
+	<title>How Expiration Works</title>
+	<shortdesc>Expiration removes old entries and entries that you are not using. You can destroy or
+		invalidate entries. </shortdesc>
+	<conbody>
+		<section id="section_94FDBB821CDE49C48A0EFA6ED4DE194F">
+			<p>Expiration activities in distributed regions can be distributed or local. Thus, one
+				cache could control expiration for a number of caches in the system. </p>
+			<p>This figure shows two basic expiration settings for a producer/consumer system. The
+				producer member (on the right) populates the region from a database and the data is
+				automatically distributed throughout the system. The data is valid only for one
+				hour, so the producer performs a distributed destroy on entries that are an hour
+				old. The other applications are consumers. The consumers free up space in their
+				caches by removing their local copies of the entries for which there is no local
+				interest (idle-time expiration). Requests for entries that have expired on the
+				consumers will be forwarded to the producer. </p>
+			<p>
+				<image placement="break" id="image_3D674825D1434830A8242D77CC89289F"
+					href="../../images_svg/expiration.svg"/>
+			</p>
+		</section>
+		<section id="section_B6C55A610F4243ED8F1986E8A98858CF">
+			<title>Expiration Types</title>
+			<p><keyword keyref="product_name_long"/> uses the following expiration types: <ul
+					id="ul_9F412E9BF3D542DA8E5A661DE28CBDCD">
+					<li id="li_3159333E1BC147FA80F801C9B92CBB77"><b>Time to live (TTL)</b>. The
+						amount of time, in seconds, the object may remain in the cache after the
+						last creation or update. For entries, the counter is set to zero for create
+						and put operations. Region counters are reset when the region is created and
+						when an entry has its counter reset. The TTL expiration attributes are
+							<codeph>region-time-to-live</codeph> and
+							<codeph>entry-time-to-live</codeph>. </li>
+					<li id="li_C48420CFE3AE4062B457F758A611E459"><b>Idle timeout</b>. The amount of
+						time, in seconds, the object may remain in the cache after the last access.
+						The idle timeout counter for an object is reset any time its TTL counter is
+						reset. In addition, an entry’s idle timeout counter is reset any time the
+						entry is accessed through a get operation or a netSearch . The idle timeout
+						counter for a region is reset whenever the idle timeout is reset for one of
+						its entries. Idle timeout expiration attributes are:
+							<codeph>region-idle-time</codeph> and <codeph>entry-idle-time</codeph>.
+					</li>
+				</ul>
+			</p>
+		</section>
+		<section id="section_BA995343EF584104B9853CFE4CAD88AD">
+			<title>Expiration Actions</title>
+			<p><keyword keyref="product_name_long"/> uses the following expiration actions: <ul
+					id="ul_FEA5FBEEF6174493AC9F6E86CBD6511C">
+					<li id="li_BEF5AC4E8E6A42FBA576738BAFA08D71">destroy </li>
+					<li id="li_DD5CEB322DB04E02A1D5C143D8D574FF">local destroy </li>
+					<li id="li_6F5992CBF589449E8E849B5141D60CA3">invalidate (default) </li>
+					<li id="li_217D5BC0931B46799EC69EDBC8347BD3">local invalidate </li>
+				</ul>
+			</p>
+		</section>
+		<section id="section_AB4AB9E57D434159AA6E9B402E5E599D">
+			<title>Partitioned Regions and Entry Expiration </title>
+			<p>For overall region performance, idle time expiration in partitioned regions may
+				expire some entries sooner than expected. To ensure reliable read behavior across
+				the partitioned region, we recommend that you use
+					<codeph>entry-time-to-live</codeph> for entry expiration in partitioned regions
+				instead of <codeph>entry-idle-time</codeph>. </p>
+			<p>Expiration in partitioned regions is executed in the primary copy, based on the
+				primary’s last accessed and last updated statistics. <ul
+					id="ul_853bc11c-1e34-4fc3-96ab-c7c64f6c1446">
+					<li id="li_7F99498C6E5D4C71B92084E8895D096B">Entry updates are always done in
+						the primary copy, resetting the primary copy’s last updated and last
+						accessed statistics. </li>
+					<li id="li_D24FBB7C69564A1C84DD6074DE6984AF">Entry retrieval uses the most
+						convenient available copy of the data, which may be one of the secondary
+						copies. This provides the best performance at the cost of possibly not
+						updating the primary copy’s statistic for last accessed time. </li>
+				</ul>
+			</p>
+			<p>When the primary expires entries, it does not request last accessed statistics from
+				the secondaries, as the performance hit would be too great. It expires entries based
+				solely on the last time the entries were accessed in the primary copy. </p>
+			<p>You cannot use <codeph>local-destroy</codeph> or <codeph>local-invalidate</codeph>
+				expiration actions in a partitioned region. </p>
+		</section>
+		<section id="section_expiration_settings_and_netSearch">
+			<title>Interaction Between Expiration Settings and <codeph>netSearch</codeph>
+			</title>
+			<p>Before <codeph>netSearch</codeph> retrieves an entry value from a remote cache, it
+				validates the <i>remote</i> entry’s statistics against the <i>local</i> region’s
+				expiration settings. Entries that would have already expired in the local cache are
+				passed over. Once validated, the entry is brought into the local cache and the local
+				access and update statistics are updated for the local copy. The last accessed time
+				is reset and the last modified time is updated to the time in the remote cache, with
+				corrections made for system clock differences. Thus the local entry is assigned the
+				true last time the entry was modified in the distributed system. The
+					<codeph>netSearch</codeph> operation has no effect on the expiration counters in
+				remote caches. </p>
+			<p>The <codeph>netSearch</codeph> method operates only on distributed regions with a
+				data-policy of empty, normal and preloaded.</p>
+		</section>
+		<section>
+			<title>Configuring the Number of Threads for Expiration</title>
+			<p>You can use the <codeph>gemfire.EXPIRY_THREADS</codeph> system property to increase
+				the number of threads that handle expiration. By default, one thread handles
+				expiration, and it is possible for the thread to become overloaded when entries
+				expire faster than the thread can expire them. If a single thread is handling too
+				many expirations, it can result in an OOME. Set the gemfire.EXPIRY_THREADS system
+				property to the desired number when starting the cache server. </p>
+		</section>
+	</conbody>
+</concept>

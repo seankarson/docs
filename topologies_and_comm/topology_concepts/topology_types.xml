@@ -1,0 +1,49 @@
+<?xml version="1.0"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept id="concept_7628F498DB534A2D8A99748F5DA5DC94">
+	<title>Topology Types</title>
+	<shortdesc id="shortdesc_52FC7E83EEB241B2BB0E517FE66FF8DE">The <keyword
+			keyref="product_name_long"/> topology options allow you to scale horizontally and
+		vertically. </shortdesc>
+	<conbody>
+		<p><keyword keyref="product_name_long"/> provides a variety of cache topologies: <ul
+				id="ul_6dda387c-55b4-4629-adf7-82828d360412">
+				<li id="li_4DEF4FFCC28A4AB1A671AD4B45DEB68C">At the core of all systems is the
+					single, peer-to-peer distributed system. </li>
+				<li id="li_39A6DB5543774EC78DFD67CBCF867823">For horizontal and vertical scaling,
+					you can combine individual systems into client/server topologies. In
+					client/server systems, a small number of server processes manage data and event
+					processing for a much larger client group. </li>
+			</ul>
+		</p>
+		<section id="section_333142A36A3E4AF7A1EC31856ED99FCA">
+			<title>Peer-to-Peer Configuration</title>
+			<p>The peer-to-peer distributed system is the building block for all <keyword
+					keyref="product_name"/> installations. Peer-to-peer alone is the simplest
+				topology. Each cache instance, or member, directly communicates with each every
+				other member in the distributed system. This cache configuration is primarily
+				designed for applications that need to embed a cache within the application process
+				space and participate in a cluster. A typical example is an application server
+				cluster in which the application and the cache are co-located and share the same
+				heap. </p>
+			<p><image href="../../images_svg/p2p_topology.svg" id="image_vzs_qwn_4r"/></p>
+		</section>
+		<section id="section_38F7D763AE32466299DC5B7DB9E71C61">
+			<title>Client/Server Configuration</title>
+			<p>The client/server topology is the model for vertical scaling, where clients typically
+				host a small subset of the data in the application process space and delegate to the
+				server system for the rest. Compared to peer-to-peer by itself, the client/server
+				architecture provides better data isolation, high fetch performance, and more
+				scalability. If data distribution will put a very heavy load on the network, a
+				client/server architecture usually gives better performance. In any client/server
+				installation, the server system is itself a peer-to-peer system, with data
+				distributed between servers. A client system has a connection pool, which it uses to
+				communicate with servers and other <keyword keyref="product_name"/> members. A
+				client may also contain a local cache. </p>
+			<p>
+				<image href="../../images_svg/cs_topology.svg" placement="break"
+					id="image_073094D7ED05419A9EE8E6AE552BE3F3"/>
+			</p>
+		</section>
+	</conbody>
+</concept>

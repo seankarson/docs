@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "http://docs.oasis-open.org/dita/v1.1/OS/dtd/concept.dtd">
+<concept id="creating_and_closing_a_peer_cache">
+	<title>Managing a Peer or Server Cache</title>
+	<shortdesc id="shortdesc_B331FDE155DF4F4EA12D0B26E4FA519B">You start your peer or server cache
+		using a combination of XML declarations and API calls. Close the cache when you are done. </shortdesc>
+	<conbody>
+		<section id="section_1633A80F0DB04794BB6C3A7F05EED97E">
+			<p><keyword keyref="product_name"/> peers are members of a <keyword
+					keyref="product_name"/> distributed system that do not act as clients to another
+					<keyword keyref="product_name"/> distributed system. <keyword
+					keyref="product_name"/> servers are peers that also listen for and process
+				client requests. <ol id="ol_1132BF713A1E4558A5ACFF355F584FBA">
+					<li id="li_13D37B0BB9244C7AAF0A1E300E6469F0">Create your cache: <ol
+							id="ol_4D8853D1ED4D4980903E8157DF629F0D">
+							<li>Start up a cluster and the cluster configuration service:<ol
+									id="ol_k3h_kdh_1p">
+									<li>Start a locator with
+											<codeph>--enable-cluster-configuration</codeph> set to
+										true. (It is set true by
+										default.)<codeblock>gfsh>start locator --name=locator1</codeblock></li>
+									<li>Start up member processes that use the cluster configuration
+										service (enabled by
+										default):<codeblock>gfsh>start server --name=server1 --server-port=40404</codeblock></li>
+									<li>Create
+										regions:<codeblock>gfsh>create region --name=customerRegion --type=REPLICATE
+
+gfsh>create region --name=ordersRegion --type=PARTITION</codeblock></li>
+								</ol></li>
+							<li id="li_73D45C00DCD24249898C04A8A04794DC">Or if you are not using the
+								cluster configuration service, directly configure cache.xml in each
+								member of your cluster. In your <codeph>cache.xml</codeph>, use the
+									<codeph>cache</codeph> DOCTYPE and configure your cache inside a
+									<codeph>&lt;cache&gt;</codeph> element. Example:
+								<codeblock outputclass="language-xml">&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;cache
+    xmlns="<xref href="http://schema.pivotal.io/gemfire/cache" format="html" scope="external">http://schema.pivotal.io/gemfire/cache</xref>"
+    xmlns:xsi="<xref href="http://www.w3.org/2001/XMLSchema-instance" format="html" scope="external">http://www.w3.org/2001/XMLSchema-instance</xref>"
+    xsi:schemaLocation="<xref href="http://schema.pivotal.io/gemfire/cache" format="html" scope="external">http://schema.pivotal.io/gemfire/cache</xref> <xref href="http://schema.pivotal.io/gemfire/cache/cache-8.1.xsd" format="html" scope="external">http://schema.pivotal.io/gemfire/cache/cache-8.1.xsd</xref>"
+    version="8.1”&gt;
+	// NOTE: Use this &lt;cache-server&gt; element only for server processes 
+	&lt;cache-server port="40404"/&gt;
+	&lt;region name="customerRegion" refid="REPLICATE" /&gt;
+	&lt;region name="ordersRegion" refid="PARTITION" /&gt;
+&lt;/cache&gt;</codeblock>
+							</li>
+							<li id="li_FE98DC99D3844DF1BE90EF1C1787637E">To programmatically create
+								the <codeph>Cache</codeph> instance: <ul
+									id="ul_A0D903EFE9CD4CED896009A12CA71768">
+									<li id="li_D01A4DC98FF744C6A9EEF726328EC266">In your Java
+										application, use the <codeph>CacheFactory</codeph> create
+										method:
+										<codeblock outputclass="language-xml">Cache cache = new CacheFactory().create();</codeblock>
+									</li>
+									<li id="li_D9B8D6D7F9404D7799E27F78561FA796">If you are running
+										a server using the <keyword keyref="product_name"/>
+										<codeph>cacheserver</codeph> process, it automatically
+										creates the cache and connection at startup and closes both
+										when it exits. </li>
+								</ul>
+								<p>The system creates the distributed system connection and
+									initializes the cache according to your
+										<codeph>gemfire.properties</codeph> and
+										<codeph>cache.xml</codeph> specifications. </p>
+							</li>
+						</ol>
+					</li>
+					<li id="li_03ACBDC8DB0D49748E23632F65989AF9">Close your cache when you are done
+						using the <codeph>close</codeph> method of your <codeph>Cache</codeph>
+						instance: <codeblock>cache.close();</codeblock>
+					</li>
+				</ol>
+			</p>
+		</section>
+	</conbody>
+</concept>

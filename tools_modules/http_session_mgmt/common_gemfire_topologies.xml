@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "http://docs.oasis-open.org/dita/v1.1/OS/dtd/concept.dtd">
+<concept id="common_gemfire_topologies">
+	<title>Common Topologies for HTTP Session Management</title>
+	<shortdesc>Decide which topology is best for your usage. The module configuration process is
+		slightly different for each topology. </shortdesc>
+	<conbody>
+		<p> For general information about <keyword keyref="product_name_long"/> topologies, refer to
+				<xref
+				href="../../topologies_and_comm/book_intro.xml#concept_7628F498DB534A2D8A99748F5DA5DC94"
+			/>. </p>
+		<section id="p2p_configuration">
+			<title>Peer-to-Peer Configuration</title>
+			<p>
+				<image href="../../images_svg/http_module_p2p.svg" placement="break"
+					id="image_B324850253D9457DAC9139FB2E3567DB"/>
+			</p>
+			<p>In a peer-to-peer configuration, each <keyword keyref="product_name"/> instance
+				within an application server contains its own cache. It communicates with other
+					<keyword keyref="product_name"/> instances as peers (rather than clients and
+				servers). Depending on the way the <keyword keyref="product_name"/> data region is
+				defined, data is either replicated across all <keyword keyref="product_name"/> peers
+				or it is partitioned so that each instance's cache contains a portion of the entire
+				data set. By default, data is replicated. A peer-to-peer configuration is useful
+				when multiple systems want fast access to all session data. This configuration is
+				also the simplest one to set up and does not require any external processes. </p>
+		</section>
+		<section id="cs_configuration">
+			<title>Client/Server Configuration</title>
+			<p>
+				<image href="../../images_svg/http_module_cs.svg" placement="break"
+					id="image_16C9A92C314449DB89468EAC96BCF173"/>
+			</p>
+			<p>In a client/server configuration, the Tomcat or tc Server instance operates as a
+					<keyword keyref="product_name"/> client, which must communicate with one or more
+					<keyword keyref="product_name"/> servers to acquire session data. The client
+				maintains its own local cache and will communicate with the server to satisfy cache
+				misses. A client/server configuration is useful when you want to separate the
+				application server instance from the cached session data. In this configuration, you
+				can reduce the memory consumption of the application server since session data is
+				stored in separate <keyword keyref="product_name"/> server processes. </p>
+		</section>
+	</conbody>
+</concept>

@@ -1,0 +1,68 @@
+<?xml version="1.0"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept id="concept_5C7614F71F394C62ACA1BDC5684A7AC4">
+	<title>Creating Hash Indexes</title>
+	<shortdesc><?xm-replace_text Short Description?>
+		<keyword keyref="product_name"/> supports the creation of hash indexes for the purposes of
+		performing equality-based queries.</shortdesc>
+	<conbody>
+		<section id="section_8A927DFB29364DA7856E7FE122FC1654">
+			<title>Why Create a HashIndex</title>
+			<p>By creating a hash index, you can vastly improve the memory usage of your index. If
+				you are doing equality based queries, your indexing footprint is significantly
+				reduced. As an example, previously when you created an index that contained string
+				fields, copies of the strings were included in the index. By using hash indexes, we
+				ensure that indexed expressions are canonicalized and stored in the index as
+				pointers to the objects lying in the region. In internal test cases we have seen
+				improvements in the 30% range depending on the keys and data being used. </p>
+			<p>
+				<note>Your performance results may vary depending on the keys and data being
+					indexed. </note>
+			</p>
+		</section>
+		<section id="section_2EF23A54378E44FFBF1BEB32E41ABD61">
+			<title>Performance Considerations</title>
+			<p>The performance of put operations when using a hash index should be comparable to
+				other indexes or slightly slower. Queries themselves are expected to be slightly
+				slower due to the implementation of hash index and the cost of recalculating the key
+				on request, which is the trade-off for the space savings that using a hash index
+				provides. </p>
+		</section>
+		<section id="section_800401C53E5841269F389329B8A4CDF3">
+			<title>Limitations</title>
+			<p> The following limitations must be considered when creating hash indexes: </p>
+			<ul id="ul_40819CE310E14D93BBDCD2FA183F0805">
+				<li id="li_9509FB9D874A4CD4989DB8B82EACDC6A">You can only use hash indexes with
+					equals and not equals queries. </li>
+				<li id="li_33E15E0ED85F4C64A2840C02AA707F76">Hash index maintenance will be slower
+					than the other indexes due to synchronized add methods. </li>
+				<li id="li_9A408D8325A54A1893804F9D71B1C858">Hash indexes cannot be maintained
+					asynchronously. If you attempt to create a hash index on a region with
+					asynchronous set as the maintenance mode, an exception will be thrown. </li>
+				<li>You cannot use hash indexes for queries with multiple iterators or nested
+					collections.</li>
+			</ul>
+		</section>
+		<section id="section_CA2476E015D14DE7B522377C931A8492">
+			<title>Examples of Creating a Hash Index</title>
+			<p>
+				<b>Using the Java API:</b>
+				<codeblock>QueryService qs = cache.getQueryService();
+ qs.createHashIndex("myHashIndex", "mktValue", "/exampleRegion");</codeblock>
+			</p>
+			<p>
+				<b>Using gfsh:</b>
+				<codeblock>gfsh&gt; create index --name=myHashIndex --expression=mktValue --region=/exampleRegion</codeblock>
+			</p>
+			<p>
+				<b>Using cache.xml:</b>
+				<codeblock>&lt;region name=exampleRegion&gt;
+ &lt;region-attributes . . . &gt;
+ &lt;/region-attributes&gt;
+ &lt;index name="myHashIndex" from-clause="/exampleRegion p" expression="p.mktValue" type="hash"/&gt;
+ ...
+&lt;/region&gt;</codeblock>
+			</p>
+		</section>
+	</conbody>
+</concept>

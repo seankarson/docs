@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "http://docs.oasis-open.org/dita/v1.1/OS/dtd/concept.dtd">
+<concept
+	id="perf">
+	<title>Controlling Socket Use</title>
+	<shortdesc>For peer-to-peer communication, you can manage socket use at the system member level
+		and at the thread level. </shortdesc>
+	<prolog>
+		<metadata>
+			<keywords>
+				<keyword>gemfire conserve-sockets</keyword>
+				<keyword>gemfire socket management</keyword>
+			</keywords>
+		</metadata>
+	</prolog>
+	<conbody>
+		<p>The conserve-sockets setting indicates whether application threads share sockets with
+			other threads or use their own sockets for distributed system member communication. This
+			setting has no effect on communication between a server and its clients, but it does
+			control the server’s communication with its peers or a gateway sender's communication
+			with a gateway receiver. In client/server settings in particular, where there can be a
+			large number of clients for each server, controlling peer-to-peer socket use is an
+			important part of tuning server performance. </p>
+		<p>You configure conserve-sockets for the member as a whole in
+				<codeph>gemfire.properties</codeph>. Additionally, you can change the sockets
+			conservation policy for the individual thread through the API. </p>
+		<p>When conserve-sockets is set to false, each application thread uses a dedicated thread to
+			send to each of its peers and a dedicated thread to receive from each peer. Disabling
+			socket conservation requires more system resources, but can potentially improve
+			performance by removing socket contention between threads and optimizing distributed ACK
+			operations. For distributed regions, the put operation, and destroy and invalidate for
+			regions and entries, can all be optimized with conserve-sockets set to false. For
+			partitioned regions, setting conserve-sockets to false can improve general throughput. </p>
+		<p>
+			<note>When you have transactions operating on EMPTY, NORMAL or PARTITION regions, make
+				sure that <codeph>conserve-sockets</codeph> is set to false to avoid distributed
+				deadlocks. </note>
+		</p>
+		<p>You can override the <codeph>conserve-sockets</codeph> setting for individual threads. These
+			methods are in <codeph>com.gemstone.gemfire.distributed.DistributedSystem</codeph>: <ul
+				id="ul_7010F64589704376B00718BD934CA2F4">
+				<li
+					id="li_B913A1EB0AF544679C7CFC059D15DCD5"><codeph>setThreadsSocketPolicy</codeph>.
+					Sets the calling thread’s individual socket policy, overriding the policy set
+					for the application as a whole. If set to true, the calling thread shares socket
+					connections with other threads. If false, the calling thread has its own
+					sockets. </li>
+				<li
+					id="li_E252FF62E7004A1BAD509C159F358AFC"><codeph>releaseThreadsSockets</codeph>.
+					Frees any sockets held by the calling thread. Threads hold their own sockets
+					only when conserve-sockets is false. Threads holding their own sockets can call
+					this method to avoid holding the sockets until the socket-lease-time has
+					expired. </li>
+			</ul>
+		</p>
+		<p>A typical implementation might set conserve-sockets to true at the application level and
+			then override the setting for the specific application threads that perform the bulk of
+			the distributed operations. The example below shows an implementation of the two API
+			calls in a thread that performs benchmark tests. The example assumes the class
+			implements Runnable. Note that the invocation, setThreadsSocketPolicy(false), is only
+			meaningful if conserve-sockets is set to true at the application level. </p>
+		<codeblock>public void run() {
+	DistributedSystem.setThreadsSocketPolicy(false);
+	try {
+		// do your benchmark work
+	} finally {
+		DistributedSystem.releaseThreadsSockets();
+	}
+}</codeblock>
+	</conbody>
+</concept>

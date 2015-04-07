@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept id="concept_r22_hyw_bl">
+  <title>Overview of the Cluster Configuration Service</title>
+  <shortdesc> The <keyword keyref="product_name_long"/> cluster configuration service persists
+    cluster configurations created by gfsh commands to the locators in a cluster and distributes the
+    configurations to members of the cluster. </shortdesc>
+  <conbody>
+    <section>
+      <title>Why Use the Cluster Configuration Service</title>
+      <p>We highly recommend that you use the <codeph>gfsh</codeph> command line and the cluster
+        configuration service as the primary mechanism to manage your distributed system
+        configuration. Using a common cluster configuration reduces the amount of time you spend
+        configuring individual members and enforces consistent configurations when bringing up new
+        members in your cluster. You no longer need to reconfigure each new member that you add to
+        the cluster. You no longer need to worry about validating your cache.xml file. It also
+        becomes easier to propagate configuration changes across your cluster and deploy your
+        configuration changes to different environments. </p>
+      <p>You can use the cluster configuration service to:</p>
+      <ul id="ul_wby_qk4_kl">
+        <li>Save the configuration for an entire <keyword keyref="product_name_long"/> cluster.</li>
+        <li>Restart members using a previously-saved configuration.</li>
+        <li>Export a configuration from a development environment and migrate that configuration to
+          create a testing or production system. </li>
+        <li>Start additional servers without having to configure each server separately.</li>
+        <li>Configure some servers to host certain regions and other servers to host different
+          regions, and configure all servers to host a set of common regions. </li>
+      </ul>
+    </section>
+    <section>
+      <title>Using the Cluster Configuration Service</title>
+      <p>To use the cluster configuration service in <keyword keyref="product_name"/>, you must use
+        dedicated, standalone locators in your deployment. You cannot use the cluster configuration
+        service with co-located locators (locators running in another process such as a server) or
+        in multicast environments.</p>
+      <p>The standalone locators distribute configuration to all locators in a cluster. Every
+        locator in the cluster with <codeph>--enable-cluster-configuration</codeph> set to true
+        keeps a record of all cluster-level and group-level configuration settings. </p>
+      <note>The default behavior for gfsh is to create and save cluster configurations. You can
+        disable the cluster configuration service by using the
+          <codeph>--enable-cluster-configuration=false</codeph> option when starting locators. </note>
+      <p>Subsequently, any servers that you start with gfsh that have
+          <codeph>--use-cluster-configuration</codeph> set to <codeph>true</codeph> will pick up the
+        cluster configuration from the locator as well as any appropriate group-level configurations
+        (for member groups they belong to). To disable the cluster configuration service on a
+        server, you must start the server with the <codeph>--use-cluster-configuration</codeph>
+        parameter set to <codeph>false</codeph>. By default, the parameter is set to true.</p>
+      <p>You can also load existing configuration files into the cluster configuration service by
+        starting up a standalone locator with the parameter
+          <codeph>--load-cluster-configuration-from-dir</codeph> set to true. See <xref
+          href="gfsh_load_from_shared_dir.xml#concept_hbk_sgb_y4"/>.</p>
+    </section>
+    <section>
+      <title>How the Cluster Configuration Service Works</title>
+      <p>When you use gfsh commands to create <keyword keyref="product_name_long"/> regions,
+        disk-stores, and other objects, the cluster configuration service saves the configurations
+        on each locator in the cluster (also called a <keyword keyref="product_name"/> distributed
+        system). If you specify a group when issuing these commands, a separate configuration is
+        saved containing only configurations that apply to the group. </p>
+      <p>When you use gfsh to start new <keyword keyref="product_name_long"/> servers, the locator
+        distributes the persisted configurations to the new server. If you specify a group when
+        starting the server, the server receives the group-level configuration in addition to the
+        cluster-level configuration. Group-level configurations are applied after cluster-wide
+        configurations; therefore you can use group-level to override cluster-level settings.</p>
+      <image href="../../images_svg/cluster_config_overview.svg" id="image_jjc_vhb_y4"/>
+    </section>
+    <section>
+      <title>gfsh Commands that Create Cluster Configurations</title>
+      <p>The following gfsh commands cause the configuration to be written to all locators in the
+        cluster (the locators write the configuration to disk):</p>
+      <ul id="ul_x3s_5g5_j4">
+        <li><cmdname>configure pdx</cmdname>*</li>
+        <li>
+          <cmdname>create region</cmdname>
+        </li>
+        <li>
+          <cmdname>alter region</cmdname>
+        </li>
+        <li>
+          <cmdname>alter runtime</cmdname>
+        </li>
+        <li>
+          <cmdname>destroy region</cmdname>
+        </li>
+        <li>
+          <cmdname>create index</cmdname>
+        </li>
+        <li>
+          <cmdname>destroy index</cmdname>
+        </li>
+        <li>
+          <cmdname>create disk-store</cmdname>
+        </li>
+        <li>
+          <cmdname>destroy disk-store</cmdname>
+        </li>
+        <li>
+          <cmdname>create async-event-queue</cmdname>
+        </li>
+        <li>
+          <cmdname>deploy jar</cmdname>
+        </li>
+        <li>
+          <cmdname>undeploy jar</cmdname>
+        </li>
+      </ul>
+      <p><b>*</b> Note that the <cmdname>configure pdx</cmdname> command must be executed
+          <i>before</i> starting your data members. This command does not affect any currently
+        running members in the system. Data members (with cluster configuration enabled) that are
+        started after running this command will pick up the new PDX configuration.</p>
+    </section>
+    <section id="section_bn3_23p_y4">
+      <title>gfsh Limitations</title>
+      <p>There are some configurations that you cannot create using gfsh, and that you must
+        configure using cache.xml or the API:</p>
+      <ul id="ul_vfs_1bp_y4">
+        <li>Client cache configuration</li>
+        <li>You cannot specify parameters and values for Java classes for the following objects: <ul
+            id="ul_pn1_lnk_z4">
+            <li><codeph>function</codeph></li>
+            <li><codeph>custom-load-probe</codeph></li>
+            <li><codeph>cache-listener</codeph></li>
+            <li><codeph>cache-loader</codeph></li>
+            <li><codeph>cache-writer</codeph></li>
+            <li><codeph>compressor</codeph></li>
+            <li><codeph>serializer</codeph></li>
+            <li><codeph>instantiantor</codeph></li>
+            <li><codeph>pdx-serializer</codeph><p>
+                <note>The <cmdname>configure pdx</cmdname> command always specifies the
+                    <apiname>com.gemstone.gemfire.pdx.ReflectionBasedAutoSerializer</apiname> class.
+                  You cannot specify a custom PDX serializer in gfsh. </note>
+              </p></li>
+            <li><codeph>custom-expiry</codeph></li>
+            <li><codeph>initializer</codeph></li>
+            <li><codeph>declarable</codeph></li>
+            <li><codeph>lru-heap-percentage</codeph></li>
+            <li><codeph>lru-memory-size</codeph></li>
+            <li><codeph>partition-resolver</codeph></li>
+            <li><codeph>partition-listener</codeph></li>
+            <li><codeph>transaction-listener</codeph></li>
+            <li><codeph>transaction-writer</codeph></li>
+          </ul>
+        </li>
+        <li>Adding or removing a TransactionListener</li>
+        <li>Adding JNDI bindings</li>
+        <li>Deleting an AsyncEventQueue</li>
+      </ul>
+    </section>
+    <section id="section_fh1_c3p_y4">
+      <title>Disabling the Cluster Configuration Service</title>
+      <p>If you do not want to use the cluster configuration service, start up your locator with the
+          <codeph>--enable-cluster-configuration</codeph> parameter set to false or do not use
+        standalone locators. You will then need to configure the cache (via cache.xml or API)
+        separately on all your distributed system members.</p>
+    </section>
+  </conbody>
+</concept>

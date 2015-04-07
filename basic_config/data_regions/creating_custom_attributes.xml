@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "http://docs.oasis-open.org/dita/v1.1/OS/dtd/concept.dtd">
+<concept id="creating_custom_attributes">
+	<title>Creating Custom Attributes for Regions and Entries</title>
+	<shortdesc>Use custom attributes to store information related to your region or its entries in
+		your cache. These attributes are only visible to the local application and are not
+		distributed. </shortdesc>
+	<conbody>
+		<section id="section_A8752F55C157480FAF435738D6244503">
+			<p>You can define custom user attributes so you can associate data with the region or
+				entry and retrieve it later. Unlike the other configuration settings, these
+				attributes are used only by your application. <note>User attributes are not
+					distributed. </note>
+				<ol id="ol_99913881A85F498694EE8D42F42D4A4C">
+					<li id="li_CCD40EF72C704869972AFB23B65943A0">Create a Java
+							<codeph>Object</codeph> with your attribute definitions. </li>
+					<li id="li_0C240C3F83014BB1A9F5125A56BAA71D">Attach the object to the region or
+						to an entry: <ul id="ul_A3C69652DC6B49D0BB0816C6953A9CBF">
+							<li id="li_289F6E7D62E7431381D8A1FC4166BFBF">
+								<codeph>Region.setUserAttribute(userAttributeObject)</codeph>
+							</li>
+							<li id="li_9E86E62CA0A54FD4812593FBA54FE1EF">
+								<codeph>Region.getEntry(key).setUserAttribute(userAttributeObject)</codeph>
+							</li>
+						</ul>
+					</li>
+					<li id="li_961546E81CF141FD98A651C4667643CE"> Get the attribute value: <ul
+							id="ul_543AD65D98DB4B97B758ADD3E1B02BB4">
+							<li id="li_4F732CAC425442EB83E42E52B9F723EA">
+								<codeph>Region.getUserAttribute()</codeph>
+							</li>
+							<li id="li_024CBA7564494DC0BAAE437728293C37">
+								<codeph>Region.getEntry(key).getUserAttribute()</codeph>
+							</li>
+						</ul>
+					</li>
+				</ol>
+			</p>
+			<p>This example stores attributes for later retrieval by a cache writer. <codeblock>// Attach a user attribute to a Region with database info for table portfolio
+Object myAttribute = "portfolio"; 
+final Region portfolios = 
+      new RegionFactory().setCacheWriter(new PortfolioDBWriter()).create("Portfolios"); 
+Portfolios.setUserAttribute(myAttribute);</codeblock>
+				<codeblock>//Implement a cache writer that reads the user attribute setting
+public class PortfolioDBWriter extends CacheWriterAdapter {
+  public void beforeCreate(RegionEvent event) {
+    table = (String)event.getRegion().getUserAttribute();
+    // update database table using name from attribute
+        . . .
+  }
+}</codeblock>
+			</p>
+		</section>
+		<section id="section_A5CB456E4E96410584F8856EAFB5BB83">
+			<title>Limitations and Alternatives</title>
+			<p>User attributes are not distributed to other processes, so if you need to define each
+				attribute in every process that uses the region or entry. You need to update every
+				instance of the region separately. User attributes are not stored to disk for region
+				persistence or overflow, so they cannot be recovered to reinitialize the region. </p>
+			<p>If your application requires features not supported by user attributes, an
+				alternative is to create a separate region to hold this data instead. For instance,
+				a region, AttributesRegion, defined by you, could use region names as keys and the
+				user attributes as values. Changes to AttributesRegion would be distributed to other
+				processes, and you could configure the region for persistence or overflow if needed.
+			</p>
+		</section>
+	</conbody>
+</concept>

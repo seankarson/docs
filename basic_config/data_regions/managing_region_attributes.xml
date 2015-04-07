@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "http://docs.oasis-open.org/dita/v1.1/OS/dtd/concept.dtd">
+<concept id="managing_region_attributes">
+	<title>Managing Region Attributes</title>
+	<shortdesc>Use region attributes to fine-tune the region configuration provided by the region
+		shortcut settings. </shortdesc>
+	<conbody>
+		<section id="section_B6363B281A994141B9B9BDD952173330">
+			<p>All region attributes have default settings, so you only need to use region
+				attributes to set the ones you want to override. See <xref
+					href="../../reference/topics/cache_xml.xml#region-attributes"/>. </p>
+		</section>
+		<section id="section_DDBF2810ABB54A55B1479AD786ED48DF">
+			<title>Define Region Attributes</title>
+			<p>Create region attributes using any of these methods: <ul
+					id="ul_6EF485AA9F7E481CB574E24A5D0AF38A">
+					<li id="li_B2F2751D84BC45DBA60372DD42CDC008">Declarations inside the
+							<codeph>cache.xml</codeph>
+						<codeph>&lt;region&gt;</codeph> element: <codeblock>&lt;cache&gt;
+   &lt;region name="exampleRegion" refid="REPLICATE"&gt;
+      &lt;region-attributes statistics-enabled="true"&gt;
+        &lt;entry-idle-time&gt;
+          &lt;expiration-attributes timeout="10" action="destroy"/&gt;
+        &lt;/entry-idle-time&gt;
+        &lt;cache-listener&gt;
+          &lt;class-name&gt;quickstart.SimpleCacheListener&lt;/class-name&gt;
+        &lt;/cache-listener&gt;
+      &lt;/region-attributes&gt;
+    &lt;/region&gt;
+&lt;/cache&gt;</codeblock>
+						<p>When the <codeph>cache.xml</codeph> is loaded at startup, declared region
+							attributes are automatically created and applied to the region. </p>
+					</li>
+					<li id="li_363462361C234CFEB04FEA4656BC1259"><codeph>RegionFactory</codeph> API
+							<codeph>set</codeph>* method calls: <codeblock>// Creating a partitioned region using the RegionFactory
+RegionFactory rf = cache.createRegionFactory(RegionShortcut.PARTITION);
+rf.addCacheListener(new LoggingCacheListener());
+custRegion = rf.create("customer");</codeblock>
+						<codeblock>// Creating a partitioned region using the RegionFactory, with attribute modifications
+PartitionAttributesFactory paf = 
+  new PartitionAttributesFactory&lt;CustomerId, String&gt;();
+paf.setPartitionResolver(new CustomerOrderResolver());
+  
+RegionFactory rf = 
+  cache.createRegionFactory(RegionShortcut.PARTITION);
+rf.setPartitionAttributes(paf.create());
+rf.addCacheListener(new LoggingCacheListener());
+custRegion = rf.create("customer");</codeblock>
+						<codeblock>// Creating a client with a Pool Specification Using ClientRegionFactory
+ClientRegionFactory&lt;String,String&gt; cRegionFactory = 
+	cache.createClientRegionFactory(PROXY);
+Region&lt;String, String&gt; region = 
+	cRegionFactory.setPoolName("Pool3").create("DATA");</codeblock>
+					</li>
+					<li id="li_EBC9A2936AE6455B88641496FE95E12A"><codeph>AttributesFactory</codeph>
+						API: <ol id="ol_480F822897B645EA9E7E37A3D65BC35F">
+							<li id="li_26EE59BE23FC4C1085C0D157A13A504F">Create an
+									<codeph>AttributesFactory</codeph> instance </li>
+							<li id="li_F8D916FF5F6340F1900D4FD26B09BE80">Use the instance to set
+								non-default attributes </li>
+							<li id="li_861E6F6994D842E29FCC672E46F0F313">Run the factory
+									<codeph>create</codeph> method to create a
+									<codeph>RegionAttributes</codeph> instance </li>
+							<li id="li_A3081AFBF71B45CDAFD14F4D239EDD76">Pass the
+									<codeph>RegionAttributes</codeph> instance to the region create
+								method: </li>
+						</ol>
+						<codeblock>Cache cache = CacheFactory.create(system);
+AttributesFactory factory = new AttributesFactory();
+factory.setScope(Scope.DISTRIBUTED_ACK);
+factory.setDataPolicy(DataPolicy.REPLICATE);
+Region region = cache.createRegion("SampleRegion", factory.create());</codeblock>
+						<codeblock>// Create a new region using another region's attributes
+AttributesFactory fac =
+    new AttributesFactory(this.currRegion.getAttributes());
+Region nr = cache.createRegion(name, fac.create());</codeblock></li>
+					<li>By issuing the gfsh <cmdname>create region</cmdname> command. See <xref
+							href="../../tools_modules/gfsh/command-pages/create.xml#topic_54B0985FEC5241CA9D26B0CE0A5EA863"
+						/>.</li>
+					<li>s</li>
+				</ul>
+			</p>
+		</section>
+		<section id="section_F69A7664F72D47BBA463D81B72C03B4D">
+			<title>Modify Region Attributes </title>
+			<p>You can modify a region’s event handlers and expiration and eviction attributes after
+				the region is created. <note>Do not modify attributes for existing regions unless
+					absolutely necessary. Creating the attributes you need at region creation is
+					more efficient. </note>
+			</p>
+			<p>Modify attributes in one of these ways: <ul id="ul_DAF86055FF714E61939969125150D087">
+					<li id="li_119B3FEAB1614C1EBE30DE51331AC0C7">By loading a
+							<codeph>cache.xml</codeph> with modified region attribute
+						specifications:
+						<codeblock>&lt;!-- Change the listener for exampleRegion
+...
+    &lt;region name="exampleRegion"&gt;
+      &lt;region-attributes statistics-enabled="true"&gt;
+        &lt;cache-listener&gt;
+          &lt;class-name&gt;quickstart.ComplicatedCacheListener&lt;/class-name&gt;
+        &lt;/cache-listener&gt;
+      &lt;/region-attributes&gt;
+    &lt;/region&gt;
+... </codeblock>
+					</li>
+					<li id="li_4FD55C008AE649F4BD45ED6F11FD0121">Using the
+							<codeph>AttributesMutator</codeph> API: <ol
+							id="ol_84BD4921159541168D8BB38D7D6703C1">
+							<li id="li_FEBB46BE9C3F4C7AA84163D5DC7D0724">Retrieve the
+									<codeph>AttributesMutator</codeph> from the region </li>
+							<li id="li_5A3D323EF7B4454AAE50B49012A89178">Call the mutator set
+								methods to modify attributes: </li>
+						</ol>
+						<p>
+							<codeblock>currRegion = cache.getRegion("root");
+AttributesMutator mutator = this.currRegion.getAttributesMutator();
+mutator.addCacheListener(new LoggingCacheListener()); </codeblock>
+						</p>
+					</li>
+					<li>By issuing the gfsh <cmdname>alter region</cmdname> command. See <xref
+							href="../../tools_modules/gfsh/command-pages/alter.xml#topic_E74ED23CB60342538B2175C326E7D758"
+						/>.</li>
+				</ul>
+			</p>
+		</section>
+	</conbody>
+</concept>

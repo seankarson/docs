@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "http://docs.oasis-open.org/dita/v1.1/OS/dtd/concept.dtd">
+<concept id="undefined">
+    <title>UNDEFINED</title>
+    <prolog audience="basic">
+    </prolog>
+    <conbody>
+        <section>
+            <p>The special value UNDEFINED behaves according to these rules: <ul>
+                    <li>Accessing an attribute of a NULL value results in UNDEFINED</li>
+                    <li>IS_UNDEFINED(UNDEFINED) returns TRUE</li>
+                    <li>IS_DEFINED(UNDEFINED) returns FALSE</li>
+                    <li>When the predicate defined by a WHERE clause returns UNDEFINED , this is handled as if the predicate returns FALSE</li>
+                    <li>UNDEFINED is a valid value of explicit construction expressions (see Construction Expressions) and can be in the results of a SELECT statement if the value of a projection expression is UNDEFINED</li>
+                    <li>For AND and OR expressions: <table>
+                            <tgroup cols="2">
+                                <colspec colname="1" colnum="1" colwidth="*"/>
+                                <colspec colname="2" colnum="2" colwidth="*"/>
+                                <thead>
+                                    <row>
+                                        <entry>Expression</entry>
+                                        <entry>Return Value</entry>
+                                    </row>
+                                </thead>
+                                <tbody>
+                                    <row>
+                                        <entry>UNDEFINED AND FALSE</entry>
+                                        <entry>FALSE</entry>
+                                    </row>
+                                    <row>
+                                        <entry>UNDEFINED AND TRUE</entry>
+                                        <entry>UNDEFINED</entry>
+                                    </row>
+                                    <row>
+                                        <entry>UNDEFINED AND UNDEFINED</entry>
+                                        <entry>UNDEFINED</entry>
+                                    </row>
+                                    <row>
+                                        <entry>UNDEFINED OR FALSE</entry>
+                                        <entry>UNDEFINED</entry>
+                                    </row>
+                                    <row>
+                                        <entry>UNDEFINED OR TRUE</entry>
+                                        <entry>TRUE</entry>
+                                    </row>
+                                    <row>
+                                        <entry>UNDEFINED OR UNDEFINED</entry>
+                                        <entry>UNDEFINED</entry>
+                                    </row>
+                                </tbody>
+                            </tgroup>
+                        </table></li>
+                </ul></p>
+            <p>Any other operation with an UNDEFINED operands results in UNDEFINED. This includes the dot operator, method invocations with UNDEFINED arguments, and comparison operations. For example, the operation X=UNDEFINED evaluates to UNDEFINED, but IS_UNDEFINED(UNDEFINED) evaluates to TRUE .</p>
+        </section>
+    </conbody>
+</concept>

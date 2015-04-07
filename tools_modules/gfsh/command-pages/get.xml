@@ -1,0 +1,84 @@
+<?xml version="1.0"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept id="concept_837F6196CE334C8CA2CAFD34AB6EF869">
+	<title>get</title>
+	<shortdesc>Display an entry in a region. </shortdesc>
+	<conbody>
+		<p><b> Availability:</b> Online. You must be connected in <codeph>gfsh</codeph> to a JMX
+			Manager member to use this command. </p>
+		<p><b>Syntax:</b>
+			<codeblock>get --key=value --region=value [--key-class=value] [--value-class=value]</codeblock>
+			<table id="table_90F7A3A1885F4FFC82B6FC0C6914569F">
+				<title>Parameters</title>
+				<tgroup cols="3">
+					<colspec colname="col1" colnum="1" colwidth="1.00*"/>
+					<colspec colname="col2" colnum="2" colwidth="3.51*"/>
+					<colspec colname="newCol3" colnum="3" colwidth="1*"/>
+					<thead>
+						<row>
+							<entry colname="col1">Name </entry>
+							<entry colname="col2">Description</entry>
+							<entry colname="col3">Default Value</entry>
+						</row>
+					</thead>
+					<tbody>
+						<row>
+							<entry colname="col1"><parmname>--key </parmname></entry>
+							<entry colname="col2">
+								<i>Required.</i> String or JSON text from which to create the key.
+								For example: "<codeph>James</codeph>", "<codeph>100L</codeph>" and
+									"<codeph>('id': 'l34s')</codeph>". </entry>
+							<entry/>
+						</row>
+						<row>
+							<entry colname="col1"><parmname>--region</parmname>
+							</entry>
+							<entry colname="col2"><i>Required.</i> Region from which to get the
+								entry. </entry>
+							<entry/>
+						</row>
+						<row>
+							<entry colname="col1"><parmname>--key-class</parmname>
+							</entry>
+							<entry colname="col2"> Fully qualified class name of the key's type. </entry>
+							<entry>The default is the key constraint for the current region or
+								String.</entry>
+						</row>
+						<row>
+							<entry colname="col1"><parmname>--value-class</parmname>
+							</entry>
+							<entry colname="col2"> Fully qualified class name of the value's type. </entry>
+							<entry>The default is the value constraint for the current region or
+								String. </entry>
+						</row>
+						<row>
+							<entry colname="col1"><parmname>--load-on-cache-miss</parmname></entry>
+							<entry colname="col2">Explicitly enables or disables the use of any
+								registered CacheLoaders on the specified Region when retrieving a
+								value for the specified Key on Cache misses. </entry>
+							<entry>true (enabled)</entry>
+						</row>
+					</tbody>
+				</tgroup>
+			</table>
+		</p>
+		<p><b>Example Commands:</b>
+			<codeblock>
+get --key=('id':'133abg124') --region=region1
+
+// Retrieving when key type is a wrapper(primitive)/String
+get --key=('133abg124') --region=/region1/region12 --value-class=data.ProfileDetails
+
+get --key=('100L') --region=/region1/region12 --value-class=data.ProfileDetails 
+--key-class=java.lang.Long</codeblock>
+		</p>
+		<p><b>Sample Output:</b>
+			<codeblock>gfsh&gt;get --key=('123') --region=region1
+Result      : true
+Key Class   : java.lang.String
+Key         : ('123')
+Value Class : java.lang.String
+Value       : ABC</codeblock>
+		</p>
+	</conbody>
+</concept>

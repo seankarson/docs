@@ -1,0 +1,43 @@
+<?xml version="1.0"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept id="concept_1A965E61EA7A4A629117CF55FC567685">
+	<title>validate offline-disk-store</title>
+	<shortdesc>Validate offline disk stores. </shortdesc>
+	<conbody>
+		<section id="section_CECE13AEC08E4F5DAABEF4D9E500664A">
+			<p><b> Availability:</b> Offline. </p>
+			<p><b>Syntax:</b>
+				<codeblock>validate offline-disk-store --name=value --disk-dirs=value(,value)*</codeblock>
+				<table id="table_D1C4B3924950487B9A436234968BCA46">
+					<title>Parameters</title>
+					<tgroup cols="2">
+						<colspec colnum="1" colname="col1" colwidth="1.00*"/>
+						<colspec colnum="2" colname="col2" colwidth="2.49*"/>
+						<thead>
+							<row>
+								<entry colname="col1">Name </entry>
+								<entry colname="col2">Description</entry>
+							</row>
+						</thead>
+						<tbody>
+							<row>
+								<entry colname="col1"><parmname>--name</parmname>
+								</entry>
+								<entry colname="col2"><i>Required.</i> Name of the disk store to be
+									validated. </entry>
+							</row>
+							<row>
+								<entry colname="col1"><parmname>--disk-dirs </parmname></entry>
+								<entry colname="col2"><i>Required.</i> Directories where data for
+									the disk store was previously written. </entry>
+							</row>
+						</tbody>
+					</tgroup>
+				</table>
+			</p>
+			<p><b>Example Commands:</b>
+				<codeblock>validate offline-disk-store --name=DiskStore2 --disk-dirs=data/dir3,data/dir4</codeblock>
+			</p>
+		</section>
+	</conbody>
+</concept>

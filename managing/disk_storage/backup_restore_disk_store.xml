@@ -1,0 +1,353 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "http://docs.oasis-open.org/dita/v1.1/OS/dtd/concept.dtd">
+<concept id="backup_restore_disk_store">
+	<title>Creating Backups for System Recovery and Operational Management</title>
+	<shortdesc>You do backup and restore operations differently for online and offline distributed
+		systems. </shortdesc>
+	<conbody>
+		<ul id="ul_846C3274F78048BDA87AEFB1C7BDB80C">
+			<li id="li_F44346175E244C1897CD1EEDB64ED25D">
+				<xref
+					href="backup_restore_disk_store.xml#backup_restore_disk_store/section_63AB5917BF24432898A79DBE8E4071FF"
+					type="section" format="dita" scope="local"/>
+			</li>
+			<li id="li_460B36BA05A34105A1ACBFEAAF50542A">
+				<xref
+					href="backup_restore_disk_store.xml#backup_restore_disk_store/section_C08E52E65DAD4CD5AE076BBDCF1DB340"
+					type="section" format="dita" scope="local"/>
+			</li>
+			<li id="li_1E254E660FB748E5B3FC51D6D392E2E0">
+				<xref
+					href="backup_restore_disk_store.xml#backup_restore_disk_store/section_59E23EEA4AB24374A45B99A8B44FD49B"
+					type="section" format="dita" scope="local"/>
+			</li>
+			<li id="li_562F49A71472451BBFD4030934188D5E">
+				<xref
+					href="backup_restore_disk_store.xml#backup_restore_disk_store/section_22809A237A344015B40C962B704D8F34"
+					type="section" format="dita" scope="local"/>
+			</li>
+			<li id="li_CB907E6965A94A259C1341BC65FEDBE5">
+				<xref
+					href="backup_restore_disk_store.xml#backup_restore_disk_store/section_6F998080AF7640D1A9E951D155A75E3A"
+					type="section" format="dita" scope="local"/>
+			</li>
+			<li id="li_676A3AD6A48E4D0688ED792369CC6A8C">
+				<xref
+					href="backup_restore_disk_store.xml#backup_restore_disk_store/section_D08DC489B9D947DE97B8F96261E4A977"
+					type="section" format="dita" scope="local"/>
+			</li>
+			<li id="li_26987FA9F44245F18BF590871FE2D989">
+				<xref
+					href="backup_restore_disk_store.xml#backup_restore_disk_store/section_A7981F25371A40C5A7A298768E9636DF"
+					type="section" format="dita" scope="local"/>
+			</li>
+		</ul>
+		<section id="section_63AB5917BF24432898A79DBE8E4071FF">
+			<title>Online Backup</title>
+			<p>The gfsh backup operation creates a backup of disk stores for all members running in
+				the distributed system when the backup command is invoked. <note>Do not try to
+					create backup files from a running system by using your operating system's file
+					copy commands. You will get incomplete and unusable copies. </note>
+			</p>
+			<p>The backup works by passing commands to the running system members. Each member with
+				persistent data creates a backup of its own configuration and disk stores. The
+				backup does not block any activities in the distributed system, but it does use
+				resources. </p>
+			<p>
+				<b>Preparing for Backup</b>
+				<ol id="ol_53E1477633F742BD8A293E8E0E09778D">
+					<li id="li_A967EDBF57AA44E0A64A0BD6DC27C333">You might want to compact your disk
+						store before running the backup. If auto-compaction is turned off, you may
+						want to do a manual compaction to save on how much data will be copied over
+						your network by the backup. For more information on configuring a manual
+						compaction, see <xref scope="local"
+							href="compacting_disk_stores.xml#compacting_disk_stores/li_63CF8C35153D4173AADF7DC35FEC61F9"
+							type="li" format="dita">Manual Compaction</xref>
+					</li>
+					<li id="li_62CD75733FCE4D53B22F6169CB2453DB">Run the backup during a period of
+						low activity in your system. The backup does not block system activities,
+						but it uses file system resources on all hosts in your distributed system
+						and can affect performance. </li>
+					<li id="li_57FC983834604539970DE14075242B17">Configure each member’s
+							<codeph>cache.xml</codeph> with any files or directories you want backed
+						up in addition to the disk store files. Pivotal recommends that you back up:
+							<ul id="ul_E2E1134157B24CD28D6D19D48A2713B1">
+							<li id="li_E7C579509EA94DC2AFCDEBC2B916C72A"><codeph>cache.xml</codeph>
+							</li>
+							<li id="li_EA5E3205B72340A9945BB38E4CEC54D9"
+									><codeph>gemfire.properties</codeph>
+							</li>
+							<li id="li_DC0E1FA0D7784337B7F8949F869F691B">Application jar files </li>
+							<li id="li_46870BFA8EA84740A4201668533E1365">Other files that the
+								application needs when starting (a file that sets the classpath, for
+								example) </li>
+						</ul>Any directory that you specify is copied recursively, with any disk
+						stores that are found excluded from this user-specified backup. Example:
+						<codeblock>&lt;backup&gt;./myExtraBackupStuff&lt;/backup&gt;</codeblock>
+					</li>
+					<li id="li_805FE099E030497A86E560670B0BCA17">Back up to a SAN (recommended) or
+						to a directory that all members can access. Make sure the directory exists
+						and has the proper permissions for your members to write to it and create
+						subdirectories. <p>The directory you specify for backup can be used multiple
+							times. Each backup first creates a top level directory for the backup,
+							under the directory you specify, identified to the minute. </p>
+						<p>You can use one of two methods: <ul
+								id="ul_389CB68FAB19435ABEC56DB90ED14B94">
+								<li id="li_27ABC8AAE3A047E782C0F8549694B6F3">Use a single physical
+									location, such as a network file server. Example:
+									<codeblock>/export/fileServerDirectory/gemfireBackupLocation</codeblock>
+								</li>
+								<li id="li_55FA85E3E04C4413A9539AF9226102D5">Use a directory that is
+									local to all host machines in the system. Example:
+									<codeblock>./gemfireBackupLocation</codeblock>
+								</li>
+							</ul>
+						</p>
+					</li>
+					<li id="li_29A1BB24F9D64BD2B9396214B45385A4">Make sure there is a
+							<codeph>gemfire.properties</codeph> file for the distributed system in
+						the directory where you run the <codeph>gemfire</codeph> command.
+							The<codeph> gemfire.properties</codeph> file is required by the backup
+						command so that it can connect to the specified distributed system and
+						instruct members to back up their disk stores. Make sure that
+							<codeph>locators</codeph> or <codeph>mcast-port</codeph> are correctly
+						set in the <codeph>gemfire.properties</codeph> file to connect to the
+						distributed system that you want to back up. </li>
+					<li id="li_DDC7D06B22494A8796F26FABA77BA2B5">Make sure all members with
+						persistent data are running in the system. Offline members cannot back up
+						their disk stores. The tool gives a message telling you about any members
+						that are offline:
+						<codeblock>The backup may be incomplete. The following disk stores are not online:
+    DiskStore at hostc.gemstone.com /home/dsmith/dir3</codeblock>
+					</li>
+				</ol>
+			</p>
+			<p>
+				<b>Performing a Full Online Backup</b>
+				<ol id="ol_870E3FACA7FC4DCE9D517FE542847CFC">
+					<li id="li_5DD5496960ED444C92D3AA7C17E06057">If you have disabled
+						auto-compaction, run manual compaction:
+						<codeblock>gfsh&gt;compact disk-store --name=Disk1</codeblock>
+					</li>
+					<li id="li_AD066159054B443BA4D4CBD7743F6AFA">Run the gfsh backup command,
+						providing your backup directory location. Example:
+						<codeblock>gfsh&gt;backup disk-store --dir=/export/fileServerDirectory/gemfireBackupLocation</codeblock>
+					</li>
+					<li id="li_89A5991DC2694D46B5171374BF643839">The tool reports on the success of
+						the operation. If the operation is successful, you see a message like this: <codeblock>
+The following disk stores were backed up:
+	DiskStore at hosta.gemstone.com /home/dsmith/dir1
+	DiskStore at hostb.gemstone.com /home/dsmith/dir2
+Backup successful.</codeblock>
+						<p>If the operation does not succeed at backing up all known members, you
+							see a message like this:
+							<codeblock>Connecting to distributed system: locators=warsaw.gemstone.com[26357]
+The following disk stores were backed up:
+	DiskStore at hosta.gemstone.com /home/dsmith/dir1
+	DiskStore at hostb.gemstone.com /home/dsmith/dir2
+The backup may be incomplete. The following disk stores are not online:
+	DiskStore at hostc.gemstone.com /home/dsmith/dir3</codeblock>
+						</p>
+						<p>A member that fails to complete its backup is noted in this ending status
+							message and leaves the file <codeph>INCOMPLETE_BACKUP</codeph> in its
+							highest level backup directory. Offline members leave nothing, so you
+							only have this message from the backup operation itself. </p>
+					</li>
+					<li id="li_5215F6C4360B4F6FBCAB5E9D115B0CE4">Validate the backup. To ensure that
+						the backup can be recovered, validate the backed-up files. Run the
+							<codeph>validate offline-disk-store</codeph> command on the backed-up
+						files for each disk store.
+						<codeblock>cd 2010-04-10-11-35/straw_14871_53406_34322/diskstores/ds1
+gfsh> validate-disk-store --name=ds1 --disk-dirs=dir0,dir1,[... dirN]</codeblock>Repeat
+						for all disk stores of all members. </li>
+				</ol>
+			</p>
+			<p>
+				<b>Performing an Incremental Backup</b>
+			</p>
+			<p>
+				<ol id="ol_73CDEDE40109469BB9E0D4120A5E0D84">
+					<li id="li_041AC43517714CB3B423906D305E1BD4">Run the gfsh backup command,
+						providing your backup directory location. Example:
+						<codeblock>gfsh&gt;backup disk-store --dir=/export/fileServerDirectory/gemfireBackupLocation
+--baselineDir=/export/fileServerDirectory/gemfireBackupLocation/2012-10-01-12-30</codeblock>
+					</li>
+					<li id="li_FD814B1A5F7B4A1FA4BAFA815F4BC108">The tool reports on the success of
+						the operation. If the operation is successful, you see a message like this: <codeblock>
+The following disk stores were backed up:
+	DiskStore at hosta.gemstone.com /home/dsmith/dir1
+	DiskStore at hostb.gemstone.com /home/dsmith/dir2
+Backup successful.</codeblock>
+						<p>If the operation does not succeed at performing an incremental backup on
+							all known members, you see a message like this:
+							<codeblock>
+The following disk stores were backed up:
+	DiskStore at hosta.gemstone.com /home/dsmith/dir1
+	DiskStore at hostb.gemstone.com /home/dsmith/dir2
+The backup may be incomplete. The following disk stores are not online:
+	DiskStore at hostc.gemstone.com /home/dsmith/dir3</codeblock>
+						</p>
+						<p>A member that fails to complete its backup is noted in this ending status
+							message and leaves the file <codeph>INCOMPLETE_BACKUP</codeph>. The next
+							time you perform a backup operation a full backup will be performed.
+						</p>
+					</li>
+					<li id="li_8255F06B3D4D450097FDF84658C38EB4">Repeat for all disk stores for all
+						members. </li>
+				</ol>
+			</p>
+		</section>
+		<section id="section_C08E52E65DAD4CD5AE076BBDCF1DB340">
+			<title>What a Full Online Backup Saves</title>
+			<p>For each member with persistent data, a full backup includes the following: <ul
+					id="ul_E08684424FA84732AA61C7C981288D26">
+					<li id="li_089BCC632AD1420183B346A3B6A28682">Disk store files for all stores
+						containing persistent region data. </li>
+					<li id="li_9439844AEB85456F8DF18381C89B08FE">Files and directories you have
+						configured to be backed up in <codeph>cache.xml</codeph>
+						<codeph>&lt;backup&gt;</codeph> elements. Example:
+						<codeblock>&lt;backup&gt;./systemConfig/gf.jar&lt;/backup&gt;
+&lt;backup&gt;/users/user/gfSystemInfo/myCustomerConfig.doc&lt;/backup&gt;</codeblock>
+					</li>
+					<li id="li_5C0E32CB0B8F476E9691C54335BF625F">Deployed JAR files that you
+						deployed using the gfsh <xref
+							href="../../tools_modules/gfsh/command-pages/deploy.xml#concept_6B38CB283BC048778A8E3908C1BDF221"
+							type="concept" format="dita" scope="local">deploy</xref> command. </li>
+					<li id="li_6121E8AF44F7467AB05494A41339F1D6">Configuration files from the member
+						startup. <ul id="ul_743FF442E72540C681CA607358114D97">
+							<li id="li_4C42D24269454181A5423DA3BD2AC554"
+									><codeph>gemfire.properties</codeph>, including the properties
+								with which the member was started. </li>
+							<li id="li_03E2508C5EB243E6A3FEB39DA30C8D57"><codeph>cache.xml</codeph>,
+								if used. </li>
+						</ul>These configuration files are not automatically restored, to avoid
+						interfering with more recent configurations. In particular, if these are
+						extracted from a master <codeph>jar</codeph> file, copying the separate
+						files into your working area can override the files in the
+							<codeph>jar</codeph>. If you want to back up and restore these files,
+						add them as custom <codeph>&lt;backup&gt;</codeph> elements. </li>
+					<li id="li_A49BCC861F9E46CE92AA94C6530C04DC">A restore script, written for the
+						member’s operating system, that copies the files back to their original
+						locations. For example, in Windows, the file is <codeph>restore.bat</codeph>
+						and in Linux, it is <codeph>restore.sh</codeph>. </li>
+				</ul>
+			</p>
+		</section>
+		<section id="section_59E23EEA4AB24374A45B99A8B44FD49B">
+			<title>What an Incremental Online Backup Saves</title>
+			<p>An incremental backup saves the difference between the last backup and the current
+				data. An incremental backup copies only operations logs that are not already present
+				in the baseline directories for each member. For incremental backups, the restore
+				script contains explicit references to operation logs in one or more previously
+				chained incremental backups. When the restore script is run from an incremental
+				backup, it also restores the operation logs from previous incremental backups that
+				are part of the backup chain. </p>
+			<p>If members are missing from the baseline directory because they were offline or did
+				not exist at the time of the baseline backup, those members place full backups of
+				all their files into the incremental backup directory. </p>
+		</section>
+		<section id="section_22809A237A344015B40C962B704D8F34">
+			<title>Disk Store Backup Directory Structure and Contents</title>
+			<p>
+				<codeblock>dsmith@dasmith-e6410:test_backup$ ls -R
+./2012-10-18-13-44-53:
+dasmith_e6410_server1_8623_v1_33892 dasmith_e6410_server2_8940_v2_45565
+
+./2012-10-18-13-44-53/dasmith_e6410_server1_8623_v1_33892:
+config diskstores README.txt restore.sh user
+
+./2012-10-18-13-44-53/dasmith_e6410_server1_8623_v1_33892/config:
+cache.xml
+
+./2012-10-18-13-44-53/dasmith_e6410_server1_8623_v1_33892/diskstores:
+DEFAULT
+
+./2012-10-18-13-44-53/dasmith_e6410_server1_8623_v1_33892/diskstores/DEFAULT:
+dir0
+
+./2012-10-18-13-44-53/dasmith_e6410_server1_8623_v1_33892/diskstores/DEFAULT/dir0:
+BACKUPDEFAULT_1.crf BACKUPDEFAULT_1.drf BACKUPDEFAULT.if
+
+./2012-10-18-13-44-53/dasmith_e6410_server1_8623_v1_33892/user:</codeblock>
+			</p>
+		</section>
+		<section id="section_6F998080AF7640D1A9E951D155A75E3A">
+			<title>Offline Members: Manual Catch-Up to an Online Backup</title>
+			<p>If you must have a member offline during an online backup, you can manually back up
+				its disk stores. Do one of the following: <ul
+					id="ul_E9FA8EF1C666444496B333A9E40654E0">
+					<li id="li_18386094F5F1470794C7D03024A9935F">Keep the member’s backup and
+						restore separated, doing offline manual backup and offline manual restore,
+						if needed. </li>
+					<li id="li_A6114814D5A44CBCA60C13B60B96F804">Bring this member’s files into the
+						online backup framework manually and create a restore script by hand, from a
+						copy of another member’s script: <ol
+							id="ol_DE1EF040AEBC4E1DBDDBD4AA31F7B09C">
+							<li id="li_19733D81F13B4C06B1CB0C2456C3C2A3">Duplicate the directory
+								structure of a backed up member for this member. </li>
+							<li id="li_0B63192AD4FD41D2866FF10B7C252FE7">Rename directories as
+								needed to reflect this member’s particular backup, including disk
+								store names. </li>
+							<li id="li_2C20005AF1314885A4D243F72DF178E2">Clear out all files but the
+								restore script. </li>
+							<li id="li_5C772ACCF06846C3B2649ED2B61F2CD6">Copy in this member’s
+								files. </li>
+							<li id="li_DB77CE42F16E414B92D2F71381D738C4">Modify the restore script
+								to work for this member. </li>
+						</ol>
+					</li>
+				</ul>
+			</p>
+		</section>
+		<section id="section_D08DC489B9D947DE97B8F96261E4A977">
+			<title>Restore an Online Backup</title>
+			<p>The restore script copies files back to their original locations. You can do this
+				manually if you wish. <ol id="ol_AAE417692C3745FEA7E8D83F2A88D135">
+					<li id="li_79408F8EEFC342DE82CEB5D53093438F">Restore your disk stores when your
+						members are offline and the system is down. </li>
+					<li id="li_8FA1C0BCCE2748F4ACDA8CA1B9346863">Read the restore scripts to see
+						where they will place the files and make sure the destination locations are
+						ready. The restore scripts refuse to copy over files with the same names. </li>
+					<li id="li_8B059003024241F1B2293C4A43372F59">Run the restore scripts. Run each
+						script on the host where the backup originated. </li>
+				</ol>
+			</p>
+			<p>The restore copies these files back to their original location: <ul
+					id="ul_FDE0B5475EB3404C840C8A22AAD746AC">
+					<li id="li_9EF35C6DF88547BB81D4474D3DEB8EF6">Disk store files for all stores
+						containing persistent region data. </li>
+					<li id="li_E4C9A0F923614D5CB5093E497485AAB1">Any files or directories you have
+						configured to be backed up in the <codeph>cache.xml</codeph>
+						<codeph>&lt;backup&gt;</codeph> elements. </li>
+				</ul>
+			</p>
+		</section>
+		<section id="section_A7981F25371A40C5A7A298768E9636DF">
+			<title>Offline File Backup and Restore</title>
+			<p>With the system offline, you copy and restore your files using your file system
+				commands. </p>
+			<p>To back up your offline system: <ol id="ol_5CD29A1A7D08428AB94BD57B4382C15B">
+					<li id="li_8AF9A864E4E44B35A71A7AC1A7B9107B">Validate, and consider compacting
+						your disk stores before backing them up. </li>
+					<li>Export region data on the offline disk store using the <codeph>export
+							offline-disk-store</codeph> command.</li>
+					<li id="li_ED3F19268C7442F481D144965442C0B2">Copy all disk store files, and any
+						other files you want to save, to your backup locations. </li>
+				</ol>
+			</p>
+			<p>To restore a backup of an offline system: <ol
+					id="ol_25DC8E93A9D5486E951DDDCB3486222F">
+					<li id="li_3B1CABACC41A4F0492C5934BA82E76F3">Make sure the system is either down
+						or not using the directories you will use for the restored files. </li>
+					<li id="li_00D0A28CA9CA4D549B4E44200CBC04BE">Reverse your backup file copy
+						procedure, copying all the backed up files into the directories you want to
+						use. </li>
+					<li id="li_66C85662E6BA4021A32B9F98027BABA9">Make sure your members are
+						configured to use the directories where you put the files. </li>
+					<li id="li_5CC2BBC06FAE45AFA4B62C22E2C43600">Start the system members. </li>
+				</ol>
+			</p>
+			<p> </p>
+		</section>
+	</conbody>
+</concept>

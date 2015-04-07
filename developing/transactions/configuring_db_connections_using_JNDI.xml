@@ -1,0 +1,408 @@
+<?xml version="1.0"?>
+<!DOCTYPE dita PUBLIC "-//OASIS//DTD DITA Composite//EN" "ditabase.dtd">
+<dita>
+	<topic
+		id="topic_A5E3A67C808D48C08E1F0DC167C5C494">
+		<title>Configuring Database Connections Using JNDI</title>
+		<body>
+			<p>When using JTA transactions, you can configure database JNDI data
+				sources in <codeph>cache.xml</codeph>. The
+					<codeph>DataSource</codeph> object points to either a JDBC
+				connection or, more commonly, a JDBC connection pool. The
+				connection pool is usually preferred, because a program can use
+				and reuse a connection as long as necessary and then free it for
+				another thread to use. </p>
+			<p>The following are a list of <codeph>DataSource</codeph>
+				connection types used in JTA transactions. <ul
+					id="ul_A47A3B05CDF14A1C86FA2F7388B2A708">
+					<li
+						id="li_2CBA87C63B454363A2D156EAA0010B20"><b>XAPooledDataSource</b>.
+						Pooled SQL connections. </li>
+					<li
+						id="li_1B55157C7C0C430D8DB65B0A3493E292"><b>ManagedDataSource</b>.
+						JNDI binding type for the J2EE Connector Architecture
+						(JCA) ManagedConnectionFactory. For information on the
+						ManagedConnection interface, see <xref
+							href="http://docs.oracle.com/javaee/6/api/javax/resource/spi/ManagedConnection.html"
+							scope="external"
+							format="html"><?xm-replace_text http://docs.oracle.com/javaee/6/api/javax/resource/spi/ManagedConnection.html?>http://docs.oracle.com/javaee/6/api/javax/resource/spi/ManagedConnection.html</xref>. </li>
+					<li
+						id="li_47D360FEB14543C1A03EBED50E4DF682"><b>PooledDataSource</b>.
+						Pooled SQL connections. </li>
+					<li
+						id="li_E1F02753C0D44E3B8FE1835CFDCD695B"><b>SimpleDataSource</b>.
+						Single SQL connection. No pooling of SQL connections is
+						done. Connections are generated on the fly and cannot be
+						reused. </li>
+				</ul>
+			</p>
+			<p>The <codeph>jndi-name</codeph> attribute of the
+					<codeph>jndi-binding</codeph> element is the key binding
+				parameter. If the value of <codeph>jndi-name</codeph> is a
+				DataSource, it is bound as
+					<codeph>java:/</codeph><i>myDatabase</i>, where
+					<i>myDatabase</i> is the name you assign to your data
+				source. If the data source cannot be bound to JNDI at runtime,
+				<keyword keyref="product_name"/> logs a warning. For information on the
+					<codeph>DataSource</codeph> interface, see: <xref
+					href="http://docs.oracle.com/javase/6/docs/api/javax/sql/DataSource.html"
+					scope="external"
+					format="html"><?xm-replace_text http://docs.oracle.com/javase/6/docs/api/javax/sql/DataSource.html?></xref>
+			</p>
+			<p><keyword keyref="product_name"/> supports JDBC 2.0 and 3.0. </p>
+			<p>
+				<note>Include any data source JAR files in your CLASSPATH.
+				</note>
+			</p>
+		</body>
+	</topic>
+	<topic
+		id="topic_F67EC20067124A618A8099AB4CBF634C">
+		<title>Example DataSource Configurations in cache.xml</title>
+		<body>
+			<p> The following sections show example <codeph>cache.xml</codeph>
+				files configured for each of the <codeph>DataSource</codeph>
+				connection types. </p>
+			<example
+				id="example_BD61EF418CFD4110A5F654693EEF7F38">
+				<title>XAPooledDataSource cache.xml Example (Derby)</title>
+				<p>The example shows a <codeph>cache.xml</codeph> file
+					configured for a pool of <codeph>XAPooledDataSource</codeph>
+					connections connected to the data resource
+						<codeph>newDB</codeph>. </p>
+				<p>The log-in and blocking timeouts are set lower than the
+					defaults. The connection information, including
+						<codeph>user-name</codeph> and
+					<codeph>password</codeph>, is set in the
+						<codeph>cache.xml</codeph> file, instead of waiting
+					until connection time. The password is encrypted; for
+					details, see <xref
+						href="../../managing/security/encrypting_passwords.xml#topic_730CC61BA84F421494956E2B98BDE2A1"
+						type="topic"
+						format="dita"
+						scope="local"/>.</p>
+				<p>When specifying the configuration properties for
+					JCA-implemented database drivers that support XA
+					transactions (in other words, <b>XAPooledDataSource</b>),
+					you must use configuration properties to define the
+					datasource connection instead of the
+						<codeph>connection-url</codeph> attribute of the
+						<codeph>&lt;jndi-binding></codeph> element.
+					Configuration properties differ depending on your database
+					vendor. Specify JNDI binding properties through the
+						<codeph>config-property</codeph> tag, as shown in this
+					example. You can add as many
+						<codeph>config-property</codeph> tags as required. </p>
+				<p>
+					<codeblock>&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;cache
+    xmlns="<xref href="http://schema.pivotal.io/gemfire/cache" format="html" scope="external">http://schema.pivotal.io/gemfire/cache</xref>"
+    xmlns:xsi="<xref href="http://www.w3.org/2001/XMLSchema-instance" format="html" scope="external">http://www.w3.org/2001/XMLSchema-instance</xref>"
+    xsi:schemaLocation="<xref href="http://schema.pivotal.io/gemfire/cache" format="html" scope="external">http://schema.pivotal.io/gemfire/cache</xref> <xref href="http://schema.pivotal.io/gemfire/cache/cache-8.1.xsd" format="html" scope="external">http://schema.pivotal.io/gemfire/cache/cache-8.1.xsd</xref>"
+    version="8.1"
+    lock-lease="120" lock-timeout="60" search-timeout="300"&gt; 
+   &lt;region name="root"&gt;
+      &lt;region-attributes scope="distributed-no-ack" data-policy="cached" initial-capacity="16"
+load-factor="0.75" concurrency-level="16" statistics-enabled="true"&gt;
+	. . .
+   &lt;/region&gt;
+   &lt;jndi-bindings&gt;
+      &lt;jndi-binding type="<b>XAPooledDataSource</b>" 
+	jndi-name="<b>newDB2trans</b>" 
+	init-pool-size="<b>20</b>" 
+	max-pool-size="<b>100</b>"
+	idle-timeout-seconds="20"
+	blocking-timeout-seconds="<b>5</b>" 
+	login-timeout-seconds="<b>10</b>"
+	<b>xa-datasource-class="org.apache.derby.jdbc.EmbeddedXADataSource"</b>
+	user-name="mitul" 
+	password="<b>encrypted(83f0069202c571faf1ae6c42b4ad46030e4e31c17409e19a)</b>"&gt;
+         &lt;config-property&gt;
+          &lt;config-property-name&gt;<b>Description</b>&lt;/config-property-name&gt;
+          &lt;config-property-type&gt;<b>java.lang.String</b>&lt;/config-property-type&gt;
+          &lt;config-property-value&gt;<b>pooled_transact</b>&lt;/config-property-value&gt;
+       &lt;/config-property&gt;
+          &lt;config-property&gt;
+             &lt;config-property-name&gt;<b>DatabaseName</b>&lt;/config-property-name&gt;
+             &lt;config-property-type&gt;<b>java.lang.String</b>&lt;/config-property-type&gt;
+             &lt;config-property-value&gt;<b>newDB</b>&lt;/config-property-value&gt;
+          &lt;/config-property&gt;
+          &lt;config-property&gt;
+             &lt;config-property-name&gt;<b>CreateDatabase</b>&lt;/config-property-name&gt;
+             &lt;config-property-type&gt;<b>java.lang.String</b>&lt;/config-property-type&gt;
+             &lt;config-property-value&gt;<b>create</b>&lt;/config-property-value&gt;
+          &lt;/config-property&gt;		 
+       . . .
+      &lt;/jndi-binding&gt;
+   &lt;/jndi-bindings&gt;
+&lt;/cache&gt;
+</codeblock>
+				</p>
+			</example>
+			<example>
+				<title>JNDI Binding Configuration Properties for Different
+					XAPooledDataSource Connections</title>
+				<p>The following are some example data source configurations for
+					different databases. Consult your vendor database's
+					documentation for additional details.</p>
+				<p>
+					<b>MySQL</b>
+					<codeblock>...
+&lt;jndi-bindings>
+   &lt;jndi-binding type="XAPooledDataSource" 
+    ...
+	xa-datasource-class="<b>com.mysql.jdbc.jdbc2.optional.MysqlXADataSource</b>">
+	&lt;config-property>
+   	&lt;config-property-name><b>URL</b>&lt;/config-property-name>
+   	&lt;config-property-type>java.lang.String&lt;/config-property-type>
+   	&lt;config-property-value>"jdbc:mysql://mysql-servername:3306/databasename"&lt;/config-property-value>
+	&lt;/config-property>
+	...
+    &lt;/jndi-binding>
+    ...
+&lt;/jndi-bindings>
+</codeblock>
+				</p>
+				<p>
+					<b>PostgreSQL</b>
+					<codeblock>...
+&lt;jndi-bindings>
+   &lt;jndi-binding type="XAPooledDataSource" 
+	...
+	xa-datasource-class="<b>org.postgresql.xa.PGXADataSource</b>">
+	&lt;config-property>
+   	&lt;config-property-name><b>ServerName</b>&lt;/config-property-name>
+   	&lt;config-property-type><b>java.lang.String</b>&lt;/config-property-type>
+   	&lt;config-property-value><b>postgresql-hostname</b>&lt;/config-property-value>
+	&lt;/config-property>
+	&lt;config-property>
+   	&lt;config-property-name><b>DatabaseName</b>&lt;/config-property-name>
+   	&lt;config-property-type><b>java.lang.String</b>&lt;/config-property-type>
+   	&lt;config-property-value><b>postgresqldbname</b>&lt;/config-property-value>
+	&lt;/config-property>
+	...
+   &lt;/jndi-binding>
+    ...
+&lt;/jndi-bindings></codeblock>
+				</p>
+				<p>
+					<b>Oracle</b>
+					<codeblock>
+...
+&lt;jndi-bindings>
+   &lt;jndi-binding type="XAPooledDataSource" 
+    ...
+    xa-datasource-class="<b>oracle.jdbc.xa.client.OracleXADataSource</b>">
+	&lt;config-property>
+   	&lt;config-property-name><b>URL</b>&lt;/config-property-name>
+   	&lt;config-property-type><b>java.lang.String</b>&lt;/config-property-type>
+   	&lt;config-property-value>j<b>dbc:oracle:oci8:@tc</b>&lt;/config-property-value>
+	&lt;/config-property>
+	...
+    &lt;/jndi-binding>
+    ...
+&lt;/jndi-bindings></codeblock>
+				</p>
+				<p>
+					<b>Microsoft SQL Server</b>
+					<codeblock>
+...
+&lt;jndi-bindings>
+   &lt;jndi-binding type="XAPooledDataSource" 
+      ...
+	xa-datasource-class="<b>com.microsoft.sqlserver.jdbc.SQLServerXADataSource</b>">
+	&lt;config-property>
+   	&lt;config-property-name><b>ServerName</b>&lt;/config-property-name>
+   	&lt;config-property-type><b>java.lang.String</b>&lt;/config-property-type>
+   	&lt;config-property-value><b>mysqlserver</b>&lt;/config-property-value>
+	&lt;/config-property>
+	&lt;config-property>
+   	&lt;config-property-name><b>DatabaseName</b>&lt;/config-property-name>
+   	&lt;config-property-type><b>java.lang.String</b>&lt;/config-property-type>
+   	&lt;config-property-value><b>databasename</b>&lt;/config-property-value>
+	&lt;/config-property>
+	&lt;config-property>
+   	&lt;config-property-name><b>SelectMethod</b>&lt;/config-property-name>
+   	&lt;config-property-type><b>java.lang.String</b>&lt;/config-property-type>
+   	&lt;config-property-value><b>cursor</b>&lt;/config-property-value>
+	&lt;/config-property>
+	...
+    &lt;/jndi-binding>
+    ...
+&lt;/jndi-bindings></codeblock>
+				</p>
+			</example>
+
+			<example
+				id="example_F683B20266964AA9B66DCA3D3867FE7B">
+				<title>ManagedDataSource Connection Example (Derby)</title>
+				<p><codeph>ManagedDataSource</codeph> connections for the JCA
+						<codeph>ManagedConnectionFactory</codeph> are configured
+					as shown in the example. This configuration is similar to
+						<codeph>XAPooledDataSource</codeph> connections, except
+					the type is <codeph>ManagedDataSource</codeph>, and you
+					specify a <codeph>managed-conn-factory-class</codeph>
+					instead of an <codeph>xa-datasource-class</codeph>. </p>
+				<p>
+					<codeblock>&lt;?xml version="1.0"?&gt;
+&lt;cache xmlns="<xref href="http://schema.pivotal.io/gemfire/cache" format="html" scope="external">http://schema.pivotal.io/gemfire/cache</xref>"
+    xmlns:xsi="<xref href="http://www.w3.org/2001/XMLSchema-instance" format="html" scope="external">http://www.w3.org/2001/XMLSchema-instance</xref>"
+    xsi:schemaLocation="<xref href="http://schema.pivotal.io/gemfire/cache" format="html" scope="external">http://schema.pivotal.io/gemfire/cache</xref> <xref href="http://schema.pivotal.io/gemfire/cache/cache-8.1.xsd" format="html" scope="external">http://schema.pivotal.io/gemfire/cache/cache-8.1.xsd</xref>"
+    version="8.1"
+    lock-lease="120" 
+    lock-timeout="60"
+    search-timeout="300"&gt;
+   &lt;region name="root"&gt;
+      &lt;region-attributes scope="distributed-no-ack" data-policy="cached" initial-capacity="16"
+load-factor="0.75" concurrency-level="16" statistics-enabled="true"&gt;
+      . . .
+    &lt;/region&gt;
+    &lt;jndi-bindings&gt;
+      &lt;jndi-binding type="<b>ManagedDataSource</b>" 
+	jndi-name=<b>"DB3managed"</b> 
+	init-pool-size="20" 
+	max-pool-size="100" 
+	idle-timeout-seconds="20" 
+	blocking-timeout-seconds="5" 
+	login-timeout-seconds="10"
+	<b>managed-conn-factory-class="com.myvendor.connection.ConnFactory"</b>
+	user-name="mitul"  
+	password="<b>encrypted(83f0069202c571faf1ae6c42b4ad46030e4e31c17409e19a)</b>"&gt;
+          &lt;config-property&gt;
+             &lt;config-property-name&gt;<b>Description</b>&lt;/config-property-name&gt;
+             &lt;config-property-type&gt;<b>java.lang.String</b>&lt;/config-property-type&gt;
+             &lt;config-property-value&gt;<b>pooled_transact</b>&lt;/config-property-value&gt;
+          &lt;/config-property&gt;	
+          &lt;config-property&gt;
+             &lt;config-property-name&gt;<b>DatabaseName</b>&lt;/config-property-name&gt;
+             &lt;config-property-type&gt;<b>java.lang.String</b>&lt;/config-property-type&gt;
+             &lt;config-property-value&gt;<b>newDB</b>&lt;/config-property-value&gt;
+          &lt;/config-property&gt;
+          &lt;config-property&gt;
+             &lt;config-property-name&gt;<b>CreateDatabase</b>&lt;/config-property-name&gt;
+             &lt;config-property-type&gt;<b>java.lang.String</b>&lt;/config-property-type&gt;
+             &lt;config-property-value&gt;<b>create</b>&lt;/config-property-value&gt;
+          &lt;/config-property&gt;			 
+           . . .
+     &lt;/jndi-binding&gt;
+   &lt;/jndi-bindings&gt;
+ &lt;/cache&gt;
+ </codeblock>
+				</p>
+			</example>
+			<example
+				id="example_5B663EE2E56D405A88A218002D643039">
+				<title>PooledDataSource Example (Derby)</title>
+				<p>Use the <codeph>PooledDataSource</codeph> and
+						<codeph>SimpleDataSource</codeph> connections for
+					operations executed outside of any transaction. This example
+					shows a <codeph>cache.xml</codeph> file configured for a
+					pool of <codeph>PooledDataSource</codeph> connections to the
+					data resource <codeph>newDB</codeph>. For this
+					non-transactional connection pool, the log-in and blocking
+					timeouts are set higher than for the transactional
+					connection pools in the two previous examples. The
+					connection information, including <codeph>user-name</codeph>
+					and <codeph>password</codeph>, is set in the
+						<codeph>cache.xml</codeph> file, instead of waiting
+					until connection time. The password is encrypted; for
+					details, see <xref
+						href="../../managing/security/encrypting_passwords.xml#topic_730CC61BA84F421494956E2B98BDE2A1"
+						type="topic"
+						format="dita"
+						scope="local"><?xm-replace_text Encrypting Passwords for Use in cache.xml?></xref>. </p>
+				<p>
+					<codeblock>&lt;?xml version="1.0"?&gt;
+&lt;cache xmlns="<xref href="http://schema.pivotal.io/gemfire/cache" format="html" scope="external">http://schema.pivotal.io/gemfire/cache</xref>"
+    xmlns:xsi="<xref href="http://www.w3.org/2001/XMLSchema-instance" format="html" scope="external">http://www.w3.org/2001/XMLSchema-instance</xref>"
+    xsi:schemaLocation="<xref href="http://schema.pivotal.io/gemfire/cache" format="html" scope="external">http://schema.pivotal.io/gemfire/cache</xref> <xref href="http://schema.pivotal.io/gemfire/cache/cache-8.1.xsd" format="html" scope="external">http://schema.pivotal.io/gemfire/cache/cache-8.1.xsd</xref>"
+    version="8.1"
+    lock-lease="120"
+    lock-timeout="60"
+    search-timeout="300"&gt;
+    &lt;region name="root"&gt;
+         &lt;region-attributes scope="distributed-no-ack" data-policy="cached" 
+initial-capacity="16" load-factor="0.75" concurrency-level="16" statistics-enabled="true"&gt;
+         	. . .
+    &lt;/region&gt;
+    &lt;jndi-bindings&gt;
+      &lt;jndi-binding
+	type="<b>PooledDataSource</b>"
+	jndi-name="newDB1" 
+	init-pool-size="<b>2</b>" 
+	max-pool-size="<b>7</b>" 
+	idle-timeout-seconds="20" 
+	blocking-timeout-seconds="<b>20</b>"
+	login-timeout-seconds="<b>30</b>" 
+	<b>conn-pooled-datasource-class="org.apache.derby.jdbc.EmbeddedConnectionPoolDataSource"</b>
+	user-name="mitul"
+	password="<b>encrypted(83f0069202c571faf1ae6c42b4ad46030e4e31c17409e19a)</b>"&gt;
+       &lt;config-property&gt;
+          &lt;config-property-name&gt;<b>Description</b>&lt;/config-property-name&gt;
+          &lt;config-property-type&gt;<b>java.lang.String</b>&lt;/config-property-type&gt;
+          &lt;config-property-value&gt;<b>pooled_transact</b>&lt;/config-property-value&gt;
+       &lt;/config-property&gt;	
+       &lt;config-property&gt;
+         &lt;config-property-name&gt;<b>DatabaseName</b>&lt;/config-property-name&gt;
+         &lt;config-property-type&gt;<b>java.lang.String</b>&lt;/config-property-type&gt;
+         &lt;config-property-value&gt;<b>newDB</b>&lt;/config-property-value&gt;
+       &lt;/config-property&gt;
+       &lt;config-property&gt;
+         &lt;config-property-name&gt;<b>CreateDatabase</b>&lt;/config-property-name&gt;
+         &lt;config-property-type&gt;<b>java.lang.String</b>&lt;/config-property-type&gt;
+         &lt;config-property-value&gt;<b>create</b>&lt;/config-property-value&gt;
+       &lt;/config-property&gt;				 
+       . . .
+      &lt;/jndi-binding&gt;
+   &lt;/jndi-bindings&gt;
+&lt;/cache&gt;
+      </codeblock>
+				</p>
+			</example>
+			<example
+				id="example_CC69728A200B4B82AFDB2CB0AD1070B4">
+				<title>SimpleDataSource Connection Example (Derby)</title>
+				<p> The example below shows a very basic configuration in the
+						<codeph>cache.xml</codeph> file for a
+						<codeph>SimpleDataSource</codeph> connection to the data
+					resource <codeph>oldDB</codeph>. You only need to configure
+					a few properties like a <codeph>jndi-name</codeph> for this
+					connection pool, <codeph>oldDB1</codeph>, and the
+						<codeph>databaseName</codeph>, <codeph>oldDB</codeph>.
+					This password is in clear text. </p>
+				<p>A simple data source connection does not generally require
+					vendor-specific property settings. If you need them, add
+						<codeph>config-property</codeph> tags as shown in the
+					earlier examples. </p>
+				<p>
+					<codeblock>&lt;?xml version="1.0"?&gt;
+&lt;cache xmlns="<xref href="http://schema.pivotal.io/gemfire/cache" format="html" scope="external">http://schema.pivotal.io/gemfire/cache</xref>"
+    xmlns:xsi="<xref href="http://www.w3.org/2001/XMLSchema-instance" format="html" scope="external">http://www.w3.org/2001/XMLSchema-instance</xref>"
+    xsi:schemaLocation="<xref href="http://schema.pivotal.io/gemfire/cache" format="html" scope="external">http://schema.pivotal.io/gemfire/cache</xref> <xref href="http://schema.pivotal.io/gemfire/cache/cache-8.1.xsd" format="html" scope="external">http://schema.pivotal.io/gemfire/cache/cache-8.1.xsd</xref>"
+    version="8.1"
+    lock-lease="120" 
+    lock-timeout="60" 
+    search-timeout="300"&gt;
+   &lt;region name="root"&gt;
+      &lt;region-attributes scope="distributed-no-ack" data-policy="cached" initial-capacity="16"
+load-factor="0.75" concurrency-level="16" statistics-enabled="true"&gt;
+      	. . .
+      &lt;/region-attributes&gt;   
+    &lt;/region&gt;
+    &lt;jndi-bindings&gt;
+      &lt;jndi-binding type=<b>"SimpleDataSource"</b>
+	jndi-name=<b>"oldDB1"</b> 
+	<b>jdbc-driver-class="org.apache.derby.jdbc.EmbeddedDriver"</b>
+	user-name="mitul" 
+	password="password" 
+	<b>connection-url="jdbc:derby:newDB;create=true"</b>&gt;
+        . . .
+       &lt;/jndi-binding&gt;
+   &lt;/jndi-bindings&gt;
+&lt;/cache&gt;
+</codeblock>
+				</p>
+			</example>
+		</body>
+	</topic>
+</dita>

@@ -1,0 +1,78 @@
+<?xml version="1.0"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<!-- Created with XMetaL (http://www.xmetal.com) -->
+<concept id="concept_606C19117FCB4BDCA5F34F74026A8922"> 
+  <title> gfsh Files and Directories</title>
+  <prolog><metadata><keywords><keyword>gfsh files</keyword><keyword>gfsh
+			 directories</keyword></keywords></metadata>
+  </prolog> 
+  <conbody> 
+	 <p>These are created inside user's Home directory. 
+	 </p> 
+	 <table id="table_14D56B0E8B03478DB13C406A3D07C59E"> 
+		<tgroup cols="2"> 
+		  <colspec colnum="1" colname="col1" colwidth="*"/> 
+		  <colspec colnum="2" colname="col2" colwidth="*"/> 
+		  <tbody> 
+			 <row> 
+				<entry> 
+				  <p> .gfshrc 
+				  </p> 
+				</entry> 
+				<entry> 
+				  <p> You can list commands in this file which are required to be
+					 executed at start-up. 
+				  </p> 
+				</entry> 
+			 </row> 
+			 <row> 
+				<entry> 
+				  <p> .gfshhistory 
+				  </p> 
+				</entry> 
+				<entry> 
+				  <p> History of commands used 
+				  </p> 
+				</entry> 
+			 </row> 
+			 <row> 
+				<entry> 
+				  <p> .gemfire/ 
+				  </p> 
+				</entry> 
+				<entry> 
+				  <p> This directory contains etc sub-directory and gfsh current
+					 and archived gfsh_&lt;pid&gt;.log &amp; gfsh_&lt;pid&gt;.gfs (statistics)
+					 files. This directory size is limited to approximately 80 MB 
+				  </p> 
+				</entry> 
+			 </row> 
+			 <row> 
+				<entry> 
+				  <p> .gemfire/etc/DataSerializables.txt 
+				  </p> 
+				</entry> 
+				<entry> 
+				  <p> List your DataSerializable class names in this file. All data
+					 classes that use a static block to register class ids via Instantiator must be
+					 preloaded using this command. You can also use the gfsh option '-c' or the
+					 command 'class -l' to load another file. 
+				  </p> 
+				</entry> 
+			 </row> 
+			 <row> 
+				<entry> 
+				  <p> .gemfire/etc/gfsh.properties 
+				  </p> 
+				</entry> 
+				<entry> 
+				  <p> GemFire properties files for gfsh. This file should rarely
+					 change. 
+				  </p> 
+				</entry> 
+			 </row> 
+		  </tbody> 
+		</tgroup> 
+	 </table> 
+  </conbody> 
+</concept> 

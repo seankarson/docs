@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "http://docs.oasis-open.org/dita/v1.1/OS/dtd/concept.dtd">
+<concept id="implementing_data_loaders">
+	<title>Implement a Data Loader</title>
+	<shortdesc>Program a data loader and configure your region to use it. </shortdesc>
+	<conbody>
+		<section id="section_88076AF5EC184FE88AAF4C806A0CA9DF">
+			<p>To use a data loader in your region: <ol id="ol_5B0520F2ADED415DBE605ADF9D1CB11E">
+					<li id="li_3A85FE6AC53A44C29D2AFAC44763C7C1">Program your loader: <ol
+							id="ol_3BD9361806B549D39BAC5E45A1468E99">
+							<li id="li_E0C63653222B4BEDA6A06F3CD261E43E">Implement
+									<codeph>com.gemstone.gemfire.cache.CacheLoader</codeph>. </li>
+							<li id="li_752ED69FA00247F9A53BED5548745C23">If you want to declare the
+								loader in your <codeph>cache.xml</codeph>, implement the
+									<codeph>com.gemstone.gemfire.cache.Declarable</codeph> interface
+								as well. </li>
+							<li id="li_5046CF4BE9C54FB6901199774370E453">Program the single
+									<codeph>CacheLoader</codeph>
+								<codeph>load</codeph> method to do whatever your application
+								requires for retrieving the value from outside the cache. If you
+								need to run <codeph>Region</codeph> API calls from your loader,
+								spawn separate threads for them. Do not make direct calls to
+									<codeph>Region</codeph> methods from your load method
+								implementation as it could cause the cache loader to block, hurting
+								the performance of the distributed system. <p>Example:
+									<codeblock outputclass="language-java">public class SimpleCacheLoader implements CacheLoader, Declarable {
+    public Object load(LoaderHelper helper) {
+        String key = (String) helper.getKey();
+        System.out.println(" Loader called to retrieve value for " + key);
+        // Create a value using the suffix number of the key (key1, key2, etc.)
+        return "LoadedValue" + (Integer.parseInt(key.substring(3)));
+    }
+    public void close() { // do nothing }
+    public void init(Properties props) { // do nothing }
+}</codeblock>
+								</p>
+							</li>
+						</ol>
+					</li>
+					<li id="li_4F44F57983284D5583D25C4FF3215B27">Install your loader in each member
+						region where you need it: <ul id="ul_0AB081693BB24158B617D8403D6A03D8">
+							<li id="li_73C8B1CB6DB94C599F605CDA71C35800">In a partitioned region,
+								install the cache loader in every data store for the region
+									(<codeph>partition-attributes</codeph>
+								<codeph>local-max-memory</codeph> &gt; 0). </li>
+							<li id="li_B687B350D52C4671A4EFCC4EB9329422">In a distributed region,
+								install the loader in the members where it makes sense to do so.
+								Cache loaders are usually defined in only a subset of the members
+								holding the region. You might, for example, assign the job of
+								loading from a database to one or two members for a region hosted by
+								many more members. This can be done to reduce the number of
+								connections when the outside source is a database. </li>
+						</ul> Use one of these methods to install the loader: <ul
+							id="ul_59D3A2661DF34E3BB70E24A0A9ED7057">
+							<li id="li_D3E6B8EC33654B6797C399507C9D97D9">XML:
+								<codeblock outputclass="language-xml">&lt;region-attributes&gt;
+    &lt;cache-loader&gt;
+        &lt;class-name&gt;myCacheLoader&lt;/class-name&gt;
+    &lt;/cache-loader&gt;
+&lt;/region-attributes&gt;</codeblock>
+							</li>
+							<li id="li_A408D1EFE75B4155946D269F8F147A17">XML with parameters:
+								<codeblock outputclass="language-xml">&lt;cache-loader&gt;
+    &lt;class-name&gt;com.company.data.DatabaseLoader&lt;/class-name&gt;
+    &lt;parameter name="URL"&gt;
+        &lt;string&gt;jdbc:cloudscape:rmi:MyData&lt;/string&gt;
+    &lt;/parameter&gt;
+&lt;/cache-loader&gt;</codeblock>
+							</li>
+							<li id="li_BE3505BCD8DF4A3C93472CE8D3F705F7">Java:
+								<codeblock outputclass="language-java">RegionFactory&lt;String,Object&gt; rf = cache.createRegionFactory(REPLICATE);
+rf.setCacheLoader(new QuoteLoader());
+quotes = rf.create("NASDAQ Quotes");</codeblock>
+							</li>
+						</ul>
+					</li>
+				</ol><note>You can also configure Regions using the gfsh command-line interface,
+					however you cannot configure a <codeph>cache-loader</codeph> using gfsh. See
+						<xref
+						href="../../tools_modules/gfsh/quick_ref_commands_by_area.xml#topic_EF03119A40EE492984F3B6248596E1DD"
+					/>.</note>
+			</p>
+		</section>
+	</conbody>
+</concept>

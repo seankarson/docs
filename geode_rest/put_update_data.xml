@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE topic PUBLIC "-//OASIS//DTD DITA Topic//EN" "topic.dtd">
+<topic id="topic_itv_mg5_m4">
+  <title>PUT /gemfire-api/v1/{region}/{key}</title>
+  <shortdesc>Update or insert (put) data for key in region. </shortdesc>
+  <body>
+    <section>
+      <title>Resource URL</title>
+      <codeblock>http://&lt;<i>hostname_or_http-service-bind-address</i>>:&lt;<i>http-service-port</i>>/gemfire-api/v1/{region}/{key}</codeblock>
+    </section>
+    <section>
+      <title>Parameters</title>
+      <p>See <xref href="put_replace_data.xml#topic_itv_mg5_m4"/> and <xref
+          href="put_update_cas_data.xml#topic_itv_mg5_m4"/>.</p>
+    </section>
+    <section>
+      <title>Example Request</title>
+      <codeblock>PUT /gemfire-api/v1/orders/2
+Request Payload: application/json
+Content-Type: application/json
+Accept: application/json
+{
+    "@type": "com.gemstone.gemfire.web.rest.domain.Order",
+     "purchaseOrderNo": 1121,
+     "customerId": 1012,
+     "description":  "Order for XYZ Corp",
+     "orderDate":  "02/10/2014",
+     "deliveryDate":  "02/20/2014",
+     "contact":  "Pie Doe",
+     "email":  "pie.doe@myCompany.com",
+     "phone":  "01-2048096",
+     "totalPrice": 225,
+     "items": [
+        {
+             "itemNo": 1,
+             "description": "Product-100",
+             "quantity": 10,
+             "unitPrice": 5,
+             "totalPrice": 50
+        }
+    ]
+}
+</codeblock>
+    </section>
+    <section>
+      <title>Example Success Response</title>
+      <codeblock>
+Response Payload:  null
+
+200 OK
+</codeblock>
+    </section>
+    <section>
+      <title>Error Codes</title>
+      <simpletable frame="all" relcolwidth="1.0* 2.39*" id="simpletable_vfq_33v_m4">
+        <sthead>
+          <stentry>Status Code</stentry>
+          <stentry>Description</stentry>
+        </sthead>
+        <strow>
+          <stentry>400 BAD REQUEST</stentry>
+          <stentry>Returned if supplied key is an invalid format.</stentry>
+        </strow>
+        <strow>
+          <stentry>404 NOT FOUND</stentry>
+          <stentry>Returned if the region is not found.</stentry>
+        </strow>
+        <strow>
+          <stentry>500 INTERNAL SERVER ERROR</stentry>
+          <stentry>Error encountered at <keyword keyref="product_name"/> server. Check the HTTP
+            response body for a stack trace of the exception. </stentry>
+        </strow>
+      </simpletable>
+    </section>
+    <section>
+      <title>Implementation Notes</title>
+      <p>This operation is idempotent, meaning multiple identical requests should have the same
+        effect as the initial request.</p>
+    </section>
+  </body>
+</topic>

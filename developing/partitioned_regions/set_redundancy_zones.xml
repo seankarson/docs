@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE task PUBLIC "-//OASIS//DTD DITA Task//EN" "http://docs.oasis-open.org/dita/v1.1/OS/dtd/task.dtd">
+<task id="set_redundancy_zones">
+	<title>Configure Redundancy Zones for Members</title>
+	<shortdesc id="shortdesc_F066E067A9344A3D9C12B412271748FD">Group members into redundancy zones
+		so <keyword keyref="product_name"/> will separate redundant data copies into different
+		zones. </shortdesc>
+	<taskbody>
+		<prereq id="prereq_D2ECB9FDD2FA495B8186A6D45EBC1B71">Understand how to set a member's
+				<codeph>gemfire.properties</codeph> settings. See <xref
+				href="../../reference/topics/gemfire_properties.xml#gemfire_properties"
+				type="concept" format="dita" scope="local"/>. </prereq>
+		<steps id="steps_AF908A1BC6C84D3DAD7C6B224C5B1A17">
+			<step id="step_D0914D42F3734FBF9926B0D7796AC9F5">
+				<cmd>Group your partition region hosts into redundancy zones with the
+						<codeph>gemfire.properties</codeph> setting
+					<codeph>redundancy-zone</codeph>. </cmd>
+			</step>
+		</steps>
+		<example id="example_33EAD53D5052460BAE6EE3AEC33A271D"> For example, if you had redundancy
+			set to 1, so you have one primary and one secondary copy of each data entry, you could
+			split primary and secondary data copies between two machine racks by defining one
+			redundancy zone for each rack. To do this, you set this zone in the
+				<codeph>gemfire.properties</codeph> for all members that run on one rack:
+			<codeblock>redundancy-zone=rack1</codeblock> You would set this zone
+				<codeph>gemfire.properties</codeph> for all members on the other rack: <codeblock>redundancy-zone=rack2</codeblock>
+			<p>Each secondary copy would be hosted on the rack opposite the rack where its primary
+				copy is hosted. </p>
+		</example>
+	</taskbody>
+</task>

@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "http://docs.oasis-open.org/dita/v1.1/OS/dtd/concept.dtd">
+<concept id="how_member_discovery_works">
+	<title>How Member Discovery Works</title>
+	<shortdesc id="shortdesc_E0026C0B35A944E8A3CA496D913C3346"><keyword keyref="product_name_long"/>
+		provides various options for member discovery within a distributed system and between
+		clients and servers. </shortdesc>
+	<conbody>
+		<ul id="ul_E9CC90090740419FA0AD75E12B639359">
+			<li id="li_ECDCEA9111044C8AB2951459439EEA2D">
+				<xref
+					href="how_member_discovery_works.xml#how_member_discovery_works/section_F2B8EBF2909440BD90B4CDEE0CAA0C2A"
+					type="section" format="dita" scope="local"/>
+			</li>
+			<li id="li_EB47E6686FD64D1AAD4EB6C00FD3675E">
+				<xref
+					href="how_member_discovery_works.xml#how_member_discovery_works/section_E26DFAFE9E994C0C9A489E325E345816"
+					type="section" format="dita" scope="local"/>
+			</li>
+			<li id="li_D50DB602E0AA4ED28CBD9FC2B08E9E6D">
+				<xref
+					href="how_member_discovery_works.xml#how_member_discovery_works/section_37DE53BDCDB541618C6DF4E47A1F2B73"
+					type="section" format="dita" scope="local"/>
+			</li>
+		</ul>
+		<section id="section_F2B8EBF2909440BD90B4CDEE0CAA0C2A">
+			<title>Peer Member Discovery</title>
+			<p>Peer member discovery is what defines a distributed system. All applications and
+				cache servers that use the same settings for peer discovery are members of the same
+				distributed system. Each system member has a unique identity and knows the
+				identities of the other members. A member can belong to only one distributed system
+				at a time. Once they have found each other, members communicate directly,
+				independent of the discovery mechanism. In peer discovery, <keyword
+					keyref="product_name"/> uses a membership coordinator to manage member joins and
+				departures. </p>
+			<p>There are two discovery options: using multicast or using locators. By default,
+					<keyword keyref="product_name"/> peers discover each other using multicast
+				communication on a known port. Alternatively, you can configure member discovery
+				using one or more dedicated locators. A locator provides both discovery and load
+				balancing services. <ul id="ul_212461C84826406E96B27AA626D62D27">
+					<li id="li_3AABF023FA284915863192A93CD1102C"><b>UDP/IP Multicast</b>. New
+						members broadcast their connection information over the multicast address
+						and port to all running members. Existing members respond to establish
+						communication with the new member. By default, peers discover each other
+						using multicast communication. <note>If multicast is available at your site,
+							it is a convenient way to try out new versions of <keyword
+								keyref="product_name"/>.</note>
+						<p>
+							<image placement="break" id="image_6D2100F8DEAA4AA682843C22C3BBE9F2"
+								href="../../images_svg/multicast_discovery.svg"/>
+						</p>
+					</li>
+					<li id="li_D92A8AA9AE574759BDE32ACED5DEB2EE"><b><keyword keyref="product_name"/>
+							Locators Using TCP/IP</b>. Peer locators manage a dynamic list of
+						distributed system members. New members connect to one of the locators to
+						retrieve the member list, which it uses to join the system. <p>
+							<image placement="break" href="../../images_svg/locator_discovery.svg"
+								id="image_2417B14064E347C68A6340AD1554959E"/>
+						</p>
+					</li>
+				</ul>
+			</p>
+			<p>
+				<note>Locators are recommended for discovery in all production systems. Multiple
+					locators ensure the most stable startup and availability for your distributed
+					system. You must use peer locators if you implement security and authorization
+					or network partitioning management. </note>
+			</p>
+			<p>Locators are given preference over multicasting for member discovery. If you have
+				both peer locators and multicast configured, the locators are used. </p>
+		</section>
+		<section id="section_E26DFAFE9E994C0C9A489E325E345816">
+			<title>Standalone Member</title>
+			<p>The standalone member has no peers, does no peer discovery, and so does not use
+				locators or multicasting. It creates a distributed system connection only to access
+				the <keyword keyref="product_name"/> caching features. Running standalone has a
+				faster startup and is appropriate for any member that is isolated from other
+				applications. The primary use case is for client applications. Standalone members
+				can be accessed and monitored if you enable the member to become a JMX Manager. </p>
+		</section>
+		<section id="section_37DE53BDCDB541618C6DF4E47A1F2B73">
+			<title>Client Discovery of Servers</title>
+			<p>Locators provide clients with dynamic server discovery and server load balancing.
+				Clients are configured with locator information for the server system, and turn to
+				the locators for directions to the servers to use. The servers can come and go and
+				their capacity to service new client connections can vary. The locators continuously
+				monitor server availability and server load information, providing clients with
+				connection information for the server with the least load at any time. </p>
+			<note>For performance and cache coherency, clients must run as standalone members or in
+				different distributed systems than their servers. </note>
+			<p>You do not need to run any special processes to use locators for server discovery.
+				The locators that provide peer discovery in the server system also provide server
+				discovery for clients to the server system. This is the standard configuration. </p>
+			<p>
+				<image placement="break" id="image_ED0D22E30A274675ADF0815D102A7D5B"
+					href="../../images_svg/cs_locator_discovery.svg"/>
+			</p>
+		</section>
+	</conbody>
+</concept>

@@ -1,0 +1,42 @@
+<?xml version="1.0"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept id="concept_3B5E445B19884680900161BDF25E32C9">
+	<title>About <keyword keyref="product_name_long"/></title>
+	<shortdesc id="shortdesc_DABFF8298A6B400C8C49EFA91A20BA98"><keyword keyref="product_name_long"/>
+		is a data management platform that provides real-time, consistent access to data-intensive
+		applications throughout widely distributed cloud architectures. </shortdesc>
+	<conbody>
+		<section id="section_itx_b41_mr">
+			<p><keyword keyref="product_name"/> pools memory, CPU, network resources, and optionally
+				local disk across multiple processes to manage application objects and behavior. It
+				uses dynamic replication and data partitioning techniques to implement high
+				availability, improved performance, scalability, and fault tolerance. In addition to
+				being a distributed data container, <keyword keyref="product_name"/> is an in-memory
+				data management system that provides reliable asynchronous event notifications and
+				guaranteed message delivery. </p>
+		</section>
+		<section id="section_0031B81824874FC18F0828DB66150833">
+			<title>Main Concepts and Components</title>
+			<p><i>Caches</i> are an abstraction that describe a node in a <keyword
+					keyref="product_name"/> distributed system. Application architects can arrange
+				these nodes in peer-to-peer or client/server topologies. </p>
+			<p>Within each cache, you define data <i>regions</i>. Data regions are analogous to
+				tables in a relational database and manage data in a distributed fashion as
+				name/value pairs. A <i>replicated</i> region stores identical copies of the data on
+				each cache member of a distributed system. A <i>partitioned</i> region spreads the
+				data among cache members. After the system is configured, client applications can
+				access the distributed data in regions without knowledge of the underlying system
+				architecture. You can define listeners to create notifications about when data has
+				changed, and you can define expiration criteria to delete obsolete data in a region. </p>
+			<p>For large production systems, <keyword keyref="product_name"/> provides
+					<i>locators</i>. Locators provide both discovery and load balancing services.
+				You configure clients with a list of locator services and the locators maintain a
+				dynamic list of member servers. By default, <keyword keyref="product_name"/> clients
+				and servers use port 40404 and multicast to discover each other. </p>
+		</section>
+		<section id="section_zrl_c41_mr">
+			<p>For more information on product features, see <xref
+					href="product_intro.xml#concept_3B5E445B19884680900161BDF25E32C9"/>. </p>
+		</section>
+	</conbody>
+</concept>

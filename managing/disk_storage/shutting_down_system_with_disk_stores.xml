@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "http://docs.oasis-open.org/dita/v1.1/OS/dtd/concept.dtd">
+<concept id="shutting_down_system_with_disk_stores">
+	<title>Shutting Down a System with Disk Stores</title>
+	<shortdesc>You use the <codeph>gfsh shutdown</codeph> command to shut down a system with disk
+		stores. </shortdesc>
+	<conbody>
+		<section id="section_7FF0F87EED65450C8371DE1FEE861625">
+			<p>To shut down the system: <ol id="ol_F9D8C995826243218111B8A4615281B9">
+					<li id="li_8FC7E36A5DF247AA8F816F860AABB4F8">Have all members with persistent
+						disk stores running, if possible </li>
+					<li id="li_F02AB7C9B5EB45A3A1A895FC9DCA88A0">Shut down all members together
+						using the <codeph>gfsh</codeph> command-line tool: <codeblock>shutdown</codeblock>
+						<p>You must be connected to the distributed system in gfsh to execute this
+							command. </p>
+					</li>
+				</ol>
+			</p>
+			<p>The <codeph>shutdown</codeph> command provides an ordered shutdown to your system
+				that gives you the fastest startup times. </p>
+			<p> This is particularly useful for persistent partitioned region shutdown, as it
+				synchronizes all of the online region data stores before shutdown. This means every
+				disk store has the most recent data and does not require updates from other members
+				at startup. See also <xref scope="local"
+					href="how_startup_works_in_system_with_disk_stores.xml#how_startup_works_in_system_with_disk_stores"
+					type="concept" format="dita"
+					><?xm-replace_text How Startup and Shutdown Work with Disk Stores?></xref> and
+					<xref
+					href="../../tools_modules/gfsh/command-pages/shutdown.xml#concept_249C98CFF0BF4BCCA7778AE2D751F52E"
+					type="concept" format="dita" scope="local"><?xm-replace_text shutdown?></xref>.
+			</p>
+		</section>
+	</conbody>
+</concept>

@@ -1,0 +1,57 @@
+<?xml version="1.0"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept id="concept_4C654CA7F6B34E4CA1B0318BC9644536">
+	<title>How Gemcached Works</title>
+	<shortdesc>Applications use memcached clients to access data stored in embedded Gemcached
+		servers. </shortdesc>
+	<conbody>
+		<p>Applications can use memcached clients that are written in Python, C#, Ruby, PHP, and
+			other programming languages. Each memcached server in a cluster stores data as key/value
+			pairs. A memcached client maintains a list of these servers, determines which server has
+			the required data, and accesses the data directly on that server. </p>
+		<p>To integrate memcached with <keyword keyref="product_name_long"/>, you embed a Gemcached
+			server within a <keyword keyref="product_name"/> cache server. These <i>Gemcached</i>
+			servers take the place of memcached servers. The memcached client uses its normal wire
+			protocol to communicate with the Gemcached servers, which appear to the client as
+			memcached servers. No code changes in the clients are needed. <keyword
+				keyref="product_name"/> manages the distribution and access to data among the
+			embedded Gemcached servers. </p>
+		<p>As shown in <xref
+				href="about_gemcached.xml#concept_4C654CA7F6B34E4CA1B0318BC9644536/fig_8BF351B5FAF1490F8B0D0E7F3098BC73"
+				type="fig" format="dita" scope="local"
+				><?xm-replace_text Gemcached Architecture?></xref>, memcached clients, which
+			ordinarily maintain a list of memcached servers, now maintain a list of embedded
+			Gemcached servers. If more embedded Gemcached servers are added to the cluster, the new
+			servers automatically become part of the cluster. The memcached clients can continue to
+			communicate with the servers on the list, without having to update their list of
+			servers. </p>
+		<fig id="fig_8BF351B5FAF1490F8B0D0E7F3098BC73">
+			<title>Gemcached Architecture</title>
+			<image id="image_98B6222F29B940CD93381D03325C4455" href="../../images_svg/gemcached.svg"
+			/>
+		</fig>
+		<p>Memcached clients use the memcached API to read and write data that is stored in
+			memcached servers; therefore, client-side <keyword keyref="product_name"/> features are
+			not available to these clients. Gemcached servers, however, can use <keyword
+				keyref="product_name"/>'s server-side features and API. These features include the
+			following. (For more detail, see <xref scope="local"
+				href="advantages.xml#topic_849581E507544E63AF23793FBC47D778" type="topic"
+				format="dita"><?xm-replace_text Advantages of Gemcached over Memcached?></xref>.) </p>
+		<ul id="ul_58CAAC460D3340B88EC49A6920B5CF88">
+			<li id="li_ED6EC219B26546188BB598CFEB289786">Data consistency and scalability. </li>
+			<li id="li_577B65AE1A04492BA5E19FA06A54B6F2">High availability. </li>
+			<li id="li_A575924412BD4F839A1682B995880426">Read-through, write through, and write
+				behind to a database, implemented from within the distributed <keyword
+					keyref="product_name"/> cache. </li>
+			<li id="li_A84D68BE03C442668452A6B87D37F892">Storage keys and values of any type and
+				size. </li>
+			<li id="li_326945896BB545AB86FA3F1F4214259B">For applications, a choice among
+				partitioned and replicated region configurations. </li>
+			<li id="li_99737EF6FFCD4FCDBDCF60063AC798E3">Automatic overflow of data to disk in
+				low-memory scenarios. </li>
+			<li id="li_FADE3F3A06334C7396468EA84DF4DF48">Efficient persistence of data to disk. </li>
+			<li id="li_84BB2D4927094E918C27AFC774001A9D">Configurable expiration of cached data. </li>
+			<li id="li_4C304F022D91498096BF8A639DDE1119">Configurable eviction of cached data. </li>
+		</ul>
+	</conbody>
+</concept>

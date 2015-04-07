@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "http://docs.oasis-open.org/dita/v1.1/OS/dtd/concept.dtd">
+<concept id="system_requirements">
+	<title>Dependencies on Linux RPM Packages</title>
+	<shortdesc id="shortdesc_92D228BA03E642648E4843A72B96D5F6"><keyword keyref="product_name_long"/>
+		has RPM package dependencies for the Red Hat Enterprise Linux (RHEL) 5 and 6 distributions. </shortdesc>
+	<conbody>
+		<section id="section_E619EB221A9E4EA6B30486A07E596258">
+			<p>The i386 or i686 after the package names indicates that you must install the package
+				for that particular architecture, regardless of the native operating system
+				architecture. The packages listed are available on the default media for each
+				distribution. </p>
+			<simpletable id="simpletable_9943D40ADC5949A3B5D92C394352A92F" relcolwidth="3* 1* 1*">
+				<sthead>
+					<stentry>Linux Version</stentry>
+					<stentry>glibc</stentry>
+					<stentry>libgcc</stentry>
+				</sthead>
+				<strow>
+					<stentry>RHEL Server release 5 (i686)</stentry>
+					<stentry>glibc</stentry>
+					<stentry>libgcc</stentry>
+				</strow>
+				<strow>
+					<stentry>RHEL Server release 5 (x86_64)</stentry>
+					<stentry>glibc (i686)</stentry>
+					<stentry>libgcc (i386)</stentry>
+				</strow>
+				<strow>
+					<stentry>RHEL Server release 6 (i686)</stentry>
+					<stentry>glibc</stentry>
+					<stentry>libgcc</stentry>
+				</strow>
+				<strow>
+					<stentry>RHEL Server release 6 (x86_64)</stentry>
+					<stentry>glibc (i686)</stentry>
+					<stentry>libgcc (i386)</stentry>
+				</strow>
+			</simpletable>
+			<p>For versions of Linux not listed in the table, you can verify that you meet the
+					<keyword keyref="product_name_long"/> dependencies at the library level with
+				this command: </p>
+			<codeblock>prompt&gt; ldd &lt;path to GemFire product dir&gt;/lib/libgemfire.so
+</codeblock>
+			<p>These libraries are external dependencies of the native library (libgemfire.so or
+				libgemfire64.so). Check that the output of ldd includes all of these: </p>
+			<codeblock>libdl.so.2
+libm.so.6
+libpthread.so.0
+libc.so.6
+libgcc_s.so.1
+</codeblock>
+			<p>For details on the ldd tool, see the online Linux man page for ldd. </p>
+		</section>
+	</conbody>
+</concept>

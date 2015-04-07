@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "http://docs.oasis-open.org/dita/v1.1/OS/dtd/concept.dtd">
+<concept id="run_a_transaction"> 
+  <title>Running a Transaction in vFabric GemFire</title> 
+  <prolog><metadata><keywords><keyword>gemfire running
+			 transactions</keyword><keyword>gemfire transactions</keyword><keyword>gemfire
+			 UnsupportedOperationInTransaction</keyword></keywords></metadata>
+  </prolog> 
+  <conbody> 
+	 <section id="section_BE483D79B81C49EE9855F506ED5AB014"> 
+		<p>Before you begin, have your members and regions defined where you want
+		  to run transactions. If you will use JTA transactions, know how to use them.
+		  See 
+		  <xref
+			href="JTA_transactions_with_GemFire.xml#JTA_transactions_with_GemFire"
+			type="concept" format="dita" scope="local"><?xm-replace_text Using JTA Transactions with vFabric GemFire?></xref>
+		  for more information on using JTA. 
+		</p> 
+		<p>You can run transactions on the application’s distributed system or on
+		  a server distributed system. If you run your transaction inside a function in
+		  the server distributed system, the steps given here apply to the server system.
+		  
+		<ol id="ol_61EDD679C23F42BFBF3BD6135D8355F4"> 
+		  <li id="li_2C9D602F261F4912A3B344836EA43C60">Choose whether to run
+			 using the GemFire
+			 cache transaction manager or using the JTA transaction manager. The JTA
+			 manager, obtained through the JTA 
+			 <codeph>UserTransaction</codeph> interface, manages the GemFire
+			 transaction and any configured JDBC connection. 
+		  </li> 
+		  <li id="li_A7C9CE38D8F34DF3930933C947D0C4EB">Configure the cache 
+			 <codeph>copy-on-read</codeph> behavior in the members hosting the
+			 transactional data, or perform cache updates that avoid in-place changes. This
+			 allows the transaction manager to control when your cache updates are visible
+			 outside the transaction. 
+		  </li> 
+		  <li id="li_A539C20E9DAD432CA7BC9710BC4850AA">In the members hosting the
+			 transactional data, configure your regions for your transactions: 
+			 <ol id="ol_334FF4E9D13541FBB9C69992591BE439"> 
+				<li id="li_6ADAD3E5D5D44D8D9416AF92D2E8C8FF">For replicated
+				  regions, use 
+				  <codeph>distributed-ack</codeph> scope. The region shortcuts
+				  specifying 
+				  <codeph>REPLICATE</codeph> use 
+				  <codeph>distributed-ack</codeph> scope. This is particularly
+				  important if you have more than one data producer. With one data producer, you
+				  can safely use 
+				  <codeph>distributed-no-ack</codeph>. 
+				</li> 
+				<li id="li_9C35A9732ACB4DB19A25176FDEC487EE">For partitioned
+				  regions, custom partition and colocate data between regions so all the data for
+				  any single transaction is hosted by a single data store. If you run the
+				  transaction from another member, it will run by proxy in the member hosting the
+				  data. The partitioned region must be defined for the application that runs the
+				  transaction, but the data can be hosted in a remote member. 
+				</li> 
+				<li id="li_7B99D30902F5467293AADFF31B95675C">For mixed partition
+				  and replicated region transactions, make sure your replicated regions are
+				  hosted in every member that hosts the partitioned region data. All data for a
+				  single transaction must reside in a single host. 
+				</li> 
+				<li id="li_4F56475DC827470BB0B1E91B0A80353F">If you use delta
+				  propagation, set the region attribute 
+				  <codeph>cloning-enabled</codeph> to true. This lets GemFire
+				  do conflict checks at commit. Without this, when you run the transaction,
+				  you'll get this exception: 
+				  <codeblock>UnsupportedOperationInTransactionException("Delta without 
+cloning cannot be used in transaction");</codeblock> 
+				</li> 
+				<li id="li_A56830CB1814491CAE37C4A477868316">If you use JTA and
+				  want any regions to not participate in the transactions, set the region
+				  attribute 
+				  <codeph>ignore-jta</codeph> to true. It is false by default. 
+				</li> 
+			 </ol> 
+		  </li> 
+		  <li id="li_79F342421DA643B8A3C4434EB7C65C33">Update your event handler
+			 implementations in your data stores to handle your transactions. 
+			 <ol id="ol_FEBB841FBDDF469FA19AB972FA1F4005"> 
+				<li id="li_D4B653ED09D64D298B645AC2473E5122">Cache event handlers
+				  are all used for transactions. Cache listeners are called after the commit,
+				  instead of after each cache operation, and they receive the conflated
+				  transaction events. Cache writers and loaders are called as usual, as the
+				  operations are done. Follow these additional guidelines when writing your
+				  callbacks: 
+				  <ul id="ul_0786C96FA4A841D7A8743065330BB9F1"> 
+					 <li id="li_348436A0BD0B449B996F167C0D515241">Make sure cache
+						callbacks are transactionally aware. A transactional operation can launch
+						callbacks that are not transactional. 
+					 </li> 
+					 <li id="li_06F79EEEA4534824A5DBD59CCECCB20A">Make sure cache
+						listeners will operate properly with the entry event conflation done for
+						transactional operations. Two entry events for the same key are conflated by
+						removing the existing event and adding the new event to the end of the list. 
+					 </li> 
+				  </ul> 
+				</li> 
+				<li id="li_AB5410FC58804224810B2B9A70C40A0D">Transaction event
+				  handlers are cache-wide. You can install one transaction writer and any number
+				  of transaction listeners. 
+				  <ul id="ul_D244D90A636A44AEB9FACCB320E98147"> 
+					 <li id="li_A93E770B30AC4BF6955AE80D8D8C2C1E">Program with
+						synchronization for thread-safety. Your listener and writer methods may be
+						called simultaneously by different threads for different transactions. 
+					 </li> 
+					 <li id="li_70A37FF10271479FAC43DA4C4825D140">Keep your
+						transactional callback implementations lightweight and avoid doing anything
+						that might cause them to block. 
+					 </li> 
+				  </ul> 
+				</li> 
+			 </ol> 
+		  </li> 
+		  <li id="li_393BAF270C62421182D27C07E4CB372C">Program to retrieve the
+			 transaction manager. 
+			 <ul id="ul_A770CE71D4DB4325B115947DC8D7028F"> 
+				<li id="li_550C3B7B311646E88C4C17B25467EF78">GemFire
+				  cache transaction manager: 
+				  <codeblock>CacheTransactionManager txManager =
+		  custRegion.getCache().getCacheTransactionManager();</codeblock> 
+				</li> 
+				<li id="li_3E46C8FB3B1F451C85C5BDC4E4CD4FB4">JTA transaction
+				  manager: 
+				  <codeblock>Context ctx = cache.getJNDIContext(); 
+UserTransaction txManager = 
+		  (UserTransaction)ctx.lookup("java:/UserTransaction");</codeblock> 
+				</li> 
+			 </ul> 
+		  </li> 
+		  <li id="li_A362B16AB53444AC908EEFF403142711">Program to run your
+			 transaction. 
+			 <codeblock>try {
+		txManager.begin();
+		// ... do work
+		txManager.commit();
+} catch (CommitConflictException conflict) 
+</codeblock> 
+			 <ol id="ol_78FFB47BA9684E238CC13E8AE4B96735"> 
+				<li id="li_EA1F9BCEE77B48C1B5C5F2522308E497">Start each transaction
+				  with a begin operation. 
+				</li> 
+				<li id="li_E1D4CD60A00F4E1CB288349305344A79">Run the GemFire
+				  function and other operations that you want included in the transaction. 
+				  <ul id="ul_6E38A7601D6D437BA6D2DF007A41E5AE"> 
+					 <li id="li_883ED03ABE394D2DA9275ACE4A5AC61B">Consider whether
+						you will want to suspend and resume the transaction. If some operations should
+						not be part of the transaction, you may want to suspend the transaction while
+						performing non-transactional operations. After the non-transactional operations
+						are complete, you can resume the transaction. See 
+						<xref
+						href="transaction_suspend_resume_example.xml#concept_40AAC4332DCE4E4EB60C4BA141B729A4"
+						type="concept" format="dita" scope="local"><?xm-replace_text Basic Suspend and Resume Transaction Example?></xref>
+						for an example. 
+					 </li> 
+					 <li id="li_ECD16D53C0654072882274DC4169FFA5">If your
+						transaction runs on a mix of partitioned and replicated regions, perform your
+						first transaction operation on a partitioned region. This sets the host for the
+						entire transaction. 
+					 </li> 
+					 <li id="li_374C1139316148A9B6A5D7DE36D441A3">If you did not
+						configure 
+						<codeph>copy-on-read</codeph> to true, be sure your cache
+						updates avoid in-place changes. 
+					 </li> 
+					 <li id="li_5733C57F7F86417F836F5B9DC9DCA947">Take into account
+						the behavior of transactional and non-transactional operations. All
+						transactional operations that are run after the begin and before the commit or
+						rollback are included in the transaction. 
+					 </li> 
+				  </ul> 
+				</li> 
+				<li id="li_7E7F811732C54BF6A45663B14F39D539">End each transaction
+				  with a commit or a rollback. 
+				  <note>Do not leave any transaction in an uncommitted and unrolled
+					 back state. Transactions do not time out, so will remain in the system for the
+					 life of your application. 
+				  </note> 
+				</li> 
+			 </ol> 
+		  </li> 
+		  <li id="li_2AE6D7C5391A49AF9C7FF2D4AC95F5F6">Review all of your code
+			 for compatibility with transactions. 
+			 <p>When you commit a transaction, while the commit is taking place,
+				the changes are visible in the distributed cache. This capability is a
+				transition commit. This provides better performance than locking everything to
+				do the transaction updates, but it means that another process accessing data
+				used in the transaction might get some data in the pre-transaction state and
+				some in the post-transaction state. For example, suppose key 1 and 2 are
+				written to in a transaction so both of their values change from A to B. In
+				another thread, it is possible to read key 1 with value B and key 2 with value
+				A, while the transaction is being committed. This is possible due to the nature
+				of GemFire
+				reads. This choice sacrifices atomic visibility in favor of performance; reads
+				do not block writes, and writes do not block reads. 
+			 </p>
+		  </li> 
+		</ol> 
+		</p> 
+	 </section> 
+  </conbody> 
+</concept> 

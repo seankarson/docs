@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "http://docs.oasis-open.org/dita/v1.1/OS/dtd/concept.dtd">
+<concept id="implementing_delta_propagation">
+	<title>Implementing Delta Propagation</title>
+	<shortdesc>By default, delta propagation is enabled in your distributed system. When enabled,
+		delta propagation is used for objects that implement
+			<codeph>com.gemstone.gemfire.Delta</codeph>. You program the methods to store and
+		extract delta information for your entries and to apply received delta information. </shortdesc>
+	<conbody>
+		<section id="section_877AC61D691C44078A782683F90D169B">
+			<p>Use the following procedure to implement delta propagation in your distributed
+				system. <ol id="ol_C2C82654B21C4925936184D56362616F">
+					<li id="li_13A82E692D2A4DF0BBE14CDAD16A6CC4">Study your object types and
+						expected application behavior to determine which regions can benefit from
+						using delta propagation. Delta propagation does not improve performance for
+						all data and data modification scenarios. See <xref
+							href="when_to_use_delta_prop.xml#when_to_use_delta_prop" type="concept"
+							format="dita" scope="local"/>. </li>
+					<li id="li_15C3CF649B9744FBAF71F32EB2DEFBBD">For each region where you are using
+						delta propagation, choose whether to enable cloning using the delta
+						propagation property <codeph>cloning-enabled</codeph>. Cloning is disabled
+						by default. See <xref
+							href="delta_propagation_properties.xml#delta_propagation_properties"
+							type="concept" format="dita" scope="local"/>. </li>
+					<li id="li_190303E1160D48C5AED671E63B97697E">If you do not enable cloning,
+						review all associated listener code for dependencies on
+							<codeph>EntryEvent.getOldValue</codeph>. Without cloning, <keyword
+							keyref="product_name"/> modifies the entry in place and so loses its
+						reference to the old value. For delta events, the
+							<codeph>EntryEvent</codeph> methods <codeph>getOldValue</codeph> and
+							<codeph>getNewValue</codeph> both return the new value. </li>
+					<li id="li_A9B6F6FE9123427B81873F765B071DB9">For every class where you want
+						delta propagation, implement <codeph>com.gemstone.gemfire.Delta</codeph> and
+						update your methods to support delta propagation. Exactly how you do this
+						depends on your application and object needs, but these steps describe the
+						basic approach: <ol id="ol_11F7947993C642A693578762AC60BB9D">
+							<li id="li_2DD83490AFC44B8BAD7288973DBF5999">If the class is a plain old
+								Java object (POJO), wrap it for this implementation and update your
+								code to work with the wrapper class. </li>
+							<li id="li_A3EC1D47E7B546329720FFFED469864D">Define as transient any
+								extra object fields that you use to manage delta state. This can
+								help performance when the full object is distributed. Whenever
+								standard Java serialization is used, the transient keyword indicates
+								to Java to not serialize the field. </li>
+							<li id="li_8F1064EEF8AA493FB1E2CE7AA99388AD">Study the object contents
+								to decide how to handle delta changes. Delta propagation has the
+								same issues of distributed concurrency control as the distribution
+								of full objects, but on a more detailed level. Some parts of your
+								objects may be able to change independent of one another while
+								others may always need to change together. Send deltas large enough
+								to keep your data logically consistent. If, for example, field A and
+								field B depend on each other, then your delta distributions should
+								either update both fields or neither. As with regular updates, the
+								fewer producers you have on a data region, the lower your likelihood
+								of concurrency issues. </li>
+							<li id="li_BC109E7597244A3693F2BDD4B9BD9287">In the application code
+								that puts entries, put the fully populated object into the local
+								cache. Even though you are planning to send only deltas, errors on
+								the receiving end could cause <keyword keyref="product_name"/> to
+								request the full object, so you must provide it to the originating
+								put method. Do this even in empty producers, with regions configured
+								for no local data storage. This usually means doing a get on the
+								entry unless you are sure it does not already exist anywhere in the
+								distributed region. </li>
+							<li id="li_1E2E92911ED341318370E7713C5F6A2A">Change each field's update
+								method to record information about the update. The information must
+								be sufficient for <codeph>toDelta</codeph> to encode the delta and
+								any additional required delta information when it is invoked. </li>
+							<li id="li_FF3F025E2E794DB9AE8139753F5622D2">Write
+									<codeph>hasDelta</codeph> to report on whether a delta is
+								available. </li>
+							<li id="li_A6E17475405C4D64A529FEE10FF2C302">Write
+									<codeph>toDelta</codeph> to create a byte stream with the
+								changes to the object and any other information
+									<codeph>fromDelta</codeph> will need to apply the changes.
+								Before returning from <codeph>toDelta</codeph>, reset your delta
+								state to indicate that there are no delta changes waiting to be
+								sent. </li>
+							<li id="li_180D92C5BDF7496DA93A505CDDB40C1C">Write
+									<codeph>fromDelta</codeph> to decode the byte stream that
+									<codeph>toDelta</codeph> creates and update the object. </li>
+							<li id="li_6002FEEFDE0B44EC9D806D691508C576">Make sure you provide
+								adequate synchronization to your object to maintain a consistent
+								object state. If you do not use cloning, you will probably need to
+								synchronize on reads and writes to avoid reading partially written
+								updates from the cache.This synchronization might involve
+									<codeph>toDelta</codeph>, <codeph>fromDelta</codeph>,
+									<codeph>toData</codeph>, <codeph>fromData</codeph>, and other
+								methods that access or update the object. Additionally, your
+								implementation should take into account the possibility of
+								concurrent invocations of <codeph>fromDelta</codeph> and one or more
+								of the object's update methods. </li>
+						</ol>
+					</li>
+				</ol>
+			</p>
+		</section>
+	</conbody>
+</concept>

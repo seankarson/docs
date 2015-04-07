@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+
+<concept
+    id="concept_bkv_p4f_qq">
+    <title>pdx rename</title>
+    <shortdesc>Renames PDX types in an offline disk store. </shortdesc>
+    <conbody>
+        <p>Any PDX types that are renamed will be listed in the output. If no renames are done or
+            the disk-store is online, then this command will fail. </p>
+        <p><b> Availability:</b> Offline. </p>
+        <p>
+            <b>Syntax:</b>
+            <codeblock>pdx rename --old=value --new=value --disk-store=value --disk-dirs=value(,value)*</codeblock>
+            <table
+                id="table_1A72E11E72CA4FF69EF790D3EC423283">
+                <tgroup
+                    cols="2">
+                    <colspec
+                        colname="col1"
+                        colnum="1"
+                        colwidth="1.00*"/>
+                    <colspec
+                        colname="col2"
+                        colnum="2"
+                        colwidth="3.55*"/>
+                    <thead>
+                        <row>
+                            <entry
+                                colname="col1">Name </entry>
+                            <entry
+                                colname="col2">Description</entry>
+                        </row>
+                    </thead>
+                    <tbody>
+                        <row>
+                            <entry
+                                colname="col1">
+                                <parmname>--old</parmname>
+                            </entry>
+                            <entry
+                                colname="col2">
+                                <i>Required.</i> If a PDX type's fully qualified class name has a
+                                word that matches this text then it will be renamed. Words are
+                                delimited by '.' and '$'. </entry>
+                        </row>
+                        <row>
+                            <entry
+                                colname="col1">
+                                <parmname>--new</parmname>
+                            </entry>
+                            <entry
+                                colname="col2">
+                                <i>Required.</i> The text to replace the word that matched
+                                old.</entry>
+                        </row>
+                        <row>
+                            <entry
+                                colname="col1">
+                                <parmname>--disk-store</parmname>
+                            </entry>
+                            <entry
+                                colname="col2"><i>Required.</i> Name of the disk store to operate
+                                on. </entry>
+                        </row>
+                        <row>
+                            <entry
+                                colname="col1">
+                                <parmname>--disk-dirs</parmname>
+                            </entry>
+                            <entry
+                                colname="col2"><i>Required.</i> Directories which contain the disk
+                                store files. </entry>
+                        </row>
+                    </tbody>
+                </tgroup>
+            </table>
+        </p>
+        <p>
+            <b>Example Commands:</b>
+        </p>
+        <p>Change all packages that start with "com.gemstone" to
+            "com.pivotal":<codeblock>gfsh>pdx rename --old=com.gemstone --new=com.pivotal --disk-store=ds1 --disk-dirs=/diskDir1</codeblock>
+            Change a class named “MyClassName” to
+            “YourClassName”:<codeblock>gfsh>pdx rename --old=MyClassName --new=YourClassName --disk-store=ds1 --disk-dirs=/diskDir1</codeblock>Change
+            the FQCN “com.target.app1.OldClass” to
+            “com.target.app2.NewClass”:<codeblock>gfsh>pdx rename --old=com.target.app1.OldClass --new=com.target.app2.NewClass --disk-store=ds1 --disk-dirs=/diskDir1</codeblock></p>
+        <p>
+            <b>Sample Output:</b>
+            <codeblock>gfsh&gt;pdx rename --old=PortfolioPdx --new=StockPdx --disk-store=DiskStore1 --disk-dirs=/DiskDir1
+Successfully renamed pdx types:
+  com.app.data.StockPdx: id=2
+  com.app.data.StockPdx$Day.Monday</codeblock>
+        </p>
+        <p><b>Error Messages:</b></p>
+        <p>If no types match, you may receive the following error
+            message:<codeblock>gfsh&gt;pdx rename --old=gemstone --new=pivotal --disk-store=DiskStore1 --disk-dirs=/DiskDir1
+Could not process command due to GemFire error. No Pdx types found to rename.</codeblock></p>
+        <p>If the disk-store where the PDX types are stored is online, you will receive the
+            following error
+            message:<codeblock>gfsh&gt;pdx rename --old=StockPdx --new=PortfolioPdx --disk-store=DiskStore1 --disk-dirs=/DiskDir1
+Could not process command due to GemFire error. Error renaming pdx types :
+GemFireCache[id = 484629896; isClosing = false; isShutDownAll = false;
+closingGatewayHubsByShutdownAll = false; created = Wed Jan 07 10:29:45 PST 2015;
+server = false; copyOnRead = false; lockLease = 120; lockTimeout = 60]: An open cache
+already exists.</codeblock>
+        </p>
+    </conbody>
+</concept>

@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "http://docs.oasis-open.org/dita/v1.1/OS/dtd/concept.dtd">
+<concept id="application_defined_statistics">
+	<title>Application-Defined and Custom Statistics</title>
+	<shortdesc><keyword keyref="product_name"/> includes interfaces for defining and maintaining
+		your own statistics.</shortdesc>
+	<conbody>
+		<section id="section_88C31FA62A194947BF71AD54B5F9BAB3">
+			<p>The <keyword keyref="product_name"/> package, <codeph>com.gemstone.gemfire</codeph>,
+				includes the following interfaces for defining and maintaining your own statistics:
+					<ul id="ul_47DF1DCBACA34E3ABBFC788B242DEE12">
+					<li id="li_361B89FB8D0D461F976D8BCC383BC6A6"><b>StatisticDescriptor</b>.
+						Describes an individual statistic. Each statistic has a name and information
+						on the statistic it holds, such as its class type (long, int, etc.) and
+						whether it is a counter that always increments, or a gauge that can vary in
+						any manner. </li>
+					<li id="li_D30D723874264B10BA3373CDCBC6FC4B"><b>StatisticsType</b>. Logical type
+						that holds a list of <codeph>StatisticDescriptors</codeph> and provides
+						access methods to them. The <codeph>StatisticDescriptors</codeph> contained
+						by a <codeph>StatisticsType</codeph> are each assigned a unique ID within
+						the list. <codeph>StatisticsType</codeph> is used to create a
+							<codeph>Statistics</codeph> instance. </li>
+					<li id="li_897E2785C5DA40A89BD68D3FCC42EC86"><b>Statistics</b>. Instantiation of
+						an existing <codeph>StatisticsType</codeph> object with methods for setting,
+						incrementing, and getting individual <codeph>StatisticDescriptor</codeph>
+						values. </li>
+					<li id="li_7B204D4958224EE199ECCC96B9BEB84F"><b>StatisticsFactory</b>. Creates
+						instances of <codeph>Statistics</codeph>. You can also use it to create
+						instances of <codeph>StatisticDescriptor</codeph> and
+							<codeph>StatisticsType</codeph>, because it implements
+							<codeph>StatisticsTypeFactory</codeph>.
+							<codeph>DistributedSystem</codeph> is an instance of
+							<codeph>StatisticsFactory</codeph>. </li>
+					<li id="li_247A6AD61B8F4B23A1BF30DD9B1BC62D"><b>StatisticsTypeFactory</b>.
+						Creates instances of <codeph>StatisticDescriptor</codeph> and
+							<codeph>StatisticsType</codeph>. </li>
+				</ul>
+			</p>
+			<p>The statistics interfaces are instantiated using statistics factory methods that are
+				included in the package. For coding examples, see the online Java API documentation
+				for <codeph>StatisticsFactory</codeph> and <codeph>StatisticsTypeFactory</codeph>. </p>
+			<p>As an example, an application server might collect statistics on each client session
+				in order to gauge whether client requests are being processed in a satisfactory
+				manner. Long request queues or long server response times could prompt some
+				capacity-management action such as starting additional application servers. To set
+				this up, each session-state data point is identified and defined in a
+					<codeph>StatisticDescriptor</codeph> instance. One instance might be a
+					<codeph>RequestsInQueue</codeph> gauge, a non-negative integer that increments
+				and decrements. Another could be a <codeph>RequestCount</codeph> counter, an integer
+				that always increments. A list of these descriptors is used to instantiate a
+					<codeph>SessionStateStats</codeph>
+				<codeph>StatisticsType</codeph>. When a client connects, the application server uses
+				the <codeph>StatisticsType</codeph> object to create a session-specific
+					<codeph>Statistics</codeph> object. The server then uses the
+					<codeph>Statistics</codeph> methods to modify and retrieve the client’s
+				statistics. This figure illustrates the relationships between the statistics
+				interfaces and shows the implementation of this use case. </p>
+			<p>
+				<image href="../../images/statistics-1.gif" placement="break"
+					id="image_1fb717d9-4fe3-43c2-aeaa-bdceda5639d8"/>
+			</p>
+		</section>
+	</conbody>
+</concept>

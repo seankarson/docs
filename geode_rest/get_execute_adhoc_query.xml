@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE topic PUBLIC "-//OASIS//DTD DITA Topic//EN" "topic.dtd">
+<topic
+  id="topic_itv_mg5_m4">
+  <title>GET /gemfire-api/v1/queries/adhoc?q=&lt;OQL-statement></title>
+  <shortdesc>Run an unnamed (unidentified), ad-hoc query passed as a URL
+    parameter.</shortdesc>
+  <body>
+    <section>
+      <title>Resource URL</title>
+      <codeblock>http://&lt;hostname_or_http-service-bind-address>:&lt;http-service-port>/gemfire-api/v1/queries/adhoc?q=&lt;OQL-statement></codeblock>
+    </section>
+    <section>
+      <title>Parameters</title>
+      <simpletable
+        frame="all"
+        relcolwidth="1.02* 1.0* 1.04*"
+        id="simpletable_b4n_3jv_m4">
+        <sthead>
+          <stentry>Parameter</stentry>
+          <stentry>Description</stentry>
+          <stentry>Example Values</stentry>
+        </sthead>
+        <strow>
+          <stentry>q</stentry>
+          <stentry><b>Required.</b> OQL query statement. <note>Since the query
+              string is passed in the URL, the OQL must be URL-encoded. Some
+              HTTP clients such as Web browsers will automatically encode URLs;
+              however, if you are not using one of those clients, you will need
+              to URL encode the query string yourself.</note></stentry>
+          <stentry>
+            <codeph>SELECT o FROM /orders o WHERE o.quantity > 2 AND
+              o.totalprice > 110.00</codeph>
+            <p>(or URL encoded:
+                <codeph>SELECT%20o%20FROM%20%2Forders%20o%20WHERE%20o.quantity%20%3E%202%20AND%20o.totalprice%20%3E%20110.00</codeph>)</p>
+            <p>
+              <codeph>SELECT * FROM /customers</codeph>
+            </p>
+            <p>(or URL encoded:
+              <codeph>SELECT%20*%20FROM%20/customers</codeph>)</p>
+          </stentry>
+        </strow>
+      </simpletable>
+    </section>
+    <section>
+      <title>Example Request</title>
+      <codeblock>curl -i "http://localhost:8080/gemfire-api/v1/queries/adhoc?q=select%20*%20%20from%20/customers"</codeblock>
+    </section>
+    <section>
+      <title>Example Success Response</title>
+      <codeblock>Response Payload: application/json
+
+200 OK
+Content-Length: &lt;#-of-bytes&gt;
+Content-Type: application/json
+[
+    {
+        "firstName":  "John",
+         "lastName":  "Doe",
+         "customerId": 101,
+    },
+    {
+         "firstName":  "Jane",
+         "lastName":  "Doe",
+         "customerId": 102,
+    },
+    {
+       ....
+    }
+]</codeblock>
+    </section>
+    <section>
+      <title>Error Codes</title>
+      <simpletable
+        frame="all"
+        relcolwidth="1.0* 1.87*"
+        id="simpletable_vfq_33v_m4">
+        <sthead>
+          <stentry>Status Code</stentry>
+          <stentry>Description</stentry>
+        </sthead>
+        <strow>
+          <stentry>500 INTERNAL SERVER ERROR</stentry>
+          <stentry>Error encountered at <keyword keyref="product_name"/> server. Check the HTTP response
+            body for a stack trace of the exception. Some possible exceptions include:<ul
+              id="ul_xfq_qy3_n4">
+              <li>Query is not permitted on this type of region!</li>
+              <li>Query execution time is exceeded max query execution time
+                (gemfire.Cache.MAX_QUERY_EXECUTION_TIME) configured!</li>
+              <li>Data referenced in from clause is not available for
+                querying!</li>
+              <li>Query execution gets canceled due to low memory conditions and
+                the resource manager critical heap percentage has been set!</li>
+              <li>Server has encountered while executing Adhoc query!</li>
+            </ul></stentry>
+        </strow>
+      </simpletable>
+    </section>
+  </body>
+</topic>

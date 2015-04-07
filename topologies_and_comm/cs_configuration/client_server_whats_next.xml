@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "http://docs.oasis-open.org/dita/v1.1/OS/dtd/concept.dtd">
+<concept id="client_server_whats_next">
+	<title>Fine-Tuning Your Client/Server Configuration</title>
+	<shortdesc id="shortdesc_8F72196792BE483F8025EF12BD5B9684">You can fine-tune your client/server
+		system with server load-balancing and client thread use of pool connections. For example,
+		you can configure how often the servers check their load with the cache server
+			<codeph>load-poll-interval</codeph> property, or configure your own server load metrics
+		by implementing the <codeph>com.gemstone.gemfire.cache.server</codeph> package. </shortdesc>
+	<conbody>
+		<section id="section_64AD4CBC253B4C309E3D592D0CED2A6B">
+			<title>How Server Load Conditioning Works</title>
+			<p>When the client pool requests connection information from the server locator, the
+				locator returns the least-loaded server for the connection type. The pool uses this
+				"best server" response to open new connections and to condition (rebalance) its
+				existing pool connections. <ul id="ul_22DF825FDD8941CC842F572E8356B338">
+					<li id="li_02683DCE613B45A7933822873119C83E">The locator tracks server
+						availability and load according to information that the servers provide.
+						Each server probes its load metrics periodically and, when it detects a
+						change, sends new information to the locator. This information consists of
+						current load levels and estimates of how much load would be added for each
+						additional connection. The locator compares the load information from its
+						servers to determine which servers can best handle more connections. </li>
+					<li id="li_48E3AB998869405C934D7962AB17ACE2">You can configure how often the
+						servers check their load with the cache server’s
+							<codeph>load-poll-interval</codeph>. You might want to set it lower if
+						you find your server loads fluctuating too much during normal operation. The
+						lower you set it, however, the more overhead your load balancing will use. </li>
+					<li id="li_97E71CF01D8C43869DD466469FDD3660">Between updates from the servers,
+						the locators estimate which server is the least loaded by using the server
+						estimates for the cost of additional connections. For example, if the
+						current pool connection load for a server’s connections is 0.4 and each
+						additional connection would add 0.1 to its load, the locator can estimate
+						that adding two new pool connections will take the server’s pool connection
+						load to 0.6. </li>
+					<li id="li_C07974E78F624FC39753359718D3A8EC">Locators do not share connection
+						information among themselves. These estimates provide rough guidance to the
+						individual locators for the periods between updates from the servers. </li>
+				</ul> <keyword keyref="product_name"/> provides a default utility that probes the server and its resource
+				usage to give load information to the locators. The default probe returns the
+				following load metrics: <ul id="ul_F7A47D856B8E4E18BFA6B2B9062D5418">
+					<li id="li_EA9A97BF1FA34183BC9E0153A2DC5A4F">The pool connection load is the
+						number of connections to the server divided by the server’s
+							<codeph>max-connections</codeph> setting. This means that servers with a
+						lower <codeph>max-connections</codeph> setting receives fewer connections
+						than servers with a higher setting. The load is a number between 0 and 1,
+						where 0 means there are no connections, and 1 means the server is at
+							<codeph>max-connections</codeph>. The load estimate for each additional
+						pool connection is 1/<codeph>max-connections</codeph>. </li>
+					<li id="li_B6615B42D9FB4AEF86299EDF669F2247">The subscription connection load is
+						the number of subscription queues hosted by this server. The load estimate
+						for each additional subscription connection is 1. </li>
+				</ul>
+			</p>
+			<p>To use your own server load metrics instead of the default, implement the
+					<codeph>ServerLoadProbe</codeph> or <codeph>ServerLoadProbeAdapter</codeph> and
+				related interfaces and classes in the
+					<codeph>com.gemstone.gemfire.cache.server</codeph> package. The load for each
+				server is weighed relative to the loads reported by other servers in the system.
+			</p>
+		</section>
+		<section id="section_CE66DA4747BC4870893DB93690DAB95B">
+			<title>Client Thread Use of Pool Connections</title>
+			<p>By default, a client thread retrieves a connection from the open connection pool for
+				each forwarded operation and returns the connection to the pool as soon as the
+				request is complete. If your client thread runs a <codeph>put</codeph> on a client
+				region, for example, that operation grabs a server connection, sends the
+					<codeph>put</codeph> to the server, and then returns the connection to the pool.
+				This action keeps the connections available to the most threads possible. </p>
+		</section>
+		<section id="section_7CC2BB7D03D8466D881888127F7A06A9">
+			<title>Set Up a Thread-Local (Dedicated) Connection</title>
+			<p>You configure threads to use dedicated connections by setting
+					<codeph>thread-local-connections</codeph> to true. In this case the thread holds
+				its connection either until the thread explicitly releases the connection, or the
+				connection expires based on <codeph>idle-timeout</codeph> or
+					<codeph>load-conditioning-interval</codeph>. </p>
+		</section>
+		<section id="section_396E1207E2E84590B9557D449F0846FD">
+			<title>Release a Thread-Local Connection</title>
+			<p>If you use thread-local connections, you should release the connection as soon as
+				your thread finishes its server activities. <ul
+					id="ul_2F26B35DFAFB405A844D3773FBD53C0C">
+					<li id="li_CB5A687D94124E1E8D1AA6CF35FB334E">Call
+							<codeph>releaseThreadLocalConnection</codeph> on the
+							<codeph>Pool</codeph> instance you are using for the region:
+						<codeblock>Region myRegion ...
+PoolManager.find(myRegion).releaseThreadLocalConnection();</codeblock>
+					</li>
+				</ul>
+			</p>
+		</section>
+	</conbody>
+</concept>

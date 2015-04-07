@@ -1,0 +1,145 @@
+<?xml version="1.0"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept id="concept_DB2407C49F064B04AA58BC9D1DBA3666">
+	<title>Using Indexes on Equi-Join Queries using Multiple Regions</title>
+	<shortdesc><?xm-replace_text Short Description?>To query across multiple regions, identify all
+		equi-join conditions. Then, create as few indexes for the equi-join conditions as you can
+		while still joining all regions. </shortdesc>
+	<conbody>
+		<section id="section_70735ED43C4D47B0A19B910BB7E3A1DA">
+			<p>If there are equi-join conditions that redundantly join two regions (in order to more
+				finely filter the data, for example), then creating redundant indexes for these
+				joins will negatively impact performance. Create indexes only on one equi-join
+				condition for each region pair. </p>
+			<p>In this example query:
+				<codeblock>SELECT DISTINCT * 
+FROM /investors inv, /securities sc, /orders or, 
+inv.ordersPlaced inv_op, or.securities or_sec 
+    WHERE inv_op.orderID = or.orderID 
+    AND or_sec.secID = sc.secID</codeblock>All
+				conditions are required to join the regions, so you would create four indexes, two
+				for each equi-join condition: <table id="table_B8ED579FC3E24A1697988FDF3CF8434E">
+					<tgroup cols="2">
+						<colspec colname="1" colnum="1" colwidth="50*"/>
+						<colspec colname="2" colnum="2" colwidth="50*"/>
+						<thead>
+							<row>
+								<entry>FROM clause </entry>
+								<entry>Indexed expression </entry>
+							</row>
+						</thead>
+						<tbody>
+							<row>
+								<entry>/investors inv, inv.ordersPlaced inv_op </entry>
+								<entry>inv_op.orderID </entry>
+							</row>
+							<row>
+								<entry>/orders or, or.securities or_sec </entry>
+								<entry>or.orderID </entry>
+							</row>
+						</tbody>
+					</tgroup>
+				</table>
+				<table id="table_66516529D47741678ABEB9F2BE4366CE">
+					<tgroup cols="2">
+						<colspec colname="1" colnum="1" colwidth="50*"/>
+						<colspec colname="2" colnum="2" colwidth="50*"/>
+						<thead>
+							<row>
+								<entry>FROM clause </entry>
+								<entry>Indexed expression </entry>
+							</row>
+						</thead>
+						<tbody>
+							<row>
+								<entry>/orders or, or.securities or_sec </entry>
+								<entry>or_sec.secID </entry>
+							</row>
+							<row>
+								<entry>/securities sc </entry>
+								<entry>sc.secID </entry>
+							</row>
+						</tbody>
+					</tgroup>
+				</table>
+			</p>
+			<p>Adding another condition to the example:
+				<codeblock>SELECT DISTINCT * 
+FROM /investors inv, /securities sc, /orders or, 
+inv.ordersPlaced inv_op, or.securities or_sec<b>, sc.investors sc_invs</b> 
+    WHERE inv_op.orderID = or.orderID 
+    AND or_sec.secID = sc.secID
+                <b>AND inv.investorID = sc_invs.investorID</b></codeblock>You
+				would still only want to use four indexes in all, as that's all you need to join all
+				of the regions. You would need to choose the most performant two of the following
+				three index pairs: <table id="table_D2F44D61842143ACB53196225EB8547B">
+					<tgroup cols="2">
+						<colspec colname="1" colnum="1" colwidth="50*"/>
+						<colspec colname="2" colnum="2" colwidth="50*"/>
+						<thead>
+							<row>
+								<entry>FROM clause </entry>
+								<entry>Indexed expression </entry>
+							</row>
+						</thead>
+						<tbody>
+							<row>
+								<entry>/investors inv, inv.ordersPlaced inv_op </entry>
+								<entry>inv_op.orderID </entry>
+							</row>
+							<row>
+								<entry>/orders or, or.securities or_sec </entry>
+								<entry>or.orderID </entry>
+							</row>
+						</tbody>
+					</tgroup>
+				</table>
+				<table id="table_E9EEDD6A7FA44849AFD211BEA79B7A79">
+					<tgroup cols="2">
+						<colspec colname="1" colnum="1" colwidth="50*"/>
+						<colspec colname="2" colnum="2" colwidth="50*"/>
+						<thead>
+							<row>
+								<entry>FROM clause </entry>
+								<entry>Indexed expression </entry>
+							</row>
+						</thead>
+						<tbody>
+							<row>
+								<entry>/orders or, or.securities or_sec </entry>
+								<entry>or_sec.secID </entry>
+							</row>
+							<row>
+								<entry>/securities sc, sc.investors sc_invs </entry>
+								<entry>sc.secID </entry>
+							</row>
+						</tbody>
+					</tgroup>
+				</table>
+				<table id="table_D14C80DCBFD44DA2A6EC082CEAC8742D">
+					<tgroup cols="2">
+						<colspec colname="1" colnum="1" colwidth="50*"/>
+						<colspec colname="2" colnum="2" colwidth="50*"/>
+						<thead>
+							<row>
+								<entry>FROM clause </entry>
+								<entry>Indexed expression </entry>
+							</row>
+						</thead>
+						<tbody>
+							<row>
+								<entry>/investors inv, inv.ordersPlaced inv_op </entry>
+								<entry>inv.investorID </entry>
+							</row>
+							<row>
+								<entry>/securities sc, sc.investors sc_invs </entry>
+								<entry>sc_invs.investorID </entry>
+							</row>
+						</tbody>
+					</tgroup>
+				</table>The most performant set is that which narrows the data to the smallest
+				result set possible. Examine your data and experiment with the three index pairs to
+				see which provides the best performance. </p>
+		</section>
+	</conbody>
+</concept>

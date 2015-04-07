@@ -1,0 +1,327 @@
+<?xml version="1.0"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept id="concept_5ED182BDBFFA4FAB89E3B81366EBC58E">
+	<title>Firewalls and Ports</title>
+	<shortdesc>Make sure your port settings are configured correctly for firewalls. </shortdesc>
+	<conbody>
+		<section id="section_F9C1D7419F954DC1A305C34714C8615C">
+			<p>There are several different port settings that need to be considered when using
+				firewalls: </p>
+			<ul id="ul_5D978BCFE2C84B1C9EB0E3548761228F">
+				<li id="li_BF59594FEB324377A2BE9F3F5BFDF149">Port that the cache server listens on.
+					This is configurable using the <codeph>cache-server</codeph> element in
+					cache.xml, on the CacheServer class in Java APIs, and as a command line option
+					to the <codeph>gfsh start server</codeph> command. <p>By default, if not
+						otherwise specified, <keyword keyref="product_name"/> clients and servers
+						discover each other on a pre-defined port (<b>40404</b>) on the localhost.
+					</p></li>
+				<li id="li_F92A55268FC34F0EB06F8D191DA7602C">Locator port. <keyword
+						keyref="product_name"/> clients can use the locator to automatically
+					discover cache servers. The locator port is configurable as a command-line
+					option to the <codeph>gfsh start locator</codeph> command. Locators are used in
+					the peer-to-peer cache deployments to discover other processes. They can be used
+					by clients to locate servers as an alternative to configuring clients with a
+					collection of server addresses and ports. <p>By default, if not otherwise
+						specified, <keyword keyref="product_name"/> locators use the default
+						multicast port <b>10334</b>.</p></li>
+				<li>Since locators start up the distributed system, locators must also have their
+					ephemeral port range and TCP port accessible to other members through the
+					firewall. </li>
+				<li>For clients, you configure the client to connect to servers using the client's
+					pool configuration. The client's pool configuration has two options: you can
+					create a pool with either a list of server elements or a list of locator
+					elements. For each element, you specify the host and port. The ports specified
+					must be made accessible through your firewall.</li>
+			</ul>
+		</section>
+		<section>
+			<title><b>Limiting Ephemeral Ports for Peer-to-Peer Membership</b></title>
+			<p>By default, <keyword keyref="product_name"/> assigns <i>ephemeral </i> ports, that is, temporary ports
+				assigned from a designated range, which can encompass a large number of possible
+				ports. When a firewall is present, the ephemeral port range usually must be limited
+				to a much smaller number, for example six. If you are configuring P2P communications
+				through a firewall, you must also set each the tcp port for each process and ensure
+				that UDP traffic is allowed through the firewall. </p>
+		</section>
+		<section>
+			<title><b>Properties for Firewall and Port Configuration</b></title>
+			<p>This table contains properties potentially involved in firewall behavior, with a
+				brief description of each property. Click on a property name for a link to the <xref
+					href="../../reference/topics/gemfire_properties.xml#gemfire_properties"/>
+				reference topic. </p>
+			<table id="table_0E0561D090C04F3D9A502DFB05ECBBB7">
+				<tgroup cols="3">
+					<colspec colname="col01" colnum="1" colwidth="2.40*"/>
+					<colspec colnum="2" colname="col1" colwidth="1.41*"/>
+					<colspec colnum="3" colname="col2" colwidth="6.50*"/>
+					<thead>
+						<row>
+							<entry namest="col01" nameend="col2" align="center"
+								>Configuration</entry>
+						</row>
+						<row>
+							<entry colname="col01"><b>Configuration area</b>
+							</entry>
+							<entry colname="col1"><b>Property or Setting</b>
+							</entry>
+							<entry colname="col2"><b>Definition</b>
+							</entry>
+						</row>
+					</thead>
+					<tbody>
+						<row>
+							<entry colname="col01">peer-to-peer config </entry>
+							<entry colname="col1">
+								<p><xref scope="local" outputclass="noPageCitation"
+										href="../../reference/topics/gemfire_properties.xml#gemfire_properties"
+										type="concept" format="dita">conserve-sockets</xref>
+								</p>
+							</entry>
+							<entry colname="col2">
+								<p>Specifies whether sockets are shared by the system member's
+									threads. </p>
+							</entry>
+						</row>
+						<row>
+							<entry colname="col01">peer-to-peer config </entry>
+							<entry colname="col1">
+								<p><xref scope="local" outputclass="noPageCitation"
+										href="../../reference/topics/gemfire_properties.xml#gemfire_properties"
+										type="concept" format="dita">locators</xref>
+								</p>
+							</entry>
+							<entry colname="col2">
+								<p>The list of locators used by system members. The list must be
+									configured consistently for every member of the distributed
+									system. </p>
+							</entry>
+						</row>
+						<row>
+							<entry colname="col01">peer-to-peer config </entry>
+							<entry colname="col1">
+								<p><xref scope="local" outputclass="noPageCitation"
+										href="../../reference/topics/gemfire_properties.xml#gemfire_properties"
+										type="concept" format="dita">mcast-address</xref>
+								</p>
+							</entry>
+							<entry colname="col2">
+								<p>Address used to discover other members of the distributed system.
+									Only used if mcast-port is non-zero. This attribute must be
+									consistent across the distributed system. </p>
+							</entry>
+						</row>
+						<row>
+							<entry colname="col01">peer-to-peer config </entry>
+							<entry colname="col1">
+								<p><xref scope="local" outputclass="noPageCitation"
+										href="../../reference/topics/gemfire_properties.xml#gemfire_properties"
+										type="concept" format="dita">mcast-port</xref>
+								</p>
+							</entry>
+							<entry colname="col2">
+								<p>Port used, along with the mcast-address, for multicast
+									communication with other members of the distributed system. If
+									zero, multicast is disabled for member discovery and
+									distribution. </p>
+							</entry>
+						</row>
+						<row>
+							<entry colname="col01">peer-to-peer config </entry>
+							<entry colname="col1">
+								<p><xref scope="local" outputclass="noPageCitation"
+										href="../../reference/topics/gemfire_properties.xml#gemfire_properties"
+										type="concept" format="dita">membership-port-range</xref>
+								</p>
+							</entry>
+							<entry colname="col2">
+								<p>The range of ephemeral ports available for unicast UDP messaging
+									and for TCP failure detection in the peer-to-peer distributed
+									system. </p>
+							</entry>
+						</row>
+						<row>
+							<entry colname="col01">peer-to-peer config </entry>
+							<entry colname="col1">
+								<p><xref scope="local" outputclass="noPageCitation"
+										href="../../reference/topics/gemfire_properties.xml#gemfire_properties"
+										type="concept" format="dita">tcp-port</xref>
+								</p>
+							</entry>
+							<entry colname="col2">
+								<p>The TCP port to listen on for cache communications. </p>
+							</entry>
+						</row>
+					</tbody>
+				</tgroup>
+			</table>
+			<table id="table_576172C9C96F4749BCEA967FB8F0807F">
+				<tgroup cols="3">
+					<colspec colnum="1" colname="col1" colwidth="*"/>
+					<colspec colnum="2" colname="col2" colwidth="*"/>
+					<colspec colnum="3" colname="col3" colwidth="*"/>
+					<thead>
+						<row>
+							<entry namest="col1" nameend="col3" align="center">Configuration</entry>
+						</row>
+						<row>
+							<entry colname="col1">Configuration Area</entry>
+							<entry colname="col2"><b>Property or Setting</b>
+							</entry>
+							<entry colname="col3"><b>Definition</b>
+							</entry>
+						</row>
+					</thead>
+					<tbody>
+						<row>
+							<entry colname="col1">cache server config </entry>
+							<entry colname="col2" outputclass="noPageCitation">
+								<p>
+									<xref
+										href="../../reference/topics/cache_xml.xml#cache-server/entry_lqz_chj_54"
+										>hostname-for-clients</xref></p>
+							</entry>
+							<entry colname="col3">
+								<p>Hostname or IP address to pass to the client as the location
+									where the server is listening. </p>
+							</entry>
+						</row>
+						<row>
+							<entry colname="col1">cache server config </entry>
+							<entry colname="col2">
+								<p><xref
+										href="../../reference/topics/cache_xml.xml#cache-server/entry_kyz_shj_54"
+										>max-connections</xref>
+								</p>
+							</entry>
+							<entry colname="col3">
+								<p>Maximum number of client connections for the server. When the
+									maximum is reached, the server refuses additional client
+									connections. </p>
+							</entry>
+						</row>
+						<row>
+							<entry colname="col1">cache server config </entry>
+							<entry colname="col2">
+								<p><xref
+										href="../../reference/topics/cache_xml.xml#cache-server/entry_kxs_thj_54"
+										>port</xref> (cache.xml) or <codeph>--port</codeph>
+									parameter to the gfsh start server command</p>
+							</entry>
+							<entry colname="col3">
+								<p>Port that the server listens on for client communication. </p>
+							</entry>
+						</row>
+					</tbody>
+				</tgroup>
+			</table>
+		</section>
+		<section>
+			<title>Default Port Configurations</title>
+			<table id="table_BF7E81599A494AC0A294AEA656D72BCB">
+				<tgroup cols="3">
+					<colspec colnum="1" colname="col1" colwidth="*"/>
+					<colspec colname="newCol2" colnum="2" colwidth="1*"/>
+					<colspec colnum="3" colname="col2" colwidth="*"/>
+					<thead>
+						<row>
+							<entry namest="col1" nameend="col2" align="center">Default Ports
+							</entry>
+						</row>
+						<row>
+							<entry colname="col1">
+								<p><b>Port Name</b>
+								</p>
+							</entry>
+							<entry>Related Configuration Setting</entry>
+							<entry colname="col2">
+								<p><b>Default Port</b>
+								</p>
+							</entry>
+						</row>
+					</thead>
+					<tbody>
+						<row>
+							<entry colname="col1">
+								<p>Cache Server </p>
+							</entry>
+							<entry colname="col2">
+								<p><xref
+										href="../../reference/topics/cache_xml.xml#cache-server/entry_kxs_thj_54"
+										>port</xref> (cache.xml)</p>
+							</entry>
+							<entry colname="col2">40404 </entry>
+						</row>
+						<row>
+							<entry colname="col1">
+								<p>HTTP </p>
+							</entry>
+							<entry><xref scope="local" outputclass="noPageCitation"
+									href="../../reference/topics/gemfire_properties.xml#gemfire_properties"
+									type="concept" format="dita">http-service-port</xref></entry>
+							<entry colname="col2">7070 </entry>
+						</row>
+						<row>
+							<entry colname="col1">
+								<p>Locator</p>
+							</entry>
+							<entry><xref scope="local" outputclass="noPageCitation"
+									href="../../reference/topics/gemfire_properties.xml#gemfire_properties"
+									type="concept" format="dita">start-locator</xref> (for embedded
+								locators) or <codeph>--port</codeph> parameter to the gfsh start
+								locator command.</entry>
+							<entry colname="col2"><i>if not specified upon startup or in the
+									start-locator property, uses default multicast port
+								10334</i></entry>
+						</row>
+						<row>
+							<entry colname="col1">
+								<p>Membership Port Range</p>
+							</entry>
+							<entry><xref scope="local" outputclass="noPageCitation"
+									href="../../reference/topics/gemfire_properties.xml#gemfire_properties"
+									type="concept" format="dita">membership port
+								range</xref></entry>
+							<entry colname="col2">1024 to 65535</entry>
+						</row>
+						<row>
+							<entry colname="col1">
+								<p>Memcached Port</p>
+							</entry>
+							<entry><xref scope="local" outputclass="noPageCitation"
+									href="../../reference/topics/gemfire_properties.xml#gemfire_properties"
+									type="concept" format="dita">memcached-port</xref></entry>
+							<entry colname="col2"><i>not set</i></entry>
+						</row>
+						<row>
+							<entry colname="col1">
+								<p>Multicast</p>
+							</entry>
+							<entry><xref scope="local" outputclass="noPageCitation"
+									href="../../reference/topics/gemfire_properties.xml#gemfire_properties"
+									type="concept" format="dita">mcast port</xref></entry>
+							<entry colname="col2">10334 </entry>
+						</row>
+						<row>
+							<entry colname="col1">
+								<p>RMI</p>
+							</entry>
+							<entry><xref scope="local" outputclass="noPageCitation"
+									href="../../reference/topics/gemfire_properties.xml#gemfire_properties"
+									type="concept" format="dita">jmx-manager-port</xref></entry>
+							<entry colname="col2">1099</entry>
+						</row>
+						<row>
+							<entry colname="col1">
+								<p>TCP</p>
+							</entry>
+							<entry><xref scope="local" outputclass="noPageCitation"
+									href="../../reference/topics/gemfire_properties.xml#gemfire_properties"
+									type="concept" format="dita">tcp-port</xref></entry>
+							<entry colname="col2">ephemeral port</entry>
+						</row>
+					</tbody>
+				</tgroup>
+			</table>
+		</section>
+	</conbody>
+</concept>

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "http://docs.oasis-open.org/dita/v1.1/OS/dtd/concept.dtd">
+<concept id="comments_in_query_string">
+    <title>Query String Comments</title>
+    <prolog audience="basic">
+    </prolog>
+    <conbody>
+        <section>
+            <p>You can include comments in the query string. To insert a one-line comment, begin the line with two dashes <codeph>--</codeph>. To insert a multiple-line comment, or to embed a comment within a line, begin it with <codeph>/*</codeph> and end it with <codeph>*/</codeph>. </p>
+            <p>The following query strings include comments: <codeblock>SELECT DISTINCT * FROM /portfolios /* here is a comment */ WHERE status = 'active'</codeblock><codeblock>SELECT DISTINCT * FROM /portfolios 
+    WHERE status = 'active' -- here is another comment</codeblock></p>
+        </section>
+    </conbody>
+</concept>

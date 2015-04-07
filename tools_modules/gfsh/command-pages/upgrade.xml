@@ -1,0 +1,68 @@
+<?xml version="1.0"?>
+<!DOCTYPE dita PUBLIC "-//OASIS//DTD DITA Composite//EN" "ditabase.dtd">
+<dita>
+	<topic id="topic_C3D92D8C092B40F7AE31ABF95CDABF24">
+		<title>upgrade offline-disk-store</title>
+		<shortdesc>Upgrade offline disk-stores used in Pivotal GemFire 6.5 or 6.6 installations to a
+			format that is compatible with <keyword keyref="product_name_long"/> or Pivotal GemFire
+			7.0 or later. </shortdesc>
+		<body>
+			<p> If the disk store is large, additional memory may need to be allocated to the
+				process using the <codeph>--J=-Xmx###</codeph> parameter. </p>
+			<p><b> Availability:</b> Offline. </p>
+			<p><b>Syntax:</b>
+				<codeblock>upgrade offline-disk-store --name=value --disk-dirs=value(,value)* 
+[--max-oplog-size=value] [--J=value(,value)*]</codeblock>
+				<table id="table_A4F2266D424F474FAF9A5E0281419B4C">
+					<title>Parameters</title>
+					<tgroup cols="3">
+						<colspec colname="col1" colnum="1" colwidth="1.00*"/>
+						<colspec colname="col2" colnum="2" colwidth="4.74*"/>
+						<colspec colname="newCol3" colnum="3" colwidth="1*"/>
+						<thead>
+							<row>
+								<entry colname="col1">Name </entry>
+								<entry colname="col2">Description</entry>
+								<entry colname="col3">Default Value</entry>
+							</row>
+						</thead>
+						<tbody>
+							<row>
+								<entry colname="col1"><parmname>--name</parmname>
+								</entry>
+								<entry colname="col2"><i>Required.</i> Name of the offline disk
+									store to be upgraded. </entry>
+								<entry/>
+							</row>
+							<row>
+								<entry colname="col1"><parmname>--disk-dirs </parmname></entry>
+								<entry colname="col2"><i>Required.</i> Directories where data for
+									the disk store was previously written. </entry>
+								<entry/>
+							</row>
+							<row>
+								<entry colname="col1"><parmname>--max-oplog-size</parmname>
+								</entry>
+								<entry colname="col2"> Maximum size (in megabytes) of the oplogs
+									created by the upgrade. A value of <codeph>-1</codeph> indicates
+									that there is no maximum size limit for oplogs. </entry>
+								<entry>-1</entry>
+							</row>
+							<row>
+								<entry colname="col1"><parmname>--J</parmname>
+								</entry>
+								<entry colname="col2">Arguments passed to the Java Virtual Machine
+									performing the upgrade operation on the disk store. </entry>
+								<entry/>
+							</row>
+						</tbody>
+					</tgroup>
+				</table>
+			</p>
+			<p><b>Example Commands:</b>
+				<codeblock>upgrade offline-disk-store --name=DiskStore1 --disk-dirs=/Disks/DiskStore1
+upgrade offline-disk-store --name=DiskStore1 --disk-dirs=/Disks/DiskStore1 --J=-DXmx512</codeblock>
+			</p>
+		</body>
+	</topic>
+</dita>

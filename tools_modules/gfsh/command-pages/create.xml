@@ -1,0 +1,922 @@
+<?xml version="1.0"?>
+<!DOCTYPE dita PUBLIC "-//OASIS//DTD DITA Composite//EN" "ditabase.dtd">
+<dita>
+	<topic id="topic_9663C9448D2745B387FC08F84818DDEC">
+		<title>create</title>
+		<shortdesc>Create async-event-queues, disk-stores, indexes, and regions. </shortdesc>
+		<topic id="topic_ryz_pb1_dk">
+			<title>create async-event-queue</title>
+			<shortdesc>Creates an asynchronous event queue for batching events. </shortdesc>
+			<body>
+				<p><b> Availability:</b> Online. You must be connected in <codeph>gfsh</codeph> to a
+					JMX Manager member to use this command.</p>
+				<p>
+					<b>Syntax:</b>
+					<codeblock>create async-event-queue --id=value --listener=value [--group=value(nullvalue)*]
+    [--parallel(=value)?] [--enable-batch-conflation(=value)?] [--batch-size=value]
+    [--batch-time-interval=value] [--persistent(=value)?] [--disk-store=value]
+    [--disk-synchronous(=value)?] [--max-queue-memory=value]
+    [--dispatcher-threads=value] [--order-policy=value]
+    [--listener-param=value(,value)*]
+</codeblock>
+					<table id="table_jzz_pb1_dk">
+						<title>Parameters</title>
+						<tgroup cols="3">
+							<colspec colname="col1" colnum="1" colwidth="1.1*"/>
+							<colspec colname="col2" colnum="2" colwidth="2.49*"/>
+							<colspec colname="newCol3" colnum="3" colwidth="1*"/>
+							<thead>
+								<row>
+									<entry colname="col1">Name </entry>
+									<entry colname="col2">Description</entry>
+									<entry colname="col3">Default Value</entry>
+								</row>
+							</thead>
+							<tbody>
+								<row>
+									<entry colname="col1">
+										<parmname>--id</parmname>
+									</entry>
+									<entry colname="col2"><i>Required</i>. ID of the asynchronous
+										event queue</entry>
+									<entry/>
+								</row>
+								<row>
+									<entry colname="col1">
+										<parmname>--group</parmname>
+									</entry>
+									<entry colname="col2">The queue is created on all members of
+										this group. If you do not specify a group the queue is
+										created on all members.</entry>
+									<entry/>
+								</row>
+								<row>
+									<entry colname="col1">
+										<parmname>--parallel</parmname>
+									</entry>
+									<entry colname="col2">Specifies whether the queue is
+										parallel.</entry>
+									<entry>false</entry>
+								</row>
+								<row>
+									<entry colname="col1">
+										<parmname>--enable-batch-conflation</parmname>
+									</entry>
+									<entry colname="col2">Enables batch conflation.</entry>
+									<entry>false</entry>
+								</row>
+								<row>
+									<entry colname="col1">
+										<parmname>--batch-size</parmname>
+									</entry>
+									<entry
+										conref="../../../reference/topics/cache_xml.xml#async-event-queue/entry_umb_jl1_dk"/>
+									<entry>100</entry>
+								</row>
+								<row>
+									<entry colname="col1">
+										<parmname>--batch-time-interval</parmname>
+									</entry>
+									<entry>Maximum amount of time, in ms, that can elapse before a
+										batch is delivered.</entry>
+									<entry>5</entry>
+								</row>
+								<row>
+									<entry colname="col1">
+										<parmname>--persistent</parmname>
+									</entry>
+									<entry
+										conref="../../../reference/topics/cache_xml.xml#async-event-queue/entry_xsv_kl1_dk">
+										<p>If specified with out a value, default is true.</p>
+									</entry>
+									<entry>false<p>If specified with out a value, default is
+											true.</p></entry>
+								</row>
+								<row>
+									<entry colname="col1">
+										<parmname>--disk-store</parmname>
+									</entry>
+									<entry
+										conref="../../../reference/topics/cache_xml.xml#async-event-queue/entry_gtz_ml1_dk"/>
+									<entry/>
+								</row>
+								<row>
+									<entry colname="col1">
+										<parmname>--disk-synchronous</parmname>
+									</entry>
+									<entry>Specifies whether disk writes are synchronous.</entry>
+									<entry>true</entry>
+								</row>
+								<row>
+									<entry colname="col1">
+										<parmname>--max-queue-memory</parmname>
+									</entry>
+									<entry
+										conref="../../../reference/topics/cache_xml.xml#async-event-queue/entry_pqr_pl1_dk"/>
+									<entry>100</entry>
+								</row>
+								<row>
+									<entry colname="col1">
+										<parmname>--dispatcher-threads</parmname>
+									</entry>
+									<entry>Number of threads used for sending events.</entry>
+									<entry>5</entry>
+								</row>
+								<row>
+									<entry colname="col1">
+										<parmname>--order-policy</parmname>
+									</entry>
+									<entry>Policy for dispatching events when --dispatcher-threads
+										is > 1. Possible values are <codeph>THREAD</codeph>,
+											<codeph>KEY</codeph>, <codeph>PARTITION</codeph>. </entry>
+									<entry>KEY</entry>
+								</row>
+								<row>
+									<entry colname="col1">
+										<parmname>--listener</parmname>
+									</entry>
+									<entry><i>Required.</i> Fully-qualified class name of Async
+										Event Listener for this queue</entry>
+									<entry/>
+								</row>
+								<row>
+									<entry colname="col1">
+										<parmname>--listener-param</parmname>
+									</entry>
+									<entry>Parameter name and value to be passed to the Async Event
+										Listener class. Optionally, you can specify a value by
+										following the parameter name with the # character and the
+										value. For
+										example:<codeblock>--listener-param=myParam#24</codeblock>
+									</entry>
+									<entry/>
+								</row>
+							</tbody>
+						</tgroup>
+					</table>
+				</p>
+				<p>
+					<b>Example Commands:</b>
+					<codeblock>
+create async-event-queue --id=myAEQ --listener=myApp.myListener
+</codeblock>
+				</p>
+				<p> </p>
+			</body>
+		</topic>
+		<topic id="topic_w2t_l3m_qq">
+			<title>create defined indexes</title>
+			<shortdesc>Creates all the defined indexes.</shortdesc>
+			<body>
+				<p>See also <xref href="define.xml#concept_B70E7B27CEF1496CB3B7217B15FF4726"/> and
+						<xref href="clear.xml#concept_B70E7B27CEF1496CB3B7217B15FF4726"/>.</p>
+				<p><b> Availability:</b> Online. You must be connected in <parmname>gfsh</parmname>
+					to a JMX Manager member to use this command. </p>
+				<p>
+					<b>Syntax:</b>
+					<codeblock>create defined indexes [--member=value] [--group=value]</codeblock>
+				</p>
+				<table id="table_cgy_3jm_qq">
+					<title>Parameters</title>
+					<tgroup cols="3">
+						<colspec colname="col1" colnum="1" colwidth="25%"/>
+						<colspec colname="col2" colnum="2" colwidth="*"/>
+						<colspec colname="newCol3" colnum="3" colwidth="1*"/>
+						<thead>
+							<row>
+								<entry colname="col1"> Name</entry>
+								<entry colname="col2">Description</entry>
+								<entry colname="col3">Default</entry>
+							</row>
+						</thead>
+						<tbody>
+							<row>
+								<entry colname="col1">
+									<parmname>--member</parmname>
+								</entry>
+								<entry colname="col2">Name/Id of the member on which index will be
+									created. </entry>
+								<entry/>
+							</row>
+							<row>
+								<entry colname="col1">
+									<parmname>--group</parmname>
+								</entry>
+								<entry colname="col2">The index will be created on all the members
+									in this member group. </entry>
+								<entry/>
+							</row>
+						</tbody>
+					</tgroup>
+				</table>
+				<p>
+					<b>Example Commands:</b>
+					<codeblock>create defined indexes</codeblock>
+				</p>
+				<p>
+					<b>Sample Output:</b>
+					<codeblock>gfsh>create defined indexes
+Indexes successfully created. Use list indexes to get details.
+1. ubuntu(server1:17682)&lt;v1>:27574
+</codeblock>
+				</p>
+				<p>If index creation fails, you may receive an error message in gfsh similar to the
+					following:<codeblock>gfsh&gt;create defined indexes
+Exception : com.gemstone.gemfire.cache.query.RegionNotFoundException , 
+Message : Region ' /r3' not found: from  /r3Occurred on following members
+1. india(s1:17866)&lt;v1&gt;:27809</codeblock></p>
+			</body>
+		</topic>
+		<topic id="topic_bkn_zty_ck">
+			<title>create disk-store</title>
+			<shortdesc> Defines a pool of one or more disk stores, which can be used by regions and
+				client subscription queues. </shortdesc>
+			<body>
+				<p>See <xref href="../../../managing/disk_storage/chapter_overview.xml#disk_storage"
+					/></p>
+				<p><b> Availability:</b> Online. You must be connected in <parmname>gfsh</parmname>
+					to a JMX Manager member to use this command. </p>
+				<p>
+					<b>Syntax:</b>
+					<codeblock>create disk-store --name=value --dir=value(,value)* [--allow-force-compaction(=value)?] 
+[--auto-compact(=value)?] [--compaction-threshold=value] [--max-oplog-size=value]
+[--queue-size=value] [--time-interval=value] [--write-buffer-size=value] [--group=value(,value)*] 
+[--disk-usage-warning-percentage=value] [--disk-usage-critical-percentage=value]
+
+</codeblock>
+					<table id="table_lkn_zty_ck">
+						<title>Parameters</title>
+						<tgroup cols="3">
+							<colspec colname="col1" colnum="1" colwidth="1*"/>
+							<colspec colname="col2" colnum="2" colwidth="1.62*"/>
+							<colspec colname="newCol3" colnum="3" colwidth="1*"/>
+							<thead>
+								<row>
+									<entry colname="col1"> Name</entry>
+									<entry colname="col2">Description</entry>
+									<entry>Default Value</entry>
+								</row>
+							</thead>
+							<tbody>
+								<row>
+									<entry colname="col1">
+										<parmname>--name</parmname>
+									</entry>
+									<entry colname="col2"><i>Required.</i> The name of this disk
+										store. </entry>
+									<entry/>
+								</row>
+								<row>
+									<entry colname="col1">
+										<parmname>--dir</parmname>
+									</entry>
+									<entry colname="col2"><i>Required.</i> One or more directory
+										names where the disk store files are written. Optionally,
+										directory names may be followed by <codeph>#</codeph> and
+										the maximum number of megabytes that the disk store can use
+										in the directory. For example:
+										<codeblock>--dir=/data/ds1 
+--dir=/data/ds2#5000</codeblock>If
+										the specified directory does not exist, the command will
+										create the directory for you.</entry>
+									<entry/>
+								</row>
+								<row>
+									<entry colname="col1">
+										<parmname>--allow-force-compaction</parmname>
+									</entry>
+									<entry>Set to true to allow disk compaction to be forced on this
+										disk store. </entry>
+									<entry>false</entry>
+								</row>
+								<row>
+									<entry colname="col1">
+										<parmname>--auto-compact</parmname>
+									</entry>
+									<entry>Set to true to automatically compact the disk
+										files.</entry>
+									<entry>true</entry>
+								</row>
+								<row>
+									<entry colname="col1">
+										<parmname>--compaction-threshold</parmname>
+									</entry>
+									<entry>Percentage of garbage allowed before the disk store is
+										eligible for compaction.</entry>
+									<entry>50</entry>
+								</row>
+								<row>
+									<entry colname="col1">
+										<parmname>--max-oplog-size</parmname>
+									</entry>
+									<entry>Maximum size, in megabytes, for an oplog file. When the
+										oplog file reaches this size, the file is rolled over to a
+										new file. </entry>
+									<entry>1024</entry>
+								</row>
+								<row>
+									<entry colname="col1">
+										<parmname>--queue-size</parmname>
+									</entry>
+									<entry>Maximum number of operations that can be asynchronously
+										queued to be written to disk.</entry>
+									<entry>0</entry>
+								</row>
+								<row>
+									<entry colname="col1">
+										<parmname>--time-interval</parmname>
+									</entry>
+									<entry>The number of milliseconds that can elapse before
+										unwritten data is written to disk. </entry>
+									<entry>1000</entry>
+								</row>
+								<row>
+									<entry colname="col1">
+										<parmname> --group</parmname>
+									</entry>
+									<entry colname="col2">The name of a group of distributed system
+										members. The disk store is created on all members of this
+										group. If no group is specified, the disk store is created
+										on all members. </entry>
+									<entry/>
+								</row>
+								<row>
+									<entry colname="col1">
+										<parmname>--write-buffer-size</parmname>
+									</entry>
+									<entry>The size of the write buffer that this disk store uses
+										when writing data to disk. Larger values may increase
+										performance but use more memory. The disk store allocates
+										one direct memory buffer of this size.</entry>
+									<entry>32768</entry>
+								</row>
+								<row>
+									<entry colname="col1">
+										<parmname>--disk-usage-warning-percentage</parmname>
+									</entry>
+									<entry>Disk usage above this threshold generates a warning
+										message. For example, if the threshold is set to 90%, then
+										on a 1 TB drive falling under 100 GB of free disk space
+										generates the warning.<p>Set to "0" (zero) to
+										disable.</p></entry>
+									<entry>90</entry>
+								</row>
+								<row>
+									<entry colname="col1">
+										<parmname>--disk-usage-critical-percentage</parmname>
+									</entry>
+									<entry>Disk usage above this threshold generates an error
+										message and shuts down the member's cache. For example, if
+										the threshold is set to 99%, then falling under 10 GB of
+										free disk space on a 1 TB drive generates the error and
+										shuts down the cache.<p>Set to "0" (zero) to disable.</p>
+									</entry>
+									<entry>99</entry>
+								</row>
+							</tbody>
+						</tgroup>
+					</table>
+				</p>
+				<p>
+					<b>Example Commands:</b>
+					<codeblock>create disk-store --name-store1 --dir=/data/ds1</codeblock>
+				</p>
+				<p>
+					<b>Sample Output:</b>
+				</p>
+				<p>
+					<codeblock>gfsh>create disk-store --name-store1 --dir=/data/ds1
+Member  | Result
+------- | -------
+server1 | Success</codeblock>
+				</p>
+			</body>
+		</topic>
+		<topic id="topic_960A5B6FD3D84E1881EE118E299DD12D">
+			<title>create index</title>
+			<shortdesc>Create an index that can be used when executing queries.</shortdesc>
+			<body>
+				<p><b>Availability:</b> Online. You must be connected in <codeph>gfsh</codeph> to a
+					JMX Manager member to use this command. </p>
+				<p>See <xref href="../../../developing/query_index/query_index.xml#indexing"/>.</p>
+				<p>
+					<b>Syntax:</b>
+					<codeblock>create index --name=value --expression=value --region=value 
+[--member=value] [--type=value] [--group=value]</codeblock>
+				</p>
+				<table id="table_9E1C010276AC45A59446A767A517D39F">
+					<title>Parameters</title>
+					<tgroup cols="3">
+						<colspec colname="col1" colnum="1" colwidth="25%"/>
+						<colspec colname="col2" colnum="2" colwidth="*"/>
+						<colspec colname="newCol3" colnum="3" colwidth="1*"/>
+						<thead>
+							<row>
+								<entry colname="col1"> Name</entry>
+								<entry colname="col2">Description</entry>
+								<entry colname="col3">Default</entry>
+							</row>
+						</thead>
+						<tbody>
+							<row>
+								<entry colname="col1">
+									<parmname>--name</parmname>
+								</entry>
+								<entry colname="col2"><i>Required.</i> Name of the index to create. </entry>
+								<entry/>
+							</row>
+							<row>
+								<entry colname="col1">
+									<parmname>--expression</parmname>
+								</entry>
+								<entry colname="col2"><i>Required.</i> Field of the region values
+									that are referenced by the index. </entry>
+								<entry/>
+							</row>
+							<row>
+								<entry colname="col1">
+									<parmname>--region</parmname>
+								</entry>
+								<entry colname="col2">
+									<i>Required.</i> Name/Path of the region which corresponds to
+									the "from" clause in a query. </entry>
+								<entry/>
+							</row>
+							<row>
+								<entry colname="col1">
+									<parmname>--member</parmname>
+								</entry>
+								<entry colname="col2">Name/Id of the member on which index will be
+									created. </entry>
+								<entry/>
+							</row>
+							<row>
+								<entry colname="col1">
+									<parmname>--type</parmname>
+								</entry>
+								<entry colname="col2"> Type of the index. Valid values are:
+										<codeph>range</codeph>, <codeph>key</codeph> and
+										<codeph>hash</codeph>. </entry>
+								<entry>
+									<codeph>range</codeph>
+								</entry>
+							</row>
+							<row>
+								<entry colname="col1">
+									<parmname>--group</parmname>
+								</entry>
+								<entry colname="col2">The index will be created on all the members
+									in this member group. </entry>
+								<entry/>
+							</row>
+						</tbody>
+					</tgroup>
+				</table>
+				<p>
+					<b>Example Commands:</b>
+					<codeblock>create index --name=myKeyIndex --expression=region1.Id --region=region1 --type=key</codeblock>
+				</p>
+				<p>
+					<b>Sample Output:</b>
+					<codeblock>gfsh>create index --name=myKeyIdex --expression=region1.Id --region=region1 --type=key
+Index successfully created with following details
+Name       : myKeyIdex
+Expression : region1.Id
+RegionPath : /region1
+Members which contain the index
+1. ubuntu(server1:17682)&lt;v1>:27574
+
+<?xm-replace_text Codeblock?>gfsh>create index --name=myIndex2 --expression=exp2 --region=/exampleRegion
+Failed to create index "myIndex2" due to following reasons
+Index "myIndex2" already exists.  Create failed due to duplicate name.
+Occurred on following members
+1. ubuntu(server1:17682)&lt;v1>:27574
+</codeblock>
+				</p>
+			</body>
+		</topic>
+		<topic id="topic_54B0985FEC5241CA9D26B0CE0A5EA863">
+			<title>create region</title>
+			<shortdesc>Create a region with given path and configuration.</shortdesc>
+			<body>
+				<p id="p_d1n_y31_3l"> You must specify either a <codeph>--type</codeph> or a
+						<codeph>--template-region</codeph> for initial configuration when creating a
+					region. Specifying a <codeph>--key-constraint</codeph> and
+						<codeph>--value-constraint</codeph> makes object type information available
+					during querying and indexing. </p>
+				<p>See <xref
+						href="../../../developing/region_options/chapter_overview.xml#determining_storage_and_dist"
+					/>. </p>
+				<p><b>Availability:</b> Online. You must be connected in <codeph>gfsh</codeph> to a
+					JMX Manager member to use this command. </p>
+				<p>
+					<b>Syntax:</b>
+					<codeblock> create region --name=value [--type=value] [--template-region=value]
+    [--group=value(,value)*] [--skip-if-exists(=value)?]
+    [--key-constraint=value] [--value-constraint=value]
+    [--enable-statistics=value] [--entry-idle-time-expiration=value]
+    [--entry-idle-time-expiration-action=value]
+    [--entry-time-to-live-expiration=value]
+    [--entry-time-to-live-expiriation-action=value]
+    [--region-idle-time-expiration=value]
+    [--region-idle-time-expiration-action=value]
+    [--region-time-to-live-expiration=value]
+    [--region-time-to-live-expiration-action=value] [--disk-store=value]
+    [--enable-synchronous-disk=value] [--enable-async-conflation=value]
+    [--enable-subscription-conflation=value] [--cache-listener=value(,value)*]
+    [--cache-loader=value] [--cache-writer=value]
+    [--async-event-queue-id=value(,value)*]
+    [--gateway-sender-id=value(,value)*] [--enable-concurrency-checks=value]
+    [--enable-cloning=value] [--concurrency-level=value]
+    [--colocated-with=value] [--local-max-memory=value]
+    [--recovery-delay=value] [--redundant-copies=value]
+    [--startup-recovery-delay=value] [--total-max-memory=value]
+    [--total-num-buckets=value] [--compressor=value]
+</codeblock>
+				</p>
+				<table id="table_4CDCDC115DD043D5B8ACAA8D4CCFB145">
+					<title>Parameters</title>
+					<tgroup cols="3">
+						<colspec colname="col1" colnum="1" colwidth="1.00*"/>
+						<colspec colname="col2" colnum="2" colwidth="2.46*"/>
+						<colspec colname="newCol3" colnum="3" colwidth="1*"/>
+						<thead>
+							<row>
+								<entry colname="col1"> Name</entry>
+								<entry colname="col2">Description</entry>
+								<entry colname="col3">Default</entry>
+							</row>
+						</thead>
+						<tbody>
+							<row>
+								<entry colname="col1">
+									<parmname>--name</parmname>
+								</entry>
+								<entry colname="col2"><i>Required.</i> Name/Path of the region to be
+									created. </entry>
+								<entry/>
+							</row>
+							<row>
+								<entry colname="col1">
+									<parmname>--type</parmname>
+								</entry>
+								<entry colname="col2"><i>Required</i> (if template-region is not
+									specified.) Type of region to create. Options include:
+									PARTITION, PARTITION_REDUNDANT, REPLICATE, LOCAL, etc. <p>To get
+										a list of of all region type options, add the
+											<parmname>--type</parmname> parameter and then select
+										the TAB key to display a full list. </p>
+								</entry>
+								<entry/>
+							</row>
+							<row>
+								<entry colname="col1">
+									<parmname>--template-region </parmname>
+								</entry>
+								<entry colname="col2">
+									<i>Required</i> (if type is not specified.) Name/Path of the
+									region whose attributes should be duplicated when creating this
+									region. </entry>
+								<entry/>
+							</row>
+							<row>
+								<entry colname="col1">
+									<parmname>--group</parmname>
+								</entry>
+								<entry colname="col2">Group(s) of members on which the region will
+									be created. </entry>
+								<entry/>
+							</row>
+							<row>
+								<entry colname="col1">
+									<parmname>--skip-if-exists</parmname>
+								</entry>
+								<entry colname="col2">Skip region creation if the region already
+									exists. If the parameter is specified without a value, the value
+									is set to true. If the parameter is not specified, the value
+									(default) is false. </entry>
+								<entry>
+									<codeph>true</codeph>
+								</entry>
+							</row>
+							<row>
+								<entry colname="col1">
+									<parmname>--key-constraint</parmname>
+								</entry>
+								<entry colname="col2">Fully qualified class name of the objects
+									allowed as region keys. Ensures that keys for region entries are
+									all of the same class. </entry>
+								<entry/>
+							</row>
+							<row>
+								<entry colname="col1">
+									<parmname>--value-constraint </parmname>
+								</entry>
+								<entry colname="col2">Fully qualified class name of the objects
+									allowed as region values. If not specified, then region values
+									can be of any class. </entry>
+								<entry/>
+							</row>
+							<row>
+								<entry colname="col1">
+									<parmname>--enable-statistics</parmname>
+								</entry>
+								<entry colname="col2">Whether to gather statistics for the region.
+									Must be true to use expiration on the region. </entry>
+								<entry/>
+							</row>
+							<row>
+								<entry colname="col1">
+									<parmname>--entry-idle-time-expiration</parmname>
+								</entry>
+								<entry colname="col2">How long the region's entries can remain in
+									the cache without being accessed.</entry>
+								<entry>no expiration</entry>
+							</row>
+							<row>
+								<entry colname="col1">
+									<parmname>--entry-idle-time-expiration-action </parmname>
+								</entry>
+								<entry colname="col2"> Action to be taken on an entry that has
+									exceeded the idle expiration. Valid expiration actions include
+									destroy, local-destroy, invalidate (default), local-invalidate. </entry>
+								<entry/>
+							</row>
+							<row>
+								<entry colname="col1">
+									<parmname>--entry-time-to-live-expiration</parmname>
+								</entry>
+								<entry colname="col2">How long the region's entries can remain in
+									the cache without being accessed or updated. The default is no
+									expiration of this type. </entry>
+								<entry>no expiration</entry>
+							</row>
+							<row>
+								<entry colname="col1">
+									<parmname>--entry-time-to-live-expiration-action</parmname>
+								</entry>
+								<entry colname="col2"> Action to be taken on an entry that has
+									exceeded the TTL expiration. Valid expiration actions include
+									destroy, local-destroy, invalidate (default), local-invalidate. </entry>
+								<entry/>
+							</row>
+							<row>
+								<entry colname="col1">
+									<parmname>--region-idle-time-expiration</parmname>
+								</entry>
+								<entry colname="col2">How long the region can remain in the cache
+									without being accessed. The default is no expiration of this
+									type. </entry>
+								<entry>no expiration</entry>
+							</row>
+							<row>
+								<entry colname="col1">
+									<parmname>--region-idle-time-expiration-action </parmname>
+								</entry>
+								<entry colname="col2">Action to be taken on a region that has
+									exceeded the idle expiration. Valid expiration actions include
+									destroy, local-destroy, invalidate (default), local-invalidate. </entry>
+								<entry/>
+							</row>
+							<row>
+								<entry colname="col1">
+									<parmname>--region-time-to-live-expiration </parmname>
+								</entry>
+								<entry colname="col2"> How long the region can remain in the cache
+									without being accessed or updated. The default is no expiration
+									of this type. </entry>
+								<entry>no expiration</entry>
+							</row>
+							<row>
+								<entry colname="col1">
+									<parmname>--region-time-to-live-expiration-action</parmname>
+								</entry>
+								<entry colname="col2"> Action to be taken on a region that has
+									exceeded the TTL expiration. Valid expiration actions include
+									destroy, local-destroy, invalidate (default), local-invalidate. </entry>
+								<entry/>
+							</row>
+							<row>
+								<entry colname="col1">
+									<parmname>--disk-store</parmname>
+								</entry>
+								<entry colname="col2"> Disk Store to be used by this region. The
+										<xref format="dita"
+										href="list.xml#topic_BC14AD57EA304FB3845766898D01BD04"
+										scope="local" type="topic"
+										><?xm-replace_text list disk-stores?></xref> command can be
+									used to display existing disk stores. </entry>
+								<entry/>
+							</row>
+							<row>
+								<entry colname="col1">
+									<parmname>--enable-synchronous-disk</parmname>
+								</entry>
+								<entry colname="col2"> Whether writes are done synchronously for
+									regions that persist data to disk. </entry>
+								<entry/>
+							</row>
+							<row>
+								<entry colname="col1">
+									<parmname>--enable-async-conflation</parmname>
+								</entry>
+								<entry colname="col2"> Whether to allow aggregation of asynchronous
+									TCP/IP messages sent by the producer member of the region. A
+									false value causes all asynchronous messages to be sent
+									individually. </entry>
+								<entry/>
+							</row>
+							<row>
+								<entry colname="col1">
+									<parmname>--enable-subscription-conflation</parmname>
+								</entry>
+								<entry colname="col2"> Whether the server should conflate its
+									messages to the client. A false value causes all server-client
+									messages to be sent individually. </entry>
+								<entry/>
+							</row>
+							<row>
+								<entry colname="col1">
+									<parmname>--cache-listener</parmname>
+								</entry>
+								<entry colname="col2"> Fully qualified class name of a plug-in to be
+									instantiated for receiving after-event notification of changes
+									to the region and its entries. Any number of cache listeners can
+									be configured. </entry>
+								<entry/>
+							</row>
+							<row>
+								<entry colname="col1">
+									<parmname>--cache-loader</parmname>
+								</entry>
+								<entry colname="col2"> Fully qualified class name of a plug-in to be
+									instantiated for receiving notification of cache misses in the
+									region. At most, one cache loader can be defined in each member
+									for the region. For distributed regions, a cache loader may be
+									invoked remotely from other members that have the region
+									defined. </entry>
+								<entry/>
+							</row>
+							<row>
+								<entry colname="col1">
+									<parmname>--cache-writer</parmname>
+								</entry>
+								<entry colname="col2"> Fully qualified class name of a plug-in to be
+									instantiated for receiving before-event notification of changes
+									to the region and its entries. The plug-in may cancel the event.
+									At most, one cache writer can be defined in each member for the
+									region. </entry>
+								<entry/>
+							</row>
+							<row>
+								<entry colname="col1">
+									<parmname>--async-event-queue-id</parmname>
+								</entry>
+								<entry colname="col2"> IDs of the Async Event Queues that will be
+									used for write-behind operations. </entry>
+								<entry/>
+							</row>
+							<row>
+								<entry colname="col1">
+									<parmname>--enable-concurrency-checks</parmname>
+								</entry>
+								<entry colname="col2"> Whether Region Version Vectors are
+									implemented. Region Version Vectors are an extension to the
+									versioning scheme that aid in synchronization of replicated
+									regions. </entry>
+								<entry/>
+							</row>
+							<row>
+								<entry colname="col1">
+									<parmname>--enable-cloning</parmname>
+								</entry>
+								<entry colname="col2"> Determines how fromDelta applies deltas to
+									the local cache for delta propagation. When true, the updates
+									are applied to a clone of the value and then the clone is saved
+									to the cache. When false, the value is modified in place in the
+									cache. </entry>
+								<entry/>
+							</row>
+							<row>
+								<entry colname="col1">
+									<parmname>--concurrency-level </parmname>
+								</entry>
+								<entry colname="col2"> Estimate of the maximum number of application
+									threads that will concurrently access a region entry at one
+									time. This attribute does not apply to partitioned regions. </entry>
+								<entry/>
+							</row>
+							<row>
+								<entry colname="col1">
+									<parmname>--colocated-with </parmname>
+								</entry>
+								<entry colname="col2"> Central Region with which this region should
+									be colocated. </entry>
+								<entry/>
+							</row>
+							<row>
+								<entry colname="col1">
+									<parmname>--local-max-memory</parmname>
+								</entry>
+								<entry colname="col2">Maximum amount of memory, in megabytes, to be
+									used by the region in this process. (The default is 90% of
+									available heap.) </entry>
+								<entry/>
+							</row>
+							<row>
+								<entry colname="col1">
+									<parmname>--recovery-delay </parmname>
+								</entry>
+								<entry colname="col2">Delay in milliseconds that existing members
+									will wait before satisfying redundancy after another member
+									crashes. The default (value of -1) indicates that redundancy
+									will not be recovered after a a failure. </entry>
+								<entry/>
+							</row>
+							<row>
+								<entry colname="col1">
+									<parmname>--redundant-copies </parmname>
+								</entry>
+								<entry colname="col2"> Number of extra copies of buckets desired.
+									Extra copies allow for both high availability in the face of VM
+									departure (intended or unintended) and load balancing read
+									operations. (Allowed values: 0, 1, 2 and 3) </entry>
+								<entry/>
+							</row>
+							<row>
+								<entry colname="col1">
+									<parmname>--startup-recovery-delay </parmname>
+								</entry>
+								<entry colname="col2"> Delay in milliseconds that new members will
+									wait before satisfying redundancy. -1 indicates that adding new
+									members will not trigger redundancy recovery. </entry>
+								<entry>The default is to recover redundancy immediately when a new
+									member is added. </entry>
+							</row>
+							<row>
+								<entry colname="col1">
+									<parmname>--total-max-memory </parmname>
+								</entry>
+								<entry colname="col2"> Maximum amount of memory, in megabytes, to be
+									used by the region in all processes. </entry>
+								<entry/>
+							</row>
+							<row>
+								<entry colname="col1">
+									<parmname>--total-num-buckets </parmname>
+								</entry>
+								<entry colname="col2"> Total number of hash buckets to be used by
+									the region in all processes. </entry>
+								<entry>113</entry>
+							</row>
+							<row>
+								<entry colname="col1">
+									<parmname>--compressor</parmname>
+								</entry>
+								<entry colname="col2">Java class name that implements compression
+									for the region. You can write a custom compressor that
+									implements
+										<codeph>com.gemstone.gemfire.compression.Compressor</codeph>
+									or you can specify the Snappy compressor
+										(<codeph>com.gemstone.gemfire.compression.SnappyCompressor</codeph>),
+									which is bundled with <keyword keyref="product_name"/>. See
+										<xref
+										href="../../../managing/region_compression/region_compression.xml#topic_r43_wgc_gl"
+									/>.</entry>
+								<entry>no compression</entry>
+							</row>
+						</tbody>
+					</tgroup>
+				</table>
+				<p>
+					<b>Example Commands:</b>
+					<codeblock>create region --name=region1 --type=REPLICATE_PERSISTENT \
+--cache-writer=com.gemstone.gemfire.examples.MyCacheWriter \
+--group=Group1 --disk-store=DiskStore1
+
+create region --name=region12 --template-region=/region1
+
+create region --name=region2 --type=REPLICATE \
+--cache-listener=com.gemstone.gemfire.examples.MyCacheListener1,\
+com.gemstone.gemfire.examples.MyCacheListener2 \
+--group=Group1,Group2
+
+create region --name=region3 --type=PARTITION_PERSISTENT --redundant-copies=2 --total-max-memory=1000 \
+--startup-recovery-delay=5 --total-num-buckets=100 --disk-store=DiskStore2 \
+--cache-listener=com.gemstone.gemfire.examples.MyCacheListener3 \
+--group=Group2 
+
+create region --name=region4 --type=REPLICATE_PROXY --cache-listener=com.gemstone.gemfire.examples.MyCacheListener1 
+--group=Group1,Group2</codeblock>
+				</p>
+				<p>
+					<b>Sample Output:</b>
+					<codeblock>gfsh>create region --name=myRegion --type=LOCAL
+Member  | Status
+------- | ---------------------------------------
+server1 | Region "/myRegion" created on "server1"</codeblock>
+				</p>
+			</body>
+		</topic>
+	</topic>
+</dita>

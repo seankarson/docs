@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE task PUBLIC "-//OASIS//DTD DITA Task//EN" "http://docs.oasis-open.org/dita/v1.1/OS/dtd/task.dtd">
+<task id="set_pr_redundancy">
+	<title>Set Enforce Unique Host</title>
+	<shortdesc id="shortdesc_F066E067A9344A3D9C12B412271748FD">Configure <keyword
+			keyref="product_name"/> to use only unique physical machines for redundant copies of
+		partitioned region data. </shortdesc>
+	<taskbody>
+		<prereq id="prereq_D2ECB9FDD2FA495B8186A6D45EBC1B71">Understand how to set a member's
+				<codeph>gemfire.properties</codeph> settings. See <xref
+				href="../../reference/topics/gemfire_properties.xml#gemfire_properties"
+				type="concept" format="dita" scope="local"/>. </prereq>
+		<steps id="steps_AF908A1BC6C84D3DAD7C6B224C5B1A17">
+			<step id="step_D0914D42F3734FBF9926B0D7796AC9F5">
+				<cmd>Configure your members so <keyword keyref="product_name"/> always uses
+					different physical machines for redundant copies of partitioned region data
+					using the <codeph>gemfire.properties</codeph> setting
+						<codeph>enforce-unique-host</codeph>. The default for this setting is false.
+				</cmd>
+			</step>
+		</steps>
+		<example id="example_33EAD53D5052460BAE6EE3AEC33A271D"> Example:
+			<codeblock>enforce-unique-host=true</codeblock>
+		</example>
+	</taskbody>
+</task>

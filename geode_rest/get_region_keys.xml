@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE topic PUBLIC "-//OASIS//DTD DITA Topic//EN" "topic.dtd">
+<topic
+  id="topic_itv_mg5_m4">
+  <title>GET /gemfire-api/v1/{region}/keys</title>
+  <shortdesc>List all keys for the specified region.</shortdesc>
+  <body>
+    <section>
+      <title>Resource URL</title>
+      <codeblock>http://&lt;<i>hostname_or_http-service-bind-address</i>>:&lt;<i>http-service-port</i>>/gemfire-api/v1/{region}/{keys}</codeblock>
+    </section>
+    <section>
+      <title>Parameters</title>
+      <p>None.</p>
+    </section>
+    <section>
+      <title>Example Request</title>
+      <codeblock>GET /gemfire-api/v1/orders/keys</codeblock>
+    </section>
+    <section>
+      <title>Example Success Response</title>
+      <codeblock>
+Response Payload: application/json
+
+200 OK
+Server: Apache-Coyote/1.1
+Location: http://localhost:8080/gemfire-api/v1/orders/keys
+Content-Type: application/json
+Transfer-Encoding: chunked
+Date: Sat, 18 Jan 2014 21:20:05 GMT
+{    "keys": [
+        "1",
+        "2",
+        "3"
+    ]
+}</codeblock>
+    </section>
+    <section>
+      <title>Error Codes</title>
+      <simpletable
+        frame="all"
+        relcolwidth="1.0* 2.39*"
+        id="simpletable_vfq_33v_m4">
+        <sthead>
+          <stentry>Status Codes</stentry>
+          <stentry>Description</stentry>
+        </sthead>
+        <strow>
+          <stentry>404 NOT FOUND</stentry>
+          <stentry>Specified region does not exist.</stentry>
+        </strow>
+        <strow>
+          <stentry>405 METHOD NOT ALLOWED</stentry>
+          <stentry>Returned if any HTTP request method other than GET (for
+            example, POST, PUT, DELETE, etc.) is used.</stentry>
+        </strow>
+        <strow>
+          <stentry>500 INTERNAL SERVER ERROR</stentry>
+          <stentry>Error encountered at <keyword keyref="product_name"/> server. Check the HTTP response
+            body for a stack trace of the exception.</stentry>
+        </strow>
+      </simpletable>
+    </section>
+  </body>
+</topic>

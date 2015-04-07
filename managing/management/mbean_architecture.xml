@@ -1,0 +1,54 @@
+<?xml version="1.0"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept id="concept_40A475F186E249C597681069C835CF65">
+	<title>Federated MBean Architecture</title>
+	<shortdesc>Pivotal <keyword keyref="product_name"/> uses MBeans to manage and monitor different
+		parts of <keyword keyref="product_name"/>. <keyword keyref="product_name"/>'s federated
+		MBean architecture is scalable and allows you to have a single-agent view of a <keyword
+			keyref="product_name"/> distributed system. </shortdesc>
+	<conbody>
+		<section id="section_19948055E4184110910B11CD979A923A">
+			<title>Federation of <keyword keyref="product_name"/> MBeans and MBeanServers</title>
+			<p>Federation of the MBeanServers means that one member, the JMX Manager Node, can
+				provide a proxied view of all the MBeans that the MBeanServer hosts. Federation also
+				means that operations and notifications are spread across the distributed system. </p>
+			<p><keyword keyref="product_name"/> federation takes care of the following
+				functionality: <ul id="ul_BAE5EE2FDA8F4F92A419F35308549D1D">
+					<li id="li_2DF548F0D97046089FF16925765015A1">MBean proxy creation </li>
+					<li id="li_EC28B9029499476A903CE6C5A8BD13B8">MBean state propagation </li>
+					<li id="li_DC141F6117854C95AEB41BC5A4CF1F25">Notifications propagation </li>
+					<li id="li_1D3EDE627F914FD3974429A58C76E9C7">Operation invocation </li>
+				</ul>
+			</p>
+		</section>
+		<section id="section_AD13594ADA814194897488CF96BCC479">
+			<title>MBean Proxy Naming Conventions</title>
+			<p>Each <keyword keyref="product_name"/> MBean follows a particular naming convention
+				for easier grouping. For example:
+				<codeblock>GemFire:type=Member,service=LockService,name=&lt;dlsName&gt;,memberName=&lt;memberName&gt;</codeblock>
+				At the JMX Manager node, this MBean will be registered with GemFire/&lt;memberId&gt;
+				as domain. </p>
+			<p>The following are some sample MBean names: </p>
+			<p>MemberMBean: <codeblock>GemFire:type=Member,member=&lt;Node1&gt;</codeblock>
+			</p>
+		</section>
+		<section id="section_8F9D375A185E476FB50E7D6E30BE2FC7">
+			<title>Use of MXBeans</title>
+			<p>In its Management API, <keyword keyref="product_name"/> provides MXBeans to ensure
+				that any MBeans that are created are usable by any client, including remote clients,
+				without requiring the client to access specific classes in order to access contents
+				of the MBean. </p>
+		</section>
+		<section id="section_DCC1B2AB80B04E8CBED041C1F3BDAB5F">
+			<title>MBean Proxy Creation</title>
+			<p><keyword keyref="product_name"/> proxies are inherently local MBeans. Every <keyword
+					keyref="product_name"/> JMX manager member hosts proxies pointing to the local
+				MBeans of every managed node. Proxy MBeans will also emit any notification emitted
+				by local MBeans in managed nodes when an event occurs in that managed node. </p>
+			<p>
+				<note> Aggregate MBeans on the JMX Manager node are not proxied. </note>
+			</p>
+			<p> </p>
+		</section>
+	</conbody>
+</concept>

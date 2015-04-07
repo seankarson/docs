@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "http://docs.oasis-open.org/dita/v1.1/OS/dtd/concept.dtd">
+<concept id="indexing">
+	<title>Working with Indexes</title>
+	<shortdesc> The <keyword keyref="product_name"/> query engine supports indexing. An index can
+		provide significant performance gains for query execution.</shortdesc>
+	<conbody>
+		<section id="section_565C080FBDD0443C8504DF372E3C32C8">
+			<p>A query run without the aid of an index iterates through every object in the
+				collection. If an index is available that matches part or all of the query
+				specification, the query iterates only over the indexed set, and query processing
+				time can be reduced. </p>
+		</section>
+	</conbody>
+</concept>

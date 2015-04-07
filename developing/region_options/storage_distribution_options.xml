@@ -1,0 +1,59 @@
+<?xml version="1.0"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept id="concept_B18B7754E7C7485BA6D66F2DDB7A11FB">
+	<title> Storage and Distribution Options</title>
+	<shortdesc><keyword keyref="product_name"/> provides several models for data storage and
+		distribution including partitioned or replicated as well as distributed or non-distributed
+		(local cache storage). </shortdesc>
+	<conbody>
+		<section id="section_787D674A64244871AE49CBB58475088E">
+			<p>At its most general, data management means having current data available when and
+				where your applications need it. In a properly configured <keyword
+					keyref="product_name"/> installation, you store your data in your local members
+				and <keyword keyref="product_name"/> automatically distributes it to the other
+				members that need it according to your cache configuration settings. You may be
+				storing very large data objects that require special consideration, or you may have
+				a high volume of data requiring careful configuration to safeguard your
+				application's performance or memory use. You may need to be able to explicitly lock
+				some data during particular operations. Most data management features are available
+				as configuration options, which you can specify either using gfsh's cluster
+				configuration service, <codeph>cache.xml</codeph> file or the API. Once configured,
+					<keyword keyref="product_name"/> manages the data automatically. For example,
+				this is how you manage data distribution, disk storage, data expiration activities,
+				and data partitioning. A few features are managed at run-time through the API. </p>
+			<p>At the architectural level, data distribution runs between peers in a single system
+				and between clients and servers. <ul id="ul_7fcf8a80-2802-4a41-8668-42d212e8b318">
+					<li id="li_1887D0A416E948E18D7467201869B6D3">
+						<p>Peer-to-peer provides the core distribution and storage models, which are
+							specified as attributes on the data regions. </p>
+					</li>
+					<li id="li_17DF686D11FD448DA69406BA31E71660">
+						<p>For client/server, you choose which data regions to share between the
+							client and server tiers. Then, within each region, you can fine-tune the
+							data that the server automatically sends to the client by subscribing to
+							subsets. </p>
+					</li>
+				</ul>
+			</p>
+			<p>Data storage in any type of installation is based on the peer-to-peer configuration
+				for each individual distributed system. Data and event distribution is based on a
+				combination of the peer-to-peer and system-to-system configurations. </p>
+			<title>Peer-to-Peer Region Storage and Distribution</title>
+			<p>The storage and distribution models are configured through cache and region
+				attributes. The main choices are partitioned, replicated, or just distributed. All
+				server regions must be partitioned or replicated. Each region’s
+					<codeph>data-policy</codeph> and <codeph>subscription-attributes</codeph>, and
+				its <codeph>scope</codeph> if it is not a partitioned region, interact for finer
+				control of data distribution. </p>
+		</section>
+		<section id="section_A364D16DFADA49D1A838A7EAF8E4251C">
+			<title>Storing Data in the Local Cache</title>
+			<p>To store data in your local cache, use a region <codeph>refid</codeph> with a
+					<codeph>RegionShortcut</codeph> or <codeph>ClientRegionShortcut</codeph> that
+				has local state. These automatically set the region <codeph>data-policy</codeph> to
+				a non-empty policy. The regions without storage can send and receive event
+				distributions without storing anything in your application heap. With the other
+				settings, all entry operations received are stored locally. </p>
+		</section>
+	</conbody>
+</concept>

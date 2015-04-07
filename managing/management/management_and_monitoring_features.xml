@@ -1,0 +1,62 @@
+<?xml version="1.0"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept id="concept_F7B9EE348DA744D3BBDFD68E7F48A604">
+	<title>Management and Monitoring Features</title>
+	<shortdesc><keyword keyref="product_name_long"/> uses a federated Open MBean strategy to manage
+		and monitor all members of the distributed system. This strategy gives you a consolidated,
+		single-agent view of the distributed system. </shortdesc>
+	<conbody>
+		<section id="section_37CECE9B26644505A79784EA0CD1FDAE">
+			<p>Application and manager development is much easier because you do not have to find
+				the right MBeanServer to make a request on an MBean. Instead, you interact with a
+				single MBeanServer that aggregates MBeans from all other local and remote
+				MBeanServers. </p>
+			<p>Some other key advantages and features of <keyword keyref="product_name"/>
+				administration architecture: <ul id="ul_774C1C9330744D0AA311401601BEF15B">
+					<li id="li_1A9A4DA03B934B2C9BF460B9B47BEE31"><keyword keyref="product_name"/>
+						monitoring is tightly integrated into <keyword keyref="product_name"/>'s
+						processes instead of running in a separately installed and configured
+						monitoring agent. You can use the same framework to actually manage <keyword
+							keyref="product_name"/> and perform administrative operations, not just
+						monitor it. </li>
+					<li id="li_6767866D95F1452585CDF2350FC96941">All <keyword keyref="product_name"
+						/> MBeans are <i>MXBeans</i>. They represent useful and relevant information
+						on the state of the distributed system and all its members. Because MXBeans
+						use the Open MBean model with a predefined set of types, clients and remote
+						management programs no longer require access to model-specific classes
+						representing your MBean types. Using MXBeans adds flexibility to your
+						selection of clients and makes the <keyword keyref="product_name"/>
+						management and monitoring much easier to use. </li>
+					<li id="li_A6ADFA38EC064937A14A5B6074DEDEB4">Each member in the distributed
+						system is manageable through MXBeans, and each member hosts its own MXBeans
+						in a Platform MBeanServer. </li>
+					<li id="li_0644006C2BF5411FB0721F6C64C1A2A5">Any <keyword keyref="product_name"
+						/> member can be configured to provide a federated view of all the MXBeans
+						for all members in a <keyword keyref="product_name"/> cluster. </li>
+					<li id="li_C8C0DE4906FC4CD49E8E1C539F73B239"><keyword keyref="product_name"/>
+						has also modified its use of JMX to be industry-standard and friendly to
+						generic JMX clients. You can now easily monitor or manage the distributed
+						system by using any third-party tool that is compliant with JMX. For
+						example, JConsole. </li>
+				</ul>
+			</p>
+		</section>
+		<section id="section_A3166A9657044E088DA0FE2C2B8325BE">
+			<title>References</title>
+			<p>For more information on MXBeans and Open MBeans, see: <ul
+					id="ul_23CF39D3A1C04566B57E7F90AD978E72">
+					<li id="li_7373A10720BD4912B58DF5A6C5F17CE7"><xref
+							href="http://docs.oracle.com/javase/6/docs/api/javax/management/MXBean.html"
+							scope="external" format="html"
+							><?xm-replace_text http://docs.oracle.com/javase/6/docs/api/javax/management/MXBean.html?></xref>
+					</li>
+					<li id="li_1775DCC5C24F43DCA465C3027DE49C28"><xref
+							href="http://docs.oracle.com/javase/6/docs/api/javax/management/openmbean/package-summary.html"
+							scope="external" format="html"
+							><?xm-replace_text http://docs.oracle.com/javase/6/docs/api/javax/management/openmbean/package-summary.html?></xref>
+					</li>
+				</ul>
+			</p>
+		</section>
+	</conbody>
+</concept>

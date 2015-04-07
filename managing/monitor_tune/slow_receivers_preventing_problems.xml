@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "http://docs.oasis-open.org/dita/v1.1/OS/dtd/concept.dtd">
+<concept id="slow_recv">
+	<title>Preventing Slow Receivers</title>
+	<shortdesc>During system integration, you can identify and eliminate potential causes of slow
+		receivers in peer-to-peer communication. </shortdesc>
+	<conbody>
+		<p>Work with your network administrator to eliminate any problems you identify. </p>
+		<p>Slowing is more likely to occur when applications run many threads, send large messages
+			(due to large entry values), or have a mix of region configurations. The problem can
+			also arise from message delivery retries caused by intermittent connection problems. </p>
+		<p><b>Host Resources</b>
+		</p>
+		<p>Make sure that the machines that run <keyword keyref="product_name"/> members have enough
+			CPU available to them. Do not run any other heavyweight processes on the same machine. </p>
+		<p>The machines that host <keyword keyref="product_name"/> application and cache server
+			processes should have comparable computing power and memory capacity. Otherwise, members
+			on the less powerful machines tend to have trouble keeping up with the rest of the
+			group. </p>
+		<p><b>Network Capacity</b>
+		</p>
+		<p>Eliminate congested areas on the network by rebalancing the traffic load. Work with your
+			network administrator to identify and eliminate traffic bottlenecks, whether caused by
+			the architecture of the distributed <keyword keyref="product_name"/> system or by
+			contention between the <keyword keyref="product_name"/> traffic and other traffic on
+			your network. Consider whether more subnets are needed to separate the <keyword
+				keyref="product_name"/> administrative traffic from <keyword keyref="product_name"/>
+			data transport and to separate all the <keyword keyref="product_name"/> traffic from the
+			rest of your network load. </p>
+		<p>The network connections between hosts need to have equal bandwidth. If not, you can end
+			up with a configuration like the multicast example in the following figure, which
+			creates conflicts among the members. For example, if app1 sends out data at 7Mbps, app3
+			and app4 would be fine, but app2 would miss some data. In that case, app2 contacts app1
+			on the TCP channel and sends a log message that it’s dropping data. <image
+				placement="break" id="image_F8C424AB97C444298993294000676150"
+				href="../../images_svg/unbalanced_network_capacity_probs.svg"/>
+		</p>
+		<p><b>Plan for Growth</b>
+		</p>
+		<p>Upgrade the infrastructure to the level required for acceptable performance. Analyze the
+			expected <keyword keyref="product_name"/> traffic in comparison to the network’s
+			capacity. Build in extra capacity for growth and high-traffic spikes. Similarly,
+			evaluate whether the machines that host <keyword keyref="product_name"/> application and
+			cache server processes can handle the expected load. </p>
+	</conbody>
+</concept>

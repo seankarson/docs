@@ -1,0 +1,65 @@
+<?xml version="1.0"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept id="concept_249C98CFF0BF4BCCA7778AE2D751F52E">
+	<title>shutdown</title>
+	<shortdesc>Stop all members. </shortdesc>
+	<conbody>
+		<p>Asks all the members that have a cache to close the cache and disconnect from the system.
+			If the <codeph>--include-locators</codeph> parameter is specified, the command shuts
+			down any running locators one by one. The timeout parameter allows you to specify that
+			the system should be shutdown forcibly after the time has exceeded. </p>
+		<p><b> Availability:</b> Online. You must be connected in <codeph>gfsh</codeph> to a JMX
+			Manager member to use this command. </p>
+		<p>
+			<b>Syntax:</b>
+			<codeblock>shutdown [--time-out=value] [--include-locators=value]</codeblock>
+			<table id="table_AB48B5AD825A4829954EE15759F0CDF1">
+				<title>Parameters</title>
+				<tgroup cols="3">
+					<colspec colname="col1" colnum="1" colwidth="1.00*"/>
+					<colspec colname="col2" colnum="2" colwidth="2.68*"/>
+					<colspec colname="newCol3" colnum="3" colwidth="1*"/>
+					<thead>
+						<row>
+							<entry colname="col1">Name </entry>
+							<entry colname="col2">Description</entry>
+							<entry>Default Value</entry>
+						</row>
+					</thead>
+					<tbody>
+						<row>
+							<entry colname="col1">
+								<parmname>--time-out </parmname>
+							</entry>
+							<entry colname="col2">Time to wait (in seconds) for a graceful shutdown.
+								Should be at least 10 seconds. The default value if not specified is
+								10. </entry>
+							<entry>10</entry>
+						</row>
+						<row>
+							<entry colname="col1"><parmname>--include-locators</parmname></entry>
+							<entry colname="col2">To shutdown locators, specify this option as
+								true.</entry>
+							<entry>false</entry>
+						</row>
+					</tbody>
+				</tgroup>
+			</table>
+		</p>
+		<p>
+			<b>Example Commands:</b>
+			<codeblock>shutdown
+shutdown --time-out=15
+shutdown --include-locators=true</codeblock>
+		</p>
+		<p>
+			<b>Sample Output:</b>
+			<codeblock>gfsh&gt;shutdown
+"As a lot of data in memory will be lost, including possibly events in
+queues, do you really want to shutdown the entire distributed system? (Y/n):"
+Y
+Shutdown is triggered
+ </codeblock>
+		</p>
+	</conbody>
+</concept>

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE topic PUBLIC "-//OASIS//DTD DITA Topic//EN" "topic.dtd">
+<topic id="topic_jvc_pw3_34">
+  <title>TCP/IP KeepAlive Configuration</title>
+  <shortdesc><keyword keyref="product_name"/> supports TCP KeepAlive to prevent socket connections
+    from being timed out. </shortdesc>
+  <body>
+    <p>The <codeph>gemfire.enableTcpKeepAlive</codeph> system property prevents connections that
+      appear idle from being timed out (for example, by a firewall.) When configured to true,
+        <keyword keyref="product_name"/> enables the SO_KEEPALIVE option for individual sockets.
+      This operating system-level setting allows the socket to send verification checks (ACK
+      requests) to remote systems in order to determine whether or not to keep the socket connection
+      alive. </p>
+    <p>
+      <note>The time intervals for sending the first ACK KeepAlive request, the subsequent ACK
+        requests and the number of requests to send before closing the socket is configured on the
+        operating system level.</note>
+    </p>
+    <p>By default, this system property is set to true.</p>
+  </body>
+</topic>

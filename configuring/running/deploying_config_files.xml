@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "http://docs.oasis-open.org/dita/v1.1/OS/dtd/concept.dtd">
+<concept id="deploying_config_files">
+	<title>Deploying Configuration Files without the Cluster Configuration Service</title>
+	<shortdesc id="shortdesc_37F07FEFBB174F52890D56BEC8792FE1">You can deploy your <keyword
+			keyref="product_name_long"/> configuration files in your system directory structure or
+		in jar files. You determine how you want to deploy your configuration files and set them up
+		accordingly. </shortdesc>
+	<conbody>
+		<note>If you use the cluster configuration service to create and manage your <keyword
+				keyref="product_name_long"/> cluster configuration, the procedures described in this
+			section are not needed because <keyword keyref="product_name"/> automatically manages
+			the distribution of the configuration files and jar files to members of the cluster. See
+				<xref href="../cluster_config/gfsh_persist.xml#concept_r22_hyw_bl"/>.<p>You can use
+				the procedures described in this section to distribute configurations that are
+				member-specific, or for situations where you do not want to use the cluster
+				configuration service. </p></note>
+	</conbody>
+</concept>

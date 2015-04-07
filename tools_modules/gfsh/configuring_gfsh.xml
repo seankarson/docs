@@ -1,0 +1,229 @@
+<?xml version="1.0"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept id="concept_3B9C6CE2F64841E98C33D9F6441DF487">
+	<title>Configuring the gfsh Environment</title>
+	<shortdesc> The <codeph>gfsh.bat</codeph> and <codeph>gfsh</codeph> bash script automatically
+		append the required <keyword keyref="product_name_long"/> and JDK .jar libraries to your
+		existing CLASSPATH. There are user-configurable properties you can set for security,
+		environment variables, logging, and troubleshooting. </shortdesc>
+	<conbody>
+		<ul id="ul_0919656A8F934C79A71621A41A7603EE">
+			<li id="li_2A538F8B747E41B1A22ED2E360BD051C">
+				<xref format="dita"
+					href="configuring_gfsh.xml#concept_3B9C6CE2F64841E98C33D9F6441DF487/section_0D2EEA7A9ED54DFDB2E1EE955E47921E"
+					scope="local" type="section"/>
+			</li>
+			<li id="li_774BBB8DC2B04E30BFD7AC558C330645">
+				<xref format="dita"
+					href="configuring_gfsh.xml#concept_3B9C6CE2F64841E98C33D9F6441DF487/section_3FA4CD2B451B4A30A12D30DDE8DF8619"
+					scope="local" type="section"/>
+			</li>
+			<li id="li_FD13CDB809694863B3C5B3FF054462CD">
+				<xref format="dita"
+					href="configuring_gfsh.xml#concept_3B9C6CE2F64841E98C33D9F6441DF487/section_C69A2711A7664A9091A5E634221053CB"
+					scope="local" type="section"/>
+			</li>
+			<li id="li_195D497B81C94EC191954531C3311C4D">
+				<xref format="dita"
+					href="configuring_gfsh.xml#concept_3B9C6CE2F64841E98C33D9F6441DF487/section_BE7FB8B355E748FA8BEFE75B2C3CB86E"
+					scope="local" type="section"/>
+			</li>
+			<li id="li_D1CEC0ADA48D438F824184C1E874BCE5">
+				<xref format="dita"
+					href="configuring_gfsh.xml#concept_3B9C6CE2F64841E98C33D9F6441DF487/section_72323A45E0064FD2982663F7AC2A2E07"
+					scope="local" type="section"/>
+			</li>
+			<li id="li_60972AAC61FC42F6A85A396DF29294CE">
+				<xref format="dita"
+					href="configuring_gfsh.xml#concept_3B9C6CE2F64841E98C33D9F6441DF487/section_02EEF9A519094EAD9D6B5C8E896EBA27"
+					scope="local" type="section"/>
+			</li>
+		</ul>
+		<section id="section_0D2EEA7A9ED54DFDB2E1EE955E47921E">
+			<title>JAR Libraries in CLASSPATH</title>
+			<p>When you start up <codeph>gfsh</codeph>, it will automatically load required JAR
+				files that have been packaged in the <codeph>gfsh-dependencies.jar</codeph> file.
+				You do not need to modify your CLASSPATH to run gfsh. When starting servers and
+				locators in gfsh, the start server and start locator commands will load
+					<codeph>server-dependencies.jar</codeph> and
+					<codeph>locator-dependencies.jar</codeph> files into the process CLASSPATH for
+				you. </p>
+			<p>These dependency JAR files are packaged in your <keyword keyref="product_name_long"/>
+				installation in the <codeph>$GEMFIRE/lib</codeph> (or on Windows, the
+					<codeph>%GEMFIRE%\lib</codeph>) directory. </p>
+			<p>
+				<note>The <codeph>gfsh</codeph> command-line utility also searches for
+						<codeph>tools.jar</codeph> (included with JDK) and adds it to gfsh's
+					CLASSPATH. If you do not have a JDK installed, gfsh uses file-based
+					communication instead for the <codeph>status</codeph> and <codeph>stop</codeph>
+					commands. If using a JRE instead of JDK, gfsh must have read-write permissions
+					in the working directory of the server and locator processes.</note>
+			</p>
+		</section>
+		<section id="section_02EEF9A519094EAD9D6B5C8E896EBA27">
+			<title>Machine Hostname</title>
+			<p>On some operating systems, you may need to ensure that the hostname of your machine
+				is configured in your system hosts file. For example, on Mac OSX you may need to map
+				your machine's hostname to your IP address in the <codeph>/etc/hosts</codeph> file
+				in order for <codeph>gfsh</codeph> and Pulse to operate correctly. </p>
+		</section>
+		<section id="section_3FA4CD2B451B4A30A12D30DDE8DF8619">
+			<title>Configuring gfsh Security</title>
+			<p>Since <codeph>gfsh</codeph> must connect to a JMX Manager member to run certain
+				commands (namely those commands that manage and monitor other members), JMX Manager
+				configuration properties can affect <codeph>gfsh</codeph> security. In
+					<codeph>gemfire.properties</codeph>, the following <keyword
+					keyref="product_name"/> properties can affect <codeph>gfsh</codeph> connection
+				settings to the JMX Manager: </p>
+			<ul id="ul_C73F1EFE4FE6483A93AF39AC38FE6466">
+				<li id="li_7541D481F36442C48CE2E40EC8715AED"><codeph>jmx-manager-ssl</codeph>
+				</li>
+				<li id="li_E330DEF44FD848FDAF7D1456167E4747"><codeph>jmx-manager-port</codeph>
+				</li>
+				<li id="li_53EC61ED236844478E711B1413603AE9"
+						><codeph>jmx-manager-password-file</codeph>
+				</li>
+				<li id="li_919418BEB3AE4DAFAA3AEA3B369F2D2D"
+						><codeph>jmx-manager-access-file</codeph>
+				</li>
+			</ul>
+			<p>You may also need to verify that the ports are available and open to client
+				connections. See <xref scope="local"
+					href="../../managing/management/jmx_manager_operations.xml#topic_263072624B8D4CDBAD18B82E07AA44B6"
+					type="topic" format="dita"><?xm-replace_text Configuring a JMX Manager?></xref>
+				for details on these security properties. </p>
+		</section>
+		<section id="section_C69A2711A7664A9091A5E634221053CB"><title>Configuring gfsh Environment
+				Variables</title><p> In addition, you can set several gfsh-specific preset SHELL
+				variables by using the <codeph>set variable</codeph> command. For example, you can
+				set <codeph>gfsh</codeph> to run in quiet mode. Not all <codeph>gfsh</codeph>
+				variables are modifiable; user-configurable variables include: </p><ul
+				id="ul_84A76C22977E4DF4B1FC855E9DECA6FC">
+				<li id="li_C206E4CB2F7C4E00A49C626CADF950B0">APP_FETCH_SIZE </li>
+				<li id="li_FA94186951244726BF88E47C58A3232C">APP_COLLECTION_LIMIT </li>
+				<li id="li_4D19347D715E4AF5BCC2FBA4A77A56AF">APP_QUIET_EXECUTION </li>
+			</ul> See <xref
+				href="useful_gfsh_shell_variables.xml#concept_731ECA5E40E943CBA5C1198A0745D8EE"
+				type="concept" format="dita" scope="local"
+				><?xm-replace_text Useful gfsh Shell Variables?></xref> for more information. </section>
+		<section id="section_BE7FB8B355E748FA8BEFE75B2C3CB86E">
+			<title>Configuring gfsh Session Logging</title>
+			<p>By default, <codeph>gfsh</codeph> session logging is disabled. To enable gfsh
+				logging, you must set the Java system property
+						<codeph>-Dgfsh.log-level=<i>desired_log_level</i>
+				</codeph>where <i>desired_log _level</i> is one of the following values: severe,
+				warning, info, config, fine, finer, finest. For example, in
+				Linux:<codeblock>export JAVA_ARGS=-Dgfsh.log-level=info</codeblock></p>
+			<p>Then, start <codeph>gfsh</codeph>. </p>
+			<p>gfsh produces a log file named <b>gfsh-<i>%u</i>_<i>%g</i>.log</b>. This log file
+				records the events of an individual gfsh session. It includes environment
+				information, such as Java and system information, and detailed command execution.
+				The variables are replaced as follows:</p>
+			<ul id="ul_rtr_dpg_y4">
+				<li><b>%u</b> - a unique number to resolve conflicts</li>
+				<li><b>%g</b> - the generation number to distinguish rotated logs</li>
+			</ul>
+			<p>gfsh uses the JDK Logger to generate gfsh session log files. See <xref
+					href="http://docs.oracle.com/javase/7/docs/api/java/util/logging/FileHandler.html"
+					format="html" scope="external"
+					>http://docs.oracle.com/javase/7/docs/api/java/util/logging/FileHandler.html</xref>
+				for a description of how the variables are used in naming the log file. The default
+				name of the generated gfsh log file cannot be changed.</p>
+			<p>By default, the log file is written to the current working directory where you have
+				executed the <codeph>gfsh</codeph> or <codeph>gfsh.bat</codeph> script. To modify
+				the directory location where log files are written, use the
+					<codeph>gfsh.log-dir</codeph> Java system property. For
+				example:<codeblock>export JAVA_ARGS="-Dgfsh.log-level=info -Dgfsh.log-dir=/machinename/logs"</codeblock>Then,
+				start <codeph>gfsh</codeph>.</p>
+			<p>In addition, <codeph>gfsh</codeph> records a history of commands in the
+					<codeph>${SYS_USER_HOME}/.gemfire/.gfsh.history</codeph> file, which you can use
+				to create scripts or review past commands. </p>
+		</section>
+		<section>
+			<title>Member Log Files</title>
+			<p>gfsh writes several log files for any members that are started via gfsh. Useful
+				member log files include: <ul id="ul_C2AC6DD6488D46B1BBF5F43BADDC0195">
+					<li id="li_5E1BED21C6E34D558AAFC09DC2EB9038"><b>&lt;locator_name&gt;.log</b>.
+						Details a locator's configuration (including all gemfire.properties) and all
+						activity that occurs on the locator after startup. This log file is written
+						to a directory that is named after the locator. For example, if you start a
+						locator named locator1, the file is written as <codeph>locator1.log</codeph>
+						in the <codeph>&lt;product_dir&gt;/locator1</codeph> directory. </li>
+					<li id="li_BD578D2E24DC4E94B5C4E6D773668E39"><b>vf.gf.locator.pid</b>. Contains
+						the process ID of the locator. You can use the PID to stop or view the
+						status of this locator. This file is written to the same directory location
+						as the locator's log file . </li>
+					<li id="li_7B9E50F5FC71400688DEE43B47D41687"><b>&lt;server_name&gt;.log</b>.
+						Details a server's configuration (including all gemfire.properties) and all
+						activity that occurs on the server after startup. This log file is written
+						to a directory that is named after the server. For example, if you start a
+						server named server1, the file is written as <codeph>server1.log</codeph> in
+						the <codeph>&lt;product_dir&gt;/server1</codeph> directory. If you stop and
+						start the server with an identical name, the older log files are kept in the
+						same directory but renamed for versioning purposes. </li>
+					<li id="li_BBF76EF599CF4D3ABD9E551582646FBA"><b>vf.gf.server.pid</b>. Contains
+						the process ID of the server. You can use the PID to stop or view the status
+						of this server. This file is written to the same location as the server log
+						file. </li>
+				</ul>
+			</p>
+		</section>
+		<section id="section_jcs_ltx_n4">
+			<title>Tab Completion </title>
+			<p>
+				<i>This section applies only to UNIX installations.</i>
+			</p>
+			<p>When you run gfsh commands from a UNIX bash shell, you can enable automatic
+				tab-completion in the shell by running the following command:</p>
+			<codeblock>source &lt;gemfire-install-directory>/bin/gfsh-completion.bash</codeblock>
+			<p>After running this command, you can use auto completion when running gfsh commands
+				from the bash shell.</p>
+			<p>See <xref
+					href="getting_started_gfsh.xml#concept_45D28CC9710C4EAFB6EECFA0D651D439/p_sb2_ttx_n4"
+					>Using Tab Completion</xref>.</p>
+		</section>
+		<section id="section_72323A45E0064FD2982663F7AC2A2E07">
+			<title>Command History and gfsh.history</title>
+			<p>A history of commands that have been executed successfully is logged in
+					<codeph>.gfsh.history</codeph> file in a <codeph>.gemfire</codeph> directory
+				under the home directory of the user running gfsh. You can also export a history
+				file by using the <codeph>history --file=your_file_name</codeph> command. </p>
+		</section>
+		<section id="section_C84414FF16AB4279A43A41C6C8B61A7E">
+			<title>JMX Manager Update Rate and System Monitoring</title>
+			<p>When you perform data operations (such as put) and then monitor the state of the
+				system (such as using the gfsh <codeph>show metrics</codeph> command or <keyword
+					keyref="product_name_long"/> Pulse), the monitored system may not immediately
+				reflect the most recent operations. For example, if you perform a put operation and
+				then immediately execute the <codeph>show metrics</codeph> gfsh command, you may not
+				see the correct number of entries in the region. The management layer updates every
+				2 seconds. Wait a few seconds after performing operational activity to see the most
+				accurate results. </p>
+			<p>You can modify the <codeph>jmx-manager-update-rate</codeph> property in
+					<codeph>gemfire.properties</codeph> to increase or decrease the rate (specified
+				in milliseconds) at which updates are pushed to the JMX Manager. This property
+				setting should be greater than or equal to the
+					<codeph>statistic-sample-rate</codeph>. You may want to increase this rate if
+				you are experiencing performance issues; however, setting this value too high will
+				cause stale values to be seen in <codeph>gfsh</codeph> and <keyword
+					keyref="product_name_long"/> Pulse. </p>
+		</section>
+		<section>
+			<title>Formatting of Results</title>
+			<p>
+				<i>This section applies only to UNIX installations.</i>
+			</p>
+			<p>gfsh commands such as <codeph>query</codeph> produce output with wide columns that
+				may become misaligned and require manual reformatting to view the output. If the
+				output cannot fit in the available width of the terminal, gfsh automatically trims
+				the columns widths to fit. You can disable this behavior by setting the gfsh
+				environment variable <codeph>GFSH.TRIMSCRWIDTH</codeph> to <codeph>false</codeph>. </p>
+			<p>You can set the <codeph>APP_RESULT_VIEWER</codeph> variable to
+					<codeph>external</codeph> to enable viewing of the output using the UNIX
+					<codeph>less</codeph> command.</p>
+			<p>See <xref format="dita"
+					href="#concept_3B9C6CE2F64841E98C33D9F6441DF487/section_C69A2711A7664A9091A5E634221053CB"
+				/>.</p>
+		</section>
+	</conbody>
+</concept>

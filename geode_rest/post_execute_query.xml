@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE topic PUBLIC "-//OASIS//DTD DITA Topic//EN" "topic.dtd">
+<topic
+  id="topic_itv_mg5_m4">
+  <title>POST /gemfire-api/v1/queries/{queryId}</title>
+  <shortdesc>Execute the specified named query passing in scalar values for
+    query parameters in the POST body.</shortdesc>
+  <body>
+    <section>
+      <title>Resource URL</title>
+      <codeblock>http://&lt;hostname_or_http-service-bind-address>:&lt;http-service-port>/gemfire-api/v1/queries/{queryId}</codeblock>
+    </section>
+    <section>
+      <title>Parameters</title>
+    </section>
+    <simpletable
+      frame="all"
+      relcolwidth="1.0* 1.0* 1.0*"
+      id="simpletable_b4n_3jv_m4">
+      <sthead>
+        <stentry>Parameter</stentry>
+        <stentry>Description</stentry>
+        <stentry>Example Values</stentry>
+      </sthead>
+      <strow>
+        <stentry>{queryId}</stentry>
+        <stentry>QueryID for named query. </stentry>
+        <stentry>selectOrders</stentry>
+      </strow>
+      <strow>
+        <stentry>
+          <i>query bind parameter values</i>
+        </stentry>
+        <stentry>Bind parameters for the query are specified in the request body
+          (JSON).</stentry>
+        <stentry>
+          <p>Specify the parameter @type and @value for each bind parameter. For
+            example, to provide values to the following
+            query:<codeblock>SELECT o FROM /orders o WHERE o.quantity &gt; $1 AND o.totalprice &gt; $2</codeblock>You
+            could pass in the following JSON in the request body as the bind
+            parameters:<codeblock>
+[
+        {
+             "@type":  "int ",
+             "@value": 2
+        },
+        { 
+            "@type":  "double ",
+             "@value": 110.00
+        }
+]</codeblock></p>
+        </stentry>
+      </strow>
+    </simpletable>
+    <section>
+      <title>Example Request</title>
+      <codeblock>
+POST /gemfire-api/v1/queries/selectOrders
+Accept: application/json
+Content-Type: application/json
+
+[
+        {
+             "@type":  "int ",
+             "@value": 2
+        },
+        { 
+            "@type":  "double ",
+             "@value": 110.00
+        }
+]</codeblock>
+    </section>
+    <section>
+      <title>Example Success Response</title>
+      <codeblock>Response Payload: application/json
+
+200 OK
+Content-Length: &lt;#-of-bytes&gt;
+Content-Type: application/json
+
+[
+    {
+        "description":  "Purchase order for  company - B",
+         "totalPrice": 350,
+         "purchaseOrderNo": 1112,
+         "customerId": 102,
+         "deliveryDate":  "Thu Feb 20 00:00:00 IST 2014",
+         "contact":  "John Doe",
+         "email":  "John.Doe@pivotal.io",
+         "phone":  "01-2048096",
+         "items": [
+            {
+                 "description":  "Product-AAAA",
+                 "quantity": 10,
+                 "itemNo": 1,
+                 "unitPrice": 20,
+                 "totalPrice": 200,
+                 "type-class":  "com.gemstone.gemfire.web.rest.domain.Item"
+            },
+            {
+                 "description":  "Product-BBB",
+                 "quantity": 15,
+                 "itemNo": 2,
+                 "unitPrice": 10,
+                 "totalPrice": 150,
+                 "type-class":  "com.gemstone.gemfire.web.rest.domain.Item"
+            }
+        ],
+         "orderDate":  "Mon Feb 10 00:00:00 IST 2014",
+         "type-class":  "com.gemstone.gemfire.web.rest.domain.Order"
+    },
+    {...},
+    {...}
+}
+</codeblock>
+    </section>
+    <section>
+      <title>Error Codes</title>
+      <simpletable
+        frame="all"
+        relcolwidth="1.0* 1.87*"
+        id="simpletable_vfq_33v_m4">
+        <sthead>
+          <stentry>Status Code</stentry>
+          <stentry>Description</stentry>
+        </sthead>
+        <strow>
+          <stentry>404 NOT FOUND</stentry>
+          <stentry>Query with specified ID could not be found.</stentry>
+        </strow>
+        <strow>
+          <stentry>500 INTERNAL SERVER ERROR</stentry>
+          <stentry>Encountered error at server:<ul
+              id="ul_xfq_qy3_n4">
+              <li>Syntax of the OQL queryString is invalid!</li>
+              <li>A function was applied to a parameter that is improper for
+                that function!</li>
+              <li>Bind parameter is not of the expected type!</li>
+              <li>Name in the query cannot be resolved!"</li>
+              <li>The number of bound parameters does not match the number of
+                placeholders!</li>
+              <li>Query is not permitted on this type of region!</li>
+              <li>Query execution time is exceeded max query execution time
+                (gemfire.Cache.MAX_QUERY_EXECUTION_TIME) configured!</li>
+              <li>Data referenced in from clause is not available for
+                querying!"</li>
+              <li>Query execution gets canceled due to low memory conditions and
+                the resource manager critical heap percentage has been
+                set!"</li>
+              <li>Error encountered while executing named query!"</li>
+            </ul></stentry>
+        </strow>
+      </simpletable>
+    </section>
+  </body>
+</topic>

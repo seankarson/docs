@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept
+	id="concept_B70E7B27CEF1496CB3B7217B15FF4726">
+	<title>clear defined indexes</title>
+	<shortdesc>Clears all the defined indexes.</shortdesc>
+	<conbody>
+		<p>Index definitions are stored locally on the <codeph>gfsh</codeph> client. If you want to
+			create a new set of indexes or if one or more of the index creations fail, you might
+			want to clear the definitions</p>
+		<p>See also <xref
+				href="define.xml#concept_B70E7B27CEF1496CB3B7217B15FF4726"/>.</p>
+		<p>
+			<b>Availability:</b> Online or offline. </p>
+		<p>
+			<b>Syntax:</b>
+			<codeblock>clear defined indexes</codeblock>
+		</p>
+		<p>
+			<b>Example Commands:</b>
+			<codeblock>gfsh> clear defined indexes
+ </codeblock>
+		</p>
+		<p>
+			<b>Sample Output:</b>
+			<codeblock>gfsh>clear defined indexes
+Index definitions successfully cleared
+</codeblock>
+		</p>
+	</conbody>
+</concept>

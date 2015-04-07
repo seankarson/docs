@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "http://docs.oasis-open.org/dita/v1.1/OS/dtd/concept.dtd">
+<concept id="rec_network_crash">
+	<title>Understanding and Recovering from Network Outages</title>
+	<shortdesc>The safest response to a network outage is to restart all the processes and bring up
+		a fresh data set. </shortdesc>
+	<conbody>
+		<p> However, if you know the architecture of your system well, and you are sure you won’t be
+			resurrecting old data, you can do a selective restart. At the very least, you must
+			restart all the members on one side of the network failure, because a network outage
+			causes separate distributed systems that can’t rejoin automatically. </p>
+		<ul id="ul_DD35E62B1A494483ACCCB90D2107B590">
+			<li id="li_57288D8C46BE4CB587C145F82C4DCD6E">
+				<xref
+					href="recovering_from_network_outages.xml#rec_network_crash/section_900657018DC048EE9BE6A8064FAE48FD"
+					type="section" format="dita" scope="local"
+					><?xm-replace_text What Happens During a Network Outage?></xref>
+			</li>
+			<li id="li_77CC4B2143A244FB8F401BCAC004CC59">
+				<xref
+					href="recovering_from_network_outages.xml#rec_network_crash/section_F9A0C31AE25C4E7185DF3B1A8486BDFA"
+					type="section" format="dita" scope="local"
+					><?xm-replace_text Recovery Procedure?></xref>
+			</li>
+			<li id="li_C5216ADC0217402A9EC72FCD0908E202">
+				<xref
+					href="recovering_from_network_outages.xml#rec_network_crash/section_9914A63673E64EA1ADB6B6767879F0FF"
+					type="section" format="dita" scope="local"
+					><?xm-replace_text Effect of Network Failure on Partitioned Regions?></xref>
+			</li>
+			<li id="li_FF50598836EF45158ABCEC3394E7AFD8">
+				<xref
+					href="recovering_from_network_outages.xml#rec_network_crash/section_7AD5624F3CD748C0BC163562B26B2DCE"
+					type="section" format="dita" scope="local"
+					><?xm-replace_text Effect of Network Failure on Distributed Regions?></xref>
+			</li>
+			<li>
+				<xref href="#rec_network_crash/section_arm_pnr_3q" format="dita"/>
+			</li>
+			<li id="li_BB338E887B4046869878E42A8D1C5041">
+				<xref
+					href="recovering_from_network_outages.xml#rec_network_crash/section_18AEEB6CC8004C3388CCB01F988B0422"
+					type="section" format="dita" scope="local"
+					><?xm-replace_text Effect of Network Failure on Client/Server Installations?></xref>
+			</li>
+		</ul>
+		<section id="section_900657018DC048EE9BE6A8064FAE48FD">
+			<title>What Happens During a Network Outage</title>
+			<p>When the network connecting members of a distributed system goes down, system members
+				treat this like a machine crash. Members on each side of the network failure respond
+				by removing the members on the other side from the membership list. If network
+				partitioning detection is enabled, the partition that contains sufficient quorum (>
+				51% based on member weight) will continue to operate, while the other partition with
+				insufficient quorum will shut down. See <xref
+					href="../network_partitioning/chapter_overview.xml#network_partitioning"/> for a
+				detailed explanation on how this detection system operates.</p>
+			<p>In addition, members that have been disconnected either via network partition or due
+				to unresponsiveness will automatically try to reconnect to the distributed system
+				unless configured otherwise. See <xref
+					href="../autoreconnect/member-reconnect.xml#concept_22EE6DDE677F4E8CAF5786E17B4183A9"
+				/>.</p>
+		</section>
+		<section id="section_F9A0C31AE25C4E7185DF3B1A8486BDFA">
+			<title>Recovery Procedure</title>
+			<p>For deployments that have network partition detection and/or auto-reconnect disabled,
+				to recover from a network outage: </p>
+			<ol id="ol_8D95EAE70719491197B227E2D0B3E156">
+				<li id="li_463C0E10D3A2419A8756D616B7C74BDC">Decide which applications and cache
+					servers to restart, based on the architecture of the distributed system. Assume
+					that any process other than a data source is bad and needs restarting. For
+					example, if an outside data feed is coming in to one member, which then
+					redistributes to all the others, you can leave that process running and restart
+					the other members. </li>
+				<li id="li_1AC0666FC1604075B810F9F24E835172">Shut down all the processes that need
+					restarting. </li>
+				<li id="li_E68880BF05524D52A5FB1EF0053AD770">Restart them in the usual order. </li>
+			</ol>
+			<p>The members recreate the data as they return to active work. For details, see <xref
+					href="recovering_from_app_crashes.xml#rec_app_crash" type="concept"
+					format="dita" scope="local"
+					><?xm-replace_text Recovering from Application and Cache Server Crashes?></xref>.
+			</p>
+		</section>
+		<section id="section_9914A63673E64EA1ADB6B6767879F0FF">
+			<title>Effect of Network Failure on Partitioned Regions</title>
+			<p>Both sides of the distributed system continue to run as though the members on the
+				other side were not running. If the members that participate in a partitioned region
+				are on both sides of the network failure, both sides of the partitioned region also
+				continue to run as though the data stores on the other side did not exist. In
+				effect, you now have two partitioned regions. </p>
+			<p>When the network recovers, the members may be able to see each other again, but they
+				are not able to merge back together into a single distributed system and combine
+				their buckets back into a single partitioned region. You can be sure that the data
+				is in an inconsistent state. Whether you are configured for data redundancy or not,
+				you don’t really know what data was lost and what wasn’t. Even if you have redundant
+				copies and they survived, different copies of an entry may have different values
+				reflecting the interrupted workflow and inaccessible data. </p>
+		</section>
+		<section id="section_7AD5624F3CD748C0BC163562B26B2DCE">
+			<title>Effect of Network Failure on Distributed Regions</title>
+			<p>By default, both sides of the distributed system continue to run as though the
+				members on the other side were not running. For distributed regions, however, the
+				regions’s reliability policy configuration can change this default behavior. </p>
+			<p>When the network recovers, the members may be able to see each other again, but they
+				are not able to merge back together into a single distributed system. </p>
+		</section>
+		<section id="section_arm_pnr_3q">
+			<title>Effect of Network Failure on Persistent Regions</title>
+			<p>A network failure when using persistent regions can cause conflicts in your persisted
+				data. When you recover your system, you will likely encounter
+					<codeph>ConflictingPersistentDataException</codeph>s when members start up.</p>
+			<p>For this reason, you must configure
+					<codeph>enable-network-partition-detection</codeph> to <codeph>true</codeph> if
+				you are using persistent regions. </p>
+			<p>For information on how to recover from
+					<codeph>ConflictingPersistentDataException</codeph> errors should they occur,
+				see <xref href="recovering_conflicting_data_exceptions.xml#topic_ghw_z2m_jq"/>.</p>
+		</section>
+		<section id="section_18AEEB6CC8004C3388CCB01F988B0422">
+			<title>Effect of Network Failure on Client/Server Installations</title>
+			<p>If a client loses contact with all of its servers, the effect is the same as if it
+				had crashed. You need to restart the client. See <xref
+					href="recovering_from_cs_crashes.xml#rec_app_cs_crash/section_24B1898202E64C1E808C59E39417891B"
+					type="section" format="dita" scope="local"
+					><?xm-replace_text Recovering from Client Failure?></xref>. If a client loses
+				contact with some servers, but not all of them, the effect on the client is the same
+				as if the unreachable servers had crashed. See <xref
+					href="recovering_from_cs_crashes.xml#rec_app_cs_crash/section_2A598C85FAD44CDEA605646BF7BEE388"
+					type="section" format="dita" scope="local"
+					><?xm-replace_text Recovering from Server Failure ?></xref>. </p>
+			<p>Servers, like applications, are members of a distributed system, so the effect of
+				network failure on a server is the same as for an application. Exactly what happens
+				depends on the configuration of your site. </p>
+		</section>
+	</conbody>
+</concept>

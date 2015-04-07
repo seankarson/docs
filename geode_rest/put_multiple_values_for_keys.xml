@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE topic PUBLIC "-//OASIS//DTD DITA Topic//EN" "topic.dtd">
+<topic
+  id="topic_itv_mg5_m4">
+  <title>PUT /gemfire-api/v1/{region}/{key1},{key2},...{keyN}</title>
+  <shortdesc>Update or insert (put) data for multiple keys in the
+    region.</shortdesc>
+  <body>
+    <section>
+      <title>Resource URL</title>
+      <codeblock>http://&lt;<i>hostname_or_http-service-bind-address</i>>:&lt;<i>http-service-port</i>>/gemfire-api/v1/{region}/{key},{key2},...{keyN}</codeblock>
+    </section>
+    <section>
+      <title>Parameters</title>
+    </section>
+    <p>See <xref
+        href="put_replace_data.xml#topic_itv_mg5_m4"/> and <xref
+        href="put_update_cas_data.xml#topic_itv_mg5_m4"/>.</p>
+    <section>
+      <title>Example Request</title>
+      <codeblock>Request Payload: application/json
+
+PUT /gemfire-api/v1/orders/4,5
+
+Accept: application/json
+Content-Type: application/json
+[
+    {
+        "@type":  "com.gemstone.gemfire.web.rest.domain.Order",
+         "purchaseOrderNo": 555,
+         "customerId": 5,
+         "description":  "Order for 23 Corp",
+         "orderDate":  "01/15/2014",
+         "deliveryDate":  "02/20/2014",
+         "contact":  "Jane Doe",
+         "email":  "jane.doe@123corp.com",
+         "phone":  "01-2048096",
+         "items": [
+            {
+                 "itemNo": 321,
+                 "description":  "part 21",
+                 "quantity": 2,
+                 "unitPrice": 49.95,
+                 "totalPrice": 99.9
+            }
+        ],
+         "totalPrice": 99.9
+    },
+    {
+         "@type":  "com.gemstone.gemfire.web.rest.domain.Order",
+         "purchaseOrderNo": 777,
+         "customerId": 11,
+         "description":  "Order for  MNP Corp",
+         "orderDate":  "02/10/2014",
+         "deliveryDate":  "02/20/2014",
+         "contact":  "Trent Jones",
+         "email":  "trent.jones@1corp.com",
+         "phone":  "503-555-1221",
+         "items": [
+            {
+                 "itemNo": 321,
+                 "description":  "Product-21",
+                 "quantity": 3,
+                 "unitPrice": 49.95,
+                 "totalPrice": 149.85
+            }
+        ],
+         "totalPrice": 149.85
+    }
+]</codeblock>
+    </section>
+    <section>
+      <title>Example Success Response</title>
+      <codeblock>Response-payload: null
+
+<b>200 OK</b></codeblock>
+    </section>
+    <section>
+      <title>Error Codes</title>
+      <simpletable
+        frame="all"
+        relcolwidth="1.0* 2.39*"
+        id="simpletable_vfq_33v_m4">
+        <sthead>
+          <stentry>Status Code</stentry>
+          <stentry>Description</stentry>
+        </sthead>
+        <strow>
+          <stentry>400 BAD REQUEST</stentry>
+          <stentry>Returned if one or more of the supplied keys is an invalid
+            format.</stentry>
+        </strow>
+        <strow>
+          <stentry>404 NOT FOUND</stentry>
+          <stentry>Returned if the region is not found.</stentry>
+        </strow>
+        <strow>
+          <stentry>500 INTERNAL SERVER ERROR</stentry>
+          <stentry>Error encountered at <keyword keyref="product_name"/> server. Check the HTTP response
+            body for a stack trace of the exception. </stentry>
+        </strow>
+      </simpletable>
+    </section>
+  </body>
+</topic>

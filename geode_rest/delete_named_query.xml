@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE topic PUBLIC "-//OASIS//DTD DITA Topic//EN" "topic.dtd">
+<topic
+  id="topic_itv_mg5_m4">
+  <title>DELETE /gemfire-api/v1/queries/{queryId}</title>
+  <shortdesc>Delete the specified named query.</shortdesc>
+  <body>
+    <section>
+      <title>Resource URL</title>
+      <codeblock>http://&lt;hostname_or_http-service-bind-address>:&lt;http-service-port>/gemfire-api/v1/queries/{query}</codeblock>
+    </section>
+    <section>
+      <title>Parameters</title>
+      <simpletable
+        id="simpletable_upv_lsh_y4">
+        <sthead>
+          <stentry>Parameter</stentry>
+          <stentry>Description</stentry>
+          <stentry>Example Values</stentry>
+        </sthead>
+        <strow>
+          <stentry>{queryId}</stentry>
+          <stentry>QueryID for named query to delete. </stentry>
+          <stentry>selectOrders</stentry>
+        </strow>
+      </simpletable>
+    </section>
+    <section>
+      <title>Example Request</title>
+      <codeblock>DELETE /gemfire-api/v1/queries/selectOrders
+
+Accept: application/json
+Content-Type: application/json
+</codeblock>
+    </section>
+    <section>
+      <title>Example Success Response</title>
+      <codeblock>Response Payload: application/json
+
+200 OK
+</codeblock>
+    </section>
+    <section>
+      <title>Error Codes</title>
+      <simpletable
+        frame="all"
+        relcolwidth="1.0* 1.87*"
+        id="simpletable_vfq_33v_m4">
+        <sthead>
+          <stentry>Status Code</stentry>
+          <stentry>Description</stentry>
+        </sthead>
+        <strow>
+          <stentry>404 NOT FOUND</stentry>
+          <stentry>Query with specified ID could not be found.</stentry>
+        </strow>
+        <strow>
+          <stentry>500 INTERNAL SERVER ERROR</stentry>
+          <stentry>Encountered error at server. Check the HTTP response body for a stack trace of
+            the exception. </stentry>
+        </strow>
+      </simpletable>
+    </section>
+  </body>
+</topic>

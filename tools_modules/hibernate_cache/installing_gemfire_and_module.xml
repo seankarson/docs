@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "http://docs.oasis-open.org/dita/dtd/concept.dtd">
+<concept id="installing_gemfire_and_module">
+	<title>Installing the Hibernate Cache Module</title>
+	<shortdesc>The Hibernate module is included in the <keyword keyref="product_name_long"/>
+		installation package. </shortdesc>
+	<conbody>
+		<ol id="ol_09B50F21A342468689F67A3A0E4557C7">
+			<li id="li_8AFC5249925C40478A7430E94EBA0AC7">
+				<p>If you have not done so, download and install <xref format="html"
+						href="http://www.hibernate.org/" scope="external">Hibernate</xref>. See
+						<xref
+						href="../../getting_started/system_requirements/modules_system_requirements.xml#concept_93DC5047FF79417CAF803DE996D5E844/section_A7877CA6FE994EE28380A57A401A29B4"
+						type="section" format="dita" scope="local"
+						><?xm-replace_text Hibernate Module Supported Configurations?></xref> for
+					currently supported versions of Hibernate. </p>
+			</li>
+			<li id="li_1FD8FC8A6D184B0DA6A89472D8215697">
+				<p>If you have not done so, download and install <keyword keyref="product_name_long"
+					/> 8.0 from the <xref format="html"
+						href="https://network.pivotal.io/products/pivotal-gemfire" scope="external"
+							><keyword keyref="product_name_long"/> download page</xref> as described
+					in <xref
+						href="../../getting_started/installation/install_intro.xml#concept_5111C7EDF7D24CA2BCE5959006453415"
+					/>. </p>
+				<p>The Hibernate module is included in the <keyword keyref="product_name_long"/> 8.0
+					installation package. After you install <keyword keyref="product_name_long"/>,
+					you can find the module in the following location:
+					<codeblock>&lt;product_dir&gt;/tools/Modules/Pivotal_GemFire_Modules-8.0-Hibernate.zip</codeblock>where
+					&lt;product_dir&gt; is the location where you installed <keyword
+						keyref="product_name"/>. </p>
+			</li>
+			<li id="li_8C47817083514BAA83C52483C5950DAB">Make sure that
+					<codeph>&lt;product_dir&gt;/lib/gemfire.jar</codeph> is part of the CLASSPATH
+				when you run Hibernate. Alternatively, you can place the
+					<codeph>gemfire.jar</codeph> in a location that is accessible to your Hibernate
+				application. </li>
+		</ol>
+	</conbody>
+</concept>

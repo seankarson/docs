@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "http://docs.oasis-open.org/dita/v1.1/OS/dtd/concept.dtd">
+<concept id="using_bind_addresses">
+	<title>Using Bind Addresses</title>
+	<shortdesc id="shortdesc_D2DDFE2B30904EFBBC5936C3F4613AB5">You use a bind address configuration
+		to send network traffic through non-default network cards and to distribute the load of
+		network traffic for <keyword keyref="product_name"/> across multiple cards. If no bind
+		address setting is found, <keyword keyref="product_name"/> uses the host machine's default
+		address. </shortdesc>
+	<conbody>
+		<section id="section_6063D5004787488A90EC03085991F902">
+			<p>Host machines transmit data to the network and receive data from the network through
+				one or more network cards, also referred to as network interface cards (NIC) or LAN
+				cards. A host with more than one card is referred to as a multi-homed host. On
+				multi-homed hosts, one network card is used by default. You can use bind addresses
+				to configure your <keyword keyref="product_name"/> members to use non-default
+				network cards on a multi-homed host. </p>
+			<note>When you specify a non-default card address for a process, all processes that
+				connect to it need to use the same address in their connection settings. For
+				example, if you use bind addresses for your server locators, you must use the same
+				addresses to configure the server pools in your clients. <p>Use IPv4 or IPv6 numeric
+					address specifications for your bind address settings. For information on these
+					specifications, see <xref href="IPv4_and_IPv6.xml#IPv4_and_IPv6" type="concept"
+						format="dita" scope="local"/>. Do not use host names for your address
+					specifications. Host names resolve to default machine addresses. </p>
+			</note>
+		</section>
+		<section id="section_63589355AB684F739145E9185806D023">
+			<title>Peer and Server Communication</title>
+			<p>You can configure peer, and server communication so that each communication type uses
+				its own address or types use the same address. If no setting is found for a specific
+				communication type, <keyword keyref="product_name"/> uses the host machine's default
+				address. </p>
+			<note>Bind addresses set through the APIs, like <codeph>CacheServer</codeph> and
+					<codeph>DistributedSystem</codeph>, take precedence over the settings discussed
+				here. If your settings are not working, check to make sure there are no bind address
+				settings being done through API calls. </note>
+			<p>This table lists the settings used for peer and server communication, ordered by
+				precedence. For example, for server communication, <keyword keyref="product_name"/>
+				searches first for the cache-server bind address, then the <codeph>gfsh start
+					server</codeph>
+				<codeph>server-bind-address</codeph> setting, and so on until a setting is found or
+				all possibilities are exhausted. </p>
+			<table id="table_3788B6B0DE5842679D930AC9FBE9BEAB">
+				<tgroup cols="5">
+					<colspec colname="1" colnum="1" colwidth="4.74*"/>
+					<colspec colname="2" colnum="2" align="center" colwidth="1.54*"/>
+					<colspec colname="3" colnum="3" align="center" colwidth="1.00*"/>
+					<colspec colname="4" colnum="4" align="center" colwidth="1.86*"/>
+					<colspec colname="5" colnum="5" colwidth="3.29*"/>
+					<thead>
+						<row>
+							<entry>Property Setting Ordered by Precedence </entry>
+							<entry>Peer </entry>
+							<entry>Server </entry>
+							<entry>Gateway Receiver </entry>
+							<entry>Syntax </entry>
+						</row>
+					</thead>
+					<tbody>
+						<row>
+							<entry>cache.xml &lt;cache-server&gt; bind-address </entry>
+							<entry> </entry>
+							<entry>X </entry>
+							<entry> </entry>
+							<entry>&lt;cache-server&gt;bind-address=<i>address</i>
+							</entry>
+						</row>
+						<row>
+							<entry>gfsh start server command-line --server-bind-address </entry>
+							<entry> </entry>
+							<entry>X </entry>
+							<entry>X </entry>
+							<entry>gfsh start server --server-bind-address=<i>address</i>
+							</entry>
+						</row>
+						<row>
+							<entry>gemfire.properties server-bind-address </entry>
+							<entry> </entry>
+							<entry>X </entry>
+							<entry>X </entry>
+							<entry>server-bind-address=<i>address</i>
+							</entry>
+						</row>
+						<row>
+							<entry>gemfire.properties bind-address </entry>
+							<entry>X </entry>
+							<entry>X </entry>
+							<entry>X </entry>
+							<entry>bind-address=<i>address</i>
+							</entry>
+						</row>
+					</tbody>
+				</tgroup>
+			</table>
+			<p>For example, a member started with these configurations in its
+					<codeph>gemfire.properties</codeph> and <codeph>cache.xml</codeph> files will
+				use two separate addresses for peer and server communication: <codeblock>// gemfire.properties setting for peer communication
+bind-address=194.124.0.104</codeblock>
+				<codeblock>//cache.xml settings 
+&lt;cache&gt;
+
+// Server communication
+  &lt;cache-server bind-address="194.124.0.106" ...
+
+  &lt;region ...
+</codeblock>
+			</p>
+		</section>
+		<section id="section_B58645AD8C504AF6822315BB94BA2E0B">
+			<title>Locator Communication</title>
+			<p>Set the locator bind address using one of these methods: <ul
+					id="ul_DB8FD7964E654B3297C2CF7A2A0E6C87">
+					<li id="li_AC4BB4598F5D42CE8FF3D35AF20AE102">On the gfsh command line, specify
+						the bind address when you start the locator, the same as you specify any
+						other address:
+						<codeblock>gfsh&gt;start locator --name=my_locator --bind-address=<i>ip-address-to-bind</i> --port=<i>portNumber</i></codeblock>
+					</li>
+					<li id="li_0D8F2C08E11D48C187F6C9C3C67B6A9F">Inside a <keyword
+							keyref="product_name"/> application, take one of the following actions:
+							<ul id="ul_F0A26343D2BF4694B5C7BE624845166D">
+							<li id="li_796574B4D65949D3B1185E4D2DAD3392">Automatically start a
+								co-located locator using the gemfire property
+									<codeph>start-locator</codeph>, and specifying the bind address
+								for it in that property setting. </li>
+							<li id="li_46CAF7820C3545D6993CBA8764B6A67B">Use
+									<codeph>com.gemstone.gemfire.distributed.LocatorLauncher</codeph>
+								API to start the locator inside your code. Use the
+									<codeph>LocatorLauncher.Builder</codeph> class to construct an
+								instance of the <codeph>LocatorLauncher</codeph>, use the
+									<codeph>setBindAddress</codeph> method to specify the IP address
+								to use and then use the start() method to start a Locator service
+								embedded in your Java application process. </li>
+						</ul>
+					</li>
+				</ul>
+			</p>
+			<p>If your locator uses a bind address, make sure every process that accesses the
+				locator has the address as well. For peer-to-peer access to the locator, use the
+				locator's bind address and the locator's port in your
+					<codeph>gemfire.properties</codeph>
+				<codeph>locators</codeph> list. For server discovery in a client/server
+				installation, use the locator's bind address and the locator's port in the locator
+				list you provide to in the client’s server pool configuration. </p>
+			<table frame="all" id="table_1154DEF574C54D8FAF9D954134A7A1DA">
+				<tgroup cols="1">
+					<colspec colname="topic_link" colnum="1"/>
+					<thead>
+						<row>
+							<entry>Related Topics </entry>
+						</row>
+					</thead>
+					<tbody>
+						<row>
+							<entry>
+								<xref
+									href="../../configuring/running/running_the_locator.xml#running_the_locator"
+									type="concept" format="dita" scope="local"/>
+							</entry>
+						</row>
+					</tbody>
+				</tgroup>
+			</table>
+		</section>
+	</conbody>
+</concept>

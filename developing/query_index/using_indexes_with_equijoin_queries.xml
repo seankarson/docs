@@ -1,0 +1,82 @@
+<?xml version="1.0"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept id="concept_A90C5FD84FCB45B2B28D6CE78DE1D117">
+	<title>Using Indexes with Equi-Join Queries</title>
+	<shortdesc><?xm-replace_text Short Description?> Equi-join queries are queries in which two
+		regions are joined through an equality condition in the WHERE clause. </shortdesc>
+	<conbody>
+		<section id="section_47CFF4EF4D964FCFBB772B0347C02214">
+			<p>To use an index with an equi-join query:</p>
+			<ol id="ol_600FCA57F8D6492787922C3B26E7BA50">
+				<li id="li_8129E53938184B28AB781166A38B3F3B">Create an index for each side of the
+					equi-join condition. The query engine can quickly evaluate the query's equi-join
+					condition by iterating over the keys of the left-side and right-side indexes for
+					an equality match. <note>Equi-join queries require regular indexes. Key indexes
+						are not applied to equi-join queries. </note>For this query:
+					<codeblock>SELECT DISTINCT inv.name, ord.orderID, ord.status 
+FROM /investors inv, /orders ord 
+WHERE inv.investorID = ord.investorID </codeblock>Create
+					two indexes: <table id="table_3179F1DB703C40A9A9CFC2AAB410FCA9">
+						<tgroup cols="2">
+							<colspec colname="1" colnum="1" colwidth="*"/>
+							<colspec colname="2" colnum="2" colwidth="*"/>
+							<thead>
+								<row>
+									<entry>FROM clause </entry>
+									<entry>Indexed expression </entry>
+								</row>
+							</thead>
+							<tbody>
+								<row>
+									<entry>/investors inv </entry>
+									<entry>inv.investorID </entry>
+								</row>
+								<row>
+									<entry>/orders ord </entry>
+									<entry>ord.investorID </entry>
+								</row>
+							</tbody>
+						</tgroup>
+					</table>
+				</li>
+				<li id="li_AD34F38ED54949D0A7B4A73FC639E14F">If there are additional, single-region
+					queries in a query with an equi-join condition, create additional indexes for
+					the single-region conditions only if you are able to create at least one such
+					index for each region in the query. Any indexing on a subset of the regions in
+					the query will degrade performance. <p>For this example query:
+						<codeblock>SELECT DISTINCT *
+FROM /investors inv, /securities sc, inv.heldSecurities inv_hs
+    WHERE sc.status = "active"
+    AND inv.name = "xyz"
+    AND inv.age &gt; 75
+    AND inv_hs.secName = sc.secName</codeblock>Create
+						the indexes for the equi-join condition: <table
+							id="table_D7F719DB523A476094D91ED05039E3C9">
+							<tgroup cols="2">
+								<colspec colname="1" colnum="1" colwidth="*"/>
+								<colspec colname="2" colnum="2" colwidth="*"/>
+								<thead>
+									<row>
+										<entry>FROM clause </entry>
+										<entry>Indexed expression </entry>
+									</row>
+								</thead>
+								<tbody>
+									<row>
+										<entry>/investors inv, inv.heldSecurities inv_hs </entry>
+										<entry>inv_hs.secName </entry>
+									</row>
+									<row>
+										<entry>/securities sc </entry>
+										<entry>sc.secName </entry>
+									</row>
+								</tbody>
+							</tgroup>
+						</table>Then, if you create any more indexes, create one on
+							<codeph>sc.status</codeph> and one on <codeph>inv.age</codeph> or
+							<codeph>inv.name</codeph> or both. </p>
+				</li>
+			</ol>
+		</section>
+	</conbody>
+</concept>

@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "http://docs.oasis-open.org/dita/v1.1/OS/dtd/concept.dtd">
+<concept id="how_replication_works">
+	<title>How Replication and Preloading Work</title>
+	<shortdesc>To work with replicated and preloaded regions, you should understand how their data
+		is initialized and maintained in the cache. </shortdesc>
+	<conbody>
+		<section id="section_C75BB463A0584491ABD982A55E5A050F">
+			<p>Replicated and preloaded regions are configured by using one of the
+					<codeph>REPLICATE</codeph> region shortcut settings, or by setting the region
+				attribute <codeph>data-policy</codeph> to <codeph>replicate</codeph>,
+					<codeph>persistent-replicate</codeph>, or <codeph>preloaded</codeph>. </p>
+		</section>
+		<section id="section_B4E76BBCC6104A27BC0A8ECA6B9CDF91">
+			<title>Initialization of Replicated and Preloaded Regions</title>
+			<p>At region creation, the system initializes the preloaded or replicated region with
+				the most complete and up-to-date data set it can find. The system uses these data
+				sources to initialize the new region, following this order of preference: </p>
+			<ol id="ol_6A401FA1C2A14A6399E12DB33300CEE2">
+				<li id="li_FB16D10A71D14F20A2AB697FA74182C8">Another replicated region that is
+					already defined in the distributed system. </li>
+				<li id="li_82BBF866C4704D7AA88E94D94DCB0E84">For persistent replicate only. Disk
+					files, followed by a union of all copies of the region in the distributed cache. </li>
+				<li id="li_CDE3479A87BA4EEEA48D9DC45DB0EAA3">For preloaded region only. Another
+					preloaded region that is already defined in the distributed system. </li>
+				<li id="li_973ED0AB3BB345BD8B457DAA428F1732">The union of all copies of the region
+					in the distributed cache. <p/>
+				</li>
+			</ol>
+			<p>
+				<image placement="break" id="image_5F50EBA30CE3408091F07A198F821741"
+					href="../../images_svg/distributed_replica_preload.svg"/>
+			</p>
+			<p>While a region is being initialized from a replicated or preloaded region, if the
+				source region crashes, the initialization starts over. </p>
+			<p>If a union of regions is used for initialization, as in the figure, and one of the
+				individual source regions goes away during the initialization (due to cache closure,
+				member crash, or region destruction), the new region may contain a partial data set
+				from the crashed source region. When this happens, there is no warning logged or
+				exception thrown. The new region still has a complete set of the remaining members'
+				regions. </p>
+		</section>
+		<section id="section_6BE7555A711E4CA490B02E58B5DDE396">
+			<title>Behavior of Replicated and Preloaded Regions After Initialization</title>
+			<p>Once initialized, the preloaded region operates like the region with a
+					<codeph>normal</codeph>
+				<codeph>data-policy</codeph>, receiving distributions only for entries it has
+				defined in the local cache. </p>
+			<p>
+				<image placement="break" id="image_994CA599B1004D3F95E1BB7C4FAC2AEF"
+					href="../../images_svg/distributed_preload.svg"/>
+			</p>
+			<p/>
+			<p>If the region is configured as a replicated region, it receives all new creations in
+				the distributed region from the other members. This is the push distribution model.
+				Unlike the preloaded region, the replicated region has a contract that states it
+				will hold all entries that are present anywhere in the distributed region. </p>
+			<p>
+				<image placement="break" id="image_2E7F3EB6213A47FEA3ABE32FD2CB1503"
+					href="../../images_svg/distributed_replica.svg"/>
+			</p>
+		</section>
+	</conbody>
+</concept>

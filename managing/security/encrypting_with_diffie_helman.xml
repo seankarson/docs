@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "http://docs.oasis-open.org/dita/v1.1/OS/dtd/concept.dtd">
+<concept id="using_diffie_helman">
+	<title>Encrypt Credentials with Diffie-Hellman</title>
+	<shortdesc>For secure transmission of sensitive information, like passwords, you can encrypt
+		credentials using the Diffie-Hellman key exchange algorithm. </shortdesc>
+	<conbody>
+		<p>This encryption applies only to client/server authentication - not peer-to-peer
+			authentication. </p>
+		<p>You need to specify the name of a valid symmetric key cipher supported by the JDK. Valid
+			key names, like DES, DESede, AES, and Blowfish, enable the Diffie-Hellman algorithm with
+			the specified cipher to encrypt the credentials. For valid JDK names, see <xref
+				href="http://download.oracle.com/javase/1.5.0/docs/guide/security/CryptoSpec.html#AppA"
+				scope="external" format="html"
+				><?xm-replace_text http://download.oracle.com/javase/1.5.0/docs/guide/security/CryptoSpec.html#AppA?></xref>. </p>
+		<p>Before you begin, you need to understand how to use your security algorithm. </p>
+		<section id="section_45A9502BDF8E42E1970CEFB132F7424D">
+			<title>Enable Server Authentication of Client with Diffie-Hellman</title>
+			<p>Set this in property in the client’s <codeph>gemfire.properties</codeph> (or
+					<codeph>gfsecurity.properties</codeph> file if you are creating a special
+				restricted access file for security configuration): <ul
+					id="ul_E6F65BBA50E44F68A3BDF3BAECD4EF5F">
+					<li id="li_49EC04FF606C4F8EB2C841BE3C1751E5"
+								><codeph><b>security-client-dhalgo</b></codeph>. Name of a valid
+						symmetric key cipher supported by the JDK, possibly followed by a key size
+						specification. </li>
+				</ul> This causes the server to authenticate the client using the Diffie-Hellman
+				algorithm. </p>
+		</section>
+		<section id="section_D07F68BE8D3140E99244895F4AF2CC80">
+			<title>Enable Client Authentication of Server</title>
+			<p>This requires server authentication of client with Diffie-Hellman to be enabled. To
+				have your client authenticate its servers, in addition to being authenticated: <ol
+					id="ol_B421AA97572F4930AF7208FE8F754A43">
+					<li id="li_36A16CA9C78E48F08CA6D5973416508B">In server
+							<codeph>gemfire.properties</codeph> (or
+							<codeph>gfsecurity.properties</codeph> file if you are creating a
+						special restricted access file for security configuration), set: <ol
+							id="ol_BCAE91E33B2E4BEFA4C72A65EC962F96">
+							<li id="li_4970F5B4D05F459982AC6D367BC64289"
+										><codeph><b>security-server-kspath</b></codeph>. Path of the
+								PKCS#12 keystore containing the private key for the server </li>
+							<li id="li_DCB324E9DA5746B08D728C257B8B7626"
+										><codeph><b>security-server-ksalias</b></codeph>. Alias name
+								for the private key in the keystore. </li>
+							<li id="li_84FFCC0C76BC44BBBBD88BF17570E8BD"
+										><codeph><b>security-server-kspasswd</b></codeph>. Keystore
+								and private key password, which should match. </li>
+						</ol>
+					</li>
+					<li id="li_CCA1EF2C3AE542F1BE3A2CEE11D88B8C">In client
+							<codeph>gemfire.properties</codeph> (or
+							<codeph>gfsecurity.properties</codeph> file if you are creating a
+						special restricted access file for security configuration), set: <ol
+							id="ol_6D70A46E21C54B2B98A1566661511041">
+							<li id="li_C92AB913ADD14035A2D7C107345C40EC"
+										><codeph><b>security-client-kspasswd</b></codeph>. Password
+								for the public key file store on the client </li>
+							<li id="li_6B0AB72B8496407EBD71A2E002391F26"
+										><codeph><b>security-client-kspath</b></codeph>. Path to the
+								client public key truststore, the JKS keystore of public keys for
+								all servers the client can use. This keystore should not be
+								password-protected </li>
+						</ol>
+					</li>
+				</ol>
+			</p>
+		</section>
+		<section id="section_5FB4437072AC4B4E93210BEA60B67A27">
+			<title>Set the Key Size for AES and Blowfish Encryption Keys</title>
+			<p>For algorithms like AES, especially if large key sizes are used, you may need Java
+				Cryptography Extension (JCE) Unlimited Strength Jurisdiction Policy Files from Sun
+				or equivalent for your JDK. This enables encryption of client credentials in
+				combination with challenge-response from server to client to prevent replay and
+				other types of attacks. It also enables challenge-response from client to server to
+				avoid server-side replay attacks. </p>
+			<p>For the AES and Blowfish algorithms, you can specify the key size for the
+					<codeph>security-client-dhalgo</codeph> property by adding a colon and the size
+				after the algorithm specification, like this: <codeblock>security-client-dhalgo=AES:192</codeblock>
+				<ul id="ul_E0C347EB752C44E598FA295539C1EA85">
+					<li id="li_2931C5DDE2734B0E895F50120675DE03">For AES, valid key size settings
+						are: <ul id="ul_72F85C93B7D74ABE8DC255C75A1E3FFB">
+							<li id="li_BF5F6BB0A0784666BF9E0FC5D1B6FF48">AES:128 </li>
+							<li id="li_AC3DEB61B7EF4422960228B594ED7999">AES:192 </li>
+							<li id="li_8449B18BFBD44581B82398FFB5326DC8">AES:256 </li>
+						</ul>
+					</li>
+					<li id="li_4154301A36314D6691D2130306694FA7">For Blowfish, set the key size
+						between 128 and 448 bits, inclusive. </li>
+				</ul>
+			</p>
+		</section>
+	</conbody>
+</concept>

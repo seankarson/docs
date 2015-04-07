@@ -1,0 +1,317 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "http://docs.oasis-open.org/dita/v1.1/OS/dtd/concept.dtd">
+<concept id="helping_the_engine_resolve_attributes"> 
+  <title>Help the Query Engine Resolve Query Attributes</title> 
+  <prolog audience="basic"> 
+  </prolog> 
+  <conbody> 
+	 <section id="section_C6ADE55BC48142B48AB744DA8444796D"> 
+		<p>To run successfully, the query engine must be able to access all
+		  attributes specified in the query. 
+		</p> 
+		<p>To help the engine process your query at optimal speed: 
+		<ol id="ol_D82F2AE759CE437D902AF51D918146E5"> 
+		  <li id="li_A56586AE0151488D987065F6C789A9EB">Use iterator variables to
+			 explicitly associate each querying attribute to a single collection in the FROM
+			 clause. This ensures the engine can associate any querying attribute used
+			 anywhere in the query with one of the FROM clause collections. 
+		  </li> 
+		  <li id="li_BFD3A832F5CE4AC99024F49508020F0A">Explicitly specify the
+			 object type for each collection in the FROM clause. This lets the engine
+			 quickly determine the object type of the elements in each FROM clause
+			 collection. 
+		  </li> 
+		</ol>The querying engine can do some object type discovery on its own and
+		it can scan for the querying attributes within all of the object types in the
+		FROM clause collections. Both of these activities use cycles, however, and the
+		attributes search can fail if a same-named attribute is contained in more than
+		one of the collections. 
+		</p> 
+	 </section> 
+	 <section id="section_F13E4C2D91014A7EB91A96E566E9E17C"> 
+		<title>Use Iterator Variables</title> 
+		<p>Associate a name to each collection expressed in the FROM clause and
+		  use the name everywhere you reference any of the collection's querying
+		  attribute. 
+		</p> 
+		<p>In this example, 
+		  <codeph>pflo</codeph> and 
+		  <codeph>posnVal</codeph> are explicit iterator variables: 
+		  <codeblock>IMPORT cacheRunner.Position; 
+SELECT DISTINCT pflo."type", posnVal.qty 
+    FROM /portfolios pflo, positions.values posnVal TYPE Position 
+    WHERE pflo.status = 'active' and posnVal.mktValue &gt; 25.00</codeblock> 
+		</p> 
+		<p>Make the name unique to the query. The variable is added to the
+		  current scope and becomes the iterator variable bound to the elements of the
+		  collection as they are iterated. 
+		  <note>Iterator variables avoid ambiguity in your queries when there are
+			 attributes from different collections with the same name. Even if there is no
+			 ambiguity at the time you write a query, a change to your cache could introduce
+			 ambiguity at a later point and cause the query to fail until iterator variables
+			 are added. 
+		  </note> 
+		</p> 
+	 </section> 
+	 <section id="section_0EE4CBE1E1254966889C4EDE5C8501FF"> 
+		<title>Specify the Object Types of FROM Clause Collections</title> 
+		<p>Specify the object types in one of these ways: 
+		<ul id="ul_C7062EBA368B4263801B67AC770621AE"> 
+		  <li id="li_683C65B2860F4714BED1C6497B7EE61D">Through region
+			 configuration, using key and value constraints 
+		  </li> 
+		  <li id="li_677CC39754314A55B6643985971E9C40">By providing the object
+			 type specification in the query string 
+		  </li> 
+		</ul>Usually, the best approach is a mix of the two. 
+		</p> 
+		<p>Region object constraints and typing or typecasting inside the query
+		  tells the query engine the types of the objects in the FROM clause collections.
+		  The specific types of the collections themselves - map or array or some other
+		  type - is not relevant to the querying engine. The only thing that matters is
+		  the types of the elements contained in the collections. 
+		</p> 
+	 </section> 
+	 <section id="section_9B373CD8DF374209A029C13C7546CEA3"> 
+		<title>Use Region Configuration to Specify Object Type</title> 
+		<p>The region configuration settings constrain the key and value types
+		  that are stored in the cache and automatically provide typing information to
+		  the query engine. This type of object specification works for all of your
+		  top-level cached objects and has the added advantage of protecting the
+		  homogeneity of the data for querying. Set the types with the 
+		  <codeph>value-constraint</codeph> and 
+		  <codeph>key-constraint</codeph> region attributes. The querying engine
+		  refers to these attributes when it accesses the region contents. In this
+		  example, 
+		  <codeph>/portfolios</codeph> resolves to a collection of entry values.
+		  This collection is defined by the region’s 
+		  <codeph>value-constraint</codeph> to have elements of type 
+		  <codeph>cacheRunner.Portfolio</codeph>. This query relies on the 
+		  <codeph>value-constraint</codeph> to resolve 
+		  <codeph>id</codeph>. 
+		  <codeblock>SELECT DISTINCT * FROM /portfolios 
+    WHERE (id = 'XYZ-1' OR id = 'ABC-1')</codeblock> 
+		</p> 
+	 </section> 
+	 <section id="section_F7F9626C7F3B4D3B82D5C87FD23EF8E7"> 
+		<title>Provide Object Type Specification in a Query String </title> 
+		<p>You have to provide explicit typing in your queries for elements in
+		  collections that are nested inside your region entries and for entries and keys
+		  in regions where you are not able to specify a value constraint or key
+		  constraint. Typing is a 
+		  <ph
+		  conref="../../product_short_name.xml#ditacomponent_4CDD0B39CDD54D2AAF1CBC81A1FDBA19/ph_2E41EB9BE730428A970C1C206D14DC09"><?xm-replace_text Phrase?></ph>
+		  ease-of-use extension of the standard OQL typecasting syntax. 
+		</p> 
+		<p>To provide explicit typing: 
+		<ol id="ol_65E4861F2707477C9CDDC87E925A6AED"> 
+		  <li id="li_654F176697BC4EC0B720E7EA5548FC4F">Import non-common object
+			 class definitions immediately before the SELECT statement in your query string 
+		  </li> 
+		  <li id="li_518B5D8ED0E24080BB2DF114C6B7222A">Type or typecast your
+			 collections in the FROM clause where you first reference them 
+		  </li> 
+		</ol> 
+		</p> 
+		<p>The IMPORT statement allows you to provide custom Java classes to the
+		  query engine. IMPORT statements are passed to the engine in the same string as
+		  the query that uses them. The IMPORT is only required in a query if the class
+		  name is used explicitly in the query string. The only place you can have a
+		  package name in a query is in an IMPORT statement. 
+		</p> 
+		<p>These are valid IMPORT statements: 
+		  <codeblock>IMPORT com.myFolder.Portfolio; 
+IMPORT com.myFolder.Portfolio AS MyPortfolio;</codeblock> 
+		</p> 
+		<p>The first form of the import statement allows 
+		  <codeph>Portfolio</codeph> to be used as the name of the class 
+		  <codeph>com.myFolder.Portfolio</codeph>. The second form provides an
+		  alternate class name to be used. This is useful when a class name is not unique
+		  across packages and classes in a single query. 
+		</p> 
+		<p>Example: 
+		  <codeblock>IMPORT com.commonFolder.Portfolio; 
+IMPORT com.myFolder.Portfolio AS MyPortfolio; 
+SELECT DISTINCT mpflo.status 
+    FROM /portfolios pflo TYPE Portfolio, /myPortfolios mpflo TYPE MyPortfolio 
+    WHERE pflo.status = 'active' and mpflo.id = pflo.id </codeblock> 
+		</p> 
+		<p> 
+		  <note>You need to include the IMPORT statements required by your query
+			 in the string that you pass to the query engine. Thus, the string to run the
+			 previous example is this: "<codeph>IMPORT com.commonFolder.Portfolio; IMPORT
+				com.myFolder.Portfolio AS MyPortfolio; SELECT DISTINCT mpflo.status FROM
+				/portfolios pflo TYPE Portfolio, /myPortfolios mpflo TYPE MyPortfolio WHERE
+				pflo.status = 'active' and mpflo.id = pflo.id</codeph>" 
+		  </note> 
+		</p> 
+		<p/> 
+		<p>Common type names do not require an IMPORT statement. This table lists
+		  the common types defined by the system and the Java types that they represent.
+		  You can just use these to typecast in your queries without importing them
+		  first. 
+		</p> 
+		<table id="table_EB3B474F6D334730BA150ECB18ADF6B9"> 
+		  <tgroup cols="2"> 
+			 <colspec colname="1" colnum="1" colwidth="*"/> 
+			 <colspec colname="2" colnum="2" colwidth="*"/> 
+			 <thead> 
+				<row> 
+				  <entry>Common Object Type Name 
+				  </entry> 
+				  <entry>Java Representation 
+				  </entry> 
+				</row> 
+			 </thead> 
+			 <tbody> 
+				<row> 
+				  <entry>short 
+				  </entry> 
+				  <entry>short or java.lang.Short 
+				  </entry> 
+				</row> 
+				<row> 
+				  <entry>long 
+				  </entry> 
+				  <entry>long or java.lang.Long 
+				  </entry> 
+				</row> 
+				<row> 
+				  <entry>int 
+				  </entry> 
+				  <entry>int or java.lang.Integer 
+				  </entry> 
+				</row> 
+				<row> 
+				  <entry>float 
+				  </entry> 
+				  <entry>float or java.lang.Float 
+				  </entry> 
+				</row> 
+				<row> 
+				  <entry>double 
+				  </entry> 
+				  <entry>double or java.lang.Double 
+				  </entry> 
+				</row> 
+				<row> 
+				  <entry>char 
+				  </entry> 
+				  <entry>char or java.lang.Character 
+				  </entry> 
+				</row> 
+				<row> 
+				  <entry>string 
+				  </entry> 
+				  <entry>java.lang.String 
+				  </entry> 
+				</row> 
+				<row> 
+				  <entry>boolean 
+				  </entry> 
+				  <entry>boolean or java.lang.Boolean 
+				  </entry> 
+				</row> 
+				<row> 
+				  <entry>byte or octet 
+				  </entry> 
+				  <entry>byte or java.lang.Byte 
+				  </entry> 
+				</row> 
+				<row> 
+				  <entry>date 
+				  </entry> 
+				  <entry>java.sql.Date 
+				  </entry> 
+				</row> 
+				<row> 
+				  <entry>time 
+				  </entry> 
+				  <entry>java.sql.Time 
+				  </entry> 
+				</row> 
+				<row> 
+				  <entry>timestamp 
+				  </entry> 
+				  <entry>java.sql.Timestamp 
+				  </entry> 
+				</row> 
+				<row> 
+				  <entry>array&lt;type &gt; 
+				  </entry> 
+				  <entry>java.lang.Object[] 
+				  </entry> 
+				</row> 
+				<row> 
+				  <entry>collection&lt;type&gt; 
+				  </entry> 
+				  <entry>java.util.Collection 
+				  </entry> 
+				</row> 
+				<row> 
+				  <entry>list&lt;type&gt; 
+				  </entry> 
+				  <entry>java.util.List 
+				  </entry> 
+				</row> 
+				<row> 
+				  <entry>map&lt;type,type&gt; or dictionary&lt;type,type&gt; 
+				  </entry> 
+				  <entry>java.lang.Map 
+				  </entry> 
+				</row> 
+				<row> 
+				  <entry>set&lt;type&gt; 
+				  </entry> 
+				  <entry>java.util.Set 
+				  </entry> 
+				</row> 
+			 </tbody> 
+		  </tgroup> 
+		</table> 
+		<p>The querying engine treats primitives as equivalent to their
+		  respective wrapper types. 
+		</p> 
+		<p>With all object types available to the query engine, connect each FROM
+		  clause collection to a type by using either the TYPE keyword or with
+		  typecasting. 
+		</p> 
+		<p>This query uses the imported 
+		  <codeph>cacheRunner.Position</codeph> class to TYPE 
+		  <codeph>positions.values</codeph> as a collection of values: 
+		  <codeblock><b>IMPORT cacheRunner.Position; </b>
+SELECT DISTINCT mktValue 
+    FROM /portfolios, <b>positions.values TYPE Position</b> 
+    WHERE mktValue &gt; 25.00</codeblock> 
+		</p> 
+		<p>This query is equivalent: 
+		  <codeblock><b>IMPORT cacheRunner.Position; </b>
+SELECT DISTINCT mktValue 
+    FROM /portfolios, <b>(collection&lt;Position&gt;)positions.values</b> 
+    WHERE mktValue &gt; 25.00</codeblock> 
+		</p> 
+		<p> 
+		  <note>All of the lines in these examples have to be passed to the query
+			 engine, including the IMPORT statement. IMPORT statements in your Java code are
+			 not passed to the query engine. 
+		  </note> 
+		</p> 
+		<p>In the next example, the FROM clause collections are a collection of 
+		  <codeph>Portfolio</codeph> instances and a collection of 
+		  <codeph>Map.Entry</codeph>s whose values are instances of 
+		  <codeph>Positions</codeph>. When 
+		  <codeph>Map</codeph>s are used as collections, they are treated as
+		  collections of entries, that is, instances of 
+		  <codeph>java.util.Map.Entry</codeph>. 
+		  <codeblock>IMPORT cacheRunner.Position; 
+SELECT DISTINCT posEntry.value.mktValue 
+    FROM /portfolios, (map&lt;string,Position&gt;)positions posEntry 
+    WHERE posEntry.value.mktValue &gt; 25.00</codeblock> 
+		</p> 
+		<p>The IMPORT statements in these examples assume that the imported
+		  packages are available in the CLASSPATH. The class’s package name cannot be
+		  used in the FROM clause - it must be specified in an IMPORT statement. 
+		</p> 
+	 </section> 
+  </conbody> 
+</concept> 

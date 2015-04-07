@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "http://docs.oasis-open.org/dita/v1.1/OS/dtd/concept.dtd">
+<concept id="how_delta_propagation_works">
+	<title>How Delta Propagation Works</title>
+	<shortdesc>Delta propagation reduces the amount of data you send over the network. You do this
+		by only sending the change, or delta, information about an object, instead of sending the
+		entire changed object. If you do not use cloning when applying the deltas, you can also
+		expect to generate less garbage in your receiving JVMs. </shortdesc>
+	<conbody>
+		<section id="section_78D584B3FFD04D1D9BA83203FF2B55A9">
+			<p>In most distributed data management systems, the data stored in the system tends to
+				be created once and then updated frequently. These updates are sent to other members
+				for event propagation, redundancy management, and cache consistency in general.
+				Tracking only the changes in an updated object and sending only the deltas mean
+				lower network transmission costs and lower object serialization/deserialization
+				costs. Performance improvements can be significant, especially when changes to an
+				object are small relative to its overall size. </p>
+		</section>
+		<section id="section_ABE3589920D6477BBB2223A583AF169A">
+			<p><keyword keyref="product_name"/> propagates object deltas using methods that you
+				program. The methods are in the <codeph>Delta</codeph> interface, which you
+				implement in your cached objects' classes. If any of your classes are plain old Java
+				objects, you need to wrap them for this implementation. </p>
+			<p>This figure shows delta propagation for a change to an entry with key, k, and value
+				object, v. </p>
+			<p/>
+			<p>
+				<image href="../../images/DeltaPropagation-1.gif"
+					id="image_06A25185C31548669423DDA3136B1851" placement="break"/>
+				<ol id="ol_13DC907B6DE74A74ABFA7A31C199189B">
+					<li id="li_0EDE7BEEBD9C444FAFEA9680C4C98AC9"><b><codeph>get</codeph>
+							operation</b>. The <codeph>get</codeph> works as usual: the cache
+						returns the full entry object from the local cache or, if it isn't available
+						there, from a remote cache or from a loader. </li>
+					<li id="li_43639F8D3E25486D8AA0DA4DDBD7CB0A"><b>update methods</b>. You need to
+						add code to the object's update methods so that they save delta information
+						for object updates, in addition to the work they were already doing. </li>
+					<li id="li_9BDD9359D3B54C1C90DE5D6EF445B79B"><b><codeph>put</codeph>
+							operation</b>. The <codeph>put</codeph> works as usual in the local
+						cache, using the full value, then calls <codeph>hasDelta</codeph> to see if
+						there are deltas and <codeph>toDelta</codeph> to serialize the information.
+						Distribution is the same as for full values, according to member and region
+						configuration. </li>
+					<li id="li_5E6327499D8140F8A629C37A00239749"><b>receipt of delta at remote
+							member</b>. <codeph>fromDelta</codeph> extracts the delta information
+						that was serialized by <codeph>toDelta</codeph> and applies it to the object
+						in the local cache. The delta is applied directly to the existing value or
+						to a clone, depending on how you configure it for the region. </li>
+					<li id="li_905C78270AA9403884BAD703FB96EFA0"><b>additional distributions</b>. As
+						with full distributions, receiving members forward the delta according to
+						their configurations and connections to other members. For example, if VM1
+						is a client and VM2 is a server, VM2 forwards the delta to its peers and its
+						other clients as needed. Receiving members do not recreate the delta;
+							<codeph>toDelta</codeph> is only called in the originating member. </li>
+				</ol>
+			</p>
+		</section>
+		<section id="section_25EC5BE960F0402DAEDBE0A5A6589ACA">
+			<title>General Characteristics of Delta Propagation </title>
+			<p>To use the delta propagation feature, all updates on a key in a region must have
+				value types that implement the <codeph>Delta</codeph> interface. You cannot mix
+				object types for an entry key where some of the types implement delta and some do
+				not. This is because, when a type implementing the delta interface is received for
+				an update, the existing value for the key is cast to a <codeph>Delta</codeph> type
+				to apply the received delta. If the existing type does not also implement the
+					<codeph>Delta</codeph> interface, the operation throws a
+					<codeph>ClassCastException</codeph>. </p>
+			<p>
+				<note>Only the object itself being placed in the cache can implement the
+						<codeph>Delta</codeph> interface and propagate changes. Any sub-objects of
+					the cache object do not propagate their changes.</note>
+			</p>
+			<p>Sometimes <codeph>fromDelta</codeph> cannot be invoked because there is no object to
+				apply the delta to in the receiving cache. When this happens, the system
+				automatically does a full value distribution to the receiver. These are the possible
+				scenarios: <ol id="ol_7868E55AF5BA45549CEDD3EE871B76B3">
+					<li id="li_F7B6558552004C748DAD79CA55FBC4F1">If the system can determine
+						beforehand that the receiver does not have a local copy, it sends the
+						initial message with the full value. This is possible when regions are
+						configured with no local data storage, such as with the region shortcut
+						settings <codeph>PARTITION_PROXY</codeph> and
+							<codeph>REPLICATE_PROXY</codeph>. These configurations are used to
+						accomplish things like provide data update information to listeners and to
+						pass updates forward to clients. </li>
+					<li id="li_8E124DB7DB334CBA926C80C2AD31C180">In less obvious cases, such as when
+						an entry has been locally deleted, first the delta is sent, then the
+						receiver requests a full value and that is sent. Whenever the full value is
+						received, any further distributions to the receiver's peers or clients uses
+						the full value. </li>
+				</ol>
+			</p>
+			<p><keyword keyref="product_name"/> also does not propagate deltas for: <ul
+					id="ul_415832B567AF4EC1BC85CA98D7FC3A4C">
+					<li id="li_57D2A99921484B68955E68C56538E3C8">Transactional commit </li>
+					<li id="li_6589ECAEC5714F40B46B05682BEB1A18">The <codeph>putAll</codeph>
+						operation </li>
+					<li id="li_8BDC0BFFAD7B4791ABDB5808E928A734">JVMs running <keyword
+							keyref="product_name"/> versions that do not support delta propagation
+						(6.0 and earlier) </li>
+				</ul>
+			</p>
+		</section>
+		<section id="section_F4A102A74530429F87BEA53C90D5CCFB">
+			<title>Supported Topologies and Limitations</title>
+			<p>The following topologies support delta propagation (with some limitations): </p>
+			<ul id="ul_E819396277CD439ABE6D465A256C94E7">
+				<li id="li_5049E86D08E842D48D5CFC6D663CFB40"><b>Peer-to-peer</b>. <keyword
+						keyref="product_name"/> system members distribute and receive entry changes
+					using delta propagation, with these requirements and caveats: <ul
+						id="ul_938FB350A55643DCB29A05B6AB630928">
+						<li id="li_AD41D50B883D49C48809B4D9037ECC07">Regions must be partitioned or
+							have their scope set to <codeph>distributed-ack</codeph> or
+								<codeph>global</codeph>. The region shortcut settings for
+							distributed regions use <codeph>distributed-ack</codeph>
+							<codeph>scope</codeph>. Delta propagation does not work for regions with
+								<codeph>distributed-no-ack</codeph>
+							<codeph>scope</codeph> because the receiver could not recover if an
+							exception occurred while applying the delta. </li>
+						<li id="li_BE14EFF16F224697BAE3D8631D1AE6A9">For partitioned regions, if a
+							receiving peer does not hold the primary or a secondary copy of the
+							entry, but still requires a value, the system automatically sends the
+							full value. </li>
+						<li id="li_35B425BA97314F958C392CA86A850FCF">To receive deltas, a region
+							must be non-empty. The system automatically sends the full value to
+							empty regions. Empty regions can send deltas. </li>
+					</ul>
+				</li>
+				<li id="li_F25D0B4FC64C4EFEAFABEF9EC4436247"><b>Client/server</b>. <keyword
+						keyref="product_name"/> clients can always send deltas to the servers, and
+					servers can usually sent deltas to clients. These configurations require the
+					servers to send full values to the clients, instead of deltas: <ul
+						id="ul_08B520761B9049C8BCCBDEC69F7E6137">
+						<li id="li_996DB79DB0984F948433EA2F73657263">When the client's
+								<codeph>gemfire.properties</codeph> setting
+								<codeph>conflate-events</codeph> is set to true, the servers send
+							full values for all regions. </li>
+						<li id="li_B8229DD6CF3B42DD8C70A26F80E5377B">When the server region
+							attribute <codeph>enable-subscription-conflation</codeph> is set to true
+							and the client <codeph>gemfire.properties</codeph> setting
+								<codeph>conflate-events</codeph> is set to <codeph>server</codeph>,
+							the servers send full values for the region. </li>
+						<li id="li_A64F3C39E2FF47C0A99DAAE9D868C1C8">When the client region is
+							configured with the <codeph>PROXY</codeph> client region shortcut
+							setting (empty client region), servers send full values. </li>
+					</ul>
+				</li>
+			</ul>
+		</section>
+	</conbody>
+</concept>

@@ -1,0 +1,142 @@
+<?xml version="1.0"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept id="concept_4436C021FB934EC4A330D27BD026602C">
+	<title>Deploying Application JARs to <keyword keyref="product_name_long"/> Members</title>
+	<shortdesc>You can dynamically deploy your application JAR files to specific members or to all
+		members in your distributed system. <keyword keyref="product_name"/> automatically keeps
+		track of JAR file versions; autoloads the deployed JAR files to the CLASSPATH; and
+		auto-registers any functions that the JAR contains. </shortdesc>
+	<conbody>
+		<p>To deploy and undeploy application JAR files in <keyword keyref="product_name_long"/> ,
+			use the gfsh <codeph>deploy</codeph> or <codeph>undeploy</codeph> command. You can
+			deploy a single JAR or multiple JARs (by either specifying the JAR filenames or by
+			specifying a directory that contains the JAR files), and you can also target the
+			deployment to a member group or multiple member group. For example, after connecting to
+			the distributed system where you want to deploy the JARs, you could type at the
+				<codeph>gfsh</codeph> prompt :
+			<codeblock>gfsh&gt; deploy --jar=group1_functions.jar</codeblock>This command deploys
+			the <codeph>group1_functions.jar</codeph> file to all members in the distributed system. </p>
+		<p>To deploy the JAR file to a subset of members, use the <codeph>--group</codeph> argument.
+			For example:
+			<codeblock>gfsh&gt; deploy --jar=group1_functions.jar --group=MemberGroup1</codeblock>In
+			the example it is assumed that you have already defined the member group that you want
+			to use when starting up your members. See <xref format="dita"
+				href="using_member_groups.xml#concept_5B60087DA11644C49250064BAB8AFFA6"
+				scope="local" type="concept"/> for more information on how to define member groups
+			and add a member to a group. </p>
+		<p>To deploy all the JAR files that are located in a specific directory to all members:
+			<codeblock>gfsh&gt; deploy --dir=libs/group1-libs</codeblock>You can either provide a
+			JAR file name or a directory of JARs for deployment, but you cannot specify both at
+			once. </p>
+		<p>To undeploy all previously deployed JAR files throughout the distributed system:
+			<codeblock>gfsh&gt; undeploy</codeblock>To undeploy a specific JAR file:
+			<codeblock>gfsh&gt; undeploy --jar=group1_functions.jar</codeblock>
+		</p>
+		<p>To target a specific member group when undeploying all JAR files:
+			<codeblock>gfsh&gt; undeploy --group=MemberGroup1</codeblock>Only JAR files that have
+			been previously deployed on members in the MemberGroup1 group will be undeployed. </p>
+		<p>To see a list of all deployed JARs in your distributed system:
+			<codeblock>gfsh&gt; list deployed</codeblock>To see a list of all deployed JARs in a
+			specific member group:
+			<codeblock>gfsh&gt; list deployed --group=MemberGroup1</codeblock>Sample output: </p>
+		<p>
+			<codeblock> 
+Member   |     Deployed JAR     |                JAR Location            
+--------- | -------------------- | ---------------------------------------------------
+datanode1 | group1_functions.jar | /usr/local/gemfire/deploy/vf.gf#group1_functions.jar#1
+datanode2 | group1_functions.jar | /usr/local/gemfire/deploy/vf.gf#group1_functions.jar#1</codeblock>
+		</p>
+		<p>For more information on <codeph>gfsh</codeph> usage, see <xref format="dita"
+				href="../../tools_modules/gfsh/chapter_overview.xml#concept_36339CCA6323430D8B61EE8DC5F64DCB"
+				scope="local" type="concept"/>. </p>
+		<section id="section_D36E345C6E254D27B0F4B0C8711F5E6A">
+			<title>Deployment Location for JAR Files</title>
+			<p>The system location where JAR files are written on each member is determined by the
+					<codeph>deploy-working-dir</codeph>
+				<keyword keyref="product_name"/> property configured for that member. For example,
+				you could have the following configured in the <codeph>gemfire.properties</codeph>
+				file for your member:
+				<codeblock>#gemfire.properties
+deploy-working-dir=/usr/local/gemfire/deploy</codeblock>
+				This deployment location can be local or a shared network resource (such as a mount
+				location) used by multiple members in order to reduce disk space usage. If you use a
+				shared directory, you still need to deploy the JAR file on every member that you
+				want to have access to the application, because deployment updates the CLASSPATH and
+				auto-registers functions. </p>
+		</section>
+		<section>
+			<title>About Deploying JAR Files and the Cluster Configuration Service</title>
+			<p>By default, the cluster configuration service distributes deployed JAR files to all
+				locators in the distributed system. When you start a new server using gfsh, the
+				locator supplies configuration files and deployed jar files to the member and writes
+				them to the server's directory. </p>
+			<p>See <xref href="gfsh_persist.xml#concept_r22_hyw_bl"/>. </p>
+		</section>
+		<section id="section_D9219C5EEED64672930200677C2118C9">
+			<title>Versioning of JAR Files</title>
+			<p> When you deploy JAR files to a distributed system or member group, the JAR file is
+				modified to indicate version information in its name. Each JAR filename is prefixed
+				with <codeph>vf.gf#</codeph> and contains a version number at the end of the
+				filename. For example, if you deploy <codeph>MyClasses.jar</codeph> five times, the
+				filename is displayed as <codeph>vf.gf#MyClasses.jar#5</codeph> when you list all
+				deployed jars. </p>
+			<p> When you deploy a new JAR file, the member receiving the deployment checks whether
+				the JAR file is a duplicate, either because the JAR file has already been deployed
+				on that member or because the JAR file has already been deployed to a shared
+				deployment working directory that other members are also using. If another member
+				has already deployed this JAR file to the shared directory (determined by doing a
+				byte-for-byte compare to the latest version in its directory), the member receiving
+				the latest deployment does not write the file to disk. Instead, the member updates
+				the ClassPathLoader to use the already deployed JAR file. If a newer version of the
+				JAR file is detected on disk and is already in use, the deployment is canceled. </p>
+			<p> When a member begins using a JAR file, the member obtains a shared lock on the file.
+				If the member receives a newer version by deployment, the member releases the shared
+				lock and tries to delete the existing JAR file in favor of the newer version. If no
+				other member has a shared lock on the existing JAR, the existing, older version JAR
+				is deleted. </p>
+		</section>
+		<section id="section_F8AC59EEC8C5434FBC6F38A12A7371CE">
+			<title>Automatic Class Path Loading</title>
+			<p> When a cache is started, the new cache requests that the latest versions of each JAR
+				file in the current working directory be added to the ClassPathLoader. If a JAR file
+				has already been deployed to the ClassPathLoader, the ClassPathLoader updates its
+				loaded version if a newer version is found; otherwise, there is no change. If
+				detected, older versions of the JAR files are deleted if no other member has a
+				shared lock on them. </p>
+			<p>Undeploying a JAR file does not automatically unload the classes that were loaded
+				during deployment. You need to restart your members to unload those classes. </p>
+			<p>When a cache is closed it requests that all currently deployed JAR files be removed
+				from the ClassPathLoader. </p>
+			<p>If you are using a shared deployment working directory, all members sharing the
+				directory should belong to the same member group. Upon restart, all members that
+				share the same deployment working directory will deploy and autoload their CLASSPATH
+				with any JARs found in the current working directory. This means that some members
+				may load the JARs even though they are not part of the member group that received
+				the original deployment. </p>
+		</section>
+		<section id="section_C1ECA5A66C27403A9A18D0E04EFCC66D">
+			<title> Automatic Function Registration</title>
+			<p> When you deploy a JAR file that contains a function (in other words, contains a
+				class that implements the Function interface), the function is automatically
+				registered through the <codeph>FunctionService.registerFunction</codeph> method. If
+				another JAR file is deployed (either with the same JAR filename or another filename)
+				with the same function, the new implementation of the function is registered,
+				overwriting the old one. If a JAR file is undeployed, any functions that were
+				auto-registered at the time of deployment are unregistered. Because deploying a JAR
+				file that has the same name multiple times results in the JAR being un-deployed and
+				re-deployed, functions in the JAR are unregistered and re-registered each time this
+				occurs. If a function with the same ID is registered from multiple differently named
+				JAR files, the function is unregistered if any of those JAR files are re-deployed or
+				un-deployed. </p>
+			<p> During <codeph>cache.xml</codeph> load, the parameters for any declarables are
+				saved. If functions found in a JAR file are also declarable, and have the same class
+				name as the declarables whose parameters were saved after loading cache.xml, then
+				function instances are created using those Parameters and are also registered.
+				Therefore, if the same function is declared multiple times in the
+					<codeph>cache.xml</codeph> with different sets of parameters, when the JAR is
+				deployed a function is instantiated for each set of parameters. If any functions are
+				registered using parameters from a <codeph>cache.xml</codeph> load, the default,
+				no-argument function is not registered. </p>
+		</section>
+	</conbody>
+</concept>

@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "http://docs.oasis-open.org/dita/v1.1/OS/dtd/concept.dtd">
+<concept id="socket_comm">
+	<title>Setting Socket Buffer Sizes</title>
+	<shortdesc>When you determine buffer size settings, you try to strike a balance between
+		communication needs and other processing. </shortdesc>
+	<conbody>
+		<p>Larger socket buffers allow your members to distribute data and events more quickly, but
+			they also take memory away from other things. If you store very large data objects in
+			your cache, finding the right sizing for your buffers while leaving enough memory for
+			the cached data can become critical to system performance. </p>
+		<p>Ideally, you should have buffers large enough for the distribution of any single data
+			object so you don’t get message fragmentation, which lowers performance. Your buffers
+			should be at least as large as your largest stored objects and their keys plus some
+			overhead for message headers. The overhead varies depending on the who is sending and
+			receiving, but 100 bytes should be sufficient. You can also look at the statistics for
+			the communication between your processes to see how many bytes are being sent and
+			received. </p>
+		<p>If you see performance problems and logging messages indicating blocked writers,
+			increasing your buffer sizes may help. </p>
+		<p>This table lists the settings for the various member relationships and protocols, and
+			tells where to set them. </p>
+		<p>
+			<table id="table_36E8EA4BDB3E47EA89EDB46149E632CD">
+				<tgroup cols="3">
+					<colspec colnum="1" colname="col1" colwidth="*"/>
+					<colspec colnum="2" colname="col2" colwidth="*"/>
+					<colspec colnum="3" colname="col3" colwidth="*"/>
+					<thead>
+						<row>
+							<entry colname="col1">Protocol / Area Affected </entry>
+							<entry colname="col2">Configuration Location </entry>
+							<entry colname="col3">Property Name </entry>
+						</row>
+					</thead>
+					<tbody>
+						<row>
+							<entry colname="col1">
+								<b>TCP / IP</b>
+							</entry>
+							<entry colname="col2"> --- </entry>
+							<entry colname="col3">--- </entry>
+						</row>
+						<row>
+							<entry colname="col1">Peer-to-peer send/receive </entry>
+							<entry colname="col2">
+								<p>gemfire.properties </p>
+							</entry>
+							<entry colname="col3">socket-buffer-size </entry>
+						</row>
+						<row>
+							<entry colname="col1">Client send/receive </entry>
+							<entry colname="col2">
+								<p>cache.xml &lt;pool&gt; </p>
+							</entry>
+							<entry colname="col3">socket-buffer-size </entry>
+						</row>
+						<row>
+							<entry colname="col1">Server send/receive </entry>
+							<entry colname="col2"><codeph>gfsh start server</codeph> or<p>cache.xml
+									&lt;CacheServer&gt; </p></entry>
+							<entry colname="col3">socket-buffer-size </entry>
+						</row>
+						<row>
+							<entry colname="col1">
+								<b>UDP Multicast</b>
+							</entry>
+							<entry colname="col2">--- </entry>
+							<entry colname="col3">--- </entry>
+						</row>
+						<row>
+							<entry colname="col1">Peer-to-peer send </entry>
+							<entry colname="col2">gemfire.properties </entry>
+							<entry colname="col3">mcast-send-buffer-size </entry>
+						</row>
+						<row>
+							<entry colname="col1">Peer-to-peer receive </entry>
+							<entry colname="col2">gemfire.properties </entry>
+							<entry colname="col3">mcast-recv-buffer-size </entry>
+						</row>
+						<row>
+							<entry colname="col1">
+								<b>UDP Unicast</b>
+							</entry>
+							<entry colname="col2">--- </entry>
+							<entry colname="col3">--- </entry>
+						</row>
+						<row>
+							<entry colname="col1">Peer-to-peer send </entry>
+							<entry colname="col2">gemfire.properties </entry>
+							<entry colname="col3">udp-send-buffer-size </entry>
+						</row>
+						<row>
+							<entry colname="col1">Peer-to-peer receive </entry>
+							<entry colname="col2">gemfire.properties </entry>
+							<entry colname="col3">udp-recv-buffer-size </entry>
+						</row>
+					</tbody>
+				</tgroup>
+			</table>
+		</p>
+		<p>
+			<b>TCP/IP Buffer Sizes</b>
+		</p>
+		<p>If possible, your TCP/IP buffer size settings should match across your <keyword keyref="product_name"/>
+			installation. At a minimum, follow the guidelines listed here. </p>
+		<p>
+			<ul id="ul_9FD9276320D747968BA88B43075AF8BA">
+				<li id="li_44FBC74C65F141D4A300CC7685F7545E"><b>Peer-to-peer</b>. The
+					socket-buffer-size setting in <codeph>gemfire.properties</codeph> should be the
+					same throughout your distributed system. </li>
+				<li id="li_7549FB973E094AE8A7DF432CFCAB7E33"><b>Client/server</b>. The client’s pool
+					socket-buffer size-should match the setting for the servers the pool uses, as in
+					these example <codeph>cache.xml</codeph> snippets:
+					<codeblock><b>Client Socket Buffer Size <codeph>cache.xml</codeph> Configuration:</b>
+&lt;pool&gt;name="PoolA" server-group="dataSetA" socket-buffer-size="42000"...
+
+<b>Server Socket Buffer Size <codeph>cache.xml</codeph> Configuration:</b>
+&lt;cache-server port="40404" socket-buffer-size="42000"&gt;
+	&lt;group&gt;dataSetA&lt;/group&gt;
+&lt;/cache-server&gt;</codeblock></li>
+			</ul>
+		</p>
+		<p>
+			<b>UDP Multicast and Unicast Buffer Sizes</b>
+		</p>
+		<p>With UDP communication, one receiver can have many senders sending to it at once. To
+			accommodate all of the transmissions, the receiving buffer should be larger than the sum
+			of the sending buffers. If you have a system with at most five members running at any
+			time, in which all members update their data regions, you would set the receiving buffer
+			to at least five times the size of the sending buffer. If you have a system with
+			producer and consumer members, where only two producer members ever run at once, the
+			receiving buffer sizes should be set at over two times the sending buffer sizes, as
+			shown in this example:
+			<codeblock>mcast-send-buffer-size=42000
+mcast-recv-buffer-size=90000
+udp-send-buffer-size=42000
+udp-recv-buffer-size=90000</codeblock>
+		</p>
+		<p>
+			<b>Operating System Limits</b>
+		</p>
+		<p>Your operating system sets limits on the buffer sizes it allows. If you request a size
+			larger than the allowed, you may get warnings or exceptions about the setting during
+			startup. These are two examples of the type of message you may see:
+			<codeblock>[warning 2008/06/24 16:32:20.286 PDT CacheRunner &lt;main&gt; tid=0x1]
+requested multicast send buffer size of 9999999 but got 262144: see 
+system administration guide for how to adjust your OS 
+
+Exception in thread "main" java.lang.IllegalArgumentException: Could not 
+set "socket-buffer-size" to "99262144" because its value can not be 
+greater than "20000000".</codeblock>
+		</p>
+		<p>If you think you are requesting more space for your buffer sizes than your system allows,
+			check with your system administrator about adjusting the operating system limits. </p>
+	</conbody>
+</concept>

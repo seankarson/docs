@@ -1,0 +1,262 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE bookmap PUBLIC "-//OASIS//DTD DITA BookMap//EN" "bookmap.dtd">
+<bookmap id="bookmap_7DDAC097D9B64C9C8356BE51361D8C2C">
+	<booktitle>
+		<mainbooktitle>Managing <keyword keyref="product_name_long"/></mainbooktitle>
+	</booktitle>
+	<part format="dita" href="book_intro.xml">
+		<topicref format="dita" href="management/management_and_monitoring.xml">
+			<topicref format="dita" href="management/management_and_monitoring_features.xml"/>
+			<topicref href="management/mm_overview.xml"/>
+			<topicref format="dita" href="management/management_system_overview.xml"/>
+			<topicref format="dita"
+				href="management/jmx_manager_node.xml#topic_36C918B4202D45F3AC225FFD23B11D7C">
+				<topicref format="dita" href="management/jmx_manager_operations.xml"/>
+				<topicref format="dita"
+					href="management/jmx_manager_operations.xml#topic_263072624B8D4CDBAD18B82E07AA44B6"/>
+				<topicref format="dita"
+					href="management/jmx_manager_operations.xml#topic_5B6DF783A14241399DC25C6EE8D0048A"
+				/>
+			</topicref>
+			<topicref format="dita" href="management/mbean_architecture.xml">
+				<topicref format="dita" href="management/list_of_gemfire_mbeans.xml">
+					<topicref format="dita" href="management/list_of_gemfire_mbeans_full.xml"/>
+					<topicref format="dita"
+						href="management/list_of_gemfire_mbeans_full.xml#topic_48194A5BDF3F40F68E95A114DD702413"
+					/>
+				</topicref>
+				<topicref format="dita" href="management/gemfire_mbeans_jconsole.xml"/>
+				<topicref href="management/mbean_notifications.xml">
+					<topicref format="dita" href="management/notification_federation_and_alerts.xml"/>
+					<topicref format="dita"
+						href="management/list_of_gemfire_mbean_notifications.xml">
+						<topicref format="dita"
+							href="management/list_of_gemfire_mbean_notifications.xml#reference_czt_hq2_vj"/>
+						<topicref format="dita"
+							href="management/list_of_gemfire_mbean_notifications.xml#cacheservermxbean_notifications"/>
+						<topicref format="dita"
+							href="management/list_of_gemfire_mbean_notifications.xml#distributedsystemmxbean_notifications"
+						/>
+					</topicref>
+				</topicref>
+			</topicref>
+			<topicref format="dita" href="management/configuring_rmi_connector.xml"/>
+			<topicref format="dita" href="management/gfsh_and_management_api.xml"/>
+		</topicref>
+		<topicref format="dita" href="heap_use/chapter_overview.xml">
+			<topicref href="heap_use/how_the_resource_manager_works.xml"/>
+			<topicref href="heap_use/controlling_heap_use.xml"/>
+			<topicref href="heap_use/resource_manager_example_configurations.xml"/>
+		</topicref>
+		<topicref format="dita" href="disk_storage/chapter_overview.xml">
+			<topicref href="disk_storage/how_disk_stores_work.xml"/>
+			<topicref href="disk_storage/file_names_and_extensions.xml"/>
+			<topicref href="disk_storage/operation_logs.xml"/>
+			<topicref format="dita" href="disk_storage/overview_using_disk_stores.xml">
+				<topicref href="disk_storage/using_disk_stores.xml"/>
+				<topicref href="disk_storage/disk_store_configuration_params.xml"
+					navtitle="Disk Store Configuration Parameters" type="concept"/>
+				<topicref href="disk_storage/using_the_default_disk_store.xml"
+					navtitle="Modifying the Default Disk Store" type="concept"/>
+			</topicref>
+			<topicref format="dita" href="disk_storage/optimize_availability_and_performance.xml"/>
+			<topicref format="dita"
+				href="disk_storage/overview_how_startup_works_in_system_with_disk_stores.xml">
+				<topicref href="disk_storage/how_startup_works_in_system_with_disk_stores.xml"/>
+				<topicref href="disk_storage/starting_system_with_disk_stores.xml"/>
+				<topicref href="disk_storage/shutting_down_system_with_disk_stores.xml"/>
+			</topicref>
+			<topicref href="disk_storage/managing_disk_stores.xml" navtitle="Disk Store Management"
+				type="concept">
+				<topicref format="dita" href="disk_storage/managing_disk_stores_cmds.xml"/>
+				<topicref href="disk_storage/validating_disk_store.xml"/>
+				<topicref href="disk_storage/compacting_disk_stores.xml"/>
+				<topicref href="disk_storage/keeping_offline_disk_store_in_sync.xml"/>
+				<topicref href="disk_storage/disk_free_space_monitoring.xml"/>
+				<topicref href="disk_storage/handling_missing_disk_stores.xml"/>
+				<topicref format="dita" href="disk_storage/managing_disk_buffer_flushes.xml"/>
+			</topicref>
+			<topicref href="disk_storage/backup_restore_disk_store.xml"/>
+		</topicref>
+		<topicref format="dita" href="cache_snapshots/chapter_overview.xml"
+			navtitle="Cache and Region Snapshots" scope="local" type="concept">
+			<topicref format="dita" href="cache_snapshots/using_cache_and_region_snapshots.xml"
+				navtitle="Usage and Performance Notes" scope="local" type="concept"/>
+			<topicref format="dita" href="cache_snapshots/exporting_a_snapshot.xml"
+				navtitle="Exporting Cache and Region Snapshots" scope="local" type="concept"/>
+			<topicref format="dita" href="cache_snapshots/importing_a_snapshot.xml"
+				navtitle="Importing Cache and Region Snapshots" scope="local" type="concept"/>
+			<topicref format="dita" href="cache_snapshots/filtering_snapshot_entries.xml"
+				navtitle="Filtering Entries During Import or Export" scope="local" type="concept"/>
+			<topicref format="dita" href="cache_snapshots/read_snapshots_programmatically.xml"
+				navtitle="Reading Snapshots Programmatically" scope="local" type="concept"/>
+		</topicref>
+		<topicref href="region_compression/region_compression.xml" type="topic">
+			<topicref href="region_compression/region_compression.xml#concept_a2c_rhc_gl"
+				type="topic"/>
+			<topicref href="region_compression/region_compression.xml#topic_inm_whc_gl" type="topic"/>
+			<topicref href="region_compression/region_compression.xml#topic_hqf_syj_g4"/>
+			<topicref href="region_compression/region_compression.xml#topic_omw_j3c_gl" type="topic"
+			/>
+		</topicref>
+		<topicref format="dita" href="network_partitioning/chapter_overview.xml">
+			<topicref href="network_partitioning/how_network_partitioning_management_works.xml"/>
+			<topicref format="dita" href="network_partitioning/failure_detection.xml"/>
+			<topicref format="dita"
+				href="network_partitioning/membership_coordinators_lead_members_and_weighting.xml"/>
+			<topicref format="dita" href="network_partitioning/network_partitioning_scenarios.xml"/>
+			<topicref href="network_partitioning/handling_network_partitioning.xml"/>
+			<topicref format="dita" href="network_partitioning/preventing_network_partitions.xml"/>
+		</topicref>
+		<topicref format="dita" href="security/chapter_overview.xml" navtitle="Security"
+			type="concept">
+			<topicref format="dita" href="security/security_intro.xml"/>
+			<topicref href="security/implementing_security.xml"/>
+			<topicref format="dita" href="security/where_to_place_sec_settings.xml"/>
+			<topicref href="security/authentication_overview.xml" navtitle="Authentication"
+				type="concept">
+				<topicref href="security/how_authentication_works.xml"
+					navtitle="How Authentication Works" toc="yes" type="concept"/>
+				<topicref href="security/implementing_authentication.xml"
+					navtitle="Implementing Authentication" toc="yes" type="topic"/>
+				<topicref format="dita" href="security/management_system_jmx_authentication.xml" type="topic"/>
+				<topicref format="dita" href="security/encrypting_passwords.xml"
+					navtitle="Encrypting Passwords for Use in cache.xml" scope="local" type="topic"/>
+				<topicref href="security/encrypting_with_diffie_helman.xml"
+					navtitle="Encrypt Credentials with Diffie-Hellman" toc="yes" type="concept"/>
+			</topicref>
+			<topicref href="security/authorization_overview.xml" navtitle="Authorization"
+				type="concept">
+				<topicref href="security/how_authorization_works.xml"
+					navtitle="How Authorization Works" toc="yes" type="concept"/>
+				<topicref href="security/implementing_authorization.xml"
+					navtitle="Implementing Authorized Access Control for the Cache" toc="yes"
+					type="concept"/>
+				<topicref href="security/authorization_whats_next.xml"
+					navtitle="Performance and Programming Considerations" toc="yes" type="concept"/>
+			</topicref>
+			<topicref href="security/ssl_overview.xml" navtitle="SSL" type="concept">
+				<topicref href="security/how_ssl_works.xml" navtitle="How SSL Works" toc="yes"
+					type="concept"/>
+				<topicref href="security/implementing_ssl.xml" navtitle="Configuring SSL" toc="yes"
+					type="concept"/>
+				<topicref href="security/ssl_example.xml" navtitle="SSL Sample Implementation"
+					toc="yes" type="concept"/>
+			</topicref>
+		</topicref>
+		<topicref format="dita" href="monitor_tune/chapter_overview.xml"
+			navtitle="Performance Tuning and Configuration" type="concept">
+			<topicref format="dita" href="monitor_tune/gemfire_performance_on_vsphere.xml" type="topic"/>
+			<topicref
+				href="monitor_tune/gemfire_performance_on_vsphere_guidelines.xml#topic_F48990A6A37144988D49E132E17E117C"/>
+			<topicref format="dita"
+				href="monitor_tune/gemfire_performance_on_vsphere_guidelines.xml#topic_D8393B1A75364E46B0F959F0DE820E9E"
+				navtitle="NUMA, CPU, and BIOS Settings" scope="local" type="topic"/>
+			<topicref format="dita"
+				href="monitor_tune/gemfire_performance_on_vsphere_guidelines.xml#topic_7A5F1EAD7A6C4E21BB1FF7CF3B625BC5"
+				navtitle="Physical and Virtual NIC Settings" scope="local" type="topic"/>
+			<topicref format="dita"
+				href="monitor_tune/gemfire_performance_on_vsphere_guidelines.xml#topic_E6EB8AB6CCEF435A98B48B867FE9BFEB"
+				navtitle="VMware vSphere vMotion and DRS Cluster Usage" scope="local" type="topic"/>
+			<topicref format="dita"
+				href="monitor_tune/gemfire_performance_on_vsphere_guidelines.xml#topic_E53BBF3D09A54953B02DCE2BD00D51E0"
+				navtitle="Placement and Organization of Virtual Machines" scope="local" type="topic"/>
+			<topicref format="dita"
+				href="monitor_tune/gemfire_performance_on_vsphere_guidelines.xml#topic_567308E9DE07406BB5BF420BE77B6558"
+				navtitle="Virtual Machine Memory Reservation" scope="local" type="topic"/>
+			<topicref format="dita"
+				href="monitor_tune/gemfire_performance_on_vsphere_guidelines.xml#topic_424B940584044CF6A685E86802548A27"/>
+			<topicref format="dita"
+				href="monitor_tune/gemfire_performance_on_vsphere_guidelines.xml#topic_913B15841C4249A68697F3D91281A645"
+				navtitle="Storage Guidelines" scope="local" type="topic"/>
+			<topicref format="dita"
+				href="monitor_tune/gemfire_performance_on_vsphere_guidelines.xml#topic_628F038FD4954E56BF4192F17FD3D119"
+				navtitle="Additional Resources" scope="local" type="topic"/>
+		</topicref>
+		<topicref href="monitor_tune/performance_controls.xml" navtitle="Performance Controls"
+			type="concept">
+			<topicref format="dita" href="monitor_tune/performance_controls_data_serialization.xml"
+				navtitle="Data Serialization" scope="local" type="concept"/>
+			<topicref format="dita"
+				href="monitor_tune/performance_controls_setting_cache_timeouts.xml"
+				navtitle="Setting Cache Timeouts" scope="local" type="concept"/>
+			<topicref format="dita"
+				href="monitor_tune/performance_controls_controlling_socket_use.xml"
+				navtitle="Controlling Socket Use" scope="local" type="concept"/>
+			<topicref format="dita"
+				href="monitor_tune/performance_controls_managing_slow_receivers.xml"
+				navtitle="Management of Slow Receivers" scope="local" type="concept"/>
+			<topicref format="dita"
+				href="monitor_tune/performance_controls_increasing_cache_hits.xml"
+				navtitle="Increasing the Ratio of Cache Hits" scope="local" type="concept"/>
+		</topicref>
+		<topicref href="monitor_tune/system_member_performance.xml">
+			<topicref format="dita"
+				href="monitor_tune/system_member_performance_distributed_system_member.xml"/>
+			<topicref format="dita"
+				href="monitor_tune/system_member_performance_jvm_mem_settings.xml"/>
+			<topicref format="dita" href="monitor_tune/system_member_performance_garbage.xml"/>
+			<topicref format="dita"
+				href="monitor_tune/system_member_performance_connection_thread_settings.xml"/>
+		</topicref>
+		<topicref href="monitor_tune/slow_receivers.xml">
+			<topicref format="dita" href="monitor_tune/slow_receivers_preventing_problems.xml"/>
+			<topicref format="dita" href="monitor_tune/slow_receivers_managing.xml"/>
+		</topicref>
+		<topicref href="monitor_tune/slow_messages.xml"/>
+		<topicref href="monitor_tune/socket_communication.xml">
+			<topicref format="dita"
+				href="monitor_tune/socket_communication_setting_socket_buffer_sizes.xml"/>
+			<topicref format="dita"
+				href="monitor_tune/socket_communication_ephemeral_tcp_port_limits.xml"/>
+			<topicref format="dita" href="monitor_tune/socket_communication_have_enough_sockets.xml"/>
+			<topicref href="monitor_tune/socket_tcp_keepalive.xml" type="topic"/>
+			<topicref format="dita"
+				href="monitor_tune/socket_communication_tcpip_p2p_handshake_timeouts.xml"/>
+		</topicref>
+		<topicref href="monitor_tune/udp_communication.xml"/>
+		<topicref href="monitor_tune/multicast_communication.xml">
+			<topicref format="dita"
+				href="monitor_tune/multicast_communication_provisioning_bandwidth.xml"/>
+			<topicref format="dita"
+				href="monitor_tune/multicast_communication_testing_multicast_speed_limits.xml"/>
+			<topicref format="dita"
+				href="monitor_tune/multicast_communication_configuring_speed_limits.xml"/>
+			<topicref format="dita"
+				href="monitor_tune/multicast_communication_runtime_considerations.xml"/>
+			<topicref format="dita" href="monitor_tune/multicast_communication_troubleshooting.xml"
+			/>
+		</topicref>
+		<topicref href="monitor_tune/cache_consistency.xml"/>
+
+
+		<topicref format="dita" href="logging/logging.xml">
+			<topicref href="logging/how_logging_works.xml"/>
+			<topicref href="logging/logging_categories.xml"/>
+			<topicref href="logging/logging_whats_next.xml"/>
+			<topicref href="logging/setting_up_logging.xml"/>
+			<topicref href="logging/configuring_log4j2.xml"/>
+			<topicref href="logging/log_collection_utility.xml"/>
+		</topicref>
+		<topicref format="dita" href="statistics/chapter_overview.xml">
+			<topicref format="dita" href="statistics/how_statistics_work.xml"/>
+			<topicref format="dita" href="statistics/transient_region_and_entry_statistics.xml"/>
+			<topicref format="dita" href="statistics/application_defined_statistics.xml"/>
+			<topicref format="dita" href="statistics/setting_up_statistics.xml"/>
+		</topicref>
+		<topicref format="dita" href="troubleshooting/chapter_overview.xml">
+			<topicref href="troubleshooting/producing_troubleshooting_artifacts.xml"/>
+			<topicref href="troubleshooting/diagnosing_system_probs.xml"/>
+			<topicref href="troubleshooting/system_failure_and_recovery.xml"/>
+			<topicref href="autoreconnect/member-reconnect.xml"/>
+			<topicref href="troubleshooting/recovering_from_app_crashes.xml">
+				<topicref format="dita" href="troubleshooting/recovering_from_p2p_crashes.xml"/>
+				<topicref format="dita" href="troubleshooting/recovering_from_cs_crashes.xml"/>
+			</topicref>
+			<topicref href="troubleshooting/recovering_from_machine_crashes.xml"/>
+			<topicref href="troubleshooting/recovering_conflicting_data_exceptions.xml"/>
+			<topicref href="troubleshooting/prevent_and_recover_disk_full_errors.xml"/>
+			<topicref href="troubleshooting/recovering_from_network_outages.xml"/>
+		</topicref>
+	</part>
+</bookmap>

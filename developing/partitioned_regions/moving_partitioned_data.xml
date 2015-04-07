@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE topic PUBLIC "-//OASIS//DTD DITA Topic//EN" "topic.dtd">
+<topic
+  id="topic_zpj_n35_yk">
+  <title>Moving Partitioned Region Data to Another Member</title>
+  <shortdesc>You can use the <codeph>PartitionRegionHelper</codeph>
+    <codeph>moveBucketByKey</codeph> and <codeph>moveData</codeph> methods to
+    explicitly move partitioned region data from one member to another. </shortdesc>
+  <body>
+    <p>The <codeph>moveBucketByKey</codeph> method moves the bucket that
+      contains the specified key from a source member to a destination member.
+      For example, you could use the method to move a popular product item to a
+      new, empty member to reduce load on the source member.</p>
+    <p>For
+      example:<codeblock>Object product = ...
+Region r = ...
+DistributedSystem ds = ...
+String memberName = ...
+
+//Find the member that is currently hosting the product.
+Set&lt;DistributedMember> sourceMembers =
+PartitionRegionHelper.getAllMembersForKey(r, product);
+
+//Find the member to move the product to.
+DistributedMember destination = ds.findDistributedMember(memberName);
+
+//In this example we assume there is always at least one source.
+//In practice, you should check that at least one source
+//for the data is available.
+source = sourceMembers.iterator().next();
+
+//Move the bucket to the new node. The bucket will
+//be moved when this method completes. It throws an exception
+//if there is a problem or invalid arguments.
+PartitionRegionHelper.moveBucketByKey(r, source, destination, product);</codeblock>See
+      the Java API documentation for
+        <codeph>com.gemstone.gemfire.cache.partition.PartitionRegionHelper.moveBucketByKey</codeph>
+      for more details.</p>
+    <p>The <codeph>moveData</codeph> method moves data up to a given percentage
+      (measured in bytes) from a source member to a destination member. For
+      example, you could use this method to move a specified percentage of data
+      from an overloaded member to another member to improve distribution. </p>
+    <p>For
+      example:<codeblock>Region r = ...
+DistributedSystem ds = ...
+String sourceName = ...
+String destName = ...
+
+//Find the source member.
+DistributedMember source = ds.findDistributedMember(sourceName);
+DistributedMember destination = ds.findDistributedMember(destName);
+
+//Move up to 20% of the data from the source to the destination node.
+PartitionRegionHelper.moveData(r, source, destination, 20);</codeblock>See
+      the Java API documentation for
+        <codeph>com.gemstone.gemfire.cache.partition.PartitionRegionHelper.moveData</codeph>
+      for more details.</p>
+    <p>For more information on partitioned regions and rebalancing, see <xref
+        href="../partitioned_regions/chapter_overview.xml#managing_partitioned_regions">Partitioned
+        Regions</xref>.</p>
+  </body>
+</topic>

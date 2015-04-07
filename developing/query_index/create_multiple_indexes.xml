@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE topic PUBLIC "-//OASIS//DTD DITA Topic//EN" "topic.dtd">
+<topic id="topic_omf_pxn_jq">
+  <title>Creating Multiple Indexes at Once</title>
+  <shortdesc>In order to speed and promote efficiency when creating indexes, you can define multiple
+    indexes and then create them all at once.</shortdesc>
+  <body>
+    <p>Defining multiple indexes before creating them speeds up the index creation process by
+      iterating over region entries only once.</p>
+    <p>You can define multiple indexes of different types at once by specifying the
+        <codeph>--type</codeph> parameter at definition time.</p>
+    <p>To define multiple indexes, you can use gfsh or the Java API:</p>
+    <p>
+      <b>gfsh example:</b>
+    </p>
+    <codeblock>gfsh> define index --name=myIndex1 --expression=exp1 --region=/exampleRegion 
+
+gfsh> define index --name=myIndex2 --expression="c.exp2" --region="/exampleRegion e, e.collection1 c" 
+
+gfsh> define index --name=myIndex3 --expression=exp3 --region=/exampleRegion --type=hash 
+
+gfsh> create defined indexes
+ </codeblock>
+    <p>If index creation fails, you may receive an error message in gfsh similar to the
+      following:<codeblock>gfsh&gt;create defined indexes
+Exception : com.gemstone.gemfire.cache.query.RegionNotFoundException , 
+Message : Region ' /r3' not found: from  /r3Occurred on following members
+1. india(s1:17866)&lt;v1&gt;:27809</codeblock></p>
+    <p><b>Java API
+      example:</b><codeblock> Cache cache = new CacheFactory().create();
+    QueryService queryService = cache.getQueryService();
+    queryService.defineIndex("name1", "indexExpr1", "regionPath1");
+    queryService.defineIndex("name2", "indexExpr2", "regionPath2");
+    queryService.defineHashIndex("name3", "indexExpr3", "regionPath2");
+    queryService.defineKeyIndex("name4", "indexExpr4", "regionPath2");
+    List&lt;Index> indexes = queryService.createDefinedIndexes();
+</codeblock>If
+      one or more index population fails, <keyword keyref="product_name"/> collect the Exceptions
+      and continues to populate the rest of the indexes. The collected <codeph>Exceptions</codeph>
+      are stored in a Map of index names and exceptions that can be accessed through
+        <codeph>MultiIndexCreationException</codeph>.</p>
+    <p>Index definitions are stored locally on the <codeph>gfsh</codeph> client. If you want to
+      create a new set of indexes or if one or more of the index creations fail, you might want to
+      clear the definitions stored by using <codeph>clear defined indexes</codeph>command. The
+      defined indexes can be cleared by using the Java
+      API:<codeblock>queryService.clearDefinedIndexes();
+</codeblock>or
+      gfsh:<codeblock>gfsh> clear defined indexes</codeblock></p>
+  </body>
+</topic>

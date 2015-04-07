@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "http://docs.oasis-open.org/dita/v1.1/OS/dtd/concept.dtd">
+<concept id="slow_recv">
+	<title>Slow Receivers with TCP/IP</title>
+	<shortdesc>You have several options for preventing situations that can cause slow receivers of
+		data distributions. </shortdesc>
+	<prolog>
+		<metadata>
+			<keywords>
+				<keyword>gemfire slow receivers</keyword>
+			</keywords>
+		</metadata>
+	</prolog>
+	<conbody>
+		<p> Before you begin, you should understand <keyword keyref="product_name"/>
+			<xref href="../../basic_config/book_intro.xml#basic_config_management" type="concept"
+				format="dita" scope="local"
+				><?xm-replace_text Basic Configuration and Programming?></xref>. <note>The slow
+				receiver options control only peer-to-peer communication using TCP/IP. This
+				discussion does not apply to client/server communication, or to communication using
+				the UDP unicast or multicast protocols. </note>
+		</p>
+	</conbody>
+</concept>

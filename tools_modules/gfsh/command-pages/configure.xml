@@ -1,0 +1,176 @@
+<?xml version="1.0"?>
+<!DOCTYPE dita PUBLIC "-//OASIS//DTD DITA Composite//EN" "ditabase.dtd">
+<dita>
+	<topic
+		id="concept_C2DCEE6743304549825C9B62E66DBADF">
+		<title>configure</title>
+		<shortdesc>Configure Portable Data eXchange for all the cache(s) in the
+			cluster.</shortdesc>
+
+		<topic
+			id="topic_jdkdiqbgphqh">
+			<title>configure pdx</title>
+			<body>
+				<section
+					id="section_C27BE964CE554180A65968DBEBF50B23">
+					<p>Configures <keyword keyref="product_name"/>'s Portable Data eXchange for all the
+						cache(s) in the cluster. This command does not effect on
+						the running members in the system. This command persists
+						the pdx configuration in the locator with cluster
+						configuration service. </p>
+					<p>
+						<note>This command should be issued before starting any
+							data members.</note>
+					</p>
+					<p><b> Availability:</b> Online. </p>
+					<p>
+						<b>Syntax: </b>
+						<codeblock>configure pdx [--read-serialized=value] [--ignore-unread-fields=value]
+    [--disk-store=value] [--auto-serializable-classes=value(,value)*]
+    [--portable-auto-serializable-classes=value(,value)*
+</codeblock>
+						<table
+							id="table_B25D38C67FA047EB8F00A521573F1375">
+							<title>Parameters</title>
+							<tgroup
+								cols="3">
+								<colspec
+									colname="col1"
+									colnum="1"
+									colwidth="1.6*"/>
+								<colspec
+									colname="col2"
+									colnum="2"
+									colwidth="1*"/>
+								<colspec
+									colname="newCol3"
+									colnum="3"
+									colwidth="1.05*"/>
+								<thead>
+									<row>
+										<entry
+										colname="col1">Name </entry>
+										<entry
+										colname="col2">Description </entry>
+										<entry>Default</entry>
+									</row>
+								</thead>
+								<tbody>
+									<row>
+										<entry
+										colname="col1">
+										<parmname>---read-serialized</parmname>
+										</entry>
+										<entry
+										colname="col2">Set to true to have PDX
+										deserialization produce a PdxInstance
+										instead of an instance of the domain
+										class.</entry>
+										<entry>false </entry>
+									</row>
+									<row>
+										<entry
+										colname="col1">
+										<parmname>--ignore-unread-fields</parmname>
+										</entry>
+										<entry
+										colname="col2">Controls whether PDX
+										ignores fields that were unread during
+										deserialization. The default is to
+										preserve unread fields be including
+										their data during serialization.
+										However, if you configure the cache to
+										ignore unread fields then their data
+										will be lost during serialization.You
+										should only set this attribute to true
+										if you know this member will only be
+										reading cache data. In this use case you
+										do not need to pay the cost of
+										preserving the unread fields since you
+										will never be reserializing PDX data. </entry>
+										<entry>false</entry>
+									</row>
+									<row>
+										<entry
+										colname="col1">
+										<parmname>--disk-store</parmname>
+										</entry>
+										<entry
+										colname="col2">Named disk store where
+										the PDX type data will be
+										stored.</entry>
+										<entry>none</entry>
+									</row>
+									<row>
+										<entry
+										colname="col1">
+										<parmname>--auto-serializable-classes</parmname>
+										</entry>
+										<entry
+										colname="col2">Configures
+										ReflectionBasedAutoSerializer as the PDX
+										serializer for member classes. The
+										patterns that are matched against domain
+										class names to determine whether they
+										should be auto-serialized. Classes are
+										not checked for portability to non-java
+										languages (equivalent to
+										<codeph>check-portability=false</codeph>).</entry>
+										<entry>none</entry>
+									</row>
+									<row>
+										<entry
+										colname="col1">
+										<parmname>--portable-auto-serializable-classes</parmname>
+										</entry>
+										<entry
+										colname="col2">Configures
+										ReflectionBasedAutoSerializer as the PDX
+										serializer for member classes. The
+										patterns that are matched against domain
+										class names to determine whether they
+										should be serialized. Serialization done
+										by the PDX autoserializer will throw an
+										exception if the object of these classes
+										are not portable to non-Java languages
+										(equivalent to
+										<codeph>check-portability=true</codeph>).</entry>
+										<entry>none</entry>
+									</row>
+								</tbody>
+							</tgroup>
+						</table>
+					</p>
+					<p>
+						<b>Example Commands:</b>
+					</p>
+					<p>
+						<codeblock>gfsh&gt;configure pdx --read-serialized=true</codeblock>
+					</p>
+					<p>
+						<b>Sample Output: </b>
+						<codeblock>
+gfsh>configure pdx --read-serialized=true
+persistent = false
+read-serialized = true
+ignore-unread-fields = false
+
+gfsh>configure pdx --disk-store=/home/username/server4/DEFAULT.drf
+persistent = true
+disk-store = /home/username/server4/DEFAULT.drf
+read-serialized = false
+ignore-unread-fields = false</codeblock>
+					</p>
+					<p>
+						<b>Error Messages:</b>
+					</p>
+					<p>
+						<codeblock>
+"Failed to persist the configuration changes due to this command, Revert the command to maintain consistency.
+Please use "status cluster-config-service" to determing whether Cluster configuration service is RUNNING."</codeblock>
+					</p>
+				</section>
+			</body>
+		</topic>
+	</topic>
+</dita>

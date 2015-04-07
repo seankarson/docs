@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "http://docs.oasis-open.org/dita/v1.1/OS/dtd/concept.dtd">
+<concept id="the_like_predicate"> 
+  <title>LIKE Predicate</title> 
+  <prolog audience="basic"> 
+  </prolog> 
+  <conbody> 
+	 <section id="section_F41C4BDE45444D189664455E42DC561A"> 
+		<p><ph
+		  conref="../../product_short_name.xml#ditacomponent_4CDD0B39CDD54D2AAF1CBC81A1FDBA19/ph_2E41EB9BE730428A970C1C206D14DC09"><?xm-replace_text Phrase?></ph>
+		  offers limited support for the like predicate, expressed in this way: 
+		  <codeblock>WHERE x LIKE "&lt;string&gt;"</codeblock> LIKE can be used to mean 'equals to', 'starts with', "contains". 
+		</p> 
+		<p>These behave the same: 
+		  <codeblock>WHERE x LIKE 'abc'</codeblock> 
+		  <codeblock>WHERE x = 'abc'</codeblock> 
+		</p> 
+		<p>You can use these wildcard characters anywhere in the comparison
+		  string: 
+		<table id="table_CFDC9BE4A7614EAAA340CE8AD93D9508"> 
+		  <tgroup cols="2"> 
+			 <colspec colnum="1" colname="col1" colwidth="*"/> 
+			 <colspec colnum="2" colname="col2" colwidth="*"/> 
+			 <thead> 
+				<row> 
+				  <entry>Character 
+				  </entry> 
+				  <entry>Meaning 
+				  </entry> 
+				</row> 
+			 </thead> 
+			 <tbody> 
+				<row> 
+				  <entry>% (percent) 
+				  </entry> 
+				  <entry>One or more characters with any value. 
+				  </entry> 
+				</row> 
+				<row> 
+				  <entry>_ (underscore) 
+				  </entry> 
+				  <entry>One character with any value. 
+				  </entry> 
+				</row> 
+			 </tbody> 
+		  </tgroup> 
+		</table> 
+		</p> 
+		<p>To represent the wildcard characters as literal characters, you can
+		  escape them anywhere in the string. 
+		</p> 
+		<p>If you terminate the string with '%', it behaves like 'starts with'.
+		  These behave the same: 
+		  <codeblock>WHERE x LIKE 'abc%'</codeblock> 
+		  <codeblock>WHERE x &gt;= 'abc' AND x &lt; 'abd'</codeblock> 
+		</p> 
+		<p>This finds every store whose name contains 'Inc': 
+		</p> 
+		<p> 
+		  <codeblock>WHERE storeName LIKE '%Inc%'</codeblock> 
+		</p> 
+		<p>This finds the serial numbers that are seven digits long, start with
+		  '001', and end with '543': 
+		  <codeblock>WHERE snum LIKE '001_543'</codeblock> 
+		</p> 
+		<p>This finds the serial numbers that are eight digits long, start with
+		  '001_', and end with '543': 
+		  <codeblock>WHERE snum LIKE '001&amp;__543' ESCAPE '&amp;'</codeblock> 
+		  <draft-comment>how do I escape them? 
+		  </draft-comment> 
+		</p> 
+		<p>If an index is present the like predicate does not use it. 
+		</p> 
+		<p> 
+		  <draft-comment> Checking on this with Anil. e-mailed on 4/29/11 
+		  </draft-comment> 
+		</p> 
+	 </section> 
+  </conbody> 
+</concept> 

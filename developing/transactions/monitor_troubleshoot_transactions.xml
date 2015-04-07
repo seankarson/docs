@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "http://docs.oasis-open.org/dita/v1.1/OS/dtd/concept.dtd">
+<concept id="monitor_troubleshoot_transactions">
+	<title>Monitoring and Troubleshooting Transactions</title>
+	<shortdesc>This topic covers errors that may occur when running transactions in
+		<keyword keyref="product_name"/>.</shortdesc>
+	<conbody>
+		<section id="section_881D2FF6761B4D689DDB46C650E2A2E1">
+			<p>Unlike database transactions, <keyword keyref="product_name"/> does not write a
+				transaction log to disk. To get the full details about committed operations, use a
+				transaction listener to monitor the transaction events and their contained cache
+				events for each of your transactions. </p>
+		</section>
+		<section id="section_2B66338C851A4FF386B60CC5CF4DCF77">
+			<title>Statistics on Cache Transactions</title>
+			<p>During the operation of <keyword keyref="product_name"/> cache transactions, if
+				statistics are enabled, transaction-related statistics are calculated and accessible
+				from the CachePerfStats statistic resource. Because the transaction’s data scope is
+				the cache, these statistics are collected on a per-cache basis. </p>
+		</section>
+		<section id="section_EA9277E6CFD7423F95BA4D04955FDE2A">
+			<title>Commit</title>
+			<p>In a failed commit, the exception lists the first conflict that caused the failure.
+				Other conflicts can exist, but are not reported. </p>
+		</section>
+		<section>
+			<title>Capacity Limits</title>
+			<p>A transaction can create data beyond the capacity limit set in the region’s eviction
+				attributes. The capacity limit does not take effect until commit time. Then, any
+				required eviction action takes place as part of the commit. </p>
+		</section>
+		<section id="section_C7588E4F143B4D7FAFAEDCF5AE4FF2C8">
+			<title>Interaction with the Resource Manager</title>
+			<p>The <keyword keyref="product_name"/> resource manager, which controls overall heap use, either allows all
+				transactional operations or blocks the entire transaction. If a cache reaches the
+				critical threshold in the middle of a commit, the commit is allowed to finish before
+				the manager starts blocking operations. </p>
+		</section>
+		<section id="section_8942ABA6F23C4ED58877C894B13F4F21">
+			<title> Transaction Exceptions</title>
+			<p>The following sections list possible transaction exceptions. </p>
+			<p>
+				<b>Exceptions Indicating Transaction Failure</b>
+				<ul id="ul_11226257B29A4CDE9C7F8B352372B228">
+					<li id="li_E4F2A4A84B8C457C8F5AD5339E4F984C"
+								><b><codeph>TransactionDataNodeHasDepartedException</codeph></b>.
+						This exception means the transactional data host has departed unexpectedly.
+						Clients and members that run transactions but are not the transactional data
+						hosts can get this exception. You can avoid this by working to ensure your
+						transactional data hosts are stable and remain running when transactions are
+						in progress. </li>
+					<li id="li_6438DF05FBB14F95B0A8A78C8E97F331"
+								><b><codeph>TransactionDataNotColocatedException</codeph></b>. You
+						will get this error if you try to run a transaction on data that is not all
+						located in the same member. Partition your data so it is all located in a
+						single member. See <xref
+							href="cache_transactions_by_region_type.xml#concept_ysk_xj1_wk"/> and
+							<xref
+							href="../partitioned_regions/custom_partitioning_and_data_colocation.xml#custom_partitioning_and_data_colocation"
+							type="concept" format="dita" scope="local"
+							><?xm-replace_text How Custom Partitioning and Data Collocation Work?></xref>. </li>
+					<li id="li_C7ABE52052774421A578B5E7F783CC07"
+								><b><codeph>TransactionDataRebalancedException</codeph></b>. You get
+						this error if your transactional data is moved to another member for
+						rebalancing during the transaction. Manage your partitioned region data to
+						avoid rebalancing during a transaction. See <xref scope="local"
+							href="../partitioned_regions/rebalancing_pr_data.xml#rebalancing_pr_data"
+							type="concept" format="dita"
+							><?xm-replace_text Rebalancing Partitioned Region Data?></xref>. </li>
+				</ul>
+			</p>
+			<p>
+				<b>Exceptions Indicating Unknown Transaction Outcome</b>
+				<ul id="ul_406ACAAB6E3849C29A4F6697D65555EB">
+					<li id="li_B947F5CE88FD46EF85635BE8F0FCBE4C"
+								><b><codeph>TransactionInDoubtException</codeph></b>. Some of the
+						transactional operations may have succeeded and some may have failed. This
+						can happen to clients and to any member running a transaction on another
+						data host. To manage this, you may want to install cache listeners in the
+						members running the transaction code. Use the listeners to monitor and
+						record the changes you receive from your transactions so you can recover as
+						needed if you get this exception. </li>
+				</ul>
+			</p>
+		</section>
+	</conbody>
+</concept>

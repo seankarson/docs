@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "http://docs.oasis-open.org/dita/v1.1/OS/dtd/concept.dtd">
+<concept id="perf">
+	<title>Increasing the Ratio of Cache Hits</title>
+	<shortdesc>The more frequently a get fails to find a valid value in the first cache and has to
+		try a second cache, the more the overall performance is affected. </shortdesc>
+	<conbody>
+		<p> A common cause of misses is expiration or eviction of the entry. If you have a region’s
+			entry expiration or eviction enabled, monitor the region and entry statistics. </p>
+		<p>If you see a high ratio of misses to hits on the entries, consider increasing the
+			expiration times or the maximum values for eviction, if possible. See <xref
+				href="../../developing/eviction/chapter_overview.xml#eviction" format="dita"
+				><?xm-replace_text Eviction?></xref> for more information. </p>
+	</conbody>
+</concept>

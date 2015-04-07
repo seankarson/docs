@@ -1,0 +1,95 @@
+<?xml version="1.0"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<!-- Created with XMetaL (http://www.xmetal.com) -->
+<concept id="concept_4EFC0AB9EC954DF09577E12C9FC8E63D"> 
+  <title>gfsh Installation and Configuration</title>
+  <prolog><metadata><keywords><keyword>gemfire gfsh
+			 install</keyword><keyword>gemfire gfsh install
+			 location</keyword></keywords></metadata>
+  </prolog> 
+  <conbody> 
+	 <section id="section_E439208B7DCA4C22B6DF5A5389F58DCD"> 
+		<title>Installation</title> 
+		<p> gfsh is distributed with GemFire 6.6 and the launcher scripts for
+		  gfsh are available inside the GemFire product/bin directory. 
+		</p> 
+		<note>gfsh stores some configuration files under user's 
+		  <filepath>HOME</filepath> directory. If you have used older version of
+		  gfsh before, the file 
+		  <codeph>.gfshrc</codeph> and the directory 
+		  <codeph>.gemfire</codeph> might be there in the HOME directory. Delete
+		  or move these from the 
+		  <filepath>HOME</filepath> directory before starting this latest version
+		  of gfsh. 
+		</note> 
+	 </section> 
+	 <section id="section_81683C8C423247EC9FDE1577EC7BA530"> 
+		<title>Configuration </title> 
+		<p>To start using gfsh, follow these steps: 
+		</p> 
+		<p> 
+		<ol id="ol_1315E03E939F4F4AB60C0307FE507016"> 
+		  <li id="li_DAC054A2131D403CA15FDEACDEC5CB35">Start a command line/shell
+			 &amp; set environment variable GEMFIRE to point to the GemFire product
+			 directory 
+			 <p>Windows: 
+			 </p> 
+			 <codeblock>
+set GEMFIRE=C:\GemFire66
+</codeblock> 
+			 <p>Unix (bash): 
+			 </p> 
+			 <codeblock>
+export GEMFIRE=/home/foo/GemFire66
+</codeblock> 
+		  </li> 
+		  <li id="li_CD2D30682E374A93B1B33AEF228AD214"> Include GemFire66/bin
+			 directory to the PATH environment variable. 
+			 <p>Windows: 
+			 </p> 
+			 <codeblock>
+set PATH=%GEMFIRE%\bin;%PATH%
+</codeblock> 
+			 <p> Unix (bash): 
+			 </p> 
+			 <codeblock>
+export PATH=$GEMFIRE/bin:$PATH
+</codeblock> 
+		  </li> 
+		  <li id="li_2DD7BA577855400A86958D339482C8DD">Set PATH to include the
+			 Java bin directory. Alternatively, you can set GF_JAVA to the absolute path of
+			 the java executable. gfsh is tested with Oracle/Sun Java 1.6. 
+			 <p> Windows: 
+			 </p> 
+			 <codeblock>
+set GF_JAVA=C:\jdk\bin\java.exe
+</codeblock> 
+			 <p> Unix (bash): 
+			 </p> 
+			 <codeblock>
+export GF_JAVA=/opt/jdk/bin/java
+</codeblock> 
+		  </li> 
+		  <li id="li_1E60BD08D8814B719717B2ACCE62280C">Set one or more of the
+			 following environment variables to include your application library files. Note
+			 that gfsh requires only the classes that are instantiated for transmitting data
+			 to/from the fabric. These objects are typically of the application data object
+			 classes. 
+			 <codeblock>
+GEMFIRE_APP_CLASSPATH - The application classpath. Use this environment variable to explicitly
+                        list class and jar paths.
+
+GEMFIRE_APP_JAR_DIR - The directory that contains application jar files. All jar files under this
+                      directory and sub-directories are included in the class path.
+</codeblock> 
+		  </li> 
+		</ol> 
+		</p> 
+		<p>As an alternative to using these environment variables, you can copy
+		  your jar files into the gfsh plug-in directory, 
+		  <filepath>gemfire-dir /plugins</filepath>. gfsh adds all jar files to
+		  this directory including sub-directories to its class path. 
+		</p> 
+	 </section> 
+  </conbody> 
+</concept> 

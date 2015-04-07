@@ -1,0 +1,44 @@
+<?xml version="1.0"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept id="concept_032521546EF34FABB40EB2C18080ED35">
+	<title>Organizing Peers into Logical Member Groups</title>
+	<shortdesc>In a peer-to-peer configuration, you can organize members into logical member groups
+		and use those groups to associate specific data or assign tasks to a pre-defined set of
+		members. </shortdesc>
+	<conbody>
+		<section id="section_411EA6C46AD4456C987C0759A05340F2">
+			<p>You can use logical member groups to deploy JAR applications across multiple members
+				or to execute functions across a member group. </p>
+			<p>To add a peer to a member group, you can configure the following: <ol
+					id="ol_CF1BC16A8E50438CBA7BB5E2E87EEC3D">
+					<li id="li_75559CF3D6D549D19CC1505A7BDC1E6E">Add the member group names to the
+							<codeph>gemfire.properties</codeph> file for the member. For example:
+						<codeblock>#gemfire.properties
+groups=Portfolios,ManagementGroup1</codeblock>
+						A member can belong to more than one member group. If specifying multiple
+						member groups for a member, use a comma-separated list. Alternatively, if
+						you are using the <codeph>gfsh</codeph> command interface to start up the
+						member, provide the group name or group names as a parameter. <p>For
+							example, to start up a server and associate it with member groups, you
+							could type:
+							<codeblock>gfsh&gt;start server --name=server1 \
+--group=Portfolios,ManagementGroup1</codeblock>
+						</p>
+						<p>For example, to start up a locator and associate it with member groups,
+							you could type:
+							<codeblock>gfsh&gt;start locator --name=locator1 \
+--group=ManagementGroup1</codeblock>
+						</p>
+					</li>
+					<li id="li_733E937303C04D0C8ADEF866757F7125">Then you can use the member group
+						names to perform tasks such as deploy applications or execute functions.
+							<p>For example, to deploy an application across a member group, you
+							could type the following in <codeph>gfsh</codeph>:
+							<codeblock>gfsh&gt;deploy --jar=group1_functions.jar --group=ManagementGroup1</codeblock>
+						</p>
+					</li>
+				</ol>
+			</p>
+		</section>
+	</conbody>
+</concept>

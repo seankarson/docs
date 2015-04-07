@@ -1,0 +1,41 @@
+<?xml version="1.0"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept id="concept_65874F58A47C4D10B29248BBF0635BFC">
+	<title><keyword keyref="product_name_long"/> Security Features</title>
+	<shortdesc><keyword keyref="product_name_long"/> includes a range of built-in authentication and
+		authorization features. It also accommodates security infrastructure plug-ins. </shortdesc>
+	<conbody>
+		<p><keyword keyref="product_name"/> provides member authentication and cache access
+			authorization with these features: <ul id="ul_A71B8C94D58C4C8AA7723F71C4F2724D">
+				<li id="li_C7688EB36F38468294E591560C603E18"><b>Flexible plug-in framework</b>.
+					Plug-in mechanism for authentication of clients and servers and authorization of
+					cache operations from clients. Any security infrastructure can be plugged into
+					the system as long as the plug-ins implement the required <keyword
+						keyref="product_name"/> interfaces. </li>
+				<li id="li_D74F2188622E4113B4B12715FA818D94"><b>Cache server authentication</b>.
+					Allows peer cache servers into the distributed system if their credentials are
+					authenticated by the locator to which they connect. </li>
+				<li id="li_29DE762D2FB74358B61DE1B7B2857078"><b>Client authentication</b>.
+					Implemented through authentication of client’s credentials by a cache server
+					when the client attempts to connect to the server. Multiple users can connect,
+					with separate authorization levels, from within one client application. </li>
+				<li id="li_70E3CC0146554DA48AB31D7B8E61404A"><b>SSL-based authentication</b>. Allows
+					configuration of connections to be SSL- based, rather than plain socket
+					connections. <keyword keyref="product_name"/> enables you to configure SSL
+					separately for peer-to-peer, client, JMX, and HTTP connections.</li>
+				<li id="li_0A14BD5031DF4992BC51C699B6882A3D"><b>Authorization of cache
+						operations</b>. Selectively authorized cache operations by clients based on
+					the predefined, associated roles, where the credentials are provided by the
+					client when connecting to the server. </li>
+				<li id="li_8585F61B4D5C4A0E9F63093D17417A06"><b>Data modification based on
+						authorization</b>. Allows authorization callbacks to modify or filter data
+					sent from the client to the server. Similarly, after the cache operations
+					complete on the server, a post authorization callback occurs, that can filter or
+					modify results sent to the client. However, the results cannot be modified while
+					using function execution. </li>
+				<li id="li_476B4FF9CC164B379A697AC426DC9EDB"><b>Sample implementations</b>.
+					Authentication and authorization sample implementations. </li>
+			</ul>
+		</p>
+	</conbody>
+</concept>

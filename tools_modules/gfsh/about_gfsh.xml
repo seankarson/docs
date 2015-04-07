@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept id="concept_36339CCA6323430D8B61EE8DC5F64DCB">
+	<title>What You Can Do with gfsh</title>
+	<shortdesc><codeph>gfsh</codeph> supports the administration, debugging, and deployment of
+			<keyword keyref="product_name_long"/> processes and applications. </shortdesc>
+	<conbody>
+		<p>With <codeph>gfsh</codeph>, you can: <ul id="ul_3BEEE8704E9342E18BF1BD4BB2465B2E">
+				<li id="li_1AE44AAA045148468375E6D37CA2F410">Start and stop <keyword
+						keyref="product_name_long"/> processes, such as locators and cache servers </li>
+				<li id="li_1879FCAB1B11475FB83CA19C1A5B0DE3">Start and stop gateway sender and
+					gateway receiver processes </li>
+				<li id="li_4DDDBF37960E4BB28F9F2EFD76658363">Deploy applications </li>
+				<li id="li_38999D8E18804770B5BBCD49C6AFB59B">Create and destroy regions </li>
+				<li id="li_A1306ACFA68244A296690458CF3F3616">Execute functions </li>
+				<li id="li_43377A0ABDDB41388B8CC19DB5A01B29">Manage disk stores </li>
+				<li id="li_9522265071E5454BB7C04667EFA8651D">Import and export data </li>
+				<li id="li_0915EFA2B3BE4F6D94135A09463B3AD7">Monitor <keyword
+						keyref="product_name_long"/> processes </li>
+				<li id="li_E248759473F74E36A8A4311EC2E82813">Launch <keyword
+						keyref="product_name_long"/> monitoring tools </li>
+			</ul>
+		</p>
+		<p>The <codeph>gfsh</codeph> command line interface lets developers spend less time
+			configuring cache instance XML, properties, logs, and statistics. gsfh commands generate
+			reports; capture cluster-wide statistics; and support the export of statistics, logs,
+			and configurations. Like Spring Roo, gfsh features command completion (so you do not
+			have to know the syntax), context-sensitive help, scripting, and the ability to invoke
+			any commands from within an application by using a simple API. The gfsh interface uses
+			JMX/RMI to communicate with <keyword keyref="product_name_long"/> processes. </p>
+		<p>You can connect gfsh to a remote distributed system using the HTTP protocol. See <xref
+				href="../../configuring/cluster_config/gfsh_remote.xml#task_nyb_mhn_44"/>. </p>
+		<p>By default, the cluster configuration service saves the configuration of your <keyword
+				keyref="product_name_long"/> cluster as you create <keyword
+				keyref="product_name_long"/> objects using gfsh. You can export this configuration
+			and import it into another <keyword keyref="product_name_long"/> cluster. See <xref
+				href="../../configuring/cluster_config/gfsh_persist.xml#concept_r22_hyw_bl"/>. </p>
+	</conbody>
+</concept>

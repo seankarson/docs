@@ -1,0 +1,502 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE bookmap PUBLIC "-//OASIS//DTD DITA BookMap//EN" "bookmap.dtd">
+<bookmap id="bookmap_8BA0C1F1F1EE4DFA9A7A58250675186F">
+	<booktitle>
+		<mainbooktitle>Reference</mainbooktitle>
+	</booktitle>
+	<part format="dita" href="book_intro.xml" navtitle="Reference" type="concept">
+		<topicref format="dita" href="topics/gemfire_properties.xml">
+			<topicref format="dita" href="topics/non-ascii_strings_in_config_files.xml"/>
+		</topicref>
+		<topicref format="dita" href="topics/chapter_overview_cache_xml.xml" type="topic">
+			<topicref format="dita" href="topics/elements_ref.xml" type="topic"/>
+			<topicref format="dita" href="topics/cache-elements-list.xml" type="topic"/>
+			<topicref format="dita" href="topics/cache_xml.xml#cache_xml_cache" linking="targetonly" type="topic">
+				<topicref format="dita" href="topics/cache_xml.xml#cache-transaction-manager" type="topic">
+					<topicref format="dita" href="topics/cache_xml.xml#transaction-listener"
+						navtitle="&lt;transaction-listener&gt;" scope="local" type="topic"/>
+					<topicref format="dita" href="topics/cache_xml.xml#transaction-writer"
+						navtitle="&lt;transaction-writer&gt;" scope="local" type="topic"/>
+				</topicref>
+				<topicref format="dita" href="topics/cache_xml.xml#async-event-queue"
+					navtitle="&lt;async-event-queue&gt;" scope="local" type="topic">
+					<topicref format="dita" href="topics/cache_xml.xml#async-event-listener"
+						navtitle="&lt;async-event-listener&gt;" scope="local" type="topic"/>
+				</topicref>
+				<topicref format="dita" href="topics/cache_xml.xml#cache-server"
+					navtitle="&lt;cache-server&gt;" scope="local" type="topic">
+					<topicref format="dita" href="topics/cache_xml.xml#group"
+						navtitle="&lt;group&gt;" scope="local" type="topic"/>
+					<topicref format="dita" href="topics/cache_xml.xml#client-subscription"
+						navtitle="&lt;client-subscription&gt;" scope="local" type="topic"/>
+					<topicref format="dita" href="topics/cache_xml.xml#custom-load-probe"
+						navtitle="&lt;custom-load-probe&gt;" scope="local" type="topic"/>
+				</topicref>
+				<topicref format="dita" href="topics/cache_xml.xml#bridge-server"
+					navtitle="&lt;bridge-server&gt;" scope="local" type="topic"/>
+				<topicref format="dita" href="topics/cache_xml.xml#pool" navtitle="&lt;pool&gt;"
+					scope="local" type="topic">
+					<topicref format="dita" href="topics/cache_xml.xml#locator"
+						navtitle="&lt;locator&gt;" scope="local" type="topic"/>
+					<topicref format="dita" href="topics/cache_xml.xml#server"
+						navtitle="&lt;server&gt;" scope="local" type="topic"/>
+				</topicref>
+				<topicref format="dita" href="topics/cache_xml.xml#disk-store"
+					navtitle="&lt;disk-store&gt;" scope="local" type="topic">
+					<topicref format="dita" href="topics/cache_xml.xml#disk-dirs"
+						navtitle="&lt;disk-dirs&gt;" scope="local" type="topic">
+						<topicref format="dita" href="topics/cache_xml.xml#disk-dir"
+							navtitle="&lt;disk-dir&gt;" scope="local" type="topic"/>
+					</topicref>
+				</topicref>
+				<topicref format="dita" href="topics/cache_xml.xml#pdx" navtitle="&lt;pdx&gt;"
+					scope="local" type="topic">
+					<topicref href="topics/cache_xml.xml#pdx-serializer_24898989679"/>
+				</topicref>
+				<topicref format="dita" href="topics/cache_xml.xml#region-attributes"
+					navtitle="&lt;region-attributes&gt;" scope="local" type="topic">
+					<topicref format="dita" href="topics/cache_xml.xml#key-constraint"
+						navtitle="&lt;key-constraint&gt;" scope="local" type="topic"/>
+					<topicref format="dita" href="topics/cache_xml.xml#value-constraint"
+						navtitle="&lt;value-constraint&gt;" scope="local" type="topic"/>
+					<topicref format="dita" href="topics/cache_xml.xml#region-time-to-live"
+						navtitle="&lt;region-time-to-live&gt;" scope="local" type="topic">
+						<topicref format="dita" href="topics/cache_xml.xml#expiration-attributes"
+							navtitle="&lt;expiration-attributes&gt;" scope="local" type="topic">
+							<topicref format="dita" href="topics/cache_xml.xml#custom-expiry"
+								navtitle="&lt;custom-expiry&gt;" scope="local" type="topic"/>
+						</topicref>
+					</topicref>
+					<topicref format="dita" href="topics/cache_xml.xml#region-idle-time"
+						navtitle="&lt;region-idle-time&gt;" scope="local" type="topic">
+						<topicref format="dita"
+							href="topics/cache_xml.xml#region-idle-time_expiration-attributes"
+							navtitle="&lt;expiration-attributes&gt;" scope="local" type="topic">
+							<topicref format="dita"
+								href="topics/cache_xml.xml#region-idle-time_custom-expiry"
+								navtitle="&lt;custom-expiry&gt;" scope="local" type="topic"/>
+						</topicref>
+					</topicref>
+					<topicref format="dita" href="topics/cache_xml.xml#entry-time-to-live"
+						navtitle="&lt;entry-time-to-live&gt;" scope="local" type="topic">
+						<topicref format="dita"
+							href="topics/cache_xml.xml#entry-idle-time_expiration-attributes"
+							navtitle="&lt;expiration-attributes&gt;" scope="local" type="topic">
+							<topicref format="dita"
+								href="topics/cache_xml.xml#entry-time-to-live_custom_expiry"
+								navtitle="&lt;custom-expiry&gt;" scope="local" type="topic"/>
+						</topicref>
+					</topicref>
+					<topicref format="dita" href="topics/cache_xml.xml#entry-idle-time"
+						navtitle="&lt;entry-idle-time&gt;" scope="local" type="topic">
+						<topicref format="dita"
+							href="topics/cache_xml.xml#entry-idle-time_expiration-attributes"
+							navtitle="&lt;expiration-attributes&gt;" scope="local" type="topic">
+							<topicref format="dita"
+								href="topics/cache_xml.xml#entry-idle-time_custom-expiry"
+								navtitle="&lt;custom-expiry&gt;" scope="local" type="topic"/>
+						</topicref>
+					</topicref>
+					<topicref format="dita" href="topics/cache_xml.xml#disk-write-attributes"
+						navtitle="&lt;disk-write-attributes&gt;" scope="local" type="topic">
+						<topicref format="dita" href="topics/cache_xml.xml#asynchronous-writes"
+							navtitle="&lt;asynchronous-writes&gt;" scope="local" type="topic"/>
+						<topicref format="dita" href="topics/cache_xml.xml#synchronous-writes"
+							navtitle="&lt;synchronous-writes&gt;" scope="local" type="topic"/>
+					</topicref>
+					<topicref format="dita" href="topics/cache_xml.xml#topic_lfd_jkm_t3"
+						navtitle="&lt;disk-dirs&gt;" scope="local" type="topic"/>
+					<topicref format="dita" href="topics/cache_xml.xml#partition-attributes"
+						navtitle="&lt;partition-attributes&gt;" scope="local" type="topic">
+						<topicref format="dita" href="topics/cache_xml.xml#partition-resolver"
+							navtitle="&lt;partition-resolver&gt;" scope="local" type="topic"/>
+						<topicref format="dita" href="topics/cache_xml.xml#partition-listener"
+							navtitle="&lt;partition-listener&gt;" scope="local" type="topic"/>
+						<topicref format="dita"
+							href="topics/cache_xml.xml#fixed-partition-attributes"
+							navtitle="&lt;fixed-partition-attributes&gt;" scope="local" type="topic"
+						/>
+					</topicref>
+					<topicref format="dita" href="topics/cache_xml.xml#membership-attributes"
+						navtitle="&lt;membership-attributes&gt;" scope="local" type="topic">
+						<topicref format="dita" href="topics/cache_xml.xml#required-role"
+							navtitle="&lt;required-role&gt;" scope="local" type="topic"/>
+					</topicref>
+					<topicref format="dita" href="topics/cache_xml.xml#subscription-attributes"
+						navtitle="&lt;subscription-attributes&gt;" scope="local" type="topic"/>
+					<topicref href="topics/cache_xml.xml#topic_qsb_pnw_bm"/>
+					<topicref href="topics/cache_xml.xml#topic_h53_pnw_bm"/>
+					<topicref format="dita" href="topics/cache_xml.xml#cache-listener"
+						navtitle="&lt;cache-listener&gt;" scope="local" type="topic"/>
+					<topicref href="topics/cache_xml.xml#topic_pcd_t25_44"/>
+					<topicref format="dita" href="topics/cache_xml.xml#eviction-attributes"
+						navtitle="&lt;eviction-attributes&gt;" scope="local" type="topic">
+						<topicref format="dita" href="topics/cache_xml.xml#lru-entry-count"
+							navtitle="&lt;lru-entry-count&gt;" scope="local" type="topic"/>
+						<topicref format="dita" href="topics/cache_xml.xml#lru-heap-percentage"
+							navtitle="&lt;lru-heap-percentage&gt;" scope="local" type="topic"/>
+						<topicref format="dita" href="topics/cache_xml.xml#lru-memory-size"
+							navtitle="&lt;lru-memory-size&gt;" scope="local" type="topic"/>
+					</topicref>
+				</topicref>
+				<topicref format="dita" href="topics/cache_xml.xml#jndi-bindings"
+					navtitle="&lt;jndi-bindings&gt;" scope="local" type="topic">
+					<topicref format="dita" href="topics/cache_xml.xml#jndi-binding"
+						navtitle="&lt;jndi-binding&gt;" scope="local" type="topic">
+						<topicref format="dita" href="topics/cache_xml.xml#config-property"
+							navtitle="&lt;config-property&gt;" scope="local" type="topic">
+							<topicref format="dita" href="topics/cache_xml.xml#config-property-name"
+								navtitle="&lt;config-property-name&gt;" scope="local" type="topic"/>
+							<topicref format="dita" href="topics/cache_xml.xml#config-property-type"
+								navtitle="&lt;config-property-type&gt;" scope="local" type="topic"/>
+							<topicref format="dita"
+								href="topics/cache_xml.xml#config-property-value"
+								navtitle="&lt;config-property-value&gt;" scope="local" type="topic"
+							/>
+						</topicref>
+					</topicref>
+				</topicref>
+				<topicref format="dita" href="topics/cache_xml.xml#region" navtitle="&lt;region&gt;"
+					scope="local" type="topic">
+					<topicref format="dita" href="topics/cache_xml.xml#index"
+						navtitle="&lt;index&gt;" scope="local" type="topic">
+						<topicref format="dita" href="topics/cache_xml.xml#functional"
+							navtitle="&lt;functional&gt;" scope="local" type="topic"/>
+						<topicref format="dita" href="topics/cache_xml.xml#primary-key"
+							navtitle="&lt;primary-key&gt;" scope="local" type="topic"/>
+					</topicref>
+					<topicref format="dita" href="topics/cache_xml.xml#entry"
+						navtitle="&lt;entry&gt;" scope="local" type="topic">
+						<topicref format="dita" href="topics/cache_xml.xml#key"
+							navtitle="&lt;key&gt;" scope="local" type="topic">
+							<topicref format="dita" href="topics/cache_xml.xml#string"
+								navtitle="&lt;string&gt;" scope="local" type="topic"/>
+							<topicref format="dita" href="topics/cache_xml.xml#declarable"
+								navtitle="&lt;declarable&gt;" scope="local" type="topic"/>
+						</topicref>
+						<topicref format="dita" href="topics/cache_xml.xml#value"
+							navtitle="&lt;value&gt;" scope="local" type="topic">
+							<topicref format="dita" href="topics/cache_xml.xml#string"
+								navtitle="&lt;string&gt;" scope="local" type="topic"/>
+							<topicref format="dita" href="topics/cache_xml.xml#declarable"
+								navtitle="&lt;declarable&gt;" scope="local" type="topic"/>
+						</topicref>
+					</topicref>
+					<topicref format="dita" href="topics/cache_xml.xml#region_region"
+						navtitle="&lt;region&gt;" scope="local" type="topic"/>
+				</topicref>
+				<topicref format="dita" href="topics/cache_xml.xml#vm-root-region"
+					navtitle="&lt;vm-root-region&gt;" scope="local" type="topic"/>
+				<topicref format="dita" href="topics/cache_xml.xml#function-service"
+					navtitle="&lt;function-service&gt;" scope="local" type="topic">
+					<topicref format="dita" href="topics/cache_xml.xml#function"
+						navtitle="&lt;function&gt;" scope="local" type="topic"/>
+				</topicref>
+				<topicref format="dita" href="topics/cache_xml.xml#resource-manager"
+					navtitle="&lt;resource-manager&gt;" scope="local" type="topic"/>
+				<topicref format="dita" href="topics/cache_xml.xml#serialization-registration"
+					navtitle="&lt;serialization-registration&gt;" scope="local" type="topic">
+					<topicref format="dita" href="topics/cache_xml.xml#serializer"
+						navtitle="&lt;serializer&gt;" scope="local" type="topic"/>
+					<topicref format="dita" href="topics/cache_xml.xml#instantiator"
+						navtitle="&lt;instantiator&gt;" scope="local" type="topic"/>
+				</topicref>
+				<topicref format="dita" href="topics/cache_xml.xml#backup" navtitle="&lt;backup&gt;"
+					scope="local" type="topic"/>
+				<topicref format="dita" href="topics/cache_xml.xml#initializer"
+					navtitle="&lt;initializer&gt;" scope="local" type="topic">
+					<topicref format="dita" href="topics/cache_xml.xml#declarable"
+						navtitle="&lt;declarable&gt;" scope="local" type="topic"/>
+				</topicref>
+				<topicref format="dita" href="topics/cache_xml.xml#class-name_parameter"
+					navtitle="&lt;class-name&gt; and &lt;parameter&gt;" scope="local" type="topic"/>
+				<topicref format="dita" href="topics/cache_xml.xml#declarable"
+					navtitle="&lt;declarable&gt;" scope="local" type="topic"/>
+				<topicref format="dita" href="topics/cache_xml.xml#string" navtitle="&lt;string&gt;"
+					scope="local" type="topic"/>
+			</topicref>
+			<topicref format="dita" href="topics/client-cache-elements-list.xml"
+				navtitle="&lt;client-cache&gt; Element Hierarchy" scope="local" type="topic"/>
+			<topicref chunk="by-document" format="dita" href="topics/client-cache.xml"
+				linking="targetonly" navtitle="&lt;client-cache&gt; Element Reference" scope="local"
+				type="topic">
+				<topicref format="dita" href="topics/client-cache.xml#cc-cache-transaction-manager"
+					navtitle="cache-transaction-manager" scope="local" type="topic">
+					<topicref format="dita" href="topics/client-cache.xml#cc-transaction-listener"
+						navtitle="transaction-listener" scope="local" type="topic"/>
+					<topicref format="dita" href="topics/client-cache.xml#cc-transaction-writer"
+						navtitle="transaction-writer" scope="local" type="topic"/>
+				</topicref>
+				<topicref format="dita" href="topics/client-cache.xml#cc-pool"
+					navtitle="&lt;pool &gt;" scope="local" type="topic">
+					<topicref format="dita" href="topics/client-cache.xml#cc-locator"
+						navtitle="&lt;locator&gt;" scope="local" type="topic"/>
+					<topicref format="dita" href="topics/client-cache.xml#cc-server"
+						navtitle="&lt;server&gt;" scope="local" type="topic"/>
+				</topicref>
+				<topicref format="dita" href="topics/client-cache.xml#cc-disk-store"
+					navtitle="&lt;disk-store &gt;" scope="local" type="topic">
+					<topicref format="dita" href="topics/client-cache.xml#cc-disk-dirs"
+						navtitle="&lt;disk-dirs&gt;" scope="local" type="topic">
+						<topicref format="dita" href="topics/client-cache.xml#cc-disk-dir"
+							navtitle="&lt;disk-dir&gt;" scope="local" type="topic"/>
+					</topicref>
+				</topicref>
+				<topicref format="dita" href="topics/client-cache.xml#cc-pdx" navtitle="&lt;pdx&gt;"
+					scope="local" type="topic">
+					<topicref format="dita" href="topics/client-cache.xml#cc-pdx-serializer"
+						navtitle="&lt;pdx-serializer&gt;" scope="local" type="topic"/>
+				</topicref>
+				<topicref format="dita" href="topics/client-cache.xml#cc-region-attributes"
+					navtitle="&lt;region-attributes &gt;" scope="local" type="topic">
+					<topicref format="dita" href="topics/client-cache.xml#cc-key-constraint"
+						navtitle="&lt;key-constraint&gt;" scope="local" type="topic"/>
+					<topicref format="dita" href="topics/client-cache.xml#cc-value-constraint"
+						navtitle="&lt;value-constraint&gt;" scope="local" type="topic"/>
+					<topicref format="dita" href="topics/client-cache.xml#cc-region-time-to-live"
+						navtitle="&lt;region-time-to-live&gt;" scope="local" type="topic">
+						<topicref format="dita"
+							href="topics/client-cache.xml#cc-expiration-attributes"
+							navtitle="&lt;expiration-attributes&gt;" scope="local" type="topic">
+							<topicref format="dita" href="topics/client-cache.xml#cc-custom-expiry"
+								navtitle="&lt;custom-expiry&gt;" scope="local" type="topic"/>
+						</topicref>
+					</topicref>
+					<topicref format="dita" href="topics/client-cache.xml#cc-region-idle-time"
+						navtitle="&lt;region-idle-time&gt;" scope="local" type="topic">
+						<topicref format="dita"
+							href="topics/client-cache.xml#cc-rit-expiration-attributes"
+							navtitle="&lt;expiration-attributes&gt;" scope="local" type="topic">
+							<topicref format="dita"
+								href="topics/client-cache.xml#cc-rit-custom-expiry"
+								navtitle="&lt;custom-expiry&gt;" scope="local" type="topic"/>
+						</topicref>
+					</topicref>
+					<topicref format="dita" href="topics/client-cache.xml#cc-entry-time-to-live"
+						navtitle="&lt;entry-time-to-live&gt;" scope="local" type="topic">
+						<topicref format="dita"
+							href="topics/client-cache.xml#cc-ettl-expiration-attributes"
+							navtitle="&lt;expiration-attributes&gt;" scope="local" type="topic">
+							<topicref format="dita"
+								href="topics/client-cache.xml#cc-ettl-custom-expiry"
+								navtitle="&lt;custom-expiry&gt;" scope="local" type="topic"/>
+						</topicref>
+					</topicref>
+					<topicref format="dita" href="topics/client-cache.xml#cc-entry-idle-time"
+						navtitle="&lt;entry-idle-time&gt;" scope="local" type="topic">
+						<topicref format="dita"
+							href="topics/client-cache.xml#cc-eit-expiration-attributes"
+							navtitle="&lt;expiration-attributes&gt;" scope="local" type="topic">
+							<topicref format="dita"
+								href="topics/client-cache.xml#cc-eit-custom-expiry"
+								navtitle="&lt;custom-expiry&gt;" scope="local" type="topic"/>
+						</topicref>
+					</topicref>
+					<topicref format="dita" href="topics/client-cache.xml#cc-disk-write-attributes"
+						navtitle="&lt;disk-write-attributes&gt;" scope="local" type="topic">
+						<topicref format="dita"
+							href="topics/client-cache.xml#cc-asynchronous-writes"
+							navtitle="&lt;asynchronous-writes&gt;" scope="local" type="topic"/>
+						<topicref format="dita" href="topics/client-cache.xml#cc-synchronous-writes"
+							navtitle="&lt;synchronous-writes&gt;" scope="local" type="topic"/>
+					</topicref>
+					<topicref format="dita" href="topics/client-cache.xml#cc-ra-disk-dirs"
+						navtitle="&lt;disk-dirs&gt;" scope="local" type="topic">
+						<topicref format="dita" href="topics/client-cache.xml#cc-ra-disk-dir"
+							navtitle="&lt;disk-dir&gt;" scope="local" type="topic"/>
+					</topicref>
+					<topicref href="topics/cache_xml.xml#topic_qsb_pnw_bm"/>
+					<topicref href="topics/cache_xml.xml#topic_h53_pnw_bm"/>
+					<topicref format="dita" href="topics/client-cache.xml#cc-cache-listener"
+						navtitle="&lt;cache-listener&gt;" scope="local" type="topic"/>
+					<topicref format="dita" href="topics/client-cache.xml#cc-eviction-attributes"
+						navtitle="&lt;eviction-attributes&gt;" scope="local" type="topic">
+						<topicref format="dita" href="topics/client-cache.xml#cc-lru-entry-count"
+							navtitle="&lt;lru-entry-count&gt;" scope="local" type="topic"/>
+						<topicref format="dita"
+							href="topics/client-cache.xml#cc-lru-heap-percentage"
+							navtitle="&lt;lru-heap-percentage&gt;" scope="local" type="topic"/>
+						<topicref format="dita" href="topics/client-cache.xml#cc-lru-memory-size"
+							navtitle="&lt;lru-memory-size&gt;" scope="local" type="topic"/>
+					</topicref>
+				</topicref>
+				<topicref format="dita" href="topics/client-cache.xml#cc-jndi-bindings"
+					navtitle="&lt;jndi-bindings &gt;" scope="local" type="topic">
+					<topicref format="dita" href="topics/client-cache.xml#cc-jndi-binding"
+						navtitle="&lt;jndi-binding&gt;" scope="local" type="topic">
+						<topicref format="dita" href="topics/client-cache.xml#cc-config-property"
+							navtitle="&lt;config-property&gt;" scope="local" type="topic"/>
+					</topicref>
+				</topicref>
+				<topicref format="dita" href="topics/client-cache.xml#cc-region"
+					navtitle="&lt;region &gt;" scope="local" type="topic">
+					<topicref format="dita" href="topics/client-cache.xml#cc-r-region-attributes"
+						navtitle="&lt;region-attributes&gt;" scope="local" type="topic"/>
+					<topicref format="dita" href="topics/client-cache.xml#cc-index"
+						navtitle="&lt;index&gt;" scope="local" type="topic">
+						<topicref format="dita" href="topics/client-cache.xml#cc-functional"
+							navtitle="&lt;functional&gt;" scope="local" type="topic"/>
+						<topicref format="dita" href="topics/client-cache.xml#cc-primary-key"
+							navtitle="&lt;primary-key&gt;" scope="local" type="topic"/>
+					</topicref>
+					<topicref format="dita" href="topics/client-cache.xml#cc-entry"
+						navtitle="&lt;entry&gt;" scope="local" type="topic">
+						<topicref format="dita" href="topics/client-cache.xml#cc-key"
+							navtitle="&lt;key&gt;" scope="local" type="topic">
+							<topicref format="dita" href="topics/client-cache.xml#cc-string"
+								navtitle="&lt;string&gt;" scope="local" type="topic"/>
+							<topicref format="dita" href="topics/client-cache.xml#cc-declarable"
+								navtitle="&lt;declarable&gt;" scope="local" type="topic"/>
+						</topicref>
+						<topicref format="dita" href="topics/client-cache.xml#cc-value"
+							navtitle="&lt;value&gt;" scope="local" type="topic">
+							<topicref format="dita" href="topics/client-cache.xml#cc-v-string"
+								navtitle="&lt;string&gt;" scope="local" type="topic"/>
+							<topicref format="dita" href="topics/client-cache.xml#cc-v-declarable"
+								navtitle="&lt;declarable&gt;" scope="local" type="topic"/>
+						</topicref>
+					</topicref>
+					<topicref format="dita" href="topics/client-cache.xml#cc-ra-region"
+						navtitle="&lt;region&gt;" scope="local" type="topic"/>
+				</topicref>
+				<topicref format="dita" href="topics/client-cache.xml#cc-function-service"
+					navtitle="&lt;function-service &gt;" scope="local" type="topic">
+					<topicref format="dita" href="topics/client-cache.xml#cc-function"
+						navtitle="&lt;function&gt;" scope="local" type="topic"/>
+				</topicref>
+				<topicref format="dita" href="topics/client-cache.xml#cc-resource-manager"
+					navtitle="&lt;resource-manager&gt;" scope="local" type="topic"/>
+				<topicref format="dita" href="topics/client-cache.xml#cc-serialization-registration"
+					navtitle="&lt;serialization-registration&gt;" scope="local" type="topic">
+					<topicref format="dita" href="topics/client-cache.xml#cc-serializer"
+						navtitle="&lt;serializer&gt;" scope="local" type="topic"/>
+					<topicref format="dita" href="topics/client-cache.xml#cc-instantiator"
+						navtitle="&lt;instantiator&gt;" scope="local" type="topic"/>
+				</topicref>
+				<topicref format="dita" href="topics/client-cache.xml#cc-initializer"
+					navtitle="&lt;initializer&gt;" scope="local" type="topic"/>
+			</topicref>
+		</topicref>
+		<topicref format="dita" href="topics/chapter_overview_regionshortcuts.xml"
+			navtitle="Region Shortcuts" scope="local" type="concept">
+			<topicref format="dita" href="topics/region_shortcuts_table.xml"
+				navtitle="Region Shortcuts Quick Reference" scope="local" type="reference"/>
+			<topicref format="dita"
+				href="topics/region_shortcuts_reference.xml#reference_w2h_3cd_lk" navtitle="LOCAL"
+				scope="local" type="reference"/>
+			<topicref format="dita"
+				href="topics/region_shortcuts_reference.xml#reference_wd5_lpy_lk"
+				navtitle="LOCAL_HEAP_LRU" scope="local" type="reference"/>
+			<topicref format="dita"
+				href="topics/region_shortcuts_reference.xml#reference_adk_y4y_lk"
+				navtitle="LOCAL_OVERFLOW" scope="local" type="reference"/>
+			<topicref format="dita"
+				href="topics/region_shortcuts_reference.xml#reference_l5r_y4y_lk"
+				navtitle="LOCAL_PERSISTENT" scope="local" type="reference"/>
+			<topicref format="dita"
+				href="topics/region_shortcuts_reference.xml#reference_a45_y4y_lk"
+				navtitle="LOCAL_PERSISTENT_OVERFLOW" scope="local" type="reference"/>
+			<topicref format="dita"
+				href="topics/region_shortcuts_reference.xml#reference_ow5_4qy_lk"
+				navtitle="PARTITION" scope="local" type="reference"/>
+			<topicref format="dita"
+				href="topics/region_shortcuts_reference.xml#reference_twx_y4y_lk"
+				navtitle="PARTITION_HEAP_LRU" scope="local" type="reference"/>
+			<topicref format="dita"
+				href="topics/region_shortcuts_reference.xml#reference_js1_z4y_lk"
+				navtitle="PARTITION_OVERFLOW" scope="local" type="reference"/>
+			<topicref format="dita"
+				href="topics/region_shortcuts_reference.xml#reference_d4k_jpy_lk"
+				navtitle="PARTITION_PERSISTENT" scope="local" type="reference"/>
+			<topicref format="dita"
+				href="topics/region_shortcuts_reference.xml#reference_v5l_jpy_lk"
+				navtitle="PARTITION_PERSISTENT_OVERFLOW" scope="local" type="reference"/>
+			<topicref format="dita"
+				href="topics/region_shortcuts_reference.xml#reference_v4m_jpy_lk"
+				navtitle="PARTITION_PROXY" scope="local" type="reference"/>
+			<topicref format="dita"
+				href="topics/region_shortcuts_reference.xml#reference_c1n_jpy_lk"
+				navtitle="PARTITION_PROXY_REDUNDANT" scope="local" type="reference"/>
+			<topicref format="dita"
+				href="topics/region_shortcuts_reference.xml#reference_shn_jpy_lk"
+				navtitle="PARTITION_REDUNDANT" scope="local" type="reference"/>
+			<topicref format="dita"
+				href="topics/region_shortcuts_reference.xml#reference_m4n_jpy_lk"
+				navtitle="PARTITION_REDUNDANT_HEAP_LRU" scope="local" type="reference"/>
+			<topicref format="dita"
+				href="topics/region_shortcuts_reference.xml#reference_own_jpy_lk"
+				navtitle="PARTITION_REDUNDANT_OVERFLOW" scope="local" type="reference"/>
+			<topicref format="dita"
+				href="topics/region_shortcuts_reference.xml#reference_bd4_jpy_lk"
+				navtitle="PARTITION_REDUNDANT_PERSISTENT" scope="local" type="reference"/>
+			<topicref format="dita"
+				href="topics/region_shortcuts_reference.xml#reference_xqq_tvc_lk"
+				navtitle="PARTITION_REDUNDANT_PERSISTENT_OVERFLOW" scope="local" type="reference"/>
+			<topicref format="dita"
+				href="topics/region_shortcuts_reference.xml#reference_wq4_jpy_lk"
+				navtitle="REPLICATE" scope="local" type="reference"/>
+			<topicref format="dita"
+				href="topics/region_shortcuts_reference.xml#reference_xx4_jpy_lk"
+				navtitle="REPLICATE_HEAP_LRU" scope="local" type="reference"/>
+			<topicref format="dita"
+				href="topics/region_shortcuts_reference.xml#reference_t2p_jpy_lk"
+				navtitle="REPLICATE_OVERFLOW" scope="local" type="reference"/>
+			<topicref format="dita"
+				href="topics/region_shortcuts_reference.xml#reference_emp_jpy_lk"
+				navtitle="REPLICATE_PERSISTENT" scope="local" type="reference"/>
+			<topicref format="dita"
+				href="topics/region_shortcuts_reference.xml#reference_tsp_jpy_lk"
+				navtitle="REPLICATE_PERSISTENT_OVERFLOW" scope="local" type="reference"/>
+			<topicref format="dita"
+				href="topics/region_shortcuts_reference.xml#reference_n1q_jpy_lk"
+				navtitle="REPLICATE_PROXY" scope="local" type="reference"/>
+		</topicref>
+		<topicref format="dita" href="topics/handling_exceptions_and_failures.xml"
+			navtitle="Exceptions and System Failures" scope="local" type="concept"/>
+		<topicref format="dita" href="topics/memory_requirements_for_cache_data.xml"
+			navtitle="Memory Requirements for Cached Data" type="concept">
+			<topicref href="topics/memory_requirements_guidelines_and_calc.xml#topic_ipt_dqz_j4"
+				type="topic"/>
+			<topicref href="topics/memory_requirements_guidelines_and_calc.xml#topic_ppn_pqz_j4"
+				type="topic"/>
+			<topicref href="topics/memory_requirements_guidelines_and_calc.xml#topic_kjx_brz_j4"
+				type="topic"/>
+			<topicref href="topics/memory_requirements_guidelines_and_calc.xml#topic_exn_2tz_j4"
+				type="topic"/>
+			<topicref href="topics/memory_requirements_guidelines_and_calc.xml#topic_ac4_mtz_j4"
+				type="topic"/>
+			<topicref href="topics/memory_requirements_guidelines_and_calc.xml#topic_i1m_stz_j4"
+				type="topic"/>
+			<topicref href="topics/memory_requirements_guidelines_and_calc.xml#topic_psn_5tz_j4"
+				type="topic"/>
+			<topicref href="topics/memory_requirements_guidelines_and_calc.xml#topic_d3g_c5z_j4"
+				type="topic"/>
+		</topicref>
+		<topicref href="statistics/statistics_list.xml" type="topic">
+			<topicref href="statistics/statistics_list.xml#section_DEF8D3644D3246AB8F06FE09A37DC5C8" type="topic"/>
+			<topicref href="statistics/statistics_list.xml#section_EF5C2C59BFC74FFB8607F9571AB9A471" type="topic"/>
+			<topicref href="statistics/statistics_list.xml#section_B08C0783BBF9489E8BB48B4AEC597C62" type="topic"/>
+			<topicref href="statistics/statistics_list.xml#section_04B7D7387E584712B7710B5ED1E876BB" type="topic"/>
+			<topicref href="statistics/statistics_list.xml#section_6C247F61DB834C079A16BE92789D4692" type="topic"/>
+			<topicref href="statistics/statistics_list.xml#section_D4ABED3FF94245C0BEE0F6FC9481E867" type="topic"/>
+			<topicref href="statistics/statistics_list.xml#section_6C2BECC63A83456190B029DEDB8F4BE3" type="topic"/>
+			<topicref href="statistics/statistics_list.xml#section_983BFC6D53C74829A04A91C39E06315F" type="topic"/>
+			<topicref href="statistics/statistics_list.xml#section_ACB4161F10D64BC0B15871D003FF6FDF" type="topic"/>
+			<topicref href="statistics/statistics_list.xml#section_78D346A580724E1EA645E31626EECE40" type="topic"/>
+			<topicref href="statistics/statistics_list.xml#section_5E211DDB0E8640689AD0A4659511E17A" type="topic"/>
+			<topicref href="statistics/statistics_list.xml#section_86A61860024B480592DAC67FFB882538" type="topic"/>
+			<topicref href="statistics/statistics_list.xml#section_607C3867602E410CAE5FAB26A7FF1CB9" type="topic"/>
+			<topicref href="statistics/statistics_list.xml#section_C48B654F973E4B44AD825D459C23A6CD" type="topic"/>
+			<topicref href="statistics/statistics_list.xml#section_35AC170770C944C3A336D9AEC2D2F7C5" type="topic"/>
+			<topicref href="statistics/statistics_list.xml#section_923B28F01BC3416786D3AFBD87F22A5E" type="topic"/>
+			<topicref href="statistics/statistics_list.xml#section_52B7F6AE63AE46F59F0B3624328635FC" type="topic"/>
+			<topicref href="statistics/statistics_list.xml#section_ABD68573C55E4CAEBE29C5EAE838B5A3" type="topic"/>
+			<topicref href="statistics/statistics_list.xml#section_374FBD92A3B74F6FA08AA23047929B4F" type="topic"/>
+			<topicref href="statistics/statistics_list.xml#section_3D2AA2BCE5B6485699A7B6ADD1C49FF7" type="topic"/>
+			<topicref href="statistics/statistics_list.xml#section_5362EF9AECBC48D69475697109ABEDFA" type="topic"/>
+			<topicref href="statistics/statistics_list.xml#section_E03865F509E543D9B8F9462B3DA6255E" type="topic"/>
+			<topicref href="statistics/statistics_list.xml#section_55F3AF6413474317902845EE4996CC21"
+				type="topic"/>
+		</topicref>
+	</part>
+</bookmap>

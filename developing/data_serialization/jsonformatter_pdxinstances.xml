@@ -1,0 +1,53 @@
+<?xml version="1.0"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept id="concept_B152A756F03A4C49B4BB09BC3B8FFF37">
+	<title>Adding JSON Documents to the <keyword keyref="product_name"/> Cache</title>
+	<shortdesc>The <codeph>JSONFormatter</codeph> API allows you to put JSON formatted documents
+		into regions and retrieve them later by storing the documents internally as PdxInstances. </shortdesc>
+	<conbody>
+		<p><keyword keyref="product_name"/> now supports the use of JSON formatted documents
+			natively. When you add a JSON document to a <keyword keyref="product_name"/> cache, you
+			call the JSONFormatter APIs to transform them into the PDX format (as a
+				<codeph>PdxInstance</codeph>), which enables <keyword keyref="product_name"/> to
+			understand the JSON document at a field level. </p>
+		<p>In terms of querying and indexing, because the documents are stored internally as PDX,
+			applications can index on any field contained inside the JSON document including any
+			nested field (within JSON objects or JSON arrays.) Any queries run on these stored
+			documents will return PdxInstances as results. To update a JSON document stored in
+				<keyword keyref="product_name"/> , you can execute a function on the PdxInstance. </p>
+		<p>You can then use the <codeph>JSONFormatter</codeph> to convert the PdxInstance results
+			back into the JSON document. </p>
+		<p><codeph>JSONFormatter</codeph> uses a streaming parser (<xref
+				href="http://wiki.fasterxml.com/JacksonHome" scope="external" format="html"
+				>Jackson</xref>, JSON processor) to turn JSON documents into the optimized PDX
+			format. To use the JSONFormatter, make sure that
+				<codeph>$GEMFIRE/lib/server-dependencies.jar</codeph> is available in your
+			application's CLASSPATH. </p>
+		<p>The <codeph>JSONFormatter</codeph> class has four static methods that are used to convert
+			JSON document into PdxInstances and then to convert those PdxInstances back into JSON
+			document. </p>
+		<p>You need to call the following methods before putting any JSON document into the <keyword
+				keyref="product_name"/> region: <ul id="ul_2A49B230E3BC483DA80E7254400C93C7">
+				<li id="li_55ED0BF279E5477DAC734EA6F723BCA6"><codeph>fromJSON</codeph>. Creates a
+					PdxInstance from a JSON byte array. Returns the PdxInstance. </li>
+				<li id="li_53128B6736AC430CA36B3ED40B6AA8A2"><codeph>fromJSON</codeph>. Creates a
+					PdxInstance from a JSON string. Returns the PdxInstance. </li>
+			</ul>
+		</p>
+		<p>After putting the JSON document into a region as a PdxInstance, you can execute standard
+				<keyword keyref="product_name"/> queries and create indexes on the JSON document in
+			the same manner you would query or index any other <keyword keyref="product_name"/>
+			PdxInstance. </p>
+		<p>After executing a <keyword keyref="product_name"/> query or calling
+				<codeph>region.get</codeph>, you can use the following methods to convert a
+			PdxInstance back into the JSON format . <ul id="ul_65B762FE7A2E432E845BB6541B873215">
+				<li id="li_5B21322C307A4E1D8DBE821440E1A65B"><codeph>toJSON</codeph>. Reads a
+					PdxInstance and returns a JSON string. </li>
+				<li id="li_4FB3F8413B734251B9B0AEF008EACE1C"><codeph>toJSONByteArray</codeph>. Reads
+					a PdxInstance and returns a JSON byte array. </li>
+			</ul>
+		</p>
+		<p>For more information on using the JSONFormatter, see the Java API documentation for
+				<codeph>com.gemstone.gemfire.pdx.JSONFormatter</codeph>. </p>
+	</conbody>
+</concept>

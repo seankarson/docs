@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE dita PUBLIC "-//OASIS//DTD DITA Composite//EN" "composite.dtd">
+<dita>
+  <topic id="topic_r5z_lj5_m4">
+    <title>Troubleshooting and FAQ</title>
+    <shortdesc>This section provides troubleshooting guidance and frequently asked questions about
+        <keyword keyref="product_name"/> Developer REST APIs.</shortdesc>
+    <body/>
+  </topic>
+  <concept id="concept_spj_vpx_3q">
+    <title>Checking if the REST API Service is Up and Running</title>
+    <shortdesc>Use the ping endpoint to verify whether the REST API server is available. </shortdesc>
+    <conbody>
+      <p>Use the <codeph>/gemfire-api/v1/ping</codeph> endpoint to check REST API server
+        availability: </p>
+      <p>For example:<codeblock>curl -i http://localhost:7070/gemfire-api/v1/ping </codeblock></p>
+      <p>Example success response:<codeblock>
+<b>200 OK</b></codeblock>If the server is not
+        available, your client will receive an HTTP error code and message.</p>
+    </conbody>
+  </concept>
+  <concept id="concept_gsv_zd5_m4">
+    <title>Key Types and JSON Support</title>
+    <shortdesc>When defining regions (your REST resources), you must only use scalar values for keys
+      and also set value constraints in order to avoid producing JSON that cannot be parsed by
+        <keyword keyref="product_name"/>.</shortdesc>
+    <conbody>
+      <p>If <keyword keyref="product_name"/> regions are not defined with scalar values as keys and
+        value constraints, then you may receive the following error message (even though the JSON is
+        technically valid) in your REST client
+        applications:<msgblock>Json doc specified in request body is malformed..!!'</msgblock></p>
+      <p>For example, the following JSON documents are not supported by <keyword
+          keyref="product_name"/>:</p>
+      <example>
+        <title>Unsupported JSON Example 1</title>
+        <codeblock>
+[
+     1,
+     [],
+     [
+         4,
+         "hello",
+         {}
+     ],
+     {
+         "array": []
+     }
+]</codeblock>
+      </example>
+      <example>
+        <title>Unsupported JSON Example 2</title>
+        <codeblock>[[[[[[[[[[[[[[[[[[["Not too deep"]]]]]]]]]]]]]]]]]]]</codeblock>
+      </example>
+      <example>
+        <title>Unsupported JSON Example 3</title>
+        <codeblock>[1,2,3,"hello"]</codeblock>
+      </example>
+      <example>
+        <title>Unsupported JSON Example 4</title>
+        <codeblock>[
+    "JSON Test Pattern pass1",
+    {
+        "object with 1 member": [
+            "array with 1 element"
+        ]
+    },
+    {},
+    [],
+    -42,
+    true,
+    false,
+    null,
+    {
+        "integer": 1234567890,
+        "real": -9876.54321,
+        "e": 1.23456789e-13,
+        "E": 1.23456789e+34,
+        "": 2.3456789012e+76,
+        "zero": 0,
+        "one": 1,
+        "space": " ",
+        "quote": "\"",
+        "backslash": "\\",
+        "controls": "\b\f\n\r\t",
+        "slash": "/ &amp; /",
+        "alpha": "abcdefghijklmnopqrstuvwyz",
+        "ALPHA": "ABCDEFGHIJKLMNOPQRSTUVWYZ",
+        "digit": "0123456789",
+        "0123456789": "digit",
+        "special": "`1~!@#$%^&amp;*()_+-={':[,]}|;.&lt;/>?",
+        "true": true,
+        "false": false,
+        "null": null,
+        "array": [],
+        "object": {},
+        "address": "50 St. James Street",
+        "url": "http://www.JSON.org/",
+        "comment": "// /* &lt;!-- --",
+        "# -- --> */": " ",
+        " s p a c e d ": [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7
+        ],
+        "compact": [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7
+        ],
+        "jsontext": "{\"object with 1 member\":[\"array with 1 element\"]}",
+        "quotes": "&amp;#34; \" %22 0x22 034 &amp;#x22;",
+        "/\\\"\b\f\n\r\t`1~!@#$%^&amp;*()_+-=[]{}|;:',./&lt;>?": "A key can be any string"
+    },
+    0.5,
+    98.6,
+    99.44,
+    1066,
+    10,
+    1,
+    0.1,
+    1,
+    2,
+    2,
+    "rosebud"
+]
+</codeblock>
+      </example>
+    </conbody>
+  </concept>
+</dita>

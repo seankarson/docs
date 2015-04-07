@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept id="concept_E5B95958B8D04B2285CB5E4DC6FABC78">
+	<title>Using PDX Objects as Region Entry Keys</title>
+	<shortdesc>Using PDX objects as region entry keys is highly discouraged. </shortdesc>
+	<conbody>
+		<section id="section_900BD620D716407AA78BE0E38C2C396D">
+			<p> The best practice for creating region entry keys is to use a simple key; for
+				example, use a String or Integer. If the key must be a domain class, then you should
+				use a non-PDX-serialized class. </p>
+			<p>If you must use PDX serialized objects as region entry keys, ensure that you do not
+				set <codeph>read-serialized</codeph> to <codeph>true</codeph>. This configuration
+				setting will cause problems in partitioned regions because partitioned regions
+				require the hash code of the key to be the same on all JVMs in the distributed
+				system. When the key is a <codeph>PdxInstance</codeph> object, its hash code will
+				likely not be the same as the hash code of the domain object. </p>
+			<p>If you are using PDX serialized objects as region entry keys and you are using
+				persistent regions, then you must configure your PDX disk store to be a different
+				one than the disk store used by the persistent regions. See <xref
+					href="persist_pdx_metadata_to_disk.xml#persist_pdx_metadata_to_disk"
+					type="concept" format="dita" scope="local"/> for information on setting up a PDX
+				disk store. </p>
+		</section>
+	</conbody>
+</concept>

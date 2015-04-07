@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "http://docs.oasis-open.org/dita/v1.1/OS/dtd/concept.dtd">
+<concept id="configure_partitioned_regions">
+	<title>Configuring Partitioned Regions</title>
+	<shortdesc>Plan the configuration and ongoing management of your partitioned region for host and
+		accessor members and configure the regions for startup. </shortdesc>
+	<conbody>
+		<section id="section_241583D88E244AB6AB5CD05BF55F6A0A">
+			<p>Before you begin, understand <xref format="dita"
+					href="../../basic_config/book_intro.xml#basic_config_management" scope="local"
+				/>. <ol id="ol_d8392d8d-3759-4a0a-b49f-e20e7a31ec4d">
+					<li id="li_7C97291B588340BEAC4A4E63CAE9ED85">Start your region configuration
+						using one of the <codeph>PARTITION</codeph> region shortcut settings. See
+							<xref format="dita"
+							href="../../basic_config/data_regions/region_shortcuts.xml#region_shortcuts"
+							scope="local"/>. </li>
+					<li id="li_900263D8B21A4F1982D219E27AA10F82">If you need high availability for
+						your partitioned region, configure for that. See <xref format="dita"
+							href="configuring_ha_for_pr.xml#configuring_pr_redundancy" scope="local"
+						/>. </li>
+					<li id="li_548CC86905F34EDA9EC86D145AF600E8">Estimate the amount of space needed
+						for the region. If you use redundancy, this is the max for all primary and
+						secondary copies stored in the member. For example, with redundancy of one,
+						each region data entry requires twice the space than with no redundancy,
+						because the entry is stored twice. See <xref format="dita"
+							href="../../reference/topics/memory_requirements_for_cache_data.xml#calculating_memory_requirements"
+							scope="local"/>. </li>
+					<li id="li_8D696F238AB744E49B2B7B2973AA0EF6">Configure the total number of
+						buckets for the region. This number must be the same for co-located regions.
+						See <xref format="dita"
+							href="configuring_bucket_for_pr.xml#configuring_total_buckets"
+							scope="local"/>. </li>
+					<li id="li_52EBFD279CA84269912A302ED182F159">Configure your members' data
+						storage and data loading for the region: <ol
+							id="ol_5B39A437F1494D63A1977CC560C59139">
+							<li id="li_58073636E785416B87FD6D2AE4E12D86">You can have members with
+								no local data storage and members with varying amounts of storage.
+								Determine the max memory available in your different member types
+								for this region. These will be set in the
+									<codeph>partition-attributes</codeph>
+								<codeph>local-max-memory</codeph>. This is the only setting in
+									<codeph>partition-attributes</codeph> that can vary between
+								members. Use these max values and your estimates for region memory
+								requirements to help you figure how many members to start out with
+								for the region. </li>
+							<li id="li_582453D5C71C44B088331FBF7FD0E35C">For members that store data
+								for the region (<codeph>local-max-memory</codeph> greater than 0),
+								define a data loader. See <xref format="dita"
+									href="../outside_data_sources/implementing_data_loaders.xml#implementing_data_loaders"
+									scope="local" type="concept"/>. </li>
+							<li id="li_C281BEE04EA841C08B581DA59C105A34">If you have members with no
+								local data storage (<codeph>local-max-memory</codeph> set to 0),
+								review your system startup/shutdown procedures. Make sure there is
+								always at least one member with local data storage running when any
+								members with no storage are running. </li>
+						</ol>
+					</li>
+					<li id="li_F63C5050AFA04797B2DD2C097873FC40">If you want to custom partition the
+						data in your region or collocate data between multiple regions, code and
+						configure accordingly. See <xref format="dita"
+							href="custom_partitioning_and_data_colocation.xml#custom_partitioning_and_data_colocation"
+							scope="local" type="concept"/>. </li>
+					<li id="li_966784E65A6F419BBFD4CDA33CA65254">Plan your partition rebalancing
+						strategy and configure and program for that. See <xref format="dita"
+							href="rebalancing_pr_data.xml#rebalancing_pr_data" scope="local"/>.
+					</li>
+				</ol><note>To configure a partitioned region using gfsh, see <xref
+						href="../../tools_modules/gfsh/command-pages/create.xml#topic_54B0985FEC5241CA9D26B0CE0A5EA863"
+					/>.</note>
+			</p>
+		</section>
+	</conbody>
+</concept>

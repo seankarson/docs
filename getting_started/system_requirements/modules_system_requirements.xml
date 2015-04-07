@@ -1,0 +1,140 @@
+<?xml version="1.0"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept id="concept_93DC5047FF79417CAF803DE996D5E844">
+	<title><keyword keyref="product_name_long"/> Modules Supported Configurations</title>
+	<shortdesc>This section describes supported configurations for the HTTP Session Management and
+		Hibernate modules. </shortdesc>
+	<conbody>
+		<section id="section_A12FFB1AED384903B98433872271AB30">
+			<title>HTTP Session Management Module Supported Configurations</title>
+			<p><keyword keyref="product_name_long"/> HTTP Session Management modules support the
+				following application servers and their versions. <table
+					id="table_5F7D42DF4901436C95F0902B9801DBB2">
+					<tgroup cols="3">
+						<colspec colnum="1" colname="col1" colwidth="1.54*"/>
+						<colspec colname="col02" colnum="2" colwidth="1.00*"/>
+						<colspec colnum="3" colname="col2" colwidth="2.86*"/>
+						<thead>
+							<row>
+								<entry colname="col1">Supported Application Server </entry>
+								<entry colname="col02">Supported Version </entry>
+								<entry colname="col2">Module Documentation </entry>
+							</row>
+						</thead>
+						<tbody>
+							<row>
+								<entry colname="col1">tc Server </entry>
+								<entry colname="col02">2.5 </entry>
+								<entry colname="col2"><xref
+										href="../../tools_modules/http_session_mgmt/session_mgmt_tcserver.xml#http_tc_server"
+										type="concept" format="dita" scope="local"/>
+								</entry>
+							</row>
+							<row>
+								<entry colname="col1">tc Server </entry>
+								<entry colname="col02">2.6 </entry>
+								<entry colname="col2"><xref
+										href="../../tools_modules/http_session_mgmt/session_mgmt_tcserver.xml#http_tc_server"
+										type="concept" format="dita" scope="local"/>
+								</entry>
+							</row>
+							<row>
+								<entry colname="col1">tc Server </entry>
+								<entry colname="col02">2.7 </entry>
+								<entry colname="col2"><xref
+										href="../../tools_modules/http_session_mgmt/session_mgmt_tcserver.xml#http_tc_server"
+										type="concept" format="dita" scope="local"/>
+								</entry>
+							</row>
+							<row>
+								<entry colname="col1">tc Server </entry>
+								<entry colname="col02">2.8 </entry>
+								<entry colname="col2"><xref
+										href="../../tools_modules/http_session_mgmt/session_mgmt_tcserver.xml#http_tc_server"
+										type="concept" format="dita" scope="local"/></entry>
+							</row>
+							<row>
+								<entry colname="col1">tc Server</entry>
+								<entry colname="col02">2.9</entry>
+								<entry colname="col2"><xref
+										href="../../tools_modules/http_session_mgmt/session_mgmt_tcserver.xml#http_tc_server"
+										type="concept" format="dita" scope="local"/></entry>
+							</row>
+							<row>
+								<entry colname="col1">tc Server</entry>
+								<entry colname="col02">3.0</entry>
+								<entry colname="col2"><xref
+										href="../../tools_modules/http_session_mgmt/session_mgmt_tcserver.xml#http_tc_server"
+										type="concept" format="dita" scope="local"/></entry>
+							</row>
+							<row>
+								<entry colname="col1">Tomcat </entry>
+								<entry colname="col02">6.0 </entry>
+								<entry colname="col2"><xref
+										href="../../tools_modules/http_session_mgmt/session_mgmt_tomcat.xml#http_tomcat_first"
+										type="concept" format="dita" scope="local"/>
+								</entry>
+							</row>
+							<row>
+								<entry colname="col1">Tomcat </entry>
+								<entry colname="col02">7.0 </entry>
+								<entry colname="col2"><xref
+										href="../../tools_modules/http_session_mgmt/session_mgmt_tomcat.xml#http_tomcat_first"
+										type="concept" format="dita" scope="local"/>
+								</entry>
+							</row>
+							<row>
+								<entry colname="col1">WebLogic </entry>
+								<entry colname="col02">11g (10.3.x) </entry>
+								<entry colname="col2"><xref
+										href="../../tools_modules/http_session_mgmt/session_mgmt_weblogic.xml#http_weblogic_first"
+										type="concept" format="dita" scope="local"/>
+								</entry>
+							</row>
+							<row>
+								<entry colname="col1">WebSphere </entry>
+								<entry colname="col02">7, 8 </entry>
+								<entry colname="col2"><xref
+										href="../../tools_modules/http_session_mgmt/session_mgmt_weblogic.xml#http_weblogic_first"
+										type="concept" format="dita" scope="local"/>
+								</entry>
+							</row>
+							<row>
+								<entry colname="col1">JBoss </entry>
+								<entry colname="col02">5, 6, 7 </entry>
+								<entry colname="col2"><xref
+										href="../../tools_modules/http_session_mgmt/session_mgmt_weblogic.xml#http_weblogic_first"
+										type="concept" format="dita" scope="local"/>
+								</entry>
+							</row>
+						</tbody>
+					</tgroup>
+				</table>
+			</p>
+			<p>
+				<note>This table lists all application server versions that have been tested with
+					the <keyword keyref="product_name_long"/> HTTP Session Management modules.
+					However, the generic HTTP Session Management Module for AppServers is
+					implemented as a servlet filter and should work on any application server
+					platform that supports the <b>Java Servlet 2.4 specification</b>. </note>
+			</p>
+			<p>For more information on how to install and get started with the HTTP Session
+				Management Modules, see <xref
+					href="../../tools_modules/http_session_mgmt/quick_start.xml#quick_start"
+					type="concept" format="dita" scope="local"/>. </p>
+		</section>
+		<section id="section_A7877CA6FE994EE28380A57A401A29B4">
+			<title>Hibernate Module Supported Configurations</title>
+			<p><keyword keyref="product_name_long"/> supports Hibernate 3.3 and later (up to version
+				3.6.10) for use with the Hibernate Cache module. </p>
+			<p>
+				<note><keyword keyref="product_name_long"/> does not currently support Hibernate 4.x
+					for use with the Hibernate Cache module. </note>
+			</p>
+			<p otherprops="webhelp_only">For more information on using the Hibernate Module, see
+					<xref
+					href="../../tools_modules/hibernate_cache/chapter_overview.xml#hib_cac_mod"
+					type="concept" format="dita" scope="local"/>. </p>
+		</section>
+	</conbody>
+</concept>

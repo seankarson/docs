@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "http://docs.oasis-open.org/dita/v1.1/OS/dtd/concept.dtd">
+<concept id="eviction_expiration_with_transactions"> 
+  <title>Using Eviction and Expiration Operations</title>
+  <prolog><metadata><keywords><keyword>gemfire transactions
+			 eviction</keyword><keyword>gemfire transactions
+			 expiration</keyword><keyword>gemfire transactions distributed
+			 expiration</keyword></keywords></metadata>
+  </prolog> 
+  <conbody> 
+	 <section id="section_881D2FF6761B4D689DDB46C650E2A2E1"> 
+		<p>Entry expiration and LRU eviction affect the committed state. They are
+		  not part of the transaction, and they cannot be rolled back. 
+		</p> 
+	 </section> 
+	 <section id="section_2B66338C851A4FF386B60CC5CF4DCF77"> 
+		<title>Eviction</title> 
+		<p>LRU eviction operations do not cause write conflicts with existing
+		  transactions, despite destroying or invalidating entries. LRU eviction is
+		  deferred on entries modified by the transaction until the commit completes.
+		  Because anything touched by the transaction has had its LRU clock reset,
+		  eviction of those entries is not likely to happen immediately after the commit.
+		  
+		</p> 
+		<p>When a transaction commits its changes in a region with distributed
+		  scope, the operation can invoke eviction controllers in the remote caches, as
+		  well as in the local cache. 
+		</p> 
+	 </section> 
+	 <section id="section_EA9277E6CFD7423F95BA4D04955FDE2A"> 
+		<title>Configure Expiration</title> 
+		<p>Local expiration actions do not cause write conflicts, but distributed
+		  expiration can cause conflicts and prevent transactions from committing in the
+		  members receiving the distributed operation. 
+		<ul id="ul_0B76EF0E8DA841CEA9A139A25DFBA5A6"> 
+		  <li id="li_47020931D1024059A7988EEAEBAA79FD"><b>Using local expiration
+				with transactions.</b> When you are using transactions on a region, make
+			 expiration local, if possible. For every instance of that region, configure an
+			 expiration action of local invalidate or local destroy. In a 
+			 <codeph>cache.xml</codeph> declaration, use a line similar to this: 
+			 <codeblock>&lt;expiration-attributes timeout="60" action="local-invalidate"/&gt;</codeblock>In regions modified by a transaction, local expiration is
+			 suspended. Expiration operations are batched and deferred per region until the
+			 transactions complete. Once cleanup starts, the manager processes pending
+			 expirations. Transaction that need to change the region wait until the
+			 expirations are complete. 
+			 <p/> 
+		  </li> 
+		  <li id="li_B3FF867AA96F4A3A92F57E700ADD8969"><b>Using distributed
+				expiration with transactions.</b> With partitioned and replicated regions, you
+			 cannot use local expiration. When you are using distributed expiration, the
+			 expiration is not suspended during a transaction, and expiration operations
+			 distributed from another member can cause write conflicts. In replicated
+			 regions, you can avoid conflicts by setting up your distributed system this
+			 way: 
+			 <ol id="ol_48EA1D927D1B4757A48E454AA52C5674"> 
+				<li id="li_90B95556BB384B15B284B58ED113754B">Choose an instance of
+				  the region to drive region-wide expiration. Use a replicated region, if there
+				  is one. 
+				</li> 
+				<li id="li_6C0286104825421C8FEFC05EEE0E7C68">Configure distributed
+				  expiration only in that region instance. The expiration action must be either
+				  invalidate or destroy. In a 
+				  <codeph>cache.xml</codeph> declaration, use a line similar to
+				  this 
+				  <codeblock>&lt;expiration-attributes timeout="300" action="destroy"/&gt;</codeblock> 
+				</li> 
+				<li id="li_09D37CA0DA9747B98F0382B1CEAE7E70">Run your transactions
+				  in the member where you configured expiration. 
+				</li> 
+			 </ol> 
+		  </li> 
+		</ul> 
+		</p> 
+	 </section> 
+  </conbody> 
+</concept> 

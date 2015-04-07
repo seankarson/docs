@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE task PUBLIC "-//OASIS//DTD DITA Task//EN" "http://docs.oasis-open.org/dita/v1.1/OS/dtd/task.dtd">
+<task id="set_pr_redundancy">
+	<title>Set the Number of Redundant Copies</title>
+	<shortdesc id="shortdesc_F066E067A9344A3D9C12B412271748FD">Configure in-memory high availability
+		for your partitioned region by specifying the number of secondary copies you want to
+		maintain in the region's data stores. </shortdesc>
+	<taskbody>
+		<prereq id="prereq_BE4B80C43B95404B9AE842E3C378421D"> </prereq>
+		<steps id="steps_62018C19689D4C18BC703C1F8A0F3289">
+			<step id="step_B1CFEAC999254E9C9F8D605537726CAB">
+				<cmd>Specify the number of redundant copies you want for your partitioned region
+					data in the partition attribute <codeph>redundant-copies</codeph> setting. The
+					default setting is 0. </cmd>
+			</step>
+		</steps>
+		<example id="example_85B964CF2ABE4443B7AB84A793C04C21">
+			<p>For example: <ul id="ul_2AD0B9EED72446CD82A8B31ABA3E01AB">
+					<li id="li_3E2E42390AB946B0BFD4A83BBF5534A6">XML:
+						<codeblock outputclass="language-xml">&lt;region name="PR1"&gt; 
+  &lt;region-attributes refid="PARTITION"&gt; 
+    &lt;partition-attributes redundant-copies="1"/&gt; 
+  &lt;/region-attributes&gt; 
+&lt;/region&gt; </codeblock>
+					</li>
+					<li id="li_790352D10514413C8E06A1D21B6BE087">Java:
+						<codeblock outputclass="language-java">PartitionAttributes pa = 
+    new PartitionAttributesFactory().setRedundantCopies(1).create(); </codeblock></li>
+					<li>gfsh:<codeblock outputclass="language-bourne">gfsh>create region --name="PR1" --type=PARTITION --redundant-copies=1</codeblock>
+					</li>
+				</ul>
+			</p>
+		</example>
+	</taskbody>
+</task>

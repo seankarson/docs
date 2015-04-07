@@ -1,0 +1,52 @@
+<?xml version="1.0"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept id="concept_52B3A347D6FC4DF392FD16C164D959A5">
+        <title>help</title>
+        <shortdesc>Display syntax and usage information for all the available commands. </shortdesc>
+        <conbody>
+                <p>Typing help without a command as an argument lists all available commands. </p>
+                <p><b> Availability:</b> Online or offline. </p>
+                <p><b>Syntax:</b>
+                        <codeblock>help [command]</codeblock>
+                </p>
+                <p><b>Examples Commands:</b>
+                        <codeblock>help
+help rebalance
+</codeblock>
+                </p>
+                <p><b>Sample Output:</b>
+                        <codeblock>gfsh&gt;help rebalance
+NAME
+        rebalance
+IS AVAILABLE
+        true
+SYNOPSIS
+        Rebalance partitioned regions. The default is for all partitioned region
+s to be rebalanced.
+SYNTAX
+        rebalance [--include-region=value(,value)*] [--exclude-region=value(,val
+ue)*] [--time-out=value] [--simulate(=value)?]
+PARAMETERS
+        include-region
+                Partitioned regions to be included when rebalancing. Includes ta
+ke precedence over excludes.
+                Required:false
+        exclude-region
+                Partitioned regions to be excluded when rebalancing.
+                Required:false
+        time-out
+                Time to wait (in seconds) before GFSH returns to a prompt while
+rebalancing continues in the background. The default is to wait for rebalancing
+to complete.
+                Required:false
+                Default if the parameter is not specified:-1
+        simulate
+                Whether to only simulate rebalancing. The --time-out parameter i
+s not available when simulating.
+                Required:false
+                Default if no value for the parameter is given:true
+                Default if the parameter is not specified:false
+</codeblock>
+                </p>
+        </conbody>
+</concept>

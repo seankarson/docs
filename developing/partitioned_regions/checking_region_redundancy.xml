@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE topic PUBLIC "-//OASIS//DTD DITA Topic//EN" "topic.dtd">
+<topic id="topic_l2w_wqn_yk">
+  <title>Checking Redundancy in Partitioned Regions</title>
+  <shortdesc>Under some circumstances, it can be important to verify that your partitioned region
+    data is redundant and that upon member restart, redundancy has been recovered properly across
+    partitioned region members.</shortdesc>
+  <body>
+    <p>You can verify partitioned region redundancy by making sure that the
+        <codeph>numBucketsWithoutRedundancy</codeph> statistic is <b>zero</b> for all your
+      partitioned regions. To check this statistic, use the following <codeph>gfsh</codeph>
+      command:<codeblock>gfsh>show metrics --categories=partition --region=<varname>region_name</varname></codeblock></p>
+    <p>For
+      example:<codeblock>gfsh>show metrics --categories=partition --region=posts
+
+Cluster-wide Region Metrics
+--------- | --------------------------- | -----
+partition | putLocalRate                | 0
+          | putRemoteRate               | 0
+          | putRemoteLatency            | 0
+          | putRemoteAvgLatency         | 0
+          | bucketCount                 | 1
+          | primaryBucketCount          | 1
+          <b>| numBucketsWithoutRedundancy | 1</b>
+          | minBucketSize               | 1
+          | maxBucketSize               | 0
+          | totalBucketSize             | 1
+          | averageBucketSize           | 1
+      </codeblock></p>
+    <p>If you have <codeph>start-recovery-delay=-1</codeph> configured for your partitioned region,
+      you will need to perform a rebalance on your region after you restart any members in your
+      cluster in order to recover redundancy.</p>
+    <p> If you have <codeph>start-recovery-delay</codeph> set to a low number, you may need to wait
+      extra time until the region has recovered redundancy. </p>
+  </body>
+</topic>

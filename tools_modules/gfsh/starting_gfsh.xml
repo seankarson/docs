@@ -1,0 +1,53 @@
+<?xml version="1.0"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept id="concept_DB959734350B488BBFF91A120890FE61">
+	<title>Starting gfsh</title>
+	<shortdesc>Before you start gfsh, confirm that you have set JAVA_HOME and that your PATH
+		variable includes the gfsh executable. </shortdesc>
+	<conbody>
+		<p>See <xref format="dita"
+				href="../../getting_started/installation/install_intro.xml#concept_5111C7EDF7D24CA2BCE5959006453415"
+				scope="local" type="concept"/> for more information. </p>
+		<p>To manage servers and locators properly, <codeph>gfsh</codeph> requires that tools.jar
+			(provided with the JDK) exist in the CLASSPATH. </p>
+		<p>
+			<note>On Windows, you must have the JAVA_HOME variable set properly to use start, stop
+				and status commands for both locators and servers. </note>
+		</p>
+		<p>To launch the gfsh command-line interface, execute the following command at the prompt on
+			any machine that is currently installed with <keyword keyref="product_name_long"/>: </p>
+		<p><b>Start gfsh on Windows:</b>
+			<codeblock>&lt;<i>product_directory</i>&gt;\bin\gfsh.bat </codeblock> where
+				&lt;<i>product_directory</i>&gt; corresponds to the location where you installed
+				<keyword keyref="product_name_long"/>. </p>
+		<p><b>Start gfsh on Unix:</b>
+			<codeblock>&lt;<i>product_directory</i>&gt;/bin/gfsh</codeblock> where
+				&lt;<i>product_directory</i>&gt; corresponds to the location where you installed
+				<keyword keyref="product_name_long"/>. If you installed <keyword
+				keyref="product_name_long"/> using RPM, the default product directory installation
+			location is <codeph>/opt/pivotal/gemfire</codeph>. Upon execution, the
+				<codeph>gfsh</codeph> script appends the required Pivotal GemFire and JDK Jar
+			libraries to your existing CLASSPATH. </p>
+		<p>If you have successfully started <codeph>gfsh</codeph>, the <codeph>gfsh</codeph> splash
+			screen and prompt appears.
+			<codeblock>c:\PivotalGemFire80\Latest&gt;gfsh.bat
+    _________________________     __
+   / _____/ ______/ ______/ /____/ /
+  / /  __/ /___  /_____  / _____  /
+ / /__/ / ____/  _____/ / /    / /
+/______/_/      /______/_/    /_/    v8.0.0
+
+Monitor and Manage GemFire
+gfsh&gt;
+
+</codeblock>
+			You can also run some gfsh commands directly within your terminal without entering a
+				<codeph>gfsh</codeph> prompt. For example, on Unix/Linux you could enter:
+			<codeblock>$ gfsh start server --name=server1</codeblock>or on Windows:
+			<codeblock>prompt&gt; gfsh start server --name=server1</codeblock>See <xref
+				href="command_scripting.xml#concept_9B2F7550F16C4717831AD40A56922259" type="concept"
+				format="dita" scope="local"
+				><?xm-replace_text Creating and Running gfsh Command Scripts?></xref> for more
+			information. </p>
+	</conbody>
+</concept>

@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "http://docs.oasis-open.org/dita/v1.1/OS/dtd/concept.dtd">
+<concept id="multicast">
+	<title>Configuring Multicast Speed Limits</title>
+	<shortdesc>After you determine the maximum transmission rate, configure and tune your production
+		system. </shortdesc>
+	<conbody>
+		<section id="section_8E225FC6829946C287552BC7996F2765">
+			<p> For best performance, the producer and the consumers should run on different
+				machines and each process should have at least one CPU dedicated to it. The
+				following is a list of configuration changes that can improve multicast performance.
+				Check with your system administrator about changing any of the limits discussed
+				here. <ul id="ul_EFB8774E9797404BA78E2CD4246A5D89">
+					<li id="li_3544A1CF2CCD4B7E8092C1A11E476BD3">Increase the default datagram size
+						for systems running Microsoft Windows from 1024 bytes to a value that
+						matches your network’s maximum transmission unit (MTU), which is typically
+						1500 bytes. The higher setting should improve the system’s network
+						performance. </li>
+					<li id="li_F3B13B4429C8448D9984A0D117F0E88E">Distribution statistics for stack
+						time probes are disabled by default to increase multicast performance. To
+						reduce multicast speed, you can enable time statistics by setting the
+							gemfire.<codeph>enable-time-statistics</codeph> property to true.
+							<p>This enables time statistics for a Java application:
+							<codeblock>-Dgemfire.enable-time-statistics=true</codeblock> The time
+							statistics properties are passed to the cache server on the
+								<codeph>gfsh</codeph> the command line:
+							<codeblock>gfsh&gt;start server --name=<varname>server_name</varname> --enable-time-statistics</codeblock>
+						</p>
+					</li>
+					<li id="li_6F09E7D5F35349208CE0B92E34AAFFEB">Monitor the members that receive
+						data for signs of data loss. A few data loss messages can happen normally
+						during region creation. Data loss monitoring can be done by reviewing the
+							<keyword keyref="product_name"/> DistributionStats in the statistics
+						archive using the optional Visual Statistics Display (VSD) tool. If the
+						cache regions are configured to require acknowledgment, you could see
+						messages timing out as they wait for a response. After a put into a region,
+						the next operations might report that the entry could not be found.
+						Multicast retransmit requests and unicast retransmits can also be monitored
+						to detect data loss. Even when you see data loss, the cause of the problem
+						may have nothing to do with the network. However, if it happens constantly
+						then you should try testing the flow control rate again </li>
+					<li id="li_E7811457826D443D86C10EB240EA3D53">If necessary, reconfigure all the
+							<codeph>gemfire.properties</codeph> files and repeat with lower flow
+						control maximum credits until you find the maximum useful rate for your
+						installation. </li>
+					<li id="li_4F05C926DA0D4FEDA92CF3A1C4BC280A">Slow system performance might be
+						helped by reducing how far your multicast messaging goes in your network. </li>
+					<li id="li_B1162DF983EB42E8A74A2832E98FC931">Reduce multicast latency by
+						disabling batching. By default, <keyword keyref="product_name"/> uses
+						batching for operations when the region’s scope is distributed-no-ack. Set
+						the <codeph>disableBatching</codeph> property to true on the application or
+						when starting a cache server process through the <codeph>gfsh</codeph>
+						command line:
+						<codeblock>gfsh&gt;start server --name=<varname>server_name</varname> --J=-Dp2p.disableBatching=true</codeblock>
+					</li>
+				</ul>
+			</p>
+		</section>
+	</conbody>
+</concept>

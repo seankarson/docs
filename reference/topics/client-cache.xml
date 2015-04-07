@@ -1,0 +1,860 @@
+<?xml version="1.0"?>
+<!DOCTYPE dita PUBLIC "-//OASIS//DTD DITA Composite//EN" "ditabase.dtd">
+<dita>
+	<topic id="cc-client-cache">
+		<title>&lt;client-cache&gt; Element Reference</title>
+		<shortdesc>This section documents all <filepath>cache.xml</filepath> elements that you use
+			to configure <keyword keyref="product_name"/> clients. All elements are sub-elements of
+			the <codeph>&lt;client-cache&gt;</codeph> element. </shortdesc>
+		<body>
+			<p> For <keyword keyref="product_name"/> server configuration, see <xref
+					href="cache_xml.xml"/>. </p>
+			<p>API: <codeph>com.gemstone.gemfire.cache.client.ClientCacheFactory</codeph> and
+					<codeph>PoolFactory</codeph> interfaces. </p>
+			<table id="table_B079C5A320194B3A98AD82DDB67DA43D">
+				<title>Attributes of &lt;client-cache&gt;</title>
+				<tgroup cols="3">
+					<colspec colname="1" colnum="1" colwidth="1.60*"/>
+					<colspec colname="2" colnum="2" colwidth="4.14*"/>
+					<colspec colname="3" colnum="2" colwidth="1.00*"/>
+					<thead>
+						<row>
+							<entry>Attribute </entry>
+							<entry>Definition </entry>
+							<entry>Default </entry>
+						</row>
+					</thead>
+					<tbody>
+						<row>
+							<entry>copy-on-read </entry>
+							<entry>
+								<p>Boolean indicating whether entry value retrieval methods return
+									direct references to the entry value objects in the cache
+									(false) or copies of the objects (true). </p>
+							</entry>
+							<entry>False </entry>
+						</row>
+					</tbody>
+				</tgroup>
+			</table>
+			<p>
+				<b>Example:</b>
+				<codeblock outputclass="language-xml">&lt;client-cache&gt;
+  &lt;pool 
+    name="client" 
+    subscription-enabled="true"&gt;
+    &lt;locator host="localhost" port="41111"/&gt;
+  &lt;/pool&gt;
+  &lt;region-attributes 
+    id="clientAttributes" 
+    pool-name="client" 
+    refid="CACHING_PROXY"/&gt; 
+  &lt;region name="root"&gt;
+    &lt;region-attributes scope="local"/&gt;
+    &lt;region name="cs_region"&gt;
+      &lt;region-attributes refid="clientAttributes"/&gt;
+    &lt;/region&gt;
+  &lt;/region&gt;
+&lt;/client-cache&gt;</codeblock>
+			</p>
+		</body>
+	</topic>
+	<topic id="cc-cache-transaction-manager" conref="cache_xml.xml#cache-transaction-manager">
+		<title>&lt;cache-transaction-manager&gt;</title>
+		<shortdesc><?xm-replace_text Short Description?>
+		</shortdesc>
+		<body>
+			<p><?xm-replace_text Paragraph?>
+			</p>
+		</body>
+	</topic>
+	<topic id="cc-transaction-listener" conref="cache_xml.xml#transaction-listener">
+		<title>&lt;transaction-listener&gt;</title>
+	</topic>
+	<topic id="cc-transaction-writer" conref="cache_xml.xml#transaction-writer">
+		<title>&lt;transaction-writer&gt;</title>
+	</topic>
+	<topic id="cc-pool" conref="cache_xml.xml#pool">
+		<title>&lt;pool &gt;</title>
+		<shortdesc><?xm-replace_text Short Description?>
+		</shortdesc>
+		<body>
+			<p><?xm-replace_text Paragraph?>
+			</p>
+			<p>
+				<b>Default: </b>
+			</p>
+			<p>
+				<b>API: </b>
+				<codeph/>
+			</p>
+			<table id="table_C586E15769B4479EB7707AC5AA90294B">
+				<title>Attributes of &lt;&gt;</title>
+				<tgroup cols="3">
+					<colspec colname="1" colnum="1" colwidth="1.6*"/>
+					<colspec colname="2" colnum="2" colwidth="4.1*"/>
+					<colspec colname="col3" colnum="3" colwidth="1*"/>
+					<thead>
+						<row>
+							<entry>Attribute </entry>
+							<entry>Description </entry>
+							<entry colname="col3">Default </entry>
+						</row>
+					</thead>
+					<tbody>
+						<row>
+							<entry> </entry>
+							<entry> </entry>
+							<entry colname="col3"> </entry>
+						</row>
+						<row>
+							<entry> </entry>
+							<entry> </entry>
+							<entry colname="col3"> </entry>
+						</row>
+						<row>
+							<entry> </entry>
+							<entry> </entry>
+							<entry colname="col3"> </entry>
+						</row>
+						<row>
+							<entry> </entry>
+							<entry> </entry>
+							<entry colname="col3"> </entry>
+						</row>
+						<row>
+							<entry> </entry>
+							<entry> </entry>
+							<entry colname="col3"> </entry>
+						</row>
+					</tbody>
+				</tgroup>
+			</table>
+			<p>
+				<b>Example: </b>
+			</p>
+			<codeblock outputclass="language-xml">
+</codeblock>
+		</body>
+	</topic>
+	<topic id="cc-locator" conref="cache_xml.xml#locator">
+		<title>&lt;locator&gt;</title>
+	</topic>
+	<topic id="cc-server" conref="cache_xml.xml#server">
+		<title>&lt;server&gt;</title>
+	</topic>
+	<topic id="cc-disk-store" conref="cache_xml.xml#disk-store">
+		<title>&lt;disk-store &gt;</title>
+		<shortdesc><?xm-replace_text Short Description?>
+		</shortdesc>
+		<body>
+			<p><?xm-replace_text Paragraph?>
+			</p>
+			<p>
+				<b>Default: </b>
+			</p>
+			<p>
+				<b>API: </b>
+				<codeph/>
+			</p>
+			<table id="table_0522DE02F38E424AB743C56F73FE0C68">
+				<title>Attributes of &lt;&gt;</title>
+				<tgroup cols="3">
+					<colspec colname="1" colnum="1" colwidth="1.6*"/>
+					<colspec colname="2" colnum="2" colwidth="4.1*"/>
+					<colspec colname="col3" colnum="3" colwidth="1*"/>
+					<thead>
+						<row>
+							<entry>Attribute </entry>
+							<entry>Description </entry>
+							<entry colname="col3">Default </entry>
+						</row>
+					</thead>
+					<tbody>
+						<row>
+							<entry> </entry>
+							<entry> </entry>
+							<entry colname="col3"> </entry>
+						</row>
+						<row>
+							<entry> </entry>
+							<entry> </entry>
+							<entry colname="col3"> </entry>
+						</row>
+						<row>
+							<entry> </entry>
+							<entry> </entry>
+							<entry colname="col3"> </entry>
+						</row>
+						<row>
+							<entry> </entry>
+							<entry> </entry>
+							<entry colname="col3"> </entry>
+						</row>
+						<row>
+							<entry> </entry>
+							<entry> </entry>
+							<entry colname="col3"> </entry>
+						</row>
+					</tbody>
+				</tgroup>
+			</table>
+			<p>
+				<b>Example: </b>
+			</p>
+			<codeblock outputclass="language-xml">
+</codeblock>
+		</body>
+	</topic>
+	<topic id="cc-disk-dirs" conref="cache_xml.xml#disk-dirs">
+		<title>&lt;disk-dirs&gt;</title>
+	</topic>
+	<topic id="cc-disk-dir" conref="cache_xml.xml#disk-dir">
+		<title>&lt;disk-dir&gt;</title>
+	</topic>
+	<topic id="cc-pdx" conref="cache_xml.xml#pdx">
+		<title>&lt;pdx&gt;</title>
+		<shortdesc><?xm-replace_text Short Description?>
+		</shortdesc>
+		<body>
+			<p><?xm-replace_text Paragraph?>
+			</p>
+			<p>
+				<b>Default: </b>
+			</p>
+			<p>
+				<b>API: </b>
+				<codeph/>
+			</p>
+			<table id="table_0842C0DD10ED41ACAE84C934B48F31B3">
+				<title>Attributes of &lt;&gt;</title>
+				<tgroup cols="3">
+					<colspec colname="1" colnum="1" colwidth="1.6*"/>
+					<colspec colname="2" colnum="2" colwidth="4.1*"/>
+					<colspec colname="col3" colnum="3" colwidth="1*"/>
+					<thead>
+						<row>
+							<entry>Attribute </entry>
+							<entry>Description </entry>
+							<entry colname="col3">Default </entry>
+						</row>
+					</thead>
+					<tbody>
+						<row>
+							<entry> </entry>
+							<entry> </entry>
+							<entry colname="col3"> </entry>
+						</row>
+						<row>
+							<entry> </entry>
+							<entry> </entry>
+							<entry colname="col3"> </entry>
+						</row>
+						<row>
+							<entry> </entry>
+							<entry> </entry>
+							<entry colname="col3"> </entry>
+						</row>
+						<row>
+							<entry> </entry>
+							<entry> </entry>
+							<entry colname="col3"> </entry>
+						</row>
+						<row>
+							<entry> </entry>
+							<entry> </entry>
+							<entry colname="col3"> </entry>
+						</row>
+					</tbody>
+				</tgroup>
+			</table>
+			<p>
+				<b>Example: </b>
+			</p>
+			<codeblock outputclass="language-xml">
+</codeblock>
+		</body>
+	</topic>
+	<topic id="cc-pdx-serializer" conref="cache_xml.xml#pdx-serializer_24898989679">
+		<title>&lt;pdx-serializer&gt;</title>
+	</topic>
+	<topic id="cc-region-attributes" conref="cache_xml.xml#region-attributes">
+		<title>&lt;region-attributes &gt;</title>
+		<shortdesc><?xm-replace_text Short Description?>
+		</shortdesc>
+		<body>
+			<p><?xm-replace_text Paragraph?>
+			</p>
+			<p>
+				<b>Default: </b>
+			</p>
+			<p>
+				<b>API: </b>
+				<codeph/>
+			</p>
+			<table id="table_37A7695593174FAC875D81C51585B8EC">
+				<title>Attributes of &lt;&gt;</title>
+				<tgroup cols="3">
+					<colspec colname="1" colnum="1" colwidth="1.6*"/>
+					<colspec colname="2" colnum="2" colwidth="4.1*"/>
+					<colspec colname="col3" colnum="3" colwidth="1*"/>
+					<thead>
+						<row>
+							<entry>Attribute </entry>
+							<entry>Description </entry>
+							<entry colname="col3">Default </entry>
+						</row>
+					</thead>
+					<tbody>
+						<row>
+							<entry> </entry>
+							<entry> </entry>
+							<entry colname="col3"> </entry>
+						</row>
+						<row>
+							<entry> </entry>
+							<entry> </entry>
+							<entry colname="col3"> </entry>
+						</row>
+						<row>
+							<entry> </entry>
+							<entry> </entry>
+							<entry colname="col3"> </entry>
+						</row>
+						<row>
+							<entry> </entry>
+							<entry> </entry>
+							<entry colname="col3"> </entry>
+						</row>
+						<row>
+							<entry> </entry>
+							<entry> </entry>
+							<entry colname="col3"> </entry>
+						</row>
+					</tbody>
+				</tgroup>
+			</table>
+			<p>
+				<b>Example: </b>
+			</p>
+			<codeblock outputclass="language-xml">
+</codeblock>
+		</body>
+	</topic>
+	<topic id="cc-key-constraint" conref="cache_xml.xml#key-constraint">
+		<title>&lt;key-constraint&gt;</title>
+	</topic>
+	<topic id="cc-value-constraint" conref="cache_xml.xml#value-constraint">
+		<title>&lt;value-constraint&gt;</title>
+	</topic>
+	<topic id="cc-region-time-to-live" conref="cache_xml.xml#region-time-to-live">
+		<title>&lt;region-time-to-live&gt;</title>
+	</topic>
+	<topic id="cc-expiration-attributes" conref="cache_xml.xml#expiration-attributes">
+		<title>&lt;expiration-attributes&gt;</title>
+	</topic>
+	<topic id="cc-custom-expiry" conref="cache_xml.xml#custom-expiry">
+		<title>&lt;custom-expiry&gt;</title>
+	</topic>
+	<topic id="cc-region-idle-time" conref="cache_xml.xml#region-idle-time">
+		<title>&lt;region-idle-time&gt;</title>
+	</topic>
+	<topic id="cc-rit-expiration-attributes" conref="cache_xml.xml#expiration-attributes">
+		<title>&lt;expiration-attributes&gt;</title>
+	</topic>
+	<topic id="cc-rit-custom-expiry" conref="cache_xml.xml#custom-expiry">
+		<title>&lt;custom-expiry&gt;</title>
+	</topic>
+	<topic id="cc-entry-time-to-live" conref="cache_xml.xml#entry-time-to-live">
+		<title>&lt;entry-time-to-live&gt;</title>
+	</topic>
+	<topic id="cc-ettl-expiration-attributes" conref="cache_xml.xml#expiration-attributes">
+		<title>&lt;expiration-attributes&gt;</title>
+	</topic>
+	<topic id="cc-ettl-custom-expiry" conref="cache_xml.xml#custom-expiry">
+		<title>&lt;custom-expiry&gt;</title>
+	</topic>
+	<topic id="cc-entry-idle-time" conref="cache_xml.xml#entry-idle-time">
+		<title>&lt;entry-idle-time&gt;</title>
+	</topic>
+	<topic id="cc-eit-expiration-attributes" conref="cache_xml.xml#expiration-attributes">
+		<title>&lt;expiration-attributes&gt;</title>
+	</topic>
+	<topic id="cc-eit-custom-expiry" conref="cache_xml.xml#custom-expiry">
+		<title>&lt;custom-expiry&gt;</title>
+	</topic>
+	<topic id="cc-disk-write-attributes" conref="cache_xml.xml#disk-write-attributes">
+		<title>&lt;disk-write-attributes&gt;</title>
+	</topic>
+	<topic id="cc-asynchronous-writes" conref="cache_xml.xml#asynchronous-writes">
+		<title>&lt;asynchronous-writes&gt;</title>
+	</topic>
+	<topic id="cc-synchronous-writes" conref="cache_xml.xml#synchronous-writes">
+		<title>&lt;synchronous-writes&gt;</title>
+	</topic>
+	<topic id="cc-ra-disk-dirs" conref="cache_xml.xml#disk-dirs">
+		<title>&lt;disk-dirs&gt;</title>
+	</topic>
+	<topic id="cc-ra-disk-dir" conref="cache_xml.xml#disk-dir">
+		<title>&lt;disk-dir&gt;</title>
+	</topic>
+	<topic id="cc-id_uqb_3qw_bm" conref="cache_xml.xml#topic_qsb_pnw_bm">
+		<title>&lt;cache-loader&gt;</title>
+	</topic>
+	<topic id="cc-id_k3w_3qw_bm" conref="cache_xml.xml#topic_h53_pnw_bm">
+		<title>&lt;cache-writer&gt;</title>
+	</topic>
+	<topic id="cc-cache-listener" conref="cache_xml.xml#cache-listener">
+		<title>&lt;cache-listener&gt;</title>
+	</topic>
+	<topic id="cc-eviction-attributes" conref="cache_xml.xml#eviction-attributes">
+		<title>&lt;eviction-attributes&gt;</title>
+	</topic>
+	<topic id="cc-lru-entry-count" conref="cache_xml.xml#lru-entry-count">
+		<title>&lt;lru-entry-count&gt;</title>
+	</topic>
+	<topic id="cc-lru-heap-percentage" conref="cache_xml.xml#lru-heap-percentage">
+		<title>&lt;lru-heap-percentage&gt;</title>
+	</topic>
+	<topic id="cc-lru-memory-size" conref="cache_xml.xml#lru-memory-size">
+		<title>&lt;lru-memory-size&gt;</title>
+	</topic>
+	<topic id="cc-jndi-bindings" conref="cache_xml.xml#jndi-bindings">
+		<title>&lt;jndi-bindings &gt;</title>
+		<shortdesc><?xm-replace_text Short Description?>
+		</shortdesc>
+		<body>
+			<p><?xm-replace_text Paragraph?>
+			</p>
+			<p>
+				<b>Default: </b>
+			</p>
+			<p>
+				<b>API: </b>
+				<codeph/>
+			</p>
+			<table id="table_643D7FD7726546DAB9FFA365EE846177">
+				<title>Attributes of &lt;&gt;</title>
+				<tgroup cols="3">
+					<colspec colname="1" colnum="1" colwidth="1.6*"/>
+					<colspec colname="2" colnum="2" colwidth="4.1*"/>
+					<colspec colname="col3" colnum="3" colwidth="1*"/>
+					<thead>
+						<row>
+							<entry>Attribute </entry>
+							<entry>Description </entry>
+							<entry colname="col3">Default </entry>
+						</row>
+					</thead>
+					<tbody>
+						<row>
+							<entry> </entry>
+							<entry> </entry>
+							<entry colname="col3"> </entry>
+						</row>
+						<row>
+							<entry> </entry>
+							<entry> </entry>
+							<entry colname="col3"> </entry>
+						</row>
+						<row>
+							<entry> </entry>
+							<entry> </entry>
+							<entry colname="col3"> </entry>
+						</row>
+						<row>
+							<entry> </entry>
+							<entry> </entry>
+							<entry colname="col3"> </entry>
+						</row>
+						<row>
+							<entry> </entry>
+							<entry> </entry>
+							<entry colname="col3"> </entry>
+						</row>
+					</tbody>
+				</tgroup>
+			</table>
+			<p>
+				<b>Example: </b>
+			</p>
+			<codeblock outputclass="language-xml">
+</codeblock>
+		</body>
+	</topic>
+	<topic id="cc-jndi-binding" conref="cache_xml.xml#jndi-binding">
+		<title>&lt;jndi-binding&gt;</title>
+	</topic>
+	<topic id="cc-config-property" conref="cache_xml.xml#config-property">
+		<title>&lt;config-property&gt;</title>
+	</topic>
+	<topic id="cc-config-property-name" conref="cache_xml.xml#config-property-name">
+		<title>&lt;config-property-name&gt;</title>
+	</topic>
+	<topic id="cc-config-property-type" conref="cache_xml.xml#config-property-type">
+		<title>&lt;config-property-type&gt;</title>
+	</topic>
+	<topic id="cc-config-property-value" conref="cache_xml.xml#config-property-value">
+		<title>&lt;config-property-value&gt;</title>
+	</topic>
+	<topic id="cc-region" conref="cache_xml.xml#region">
+		<title>&lt;region &gt;</title>
+		<shortdesc><?xm-replace_text Short Description?>
+		</shortdesc>
+		<body>
+			<p><?xm-replace_text Paragraph?>
+			</p>
+			<p>
+				<b>Default: </b>
+			</p>
+			<p>
+				<b>API: </b>
+				<codeph/>
+			</p>
+			<table id="table_BE6125B69F3445CD9DAF4A1ED70CF741">
+				<title>Attributes of &lt;&gt;</title>
+				<tgroup cols="3">
+					<colspec colname="1" colnum="1" colwidth="1.6*"/>
+					<colspec colname="2" colnum="2" colwidth="4.1*"/>
+					<colspec colname="col3" colnum="3" colwidth="1*"/>
+					<thead>
+						<row>
+							<entry>Attribute </entry>
+							<entry>Description </entry>
+							<entry colname="col3">Default </entry>
+						</row>
+					</thead>
+					<tbody>
+						<row>
+							<entry> </entry>
+							<entry> </entry>
+							<entry colname="col3"> </entry>
+						</row>
+						<row>
+							<entry> </entry>
+							<entry> </entry>
+							<entry colname="col3"> </entry>
+						</row>
+						<row>
+							<entry> </entry>
+							<entry> </entry>
+							<entry colname="col3"> </entry>
+						</row>
+						<row>
+							<entry> </entry>
+							<entry> </entry>
+							<entry colname="col3"> </entry>
+						</row>
+						<row>
+							<entry> </entry>
+							<entry> </entry>
+							<entry colname="col3"> </entry>
+						</row>
+					</tbody>
+				</tgroup>
+			</table>
+			<p>
+				<b>Example: </b>
+			</p>
+			<codeblock outputclass="language-xml">
+</codeblock>
+		</body>
+	</topic>
+	<topic id="cc-r-region-attributes" conref="cache_xml.xml#region-attributes">
+		<title>&lt;region-attributes&gt;</title>
+	</topic>
+	<topic id="cc-index" conref="cache_xml.xml#index">
+		<title>&lt;index&gt;</title>
+	</topic>
+	<topic id="cc-functional" conref="cache_xml.xml#functional">
+		<title>&lt;functional&gt;</title>
+	</topic>
+	<topic id="cc-primary-key" conref="cache_xml.xml#primary-key">
+		<title>&lt;primary-key&gt;</title>
+	</topic>
+	<topic id="cc-entry" conref="cache_xml.xml#entry">
+		<title>&lt;entry&gt;</title>
+	</topic>
+	<topic id="cc-key" conref="cache_xml.xml#key">
+		<title>&lt;key&gt;</title>
+	</topic>
+	<topic id="cc-string" conref="cache_xml.xml#string">
+		<title>&lt;string&gt;</title>
+	</topic>
+	<topic id="cc-declarable" conref="cache_xml.xml#declarable">
+		<title>&lt;declarable&gt;</title>
+	</topic>
+	<topic id="cc-value" conref="cache_xml.xml#value">
+		<title>&lt;value&gt;</title>
+	</topic>
+	<topic id="cc-v-string" conref="cache_xml.xml#string">
+		<title>&lt;string&gt;</title>
+	</topic>
+	<topic id="cc-v-declarable" conref="cache_xml.xml#declarable">
+		<title>&lt;declarable&gt;</title>
+	</topic>
+	<topic id="cc-ra-region" conref="cache_xml.xml#region">
+		<title>&lt;region&gt;</title>
+	</topic>
+	<topic id="cc-function-service" conref="cache_xml.xml#function-service">
+		<title>&lt;function-service &gt;</title>
+		<shortdesc><?xm-replace_text Short Description?>
+		</shortdesc>
+		<body>
+			<p><?xm-replace_text Paragraph?>
+			</p>
+			<p>
+				<b>Default: </b>
+			</p>
+			<p>
+				<b>API: </b>
+				<codeph/>
+			</p>
+			<table id="table_F74D6E1848614CA4950F0FCCC93447E5">
+				<title>Attributes of &lt;&gt;</title>
+				<tgroup cols="3">
+					<colspec colname="1" colnum="1" colwidth="1.6*"/>
+					<colspec colname="2" colnum="2" colwidth="4.1*"/>
+					<colspec colname="col3" colnum="3" colwidth="1*"/>
+					<thead>
+						<row>
+							<entry>Attribute </entry>
+							<entry>Description </entry>
+							<entry colname="col3">Default </entry>
+						</row>
+					</thead>
+					<tbody>
+						<row>
+							<entry> </entry>
+							<entry> </entry>
+							<entry colname="col3"> </entry>
+						</row>
+						<row>
+							<entry> </entry>
+							<entry> </entry>
+							<entry colname="col3"> </entry>
+						</row>
+						<row>
+							<entry> </entry>
+							<entry> </entry>
+							<entry colname="col3"> </entry>
+						</row>
+						<row>
+							<entry> </entry>
+							<entry> </entry>
+							<entry colname="col3"> </entry>
+						</row>
+						<row>
+							<entry> </entry>
+							<entry> </entry>
+							<entry colname="col3"> </entry>
+						</row>
+					</tbody>
+				</tgroup>
+			</table>
+			<p>
+				<b>Example: </b>
+			</p>
+			<codeblock outputclass="language-xml">
+</codeblock>
+		</body>
+	</topic>
+	<topic id="cc-function" conref="cache_xml.xml#function">
+		<title>&lt;function&gt;</title>
+	</topic>
+	<topic id="cc-resource-manager" conref="cache_xml.xml#resource-manager">
+		<title>&lt;resource-manager&gt;</title>
+		<shortdesc><?xm-replace_text Short Description?>
+		</shortdesc>
+		<body>
+			<p><?xm-replace_text Paragraph?>
+			</p>
+			<p>
+				<b>Default: </b>
+			</p>
+			<p>
+				<b>API: </b>
+				<codeph/>
+			</p>
+			<table id="table_F1FBC2D27A4A42EBA2AC0D194A2F6471">
+				<title>Attributes of &lt;&gt;</title>
+				<tgroup cols="3">
+					<colspec colname="1" colnum="1" colwidth="1.6*"/>
+					<colspec colname="2" colnum="2" colwidth="4.1*"/>
+					<colspec colname="col3" colnum="3" colwidth="1*"/>
+					<thead>
+						<row>
+							<entry>Attribute </entry>
+							<entry>Description </entry>
+							<entry colname="col3">Default </entry>
+						</row>
+					</thead>
+					<tbody>
+						<row>
+							<entry> </entry>
+							<entry> </entry>
+							<entry colname="col3"> </entry>
+						</row>
+						<row>
+							<entry> </entry>
+							<entry> </entry>
+							<entry colname="col3"> </entry>
+						</row>
+						<row>
+							<entry> </entry>
+							<entry> </entry>
+							<entry colname="col3"> </entry>
+						</row>
+						<row>
+							<entry> </entry>
+							<entry> </entry>
+							<entry colname="col3"> </entry>
+						</row>
+						<row>
+							<entry> </entry>
+							<entry> </entry>
+							<entry colname="col3"> </entry>
+						</row>
+					</tbody>
+				</tgroup>
+			</table>
+			<p>
+				<b>Example: </b>
+			</p>
+			<codeblock outputclass="language-xml">
+</codeblock>
+		</body>
+	</topic>
+	<topic id="cc-serialization-registration" conref="cache_xml.xml#serialization-registration">
+		<title>&lt;serialization-registration&gt;</title>
+		<shortdesc><?xm-replace_text Short Description?>
+		</shortdesc>
+		<body>
+			<p><?xm-replace_text Paragraph?>
+			</p>
+			<p>
+				<b>Default: </b>
+			</p>
+			<p>
+				<b>API: </b>
+				<codeph/>
+			</p>
+			<table id="table_8245F9D3D4824F6584A2BA39645926AB">
+				<title>Attributes of &lt;&gt;</title>
+				<tgroup cols="3">
+					<colspec colname="1" colnum="1" colwidth="1.6*"/>
+					<colspec colname="2" colnum="2" colwidth="4.1*"/>
+					<colspec colname="col3" colnum="3" colwidth="1*"/>
+					<thead>
+						<row>
+							<entry>Attribute </entry>
+							<entry>Description </entry>
+							<entry colname="col3">Default </entry>
+						</row>
+					</thead>
+					<tbody>
+						<row>
+							<entry> </entry>
+							<entry> </entry>
+							<entry colname="col3"> </entry>
+						</row>
+						<row>
+							<entry> </entry>
+							<entry> </entry>
+							<entry colname="col3"> </entry>
+						</row>
+						<row>
+							<entry> </entry>
+							<entry> </entry>
+							<entry colname="col3"> </entry>
+						</row>
+						<row>
+							<entry> </entry>
+							<entry> </entry>
+							<entry colname="col3"> </entry>
+						</row>
+						<row>
+							<entry> </entry>
+							<entry> </entry>
+							<entry colname="col3"> </entry>
+						</row>
+					</tbody>
+				</tgroup>
+			</table>
+			<p>
+				<b>Example: </b>
+			</p>
+			<codeblock outputclass="language-xml">
+</codeblock>
+		</body>
+	</topic>
+	<topic id="cc-serializer" conref="cache_xml.xml#serializer">
+		<title>&lt;serializer&gt;</title>
+	</topic>
+	<topic id="cc-instantiator" conref="cache_xml.xml#instantiator">
+		<title>&lt;instantiator&gt;</title>
+	</topic>
+	<topic id="cc-initializer" conref="cache_xml.xml#initializer">
+		<title>&lt;initializer&gt;</title>
+		<shortdesc><?xm-replace_text Short Description?>
+		</shortdesc>
+		<body>
+			<p><?xm-replace_text Paragraph?>
+			</p>
+			<p>
+				<b>Default: </b>
+			</p>
+			<p>
+				<b>API: </b>
+				<codeph/>
+			</p>
+			<table id="table_E84BB2150881400ABEF6107256765008">
+				<title>Attributes of &lt;&gt;</title>
+				<tgroup cols="3">
+					<colspec colname="1" colnum="1" colwidth="1.6*"/>
+					<colspec colname="2" colnum="2" colwidth="4.1*"/>
+					<colspec colname="col3" colnum="3" colwidth="1*"/>
+					<thead>
+						<row>
+							<entry>Attribute </entry>
+							<entry>Description </entry>
+							<entry colname="col3">Default </entry>
+						</row>
+					</thead>
+					<tbody>
+						<row>
+							<entry> </entry>
+							<entry> </entry>
+							<entry colname="col3"> </entry>
+						</row>
+						<row>
+							<entry> </entry>
+							<entry> </entry>
+							<entry colname="col3"> </entry>
+						</row>
+						<row>
+							<entry> </entry>
+							<entry> </entry>
+							<entry colname="col3"> </entry>
+						</row>
+						<row>
+							<entry> </entry>
+							<entry> </entry>
+							<entry colname="col3"> </entry>
+						</row>
+						<row>
+							<entry> </entry>
+							<entry> </entry>
+							<entry colname="col3"> </entry>
+						</row>
+					</tbody>
+				</tgroup>
+			</table>
+			<p>
+				<b>Example: </b>
+			</p>
+			<codeblock outputclass="language-xml">
+</codeblock>
+		</body>
+	</topic>
+</dita>

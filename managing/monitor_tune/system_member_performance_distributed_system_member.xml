@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "http://docs.oasis-open.org/dita/v1.1/OS/dtd/concept.dtd">
+<concept id="sys_mem_perf"> 
+  <title>Distributed System Member Properties</title> 
+  <shortdesc>Several performance-related properties apply to a cache server or
+	 application that connects to the distributed system. 
+  </shortdesc>
+  <prolog><metadata><keywords><keyword>gemfire member performance
+			 tuning</keyword></keywords></metadata>
+  </prolog> 
+  <conbody> 
+	 <ul id="ul_8AAA6CF2699541F3802C27C3B3CE3D45"> 
+		<li
+		 id="li_9BA1C7AEAD7C4D6D8FA03B83428E566D"><b>statistic-sampling-enabled</b>.Turning
+		  off statistics sampling saves resources, but it also takes away potentially
+		  valuable information for ongoing system tuning and unexpected system problems.
+		  If LRU eviction is configured, then statistics sampling must be on. 
+		</li> 
+		<li
+		 id="li_DAB68D90B2624FA1B26BE5A2A040D0A0"><b>statistic-sample-rate</b>.
+		  Increasing the sample rate for statistics reduces system resource use while
+		  still providing some statistics for system tuning and failure analysis. 
+		</li> 
+		<li id="li_FFF411443EC64DA49E96A1A8B6397F6F"><b>log-level</b>. As with
+		  the statistic sample rate, lowering this setting reduces system resource
+		  consumption. See 
+		  <xref scope="local"
+			href="../logging/logging.xml#concept_30DB86B12B454E168B80BB5A71268865"
+			type="concept" format="dita"><?xm-replace_text Logging?></xref>. 
+		</li> 
+	 </ul> 
+  </conbody> 
+</concept> 

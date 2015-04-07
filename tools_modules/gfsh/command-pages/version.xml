@@ -1,0 +1,52 @@
+<?xml version="1.0"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept id="concept_DEBBA885D95243ABA510416F731D0E75">
+	<title>version</title>
+	<shortdesc>Display product version information. </shortdesc>
+	<conbody>
+		<p><b> Availability:</b> Online or offline. </p>
+		<p><b>Syntax:</b>
+			<codeblock>version [-full]</codeblock>
+			<table id="table_D1C4B3924950487B9A436234968BCA46">
+				<title>Parameters</title>
+				<tgroup cols="3">
+					<colspec colname="col1" colnum="1" colwidth="1.00*"/>
+					<colspec colname="col2" colnum="2" colwidth="2.49*"/>
+					<colspec colname="newCol3" colnum="3" colwidth="1*"/>
+					<thead>
+						<row>
+							<entry colname="col1">Name </entry>
+							<entry colname="col2">Description</entry>
+							<entry>Defalut Value</entry>
+						</row>
+					</thead>
+					<tbody>
+						<row>
+							<entry colname="col1"><parmname>--full </parmname></entry>
+							<entry colname="col2">Specifies whether to show the full version
+								information. </entry>
+							<entry>false</entry>
+						</row>
+					</tbody>
+				</tgroup>
+			</table>
+		</p>
+		<p><b>Example Commands:</b>
+			<codeblock>version
+version --full</codeblock>
+		</p>
+		<p><b>Sample Output:</b>
+			<codeblock>gfsh>version
+v8.0.0
+
+
+gfsh>version --full
+Java version:   8.0.0 build 48319 07/31/2014 17:26:09 PDT javac 1.6.0_26
+Native version: native code unavailable
+Source revision: 48319
+Source repository: gemfire/branches/cedar_dev_Oct12
+Running on: /192.168.129.145, 1 cpu(s), amd64 Linux 2.6.32-38-generic
+</codeblock>
+		</p>
+	</conbody>
+</concept>

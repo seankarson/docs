@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "http://docs.oasis-open.org/dita/v1.1/OS/dtd/concept.dtd">
+<concept id="client_server_example_configurations">
+	<title>Client/Server Example Configurations</title>
+	<shortdesc id="shortdesc_A153946C7EE44AF7ABF5698F49D68527">For easy configuration, you can start
+		with these example client/server configurations and modify for your systems. </shortdesc>
+	<conbody>
+		<section id="section_556E0D3D72624AD9B27C636BA628ADC0">
+			<title>Examples of Standard Client/Server Configuration</title>
+			<p>Generally, locators and servers use the same distributed system properties file,
+				which lists locators as the discovery mechanism for peer members and for connecting
+				clients. For example:
+				<codeblock>mcast-port=0
+locators=localhost[41111]</codeblock>On the machine where
+				you wish to run the locator (in this example, 'localhost'), you can start the
+				locator from a gfsh prompt:
+				<codeblock>gfsh&gt;start locator --name=<varname>locator_name</varname> --port=41111</codeblock>Or
+				directly from a command line:
+				<codeblock>prompt# gfsh start locator --name=<varname>locator_name</varname> --port=41111 </codeblock>Specify
+				a name for the locator that you wish to start on the localhost. </p>
+			<p>The server’s <codeph>cache.xml</codeph> declares a <codeph>cache-server</codeph>
+				element, which identifies the JVM as a server in the distributed system.
+				<codeblock>&lt;cache&gt; 
+  &lt;cache-server port="40404" ... /&gt; 
+  &lt;region . . . </codeblock>
+			</p>
+			<p>Once the locator and server are started, the locator tracks the server as a peer in
+				its distributed system and as a server listening for client connections at port
+				40404.</p>
+			<p>You can also configure a cache server using the <cmdname>gfsh</cmdname> command-line
+				utility. For example:
+				<codeblock>gfsh>start server --name=server1 --server-port=40404</codeblock></p>
+			<p>See <xref
+					href="../../tools_modules/gfsh/command-pages/start.xml#topic_3764EE2DB18B4AE4A625E0354471738A"
+				/>.</p>
+			<p>The client’s <codeph>cache.xml</codeph>
+				<codeph>&lt;client-cache&gt;</codeph> declaration automatically configures it as a
+				standalone <keyword keyref="product_name"/> application. </p>
+			<p>The client's <codeph>cache.xml</codeph>: </p>
+			<ul id="ul_DF39B2B94D9A4D7AB012F134B05CAB07">
+				<li id="li_B72EFB8BA1194CEBA35E18EED48C0DED">Declares a single connection pool with
+					the locator as the reference for obtaining server connection information. </li>
+				<li id="li_48EEA27EC13F42AA8B79F1A8B0022F93">Creates <codeph>cs_region</codeph> with
+					the client region shortcut configuration, <codeph>CACHING_PROXY</codeph>. This
+					configures it as a client region that stores data in the client cache. </li>
+			</ul>
+			<p>There is only one pool defined for the client, so the pool is automatically assigned
+				to all client regions.
+				<codeblock outputclass="language-xml">&lt;client-cache&gt;
+	&lt;pool name="publisher" subscription-enabled="true"&gt;
+	   &lt;locator host="localhost" port="41111"/&gt;
+	&lt;/pool&gt;
+	&lt;region name="cs_region" refid="CACHING_PROXY"&gt;
+	&lt;/region&gt;
+&lt;/client-cache&gt; </codeblock>
+			</p>
+			<p>With this, the client is configured to go to the locator for the server connection
+				location. Then any cache miss or put in the client region is automatically forwarded
+				to the server. </p>
+		</section>
+		<example>
+			<title><b>Example: Standalone Publisher Client, Client Pool, and Region</b>
+			</title>
+			<p>The following API example walks through the creation of a standalone publisher client
+				and the client pool and region. </p>
+			<p>
+				<codeblock outputclass="language-java">public static ClientCacheFactory connectStandalone(String name) {
+	return new ClientCacheFactory()
+		.set("log-file", name + ".log")
+		.set("statistic-archive-file", name + ".gfs")
+		.set("statistic-sampling-enabled", "true")
+		.set("cache-xml-file", "")
+		.addPoolLocator("localhost", LOCATOR_PORT);
+}
+
+private static void runPublisher() {
+	ClientCacheFactory ccf = connectStandalone("publisher");
+	ClientCache cache = ccf.create();
+	ClientRegionFactory&lt;String,String&gt; regionFactory = 
+		cache.createClientRegionFactory(PROXY);
+	Region&lt;String, Strini&gt; region = regionFactory.create("DATA");
+
+	//... do work ...
+
+    cache.close();
+} </codeblock>
+			</p>
+		</example>
+		<example>
+			<title>
+				<b>Example: Standalone Subscriber Client </b>
+			</title>
+			<p>This API example creates a standalone subscriber client using the same
+					<codeph>connectStandalone</codeph> method as the previous example. </p>
+			<p>
+				<codeblock outputclass="language-java">private static void runSubscriber() throws InterruptedException {
+	ClientCacheFactory ccf = connectStandalone("subscriber");
+	ccf.setPoolSubscriptionEnabled(true);
+	ClientCache cache = ccf.create();
+	ClientRegionFactory&lt;String,String&gt; regionFactory = 
+		cache.createClientRegionFactory(PROXY);
+	Region&lt;String, String&gt; region = regionFactory
+		.addCacheListener(new SubscriberListener())
+		.create("DATA");
+	region.registerInterestRegex(".*", // everything
+		InterestResultPolicy.NONE,
+		false/*isDurable*/);
+	SubscriberListener myListener = 
+		(SubscriberListener)region.getAttributes().getCacheListeners()[0];
+	System.out.println("waiting for publisher to do " + NUM_PUTS + " puts...");
+	myListener.waitForPuts(NUM_PUTS);
+	System.out.println("done waiting for publisher.");
+
+    cache.close();
+} </codeblock>
+			</p>
+		</example>
+		<section id="section_A7759DCB9BFE47448B8E8D72DDCDE058">
+			<title>Example of a Static Server List in Client/Server Configuration </title>
+			<p>You can specify a static server list instead of a locator list in the client
+				configuration. With this configuration, the client’s server information does not
+				change for the life of the client member. You do not get dynamic server discovery,
+				server load conditioning, or the option of logical server grouping. This model is
+				useful for very small deployments, such as test systems, where your server pool is
+				stable. It avoids the administrative overhead of running locators. </p>
+			<p>This model is also suitable if you must use hardware load balancers. You can put the
+				addresses of the load balancers in your server list and allow the balancers to
+				redirect your client connections. </p>
+			<p>The client's server specification must match the addresses where the servers are
+				listening. In the server cache configuration file, here are the pertinent
+				settings.</p>
+			<p>
+				<codeblock>&lt;cache&gt;
+    &lt;cache-server port=<b>"40404"</b> ... /&gt; 
+      &lt;region . . .</codeblock>
+			</p>
+			<p>The client's <codeph>cache.xml</codeph> file declares a connection pool with the
+				server explicitly listed and names the pool in the attributes for the client region.
+				This XML file uses a region attributes template to initialize the region attributes
+				configuration. </p>
+			<p>
+				<codeblock>&lt;client-cache&gt;
+	&lt;pool name="publisher" subscription-enabled="true"&gt;
+		&lt;server host="localhost" port=<b>"40404"</b>/&gt;
+	&lt;/pool&gt;
+	&lt;region name=<b>"cs_region"</b> refid=<b>"CACHING_PROXY"</b>&gt;
+	&lt;/region&gt;
+&lt;/client-cache&gt;
+</codeblock>
+			</p>
+		</section>
+	</conbody>
+</concept>

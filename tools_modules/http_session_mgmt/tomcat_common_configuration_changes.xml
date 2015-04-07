@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "http://docs.oasis-open.org/dita/v1.1/OS/dtd/concept.dtd">
+<concept id="tomcat_common_cfg_changes">
+	<title>Common <keyword keyref="product_name"/> Configuration Changes in Tomcat</title>
+	<conbody>
+		<section id="section_0124499478F94E5A93029DE7CFED4819">
+			<title>Using a Different Multicast Port</title>
+			<p>For a <keyword keyref="product_name"/> peer-to-peer member to communicate on a
+				different multicast port than the default (10334), use the
+					<codeph>mcast-port</codeph> property in Tomcat's <codeph>server.xml</codeph>
+				file. </p>
+			<codeblock>&lt;Listener className="com.gemstone.gemfire.modules.session.catalina.
+                         PeerToPeerCacheLifecycleListener" 
+  locators=""  mcast-port=10445
+ /&gt; </codeblock>
+			<p>This example uses port 10445 as the multicast port. </p>
+		</section>
+		<section id="p2p_locators">
+			<title>Peer-to-Peer Configuration Using Locators</title>
+			<p>By default, <keyword keyref="product_name"/> peers discover each other using
+				multicast communication on a known port (as specified by the
+					<codeph>mcast-port</codeph> system parameter). Alternatively, you can configure
+				member discovery using one or more dedicated locators. A locator provides both
+				discovery and load balancing services. </p>
+			<image href="../../images_svg/http_module_p2p_with_locator.svg" placement="break"
+				id="image_86E949E0F1AD4E9EB67605EFA4E97E13"/>
+			<p>To run <keyword keyref="product_name"/> with one or more locators instead of a
+				multicast port, use the <codeph>locators</codeph> property in Tomcat's
+					<codeph>server.xml</codeph> file. </p>
+			<codeblock>&lt;Listener className="com.gemstone.gemfire.modules.session.catalina.
+                         PeerToPeerCacheLifecycleListener" 
+  mcast-port=0 locators="hostname[10334]" 
+/&gt; </codeblock>
+			<p>This example uses a locator at <codeph>hostname</codeph> on port
+					<codeph>10334</codeph>. </p>
+			<p>You must be sure when you specify a locator that you specifically launch a locator
+				correctly at this location. You can do this using the <codeph>gemfire</codeph>
+				command-line tool found in the <codeph>bin</codeph> subdirectory of the HTTP module
+				distribution. </p>
+			<codeblock>In Unix:
+  ./gemfire.sh start-locator -port=10334
+  
+In Windows:
+  gemfire.bat start-locator -port=10334</codeblock>
+			<p>This example starts a locator that listens on port 10334. </p>
+		</section>
+		<section id="section_621D805DB63F46AFBC1EE8D25E4169D8">
+			<title>Client/Server Configuration Using Locators</title>
+			<p>By default, <keyword keyref="product_name"/> clients and servers discover each other
+				on a pre-defined port on the localhost. This is not typically the way you would
+				deploy a client/server configuration. A preferred solution is to use one or more
+				dedicated locators. A locator provides both discovery and load balancing services. </p>
+			<image href="../../images_svg/http_module_cs_with_locator.svg" placement="break"
+				id="image_BDF2273487EA4FEB9895D02A6F6FD445"/>
+			<p>To run <keyword keyref="product_name"/> with one or more locators instead of a
+				multicast port, add locator information to the <codeph>cache-client.xml</codeph>
+				file in the Tomcat instance's <codeph>conf</codeph> subdirectory: </p>
+			<codeblock>  &lt;pool name="sessions"&gt;
+    &lt;locator host="hostname" port="10334"/&gt;
+  &lt;/pool&gt;</codeblock>
+			<p>This example tells the <keyword keyref="product_name"/> client (which is the process
+				running the application server) to use a locator at <codeph>hostname</codeph> on
+				port <codeph>10334</codeph>. </p>
+			<p>You must now launch a locator correctly at this location. You can do this using the
+					<codeph>gemfire</codeph> command-line tool found in the <codeph>bin</codeph>
+				subdirectory of the HTTP module distribution.. </p>
+			<codeblock>./gemfire start-locator -port=10334</codeblock>
+			<p>This example starts a locator that listens on port 10334. </p>
+			<p>You also need to tell the <keyword keyref="product_name"/> server to use a locator
+				when you launch the server. You can do this through a command-line argument when you
+				start up the server with the script provided in the <codeph>bin</codeph>
+				subdirectory wherever you installed the <keyword keyref="product_name"/> HTTP
+				module: </p>
+			<codeblock>In Unix: 
+  prompt$ ./cacheserver.sh start locators=hostname[port]
+  
+In Windows:
+  prompt&gt; cacheserver.bat start locators=hostname[port]</codeblock>
+			<p>If you are running more than one locator, use a comma-separated list of locators.
+			</p>
+		</section>
+	</conbody>
+</concept>

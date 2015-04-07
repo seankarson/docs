@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "http://docs.oasis-open.org/dita/dtd/concept.dtd">
+<concept
+	id="simplecachelistener_java">
+	<title>helloworld/SimpleCacheListener.java </title>
+	<shortdesc
+		id="shortdesc_0E156FB155344B84806B6CDDB1CE554D"><codeph>SimpleCacheListener.java</codeph> is
+		a Java application plug-in written to handle cache region events. </shortdesc>
+	<prolog>
+		<metadata>
+			<keywords>
+				<keyword>gemfire hello world SimpleCacheListener.java</keyword>
+				<keyword>gemfire helloworld SimpleCacheListener.java</keyword>
+			</keywords>
+		</metadata>
+	</prolog>
+	<conbody>
+		<p> You can code application plug-ins to respond to a variety of events in the <keyword keyref="product_name"/>
+			system. This listener is installed on the region in both applications, through the XML
+			file declarations. </p>
+		<section
+			id="section_B11C2D37CE4042E390C823C40ECBDB2B">
+			<p>
+				<b>SimpleCacheListener, afterCreate, and afterUpdate Callbacks</b>
+			</p>
+			<p>The following code is called when the entry is put into the cache. </p>
+			<codeblock outputclass="language-java">public void afterCreate(EntryEvent&lt;K,V&gt; e) {
+    System.out.println("    Received afterCreate event for entry: " +
+        e.getKey() + ", " + e.getNewValue());
+}
+public void afterUpdate(EntryEvent&lt;K,V&gt; e) {
+    System.out.println("    Received afterUpdate event for entry: " +
+        e.getKey() + ", " + e.getNewValue());
+}
+</codeblock>
+		</section>
+	</conbody>
+</concept>

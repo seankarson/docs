@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "http://docs.oasis-open.org/dita/v1.1/OS/dtd/concept.dtd">
+<concept id="managing_output_files">
+	<title>Managing System Output Files</title>
+	<shortdesc id="shortdesc_99C8F4F5E4B74C269555ED3CAFF77C0A"><keyword keyref="product_name"/>
+		output files are optional and can become quite large. Work with your system administrator to
+		determine where to place them to avoid interfering with other system activities. </shortdesc>
+	<conbody>
+		<section id="section_F0CEA4299D274801B9AB700C074F178F">
+			<p><keyword keyref="product_name"/> includes several types of optional output files as
+				described below. <ul id="ul_0E1B249165E74499BF895C10768DA294">
+					<li id="li_628798FFADA9414DBEB7B7D4C0DCE959"><b>Log Files</b>. Comprehensive
+						logging messages to help you confirm system configuration and to debug
+						problems in configuration and code. Configure log file behavior in the
+							<codeph>gemfire.properties</codeph> file. See <xref
+							href="../../managing/logging/logging.xml#concept_30DB86B12B454E168B80BB5A71268865"
+							type="concept" format="dita" scope="local"
+							><?xm-replace_text Logging?></xref>. <p/>
+					</li>
+					<li id="li_F87F1E66AAF846F38A0E1A0A18A25274"><b>Statistics Archive Files</b>.
+						Standard statistics for caching and distribution activities, which you can
+						archive on disk. Configure statistics collection and archival in the
+							<codeph>gemfire.properties</codeph>,
+							<codeph>archive-disk-space-limit</codeph> and
+							<codeph>archive-file-size-limit</codeph>. See <xref
+							href="../../reference/topics/gemfire_properties.xml#gemfire_properties"
+							type="concept" format="dita" scope="local"/>. <p/>
+					</li>
+					<li id="li_6719DD12F494470AB8FA880288C35F05"><b>Disk Store Files</b>. Hold
+						persistent and overflow data from the cache. You can configure regions to
+						persist data to disk for backup purposes or overflow to disk to control
+						memory use. The subscription queues that servers use to send events to
+						clients can be overflowed to disk. Gateway sender queues overflow to disk
+						automatically and can be persisted for high availability. Configure these
+						through the <codeph>cache.xml</codeph>. See <xref
+							href="../../managing/disk_storage/chapter_overview.xml#disk_storage"
+							type="concept" format="dita" scope="local"/>. <p/>
+					</li>
+				</ul>
+			</p>
+		</section>
+	</conbody>
+</concept>

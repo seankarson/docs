@@ -1,0 +1,284 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "http://docs.oasis-open.org/dita/v1.1/OS/dtd/concept.dtd">
+<concept id="how_logging_works">
+	<title>Understanding Log Messages and Their Categories</title>
+	<shortdesc>System logging messages typically pertain to startup; logging management; connection
+		and system membership; distribution; or cache, region, and entry management. </shortdesc>
+	<conbody>
+		<ul id="ul_47DF1DCBACA34E3ABBFC788B242DEE12">
+			<li id="li_361B89FB8D0D461F976D8BCC383BC6A6"><b>Startup information</b>. Describe the
+				Java version, the <keyword keyref="product_name"/> native version, the host system,
+				current working directory, and environment settings. These messages contain all
+				information about the system and configuration the process is running with. </li>
+			<li id="li_D30D723874264B10BA3373CDCBC6FC4B"><b>Logging management</b>. Pertain to the
+				maintenance of the log files themselves. This information is always in the main log
+				file (see the discussion at Log File Name). </li>
+			<li id="li_897E2785C5DA40A89BD68D3FCC42EC86"><b>Connections and system membership</b>.
+				Report on the arrival and departure of distributed system members (including the
+				current member) and any information related to connection activities or failures.
+				This includes information on communication between tiers in a hierarchical cache. </li>
+			<li id="li_7B204D4958224EE199ECCC96B9BEB84F"><b>Distribution</b>. Report on the
+				distribution of data between system members. These messages include information
+				about region configuration, entry creation and modification, and region and entry
+				invalidation and destruction. </li>
+			<li id="li_247A6AD61B8F4B23A1BF30DD9B1BC62D"><b>Cache, region, and entry management</b>.
+				Cache initialization, listener activity, locking and unlocking, region
+				initialization, and entry updates. </li>
+		</ul>
+		<section id="section_578DFE8DD92F4237A8571593EAC9C3B1">
+			<title>Structure of a Log Message</title>
+			<p>Every logged message contains: <ul id="ul_8D51EFC264114EC89F0A4744ACE8302A">
+					<li id="li_04DE5F094CB24540B80EEEFFFAB895F8">The message header within square
+						brackets: <ol id="ol_4C95B4B607134F31B6295F8E9397EA49">
+							<li id="li_C6B027B4360B4278B86DFD8E85E99081">The message level </li>
+							<li id="li_2A454D366F7D4C6B85A6E73AE2B08580">The time the message was
+								logged </li>
+							<li id="li_FC24CCD8382F4491B9EE8AE2892DB5EB">The ID of the connection
+								and thread that logged the message, which might be the main program
+								or a system management process </li>
+						</ol>
+					</li>
+					<li id="li_76A779A0DDBB4B58AA6DC7DCD4C2A126">The message itself, which can be a
+						string and/or an exception with the exception stack trace </li>
+				</ul>
+			</p>
+			<codeblock>[config 2005/11/08 15:46:08.710 PST PushConsumer main nid=0x1] 
+Cache initialized using "file:/Samples/quickstart/xml/PushConsumer.xml".</codeblock>
+		</section>
+		<section id="section_43A099C67FF04A1EB0A07B617D653A38">
+			<title>Log File Name</title>
+			<p>Specify your <keyword keyref="product_name"/> system member's main log in the gemfire
+				property <codeph>log-file</codeph> setting. </p>
+			<p><keyword keyref="product_name"/> uses this name for the most recent log file,
+				actively in use if the member is running, or used for the last run. <keyword
+					keyref="product_name"/> creates the main log file when the application starts. </p>
+			<p>By default, the main log contains the entire log for the member session. If you
+				specify a <codeph>log-file-size-limit</codeph>, <keyword keyref="product_name"/>
+				splits the logging into these files: <ul id="ul_F0B11A5026AC4419AB879A0A983BAC49">
+					<li id="li_5DC487D51234406CB24CB1DCE67335CA"><b>The main, current log</b>.
+						Holding current logging entries. Named with the string you specified in
+							<codeph>log-file</codeph>. </li>
+					<li id="li_5053B42B4D3747CA9B2A83C93B950870"><b>Child logs</b>. Holding older
+						logging entries. These are created by renaming the main, current log when it
+						reaches the size limit. </li>
+					<li id="li_F77E06DE9AFE4A938FCC0D3AA46D5161"><b>A metadata log file, with
+								<codeph>meta-</codeph> prefixed to the name</b>. Used to track of
+						startup, shutdown, child log management, and other logging management
+						operations </li>
+				</ul>
+			</p>
+			<p>The current log is renamed, or rolled, to the next available child log when the
+				specified size limit is reached. </p>
+			<p>When your application connects with logging enabled, it creates the main log file
+				and, if required, the <codeph>meta-</codeph> log file. If the main log file is
+				present when the member starts up, it is renamed to the next available child log to
+				make way for new logging. </p>
+			<p>Your current, main log file always has the name you specified in
+					<codeph>log-file</codeph>. The old log files and child log files have names
+				derived from the main log file name. These are the pieces of a renamed log or child
+				log file name where <codeph>filename.extension</codeph> is the
+					<codeph>log-file</codeph> specification </p>
+			<p>
+				<image href="../../images/logging-1.gif" id="image_A144E5195FDA49A1A8914F233495BA88"
+					placement="break"/>
+			</p>
+			<p>If child logs are not used, the child file sequence number is a constant 00 (two
+				zeros). </p>
+			<p>For locators, the log file name is fixed. For the standalone locator started in
+					<codeph>gfsh</codeph>, it is always named <codeph>&lt;locator_name>.log</codeph>
+				where the locator_name corresponds to the name specified at locator startup. For the
+				locator that runs colocated inside another member, the log file is the member’s log
+				file. </p>
+			<p>For applications and the servers, your log file specification can be relative or
+				absolute. If no file is specified, the defaults are standard output for applications
+				and <codeph>&lt;server_name>.log</codeph> for servers started with gfsh and
+					<codeph>cacheserver.log</codeph> for servers started with the older cacheserver
+				script. </p>
+			<p>To figure out the member's most recent activities, look at the <codeph>meta-</codeph>
+				log file or, if no meta file exists, the main log file. </p>
+		</section>
+		<section id="section_D464FDFFC30141F385689A47CE5E8D38">
+			<title>How the System Renames Logs</title>
+			<p>The log file that you specify is the base name used for all logging and logging
+				archives. If a log file with the specified name already exists at startup, the
+				distributed system automatically renames it before creating the current log file.
+				This is a typical directory listing after a few runs with
+					<codeph>log-file=system.log</codeph>:
+				<codeblock>bash-2.05$ ls -tlra system* 
+-rw-rw-r-- 1 jpearson users 11106 Nov 3 11:07 system-01-00.log 
+-rw-rw-r-- 1 jpearson users 11308 Nov 3 11:08 system-02-00.log 
+-rw-rw-r-- 1 jpearson users 11308 Nov 3 11:09 system.log 
+bash-2.05$</codeblock>The
+				first run created <codeph>system.log</codeph> with a timestamp of Nov 3 11:07. The
+				second run renamed that file to <codeph>system-01-00.log</codeph> and created a new
+					<codeph>system.log</codeph> with a timestamp of Nov 3 11:08. The third run
+				renamed that file to <codeph>system-02-00.log</codeph> and created the file named
+					<codeph>system.log</codeph> in this listing. </p>
+			<p>When the distributed system renames the log file, it assigns the next available
+				number to the new file, as XX of <codeph>filename-XX-YY.extension</codeph>. This
+				next available number depends on existing old log files and also on any old
+				statistics archives. The system assigns the next number that is higher than any in
+				use for statistics or logging. This keeps current log files and statistics archives
+				paired up regardless of the state of the older files in the directory. Thus, if an
+				application is archiving statistics and logging to <codeph>system.log</codeph> and
+					<codeph>statArchive.gfs</codeph>, and it runs in a Unix directory with these
+				files:
+				<codeblock>bash-2.05$ ls -tlr stat* system* 
+-rw-rw-r-- 1 jpearson users 56143 Nov 3 11:07 statArchive-01-00.gfs 
+-rw-rw-r-- 1 jpearson users 56556 Nov 3 11:08 statArchive-02-00.gfs 
+-rw-rw-r-- 1 jpearson users 56965 Nov 3 11:09 statArchive-03-00.gfs 
+-rw-rw-r-- 1 jpearson users 11308 Nov 3 11:27 system-01-00.log 
+-rw-rw-r-- 1 jpearson users 59650 Nov 3 11:34 statArchive.gfs 
+-rw-rw-r-- 1 jpearson users 18178 Nov 3 11:34 system.log</codeblock>
+				the directory contents after the run look like this (changed files in <b>bold</b>):
+				<codeblock>bash-2.05$ ls -ltr stat* system* 
+-rw-rw-r-- 1 jpearson users 56143 Nov 3 11:07 statArchive-01-00.gfs 
+-rw-rw-r-- 1 jpearson users 56556 Nov 3 11:08 statArchive-02-00.gfs 
+-rw-rw-r-- 1 jpearson users 56965 Nov 3 11:09 statArchive-03-00.gfs 
+-rw-rw-r-- 1 jpearson users 11308 Nov 3 11:27 system-01-00.log 
+<b>-rw-rw-r-- 1 jpearson users 59650 Nov 3 11:34 statArchive-04-00.gfs 
+-rw-rw-r-- 1 jpearson users 18178 Nov 3 11:34 system-04-00.log 
+-rw-rw-r-- 1 jpearson users 55774 Nov 4 10:08 statArchive.gfs 
+-rw-rw-r-- 1 jpearson users 17681 Nov 4 10:08 system.log</b></codeblock>The
+				statistics and the log file are renamed using the next integer that is available to
+				both, so the log file sequence jumps past the gap in this case. </p>
+		</section>
+		<section id="section_02D8D53AC740490D842C6525FA7DB815">
+			<title>Log Level</title>
+			<p>The higher the log level, the more important and urgent the message. If you are
+				having problems with your system, a first-level approach is to lower the log-level
+				(thus sending more of the detailed messages to the log file) and recreate the
+				problem. The additional log messages often help uncover the source. </p>
+			<p>These are the levels, in descending order, with sample output: <ul
+					id="ul_E439F7B39FD4454C884C0CA38672A8CB">
+					<li id="li_870B8D8D36D24E5CB0B0F6C66E19B12D"><b>severe (highest level)</b>. This
+						level indicates a serious failure. In general, severe messages describe
+						events that are of considerable importance that will prevent normal program
+						execution. You will likely need to shut down or restart at least part of
+						your system to correct the situation. <p>This severe error was produced by
+							configuring a system member to connect to a non-existent locator:
+							<codeblock>[severe 2005/10/24 11:21:02.908 PDT nameFromGemfireProperties 
+DownHandler (FD_SOCK) nid=0xf] GossipClient.getInfo(): 
+exception connecting to host localhost:30303: 
+java.net.ConnectException: Connection refused</codeblock>
+						</p>
+					</li>
+					<li id="li_AD8D4F6905634CE294F000C698DA70BC"><b>error</b>. This level indicates
+						that something is wrong in your system. You should be able to continue
+						running, but the operation noted in the error message failed. <p>This error
+							was produced by throwing a <codeph>Throwable</codeph> from a
+								<codeph>CacheListener</codeph>. While dispatching events to a
+							customer-implemented cache listener, <keyword keyref="product_name"/>
+							catches any <codeph>Throwable</codeph> thrown by the listener and logs
+							it as an error. The text shown here is followed by the output from the
+								<codeph>Throwable</codeph> itself.
+							<codeblock>[error 2007/09/05 11:45:30.542 PDT gemfire1_newton_18222
+&lt;vm_2_thr_5_client1_newton_18222-0x472e&gt; nid=0x6d443bb0] 
+Exception occurred in CacheListener </codeblock>
+						</p>
+					</li>
+					<li id="li_0B49BA29F1334D5DB860041EF0F4A3DC"><b>warning</b>. This level
+						indicates a potential problem. In general, warning messages describe events
+						that are of interest to end users or system managers, or that indicate
+						potential problems in the program or system. <p>This message was obtained by
+							starting a client with a Pool configured with queueing enabled when
+							there was no server running to create the client’s queue:
+							<codeblock>[warning 2008/06/09 13:09:28.163 PDT &lt;queueTimer-client&gt; tid=0xe] 
+QueueManager - Could not create a queue. No queue servers available</codeblock>
+						</p>This message was obtained by trying to get an entry in a client region
+						while there was no server running to respond to the client request:
+						<codeblock>[warning 2008/06/09 13:12:31.833 PDT &lt;main&gt; tid=0x1] Unable to create a
+connection in the allowed time
+com.gemstone.gemfire.cache.client.NoAvailableServersException
+	at com.gemstone.gemfire.cache.client.internal.pooling.ConnectionManagerImpl.
+borrowConnection(ConnectionManagerImpl.java:166)
+. . .
+com.gemstone.gemfire.internal.cache.LocalRegion.get(LocalRegion.java:1122
+)</codeblock>
+					</li>
+					<li id="li_80721BF6DF514EBF967661811D0D6CBA"><b>info</b>. This is for
+						informational messages, typically geared to end users and system
+						administrators. <p>This is a typical info message created at system member
+							startup. This indicates that no other
+								<codeph>DistributionManager</codeph>s are running in the distributed
+							system, which means no other system members are running:
+							<codeblock>[info 2005/10/24 11:51:35.963 PDT CacheRunner main nid=0x1]
+DistributionManager straw(7368):41714 started on 224.0.0.250[10333] 
+with id straw(7368):41714 (along with 0 other DMs)</codeblock>
+						</p>
+						<p>When another system member joins the distributed system, these info
+							messages are output by the members that are already running:
+							<codeblock>[info 2005/10/24 11:52:03.934 PDT CacheRunner P2P message reader for
+straw(7369):41718 nid=0x21] Member straw(7369):41718 has joined the
+distributed cache.</codeblock>
+						</p>
+						<p>When another member leaves because of an interrupt or through normal
+							program termination:
+							<codeblock>[info 2005/10/24 11:52:05.128 PDT CacheRunner P2P message reader for
+straw(7369):41718 nid=0x21] Member straw(7369):41718 has left the
+distributed cache.</codeblock>
+						</p>
+						<p>And when another member is killed:
+							<codeblock>[info 2005/10/24 13:08:41.389 PDT CacheRunner DM-Puller nid=0x1b] Member
+straw(7685):41993 has unexpectedly left the distributed cache.</codeblock>
+						</p>
+					</li>
+					<li id="li_ADDA4A6565214EE290975CB63D1C48AF"><b>config</b>. This is the default
+						setting for logging. This level provides static configuration messages that
+						are often used to debug problems associated with particular configurations.
+							<p>You can use this config message to verify your startup configuration:
+							<codeblock>[config 2008/08/08 14:28:19.862 PDT CacheRunner &lt;main&gt; tid=0x1] Startup Configuration:
+ack-severe-alert-threshold="0"
+ack-wait-threshold="15"
+archive-disk-space-limit="0"
+archive-file-size-limit="0"
+async-distribution-timeout="0"
+async-max-queue-size="8"
+async-queue-timeout="60000"
+bind-address=""
+cache-xml-file="cache.xml"
+conflate-events="server"
+conserve-sockets="true"
+  ...
+socket-buffer-size="32768"
+socket-lease-time="60000"
+ssl-ciphers="any"
+ssl-enabled="false"
+ssl-protocols="any"
+ssl-require-authentication="true"
+start-locator=""
+statistic-archive-file=""
+statistic-sample-rate="1000"
+statistic-sampling-enabled="false"
+tcp-port="0"
+udp-fragment-size="60000"
+udp-recv-buffer-size="1048576"
+udp-send-buffer-size="65535"</codeblock>
+						</p>
+					</li>
+					<li id="li_8BC7719DBC0F4D9F817647FAB708912A"><b>fine</b>. This level provides
+						tracing information that is generally of interest to developers. It is used
+						for the lowest volume, most important, tracing messages. <note>Generally,
+							you should only use this level if instructed to do so by technical
+							support. At this logging level, you will see a lot of noise that might
+							not indicate a problem in your application. This level creates very
+							verbose logs that may require significantly more disk space than the
+							higher levels. </note>
+						<codeblock>[fine 2011/06/21 11:27:24.689 PDT &lt;locatoragent_ds_w1-gst-dev04_2104&gt; tid=0xe] SSL Configuration:
+    ssl-enabled = false</codeblock>
+					</li>
+					<li id="li_35AD9025D0F24252BB8EFC436C7AF9C9"><b>finer, finest, and all</b>.
+						These levels exist for internal use only. They produce a large amount of
+						data and so consume large amounts of disk space and system resources.
+							<note>Do not use these settings unless asked to do so by technical
+							support. </note>
+					</li>
+				</ul>
+			</p>
+			<p><note><keyword keyref="product_name"/> no longer supports setting system properties
+					for VERBOSE logging. To enable VERBOSE logging, see <xref
+						href="configuring_log4j2.xml#concept_c4k_1qf_jq"/>
+				</note>.</p>
+		</section>
+	</conbody>
+</concept>

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "http://docs.oasis-open.org/dita/v1.1/OS/dtd/concept.dtd">
+<concept id="local_vs_remote_member_and_cache">
+	<title>Local and Remote Membership and Caching</title>
+	<shortdesc id="shortdesc_6A6CD032C7D74956BF2932327E9395E0">For many <keyword keyref="product_name_long"/> discussions,
+		you need to understand the difference between local and remote membership and caching. </shortdesc>
+	<conbody>
+		<section id="section_5535DC4C94494B6A9B106DA39F63A439">
+			<p>Discussions of <keyword keyref="product_name"/> membership and caching activities often differentiate between
+				local and remote. Local caching always refers to the central member under
+				discussion, if there is one such obvious member, and remote refers to other members.
+				If there is no clear, single local member, the discussion assigns names to the
+				members to differentiate. Operations, data, configuration, and so forth that are
+				"local to member Q" are running or resident inside the member Q process. Operations,
+				data, configuration, and so on, that are "remote to member Q" are running or
+				resident inside some other member. </p>
+			<p>The local cache is the cache belonging to the local member. All other caches are
+				remote, whether in other members of the same distributed system or in different
+				distributed systems. </p>
+		</section>
+	</conbody>
+</concept>

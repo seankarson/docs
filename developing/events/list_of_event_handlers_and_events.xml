@@ -1,0 +1,337 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "http://docs.oasis-open.org/dita/v1.1/OS/dtd/concept.dtd">
+<concept id="event_handlers_and_events">
+	<title>List of Event Handlers and Events</title>
+	<shortdesc id="shortdesc_A32362A204F044DCB9E978B7D4FB0D27"><keyword keyref="product_name"/>
+		provides many types of events and event handlers to help you manage your different data and
+		application needs. </shortdesc>
+	<conbody>
+		<section id="section_E7B7502F673B43E794884D0F6BF537CF">
+			<title>Event Handlers</title>
+			<p>Use either cache handlers or membership handlers in any single application. Do not
+				use both. The event handlers in this table are cache handlers unless otherwise
+				noted. </p>
+			<p>
+				<table id="table_0A6E2D95837246E1AD1B0DD5A9AAD95F">
+					<tgroup cols="3">
+						<colspec colname="1" colnum="1" colwidth="*"/>
+						<colspec colname="2" colnum="2" colwidth="*"/>
+						<colspec colname="3" colnum="3" colwidth="*"/>
+						<thead>
+							<row>
+								<entry>Handler API </entry>
+								<entry>Events received </entry>
+								<entry>Description </entry>
+							</row>
+						</thead>
+						<tbody>
+							<row>
+								<entry colname="1">
+									<codeph>AsyncEventListener</codeph>
+								</entry>
+								<entry colname="2">
+									<codeph>AsyncEvent</codeph>
+								</entry>
+								<entry colname="3">
+									<p>Tracks changes in a region for write-behind processing.
+										Extends th <codeph>CacheCallback</codeph> interface. You
+										install a write-back cache listener to an
+											<codeph>AsyncEventQueue</codeph> instance. You can then
+										add the <codeph>AsyncEventQueue</codeph> instance to one or
+										more regions for write-behind processing. See <xref
+											scope="local"
+											href="implementing_write_behind_event_handler.xml#implementing_write_behind_cache_event_handling"
+											type="concept" format="dita"
+											><?xm-replace_text Implementing an AsyncEventListener for Write-Behind Cache Event   Handling?></xref>.
+									</p>
+								</entry>
+							</row>
+							<row>
+								<entry>
+									<codeph>CacheCallback</codeph>
+								</entry>
+								<entry/>
+								<entry>Superinterface of all cache event listeners. Functions only
+									to clean up resources that the callback allocated. </entry>
+							</row>
+							<row>
+								<entry>
+									<codeph>CacheListener</codeph>
+								</entry>
+								<entry><codeph>RegionEvent</codeph>, <codeph>EntryEvent</codeph>
+								</entry>
+								<entry>Tracks changes to region and its data entries. Responds
+									synchronously. Extends <codeph>CacheCallback</codeph> interface.
+									Installed in region. Receives only local cache events. Install
+									one in every member where you want the events handled by this
+									listener. In a partitioned region, the cache listener only fires
+									in the primary data store. Listeners on secondaries are not
+									fired. </entry>
+							</row>
+							<row>
+								<entry>
+									<codeph>CacheWriter</codeph>
+								</entry>
+								<entry><codeph>RegionEvent</codeph>, <codeph>EntryEvent</codeph>
+								</entry>
+								<entry>Receives events for <i>pending</i> changes to the region and
+									its data entries in this member or one of its peers. Has the
+									ability to abort the operations in question. Extends
+										<codeph>CacheCallback</codeph> interface. Installed in
+									region. Receives events from anywhere in the distributed region,
+									so you can install one in one member for the entire distributed
+									region. Receives events only in primary data store in
+									partitioned regions, so install one in every data store.
+								</entry>
+							</row>
+							<row>
+								<entry><codeph>ClientMembershipListener</codeph><p><apiname>(com.gemstone.gemfire.management.membership.ClientMembershipListener)</apiname></p></entry>
+								<entry>
+									<codeph>ClientMembershipEvent</codeph>
+								</entry>
+								<entry>One of the interfaces that replaces the deprecated Admin
+									APIs. You can use the ClientMembershipListener to receive
+									membership events only about clients. This listener's callback
+									methods are invoked when this process detects connection changes
+									to clients. Callback methods include
+										<codeph>memberCrashed</codeph>,
+										<codeph>memberJoined</codeph>, <codeph>memberLeft</codeph>
+									(graceful exit). </entry>
+							</row>
+							<row>
+								<entry><codeph>MembershipListener</codeph><p><apiname>(com.gemstone.gemfire.management.membership.MembershipListener)
+										</apiname></p></entry>
+								<entry>
+									<codeph>MembershipEvent</codeph>
+								</entry>
+								<entry>One of the interfaces that replaces the deprecated Admin
+									APIs. You can use the to receive membership events only about
+									peers. This listener's callback methods are invoked when peer
+									members join or leave the <keyword keyref="product_name"/> distributed system. Callback
+									methods include <codeph>memberCrashed</codeph>,
+										<codeph>memberJoined</codeph>, <codeph>memberLeft</codeph>
+									(graceful exit).</entry>
+							</row>
+							<row>
+								<entry>
+									<codeph>RegionMembershipListener</codeph>
+								</entry>
+								<entry>
+									<codeph>RegionEvent</codeph>
+								</entry>
+								<entry>Provides after-event notification when a region with the same
+									name has been created in another member and when other members
+									hosting the region join or leave the distributed system. Extends
+										<codeph>CacheCallback</codeph> and
+										<codeph>CacheListener</codeph>. Installed in region as a
+										<codeph>CacheListener</codeph>. </entry>
+							</row>
+							<row>
+								<entry>
+									<codeph>RegionRoleListener</codeph>
+								</entry>
+								<entry><codeph>RoleEvent</codeph>, <codeph>RegionEvent</codeph>,
+										<codeph>EntryEvent</codeph>
+								</entry>
+								<entry>Tracks the presence of essential membership roles in the
+									distributed system, and changes to member, region, and data
+									entries. Extends <codeph>CacheCallback</codeph>,
+										<codeph>CacheListener</codeph>, and
+										<codeph>RegionMembershipListener</codeph>. Installed in
+									region as a <codeph>CacheListener</codeph>. </entry>
+							</row>
+							<row>
+								<entry>
+									<codeph>TransactionListener</codeph>
+								</entry>
+								<entry><codeph>TransactionEvent</codeph> with embedded list of
+										<codeph>EntryEvent</codeph>
+								</entry>
+								<entry>Tracks the outcome of transactions and changes to data
+									entries in the transaction. <note>Multiple transactions on the
+										same cache can cause concurrent invocation of
+											<codeph>TransactionListener</codeph> methods, so
+										implement methods that do the appropriate synchronizing of
+										the multiple threads for thread-safe operation.
+									</note>Extends <codeph>CacheCallback</codeph> interface.
+									Installed in cache using transaction manager. Works with
+									region-level listeners if needed. </entry>
+							</row>
+							<row>
+								<entry>
+									<codeph>TransactionWriter</codeph>
+								</entry>
+								<entry><codeph>TransactionEvent</codeph> with embedded list of
+										<codeph>EntryEvent</codeph>
+								</entry>
+								<entry>Receives events for <i>pending</i> transaction commits. Has
+									the ability to abort the transaction. Extends
+										<codeph>CacheCallback</codeph> interface. Installed in cache
+									using transaction manager. At most one writer is called per
+									transaction. Install a writer in every transactional data host.
+								</entry>
+							</row>
+							<row>
+								<entry><codeph>UniversalMembershipListenerAdapter</codeph><p><apiname>(com.gemstone.gemfire.management.membership.UniversalMembershipListenerAdapter)</apiname></p></entry>
+								<entry><codeph>MembershipEvent</codeph> and
+										<codeph>ClientMembershipEvent</codeph></entry>
+								<entry>One of the interfaces that replaces the deprecated Admin
+									APIs. Provides a wrapper for MembershipListener and
+									ClientMembershipListener callbacks for both clients and
+									peers.</entry>
+							</row>
+						</tbody>
+					</tgroup>
+				</table>
+			</p>
+		</section>
+		<section id="section_48C81FE4C1934DBBB287925A6F7A473D">
+			<title>Events</title>
+			<p> The events in this table are cache events unless otherwise noted. </p>
+			<table id="table_1DA230A0BB9446A6B003A641BE26E986">
+				<tgroup cols="3">
+					<colspec colname="1" colnum="1" colwidth="*"/>
+					<colspec colname="2" colnum="2" colwidth="*"/>
+					<colspec colname="3" colnum="3" colwidth="*"/>
+					<thead>
+						<row>
+							<entry>Event </entry>
+							<entry>Passed to handler ... </entry>
+							<entry>Description </entry>
+						</row>
+					</thead>
+					<tbody>
+						<row>
+							<entry colname="1">
+								<codeph>AsyncEvent</codeph>
+							</entry>
+							<entry colname="2">
+								<codeph>AsyncEventListener</codeph>
+							</entry>
+							<entry colname="3">Provides information about a single event in the
+								cache for asynchronous, write-behind processing. </entry>
+						</row>
+						<row>
+							<entry>
+								<codeph>CacheEvent</codeph>
+							</entry>
+							<entry/>
+							<entry>Superinterface to <codeph>RegionEvent</codeph> and
+									<codeph>EntryEvent</codeph>. This defines common event methods,
+								and contains data needed to diagnose the circumstances of the event,
+								including a description of the operation being performed,
+								information about where the event originated, and any callback
+								argument passed to the method that generated this event. </entry>
+						</row>
+						<row>
+							<entry>
+								<codeph>ClientMembershipEvent</codeph>
+							</entry>
+							<entry>
+								<codeph>ClientMembershipListener</codeph>
+							</entry>
+							<entry>An event delivered to a <codeph>ClientMembershipListener</codeph>
+								when this process detects connection changes to servers or
+								clients.</entry>
+						</row>
+						<row>
+							<entry>
+								<codeph>EntryEvent</codeph>
+							</entry>
+							<entry><codeph>CacheListener</codeph>, <codeph>CacheWriter</codeph>,
+									<codeph>RegionRoleListener</codeph>,
+									<codeph>TransactionListener</codeph> (inside the
+									<codeph>TransactionEvent</codeph>) </entry>
+							<entry>Extends <codeph>CacheEvent</codeph> for entry events. Contains
+								information about an event affecting a data entry in the cache. The
+								information includes the key, the value before this event, and the
+								value after this event. <codeph>EntryEvent.getNewValue</codeph>
+								returns the current value of the data entry.
+									<codeph>EntryEvent.getOldValue</codeph> returns the value before
+								this event if it is available. For a partitioned region, returns the
+								old value if the local cache holds the primary copy of the entry.
+									<codeph>EntryEvent</codeph> provides the <keyword
+									keyref="product_name"/> transaction ID if available. <p>You can
+									retrieve serialized values from <codeph>EntryEvent</codeph>
+									using the <codeph>getSerialized</codeph>* methods. This is
+									useful if you get values from one region’s events just to put
+									them into a separate cache region. There is no counterpart
+										<codeph>put</codeph> function as the put recognizes that the
+									value is serialized and bypasses the serialization step. </p>
+							</entry>
+						</row>
+						<row>
+							<entry><codeph>MembershipEvent</codeph> (membership event)</entry>
+							<entry>
+								<codeph>MembershipListener</codeph>
+							</entry>
+							<entry>
+								<p>An event that describes the member that originated this event.
+									Instances of this are delivered to a
+										<codeph>MembershipListener</codeph> when a member has joined
+									or left the distributed system.</p>
+							</entry>
+						</row>
+						<row>
+							<entry>
+								<codeph>RegionEvent</codeph>
+							</entry>
+							<entry><codeph>CacheListener</codeph>, <codeph>CacheWriter</codeph>,
+									<codeph>RegionMembershipListener</codeph>,
+									<codeph>RegionRoleListener</codeph>
+							</entry>
+							<entry>Extends <codeph>CacheEvent</codeph> for region events. Provides
+								information about operations that affect the whole region, such as
+								reinitialization of the region after being destroyed. </entry>
+						</row>
+						<row>
+							<entry>
+								<codeph>RoleEvent</codeph>
+							</entry>
+							<entry>
+								<codeph>RegionRoleListener</codeph>
+							</entry>
+							<entry>Extends <codeph>RegionEvent</codeph> for region reliability
+								events. Contains information about an event where membership roles
+								are lost or gained, which might affect a region’s reliability.
+							</entry>
+						</row>
+						<row>
+							<entry>
+								<codeph>TimestampedEntryEvent</codeph>
+							</entry>
+							<entry>
+								<codeph>GatewayConflictResolver</codeph>
+							</entry>
+							<entry>Extends <codeph>EntryEvent</codeph> to include a timestamp and
+								distributed system ID associated with the event. The conflict
+								resolver can compare the timestamp and ID in the event with the
+								values stored in the entry to decide whether the local system should
+								apply the potentially conflicting event. </entry>
+						</row>
+						<row>
+							<entry>
+								<codeph>TransactionEvent</codeph>
+							</entry>
+							<entry><codeph>TransactionListener</codeph>,
+									<codeph>TransactionWriter</codeph>
+							</entry>
+							<entry>Describes the work done in a transaction. This event may be for a
+								pending or committed transaction, or for the work abandoned by an
+								explicit rollback or failed commit. The work is represented by an
+								ordered list of <codeph>EntryEvent</codeph> instances. The entry
+								events are listed in the order in which the operations were
+								performed in the transaction. <p>As the transaction operations are
+									performed, the entry events are conflated, with only the last
+									event for each entry remaining in the list. So if entry A is
+									modified, then entry B, then entry A, the list will contain the
+									event for entry B followed by the second event for entry A. </p>
+							</entry>
+						</row>
+					</tbody>
+				</tgroup>
+			</table>
+			<p> </p>
+		</section>
+	</conbody>
+</concept>

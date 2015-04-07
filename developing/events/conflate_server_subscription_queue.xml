@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "http://docs.oasis-open.org/dita/v1.1/OS/dtd/concept.dtd">
+<concept id="conflate_the_server_subscription_queue">
+	<title>Conflate the Server Subscription Queue</title>
+	<conbody>
+		<section id="section_1791DFB89502480EB57F81D16AC0EBAC">
+			<p>Conflating the server subscription queue can save space in the server and time in
+				message processing. </p>
+			<p>Enable conflation at the server level in the server region configuration:
+				<codeblock>&lt;region ... &gt;
+  &lt;region-attributes enable-subscription-conflation="true" /&gt; 
+&lt;/region&gt;</codeblock>
+			</p>
+			<p>Override the server setting as needed, on a per-client basis, in the client’s
+					<codeph>gemfire.properties</codeph>:
+				<codeblock>conflate-events=false</codeblock>Valid <codeph>conflate-events</codeph>
+				settings are: <ul id="ul_AC1A01FB6F5743CDA7A08789190AF93A">
+					<li id="li_79825CAD6D1E4A2D9857174B098CDDC5"><codeph>server</codeph>, which uses
+						the server settings </li>
+					<li id="li_8D68A7E085614569A2CD9823C6AFC83F"><codeph>true</codeph>, which
+						conflates everything sent to the client </li>
+					<li id="li_6F6B1DED4C0246B484A1B04C58D01819"><codeph>false</codeph>, which does
+						not conflate anything sent to this client </li>
+				</ul>
+			</p>
+			<p>Conflation can both improve performance and reduce the amount of memory required on
+				the server for queuing. The client receives only the latest available update in the
+				queue for a particular entry key. Conflation is disabled by default. </p>
+			<p>Conflation is particularly useful when a single entry is updated often and the
+				intermediate updates don’t require processing by the client. With conflation, if an
+				entry is updated and there is already an update in the queue for its key, the
+				existing update is removed and the new update is placed at the end of the queue.
+				Conflation is only done on messages that are not in the process of being sent to the
+				client. </p>
+			<p>
+				<image href="../../images/ClientServerAdvancedTopics-7.gif"
+					id="image_FA77FD2857464D17BF2ED5B3CC62687A" placement="break"/>
+			</p>
+			<note>This method of conflation is the same as the method used for the conflation of
+				peer-to-peer distribution messages within a single distributed system. </note>
+			<p> </p>
+		</section>
+	</conbody>
+</concept>

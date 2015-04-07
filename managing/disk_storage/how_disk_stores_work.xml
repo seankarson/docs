@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "http://docs.oasis-open.org/dita/v1.1/OS/dtd/concept.dtd">
+<concept id="how_disk_stores_work">
+	<title>How Disk Stores Work</title>
+	<shortdesc>The overflow feature uses disk stores as an extension of the in-memory cache.
+		Persistence uses disk stores to store a redundant copy of the data. </shortdesc>
+	<conbody>
+		<section id="section_1A93EFBE3E514918833592C17CFC4C40">
+			<p> These two options can be used individually or together. </p>
+			<p>Disk storage is available for these cached data types: <ul
+					id="ul_1888717500314F6682ADBADC27EAFEF6">
+					<li id="li_AB1DCF110A3C4AC89293472E658C7EA2"><b>Cached regions</b>. Persist
+						and/or overflow data from your cached data regions. </li>
+					<li id="li_6D8F271E533649C5B63D718F9D6FC243"><b>Server’s client subscription
+							queues</b>. Overflow the messaging queues to control memory use. </li>
+					<li id="li_E2B1610F6B9E4E72BB5CCB0F7B4EF60D"><b>Gateway sender queues</b>.
+						Persist these for high availability. These queues always overflow. </li>
+					<li id="li_1C4F16D5988D401DB4C07A8A52F4692D"><b>PDX serialization metadata</b>.
+						Persist metadata about objects you serialize using <keyword
+							keyref="product_name"/> PDX serialization. </li>
+				</ul>
+			</p>
+			<p>Each member has its own set of disk stores, completely separate from the disk stores
+				of any other member. For each disk store, you define where and how the data is
+				stored to disk. You can store data from multiple regions and queues in a single disk
+				store. </p>
+			<p>This figure shows a member with disk stores D through R defined. The member has two
+				persistent regions using disk store D and an overflow region and an overflow queue
+				using disk store R. </p>
+			<p>
+				<image href="../../images/diskStores-1.gif"
+					id="image_CB7972998C4A40B2A02550B97A723536" placement="break"/>
+			</p>
+		</section>
+		<section id="section_433EEEA1560D40DD9842200181EB1D0A">
+			<title>What <keyword keyref="product_name"/> Writes to the Disk Store </title>
+			<p>The following list describes the items that <keyword keyref="product_name"/> writes
+				to the disk store: <ul id="ul_45A4713610114CC5BBB9D722EF1FE83C">
+					<li id="li_FCA43E7782B6424E95C1BEEC676D4E00">List of members that host the store
+						and information on their status, such as running or offline and time stamps. </li>
+					<li id="li_809E2D630F484FD6B4A94F39F79F25AB">List of regions in the disk store.
+						For cached regions, these are the names you give the regions. For all other
+						data, these are <keyword keyref="product_name"/> internal region names. </li>
+					<li id="li_AF16EC2AA87C43BD9CBA9C929B19527E">For each region: <ul
+							id="ul_A96932241C54407F94826C2113DA2AFC">
+							<li id="li_CA81DC6FBD5D41EC86FCB0A2F36E72D0">Region configuration
+								attributes pertaining to loading and capacity management, used to
+								load the data quickly on startup. </li>
+							<li id="li_39C91A06AF094D94B82CC70CACF2F662">Region data operations.
+							</li>
+						</ul>
+					</li>
+				</ul>
+			</p>
+			<p><keyword keyref="product_name"/> does not write indexes to disk. </p>
+		</section>
+		<section id="section_C1A047CD5518499D94A0E9A0328F6DB8">
+			<title>Disk Store State</title>
+			<p>Disk store access and management differs according to whether the store is online or
+				offline. </p>
+			<p>While a member is running, its disk stores are online in the <keyword
+					keyref="product_name"/> system. When the member closes its cache and exits, its
+				disk stores go offline. When the member starts up again, its disk stores come back
+				online. <ul id="ul_A53D87A420384BEFA71F566690FC9B89">
+					<li id="li_8C4877ABA6CB43A08461785C45ADB0FA">Online, a disk store is owned and
+						managed by its member process. To run operations on an online disk store,
+						use API calls in the member process or use the <codeph>gfsh</codeph>
+						command-line interface. The <codeph>gfsh</codeph> command-line interface
+						joins the distributed system and sends requests to members that have disk
+						stores. </li>
+					<li id="li_AC8AD15AC37548F49132774E29BF660D">Offline, the disk store is just a
+						collection of files in your host file system. The files are open to access
+						by anyone with the right file system permissions. You can copy the files
+						using your file system commands, for backup or to move your member’s disk
+						store location. You can also run some maintenance operations on the offline
+						disk store, like file compaction and validation by using the
+							<codeph>gfsh</codeph> command-line interface. <note>The files for a disk
+							store are used by <keyword keyref="product_name"/> as a group. Treat
+							them as a single entity. If you copy them, copy them all together. Do
+							not change the file names. </note>When a disk store is offline, its data
+						is unavailable to the <keyword keyref="product_name"/> distributed system.
+						For partitioned regions, the data is split between multiple members, so you
+						may be able to access the region, but have some of its data only present in
+						an offline disk store. If you try to access an entry whose only copy is
+						stored on disk by an offline member, the operation returns a
+							<codeph>PartitionOfflineException</codeph>. </li>
+				</ul>
+			</p>
+		</section>
+	</conbody>
+</concept>

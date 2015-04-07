@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "http://docs.oasis-open.org/dita/v1.1/OS/dtd/concept.dtd">
+<concept id="how_authentication_works">
+	<title>How Authentication Works</title>
+	<shortdesc> Joining members provide credentials to existing members who check the credentials
+		and either reject the joining member or approve it. </shortdesc>
+	<conbody>
+		<p>If approved, the connection request returns a <codeph>java.security.Principal</codeph>
+			object, used to identify the member in future operations. <ul
+				id="ul_A1FB7D6866964A5E8B12B1122DBB25AD">
+				<li id="li_7B436F246F9446B585E49CF4E90C803E">Joining peer members are authenticated
+					by the locator to which they connect. </li>
+				<li id="li_B7983374448444C78C8A5C1B63B82A2A">Clients are authenticated by their
+					server during the connection initialization and for each operation request. </li>
+				<li id="li_653DB691192D453FBE6D749F9A97E9F7">Servers may be authenticated by their
+					clients during the connection initialization. </li>
+				<li id="li_D7404220A38942889B9BAA024B25E4C5">Depending on the member, the new member
+					may in turn become an authenticator to other joining members. Members joining a
+					system must trust that existing members are already authenticated. </li>
+			</ul>
+		</p>
+		<p>Locators maintain and distribute the authenticated member list. The distributed member
+			list is also authenticated by all members, which prevents an unauthorized application
+			from introducing itself into membership by distributing an member list that includes
+			itself. </p>
+		<image href="../../images/security-1.gif" id="image_D3AE53AB4E0441A5A078E5D07EC20C5D"
+			placement="break"/>
+		<p><keyword keyref="product_name"/> authentication provides a flexible plug-in framework.
+			Any security infrastructure can be plugged in to the system as long as the plug-ins
+			implement the required <keyword keyref="product_name"/> interfaces. </p>
+		<section id="section_3C5F1D7D27CC4C85B01F6F91AA602ED6">
+			<title>Client Authentication Options</title>
+			<p>The <keyword keyref="product_name"/> client can connect in two different ways: <ol
+					id="ol_072217B4FBC24A678F0FD5817813ACA9">
+					<li id="li_8A134F3DC13649359BA0D285BFE729EA"><b>Process level</b>. Each pool
+						creates a configured minimum number of connections across the server group.
+						The pool accesses the least loaded server for each cache operation. This
+						type of connection is required. Process level connections represent the
+						overall client process and are the default way a client accesses the server
+						cache. </li>
+					<li id="li_498FB587DF974FB3BF5A716708342928"><b>User level</b>. Each client
+						user/pool pair creates a connection to one server and then sticks with it
+						for operations. If the server is unable to respond to a request, the pool
+						selects a new one for the user. This type of connection is created
+							<i>from</i> the process level connection. These connections represent
+						individual users established within the client process. These connections
+						are generally used by application servers or web servers that act as clients
+						to <keyword keyref="product_name"/> servers. A single application or web
+						server process can service a large number of users, each with their own
+						unique identification and with varied access permissions. </li>
+				</ol>
+			</p>
+			<p>By default, the server pools in clients use process level authentication. You can
+				enable user level authentication by setting the pool’s multiuser-authentication
+				attribute to true. Process level and user level pools can be used inside one client
+				if needed. </p>
+			<image href="../../images/security-3.gif" placement="break"
+				id="image_A16EEDE08B0D480187F1C757E6A31140"/>
+			<p> </p>
+		</section>
+		<section id="section_79E28941E4A74318AF3B4B85525F9CA9">
+			<title>Client Authentication Process</title>
+			<p>The client authentication process occurs for each connection established by a pool,
+				regardless of whether the pool is configured for process-wide or single user
+				connections. All credentials are checked for each connection between client and
+				server, including the server-to-client notification channel. <ol
+					id="ol_8F5B36BF82ED43A8B01EC7F8509B54CC">
+					<li id="li_B40D2DA45F45447CA5CC7A629745AFF1">When the client requests a new
+						connection: <ol id="ol_7D807FD00EF446FAA272341F5A235ABA">
+							<li id="li_310A456F8C684FEABC0078B31C7A5C25">The server authenticates
+								the client’s credentials and assigns it an internal principal, used
+								to authorize client operations in the server cache </li>
+							<li id="li_0BE8720C01FF4516A749A88B126027C0">The server generates a
+								random unique identifier and returns it to the client to use in its
+								next request </li>
+						</ol>
+					</li>
+					<li id="li_D90F370B0AA34E8A94ABE5C4294A3135">For each operation request after
+						the initial connection is established: <ol
+							id="ol_4046EADB60AF4082BAD29115A87C362A">
+							<li id="li_642180CD7458446AAD7B359967452CF9">The client sends the
+								request with the unique identifier it received from the server in
+								the last communication. </li>
+							<li id="li_624D83CD1CEF468F8E4A8CCC1B57085F">The server verifies the
+								identifier and processes the request, then responds with a new
+								randomly generated unique identifier, for the client to include in
+								its next request. </li>
+						</ol>
+					</li>
+				</ol>
+			</p>
+			<p>This ever-changing identifier provides protection against replay attacks, because
+				each client request must include the unique identifier. The server never processes
+				the same request twice. For the most secure communication, add encryption, like
+				Diffie-Hellman. </p>
+			<p>If the connection fails after the client has sent a request and before the server can
+				respond, the next server request fails due to an invalid unique identifier, and the
+				client pool automatically establishes a new connection to the server system for the
+				client. </p>
+		</section>
+		<section id="section_05201B3F7B8D466C97EEE5235C749984">
+			<title>When a Member Fails to Join </title>
+			<p> The following describe the scenarios that occur when a member fails to join: <ul
+					id="ul_AA00FA26B2EC429B840DFDE9CE9F68B5">
+					<li id="li_67834D49BD8C43479E03ECB92CEA2488">Peer credentials are initialized
+						and verified automatically when a member joins a distributed system. <ul
+							id="ul_7702E91B21CC48B485F4660C6FC8A970">
+							<li id="li_91AFEFE68B894E508C119782B31BB3DA">If a joining member has
+								invalid credentials, the <codeph>DistributedSystem.connect</codeph>
+								method throws an <codeph>AuthenticationFailedException</codeph>. </li>
+							<li id="li_115FA2D563FE458E92305438E78CD5DE">If a joining member does
+								not provide credentials, the request throws an
+									<codeph>AuthenticationRequiredException</codeph>. </li>
+						</ul>
+					</li>
+					<li id="li_D2AB24AB9E7847309D02FC9CB794FF09">Client credentials are initialized
+						and verified automatically during the initial connection process. <ul
+							id="ul_BADD91B7AD8B4ED5B27AB6E565B2104D">
+							<li id="li_84315F97725840E48370141C1AF394AB">If client authentication
+								fails due to invalid credentials, the server sends an
+									<codeph>AUTHENTICATION_FAILED</codeph> message back to the
+								client. The client handshake fails, and an
+									<codeph>AuthenticationFailedException</codeph> is thrown for the
+								current operation. </li>
+							<li id="li_42FC87DFAE3747869E4305AC6EB7B797">If the client
+								authentication fails due to missing credentials, the server sends a
+									<codeph>NO_AUTHENTICATION</codeph> message back to the client.
+								The client connection fails, and an
+									<codeph>AuthenticationRequiredException</codeph> is thrown for
+								the current operation. </li>
+						</ul>
+					</li>
+				</ul>
+			</p>
+		</section>
+	</conbody>
+</concept>

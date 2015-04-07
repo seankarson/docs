@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "http://docs.oasis-open.org/dita/v1.1/OS/dtd/concept.dtd">
+<concept id="configuring_event_distribution">
+	<title>Configuring Peer-to-Peer Event Messaging</title>
+	<shortdesc>You can receive events from distributed system peers for any region that is not a
+		local region. Local regions receive only local cache events. </shortdesc>
+	<conbody>
+		<section id="section_7D5B1F0C0EF24E58BB3C335CB4EA9A3C">
+			<p>Peer distribution is done according to the region's configuration. <ul
+					id="ul_8536BAC8E16A4219BAB6F4417C9D925A">
+					<li id="li_3C68F56DD37F472BAB99BF3767E88D95">Replicated regions always receive
+						all events from peers and require no further configuration. Replicated
+						regions are configured using the <codeph>REPLICATE</codeph> region shortcut
+						settings. </li>
+					<li id="li_49D9C9E5E0C14046A66D332B4F1440B8">For non-replicated regions, decide
+						whether you want to receive all entry events from the distributed cache or
+						only events for the data you have stored locally. To configure: <ul
+							id="ul_F37E5798B66E44919D73EF6C18DD9390">
+							<li id="li_6485C71B76784FDDA0F0A29C97452C08">To receive all events, set
+								the <codeph>subscription-attributes</codeph>
+								<codeph>interest-policy</codeph> to <codeph>all</codeph>:
+								<codeblock outputclass="language-xml">&lt;region-attributes&gt; 
+    &lt;subscription-attributes interest-policy="all"/&gt; 
+&lt;/region-attributes&gt;</codeblock>
+							</li>
+							<li id="li_2F2EE32861E24A3CA0107546B6ACE2DC">To receive events just for
+								the data you have stored locally, set the
+									<codeph>subscription-attributes</codeph>
+								<codeph>interest-policy</codeph> to <codeph>cache-content</codeph>
+								or do not set it (<codeph>cache-content</codeph> is the default):
+								<codeblock outputclass="language-xml">&lt;region-attributes&gt; 
+    &lt;subscription-attributes interest-policy="cache-content"/&gt; 
+&lt;/region-attributes&gt;</codeblock>
+							</li>
+						</ul>For partitioned regions, this only affects the receipt of events, as
+						the data is stored according to the region partitioning. Partitioned regions
+						with interest policy of <codeph>all</codeph> can create network bottlenecks,
+						so if you can, run listeners in every member that hosts the partitioned
+						region data and use the <codeph>cache-content</codeph> interest policy.
+					</li>
+				</ul><note>You can also configure Regions using the gfsh command-line interface. See
+						<xref
+						href="../../tools_modules/gfsh/quick_ref_commands_by_area.xml#topic_EF03119A40EE492984F3B6248596E1DD"
+					/>.</note>
+			</p>
+		</section>
+	</conbody>
+</concept>

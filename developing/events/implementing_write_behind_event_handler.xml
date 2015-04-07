@@ -1,0 +1,267 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "http://docs.oasis-open.org/dita/v1.1/OS/dtd/concept.dtd">
+<concept id="implementing_write_behind_cache_event_handling">
+	<title>Implementing an AsyncEventListener for Write-Behind Cache Event Handling</title>
+	<shortdesc> An <codeph>AsyncEventListener</codeph> receives callbacks for events that change
+		region data. You can use an <codeph>AsyncEventListener</codeph> implementation as a
+		write-behind cache event handler to synchronize region updates with a database. </shortdesc>
+	<conbody>
+		<section id="section_35B3ADC77E1147468A568E49C8C308E1">
+			<title>How an AsyncEventListener Works</title>
+			<p>An <codeph>AsyncEventListener</codeph> instance is serviced by its own dedicated
+				thread in which a callback method is invoked. Events that update a region are placed
+				in an internal <codeph>AsyncEventQueue</codeph>, and one or more threads dispatch
+				batches of events at a time to the listener implementation. </p>
+			<p>You can configure an <codeph>AsyncEventQueue</codeph> to be either serial or
+				parallel. A serial queue is deployed to one <keyword keyref="product_name"/> member,
+				and it delivers all of a region's events in order to a configured
+					<codeph>AsyncEventListener</codeph> implementation. A parallel queue is deployed
+				to multiple <keyword keyref="product_name"/> members, and each instance of the queue
+				simultaneously delivers region events to a local <codeph>AsyncEventListener</codeph>
+				implementation. </p>
+			<p>While a parallel queue provides the best throughput for writing events, it provides
+				less control for ordering those events. With a parallel queue, you cannot preserve
+				event ordering for a region as a whole because multiple <keyword
+					keyref="product_name"/> servers queue and deliver the region's events at the
+				same time. However, the ordering of events for a given partition (or for a given
+				queue of a distributed region) can be preserved. </p>
+			<p>For both serial and parallel queues, you can control the maximum amount of memory
+				that each queue uses, as well as the batch size and frequency for processing batches
+				in the queue. You can also configure queues to persist to disk (instead of simply
+				overflowing to disk) so that write-behind caching can pick up where it left off when
+				a member shuts down and is later restarted. </p>
+			<p>Optionally, a queue can use multiple threads to dispatch queued events. When you
+				configure multiple threads for a serial queue, the logical queue that is hosted on a
+					<keyword keyref="product_name"/> member is divided into multiple physical
+				queues, each with a dedicated dispatcher thread. You can then configure whether the
+				threads dispatch queued events by key, by thread, or in the same order in which
+				events were added to the queue. When you configure multiple threads for a parallel
+				queue, each queue hosted on a <keyword keyref="product_name"/> member is processed
+				by dispatcher threads; the total number of queues created depends on the number of
+				members that host the region.</p>
+		</section>
+		<section id="section_6FDBAFCB9C194EB0AF0822A509F2F9F2">
+			<title>Guidelines for Using an AsyncEventListener</title>
+			<p>Review the following guidelines before using an AsyncEventListener: <ul
+					id="ul_970E354240524DF2A30B5DD2D2006D65">
+					<li id="li_A3F2D7DCBB104C24BA1A74B1F88A4A6D">If you use an
+							<codeph>AsyncEventListener</codeph> to implement a write-behind cache
+						listener, your code should check for the possibility that an existing
+						database connection may have been closed due to an earlier exception. For
+						example, check for <cmdname>Connection.isClosed()</cmdname> in a catch block
+						and re-create the connection as needed before performing further operations. </li>
+					<li id="li_AA87F5FD4E044A15875A6F862686EBE1">Use a serial
+							<codeph>AsyncEventQueue</codeph> if you need to preserve the order of
+						region events when delivering events to your listener implementation. Use
+						parallel queues when the order of events is not important, and when you
+						require maximum throughput for processing events. </li>
+					<li id="li_07BE1FC18FE243B58E68882CA8EC4897">You must install the
+							<codeph>AsyncEventListener</codeph> implementation on a <keyword
+							keyref="product_name"/> member that hosts the region whose events you
+						want to process. </li>
+					<li id="li_BBC8F76D80E34F5BAF829E29A8F3C06F">If you configure a parallel
+							<codeph>AsyncEventQueue</codeph>, deploy the queue on each <keyword
+							keyref="product_name"/> member that hosts the region. </li>
+					<li id="li_4C733AFC19134244BDC4266146F9B4DC">You can install a listener on more
+						than one member to provide high availability and guarantee delivery for
+						events, in the event that a member with the active
+							<codeph>AsyncEventListener</codeph> shuts down. At any given time only
+						one member has an active listener for dispatching events. The listener on
+						other members remain on standby for redundancy. </li>
+					<li id="li_62A8440BA95A431491150A3DCE1E4086">Install no more than one standby
+						listener (redundancy of at most one) for performance and memory reasons. </li>
+					<li id="li_E525B9DC25EB40AC8EAB54C0CE81B3D7">To preserve pending events through
+						member shutdowns, configure <keyword keyref="product_name"/> to persist the
+						internal queue of the <codeph>AsyncEventListener</codeph> to an available
+						disk store. By default, any pending events that reside in the internal queue
+						of an <codeph>AsyncEventListener</codeph> are lost if the active listener's
+						member shuts down. </li>
+					<li id="li_344ADBF9634C4806B05D66FFA1240AF1">To ensure high availability and
+						reliable delivery of events, configure the event queue to be both persistent
+						and redundant. </li>
+				</ul>
+			</p>
+		</section>
+		<section id="section_FB3EB382E37945D9895E09B47A64D6B9">
+			<title>Implementing an AsyncEventListener</title>
+			<p>To receive region events for processing, you create a class that implements the
+					<codeph>AsyncEventListener</codeph> interface. The
+					<codeph>processEvents</codeph> method in your listener receives a list of queued
+					<codeph>AsyncEvent</codeph> objects in each batch. </p>
+			<p>Each <codeph>AsyncEvent</codeph> object contains information about a region event,
+				such as the name of the region where the event occurred, the type of region
+				operation, and the affected key and value. </p>
+			<p>The basic framework for implementing a write-behind event handler involves iterating
+				through the batch of events and writing each event to a database. For example:
+				<codeblock>class MyAsyncEventListener implements AsyncEventListener {
+	
+  public void processEvents(List&lt;AsyncEvent&gt; events) {
+
+	  // Process each AsyncEvent
+
+	  for(AsyncEvent event: events) {
+
+		  // Write the event to a database
+
+	  }
+	}
+}</codeblock>
+			</p>
+		</section>
+		<section id="section_AB80262CFB6D4867B52A5D6D880A5294">
+			<title>Processing AsyncEvents</title>
+			<p>Use the <codeph><xref
+						href="http://gemfire.docs.pivotal.io/latest/javadocs/japi/com/gemstone/gemfire/cache/asyncqueue/AsyncEventListener.html"
+						format="html" scope="external"
+					>AsyncEventListener.processEvents</xref></codeph> method to process AsyncEvents.
+				This method is called asynchronously when events are queued to be processed. The
+				size of the list reflects the number of batch events where batch size is defined in
+				the AsyncEventQueueFactory. The <codeph>processEvents</codeph> returns a boolean;
+				true if the AsyncEvents are processed correctly, and false if any events fail
+				processing. </p>
+			<p>You can use the <codeph>getDeserializedValue</codeph> method to obtain cache values
+				for entries that have been updated or created. Since the
+					<codeph>getDeserializedValue</codeph> method will return a null value for
+				destroyed entries, you should use the <codeph>getKey</codeph> method to obtain
+				references to cache objects that have been destroyed. Here's an example of
+				processing AsyncEvents:
+				<codeblock>public boolean processEvents(@SuppressWarnings("rawtypes") List&lt;AsyncEvent&gt; list)   
+ {  
+     logger.log (Level.INFO, String.format("Size of List&lt;GatewayEvent&gt; = %s", list.size()));  
+     List&lt;JdbcBatch&gt; newEntries = new ArrayList&lt;JdbcBatch&gt;();  
+       
+     List&lt;JdbcBatch&gt; updatedEntries = new ArrayList&lt;JdbcBatch&gt;();  
+     List&lt;String&gt; destroyedEntries = new ArrayList&lt;String&gt;();  
+     int possibleDuplicates = 0;  
+       
+     for (@SuppressWarnings("rawtypes") AsyncEvent ge: list)  
+     {  
+         
+       if (ge.getPossibleDuplicate())  
+        possibleDuplicates++;  
+          
+       if ( ge.getOperation().equals(Operation.UPDATE))   
+       {  
+      updatedEntries.add((JdbcBatch) ge.getDeserializedValue());  
+       }  
+       else if ( ge.getOperation().equals(Operation.CREATE))  
+       {  
+         newEntries.add((JdbcBatch) ge.getDeserializedValue());  
+       }  
+       else if ( ge.getOperation().equals(Operation.DESTROY))  
+       {  
+      destroyedEntries.add(ge.getKey().toString());  
+       }  
+        
+     }  </codeblock>
+			</p>
+		</section>
+		<section id="section_9286E8C6B3C54089888E1680B4F43692">
+			<title>Configuring an AsyncEventListener</title>
+			<p>To configure a write-behind cache listener, you first configure an asynchronous queue
+				to dispatch the region events, and then create the queue with your listener
+				implementation. You then assign the queue to a region in order to process that
+				region's events. </p>
+			<p>
+				<b>Procedure</b>
+				<ol id="ol_89B8A1BD55CA40B0991EF11DE102A0F6">
+					<li id="li_C93F467F57BA4806BA2063A4F302BAA0">Configure a unique
+							<codeph>AsyncEventQueue</codeph> with the name of your listener
+						implementation. You can optionally configure the queue for parallel
+						operation, persistence, batch size, and maximum memory size. <p><b>gfsh
+								configuration</b><codeblock>gfsh>create async-event-queue --id=sampleQueue --persistent --disk-store=exampleStore --listener=com.myCompany.MyAsyncEventListener --listener-param=url#jdbc:db2:SAMPLE,username#gfeadmin,password#admin1</codeblock>The
+							parameters for this command uses the following
+							syntax:</p><codeblock>create async-event-queue --id=value --listener=value [--group=value] [--batch-size=value] 
+[--persistent(=value)?] [--disk-store=value] [--max-queue-memory=value] [--listener-param=value(,value)*]</codeblock><p>For
+							more information, see <xref
+								href="../../tools_modules/gfsh/command-pages/create.xml#topic_ryz_pb1_dk"
+							/>.</p><p><b>cache.xml Configuration</b>
+							<codeblock>&lt;cache&gt;
+   &lt;async-event-queue id="sampleQueue" persistent="true"
+    disk-store-name="exampleStore" parallel="false"&gt;
+      &lt;async-event-listener&gt;
+         &lt;class-name&gt;MyAsyncEventListener&lt;/class-name&gt;
+         &lt;parameter name="url"&gt; 
+           &lt;string&gt;jdbc:db2:SAMPLE&lt;/string&gt; 
+         &lt;/parameter&gt; 
+         &lt;parameter name="username"&gt; 
+           &lt;string&gt;gfeadmin&lt;/string&gt; 
+         &lt;/parameter&gt; 
+         &lt;parameter name="password"&gt; 
+           &lt;string&gt;admin1&lt;/string&gt; 
+         &lt;/parameter&gt; 
+      &lt;/async-event-listener&gt;
+    &lt;/async-event-queue&gt;
+...
+&lt;/cache&gt;</codeblock>
+						</p>
+						<p><b>Java Configuration</b>
+							<codeblock>Cache cache = new CacheFactory().create();
+AsyncEventQueueFactory factory = cache.createAsyncEventQueueFactory();
+factory.setPersistent(true);
+factory.setDiskStoreName("exampleStore");
+factory.setParallel(false);
+AsyncEventListener listener = new MyAsyncEventListener();
+AsyncEventQueue asyncQueue = factory.create("sampleQueue", listener);</codeblock>
+						</p>
+					</li>
+					<li id="li_08DEA6A2C2DD416291A3C14188685AF5">If you are using a parallel
+							<codeph>AsyncEventQueue</codeph>, repeat the above configuration in each
+							<keyword keyref="product_name"/> member that will host the region. Use
+						the same ID and configuration settings for each queue configuration.
+							<note>You can ensure other members use the sample configuration by using
+							the cluster configuration service available in gfsh. See <xref
+								href="../../configuring/cluster_config/gfsh_persist.xml#concept_r22_hyw_bl"
+							/>.</note></li>
+					<li id="li_9094768B70D140D5A031B3125710FF52">
+						<p>On each <keyword keyref="product_name"/> member that hosts the
+								<codeph>AsyncEventQueue</codeph>, assign the queue to each region
+							that you want to use with the <codeph>AsyncEventListener</codeph>
+							implementation. </p>
+						<p><b>gfsh
+							Configuration</b><codeblock>gfsh>create region --name=Customer --async-event-queue-id=sampleQueue </codeblock>Note
+							that you can specify multiple queues on the command line in a
+							comma-delimited list.</p>
+						<p>
+							<b>cache.xml Configuration</b>
+							<codeblock>&lt;cache&gt;
+&lt;region name="Customer"&gt;
+    &lt;region-attributes async-event-queue-ids="sampleQueue"&gt;
+    &lt;/region-attributes&gt;
+  &lt;/region&gt;
+...
+&lt;/cache&gt;</codeblock>
+						</p>
+						<p>
+							<b>Java Configuration</b>
+							<codeblock>RegionFactory rf1 = cache.createRegionFactory();
+rf1.addAsyncEventQueue(sampleQueue);
+Region customer = rf1.create("Customer");
+    
+// Assign the queue to multiple regions as needed
+RegionFactory rf2 = cache.createRegionFactory();
+rf2.addAsyncEventQueue(sampleQueue);
+Region order = rf2.create("Order");</codeblock>
+						</p>
+						<p>Using the Java API, you can also add and remove queues to regions that
+							have already been created:
+							<codeblock>AttributesMutator mutator = order.getAttributesMutator();
+mutator.addAsyncEventQueueId("sampleQueue");		</codeblock>
+						</p>
+						<p>See the <xref
+								href="http://gemfire.docs.pivotal.io/latest/javadocs/japi/com/gemstone/gemfire/cache/AttributesMutator.html"
+								format="html" scope="external"><keyword keyref="product_name"/> API
+								documentation</xref> for more information. </p>
+					</li>
+					<li id="li_CB05E4746BCA4EEB9BD3AC87925F32F8">Optionally configure persistence
+						and conflation for the queue. <note>You must configure your AsyncEventQueue
+							to be persistent if you are using persistent data regions. Using a
+							non-persistent queue with a persistent region is not
+						supported.</note></li>
+				</ol>
+			</p>
+			<p>The <codeph>AsyncEventListener</codeph> receives events from every region configured
+				with the associated <codeph>AsyncEventQueue</codeph>. </p>
+		</section>
+	</conbody>
+</concept>

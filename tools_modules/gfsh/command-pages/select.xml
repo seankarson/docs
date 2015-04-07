@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<!-- Created with XMetaL (http://www.xmetal.com) -->
+<concept id="concept_89A129F729DF4D3B9056C8D9016AA760"> 
+  <title>select</title> 
+  <shortdesc><?xm-replace_text Short Description?>
+  </shortdesc> 
+  <conbody>
+	 <p>Runs the OQL query starting with 'select'. If limit is not set in the
+		query a default limit of 100 will be applied after notifying the user.
+	 </p>
+	 <p><b>Syntax:</b>
+		<codeblock>select &lt;remaining of the OQL&gt;</codeblock>
+	 </p>
+	 <p><b>Example Commands:</b>
+		<codeblock>(1) select * from /region1/region12;
+(2) Using variables set using 'set variable' for substitution in the query:
+select * from /region1 r1 where r1.id='${PERSON_ID}';
+select * from ${EMPLOYEE_REGION} e1 where e1.id='${PERSON_ID}';</codeblock>
+	 </p>
+	 <p><b>Sample Output:</b>
+	 </p>
+	 <p><?xm-replace_text Paragraph?>
+	 </p>
+	 <p><b>Error Messages:</b>
+	 </p>
+	 <p><?xm-replace_text Paragraph?>
+	 </p>
+  </conbody>
+</concept>

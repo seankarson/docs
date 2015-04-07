@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept id="concept_dxv_zb5_m4">
+    <title><keyword keyref="product_name"/> REST API Overview</title>
+    <shortdesc id="shortdesc_A39702FB462C4E80B8BF09C0A8391683">By using the <keyword
+            keyref="product_name"/> REST application interface, you can immediately access <keyword
+            keyref="product_name"/>'s data management capabilities in languages other than the
+        natively supported Java language. </shortdesc>
+    <conbody>
+        <p dir="ltr">You can write REST-enabled client applications for <keyword
+                keyref="product_name"/> in a variety of languages that use the open and standard
+            HTTP protocol-- for example, Ruby, Python, JavaScript and Scala, as well as already
+            supported languages such as Java.</p>
+        <p dir="ltr">When you access <keyword keyref="product_name"/> through the REST interface,
+            objects are stored in <keyword keyref="product_name"/> as PdxInstances. A PdxInstance is
+            a light-weight wrapper around PDX serialized bytes. It provides applications with
+            run-time access to fields of a PDX serialized object. This interoperable format allows
+            your Java applications to operate on the same data as your REST applications. </p>
+        <p dir="ltr">As an added benefit, because <keyword keyref="product_name"/>'s REST interface
+            stores objects as PdxInstances, you do not need to write corresponding Java classes to
+            translate JSON data (which you must do with other REST interface providers such as
+            Oracle Coherence.) For example, consider the use case where a non-Java REST client
+            application (Python, Ruby or Scala) performs <keyword keyref="product_name"/> region
+            operations with JSON data that represents employee data. Since the object is stored in
+                <keyword keyref="product_name"/> as a PdxInstance that can be automatically mapped
+            to JSON, the user does not need to write a corresponding Employee.java class and also
+            does not need to worry about related issues such as keeping the Employee object in the
+            CLASSPATH. </p>
+        <p>See <xref
+                href="../developing/data_serialization/gemfire_pdx_serialization.xml#gemfire_pdx_serialization"
+            /> for more information on PDX serialization.</p>
+    </conbody>
+</concept>

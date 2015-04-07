@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "http://docs.oasis-open.org/dita/v1.1/OS/dtd/concept.dtd">
+<concept id="set_crash_redundancy_recovery">
+	<title>Configure Member Crash Redundancy Recovery for a Partitioned Region</title>
+	<shortdesc id="shortdesc_F066E067A9344A3D9C12B412271748FD">Configure whether and how redundancy
+		is recovered in a partition region after a member crashes. </shortdesc>
+	<conbody>
+		<section id="section_86CF741758E54DA29519E9CDDF1BC393">
+			<p>Use the partition attribute <codeph>recovery-delay</codeph> to specify member crash
+				redundancy recovery. </p>
+			<p>
+				<table frame="all" id="table_F881A19A459C4590B15540CB81238050">
+					<tgroup cols="2">
+						<colspec colname="topic_link" colnum="1" align="left" colsep="1" rowsep="1"/>
+						<colspec colname="topic_link" colnum="2"/>
+						<thead>
+							<row>
+								<entry>recovery-delay partition attribute </entry>
+								<entry>Effect following a member failure </entry>
+							</row>
+						</thead>
+						<tbody>
+							<row>
+								<entry>-1 </entry>
+								<entry>No automatic recovery of redundancy following a member
+									failure. This is the default. </entry>
+							</row>
+							<row>
+								<entry>long greater than or equal to 0 </entry>
+								<entry>Number of milliseconds to wait after a member failure before
+									recovering redundancy. </entry>
+							</row>
+						</tbody>
+					</tgroup>
+				</table>
+			</p>
+			<p>By default, redundancy is not recovered after a member crashes. If you expect to
+				quickly restart most crashed members, combining this default setting with member
+				join redundancy recovery can help you avoid unnecessary data shuffling while members
+				are down. By waiting for lost members to rejoin, redundancy recovery is done using
+				the newly started members and partitioning is better balanced with less processing. </p>
+			<p>Set crash redundancy recovery using one of the following: <ul
+					id="ul_92FB86BE6CDD4DB9B0B4DAF73F9BC8B1">
+					<li id="li_B818E272E2E246A0BB548873DEC480A2">XML:
+						<codeblock outputclass="language-xml">// Give a crashed member 10 seconds to restart 
+// before recovering redundancy
+&lt;region name="PR1"&gt; 
+  &lt;region-attributes refid="PARTITION"&gt; 
+    &lt;partition-attributes recovery-delay="10000"/&gt; 
+  &lt;/region-attributes&gt; 
+&lt;/region&gt; </codeblock>
+					</li>
+					<li id="li_17C1783B0990450E837E7194B6A126B0">Java:
+						<codeblock outputclass="language-java">PartitionAttributes pa = new PartitionAttributesFactory().setRecoveryDelay(10000).create(); </codeblock>
+					</li>
+					<li>gfsh:<codeblock outputclass="language-bourne">gfsh>create region --name="PR1" type=PARTITION --recovery-delay=10000</codeblock></li>
+				</ul>
+			</p>
+		</section>
+	</conbody>
+</concept>

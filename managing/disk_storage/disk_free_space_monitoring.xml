@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "http://docs.oasis-open.org/dita/v1.1/OS/dtd/concept.dtd">
+<concept id="concept_zr5_2hm_44">
+    <title>Configuring Disk Free Space Monitoring </title>
+    <shortdesc/>
+    <conbody>
+        <p>To modify <codeph>disk-usage-warning-percentage</codeph> and
+                <codeph>disk-usage-critical-percentage</codeph> thresholds, specify the parameters
+            when executing the <codeph>gfsh create disk-store</codeph>
+            command.<codeblock>gfsh>create disk-store --name=serverOverflow --dir=c:\overflow_data#20480 \
+--compaction-threshold=40 --auto-compact=false --allow-force-compaction=true \
+--max-oplog-size=512 --queue-size=10000 --time-interval=15 --write-buffer-size=65536 \
+<b>--disk-usage-warning-percentage=80</b> <b>--disk-usage-critical-percentage=98</b></codeblock></p>
+        <p>By default, disk usage above 80% triggers a warning message. Disk usage above 99%
+            generates an error and shuts down the member cache that accesses that disk store. To
+            disable disk store monitoring, set the parameters to 0.</p>
+        <p>To view the current threshold values set for an existing disk store, use the <codeph>gfsh
+                describe</codeph> disk-store
+            command:<codeblock>gfsh&gt;describe disk-store --member=server1 --name=DiskStore1
+</codeblock>
+        </p>
+        <p>You can also use the following <codeph>DiskStoreMXBean</codeph> method APIs to configure
+            and obtain these thresholds programmatically.<ul id="ul_nwy_thm_44">
+                <li><codeph>getDiskUsageCriticalPercentage</codeph></li>
+                <li><codeph>getDiskUsageWarningPercentage</codeph></li>
+                <li><codeph>setDiskUsageCriticalPercentage</codeph></li>
+                <li><codeph>setDiskUsageWarningPercentage</codeph></li>
+            </ul></p>
+        <p>You can obtain statistics on disk space usage and the performance of disk space
+            monitoring by accessing the following statistics:<ul id="ul_kpv_rxt_44">
+                <li><codeph>diskSpace</codeph></li>
+                <li><codeph>maximumSpace</codeph></li>
+                <li><codeph>volumeSize</codeph></li>
+                <li><codeph>volumeFreeSpace</codeph></li>
+                <li><codeph>volumeFreeSpaceChecks</codeph></li>
+                <li><codeph>volumeFreeSpaceTime</codeph></li>
+            </ul></p>
+        <p>See <xref
+                href="../../reference/statistics/statistics_list.xml#section_6C2BECC63A83456190B029DEDB8F4BE3"
+            />.</p>
+    </conbody>
+</concept>

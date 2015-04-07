@@ -1,0 +1,310 @@
+<?xml version="1.0"?>
+<!DOCTYPE dita PUBLIC "-//OASIS//DTD DITA Composite//EN" "ditabase.dtd">
+<dita>
+	<topic id="topic_7171CA38456645D5B08C16FD73AD0B2A">
+		<title>show</title>
+		<shortdesc>Display deadlocks, logs, metrics and missing disk-stores. </shortdesc>
+		<topic id="topic_1125347FAD6541DF995C9999650165B1">
+			<title>show dead-locks</title>
+			<shortdesc>Display any deadlocks in the <keyword keyref="product_name"/> distributed
+				system. </shortdesc>
+			<body>
+				<p><b> Availability:</b> Online. You must be connected in <codeph>gfsh</codeph> to a
+					JMX Manager member to use this command. </p>
+				<p><b>Syntax:</b>
+					<codeblock>show dead-locks --file=value</codeblock><table
+						id="table_2354017341534FA3AEAF3DBB893CD4E9">
+						<title>Parameters</title>
+						<tgroup cols="2">
+							<colspec colname="col1" colnum="1" colwidth="1.00*"/>
+							<colspec colname="col2" colnum="2" colwidth="2.33*"/>
+							<thead>
+								<row>
+									<entry colname="col1">Name </entry>
+									<entry colname="col2">Description</entry>
+								</row>
+							</thead>
+							<tbody>
+								<row>
+									<entry colname="col1"><parmname>--file</parmname>
+									</entry>
+									<entry colname="col2"><i>Required.</i> Name of the file to which
+										dependencies between members will be written. </entry>
+								</row>
+							</tbody>
+						</tgroup>
+					</table>
+				</p>
+				<p><b>Example Commands:</b>
+					<codeblock>show dead-locks --file=deadlocks.txt</codeblock>
+				</p>
+				<p><b>Sample Output:</b>
+					<codeblock>gfsh&gt;show dead-locks --file=deadlocks.txt
+No dead lock detected.
+
+Please view the dependencies between the members in file : deadlocks.txt</codeblock>
+				</p>
+			</body>
+		</topic>
+		<topic id="topic_45AAEDAC3AFF46EC9BB68B24FC9A32B3">
+			<title>show log</title>
+			<shortdesc>Display the log for a member. </shortdesc>
+			<body>
+				<p><b> Availability:</b> Online. You must be connected in <codeph>gfsh</codeph> to a
+					JMX Manager member to use this command. </p>
+				<p><b>Syntax:</b>
+					<codeblock>show log --member=value [--lines=value]</codeblock>
+					<table id="table_BC903E12C74F4ED6B23F29673F701DDD">
+						<title>Parameters</title>
+						<tgroup cols="3">
+							<colspec colname="col1" colnum="1" colwidth="1.00*"/>
+							<colspec colname="col2" colnum="2" colwidth="3.72*"/>
+							<colspec colname="newCol3" colnum="3" colwidth="1*"/>
+							<thead>
+								<row>
+									<entry colname="col1">Name </entry>
+									<entry colname="col2">Description</entry>
+								</row>
+							</thead>
+							<tbody>
+								<row>
+									<entry colname="col1"><parmname>--member</parmname>
+									</entry>
+									<entry colname="col2">
+										<i>Required.</i> Name/ID of the member whose log file will
+										be displayed. </entry>
+									<entry/>
+								</row>
+								<row>
+									<entry colname="col1"><parmname>--lines</parmname>
+									</entry>
+									<entry colname="col2">Number of lines from the log file to
+										display. The maximum is 100. </entry>
+									<entry>0</entry>
+								</row>
+							</tbody>
+						</tgroup>
+					</table>
+				</p>
+				<p><b>Example Commands:</b>
+					<codeblock>show log --member=locator1 --lines=5</codeblock>
+				</p>
+				<p><b>Sample Output:</b>
+					<codeblock>gfsh&gt;show log --member=locator1 --lines=5
+SystemLog:
+[info 2012/09/25 14:04:51.340 PDT locator1 &lt;RMI TCP Connection(14)-192.168.129.1
+29&gt; tid=0x57] (tid=12 msgId=4) Parent region for "region1/subregion1" doesnt exi
+st.
+
+[info 2012/09/25 14:04:51.372 PDT locator1 &lt;RMI TCP Connection(14)-192.168.129.1
+29&gt; tid=0x57] (tid=12 msgId=5) Error occurred while executing "create region --n
+ame=region1/subregion1 --type=LOCAL".
+
+[info 2012/09/25 15:14:34.314 PDT locator1 &lt;RMI TCP Connection(159)-192.168.129.
+129&gt; tid=0x68] (tid=13 msgId=6) Error occurred while executing "show log --membe
+r=server1 --lines=5".</codeblock>
+				</p>
+			</body>
+		</topic>
+		<topic id="topic_6EB786C63AEB46179EEE8FA18624295A">
+			<title>show metrics</title>
+			<shortdesc> Display or export metrics for the entire distributed system, a member or a
+				region. </shortdesc>
+			<body>
+				<p><b> Availability:</b> Online. You must be connected in <codeph>gfsh</codeph> to a
+					JMX Manager member to use this command. </p>
+				<p><b>Syntax:</b>
+					<codeblock>show metrics [--member=value] [--region=value] [--file=value] 
+[--port=value] [--categories=value(,value)*]</codeblock>
+					<table id="table_C61037C96D964F2E92647C471C73CB89">
+						<title>Parameters</title>
+						<tgroup cols="2">
+							<colspec colname="col1" colnum="1" colwidth="1.00*"/>
+							<colspec colname="col2" colnum="2" colwidth="4.82*"/>
+							<thead>
+								<row>
+									<entry colname="col1">Name </entry>
+									<entry colname="col2">Description</entry>
+								</row>
+							</thead>
+							<tbody>
+								<row>
+									<entry colname="col1"><parmname>--member</parmname>
+									</entry>
+									<entry colname="col2"> Name/ID of the member whose metrics will
+										be displayed/exported. </entry>
+								</row>
+								<row>
+									<entry colname="col1"><parmname>--region</parmname>
+									</entry>
+									<entry colname="col2">Name/Path of the region whose metrics will
+										be displayed/exported. </entry>
+								</row>
+								<row>
+									<entry colname="col1"><parmname>--file</parmname>
+									</entry>
+									<entry colname="col2">Name of the file to which metrics will be
+										written. </entry>
+								</row>
+								<row>
+									<entry colname="col1"><parmname>--port</parmname>
+									</entry>
+									<entry colname="col2"> Port number of the Cache Server whose
+										metrics are to be displayed/exported. This can only be used
+										along with the <codeph>--member</codeph> parameter. </entry>
+								</row>
+								<row>
+									<entry colname="col1"><parmname>--categories</parmname>
+									</entry>
+									<entry colname="col2"> Categories available based upon the
+										parameters specified (listed above) are: <ul
+											id="ul_16EFF369EC7F4BC0A46D6D30A4FDEA3E">
+											<li id="li_CBFE7090F9C643D283D7017A0697DCF2"><b>no
+												parameters specified</b>: cluster, cache,
+												diskstore, query </li>
+											<li id="li_C06231A5F7BF413ABEF745EB3A9C2158"><b>region
+												specified</b>: cluster, region, partition,
+												diskstore, callback, eviction </li>
+											<li id="li_8EC76BBD2C244A12A1BE0FEF896036B6"><b>member
+												specified</b>: member, jvm, region, serialization,
+												communication, function, transaction, diskstore,
+												lock, eviction, distribution </li>
+											<li id="li_1C037FBE2A92407AA1C714EA20E7A976"><b>member
+												and region specified</b>: region, partition,
+												diskstore, callback, eviction </li>
+										</ul>
+									</entry>
+								</row>
+							</tbody>
+						</tgroup>
+					</table>
+				</p>
+				<p><b>Example Commands:</b>
+					<codeblock>
+// Metrics for the entire system
+show metrics 
+// Metrics for a region:
+show metrics --region=region1
+// Metrics for a given member
+show metrics --member=server1
+// Metrics for a region on a member
+show metrics --region=region1 --member=server1
+//  Metrics for a member and the cacheserver it hosts
+// NOTE: port option only work when used with --member option
+show metrics --member=server1 --port=10334
+// Export metrics for the entire system
+show metrics --file=data/stats/system-stats.csv</codeblock>
+				</p>
+				<p><b>Sample Output:</b>
+					<codeblock>gfsh&gt;show metrics
+
+Cluster-wide Metrics
+
+  Type    |        Metric         | Value
+--------- | --------------------- | -----
+cluster   | totalHeapSize         | 123
+cache     | totalRegionEntryCount | 0
+          | totalRegionCount      | 0
+          | totalMissCount        | 0
+          | totalHitCount         | 0
+diskstore | totalBytesOnDisk      | 0
+          | diskReadsRate         | 0
+          | diskWritesRate        | 0
+          | flushTimeAvgLatency   | 0
+          | totalBackupInProgress | 0
+query     | queryRequestRate      | 0
+          
+</codeblock>
+				</p>
+			</body>
+		</topic>
+		<topic id="topic_7B3D624D5B4F41D1A0F8A9C3C8B2E780">
+			<title>show missing-disk-stores</title>
+			<shortdesc> Display a summary of the disk stores that are currently missing from a
+				distributed system. </shortdesc>
+			<body>
+				<p><b> Availability:</b> Online. You must be connected in <codeph>gfsh</codeph> to a
+					JMX Manager member to use this command. </p>
+				<p><b>Syntax:</b>
+					<codeblock>show missing-disk-stores</codeblock>
+				</p>
+				<p><b>Example Commands:</b>
+					<codeblock>show missing-disk-stores
+</codeblock>
+				</p>
+				<p><b>Sample Output:</b>
+					<codeblock>gfsh&gt; show missing-disk-stores
+
+           Disk Store ID             |   Host    |               Directory                                           
+------------------------------------ | --------- | -------------------------------------
+60399215-532b-406f-b81f-9b5bd8d1b55a | excalibur | /usr/local/gemfire/deploy/disk_store1</codeblock>
+				</p>
+			</body>
+		</topic>
+		<topic id="topic_395C96B500AD430CBF3D3C8886A4CD2E">
+			<title>show subscription-queue-size</title>
+			<shortdesc>Shows the number of events in the subscription queue. </shortdesc>
+			<body>
+				<p><b>Availability:</b> Online. You must be connected in <codeph>gfsh</codeph> to a
+					JMX Manager member to use this command. </p>
+				<p><b>Syntax:</b>
+					<codeblock>show subscription-queue-size --durable-client-Id=value 
+ [--member=value] [--group=value]
+</codeblock>
+					<table id="table_618C978BA2B442A9A979243B50856885">
+						<title>Parameters</title>
+						<tgroup cols="2">
+							<colspec colnum="1" colname="col1" colwidth="1.00*"/>
+							<colspec colnum="2" colname="col2" colwidth="4.43*"/>
+							<thead>
+								<row>
+									<entry colname="col1">Name </entry>
+									<entry colname="col2">Description</entry>
+								</row>
+							</thead>
+							<tbody>
+								<row>
+									<entry colname="col1"><parmname>--durable-client-id
+										</parmname></entry>
+									<entry colname="col2"><i>Required. </i>The ID used to identify
+										the durable client. </entry>
+								</row>
+								<row>
+									<entry colname="col1"><parmname>--member </parmname></entry>
+									<entry colname="col2">Name/Id of the member for which
+										subscription queue events are to be counted. </entry>
+								</row>
+								<row>
+									<entry colname="col1"><parmname>--group</parmname>
+									</entry>
+									<entry colname="col2"> Group of members for which subscription
+										queue events are to be counted. </entry>
+								</row>
+							</tbody>
+						</tgroup>
+					</table>
+				</p>
+				<p><b>Example Commands:</b>
+					<codeblock>show subscription-queue-size --durable-client-id=client1</codeblock>
+				</p>
+				<p><b>Sample Output:</b>
+					<codeblock>gfsh&gt;show subscription-queue-size --durable-client-Id=client1
+member  | subcription-queue-size for durable-client : "client1".
+------- | ------------------------------------------------------
+server3 | 1
+server4 | 0
+</codeblock>
+				</p>
+				<p><b>Error Messages:</b>
+					<codeblock>gfsh&gt;show subscription-queue-size --durable-client-Id=client1
+
+No client found with client-id : client1
+Occurred on members
+1.server4
+2.server1
+3.server3</codeblock>
+				</p>
+			</body>
+		</topic>
+	</topic>
+</dita>

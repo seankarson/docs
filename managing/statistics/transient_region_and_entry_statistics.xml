@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "http://docs.oasis-open.org/dita/v1.1/OS/dtd/concept.dtd">
+<concept id="transient_region_and_entry_statistics">
+	<title>Transient Region and Entry Statistics</title>
+	<shortdesc>For replicated, distributed, and local regions, <keyword keyref="product_name"/>
+		provides a standard set of statistics for the region and its entries. </shortdesc>
+	<conbody>
+		<p><keyword keyref="product_name"/> gathers these statistics when the
+				<codeph>--enable-statistics</codeph> parameter of the <codeph>create region</codeph>
+			command of <codeph>gfsh</codeph> is set to true or in cache.xml the region attribute
+				<codeph>statistics-enabled</codeph> is set to true.<note>Unlike other <keyword
+					keyref="product_name"/> statistics, these region and entry statistics are not
+				archived and cannot be charted. </note>
+			<note>Enabling these statistics requires extra memory per entry. See <xref
+					href="../../reference/topics/memory_requirements_for_cache_data.xml#calculating_memory_requirements"
+					type="concept" format="dita" scope="local"/>. </note>
+		</p>
+		<p>These are the transient statistics gathered for all but partitioned regions: <ul
+				id="ul_47DF1DCBACA34E3ABBFC788B242DEE12">
+				<li id="li_361B89FB8D0D461F976D8BCC383BC6A6"><b>Hit and miss counts</b>. For the
+					entry, the hit count is the number of times the cached entry was accessed
+					through the <codeph>Region.get</codeph> method and the miss count is the number
+					of times these hits did not find a valid value. For the region these counts are
+					the totals for all entries in the region. The API provides <codeph>get</codeph>
+					methods for the hit and miss counts, a convenience method that returns the
+					hit-to-miss ratio, and a method for zeroing the counts. </li>
+				<li id="li_D30D723874264B10BA3373CDCBC6FC4B"><b>Last accessed time</b>. For the
+					entry, this is the last time a valid value was retrieved from the locally cached
+					entry. For the region, this is the most recent "last accessed time" for all
+					entries contained in the region. This statistic is used for idle timeout
+					expiration activities. </li>
+				<li id="li_897E2785C5DA40A89BD68D3FCC42EC86"><b>Last modified time</b>. For the
+					entry, this is the last time the entry value was updated (directly or through
+					distribution) due to a load, create, or put operation. For the region, this is
+					the most recent "last modified time" for all entries contained in the region.
+					This statistic is used for time to live and idle timeout expiration activities.
+				</li>
+			</ul>
+		</p>
+		<p>The hit and miss counts collected in these statistics can be useful for fine-tuning your
+			system’s caches. If you have a region’s entry expiration enabled, for example, and see a
+			high ratio of misses to hits on the entries, you might choose to increase the expiration
+			times. </p>
+		<p>Retrieve region and entry statistics through the <codeph>getStatistics</codeph> methods
+			of the <codeph>Region</codeph> and <codeph>Region.Entry</codeph> objects. </p>
+	</conbody>
+</concept>

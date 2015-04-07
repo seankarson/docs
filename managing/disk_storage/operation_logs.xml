@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "http://docs.oasis-open.org/dita/v1.1/OS/dtd/concept.dtd">
+<concept id="operation_logs">
+	<title>Disk Store Operation Logs</title>
+	<shortdesc>At creation, each operation log is initialized at the disk store's
+			<codeph>max-oplog-size</codeph>, with the size divided between the <codeph>crf</codeph>
+		and <codeph>drf</codeph> files. When the oplog is closed, <keyword
+			keyref="product_name_long"/> shrinks the files to the space used in each file. </shortdesc>
+	<conbody>
+		<section id="section_C0B1391492394A908577C29772902A42">
+			<p>After the oplog is closed, <keyword keyref="product_name"/> also attempts to create a
+					<codeph>krf</codeph> file, which contains the key names as well as the offset
+				for the value within the <codeph>crf</codeph> file. Although this file is not
+				required for startup, if it is available, it will improve startup performance by
+				allowing <keyword keyref="product_name"/> to load the entry values in the background
+				after the entry keys are loaded. See <xref
+					href="how_startup_works_in_system_with_disk_stores.xml#how_startup_works_in_system_with_disk_stores"
+					type="concept" format="dita" scope="local"/>. </p>
+			<p>When an operation log is full, <keyword keyref="product_name"/> automatically closes
+				it and creates a new log with the next sequence number. This is called <i>oplog
+					rolling</i>. You can also request an oplog rolling through the API call
+					<codeph>DiskStore.forceRoll</codeph>. You may want to do this immediately before
+				compacting your disk stores, so the latest oplog is available for compaction.
+					<note>Log compaction can change the names of the disk store files. File number
+					sequencing is usually altered, with some existing logs removed or replaced by
+					newer logs with higher numbering. <keyword keyref="product_name"/> always starts
+					a new log at a number higher than any existing number. </note>
+			</p>
+			<p>This example listing shows the logs in a system with only one disk directory
+				specified for the store. The first log (<codeph>BACKUPCacheOverflow_1.crf</codeph>
+				and <codeph>BACKUPCacheOverflow_1.drf</codeph>) has been closed and the system is
+				writing to the second log. </p>
+			<codeblock>bash-2.05$ ls -tlra 
+total 55180
+drwxrwxr-x   7 person users        512 Mar 22 13:56 ..
+-rw-rw-r--   1 person users          0 Mar 22 13:57 BACKUPCacheOverflow_2.drf
+-rw-rw-r--   1 person users     426549 Mar 22 13:57 BACKUPCacheOverflow_2.crf
+-rw-rw-r--   1 person users          0 Mar 22 13:57 BACKUPCacheOverflow_1.drf
+-rw-rw-r--   1 person users     936558 Mar 22 13:57 BACKUPCacheOverflow_1.crf
+-rw-rw-r--   1 person users       1924 Mar 22 13:57 BACKUPCacheOverflow.if
+drwxrwxr-x   2 person users       2560 Mar 22 13:57 .</codeblock>
+			<p>The system rotates through all available disk directories to write its logs. The next
+				log is always started in a directory that has not reached its configured capacity,
+				if one exists. </p>
+		</section>
+		<section id="section_8431984F4E6644D79292850CCA60E6E3">
+			<title>When Disk Store Oplogs Reach the Configured Disk Capacity</title>
+			<p>If no directory exists that is within its capacity limits, how <keyword keyref="product_name"/> handles this
+				depends on whether automatic compaction is enabled. <ul
+					id="ul_D44949D9249F4B7BB9BE2A44968A9438">
+					<li id="li_C9035C20D42B42E0B8A9F44113735704">If auto-compaction is enabled,
+						<keyword keyref="product_name"/> creates a new oplog in one of the directories, going over the limit,
+						and logs a warning that reports: <codeblock>Even though the configured directory size limit has been exceeded a 
+new oplog will be created. The current limit is of XXX. The current 
+space used in the directory is YYY.</codeblock>
+						<note>When auto-compaction is enabled, <codeph>dir-size</codeph> does not
+							limit how much disk space is used. <keyword keyref="product_name"/> will
+							perform auto-compaction, which should free space, but the system may go
+							over the configured disk limits. </note>
+					</li>
+					<li id="li_F2C7AF3A1B954E5B8A3AD9C09268E07F">If auto-compaction is disabled,
+							<keyword keyref="product_name"/> does not create a new oplog, operations
+						in the regions attached to the disk store block, and <keyword
+							keyref="product_name"/> logs this error:
+						<codeblock>Disk is full and rolling is disabled. No space can be created</codeblock>
+					</li>
+				</ul>
+			</p>
+		</section>
+	</conbody>
+</concept>

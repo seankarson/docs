@@ -1,0 +1,490 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE dita PUBLIC "-//OASIS//DTD DITA Composite//EN" "ditabase.dtd">
+<dita>
+  <topic id="topic_ipt_dqz_j4">
+    <title>Core Guidelines for <keyword keyref="product_name"/> Data Region Design</title>
+    <body>
+      <p>The following guidelines apply to region design:</p>
+      <ul id="ul_770830A8344847C1822203F613E3B7D1">
+        <li id="li_9EF56A1C2441472296EBB4902E8DE141">For 32-bit JVMs: If you have a small data set
+          (&lt; 2GB) and a read-heavy requirement, you should be using replicated regions. </li>
+        <li id="li_67EF5500E5ED4F67ACC2C0F78075C6C9">For 64-bit JVMs: If you have a data set that is
+          larger than 50-60% of the JVM heap space you can use replicated regions. For read heavy
+          applications this can be a performance win. For write heavy applications you should use
+          partitioned caches. </li>
+        <li id="li_6E77DB72F35649ACB494E0BD71D94152">If you have a large data set and you are
+          concerned about scalability you should be using partitioned regions. </li>
+        <li id="li_52A0A5370AC443C8BA49A4E0EE16864D">If you have a large data set and can tolerate
+          an on-disk subset of data, you should be using either replicated regions or partitioned
+          regions with overflow to disk. </li>
+        <li id="li_BF5FC46C4CB1469090AED7DAFA97B123">If you have different data sets that meet the
+          above conditions, then you might want to consider a hybrid solution mixing replicated and
+          partition regions. Do not exceed 50 to 75% of the JVM heap size depending on how write
+          intensive your application is. </li>
+      </ul>
+    </body>
+  </topic>
+  <topic id="topic_ppn_pqz_j4">
+    <title>Memory Usage Overview</title>
+    <body>
+      <p>The following guidelines should provide a rough estimate of the amount of memory consumed
+        by your system. </p>
+      <p>Memory calculation about keys and entries (objects) and region overhead for them can be
+        divided by the number of members of the distributed system for data placed in partitioned
+        regions only. For other regions, the calculation is for each member that hosts the region.
+        Memory used by sockets, threads, and the small amount of application overhead for <keyword
+          keyref="product_name"/> is per member. </p>
+      <p>For each entry added to a region, the <keyword keyref="product_name"/> cache API consumes a
+        certain amount of memory to store and manage the data. This overhead is required even when
+        an entry is overflowed or persisted to disk. Thus objects on disk take up some JVM memory,
+        even when they are paged to disk. The Java cache overhead introduced by a region, using a
+        32-bit JVM, can be approximated as listed below. </p>
+      <p>Actual memory use varies based on a number of factors, including the JVM you are using and
+        the platform you are running on. For 64-bit JVMs, the usage will usually be larger than with
+        32-bit JVMs. As much as 80% more memory may be required for 64-bit JVMs, due to object
+        references and headers using more memory.</p>
+      <p>There are several additional considerations for calculating your memory requirements: </p>
+      <ul id="ul_D8F37332149C47DB85F9A286475D9A5D">
+        <li id="li_992D752CCF4240CCABDADBCE76697A95"><b>Size of your stored data.</b> To estimate
+          the size of your stored data, determine first whether you are storing the data in
+          serialized or non-serialized form. In general, the non-serialized form will be the larger
+          of the two. See <xref href="#topic_psn_5tz_j4" format="dita"/><p>Objects in <keyword
+              keyref="product_name"/> are serialized for storage into partitioned regions and for
+            all distribution activities, including moving data to disk for overflow and persistence.
+            For optimum performance, <keyword keyref="product_name"/> tries to reduce the number of
+            times an object is serialized and deserialized, so your objects may be stored in
+            serialized or non-serialized form in the cache. </p>
+        </li>
+        <li id="li_A87E05F4A4F2444295DF8DCEA4DF4D42"><b>Application object overhead for your
+            data.</b> When calculating application overhead, make sure to count the key as well as
+          the value, and to count every object if the key and/or value is a composite object. <p>The
+            following section "Calculating Application Object Overhead" provides details on how to
+            estimate the memory overhead of the keys and values stored in the cache. </p>
+        </li>
+      </ul>
+    </body>
+  </topic>
+  <topic id="topic_kjx_brz_j4">
+    <title>Calculating Application Object Overhead</title>
+    <body>
+      <p>To compute the memory overhead of a Java object, perform the following steps:<ol
+          id="ol_g4d_w4q_34">
+          <li><b>Determine the object header size.</b> Each Java object has an object header. For a
+            32-bit JVM, it is 8 bytes. For a 64-bit JVM with a heap less than or equal to 32GB, it
+            is 12 bytes. For a 64-bit JVM with a heap greater than 32GB, it is 16 bytes. </li>
+          <li><b>Determine the memory overhead of the fields of the object.</b> For every instance
+            field (including fields from super classes), add in the field's size. For primitive
+            fields the sizes are: <ul id="ul_fgl_dpq_34">
+              <li>8 for long and double</li>
+              <li>4 for int and float</li>
+              <li>2 for char and short</li>
+              <li>1 for byte and boolean</li>
+            </ul>For object reference fields, the size is 8 bytes for 64-bit JVM with a heap greater
+            than 32GB. For all other JVMs, use 4 bytes.</li>
+          <li><b>Add up the numbers from Step 1 and 2 and round it up to the next multiple of 8.</b>
+            The result is the memory overhead of that Java object.</li>
+        </ol></p>
+      <p><b>Java arrays.</b> To compute the memory overhead of a Java array, you would add the
+        object header (since the array is an object) and a primitive int field that contains its
+        size. Treat each element of the array as if it was an instance field. For example, a byte
+        array of the size 100 bytes would have one object header, one int field, and 100 byte
+        fields. Use the three step process described above to do the computation.</p>
+      <p><b>Serialized objects.</b> When computing the memory overhead of a serialized value,
+        remember that the serialized form is stored in a byte array. Therefore, to figure out how
+        many bytes the serialized form contains, compute the memory overhead of a Java byte array of
+        that size and then add in the size of the serialized value wrapper. </p>
+      <p>When a value is initially stored in the cache in serialized form, a wrapper around the
+        value is introduced that is kept in memory for the life of that value even if the value is
+        later deserialized. Although this wrapper is only used internally, it does add to the memory
+        footprint. The wrapper is an object with one int field and one object reference. </p>
+      <p>If you are using partitioned regions, every value is initially stored in serialized form.
+        For other region types only values that come from a remote member (peers or clients) are
+        initially stored in serialized form. (This is the most common case.) However, if a local
+        operation stores the value in the local JVM's cache, then the value will be stored in object
+        form. A large number of operations can cause a value stored in serialized form to be
+        deserialized. Any operation that needs the object form of the value to be local can cause
+        this deserialization. If such operations are performed, then that value will be stored in
+        object form (with the additional serialized wrapper) and the serialized form becomes
+        garbage. </p>
+      <p>
+        <note>An exception to this is if the serialized from is encoded with PDX, then setting
+            <codeph>read-serialized</codeph> to true will keep the serialized form in the
+          cache.</note>
+      </p>
+      <p>See <xref href="#topic_psn_5tz_j4" format="dita"/> for additional information on how to
+        calculate memory usage requirements for storing serialized objects. </p>
+    </body>
+  </topic>
+  <topic id="topic_exn_2tz_j4">
+    <title>Using Key Storage Optimization</title>
+    <body>
+      <p>Keys are stored in object form except for certain classes where the storage of keys is
+        optimized. Key storage is optimized by replacing the entry's object reference to the key
+        with one or two primitive fields on the entry that store the key's data "inline". The
+        following rules apply to determine whether a key is stored "inline":</p>
+      <ul id="ul_fkb_nvq_34">
+        <li>If the key's class is <codeph>java.lang.Integer</codeph>,
+            <codeph>java.lang.Long</codeph>, or <codeph>java.util.UUID</codeph>, then the key is
+          always stored inline. The memory overhead for an inlined Integer or Long key is 0 (zero).
+          The memory overhead for an inlined UUID is 8.</li>
+        <li>If the key's class is <codeph>java.lang.String</codeph>, then the key will be inlined if
+          the string's length is small enough.<ul id="ul_ph4_pvq_34">
+            <li>For ASCII strings whose length is less than 8, the inline memory overhead is 0
+              (zero). </li>
+            <li>For ASCII strings whose length is less than 16, the inline memory overhead is
+              8.</li>
+            <li>For non-ASCII strings whose length is less then 4, the inline memory overhead is 0
+              (zero).</li>
+            <li>For non-ASCII strings whose length is less then 8 the inline memory overhead is
+              8.</li>
+          </ul><p>All other strings are not inlined. </p></li>
+      </ul>
+      <p><b>When to disable inline key storage.</b> In some cases, storing keys inline may introduce
+        extra memory or CPU usage. If all of your keys are also referenced from some other object,
+        then it is better to not inline the key. If you frequently ask for the key from the region,
+        then you may want to keep the object form stored in the cache so that you do not need to
+        recreate the object form constantly. Note that the basic operation of checking whether a key
+        is in a region does not require the object form but uses the inline primitive data. </p>
+      <p>The key inlining feature can be disabled by specifying the following <keyword
+          keyref="product_name"/> property upon member startup: </p>
+      <p>
+        <codeblock>-Dgemfire.DISABLE_INLINE_REGION_KEYS=true</codeblock>
+      </p>
+    </body>
+  </topic>
+  <topic id="topic_ac4_mtz_j4">
+    <title>Measuring Cache Overhead</title>
+    <body>
+      <p>This table gives estimates for the cache overhead in a 32-bit JVM. The overhead is required
+        even when an entry is overflowed or persisted to disk. Actual memory use varies based on a
+        number of factors, including the JVM type and the platform you run on. For 64-bit JVMs, the
+        usage will usually be larger than with 32-bit JVMs and may be as much as 80% more. </p>
+      <table id="table_B12804AF54B6438AA1704B8F555ABC34">
+        <tgroup cols="2">
+          <colspec colnum="1" colname="col1" colwidth="1*"/>
+          <colspec colnum="2" colname="col2" colwidth="3.65*"/>
+          <thead>
+            <row>
+              <entry colname="col1">When calculating cache overhead... </entry>
+              <entry colname="col2">You should ... </entry>
+            </row>
+          </thead>
+          <tbody>
+            <row>
+              <entry colname="col1">For each region <note>Memory consumption for object headers and
+                  object references can vary for 64-bit JVMs, different JVM implementations, and
+                  different JDK versions. </note>
+              </entry>
+              <entry colname="col2">add 64 bytes per entry </entry>
+            </row>
+            <row>
+              <entry colname="col1">And concurrency checking is disabled (it is enabled by default) </entry>
+              <entry colname="col2">subtract 16 bytes per entry <p>(See <xref scope="local"
+                    href="../../developing/distributed_regions/how_region_versioning_works.xml#topic_0BDACA590B2C4974AC9C450397FE70B2"
+                    type="topic" format="dita"/>.) </p>
+              </entry>
+            </row>
+            <row>
+              <entry colname="col1">And statistics are enabled for the region </entry>
+              <entry colname="col2">add 16 bytes per entry </entry>
+            </row>
+            <row>
+              <entry colname="col1">And the region is persisted</entry>
+              <entry colname="col2">add 52 bytes per entry</entry>
+            </row>
+            <row>
+              <entry colname="col1">And the region is overflow only</entry>
+              <entry colname="col2">add 44 bytes per entry </entry>
+            </row>
+            <row>
+              <entry colname="col1">And the region has an LRU eviction controller </entry>
+              <entry colname="col2">add 16 bytes per entry </entry>
+            </row>
+            <row>
+              <entry colname="col1">And the region has global scope </entry>
+              <entry colname="col2">add 110 bytes per entry </entry>
+            </row>
+            <row>
+              <entry colname="col1">And the region has entry expiration configured </entry>
+              <entry colname="col2">add 112 bytes per entry </entry>
+            </row>
+            <row>
+              <entry colname="col1">For each optional user attribute </entry>
+              <entry colname="col2">add 40 bytes per entry plus the memory overhead of the user
+                attribute object</entry>
+            </row>
+          </tbody>
+        </tgroup>
+      </table>
+      <p>For indexes used in querying, the overhead varies greatly depending on the type of data you
+        are storing and the type of index you create. You can roughly estimate the overhead for some
+        types of indexes as follows: <ul id="ul_29DD7F53D938413DB2274C7D43223E72">
+          <li id="li_B2B86845C6554578A8F9F15B213D94D8">If the index has a single value per region
+            entry for the indexed expression, the index introduces at most 243 bytes per region
+            entry. An example of this type of index is: <codeph>fromClause="/portfolios",
+              indexedExpression="id"</codeph>. The maximum of 243 bytes per region entry is reached
+            if each entry has a unique value for the indexed expression. The overhead is reduced if
+            the entries do not have unique index values. </li>
+          <li id="li_501358980F4F4079836914BABC654565">If each region entry has more than one value
+            for the indexed expression, but no two region entries have the same value for it, then
+            the index introduces at most 236 C + 75 bytes per region entry, where C is the average
+            number of values per region entry for the expression. </li>
+        </ul>
+      </p>
+    </body>
+  </topic>
+  <topic id="topic_i1m_stz_j4">
+    <title>Estimating Management and Monitoring Overhead</title>
+    <body>
+      <p>
+        <keyword keyref="product_name"/>'s JMX management and monitoring system contributes to
+        memory overhead and should be accounted for when establishing the memory requirements for
+        your deployment. Specifically, the memory footprint of any processes (such as locators) that
+        are running as JMX managers can increase. </p>
+      <p>For each resource in the distributed system that is being managed and monitored by the JMX
+        Manager (for example, each MXBean such as MemberMXBean, RegionMXBean, DiskStoreMXBean,
+        LockServiceMXBean and so on), you should add 10 KB of required memory to the JMX Manager
+        node.</p>
+    </body>
+  </topic>
+  <topic id="topic_psn_5tz_j4">
+    <title>Determining Object Serialization Overhead</title>
+    <body>
+      <p>
+        <keyword keyref="product_name"/> PDX serialization can provide significant space savings
+        over Java Serializable in addition to better performance. In some cases we have seen savings
+        of up to 65%, but the savings will vary depending on the domain objects. PDX serialization
+        is most likely to provide the most space savings of all available options. DataSerializable
+        is more compact, but it requires that objects are deserialized on access, so that should be
+        taken into account. On the other hand, PDX serializable does not require deserialization for
+        most operations, and because of that, it may provide greater space savings. </p>
+      <p>In any case, the kinds and volumes of operations that would be done on the server side
+        should be considered in the context of data serialization, as <keyword keyref="product_name"
+        /> has to deserialize data for some types of operations (access). For example, if a function
+        invokes a get operation on the server side, the value returned from the get operation will
+        be deserialized in most cases (the only time it will not be deserialized is when PDX
+        serialization is used and the read-serialized attribute is set). The only way to find out
+        the actual overhead is by running tests, and examining the memory usage. </p>
+      <p>Some additional serialization guidelines and tips:</p>
+      <ul id="ul_wl2_z5f_44">
+        <li>If you are using compound objects, do not mix using standard Java serialization with
+          with <keyword keyref="product_name"/> serialization (either DataSerializable or PDX).
+          Standard Java serialization functions correctly when mixed with <keyword
+            keyref="product_name"/> serialization, but it can end up producing many more serialized
+          bytes. <p>To determine if you are using standard Java serialization, specify the
+              <codeph>-DDataSerializer.DUMP_SERIALIZED=true</codeph> upon process execution. Then
+            check your log for messages of this form:
+            <codeblock>DataSerializer Serializing an instance of &lt;className></codeblock>Any
+            classes list are being serialized with standard Java serialization. You can optimize
+            your serialization by handling those classes in a <codeph>PdxSerializer</codeph> or a
+              <codeph>DataSerializer</codeph> or changing the class to be
+              <codeph>PdxSerializable</codeph> or <codeph>DataSerializable</codeph>.</p></li>
+        <li>A simple way to determine the serialized size of an object is to create an instance of
+          that object and then call <codeph>DataSerializer.writeObject(obj dataOutput)</codeph>
+          where "dataOutput" wraps a <codeph>ByteArrayOutputStream</codeph>. You can then ask the
+          stream for its size, and it will return the serialized size. Make sure you have configured
+          your <codeph>PdxSerializer</codeph> and/or <codeph>DataSerializer</codeph>(s) configured
+          before you calling <codeph>writeObject</codeph>. </li>
+      </ul>
+      <p>If you do want to estimate memory usage for PDX serialized data, the following table
+        provides estimated sizes for various types when using PDX serialization: <table
+          id="table_pjn_hfr_gn">
+          <tgroup cols="2">
+            <thead>
+              <row>
+                <entry>Type</entry>
+                <entry>Memory Usage</entry>
+              </row>
+            </thead>
+            <tbody>
+              <row>
+                <entry>boolean</entry>
+                <entry>1 byte</entry>
+              </row>
+              <row>
+                <entry>byte</entry>
+                <entry>1 byte</entry>
+              </row>
+              <row>
+                <entry>char</entry>
+                <entry>2 bytes</entry>
+              </row>
+              <row>
+                <entry>short</entry>
+                <entry>2 bytes</entry>
+              </row>
+              <row>
+                <entry>int</entry>
+                <entry>4 bytes</entry>
+              </row>
+              <row>
+                <entry>long</entry>
+                <entry>8 bytes</entry>
+              </row>
+              <row>
+                <entry>float</entry>
+                <entry>8 bytes</entry>
+              </row>
+              <row>
+                <entry>String</entry>
+                <entry>String.length + 3 bytes</entry>
+              </row>
+              <row>
+                <entry>Domain Object</entry>
+                <entry>9 bytes (for PDX header) + object serialization length (total all member
+                  fields) + 1 to 4 extra bytes (depends on the total size of Domain object) </entry>
+              </row>
+            </tbody>
+          </tgroup>
+        </table>A note of caution-- if the domain object contains many domain objects as member
+        fields, then the memory overhead of PDX serialization can be considerably more than other
+        types of serialization.</p>
+    </body>
+  </topic>
+  <topic id="topic_d3g_c5z_j4">
+    <title>Calculating Socket Memory Requirements</title>
+    <body>
+      <p>Servers always maintain two outgoing connections to each of their peers. So for each peer a
+        server has, there are four total connections: two going out to the peer and two coming in
+        from the peer. </p>
+      <p>The server threads that service client requests also communicate with peers to distribute
+        events and forward client requests. If the server's <keyword keyref="product_name"/>
+        connection property <i>conserve-sockets</i> is set to true (the default), these threads use
+        the already-established peer connections for this communication. </p>
+      <p>If <i>conserve-sockets</i> is false, each thread that services clients establishes two of
+        its own individual connections to its server peers, one to send, and one to receive. Each
+        socket uses a file descriptor, so the number of available sockets is governed by two
+        operating system settings: </p>
+      <ul id="ul_F8EF7539121C4A9D86DCE986CA21625C">
+        <li id="li_7B86E02D35EF460E85B06DA6E5AC6689">maximum open files allowed on the system as a
+          whole </li>
+        <li id="li_ED8A26D560784B4A9418295AF023092A">maximum open files allowed for each session
+        </li>
+      </ul>
+      <p>In servers with many threads servicing clients, if <i>conserve-sockets</i> is set to false,
+        the demand for connections can easily overrun the number of available sockets. Even with
+          <i>conserve-sockets</i> set to false, you can cap the number of these connections by
+        setting the server's <i>max-threads</i> parameter. </p>
+      <p>Since each client connection takes one server socket on a thread to handle the connection,
+        and since that server acts as a proxy on partitioned regions to get results, or execute the
+        function service on behalf of the client, for partitioned regions, if conserve sockets is
+        set to false, this also results in a new socket on the server being opened to each peer.
+        Thus N sockets are opened, where N is the number of peers. Large number of clients
+        simultaneously connecting to a large set of peers with a partitioned region with conserve
+        sockets set to false can cause a huge amount of memory to be consumed by socket. Set
+        conserve-sockets to true in these instances. </p>
+      <p>
+        <note> There is also JVM overhead for the thread stack for each client connection being
+          processed, set at 256KB or 512KB for most JVMs . On some JVMs you can reduce it to 128KB.
+          You can use the <keyword keyref="product_name"/>
+          <codeph>max-threads</codeph> property or the <keyword keyref="product_name"/>
+          <codeph>max-connections</codeph> property to limit the number of client threads and thus
+          both thread overhead and socket overhead. </note>
+      </p>
+      <p>The following table lists the memory requirements based on connections. <table
+          id="table_E5B6F85F9F644A93A779A6CF211022E7">
+          <tgroup cols="2">
+            <colspec colnum="1" colname="col1" colwidth="1.2*"/>
+            <colspec colnum="2" colname="col2" colwidth="1*"/>
+            <thead>
+              <row>
+                <entry colname="col1"> Connections </entry>
+                <entry colname="col2">Memory requirements </entry>
+              </row>
+            </thead>
+            <tbody>
+              <row>
+                <entry colname="col1"> Per socket </entry>
+                <entry colname="col2">
+                  <p> 32,768 /socket (configurable) </p>
+                  <p> Default value per socket should be set to a number &gt; 100 + sizeof (largest
+                    object in region) + sizeof (largest key) </p>
+                </entry>
+              </row>
+              <row>
+                <entry colname="col1"> If server (for example if there are clients that connect to
+                  it) </entry>
+                <entry colname="col2">= (lesser of max-threads property on server or
+                  max-connections)* (socket buffer size +thread overhead for the JVM ) </entry>
+              </row>
+              <row>
+                <entry colname="col1"> Per member of the distributed system if conserve sockets is
+                  set to true </entry>
+                <entry colname="col2"> 4* number of peers </entry>
+              </row>
+              <row>
+                <entry colname="col1"> Per member, if conserve sockets is set to false </entry>
+                <entry colname="col2"> 4 * number of peers hosting that region* number of threads
+                </entry>
+              </row>
+              <row>
+                <entry colname="col1"> If member hosts a Partitioned Region, If conserve sockets set
+                  to false and it is a Server (this is cumulative with the above) </entry>
+                <entry colname="col2">
+                  <p> =&lt; max-threads * 2 * number of peers </p>
+                  <note> it is = 2* current number of clients connected * number of peers. Each
+                    connection spawns a thread. </note>
+                </entry>
+              </row>
+              <row>
+                <entry colname="col1"><b> Subscription Queues</b>
+                </entry>
+                <entry colname="col2"> </entry>
+              </row>
+              <row>
+                <entry colname="col1">
+                  <p> Per Server, depending on whether you limit the queue size. If you do, you can
+                    specify the number of megabytes or the number of entries until the queue
+                    overflows to disk. When possible, entries on the queue are references to
+                    minimize memory impact. The queue consumes memory not only for the key and the
+                    entry but also for the client ID/or thread ID as well as for the operation type.
+                    Since you can limit the queue to 1 MB, this number is completely configurable
+                    and thus there is no simple formula. </p>
+                </entry>
+                <entry colname="col2"> 1 MB + </entry>
+              </row>
+              <row>
+                <entry colname="col1">
+                  <b>
+                    <keyword keyref="product_name"/> classes and JVM overhead</b>
+                </entry>
+                <entry colname="col2"> Roughly 50MB </entry>
+              </row>
+              <row>
+                <entry colname="col1">
+                  <b>Thread overhead</b>
+                </entry>
+                <entry colname="col2"> </entry>
+              </row>
+              <row>
+                <entry colname="col1">
+                  <p>Each concurrent client connection into the a server results in a thread being
+                    spawned up to max-threads setting. After that a thread services multiple clients
+                    up to max-clients setting. </p>
+                </entry>
+                <entry colname="col2"> There is a thread stack overhead per connection (at a minimum
+                  256KB to 512 KB, you can set it to smaller to 128KB on many JVMs.) </entry>
+              </row>
+            </tbody>
+          </tgroup>
+        </table>
+      </p>
+    </body>
+  </topic>
+  <topic id="topic_eww_rvz_j4">
+    <title>Additional Resources</title>
+    <body>
+      <p>In addition to the guidelines described in this topic, see the following resources: </p>
+      <ul id="ul_9A6C501C7FF741F4992ACDDDEA4C6FA5">
+        <li id="li_A9A83BDE45054E499F2A644B9CD57519"><xref
+            href="http://communities.vmware.com/docs/DOC-20714" scope="external" format="html"
+              ><keyword keyref="product_name"/> Memory Sizing Guidelines</xref>
+        </li>
+        <li id="li_9C667B4DF8234E51B3085EF328CFFC9B"><xref
+            href="http://communities.vmware.com/docs/DOC-20695" scope="external" format="html">Data
+            Sizer Java Utility Class</xref>
+        </li>
+      </ul>
+    </body>
+  </topic>
+</dita>

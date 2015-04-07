@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "http://docs.oasis-open.org/dita/dtd/concept.dtd">
+<concept
+	id="helloworld">
+	<title
+		id="hello_world_xml">xml/HelloWorld.xml (cache.xml)</title>
+	<shortdesc
+		id="shortdesc_CB0E4C11C84F4275B8641EE62B2382D2">The xml/HelloWorld.xml file is the
+		declarative XML configuration for the <keyword keyref="product_name"/> cache. Use this file to set up general cache
+		facilities and behavior and to create and initialize cached data regions. </shortdesc>
+
+	<conbody>
+		<p>Although it can have any name, this file is generally referred to as
+				<codeph>cache.xml</codeph>. </p>
+		<section
+			id="section_48D49F4FDBD14682BC8C2F3DF3DB1F8B">
+			<b>Contents of HelloWorld.xml </b>
+			<p>
+				<ul
+					id="ul_5C8711A365074E618CE7C070619BF544">
+					<li
+						id="li_513154838F47487AAA7C4385DF773B7C">XML version and DOCTYPE declaration
+						or XML version and XSD schema specification in the
+							<codeph>&lt;cache></codeph> element (one validation mechamism required).
+						<note><keyword keyref="product_name"/> now supports XSD validation. Instead of including a DTD
+							declaration, your cache.xml can validate against the cache8-1.xsd. See
+							example below.</note></li>
+					<li
+						id="li_ADF2CE6053944DC28849F7DDBF7A7BFB"><codeph>&lt;cache&gt;</codeph>
+						element. Highest level element for peer and server caches. These are peer
+						caches. (Client caches are defined by
+						<codeph>&lt;client-cache&gt;</codeph>.) </li>
+					<li
+						id="li_C8D5D6F077954EE6BCCA18178FB88A76">
+						<p><codeph>&lt;region&gt;</codeph> element. Defines the data region used for
+							the example and specifies all non-default region configuration settings. <ul
+								id="ul_6B72F51AF83743C5AA706190F4DEB2B7">
+								<li
+									id="li_776C04F4D199448DBE04142DFD7C6CDD">This region is
+									configured as a replicate, meaning that any data either
+									application writes into it is sent automatically to the other
+									application's cache. </li>
+								<li
+									id="li_50F140BDA2454E8CB658687EF25B31C1">The region also has a
+									listener installed named <codeph>SimpleCacheListener</codeph>.
+								</li>
+							</ul>
+						</p>
+					</li>
+				</ul>
+			</p><p><b>XSD
+				Example:</b><codeblock outputclass="language-xml">&lt;?xml version="1.0"?&gt;
+&lt;cache xmlns="<xref href="http://schema.pivotal.io/gemfire/cache" format="html" scope="external">http://schema.pivotal.io/gemfire/cache</xref>"
+    xmlns:xsi="<xref href="http://www.w3.org/2001/XMLSchema-instance" format="html" scope="external">http://www.w3.org/2001/XMLSchema-instance</xref>"
+    xsi:schemaLocation="<xref href="http://schema.pivotal.io/gemfire/cache" format="html" scope="external">http://schema.pivotal.io/gemfire/cache</xref> <xref href="http://schema.pivotal.io/gemfire/cache/cache-8.1.xsd" format="html" scope="external">http://schema.pivotal.io/gemfire/cache/cache-8.1.xsd</xref>"
+    version="8.1”>
+    &lt;region name="exampleRegion" refid="REPLICATE"&gt;
+        &lt;cache-listener&gt;
+            &lt;class-name&gt;helloworld.SimpleCacheListener&lt;/class-name&gt;
+        &lt;/cache-listener&gt;
+    &lt;/region&gt;
+&lt;/cache&gt;
+</codeblock></p><p><b>DTD
+					Example:</b><codeblock outputclass="language-xml">&lt;?xml version="1.0"?&gt;
+&lt;!DOCTYPE cache PUBLIC
+    "-//GemStone Systems, Inc.//GemFire Declarative Caching 6.5//EN" 
+"http://www.gemstone.com/dtd/cache6_5.dtd"&gt;
+&lt;cache&gt;
+    &lt;region name="exampleRegion" refid="REPLICATE"&gt;
+        &lt;cache-listener&gt;
+            &lt;class-name&gt;helloworld.SimpleCacheListener&lt;/class-name&gt;
+        &lt;/cache-listener&gt;
+    &lt;/region&gt;
+&lt;/cache&gt;
+</codeblock></p>
+			<p>
+				<note>The sample cache XML files included in the product distribution reference a
+					cache DTD file from an earlier <keyword keyref="product_name"/> version, however these files will
+					validate against more recent DTDs and XSD schema files. All available <keyword keyref="product_name"/>
+					DTDs and XSD schemas are provided with the product.</note>
+			</p>
+		</section>
+	</conbody>
+</concept>

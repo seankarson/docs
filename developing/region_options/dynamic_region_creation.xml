@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept id="concept_tr5_rdp_wk">
+  <title>Creating Regions Dynamically</title>
+  <shortdesc>You can dynamically create regions in your application code and automatically
+    instantiate them on members of a distributed system. </shortdesc>
+  <conbody>
+    <p>If your application does not require partitioned regions, you can use the
+        <apiname>com.gemstone.gemfire.cache.DynamicRegionFactory</apiname> class to dynamically
+      create regions, or you can create them using the <codeph>&lt;dynamic-region-factory></codeph>
+      element in the cache.xml file that defines the region. See <xref
+        href="../../reference/topics/cache_xml.xml#dynamic-region-factory"/>.</p>
+    <p>Pivotal recommends that you use functions to create regions dynamically in your application,
+      as described in this topic.</p>
+    <p>For a complete discussion of using <keyword keyref="product_name"/> functions, see <xref
+        href="../function_exec/chapter_overview.xml#function_exec"/>. Functions use the
+        <apiname>com.gemstone.gemfire.cache.execute.FunctionService</apiname> class. </p>
+    <p>For example, the following Java classes define and use a function for dynamic region
+      creation:</p>
+    <p>The <apiname>CreateRegionFunction</apiname> class defines a function invoked on a server by a
+      client using the <apiname>onServer()</apiname> method of the
+        <apiname>FunctionService</apiname> class. This function call initiates region creation by
+      putting an entry into the region attributes metadata region. The entry key is the region name
+      and the value is the set of region attributes used to create the region.
+      <codeblock outputclass="language-java"><b>#CreateRegionFunction.java
+</b>
+import com.gemstone.gemfire.cache.Cache;
+import com.gemstone.gemfire.cache.CacheFactory;
+import com.gemstone.gemfire.cache.DataPolicy;
+import com.gemstone.gemfire.cache.Declarable;
+import com.gemstone.gemfire.cache.Region;
+import com.gemstone.gemfire.cache.RegionAttributes;
+import com.gemstone.gemfire.cache.RegionFactory;
+import com.gemstone.gemfire.cache.Scope;
+
+import com.gemstone.gemfire.cache.execute.Function;
+import com.gemstone.gemfire.cache.execute.FunctionContext;
+
+import java.util.Properties;
+
+public class CreateRegionFunction implements Function, Declarable {
+
+  private final Cache cache;
+  
+  private final Region&lt;String,RegionAttributes> regionAttributesMetadataRegion;
+
+  private static final String REGION_ATTRIBUTES_METADATA_REGION = "__regionAttributesMetadata";
+  
+  public enum Status {SUCCESSFUL, UNSUCCESSFUL, ALREADY_EXISTS};
+
+  public CreateRegionFunction() {
+    this.cache = CacheFactory.getAnyInstance();
+    this.regionAttributesMetadataRegion = createRegionAttributesMetadataRegion();
+  }
+
+  public void execute(FunctionContext context) {
+    Object[] arguments = (Object[]) context.getArguments();
+    String regionName = (String) arguments[0];
+    RegionAttributes attributes = (RegionAttributes) arguments[1];
+
+    // Create or retrieve region
+    Status status = createOrRetrieveRegion(regionName, attributes);
+
+    // Return status
+    context.getResultSender().lastResult(status);
+  }
+  
+  private Status createOrRetrieveRegion(String regionName, RegionAttributes attributes) {
+    Status status = Status.SUCCESSFUL;
+    Region region = this.cache.getRegion(regionName);
+    if (region == null) {
+      // Put the attributes into the metadata region. The afterCreate call will actually create the region.
+      this.regionAttributesMetadataRegion.put(regionName, attributes);
+      
+      // Retrieve the region after creating it
+      region = this.cache.getRegion(regionName);
+      if (region == null) {
+        status = Status.UNSUCCESSFUL;
+      }
+    } else {
+      status = Status.ALREADY_EXISTS;
+    }
+    return status;
+  }
+  
+  private Region&lt;String,RegionAttributes> createRegionAttributesMetadataRegion() {
+    Region&lt;String, RegionAttributes> metaRegion = this.cache.getRegion(REGION_ATTRIBUTES_METADATA_REGION);
+    if (metaRegion == null) {
+      RegionFactory&lt;String, RegionAttributes> factory = this.cache.createRegionFactory();
+      factory.setDataPolicy(DataPolicy.REPLICATE);
+      factory.setScope(Scope.DISTRIBUTED_ACK);
+      factory.addCacheListener(new CreateRegionCacheListener());
+      metaRegion = factory.create(REGION_ATTRIBUTES_METADATA_REGION);
+    }
+    return metaRegion;
+  }
+
+  public String getId() {
+    return getClass().getSimpleName();
+  }
+
+  public boolean optimizeForWrite() {
+    return false;
+  }
+
+  public boolean isHA() {
+    return true;
+  }
+
+  public boolean hasResult() {
+    return true;
+  }
+
+  public void init(Properties properties) {
+  }
+}
+
+</codeblock></p>
+    <p>The <apiname>CreateRegionCacheListener</apiname> class is a cache listener that implements
+      two methods, <apiname>afterCreate()</apiname> and <apiname>afterRegionCreate()</apiname>. The
+        <apiname>afterCreate()</apiname> method creates the region. The
+        <apiname>afterRegionCreate()</apiname> method causes each new server to create all the
+      regions defined in the metadata region.
+      <codeblock outputclass="language-java"><b>#CreateRegionCacheListener.java</b>
+
+import com.gemstone.gemfire.cache.Cache;
+import com.gemstone.gemfire.cache.CacheFactory;
+import com.gemstone.gemfire.cache.Declarable;
+import com.gemstone.gemfire.cache.EntryEvent;
+import com.gemstone.gemfire.cache.Region;
+import com.gemstone.gemfire.cache.RegionAttributes;
+import com.gemstone.gemfire.cache.RegionEvent;
+import com.gemstone.gemfire.cache.RegionExistsException;
+
+import com.gemstone.gemfire.cache.util.CacheListenerAdapter;
+
+import java.util.Map;
+import java.util.Properties;
+
+public class CreateRegionCacheListener extends CacheListenerAdapter&lt;String,RegionAttributes> implements Declarable {
+
+  private Cache cache;
+  
+  public CreateRegionCacheListener() {
+    this.cache = CacheFactory.getAnyInstance();
+  }
+
+  public void afterCreate(EntryEvent&lt;String,RegionAttributes> event) {
+    createRegion(event.getKey(), event.getNewValue());
+  }
+  
+  public void afterRegionCreate(RegionEvent&lt;String,RegionAttributes> event) {
+    Region&lt;String,RegionAttributes> region = event.getRegion();
+    for (Map.Entry&lt;String,RegionAttributes> entry : region.entrySet()) {
+      createRegion(entry.getKey(), entry.getValue());
+    }
+  }
+  
+  private void createRegion(String regionName, RegionAttributes attributes) {
+    if (this.cache.getLogger().fineEnabled()) {
+      this.cache.getLogger().fine("CreateRegionCacheListener creating region named: " + regionName + " with attributes: " + attributes);
+    }
+    try {
+      Region region = this.cache.createRegion(regionName, attributes);
+      if (this.cache.getLogger().fineEnabled()) {
+        this.cache.getLogger().fine("CreateRegionCacheListener created: " + region);
+      }
+      System.out.println("CreateRegionCacheListener created: " + region);
+    } catch (RegionExistsException e) {/* ignore */}
+  }
+
+  public void init(Properties p) {
+  }
+}
+</codeblock></p>
+  </conbody>
+</concept>

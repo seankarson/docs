@@ -1,0 +1,172 @@
+<?xml version="1.0"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<!-- Created with XMetaL (http://www.xmetal.com) -->
+<concept id="concept_CF46507996B7461A8F6F793DD90E071D"> 
+  <title>Example</title> 
+  <conbody> 
+	 <p>The example consists of two cache servers with following regions: 
+	 <ul id="ul_160F186FC5474A649EC7779FC914CCAE"> 
+		<li id="li_366E02C3B2A14B1989D8CA70F5286B1E">Products - An empty region
+		  that serves as a root region for types of products available. 
+		  <ul id="ul_73AF2F122F75450DA3E66B442478BAC5"> 
+			 <li id="li_FA2711DF842E47A98924B102A8A28AC2">Households - Replicated
+				Region for information about house hold products. 
+			 </li> 
+			 <li id="li_0BF6A792BEBD4F4E984639B767DAC289">Electronics - Replicated
+				Region for information about electronics products. 
+			 </li> 
+		  </ul> 
+		  <table id="table_5C6A718A61B645EE9DEA3699D2BE1EE7"> 
+			 <tgroup cols="2"><colspec colnum="1" colname="col1"
+				colwidth="1.00*"/><colspec colnum="2" colname="col2" colwidth="5.74*"/><thead> 
+				  <row> 
+					 <entry colname="col1">Constraints 
+					 </entry> 
+					 <entry colname="col2"> 
+					 </entry> 
+				  </row></thead> 
+				<tbody> 
+				  <row> 
+					 <entry colname="col1">Key Constraint 
+					 </entry> 
+					 <entry colname="col2"> java.lang.String 
+					 </entry> 
+				  </row> 
+				  <row> 
+					 <entry colname="col1">Value Constraint 
+					 </entry> 
+					 <entry colname="col2"> data.Product {String Id, String Name,
+						float Price, Date MfgDate} 
+					 </entry> 
+				  </row> 
+				</tbody> 
+			 </tgroup> 
+		  </table> 
+		</li> 
+	 </ul> 
+	 </p> 
+	 <p> 
+	 <ul id="ul_CFF14CF1DE2D4D56A4F11021375E43FF"> 
+		<li id="li_3944A0E0B2BA45158A279A078074E7EF"> 
+		  <p>Customers - Replicated region for information about customers 
+		  </p> 
+		  <table id="table_D735AF7A9B164A6AB99CE44ADBA19454"> 
+			 <tgroup cols="2"> 
+				<colspec colnum="1" colname="col1" colwidth="*"/> 
+				<colspec colnum="2" colname="col2" colwidth="*"/> 
+				<thead> 
+				  <row> 
+					 <entry> 
+						<b> Constraints</b> 
+					 </entry> 
+					 <entry> 
+					 </entry> 
+				  </row></thead> 
+				<tbody> 
+				  <row> 
+					 <entry> 
+						<p> Key Constraint 
+						</p> 
+					 </entry> 
+					 <entry> 
+						<p> java.lang.String 
+						</p> 
+					 </entry> 
+				  </row> 
+				  <row> 
+					 <entry> 
+						<p> Value Constraint 
+						</p> 
+					 </entry> 
+					 <entry> 
+						<p> data.Customer {String Id, String Name, String Address} 
+						</p> 
+					 </entry> 
+				  </row> 
+				</tbody> 
+			 </tgroup> 
+		  </table> 
+		</li> 
+	 </ul> 
+	 </p> 
+	 <p> 
+	 <ul id="ul_29978BC8769549C384D497E90FEAED4C"> 
+		<li id="li_799F7DC6BCAB4864A1C769D9156F663A"> 
+		  <p>Orders - A Partitioned Region for orders placed by various
+			 customers. 
+		  </p> 
+		</li> 
+	 </ul> 
+	 </p> 
+	 <table id="table_6A436F842B074528A6A6D43D0ECF221B"> 
+		<tgroup cols="2"> 
+		  <colspec colnum="1" colname="col1" colwidth="*"/> 
+		  <colspec colnum="2" colname="col2" colwidth="*"/> 
+		  <thead> 
+			 <row> 
+				<entry> 
+				  <b> Constraints</b> 
+				</entry> 
+				<entry> 
+				</entry> 
+			 </row></thead> 
+		  <tbody> 
+			 <row> 
+				<entry> 
+				  <p> Key Constraint 
+				  </p> 
+				</entry> 
+				<entry> 
+				  <p> data.OrderKey {String Id, String CustProdId} 
+				  </p> 
+				</entry> 
+			 </row> 
+			 <row> 
+				<entry> 
+				  <p> Value Constraint 
+				  </p> 
+				</entry> 
+				<entry> 
+				  <p> data.Order {String Id, Date Time, int Quantity, String
+					 ProductId, String CustomerId, float Discount} 
+				  </p> 
+				</entry> 
+			 </row> 
+			 <row> 
+				<entry> 
+				  <b> Index</b> 
+				</entry> 
+				<entry> 
+				</entry> 
+			 </row> 
+			 <row> 
+				<entry> 
+				  <p> Primary Key 
+				  </p> 
+				</entry> 
+				<entry> 
+				  <p> On Id 
+				  </p> 
+				</entry> 
+			 </row> 
+			 <row> 
+				<entry> 
+				  <p> Functional 
+				  </p> 
+				</entry> 
+				<entry> 
+				  <p> On CustomerId 
+				  </p> 
+				</entry> 
+			 </row> 
+		  </tbody> 
+		</tgroup> 
+	 </table> 
+	 <p> For details about index, see 
+		<xref
+		 href="../../developing/querying_basics/chapter_overview.xml#querying_with_oql"
+		 type="concept" format="dita" scope="local"><?xm-replace_text Querying?></xref>.
+		
+	 </p> 
+  </conbody> 
+</concept> 

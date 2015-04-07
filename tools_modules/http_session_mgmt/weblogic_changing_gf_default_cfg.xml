@@ -1,0 +1,297 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "http://docs.oasis-open.org/dita/v1.1/OS/dtd/concept.dtd">
+<concept id="weblogic_changing_gf_default_cfg">
+	<title>Changing the Default <keyword keyref="product_name"/> Configuration in the AppServers
+		Module </title>
+	<shortdesc>By default, the AppServers module will run <keyword keyref="product_name"/>
+		automatically with preconfigured settings. You can change these <keyword
+			keyref="product_name"/> settings. </shortdesc>
+	<conbody>
+		<p> Here are the default settings: <ul id="ul_65B4FEDEB4374C9993E5C9593DAC3C08">
+				<li id="li_28CFA4A15B1F42548A679CF481BB52C5"><keyword keyref="product_name"/>
+					peer-to-peer members are discovered using a default multicast channel. </li>
+				<li id="li_0862E52FD76F4AECA1BB565C61672E86"><keyword keyref="product_name"/>
+					locators are not used for member discovery. </li>
+				<li id="li_53D6101E21134FA88A1DCB1A27EE72B1">The region name is set to
+						<codeph>gemfire_modules_sessions</codeph>. </li>
+				<li id="li_E1E7EDBA49E5442888BB97AA779CE937">The cache region is replicated for
+					peer-to-peer configurations and partitioned (with redundancy turned on) for
+					client/server configurations. </li>
+				<li id="li_0134A9BFF67040D59A72169CBB0C1463"><keyword keyref="product_name"/>
+					clients have local caching turned on and when the local cache needs to evict
+					data, it will evict least-recently-used (LRU) data first. </li>
+			</ul>
+			<note>On the application server side, the default inactive interval for session
+				expiration is set to 30 minutes. To change this value, refer to <xref
+					href="tc_additional_info.xml#tc_additional_info/section_C7C4365EA2D84636AE1586F187007EC4"
+					type="section" format="dita" scope="local"
+					><?xm-replace_text Session Expiration?></xref>. </note>
+		</p>
+		<p> However, you may want to change this default configuration. For example, you might want
+			to change the region from replicated to partitioned, or use locators for discovery. This
+			section describes how to change these configuration values. </p>
+		<p>
+			<note>You cannot override region attributes on the cache server when using the HTTP
+				Session Management Module. You must place all region attribute definitions in the
+				region attributes template that you customize in your application server. See <xref
+					scope="local"
+					href="weblogic_common_configuration_changes.xml#weblogic_common_cfg_changes/section_38D803A7E8474188898963F456188543"
+					type="section" format="dita"
+					><?xm-replace_text Overriding Region Attributes?></xref> for more information.
+			</note>
+		</p>
+		<section id="section_changing_sys_props">
+			<title>Changing <keyword keyref="product_name"/> Distributed System Properties</title>
+			<p> To edit <keyword keyref="product_name"/> system properties (such as how <keyword
+					keyref="product_name"/> members locate each other), you must add properties to
+					<keyword keyref="product_name"/> Session Filter definition in the application's
+				web.xml file. As mentioned above, this can be done by using the <b>-p</b> option to
+				the <codeph>modify_war</codeph> script. All <keyword keyref="product_name"/> system
+				properties should be prefix with the string <b>gemfire.property</b>. For example:
+					<ul id="ul_039BF1791DBE47C2B1EA3223652A9DA3">
+					<li id="li_6280CDC69E7747F6859DEDBE9DED8CEA">
+						<b>-p gemfire.property.mcast-port=0 </b>
+					</li>
+					<li id="li_EE9DFFC77B0A4122B7491211AF479569"><b>-p
+							gemfire.property.locators=hostname[10334] </b>
+					</li>
+					<li id="li_A8C1F037F0984A34911C2104FFACB4B3"><b>-p
+							gemfire.property.cache-xml-file=/u01/weblogic/conf/cache.xml</b>. </li>
+				</ul>
+			</p>
+			<codeblock>&lt;filter&gt;
+    &lt;filter-name&gt;gemfire-session-filter&lt;/filter-name&gt;
+    &lt;filter-class&gt;
+      com.gemstone.gemfire.modules.session.filter.SessionCachingFilter
+    &lt;/filter-class&gt;
+    &lt;init-param&gt;
+        &lt;param-name&gt;cache-type&lt;/param-name&gt;
+        &lt;param-value&gt;client-server&lt;/param-value&gt;
+    &lt;/init-param&gt;
+    &lt;init-param&gt;
+        &lt;param-name&gt;gemfire.property.mcast-port&lt;/param-name&gt;
+        &lt;param-value&gt;0&lt;/param-value&gt;
+    &lt;/init-param&gt;
+    &lt;init-param&gt;
+        &lt;param-name&gt;gemfire.property.locators&lt;/param-name&gt;
+        &lt;param-value&gt;hostname[10334]&lt;/param-value&gt;
+    &lt;/init-param&gt;
+    &lt;init-param&gt;
+        &lt;param-name&gt;gemfire.property.cache-xml-file&lt;/param-name&gt;
+        &lt;param-value&gt;/u01/weblogic/conf/cache.xml&lt;/param-value&gt;
+    &lt;/init-param&gt;
+&lt;/filter&gt;</codeblock>
+			<p>This example specifies that the filename for <keyword keyref="product_name"/>'s cache
+				XML configuration is cache-peer.xml and that a locator can be found at
+				"hostname:10334". Note that when using a locator, you must turn off multicast
+				discovery by setting the mcast-port property to 0. </p>
+			<p>The list of configurable <b>server.xml</b> system properties include any of the
+				properties that can be specified in <keyword keyref="product_name"/>'s
+					<codeph>gemfire.properties</codeph> file. The following list contains some of
+				the more common parameters that can be configured. </p>
+			<simpletable relcolwidth="1* 3* 1*" id="simpletable_657FE218AD9347BAA484CA6F30AA7A1E">
+				<sthead>
+					<stentry>Parameter</stentry>
+					<stentry>Description</stentry>
+					<stentry>Default</stentry>
+				</sthead>
+				<strow>
+					<stentry>cache-xml-file</stentry>
+					<stentry>Name of the cache configuration file.</stentry>
+					<stentry>cache-peer.xml for peer-to-peer, cache-client.xml for
+						client/server</stentry>
+				</strow>
+				<strow>
+					<stentry>locators (only for peer-to-peer config)</stentry>
+					<stentry>List of locators (host[port]) used by <keyword keyref="product_name"/>
+						members to discover each other; if this value is empty, then multicast
+						discovery will take place instead; when using a locator, you should turn off
+						multicast discovery by setting <codeph>mcast-port</codeph> to
+							<codeph>0</codeph> and you must manually start the locator using a
+						command such as "<codeph>gemfire start-locato</codeph>r"; refer to " <xref
+							href="tomcat_common_configuration_changes.xml#tomcat_common_cfg_changes/p2p_locators"
+							type="section" format="dita" scope="local">Peer-to-Peer Configuration
+							Using Locators</xref>" for more information.</stentry>
+					<stentry>Empty string (i.e. use multicast instead)</stentry>
+				</strow>
+				<strow>
+					<stentry>log-file</stentry>
+					<stentry>Name of the <keyword keyref="product_name"/> log file.</stentry>
+					<stentry>gemfire_modules.log</stentry>
+				</strow>
+				<strow>
+					<stentry>mcast-port (only for peer-to-peer config)</stentry>
+					<stentry>Port used by <keyword keyref="product_name"/> members to discover each
+						other using multicast networking; when using locators in place of multicast,
+						this value should be disabled by setting it to 0.</stentry>
+					<stentry>10334</stentry>
+				</strow>
+				<strow>
+					<stentry>statistic-archive-file</stentry>
+					<stentry>Name of the <keyword keyref="product_name"/> statistics file.</stentry>
+					<stentry>gemfire_modules.gfs</stentry>
+				</strow>
+				<strow>
+					<stentry>statistic-sampling-enabled</stentry>
+					<stentry>Whether <keyword keyref="product_name"/> statistics sampling is
+						enabled.</stentry>
+					<stentry>false</stentry>
+				</strow>
+			</simpletable>
+			<p>For more information on these properties, along with the full list of properties,
+				refer to <xref
+					href="../../reference/topics/gemfire_properties.xml#gemfire_properties"
+					type="concept" format="dita" scope="local"/>. </p>
+			<p>In addition to the standard <keyword keyref="product_name"/> system properties, the
+				following cache-specific properties can also be configured. </p>
+			<simpletable relcolwidth="1* 3* 1*" id="simpletable_9CB706CCEA7F4071B88A5C8A6C357FBB">
+				<sthead>
+					<stentry>Parameter</stentry>
+					<stentry>Description</stentry>
+					<stentry>Default</stentry>
+				</sthead>
+				<strow>
+					<stentry>criticalHeapPercentage</stentry>
+					<stentry>Percentage of heap at which updates to the cache are refused.</stentry>
+					<stentry>0 (disabled)</stentry>
+				</strow>
+				<strow>
+					<stentry>evictionHeapPercentage</stentry>
+					<stentry>Percentage of heap at which session eviction begins.</stentry>
+					<stentry>80.0</stentry>
+				</strow>
+				<strow>
+					<stentry>rebalance</stentry>
+					<stentry>Whether a rebalance of the cache should be done when the application
+						server instance is started.</stentry>
+					<stentry>false</stentry>
+				</strow>
+			</simpletable>
+			<p> Although these properties are not part of the standard <keyword
+					keyref="product_name"/> system properties, they apply to the entire JVM
+				instance. For more information about managing the heap, refer to <xref
+					href="../../managing/heap_use/chapter_overview.xml#resource_manager"
+					type="concept" format="dita" scope="local"
+					><?xm-replace_text Heap Use and Management?></xref>. </p>
+			<p>
+				<note> It is important to note that the <keyword keyref="product_name"/> Distributed
+					System is a singleton within the entire application server JVM. As such it is
+					important to ensure that different web applications, within the same container,
+					set (or expect) the same cache configuration. When the application server
+					starts, the first web application to start that uses <keyword
+						keyref="product_name"/> Session Caching will determine the overall
+					configuration of the distributed system since it will trigger the creation of
+					the distributed system. </note>
+			</p>
+		</section>
+		<section id="section_changing_cache_config_props">
+			<title>Changing Cache Configuration Properties</title>
+			<p> To edit <keyword keyref="product_name"/> cache properties (such as the name and the
+				characteristics of the cache region), you must configure these using a filter
+				initialization parameter prefix of <b>gemfire.cache</b> with the
+					<codeph>modify_war</codeph> script. For example: </p>
+			<p><b>-p gemfire.cache.region_name=custom_sessions</b>
+			</p>
+			<p> </p>
+			<codeblock>&lt;filter&gt;
+    &lt;filter-name&gt;gemfire-session-filter&lt;/filter-name&gt;
+    &lt;filter-class&gt;
+      com.gemstone.gemfire.modules.session.filter.SessionCachingFilter
+    &lt;/filter-class&gt;
+    &lt;init-param&gt;
+        &lt;param-name&gt;cache-type&lt;/param-name&gt;
+        &lt;param-value&gt;peer-to-peer&lt;/param-value&gt;
+    &lt;/init-param&gt;
+    &lt;init-param&gt;
+        &lt;param-name&gt;gemfire.cache.region_name&lt;/param-name&gt;
+        &lt;param-value&gt;custom_sessions&lt;/param-value&gt;
+    &lt;/init-param&gt;
+&lt;/filter&gt;</codeblock>
+			<p>The following parameters are the cache configuration parameters that can be added to
+				the filter definition as initialization parameters. </p>
+			<parml>
+				<plentry>
+					<pt>enable_debug_listener </pt>
+					<pd>
+						<p>Whether to enable a debug listener in the session region; if this
+							parameter is set to true, info-level messages are logged to the <keyword
+								keyref="product_name"/> log when sessions are created, updated,
+							invalidated or expired. </p>
+						<p>Default: <codeph>false</codeph>
+						</p>
+						<p>The <keyword keyref="product_name"/> API equivalent to setting this
+							parameter: </p>
+						<codeblock>// Create factory
+<xref format="html" href="http://www.gemstone.com/docs/current/product/docs/japi/com/gemstone/gemfire/cache/AttributesFactory.html" scope="external">AttributesFactory</xref> factory = ...; 
+&lt;or&gt; <xref format="html" href="http://www.gemstone.com/docs/current/product/docs/japi/com/gemstone/gemfire/cache/RegionFactory.html" scope="external">RegionFactory</xref> factory = ...;
+// Add cache listener
+factory.addCacheListener(new DebugCacheListener());</codeblock>
+					</pd>
+				</plentry>
+				<plentry>
+					<pt>enable_local_cache </pt>
+					<pd>
+						<p>Whether a local cache is enabled; if this parameter is set to true, the
+							app server load balancer should be configured for sticky session mode. </p>
+						<p>Default: <codeph>false</codeph> for peer-to-peer, <codeph>true</codeph>
+							for client/server </p>
+						<p>The <keyword keyref="product_name"/> API equivalent to setting this
+							parameter: </p>
+						<codeblock>// For peer-to-peer members: 
+Cache.<xref format="html" href="http://www.gemstone.com/docs/current/product/docs/japi/com/gemstone/gemfire/cache/Cache.html#createRegionFactory(com.gemstone.gemfire.cache.RegionShortcut)" scope="external">createRegionFactory</xref>(REPLICATE_PROXY) 
+// For client members: 
+ClientCache.<xref format="html" href="http://www.gemstone.com/docs/current/product/docs/japi/com/gemstone/gemfire/cache/client/ClientCache.html#createClientRegionFactory(com.gemstone.gemfire.cache.client.ClientRegionShortcut)" scope="external">createClientRegionFactory</xref>(CACHING_PROXY_HEAP_LRU)</codeblock>
+					</pd>
+				</plentry>
+				<plentry>
+					<pt>region_attributes_id </pt>
+					<pd>
+						<p>Specifies the region shortcut; for more information refer to <xref
+								href="../../basic_config/data_regions/region_shortcuts.xml#region_shortcuts"
+								type="concept" format="dita" scope="local"/>; when using a
+							partitioned region attribute, it is recommended that you use
+							PARTITION_REDUNDANT (rather than PARTITION) to ensure that the failure
+							of a server does not result in lost session data. </p>
+						<p>Default: REPLICATE for peer-to-peer, PARTITION_REDUNDANT for
+							client/server </p>
+						<p>The <keyword keyref="product_name"/> API equivalent to setting this
+							parameter: </p>
+						<codeblock>// Creates a region factory for the specified region shortcut 
+Cache.<xref format="html" href="http://www.gemstone.com/docs/current/product/docs/japi/com/gemstone/gemfire/cache/Cache.html#createRegionFactory(com.gemstone.gemfire.cache.RegionShortcut)" scope="external">createRegionFactory</xref>(regionAttributesId); </codeblock>
+					</pd>
+				</plentry>
+				<plentry>
+					<pt>region_name </pt>
+					<pd>
+						<p>Name of the region. </p>
+						<p>Default: gemfire_modules_sessions </p>
+						<p>The <keyword keyref="product_name"/> API equivalent to setting this
+							parameter: </p>
+						<codeblock>// Creates a region with the specified name 
+RegionFactory.<xref format="html" href="http://www.gemstone.com/docs/current/product/docs/japi/com/gemstone/gemfire/cache/RegionFactory.html#create(java.lang.String)" scope="external">create</xref>(regionName); </codeblock>
+					</pd>
+				</plentry>
+				<plentry>
+					<pt>session_delta_policy </pt>
+					<pd>
+						<p>Replication policy for session attributes. </p>
+						<p>Default: delta_queued </p>
+						<p>Delta replication can be configured to occur immediately when
+							HttpSession.setAttribute() is called (delta_immediate) or when the HTTP
+							request has completed processing (delta_queued). If the latter mode is
+							configured, all attribute updates for a particular request are 'batched'
+							and multiple updates to the same attribute are collapsed. Depending on
+							the number of attributes updates within a given request, delta_queued
+							may provide a significant performance gain. For complete session
+							attribute integrity across the cache, delta_immediate is recommended.
+							Note that this option is specific to this module and there is no
+							equivalent <keyword keyref="product_name"/> API to enable it. </p>
+					</pd>
+				</plentry>
+			</parml>
+			<p>Refer to <xref href="../../basic_config/the_cache/chapter_overview.xml#the_cache"
+					type="concept" format="dita" scope="local"/> for more information about
+				configuring the cache. </p>
+		</section>
+	</conbody>
+</concept>

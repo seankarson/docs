@@ -1,0 +1,133 @@
+<?xml version="1.0"?>
+<!DOCTYPE topic PUBLIC "-//OASIS//DTD DITA Topic//EN" "topic.dtd">
+<topic id="topic_7B1CABCAD056499AA57AF3CFDBF8ABE3">
+	<title>cache.xml Quick Reference</title>
+	<shortdesc>This section documents cache.xml file requirements and variables. It also points you
+		to specific element sections for server and client. </shortdesc>
+	<body>
+		<ul id="ul_B8FEB11979A34D7B9537BDA33DFB860A">
+			<li id="li_7D34615AB21D4D4F814AD9ECA548BDF5">
+				<xref
+					href="#topic_7B1CABCAD056499AA57AF3CFDBF8ABE3/section_A6B050113DCC4D12A6A9C0F250527AF8"
+					format="dita"/>
+			</li>
+			<li id="li_77FA105DE8A4421B8DEE8B8FE01154F3">
+				<xref
+					href="#topic_7B1CABCAD056499AA57AF3CFDBF8ABE3/section_5DBA12F9FC08406AAD5557E13A3DEDF2"
+					format="dita"/>
+			</li>
+			<li id="li_20538F9283704B349E3602F39EFD1279">
+				<xref
+					href="elements_ref.xml#topic_7B1CABCAD056499AA57AF3CFDBF8ABE3/section_2076DDF1F0464CF8894B42ABC32AE4CB"
+					type="section" format="dita" scope="local"/>
+			</li>
+		</ul>
+		<section id="section_A6B050113DCC4D12A6A9C0F250527AF8">
+			<title>Cache XML Requirements</title>
+			<p>The <systemoutput>cache.xml</systemoutput> file has these requirements: <ul
+					id="cache_configuration_settings__ul_D0BD3FB949424221A1C9F626277E5F1C">
+					<li id="cache_configuration_settings__li_3B08DA4351544C58BEA9198B48A36F13">The
+						contents must conform to the XML schema definition provided in
+							<systemoutput>cache8-1.xsd</systemoutput>. The schema definition file is
+						available in the product distribution at
+						$GEMFIRE/schemas/schema.pivotal.io/gemfire/cache/cache8-1.xsd.</li>
+					<li id="li_1EDF693ED1E04060B7D30371C3E06847">The file must include a &lt;cache>
+						schema declaration of one of the following forms: <p>
+							<ul
+								id="cache_configuration_settings__ul_47F8E8410A074D8F90FEF0AE41ECB7C6">
+								<li
+									id="cache_configuration_settings__li_0EDDDED3E1F44A0BB7BA226E06D05BE2"
+									>Server or peer cache:
+									<codeblock outputclass="language-xml">&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;cache
+    xmlns="<xref href="http://schema.pivotal.io/gemfire/cache" format="html" scope="external">http://schema.pivotal.io/gemfire/cache</xref>"
+    xmlns:xsi="<xref href="http://www.w3.org/2001/XMLSchema-instance" format="html" scope="external">http://www.w3.org/2001/XMLSchema-instance</xref>"
+    xsi:schemaLocation="<xref href="http://schema.pivotal.io/gemfire/cache" format="html" scope="external">http://schema.pivotal.io/gemfire/cache</xref> <xref href="http://schema.pivotal.io/gemfire/cache/cache-8.1.xsd" format="html" scope="external">http://schema.pivotal.io/gemfire/cache/cache-8.1.xsd</xref>"
+    version="8.1"&gt;
+...
+&lt;/cache&gt;</codeblock>
+								</li>
+								<li
+									id="cache_configuration_settings__li_2AE6075FECAD4A2999CDF85169A5646A"
+									>Client cache:
+									<codeblock outputclass="language-xml">&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;client-cache
+    xmlns="<xref href="http://schema.pivotal.io/gemfire/cache" format="html" scope="external">http://schema.pivotal.io/gemfire/cache</xref>"
+    xmlns:xsi="<xref href="http://www.w3.org/2001/XMLSchema-instance" format="html" scope="external">http://www.w3.org/2001/XMLSchema-instance</xref>"
+    xsi:schemaLocation="<xref href="http://schema.pivotal.io/gemfire/cache" format="html" scope="external">http://schema.pivotal.io/gemfire/cache</xref> <xref href="http://schema.pivotal.io/gemfire/cache/cache-8.1.xsd" format="html" scope="external">http://schema.pivotal.io/gemfire/cache/cache-8.1.xsd</xref>"
+    version="8.1"&gt;
+...
+&lt;/client-cache&gt;</codeblock>
+								</li>
+							</ul>
+						</p>
+					</li>
+					<li id="cache_configuration_settings__li_B9FC4304AA2D456085E15EDEE1BF3896">Any
+						class name specified in the file <b>must have a public zero-argument
+							constructor</b> and must implement the
+							<systemoutput>com.gemstone.gemfire.cache.Declarable</systemoutput>
+						interface. Parameters declared in the XML for the class are passed to the
+						class <systemoutput>init</systemoutput> method. </li>
+				</ul>
+			</p>
+		</section>
+		<section id="section_5DBA12F9FC08406AAD5557E13A3DEDF2">
+			<title>Variables in cache.xml</title>
+			<p>You can use variables in the <codeph>cache.xml</codeph> to customize your settings
+				without modifying the XML file. </p>
+			<p>Set your variables in Java system properties when you start your cache server or
+				application process. </p>
+			<p>Example cache.xml with variables and the gfsh <codeph>start server</codeph> command
+				that sets the variables: <codeblock outputclass="language-xml">&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;cache
+    xmlns="<xref href="http://schema.pivotal.io/gemfire/cache" format="html" scope="external">http://schema.pivotal.io/gemfire/cache</xref>"
+    xmlns:xsi="<xref href="http://www.w3.org/2001/XMLSchema-instance" format="html" scope="external">http://www.w3.org/2001/XMLSchema-instance</xref>"
+    xsi:schemaLocation="<xref href="http://schema.pivotal.io/gemfire/cache" format="html" scope="external">http://schema.pivotal.io/gemfire/cache</xref> <xref href="http://schema.pivotal.io/gemfire/cache/cache-8.1.xsd" format="html" scope="external">http://schema.pivotal.io/gemfire/cache/cache-8.1.xsd</xref>"
+    version="8.1"&gt;
+  &lt;cache-server port="${PORT}" max-connections="${MAXCNXS}"/&gt;
+  &lt;region name="root"&gt;
+    &lt;region-attributes refid="REPLICATE"/&gt;
+  &lt;/region&gt;
+&lt;/cache&gt;</codeblock>
+				<codeblock>
+gfsh&gt;start server --name=server2 --cache-xml-file=cache.xml --J=-DPORT=30333 --J=-DMAXCNXS=77
+</codeblock>
+			</p>
+		</section>
+		<section id="section_2076DDF1F0464CF8894B42ABC32AE4CB">
+			<title>Configuration Quick Reference</title>
+			<p>To configure cache servers and clients, see the following sections: </p>
+		</section>
+		<ul id="ul_gxf_fk5_t3">
+			<li id="li_7EE4F046C9F44261B61CFA1E7C740D79">Server Configuration <ul id="ul_x2s_pjb_53">
+					<li id="li_B62F7771587F43C58E90B6D784D6702B"><xref
+							href="cache_xml.xml#cache_xml_cache" type="topic" format="dita"
+							scope="local"/>
+					</li>
+					<li id="li_AEC208E6DC0242F880A53D855C67D1CF"><xref
+							href="cache_xml.xml#cache-server" format="dita"/>
+					</li>
+					<li id="li_13F78B1A2D1848C3910945659FBBB863"><xref href="cache_xml.xml#region"/>
+					</li>
+					<li id="li_2F4DDD3D71814C0399DBD8B0E08E297C"><xref
+							href="cache_xml.xml#region-attributes"/>
+					</li>
+				</ul><p>You can set the same server configuration properties using the
+						<apiname>com.gemstone.gemfire.cache.server.CacheServer</apiname> and
+						<apiname>com.gemstone.gemfire.cache.Cache</apiname> interfaces. For detailed
+					information, see the online Java API documentation. </p>
+			</li>
+			<li id="li_43A7C2F847904AE68BDA431946D8991A">Client Configuration <ul id="ul_ccr_rjb_53">
+					<li><xref href="client-cache.xml#cc-client-cache"/></li>
+					<li id="li_0BEFD47A51F247E8B91330D781347566"><xref
+							href="client-cache.xml#cc-pool"/></li>
+					<li id="li_04503EB6205F476E87F36610218660BB"><xref
+							href="client-cache.xml#cc-region"/></li>
+				</ul><p>You can set the same client configuration properties using the
+						<apiname>com.gemstone.gemfire.cache.clientClientCache</apiname> and
+						<apiname>Pool</apiname> interfaces. For detailed information, see the online
+					Java API documentation. </p>
+			</li>
+		</ul>
+	</body>
+</topic>

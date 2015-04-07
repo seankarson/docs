@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE dita PUBLIC "-//OASIS//DTD DITA Composite//EN" "ditabase.dtd">
+<dita>
+	<topic id="topic_jbt_2y4_wk">
+		<title>About Transactions</title>
+		<shortdesc>This section covers the features of <keyword keyref="product_name"/>
+			transactions. </shortdesc>
+		<body>
+			<p><keyword keyref="product_name"/> transactions provide the following features: <ul
+					id="ul_dmj_bh3_5k">
+					<li id="li_D35D4A4AEE0140B2B9FEA03DAD265B80">Basic transaction properties:
+						atomicity, consistency, isolation, and durability </li>
+					<li id="li_013BE2ADD76A4D9DB87A8485AE7353E2">Rollback and commit operations
+						along with standard <keyword keyref="product_name"/> cache operations </li>
+					<li id="li_FA06719543174D9A8329FF5C398A2218">Ability to suspend and resume
+						transactions </li>
+					<li id="li_BF9B44A691D84347802A71CF071A2DB5">High concurrency and high
+						performance </li>
+					<li id="li_170555FC93C3486C9D60E7F1402CBB41">Transaction statistics gathering
+						and archiving </li>
+					<li id="li_9F11ADC910DE4240AD6D5D6E0F8F36CF">Compatibility with Java Transaction
+						API (JTA) transactions, using either <keyword keyref="product_name"/> JTA or
+						a third-party implementation. </li>
+					<li>Ability to use <keyword keyref="product_name"/> as a “last resource” in JTA
+						transactions with multiple data sources to guarantee transactional
+						consistency</li>
+				</ul>
+			</p>
+		</body>
+	</topic>
+	<concept id="concept_w3b_wh3_5k">
+		<title>Types of Transactions</title>
+		<shortdesc><keyword keyref="product_name"/> supports two kinds of transactions: <b><keyword
+					keyref="product_name"/> cache transactions</b> and <b>JTA global
+				transactions</b>. </shortdesc>
+		<conbody>
+			<p><keyword keyref="product_name"/> cache transactions are used to group the execution
+				of cache operations and to gain control offered by transactional commit and
+				rollback. Applications create cache transactions by using an instance of the
+					<keyword keyref="product_name"/>
+				<codeph>CacheTransactionManager</codeph> to start and terminate transactions. During
+				the transaction, cache operations are performed and distributed through <keyword
+					keyref="product_name"/> as usual. See <xref
+					href="cache_transactions.xml#topic_e15_mr3_5k" type="topic" format="dita"
+					scope="local"/> for details on <keyword keyref="product_name"/> cache
+				transactions and how these transactions work. </p>
+			<p>JTA global transactions allow you to use the standard Java interface (JTA) to
+				coordinate <keyword keyref="product_name"/> transactions with JDBC transactions.
+				When performing JTA global transactions, you have the option of using<keyword
+					keyref="product_name"/> ’s own implementation of JTA or a third party’s
+				implementation (typically application servers like WebLogic or JBoss) of JTA. In
+				addition, some third party JTA implementations allow you to set <keyword
+					keyref="product_name"/> as a “last resource” to ensure transactional consistency
+				across data sources in the event that <keyword keyref="product_name"/> or another
+				data source becomes unavailable. For global transactions, applications use
+					<codeph>java:/UserTransaction</codeph> to start and terminate transactions while
+					<keyword keyref="product_name"/> cache operations are performed in the same
+				manner as regular <keyword keyref="product_name"/> cache transactions. See <xref
+					href="JTA_transactions_with_GemFire.xml" type="topic" format="dita"
+					scope="local"/> for details on JTA Global transactions. </p>
+			<p>
+				<note>You can also coordinate a <keyword keyref="product_name"/> cache transaction
+					with an external database by specifying database operations in cache and
+					transaction application plug-ins (CacheWriters/CacheListeners and
+					TransactionWriters/TransactionListeners.) This is an alternative to using JTA
+					transactions. See <xref
+						href="run_a_cache_transaction_with_external_db.xml#task_sdn_2qk_2l"
+						type="task" format="dita" scope="local"/>. </note>
+			</p>
+		</conbody>
+	</concept>
+</dita>

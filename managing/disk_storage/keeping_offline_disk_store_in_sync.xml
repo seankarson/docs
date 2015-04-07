@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "http://docs.oasis-open.org/dita/v1.1/OS/dtd/concept.dtd">
+<concept id="syncing_offline_disk_store">
+	<title>Synchronizing Your Offline Disk Store with Your Cache</title>
+	<conbody>
+		<section id="section_7D01550D750E48289EFBA9BBDB5A334E">
+			<p>You can take several actions to optimize disk store use and data loading at startup.
+			</p>
+		</section>
+		<section id="section_7B95B20F07BD40699CDB7F3D6A93B905">
+			<title>Change Region Configuration</title>
+			<p>When your disk store is offline, you can keep the configuration for its regions
+				up-to-date with your <codeph>cache.xml</codeph> and API settings. The disk store
+				retains region capacity and load settings, including entry map settings (initial
+				capacity, concurrency level, load factor), LRU eviction settings, and the statistics
+				enabled boolean. If the configurations do not match at startup, the
+					<codeph>cache.xml</codeph> and API override any disk store settings and the disk
+				store is automatically updated to match. So you do not need to modify your disk
+				store to keep your cache configuration and disk store synchronized, but you will
+				save startup time and memory if you do. </p>
+			<p>Example:
+				<codeblock>gfsh&gt;alter disk-store --name=myDiskStoreName --region=/partitioned_region 
+--disk-dirs=/firstDiskStoreDir,/secondDiskStoreDir,/thirdDiskStoreDir 
+--initialCapacity=20</codeblock>
+			</p>
+			<p>To list all modifiable settings and their current values for a region, run
+				modify-disk-store with no actions specified. </p>
+			<p>Example:
+				<codeblock>gfsh&gt;alter disk-store --name=myDiskStoreName --region=/partitioned_region
+--disk-dirs=/firstDiskStoreDir,/secondDiskStoreDir,/thirdDiskStoreDir  </codeblock>
+			</p>
+		</section>
+		<section id="section_0CA17ED106394686A1A5B30601758DA6">
+			<title>Take a Region Out of Your Cache Configuration and Disk Store</title>
+			<p>This applies to the removal of regions while the disk store is offline. Regions you
+				destroy through API calls are automatically removed from the disk store. </p>
+			<p>In your application development, when you discontinue use of a persistent region,
+				remove it from the member’s disk store as well. </p>
+			<note>Perform the following operations with caution. You are permanently removing data. </note>
+			<p>You can do this in one of two ways: <ul id="ul_9BAB7856F25F4848867C3401D71DD3C0">
+					<li id="li_C015576E1DE746DBB056EB9B752D0B96">Delete the entire set of disk store
+						files. Your member will initialize with an empty set of files the next time
+						you and start it. </li>
+					<li id="li_2392081C6A004D46A14D124C551BFC53">Selectively remove the discontinued
+						region from the disk store. <p>Example:
+							<codeblock>gfsh&gt;alter disk-store --name=myDiskStoreName --region=/partitioned_region
+--disk-dirs=/firstDiskStoreDir,/secondDiskStoreDir,/thirdDiskStoreDir --remove</codeblock>
+						</p>
+					</li>
+				</ul>
+			</p>
+			<p>You might remove a region from your application if you decide to rename it or to
+				split its data into two entirely different regions. Any significant data
+				restructuring can cause you to retire some data regions. </p>
+			<p>To guard against unintended data loss, <keyword keyref="product_name"/> maintains the
+				region in the disk store until you manually remove it. Regions in the disk stores
+				that are not associated with any region in your application are still loaded into
+				temporary regions in memory and kept there for the life of the member. The system
+				has no way of detecting whether the cache region will be created by your API at some
+				point, so it keeps the temporary region loaded and available. </p>
+		</section>
+	</conbody>
+</concept>

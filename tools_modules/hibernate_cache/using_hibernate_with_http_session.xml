@@ -1,0 +1,59 @@
+<?xml version="1.0"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept id="concept_5A1F0B70670F45619BAADB070F27D55B">
+	<title>Using Hibernate Cache Module with HTTP Session Management Module</title>
+	<shortdesc>This section describes how to set up the Hibernate Cache module if you are also using
+		the HTTP Session Management module. </shortdesc>
+	<conbody>
+		<p> If you have already configured your tc Server or Tomcat application server to use the
+			HTTP Session Management Module, follow these steps to configure Hibernate module for
+			your application: <ol id="ol_6C5AC1A6DA584519A242E63D61398A2B">
+				<li id="li_AF8226DD78C54EC596CC28E7E83ADD82">Install and configure the Hibernate
+					Cache Module as described in <xref
+						href="installing_gemfire_and_module.xml#installing_gemfire_and_module"
+						type="concept" format="dita" scope="local"/> and <xref
+						href="setting_up_the_module.xml#settup_up_the_module" type="concept"
+						format="dita" scope="local"/>. </li>
+				<li id="li_6F0F375DD2834627B7F5E7296C75E12B">Make sure that your Hibernate
+					application is using the same <keyword keyref="product_name"/> topology as your
+					application server. </li>
+				<li id="li_90F94136F914430A85E5202FC3FE3510">Include
+					gemfire-modules-&lt;version&gt;.jar in your application .war file. This is
+					typically done by putting the .jar file under the <codeph>WEB-INF/lib</codeph>
+					directory. <note>Even though both modules include a
+						gemfire-modules-&lt;version&gt;.jar file in their distribution, you only
+						need to put one gemfire-modules-&lt;version&gt;.jar file in your .war file.
+						It does not matter which one you use. You can even be using different
+						versions of the HTTP Session Management and Hibernate Cache modules. </note>
+				</li>
+				<li id="li_A1D9257855C447E8AD048929C8260AF5">Make sure that gemfire.jar is not
+					included in your application .war file. </li>
+				<li id="li_A5481F293933449CAAA10E848A88A250">Deploy your application .war file. </li>
+				<li id="li_77EABA59DCD44A66A1C879C7980EB530">These configuration steps will work
+					with the default gemfire properties configurations that ship with the <keyword
+						keyref="product_name"/> modules. If you have added or modified Gemfire
+					properties for the HTTP Session Management Module (for example, as described
+						in<xref
+						href="../http_session_mgmt/tomcat_changing_gf_default_cfg.xml#tomcat_changing_gf_default_cfg"
+						type="concept" format="dita" scope="local"/> or <xref
+						href="../http_session_mgmt/tc_changing_gf_default_cfg.xml#tc_changing_gf_default_cfg"
+						type="concept" format="dita" scope="local"/>), then you must make the same
+					changes for the Hibernate Cache module. See <xref
+						href="changing_gemfire_default_cfg.xml#changing_gemfire_default_cfg"
+						type="concept" format="dita" scope="local"/> for instructions on how to
+					modify the default Hibernate Cache configuration. </li>
+			</ol>
+		</p>
+		<p>
+			<note>Using the Hibernate Cache Module with the HTTP Session Management Module creates a
+				single <keyword keyref="product_name"/> cache in your application server. This cache
+				will be shared by all applications deployed on the application server. Therefore, if
+				two applications use the same entity objects (specified by fully qualified class
+				names) or are configured to use the same cache region, all instances of these
+				entities will end up in the single <keyword keyref="product_name"/> cache region. If
+				this is not the desired behavior, then include gemfire.jar in the application war
+				file. A <keyword keyref="product_name"/> cache will be created in the application's
+				class loader. </note>
+		</p>
+	</conbody>
+</concept>

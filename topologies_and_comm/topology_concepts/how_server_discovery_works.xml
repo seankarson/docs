@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "http://docs.oasis-open.org/dita/v1.1/OS/dtd/concept.dtd">
+<concept id="how_server_discovery_works">
+	<title>How Server Discovery Works</title>
+	<shortdesc id="shortdesc_6F29E22AC25A437E97FA8F9DE7065353"><keyword keyref="product_name_long"/>
+		locators provide reliable and flexible server discovery services for your clients. You can
+		use all servers for all client requests, or group servers according to function, with the
+		locators directing each client request to the right group of servers. </shortdesc>
+	<conbody>
+		<section id="section_91AC081D4C48408B9ABA40430F161E73">
+			<p>By default, <keyword keyref="product_name"/> clients and servers discover each other
+				on a predefined port (40404) on the localhost. This works, but is not typically the
+				way you would deploy a client/server configuration. The recommended solution is to
+				use one or more dedicated locators. A locator provides both discovery and load
+				balancing services. With server locators, clients are configured with a locator list
+				and locators maintain a dynamic server list. The locator listens at an address and
+				port for connecting clients and gives the clients server information. The clients
+				are configured with locator information and have no configuration specific to the
+				servers. </p>
+		</section>
+		<section id="section_95B62F09EF954A99ABBDEBC2756812E3">
+			<title>Basic Configuration</title>
+			<p>In this figure, only one locator is shown, but the recommended configuration uses
+				multiple locators for high availability. </p>
+			<p>
+				<image href="../../images_svg/server_discovery.svg"
+					alt="Locators track server availability and send clients to the most available servers. Clients send updates and requests to servers. Servers respond and send server events to clients. "
+					id="image_6DD8320AF78C42F89CFC665F2AF1BEA3" placement="break"/>
+			</p>
+			<p>The locator and servers have the same peer discovery configured in their
+					<codeph>gemfire.properties</codeph>:
+				<codeblock>locators=lucy[41111] </codeblock> The servers, run on their respective
+				hosts, have this <codeph>cache-server</codeph> configuration in their
+					<codeph>cache.xml</codeph>:
+				<codeblock>&lt;cache-server port="40404" ...</codeblock> The client’s
+					<codeph>cache.xml</codeph>
+				<codeph>pool</codeph> configuration and <codeph>region-attributes</codeph>:
+				<codeblock>&lt;pool name="PoolA" ...
+  &lt;locator host="lucy" port="41111"&gt;
+
+&lt;region ...
+&lt;region-attributes pool-name="PoolA" ...    </codeblock>
+			</p>
+		</section>
+		<section id="section_7C4C60F40936432899CE86619B8D6CBF">
+			<title>Using Member Groups</title>
+			<p>You can control which servers are used with named member groups. Do this if you want
+				your servers to manage different data sets or to direct specific client traffic to a
+				subset of servers, such as those directly connected to a back-end database. </p>
+			<p>To split data management between servers, configure some servers to host one set of
+				data regions and some to host another set. Assign the servers to two separate member
+				groups. Then, define two separate server pools on the client side and assign the
+				pools to the proper corresponding client regions. </p>
+			<p>In this figure, the client use of the regions is also split, but you could have both
+				pools and both regions defined in all of your clients. </p>
+			<p>
+				<image href="../../images_svg/server_grouping.svg" alt=" "
+					id="image_AB77DA6DB7EA49FD8864F39C6C64E056" placement="break"/>
+			</p>
+			<p>This is the <codeph>gemfire.properties</codeph> definition for Server 1:
+				<codeblock>#gemfire.properties
+groups=Portfolios</codeblock> And the
+					<codeph>pool</codeph> declaration for Client 1:
+				<codeblock>&lt;pool name="PortfolioPool" server-group="Portfolios"...
+  &lt;locator host="lucy" port="41111"&gt;</codeblock>
+			</p>
+		</section>
+	</conbody>
+</concept>

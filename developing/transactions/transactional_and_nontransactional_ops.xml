@@ -1,0 +1,336 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE dita PUBLIC "-//OASIS//DTD DITA Composite//EN" "ditabase.dtd">
+<dita>
+	<topic id="transactional_and_nontransactional_ops">
+		<title>Comparing Transactional and Non-Transactional Operations</title>
+		<body>
+			<p>   Between the begin operation and the commit or rollback operation are a series of
+				ordinary <keyword keyref="product_name"/> operations. When they are launched from a transaction, the <keyword keyref="product_name"/>
+				operations can be classified into two types: <ul
+					id="ul_486A6C20B8D248E2B115EDD13ED9A8F7">
+					<li id="li_5C1D807DEBBF466BA0A6C0E283077CA1">Transactional operations that
+						affect the transactional view </li>
+					<li id="li_55991C73672A42E0B29F0DC38A4D182C">Non-transactional operations that
+						do not affect the transactional view </li>
+				</ul>
+			</p>
+			<p>An operation that acts directly on the cache does not usually act on the
+				transactional view. </p>
+		</body>
+	</topic>
+	<concept id="transactional_operations">
+		<title>Transactional Operations</title>
+		<conbody>
+			<p>The <codeph>CacheTransactionManager</codeph> methods are the only ones used
+				specifically for cache transactions. Otherwise, you use the same <keyword
+					keyref="product_name"/> methods as usual. Most methods that run within a
+				transaction affect the transactional view and do not change the cache until the
+				transaction commits. Methods that behave this way are considered transactional
+				operations. Transactional operations are classified in two ways: whether they modify
+				the transactional view or the cache itself, and whether they create write conflicts
+				with other transactions. </p>
+			<p>In general, methods that create, destroy, invalidate, update, or read region entries
+				are transactional. </p>
+			<p>Transactional operations that can cause write conflicts are those that modify an
+				entry, such as put, a load done to satisfy a get operation, create, delete, local
+				delete, invalidate and local invalidate. </p>
+			<p>Transactional read operations do not cause conflicts directly, but they can modify
+				the transactional view. Read operations look for the entry in the transaction view
+				first and then, if necessary, go to the cache. If the entry is returned by a cache
+				read, it is stored as part of the transactional view. At commit time, the
+				transaction uses the initial snapshot of the entry in the view to discover write
+				conflicts. </p>
+		</conbody>
+	</concept>
+	<concept id="non_transactional_operations">
+		<title>Non-Transactional Operations</title>
+		<conbody>
+			<p>A few methods, when running in the context of a transaction, have no effect on the
+				transactional view but have an immediate effect on the cache. They are considered
+				non-transactional operations. Often, non-transactional operations are
+				administrative, such as <codeph>Region.destroy</codeph> and
+					<codeph>Region.invalidate</codeph>. These operations are not supported within a
+				transaction. If you call them, the system throws an exception of this type:
+					<codeph>UnsupportedOperationInTransactionException(destroyRegion() is not
+					supported while in a transaction</codeph>. </p>
+		</conbody>
+		<concept id="entry_operations">
+			<title>Entry Operations</title>
+			<conbody>
+				<note>Transactional entry operations can be rolled back. </note>
+				<table>
+					<tgroup cols="4">
+						<colspec colname="1" colnum="1" colwidth="1.62*"/>
+						<colspec colname="2" colnum="2" colwidth="4.85*"/>
+						<colspec colname="3" colnum="3" colwidth="2.23*"/>
+						<colspec colname="4" colnum="4" colwidth="1.00*"/>
+						<thead>
+							<row>
+								<entry>Operations </entry>
+								<entry>Methods </entry>
+								<entry>Transactional </entry>
+								<entry>Write Conflict </entry>
+							</row>
+						</thead>
+						<tbody>
+							<row>
+								<entry>create </entry>
+								<entry>
+									<codeph>Region.create, put, putAll, Map.put, putAll</codeph>
+								</entry>
+								<entry>yes </entry>
+								<entry>yes </entry>
+							</row>
+							<row>
+								<entry>modify </entry>
+								<entry>
+									<codeph>Region.put, putAll, Map.put, putAll,
+										Region.Entry.setValue, Map.Entry.setValue</codeph>
+								</entry>
+								<entry>yes </entry>
+								<entry>yes </entry>
+							</row>
+							<row>
+								<entry>load </entry>
+								<entry>
+									<codeph>Region.get, Map.get</codeph>
+								</entry>
+								<entry>yes </entry>
+								<entry>yes </entry>
+							</row>
+							<row>
+								<entry>creation or update using <codeph>netSearch</codeph>
+								</entry>
+								<entry>
+									<codeph>Region.get, Map.get</codeph>
+								</entry>
+								<entry>yes </entry>
+								<entry>no </entry>
+							</row>
+							<row>
+								<entry>destroy: local and distributed </entry>
+								<entry>
+									<codeph>Region.localDestroy, destroy, remove,
+										Map.remove</codeph>
+								</entry>
+								<entry>yes </entry>
+								<entry>yes </entry>
+							</row>
+							<row>
+								<entry>invalidate: local and distributed </entry>
+								<entry>
+									<codeph>Region.localInvalidate, invalidate</codeph>
+								</entry>
+								<entry>yes </entry>
+								<entry>yes </entry>
+							</row>
+							<row>
+								<entry>set user attribute </entry>
+								<entry>
+									<codeph>Region.Entry.setUserAttribute</codeph>
+								</entry>
+								<entry>yes </entry>
+								<entry>yes </entry>
+							</row>
+							<row>
+								<entry>read of a single entry </entry>
+								<entry>
+									<codeph>Region.get, getEntry, containsKey, containsValue,
+										containsValueForKey</codeph>
+								</entry>
+								<entry>yes </entry>
+								<entry>no </entry>
+							</row>
+							<row>
+								<entry>read of a collection of entries </entry>
+								<entry>
+									<codeph>Region.keySet, entrySet, values</codeph>
+								</entry>
+								<entry>Becomes transactional when you access the keys or values
+									within the collection. </entry>
+								<entry>no </entry>
+							</row>
+						</tbody>
+					</tgroup>
+				</table>
+				<p> </p>
+				<p>Some transactional write operations also do a read before they write, and these
+					can complete a transactional read even when the write fails. The following table
+					of entry operations notes the conditions under which this can happen. </p>
+				<note>These operations can add a snapshot of an entry to the transaction’s view even
+					when the write operation does not succeed. </note>
+				<table id="table_4F6DA593C76A447F851B5FE382C169DE">
+					<tgroup cols="4">
+						<colspec colname="1" colnum="1" colwidth="1.00*"/>
+						<colspec colname="2" colnum="2" colwidth="1.90*"/>
+						<colspec colname="3" colnum="3" colwidth="2.50*"/>
+						<thead>
+							<row>
+								<entry>Operations </entry>
+								<entry>Methods </entry>
+								<entry>Reads Without Writing </entry>
+							</row>
+						</thead>
+						<tbody>
+							<row>
+								<entry>create </entry>
+								<entry>
+									<codeph>Region.create</codeph>
+								</entry>
+								<entry>when it throws an <codeph>EntryExistsException</codeph>
+								</entry>
+							</row>
+							<row>
+								<entry>destroy: local and distributed </entry>
+								<entry>
+									<codeph>Region.localDestroy, destroy</codeph>
+								</entry>
+								<entry>when it throws an <codeph>EntryNotFoundException</codeph>
+								</entry>
+							</row>
+							<row>
+								<entry>invalidate: local and distributed </entry>
+								<entry>
+									<codeph>Region.localInvalidate, invalidate</codeph>
+								</entry>
+								<entry>when it throws an <codeph>EntryNotFoundException</codeph>or
+									the entry is already invalid </entry>
+							</row>
+						</tbody>
+					</tgroup>
+				</table>
+			</conbody>
+		</concept>
+		<concept id="region_operations">
+			<title>Region Operations</title>
+			<conbody>
+				<p>When you create a region in a transaction, any data from the getInitialImage
+					operation goes directly into the cache, rather than waiting for the transaction
+					to commit. </p>
+				<table>
+					<tgroup cols="4">
+						<colspec colname="1" colnum="1" colwidth="1.62*"/>
+						<colspec colname="2" colnum="2" colwidth="4.85*"/>
+						<colspec colname="3" colnum="3" colwidth="2.23*"/>
+						<colspec colname="4" colnum="4" colwidth="1.00*"/>
+						<thead>
+							<row>
+								<entry>Operations </entry>
+								<entry>Methods </entry>
+								<entry>Affected </entry>
+								<entry>Write Conflict </entry>
+							</row>
+						</thead>
+						<tbody>
+							<row>
+								<entry>destroy: local and distributed </entry>
+								<entry>
+									<codeph>Region.localDestroyRegion, destroyRegion</codeph>
+								</entry>
+								<entry>cache </entry>
+								<entry>yes </entry>
+							</row>
+							<row>
+								<entry>invalidate: local and distributed </entry>
+								<entry>
+									<codeph>Region.localInvalidateRegion, invalidateRegion</codeph>
+								</entry>
+								<entry>cache </entry>
+								<entry>yes </entry>
+							</row>
+							<row>
+								<entry>clear: local and distributed </entry>
+								<entry>
+									<codeph>Region.localClear, clear, Map.clear</codeph>
+								</entry>
+								<entry>cache and transaction </entry>
+								<entry>no </entry>
+							</row>
+							<row>
+								<entry>close </entry>
+								<entry>
+									<codeph>Region.close</codeph>
+								</entry>
+								<entry>cache </entry>
+								<entry>yes </entry>
+							</row>
+							<row>
+								<entry>mutate attribute </entry>
+								<entry><codeph>Region.getAttributesMutator</codeph> methods </entry>
+								<entry>cache </entry>
+								<entry>no </entry>
+							</row>
+							<row>
+								<entry>set user attribute </entry>
+								<entry>
+									<codeph>Region.setUserAttribute</codeph>
+								</entry>
+								<entry>cache </entry>
+								<entry>no </entry>
+							</row>
+						</tbody>
+					</tgroup>
+				</table>
+			</conbody>
+		</concept>
+		<concept id="cache_operations">
+			<title>Cache Operations</title>
+			<conbody>
+				<p>When you create a region in a transaction, any data from the getInitialImage
+					operation goes directly into the cache, rather than waiting for the transaction
+					to commit. </p>
+				<table id="table_F8E0E2EDA2D442758DE2EB06BA7650C7">
+					<tgroup cols="4">
+						<colspec colname="1" colnum="1" colwidth="1.62*"/>
+						<colspec colname="2" colnum="2" colwidth="4.85*"/>
+						<colspec colname="3" colnum="3" colwidth="2.23*"/>
+						<colspec colname="4" colnum="4" colwidth="1.00*"/>
+						<thead>
+							<row>
+								<entry>Operations </entry>
+								<entry>Methods </entry>
+								<entry>Affected State </entry>
+								<entry>Write Conflict </entry>
+							</row>
+						</thead>
+						<tbody>
+							<row>
+								<entry>create </entry>
+								<entry>
+									<codeph>createRegion</codeph>
+								</entry>
+								<entry>committed </entry>
+								<entry>no </entry>
+							</row>
+							<row>
+								<entry>close </entry>
+								<entry>
+									<codeph>close</codeph>
+								</entry>
+								<entry>committed </entry>
+								<entry>yes </entry>
+							</row>
+						</tbody>
+					</tgroup>
+				</table>
+			</conbody>
+		</concept>
+	</concept>
+	<concept id="no-ops">
+		<title>No-Ops</title>
+		<conbody>
+			<p>Any operation that has no effect in a non-transactional context remains a no-op in a
+				transactional context. For example, if you do two <codeph>localInvalidate</codeph>
+				operations in a row on the same region, the second <codeph>localInvalidate</codeph>
+				is a no-op. No-op operations do not: <ul id="ul_39605818F46F4B018463D42940162FB1">
+					<li id="li_D9E3956E3B06455FBCC0AB779786CC08">Cause a listener invocation </li>
+					<li id="li_BBD62F4E2F8D4C75B088EA6427BF66BA">Cause a distribution message to be
+						sent to other members </li>
+					<li id="li_D78E0D12C7E24B13A815B9F3CAAE2525">Cause a change to an entry </li>
+					<li id="li_E24AE80C9BB6467084D992575FE4E9EC">Cause any conflict </li>
+				</ul>
+			</p>
+			<p>A no-op can do a transactional read. </p>
+		</conbody>
+	</concept>
+</dita>

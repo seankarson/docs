@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE task PUBLIC "-//OASIS//DTD DITA Task//EN" "http://docs.oasis-open.org/dita/v1.1/OS/dtd/task.dtd">
+<task id="configure_pr_single_hop">
+	<title>Configure Client Single-Hop Access to Server-Partitioned Regions</title>
+	<shortdesc>Configure your client/server system for direct, single-hop access to partitioned
+		region data in the servers. </shortdesc>
+	<taskbody>
+		<prereq id="prereq_24F9A9CB39684C1C80864D0201A36C52">
+			<p>This requires a client/server installation that uses one or more partitioned regions
+				on the server. </p>
+		</prereq>
+		<steps id="steps_623AE9017D8D45E697C6D4BFD7690F2C">
+			<step id="step_409318E977EA48619F103A56F65475A8">
+				<cmd>Verify the client's pool attribute, <codeph>pr-single-hop-enabled</codeph> is
+					not set or is set to true. It is true by default. </cmd>
+			</step>
+			<step id="step_EB042E74B2F9418293C6B390FDA8C3A7">
+				<cmd>If possible, leave the pool’s <codeph>max-connections</codeph> at the default
+					unlimited setting (-1). </cmd>
+			</step>
+			<step id="step_C5FB37680D754ABBA04483D43916A68E">
+				<cmd>If possible, use a custom data resolver to partition your server region data
+					according to your clients' data use patterns. See <xref
+						href="using_custom_partition_resolvers.xml#custom_partition_region_data"
+						format="dita"><?xm-replace_text Custom-Partition Your Region Data?></xref>.
+					Include the server’s partition resolver implementation in the client’s
+						<codeph>CLASSPATH</codeph>. The server passes the name of the resolver for
+					each custom partitioned region, so the client uses the proper one. If the server
+					does not use a partition resolver, the default partitioning between server and
+					client matches, so single hop works. </cmd>
+			</step>
+			<step id="step_7355277E105D475C828C2746AC30E3B9">
+				<cmd>Add single-hop considerations to your overall server load balancing plan.
+					Single-hop uses data location rather than least loaded server to pick the
+					servers for single-key operations. Poorly balanced single-hop data access can
+					affect overall client/server load balancing. Some counterbalancing is done
+					automatically because the servers with more single-key operations become more
+					loaded and are less likely to be picked for other operations. </cmd>
+			</step>
+		</steps>
+	</taskbody>
+</task>

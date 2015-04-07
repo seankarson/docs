@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "http://docs.oasis-open.org/dita/v1.1/OS/dtd/concept.dtd">
+<concept id="operators">
+	<title>Operators</title>
+	<conbody>
+		<p><keyword keyref="product_name"/> supports comparison, logical, unary, map, index, dot, and right arrow operators. </p>
+		<section id="section_A3FB372F85D840D7A49CB95BD7FCA7C6">
+			<title>Comparison Operators</title>
+			<p>Comparison operators compare two values and return the results, either TRUE or FALSE. </p>
+			<p>The following are supported comparison operators: <table
+					id="table_5B768FC5ABE648FAA62DEAEE6EE7D1CC">
+					<tgroup cols="2">
+						<colspec colname="1" colnum="1" colwidth="*"/>
+						<colspec colname="2" colnum="2" colwidth="*"/>
+						<tbody>
+							<row>
+								<entry>= equal to </entry>
+								<entry>&lt; less than </entry>
+							</row>
+							<row>
+								<entry>&lt;&gt; not equal to </entry>
+								<entry>&lt;= less than or equal to </entry>
+							</row>
+							<row>
+								<entry>!= not equal to </entry>
+								<entry>&gt; greater than </entry>
+							</row>
+							<row>
+								<entry/>
+								<entry>&gt;= greater than or equal to </entry>
+							</row>
+						</tbody>
+					</tgroup>
+				</table>
+			</p>
+			<p>The equal and not equal operators have lower precedence than the other comparison
+				operators. They can be used with null. To perform equality or inequality comparisons
+				with UNDEFINED, use the IS_DEFINED and IS_UNDEFINED preset query functions instead
+				of these comparison operators. </p>
+		</section>
+		<section id="section_6A85A9DDA47E47009FDE1CC38D7BA66C">
+			<title>Logical Operators</title>
+			<p>The logical operators AND and OR allow you to create more complex expressions by
+				combining expressions to produce a boolean result. When you combine two conditional
+				expressions using the AND operator, both conditions must evaluate to true for the
+				entire expression to be true. When you combine two conditional expressions using the
+				OR operator, the expression evaluates to true if either one or both of the
+				conditions are true. You can create complex expressions by combining multiple simple
+				conditional expressions with AND and OR operators. When expressions use AND and OR
+				operators, AND has higher precedence than OR. </p>
+		</section>
+		<section id="section_A970AE75B0D24E0B9E1B61BE2D9842D8">
+			<title>Unary Operators </title>
+			<p>Unary operators operate on a single value or expression, and have lower precedence
+				than comparison operators in expressions. <keyword keyref="product_name"/> supports the unary operator NOT.
+				NOT is the negation operator, which changes the value of the operand to its
+				opposite. So if an expression evaluates to TRUE, NOT changes it to FALSE. The
+				operand must be a boolean. </p>
+		</section>
+		<section id="section_E78FB4FB3703471C8186A0E26D25F01F">
+			<title>Map and Index Operators </title>
+			<p>Map and index operators access elements in key/value collections (such as maps and
+				regions) and ordered collections (such as arrays, lists, and
+				<codeph>String</codeph>s). The operator is represented by a set of square brackets
+				"[ ]" immediately following the name of the collection. The mapping or indexing
+				specification is provided inside these brackets. </p>
+			<p>Array, list, and <codeph>String</codeph> elements are accessed using an index value.
+				Indexing starts from zero for the first element, 1 for the second element and so on.
+				If <codeph>myList</codeph> is an array, list, or String and <codeph>index</codeph>
+				is an expression that evaluates to a non-negative integer, then
+					<codeph>myList[index]</codeph> represents the (<codeph>index</codeph>+1)th
+				element of <codeph>myList</codeph>. The elements of a <codeph>String</codeph> are
+				the list of characters that make up the string. </p>
+			<p>Map and region values are accessed by key using the same syntax. The key can be any
+					<codeph>Object</codeph>. For a <codeph>Region</codeph>, the map operator
+				performs a non-distributed <codeph>get</codeph> in the local cache only - with no
+				use of <codeph>netSearch</codeph>. So <codeph>myRegion[keyExpression]</codeph> is
+				the equivalent of <codeph>myRegion.getEntry(keyExpression).getValue</codeph>. </p>
+		</section>
+		<section id="section_6C0BB787B2324B85AA02AA19D4822A83">
+			<title>Dot, Right Arrow, and Forward Slash Operators </title>
+			<p>The dot operator '.' separates attribute names in a path expression, and specifies
+				the navigation through object attributes. An alternate equivalent to the dot is the
+				right arrow, "<codeph>-&gt;</codeph>". The forward slash is used to separate region
+				names when navigating into subregions. </p>
+		</section>
+	</conbody>
+</concept>

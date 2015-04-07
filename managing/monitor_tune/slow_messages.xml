@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "http://docs.oasis-open.org/dita/v1.1/OS/dtd/concept.dtd">
+<concept id="slow_mess">
+	<title>Slow distributed-ack Messages</title>
+	<shortdesc>In systems with distributed-ack regions, a sudden large number of distributed-no-ack
+		operations can cause distributed-ack operations to take a long time to complete. </shortdesc>
+	<conbody>
+		<p> The <codeph>distributed-no-ack</codeph> operations can come from anywhere. They may be
+			updates to <codeph>distributed-no-ack</codeph> regions or they may be other
+				<codeph>distributed-no-ack</codeph> operations, like destroys, performed on any
+			region in the cache, including the <codeph>distributed-ack</codeph> regions. </p>
+		<p>The main reasons why a large number of <codeph>distributed-no-ack</codeph> messages may
+			delay <codeph>distributed-ack</codeph> operations are: <ul
+				id="ul_1E9AC8B4FE4541089FC01563BE1B311E">
+				<li id="li_BBF734BBD09242EEBA3B06921DD64F28">For any single socket connection, all
+					operations are executed serially. If there are any other operations buffered for
+					transmission when a <codeph>distributed-ack</codeph> is sent, the
+						<codeph>distributed-ack</codeph> operation must wait to get to the front of
+					the line before being transmitted. Of course, the operation’s calling process is
+					also left waiting. </li>
+				<li id="li_B6D320FA31FB4F5995096B9F5234BDA3">The <codeph>distributed-no-ack</codeph>
+					messages are buffered by their threads before transmission. If many messages are
+					buffered and then sent to the socket at once, the line for transmission might be
+					very long. </li>
+			</ul>
+		</p>
+		<p>You can take these steps to reduce the impact of this problem: <ol
+				id="ol_F5575615E6FF47DCBF7B1C4B75EAEBF5">
+				<li id="li_1E6481CA853A46C0AC664D1187360B27">If you’re using TCP, check whether you
+					have socket conservation enabled for your members. It is configured by setting
+					the <keyword keyref="product_name"/> property <codeph>conserve-sockets</codeph> to true. If enabled, each
+					application’s threads will share sockets unless you override the setting at the
+					thread level. Work with your application programmers to see whether you might
+					disable sharing entirely or at least for the threads that perform
+						<codeph>distributed-ack</codeph> operations. These include operations on
+						<codeph>distributed-ack</codeph> regions and also
+						<codeph>netSearches</codeph> performed on regions of any distributed scope.
+					(Note: <codeph>netSearch</codeph> is only performed on regions with a
+					data-policy of empty, normal and preloaded.) If you give each thread that
+					performs <codeph>distributed-ack</codeph> operations its own socket, you
+					effectively let it scoot to the front of the line ahead of the
+						<codeph>distributed-no-ack</codeph> operations that are being performed by
+					other threads. The thread-level override is done by calling the
+						<codeph>DistributedSystem.setThreadsSocketPolicy(false)</codeph> method. </li>
+				<li id="li_76CECDDCC81447B9901629ED0F05C3C9">Reduce your buffer sizes to slow down
+					the distributed-no-ack operations. These changes slow down the threads
+					performing distributed-no-ack operations and allow the thread doing the
+					distributed-ack operations to be sent in a more timely manner. <ul
+						id="ul_F158F2306B414EB4BE700CBBBFC5D1E0">
+						<li id="li_2BEFCCC0B82844FB8A91616540EEFBD9">If you're using UDP (you either
+							have multicast enabled regions or have set <codeph>disable-tcp</codeph>
+							to true in gemfire.properties), consider reducing the byteAllowance of
+							mcast-flow-control to something smaller than the default of 3.5
+							megabytes. </li>
+						<li id="li_7B57960230BF4FF28C4A232A60AE581D">If you're using TCP/IP, reduce
+							the <codeph>socket-buffer-size</codeph> in gemfire.properties. </li>
+					</ul>
+				</li>
+			</ol>
+		</p>
+	</conbody>
+</concept>

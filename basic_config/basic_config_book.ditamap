@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE bookmap PUBLIC "-//OASIS//DTD DITA BookMap//EN" "bookmap.dtd">
+<bookmap id="bookmap_435545E12E1547E8A51CC499A6F059D4">
+	<booktitle>
+		<mainbooktitle>Basic Configuration and Programming</mainbooktitle>
+	</booktitle>
+	<part format="dita" href="book_intro.xml" navtitle="Basic Configuration and Programming"
+		type="concept">
+		<topicref format="dita" href="config_concepts/chapter_overview.xml">
+			<topicref href="config_concepts/distributed_system_member_configuration.xml"/>
+			<topicref href="gemfire_properties/setting_distributed_properties.xml"/>
+			<topicref format="dita" href="the_cache/setting_cache_properties.xml"/>
+			<topicref format="dita" href="config_concepts/local_vs_remote.xml"/>
+		</topicref>
+		<topicref format="dita" href="the_cache/chapter_overview.xml">
+			<topicref format="dita" href="the_cache/intro_cache_management.xml"/>
+			<topicref href="the_cache/managing_a_peer_server_cache.xml"/>
+			<topicref href="the_cache/managing_a_client_cache.xml"/>
+			<topicref href="the_cache/managing_a_secure_cache.xml"/>
+			<topicref href="the_cache/managing_a_multiuser_cache.xml"/>
+			<topicref format="dita" href="the_cache/setting_cache_initializer.xml"/>
+		</topicref>
+		<topicref format="dita" href="data_regions/chapter_overview.xml" navtitle="Data Regions"
+			type="concept">
+			<topicref href="data_regions/managing_data_regions.xml"/>
+			<topicref format="dita" href="data_regions/create_a_region_with_gfsh.xml" type="task"/>
+			<topicref format="dita" href="data_regions/create_a_region_with_cacheXML.xml" type="task"/>
+			<topicref format="dita" href="data_regions/create_a_region_with_API.xml" type="task"/>
+			<topicref href="data_regions/region_naming.xml"/>
+			<topicref format="dita" href="data_regions/region_shortcuts.xml"/>
+			<topicref href="data_regions/store_retrieve_region_shortcuts.xml"/>
+			<topicref href="data_regions/managing_region_attributes.xml"/>
+			<topicref href="data_regions/creating_custom_attributes.xml"/>
+		</topicref>
+		<topicref format="dita" href="data_entries_custom_classes/chapter_overview.xml">
+			<topicref href="data_entries_custom_classes/managing_data_entries.xml"/>
+			<topicref
+				href="data_entries_custom_classes/using_custom_classes.xml#using_custom_classes"/>
+		</topicref>
+	</part>
+</bookmap>

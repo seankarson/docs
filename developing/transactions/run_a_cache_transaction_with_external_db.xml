@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE task PUBLIC "-//OASIS//DTD DITA General Task//EN" "generalTask.dtd">
+<task id="task_sdn_2qk_2l">
+    <title>How to Run a <keyword keyref="product_name"/> Cache Transaction that Coordinates with an
+        External Database</title>
+    <shortdesc>This topic describes how to coordinate a <keyword keyref="product_name"/> cache
+        transaction with an external database by using CacheWriter/CacheListener and
+        TransactionWriter/TransactionListener plug-ins. <b>This provides an alternative to using JTA
+            transactions</b>.</shortdesc>
+    <taskbody>
+        <context>
+            <p>There are a few things you should be careful about while working with <keyword
+                    keyref="product_name"/> cache transactions and external databases:<ul
+                    id="ul_uyr_mqk_2l">
+                    <li>When you set up the JDBC connection, make sure that auto-commit is disabled.
+                        For example, in
+                        Java:<codeblock>Connection getConnection() throws SQLException {
+    Connection con = ... // create the connection
+    con.setAutoCommit(false);
+    return con;
+}</codeblock></li>
+                    <li>The BEGIN statement, database operations and the PREPARE statement must all
+                        happen in the same connection session. In order to accomplish this, you will
+                        need to obtain the same JDBC connection session across multiple CacheWriter
+                        and TransactionWriter/TransactionListener invocations. One way to do this
+                        would be to lookup the connection (from a user managed Map) based on
+                            <codeph>cacheTransactionManager.getTransactionId()</codeph>.</li>
+                    <li>Make sure that the prepare transaction feature is enabled in your external
+                        database. For example, it is disabled in PostgreSQL by default. In
+                        PostgreSQL, the following property must be modified to enable
+                        it:<codeblock>max_prepared_transactions = 1 # 1 or more enables, zero (default) disables this feature.</codeblock>
+                    </li>
+                </ul>Use the following procedure to write a <keyword keyref="product_name"/> cache
+                transaction that coordinates with an external database:</p>
+        </context>
+        <steps>
+            <step>
+                <cmd>Configure <keyword keyref="product_name"/> regions as necessary as described in<xref
+                        href="run_a_cache_transaction.xml#task_f15_mr3_5k"/>.</cmd>
+            </step>
+            <step>
+                <cmd>Begin the transaction.</cmd>
+                <substeps id="substeps_nrl_wsk_2l">
+                    <substep>
+                        <cmd>In <keyword keyref="product_name"/> :</cmd>
+                        <info>
+                            <codeblock>CacheTransactionManager txManager =
+      cache.getCacheTransactionManager(); 
+
+      try { 
+            txManager.begin();
+            // ... do GemFire operations</codeblock>
+                        </info>
+                    </substep>
+                    <substep>
+                        <cmd>If you have not previously committed a previous transaction in this
+                            connection, start a database transaction by issuing a BEGIN
+                            statement.</cmd>
+                    </substep>
+                </substeps>
+            </step>
+            <step>
+                <cmd>Perform <keyword keyref="product_name"/> cache operations; each cache operation invokes the CacheWriter.
+                    Program your CacheWriter to do the corresponding database operations.</cmd>
+            </step>
+            <step>
+                <cmd>Commit the transaction:</cmd>
+                <info>
+                    <codeblock>txManager.commit();
+     } catch (CommitConflictException conflict)</codeblock>
+                    <p>At this point, the TransactionWriter is invoked. The TransactionWriter
+                        returns a TransactionEvent, which contains all the operations in the
+                        transaction. Call PREPARE TRANSACTION within your TransactionWriter
+                        code.</p>
+                </info>
+            </step>
+            <step>
+                <cmd>After a transaction is successfully committed in <keyword keyref="product_name"
+                    /> , TransactionListener is invoked. Call COMMIT PREPARED in the
+                    TransactionListener to commit the database transaction.</cmd>
+            </step>
+        </steps>
+    </taskbody>
+</task>

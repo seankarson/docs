@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "http://docs.oasis-open.org/dita/v1.1/OS/dtd/concept.dtd">
+<concept id="setting_up_communication">
+	<title>Configuring Peer Communication</title>
+	<shortdesc id="shortdesc_1F81C4D001C84859846E94460D96E362">By default <keyword
+			keyref="product_name_long"/> uses TCP for communication between members of a single
+		distributed system. You can modify this at the member and region levels. </shortdesc>
+	<conbody>
+		<section id="section_34509F5B17A943D8BBF19A3497E32BAE">
+			<p>Before you begin, you should have a basic understanding of member discovery. You
+				should also have already determined the address and port settings for multicasting,
+				including any bind addresses. See <xref
+					href="../topology_concepts/chapter_overview.xml#concept_7628F498DB534A2D8A99748F5DA5DC94"
+					format="dita"/>. </p>
+			<p>See <xref href="../../reference/topics/gemfire_properties.xml#gemfire_properties"
+					type="concept" format="dita" scope="local"/> and <xref
+					href="../../reference/topics/chapter_overview_cache_xml.xml#cache_xml"/>. <ol
+					id="ol_7905622C6AC645E584D7759AB4291361">
+					<li id="li_82420B8FE1F7481591DB2D4E923891A4"><b>Configure general messaging to
+							use TCP or UDP unicast</b>. <p>TCP is the default protocol for
+							communication. To use it, just make sure you do not have it disabled in
+								<codeph>gemfire.properties</codeph>. Either have no entry for
+								<codeph>disable-tcp</codeph>, or have this entry:
+							<codeblock>disable-tcp=false</codeblock>To use UDP unicast for general
+							messaging, add this entry to <codeph>gemfire.properties</codeph>:
+							<codeblock>disable-tcp=true</codeblock>
+						</p>
+						<p>The <codeph>disable-tcp</codeph> setting has no effect on the use of TCP
+							locators or the TCP connections used to detect failed members. </p>
+					</li>
+					<li id="li_E4B2B24BD3594791BF0BF216106E1A18"><b>Configure any regions you want
+							to distribute using UDP multicast</b>. <ol
+							id="ol_E9C73BC5C9DC4F668E511305E827B0AB">
+							<li id="li_7415892096F343619E2053129186CD00">Configure UDP multicast for
+								region messaging, set non-default multicast address and port
+								selections in <codeph>gemfire.properties</codeph>:
+								<codeblock>mcast-address=&lt;address&gt;
+mcast-port=&lt;port&gt;</codeblock>
+							</li>
+							<li id="li_4F28BB635EA3419C843F101409A2E76D">In
+									<codeph>cache.xml</codeph>, enable multicast for each region
+								that needs multicast messaging: <codeblock>&lt;region-attributes multicast-enabled="true"/&gt; </codeblock>
+								<note>Improperly configured multicast can affect production systems.
+									If you intend to use multicast on a shared network, work with
+									your network administrator and system administrator from the
+									planning stage of the project. In addition, you may need to
+									address interrelated setup and tuning issues at the <keyword
+										keyref="product_name"/>, operating system, and network
+									level. </note>
+							</li>
+						</ol>
+					</li>
+				</ol>
+			</p>
+			<p>Once your members establish their connections to each other, they will send
+				distributed data and messages according to your configuration. </p>
+		</section>
+	</conbody>
+</concept>

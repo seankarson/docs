@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "http://docs.oasis-open.org/dita/v1.1/OS/dtd/concept.dtd">
+<concept id="running_a_querying">
+	<title>Writing and Executing a Query in <keyword keyref="product_name"/></title>
+	<conbody>
+		<section id="section_C285160AF91C4486A39444C3A22D6475">
+			<p>The <keyword keyref="product_name"/> QueryService provides methods to create the
+				Query object. You can then use the Query object to perform query-related operations. </p>
+			<p> The QueryService instance you should use depends on whether you are querying the
+				local cache of an application or if you want your application to query the server
+				cache. </p>
+		</section>
+		<section id="section_8B9C3F5BFBA6421A81EEB404DBE512C2">
+			<title>Querying a Local Cache</title>
+			<p>To query the application's local cache or to query other members, use
+					<codeph>com.gemstone.gemfire.cache.Cache.getQueryService</codeph>. </p>
+			<p>
+				<b>Sample Code</b>
+				<codeblock outputclass="language-java"> // Identify your query string.
+ String queryString = "SELECT DISTINCT * FROM /exampleRegion";
+ 
+ // Get QueryService from Cache.
+ QueryService queryService = cache.getQueryService();
+ 
+ // Create the Query Object.
+ Query query = queryService.newQuery(queryString);
+ 
+ // Execute Query locally. Returns results set.
+ SelectResults results = (SelectResults)query.execute();
+ 
+ // Find the Size of the ResultSet.
+ int size = results.size();
+ 
+ // Iterate through your ResultSet.
+ Portfolio p = (Portfolio)results.iterator().next(); /* Region containing Portfolio object. */
+</codeblock>
+			</p>
+		</section>
+		<section id="section_BAD35A249F784095857CC6848F91F6A4">
+			<title>Querying a Server Cache from a Client</title>
+			<p> To perform a client to server query, use
+					<codeph>com.gemstone.gemfire.cache.client.Pool.getQueryService</codeph>. </p>
+			<p>
+				<b>Sample Code</b>
+				<codeblock outputclass="language-java">// Identify your query string.
+ String queryString = "SELECT DISTINCT * FROM /exampleRegion";
+ 
+ // Get QueryService from client pool.
+ QueryService queryService = pool.getQueryService();
+ 
+ // Create the Query Object.
+ Query query = queryService.newQuery(queryString);
+ 
+ // Execute Query locally. Returns results set.
+ SelectResults results = (SelectResults)query.execute();
+ 
+ // Find the Size of the ResultSet.
+ int size = results.size();
+ 
+ // Iterate through your ResultSet.
+ Portfolio p = (Portfolio)results.iterator().next(); /* Region containing Portfolio object. */
+</codeblock>
+			</p>
+			<p>Refer to the following JavaDocs for specific APIs: <ul
+					id="ul_7A9785E5BC654DF0B8F9FD76BF5EA78D">
+					<li id="li_527E7338A63941DB93A5147804049869"><xref format="html"
+							href="http://gemfire.docs.pivotal.io/javadocs/japi/com/gemstone/gemfire/cache/query/package-summary.html"
+							scope="external">Query package</xref>
+					</li>
+					<li id="li_BC546658D34745FE84F61F5DC78BAB6F"><xref format="html"
+							href="http://gemfire.docs.pivotal.io/javadocs/japi/com/gemstone/gemfire/cache/query/QueryService.html"
+							scope="external">QueryService</xref>
+					</li>
+				</ul><note>You can also perform queries using the gfsh <cmdname>query</cmdname>
+					command. See <xref
+						href="../../tools_modules/gfsh/command-pages/query.xml#concept_89A129F729DF4D3B9056C8D9016AA760"
+					/>.</note>
+			</p>
+		</section>
+	</conbody>
+</concept>

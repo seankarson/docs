@@ -1,0 +1,66 @@
+<?xml version="1.0"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept id="concept_EA4611AE26904770A83F897DFB6D316F">
+	<title>Starting Up Your System</title>
+	<shortdesc>You should follow certain order guidelines when starting your <keyword keyref="product_name"/> system. </shortdesc>
+	<conbody>
+		<section id="section_3D111558326D4A38BE48C17D44BB66DB">
+			<p>Start server-distributed systems before you start their client applications. In each
+				distributed system, follow these guidelines for member startup: <ul
+					id="ul_5863AF9CB6DB436E81D974ACA90A4C11">
+					<li id="li_FD023619751949E883BE95DFA93888FF">Start locators first. See <xref
+							href="running_the_locator.xml#running_the_locator" type="concept"
+							format="dita" scope="local"/>
+							 for examples
+						of locator startup commands. </li>
+					<li id="li_F6AFBB5A5A954FCAB0AEDD40C5B13B66">Start cache servers before the rest
+						of your processes unless the implementation requires that other processes be
+						started ahead of them. <xref
+							href="running_the_cacheserver.xml#running_the_cacheserver"
+							type="concept" format="dita" scope="local"
+							/> for examples of
+						server startup commands. </li>
+					<li id="li_533E8FB3517845899892FCD816A3A6A4">If your distributed system uses
+						both persistent replicated and non-persistent replicated regions, you should
+						start up all the persistent replicated members in parallel before starting
+						the non-persistent regions. This way, persistent members will not delay
+						their startup for other persistent members with later data. </li>
+					<li id="li_BCFA0D08977B49CB84928EBEE322764D">If you are running producer
+						processes and consumer or event listener processes, start the producers
+						first. This ensures the consumers and listeners receive all notifications
+						and updates. </li>
+				</ul>
+			</p>
+			<note>You can optionally override the default timeout period for shutting down
+				individual processes. This override setting must be specified during member startup.
+				See <xref
+					href="shutting_down.xml#concept_47C4C4F5E59948B694B394B0A57C5ECC/section_7CF680CF8A924C57A7052AE2F975DA81"
+					type="section" format="dita" scope="local"
+					><?xm-replace_text Option for System Member Shutdown Behavior?></xref> for
+				details. </note>
+		</section>
+		<section id="section_2F8ABBFCE641463C8A8721841407993D">
+			<title>Starting Up After Losing Data on Disk </title>
+			<p>This information pertains to catastrophic loss of <keyword keyref="product_name"/> disk store files. If you
+				lose disk store files, your next startup may hang, waiting for the lost disk stores
+				to come back online. If your system hangs at startup, use the <codeph>gfsh</codeph>
+				command <codeph>show missing-disk-store</codeph> to list missing disk stores and, if
+				needed, revoke missing disk stores so your system startup can complete. You must use
+				the Disk Store ID to revoke a disk store. These are the two commands:
+				<codeblock>
+gfsh&gt;show missing-disk-stores
+
+           Disk Store ID             |   Host    |               Directory                                           
+------------------------------------ | --------- | -------------------------------------
+60399215-532b-406f-b81f-9b5bd8d1b55a | excalibur | /usr/local/gemfire/deploy/disk_store1 
+
+gfsh&gt;revoke missing-disk-store --id=60399215-532b-406f-b81f-9b5bd8d1b55a</codeblock>
+			</p>
+			<p>
+				<note>This gfsh commands require that you are connected to the distributed system
+					via a JMX Manager node. </note>
+			</p>
+			<p> </p>
+		</section>
+	</conbody>
+</concept>

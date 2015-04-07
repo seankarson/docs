@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "http://docs.oasis-open.org/dita/v1.1/OS/dtd/concept.dtd">
+<concept id="tune_client_message_tracking_timeout">
+	<title>Tune the Client's Subscription Message Tracking Timeout</title>
+	<conbody>
+		<section id="section_C655A41D47694BDC9164E5D83C23FA7C">
+			<p>If the client pool's <codeph>subscription-message-tracking-timeout</codeph> is set
+				too low, your client will discard tracking records for live threads, increasing the
+				likelihood of processing duplicate events from those threads. </p>
+			<p>This setting is especially important in systems where it is vital to avoid or greatly
+				minimize duplicate events. If you detect that duplicate messages are being processed
+				by your clients, increasing the timeout may help. Setting
+					<codeph>subscription-message-tracking-timeout</codeph> may not completely
+				eliminate duplicate entries, but careful configuration can help minimize
+				occurrences. </p>
+			<p>Duplicates are monitored by keeping track of message sequence IDs from the source
+				thread where the operation originated. For a long-running system, you would not want
+				to track this information for very long periods or the information may be kept long
+				enough for a thread ID to be recycled. If this happens, messages from a new thread
+				may be discarded mistakenly as duplicates of messages from an old thread with the
+				same ID. In addition, maintaining this tracking information for old threads uses
+				memory that might be freed up for other things. </p>
+			<p>To minimize duplicates and reduce the size of the message tracking list, set your
+				client <codeph>subscription-message-tracking-timeout</codeph> higher than double the
+				sum of these times: <ul id="ul_2DB0700345D94F73AFD093FCEADA92EE">
+					<li id="li_44ED5D0E2FBA4A509D656DE0048BFCF9">The longest time your originating
+						threads might wait between operations </li>
+					<li id="li_4B0FA9973FBD42FC8C834124408AB705">For redundant servers add: <ul
+							id="ul_58E5E023D8A64E57A6AF8A5AA89F838B">
+							<li id="li_D4FE51416576488995E331FD94EB5757">The server’s
+									<codeph>message-sync-interval</codeph>
+							</li>
+							<li id="li_537647A5EA8C4BEF98C539C6A3311E59">Total time required for
+								failover (usually 7-10 seconds, including the time to detect
+								failure) </li>
+						</ul>
+					</li>
+				</ul>You risk losing live thread tracking records if you set the value lower than
+				this. This could result in your client processing duplicate event messages into its
+				cache for the associated threads. It is worth working to set the
+					<codeph>subscription-message-tracking-timeout</codeph> as low as you reasonably
+				can. </p>
+			<p>
+				<codeblock>&lt;!-- Set the tracking timeout to 70 seconds --&gt;
+&lt;pool name="client" subscription-enabled="true" subscription-message-tracking-timeout="70000"&gt; 
+    ...
+&lt;/pool&gt;</codeblock>
+			</p>
+		</section>
+	</conbody>
+</concept>

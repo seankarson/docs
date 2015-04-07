@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "http://docs.oasis-open.org/dita/v1.1/OS/dtd/concept.dtd">
+<concept id="optimize_avail_disk_store">
+	<title> Optimizing a System with Disk Stores</title>
+	<shortdesc>Optimize availability and performance by following the guidelines in this section. </shortdesc>
+	<conbody>
+		<ol id="ol_C4894D91B24942518FCC480FB79143BD">
+			<li><keyword keyref="product_name_long"/> recommends the use of <codeph>ext4</codeph>
+				filesystems when operating on Linux or Solaris platforms. The <codeph>ext4</codeph>
+				filesystem supports preallocation, which benefits disk startup performance. If you
+				are using <codeph>ext3</codeph> filesystems in latency-sensitive environments with
+				high write throughput, you can improve disk startup performance by setting the
+					<codeph>maxOplogSize</codeph> (see the
+					<codeph>DiskStoreFactory.setMaxOplogSize</codeph>) to a value lower than the
+				default 1 GB and by disabling preallocation by specifying the system property
+					<codeph>gemfire.preAllocateDisk=false</codeph> upon <keyword
+					keyref="product_name"/> process startup.</li>
+			<li id="li_F7844A0A6AB14C5E9A817AE4330DEFD5">When you start your system, start all the
+				members that have persistent regions at roughly the same time. Create and use
+				startup scripts for consistency and completeness. </li>
+			<li id="li_D8ADDD1734A84B17A4C5128BCA455E11">Shut down your system using the gfsh
+					<codeph>shutdown</codeph> command. This is an ordered shutdown that positions
+				your disk stores for a faster startup. </li>
+			<li>Configure critical usage thresholds (<codeph>disk-usage-warning-percentage</codeph>
+				and <codeph>disk-usage-critical-percentage</codeph>) for the disk. By default, these
+				are set to 80% for warning and 99% for errors that will shut down the cache.</li>
+			<li id="li_E8A861E951C44A648C96798E3CA1546B">Decide on a file compaction policy and, if
+				needed, develop procedures to monitor your files and execute regular compaction. </li>
+			<li id="li_5D31E01A6DDD43FA913C821934A89AD9">Decide on a backup strategy for your disk
+				stores and follow it. You can back up a running sytem by using the <codeph>backup
+					disk-store</codeph> command. </li>
+			<li id="li_4AF6242140E247869ADA1E714343D189">If you remove any persistent region or
+				change its configuration while your disk store is offline, consider synchronizing
+				the regions in your disk stores. </li>
+		</ol>
+	</conbody>
+</concept>

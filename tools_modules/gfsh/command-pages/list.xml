@@ -1,0 +1,375 @@
+<?xml version="1.0"?>
+<!DOCTYPE dita PUBLIC "-//OASIS//DTD DITA Composite//EN" "ditabase.dtd">
+<dita>
+	<topic id="topic_AE5B406FAE7F4152B2919EDF45F4EE80">
+		<title>list</title>
+		<shortdesc>List existing <keyword keyref="product_name"/> resources such as deployed
+			applications, disk-stores, functions, members, servers, and regions. </shortdesc>
+		<topic id="topic_j22_kzk_2l">
+			<title>list async-event-queues</title>
+			<shortdesc>Display a list of async event queues for all members. </shortdesc>
+			<body>
+				<p><b> Availability:</b> Online. You must be connected in <codeph>gfsh</codeph> to a
+					JMX Manager member to use this command. </p>
+				<p><b>Syntax:</b>
+					<codeblock xml:space="preserve">list async-event-queues</codeblock>
+				</p>
+				<p><b>Example Commands:</b>
+					<codeblock xml:space="preserve">list async-event-queues
+</codeblock>
+				</p>
+			</body>
+		</topic>
+		<topic id="topic_ts1_qb1_dk">
+			<title>list clients</title>
+			<shortdesc>Displays a list of connected clients. </shortdesc>
+			<body>
+				<p>Displays a list of connected clients and the servers they are connected to.</p>
+				<p><b> Availability:</b> Online. You must be connected in <codeph>gfsh</codeph> to a
+					JMX Manager member to use this command. </p>
+				<p><b>Syntax:</b>
+					<codeblock>list clients</codeblock>
+				</p>
+				<p><b>Example Commands:</b>
+					<codeblock>list clients</codeblock>
+				</p>
+				<p><b>Sample Output:</b>
+				</p>
+				<p>
+					<codeblock>gfsh>list clients
+
+ClientList
+
+            Client Name / ID              | Server Name / ID
+----------------------------------------- | -----------------------------------------------------
+172.16.196.144(4987:loner):58922:7b3398cf | member=server2,port=53508;  member=server1,port=56806
+172.16.196.144(5065:loner):39906:a6f598cf | member=server2,port=53508;  member=server1,port=56806
+</codeblock>
+				</p>
+			</body>
+		</topic>
+		<topic id="topic_59DF60DE71AD4097B281749425254BFF">
+			<title>list deployed </title>
+			<shortdesc> Display a list of JARs that were deployed to members using the deploy
+				command.</shortdesc>
+			<body>
+				<p><b> Availability:</b> Online. You must be connected in <codeph>gfsh</codeph> to a
+					JMX Manager member to use this command. </p>
+				<p><b>Syntax:</b>
+					<codeblock xml:space="preserve">list deployed [--group=value(,value)*]</codeblock>
+					<table id="table_F8558F9C696E4DE6BA8476BD4D369FB7">
+						<title>Parameters</title>
+						<tgroup cols="2">
+							<colspec colnum="1" colname="col1" colwidth="1.00*"/>
+							<colspec colnum="2" colname="col2" colwidth="4.43*"/>
+							<thead>
+								<row>
+									<entry colname="col1">Name </entry>
+									<entry colname="col2">Description</entry>
+								</row>
+							</thead>
+							<tbody>
+								<row>
+									<entry colname="col1"><parmname>--group</parmname>
+									</entry>
+									<entry colname="col2"> Group(s) of members for which deployed
+										JARs will be displayed. If not specified, JARs for all
+										members are displayed. </entry>
+								</row>
+							</tbody>
+						</tgroup>
+					</table>
+				</p>
+				<p><b>Example Commands:</b>
+					<codeblock xml:space="preserve">list deployed
+list deployed --group=Group2</codeblock>
+				</p>
+				<p><b>Sample Output:</b>
+					<codeblock>gfsh&gt; list deployed  --group=Group2
+
+ Member   |     Deployed JAR     |                JAR Location            
+--------- | -------------------- | ---------------------------------------------------
+datanode1 | group1_functions.jar | /usr/local/gemfire/deploy/vf.gf#group1_functions.jar#1
+datanode2 | group1_functions.jar | /usr/local/gemfire/deploy/vf.gf#group1_functions.jar#1</codeblock>
+				</p>
+				<p><b>Error Messages:</b>
+					<codeblock>No JAR Files Found</codeblock>
+				</p>
+			</body>
+		</topic>
+		<topic id="topic_BC14AD57EA304FB3845766898D01BD04">
+			<title>list disk-stores</title>
+			<shortdesc>List all available disk stores across the <keyword keyref="product_name"/>
+				cluster</shortdesc>
+			<body>
+				<p> The command also lists the configured disk directories and any Regions, Cache
+					Servers, PDX Serialization and Async Event Queues using Disk Stores to either
+					overflow and/or persist information to disk. Use the <codeph>describe
+						disk-store</codeph> command to see the details for a particular Disk Store. </p>
+				<p><b> Availability:</b> Online. You must be connected in <codeph>gfsh</codeph> to a
+					JMX Manager member to use this command. </p>
+				<p><b>Syntax:</b>
+					<codeblock>list disk-stores</codeblock>
+				</p>
+				<p><b>Example Commands:</b>
+					<codeblock>list disk-stores</codeblock>
+				</p>
+				<p><b>Sample Output:</b>
+					<codeblock>
+gfsh&gt; list disk-stores
+
+   Member Name   |                   Member Id                   | Disk Store Name |            Disk Store ID            
+  -------------- | --------------------------------------------- | --------------- | ------------------------------------
+  consumerServer | 10.237.177.10(consumerServer:13825)&lt;v5&gt;:3545  | consumerData    | 4029af26-fd82-4997-bd6c-33382cdbb5e9
+  consumerServer | 10.237.177.10(consumerServer:13825)&lt;v5&gt;:3545  | observerData    | 7e0316ad-963c-49b0-9b01-8f59b8d9e29e
+  producerServer | 10.237.177.10(producerServer:13826)&lt;v3&gt;:53764 | producerData    | 4670e4eb-1c50-4465-b418-08ede3d5dbed
+</codeblock>
+				</p>
+				<p><b>Error Messages:</b>
+					<codeblock>gfsh&gt; list disk-stores
+No Disk Stores Found 
+		</codeblock>
+				</p>
+				<p> </p>
+			</body>
+		</topic>
+		<topic id="topic_DCC7CCBBEF5942B783A8F2A4A5B2FABF">
+			<title>list functions</title>
+			<shortdesc> Display a list of registered functions. The default is to display functions
+				for all members. </shortdesc>
+			<body>
+				<p><b> Availability:</b> Online. You must be connected in <codeph>gfsh</codeph> to a
+					JMX Manager member to use this command. </p>
+				<p><b>Syntax:</b>
+					<codeblock>list functions [--matches=value] [--group=value(,value)*] 
+[--member=value(,value)*]</codeblock>
+					<table id="table_B7C6A7B6BA1D42DD9AFCE741A4D3B75C">
+						<title>Parameters</title>
+						<tgroup cols="2">
+							<colspec colnum="1" colname="col1" colwidth="1.00*"/>
+							<colspec colnum="2" colname="col2" colwidth="4.91*"/>
+							<thead>
+								<row>
+									<entry colname="col1">Name </entry>
+									<entry colname="col2">Description</entry>
+								</row>
+							</thead>
+							<tbody>
+								<row>
+									<entry colname="col1"><parmname>--matches </parmname></entry>
+									<entry colname="col2"> Pattern that the function ID must match
+										in order to be included. Uses Java pattern matching rules,
+										not UNIX. For example, to match any character any number of
+										times use ".*" instead of "*". </entry>
+								</row>
+								<row>
+									<entry colname="col1"><parmname>--group</parmname>
+									</entry>
+									<entry colname="col2"> Group(s) of members for which functions
+										will be displayed. Use a comma separated list for multiple
+										groups. </entry>
+								</row>
+								<row>
+									<entry colname="col1"><parmname>--member </parmname></entry>
+									<entry colname="col2"> Name or ID of the member(s) for which
+										functions will be displayed. Use a comma separated list for
+										multiple members. </entry>
+								</row>
+							</tbody>
+						</tgroup>
+					</table>
+				</p>
+				<p><b>Example Commands:</b>
+					<codeblock>
+gfsh&gt; list functions
+gfsh&gt; list functions --matches=reconcile.*
+</codeblock>
+				</p>
+				<p><b>Sample Output:</b>
+					<codeblock>list functions
+
+   Member   |          Function   
+  --------- | --------------------------
+  camelot   | loadDataFromExternalSource
+  camelot   | reconcileWeeklyExpenses
+  excalibur | loadDataFromExternalSource
+  excalibur | reconcileDailyExpenses
+
+
+Example of 'list function' with a "matches" filter:
+
+gfsh&gt; list functions --matches=reconcile.*
+
+   Member   |        Function   
+  --------- | -----------------------
+  camelot   | reconcileWeeklyExpenses
+  excalibur | reconcileDailyExpenses
+
+
+Example of 'list functions' when no functions are found in <keyword keyref="product_name"/> :
+
+gfsh&gt; list functions
+No Functions Found.</codeblock>
+				</p>
+			</body>
+		</topic>
+		<topic id="topic_B3B51B6DEA484EE086C4F657EC9831F2">
+			<title>list indexes</title>
+			<shortdesc>Display the list of indexes created for all members. </shortdesc>
+			<body>
+				<p><b> Availability:</b> Online. You must be connected in <codeph>gfsh</codeph> to a
+					JMX Manager member to use this command. </p>
+				<p><b>Syntax:</b>
+					<codeblock>list indexes [--with-stats(=value)?]</codeblock>
+					<table id="table_D6512DD121D44818A52B40400757FAA9">
+						<title>Parameters </title>
+						<tgroup cols="3">
+							<colspec colname="col1" colnum="1" colwidth="1.00*"/>
+							<colspec colname="col2" colnum="2" colwidth="4.28*"/>
+							<colspec colname="newCol3" colnum="3" colwidth="1*"/>
+							<thead>
+								<row>
+									<entry colname="col1">Name </entry>
+									<entry colname="col2">Description</entry>
+									<entry>Default Value</entry>
+								</row>
+							</thead>
+							<tbody>
+								<row>
+									<entry colname="col1"><parmname>--with-stats</parmname>
+									</entry>
+									<entry colname="col2"> Specifies whether statistics should also
+										be displayed. </entry>
+									<entry>false</entry>
+								</row>
+							</tbody>
+						</tgroup>
+					</table>
+				</p>
+				<p><b>Example Commands:</b>
+					<codeblock>list indexes
+
+list indexes --with-stats</codeblock>
+				</p>
+				<p><b>Sample Output:</b>
+					<codeblock>gfsh&gt;list indexes
+Member Name    |                   Member ID                   | Region Path |   Name   | Type  | Indexed Expression | From Clause
+-------------- | --------------------------------------------- | ----------- | -------- | ----- | ------------------ | -----------
+consumerServer | 10.237.177.10(consumerServer:13873):6317      | /consumers  | cidIdx   | KEY   | id                 | /consumers  
+consumerServer | 10.237.177.10(consumerServer:13873):6317      | /consumers  | cnameIdx | RANGE | name               | /consumers
+producerServer | 10.237.177.10(producerServer:13874):19198     | /producers  | pidIdx   | RANGE | id                 | /producers
+
+Example of 'list indexes' with stats printed:
+
+gfsh&gt;list indexes --with-stats
+
+Member Name  | Member ID | Region Path |   Name   | Type  | Indexed Expression | From Clause | Uses | Updates | Update Time | Keys | Values
+------------ | --------- | ----------- | -------- | ----- | ------------------ | ----------- | ---- | ------- | ----------- | ---- | ------
+cs...        | 10...     | /consumers  | cidIdx   | KEY   | id                 | /consumers  | 2512 | 0       | 0           | 5020 | 5020  
+cs...        | 10...     | /consumers  | cnameIdx | RANGE | name               | /consumers  | 0    | 5020    | 421224000   | 0    | 5020  
+ps...        | 10...     | /producers  | pidIdx   | RANGE | id                 | /producers  | 0    | 5031    | 497872000   | 5031 | 5031  
+</codeblock>
+				</p>
+				<p><b>Error Messages:</b>
+				</p>
+				<p>Example of output when no indexes are found in <keyword keyref="product_name"/>:
+					<codeblock>
+gfsh&gt; list indexes
+No Indexes Found</codeblock>
+				</p>
+			</body>
+		</topic>
+		<topic id="topic_5B5BFB2E5F314210858641BE3A689637">
+			<title>list members</title>
+			<shortdesc> Display all or a subset of members. </shortdesc>
+			<body>
+				<p><b> Availability:</b> Online. You must be connected in <codeph>gfsh</codeph> to a
+					JMX Manager member to use this command. </p>
+				<p><b>Syntax:</b>
+					<codeblock>list members [--group=value]</codeblock>
+					<table id="table_246077F3F18B4A90AA5AA6EEC0534202">
+						<title>Parameters</title>
+						<tgroup cols="2">
+							<colspec colnum="1" colname="col1" colwidth="1.00*"/>
+							<colspec colnum="2" colname="col2" colwidth="4.28*"/>
+							<thead>
+								<row>
+									<entry colname="col1">Name </entry>
+									<entry colname="col2">Description</entry>
+								</row>
+							</thead>
+							<tbody>
+								<row>
+									<entry colname="col1"><parmname>--group</parmname>
+									</entry>
+									<entry colname="col2"> Group name for which members will be
+										displayed. </entry>
+								</row>
+							</tbody>
+						</tgroup>
+					</table>
+				</p>
+				<p><b>Example Commands:</b>
+					<codeblock>list members
+list members --group=Group1</codeblock>
+				</p>
+				<p><b>Sample Output:</b>
+					<codeblock>gfsh&gt;list members
+  Name   | Id
+-------- | -------------------------------------
+server1  | GemFireStymon(server1:888)&lt;v7&gt;:10839
+server2  | GemFireStymon(server2:3260)&lt;v8&gt;:16721
+locator1 | localhost(locator1:216:locator):33368</codeblock>
+				</p>
+			</body>
+		</topic>
+		<topic id="topic_F0ECEFF26086474498598035DD83C588">
+			<title>list regions</title>
+			<shortdesc>Display regions of a member or members. If no parameter is specified, all
+				regions in the <keyword keyref="product_name"/> distributed system are listed. </shortdesc>
+			<body>
+				<p><b>Syntax:</b>
+					<codeblock>list regions [--group=value] [--member=value]</codeblock>
+					<table id="table_6A22231E64D0472DAD504EDB6CDE6004">
+						<title>Parameters</title>
+						<tgroup cols="2">
+							<colspec colnum="1" colname="col1" colwidth="1.00*"/>
+							<colspec colnum="2" colname="col2" colwidth="4.31*"/>
+							<thead>
+								<row>
+									<entry colname="col1">Name </entry>
+									<entry colname="col2">Description</entry>
+								</row>
+							</thead>
+							<tbody>
+								<row>
+									<entry colname="col1"><parmname>--group</parmname>
+									</entry>
+									<entry colname="col2">Group of members for which regions will be
+										displayed. </entry>
+								</row>
+								<row>
+									<entry colname="col1"><parmname>--member </parmname></entry>
+									<entry colname="col2">Name or ID of the member of the member for
+										which regions will be displayed. </entry>
+								</row>
+							</tbody>
+						</tgroup>
+					</table>
+				</p>
+				<p><b>Example Commands:</b>
+					<codeblock>list regions
+list regions --group=G1
+list regions --member=member1</codeblock>
+				</p>
+				<p><b>Sample Output:</b>
+					<codeblock>gfsh&gt;list regions
+List of regions
+---------------
+region1
+region2</codeblock>
+				</p>
+			</body>
+		</topic>
+	</topic>
+</dita>

@@ -1,0 +1,252 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "http://docs.oasis-open.org/dita/v1.1/OS/dtd/concept.dtd">
+<concept id="implementing_ssl">
+	<title>Configuring SSL</title>
+	<shortdesc>You configure SSL for mutual authentication between members and to protect your data
+		during distribution. You can use SSL alone or in conjunction with the other <keyword
+			keyref="product_name"/> security options. </shortdesc>
+	<conbody>
+		<section id="section_03DE7CDA9EEF4B088EF04BE5AE3ACE53">
+			<title>Overview</title>
+			<p><keyword keyref="product_name"/> uses SSL connections from the Java Secure Sockets
+				Extension (JSSE) package. You use <keyword keyref="product_name"/> configuration
+				properties to enable or disable SSL, to identify SSL ciphers and protocols, and to
+				provide the location and credentials for key and trust stores. For example, the
+				following properties configure the basic SSL settings for peer-to-peer connections
+				between <keyword keyref="product_name"/> members in a cluster:<table frame="all"
+					id="table_dtb_bjr_n4">
+					<tgroup cols="2">
+						<colspec colname="c1" colnum="1" colwidth="1.0*"/>
+						<colspec colname="c2" colnum="2" colwidth="1.0*"/>
+						<thead>
+							<row>
+								<entry>Property</entry>
+								<entry>Description</entry>
+							</row>
+						</thead>
+						<tbody>
+							<row>
+								<entry>cluster-ssl-enabled</entry>
+								<entry>Boolean to enable or disable SSL for peer-to-peer connections
+									in the cluster.</entry>
+							</row>
+							<row>
+								<entry>cluster-ssl-ciphers</entry>
+								<entry>A space-separated list of the valid SSL ciphers for
+									peer-to-peer connections. A setting of 'any' uses any ciphers
+									that are enabled by default in the configured JSSE provider.
+								</entry>
+							</row>
+							<row>
+								<entry>cluster-ssl-protocols</entry>
+								<entry>A space-separated list of the valid SSL protocols for
+									peer-to-peer connections in the cluster. A setting of 'any' uses
+									any protocol that is enabled by default in the configured JSSE
+									provider. </entry>
+							</row>
+							<row>
+								<entry>cluster-ssl-require-authentication</entry>
+								<entry>Boolean indicating whether to require authentication for
+									member communication.</entry>
+							</row>
+							<row>
+								<entry>cluster-ssl-keystore</entry>
+								<entry>Identifies the keystore to user for peer-to-peer
+									connections.</entry>
+							</row>
+							<row>
+								<entry>cluster-ssl-keystore-type</entry>
+								<entry>Identifies the type of keystore used for peer-to-peer
+									connections.</entry>
+							</row>
+							<row>
+								<entry>cluster-ssl-keystore-password</entry>
+								<entry>Identifies the keystore password for peer-to-peer
+									connections.</entry>
+							</row>
+							<row>
+								<entry>cluster-ssl-truststore</entry>
+								<entry>Identifies the truststore file for peer-to-peer
+									connections.</entry>
+							</row>
+							<row>
+								<entry>cluster-ssl-keystore-password</entry>
+								<entry>Identifies the truststore password for peer-to-peer
+									connections.</entry>
+							</row>
+						</tbody>
+					</tgroup>
+				</table></p>
+			<p>If you configure the above peer-to-peer SSL properties, then by default <keyword
+					keyref="product_name"/> uses the same SSL property values for all stream-socket
+				communication. This includes communication between cache servers and clients and
+				between the JMX manager and JMX clients. </p>
+			<p>You can independently configure SSL for client/server connections, JMX connections,
+				or HTTP connections by including the appropriate prefix for the connection type you
+				want to configure. For example, the property used to configure the SSL protocols for
+				client/server communication is <codeph>server-ssl-protocols</codeph>. The property
+				used to configure SSL protocols for the JMX manager is
+					<codeph>jmx-manager-ssl-protocols</codeph>.</p>
+			<p>The following table lists the SSL configuration property names used to configure SSL
+				for peer-to-peer, client/server, JMX manager, and HTTP Service connections. Remember
+				that if you do not define a client/server, JMX, or HTTP property, then <keyword
+					keyref="product_name"/> uses the property value defined for peer-to-peer
+				communication (<codeph>cluster-ssl*</codeph>) or the default peer-to-peer property
+				value if unspecified.</p>
+			<p>The HTTP Service connection properties configure SSL connections for all HTTP-based
+				services hosted on the configured server. This can include the Developer REST API
+				service, the Management REST API service (used for remote cluster management) and
+				the Pulse monitoring tool.</p>
+			<table frame="all" id="table_jpw_wqr_n4">
+				<title>SSL Configuration Property Names by Connection Type</title>
+				<tgroup cols="4">
+					<colspec colname="c1" colnum="1" colwidth="1.0*"/>
+					<colspec colname="c2" colnum="2" colwidth="1.0*"/>
+					<colspec colname="c3" colnum="3" colwidth="1.0*"/>
+					<colspec colname="newCol5" colnum="4" colwidth="1*"/>
+					<thead>
+						<row>
+							<entry>Peer-to-Peer Connection Property <p>(provides default value for
+									all other connection types)</p></entry>
+							<entry>Client/Server Connection Property</entry>
+							<entry>JMX Manager Connection Property</entry>
+							<entry>HTTP Service Connection Property</entry>
+						</row>
+					</thead>
+					<tbody>
+						<row>
+							<entry>cluster-ssl-enabled</entry>
+							<entry>server-ssl-enabled</entry>
+							<entry>jmx-manager-ssl-enabled</entry>
+							<entry>http-service-ssl-enabled</entry>
+						</row>
+						<row>
+							<entry>cluster-ssl-ciphers</entry>
+							<entry>server-ssl-ciphers</entry>
+							<entry>jmx-manager-ssl-ciphers</entry>
+							<entry>http-service-ssl-ciphers</entry>
+						</row>
+						<row>
+							<entry>cluster-ssl-protocols</entry>
+							<entry>server-ssl-protocols</entry>
+							<entry>jmx-manager-ssl-protocols</entry>
+							<entry>http-service-protocols</entry>
+						</row>
+						<row>
+							<entry>cluster-ssl-require-authentication</entry>
+							<entry>server-ssl-require-authentication</entry>
+							<entry>jmx-manager-ssl-require-authentication</entry>
+							<entry>http-service-require-authentication</entry>
+						</row>
+						<row>
+							<entry>cluster-ssl-keystore-type</entry>
+							<entry>server-ssl-keystore-type</entry>
+							<entry>jmx-manager-ssl-keystore-type</entry>
+							<entry>http-service-keystore-type</entry>
+						</row>
+						<row>
+							<entry>cluster-ssl-keystore</entry>
+							<entry>server-ssl-keystore</entry>
+							<entry>jmx-manager-ssl-keystore</entry>
+							<entry>http-service-keystore</entry>
+						</row>
+						<row>
+							<entry>cluster-ssl-keystore-password</entry>
+							<entry>server-ssl-keystore-password</entry>
+							<entry>jmx-manager-ssl-keystore-password</entry>
+							<entry>http-service-keystore-password</entry>
+						</row>
+						<row>
+							<entry>cluster-ssl-truststore</entry>
+							<entry>server-ssl-truststore</entry>
+							<entry>jmx-manager-ssl-truststore</entry>
+							<entry>http-service-truststore</entry>
+						</row>
+						<row>
+							<entry>cluster-ssl-keystore-password</entry>
+							<entry>server-ssl-keystore-password</entry>
+							<entry>jmx-manager-ssl-keystore-password</entry>
+							<entry>http-service-keystore-password</entry>
+						</row>
+					</tbody>
+				</tgroup>
+			</table>
+		</section>
+		<section id="sec_ssl_impl_proc">
+			<title>Procedure</title>
+			<p>
+				<ol id="ol_4E056E69F80043B6B41E64A6D9882502">
+					<li id="li_FC1DA75C201241208AB22264B594CEB1">Make sure your Java installation
+						includes the JSSE API and familiarize yourself with its use. For
+						information, see the Oracle JSSE website <xref
+							href="http://www.oracle.com/technetwork/java/javase/tech/index-jsp-136007.html"
+							scope="external" format="html"
+							><?xm-replace_text http://www.oracle.com/technetwork/java/javase/tech/index-jsp-136007.html?></xref>. </li>
+					<li id="li_4D36D0406AD047D5BFE47D624E0CD810">Configure your security provider:
+							<ol id="ol_7B488A6C25A041D5A8E50485A53499B5">
+							<li id="li_8BF8EEA142EA4306AD70AA58C05948F9">Specify the SSL provider in
+								the <codeph>lib/security/java.security</codeph> file under your JRE
+								home directory. Indicate the providers you are using for your
+								certificate, protocol, and cipher suites. Your Java installation
+								should include information on how to modify this file for this. The
+								security file is usually self-documenting. </li>
+							<li id="li_CAB1A763389648508F85E02B630751A7">Specify provider-required
+								configuration settings. These are usually keystore and truststore
+								configuration parameters, such as the keystore and truststore
+								properties described above. Your provider documentation should
+								describe specific configuration requirements. You can add these
+								configurations in a separate, restricted-access
+									<codeph>gfsecurity.properties</codeph> file. Remember to
+								override any peer-to-peer properties that you do not want to apply
+								to client/server, JMX, or HTTP connections. For example, if you want
+								to use a dedicated keystore for client/server connections (using
+								another, separate keystore for all other connection types), then
+								specify both <codeph>cluster-ssl-keystore</codeph> and
+									<codeph>server-ssl-keystore</codeph>.</li>
+						</ol>
+					</li>
+					<li id="li_C4DCF9ECA0F049E28CC1055CF76A0040">Configure SSL as needed for each
+						connection type: <ol id="ol_6181B68EBCB0489487D414A3D93C1E87">
+							<li id="li_A6D919D68A9A405793554C373FC3EB61">Use locators for member
+								discovery within the distributed systems and for client discovery of
+								servers. See <xref scope="local"
+									href="../../topologies_and_comm/p2p_configuration/setting_up_a_p2p_system.xml#setting_up_membership"
+									type="concept" format="dita"
+									><?xm-replace_text Configuring Peer-to-Peer Discovery?></xref>
+								and <xref
+									href="../../topologies_and_comm/cs_configuration/setting_up_a_client_server_system.xml#setting_up_a_client_server_system"
+									type="task" format="dita" scope="local"
+									><?xm-replace_text Configuring a Client/Server System?></xref>. </li>
+							<li id="li_93182F2FBD7047388EFE138FB5920390">Configure SSL properties as
+								necessary for different connection types, using the properties
+								listed in <xref href="#implementing_ssl/table_jpw_wqr_n4"
+									format="dita"/> and described further in <xref
+									href="../../reference/topics/gemfire_properties.xml#gemfire_properties"
+									type="concept" format="dita" scope="local"
+									/>.
+								For example, to enable SSL for communication between clients and
+								servers you would configure properties in the
+									<codeph>gemfire.properties</codeph> file similar to:
+								<codeblock>server-ssl-enabled=true
+server-ssl-protocols=any
+server-ssl-require-authentication=true
+server-ssl-ciphers=SSL_RSA_WITH_NULL_MD5 SSL_RSA_WITH_NULL_SHA
+server-ssl-keystore-type=jks
+server-ssl-keystore=/path/to/trusted.keystore
+server-ssl-keystore-password=password
+server-ssl-truststore=/path/to/trusted.keystore
+server-ssl-truststore-password=password</codeblock></li>
+							<li>Keep in mind that if you define any peer-to-peer SSL properties
+								(properties that begin with <codeph>cluster-ssl-</codeph>) then
+								those property values act as defaults for any corresponding SSL
+								connection properties that you do not configure. Configure the SSL
+								property for the each connection type (server-ssl-,
+								jmx-manager-ssl-, and/or http-service) if the peer-to-peer value is
+								not applicable to that connection.</li>
+						</ol>
+					</li>
+				</ol>
+			</p>
+		</section>
+	</conbody>
+</concept>

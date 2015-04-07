@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "http://docs.oasis-open.org/dita/v1.1/OS/dtd/concept.dtd">
+<concept id="ha_event_messaging_whats_next">
+	<title>Highly Available Client/Server Event Messaging</title>
+	<conbody>
+		<section id="section_F163917311E8478399D1DD273E8BCDF5">
+			<p>With server redundancy, each pool has a primary server and some number of
+				secondaries. The primaries and secondaries are assigned on a per-pool basis and are
+				generally spread out for load balancing, so a single client with multiple pools may
+				have primary queues in more than one server. </p>
+			<p>The primary server pushes events to clients and the secondaries maintain queue
+				backups. If the primary server fails, one of the secondaries becomes primary to
+				provide uninterrupted event messaging. </p>
+			<p>For example, if there are six servers running and
+					<codeph>subscription-redundancy</codeph> is set to two, one server is the
+				primary, two servers are secondary, and the remaining three do not actively
+				participate in HA for the client. If the primary server fails, the system assigns
+				one of the secondaries as the new primary and attempts to add another server to the
+				secondary pool to retain the initial redundancy level. If no new secondary server is
+				found, then the redundancy level is not satisfied but the failover procedure
+				completes successfully. As soon as another secondary is available, it is added. </p>
+			<p>When high availability is enabled: <ul id="ul_97B98AED705E4EB4AD216A71C4808A90">
+					<li id="li_7741681B34E54790A5CC73B37C0FB908">The primary server sends event
+						messages to the clients. </li>
+					<li id="li_2789F9B8E8314DA692AFA144338772AD">Periodically, the clients send
+						received messages to the server and the server removes the sent messages
+						from its queues. </li>
+					<li id="li_63CB25B503CB4995914479BF607BF988">Periodically, the primary server
+						synchronizes with its secondaries, notifying them of messages that can be
+						discarded because they have already been sent and received. There is a lag
+						in notification, so the secondary servers remain only roughly synchronized
+						with the primary. Secondary queues contain all messages that are contained
+						in the primary queue plus possibly a few messages that have already been
+						sent to clients. </li>
+					<li id="li_71A128F57B554BCE874266AC8B5B10A7">In the case of primary server
+						failure, one of the secondaries becomes the primary and begins sending event
+						messages from its queues to the clients. Immediately after failover, the new
+						primary usually resends some messages that were already sent by the old
+						primary. The client recognizes these as duplicates and discards them. </li>
+				</ul>In stage 1 of this figure, the primary sends an event message to the client and
+				a synchronization message to its secondary. By stage 2, the secondary and client
+				have updated their queue and message tracking information. If the primary failed at
+				stage two, the secondary would start sending event messages from its queue beginning
+				with message A10. The client would discard the resend of message A10 and then
+				process subsequent messages as usual. </p>
+			<p>
+				<image href="../../images/ClientServerAdvancedTopics-5.gif"
+					alt="High Availability Messaging: Server to Client and Primary Server to Secondary Server"
+					id="image_8947A42EDEF74911BAB55B79ED8DA984" placement="break"/>
+			</p>
+		</section>
+		<section id="section_741052B413F24F47A14F5B7D7955F0AA">
+			<title>Change Server Queue Synchronization Frequency</title>
+			<p>By default, the primary server sends queue synchronization messages to the
+				secondaries every second. You can change this interval with the <codeph>gfsh alter
+					runtime</codeph> command </p>
+			<p>Set the interval for queue synchronization messages as follows: </p>
+			<ul id="ul_BF63BA84CCF74310A18C94BF554582A1">
+				<li>gfsh:<codeblock>gfsh>alter runtime --message-sync-interval=2</codeblock></li>
+				<li id="li_9695D0561380430482FE7264F35ABAEB">XML:
+					<codeblock>&lt;!-- Set sync interval to 2 seconds --&gt; 
+&lt;cache ... message-sync-interval="2" /&gt;</codeblock>
+				</li>
+				<li id="li_CB0E3AE90D974CC0BCDE30A44CC9C84A">Java:
+					<codeblock>cache = CacheFactory.create(system);
+cache.setMessageSyncInterval(2);  </codeblock>
+				</li>
+			</ul>
+			<p>The ideal setting for this interval depends in large part on your application
+				behavior. These are the benefits of shorter and longer interval settings: <ul
+					id="ul_EC8220F5CA01411B85C02505235E4081">
+					<li id="li_F77BBE69BAE7467BBDD3416B0B1629CB">A shorter interval requires less
+						memory in the secondary servers because it reduces queue buildup between
+						synchronizations. In addition, fewer old messages in the secondary queues
+						means reduced message re-sends after a failover. These considerations are
+						most important for systems with high data update rates. </li>
+					<li id="li_2F301F187AEE4D9185BA1B569F8296E5">A longer interval requires fewer
+						distribution messages between the primary and secondary, which benefits
+						overall system performance. </li>
+				</ul>
+			</p>
+		</section>
+		<section id="section_DF51950D30154A58818F6AD777BB3090">
+			<title>Set Frequency of Orphan Removal from the Secondary Queues</title>
+			<p>Usually, all event messages are removed from secondary subscription queues based on
+				the primary's synchronization messages. Occasionally, however, some messages are
+				orphaned in the secondary queues. For example, if a primary fails in the middle of
+				sending a synchronization message to its secondaries, some secondaries might receive
+				the message and some might not. If the failover goes to a secondary that did receive
+				the message, the system will have secondary queues holding messages that are no
+				longer in the primary queue. The new primary will never synchronize on these
+				messages, leaving them orphaned in the secondary queues. </p>
+			<p>To make sure these messages are eventually removed, the secondaries expire all
+				messages that have been enqueued longer than the time indicated by the servers'
+					<codeph>message-time-to-live</codeph>. </p>
+			<p>Set the time-to-live as follows: <ul id="ul_41860924D45C444383EBD09EBCF43890">
+					<li id="li_CA83ABB6908E4BF392DBB1D3724E77A6">XML:
+						<codeblock>&lt;!-- Set message ttl to 5 minutes --&gt; 
+&lt;cache-server port="41414" message-time-to-live="300" /&gt;</codeblock>
+					</li>
+					<li id="li_3788ECE600DD48AF9128D3DDE499629A">Java:
+						<codeblock>Cache cache = ...;
+CacheServer cacheServer = cache.addCacheServer();
+cacheServer.setPort(41414);
+cacheServer.setMessageTimeToLive(200);
+cacheServer.start();                </codeblock>
+					</li>
+				</ul>
+			</p>
+		</section>
+	</conbody>
+</concept>

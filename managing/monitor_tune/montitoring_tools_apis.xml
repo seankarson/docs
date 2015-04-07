@@ -1,0 +1,331 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "http://docs.oasis-open.org/dita/dtd/concept.dtd">
+<concept id="api_interfaces_and_classes"> 
+  <title>API Interfaces and Classes</title> 
+  <prolog><metadata><keywords><keyword>gemfire administration
+			 api</keyword></keywords></metadata>
+  </prolog> 
+  <conbody> 
+	 <p>This section gives an overview of the primary interfaces and classes
+		that are provided by the 
+		<ph
+		 conref="../../product_short_name.xml#ditacomponent_4CDD0B39CDD54D2AAF1CBC81A1FDBA19/ph_2E41EB9BE730428A970C1C206D14DC09"><?xm-replace_text Phrase?></ph>
+		Administration API package 
+		<codeph>com.gemstone.gemfire.admin</codeph>. Complete information on the
+		package is available in the online Java API documentation, which you can
+		navigate to through the 
+		<codeph>docs/index.html</codeph> file. 
+	 </p> 
+	 <section id="section_2A6DA07DA086457289131ED857614748">
+		<draft-comment>THIS TOPIC IS REPLACED IN 7.0 by JMX MBeans and and the
+		  Management API.
+		</draft-comment> 
+		<title>com.gemstone.gemfire.admin Package</title> 
+		<p>The 
+		  <codeph>com.gemstone.gemfire.admin</codeph> package includes the
+		  administration API and the health monitoring API. 
+		</p> 
+	 </section> 
+	 <section id="section_72A4A59C33BB49E4A9FCE3D2E35202D2"> 
+		<title>System Administration API</title> 
+		<p>The administration API allows you to configure, start, and stop a
+		  distributed system and many of its components. The API is made up of
+		  distributed system administration, component administration, and cache
+		  administration. In addition to the core components listed here, the
+		  administration API provides interfaces to issue and handle system member alerts
+		  and to monitor statistics. The interfaces for the distributed system and its
+		  components have accompanying configuration interfaces, such as 
+		  <codeph>ManagedEntityConfig</codeph> for 
+		  <codeph>ManagedEntity</codeph>. 
+		</p> 
+		<p><b>Distributed System Administration</b> 
+		<ul id="ul_FFDE745CF16E49C786320C2C2401C301"> 
+		  <li
+			id="li_4155B1CC5AE54A7789454E2425593635"><b>AdminDistributedSystemFactory</b>—Used
+			 to define and retrieve an 
+			 <codeph>AdminDistributedSystem</codeph> instance. 
+		  </li> 
+		  <li
+			id="li_EF0D7F03DE7944529ED2EE6EA32CB9A2"><b>AdminDistributedSystem</b>—This is
+			 the administrative interface for managing a 
+			 <ph
+			  conref="../../product_short_name.xml#ditacomponent_4CDD0B39CDD54D2AAF1CBC81A1FDBA19/ph_2E41EB9BE730428A970C1C206D14DC09"><?xm-replace_text Phrase?></ph>
+			 system. Use the 
+			 <codeph>AdminDistributedSystemFactory</codeph> class to define and
+			 create an instance of 
+			 <codeph>AdminDistributedSystem</codeph>. With the 
+			 <codeph>AdminDistributedSystem</codeph> instance, you can perform
+			 tasks on the distributed system such as defining, starting, and stopping 
+			 <ph
+			  conref="../../product_short_name.xml#ditacomponent_4CDD0B39CDD54D2AAF1CBC81A1FDBA19/ph_2E41EB9BE730428A970C1C206D14DC09"><?xm-replace_text Phrase?></ph>
+			 cache servers, merging system logs, and obtaining administrative interfaces to
+			 applications that host 
+			 <ph
+			  conref="../../product_short_name.xml#ditacomponent_4CDD0B39CDD54D2AAF1CBC81A1FDBA19/ph_2E41EB9BE730428A970C1C206D14DC09"><?xm-replace_text Phrase?></ph>
+			 caches. 
+		  </li> 
+		  <li
+			id="li_48A2276F0A7C4C5988DACD8B0088E4BA"><b>DistributedSystemConfig</b>—Describes
+			 a distributed system to administer by specifying its configuration. The 
+			 <codeph>DistributedSystemConfig.ConfigListener</codeph> interface
+			 handles changes to the distributed system configuration. 
+		  </li> 
+		  <li id="li_75838361BE7846BD9EA589098275FB89"><b>CacheVm</b>—Describes a
+			 
+			 <ph
+			  conref="../../product_short_name.xml#ditacomponent_4CDD0B39CDD54D2AAF1CBC81A1FDBA19/ph_2E41EB9BE730428A970C1C206D14DC09"><?xm-replace_text Phrase?></ph>
+			 cache server system member, which is a long-lived caching application started
+			 with the 
+			 <codeph>&lt;productDir&gt;/bin/cacheserver</codeph> script. A cache
+			 server is often used as the server process in a client/server architecture.
+			 This can be configured through the 
+			 <codeph>CacheVmConfig</codeph> interface. See also 
+			 <xref
+			  href="../../deploying/topics/running_the_cacheserver.xml#running_the_cacheserver"
+			  format="dita"><?xm-replace_text vFabric GemFire cacheserver?></xref>. 
+		  </li> 
+		</ul> 
+		</p> 
+		<p><b>Component Administration</b> 
+		<ul id="ul_408C9D03155B412C9E7B263D15C9F9E2"> 
+		  <li id="li_0C9A53385B9B4B9883989A8B52EECCCD"><b>ManagedEntity</b>—An
+			 entity that can be managed, including being started and stopped, through the
+			 admin API. Applications cannot be managed in this way, but the other system
+			 members can. 
+		  </li> 
+		  <li
+			id="li_9DFDF1E7B2B94C01BA0352C285F1CD7F"><b>DistributionLocator</b>—A single
+			 locator process, of which a distributed system may use zero or more. Extends
+			 the ManagedEntity interface. Locators are system members that can be
+			 configured, started and stopped through this interface. 
+		  </li> 
+		  <li id="li_37E511062D6E419CBB937389D4007C8E"><b>CacheVm</b>—Manages a
+			 cache server in a distributed system. Extends 
+			 <codeph>SystemMember</codeph> and 
+			 <codeph>ManagedEntity</codeph>. 
+		  </li> 
+		  <li
+			id="li_18C3F32061A9444B8DE90E3BBCE3F91A"><b>SystemMember</b>—Monitors a member
+			 of a 
+			 <ph
+			  conref="../../product_short_name.xml#ditacomponent_4CDD0B39CDD54D2AAF1CBC81A1FDBA19/ph_2E41EB9BE730428A970C1C206D14DC09"><?xm-replace_text Phrase?></ph>
+			 system. Provides access to the member’s cache. 
+		  </li> 
+		  <li
+			id="li_A1ACC68A812A42CDB6C47462F282834E"><b>SystemMembershipListener</b>—Application
+			 plug-in interface whose callback methods are invoked when members join or leave
+			 the 
+			 <ph
+			  conref="../../product_short_name.xml#ditacomponent_4CDD0B39CDD54D2AAF1CBC81A1FDBA19/ph_2E41EB9BE730428A970C1C206D14DC09"><?xm-replace_text Phrase?></ph>
+			 distributed system. Receives 
+			 <codeph>SystemMembershipEvents</codeph>. 
+		  </li> 
+		  <li
+			id="li_BCD9466C4E6D484888EA8F8CC7C43A28"><b>SystemMembershipEvent</b>—An event
+			 interface that reports when a member has joined or left the distributed system
+			 and provides the member ID of the process that joined or left. 
+		  </li> 
+		</ul> 
+		</p> 
+		<p><b>Cache Administration</b> 
+		<ul id="ul_03DB832EA8F345DFB49D7CFAC28E16FC"> 
+		  <li
+			id="li_9BA7DA76E1D3490596C18566550D9A2A"><b>SystemMemberCache</b>—Represents a 
+			 <codeph>SystemMember</codeph>’s cache. Through this interface, like
+			 through the local application’s Cache interface, you can create regions in a
+			 remote member’s cache. You can also enable and disable server processes and
+			 modify cache attributes. 
+		  </li> 
+		  <li
+			id="li_28FAD1C5012049438F3947CE049FDB4C"><b>SystemMemberCacheServer</b>—Represents
+			 a server for a cache, which is instantiated through the 
+			 <codeph>SystemMemberCache</codeph> interface. Through this interface,
+			 the server can be configured, started, and stopped. For information on servers,
+			 see "Client/Server Architecture and Configuration Basics." 
+		  </li> 
+		  <li
+			id="li_BCCB8F94941A4C54B93D811B24972BB7"><b>SystemMemberRegion</b>—Represents a
+			 
+			 <codeph>SystemMember</codeph>’s view of one of its cache regions. You
+			 cannot access a region’s contents through this API. 
+		  </li> 
+		  <li
+			id="li_69B4B91DA0B045E2B2F13055F4BA03B8"><b>SystemMemberCacheListener</b>—Application
+			 plug-in interface whose callback methods can be used to track the life cycle of
+			 caches and regions in the 
+			 <ph
+			  conref="../../product_short_name.xml#ditacomponent_4CDD0B39CDD54D2AAF1CBC81A1FDBA19/ph_2E41EB9BE730428A970C1C206D14DC09"><?xm-replace_text Phrase?></ph>
+			 distributed system. Receives 
+			 <codeph>SystemMemberCacheEvents</codeph> and 
+			 <codeph>SystemMemberRegionEvents</codeph>. 
+		  </li> 
+		  <li
+			id="li_5B51337B2323427B8260902484C2D46B"><b>SystemMemberCacheEvent</b>—An event
+			 interface that reports when a cache is created or closed. Provides the member
+			 ID and the operation. Extends 
+			 <codeph>SystemMembershipEvent</codeph>. 
+		  </li> 
+		  <li
+			id="li_53DB6DF23A5B4BD8A8FC0170F99FDFE0"><b>SystemMemberRegionEvent</b>—An
+			 event interface that reports when a region has joined or left the distributed
+			 system. Provides the member ID, the operation, and the region name. Extends 
+			 <codeph>SystemMemberCacheEvent</codeph>. 
+		  </li> 
+		  <li id="li_1461D347A7B944C0A490E4874A6701A5"><b>AlertListener</b>—A log
+			 listener whose callback methods are invoked when it receives notice of serious
+			 log messages. 
+		  </li> 
+		</ul> 
+		</p> 
+		<p>This figure shows the relationships between the primary interfaces of
+		  the administration API. 
+		</p> 
+		<p> 
+		  <fig id="fig_9CFF0C31792F498BB51191AA67F4A7A1"> 
+			 <title><ph
+				conref="../../product_short_name.xml#ditacomponent_4CDD0B39CDD54D2AAF1CBC81A1FDBA19/ph_2E41EB9BE730428A970C1C206D14DC09"><?xm-replace_text Phrase?></ph>
+				Core Admin Interfaces</title> 
+			 <image href="../../common/images/GemFireCoreAdminInterfaces.png"
+			  placement="break" id="image_A4C382D1D7644F6DB861FDCFACF6E3AB"/> 
+		  </fig>The other area of functionality in the administration API is the
+		  health monitoring API, discussed in the next section. 
+		</p> 
+	 </section> 
+	 <section id="section_8CE2FE50892844AA8B7F3978C76018BA"> 
+		<title>System Health Monitoring</title> 
+		<p>The health monitoring API allows you to configure and monitor system
+		  health indicators for 
+		  <ph
+			conref="../../product_short_name.xml#ditacomponent_4CDD0B39CDD54D2AAF1CBC81A1FDBA19/ph_2E41EB9BE730428A970C1C206D14DC09"><?xm-replace_text Phrase?></ph>
+		  distributed systems and their components. There are three levels of health:
+		  good health that indicates that all 
+		  <ph
+			conref="../../product_short_name.xml#ditacomponent_4CDD0B39CDD54D2AAF1CBC81A1FDBA19/ph_2E41EB9BE730428A970C1C206D14DC09"><?xm-replace_text Phrase?></ph>
+		  components are behaving reasonably, okay health that indicates that one or more
+		  
+		  <ph
+			conref="../../product_short_name.xml#ditacomponent_4CDD0B39CDD54D2AAF1CBC81A1FDBA19/ph_2E41EB9BE730428A970C1C206D14DC09"><?xm-replace_text Phrase?></ph>
+		  components are slightly unhealthy and may need some attention, and poor health
+		  that indicates that a 
+		  <ph
+			conref="../../product_short_name.xml#ditacomponent_4CDD0B39CDD54D2AAF1CBC81A1FDBA19/ph_2E41EB9BE730428A970C1C206D14DC09"><?xm-replace_text Phrase?></ph>
+		  component is unhealthy and needs immediate attention. 
+		</p> 
+		<p>Because each 
+		  <ph
+			conref="../../product_short_name.xml#ditacomponent_4CDD0B39CDD54D2AAF1CBC81A1FDBA19/ph_2E41EB9BE730428A970C1C206D14DC09"><?xm-replace_text Phrase?></ph>
+		  application has its own definition of what it means to be healthy, the metrics
+		  that are used to determine health are configurable. 
+		  <codeph>GemFireHealthConfig</codeph> provides methods for configuring
+		  the health of the distributed system and members that host Cache instances.
+		  Health can be configured on both a global and per-machine basis. 
+		  <codeph>GemFireHealthConfig</codeph> also allows you to configure how
+		  often GemFire’s health is evaluated. 
+		</p> 
+		<p>The health administration APIs allow you to configure performance
+		  thresholds for each component type in the distributed system (including the
+		  distributed system itself). These threshold settings are compared to system
+		  statistics to obtain a report on each component’s health. A component is
+		  considered to be in good health if all of the user-specified criteria for that
+		  component are satisfied. The other possible health settings, okay and poor, are
+		  assigned to a component as fewer of the health criteria are met. 
+		</p> 
+		<p>The interfaces in the 
+		  <codeph>admin</codeph> package that relate to health monitoring are: 
+		<ul id="ul_F705BB37A823497789E7DED84736978B"> 
+		  <li
+			id="li_835260F52627417CA38E7BEC6A922E3D"><b>GemFireHealth</b>—Health
+			 configuration and monitoring for a distributed system. Includes set and get
+			 methods for distributed system health configuration
+			 (<codeph>DistributedSystemHealthConfig</codeph>) and for components residing on
+			 individual host machines in the distributed system
+			 (<codeph>GemFireHealthConfig</codeph>). Also provides methods for getting the
+			 overall health of the system, for retrieving diagnostic information in the case
+			 of ill health, and for resetting all health indicators in the system to
+			 optimal. 
+		  </li> 
+		  <li
+			id="li_EE8C482471EF479F9FEB1A4D7277990C"><b>DistributedSystemHealthConfig</b>—Health
+			 configuration for the distributed system. Settings include the number of
+			 unexpected departures from the distributed system by system members. 
+		  </li> 
+		  <li
+			id="li_3ABE3FD38C7C4197A732AF3AFB587B1A"><b>GemFireHealthConfig</b>—Health
+			 configuration for components of a distributed system that reside on a given
+			 machine. This combines 
+			 <codeph>MemberHealthConfig</codeph>, and 
+			 <codeph>CacheHealthConfig</codeph>. 
+		  </li> 
+		  <li id="li_B4951AAF10F74DEEBCCA5DC2B1DC1504"> 
+			 <p><b>CacheHealthConfig</b>—Health configuration for cache instances.
+				Settings include: 
+			 <ul id="ul_E73D05439F9E44AAB57091B9DE85B8EE"> 
+				<li id="li_BD0F5B4930B44DE485BFF0B6A7CAD6D0">Durations for 
+				  <codeph>netSearch</codeph> and load operations 
+				</li> 
+				<li id="li_EEA2A22AB0224575B181884DCF12FBEB">Cache hit ratio 
+				</li> 
+				<li id="li_F7E309D014AF42F7A76D898E66088F65">Event delivery queue
+				  size 
+				</li> 
+			 </ul> 
+			 </p> 
+		  </li> 
+		  <li id="li_6969C3678AD0433EA4FE4852A4C6131C"> 
+			 <p><b>MemberHealthConfig</b>—Health configuration for distributed
+				system members. Settings include: 
+			 <ul id="ul_1EC74027990648FC95A4743A74FCAAF6"> 
+				<li id="li_CFA33A9C2E4342B3A8C22E21C075AB3F">JVM process size 
+				</li> 
+				<li id="li_27C9BC49FAE344B9A046C980455572B1">Incoming and outgoing
+				  message queue sizes 
+				</li> 
+				<li id="li_D14C950103704604A8A6A9198B8BC986">Number of timeouts
+				  waiting for replies from other members 
+				</li> 
+				<li id="li_2D2B9BA9D77548A7B19EAB50E1837C9E">Multicast
+				  retransmission rates 
+				</li> 
+			 </ul> 
+			 </p> 
+		  </li> 
+		  <li
+			id="li_40F6EA596A4A4C11898504B78C87A438"><b>GemFireHealth.Health</b>—An
+			 enumerated type for the health of 
+			 <ph
+			  conref="../../product_short_name.xml#ditacomponent_4CDD0B39CDD54D2AAF1CBC81A1FDBA19/ph_2E41EB9BE730428A970C1C206D14DC09"><?xm-replace_text Phrase?></ph>.
+			 
+		  </li> 
+		</ul> 
+		</p> 
+		<p>Health monitoring is managed from the GemFireHealth interface. You use
+		  it to set and access configuration settings for the distributed system and for
+		  system components. You can set default configuration settings for distributed
+		  system components that you can override for any host machine. This figure shows
+		  the relationships between the interfaces. 
+		</p> 
+		<fig id="fig_51520312D6A949F58358A703409F1724"> 
+		  <title>Setting the 
+			 <ph
+			  conref="../../product_short_name.xml#ditacomponent_4CDD0B39CDD54D2AAF1CBC81A1FDBA19/ph_2E41EB9BE730428A970C1C206D14DC09"><?xm-replace_text Phrase?></ph>
+			 Health Configuration</title> 
+		  <image href="../../common/images/GemFireHeathConfig.png"
+			placement="break" id="image_23DD3C1B9585443CAAAAF3966FFD59DB"/> 
+		</fig> 
+		<p><codeph>GemFireHealth</codeph> oversees all configuration settings and
+		  provides monitoring and management tools. The host machines that do not have a 
+		  <codeph>GemFireHealthConfig</codeph> associated with them are monitored
+		  using the default 
+		  <ph
+			conref="../../product_short_name.xml#ditacomponent_4CDD0B39CDD54D2AAF1CBC81A1FDBA19/ph_2E41EB9BE730428A970C1C206D14DC09"><?xm-replace_text Phrase?></ph>
+		  health configuration settings. 
+		</p> 
+		<p><ph
+		  conref="../../product_short_name.xml#ditacomponent_4CDD0B39CDD54D2AAF1CBC81A1FDBA19/ph_2E41EB9BE730428A970C1C206D14DC09"><?xm-replace_text Phrase?></ph>
+		  health configuration settings cover cache and member configurations. Member
+		  configuration settings apply to each member in the distributed system. Cache
+		  settings apply to every cache in the system. 
+		</p> 
+	 </section> 
+  </conbody>
+</concept>

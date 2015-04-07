@@ -1,0 +1,101 @@
+<?xml version="1.0"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept id="concept_2ECE1BB23A814A13924C93422E7EBC5E">
+	<title>put</title>
+	<shortdesc>Add or update a region entry. </shortdesc>
+	<conbody>
+		<p> Add or update an entry in a region. </p>
+		<p><b> Availability:</b> Online. You must be connected in <codeph>gfsh</codeph> to a JMX
+			Manager member to use this command. </p>
+		<p><b>Syntax:</b>
+			<codeblock>put --key=value --value=value --region=value [--key-class=value] 
+[--value-class=value] [--skip-if-exists=value]</codeblock>
+			<table id="table_1A72E11E72CA4FF69EF790D3EC423283">
+				<tgroup cols="3">
+					<colspec colname="col1" colnum="1" colwidth="1.00*"/>
+					<colspec colname="col2" colnum="2" colwidth="3.55*"/>
+					<colspec colname="newCol3" colnum="3" colwidth="1*"/>
+					<thead>
+						<row>
+							<entry colname="col1">Name </entry>
+							<entry colname="col2">Description</entry>
+							<entry colname="col3">Default Value</entry>
+						</row>
+					</thead>
+					<tbody>
+						<row>
+							<entry colname="col1"><ph>--key</ph>
+							</entry>
+							<entry colname="col2">
+								<i>Required.</i> String or JSON text from which to create the key.
+								For example: "<codeph>James</codeph>", "<codeph>100L</codeph>" and
+									"<codeph>('id': 'l34s')</codeph>". </entry>
+							<entry/>
+						</row>
+						<row>
+							<entry colname="col1"><parmname>--value</parmname>
+							</entry>
+							<entry colname="col2">
+								<i>Required.</i> String or JSON text from which to create the value.
+								For example: "<codeph>James</codeph>", "<codeph>100L</codeph>" and
+									"<codeph>('id': 'l34s')</codeph>". </entry>
+							<entry/>
+						</row>
+						<row>
+							<entry colname="col1"><parmname>--region</parmname>
+							</entry>
+							<entry colname="col2"><i>Required.</i> Region into which the entry will
+								be put. </entry>
+							<entry/>
+						</row>
+						<row>
+							<entry colname="col1"><parmname>--key-class</parmname>
+							</entry>
+							<entry colname="col2"> Fully qualified class name of the key's type. </entry>
+							<entry><codeph>java.lang.String</codeph></entry>
+						</row>
+						<row>
+							<entry colname="col1"><parmname>--value-class</parmname>
+							</entry>
+							<entry colname="col2"> Fully qualified class name of the value's type. </entry>
+							<entry><codeph>java.lang.String</codeph></entry>
+						</row>
+						<row>
+							<entry colname="col1"><parmname>--skip-if-exists</parmname>
+							</entry>
+							<entry colname="col2"> Skip the put operation when an entry with the
+								same key already exists. </entry>
+							<entry>false</entry>
+						</row>
+					</tbody>
+				</tgroup>
+			</table>
+		</p>
+		<p><b>Example Commands:</b>
+			<codeblock>
+put --key=('id':'133abg125') --value=('firstname':'James','lastname':'Gosling') 
+--region=/region1 --key-class=data.ProfileKey --value-class=data.ProfileDetails
+
+put --key=('133abg124') --value=('Hello World!!') --region=/region2
+
+put --key=('100F') --value=('2146547689879658564')  --region=/region1/region12 
+--key-class=java.lang.Float --value-class=java.lang.Long</codeblock>
+		</p>
+		<p><b>Sample Output:</b>
+			<codeblock>gfsh&gt;put --key=('123abc') --value=('Hello World!!') --region=region2
+Result      : true
+Key Class   : java.lang.String
+Key         : ('123abc')
+Value Class : java.lang.String
+Old Value   : &lt;NULL&gt;</codeblock>
+		</p>
+		<p><b>Error Messages:</b>
+			<codeblock>"Region name is either empty or Null";
+"Key is either empty or Null";
+"Value is either empty or Null";
+"Region &lt;{0}&gt; not found in any of the members";
+"Region &lt;{0}&gt; Not Found";
+"Key is not present in the region";</codeblock>
+		</p>
+	</conbody>
+</concept>

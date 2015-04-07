@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "http://docs.oasis-open.org/dita/v1.1/OS/dtd/concept.dtd">
+<concept id="configuring_highly_available_servers">
+	<title>Configuring Highly Available Servers</title>
+	<conbody>
+		<section id="section_7EB2A7E38B074AAAA06D22C59687CB8A">
+			<p>With highly-available servers, one of the backups steps in and takes over messaging
+				with no interruption in service if the client's primary server crashes. </p>
+			<p>To configure high availability, set the <codeph>subscription-redundancy</codeph> in
+				the client's pool configuration. This setting indicates the number of secondary
+				servers to use. For example: <codeblock>&lt;!-- Run one secondary server --&gt;
+&lt;pool name="red1" subscription-enabled="true" subscription-redundancy="1"&gt; 
+  &lt;locator host="nick" port="41111"/&gt; 
+  &lt;locator host="nora" port="41111"/&gt; 
+&lt;/pool&gt; </codeblock>
+				<codeblock>&lt;!-- Use all available servers as secondaries. One is primary, the rest are secondaries --&gt;
+&lt;pool name="redX" subscription-enabled="true" subscription-redundancy="-1"&gt; 
+  &lt;locator host="nick" port="41111"/&gt; 
+  &lt;locator host="nora" port="41111"/&gt; 
+&lt;/pool&gt; </codeblock>
+			</p>
+			<p>When redundancy is enabled, secondary servers maintain queue backups while the
+				primary server pushes events to the client. If the primary server fails, one of the
+				secondary servers steps in as primary to provide uninterrupted event messaging to
+				the client. </p>
+			<p> The following table describes the different values for the subscription-redundancy
+				setting: <table id="table_8C39E1B5AA104A9DBF5107EC586CA81E">
+					<tgroup cols="2">
+						<colspec colname="1" colnum="1" colwidth="*"/>
+						<colspec colname="2" colnum="2" colwidth="*"/>
+						<thead>
+							<row>
+								<entry>subscription-redundancy </entry>
+								<entry>Description </entry>
+							</row>
+						</thead>
+						<tbody>
+							<row>
+								<entry>0 </entry>
+								<entry>No secondary servers are configured, so high availability is
+									disabled. </entry>
+							</row>
+							<row>
+								<entry>&gt; 0 </entry>
+								<entry>Sets the precise number of secondary servers to use for
+									backup to the primary. </entry>
+							</row>
+							<row>
+								<entry>-1 </entry>
+								<entry>Every server that is not the primary is to be used as a
+									secondary. </entry>
+							</row>
+						</tbody>
+					</tgroup>
+				</table>
+			</p>
+			<p><?xm-replace_text Paragraph?>
+			</p>
+		</section>
+	</conbody>
+</concept>

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept
+    id="concept_i5g_3d5_m4">
+    <title>Prerequisites and Limitations for Writing REST Applications</title>
+    <shortdesc>Before development, understand the prerequisites and limitations of the current REST
+        implementation in <keyword keyref="product_name"/>. </shortdesc>
+    <conbody>
+        <p><keyword keyref="product_name"/> and REST-enabled applications accessing <keyword keyref="product_name"/> are subject to the following
+            rules and limitations:</p>
+        <ul
+            id="ul_wtz_ccv_44">
+            <li>All domain objects, functions and function-arg classes must be properly configured
+                and registered in the <keyword keyref="product_name"/> deployment. Any functions that you wish to execute
+                through the REST API must be available on the target member’s CLASSPATH. </li>
+            <li>The current implementation only supports the <b>application/json</b> MIME type. At
+                time of publication, any other return types (XML, objects, and so on) are not
+                supported. Plain text is supported as a return type for some error messages.</li>
+            <li>Keys are strictly of type String for this release. For example, the request
+                    <codeph>PUT http://localhost:8080/gemfire-api/v1/customers/123.456</codeph> will
+                add entry for key ("123.456") of type String.</li>
+            <li>Some special formats of JSON documents are not supported in <keyword keyref="product_name"/> REST. See <xref
+                    href="troubleshooting.xml#concept_gsv_zd5_m4"/> for examples.</li>
+            <li>To achieve interoperability between <keyword keyref="product_name"/> Java clients (or <keyword keyref="product_name"/> native clients)
+                and REST clients, the following rules must be followed:<ul
+                    id="ul_vxs_lcp_p4">
+                    <li>All <keyword keyref="product_name"/> Java and native client classes operating on data also accessed
+                        by the REST interface must be PDX serialized either via PDX
+                        autoserialization or by implementing <codeph>PdxSerializable</codeph>.</li>
+                    <li><keyword keyref="product_name"/> Java clients and native clients can retrieve REST-enabled data
+                        either as a <codeph>PdxInstance</codeph> or as an actual object by using the
+                            <codeph>PdxInstance.getObject</codeph> method. If you use the latter
+                        method, first you must declare the object type (@type) in your POST or PUT
+                        request payload when creating the object in REST; and secondly, the Java
+                        client must have the actual domain class in its CLASSPATH.</li>
+                </ul></li>
+            <li>Objects returned by REST-invoked functions must be returned as PdxInstance objects
+                or other data types that can be written to JSON. You cannot return Java
+                objects.</li>
+            <li>REST client applications do not support single hop access or notification
+                features.</li>
+            <li>Specifying subregions as endpoints is not currently supported. </li>
+        </ul>
+    </conbody>
+</concept>

@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "http://docs.oasis-open.org/dita/v1.1/OS/dtd/concept.dtd">
+<concept id="hib_cach_adv_conf">
+	<title> Advanced Configuration (Hibernate Cache Module)</title>
+	<shortdesc>After you set up Hibernate to work with the <keyword keyref="product_name"/> module,
+			<keyword keyref="product_name"/> will run automatically with preconfigured settings.
+		Depending on your topology, you may want to change these settings. </shortdesc>
+	<conbody>
+		<p><keyword keyref="product_name"/> has these default settings: </p>
+		<ul id="ul_6C4267E355784C53AFC79B687C83DEC9">
+			<li id="li_0E985611E0B64C688E701525428F2FDA"><keyword keyref="product_name"/> runs in a
+				peer-to-peer configuration, rather than a client/server configuration. </li>
+			<li id="li_F03E9A43DCBF41DDAD44AB34C8C719CF"><keyword keyref="product_name"/> processes
+				are discovered using a default multicast channel. </li>
+			<li id="li_B6456189EB304E4B9E03D05E8377DEF3"><keyword keyref="product_name"/>
+				"locators", which provide discovery and load balancing services, are not used for
+				member discovery. </li>
+			<li id="li_2E50A01F43674CA1BE864FBA713F92FB">The cache region is replicated. </li>
+		</ul>
+		<p>These settings might not reflect your preferred usage. To change these and other
+			settings, refer to this section. </p>
+		<section id="configuration_flowchart">
+			<title>Configuration Flowchart</title>
+			<p>The following flowchart illustrates some of the decisions you might consider before
+				making configuration changes. If the action says "no change req.", then no
+				configuration change is required to run <keyword keyref="product_name"/> in that
+				mode. All other actions are cross-referenced below the flowchart. For more
+				information about the common <keyword keyref="product_name"/> topologies, refer to
+					<xref href="advanced_config.xml#hib_cach_adv_conf/common_gemfire_topologies"
+					type="section" format="dita" scope="local">Common <keyword keyref="product_name"
+					/> Topologies</xref>. For general information on how to make configuration
+				changes, refer to "Changing <keyword keyref="product_name"/>'s Default
+				Configuration". </p>
+			<image href="../../images_svg/hibernate_flowchart.svg" placement="break"
+				id="image_73557D164A9B44FBA51AEFB038DBC65E"/>
+			<ul id="ul_152BCA3A381A4CD59FF9FF9944C44B33">
+				<li id="li_FE66E49A73104B10AF4BCB87CFF8790F"><b>Use a Client/Server
+						configuration</b>: See <xref
+						href="changing_gemfire_default_cfg.xml#changing_gemfire_default_cfg/changing_gemfire_topology"
+						type="section" format="dita" scope="local">Changing the <keyword
+							keyref="product_name"/> Topology</xref> for more information. </li>
+				<li id="li_5942AC2EDEF54F6F840F57DBA372C317"><b>Use a replicated region for
+						server</b>: Change the server region to "REPLICATE_HEAP_LRU" as described in
+						<xref scope="local"
+						href="changing_gemfire_default_cfg.xml#changing_gemfire_default_cfg/changing_cs_region_atts"
+						type="section" format="dita">Changing the Client/Server Region
+						Attributes</xref>. </li>
+				<li id="li_11A2F1F3F9F043C0A8FB41E776A0A7E7"><b>Use a partitioned region for
+						peer</b>: Change the peer region to "PARTITION" as described in <xref
+						scope="local"
+						href="changing_gemfire_default_cfg.xml#changing_gemfire_default_cfg/changing_p2p_region_atts"
+						type="section" format="dita">Changing the Peer-to-peer Region
+						Attributes</xref>. </li>
+				<li id="li_18D8F4F3AFEE4E0FAB548B709D565C82"><b>Use a CACHING_PROXY region for
+						client</b>: Change the client region to "CACHING_PROXY" as described in
+						<xref scope="local"
+						href="changing_gemfire_default_cfg.xml#changing_gemfire_default_cfg/changing_cs_region_atts"
+						type="section" format="dita">Changing the Client/Server Region
+						Attributes</xref>. </li>
+				<li id="li_67B21D78ACF44F2EA7990F9130D72D00"><b>Use <keyword keyref="product_name"/>
+						Locators for peer discovery</b>: See <xref scope="local"
+						href="changing_gemfire_default_cfg.xml#changing_gemfire_default_cfg/using_locators_with_pp_cfg"
+						type="section" format="dita">Using <keyword keyref="product_name"/> Locators
+						with a Peer-to-peer Configuration</xref> for more information. </li>
+				<li id="li_A96A64F01E9C45C589803BD8E144E3C8"><b>Use <keyword keyref="product_name"/>
+						Locators for client/server discovery</b>: See <xref scope="local"
+						href="changing_gemfire_default_cfg.xml#changing_gemfire_default_cfg/section_57B3FEAFF926487DAF368D67FFE59E1B"
+						type="section" format="dita">Using <keyword keyref="product_name"/> Locators
+						with a Client/Server Configuration</xref> for more information. </li>
+			</ul>
+		</section>
+		<section id="common_gemfire_topologies">
+			<title>Common <keyword keyref="product_name"/> Topologies</title>
+			<p>Before configuring the <keyword keyref="product_name"/> module, you must consider
+				which basic topology is suited for your usage. The configuration process is slightly
+				different for each topology. For general information about <keyword
+					keyref="product_name"/> topologies, refer to <xref
+					href="../../topologies_and_comm/book_intro.xml#concept_7628F498DB534A2D8A99748F5DA5DC94"
+				/>.</p>
+			<ul id="fig_ECD3D1C6B43149EF853EC973D28F492D">
+				<li id="li_860E5673EDC04D04AD425A52BF3DA99C">
+					<b>Peer-to-Peer Configuration</b>. In a peer-to-peer configuration, each
+						<keyword keyref="product_name"/> instance within a Hibernate JVM contains
+					its own cache. It communicates with other <keyword keyref="product_name"/>
+					instances as peers (rather than clients and servers). Depending on the way the
+						<keyword keyref="product_name"/> data region is defined, data is either
+					replicated across all <keyword keyref="product_name"/> peers or it is
+					partitioned so that each instance's cache contains a portion of the entire data
+					set. By default, data is replicated. A peer-to-peer configuration is useful when
+					multiple systems need fast access to all data. This configuration is also the
+					simplest one to set up and does not require any external processes. By default,
+					the <keyword keyref="product_name"/> module will operate in a peer-to-peer
+					configuration. <image href="../../images_svg/hibernate_p2p.svg"
+						placement="break" id="image_B94FF72772C84014B382F949C8CA998C"/>
+				</li>
+				<li id="fig_FE56E96F697446E18A32292BA69223F2">
+					<b>Client/Server Configuration</b>. In a client/server configuration, the
+					Hibernate JVM operates as a <keyword keyref="product_name"/> client, which must
+					communicate with one or more <keyword keyref="product_name"/> servers to acquire
+					data. A client/server configuration is useful when you want to separate the
+					Hibernate JVM from the cached data. In this configuration, you can reduce the
+					memory consumption of the Hibernate process since data is stored in separate
+						<keyword keyref="product_name"/> server processes. For instruction on
+					running <keyword keyref="product_name"/> in a client/server configuration, refer
+					to <xref
+						href="changing_gemfire_default_cfg.xml#changing_gemfire_default_cfg/changing_gemfire_topology"
+						type="section" format="dita" scope="local">Changing the <keyword
+							keyref="product_name"/> Topology</xref>. <image
+						href="../../images_svg/hibernate_cs.svg" placement="break"
+						id="image_AAB713A6A4BC4BBEB1AFD5E6668E77BD"/>
+				</li>
+			</ul>
+		</section>
+	</conbody>
+</concept>

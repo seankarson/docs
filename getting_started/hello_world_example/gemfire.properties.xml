@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "http://docs.oasis-open.org/dita/dtd/concept.dtd">
+<concept
+	id="gemfire.properties">
+	<title>gemfire.properties</title>
+	<shortdesc
+		id="shortdesc_C7AA63E3956146F1BEC3EE3DAAA725D2">gemfire.properties is the <keyword keyref="product_name_long"/>
+		system configuration file. Use it to define how processes in a <keyword keyref="product_name"/> system (in the Hello
+		World example, two Java applications) find each other and communicate. </shortdesc>
+
+	<conbody>
+		<p>Also use the file to configure logging, security, statistics gathering, and more. Each
+			member has its own <codeph>gemfire.properties</codeph> file. </p>
+		<p>The file used in this example sets non-default values for these properties: <ul
+				id="ul_7EFDD34EAA074100BF2256E6B96ACB8D">
+				<li
+					id="li_295E83D5C2974568A40C91DF2869127A">
+					<p>Multicast port location used by the applications to establish communication: </p>
+					<codeblock>mcast-port=10334</codeblock>
+				</li>
+				<li
+					id="li_9298BE9876DE4126BE4FF5391C2C54AA">
+					<p>Level of logging the system should provide: </p>
+					<codeblock>log-level=warning</codeblock>
+				</li>
+			</ul>
+		</p>
+	</conbody>
+</concept>

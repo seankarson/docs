@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "http://docs.oasis-open.org/dita/v1.1/OS/dtd/concept.dtd">
+<concept id="what_is_a_query_string">
+	<title>Building a Query String</title>
+	<conbody>
+		<section id="section_1866AE6026DE4D66A2CD2363C1BC0406">
+			<p>A query string is a fully formed OQL statement that can be passed to a query engine
+				and executed against a data set. To build a query string, you combine supported
+				keywords, expressions, and operators to create an expression that returns the
+				information you require. </p>
+			<p>A query string follows the rules specified by the query language and grammar. It can
+				include: <ul id="ul_B227EDA1A78E43F0A1607ED8FDEB59AC">
+					<li id="li_0BA2C95F21EC49E8B5E5EE1FB15C55EA"><b>Namescopes</b>. For example, the
+						IMPORT statement. See <xref
+							href="../query_select/the_import_statement.xml#concept_2E9F15B2FE9041238B54736103396BF7"
+							type="concept" format="dita" scope="local"/>. </li>
+					<li id="li_3AB903ABA6DD4BE784FCED3926844065"><b>Path expressions</b>. For
+						example, in the query <codeph>SELECT * FROM
+								/exampleRegion</codeph>,<codeph><b> /exampleRegion</b></codeph> is a
+						path expression. See <xref
+							href="../query_select/the_from_clause.xml#the_from_clause"
+							type="concept" format="dita" scope="local"/>. </li>
+					<li id="li_D68A929C6660497BB35200F0D9EDC4DA"><b>Attribute names</b>. For
+						example, in the query <codeph>SELECT DISTINCT * FROM /exampleRegion p WHERE
+							p.position1.secId = '1'</codeph>, we access the <codeph>secId</codeph>
+						attribute of the Position object. See <xref
+							href="../query_select/the_where_clause.xml#the_where_clause"
+							type="concept" format="dita" scope="local"/>. </li>
+					<li id="li_2AE0B90116354E7C9C670C6E5CE38624"><b>Method invocations</b>. For
+						example, in the query <codeph>SELECT DISTINCT * FROM /exampleRegion p WHERE
+							p.name.startsWith('Bo')</codeph>, we invoke the
+							<codeph>startsWith</codeph> method on the Name object. See <xref
+							href="../query_select/the_where_clause.xml#the_where_clause"
+							type="concept" format="dita" scope="local"/>. </li>
+					<li id="li_332462B4E403413BB48463FCB2CDC15A"><b>Operators</b>. For example,
+						comparison operators (=,&lt;,&gt;,&lt;&gt;), unary operators (NOT), logical
+						operators (AND, OR) and so on. See <xref
+							href="../query_additional/operators.xml#operators" type="concept"
+							format="dita" scope="local"/> for a complete list. </li>
+					<li id="li_5BA45EB8339045D3962F68154167408D"><b>Literals</b>. For example,
+						boolean, date, time and so on. See <xref
+							href="../query_additional/literals.xml#literals" type="concept"
+							format="dita" scope="local"/> for a complete list. </li>
+					<li id="li_19C3AFA1B370439FAC6A59767D82BE78"><b>Query bind parameters</b>. For
+						example, in the query <codeph>SELECT DISTINCT * FROM $1 p WHERE p.status =
+							$2</codeph>, $1 and $2 are parameters that can be passed to the query
+						during runtime. See <xref scope="local"
+							href="../query_additional/using_query_bind_parameters.xml#concept_173E775FE46B47DF9D7D1E40680D34DF"
+							type="concept" format="dita">Using Query Bind Parameters</xref> for more
+						details. </li>
+					<li id="li_9C727483A3B94C8C9153ABC317E1EB95"><b>Preset query functions</b>. For
+						example, ELEMENT(expr) and IS_DEFINED(expr). See <xref
+							href="../query_select/the_select_statement.xml#concept_85AE7D6B1E2941ED8BD2A8310A81753E"
+							type="concept" format="dita" scope="local"/> for other available
+						functions. </li>
+					<li id="li_AE6CC3AA438840049D9BE52578010D50"><b>SELECT statements</b>. For
+						example, in the example queries above <codeph>SELECT *</codeph> or
+							<codeph>SELECT DISTINCT *</codeph>. See <xref
+							href="../query_select/the_select_statement.xml#concept_85AE7D6B1E2941ED8BD2A8310A81753E"
+							type="concept" format="dita" scope="local"/> for other available
+						functions. </li>
+				</ul>
+			</p>
+			<p>The components listed above can all be part of the query string, but none of the
+				components are required. At a minimum, a query string contains an expression that
+				can be evaluated against specified data. </p>
+			<p>The following sections provide guidelines for the query language building blocks that
+				are used when writing typical <keyword keyref="product_name"/> queries. </p>
+		</section>
+	</conbody>
+</concept>

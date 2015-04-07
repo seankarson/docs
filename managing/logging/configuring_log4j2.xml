@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept id="concept_c4k_1qf_jq">
+  <title>Advanced Users: Configuring Log4j 2 for <keyword keyref="product_name"/></title>
+  <shortdesc>Basic <keyword keyref="product_name"/> logging configuration is configured via the
+    gemfire.properties file. This topic is intended for advanced users who need increased control
+    over logging due to integration with third-party libraries. </shortdesc>
+  <conbody>
+    <p>The default <filepath>log4j2.xml</filepath> that <keyword keyref="product_name"/> uses is
+      stored in <keyword keyref="product_jar"/> as <codeph>log4j2-default.xml</codeph>. The contents
+      of the configuration can be viewed in the product distribution in the following location:
+        <codeph>$GEMFIRE/defaultConfigs/log4j2.xml</codeph>. </p>
+    <p>To specify your own <codeph>log4j2.xml</codeph> configuration file (or anything else
+      supported by Log4j 2 such as .json or .yaml), use the following flag when starting up your JVM
+      or <keyword keyref="product_name"/> member:</p>
+    <p><codeblock>-Dlog4j.configurationFile=&lt;location-of-your-file&gt;</codeblock>If the Java
+      system property <codeph>log4j.configurationFile</codeph> is specified, then <keyword
+        keyref="product_name"/> will not use the <codeph>log4j2-default.xml</codeph> included in
+        <keyword keyref="product_jar"/>. However, <keyword keyref="product_name"/> will still create
+      and register a AlertAppender and LogWriterAppender if the <codeph>alert-level</codeph> and
+        <codeph>log-file</codeph>
+      <keyword keyref="product_name"/> properties are configured. You can then use the <keyword
+        keyref="product_name"/> LogWriter to log to <keyword keyref="product_name"/>'s log or to
+      generate an Alert and receive log statements from customer's application and all third party
+      libraries. Alternatively, you can use any front-end logging API that is configured to log to
+      Log4j 2.</p>
+    <section>
+      <title>Using Different Front-End Logging APIs to Log to Log4j2</title>
+      <p>You can also configure Log4j 2 to work with various popular and commonly used logging APIs.
+        To obtain and configure the most popular front-end logging APIs to log to Log4j 2, see the
+        instructions on the Apache Log4j 2 web site at <xref
+          href="http://logging.apache.org/log4j/2.x/" format="html" scope="external"
+          >http://logging.apache.org/log4j/2.x/</xref>. </p>
+      <p>For example, if you are using:</p>
+      <ul id="ul_b5r_5gn_qq">
+        <li><b>Commons Logging</b>, download "Commons Logging Bridge"
+            (<codeph>log4j-jcl-2.1.jar</codeph>)</li>
+        <li><b>SLF4J</b>, download "SLFJ4 Binding" (<codeph>log4j-slf4j-impl-2.1.jar</codeph>)</li>
+        <li><b>java.util.logging</b>, download the "JUL adapter"
+          (<codeph>log4j-jul-2.1.jar</codeph>)</li>
+      </ul>
+      <p>See <xref href="http://logging.apache.org/log4j/2.x/faq.html" format="html"
+          scope="external">http://logging.apache.org/log4j/2.x/faq.html</xref> for more
+        examples.</p>
+      <p>All three of the above JAR files are in the full distribution of Log4J 2.1 which can be
+        downloaded at <xref href="http://logging.apache.org/log4j/2.x/download.html" format="html"
+          scope="external">http://logging.apache.org/log4j/2.x/download.html</xref>. Download the
+        appropriate bridge, adapter, or binding JARs to ensure that <keyword keyref="product_name"/>
+        logging is integrated with every logging API used in various third-party libraries or in
+        your own applications.<note><keyword keyref="product_name_long"/> has been tested with Log4j
+          2.1. As newer versions of Log4j 2 come out, you can find 2.1 under Previous Releases on
+          that page. </note>
+      </p>
+    </section>
+    <section>
+      <title>Customizing Your Own log4j2.xml File</title>
+      <p>Advanced users may want to move away entirely from setting <codeph>log-*</codeph> gemfire
+        properties and instead specify their own <codeph>log4j2.xml</codeph> using
+          <codeph>-Dlog4j.configurationFile</codeph>. </p>
+      <p>Custom Log4j 2 configuration in <keyword keyref="product_name"/> comes with some caveats
+        and notes: </p>
+      <ul id="ul_b53_xhn_qq">
+        <li>Do not use <codeph>"monitorInterval="</codeph> in your log4j2.xml file because doing so
+          can have significant performance impact. This setting instructs Log4j 2 to monitor the
+          log4j2.xml config file at runtime and automatically reload and reconfigure if the file
+          changes. </li>
+        <li><keyword keyref="product_name"/>'s default <filepath>log4j2.xml</filepath> specifies
+          status="FATAL" because Log4j 2's StatusLogger generates warnings to standard out at ERROR
+          level anytime <keyword keyref="product_name"/> stops its AlertAppender or
+          LogWriterAppender. <keyword keyref="product_name"/> uses a lot of concurrent threads that
+          are executing code with log statements; these threads may be logging while the <keyword
+            keyref="product_name"/> appenders are being stopped.</li>
+        <li><keyword keyref="product_name"/>'s default log4j2.xml specifies
+            <codeph>shutdownHook="disable"</codeph> because <keyword keyref="product_name"/> has a
+          shutdown hook which disconnects the DistributedSystem and closes the Cache, which is
+          executing the code that performs logging. If the Log4J2 shutdown hook stops logging before
+            <keyword keyref="product_name"/> completes its shutdown, Log4j 2 will attempt to start
+          back up. This restart in turn attempts to register another Log4j 2 shutdown hook which
+          fails resulting in a FATAL level message logged by Log4j 2. </li>
+        <li>The GEMFIRE_VERBOSE marker (Log4J2 Marker are discussed on <xref
+            href="http://logging.apache.org/log4j/2.x/manual/markers.html" format="html"
+            scope="external">http://logging.apache.org/log4j/2.x/manual/markers.html</xref>) can be
+          used to enable additional verbose log statements at TRACE level. Many log statements are
+          enabled simply by enabling DEBUG or TRACE. However, even more log statements can be
+          further enabled by using MarkerFilter to accept GEMFIRE_VERBOSE. The default <keyword
+            keyref="product_name"/>
+          <filepath>log4j2.xml</filepath> disables GEMFIRE_VERBOSE with this line:
+          <codeblock>&lt;MarkerFilter marker="GEMFIRE_VERBOSE" onMatch="DENY" onMismatch="NEUTRAL"/> </codeblock>You
+          can enable the GEMFIRE_VERBOSE log statements by changing <codeph>onMatch="DENY"</codeph>
+          to <codeph>onMatch="ACCEPT"</codeph>. Typically, it's more useful to simply enable DEBUG
+          or TRACE on certain classes or packages instead of for the entire <keyword
+            keyref="product_name"/> product. However, this setting can be used for internal
+          debugging purposes if all other debugging methods fail.</li>
+      </ul>
+    </section>
+  </conbody>
+</concept>

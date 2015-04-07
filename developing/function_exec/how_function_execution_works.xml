@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "http://docs.oasis-open.org/dita/v1.1/OS/dtd/concept.dtd">
+<concept id="how_function_execution_works">
+	<title>How Function Execution Works</title>
+	<conbody>
+		<section id="section_881D2FF6761B4D689DDB46C650E2A2E1">
+			<title>Where Functions Are Executed</title>
+			<p>You can execute data-independent functions or data-dependent functions in <keyword
+					keyref="product_name"/> . You run data-independent functions by targeting a
+				specific member or specific members in your distributed system, or by targeting
+				logical member groups on which to execute your function. If you are executing a
+				data-dependent function, you specify a region on which to execute the function. <ul
+					id="ul_CCB842FDAB294745A836BF0B2C192AEA">
+					<li id="li_5522C5F0CB4445D28A8F984B99F69F8F">On a specific member or members.
+						Execute the function in your own distributed system, and specify the member
+						or members where you want to run the function. </li>
+					<li id="li_26F94678990C4756947790F1511436CE">On a specific server or set of
+						servers. If you are connected to a distributed system as a client, you can
+						execute the function on a server or servers configured for a specific
+						connection pool, or on a server or servers connected to a given cache. </li>
+					<li id="li_32D051652A39470BA88184043E4EE044"> On member groups or on a single
+						member within each member group. In <keyword keyref="product_name"/> 7.0,
+						you can organize members into logical member groups. (See <xref
+							href="../../configuring/cluster_config/using_member_groups.xml#concept_5B60087DA11644C49250064BAB8AFFA6"
+							type="concept" format="dita" scope="local"/> for more information.) You
+						can invoke a data independent function on all members in a specified member
+						group (or member groups) or execute the function on only one member of each
+						specified member group. </li>
+					<li id="li_CD7893443F68475D9AA336ECD0455DD5">On a data set. Specify a region and
+						possibly a set of keys on which to run the function. </li>
+				</ul>
+			</p>
+			<p>See the <codeph>com.gemstone.gemfire.cache.execute.FunctionService</codeph> Java API
+				documentation for more details. </p>
+		</section>
+		<section id="section_E0C4B7D2E4414F099788A5A441FF0E03">
+			<title>How Functions Are Executed</title>
+			<p> The following things occur when a function is executed: <ol
+					id="ol_afaf5d4b-60bd-4fbb-abcd-1dd17040bb69">
+					<li id="li_2055981FCBDF4FC6823977F1E0DFD3F0">When you call the
+							<codeph>execute</codeph> method on the <codeph>Function</codeph>
+						<codeph>Execution</codeph> object, the execution is sent to all members
+						where it needs to run. The locations are determined by the
+							<codeph>FunctionService</codeph>
+						<codeph>on*</codeph> method calls, region configuration, and any filters.
+						With <codeph>onRegion</codeph>, for a client region, the function is sent to
+						the server system. For a non-client region, the function is handled in the
+						calling application’s distributed system. </li>
+					<li id="li_F0499F1C733A4E029995AC4D50E9267F">If the function has results, the
+						result is returned to the <codeph>execute</codeph> method call in a
+							<codeph>ResultCollector</codeph> object. </li>
+					<li id="li_058FFE112FE2465A94C256ECF3E66D68">The originating member collects
+						results using <codeph>ResultCollector.getResult</codeph>. </li>
+					<li>If the <codeph>execute</codeph> method throws a FunctionException, the
+						exception is handled in a specialized manner. <keyword keyref="product_name"
+						/> transmits the exception to the calling side, and the FunctionException is
+						then thrown in the caller’s execution stack as if it had originated on the
+						calling side.</li>
+				</ol>
+			</p>
+		</section>
+		<section id="section_14FF9932C7134C5584A14246BB4D4FF6">
+			<title>Highly Available Functions</title>
+			<p>Generally, function execution errors are returned to the calling application. You can
+				code for high availability for <codeph>onRegion</codeph> functions that return a
+				result, so <keyword keyref="product_name"/> automatically retries a function if it
+				does not execute successfully. To be highly available, the function must be coded
+				and configured for it, and the calling application must invoke the function using
+				the results collector <codeph>getResult</codeph> method. </p>
+			<p>When a failure occurs (such as an execution error or member crash while executing),
+				the system responds as follows: <ol id="ol_9C0026A3FD15427CB1567D8F6D89CCF4">
+					<li id="li_C9867A85FB5A4A20941CCD972316FA9F">Waits for all calls to return </li>
+					<li id="li_D9C00DE1CED3490DB2D09046A47EC135">Sets a boolean indicating a
+						re-execution is being done </li>
+					<li id="li_041CBA5BCC4744538E5CC801D228BC3B">Calls the result collector’s
+							<codeph>clearResults</codeph> method </li>
+					<li id="li_809B4573996F4668A53964C7F2F59DAC">Executes the function </li>
+				</ol>
+			</p>
+			<p>For client regions, the system retries the execution according to
+					<codeph>com.gemstone.gemfire.cache.client.Pool</codeph>
+				<codeph>retryAttempts</codeph>. If the function fails to run every time, the final
+				exception is returned to the <codeph>getResult</codeph> method. </p>
+			<p>For member calls, the system retries until it succeeds or no data remains in the
+				system for the function to operate on. </p>
+		</section>
+		<section id="section_A0FD54B73E9A453AA38FC4A4D5282351">
+			<title>Function Execution Scenarios</title>
+			<p>The diagram shows the sequence of events for a data-independent function run on a
+				client's server. The function is executed against all available servers: </p>
+			<p>
+				<image href="../../images/function_execution-1.gif"
+					id="image_993D1FD7705E40EA801CF0656C4E91E5" placement="break"/>
+			</p>
+			<p/>
+			<p>The next figure shows the sequence of events for a data-independent function executed
+				against all available members in the calling application’s distributed system: </p>
+			<p>
+				<image href="../../images/function_execution-3.gif"
+					id="image_041832B370AA4241980B8C2632DD1DC8" placement="break"/>
+			</p>
+			<p>The next figure shows a data-dependent function run on a client region. The client
+				region is connected to the server system, where the region is partitioned, so the
+				function automatically goes to the server system to run against all servers holding
+				data for the region. </p>
+			<p>
+				<image href="../../images/function_execution-4.gif"
+					id="image_68742923936F4EEC8E50819F5CEECBCC" placement="break"/>
+			</p>
+			<p>The next figure shows the same data-dependent function with the added specification
+				of a set of keys on which to run. Servers that do not hold any keys are left out of
+				the function execution. </p>
+			<p>
+				<image href="../../images/function_execution-5.gif" placement="break"
+					id="image_7FA8BE5D02F24CF8B49186C6FEB786BD"/>
+			</p>
+			<p>The next figure shows a data-dependent call is on a region that is not configured as
+				a client region, so it runs in the caller’s distributed system. </p>
+			<p>
+				<image href="../../images/function_execution-6.gif" placement="break"
+					id="image_9B8E914BA80E4BBA99856E9603A9BDA0"/>
+			</p>
+			<p>The next figure demonstrates a sequence of steps in a call to a highly available
+				function. The call fails the first time on one of the participating members and is
+				successfully run a second time on all members. </p>
+			<p>
+				<image href="../../images/function_execution-7.gif" placement="break"
+					id="image_05E94BB0EBF349FF8822158F2001F313"/>
+			</p>
+		</section>
+	</conbody>
+</concept>

@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept id="concept_F2E124F14F24418990BFFCD5A5355BEC">
+	<title>disconnect</title>
+	<shortdesc>Close any active connection(s). </shortdesc>
+	<conbody>
+		<p><b> Availability:</b> Online. You must be connected in <codeph>gfsh</codeph> to a JMX
+			Manager member to use this command. </p>
+		<p><b>Syntax:</b>
+			<codeblock>
+disconnect</codeblock>
+		</p>
+		<p><b>Example Commands:</b>
+			<codeblock>
+disconnect</codeblock>
+		</p>
+		<p><b>Sample Output:</b>
+			<codeblock>gfsh&gt;disconnect
+Disconnecting from: Locator1[1099]
+Disconnected from : Locator1[1099]</codeblock>
+		</p>
+		<p><b>Error Messages:</b>
+			<codeblock>Error occurred while disconnecting: {0}</codeblock>
+			<codeblock>Not connected!</codeblock>
+		</p>
+	</conbody>
+</concept>

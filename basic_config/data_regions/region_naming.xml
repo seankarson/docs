@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "http://docs.oasis-open.org/dita/v1.1/OS/dtd/concept.dtd">
+<concept id="region_naming">
+	<title>Region Naming</title>
+	<shortdesc id="shortdesc_4CBC8C6481394E448749B631E4991771">To get the full range of <keyword
+			keyref="product_name_long"/> capabilities for your cached data regions, follow <keyword
+			keyref="product_name"/>'s region naming guidelines. </shortdesc>
+	<conbody>
+		<p>The safest approach when naming your regions is to use only alphanumeric characters and
+			the underscore character and to keep your region names short. This permits you the full
+			range of <keyword keyref="product_name"/> region configurations and allow you to perform all available <keyword keyref="product_name"/>
+			operations on the region. </p>
+		<p>Following these guidelines for naming regions: <ul
+				id="ul_084E8EA7BB8A475E94A3C57E9B3117C8">
+				<li id="li_4AB353DC6BAE4A1BB7AA87D56A163D37">Do not use the separator slash
+					character ‘ / ’. </li>
+				<li id="li_4858043D34874FB1AFACC90C0A3281E7">Do not begin region names with two
+					underscore characters "__" as this is reserved for internal <keyword keyref="product_name"/> use. </li>
+				<li id="li_CB18131CA66B47B396B3CAC3BFEAEBD0">To run queries against your data,
+					restrict your region names to alphanumeric characters and the underscore
+					character. </li>
+			</ul>
+		</p>
+	</conbody>
+</concept>

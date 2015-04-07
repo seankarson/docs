@@ -1,0 +1,222 @@
+<?xml version="1.0"?>
+<!DOCTYPE dita PUBLIC "-//OASIS//DTD DITA Composite//EN" "ditabase.dtd">
+<dita>
+	<topic id="topic_7BCB054803CF48FE8688394C5C39000A">
+		<title>status</title>
+		<shortdesc>Check the status of the cluster configuration service and <keyword
+				keyref="product_name"/> member processes, including locators, and servers. </shortdesc>
+		<topic id="topic_ts1_qb1_dk2">
+			<title>status cluster-config-service</title>
+			<shortdesc>Displays the status of the cluster configuration service. </shortdesc>
+			<body>
+				<p>Displays the status of cluster configuration service on all the locators where
+						<parmname>enable-cluster-configuration</parmname> is set to
+						<codeph>true</codeph>. </p>
+				<p><b> Availability:</b> Online. You must be connected in <codeph>gfsh</codeph> to a
+					JMX Manager member to use this command. </p>
+				<p>
+					<b>Syntax:</b>
+					<codeblock>status cluster-config-service</codeblock>
+				</p>
+				<p>
+					<b>Example Commands:</b>
+					<codeblock>status cluster-config-service</codeblock>
+				</p>
+				<p>
+					<b>Sample Output:</b>
+				</p>
+				<p>
+					<codeblock>gfsh>status cluster-config-service
+Status of shared configuration on locators
+
+  Name   | Status
+-------- | -------
+locator8 | RUNNING
+
+</codeblock>
+				</p>
+			</body>
+		</topic>
+		<topic id="topic_E96D0EFA513C4CD79B833FCCDD69C832">
+			<title>status locator</title>
+			<shortdesc>Displays the status of the specified locator.</shortdesc>
+			<body>
+				<p> The status will be one of the following: <ul
+						id="ul_A4D81F82B07F45D5A58E5914DED9846E">
+						<li id="li_79FA1EDDB4A444C2ADDCCD535582C26F">started </li>
+						<li id="li_4D1E64320044444BAB1B1C22C6E01220">online </li>
+						<li id="li_63D67964674943D386EC9BC1B1F698B3">offline </li>
+						<li id="li_3C28631BE99946C5BE21ABC6429AA6F5">not responding </li>
+					</ul>
+				</p>
+				<p><b> Availability:</b> Online or offline. If you want to obtain the status of a
+					locator while you are offline, use the <codeph>--dir</codeph> or the
+						<codeph>--pid</codeph> parameter. </p>
+				<p>
+					<b>Syntax:</b>
+					<codeblock>status locator [--name=value] [--host=value] [--port=value] 
+[--pid=value] [--dir=value]</codeblock>
+					<table id="table_617483BD5D9941C087DCF9F153797DAD">
+						<title>Parameters</title>
+						<tgroup cols="3">
+							<colspec colname="col1" colnum="1" colwidth="1.00*"/>
+							<colspec colname="col2" colnum="2" colwidth="6.69*"/>
+							<colspec colname="newCol3" colnum="3" colwidth="1*"/>
+							<thead>
+								<row>
+									<entry colname="col1">Name </entry>
+									<entry colname="col2">Description</entry>
+									<entry>Default Value</entry>
+								</row>
+							</thead>
+							<tbody>
+								<row>
+									<entry colname="col1">
+										<parmname>--name</parmname>
+									</entry>
+									<entry colname="col2">Name/ID of the locator for which to
+										display status. You must be connected to the JMX Manager to
+										use this option. Can be used to obtain status of remote
+										locators. See <xref
+											href="../../../configuring/cluster_config/gfsh_remote.xml#task_nyb_mhn_44"
+										/>.</entry>
+									<entry/>
+								</row>
+								<row>
+									<entry colname="col1">
+										<parmname>--host</parmname>
+									</entry>
+									<entry colname="col2">Hostname or IP address on which the
+										Locator is running. </entry>
+									<entry/>
+								</row>
+								<row>
+									<entry colname="col1">
+										<parmname>--port</parmname>
+									</entry>
+									<entry colname="col2">Port on which the locator is listening. </entry>
+									<entry>10334</entry>
+								</row>
+								<row>
+									<entry colname="col1">
+										<parmname>--pid</parmname>
+									</entry>
+									<entry colname="col2">Process ID (PID) of the running locator. </entry>
+									<entry/>
+								</row>
+								<row>
+									<entry colname="col1">
+										<parmname>--dir</parmname>
+									</entry>
+									<entry colname="col2">Directory in which the locator was
+										started. </entry>
+									<entry>current directory</entry>
+								</row>
+							</tbody>
+						</tgroup>
+					</table>
+				</p>
+				<p>
+					<b>Example Commands:</b>
+					<codeblock>status locator
+status locator --name=locator1</codeblock>
+				</p>
+				<p>
+					<b>Sample Output:</b>
+					<codeblock>gfsh>status locator --name=locator1
+Locator in /home/stymon/gemfire/locator1 on ubuntu.local[10334] as locator1 is currently online.
+Process ID: 2401
+Uptime: 12 minutes 3 seconds
+GemFire Version: 8.0.0
+Java Version: 1.7.0_65
+Log File: /home/stymon/gemfire/locator1/locator1.log
+JVM Arguments: -Dgemfire.enable-cluster-configuration=true -Dgemfire.load-cluster-configuration-from-dir=false 
+-Dgemfire.launcher.registerSignalHandlers=true -Djava.awt.headless=true -Dsun.rmi.dgc.server.gcInterval=9223372036854775806
+Class-Path: /home/stymon/Pivotal_GemFire_800_b48319_Linux/lib/locator-dependencies.jar:/usr/local/java/lib/tools.jar
+
+Cluster configuration service is up and running.
+</codeblock>
+				</p>
+			</body>
+		</topic>
+		<topic id="topic_E5DB49044978404D9D6B1971BF5D400D">
+			<title>status server</title>
+			<shortdesc>Display the status of the specified <keyword keyref="product_name"/> cache
+				server. </shortdesc>
+			<body>
+				<p><b> Availability:</b> Online or offline. If you want to obtain the status of a
+					server while you are offline, use the <codeph>--dir</codeph> or the
+						<codeph>--pid</codeph> parameter. </p>
+				<p>
+					<b>Syntax:</b>
+					<codeblock>status server [--name=value] [--pid=value] [--dir=value]</codeblock>
+					<table id="table_F845BD795DA24966B16DEB5FFEC6B74A">
+						<title>Parameters</title>
+						<tgroup cols="3">
+							<colspec colname="col1" colnum="1" colwidth="1.00*"/>
+							<colspec colname="col2" colnum="2" colwidth="6.69*"/>
+							<colspec colname="newCol3" colnum="3" colwidth="1*"/>
+							<thead>
+								<row>
+									<entry colname="col1">Name </entry>
+									<entry colname="col2">Description</entry>
+									<entry colname="col3">Default Value</entry>
+								</row>
+							</thead>
+							<tbody>
+								<row>
+									<entry colname="col1">
+										<parmname>--name</parmname>
+									</entry>
+									<entry colname="col2">Name or ID of the Cache Server for which
+										to display status. You must be connected to the JMX Manager
+										to use this option. Can be used to obtain status of remote
+										servers. See <xref
+											href="../../../configuring/cluster_config/gfsh_remote.xml#task_nyb_mhn_44"
+										/>.</entry>
+									<entry/>
+								</row>
+								<row>
+									<entry colname="col1">
+										<parmname>--pid</parmname>
+									</entry>
+									<entry colname="col2"> Process ID (PID) of the running <keyword
+											keyref="product_name"/> Cache Server. </entry>
+									<entry/>
+								</row>
+								<row>
+									<entry colname="col1">
+										<parmname>--dir </parmname>
+									</entry>
+									<entry colname="col2"> Directory in which the <keyword
+											keyref="product_name"/> Cache Server was started. </entry>
+									<entry>current directory</entry>
+								</row>
+							</tbody>
+						</tgroup>
+					</table>
+				</p>
+				<p>
+					<b>Example Commands:</b>
+					<codeblock>status server
+status server --name=server1</codeblock>
+				</p>
+				<p>
+					<b>Sample Output:</b>
+					<codeblock>gfsh>status server --name=server1
+Server in /home/stymon/gemfire/server1 on ubuntu.local[40404] as server1 is currently online.
+Process ID: 2726
+Uptime: 1 minute 3 seconds
+GemFire Version: 8.0.0
+Java Version: 1.7.0_65
+Log File: /home/stymon/gemfire/server1/server1.log
+JVM Arguments: -Dgemfire.default.locators=192.168.129.145[10334] -Dgemfire.use-cluster-configuration=true
+ -XX:OnOutOfMemoryError="kill -9 %p" -Dgemfire.launcher.registerSignalHandlers=true -Djava.awt.headless=true 
+-Dsun.rmi.dgc.server.gcInterval=9223372036854775806
+Class-Path: /home/stymon/Pivotal_GemFire_800_b48319_Linux/lib/server-dependencies.jar:/usr/local/java/lib/tools.jar
+</codeblock>
+				</p>
+			</body>
+		</topic>
+	</topic>
+</dita>

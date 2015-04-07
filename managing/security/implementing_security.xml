@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "http://docs.oasis-open.org/dita/v1.1/OS/dtd/concept.dtd">
+<concept id="implementing_security">
+	<title>Security Implementation Overview</title>
+	<shortdesc><keyword keyref="product_name_long"/> can authenticate peer system members and
+		clients. It can also authorize cache operations on a server from clients. </shortdesc>
+	<conbody>
+		<section id="section_79F6CF928E764CA294D466D0CB2E5FAC">
+			<p>You can use <keyword keyref="product_name"/> security for secure communication, to
+				authorize system membership, and to authorize specific activities in the cache: <ol
+					id="ol_D9C162BA03224833839227EF0940EE1C">
+					<li id="li_A9B61790816F4E9C988457D65C6C75B1">Use locators for peer discovery
+						within the distributed systems and for client discovery of servers. See
+							<xref scope="local"
+							href="../../topologies_and_comm/p2p_configuration/setting_up_a_p2p_system.xml#setting_up_membership"
+							type="concept" format="dita"/>
+							 and <xref
+							href="../../topologies_and_comm/cs_configuration/setting_up_a_client_server_system.xml#setting_up_a_client_server_system"
+							type="task" format="dita" scope="local"/>. </li>
+					<li id="li_B4E2B877FE8C4EC0B5B31060BD4C2960">Use consistent security settings
+						between similar processes in a single distributed system. For example,
+						configure all servers in a system with the same client authentication
+						settings. </li>
+					<li id="li_A59AC2EDB817422F99CE687979DE1193">Implement membership
+						authentication. Depending on your installation and security requirements,
+						you may use a combination of peer-to-peer and client/server settings. </li>
+					<li id="li_0ECF210970E4446D877A083197F0FD3E">If you have a client/server system,
+						implement any authorized access control your servers will use for clients
+						attempting to access or modify the cache. </li>
+					<li id="li_42F743F682734239B31A89A3CE495C0F">If you want to use secure socket
+						layer (SSL) protocol for your peer-to-peer and client/server connections,
+						implement that. You can configure SSL separately for peer-to-peer,
+						client/server, JMX, and HTTP connections.</li>
+				</ol>
+			</p>
+		</section>
+		<section id="section_1B8A856DB52449C6BF2AEB7C0D9515B5">
+			<title>Where to Place Security Configuration Settings</title>
+			<p>Any security-related (properties that begin with <codeph>security-*</codeph>)
+				configuration properties that are normally configured in
+					<codeph>gemfire.properties</codeph> can be moved to a separate
+					<codeph>gfsecurity.properties</codeph> file. Placing these configuration
+				settings in a separate file allows you to restrict access to security configuration
+				data. This way, you can still allow read or write access for your
+					<codeph>gemfire.properties</codeph> file. </p>
+			<p>Upon startup, <keyword keyref="product_name"/> processes will look for the
+					<codeph>gfsecurity.properties</codeph> file in the following locations in order:
+					<ul id="ul_DE1034684DFE4860BAD35AF07237187E">
+					<li id="li_7ADFA0E09CE546DF8CBB56ACEF289B7A">current working directory </li>
+					<li id="li_31B73A57ECC14ED8A48EE4F5B696C772">user's home directory </li>
+					<li id="li_1BA79E250FD644BBA07D52B739AF25AE">classpath </li>
+				</ul>
+			</p>
+			<p>If any password-related security properties are listed in the file but have a blank
+				value, the process will prompt the user to enter a password upon startup. </p>
+		</section>
+		<section id="section_155ED414321E4D4ABBD7ED3508E7BD62">
+			<p>
+				<table frame="all" id="table_0B9FD304A38A4605A6FE6B4AC0083FA5">
+					<tgroup cols="1">
+						<colspec colname="topic_link" colnum="1"/>
+						<thead>
+							<row>
+								<entry>Related Topics </entry>
+							</row>
+						</thead>
+						<tbody>
+							<row>
+								<entry>
+									<codeph>com.gemstone.gemfire.security</codeph>
+								</entry>
+							</row>
+						</tbody>
+					</tgroup>
+				</table>
+			</p>
+			<p> </p>
+		</section>
+	</conbody>
+</concept>

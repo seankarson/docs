@@ -1,0 +1,212 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE task PUBLIC "-//OASIS//DTD DITA Task//EN" "task.dtd">
+<task id="topic_e21_qc5_m4">
+  <title>Setup and Configuration</title>
+  <shortdesc>The <keyword keyref="product_name_long"/> developer REST interface runs as an embedded
+    HTTP or HTTPS service (Jetty server) within a <keyword keyref="product_name"/> data node. </shortdesc>
+  <taskbody>
+    <prereq>
+      <p>All <keyword keyref="product_name"/> REST interface classes and required JAR files are
+        distributed as a WAR file with the <keyword keyref="product_name"/> product distribution.
+        You can locate the file in the following
+        location:<codeblock>$GEMFIRE/tools/Extensions/gemfire-api.war</codeblock></p>
+      <p dir="ltr">To enable the developer REST API service in <keyword keyref="product_name_long"
+        />, set the <codeph>start-dev-rest-api</codeph>
+        <keyword keyref="product_name"/> property to <codeph>true</codeph> when starting a data node
+        using either <codeph>gfsh</codeph> or the ServerLauncher API. Setting this property to true
+        on a data node will start up an embedded Jetty server and deploy the REST developer API WAR
+        file.</p>
+      <p dir="ltr">
+        <note>The REST API service for application development can only be started on servers; you
+          cannot use locators to host the developer <keyword keyref="product_name"/> REST API
+          services. </note>
+      </p>
+      <p dir="ltr">You can have multiple REST enabled data nodes in a single distributed system.
+        Each data node should have a separate host name and unique end point. To ensure that the
+        data node is reachable on a machine with multiple NIC addresses, you can use
+          <codeph>http-service-bind-address</codeph> to bind an address to the REST API service (as
+        well as the other embedded web services such as Pulse.)</p>
+      <p>You can also configure the Developer REST API service to run over HTTPS by configuring the
+        following <keyword keyref="product_name"/> properties in
+          <filepath>gemfire.properties</filepath> or <filepath>gfsecurity.properties</filepath> or
+        on server startup:</p>
+      <ul id="ul_hl4_rqq_kq">
+        <li>http-service-ssl-enabled</li>
+        <li>http-service-ssl-require-authentication</li>
+        <li>http-service-ssl-protocols</li>
+        <li>http-service-ssl-ciphers</li>
+        <li>http-service-ssl-keystore</li>
+        <li>http-service-ssl-keystore-password</li>
+        <li>http-service-ssl-keystore-type</li>
+        <li>http-service-ssl-truststore</li>
+        <li>http-service-ssl-truststore-password</li>
+      </ul>
+      <p dir="ltr">See <xref href="../managing/security/ssl_overview.xml#ssl"/> for details on
+        configuring these parameters.</p>
+      <p dir="ltr">The above parameters apply to all HTTP services hosted on the configured server,
+        which can include the following:</p>
+      <ul id="ul_vnp_vrq_kq">
+        <li>Developer REST API service</li>
+        <li>Management REST API service (for remote cluster management)</li>
+        <li>Pulse monitoring tool</li>
+      </ul>
+      <p>The following procedure starts up a REST API service-enabled <keyword keyref="product_name"
+        /> deployment:</p>
+    </prereq>
+    <steps id="steps_twp_yc5_m4">
+      <step>
+        <cmd>Configure PDX for your cluster. You must configure PDX if either or both of the
+          following conditions apply: </cmd>
+        <info><p>
+            <ul id="ul_shp_4qx_dp">
+              <li>Application peer member caches will access REST-accessible Regions (resources)
+                with the <codeph>Region.get(key)</codeph>.</li>
+              <li>Your deployment has persistent regions that must be available as resources to the
+                REST API. </li>
+            </ul>
+          </p> To configure PDX in your cluster, perform the following steps:</info>
+        <substeps id="substeps_pgr_x5p_y4">
+          <substep>
+            <cmd>Start up a locator running the <xref
+                href="../configuring/cluster_config/gfsh_persist.xml#concept_r22_hyw_bl">cluster configuration
+                service</xref> (enabled by default). For example: </cmd>
+            <info>
+              <codeblock>gfsh>start locator --name=locator1</codeblock>
+            </info>
+          </substep>
+          <substep>
+            <cmd>If your deployment has application peer member caches (for example, Java clients)
+              that must also access REST-accessible Regions (resources), use the following gfsh
+              command:</cmd>
+            <info>
+              <codeblock>gfsh>configure pdx --read-serialized=true</codeblock>
+              <note>You do not need to configure <codeph>--read-serialized=true</codeph> if no
+                application peer member caches are accessing the REST-accessible regions (resources)
+                in your deployment.</note>
+            </info>
+          </substep>
+          <substep>
+            <cmd>If your deployment contains <b>persistent regions</b> that must be REST-accessible,
+              use the following gfsh command:</cmd>
+            <info><codeblock>gfsh>configure pdx --disk-store</codeblock>This command sets
+                <codeph>pdx</codeph>
+              <codeph>persistent</codeph> equal to true and sets the disk-store-name to DEFAULT. If
+              desired, specify an existing disk store name as the value for
+                <codeph>--disk-store</codeph>. </info>
+          </substep>
+          <substep>
+            <cmd>If both of the above cases apply to your deployment, then configure PDX with the
+              following single command:</cmd>
+            <info>
+              <codeblock>gfsh>configure pdx --read-serialized=true --disk-store</codeblock>
+            </info>
+          </substep>
+        </substeps>
+        <stepresult>After you have configured PDX for your caches, then proceed with starting up
+          your REST-enabled servers and other data nodes.</stepresult>
+      </step>
+      <step>
+        <cmd>Start a server node with the <keyword keyref="product_name"/> property
+            <codeph>start-dev-rest-api</codeph> set to <codeph>true</codeph>. For example:</cmd>
+        <info>
+          <codeblock>gfsh>start server --name=server1 <b>--J=-Dgemfire.start-dev-rest-api=true</b> \
+--J=-Dgemfire.http-service-port=8080 --J=-Dgemfire.http-service-bind-address=localhost</codeblock>
+          <p>Optionally, you can also configure a <codeph>http-service-bind-address</codeph> and
+              <codeph>http-service-port</codeph> to identify the cache server and specific port that
+            will host REST services. If you do not specify the <codeph>http-service-port</codeph>,
+            the default port is 7070. If you do not specify
+              <codeph>http-service-bind-address</codeph>, the HTTP service will bind to all local
+            addresses by default. </p>
+          <p>Any server that hosts data, even a server acting as a JMX manager, can start the
+            developer REST API service. For example, to start the service on a server that is also a
+            JMX manager, you would
+            run:<codeblock>gfsh>start server --name=server1  <b>--J=-Dgemfire.start-dev-rest-api=true</b> \
+--J=-Dgemfire.http-service-port=8080 --J=-Dgemfire.http-service-bind-address=localhost \
+<b>--J=-Dgemfire.jmx-manager=true --J=-Dgemfire.jmx-manager-start=true</b></codeblock>Note
+            that when started as a JMX Manager, the server will also host the Pulse web application
+            in the same HTTP service.</p>
+        </info>
+      </step>
+      <step>
+        <cmd>You may also need to specify a CLASSPATH to load any functions that need to be made
+          available to your REST services. For example:</cmd>
+        <info>
+          <codeblock>gfsh>start server --name=server1 --J=-Dgemfire.start-dev-rest-api=true \
+--J=-Dgemfire.http-service-port=8080 --J=-Dgemfire.http-service-bind-address=localhost \<b>
+--classpath=/myapps/testfunctions.jar</b></codeblock>
+        </info>
+      </step>
+      <step>
+        <cmd>You can also specify these properties either upon server startup or in the server’s
+          gemfire.properties configuration file.</cmd>
+        <info><codeblock>gfsh>start server --name=serverX --server-port=40405 --cache-xml-file=cache-config.xml \<b>
+--properties-file=gemfire.properties</b> --classpath=/myapps/testfunctions.jar</codeblock>where
+          gemfire.properties contains:
+          <codeblock>http-service-port=8080
+http-service-bind-address=localhost
+start-dev-rest-api=true</codeblock></info>
+      </step>
+      <step>
+        <cmd>Verify that the <keyword keyref="product_name"/> REST API service is up and running. To
+          validate this, you can perform the following checks:</cmd>
+        <substeps id="substeps_grb_j1v_44">
+          <substep>
+            <cmd>Test the list resources endpoint (this step assumes that you have regions defined
+              on your cluster):</cmd>
+            <info>
+              <codeblock>curl -i http://localhost:8080/gemfire-api/v1</codeblock>
+            </info>
+          </substep>
+          <substep>
+            <cmd>Examine the server logs for the following messages:</cmd>
+            <info>
+              <codeblock>[info 2014/06/12 14:56:52.431 PDT rest-test &lt;localhost-startStop-1> tid=0x4d] 
+(tid=11 msgId=8) Initializing Spring FrameworkServlet 'gemfire-api'[info 2014/06/12 
+14:56:52.432 PDT rest-test &lt;localhost-startStop-1> tid=0x4d] (tid=11 msgId=9) 
+FrameworkServlet 'gemfire-api': initialization started</codeblock>
+            </info>
+          </substep>
+          <substep>
+            <cmd>Open a browser and enter the following URL to browse the Swagger-enabled REST
+              APIs:</cmd>
+            <info><codeblock>http://&lt;<i>http-service-bind-address</i>>:&lt;<i>http-service-port</i>>/gemfire-api/docs/index.html</codeblock>where
+                <i>http-service-bind-address</i> is the address and <i>http-service-port</i> is the
+              port number that you specified when starting the Development REST API service on the
+              server. For example, based on the server started in step 2, you would
+                enter:<codeblock>http://localhost:8080/gemfire-api/docs/index.html</codeblock><p>If
+                you did not specify these properties upon server startup or in
+                  <codeph>gemfire.properties</codeph>, then use the default of localhost and port
+                7070. See <xref href="using_swagger.xml#concept_rlr_y3c_54"/> for more
+                information.</p></info>
+          </substep>
+        </substeps>
+      </step>
+    </steps>
+    <example><title>Programmatic Startup</title>You can also start up and configure <keyword
+        keyref="product_name"/> REST services programmatically. For
+      example:<codeblock outputclass="language-java">import com.gemstone.gemfire.distributed.ServerLauncher;
+
+ public class MyEmbeddedRestServer {
+
+    public static void main(String[] args){
+        ServerLauncher serverLauncher  = new ServerLauncher.Builder()
+          .set("start-dev-rest-api", "true")
+          .set("http-service-port", "8080")
+          .set("http-service-bind-address", "localhost")
+          .setPdxReadSerialized(true)
+          .build();
+
+          serverLauncher.start();  
+
+          System.out.println("REST server successfully started");
+        }
+    }
+</codeblock></example>
+    <postreq>
+      <p>You can then verify that the developer REST API service has been started programmatically
+        by visiting the following
+        URL:<codeblock>http://localhost:8080/gemfire-api/docs/index.html</codeblock></p>
+    </postreq>
+
+  </taskbody>
+</task>

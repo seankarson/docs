@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "http://docs.oasis-open.org/dita/v1.1/OS/dtd/concept.dtd">
+<concept id="querying_partitioned_regions">
+	<title> Querying Partitioned Regions</title>
+	<shortdesc><keyword keyref="product_name"/> allows you to manage and store large amounts of data
+		across distributed nodes using partitioned regions. The basic unit of storage for a
+		partitioned region is a bucket, which resides on a <keyword keyref="product_name"/> node and
+		contains all the entries that map to a single hashcode. In a typical partitioned region
+		query, the system distributes the query to all buckets across all nodes, then merges the
+		result sets and sends back the query results. </shortdesc>
+	<conbody>
+		<section id="section_4C603563DEDC4303818FB8F894470457">
+			<p>The following list summarizes the querying functionality supported by <keyword
+					keyref="product_name"/> for partitioned regions: </p>
+			<ul id="ul_FEDBE40E83694F9DB23452F99B35A145">
+				<li id="li_DB2BA6CEFE904FAD884B6FB7921DF00E"><b>Ability to target specific nodes in
+						a query</b>. If you know that a specific bucket contains the data that you
+					want to query, you can use a function to ensure that your query only runs the
+					specific node that holds the data. This can greatly improve query efficiency.
+					The ability to query data on a specific node is only available if you are using
+					functions and if the function is executed on one single region. In order to do
+					this, you need to use <codeph>Query.execute(RegionFunctionContext
+						context)</codeph>. See the <xref
+						href="http://gemfire.docs.pivotal.io/javadocs/japi/com/gemstone/gemfire/cache/query/Query.html#execute%28com.gemstone.gemfire.cache.execute.RegionFunctionContext%29"
+						scope="external" format="html">Java API</xref> and <xref
+						href="../query_additional/query_on_a_single_node.xml#concept_30B18A6507534993BD55C2C9E0544A97"
+						type="concept" format="dita" scope="local"/> for more details. </li>
+				<li id="li_1F10DA7509634768BDF1BB9820943E34"><b>Ability to optimize partitioned
+						region query performance using key indexes</b>. You can improve query
+					performance on data that is partitioned by key or a field value by creating a
+					key index and then executing the query using use
+						<codeph>Query.execute(RegionFunctionContext context)</codeph> with the key
+					or field value used as filter. See the <xref
+						href="http://gemfire.docs.pivotal.io/javadocs/japi/com/gemstone/gemfire/cache/query/Query.html#execute%28com.gemstone.gemfire.cache.execute.RegionFunctionContext%29"
+						scope="external" format="html">Java API</xref> and <xref
+						href="../query_additional/partitioned_region_key_or_field_value.xml#concept_3010014DFBC9479783B2B45982014454"
+						type="concept" format="dita" scope="local"/> for more details. </li>
+				<li id="li_F9EA3CFB0B1146EBB44D0279FE71DACD"><b>Ability to perform equi-join queries
+						between partitioned regions and between partitioned regions and replicated
+						regions</b>. Join queries between partitioned region and between partitioned
+					regions and replicated regions are supported through the function service. In
+					order to perform equi-join operations on partitioned regions or partitioned
+					regions and replicated regions, the partitioned regions must be co-located, and
+					you need to use the need to use <codeph>Query.execute(RegionFunctionContext
+						context)</codeph>. See the <xref
+						href="http://gemfire.docs.pivotal.io/javadocs/japi/com/gemstone/gemfire/cache/query/Query.html#execute%28com.gemstone.gemfire.cache.execute.RegionFunctionContext%29"
+						scope="external" format="html">Java API</xref> and <xref
+						href="../partitioned_regions/join_query_partitioned_regions.xml#concept_B930D276F49541F282A2CFE639F107DD"
+						type="concept" format="dita" scope="local"/> for more details. </li>
+			</ul>
+		</section>
+	</conbody>
+</concept>

@@ -1,0 +1,138 @@
+<?xml version="1.0"?>
+<!DOCTYPE dita PUBLIC "-//OASIS//DTD DITA Composite//EN" "ditabase.dtd">
+<dita>
+	<topic id="topic_2522766FD5DD45D991A523F84BD54920">
+		<title>compact</title>
+		<shortdesc>Compact online and offline disk-stores. </shortdesc>
+		<topic id="topic_F113C95C076F424E9AA8AC4F1F6324CC">
+			<title>compact disk-store</title>
+			<shortdesc>Compact a disk store on all members with that disk store.</shortdesc>
+			<body>
+				<p> This command uses the compaction threshold that each member has configured for
+					its disk stores. The disk store must have the
+						<codeph>allow-force-compaction</codeph> property set to
+						<codeph>true</codeph>. </p>
+				<p>See <xref format="dita"
+						href="../../../managing/disk_storage/compacting_disk_stores.xml#compacting_disk_stores"
+						scope="local" type="concept"/> for more information. </p>
+				<p><b> Availability:</b> Online. You must be connected in <codeph>gfsh</codeph> to a
+					JMX Manager member to use this command. </p>
+				<p><b>Syntax:</b>
+					<codeblock>compact disk-store --name=value [--group=value(,value)*]</codeblock>
+					<table id="table_7039256EA2014AE5BFAB63697FF35AB6">
+						<title>Parameters</title>
+						<tgroup cols="2">
+							<colspec colnum="1" colname="col1" colwidth="1.00*"/>
+							<colspec colnum="2" colname="col2" colwidth="4.43*"/>
+							<thead>
+								<row>
+									<entry colname="col1">Name </entry>
+									<entry colname="col2">Description</entry>
+								</row>
+							</thead>
+							<tbody>
+								<row>
+									<entry colname="col1"><parmname>--name</parmname>
+									</entry>
+									<entry colname="col2"><i>Required.</i> Name of the disk store to
+										be compacted. </entry>
+								</row>
+								<row>
+									<entry colname="col1"><parmname>--group</parmname>
+									</entry>
+									<entry colname="col2"> Group(s) of members that perform disk
+										compaction. If no group is specified, then the disk store is
+										compacted by all members. </entry>
+								</row>
+							</tbody>
+						</tgroup>
+					</table>
+				</p>
+				<p><b>Example Commands:</b>
+				</p>
+				<p>
+					<codeblock>compact disk-store --name=Disk1
+compact disk-store --name=Disk1 --group=MemberGroup1,MemberGroup2</codeblock>
+				</p>
+				<p><b>Error Messages:</b>
+					<codeblock>"Disk store \"{0}\" does not exist.";
+ " for group(s) \"{0}\"";
+"No members found in the specified group(s) \"{0}\".";
+"Compaction was attempted but nothing to compact.";
+"Error occurred while doing compaction. Reason: \"{0}\"";</codeblock>
+				</p>
+			</body>
+		</topic>
+		<topic id="topic_9CCFCB2FA2154E16BD775439C8ABC8FB">
+			<title>compact offline-disk-store</title>
+			<shortdesc>Compact an offline disk store.</shortdesc>
+			<body>
+				<p> If the disk store is large, you may need to allocate additional memory to the
+					process by using the <codeph>--J=-Xmx<i>NNN</i>m</codeph> parameter.</p>
+				<p>See <xref format="dita"
+						href="../../../managing/disk_storage/compacting_disk_stores.xml#compacting_disk_stores"
+						scope="local" type="concept"/> for more information. </p>
+				<p>
+					<note> Do not perform offline compaction on the baseline directory of an
+						incremental backup. </note>
+				</p>
+				<p><b> Availability:</b> Online or offline. </p>
+				<p><b>Syntax:</b>
+					<codeblock>compact offline-disk-store --name=value --disk-dirs=value(,value)* 
+[--max-oplog-size=value] [--J=value(,value)*]</codeblock>
+					<table id="table_BDB9B26709D841F08BCD75087AF596D8">
+						<title>Parameters</title>
+						<tgroup cols="3">
+							<colspec colname="col1" colnum="1" colwidth="1.00*"/>
+							<colspec colname="col2" colnum="2" colwidth="4.43*"/>
+							<colspec colname="newCol3" colnum="3" colwidth="1*"/>
+							<thead>
+								<row>
+									<entry colname="col1">Name </entry>
+									<entry colname="col2">Description</entry>
+									<entry>Default Value</entry>
+								</row>
+							</thead>
+							<tbody>
+								<row>
+									<entry colname="col1"><parmname>--name</parmname>
+									</entry>
+									<entry colname="col2"><i>Required.</i> Name of the offline disk
+										store to be compacted. </entry>
+									<entry/>
+								</row>
+								<row>
+									<entry colname="col1"><parmname>--disk-dirs</parmname>
+									</entry>
+									<entry colname="col2"><i>Required.</i> One or more directories
+										where data for the disk store was previously written.
+										Separate directories with commas.</entry>
+									<entry/>
+								</row>
+								<row>
+									<entry colname="col1"><parmname>--max-oplog-size</parmname>
+									</entry>
+									<entry colname="col2"> Maximum size (in megabytes) of the oplogs
+										created by compaction. </entry>
+									<entry>-1</entry>
+								</row>
+								<row>
+									<entry colname="col1"><parmname>--J</parmname>
+									</entry>
+									<entry colname="col2">Arguments passed to the Java Virtual
+										Machine performing the compact operation on the disk store.
+										For example: <codeph>-J=-Xmx1024m</codeph>.</entry>
+									<entry/>
+								</row>
+							</tbody>
+						</tgroup>
+					</table>
+				</p>
+				<p><b>Example Commands:</b>
+					<codeblock>compact offline-disk-store --name=Disk2 --disk-dirs=/Disks/Disk2
+compact offline-disk-store --name=Disk2 --disk-dirs=/Disks/Disk2 --max-oplog-size=512 -J=-Xmx1024m</codeblock>
+				</p>
+			</body>
+		</topic>
+	</topic>
+</dita>

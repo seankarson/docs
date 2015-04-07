@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept id="concept_7E1F89E70A25465EBEBA584FADFEF353">
+  <title>Filtering Entries During Import or Export</title>
+  <shortdesc>You can customize your snapshot by filtering entries during the import or export of a
+    region or a cache. </shortdesc>
+  <conbody>
+    <p>For example, use filters to limit the export of data to a certain date range. If you set up a
+      filter on the import or export of a cache, the filter is applied to every single region in the
+      cache. </p>
+    <p>The following example filters snapshot data by even numbered keys.
+      <codeblock>File mySnapshot = ...
+Region&lt;Integer, MyObject&gt; region = ...
+
+SnapshotFilter&lt;Integer, MyObject&gt; even = new SnapshotFilter&lt;Integer, MyObject&gt;() {
+  @Override
+  public boolean accept(Entry&lt;Integer, MyObject&gt; entry) {
+    return entry.getKey() % 2 == 0;
+  }
+};
+
+RegionSnapshotService&lt;Integer, MyObject&gt; snapsrv = region.getSnapshotService();
+SnapshotOptions&lt;Integer, MyObject&gt; options = rss.createOptions().setFilter(even);
+
+// only save cache entries with an even key
+snapsrv.save(mySnapshot, SnapshotFormat.GEMFIRE, options);</codeblock>
+    </p>
+  </conbody>
+</concept>

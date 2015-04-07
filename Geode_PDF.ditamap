@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE bookmap PUBLIC "-//OASIS//DTD DITA BookMap//EN" "bookmap.dtd">
+<bookmap xmlns:ditaarch="http://dita.oasis-open.org/architecture/2005/" id="bookmap_user_guide_pdf"
+	ditaarch:DITAArchVersion="1.1">
+	<booktitle>
+		<booklibrary id="product_name">
+			<keyword keyref="product_name"/>
+		</booklibrary>
+		<mainbooktitle id="pdf_version">Version <keyword keyref="product_version"/></mainbooktitle>
+		<booktitlealt>User's Guide</booktitlealt>
+		<booktitlealt id="pdf_revision_number">Rev: 03</booktitlealt>
+		<booktitlealt id="copyright_date">&#169; ....</booktitlealt>
+	</booktitle>
+	<bookmeta>
+		<author/>
+		<prodinfo>
+			<prodname>
+				<keyword keyref="product_name"/>
+			</prodname>
+			<vrmlist>
+				<vrm version="" release="" modification=""/>
+			</vrmlist>
+		</prodinfo>
+		<bookid>
+			<bookpartno/>
+			<booknumber/>
+			<maintainer>
+				<organization/>
+				<person/>
+			</maintainer>
+		</bookid>
+		<bookrights>
+			<bookowner>
+				<organization>...</organization>
+			</bookowner>
+		</bookrights>
+		<bookrights>
+			<bookowner>
+				<organization>...</organization>
+			</bookowner>
+		</bookrights>
+		<bookrights>
+			<bookowner>
+				<organization>... </organization>
+			</bookowner>
+		</bookrights>
+	</bookmeta>
+	<frontmatter>
+		<booklists>
+			<toc/>
+		</booklists>
+		<notices href="common/topics/pivotal-copyright.xml"/>
+		<topicref format="dita" href="about_users_guide.xml"/>
+		<keydef keys="product_name_long">
+			<topicmeta>
+				<keywords>
+					<keyword>Geode</keyword>
+				</keywords>
+			</topicmeta>
+		</keydef>
+		<keydef keys="product_name">
+			<topicmeta>
+				<keywords>
+					<keyword>Geode</keyword>
+				</keywords>
+			</topicmeta>
+		</keydef>
+		<keydef keys="product_version">
+			<topicmeta>
+				<keywords>
+					<keyword>1.0</keyword>
+				</keywords>
+			</topicmeta>
+		</keydef>
+		<keydef keys="product_jar">
+			<topicmeta>
+				<keywords>
+					<keyword>geode.jar</keyword>
+				</keywords>
+			</topicmeta>
+		</keydef>
+	</frontmatter>
+	<part format="ditamap" href="supported_configs/supported_configurations.ditamap"/>
+	<part format="ditamap" href="getting_started/getting_started_book.ditamap"/>
+	<part format="ditamap" href="configuring/cluster_config.ditamap"/>
+	<part format="ditamap" href="basic_config/basic_config_book.ditamap"/>
+	<part format="ditamap" href="topologies_and_comm/topologies_book.ditamap"/>
+	<part format="ditamap" href="managing/managing_book.ditamap"/>
+	<part format="ditamap" href="developing/developing_book.ditamap"/>
+	<part format="ditamap" href="gemfire_rest/developing_rest_book.ditamap"/>
+	<part format="ditamap" href="tools_modules/tools_modules_book.ditamap"/>
+	<part format="ditamap" href="reference/reference_book.ditamap"/>
+	<part format="dita" href="reference/topics/glossary.xml"/>
+	<backmatter>
+		<booklists>
+			<indexlist/>
+		</booklists>
+	</backmatter>
+</bookmap>

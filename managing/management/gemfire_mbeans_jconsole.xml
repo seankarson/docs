@@ -1,0 +1,35 @@
+<?xml version="1.0"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept id="concept_492532E145834248997BD23BCAC7AD45">
+	<title>Browsing <keyword keyref="product_name"/> MBeans through JConsole</title>
+	<shortdesc>You can browse all the <keyword keyref="product_name"/> MBeans in your distributed
+		system by using JConsole. </shortdesc>
+	<conbody>
+		<p>To view <keyword keyref="product_name"/> MBeans through JConsole, perform the following
+			steps: <ol id="ol_D9BEB97CEBA54CB78EC8D2E0C9C363E0">
+				<li id="li_51309F4ADE8F4254A028ACABCE403C62">Start a <codeph>gfsh</codeph> prompt. </li>
+				<li id="li_E281E37006B14165933324DD153E9FBD">Connect to a running distributed system
+					by either connecting to a locator with an embedded JMX Manager or connect
+					directly to a JMX Manager. For example:
+					<codeblock>gfsh&gt;connect --locator=locator1[10334]</codeblock>or
+					<codeblock>gfsh&gt;connect --jmx-manager=locator1[1099]</codeblock>
+				</li>
+				<li id="li_32F474F7AE3348B799703320AEC34D56">Start JConsole:
+					<codeblock>gfsh&gt;start jconsole</codeblock>If successful, the message
+						<codeph>Running JDK JConsole</codeph> appears. The JConsole application
+					launches and connects directly to the JMX Manager using RMI. </li>
+				<li id="li_BC51EE9349104A76AA645118D68876D1">On the JConsole screen, click on the
+					MBeans tab. Expand <b>GemFire</b>. Then expand each MBean to browse individual
+					MBean attributes, operations and notifications. <p>The following is an example
+						screenshot of the MBean hierarchy in a <keyword keyref="product_name"/>
+						distributed system: </p>
+					<p>
+						<image placement="break" href="../../images/jconsole_mbeans.png"
+							id="image_7A45BE69B67A44A7A8AD40343A2B0AEB"
+							><?xm-replace_text Paragraph?></image>
+					</p>
+				</li>
+			</ol>
+		</p>
+	</conbody>
+</concept>

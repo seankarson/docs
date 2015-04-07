@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "http://docs.oasis-open.org/dita/v1.1/OS/dtd/concept.dtd">
+<concept id="setting_up_statistics">
+	<title>Configuring and Using Statistics</title>
+	<shortdesc>You configure statistics and statistics archiving in gemfire.properties </shortdesc>
+	<conbody>
+		<ul id="ul_FA525BA21CF5457B8371570FD4D3650C">
+			<li id="li_FA9C5DEAD7B94F3CB1BD66E2FF9CF7BA"><xref
+					href="setting_up_statistics.xml#setting_up_statistics/section_215BB4074BD64834BAADA87BE84C34DE"
+					type="section" format="dita" scope="local"/>
+			</li>
+			<li id="li_F5F1BBCF323C4439B6232B448390948B"><xref
+					href="setting_up_statistics.xml#setting_up_statistics/section_D511BB61B27A44749E2012B066A5C906"
+					type="section" format="dita" scope="local"/>
+			</li>
+			<li><xref
+					href="setting_up_statistics.xml#setting_up_statistics/section_88C31FA62A194947BF71AD54B5F9BAB3"
+					type="section" format="dita" scope="local"/></li>
+		</ul>
+		<section id="section_215BB4074BD64834BAADA87BE84C34DE">
+			<title>Configure Statistics</title>
+			<p>In this procedure it is assumed that you understand <xref
+					href="../../basic_config/book_intro.xml#basic_config_management" type="concept"
+					format="dita" scope="local"/>. </p>
+			<ol id="ol_BA9F16EB6E5A4D2D8CB65E26B9DDA306">
+				<li>In gfsh, start your locator running the cluster configuration service
+						(<codeph>--enable-cluster-configuration=true</codeph>).</li>
+				<li>Execute the following command to modify the cluster's
+					configuration:<codeblock>gfsh>alter runtime --enable-statistics=true</codeblock>
+					You can also configure sample rate and the filename of your statistic archive
+					files. See <xref
+						href="../../tools_modules/gfsh/command-pages/alter.xml#topic_7E6B7E1B972D4F418CB45354D1089C2B"
+					/> for more command options.</li>
+				<li id="li_203ADCB6282B4D93B3CC1ECB8066DB31">Alternately, if you are not using the
+					cluster configuration service, configure <codeph>gemfire.properties</codeph> for
+					the statistics monitoring and archival that you need: <ol
+						id="ol_87670240-5ba1-4c91-807a-c2d338d11ba9">
+						<li id="li_60A1DB117DC6475E9334FD7E8D23B4EE">Enable statistics gathering for
+							the distributed system. This is required for all other statistics
+							activities: <codeblock>statistic-sampling-enabled=true</codeblock>
+							<note>Statistics sampling at the default sample rate (1000 milliseconds)
+								does not impact system performance and is recommended in production
+								environments for troubleshooting.</note></li>
+						<li id="li_9E5CA36C16C84CC082DE241C4C51CEFC">Change the statistics sample
+							rate as needed. Example:
+							<codeblock>statistic-sampling-enabled=true
+statistic-sample-rate=2000</codeblock>
+						</li>
+						<li id="li_BF4EC7710C7740139C4DBBE0C3FE345C">To archive the statistics to
+							disk, enable that and set any file or disk space limits that you need.
+							Exampl e:
+							<codeblock>statistic-sampling-enabled=true
+statistic-archive-file=myStatisticsArchiveFile.gfs
+archive-file-size-limit=100
+archive-disk-space-limit=1000</codeblock>
+						</li>
+						<li id="li_C52067755D2B4F178274F2E08A446E3B">If you need time-based
+							statistics, enable that. Time-based statistics require statistics
+							sampling and archival. Example: <codeblock>statistic-sampling-enabled=true
+statistic-archive-file=myStatisticsArchiveFile.gfs
+enable-time-statistics=true</codeblock>
+							<note>Time-based statistics can impact system performance and is not
+								recommended for production environments.</note></li>
+					</ol>
+				</li>
+				<li id="li_3BFA3DE77F33472EA3BBB91E1C50893A">Enable transient region and entry
+					statistics gathering on the regions where you need it. Expiration requires
+					statistics. <p>gfsh
+						example:<codeblock>gfsh>create region --name=myRegion --type=REPLICATE --enable-statistics=true</codeblock></p><p>Example: </p><codeblock>&lt;region name="myRegion" refid="REPLICATE"&gt;
+	&lt;region-attributes statistics-enabled="true"&gt;
+	&lt;/region-attributes&gt;
+&lt;/region&gt;</codeblock>
+					<note>Region and entry statistics are not archived and can only be accessed
+						through the API. As needed, retrieve region and entry statistics through the
+							<codeph>getStatistics</codeph> methods of the <codeph>Region</codeph>
+						and <codeph>Region.Entry</codeph> objects. Example:
+						<codeblock>out.println("Current Region:\n\t" + this.currRegion.getName());
+RegionAttributes attrs = this.currRegion.getAttributes();
+if (attrs.getStatisticsEnabled()) {
+	CacheStatistics stats = this.currRegion.getStatistics();
+	out.println("Stats:\n\tHitCount is " + stats.getHitCount() +
+		"\n\tMissCount is " + stats.getMissCount() +
+		"\n\tLastAccessedTime is " + stats.getLastAccessedTime() +
+		"\n\tLastModifiedTime is " + stats.getLastModifiedTime());
+}</codeblock>
+					</note>
+				</li>
+				<li id="li_F7DDE6F7549C43F2A42C6E314CB14E13">Create and manage any custom statistics
+					that you need through the <codeph>cache.xml</codeph> and the API. Example: <codeblock>// Create custom statistics
+&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+  &lt;!DOCTYPE statistics PUBLIC
+    "-//GemStone Systems, Inc.//GemFire Statistics Type//EN"
+    "http://www.gemstone.com/dtd/statisticsType.dtd"&gt;
+  &lt;statistics&gt;
+    &lt;type name="StatSampler"&gt;
+      &lt;description&gt;Stats on the statistic sampler.&lt;/description&gt;
+      &lt;stat name="sampleCount" storage="int" counter="true"&gt;
+        &lt;description&gt;Total number of samples taken by this sampler.&lt;/description&gt;
+        &lt;unit&gt;samples&lt;/unit&gt;
+      &lt;/stat&gt;
+      &lt;stat name="sampleTime" storage="long" counter="true"&gt;
+        &lt;description&gt;Total amount of time spent taking samples.&lt;/description&gt;
+        &lt;unit&gt;milliseconds&lt;/unit&gt;
+      &lt;/stat&gt;
+    &lt;/type&gt;
+  &lt;/statistics&gt;</codeblock>
+					<codeblock>// Update custom stats through the API
+this.samplerStats.incInt(this.sampleCountId, 1);
+this.samplerStats.incLong(this.sampleTimeId, nanosSpentWorking / 1000000);</codeblock>
+				</li>
+				<li id="li_58B68A11C851405BAC0A45D8C6B0C8D9">Access archived statistics through
+					these utilities: <ul id="ul_AD56238A20F640CDAE7A37C0B827F79A">
+						<li id="li_2839C6F73887444290CF0C6BA9BB2593">The gfsh <codeph>show
+								metrics</codeph> command. See <xref
+								href="../../tools_modules/gfsh/command-pages/show.xml#topic_6EB786C63AEB46179EEE8FA18624295A"
+								type="topic" format="dita" scope="local"/> for more information.
+						</li>
+					</ul>
+				</li>
+			</ol>
+		</section>
+		<section id="section_D511BB61B27A44749E2012B066A5C906">
+			<title>Controlling the Size of Archive Files</title>
+			<p>You can specify limits on the archive files for statistics using <codeph>alter
+					runtime</codeph> command. These are the areas of control: <ul
+					id="ul_B4629F4983CA443F8D35DCAFE23B67EB">
+					<li id="li_41B3DFBE25C5449EB7C2DD3C2259126A"><b>Archive File Growth Rate</b>.
+							<ul id="ul_07696A5BF3E6487A920FA7B36261E031">
+							<li id="li_76DF80CF840C4CC1B9AD52892137F444">The
+									<codeph>--statistic-sample-rate</codeph> parameter controls how
+								often samples are taken, which affects the speed at which the
+								archive file grows. </li>
+							<li id="li_E1BCA1F6CA4A4E778541350D99815F88">The
+									<codeph>--statistic-archive-file</codeph> parameter controls
+								whether the statistics files are compressed. If you give the file
+								name a <codeph>.gz</codeph> suffix, it is compressed, thereby taking
+								up less disk space. </li>
+						</ul>
+					</li>
+					<li id="li_E45DCBDE24E645FDA874C4C38A979110"><b>Maximum Size of a Single Archive
+							File</b>. If the value of the <codeph>--archive-file-size-limit</codeph>
+						is greater than zero, a new archive is started when the size of the current
+						archive exceeds the limit. Only one archive can be active at a time.
+							<note>If you modify the value of
+								<codeph>--archive-file-size-limit</codeph> while the distributed
+							system is running, the new value does not take effect until the current
+							archive becomes inactive (that is, when a new archive is started).
+						</note>
+					</li>
+					<li id="li_E5AAE59BB1234FD0829BFACB25925A67"><b>Maximum Size of All Archive
+							Files</b>. The <codeph>--archive-disk-space-limit</codeph> parameter
+						controls the maximum size of all inactive archive files combined. By
+						default, the limit is set to 0, meaning that archive space is unlimited.
+						Whenever an archive becomes inactive or when the archive file is renamed,
+						the combined size of the inactive files is calculated. If the size exceeds
+						the <codeph>--archive-disk-space-limit</codeph>, the inactive archive with
+						the oldest modification time is deleted. This continues until the combined
+						size is less than the limit. If <codeph>--archive-disk-space-limit</codeph>
+						is less than or equal to <codeph>--archive-file-size-limit</codeph>, when
+						the active archive is made inactive due to its size, it is immediately
+						deleted. <note>If you modify the value of
+								<codeph>--archive-disk-space-limit</codeph> while the distributed
+							system is running, the new value does not take effect until the current
+							archive becomes inactive. </note>
+					</li>
+				</ul>
+			</p>
+		</section>
+		<section id="section_88C31FA62A194947BF71AD54B5F9BAB3">
+			<title>Examining Archived Statistics</title>
+			<p>When sampling and archiving are enabled, you can study statistics in archive files by
+				using the gfsh <codeph>show metrics</codeph> command.</p>
+		</section>
+	</conbody>
+</concept>

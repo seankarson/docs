@@ -1,0 +1,109 @@
+<?xml version="1.0"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept id="concept_C71CA80F91A740218D9758558D6EF584">
+	<title>Introduction to the Hello World Example</title>
+	<shortdesc>The Hello World example gives you a simple demonstration of <keyword
+			keyref="product_name"/> capabilities. </shortdesc>
+	<conbody>
+		<section id="section_987B27E711644985A060CE15C23A7D32">
+			<title>What This Example Does</title>
+			<p>This example shows data distribution between two <keyword keyref="product_name"/>
+				Java applications. <ul id="ul_23699B3DB20D43EA9A1ABE125A2F2CBC">
+					<li id="li_9A50928F7EF64018BEF395C88BE4329E">Both applications create a <keyword
+							keyref="product_name"/> cache with a <keyword keyref="product_name"/>
+						data region in it. Data regions hold and manage data entries, written in
+						key/value pairs. </li>
+					<li id="li_FFBB93DCD73549FB909B882B042D28CC">The data region in both
+						applications is configured to receive all data written to the region from
+						anywhere in the <keyword keyref="product_name"/> system. </li>
+					<li id="li_182F9445F01F4B33A5ED6A6B22D44B3B">One application is a producer,
+						writing data to the cache, and the other is a consumer, receiving what the
+						producer writes. </li>
+					<li id="li_7D53D3D2473546D488B812DAA076C5C9">Both applications report their
+						caching activities to your screen. The producer reports on its writing
+						activities. Both applications run a listener that reports on events in the
+						application's cache. </li>
+				</ul>
+			</p>
+		</section>
+		<section id="setting_up_environment">
+			<title>Running the Hello World Example</title>
+			<p>Make sure your environment is configured to run the example. </p>
+			<p>
+				<b>Prerequisites</b>
+				<ul id="ul_C554A4BA9D754D73805F03BF848AB869">
+					<li id="li_7AB4428A741846D9B285B8784CDBFFEC">
+						<xref href="../install_intro.xml#concept_5111C7EDF7D24CA2BCE5959006453415"
+							type="concept" format="dita" scope="local"/>
+					</li>
+					<li id="li_7F33A742C54B4E7FABCF236859888F31">
+						<xref scope="local"
+							href="../topics/setting_up_the_product_examples.xml#setting_up_the_product_examples"
+							type="concept" format="dita"/>
+					</li>
+				</ul>
+			</p>
+		</section>
+		<section id="running_the_example">
+			<p>
+				<b>Procedure</b>
+				<ol id="ol_AC70FF944F304C20986DC2F478FE66DE">
+					<li id="li_D1CE6407A0784F5F83AC5732C7DF8C34">Start two terminal sessions with
+						their environments set up for <keyword keyref="product_name"/> and the
+						product examples. </li>
+					<li id="li_F85081128254425795F7CCDDD4B6CC73">In both sessions, change directory
+						(cd) to the helloworld directory under your examples installation. </li>
+					<li id="li_00562F61806845B39581D7886AF6FBC9">
+						<p>In one terminal session, start the Consumer application. </p>
+						<codeblock>java -cp "$GEMFIRE/lib/server-dependencies.jar:$GEMFIRE/SampleCode/helloworld/classes" helloworld.HelloWorldConsumer
+</codeblock>
+						<p>The application starts, creates the cache and region and then asks you to
+							start the producer.  </p>
+						<screen>    This example shows how a distributed region works with replication 
+    enabled. I'll create a replicate region, then the producer will 
+    create the same region and put entries into it. Because my region 
+    is a replicate, all of the producer's puts are automatically 
+    pushed into my region.
+
+    Connecting to the distributed system and creating the cache.
+    Example region, /exampleRegion, created in cache.
+
+    Please start the HelloWorldProducer.
+</screen>
+					</li>
+					<li id="li_2DBA94CD57D0485A9D2985E782641720">
+						<p>In the other terminal session, start the Producer application. </p>
+						<codeblock>java -cp "$GEMFIRE/lib/server-dependencies.jar:$GEMFIRE/SampleCode/helloworld/classes" helloworld.HelloWorldProducer</codeblock>
+						<p>The application starts, creates the cache and region, puts data entry
+							key/values pairs into its cache, and then exits. </p>
+						<screen>    Connecting to the distributed system and creating the cache.
+    Example region, /exampleRegion, created in cache.
+    Putting entry: Hello, World
+        Received afterCreate event for entry: Hello, World
+    Putting entry: Hello, Moon!
+        Received afterUpdate event for entry: Hello, Moon!
+
+    Closing the cache and disconnecting.
+
+    Please press Enter in the HelloWorldConsumer.
+</screen>
+						<note type="note">The entry key is "Hello" for both puts, but the value
+							changes. For each entry the producer puts, its listener receives the
+							event and reports to your screen. The first put results in an entry
+							creation. The second put results in an entry update, since the key,
+							"Hello", is already in the cache. </note>
+					</li>
+					<li id="li_6452D37CA94F40D48AC5A8884B7027F4">
+						<p>Look at the consumer session. </p>
+						<p>Only the producer makes changes to its cache, but because of how the data
+							region is configured, <keyword keyref="product_name"/> automatically
+							distributes the changes to the consumer, so both caches receive the same
+							events and end up with the same data in their region. </p>
+						<codeblock>Received afterCreate event for entry: Hello, World
+Received afterUpdate event for entry: Hello, Moon!</codeblock>
+					</li>
+				</ol>
+			</p>
+		</section>
+	</conbody>
+</concept>

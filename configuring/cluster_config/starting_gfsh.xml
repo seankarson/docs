@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept id="concept_54BF8320ECB748E081EC3D4FAFD28C17"> 
+  <title>Starting gfsh</title>
+  <prolog><metadata><keywords><keyword>gemfire running
+			 gfsh</keyword><keyword>gemfire gfsh default
+			 ports</keyword></keywords></metadata>
+  </prolog> 
+  <conbody> 
+	 <p>When you have completed installation and configuration, start gfsh by
+		typing<cmdname> gfsh 
+		</cmdname>at the command prompt. If no connection options are specified
+		at the command line, gfsh looks for a GemFire Cache VM running at the default
+		host 
+		<codeph>localhost</codeph> and default port 
+		<codeph>40404. 
+		</codeph> The following example connects to a locator running on<codeph>
+		  localhost</codeph> at port 
+		<codeph>10334</codeph>. 
+	 </p> 
+	 <p>Windows: 
+	 </p> 
+	 <codeblock>gfsh.bat -l localhost:10334</codeblock> 
+	 <p>Unix (bash): 
+	 </p> 
+	 <codeblock>gfsh -l localhost:10334</codeblock> 
+	 <p>Alternatively, you can use the 
+		<cmdname>connect</cmdname> command to connect afterwards. For information
+		on specifying different host-port information for connectivity, see
+		CommandLineOptions. 
+	 </p> 
+  </conbody> 
+</concept> 

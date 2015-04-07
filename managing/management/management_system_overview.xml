@@ -1,0 +1,204 @@
+<?xml version="1.0"?>
+<!DOCTYPE topic PUBLIC "-//OASIS//DTD DITA Concept//EN" "topic.dtd">
+<topic id="concept_1BAE2CE1146B4347ABD61F50B9F9781F">
+	<title> Architecture and Components</title>
+	<shortdesc><keyword keyref="product_name"/>'s management and monitoring system consists of one
+		JMX Manager node (there should only be one) and one or more managed nodes within a
+		distributed system. All members in the distributed system are manageable through MBeans and
+			<keyword keyref="product_name"/> Management Service APIs. </shortdesc>
+	<body>
+		<section id="section_ABE7007BE3C244FBA0418C4B5BE7E1F2">
+			<title>Architecture</title>
+			<p>The following diagram depicts the architecture of the management and monitoring
+				system components. </p>
+			<p>
+				<image id="image_1E9E8575E13D4087BC47B6A288097B7A"
+					href="../../images_svg/JMX_Architecture.svg"/>
+			</p>
+			<p> In this architecture every <keyword keyref="product_name"/> member is manageable.
+				All <keyword keyref="product_name"/> MBeans for the local <keyword
+					keyref="product_name"/> processes are automatically registered in the Platform
+				MBeanServer (the default MBeanServer of each JVM that hosts platform MXBeans.) </p>
+		</section>
+		<section id="section_1CF2B237C16F4095A609E62F0C7146C1">
+			<title>Managed Node</title>
+			<p>Each member of a distributed system is a managed node. Any node that is not currently
+				also acting as a JMX Manager node is referred to simply as a managed node. A managed
+				node has the following resources so that it can answer JMX queries both locally and
+				remotely: <ul id="ul_48C4CEA0999644F6967C4AF474CBE17A">
+					<li id="li_A85A14463FFB49B8BF784777E39D33CA">Local MXBeans that represent the
+						locally monitored components on the node. See <xref
+							href="list_of_gemfire_mbeans_full.xml#topic_48194A5BDF3F40F68E95A114DD702413"
+						/> for a list of possible MXBeans existing for the node. </li>
+					<li id="li_ABB6917DEAC3426E8DAE064E1A7B90F7">Built-in platform MBeans.</li>
+				</ul>
+			</p>
+		</section>
+		<section id="section_8604838507194C8B86F1420FBA46894C">
+			<title>JMX Manager Node</title>
+			<p>A JMX Manager node is a member that can manage other <keyword keyref="product_name"/>
+				members --that is, other managed nodes -- as well as itself. A JMX Manager node can
+				manage all other members in the distributed system. </p>
+			<p>To convert a managed node to a JMX Manager node, you configure the <keyword
+					keyref="product_name"/> property <codeph>jmx-manager=true</codeph>, in the
+					<codeph>gemfire.properties</codeph> file, and start the member as a JMX Manager
+				node. </p>
+			<p>You start the member as a JMX Manager node when you provide<codeph>
+					--J=-Dgemfire.jmx-manager=true</codeph> as an argument to either the<codeph>
+					start server</codeph> or <codeph>start locator</codeph> command. See <xref
+					href="jmx_manager_operations.xml#topic_686158E9AFBD47518BE1B4BEB232C190"
+					type="topic" format="dita" scope="local"
+					><?xm-replace_text Starting a JMX Manager?></xref> for more information. </p>
+			<p>The JMX Manager node has the following extra resources allocated so that it can
+				answer JMX queries: <ul id="ul_69C06766D3A84A73AC8266400A9C925D">
+					<li id="li_FEA80A46E8A245E08D58EDE5F78E91DF">RMI connector that allows JMX
+						clients to connect to and access all MXBeans in the distributed system. </li>
+					<li id="li_02D5CB4E8F3E4819B0A2FABD869ED702">Local MXBeans that represent the
+						locally monitored components on this node, same as any other managed node. </li>
+					<li id="li_2CC5B9ABB24D48F9AEC464333A20E3F8">Aggregate MXBeans: <ul
+							id="ul_30B10F60D4C347EEAC014EBC9831DBE3">
+							<li id="li_684A7CC0F0F4448DB45EFC7BE4B640BB">DistributedSystemMXBean. </li>
+							<li id="li_3C00E911C04E42C2B641F976394E7F0E">DistributedRegionMXBean. </li>
+							<li id="li_94DA6DE423E7429CA0DB1D4AEE0D559D"
+								>DistributedLockServiceMXBean </li>
+						</ul>
+					</li>
+					<li id="li_46E99C211D164B19A93313B186B9D543">ManagerMXBean with Scope=ALL, which
+						allows various distributed system-wide operations. </li>
+					<li id="li_D2AACC1E7EA947C49BE312D1643B8255">Proxy to MXBeans on managed nodes. </li>
+					<li id="li_B39B5A08649545C9B98F47CE668F4D71">Built-in platform MXBeans. </li>
+				</ul>
+			</p>
+		</section>
+		<section id="section_32D9F98189B14AA09BAC5E843EC18EDA">
+			<title>JMX Integration</title>
+			<p>Management and monitoring tools such as gfsh command-line interface and Pulse use
+				JMX/RMI as the communication layer to connect to <keyword keyref="product_name"/>
+				nodes. All <keyword keyref="product_name"/> processes by default allow JMX
+				connections to the Platform MBeanServer from localhost. By default, both managed
+				nodes and JMX manager nodes have RMI connectors enabled to allow JMX client
+				connections. </p>
+			<p> JConsole (and other similar JMX clients that support Sun's Attach API) can connect
+				to any local JVM without requiring an RMI connector by using the Attach API. This
+				allows connections from the same machine. </p>
+			<p> JConsole (and other JMX clients) can connect to any JVM if that JVM is configured to
+				start an RMI connector. This allows remote connections from other machines. </p>
+			<p>JConsole can connect to any <keyword keyref="product_name"/> member, but if it
+				connects to a non-JMX-Manager member, JConsole only detects the local MBeans for the
+				node, and not MBeans for the cluster. </p>
+			<p> When a <keyword keyref="product_name"/> locator or server becomes a JMX Manager for
+				the cluster, it enables the RMI connector. JConsole can then connect only to that
+				one JVM to view the MBeans for the entire cluster. It does not need to connect to
+				all the other JVMs. <keyword keyref="product_name"/> manages the inter-JVM
+				communication required to provide a federated view of all MBeans in the distributed
+				system. </p>
+			<p>
+				<codeph>gfsh</codeph> can only connect to a JMX Manager or to a locator. If
+				connected to a locator, the locator provides the necessary connection information
+				for the existing JMX Manager. If the locator detects a JMX Manager is not already
+				running in the cluster, the locator makes itself a JMX Manager. gfsh cannot connect
+				to other non-Manager or non-locator members. </p>
+			<p>For information on how to configure the RMI registry and RMI connector, see <xref
+					href="configuring_rmi_connector.xml#concept_BC793A7ACF9A4BD9A29C2DCC6894767D"
+					type="concept" format="dita" scope="local"
+					><?xm-replace_text Configuring RMI Registry Ports and RMI Connectors?></xref>.
+			</p>
+		</section>
+		<section id="section_A3F9E1594982480DA019CBA3E93CA895">
+			<title>Management APIs </title>
+			<p><keyword keyref="product_name"/> management APIs represent the <keyword
+					keyref="product_name"/> cluster to a JMX user. However, they do not provide
+				functionality that is otherwise present in JMX. They only provide a gateway into
+				various services exclusively offered by <keyword keyref="product_name"/> monitoring
+				and management. </p>
+			<p>The entry point to <keyword keyref="product_name"/> management is through the
+				ManagementService interface. For example, to create an instance of the Management
+				Service:
+				<codeblock>ManagementService service = ManagementService.getManagementService(cache);</codeblock>
+			</p>
+			<p>The resulting ManagementService instance is specific to the provided cache and its
+				distributed system. The implementation of getManagementService is a singleton for
+				now but may eventually support multiple cache instances. </p>
+			<p>You can use the <keyword keyref="product_name"/> management APIs to accomplish the
+				following tasks: <ul id="ul_481ED7BE05A0415FB42A55D58E141EF7">
+					<li id="li_07DDC78F05DE41EDB4A4749DA36D99BD">Monitor the health status of
+						clients. </li>
+					<li id="li_7A394BA792844372AF83553AB22F86AA">Obtain the status and results of
+						individual disk backups. </li>
+					<li id="li_D1EF593B08584D668DDE4F66C60CA884">View metrics related to disk usage
+						and performance for a particular member. </li>
+					<li id="li_4E71A2B75F6741BDA14FF7861EE3BEC3">Browse <keyword
+							keyref="product_name"/> properties set for a particular member. </li>
+					<li id="li_6E19DE93DA904188BA2E885D0BF0F5EC">View JVM metrics such as memory,
+						heap, and thread usage. </li>
+					<li id="li_EA53939274CD47FD89709C481C6D7288">View network metrics, such as bytes
+						received and sent </li>
+					<li id="li_66FED2A2C695431EAC04E5070F4D3166">View partition region attributes
+						such as total number of buckets, redundant copy, and maximum memory
+						information. </li>
+					<li id="li_59B9996DD3D342869734966618DFB388">View persistent member information
+						such as disk store ID. </li>
+					<li id="li_4C7EB73824564C2689AC7402DDA727F6">Browse region attributes. </li>
+				</ul>
+			</p>
+			<p> See the JavaDocs for the <codeph>com.gemstone.gemfire.management</codeph> package
+				for more details. </p>
+			<p>You can also execute gfsh commands using the ManagementService API. See <xref
+					href="gfsh_and_management_api.xml#concept_451F0978285245E69C3E8DE795BD8635"
+					type="concept" format="dita" scope="local"
+					><?xm-replace_text Executing gfsh Commands through the Management API?></xref>
+				and the JavaDocs for the <codeph>com.gemstone.gemfire.management.cli</codeph>
+				package. </p>
+		</section>
+		<section id="section_E69A93A6309E4747B52850D81FE1674E">
+			<title><keyword keyref="product_name"/> Management and Monitoring Tools</title>
+			<p>This section lists the currently available tools for managing and monitoring <keyword
+					keyref="product_name"/>: <ul id="ul_678D0F9DE1EC49B2851536F5924DEAE8">
+					<li id="li_BE696BD38583491C8BB023F66C8715E1"><b>gfsh</b>. <keyword
+							keyref="product_name_long"/> command-line interface that provides a
+						simple &amp; powerful command shell that supports the administration,
+						debugging and deployment of <keyword keyref="product_name"/> applications.
+						It features context sensitive help, scripting and the ability to invoke any
+						commands from within the application using a simple API. See <xref
+							href="../../tools_modules/gfsh/chapter_overview.xml#concept_36339CCA6323430D8B61EE8DC5F64DCB"
+							type="concept" format="dita" scope="local">gfsh</xref>. </li>
+					<li id="li_04AA96ADE1744E52AF279D554A2E77D1"><b><keyword keyref="product_name"/>
+							Pulse</b>. Easy-to-use, browser-based dashboard for monitoring <keyword
+							keyref="product_name"/> deployments. <keyword keyref="product_name"/>
+						Pulse provides an integrated view of all <keyword keyref="product_name"/>
+						members within a distributed system. See <xref scope="local"
+							href="../../tools_modules/pulse/chapter_overview.xml#concept_600D5DC7303548BB96F5E3D1941C77C2"
+							type="concept" format="dita"/>. </li>
+					<li id="li_F9AFCCAD9E1A409E9C67B8ADD68ED5A2"><b>Pulse Data Browser</b>. This
+							<keyword keyref="product_name"/> Pulse utility provides a graphical
+						interface for performing OQL ad-hoc queries in a <keyword
+							keyref="product_name"/> distributed system. See <xref
+							href="../../tools_modules/pulse/quickstart.xml#topic_F0ECE9E8179541CCA3D6C5F4FBA84404/sec_pulsedatabrowser"
+						/>. </li>
+					<li><b>VSD</b>. Visual Statistics Display, a utility that reads <keyword
+							keyref="product_name"/> statistics and produces graphical displays for
+						analysis.</li>
+					<li id="li_57035847EC9642D28D69A4D63AC14DBC"><b>Other Java Monitoring Tools such
+							as JConsole and jvisualvm.</b> JConsole is a JMX-based mangement and
+						monitoring tool provided in the Java 2 Platform that provides information on
+						the performance and consumption of resources by Java applications. See <xref
+							href="http://docs.oracle.com/javase/6/docs/technotes/guides/management/jconsole.html"
+							scope="external" format="html"
+							><?xm-replace_text http://docs.oracle.com/javase/6/docs/technotes/guides/management/jconsole.html?></xref>.
+							<b>Java VisualVM (jvisualvm)</b> is a profiling tool for analyzing your
+						Java Virtual Machine. Java VisualVM is useful to Java application developers
+						to troubleshoot applications and to monitor and improve the applications'
+						performance. Java VisualVM can allow developers to generate and analyse heap
+						dumps, track down memory leaks, perform and monitor garbage collection, and
+						perform lightweight memory and CPU profiling. For more details on using
+						jvisualvm, see <xref
+							href="http://docs.oracle.com/javase/6/docs/technotes/tools/share/jvisualvm.html"
+							scope="external" format="html"
+							><?xm-replace_text http://docs.oracle.com/javase/6/docs/technotes/tools/share/jvisualvm.html?></xref>.
+					</li>
+				</ul>
+			</p>
+			<p/>
+		</section>
+	</body>
+</topic>

@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE topic PUBLIC "-//OASIS//DTD DITA Topic//EN" "topic.dtd">
+<topic
+  id="topic_itv_mg5_m4">
+  <title>HEAD /gemfire-api/v1/{region}</title>
+  <shortdesc>An HTTP HEAD request that returns region's size (number of entries) within the HEADERS,
+    which is a response without the content-body. Region size is specified in the pre-defined header
+    named "Resource-Count".</shortdesc>
+  <body>
+    <section>
+      <title>Resource URL</title>
+      <codeblock>http://&lt;<i>hostname_or_http-service-bind-address</i>>:&lt;<i>http-service-port</i>>/gemfire-api/v1/{region}</codeblock>
+    </section>
+    <section>
+      <title>Parameters</title>
+      <p>None.</p>
+    </section>
+    <section>
+      <title>Example Request</title>
+      <p>
+        <codeblock>Request Payload: null
+HEAD /gemfire-api/v1/customers
+Response Payload: null</codeblock>
+      </p>
+    </section>
+    <section>
+      <title>Example Success Response</title>
+      <codeblock>
+<b>200 OK</b>
+
+Content-Length: &lt;#-of-bytes>
+Content-Type: application/json; charset=utf-8
+...
+
+<b>Resource-Count: 8192</b></codeblock>
+    </section>
+    <section>
+      <title>Error Codes</title>
+      <simpletable
+        frame="all"
+        relcolwidth="1.0* 1.87*"
+        id="simpletable_vfq_33v_m4">
+        <sthead>
+          <stentry>Status Code</stentry>
+          <stentry>Description</stentry>
+        </sthead>
+        <strow>
+          <stentry>400 Bad Request</stentry>
+          <stentry>Returned if <keyword keyref="product_name"/> throws an error while executing the request.</stentry>
+        </strow>
+        <strow>
+          <stentry>404 Resource Not Found</stentry>
+          <stentry>Region does not exist.</stentry>
+        </strow>
+        <strow>
+          <stentry>500 Internal Server Error</stentry>
+          <stentry><keyword keyref="product_name"/> has thown an error or exception.</stentry>
+        </strow>
+      </simpletable>
+    </section>
+  </body>
+</topic>

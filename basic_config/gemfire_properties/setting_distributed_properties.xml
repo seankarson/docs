@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "http://docs.oasis-open.org/dita/v1.1/OS/dtd/concept.dtd">
+<concept id="setting_distributed_properties">
+	<title>Options for Configuring the Distributed System</title>
+	<shortdesc id="shortdesc_39336716FFAF4F448ED4D2C275C773AE"><keyword keyref="product_name"/>
+		provides a default distributed system configuration, for out-of-the-box systems. To use
+		non-default configurations and to fine-tune your member communication, you will customize
+		your system configuration. You can use a mix of various options for customizing your
+		distributed system configuration. </shortdesc>
+	<conbody>
+		<section id="section_67EBCC53EB174B108DA7271E2CD2B76C">
+			<p><keyword keyref="product_name"/> properties are used to join a distributed system and
+				configure system member behavior. Configure your <keyword keyref="product_name"/>
+				properties through the <codeph>gemfire.properties</codeph> file, the Java API, or
+				command-line input. Generally, you store all your properties in the
+					<codeph>gemfire.properties</codeph> file, but you may need to provide properties
+				through other means, for example, to pass in security properties for username and
+				password that you have received from keyboard input. </p>
+			<note>Check with your <keyword keyref="product_name"/> system administrator before
+				changing properties through the API, including the
+					<codeph>gemfire.properties</codeph> and <codeph>gfsecurity.properties</codeph>
+				settings. The system administrator may need to set properties at the command line or
+				in configuration files. Any change made through the API overrides those other
+				settings. </note>
+			<note>The product <codeph>defaultConfigs</codeph> directory has a sample
+					<codeph>gemfire.properties</codeph> file with all default settings. </note>
+			<p>Set distributed system properties by any combination of the following. The system
+				looks for the settings in the order listed: <ol
+					id="ol_1BCB689B584F450CB26CE644373FB39C">
+					<li id="li_BCEDCF69DFE6465BA67039B9CC85116D"><codeph>java.lang.System</codeph>
+						property setting. Usually set at the command line. For applications, set
+						these in your code or at the command line. <p>Naming: Specify these
+							properties in the format <codeph>gemfire.property-name</codeph>, where
+								<codeph>property-name</codeph> matches the name in the
+								<codeph>gemfire.properties</codeph> file. To set the gemfire
+							property file name, use <codeph>gemfirePropertyFile</codeph> by itself
+								<ul id="ul_4C0799FA808D489699072C4BB3E7DC0C">
+								<li id="li_BCCAAC36BB5A4800A6F8C6B1E7D1998E">In the API, set the
+										<codeph>System</codeph> properties before the cache creation
+									call. Example:
+									<codeblock>System.setProperty("DgemfirePropertyFile", "gfTest");
+System.setProperty("Dgemfire.mcast-port", "10999");
+
+Cache cache = new CacheFactory().create();</codeblock>
+								</li>
+								<li id="li_2A3B63CE7188437FA49B794452FA2ADB">At the
+										<codeph>java</codeph> command line, pass in
+										<codeph>System</codeph> properties using the
+										<codeph>-D</codeph> switch. Example:
+									<codeblock>java -DgemfirePropertyFile=gfTest -Dgemfire.mcast-port=10999 test.Program</codeblock>
+								</li>
+							</ul>
+						</p>
+					</li>
+					<li id="li_D46AA5D5171E4B07BAB497FE685922B9">Entry in a
+							<codeph>Properties</codeph> object. <p>Naming: Specify these properties
+							using the names in the <codeph>gemfire.properties</codeph> file. To set
+							the gemfire property file name, use
+							<codeph>gemfirePropertyFile</codeph>. <ul
+								id="ul_AE06E9A10FB544DC9DE09F4173AB9490">
+								<li id="li_B5B301A8FF954417A8E5C0DB169480B8">In the API, create a
+										<codeph>Properties</codeph> object and pass it to the cache
+									create method. Example:
+									<codeblock>Properties properties= new Properties();
+properties.setProperty("log-level", "warning");
+properties.setProperty("name", "testMember2");
+ClientCache userCache = 
+	new ClientCacheFactory(properties).create();</codeblock>
+								</li>
+								<li id="li_970F2266AD8847EF9BD9F2298599254D">For the cache server,
+									pass the properties files on the <codeph>gfsh</codeph> command
+									line as command-line options. Example:
+									<codeblock>gfsh&gt;start server --name=<varname>server_name</varname> --mcast-port=10338 --properties-file=serverConfig/gemfire.properties --security-properties-file=gfsecurity.properties</codeblock>
+									See <xref
+										href="../../configuring/running/running_the_cacheserver.xml#running_the_cacheserver"
+										type="concept" format="dita" scope="local"/> for more
+									information on running cache servers. </li>
+							</ul>
+						</p>
+					</li>
+					<li id="li_862F33E7428E46F4B2AEC8E08E6DFC5F">Entry in a
+							<codeph>gemfire.properties</codeph> file. See <xref
+							href="../../configuring/running/deploying_config_files.xml#deploying_config_files"
+							format="dita"/>. Example:
+						<codeblock>cache-xml-file=cache.xml
+conserve-sockets=true
+disable-tcp=false</codeblock>
+					</li>
+					<li id="li_69B77F08C0054DB2A59B0F9CD9B83759">Default value. The default property
+						values are listed in the online Java documentation for
+							<codeph>com.gemstone.gemfire.distributed.DistributedSystem</codeph>.
+					</li>
+				</ol>
+			</p>
+		</section>
+	</conbody>
+</concept>

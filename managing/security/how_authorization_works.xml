@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "http://docs.oasis-open.org/dita/v1.1/OS/dtd/concept.dtd">
+<concept id="how_authorization_works">
+	<title>How Authorization Works</title>
+	<shortdesc>The security framework establishes trust between members during authentication. In a
+		client/server system, you can use this trust to grant or withhold a client's cache access
+		and modification requests. </shortdesc>
+	<conbody>
+		<p>Access rights can be checked before the client operation is performed and before results
+			of the operation are sent back to the client. Access control is done according to your
+			configurations and programmatic plug-ins. </p>
+		<image href="../../images/security-4.gif" id="image_254428E85E8B47F9B558DA4C5DC02B93"
+			placement="break"/>
+		<p>The principal, which you associate with the client when it is authenticated, is used by
+			the authorization plug-in to allow or disallow each operation. <keyword
+				keyref="product_name"/> security invokes this callback with the principal and the
+			requested operation, and permits or bars the operation depending on the result of the
+			callback. The callback also has access to the operation data, such as the key and value
+			for a <codeph>put</codeph>, which you can use to determine authorization. In addition,
+			you can program the callback to change some of the operation data, such as the value for
+			a <codeph>put</codeph> or the operation result. </p>
+		<p>All client operations sent to the server can be authorized. The operations checked by the
+			server are listed in
+				<codeph>com.gemstone.gemfire.cache.operations.OperationContext.OperationCode</codeph>. </p>
+		<note><codeph>Region</codeph> query shortcut methods are all sent to the server as
+				<codeph>query</codeph> operations. </note>
+		<p>All client operations that return a result (like <codeph>get</codeph> and
+				<codeph>query</codeph>) and all notifications can also be authorized in the
+			post-operation phase where the callback can peek and even modify the result being sent
+			out. </p>
+	</conbody>
+</concept>

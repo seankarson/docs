@@ -1,0 +1,65 @@
+<?xml version="1.0"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept id="concept_9B67BBE94B414B7EA63BD7E8D61D0312">
+	<title>Customizing Serialization with Class Pattern Strings</title>
+	<shortdesc>Use class pattern strings to name the classes that you want to serialize using
+			<keyword keyref="product_name"/> 's reflection-based autoserializer and to specify
+		object identity fields and to specify fields to exclude from serialization. </shortdesc>
+	<conbody>
+		<p>The class pattern strings used to configured the
+				<codeph>ReflectionBasedAutoSerializer</codeph> are standard regular expressions. For
+			example, this expression would select all classes defined in the
+				<codeph>com.company.domain</codeph> package and its subpackages:
+			<codeblock>com\.company\.domain\..*</codeblock>
+		</p>
+		<p>You can augment the pattern strings with a special notation to define fields to exclude
+			from serialization and to define fields to mark as PDX identity fields. The full syntax
+			of the pattern string is:
+			<codeblock>&lt;class pattern&gt; [# (identity|exclude) = &lt;field pattern&gt;]... [, &lt;class pattern&gt;...]</codeblock>
+		</p>
+		<p>The following example pattern string sets these PDX serialization criteria: <ul
+				id="ul_F2392A36C81A4761B2F077D11C0D65A0">
+				<li id="li_8AE6B7E706F54F1CA1589E8070984EDF">Classes with names matching the pattern
+						<codeph>com.company.DomainObject.*</codeph> are serialized. In those
+					classes, fields beginning with <codeph>id</codeph> are marked as identity fields
+					and fields named <codeph>creationDate</codeph> are not serialized. </li>
+				<li id="li_45836E93B7C94B5589DB540B459802C2">The class
+						<codeph>com.company.special.Patient</codeph> is serialized. In the class,
+					the field, <codeph>ssn</codeph> is marked as an identity field </li>
+			</ul>
+			<codeblock>com.company.DomainObject.*#identity=id.*#exclude=creationDate, 
+com.company.special.Patient#identity=ssn</codeblock>
+		</p>
+		<note>There is no association between the <codeph>identity</codeph> and
+				<codeph>exclude</codeph> options, so the pattern above could also be expressed as:
+			<codeblock>com.company.DomainObject.*#identity=id.*, com.company.DomainObject.*#exclude=creationDate, 
+com.company.special.Patient#identity=ssn</codeblock>
+		</note>
+		<note>The order of the patterns is not relevant. All defined class patterns are used when
+			determining whether a field should be considered as an identity field or should be
+			excluded. </note>
+		<p>Examples: <ul id="ul_6206892EB2B540DE899D48CD7FA3D64A">
+				<li id="li_525BB2D5D74F45B1BA72689FDCB97BFA">This XML uses the example pattern shown
+					above:
+					<codeblock>&lt;parameter name="classes"&gt;
+  &lt;string&gt;com.company.DomainObject.*#identity=id.*#exclude=creationDate, 
+com.company.special.Patient#identity=ssn&lt;/string&gt;
+&lt;/parameter&gt;</codeblock>
+				</li>
+				<li id="li_EBF028471D084DB287EC54CCC5F9B1F9">This application code sets the same
+					pattern:
+					<codeblock>classPatterns.add("com.company.DomainObject.*#identity=id.*#exclude=creationDate,
+   com.company.special.Patient#identity=ssn");</codeblock>
+				</li>
+				<li id="li_ABE350BD927B45CF900218B2AB66DCCA">This application code has the same
+					effect:
+					<codeblock> Cache c = new CacheFactory().set("cache-xml-file", cacheXmlFileName)
+     .setPdxSerializer(new ReflectionBasedAutoSerializer("com.foo.DomainObject*#identity=id.*",
+         "com.company.DomainObject.*#exclude=creationDate","com.company.special.Patient#identity=ssn"))
+     .create();
+</codeblock>
+				</li>
+			</ul>
+		</p>
+	</conbody>
+</concept>

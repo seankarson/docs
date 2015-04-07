@@ -1,0 +1,52 @@
+<?xml version="1.0"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept id="concept_FFECBE8249D848E9A2CF7FD02514EC68">
+	<title>Using PdxInstanceFactory to Create PdxInstances</title>
+	<shortdesc>You can use the <codeph>PdxInstanceFactory</codeph> interface to create a
+			<codeph>PdxInstance</codeph> from raw data when the domain class is not available on the
+		server. </shortdesc>
+	<conbody>
+		<p>This can be particularly useful when you need an instance of a domain class for plug in
+			code such as a function or a loader. If you have the raw data for the domain object (the
+			class name and each field's type and data), then you can explicitly create a
+				<codeph>PdxInstance</codeph>. The <codeph>PdxInstanceFactory</codeph> is very
+			similar to the <codeph>PdxWriter</codeph> except that after writing each field, you need
+			to call the create method which returns the created PdxInstance. </p>
+		<p> To create a factory call <codeph>RegionService.createPdxInstanceFactory</codeph>. A
+			factory can only create a single instance. To create multiple instances create multiple
+			factories or use <codeph>PdxInstance.createWriter()</codeph> to create subsequent
+			instances. Using <codeph>PdxInstance.createWriter()</codeph> is usually faster. </p>
+		<p>When you create a PdxInstance, set as least one identity field using the
+				<codeph>markIndentityField</codeph> method. If you do not mark an identity field,
+			the PdxInstance<codeph>equals</codeph> and <codeph>hashCode</codeph> methods will use
+			all PDX fields to compare objects and consequently, will not perform as well. It is
+			important that the fields used by your <codeph>equals</codeph> and
+				<codeph>hashCode</codeph> implementations are the same fields that you mark as
+			identity fields. </p>
+		<p>The following is a code example of using <codeph>PdxInstanceFactory</codeph>:
+			<codeblock>
+PdxInstance pi = cache.createPdxInstanceFactory("com.company.DomainObject")
+   .writeInt("id", 37)
+   .markIdentityField("id")
+   .writeString("name", "Mike Smith")
+   .writeObject("favoriteDay", cache.createPdxEnum("com.company.Day", "FRIDAY", 5))
+   .create();
+</codeblock>
+			For more information, see <codeph>PdxInstanceFactory</codeph> in the Java API
+			documentation. </p>
+		<section id="section_F4EC56197730427084FBF040820A6149">
+			<title>Enum Objects as PdxInstances</title>
+			<p>You can now work with enum objects as PdxInstances. When you fetch an enum object
+				from the cache, you can now deserialize it as a <codeph>PdxInstance</codeph>. To
+				check whether a <codeph>PdxInstance</codeph> is an enum, use the
+					<codeph>PdxInstance.isEnum</codeph> method. A enum PdxInstance will have one
+				field named "name" whose value is a String that corresponds to the enum constant
+				name. </p>
+			<p>An enum PdxInstance is not writable; if you call <codeph>createWriter</codeph> it
+				will throw an exception. </p>
+			<p>The <codeph>RegionService</codeph> has a new method that allows you to create a
+				PdxInstance that represents an enum. See
+					<codeph>RegionService.createPdxEnum</codeph> in the Java API documentation. </p>
+		</section>
+	</conbody>
+</concept>

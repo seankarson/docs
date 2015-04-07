@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE topic PUBLIC "-//OASIS//DTD DITA Topic//EN" "topic.dtd">
+<topic
+  id="topic_itv_mg5_m4">
+  <title>PUT /gemfire-api/v1/{region}/{key}?op=REPLACE</title>
+  <shortdesc>Update (replace) data with key(s) if and only if the key(s) exists
+    in region. The Key(s) must be present in the Region for the update to
+    occur.</shortdesc>
+  <body>
+    <section>
+      <title>Resource URL</title>
+      <codeblock>http://&lt;<i>hostname_or_http-service-bind-address</i>>:&lt;<i>http-service-port</i>>/gemfire-api/v1/{region}/{key}?op=REPLACE
+http://&lt;<i>hostname_or_http-service-bind-address</i>>:&lt;<i>http-service-port</i>>/gemfire-api/v1/{region}/{key1},{key2},...{keyN}?op=REPLACE</codeblock>
+    </section>
+    <section>
+      <title>Parameters</title>
+      <simpletable
+        frame="all"
+        relcolwidth="1.0* 1.0* 1.0*"
+        id="simpletable_b4n_3jv_m4">
+        <sthead>
+          <stentry>Parameter</stentry>
+          <stentry>Description</stentry>
+          <stentry>Example Values</stentry>
+        </sthead>
+        <strow>
+          <stentry>op</stentry>
+          <stentry>When you specify REPLACE for this parameter, data is only
+            updated if the specified key or keys are already present in the
+            region.</stentry>
+          <stentry> REPLACE</stentry>
+        </strow>
+        <strow>
+          <stentry>@type</stentry>
+          <stentry>Specified in the response body. Use this to declare the
+            domain object type of the entry value.</stentry>
+          <stentry>com.mycompany.ObjectName</stentry>
+        </strow>
+      </simpletable>
+    </section>
+    <section>
+      <title>Example Request</title>
+      <codeblock>Request Payload: application/json
+PUT //gemfire-api/v1/orders/2?op=REPLACE
+
+Accept: application/json
+Content-Type: application/json
+{
+     "@type":  "com.gemstone.gemfire.web.rest.domain.Order",
+     "purchaseOrderNo": 1121,
+     "customerId": 1012,
+     "description":  "Order for XYZ Corp",
+     "orderDate":  "02/10/2014",
+     "deliveryDate":  "02/20/2014",
+     "contact":  "Jelly Bean",
+     "email":  "jelly.bean@myCompany.com",
+     "phone":  "01-2048096",
+     "totalPrice": 225,
+     "items": [
+        {
+             "itemNo": 1,
+             "description":  "Product-100",
+             "quantity": 12,
+             "unitPrice": 5,
+             "totalPrice": 60
+        }
+    ]
+}
+</codeblock>
+    </section>
+    <section>
+      <title>Example Success Response</title>
+      <codeblock>Response Payload: null
+
+<b>200 OK</b></codeblock>
+    </section>
+    <section>
+      <title>Error Codes</title>
+      <simpletable
+        frame="all"
+        relcolwidth="1.0* 2.39*"
+        id="simpletable_vfq_33v_m4">
+        <sthead>
+          <stentry>Status Code</stentry>
+          <stentry>Description</stentry>
+        </sthead>
+        <strow>
+          <stentry>400 BAD REQUEST</stentry>
+          <stentry>Returned if the supplied key is not present in the
+            region.</stentry>
+        </strow>
+        <strow>
+          <stentry>404 NOT FOUND</stentry>
+          <stentry>Returned if the region is not found.</stentry>
+        </strow>
+        <strow>
+          <stentry>500 INTERNAL SERVER ERROR</stentry>
+          <stentry>Error encountered at <keyword keyref="product_name"/> server. Check the HTTP response
+            body for a stack trace of the exception. </stentry>
+        </strow>
+      </simpletable>
+    </section>
+  </body>
+</topic>

@@ -1,0 +1,56 @@
+<?xml version="1.0"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept id="concept_5B60087DA11644C49250064BAB8AFFA6">
+	<title>Using Member Groups</title>
+	<shortdesc><keyword keyref="product_name_long"/> allows you to organize your distributed system
+		members into logical member groups. </shortdesc>
+	<conbody>
+		<p> The use of member groups in <keyword keyref="product_name_long"/> is optional. The
+			benefit of using member groups is the ability to coordinate certain operations on
+			members based on logical group membership. For example, by defining and using member
+			groups you can: <ul id="ul_598C99FB65C8400AA9D68E1374E3218C">
+				<li id="li_02B3168B28914DD7917E082FFDFDA7C6">Alter a subset of configuration
+					properties for a specific member or members. See <xref
+						href="../../tools_modules/gfsh/command-pages/alter.xml#topic_7E6B7E1B972D4F418CB45354D1089C2B"
+						type="topic" format="dita" scope="local"
+						><?xm-replace_text alter runtime?></xref> in gfsh. </li>
+				<li id="li_26A2E992A9954FBCB043E5604A00C085">Perform certain disk operations like
+					disk-store compaction across a member group. See <xref
+						href="../../tools_modules/gfsh/quick_ref_commands_by_area.xml#topic_1ACC91B493EE446E89EC7DBFBBAE00EA"
+						type="topic" format="dita" scope="local"
+						><?xm-replace_text Disk Store Commands?></xref> for a list of commands. </li>
+				<li id="li_ACF58D2C2B1E427E94C3DD7010258506">Manage specific indexes or regions
+					across all members of a group. </li>
+				<li id="li_2CE257F2C2CD4EB6908C6688DDD829D2">Deploy or undeploy JAR applications on
+					all members in a group. </li>
+				<li id="li_3988CBF7F1D34C00870BE1FFA7ED9B2B">Execute functions on all members of a
+					specific group. </li>
+			</ul>
+		</p>
+		<p>You define group names in the <codeph>groups</codeph> property of your member's
+				<codeph>gemfire.properties</codeph> file or upon member startup in gfsh. </p>
+		<p>
+			<note>Any roles defined in the currently existing <codeph>roles</codeph> property will
+				now be considered a group. If you wish to add membership roles to your distributed
+				system, you should add them as member groups in the <codeph>groups</codeph>
+				property. The <codeph>roles</codeph> property has been deprecated in favor of using
+				the <codeph>groups</codeph> property. </note>
+		</p>
+		<p>To add a member to a group, add the name of a member group to the
+				<codeph>gemfire.properties</codeph> file of the member prior to startup or you can
+			startup a member in <codeph>gfsh</codeph> and pass in the <codeph>--group</codeph>
+			argument at startup time. </p>
+		<p>A single member can belong to more than one group. </p>
+		<p>Member groups can also be used to organize members from either a client's perspective or
+			from a peer member's perspective. See <xref
+				href="../../topologies_and_comm/p2p_configuration/configuring_peer_member_groups.xml#concept_032521546EF34FABB40EB2C18080ED35"
+				type="concept" format="dita" scope="local"
+				><?xm-replace_text Organizing Peers into Logical Member Groups?></xref> and <xref
+				href="../../topologies_and_comm/cs_configuration/configure_servers_into_logical_groups.xml#configure_servers_into_logical_groups"
+				type="concept" format="dita" scope="local"
+				><?xm-replace_text Organizing Servers Into Logical Member Groups?></xref> for more
+			information. On the client side, you can supply the member group name when configuring a
+			client's connection pool. Use the &lt;pool server-group&gt; element in the client's
+			cache.xml. </p>
+	</conbody>
+</concept>

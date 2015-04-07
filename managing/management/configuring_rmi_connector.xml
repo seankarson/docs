@@ -1,0 +1,34 @@
+<?xml version="1.0"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept id="concept_BC793A7ACF9A4BD9A29C2DCC6894767D">
+	<title>Configuring RMI Registry Ports and RMI Connectors</title>
+	<shortdesc><keyword keyref="product_name"/> programmatically emulates out-of-the-box JMX
+		provided by Java and creates a JMXServiceURL with RMI Registry and RMI Connector ports on
+		all manageable members. </shortdesc>
+	<conbody>
+		<section id="section_143531EBBCF94033B8058FCF5F8A5A0D">
+			<title>Configuring JMX Manager Port and Bind Addresses</title>
+			<p>You can configure a specific connection port and address when launching a process
+				that will host the <keyword keyref="product_name"/> JMX Manager. To do this, specify
+				values for the <codeph>jmx-manager-bind-address</codeph>, which specifies the JMX
+				manager's IP address and <codeph>jmx-manager-port</codeph>, which defines the RMI
+				connection port. </p>
+			<p>The default <keyword keyref="product_name"/> JMX Manager RMI port is 1099. You may
+				need to modify this default if 1099 is reserved for other uses. </p>
+		</section>
+		<section id="section_BF6352A05CE94F35A8355232D22AC2BC">
+			<title>Using Out-of-the-Box RMI Connectors</title>
+			<p>If for some reason you need to use standard JMX RMI in your deployment for other
+				monitoring purposes, set the <keyword keyref="product_name"/> property
+					<codeph>jmx-manager-port</codeph> to 0 on any members where you want to use
+				standard JMX RMI. </p>
+			<p>If you use out-of-the-box JMX RMI instead of starting an embedded <keyword
+					keyref="product_name"/> JMX Manager, you should consider setting
+					<codeph>-Dsun.rmi.dgc.server.gcInterval=Long.MAX_VALUE-1</codeph> when starting
+				the JVM for customer applications and client processes. Every <keyword
+					keyref="product_name"/> process internally sets this setting before creating and
+				starting the JMX RMI connector in order to prevent full garbage collection from
+				pausing processes. </p>
+		</section>
+	</conbody>
+</concept>

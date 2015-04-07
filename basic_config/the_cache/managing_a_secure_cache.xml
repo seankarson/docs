@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "http://docs.oasis-open.org/dita/v1.1/OS/dtd/concept.dtd">
+<concept id="managing_a_secure_cache">
+	<title>Managing a Cache in a Secure System</title>
+	<shortdesc id="shortdesc_C94765DFB2D6420A8C5D24D5F0A95C8A">When you create your cache in a
+		secure system, you provide credentials to the connection process for authentication by
+		already-running, secure members. Clients connect to secure servers. Peers are authenticated
+		by secure locators or peer members. </shortdesc>
+	<conbody>
+		<section id="section_11BF0F3F64504B74B39CD4C1CF58E6FC">
+			<p>Follow these steps in addition to the steps for implementing security implementation
+				for your peer, server, and client members. See <xref
+					href="managing_a_peer_server_cache.xml#creating_and_closing_a_peer_cache"
+					type="concept" format="dita" scope="local"/> and <xref
+					href="managing_a_client_cache.xml#managing_a_client_cache" type="concept"
+					format="dita" scope="local"/>. <ol id="ol_577DD2E9BA9E4B979817C9A92F57D8F6">
+					<li id="li_F9D793192DF54134869976C54FA65B99">To create your cache: <ol
+							id="ol_39F3B7AAC467483EBCB2570C63F813AA">
+							<li id="li_8DD8F2BBB10E4D4890FA6192FBE7AFE3">Add any necessary security
+								properties to the <codeph>gemfire.properties</codeph> or
+									<codeph>gfsecurity.properties</codeph> file, to configure
+						<keyword keyref="product_name_long"/> for your particular security implementation.
+								Examples: <codeblock>security-client-auth-init=mySecurity.UserPasswordAuthInit.create</codeblock>
+								<codeblock>security-peer-auth-init=myAuthPkg.myAuthInitImpl.create</codeblock>
+							</li>
+							<li id="li_26A3D5FC690244FEAAF979BC250BD28B">When you create your cache,
+								pass any properties required by your security implementation to the
+								cache factory create call by using one of these methods: <ul
+									id="ul_3BB26BCF2537458BA54B9A20EAF6A247">
+									<li id="li_6C45523F1F844C67921219D359302180"
+											><codeph>ClientCacheFactory</codeph> or
+											<codeph>CacheFactory</codeph>
+										<codeph>set</codeph> methods. Example:
+										<codeblock outputclass="language-java">ClientCache clientCache = new ClientCacheFactory()
+	.set("security-username", username)
+	.set("security-password", password)
+	.create();</codeblock>
+									</li>
+									<li id="li_AB43054CD90A48C4845BE47DE61E9DB0">Properties object
+										passed to the <codeph>ClientCacheFactory</codeph> or
+											<codeph>CacheFactory</codeph>
+										<codeph>create</codeph> method. These are usually properties
+										of a sensitive nature that you do not want to put inside the
+											<codeph>gfsecurity.properties</codeph> file. Example: <codeblock outputclass="language-java">Properties properties = new Properties();
+properties.setProperty("security-username", username);
+properties.setProperty("security-password", password);
+Cache cache = new CacheFactory(properties).create();</codeblock>
+										<note>Properties passed to a cache creation method override
+											any settings in either the
+												<codeph>gemfire.properties</codeph> file or
+												<codeph>gfsecuirty.properties</codeph>. </note>
+									</li>
+								</ul>
+							</li>
+						</ol>
+					</li>
+					<li id="li_B104826C0835474EB7C5AD84DEE84BEB">Close your cache when you are done
+						using the <codeph>close</codeph> method of your <codeph>Cache</codeph> or
+							<codeph>ClientCache</codeph> instance. Example:
+						<codeblock>cache.close();</codeblock>
+					</li>
+				</ol>
+			</p>
+		</section>
+	</conbody>
+</concept>

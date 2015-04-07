@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept
+  id="concept_ak3_yb1_wk">
+  <title>Data Location for Cache Transactions</title>
+  <shortdesc>The location where you can run your transaction depends on where you are storing your
+    data. </shortdesc>
+  <conbody>
+    <p>Transactions must be run on a data set hosted entirely by one member. <ul
+        id="ul_ws2_bc1_wk">
+        <li>For replicated or other distributed regions, the transaction uses only the data set in
+          the member where the transaction is run.</li>
+        <li>For partitioned regions, you must co-locate all your transactional data in a single
+          member.</li>
+        <li>For transactions run on partitioned and distributed region mixes, you must co-locate the
+          partitioned region data and make sure the distributed region data is available in any
+          member hosting the partitioned region data.</li>
+      </ul></p>
+    <p>For transactions involving partitioned regions, any member with the regions defined can run
+      the transactional application, regardless of whether the member hosts data for the regions. If
+      the transactional data resides on a remote member, the transaction is carried out by proxy in
+      the member hosting the data. The member hosting the data is referred to as the transactional
+      data host.</p>
+  </conbody>
+</concept>

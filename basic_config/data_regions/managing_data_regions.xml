@@ -1,0 +1,354 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "http://docs.oasis-open.org/dita/v1.1/OS/dtd/concept.dtd">
+<concept id="data_regions">
+	<title>Data Region Management</title>
+	<shortdesc><keyword keyref="product_name_long"/> provides different APIs and XML configuration
+		models to support configuration and management of your data regions. </shortdesc>
+	<conbody>
+		<section id="section_18A9481217204613958897FE64105097">
+			<p>You store your data in region entry key/value pairs, with keys and values being any
+				object types your application needs. </p>
+			<p>The <codeph>com.gemstone.gemfire.cache.Region</codeph> interface implements
+					<codeph>java.util.Map</codeph>. </p>
+			<p>Each region's attributes define how the data in the region is stored, distributed,
+				and managed. Data regions can be distributed, partitioned among system members, or
+				local to the member. </p>
+			<p>You can create regions in the <codeph>cache.xml</codeph> file, by using the API, or
+				with the gfsh command-line interface. You can use <i>region shortcuts</i> to
+				configure commonly-used types of regions. For more information about region
+				shortcuts, see <xref
+					href="../../reference/topics/region_shortcuts_reference.xml#reference_lt4_54c_lk"
+				/>.</p>
+			<note>If you change attributes that define a region, you must restart the member before
+				the changes take effect.</note>
+		</section>
+		<section id="section_028F2602395646818680C906F205526B">
+			<title>The Region APIs</title>
+			<p><keyword keyref="product_name"/>'s regions APIs provide specialized behavior for
+				different system member types. </p>
+			<p>
+				<ul id="ul_E5B57E4F897A43DD89CE457E9212289B">
+					<li id="li_F2D1FE114EA0429AAAD0774A40574D86"><b>Peer/Server Region APIs</b>. Use
+						these methods, interfaces, and classes for peer/server region creation.
+						These are in the <codeph>com.gemstone.gemfire.cache</codeph> package. They
+						correspond to declarations in the <codeph>&lt;cache&gt;</codeph> element for
+						creating and configuring regions. <ul
+							id="ul_5CCC5F72B31949DA9D3A231F47594780">
+							<li id="li_6140A772CFD84970B37752EC9A829531"
+										><b><codeph>com.gemstone.gemfire.cache.Cache.createRegionFactory</codeph>
+								</b>. This method takes a <codeph>RegionShortcut</codeph>
+								<codeph>enum</codeph> to initiate region configuration, and returns
+								a <codeph>RegionFactory</codeph>. </li>
+							<li id="li_F72DE6C600C44CD6891DBE19A7287544"
+										><b><codeph>com.gemstone.gemfire.cache.RegionFactory</codeph></b>.
+								Provides methods to set individual region attributes and to create
+								the region. The <codeph>create</codeph> call returns
+									<codeph>Region</codeph>. </li>
+							<li id="li_A866FAB611F440D9BB54E2E9C106CCBE"
+										><b><codeph>com.gemstone.gemfire.cache.RegionShortcut</codeph></b>.
+								Common region configurations. Can be retrieved through
+									<codeph>Cache</codeph>
+								<codeph>createRegionShortcut</codeph> and with the region attribute,
+									<codeph>refid</codeph>. </li>
+						</ul>
+					</li>
+					<li id="li_6EE1A83133FB406D9B299F1C91828A31"><b>Client Region APIs</b>. Use
+						these methods, interfaces, and classes for client region creation. These are
+						in the <codeph>com.gemstone.gemfire.cache.client</codeph> package. They
+						correspond to declarations in the <codeph>&lt;client-cache&gt;</codeph>
+						element for creating and configuring regions. <p>These are client versions
+							of the Peer/Server Region APIs. These client APIs provide similar
+							functionality, but are tailored to the needs and behaviors of client
+							regions. <ul id="ul_BE9FDAAEA6304FEFB106D3DFD96646D7">
+								<li id="li_50CE9C80D9E944D3B034B9673B85394F"
+											><b><codeph>com.gemstone.gemfire.cache.clientCache.createRegionFactory</codeph>
+									</b>. This method takes a <codeph>ClientRegionShortcut</codeph>
+									<codeph>enum</codeph> to initiate region configuration, and
+									returns a <codeph>ClientRegionFactory</codeph>. </li>
+								<li id="li_FDE3EE0FF56C4F378C0D479CF5F1DBDF"
+											><b><codeph>com.gemstone.gemfire.cache.client.ClientRegionFactory</codeph></b>.
+									Provides methods to set individual region attributes and to
+									create the region. The <codeph>create</codeph> call returns
+										<codeph>Region</codeph>. </li>
+								<li id="li_98A6D925B4A34E90B621156F276EA9C8"
+											><b><codeph>com.gemstone.gemfire.cache.client.ClientRegionShortcut</codeph>
+									</b>. Common region configurations. Can be retrieved through
+										<codeph>ClientCache</codeph>
+									<codeph>createClientRegionFactory</codeph> and with the region
+									attribute, <codeph>refid</codeph>. </li>
+							</ul>
+						</p>
+					</li>
+					<li id="li_FA6B4807546942478C8FA3F428BFED7E"><b>Region APIs Used For All Member
+							Types</b>. These interfaces and classes are used universally for region
+						management. These are in the <codeph>com.gemstone.gemfire.cache</codeph>
+						package. They correspond to declarations under the
+							<codeph>&lt;cache&gt;</codeph> and <codeph>&lt;client-cache&gt;</codeph>
+						elements for creating and configuring regions. <ul
+							id="ul_EC1BF2BE61474231810E36E467F56E32">
+							<li id="li_6CFE3970554948C184A8D3AC06DA6B10"
+										><b><codeph>com.gemstone.gemfire.cache.Region</codeph>
+								</b>. Interface for managing your regions and their entries. </li>
+							<li id="li_75BA8680AA58494EB603F1F75DDF31F7"
+										><b><codeph>com.gemstone.gemfire.cache.RegionAttributes</codeph>
+								</b>. Object holding region configuration settings. </li>
+							<li id="li_F153EF2C765642018BA2395EEE2482AD"
+										><b><codeph>com.gemstone.gemfire.cache.AttributesFactory</codeph></b>.
+								Can be used to create <codeph>RegionAttributes</codeph> to pass to
+									<codeph>RegionFactory</codeph> and
+									<codeph>ClientRegionFactory</codeph>. </li>
+						</ul>
+					</li>
+				</ul>
+			</p>
+		</section>
+		<section id="section_9F898C23D2164ED5BB3789FD8B1F68C3">
+			<title>Create and Access Data Regions</title>
+			<p>Before you start, have your cache configuration defined, along with any cache-wide
+				configuration your region requires, like disk store configuration and client server
+				pool configuration. </p>
+			<p>
+				<ol id="ol_1BF5C8C9F4C9460AB6FB6030451CEBF6">
+					<li id="li_FD265BA2AE244AC581C235029F38E46E">Determine the region attributes
+						requirements and identify the region shortcut setting that most closely
+						matches your needs. See <xref href="region_shortcuts.xml#region_shortcuts"/>
+						and <xref href="../../reference/topics/chapter_overview_regionshortcuts.xml"
+						/> for more information.</li>
+					<li id="li_ABE1A5B1612844BE80F2953253FB5B17">Define any region attributes that
+						are not provided in the shortcut you chose. </li>
+					<li id="li_F5D3FABAA2D44F6895CC7C3DE2C7E986">Create a region using any of the
+						following methods: <p>
+							<ul id="ul_E1A3B40869954498A880D51F309C0740">
+								<li>gfsh. After starting up servers, a JMX manager and connecting to
+									the cluster, execute the following
+									command:<codeblock>gfsh>create region --name=Portfolios --type=REPLICATE</codeblock></li>
+								<li id="li_48788B910FF444E99389EA348CFDF890">Declaration in the
+										<codeph>cache.xml</codeph>: <p>
+										<codeblock outputclass="language-xml">&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;cache
+    xmlns="<xref href="http://schema.pivotal.io/gemfire/cache" format="html" scope="external">http://schema.pivotal.io/gemfire/cache</xref>"
+    xmlns:xsi="<xref href="http://www.w3.org/2001/XMLSchema-instance" format="html" scope="external">http://www.w3.org/2001/XMLSchema-instance</xref>"
+    xsi:schemaLocation="<xref href="http://schema.pivotal.io/gemfire/cache" format="html" scope="external">http://schema.pivotal.io/gemfire/cache</xref> <xref href="http://schema.pivotal.io/gemfire/cache/cache-8.1.xsd" format="html" scope="external">http://schema.pivotal.io/gemfire/cache/cache-8.1.xsd</xref>"
+    version="8.1"
+    lock-lease="120"
+    lock-timeout="60"
+    search-timeout="300"&gt;
+&lt;!-- Create a region named Portfolios --&gt;
+  &lt;region name="Portfolios" id="REPLICATE"/&gt;
+&lt;/cache&gt;</codeblock>
+									</p><p>When the <codeph>cache.xml</codeph> is loaded at cache
+										creation, the system automatically creates any declared
+										regions. </p>
+								</li>
+								<li id="li_C9A591940D944FA19C305FC0DE03BBD4"
+										><codeph>RegionFactory</codeph> API calls: <p>
+										<codeblock outputclass="language-java">RegionFactory rf = cache.createRegionFactory(REPLICATE);
+Region pfloRegion = rf.create("Portfolios");</codeblock>
+									</p>
+									<p>With <codeph>RegionFactory</codeph>, if the cache does not
+										already exist, it is created, then the region is created.
+										The <codeph>RegionFactory</codeph> constructor is overloaded
+										to accept member connection properties and region
+										attributes. </p>
+								</li>
+								<li id="li_0D0D6BE737D242508FF454F92BD60352"><codeph>Cache</codeph>
+									and <codeph>Region</codeph> API calls:
+									<codeblock outputclass="language-java">// Create a region
+Cache cache = CacheFactory.create(system);
+AttributesFactory factory = new AttributesFactory();
+Region region = cache.createRegion("SampleRegion", factory.create());</codeblock>
+								</li>
+							</ul>
+						</p>
+					</li>
+				</ol>
+			</p>
+			<p>Once you have created your regions, you can access them through the
+					<codeph>Cache</codeph> and <codeph>Region</codeph> APIs as full region lists or
+				individually. </p>
+		</section>
+		<section id="section_jn1_sry_5m">
+			<title>Create and Access Data Subregions</title>
+			<p>An individual region can contain multiple subregions. You can use subregions to
+				create a hierarchical namespace within your cache or to group cached objects for
+				management purposes. The use of subregions is subject to the following
+				restrictions:</p>
+			<p>
+				<ul id="ul_kyk_xwx_5m">
+					<li>A region with LOCAL scope can only have subregions with LOCAL scope.</li>
+					<li>You cannot create a subregion under a partitioned region or create a
+						subregion with type PARTITION.</li>
+					<li>You cannot create a subregion that has different scope (GLOBAL,
+						DISTRIBUTED_ACK, DISTRIBUTED_NO_ACK) settings than a region of the same name
+						in another cache or than the parent region.</li>
+					<li>You cannot reuse an existing region or subregion name.</li>
+				</ul>
+			</p>
+			<p>If the subregion is a distributed replicated region, it will be initialized with data
+				from all other caches in this distributed system that have the same region.</p>
+			<p>You can create subregions using one of the following methods:</p>
+			<p>
+				<ul id="ul_fpd_1zx_5m">
+					<li>
+						<ul id="ul_qgz_rzx_5m">
+							<li>Declaration in the <codeph>cache.xml</codeph>: <p>
+									<codeblock outputclass="language-java">&lt;?xml version="1.0"?&gt;
+&lt;cache
+    xmlns="<xref href="http://schema.pivotal.io/gemfire/cache" format="html" scope="external">http://schema.pivotal.io/gemfire/cache</xref>"
+    xmlns:xsi="<xref href="http://www.w3.org/2001/XMLSchema-instance" format="html" scope="external">http://www.w3.org/2001/XMLSchema-instance</xref>"
+    xsi:schemaLocation="<xref href="http://schema.pivotal.io/gemfire/cache" format="html" scope="external">http://schema.pivotal.io/gemfire/cache</xref> <xref href="http://schema.pivotal.io/gemfire/cache/cache-8.1.xsd" format="html" scope="external">http://schema.pivotal.io/gemfire/cache/cache-8.1.xsd</xref>"
+    version="8.1"
+    lock-lease="120"
+    lock-timeout="60"
+    search-timeout="300"&gt;
+&lt;!-- Create a region named Portfolios --&gt;
+  &lt;region name="Portfolios" id="REPLICATE"&gt;
+      &lt;region name="Private" id="REPLICATE">
+      ...
+      &lt;/region>
+  &lt;/region>
+&lt;/cache&gt;</codeblock>
+								</p>
+								<p>When the <codeph>cache.xml</codeph> is loaded at cache creation,
+									the system automatically creates any declared regions and
+									subregions. </p>
+							</li>
+							<li><codeph>RegionFactory</codeph> API calls: <p>
+									<codeblock outputclass="language-java">RegionFactory rf = cache.createRegionFactory(REPLICATE);
+Region pfloRegion = rf.create("Portfolios");
+   .createSubregion("Portfolios", "Private");</codeblock>
+								</p><p>With <codeph>RegionFactory</codeph>, if the cache does not
+									already exist, the cache is created and then the region and
+									subregion are created. The <codeph>RegionFactory</codeph>
+									constructor is overloaded to accept member connection properties
+									and region attributes. </p>
+							</li>
+						</ul>
+					</li>
+				</ul>
+			</p>
+		</section>
+		<section id="section_7AD53DCC71064883BFA9C53E6040D85A">
+			<title>Update Data Regions</title>
+			<p>Update your region properties and contents through <codeph>alter region</codeph>
+				command, the API or from <codeph>cache.xml</codeph> file declarations. <ul
+					id="ul_9F4BDD575FBD459BAB35BCF322B33783">
+					<li>Execute the <xref
+							href="../../tools_modules/gfsh/command-pages/alter.xml#topic_E74ED23CB60342538B2175C326E7D758"
+							>alter region</xref> command.</li>
+					<li id="li_E1A8A343931246E280D386E73B0DB05B">In the API, use
+							<codeph>Cache</codeph> and <codeph>Region</codeph> methods to change
+						configuration parameters and modify region structure and data. </li>
+					<li id="li_FADA99D51126464CA17808B2FA013701">Load new XML declarations using the
+							<codeph>Cache.loadCacheXml</codeph> method. Where possible, declarations
+						in the new <codeph>cache.xml</codeph> file supersede existing definitions.
+						For example, if a region declared in the <codeph>cache.xml</codeph> file
+						already exists in the cache, its mutable attributes are modified according
+						to the file declarations. Immutable attributes are not affected. If a region
+						does not already exist, it is created. Entries and indexes are created or
+						updated according to the state of the cache and the file declarations. </li>
+				</ul>
+			</p>
+		</section>
+		<section id="section_953E19F03F4541BAA3AE58118E7EA7E4">
+			<title id="inv_clear_destroy_region">Invalidate, Clear, and Destroy a Region</title>
+			<p>You can do these operations in three ways: <ul
+					id="ul_67DD7137893D4039B415218A00195211">
+					<li id="li_744F99236B0949E8810B69BF29274871">As automated data expiration
+						actions. </li>
+					<li>As a gfsh <xref
+							href="../../tools_modules/gfsh/command-pages/destroy.xml#topic_BEDACECF4599407794ACBC0E56B30F65"
+							>destroy region</xref> command.</li>
+					<li id="li_AF5D1355DAA04C10AFC882FDB7F8B2A7">As API calls, through the
+							<codeph>Region</codeph> instance:
+						<codeblock>// Clear the local region
+Region.localClear(); 
+
+// Invalidate the entire distributed region 
+Region.InvalidateRegion(); </codeblock>
+					</li>
+				</ul>
+			</p>
+			<p>You can remove all values or entries from the region or remove the region itself. </p>
+			<table id="table_2420F772FD0342B9924D734B459D021D">
+				<tgroup cols="2">
+					<colspec colname="1" colnum="1" colwidth="*"/>
+					<colspec colname="2" colnum="2" colwidth="*"/>
+					<thead>
+						<row>
+							<entry>Operation type </entry>
+							<entry>Behavior </entry>
+						</row>
+					</thead>
+					<tbody>
+						<row>
+							<entry>Region invalidate </entry>
+							<entry>Removes entry values from the region, leaving only data keys.
+							</entry>
+						</row>
+						<row>
+							<entry>Region clear </entry>
+							<entry>Removes entry keys and values from the region, leaving the region
+								empty of data. </entry>
+						</row>
+						<row>
+							<entry>Region destroy </entry>
+							<entry>Removes the region from the cache. For persistent regions, also
+								removes data stored to disk. </entry>
+						</row>
+					</tbody>
+				</tgroup>
+			</table>
+			<p>Do this in the local cache only or as a distributed operation. The cache distributes
+				the non-local operations according to the region’s scope. </p>
+			<note>Local invalidate and clear cannot be performed in replicated regions as doing so
+				would invalidate the replication contract. </note>
+			<p>These operations cause event notification. The <codeph>CacheEvent</codeph> object
+				includes the flag <codeph>getOperation.isExpiration</codeph> that is set to true for
+				events resulting from expiration activities and to false for all others. </p>
+		</section>
+		<section id="section_3C0A7E088FDB413297ED8C0CD606968D">
+			<title>Close a Region</title>
+			<p>Use this to stop local caching of persistent and partitioned regions without closing
+				the entire cache: <codeblock>region.close();</codeblock>
+			</p>
+			<p>The <codeph>Region.close</codeph> operation works like the
+					<codeph>Region.localDestroyRegion</codeph> operation with these significant
+				differences: </p>
+			<p>
+				<ul id="ul_A5A4627EA17B41AAA93F3647E48860ED">
+					<li id="li_51794A8A35B349A1A3AE65595C31670A">The <codeph>close</codeph> method
+						is called for every callback installed on the region. </li>
+					<li id="li_32619BFA1C9544C894292C6204D64E26">No events are invoked. Of
+						particular note, the entry events, <codeph>beforeDestroy</codeph> and
+							<codeph>afterDestroy</codeph>, and the region events,
+							<codeph>beforeRegionDestroy</codeph> and
+							<codeph>afterRegionDestroy</codeph>, are not invoked. See <xref
+							href="../../developing/events/chapter_overview.xml#implementing_event_handlers"
+							type="concept" format="dita" scope="local"
+							><?xm-replace_text Events and Event Handling?></xref>. </li>
+					<li id="li_29E18D98E61740A3BEB582E19A477335">If persistent, the region is
+						removed from memory but its disk files are retained. </li>
+					<li id="li_73FF5E912EBF4C9F991EBADA10EA41B1">If partitioned, the region is
+						removed from the local cache. If the partitioned region is redundant, local
+						data caching fails over to another cache. Otherwise, local data is lost.
+					</li>
+				</ul>
+			</p>
+		</section>
+		<section><title>Using gfsh to Mange Regions</title><p>You can also use gfsh commands to
+				manage regions. There are commands to create, alter, describe, destroy, rebalance,
+				and list the regions in your distributed system. By default, the cluster
+				configuration service saves the cluster configuration as you execute gfsh commands.
+				When you add new servers to the cluster, the servers receive this cluster-wide
+				configuration and create the specified regions. You can also define <i>groups</i>
+				that apply only to some of the servers in the cluster. Servers you start that
+				specify a group also receive the group configuration from the cluster configuration
+				service. See <xref href="../../configuring/cluster_config/gfsh_persist.xml#concept_r22_hyw_bl"
+				/>.</p>See<xref
+				href="create_a_region_with_gfsh.xml#task_75639BFA7847461D9E006E91B728BB44"/> and
+				<xref
+				href="../../tools_modules/gfsh/quick_ref_commands_by_area.xml#topic_EF03119A40EE492984F3B6248596E1DD"
+			/>.</section>
+	</conbody>
+</concept>

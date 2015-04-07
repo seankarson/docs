@@ -1,0 +1,126 @@
+<?xml version="1.0"?>
+<!DOCTYPE topic PUBLIC "-//OASIS//DTD DITA Topic//EN" "topic.dtd">
+<topic id="topic_876DD1F281A348979130E78C56B2839E">
+   <title> &lt;client-cache&gt; Element Hierarchy </title>
+   <shortdesc>This section shows the hierarchy of <codeph>&lt;client-cache&gt;</codeph> element
+      sub-elments that you use to configure <keyword keyref="product_name"/> caches and clients. </shortdesc>
+   <body>
+      <p>For details, click on one of the elements. </p>
+      <codeblock><xref href="client-cache.xml" type="topic" format="dita" scope="local">&lt;client-cache&gt;</xref>
+  <xref href="client-cache.xml#cc-cache-transaction-manager"/>
+      &lt;transaction-listener&gt;
+      &lt;transaction-writer&gt;
+  <xref href="client-cache.xml#cc-pool"/>
+      &lt;locator&gt;
+      &lt;server&gt;
+   <xref href="client-cache.xml#cc-disk-store"/>
+      &lt;disk-dirs&gt;
+         &lt;disk-dir&gt;
+   <xref href="client-cache.xml#cc-pdx"/>
+      &lt;pdx-serializer&gt;
+          &lt;class-name&gt;
+          &lt;parameter&gt;
+             &lt;string>
+             &lt;declarable&gt;
+   <xref href="client-cache.xml#cc-r-region-attributes"/>
+      &lt;key-constraint&gt; 
+      &lt;value-constraint&gt;
+      &lt;region-time-to-live&gt;
+         &lt;expiration-attributes&gt;
+            &lt;custom-expiry&gt;
+               &lt;class-name&gt;
+               &lt;parameter&gt;
+                  &lt;string&gt;
+                  &lt;declarable&gt;
+      &lt;region-idle-time&gt; 
+         &lt;expiration-attributes&gt;
+            &lt;custom-expiry&gt;
+               &lt;class-name&gt;
+               &lt;parameter&gt;
+                  &lt;string&gt;
+                  &lt;declarable&gt;
+      &lt;entry-time-to-live&gt; 
+         &lt;expiration-attributes&gt;
+            &lt;custom-expiry&gt;
+               &lt;class-name&gt;
+               &lt;parameter&gt;
+                  &lt;string.
+                  &lt;declarable&gt;
+      &lt;entry-idle-time&gt;
+         &lt;expiration-attributes&gt;
+            &lt;custom-expiry&gt;
+               &lt;class-name&gt;
+               &lt;parameter&gt;
+                  &lt;string&gt;
+                  &lt;declarable&gt;
+      &lt;disk-write-attributes&gt; 
+         &lt;asynchronous-writes&gt;
+         &lt;synchronous-writes&gt;
+      &lt;disk-dirs&gt; 
+         &lt;disk-dir&gt;
+      &lt;cache-loader&gt; 
+          &lt;class-name&gt;
+            &lt;parameter&gt;
+               &lt;string&gt;
+               &lt;declarable&gt;
+      &lt;cache-writer&gt; 
+          &lt;class-name&gt;
+            &lt;parameter&gt;
+               &lt;string&gt;
+               &lt;declarable&gt;
+      &lt;cache-listener&gt; 
+          &lt;class-name&gt;
+            &lt;parameter&gt;
+               &lt;string&gt;
+               &lt;declarable&gt;
+      &lt;eviction-attributes&gt;
+         &lt;lru-entry-count&gt;
+         &lt;lru-heap-percentage&gt;
+             &lt;class-name&gt;
+               &lt;parameter&gt;
+                  &lt;string&gt;
+                  &lt;declarable&gt;
+         &lt;lru-memory-size&gt;
+             &lt;class-name&gt;
+               &lt;parameter&gt;
+                  &lt;string&gt;
+                  &lt;declarable&gt;
+   <xref href="client-cache.xml#cc-jndi-bindings"/>
+      &lt;jndi-binding&gt;
+         &lt;config-property&gt;
+            &lt;config-property-name&gt;
+            &lt;config-property-type&gt;
+            &lt;config-property-value&gt;
+   <xref href="client-cache.xml#cc-ra-region"/>
+      &lt;region-attributes&gt;
+      &lt;index&gt;
+         &lt;functional&gt;
+         &lt;primary-key&gt;
+      &lt;entry&gt;
+         &lt;key&gt;
+            &lt;string&gt;
+            &lt;declarable&gt;
+         &lt;value&gt;
+            &lt;string&gt;
+            &lt;declarable&gt;
+      &lt;region&gt; 
+   <xref href="client-cache.xml#cc-function-service"/>
+      &lt;function&gt;
+         &lt;class-name&gt;
+         &lt;parameter&gt;
+            &lt;string&gt;
+            &lt;declarable&gt;
+   <xref href="client-cache.xml#cc-resource-manager"/>
+   <xref href="client-cache.xml#cc-serialization-registration"/>
+      &lt;serializer&gt;
+         &lt;class-name&gt;
+      &lt;instantiator&gt;
+         &lt;class-name&gt;  
+   <xref href="client-cache.xml#cc-initializer"/>
+      &lt;class-name&gt;
+      &lt;parameter&gt;
+         &lt;string&gt;
+         &lt;declarable&gt;
+&lt;/client-cache&gt;</codeblock>
+   </body>
+</topic>

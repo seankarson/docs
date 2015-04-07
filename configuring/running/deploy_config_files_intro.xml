@@ -1,0 +1,63 @@
+<?xml version="1.0"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept
+	id="concept_337B365782E44951B73F33E1E17AB07B">
+	<title>Main Steps to Deploying Configuration Files</title>
+	<shortdesc>These are the basic steps for deploying configuration files, with related detail in
+		sections that follow. </shortdesc>
+	<conbody>
+		<ol
+			id="ol_3449F5EE3FE048E9BF0006EBCBA9CD2B">
+			<li
+				id="li_FB297366F3054F95AE194F1530B5C4D7">Determine which configuration files you
+				need for your installation. </li>
+			<li
+				id="li_DA35B85C4DFF48D09B7CA637304F4BFA">Place the files in your directories or jar
+				files. </li>
+			<li
+				id="li_3ACA95778D8C4A59BC49E0149021F557">For any file with a non-default name or
+				location, provide the file specification in the system properties file and/or in the
+				member <codeph>CLASSPATH.</codeph>
+			</li>
+		</ol>
+		<section
+			id="section_53C98F9DB1584E3BABFA315CDF254A92">
+			<title> <keyword keyref="product_name"/> Configuration Files</title>
+			<p>
+				<ul
+					id="ul_01AC02641BE847AE8BE3361E2D821450">
+					<li
+						id="li_D2E22D47315A49ADACDAABC74D45722D"><codeph><b>gemfire.properties</b></codeph>.
+						Contains the settings required by members of a distributed system. These
+						settings include licensing, system member discovery, communication
+						parameters, logging, and statistics. See <xref
+							format="dita"
+							href="../../reference/topics/gemfire_properties.xml#gemfire_properties"
+							scope="local"
+							type="concept"/>. </li>
+					<li
+						id="li_CF155C8E57AB46428BB3EBF9B9130732"><b><codeph>gfsecurity.properties</codeph></b>.
+						An optional separate file that contains security-related
+							(<codeph>security-*</codeph>) settings that are otherwise defined in
+							<codeph>gemfire.properties</codeph>. Placing these member properties
+						into a separate file allows you to restrict user access to those specific
+						settings. See <xref
+							format="dita"
+							href="../../reference/topics/gemfire_properties.xml#gemfire_properties"
+							scope="local"
+							type="concept"/>. </li>
+					<li
+						id="li_A12B060F613E4B84B2E9199324589BA0"><codeph><b>cache.xml</b></codeph>.
+						Declarative cache configuration file. This file contains XML declarations
+						for cache, region, and region entry configuration. You also use it to
+						configure disk stores, database login credentials, server and remote site
+						location information, and socket information. See <xref
+							format="dita"
+							href="../../reference/topics/chapter_overview_cache_xml.xml#cache_xml"
+							scope="local"
+							type="topic"/>. </li>
+				</ul>
+			</p>
+		</section>
+	</conbody>
+</concept>

@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept id="concept_rlr_y3c_54">
+  <title>Using the Swagger UI to Browse REST APIs</title>
+  <shortdesc><keyword keyref="product_name_long"/> Developer REST APIs are integrated with the
+    Swagger™ framework. This framework provides a browser-based test client that allows you to
+    visualize and try out <keyword keyref="product_name"/> REST APIs. </shortdesc>
+  <conbody>
+    <p>Swagger application JARs are included in the <keyword keyref="product_name"/> REST
+      application WAR; you do not need to install any additional libraries to use Swagger.</p>
+    <p>The following example demonstrates how to access the Swagger UI to browse the APIs. </p>
+    <ol id="ol_tyd_3lc_54">
+      <li>Start a <keyword keyref="product_name"/> Developer REST API-enabled server and JMX Manager
+        as described in <xref href="setup_config.xml#topic_e21_qc5_m4"/>. For
+        example:<codeblock>gfsh>start server --name=server1  --J=-Dgemfire.start-dev-rest-api=true \
+--J=-Dgemfire.http-service-bind-address=localhost \
+--J=-Dgemfire.jmx-manager=true --J=-Dgemfire.jmx-manager-start=true</codeblock>If
+        desired, you can specify a different HTTP port for the developer REST service. For example,
+          <codeph>-J=-Dgemfire.http-service-port=8080</codeph>. If you do not specify this property,
+        the service is available at the default port 7070.</li>
+      <li>To access Swagger, open a browser and enter the following URL: For
+        example:<codeblock>http://localhost:7070/gemfire-api/docs/index.html</codeblock>The
+        following Web page appears:<fig id="fig_af4_ncm_x4">
+          <image href="../images/swagger_home.png" id="image_m15_qcm_x4"/>
+        </fig></li>
+      <li>In gfsh, connect to the server running the JMX
+        Manager.<codeblock>gfsh>connect --jmx-manager=localhost[1099]</codeblock></li>
+      <li>Using gfsh, create one or more regions on the REST API server. For
+        example:<codeblock>gfsh>create region --name=region1 --type=REPLICATE --key-constraint=java.lang.String
+Member  | Status
+------- | ------------------------------------------
+server1 | Region "/region1" created on "server1"
+</codeblock></li>
+      <li>In Swagger, click on <b>region : region</b> to list all the available endpoints for
+        accessing regions.</li>
+      <li>In the list of <b>region</b> endpoints, click on the <b>GET /v1</b> endpoint link. The
+        page displays additional request and response information about the API. <fig
+          id="fig_u34_cdm_x4">
+          <image href="../images/swagger_v1.png" id="image_kx2_2dm_x4"/>
+        </fig></li>
+      <li>Click the <b>Try it out!</b> button. Any regions you added in step 5 are returned in the
+        response body. <fig id="fig_uvw_rdm_x4">
+          <image href="../images/swagger_v1_response.png" id="image_y2p_tdm_x4"/>
+        </fig></li>
+      <li>Add an entry to the region by expanding the <b>POST /v1/{region}</b> endpoint. <fig
+          id="fig_zjt_12m_x4">
+          <image href="../images/swagger_post_region.png" id="image_sfk_c2m_x4"/>
+        </fig></li>
+      <li>Click the <b>Try it out!</b> button to see the response body and response code. <fig
+          id="fig_d21_d2m_x4">
+          <image href="../images/swagger_post_region_response.png" id="image_pmx_k2m_x4"/>
+        </fig></li>
+    </ol>
+    <p>You can use the Swagger interface to try out additional <keyword keyref="product_name"/> API
+      endpoints and view sample responses.</p>
+    <p>For more information on Swagger, see <xref href="https://helloreverb.com/developers/swagger"
+        format="html" scope="external">https://helloreverb.com/developers/swagger</xref> and the
+      Swagger Specification at <xref href="https://github.com/wordnik/swagger-spec/" format="html"
+        scope="external">https://github.com/wordnik/swagger-spec/</xref>.</p>
+  </conbody>
+</concept>

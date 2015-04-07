@@ -1,0 +1,51 @@
+<?xml version="1.0"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept id="concept_3C89B4C4D3EA47DE9CB046286D26F0BC">
+	<title>history</title>
+	<shortdesc>Show or save the command history. </shortdesc>
+	<conbody>
+		<p> This history can be saved to a file which can also be used as a script later. </p>
+		<p>A history of commands that have been executed successfully is also logged in
+				<codeph>.gfsh.history</codeph> file in the home directory of the user running gfsh. </p>
+		<p><b> Availability:</b> Online or offline. </p>
+		<p><b>Syntax:</b>
+			<codeblock>history [--file=&lt;history text file&gt;]</codeblock>
+			<table id="table_7E667378EB6849888206A4F680F60576">
+				<title>Parameters</title>
+				<tgroup cols="3">
+					<colspec colname="col1" colnum="1" colwidth="1.00*"/>
+					<colspec colname="col2" colnum="2" colwidth="2.50*"/>
+					<colspec colname="newCol3" colnum="3" colwidth="1*"/>
+					<thead>
+						<row>
+							<entry colname="col1">Name </entry>
+							<entry colname="col2">Description</entry>
+							<entry>Default Value</entry>
+						</row>
+					</thead>
+					<tbody>
+						<row>
+							<entry colname="col1">--file </entry>
+							<entry colname="col2"> File to which the history is to be saved. </entry>
+							<entry/>
+						</row>
+						<row>
+							<entry colname="col1">--clear</entry>
+							<entry colname="col2">When set to <codeph>true</codeph>, clears the
+								history of gfsh commands. </entry>
+							<entry>false</entry>
+						</row>
+					</tbody>
+				</tgroup>
+			</table>
+		</p>
+		<p><b>Example Commands:</b>
+			<codeblock>history
+history --file=./mycommands.gfsh;</codeblock>
+		</p>
+		<p><b>Sample Output:</b>
+			<codeblock>gfsh&gt;history --file=./mycommands.gfsh
+Wrote successfully to file ./mycommands.gfsh</codeblock>
+		</p>
+	</conbody>
+</concept>

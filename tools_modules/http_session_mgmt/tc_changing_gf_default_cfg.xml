@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "http://docs.oasis-open.org/dita/v1.1/OS/dtd/concept.dtd">
+<concept id="tc_changing_gf_default_cfg">
+	<title>Changing the Default <keyword keyref="product_name"/> Configuration in the tc Server
+		Module</title>
+	<shortdesc>By default, the tc Server HTTP module will run <keyword keyref="product_name"/>
+		automatically with pre-configured settings. You can change these <keyword
+			keyref="product_name"/> settings. </shortdesc>
+	<conbody>
+		<p> Here are the default <keyword keyref="product_name"/> settings: <ul
+				id="ul_5F0C1E4883C7487C91637C8F46D5785C">
+				<li id="li_1FFCE93C376B4731B623D34859714C42"><keyword keyref="product_name"/>
+					peer-to-peer members are discovered using a default multicast channel. </li>
+				<li id="li_B9EA85C3C3AB4DF194E318B24B3D4B33"><keyword keyref="product_name"/>
+					locators are not used for member discovery. </li>
+				<li id="li_552F339F4AFB4F30B621398587DBF718">The region name is set to
+						<codeph>GemFire_modules_sessions</codeph>. </li>
+				<li id="li_8D8F79E4BA3546478458D3D8F917094D">The cache region is replicated for
+					peer-to-peer configurations and partitioned (with redundancy turned on) for
+					client/server configurations. </li>
+				<li id="li_CAA3E5F163E246519F8DA9D33FF5A0FD"><keyword keyref="product_name"/>
+					clients have local caching turned on and when the local cache needs to evict
+					data, it will evict least-recently-used (LRU) data first. </li>
+			</ul>
+			<note>On the application server side, the default inactive interval for session
+				expiration is set to 30 minutes. To change this value, refer to <xref
+					href="tc_additional_info.xml#tc_additional_info/section_C7C4365EA2D84636AE1586F187007EC4"
+					type="section" format="dita" scope="local"
+					><?xm-replace_text Session Expiration?></xref>. </note>
+		</p>
+		<p> However, you may want to change this default configuration. For example, you might want
+			to change the region from replicated to partitioned, or to use locators for discovery.
+			To change <keyword keyref="product_name"/> settings, use the
+				<codeph>--interactive</codeph> command line argument when creating your tc Server
+			instance. </p>
+		<codeblock>In Unix:
+  prompt$ ./tcruntime-instance.sh create my_instance_name --template gemfire-p2p
+        --interactive
+  prompt$ ./tcruntime-instance.sh create my_instance_name --template gemfire-cs
+         --interactive
+
+In Windows:
+  prompt&gt; tcruntime-instance.bat create my_instance_name --template gemfire-p2p 
+         --interactive
+  prompt&gt; tcruntime-instance.bat create my_instance_name --template gemfire-cs 
+         --interactive
+</codeblock>
+		<p>In interactive mode, you will be prompted to specify a series of property values. Hit
+			&lt;return&gt; for any property where you would like to use the default value. </p>
+		<codeblock>  Creating instance 'my_instance_name' ...
+  Using separate layout
+  Please enter a value for 'gemfire.maximum.vm.heap.size.mb'. Default '512':
+  Please enter a value for 'gemfire.initial.vm.heap.size.mb'. Default '512':
+  ...
+  ...
+</codeblock>
+		<p>After responding to approximately 20 prompts, you should see the following line: </p>
+		<codeblock>Instance created.
+</codeblock>
+		<p>
+			<note>You cannot override region attributes on the cache server when using the HTTP
+				Session Management Module. You must place all region attribute definitions in the
+				region attributes template that you customize in tc Server. See <xref scope="local"
+					href="tc_changing_gf_default_cfg.xml#tc_changing_gf_default_cfg/section_38D803A7E8474188898963F456188543"
+					type="section" format="dita"/> for more information. </note>
+		</p>
+		<p>For information on setting up your instance for the most common types of configurations,
+			refer to the sections below. For more information about each interactive prompt, refer
+			to <xref format="dita" href="interactive_mode_ref.xml" scope="local">Interactive Mode
+				Reference</xref>. </p>
+		<section id="use_a_diff_mc_port">
+			<title>Using a Different Multicast Port</title>
+			<p>For a <keyword keyref="product_name"/> peer-to-peer member to communicate on a
+				different multicast port than the default (10334), answer the following question in
+				the tc Server HTTP module's interactive mode: </p>
+			<codeblock>  Please enter the port used by <keyword keyref="product_name"/> members to discover each other using 
+  multicast networking. Default '10334': 10335
+</codeblock>
+			<p>This example changes the multicast port to 10335. </p>
+			<p>You typically <i>should</i> change the multicast port so that you don't inadvertently
+				join another <keyword keyref="product_name"/> cluster on the same network. </p>
+		</section>
+		<section id="section_38D803A7E8474188898963F456188543">
+			<title>Overriding Region Attributes</title>
+			<p>When using the HTTP Session Management Module, you cannot override region attributes
+				directly on the cache server. You must place all region attribute definitions in the
+				region attributes template that you customize within tc Server. For example, to
+				specify a different name for the region's disk store, you could add the new
+				disk-store-name specification to the region attributes template and then reference
+				the template on the cache server.
+				<codeblock>&lt;region-attributes id="MY_SESSIONS" refid="PARTITION_REDUNDANT_PERSISTENT_OVERFLOW" 
+<b>disk-store-name="mystore"</b>&gt;
+  ...
+&lt;/region-attributes&gt;
+</codeblock>Then
+				on the cache server side, reference the modified region attributes template to allow
+				the region to use the disk-store-name attribute:
+				<codeblock>&lt;region name="gemfire_modules_sessions" refid="MY_SESSIONS"/&gt;</codeblock>
+			</p>
+		</section>
+		<section id="p2p_cfg_using_locators">
+			<title>Peer-to-peer Configuration Using Locators</title>
+			<p>By default, <keyword keyref="product_name"/> peers discover each other using
+				multicast communication on a known port. Alternatively, you can configure member
+				discovery using one or more dedicated locators. A locator provides both discovery
+				and load balancing services. </p>
+			<image href="../../images_svg/http_module_p2p_with_locator.svg" placement="break"
+				id="image_6B30872459AA4552940BCE6CE928E158"/>
+			<p>To run <keyword keyref="product_name"/> with one or more locators, turn off multicast
+				discovery (by setting it to 0) and specify the list of locators. </p>
+			<codeblock>  Please enter the port used by GemFire members to discover each other using 
+  multicast networking. Default '10334': 0
+  
+  Please enter the list of locators used by GemFire members to discover each other. 
+  The format is a comma-separated list of host[port]. Default ' ': hostname[10334]
+</codeblock>
+			<p>This example turns off multicast discovery and uses a locator at
+					<codeph>hostname</codeph> on port <codeph>10334</codeph>. </p>
+			<p>You must be sure when you specify a locator that you specifically launch a locator
+				correctly at this location. You can do this using the <codeph>gemfire</codeph>
+				command-line tool found in the <codeph>bin</codeph> subdirectory of the HTTP module
+				distribution. </p>
+			<codeblock>In Unix:
+  ./gemfire.sh start-locator -port=10334
+  
+In Windows:
+  gemfire.bat start-locator -port=10334
+</codeblock>
+			<p>This example starts a locator that listens on port <codeph>10334</codeph>. </p>
+		</section>
+		<section id="section_client_server_loc">
+			<title>Client/Server Configuration Using Locators</title>
+			<p>By default, <keyword keyref="product_name"/> clients and servers discover each other
+				on a pre-defined port on the localhost. This is not typically the way you would
+				deploy a client/server configuration. A preferred solution is to use one or more
+				dedicated locators. A locator provides both discovery and load balancing services. </p>
+			<image href="../../images_svg/http_module_cs_with_locator.svg" placement="break"
+				id="image_C69A2ED969FD4C4C9806B38F01654D54"/>
+			<p>To run <keyword keyref="product_name"/> with one or more locators instead of a
+				multicast port, add locator information to the <keyword keyref="product_name"/>
+				<codeph>cache-client.xml</codeph> file in the <codeph>conf</codeph> subdirectory of
+				the applicable tc Server instance. </p>
+			<codeblock>  &lt;pool name="sessions"&gt;
+    &lt;locator host="hostname" port="10334"/&gt;
+  &lt;/pool&gt;</codeblock>
+			<p>This example tells the <keyword keyref="product_name"/> client (which is the process
+				running the tc Server application server) to use a locator at
+					<codeph>hostname</codeph> on port <codeph>10334</codeph>. </p>
+			<p>You must now launch a locator correctly at this location. You can do this using the
+					<codeph>gemfire</codeph> command-line tool found in the <codeph>bin</codeph>
+				subdirectory of the HTTP module distribution. </p>
+			<codeblock>./gemfire start-locator -port=10334</codeblock>
+			<p>This example starts a locator that listens on port 10334. </p>
+			<p>You also need to tell the <keyword keyref="product_name"/> server to use a locator
+				when you launch the server. You can do this through a command-line argument when you
+				start up the server with the script provided in the <codeph>bin</codeph>
+				subdirectory wherever you installed the <keyword keyref="product_name"/> HTTP
+				module: </p>
+			<codeblock>In Unix: 
+  prompt$ ./cacheserver.sh start locators=hostname[port]
+  
+In Windows:
+  prompt&gt; cacheserver.bat start locators=hostname[port]</codeblock>
+			<p>If you are running more than one locator, use a comma-separated list of locators.
+			</p>
+		</section>
+	</conbody>
+</concept>

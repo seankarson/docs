@@ -1,0 +1,59 @@
+<?xml version="1.0"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept id="concept_B4F2E479080444F39D0D06AA72219D18">
+	<title>Launching an Application after Initializing the Cache</title>
+	<shortdesc>You can specify a callback application that is launched after the cache
+		initialization. </shortdesc>
+	<conbody>
+		<p>By specifying an <codeph>&lt;initializer&gt;</codeph> element in your cache.xml file, you
+			can trigger a callback application, which is run after the cache has been initialized.
+			Applications that use the cacheserver script to start up a server can also use this
+			feature to hook into a callback application. To use this feature, you need to specify
+			the callback class within the <codeph>&lt;initializer&gt;</codeph> element. This element
+			should be added to the end of your <codeph>cache.xml</codeph> file. </p>
+		<p>You can specify the <codeph>&lt;initializer&gt;</codeph> element for either server caches
+			or client caches. </p>
+		<p>The callback class must implement the <codeph>Declarable</codeph> interface. When the
+			callback class is loaded, its <codeph>init</codeph> method is called, and any parameters
+			defined in the <codeph>&lt;initializer&gt;</codeph> element are passed as properties. </p>
+		<p>The following is an example specification. </p>
+		<p>In cache.xml:
+			<codeblock outputclass="language-xml">
+&lt;initializer&gt;
+   &lt;class-name&gt;MyInitializer&lt;/class-name&gt;
+      &lt;parameter name="members"&gt;
+         &lt;string&gt;2&lt;/string&gt;
+      &lt;/parameter&gt;
+&lt;/initializer&gt;</codeblock>
+		</p>
+		<p>Here's the corresponding class definition:
+			<codeblock outputclass="language-java"> 
+import com.gemstone.gemfire.cache.Declarable;
+
+public class MyInitializer implements Declarable {
+   public void init(Properties properties) {
+      System.out.println(properties.getProperty("members"));
+   }
+}</codeblock>
+		</p>
+		<p>The following are some additional real-world usage scenarios: <ol
+				id="ol_4AA0655EC6EC4D0FA0FA77B48AA2D6EF">
+				<li id="li_4C9B6D6CAE38483C8B35B035B5ECBAFC">Start a SystemMembershipListener
+					<codeblock>
+&lt;initializer&gt;
+   &lt;class-name&gt;TestSystemMembershipListener&lt;/class-name&gt;
+&lt;/initializer&gt;</codeblock>
+				</li>
+				<li id="li_AD721047BE684BBD83719E08A528E19E">Write a custom tool that monitors cache
+					resources
+					<codeblock>
+&lt;initializer&gt;
+   &lt;class-name&gt;ResourceMonitorCacheXmlLoader&lt;/class-name&gt;
+&lt;/initializer&gt;</codeblock>
+				</li>
+			</ol>
+		</p>
+		<p>Any singleton or timer task or thread can be instantiated and started using the
+			initializer element. </p>
+	</conbody>
+</concept>

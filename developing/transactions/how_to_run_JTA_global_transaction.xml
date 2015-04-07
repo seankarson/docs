@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE dita PUBLIC "-//OASIS//DTD DITA Composite//EN" "ditabase.dtd">
+<dita>
+  <task
+    id="task_j3g_3mn_1l">
+    <title>How to Run a JTA Transaction Coordinated by an External Transaction Manager</title>
+    <shortdesc>Use the following procedure to run a GemFire global JTA transaction coordinated by an
+      external JTA transaction manager.</shortdesc>
+    <taskbody>
+      <steps
+        id="steps_fzh_rmn_1l">
+        <step>
+          <cmd><b>Configure the external data sources in the external container.</b> Do not
+            configure the data sources in cache.xml . They are not guaranteed to get bound to the
+            JNDI tree.</cmd>
+        </step>
+        <step>
+          <cmd><b>Configure GemFire for any necessary transactional behavior in cache.xml. </b>For
+            example, enable <codeph>copy-on-read</codeph> and specify a transaction listener, if you
+            need one. See Working with GemFire Cache Transactions for typical GemFire
+            configurations.</cmd>
+        </step>
+        <step>
+          <cmd><b>Make sure that JTA transactions are not disabled for the regions that will
+              participate in the transaction.</b> See <xref
+              href="turning_off_jta.xml#concept_nw2_5gs_xk"/> for details.</cmd>
+        </step>
+        <step>
+          <cmd>
+            <b>Start the transaction through the external container.</b>
+          </cmd>
+        </step>
+        <step>
+          <cmd><b>Initialize the GemFire cache.</b> GemFire will automatically join the
+            transaction.</cmd>
+        </step>
+        <step>
+          <cmd>
+            <b>Execute operations in the cache and the database as usual.</b>
+          </cmd>
+        </step>
+        <step>
+          <cmd>
+            <b>Commit the transaction through the external container.</b>
+          </cmd>
+        </step>
+      </steps>
+    </taskbody>
+  </task>
+  <task
+    id="task_qjv_khb_wk">
+    <title>How to Run a JTA Global Transaction Using GemFire as the JTA Transaction Manager</title>
+    <shortdesc>This topic describes how to run a JTA global transaction in GemFire.</shortdesc>
+    <taskbody>
+      <context>
+        <p>The GemFire JTA is initialized when the GemFire cache is initialized. Until then, that
+          JTA is not available for use. The application starts a JTA transaction through
+            <codeph>UserTransaction.begin</codeph>. <codeph>UserTransaction</codeph> is the
+          application’s handle to tell the JTA transaction manager what to do.</p>
+        <p>To run a global transaction, perform the following steps:</p>
+      </context>
+      <steps>
+        <step>
+          <cmd> See <xref
+              href="configuring_db_connections_using_JNDI.xml#topic_A5E3A67C808D48C08E1F0DC167C5C494"/>
+            for examples.</cmd>
+        </step>
+        <step>
+          <cmd>Include the JAR file for any data sources in your CLASSPATH .</cmd>
+        </step>
+        <step>
+          <cmd>Configure GemFire for any necessary transactional behavior. Enable
+              <codeph>copy-on-read</codeph> for your cache and specify a transaction listener, if
+            you need one. See Setting Global Copy on Read and Configuring Transaction Plug-In Event
+            Handlers for details.</cmd>
+        </step>
+        <step>
+          <cmd>Make sure that JTA transactions are not disabled in the cache.xml file or the
+            application code.</cmd>
+        </step>
+        <step>
+          <cmd>Initialize the GemFire cache.</cmd>
+        </step>
+        <step>
+          <cmd>Get an initial context through
+              <codeph>com.gemstone.cache.Cache.getJNDIContext</codeph>. For example:</cmd>
+          <info>
+            <codeblock>Context ctx = cache.getJNDIContext();</codeblock>
+            <p>This returns <codeph>javax.naming.Context</codeph> and gives you the JNDI associated
+              with the cache. The context contains the <codeph>TransactionManager</codeph>,
+                <codeph>UserTransaction</codeph>, and any configured JDBC resource manager.</p>
+          </info>
+        </step>
+        <step>
+          <cmd>Look up the UserTransaction context:</cmd>
+          <info><codeblock>UserTransaction txManager = (UserTransaction)ctx.lookup("java:/UserTransaction");</codeblock>With
+            UserTransaction , you can begin, commit, and rollback transactions.<p> If a global
+              transaction exists, when you use the cache, it automatically joins the transaction.
+              Operations on a region automatically detect and become associated with the existing
+              global transaction through JTA synchronization. If the global transaction has been
+              marked for rollback, however, the GemFire cache is not allowed to enlist with that
+              transaction. Any cache operation that causes an attempt to enlist throws a
+              FailedSynchronizationException .</p><p> The GemFire cache transaction’s commit or
+              rollback is triggered when the global transaction commits or rolls back. When the
+              global transaction is committed, using the UserTransaction interface, the transactions
+              of any registered JTA resources are committed, including the GemFire cache
+              transaction. If the cache or database transaction fails to commit, UserTransaction
+              throws a TransactionRolledBackException . If a commit or rollback is attempted
+              directly on a GemFire transaction that is registered with JTA, that action throws an
+              IllegalStateException .</p></info>
+        </step>
+      </steps>
+    </taskbody>
+  </task>
+</dita>

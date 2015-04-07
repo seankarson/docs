@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept id="concept_519EE9CA648A4AA2B7E64CC25D12E4A0">
+	<title>Preventing Network Partitions</title>
+	<shortdesc>This section provides a short list of things you can do to prevent network partition
+		from occurring. </shortdesc>
+	<conbody>
+		<p>To avoid a network partition: <ul id="ul_887F7945BF564D4E8A330CD79FEB7F7D">
+				<li id="li_8E6959FBBC85439D9116681D3CFCEBF5">Use NIC teaming for redundant
+					connectivity. See <xref
+						href="http://www.cisco.com/en/US/docs/solutions/Enterprise/Data_Center/vmware/VMware.html#wp696452"
+						scope="external" format="html"
+						><?xm-replace_text http://www.cisco.com/en/US/docs/solutions/Enterprise/Data_Center/vmware/VMware.html#wp696452?></xref>
+					for more information. </li>
+				<li id="li_0351912F9151483F874C669202ED599D"> It is best if all servers share a
+					common network switch. Having multiple network switches increases the
+					possibility of a network partition occurring. If multiple switches must be used,
+					redundant routing paths should be available, if possible. The weight of members
+					sharing a switch in a multi-switch configuration will determine which partition
+					survives if there is an inter-switch failure. </li>
+				<li id="li_4BC3BE00C6A24BFBB25E095A802AA14A">In terms of <keyword
+						keyref="product_name"/> configuration, consider the weighting of members.
+					For example, you could assign important processes a higher weight. </li>
+			</ul>
+		</p>
+	</conbody>
+</concept>

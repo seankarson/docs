@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "http://docs.oasis-open.org/dita/v1.1/OS/dtd/concept.dtd">
+<concept id="managing_data_entries">
+	<title>Managing Data Entries</title>
+	<shortdesc id="shortdesc_5914A720095944E69BCABDBB49B187E1">Program your applications to create,
+		modify, and manage your cached data entries. </shortdesc>
+	<conbody>
+		<section id="section_AACC36127F17411F86D1E409B86C6E5C">
+			<note>If you do not have the cache's <codeph>copy-on-read</codeph> attribute set to
+				true, do not change the objects returned from the Java entry access methods.
+				Instead, create a copy of the object, then modify the copy and pass it to the Java
+					<codeph>put</codeph> method. Modifying a value in place bypasses the entire
+				distribution framework provided by <keyword keyref="product_name"/>, including cache
+				listeners and expiration activities, and can produce undesired results. </note>
+		</section>
+		<section id="section_B095A4073EFB4A3C91AF7C03632EEBFB">
+			<title>Basic Create and Update</title>
+			<p>To create or update an entry in the cache, use <codeph>Region.put</codeph>. For
+					example:<codeblock outputclass="language-java">String name = ... 
+String value = ...  
+this.currRegion.put(name,value); </codeblock><note>You
+					can also use the <codeph>gfsh <cmdname>put</cmdname></codeph> command to add
+					entries to a region, and the <cmdname>get</cmdname> command to retrieve entries
+					from a region. See <xref
+						href="../../tools_modules/gfsh/command-pages/get.xml#concept_837F6196CE334C8CA2CAFD34AB6EF869"
+					/> and <xref format="dita"
+						href="../../tools_modules/gfsh/command-pages/put.xml#concept_2ECE1BB23A814A13924C93422E7EBC5E"
+						scope="local" type="concept"/> for more information. </note></p>
+			<p>If you want only to create the entry (with a null value and with method failure if
+				the entry already exists), use <codeph>Region.create</codeph> instead. </p>
+		</section>
+		<section id="section_7578349EA26A4621B732FE851D71A84F">
+			<title>Batch Operations (getAll, putAll, removeAll)</title>
+			<p><keyword keyref="product_name"/> provides three APIs to perform batch operations on
+				multiple region entries:</p>
+			<ul id="ul_uft_2vr_gq">
+				<li>
+					<codeph>Region.getAll</codeph>
+				</li>
+				<li>
+					<codeph>Region.putAll</codeph>
+				</li>
+				<li>
+					<codeph>Region.removeAll</codeph>
+				</li>
+			</ul>
+			<p>The <codeph>getAll</codeph> method takes a collection of keys and returns a
+					<codeph>Map</codeph> of values for the provided keys. If a given key does not
+				exist in the region, then that key's value in the returned map will be null.</p>
+			<p>The <codeph>putAll</codeph> method takes a <codeph>Map</codeph> of key-value pairs
+				and puts them into the cache and distributes them in a single operation. </p>
+			<p>
+				<b>Example:</b>
+				<codeblock outputclass="language-java">void putAll(String command) throws CacheException 
+{ 
+// Get Entry keys and values into Strings key1, ... keyN and value1, ... valueN 
+  Map map = new LinkedHashMap(); 
+  map.put(key1, value1)); 
+  ...
+  map.put(keyN, valueN));
+  this.currRegion.putAll(map); 
+}</codeblock>
+			</p>
+			<p>The updates to the cache are done individually in the order in which they were placed
+				in the <codeph>Map</codeph>. For partitioned regions, multiple events are sent as a
+				single message to the primary buckets and then distributed to the secondary buckets.
+					<note>The processing of maps with very many entries and/or very large data may
+					affect system performance and cause cache update timeouts, especially if the
+					region uses overflow or persistence to disk. </note>
+			</p>
+			<p>The <codeph>removeAll</codeph> method takes a collection of keys and removes all of
+				the entries for the specified keys from this region. This call performs the
+				equivalent of calling<codeph>destroy(Object)</codeph> on this region once for each
+				key in the specified collection. If an entry does not exist, then that key is
+				skipped. An <codeph>EntryNotFoundException</codeph> is not thrown. This operation
+				will be distributed to other caches if the region's scope is not set to
+					<codeph>Scope.LOCAL</codeph>.</p>
+		</section>
+		<section id="section_A0E0F889AC344EFA8DF304FD64418809">
+			<title>Safe Entry Modification </title>
+			<p>When you get an entry value from the cache, by default, the retrieval methods return
+				a direct reference to the cached object. This provides the value as quickly as
+				possible, but also opens the cache to direct, in-place changes. <note>Do not
+					directly modify cached values. Modifying a value in place bypasses the <keyword keyref="product_name"/>
+					distribution framework, including cache writers and listeners, expiration
+					activities, and transaction management, and can produce undesired results.
+				</note>
+			</p>
+			<p>Always change your entries using copies of the retrieved objects—never directly
+				modify the returned objects. You can do this in one of two ways: <ol
+					id="ol_E5F0ED67E2D54C18BBA3473206E8C8C4">
+					<li id="li_22EF5D6D349B44FD82173D996A7D5A0B">Change the entry retrieval behavior
+						for your cache by setting the cache attribute,
+						<codeph>copy-on-read</codeph>, to true (the default is false).
+						<codeblock outputclass="language-xml">&lt;cache copy-on-read="true"&gt;
+ ...
+&lt;/cache&gt;</codeblock>When
+							<codeph>copy-on-read</codeph> is true, the entry access methods return
+						copies of the entries. This protects you from inadvertently modifying
+						in-place, but negatively impacts performance and memory consumption when
+						copying is not needed. <p>These entry access methods return an entry
+							reference if <codeph>copy-on-read</codeph> is false and a copy of the
+							entry if <codeph>copy-on-read</codeph> is true: </p><p>
+							<table id="table_0A468474D80C4FA98E875C28915F4AB4">
+								<tgroup cols="3">
+									<colspec colname="1" colnum="1" colwidth="*"/>
+									<colspec colname="2" colnum="2" colwidth="*"/>
+									<colspec colname="3" colnum="3" colwidth="*"/>
+									<tbody>
+										<row>
+											<entry>
+												<codeph>Region.get</codeph>
+											</entry>
+											<entry>result of <codeph>Region.put</codeph>
+											</entry>
+											<entry>
+												<codeph>EntryEvent.getNewValue</codeph>
+											</entry>
+										</row>
+										<row>
+											<entry>
+												<codeph>Region.values</codeph>
+											</entry>
+											<entry>
+												<codeph>Region.Entry.getValue</codeph>
+											</entry>
+											<entry>
+												<codeph>EntryEvent.getOldValue</codeph>
+											</entry>
+										</row>
+										<row>
+											<entry>
+												<codeph>Query.select</codeph>
+											</entry>
+										</row>
+									</tbody>
+								</tgroup>
+							</table>
+						</p>
+					</li>
+					<li id="li_418252892B9241C1AF048E712450AE92">Create a copy of the returned
+						object and work with that. For objects that are cloneable or serializable,
+						you can copy the entry value to a new object using
+							<codeph>com.gemstone.gemfire.CopyHelper.copy</codeph>. Example:
+						<codeblock outputclass="language-java">Object o = (StringBuffer)region.get("stringBuf");
+StringBuffer s = (StringBuffer) CopyHelper.copy(o);
+s.append("Changes to value, added using put.");
+region.put("stringBuf", s);</codeblock>
+					</li>
+				</ol>
+			</p>
+		</section>
+		<section id="section_78F6731642944DE594316B86ECB4E70F">
+			<title>Retrieving Region Entries from Proxy Members </title>
+			<p>The <codeph>Region.values</codeph> method call applies to the local region instance
+				only. If you call the <codeph>values</codeph> method from a client region using the
+				PROXY shortcut, the method call will not be redirected to the server region. To
+				obtain a collection of all values in the Region from a client, you should use
+				interest registration on ALL_KEYS, or use a query. </p>
+			<p>If you use the <codeph>Region.get</codeph> method from a proxy member, the method
+				call will redirect to the region on the server if it cannot find the key locally.
+			</p>
+		</section>
+		<section>
+			<title>Using gfsh to get and put </title>
+			<p>You can use the gfsh <cmdname>get</cmdname> and <cmdname>put</cmdname> commands to
+				manage data. See <xref
+					href="../../tools_modules/gfsh/command-pages/get.xml#concept_837F6196CE334C8CA2CAFD34AB6EF869"
+				/> and <xref
+					href="../../tools_modules/gfsh/command-pages/put.xml#concept_2ECE1BB23A814A13924C93422E7EBC5E"
+				/>.</p>
+			<p>For example:<codeblock outputclass="language-java">
+get --key=('id':'133abg124') --region=region1
+
+// Retrieving when key type is a wrapper(primitive)/String
+get --key=('133abg124') --region=/region1/region12 --value-class=data.ProfileDetails
+
+get --key=('100L') --region=/region1/region12 --value-class=data.ProfileDetails 
+--key-class=java.lang.Long</codeblock>
+				<codeblock outputclass="language-java">
+put --key=('id':'133abg125') --value=('firstname':'James','lastname':'Gosling') 
+--region=/region1 --key-class=data.ProfileKey --value-class=data.ProfileDetails
+
+put --key=('133abg124') --value=('Hello World!!') --region=/region2
+
+put --key=('100F') --value=('2146547689879658564')  --region=/region1/region12 
+--key-class=java.lang.Float --value-class=java.lang.Long</codeblock></p>
+		</section>
+	</conbody>
+</concept>

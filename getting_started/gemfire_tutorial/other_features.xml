@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "http://docs.oasis-open.org/dita/dtd/concept.dtd">
+<concept id="tutorial_other_features">
+	<title>Exploring Other Features with the Tutorial </title>
+	<shortdesc id="shortdesc_FD3B2B1413764E94AA225808CACCC729">Use the tutorial application to
+		explore additional <keyword keyref="product_name"/> features. </shortdesc>
+	<conbody>
+		<section id="section_11AA126FDFD344CD9CF33114D11A24E0">
+			<title>Faster and More Flexible Serialization with <keyword keyref="product_name"/>
+				Serialization</title>
+			<p>In the tutorial, the PostID and Profile classes implemented
+					<codeph>java.io.Serializable</codeph>. Java serialization works, but a few
+				things about it are inefficient. Serialization uses reflection to find the fields to
+				serialize. Serializing an object writes the entire classname and field names to the
+				output stream. <keyword keyref="product_name"/> provides two serialization
+				mechanisms that you can use to improve the performance and flexibility of
+				serialization in your application. In addition, using <keyword keyref="product_name"
+				/> serialization makes it easier to share data between Java and other language
+				clients. For more information, see <xref
+					href="../../developing/data_serialization/chapter_overview.xml#data_serialization"
+					format="dita"/>. </p>
+		</section>
+		<section id="section_41038734FD0541C0BA2C2EEF1F4E503B">
+			<title>Locator Redundancy</title>
+			<p>In the tutorial, we only used a single locator, which is a single point of failure
+				for the application. In a production scenario you should use at least two locators.
+				The locators property accepts a comma-separated list of locators. </p>
+		</section>
+		<section id="section_862E111B98F14EFDA267342579779689">
+			<title>Executing Queries</title>
+			<p>Suppose you want to show all people who have someone listed as a friend. <keyword
+					keyref="product_name"/> supports querying region contents using Object Query
+				Language (OQL). See <xref
+					href="../../developing/querying_basics/chapter_overview.xml#querying_with_oql"
+					type="concept" format="dita" scope="local"/> and the Javadocs for the
+					<codeph>com.gemstone.gemfire.cache.query</codeph> package for more information.
+				To find all people who have listed Ethan as a friend: </p>
+			<codeblock>select p.key from /people.entrySet p, p.value.friends f where f='Ethan'</codeblock>
+		</section>
+		<section id="section_1FB1E91598044152A77EAA5B9F09DB0C">
+			<title>Partitioning Your Data Into Logical Groups for Faster Access</title>
+			<p> By default, posts are assigned to different peers based on the hash code of the key.
+				That means no organization exists that determines which posts go to which servers.
+				If you need to do work with all of the posts from a particular user, such as running
+				a spelling check on them, you would have to access posts on many different peers. To
+				make this type of operation efficient, it makes sense to group those posts by user
+				name, so that the spellcheck could be performed in a single member. <keyword
+					keyref="product_name"/> lets you do this with a PartitionResolver. The partition
+				resolver lets you return a value that indicates the logical group that a key belongs
+				to. In this sample application, the PartitionResolver could just return the author
+				field of the PostID. That would tell <keyword keyref="product_name"/> to put all
+				posts by the same author in the same member. </p>
+			<p>Once the posts are grouped together logically, you execute your spelling check on the
+				member that actually stores the posts. <keyword keyref="product_name"/> lets you
+				ship functions to a subset of the peers based on what keys those functions intend to
+				work with. The function is then executed in parallel on the subset of peers that
+				host those keys. To execute the spelling check function: </p>
+			<codeblock>SpellingCheck spellcheck = new SpellingCheck(); //implements Function
+Set&lt;String&gt; authors = new HashSet&lt;String&gt;();
+authors.add("Ethan");
+FunctionService.onRegion(people).withFilter(authors).execute(spellcheck);</codeblock>
+			<p>For more information on function execution, see <xref
+					href="../../developing/function_exec/chapter_overview.xml#function_exec"
+					format="dita"/>. </p>
+		</section>
+		<section id="section_93057612655A4C7C900B4321D6E95EFC">
+			<title>Cache Writers and Loaders</title>
+			<p>As you have seen, a CacheListener callback is invoked after an entry is changed. A
+				CacheWriter callback is invoked before the entry is updated. You can block the
+				update, or send the update to another system in a cache writer. You can add a
+				CacheLoader callback to a region to fetch or generate a value if it was not present
+				in the cache when a get was invoked. For more information on these callbacks, see
+					<xref
+					href="../../developing/events/chapter_overview.xml#implementing_event_handlers"
+					type="concept" format="dita" scope="local"/>. </p>
+		</section>
+		<section id="section_5BAF3CA413794886B897C608879FD115">
+			<title>Eviction and Expiration</title>
+			<p><keyword keyref="product_name"/> provides full support for the eviction and
+				expiration features you might expect from a cache. You can limit the size of a
+				region to a certain number of entries or a certain size in bytes. You can configure
+				regions to expire entries after a certain amount of time, or simply evict entries
+				when your heap is getting full. </p>
+			<p>Rather than lose the values completely, you can configure the region to overflow
+				values onto disk. </p>
+			<p>See <xref href="../../developing/eviction/chapter_overview.xml#eviction"
+					type="concept" format="dita" scope="local"/> and <xref
+					href="../../developing/expiration/chapter_overview.xml#expiration"
+					type="concept" format="dita" scope="local"/> for more information. </p>
+		</section>
+	</conbody>
+</concept>

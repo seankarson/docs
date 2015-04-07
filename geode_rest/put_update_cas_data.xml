@@ -1,0 +1,220 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE topic PUBLIC "-//OASIS//DTD DITA Topic//EN" "topic.dtd">
+<topic id="topic_itv_mg5_m4">
+  <title>PUT /gemfire-api/v1/{region}/{key}?op=CAS</title>
+  <shortdesc>Update (compare-and-set) value having key with a new value if and only if the "@old"
+    value sent matches the current value having key in region.</shortdesc>
+  <body>
+    <section>
+      <title>Resource URL</title>
+      <codeblock>http://&lt;<i>hostname_or_http-service-bind-address</i>>:&lt;<i>http-service-port</i>>/gemfire-api/v1/{region}/{key}?op=CAS
+http://&lt;<i>hostname_or_http-service-bind-address</i>>:&lt;<i>http-service-port</i>>/gemfire-api/v1/{region}/{key1},{key2},...{keyN}?op=CAS</codeblock>
+    </section>
+    <section>
+      <title>Parameters</title>
+      <simpletable frame="all" relcolwidth="1.0* 1.0* 1.0*" id="simpletable_b4n_3jv_m4">
+        <sthead>
+          <stentry>Parameter</stentry>
+          <stentry>Description</stentry>
+          <stentry>Example Values</stentry>
+        </sthead>
+        <strow>
+          <stentry>op</stentry>
+          <stentry>URL parameter. When you specify CAS for this parameter, data is only updated if
+            the @old value specified in the request body matches the existing value in the
+            region.</stentry>
+          <stentry>CAS</stentry>
+        </strow>
+        <strow>
+          <stentry>@type</stentry>
+          <stentry>Specified in the response body for both the old and new value. Use this to
+            declare the domain object type of the entry's value.</stentry>
+          <stentry>com.mycompany.ObjectName</stentry>
+        </strow>
+        <strow>
+          <stentry>@old</stentry>
+          <stentry>Compare this value to the existing value in the region.</stentry>
+          <stentry>
+            <codeblock>{
+         "@type":  "com.gemstone.gemfire.web.rest.domain.Order",
+         "purchaseOrderNo": 1121,
+         "customerId": 1012,
+         "description":  "Order for  XYZ Corp",
+         "orderDate":  "02/10/2014",
+         "deliveryDate":  "02/20/2014",
+         "contact":  "Jelly Bean",
+         "email":  "jelly.bean@vmware.com",
+         "phone":  "01-2048096",
+         "items": [
+            {
+                 "itemNo": 1,
+                 "description":  "Product-100",
+                 "quantity": 12,
+                 "unitPrice": 5,
+                 "totalPrice": 60
+            }
+        ],
+         "totalPrice": 225
+    }</codeblock>
+          </stentry>
+        </strow>
+        <strow>
+          <stentry>@new</stentry>
+          <stentry>If @old value matches existing value, use this value to replace the existing
+            value.</stentry>
+          <stentry>
+            <codeblock>{
+         "@type":  "com.gemstone.gemfire.web.rest.domain.Order",
+         "purchaseOrderNo": 1121,
+         "customerId": 1013,
+         "description":  "Order for  New Corp",
+         "orderDate":  "02/10/2014",
+         "deliveryDate":  "02/25/2014",
+         "contact":  "Vanilla Bean",
+         "email":  "vanilla.bean@newcorp.com",
+         "phone":  "01-2048096",
+         "items": [
+            {
+                 "itemNo": 12345,
+                 "description":  "part 123",
+                 "quantity": 12,
+                 "unitPrice": 29.99,
+                 "totalPrice": 149.95
+            }
+        ],
+         "totalPrice": 149.95
+    }</codeblock>
+          </stentry>
+        </strow>
+      </simpletable>
+    </section>
+    <section>
+      <title>Example Request</title>
+      <codeblock>Request Payload: application/json
+
+PUT /gemfire-api/v1/orders/2?op=CAS
+
+Accept: application/json
+Content-Type: application/json
+{
+    "@old": {
+         "@type":  "com.gemstone.gemfire.web.rest.domain.Order",
+         "purchaseOrderNo": 1121,
+         "customerId": 1012,
+         "description":  "Order for  XYZ Corp",
+         "orderDate":  "02/10/2014",
+         "deliveryDate":  "02/20/2014",
+         "contact":  "Jelly Bean",
+         "email":  "jelly.bean@vmware.com",
+         "phone":  "01-2048096",
+         "items": [
+            {
+                 "itemNo": 1,
+                 "description":  "Product-100",
+                 "quantity": 12,
+                 "unitPrice": 5,
+                 "totalPrice": 60
+            }
+        ],
+         "totalPrice": 225
+    },
+     "@new ": {
+         "@type":  "com.gemstone.gemfire.web.rest.domain.Order",
+         "purchaseOrderNo": 1121,
+         "customerId": 1013,
+         "description":  "Order for  New Corp",
+         "orderDate":  "02/10/2014",
+         "deliveryDate":  "02/25/2014",
+         "contact":  "Vanilla Bean",
+         "email":  "vanillabean@newcorp.com",
+         "phone":  "01-2048096",
+         "items": [
+            {
+                 "itemNo": 12345,
+                 "description":  "part 123",
+                 "quantity": 12,
+                 "unitPrice": 29.99,
+                 "totalPrice": 149.95
+            }
+        ],
+         "totalPrice": 149.95
+    }
+}
+</codeblock>
+    </section>
+    <section>
+      <title>Example Success Response</title>
+      <codeblock>Response Payload: null
+
+<b>200 OK</b>
+</codeblock>
+    </section>
+    <section>
+      <title>Error Codes</title>
+      <simpletable frame="all" relcolwidth="1.0* 2.39*" id="simpletable_vfq_33v_m4">
+        <sthead>
+          <stentry>Status Code</stentry>
+          <stentry>Description</stentry>
+        </sthead>
+        <strow>
+          <stentry>400 BAD REQUEST</stentry>
+          <stentry>Returned if the supplied key is not present in the region.</stentry>
+        </strow>
+        <strow>
+          <stentry>404 NOT FOUND</stentry>
+          <stentry>Returned if the region is not found.</stentry>
+        </strow>
+        <strow>
+          <stentry>409 CONFLICT</stentry>
+          <stentry>Returned if the provided @old value of the key does not match the current value
+            of the key.</stentry>
+        </strow>
+        <strow>
+          <stentry>500 INTERNAL SERVER ERROR</stentry>
+          <stentry>Error encountered at <keyword keyref="product_name"/> server. Check the HTTP
+            response body for a stack trace of the exception. </stentry>
+        </strow>
+      </simpletable>
+    </section>
+    <section>
+      <title>Example Error Response</title>
+      <codeblock>Response-payload: application/json
+
+409 Conflict
+Content-Type: application/json
+{
+     "purchaseOrderNo": 1121,
+     "customerId": 1012,
+     "description":  "Order for  XYZ Corp",
+     "orderDate":  "02/10/2014",
+     "deliveryDate":  "02/20/2014",
+     "contact":  "Jelly Bean",
+     "email":  "jelly.bean@vmware.com",
+     "phone":  "01-2048096",
+     "items": [
+        {
+             "itemNo": 1,
+             "description":  "Product-100",
+             "quantity": 12,
+             "unitPrice": 5,
+             "totalPrice": 60
+        }
+    ],
+     "totalPrice": 225
+}</codeblock>
+    </section>
+    <section>
+      <title>Implementation Notes</title>
+      <p>If the "@old" value sent by the client in the HTTP request, along with the "@new" value,
+        does not match the existing value having key in region, then a 409 - CONFLICT error is
+        returned indicating the mismatch in expected state. The "@old" and current value must match
+        in order for the key to be assigned the "@new" value.</p>
+      <p> If a "CONFLICT" occurs, it is a simple matter for the client to issue a HTTP GET request
+        for the Key (GET /gemfire-api/v1/orders/222) to get a updated copy of the value. CAS is
+        similar to optimistic locking (as opposed to optimistic locking assuming the value will
+        change between the time a client requests a value and subsequently updates the value) in
+        that it assumes the client's state is up-to-date when the client tries to update, but if not
+        then fail, hence the 409 - CONFLICT.</p>
+    </section>
+  </body>
+</topic>

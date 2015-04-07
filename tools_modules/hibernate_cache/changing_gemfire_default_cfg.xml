@@ -1,0 +1,266 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "http://docs.oasis-open.org/dita/dtd/concept.dtd">
+<concept id="changing_gemfire_default_cfg">
+	<title>Changing <keyword keyref="product_name_long"/> Default Configuration (Hibernate Cache
+		Module)</title>
+	<shortdesc>To edit <keyword keyref="product_name"/> configuration information (such as how
+		members locate each other), you can add <keyword keyref="product_name"/> properties to
+		Hibernate's <codeph>hibernate.cfg.xml</codeph> file. </shortdesc>
+	<conbody>
+		<p>When adding properties, use the following syntax: </p>
+		<codeblock>&lt;property name="gemfire.PROPERTY_NAME"&gt;PROPERTY_VALUE&lt;/property&gt;</codeblock>
+		<p>In the preceding code snippet, <codeph>PROPERTY_NAME</codeph> is the property name and
+				<codeph>PROPERTY_VALUE</codeph> is the property value. The list of configurable
+			system properties include any of the properties that can be specified in <keyword
+				keyref="product_name"/>'s <codeph>gemfire.properties</codeph> file. The property
+			changes associated with the most common configurations are described below. </p>
+		<section id="changing_gemfire_topology">
+			<title>Changing the <keyword keyref="product_name"/> Topology</title>
+			<p>By default, the topology is set for a peer-to-peer configuration rather than a
+				client/server configuration. To use the peer-to-peer configuration, you don't have
+				to make any changes. If you want to change the configuration to a client/server
+				topology, edit the Hibernate configuration file: </p>
+			<codeblock>&lt;property name="gemfire.cache-topology"&gt;client-server&lt;/property&gt;</codeblock>
+			<p>Since the Hibernate process operates as a <keyword keyref="product_name"/> client in
+				this configuration, you must manually launch a <keyword keyref="product_name"/>
+				cache server. You can do this with the following script (which should be installed
+				into the <b>bin</b> subdirectory wherever <keyword keyref="product_name"/> is
+				located): </p>
+			<codeblock>In Unix: 
+  prompt$ ./cacheserver.sh start
+  
+In Windows:
+  prompt&gt; cacheserver.bat start</codeblock>
+			<note>When running the cache server, make sure the Hibernate jar and the <keyword
+					keyref="product_name"/> modules jar are in the classpath, along with any
+				dependencies. You can use the CLASSPATH environment variable or you can set the
+					<codeph>-classpath &lt;classpath&gt;</codeph> command line argument when
+				launching the cache server. </note>Without making any further configuration changes,
+			the client and server attempt to locate each other on the same system using a default
+			port (40404). Though useful for testing purposes, you would not normally deploy a
+			client/server configuration in this way. Refer to "Using <keyword keyref="product_name"
+			/> Locators with a Client/Server Configuration" for information on creating and using
+			Locators, which provide both discovery and load balancing services. </section>
+		<section id="changing_p2p_region_atts">
+			<title>Changing Peer-to-Peer Region Attributes</title>
+			<p>You can change the region attributes from within the
+					<codeph>hibernate.cfg.xml</codeph> file using the same region shortcuts
+				specified in <xref
+					href="../../basic_config/data_regions/region_shortcuts.xml#region_shortcuts"
+					type="concept" format="dita" scope="local"
+					><?xm-replace_text Region Shortcuts and Custom Named Region Attributes?></xref>.
+				<codeblock>&lt;property name="gemfire.default-region-attributes-id"&gt;
+  REGION_ATTRIBUTE
+&lt;/property&gt; </codeblock>
+			</p>
+			<p>In this example, <codeph>REGION_ATTRIBUTE</codeph> can be any of the pre-defined
+				region shortcuts. By default, this is REPLICATE_HEAP_LRU. Other available region
+				shortcuts include: REPLICATE, REPLICATE_PERSISTENT, PARTITION, PARTITION_PERSISTENT,
+				PARTITION_REDUNDANT, PARTITION_REDUNDANT_PERSISTENT. If you plan to configure a
+				region for persistence, refer to <xref format="dita"
+					href="changing_gemfire_default_cfg.xml#changing_gemfire_default_cfg/turning_on_persistence"
+					scope="local">Turning On Persistence</xref>. </p>
+			<p>You can also control the region type on a per-entity basis using the following code: </p>
+			<codeblock>&lt;property name="gemfire.region-attributes-for: com.foo.Bar"&gt;
+  REGION_ATTRIBUTE
+&lt;/property&gt; </codeblock>
+			<p>In this example, com.foo.Bar is the name of your class and REGION_ATTRIBUTE can be
+				one of the region shortcuts. </p>
+		</section>
+		<section id="using_diff_mc_port_with_pp">
+			<title>Using a Different Multicast Port with a Peer-to-Peer Configuration</title>
+			<p>For a <keyword keyref="product_name"/> peer-to-peer member to communicate on a
+				different multicast port than the default (10334), use the
+					<codeph>mcast-port</codeph> property. </p>
+			<codeblock>&lt;property name="gemfire.mcast-port"&gt;10445&lt;/property&gt; </codeblock>This
+			example uses port 10445 as the multicast port. </section>
+		<section id="using_locators_with_pp_cfg">
+			<title>Using <keyword keyref="product_name"/> Locators with a Peer-to-Peer
+				Configuration</title>
+			<p>By default, <keyword keyref="product_name"/> peers discover each other using
+				multicast communication on a known port (as specified by the
+					<codeph>mcast-port</codeph> property). Alternatively, you can configure member
+				discovery using one or more dedicated locators. A locator provides both discovery
+				and load balancing services. </p>
+			<p>To run <keyword keyref="product_name"/> with one or more locators instead of a
+				multicast port, use the <codeph>locators </codeph>property. </p>
+			<codeblock>&lt;property name="gemfire.locators"&gt;host1[port1],host2[port2]&lt;/property&gt; </codeblock>
+			<p>In this example, <codeph>host1</codeph> and <codeph>host2 </codeph>are the hostnames
+				(or IP addresses) for each of the locators; <codeph>port1</codeph> and <codeph>port2
+				</codeph>are the ports for each of the locators. </p>
+			<p>Although this code will tell the peer to look for a locator, it does not
+				automatically start the locator. To launch a locator automatically within the same
+				application as the one running the Hibernate process, use this code, with your
+				hostname (or IP address) and port settings: </p>
+			<codeblock>&lt;property name="gemfire.start-locator"&gt;host[port]&lt;/property&gt; </codeblock>
+			<p>Alternatively, you can start a locator in a separate process using the
+					<codeph>gemfire</codeph> command-line tool found in the <codeph>bin
+				</codeph>subdirectory wherever <keyword keyref="product_name"/> is located. </p>
+			<codeblock>In Unix:
+  ./gemfire.sh start-locator -port=10334
+  
+In Windows:
+  gemfire.bat start-locator -port=10334</codeblock>
+			<p>This example starts a locator that listens on port 10334. </p>
+		</section>
+		<section id="section_1AB292DC8D0B420DABFD2120A38FEDB4">
+			<title>
+				<b>Changing Region Names</b>
+			</title>
+			<p> By default, the <keyword keyref="product_name"/> Hibernate module puts entities in a
+				region whose name is the fully qualified path of the entity. The module uses these
+				region names to eagerly prefetch related entities. Therefore, we recommend that you
+				do not change the default names of the regions that are created by Hibernate. </p>
+		</section>
+		<section id="changing_cs_region_atts">
+			<title>Changing Client/Server Region Attributes</title>
+			<p>When using a client/server configuration, the default region attribute for the
+					<keyword keyref="product_name"/> servers is a PARTITION region. This means that
+				the data is partitioned across the pool of <keyword keyref="product_name"/> servers.
+				You can modify this behavior using the same instructions specified in <xref
+					format="dita"
+					href="changing_gemfire_default_cfg.xml#changing_gemfire_default_cfg/changing_p2p_region_atts"
+					scope="local">Changing Peer-to-Peer Region Attributes</xref>. </p>
+			<p>In addition to the region attribute of the servers, you can also modify the region
+				attributes for the <keyword keyref="product_name"/> client, which is the process
+				running Hibernate. By default this region is set to PROXY. This means that the
+				client will not cache data. </p>
+			<p>You can change the client region attributes from within the hibernate.cfg.xml file
+				using the same client region shortcuts specified in <xref
+					href="../../basic_config/data_regions/region_shortcuts.xml#region_shortcuts"
+					type="concept" format="dita" scope="local"
+					><?xm-replace_text Region Shortcuts and Custom Named Region Attributes?></xref>. </p>
+			<codeblock>&lt;property name="gemfire.default-client-region-attributes-id"&gt;
+  CLIENT_REGION_ATTRIBUTE
+&lt;/property&gt; </codeblock>
+			<p>In this example, CLIENT_REGION_ATTRIBUTE can be any of the pre-defined region
+				shortcuts. By default, this is PROXY. If you would like the client to keep a local
+				cache of recently used data, change the region to CACHING_PROXY. </p>
+			<p>You can also control the client region type on a per-entity basis using the following
+				code: </p>
+			<codeblock>&lt;property name="gemfire.client-region-attributes-for: com.foo.Bar"&gt;
+  CLIENT_REGION_ATTRIBUTE
+&lt;/property&gt; </codeblock>
+			<p>In this example, com.foo.Bar is the name of your class and CLIENT_REGION_ATTRIBUTE
+				can be one of the client region shortcuts. </p>
+		</section>
+		<section id="section_57B3FEAFF926487DAF368D67FFE59E1B">
+			<title id="using_locators_with_cs_cfg">Using <keyword keyref="product_name"/> Locators
+				with a Client/Server Configuration</title>
+			<p>By default, <keyword keyref="product_name"/> clients and servers discover each other
+				on a pre-defined port (40404) on the localhost. This is not typically the way you
+				would deploy a client/server configuration. A preferred solution is to use one or
+				more dedicated locators. A locator provides both discovery and load balancing
+				services. </p>
+			<p>To run <keyword keyref="product_name"/> with one or more locators, use the
+					<codeph>locators</codeph> property. </p>
+			<codeblock>&lt;property name="gemfire.locators"&gt;host1[port1],host2[port2]&lt;/property&gt; </codeblock>
+			<p>In this example, <codeph>host1</codeph> and <codeph>host2</codeph> are the hostnames
+				(or IP addresses) for each of the locators; <codeph>port1</codeph> and
+					<codeph>port2</codeph> are the ports for each of the locators. </p>
+			<p>Although this code will tell the <b>client</b> to look for a locator, it does not
+				automatically start the locator. You can start a locator using the
+					<codeph>gemfire</codeph> command-line tool found in the <codeph>bin</codeph>
+				subdirectory wherever <keyword keyref="product_name"/> is located. </p>
+			<codeblock>In Unix:
+  ./gemfire.sh start-locator -port=10334
+  
+In Windows:
+  gemfire.bat start-locator -port=10334</codeblock>
+			<p>This example starts a locator that listens on port 10334. </p>
+			<p>You also need to tell the <keyword keyref="product_name"/>
+				<b>server</b> to use a locator when you launch the server. You can do this through a
+				command-line argument when you start up the server with the script provided in the
+					<codeph>bin</codeph> subdirectory wherever <keyword keyref="product_name"/> is
+				located: </p>
+			<codeblock>In Unix: 
+  prompt$ ./cacheserver.sh start locators=hostname[port]
+  
+In Windows:
+  prompt&gt; cacheserver.bat start locators=hostname[port]</codeblock>
+			<p>If you are running more than one locator, use a comma-separated list of locators.
+				Refer to <xref
+					href="../../configuring/running/running_the_cacheserver.xml#running_the_cacheserver"
+					type="concept" format="dita" scope="local"/> for more information on using this
+				script. </p>
+			<note>When running the cache server, make sure the Hibernate jar and the <keyword
+					keyref="product_name"/> modules jar are in the classpath, along with any
+				dependencies. You can use the CLASSPATH environment variable or you can set the
+					<codeph>-classpath &lt;classpath&gt;</codeph> command line argument when
+				launching the cache server. </note>
+		</section>
+		<section id="turning_on_persistence">
+			<title>Turning On Persistence</title>
+			<p>If you change the region type to any one of the persistent modes (such as
+				PARTITION_PERSISTENT and REPLICATE_PERSISTENT), cache data will get stored into the
+				current working directory. To change this location, supply disk storage information
+				in <keyword keyref="product_name"/>'s <codeph>cache.xml</codeph> configuration file.
+				For example: </p>
+			<codeblock>&lt;cache&gt;
+  &lt;!-- define a disk store with a couple of directories. --&gt;
+  &lt;!-- All data logs are stored here --&gt;
+ &lt;disk-store name="CacheDataRepository"&gt;
+  &lt;disk-dirs&gt;
+    &lt;disk-dir&gt;c:\cache_data&lt;/disk-dir&gt;
+    &lt;disk-dir dir-size="20480"&gt;d:\cache_data&lt;/disk-dir&gt;
+  &lt;/disk-dirs&gt;
+ &lt;/disk-store&gt;
+
+ &lt;!-- now change the predefined region attributes to use this disk store --&gt; 
+ &lt;region-attributes id="MYAPP_PARTITION_PERSISTENT" 
+      ref-id="PARTITION_PERSISTENT"&gt;
+   &lt;disk-store&gt;CacheDataRepository&lt;/disk-store&gt;
+ &lt;/region-attributes&gt;
+&lt;/cache&gt; 
+</codeblock>
+			<p>This example creates a 20480 MB data repository in the <codeph>d:\cache_data</codeph>
+				subdirectory. It also defines a region attribute called MYAPP_PARTITION_PERSISTENT,
+				which is derived from the PARTITION_PERSISTENT region definition. </p>
+			<p>You must also change Hibernate's <codeph>hibernate.cfg.xml</codeph> file to point to
+				this xml file and to reference this particular region definition: </p>
+			<codeblock>&lt;property name="gemfire.default-region-attributes-id"&gt;  
+  MYAPP_PARTITION_PERSISTENT
+&lt;/property&gt; 
+&lt;property name="gemfire.cache-xml-file"&gt;
+  c:\gemfire_cache.xml
+&lt;/property&gt; </codeblock>
+		</section>
+		<section id="section_6F67CECB091948129081FDD34B892F91">
+			<title>
+				<b>Caching Query Results</b>
+			</title>
+			<p> In a Hibernate application, the caching of query results is recommended for queries
+				that are run frequently with the same parameters. However, most applications using
+				Hibernate do not benefit from query results caching because Hibernate will
+				invalidate cached results when even a single entity involved in the query is
+				updated. For example, suppose that a query on the Person entity is cached. As soon
+				as any instance of Person is updated, created or deleted, Hibernate will invalidate
+				this query because it cannot predict the impact of the change on the cached query
+				results. Therefore, the <keyword keyref="product_name"/> Hibernate Cache Module does
+				not distribute query results to other <keyword keyref="product_name"/> member
+				caches. The query results are always cached only in the <keyword
+					keyref="product_name"/> cache local to the Hibernate session. </p>
+		</section>
+		<section id="section_E884BF4251D6494695408B30D1F350B1">
+			<title>Remapping the Hibernate EnumType with the <keyword keyref="product_name"/>
+				EnumType</title>
+			<p> Due to an issue with Hibernate in a client-server topology, application classes must
+				be present on the <keyword keyref="product_name"/> cache server when a Hibernate
+				application uses annotations. If you do not want to place the application classes on
+				the <keyword keyref="product_name"/> cache server, you can modify the Hibernate
+				configuration to use the
+					<codeph>com.gemstone.gemfire.modules.hibernate.EnumType</codeph> in place of
+					<codeph>org.hibernate.type.EnumType</codeph>. </p>
+			<p>To configure Hibernate to use the <keyword keyref="product_name"/> EnumType, modify
+					<codeph>hibernate.cfg.xml</codeph> to add a property for the mapping. For
+				example:
+				<codeblock>&lt;property name="myEnum"&gt;
+    &lt;type name="<b>com.gemstone.gemfire.modules.hibernate.EnumType</b>"&gt;
+    &lt;param name="enumClass"&gt;com.mycompany.MyEnum&lt;/param&gt;
+   &lt;/type&gt;
+&lt;/property&gt;
+</codeblock>
+			</p>
+		</section>
+	</conbody>
+</concept>

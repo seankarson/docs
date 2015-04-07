@@ -1,0 +1,143 @@
+<?xml version="1.0"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<!-- Created with XMetaL (http://www.xmetal.com) -->
+<concept id="concept_7B24A959CCA7414F9D4834803E7DD3B9"> 
+  <title>gfsh Command Line Options</title>
+  <prolog><metadata><keywords><keyword>gemfire gfsh command line
+			 options</keyword></keywords></metadata>
+  </prolog> 
+  <conbody> 
+	 <table id="table_FFA18643947646B38098C19843A6A489"> 
+		<tgroup cols="2"> 
+		  <colspec colnum="1" colname="col1" colwidth="*"/> 
+		  <colspec colnum="2" colname="col2" colwidth="*"/> 
+		  <tbody> 
+			 <row> 
+				<entry> 
+				  <p>-c &lt;comma separated fully-qualified class names&gt;] 
+				  </p> 
+				</entry> 
+				<entry> 
+				  <p>specifies the names of classes to load. These classes
+					 typically contain static blocks that register GemFire data class IDs via
+					 Instantiator. 
+				  </p> 
+				</entry> 
+			 </row> 
+			 <row> 
+				<entry> 
+				  <p>-d &lt;DataSerializables.txt file&gt;] 
+				  </p> 
+				</entry> 
+				<entry> 
+				  <p>specifies the file path of DataSerializables.txt that
+					 overrides &lt;USER_HOME&gt;/.gemfire/etc/DataSerializables.txt. This option is
+					 equivalent to 'class -d &lt;DataSerializables.txt&gt;. The file path can be
+					 relative or absolute. List your DataSerializable classe names in this file. 
+				  </p> 
+				</entry> 
+			 </row> 
+			 <row> 
+				<entry> 
+				  <p>-dir &lt;directory&gt; 
+				  </p> 
+				</entry> 
+				<entry> 
+				  <p>specifies the directory in which the jar files that contain
+					 data files are located. Gfsh loads all of the classes in the jar files
+					 including the jar files in the subdirectories. The directory can be relative or
+					 absolute. This options is equivalent to 'class -dir &lt;directory&gt;'. 
+				  </p> 
+				</entry> 
+			 </row> 
+			 <row> 
+				<entry> 
+				  <p>-jar &lt;jar paths&gt; 
+				  </p> 
+				</entry> 
+				<entry> 
+				  <p>specifies the jar paths separated by ',', ';', or ':'. Gfsh
+					 loads all the the classes in the jar files. The jar files can be relative or
+					 absolute. This options is equivalent to 'class -jar &lt;jar paths&gt;'. 
+				  </p> 
+				</entry> 
+			 </row> 
+			 <row> 
+				<entry> 
+				  <p>-i &lt;.gfshrc path&gt; 
+				  </p> 
+				</entry> 
+				<entry> 
+				  <p>specifies the input file that overrides the default .gfshrc
+					 file in User's home directory.The file path can be relative or absolute. You
+					 can list commands in this file which are required to be executed at start-up. 
+				  </p> 
+				</entry> 
+			 </row> 
+			 <row> 
+				<entry> 
+				  <p>-advanced 
+				  </p> 
+				</entry> 
+				<entry> 
+				  <p>enables these advanced commands : bcp, class, db, deploy, gc,
+					 rebalance 
+				  </p> 
+				</entry> 
+			 </row> 
+			 <row> 
+				<entry> 
+				  <p>-l &lt;host:port&gt; 
+				  </p> 
+				</entry> 
+				<entry> 
+				  <p>specifies locators. 
+				  </p> 
+				</entry> 
+			 </row> 
+			 <row> 
+				<entry> 
+				  <p>-s &lt;host:port&gt; 
+				  </p> 
+				</entry> 
+				<entry> 
+				  <p>specifies cache servers. 
+				  </p> 
+				</entry> 
+			 </row> 
+			 <row> 
+				<entry> 
+				  <p>-version 
+				  </p> 
+				</entry> 
+				<entry> 
+				  <p>shows gfsh version. 
+				  </p> 
+				</entry> 
+			 </row> 
+			 <row> 
+				<entry> 
+				  <p>-? OR -help 
+				  </p> 
+				</entry> 
+				<entry> 
+				  <p>displays this help message. 
+				  </p> 
+				</entry> 
+			 </row> 
+		  </tbody> 
+		</tgroup> 
+	 </table> 
+	 <section id="section_AD9EAEE1888543789E20DDAD2F4622CE"> 
+		<p> 
+		  <b>Scripting gfsh commands</b>: gfsh supports command batching at
+		  startup. Using the option 
+		  <cmdname>gfsh -i &lt;.gfshrc file&gt;</cmdname>, you can override the
+		  default 
+		  <codeph>.gfshrc</codeph> file found in your home directory. In this
+		  file you can list any commands that gfsh supports. gfsh executes these commands
+		  in sequence. 
+		</p> 
+	 </section> 
+  </conbody> 
+</concept> 

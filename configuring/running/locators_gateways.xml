@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<!-- Created with XMetaL (http://www.xmetal.com) -->
+<concept id="concept_75524F88CF8D4DC49ECDF7904EADC5F6">
+	<title>Locators, Gateway Receivers, and Ports</title>
+	<shortdesc>The ephemeral port range and TCP port range for locators must be accessible to
+		members through the firewall. The full range of port values for gateway receivers also must
+		be accessible from across the WAN. </shortdesc>
+	<prolog>
+		<metadata>
+			<keywords>
+				<keyword>gemfire locator ports</keyword>
+				<keyword>gemfire gateway ports</keyword>
+			</keywords>
+		</metadata>
+	</prolog>
+	<conbody>
+		<p>Locators are used in the peer-to-peer cache to discover other processes. They can be used
+			by clients to locate servers as an alternative to configuring clients with a collection
+			of server addresses and ports. </p>
+		<p>Locators have a TCP/IP port that all members must be able to connect to. They also start
+			a distributed system and so need to have their ephemeral port range and TCP port
+			accessible to other members through the firewall. </p>
+		<p>Clients need only be able to connect to the locator's locator port. They don't interact
+			with the locator's distributed system; clients get server names and ports from the
+			locator and use these to connect to the servers. For more information, see <xref
+				href="running_the_locator.xml#running_the_locator" type="concept" format="dita"
+				scope="local"><?xm-replace_text vFabric GemFire Locator Process?></xref>. </p>
+	</conbody>
+</concept>

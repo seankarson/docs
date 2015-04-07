@@ -1,0 +1,58 @@
+<?xml version="1.0"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept id="concept_E6D5DCFCDFC0433EA2A9AD7AB9B904D6">
+	<title>sh</title>
+	<shortdesc>Execute operating system commands. </shortdesc>
+	<conbody>
+		<p>Executes operating system (OS) commands. Use '<codeph>&amp;</codeph>' to return to the
+				<codeph>gfsh</codeph> prompt immediately. <note>Commands that pass output to another
+				shell command are not supported.</note></p>
+		<section id="section_2F424FA975F44E0890E8943AF385A5BA">
+			<p><b>Syntax:</b>
+				<codeblock>sh command [--use-console(=value)?]
+ </codeblock>
+				<table id="table_DCD3BE1B9ADD47C39893B0DCCD55527A">
+					<title>Parameters</title>
+					<tgroup cols="3">
+						<colspec colname="col1" colnum="1" colwidth="1.00*"/>
+						<colspec colname="col2" colnum="2" colwidth="2.86*"/>
+						<colspec colname="newCol3" colnum="3" colwidth="1*"/>
+						<thead>
+							<row>
+								<entry colname="col1">Name </entry>
+								<entry colname="col2">Description</entry>
+								<entry colname="col3">Default Value</entry>
+							</row>
+						</thead>
+						<tbody>
+							<row>
+								<entry colname="col1"><parmname>--use-console</parmname></entry>
+								<entry colname="col2"> Set this parameter on UNIX systems for
+									applications which need a handle to the console. Adds
+										"<codeph>&lt;/dev/tty >/dev/tty</codeph>" to the specified
+									command. </entry>
+								<entry>false</entry>
+							</row>
+						</tbody>
+					</tgroup>
+				</table>
+			</p>
+			<p><b>Example Commands:</b>
+				<codeblock>gfsh>sh ls -al
+total 80
+drwxrwxr-x. 10 username username  4096 Sep  3 15:10 .
+drwxrwxr-x.  4 username username  4096 Sep  3 14:58 ..
+drwx------.  2 username username  4096 Sep  3 15:09 bin
+drwx------.  2 username username  4096 Sep  3 15:09 defaultConfigs
+drwx------.  3 username username  4096 Sep  3 15:09 docs
+drwx------.  2 username username  4096 Sep  3 15:09 dtd
+-rwx------.  1 username username 31830 Sep  3 15:09 EULA.txt
+drwx------.  2 username username  4096 Sep  3 15:09 lib
+drwx------.  6 username username  4096 Sep  3 15:09 SampleCode
+drwx------.  4 username username  4096 Sep  3 15:09 templates
+drwx------.  5 username username  4096 Sep  3 15:09 tools
+</codeblock>
+			</p>
+		</section>
+	</conbody>
+</concept>

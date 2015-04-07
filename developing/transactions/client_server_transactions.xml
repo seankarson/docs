@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE dita PUBLIC "-//OASIS//DTD DITA Composite//EN" "ditabase.dtd">
+<dita>
+	<topic id="transactions_by_region_type">
+		<title>Client Transactions</title>
+		<body>
+			<p>The syntax for writing client transactions is the same on the Java client as with any
+				other <keyword keyref="product_name"/> member, but the underlying behavior in a
+				client-run transaction is different from general transaction behavior. </p>
+			<p>For general information about running a transaction, refer to <xref
+					href="run_a_cache_transaction.xml#task_f15_mr3_5k"/>. </p>
+		</body>
+	</topic>
+	<concept id="how_gemfire_runs_clients">
+		<title>How <keyword keyref="product_name"/> Runs Client Transactions</title>
+		<conbody>
+			<p>When a client performs a transaction, the transaction is delegated to a server that
+				acts as the transaction initiator in the server system. As with regular, non-client
+				transactions, this server delegate may or may not be the transaction host. </p>
+			<p>In this figure, the application code on the client (M1) makes changes to data entries
+				Y and Z within a transaction. The delegate performing the transaction (M2) does not
+				host the primary copy of the data being modified. The transaction takes place on the
+				server containing this data (M3). </p>
+			<p>
+				<image placement="break" id="image_5DCA65F2B88F450299EFD19DAAA93D4F"
+					href="../../images_svg/transactions_client_1.svg"/>
+			</p>
+		</conbody>
+	</concept>
+	<concept id="client_cache_access">
+		<title>Client Cache Access During a Transaction</title>
+		<conbody>
+			<p>To maintain cache consistency, <keyword keyref="product_name"/> blocks access to the
+				local client cache during a transaction. The local client cache may reflect
+				information inconsistent with the transaction in progress. When the transaction
+				completes, the local cache is accessible again. </p>
+		</conbody>
+	</concept>
+	<concept id="client_app_plugins">
+		<title>Client Transactions and Client Application Plug-Ins</title>
+		<conbody>
+			<p>Any plug-ins installed in the client are not invoked by the client-run transaction.
+				The client that initiates the transaction receives changes from its server based on
+				transaction operations the same as any other client - through mechanisms like
+				subscriptions and continuous query results. The client transaction is performed by
+				the server delegate, where application plug-ins operate the same as if the server
+				were the sole initiator of the transaction. </p>
+		</conbody>
+	</concept>
+	<concept id="client_transaction_failures">
+		<title>Client Transaction Failures</title>
+		<conbody>
+			<p>In addition to the failure conditions common to all transactions, client transactions
+				can fail if the transaction delegate fails. If the delegate performing the
+				transaction fails, the transaction code throws a transaction exception. See <xref
+					href="monitor_troubleshoot_transactions.xml#monitor_troubleshoot_transactions/section_8942ABA6F23C4ED58877C894B13F4F21"
+				/>. </p>
+		</conbody>
+	</concept>
+</dita>

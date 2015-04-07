@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "http://docs.oasis-open.org/dita/v1.1/OS/dtd/concept.dtd">
+<concept id="query_parameters">
+    <title>Query Parameters</title>
+    <prolog audience="basic"> </prolog>
+    <conbody>
+        <section id="section_8F88AC5B2257444FA61EBFC212D5E8D0">
+            <p>You can substitute a query parameter for any expression. Query parameters are identified by a dollar sign, <codeph>$</codeph>, followed by a digit that represents the parameter’s position in the parameter array passed to the execute method. Counting begins at 1, to <codeph>$1</codeph> references the first bound attribute, <codeph>$2</codeph> the second, and so on. </p>
+            <p>The Query interface provides an overloaded execute method that accepts parameters inside an <codeph>Object</codeph> array. These are the two implementations of the method: <ul id="ul_6FF29941CA554735951C04AE867F4C25">
+                    <li id="li_E59B6D44F96243B89C56761C37242BEB"><codeph>execute()</codeph> for queries that do not take parameters </li>
+                    <li id="li_DCA1A7F2C9E048518070F0557BAD2E25"><codeph>execute(Object[])</codeph> for queries requiring parameters </li>
+                </ul></p>
+            <p>The 0th element of the <codeph>Object</codeph> array is used for the first query parameter, and so on. If the parameter count or parameter types do not match the query specification, the execute method throws an exception. If you pass in the wrong number of parameters, the call throws a <codeph>QueryParameterCountInvalidException</codeph>. If a parameter object type is not compatible with what is expected, the call throws a <codeph>TypeMismatchException</codeph>. </p>
+            <p>In this example, the first parameter, the integer 2, is bound to the first element in the object array. The second parameter, active, is bound to the second element: <codeblock>// Selects all portfolios where positions.size &gt; $1 and status = $2 
+                qryService.newQuery( 
+"SELECT DISTINCT * FROM /portfolios 
+     WHERE positions.size &gt; $1 AND status = $2"); 
+Object[] params = new Object[2]; 
+params[0] = new Integer(2); 
+params[1] = "active"; 
+try { 
+  Object results = query.execute(params); 
+} catch { 
+  // Handle exceptions 
+} 
+// Do something with the results</codeblock></p>
+            <p>This shows a query string with the region set with a query parameter. To use a parameter in the FROM clause, the parameter reference must be bound to a collection. This query could be used on any collection of type <codeph>Portfolio</codeph> by passing the collection in as a query parameter. <codeblock>IMPORT cacheRunner.Portfolio; 
+SELECT DISTINCT * FROM $1 TYPE Portfolio 
+    WHERE status = 'active'</codeblock></p>
+        </section>
+    </conbody>
+</concept>

@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE topic PUBLIC "-//OASIS//DTD DITA Topic//EN" "topic.dtd">
+<topic
+  id="topic_itv_mg5_m4">
+  <title>[HEAD | GET] /gemfire-api/v1/ping</title>
+  <shortdesc>Mechanism to check for REST API server and service availability.</shortdesc>
+  <body>
+    <section>
+      <title>Resource URL</title>
+      <codeblock>http://&lt;<i>hostname_or_http-service-bind-address</i>>:&lt;<i>http-service-port</i>>/gemfire-api/v1/ping</codeblock>
+    </section>
+    <section>
+      <title>Parameters</title>
+      <p>None.</p>
+    </section>
+    <section>
+      <title>Example Request</title>
+      <p>
+        <codeblock>HEAD /gemfire/v1/ping
+GET /gemfire/v1/ping</codeblock>
+      </p>
+    </section>
+    <section>
+      <title>Example Success Response</title>
+      <codeblock>
+<b>200 OK</b></codeblock>
+    </section>
+    <section>
+      <title>Error Codes</title>
+      <simpletable
+        frame="all"
+        relcolwidth="1.0* 1.87*"
+        id="simpletable_vfq_33v_m4">
+        <sthead>
+          <stentry>Status Code</stentry>
+          <stentry>Description</stentry>
+        </sthead>
+        <strow>
+          <stentry>404 NOT FOUND</stentry>
+          <stentry>The Developer REST API service is not available.</stentry>
+        </strow>
+        <strow>
+          <stentry>500 INTERNAL SERVER ERROR</stentry>
+          <stentry>Encountered error at server. Check the <keyword keyref="product_name"/> exception trace.</stentry>
+        </strow>
+      </simpletable>
+    </section>
+  </body>
+</topic>

@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept
+	id="concept_9B2F7550F16C4717831AD40A56922259">
+	<title>Creating and Running gfsh Command Scripts</title>
+	<shortdesc>gfsh offers several ways to run commands in a scripting
+		environment. </shortdesc>
+	<conbody>
+		<section
+			id="section_037953D46A644471910B295001E5CE6B">
+			<title>Running gfsh Scripts</title>
+			<p>You can create and run scripts that contain gfsh commands that
+				you wish to execute. To execute the script, use the gfsh <xref
+					href="command-pages/run.xml#concept_970BC9839C8243AF86CAEAAB22FDF40C"
+					type="concept"
+					format="dita"
+					scope="local">run</xref> command. For example:
+				<codeblock>gfsh run --file=mycommands.gfsh</codeblock>
+			</p>
+			<note>When you run a gfsh script, interactive parameters are
+				ignored. You can also set the script to run in quiet mode to
+				prevent output and instruct the script to skip any errors it
+				encounters. </note>
+			<p>Your command history file can be helpful when you write a gfsh
+				script. A history of commands that have been executed
+				successfully is logged in the <codeph>.gfsh.history</codeph>
+				file in the home directory of the user running gfsh. You can
+				also export a history file with the <codeph>history
+					--file=your_file_name</codeph> command. </p>
+		</section>
+	</conbody>
+</concept>

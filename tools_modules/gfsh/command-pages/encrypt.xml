@@ -1,0 +1,44 @@
+<?xml version="1.0"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept id="concept_2B834B0AC8EE44C6A7F85CC66B1D6E18">
+	<title>encrypt password</title>
+	<shortdesc>Encrypt a password for later use. </shortdesc>
+	<conbody>
+		<section id="section_F3D0959AF6264A3CB1821383B2AE4407">
+			<title>encrypt password</title>
+			<p>Encrypt a password for use in data source configuration. See <xref format="dita"
+					href="../../../developing/transactions/configuring_db_connections_using_JNDI.xml#topic_A5E3A67C808D48C08E1F0DC167C5C494"
+					scope="local" type="topic"/> and <xref format="dita"
+					href="../../../managing/security/encrypting_passwords.xml#topic_730CC61BA84F421494956E2B98BDE2A1"
+					scope="local" type="topic"/> for more information on how to use these encrypted
+				passwords. </p>
+			<p><b> Availability:</b> Online or offline. </p>
+			<p><b>Syntax:</b>
+				<codeblock>
+encrypt password --password=value</codeblock>
+				<table id="table_9172A25D12684164B221A699F35F7487">
+					<title>Parameters</title>
+					<tgroup cols="2">
+						<colspec colnum="1" colname="col1" colwidth="1.00*"/>
+						<colspec colnum="2" colname="col2" colwidth="4.27*"/>
+						<tbody>
+							<row>
+								<entry colname="col1"><parmname>--password </parmname></entry>
+								<entry colname="col2"><i>Required.</i> Password string to be
+									encrypted. </entry>
+							</row>
+						</tbody>
+					</tgroup>
+				</table>
+			</p>
+			<p><b>Example Commands:</b>
+				<codeblock>
+encrypt password --password=Aht23fbd1234#q</codeblock>
+			</p>
+			<p><b>Sample Output:</b>
+				<codeblock>gfsh&gt;encrypt password --password=Aht23fbd1234#q
+21793243D4F4B1C90B032D0CC0A80821</codeblock>
+			</p>
+		</section>
+	</conbody>
+</concept>

@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept id="concept_4B50DAE3DB8C4793A5CF205795C1CE3D">
+  <title>Reading Snapshots Programmatically</title>
+  <shortdesc>You can read a snapshot entry-by-entry for further processing or transformation into
+    other formats. </shortdesc>
+  <conbody>
+    <p>The following is an example of a snapshot reader that processes entries from a previously
+      generated snapshot file. </p>
+    <p>
+      <codeblock>File mySnapshot = ...
+SnapshotIterator&lt;String, MyObject&gt; iter = SnapshotReader.read(mySnapshot);
+try {
+  while (iter.hasNext()) {
+    Entry&lt;String, MyObject&gt; entry = iter.next();
+
+    String key = entry.getKey();
+    MyObject value = entry.getValue();
+
+    System.out.println(key + " = " + value);
+  }
+} finally {
+  iter.close();
+}</codeblock>
+    </p>
+    <p> </p>
+  </conbody>
+</concept>

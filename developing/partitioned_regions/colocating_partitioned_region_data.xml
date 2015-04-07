@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "http://docs.oasis-open.org/dita/v1.1/OS/dtd/concept.dtd">
+<concept id="colocating_partitioned_region_data">
+	<title>Co-locate Data from Different Partitioned Regions</title>
+	<shortdesc id="shortdesc_C121D80048C44AA3BB89812AAC3E46CA">By default, <keyword
+			keyref="product_name"/> allocates the data locations for a partitioned region
+		independent of the data locations for any other partitioned region. You can change this
+		policy for any group of partitioned regions, so that cross-region, related data is all
+		hosted by the same member. This co-location speeds queries and other operations that access
+		data from the regions. </shortdesc>
+	<conbody>
+		<section id="section_131EC040055E48A6B35E981B5C845A65">
+			<note>If you are co-locating data between regions and custom partitioning the data in
+				the regions, all co-located regions must use the same custom partitioning mechanism.
+				See <xref href="using_custom_partition_resolvers.xml#custom_partition_region_data"
+					type="concept" format="dita" scope="local"/>. </note>
+			<p>Data co-location between partitioned regions generally improves the performance of
+				data-intensive operations. You can reduce network hops for iterative operations on
+				related data sets. Compute-heavy applications that are data-intensive can
+				significantly increase overall throughput. For example, a query run on a patient's
+				health records, insurance, and billing information is more efficient if all data is
+				grouped in a single member. Similarly, a financial risk analytical application runs
+				faster if all trades, risk sensitivities, and reference data associated with a
+				single instrument are together. </p>
+			<b>Prerequisites</b>
+		</section>
+		<section id="section_5A8D752F02834146A37D9430F1CA32DA">
+			<ul id="ul_44FD90C4658044AAA46AE58026698337">
+				<li id="li_200F734D659044C4BBD1A919F61005ED">Understand how to configure and create
+					your partitioned regions. See <xref format="dita"
+						href="how_partitioning_works.xml#how_partitioning_works" scope="local"
+						type="concept"/> and <xref format="dita"
+						href="managing_partitioned_regions.xml#configure_partitioned_regions"
+						scope="local" type="concept"/>. </li>
+				<li id="li_20F7B873685D40D8A1EAC02AEF311815">(Optional) Understand how to
+					custom-partition your data. See <xref format="dita"
+						href="using_custom_partition_resolvers.xml#custom_partition_region_data"/>. </li>
+				<li id="li_B898017E0CA142D6B28832F6495DB702">(Optional) If you want your co-located
+					regions to be highly available, understand how high availability for partitioned
+					regions works. See <xref href="how_pr_ha_works.xml#how_pr_ha_works"
+						type="concept" format="dita" scope="local"/>. </li>
+				<li id="li_1A5BA0D0863640BAA49AB42F38432AEE">(Optional) Understand how to persist
+					your region data. See <xref format="dita"
+						href="../storing_data_on_disk/storing_data_on_disk.xml#storing_data_on_disk"
+						scope="local" type="concept"/>. </li>
+			</ul>
+			<p>
+				<b>Procedure</b>
+				<ol id="ol_980A2F3D8B6C4B1FB16AB71B766688D2">
+					<li id="li_72CDAFE07114418CBD71F4303EE8F67C">Identify one region as the central
+						region, with which data in the other regions is explicitly co-located. If
+						you use persistence for any of the regions, you must persist the central
+						region. <ol id="ol_dd0e5188-ecdd-40d0-8e20-90da7e205777">
+							<li id="li_5D47FEE5CD974573879A4E5F5F1837F9">Create the central region
+								before you create the others, either in the cache.xml or your code.
+								Regions in the XML are created before regions in the code, so if you
+								create any of your co-located regions in the XML, you must create
+								the central region in the XML before the others. <keyword
+									keyref="product_name"/> will verify its existence when the
+								others are created and return <codeph>IllegalStateException</codeph>
+								if the central region is not there. Do not add any collocation
+								specifications to this central region. </li>
+							<li id="li_8C9E1AC68B8940F9BB4C82DC03039288">For all other regions, in
+								the region partition attributes, provide the central region's name
+								in the <codeph>colocated-with</codeph> attribute. Use one of these
+								methods: <ul id="ul_3CC8C42477CB49DC8818546602A6C8F9">
+									<li id="li_0DDD96FE1DED480D8C3D6911AD49409F">XML:
+										<codeblock outputclass="language-xml">&lt;cache&gt; 
+    &lt;region name="trades"&gt; 
+        &lt;region-attributes&gt; 
+            &lt;partition-attributes&gt;  
+                ...
+            &lt;partition-attributes&gt; 
+        &lt;/region-attributes&gt; 
+    &lt;/region&gt; 
+    &lt;region name="trade_history"&gt; 
+        &lt;region-attributes&gt; 
+            &lt;partition-attributes colocated-with="trades"&gt;   
+                ...
+            &lt;partition-attributes&gt; 
+        &lt;/region-attributes&gt; 
+    &lt;/region&gt; 
+&lt;/cache&gt; </codeblock>
+									</li>
+									<li id="li_A1BEC28ED6A641B18D9991806CB0BD7C">Java:
+										<codeblock outputclass="language-java">PartitionAttributes attrs = ...
+Region trades = new RegionFactory().setPartitionAttributes(attrs).create("trades");
+...
+attrs = new PartitionAttributesFactory().setColocatedWith(trades.getFullPath()).create();
+Region trade_history = new RegionFactory().setPartitionAttributes(attrs).create("trade_history");</codeblock></li>
+									<li>gfsh:<codeblock outputclass="language-bourne">gfsh>create region --name="trades" type=PARTITION
+gfsh> create region --name="trade_history" --colocated-with="trades"</codeblock>
+									</li>
+								</ul>
+							</li>
+						</ol>
+					</li>
+					<li id="li_078723B5E28F4FB6A02FB0E8D0E90B61">For each of the co-located regions,
+						use the same values for these partition attributes related to bucket
+						management: <ul id="ul_E0614A9F60464CE4AA13630213B8B4CA">
+							<li id="li_A339610DF2DC4D049FF8777460CDA762"
+									><codeph>recovery-delay</codeph>
+							</li>
+							<li id="li_A4C1A4B56320489DB7BBD92D7BF6685A"
+									><codeph>redundant-copies</codeph>
+							</li>
+							<li id="li_F7244974B6804F499E30760FF4109076"
+									><codeph>startup-recovery-delay</codeph>
+							</li>
+							<li id="li_91182251D6774F6BB42B2AA33C4C52F1"
+									><codeph>total-num-buckets</codeph>
+							</li>
+						</ul>
+					</li>
+					<li id="li_58CB2A742BBE4DF1A0D70A6372F8731C">If you custom partition your region
+						data, provide the same custom resolver to all co-located regions: <ul
+							id="ul_91c1fd66-335f-43a7-85f2-176ede668960">
+							<li id="li_50FADEEBB1A0469084BF691D4A78C0DA">XML:
+								<codeblock outputclass="language-xml">&lt;cache&gt; 
+    &lt;region name="trades"&gt; 
+        &lt;region-attributes&gt; 
+            &lt;partition-attributes&gt;  
+<b>            &lt;partition-resolver name="TradesPartitionResolver"&gt; 
+                &lt;class-name&gt;myPackage.TradesPartitionResolver
+                &lt;/class-name&gt;
+</b>            &lt;partition-attributes&gt; 
+        &lt;/region-attributes&gt; 
+    &lt;/region&gt; 
+    &lt;region name="trade_history"&gt; 
+        &lt;region-attributes&gt; 
+            &lt;partition-attributes colocated-with="trades"&gt;   
+<b>            &lt;partition-resolver name="TradesPartitionResolver"&gt; 
+                &lt;class-name&gt;myPackage.TradesPartitionResolver
+                &lt;/class-name&gt;
+</b>            &lt;partition-attributes&gt; 
+        &lt;/region-attributes&gt; 
+    &lt;/region&gt; 
+&lt;/cache&gt; </codeblock>
+							</li>
+							<li id="li_9E55A70D1E834B5393DF710E7212B251">Java:
+								<codeblock outputclass="language-java"><b>PartitionResolver resolver = new TradesPartitionResolver();</b>
+<b>PartitionAttributes attrs = 
+	new PartitionAttributesFactory()
+	.setPartitionResolver(resolver).create();</b>
+Region trades = new RegionFactory().setPartitionAttributes(attrs).create("trades");
+attrs = new PartitionAttributesFactory()
+    .setColocatedWith(trades.getFullPath())<b>.setPartitionResolver(resolver)</b>.create();
+Region trade_history = new RegionFactory().setPartitionAttributes(attrs).create("trade_history");</codeblock>
+							</li>
+							<li>gfsh:<p>You cannot specify a partition resolver using gfsh.
+								</p></li>
+						</ul>
+					</li>
+					<li id="li_D242215F6E6A403BA1B2064DBB5A3A3B">If you want to persist data in the
+						co-located regions, persist the central region and then persist the other
+						regions as needed. Use the same disk store for all of the co-located regions
+						that you persist. </li>
+				</ol>
+			</p>
+		</section>
+	</conbody>
+</concept>

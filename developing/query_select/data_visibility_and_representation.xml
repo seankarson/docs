@@ -1,0 +1,285 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "http://docs.oasis-open.org/dita/v1.1/OS/dtd/concept.dtd">
+<concept id="data_visibility_and_representation"> 
+  <title>Cache Data Visibility and Representation</title> 
+  <prolog audience="basic"> 
+  </prolog> 
+  <conbody> 
+	 <section id="section_5F13C55AE61441ECAF8C227CF656565B"> 
+		<p>This topic covers how your data becomes available to your SELECT
+		  statement and its representation in the querying language.
+		</p> 
+	 </section> 
+	 <section id="section_909C0A7BDB944B26BB259022F7AD2153"> 
+		<title>Data Visibility in a <ph conref="../../product_short_name.xml#ditacomponent_4CDD0B39CDD54D2AAF1CBC81A1FDBA19/ph_2E41EB9BE730428A970C1C206D14DC09"><?xm-replace_text Phrase?></ph> Cache Query</title> 
+		<p>In <ph conref="../../product_short_name.xml#ditacomponent_4CDD0B39CDD54D2AAF1CBC81A1FDBA19/ph_2E41EB9BE730428A970C1C206D14DC09"><?xm-replace_text Phrase?></ph> cache querying, before a query is run, the only cached data
+		  that is directly accessible, or in scope, are regions, region objects, and
+		  region methods. Each FROM expression evaluation brings new data into the query
+		  scope. 
+		</p> 
+		<p>When a region or one of its objects or methods is referenced, the data
+		  returned by the reference comes into scope and can itself be referenced. For
+		  example, the region 
+		  <codeph>/portfolio</codeph> keys and entries can be brought into scope
+		  by referencing 
+		  <codeph>/portfolios.keySet</codeph> and 
+		  <codeph>/portfolios.entrySet</codeph> in the FROM clause. These
+		  evaluate, respectively, to the collection of region keys and the collection of
+		  region 
+		  <codeph>Entry</codeph> objects. The expression, 
+		  <codeph>/portfolios</codeph>, evaluates by default to 
+		  <codeph>/portfolios.values</codeph> , the collection of region entry
+		  values. 
+		</p> 
+		<p>These figures show the 
+		  <codeph>/portfolios</codeph> data that is accessible as each part of a
+		  cache query is evaluated. For each figure, the part of the query that has been
+		  evaluated is in 
+		  <b>bold</b>. 
+		</p> 
+		<p>Data in scope before the query is run. Note that the region fields and
+		  methods are visible:
+		</p> 
+		<p> 
+		  <image href="../../common/images/Querying-4.gif"
+			id="image_C269AF8E69D44144AF6575997F41B5FC" placement="break"/> 
+		</p> 
+		<p>Data in scope after the first FROM expression is evaluated: 
+		</p> 
+		<p> 
+		  <image href="../../common/images/Querying-5.gif"
+			id="image_F4505B52070244FDADA015E7BB2BE421" placement="break"/> 
+		</p> 
+		<p>Data in scope after the second FROM expression is evaluated: 
+		</p> 
+		<p> 
+		  <image href="../../common/images/Querying-6.gif"
+			id="image_511EC9777EEF4889857970E8DB22D6C5" placement="break"/> 
+		</p> 
+	 </section> 
+	 <section id="section_E1C6C62438DF4F41BE6CF23BD9945BBB"> 
+		<title>Region Object Representation</title> 
+		<p>When a region name evaluates to a 
+		  <codeph>Region</codeph> in a query, it refers to an object of the class
+		  
+		  <codeph>QRegion</codeph>: 
+		  <codeblock>class QRegion 
+extends com.gemstone.gemfire.cache.Region, java.util.Collection { 
+}</codeblock>The class inherits all the attributes and methods from 
+		  <codeph>Region</codeph> and 
+		  <codeph>Collection</codeph>. 
+		  <codeph>QRegion</codeph> contains a reference to the 
+		  <codeph>Region</codeph> object and implements all the methods of the 
+		  <codeph>Region</codeph> interface. It delegates the invocation of the 
+		  <codeph>Region</codeph> methods to the underlying 
+		  <codeph>Region</codeph> object. Some of the operations on 
+		  <codeph>QRegion</codeph> may throw 
+		  <codeph>UnsupportedOperationException</codeph> if they modify data.
+		  When used as a 
+		  <codeph>Collection</codeph>, the collection elements are the values
+		  stored in the region. 
+		</p> 
+		<p>So your query can use a region either as a collection of its values or
+		  as the actual region. The specific use in any instance depends on context. 
+		</p> 
+		<p>For example, in this query 
+		  <codeph>/portfolios</codeph> is used as the 
+		  <codeph>Collection</codeph> of portfolios in the region when it refers
+		  to 
+		  <codeph>positions</codeph>. 
+		  <codeblock>SELECT DISTINCT positions FROM /portfolios</codeblock>The same specification refers to the 
+		  <codeph>Region</codeph> and therefore can be used to access attributes
+		  like 
+		  <codeph>keySet</codeph> that a 
+		  <codeph>Region</codeph> understands, as in this query: 
+		  <codeblock>SELECT DISTINCT * FROM /portfolios.keySet</codeblock>
+		</p> 
+	 </section> 
+	 <section id="section_F2B4D16D22CB4BDB8E175512D4B82D9A"> 
+		<title>Data Visible in a Region</title> 
+		<p>The query engine resolves names according to the name space that is
+		  currently in scope in the query. 
+		  <note>Here, scope is not the region 
+			 <codeph>scope</codeph> attribute, but the scope of the query
+			 statement.
+		  </note>The initial name space for any query is composed of: 
+		<ul id="ul_5D109BAF80D54DCD89E82DC8C4AFDD53"> 
+		  <li id="li_26D854D75A9A49988356368A2F74D7FF">Regions
+			 <p>In the context of a query, the name of a region is specified by
+				its name preceded by a forward slash ( / ). 
+			 </p>
+		  </li> 
+		  <li id="li_657233EE33E7428CAAD3CF6C61867C59">Region querying attributes
+			 
+			 <p>From a region, you can access the 
+				<codeph>Region</codeph> object’s public fields and methods,
+				referred to in querying as the region’s attributes. For example, 
+				<codeph>/portfolios.name</codeph> returns
+				"<codeph>portfolios</codeph>" and 
+				<codeph>/portfolios.name.length</codeph> returns 10. 
+			 </p>
+			 <p id="query_attribute_resolution">The query engine maps the
+				attribute 
+				<codeph>x</codeph> to a Java class member in this order until a
+				match is found or the options are exhausted: 
+			 <ol id="ol_7EED722152CB4B24B1622165836ADF9D"> 
+				<li id="li_A7A6575457E347FFA24197FCC88CC262"> 
+				  <codeph>public method getX()</codeph> 
+				</li> 
+				<li id="li_F07B3D2BD49B4B6EAC6FE9E14DAE67B4"> 
+				  <codeph>public method x()</codeph> 
+				</li> 
+				<li id="li_4F3EEBF778FC4C1A81DE2F0D4EA6D855"> 
+				  <codeph>public field x</codeph> 
+				</li> 
+			 </ol>
+			 </p>
+			 <note>The term attribute in this context is not the same as a region
+				attribute.
+			 </note>
+		  </li> 
+		  <li id="li_0CB2B288D6954D10A795C236902FE5B8">Top-level region data 
+			 <p>You can access entry keys and entry data through the region. For
+				example: 
+			 <ul id="ul_C3B96466DFC94792A7CC2CA84FDE8597"> 
+				<li
+				 id="li_113AD1911E2C4935B768AA86939264F1"><codeph>portfolios.keySet</codeph>
+				  returns the 
+				  <codeph>Set</codeph> of entry keys in the region 
+				</li> 
+				<li
+				 id="li_AFECB64FEA0B4D7CB75AFFFFBCB6FEE3"><codeph>/portfolios.entrySet</codeph>
+				  returns the 
+				  <codeph>Set</codeph> of 
+				  <codeph>Region.Entry</codeph> objects 
+				</li> 
+				<li
+				 id="li_CE4B671C3F974177AB64926C58313969"><codeph>/portfolios.values</codeph>
+				  returns the 
+				  <codeph>Collection</codeph> of entry values 
+				</li> 
+				<li
+				 id="li_66B5D667DB10439A9B9F934D7DA9D438"><codeph>/portfolios</codeph> returns
+				  the 
+				  <codeph>Collection</codeph> of entry values
+				</li> 
+			 </ul>
+			 <note>The expresssions in the last two bullets return the same thing.
+			 </note>
+			 </p>
+		  </li> 
+		</ul>
+		</p> 
+	 </section> 
+	 <section id="section_E0572BA2EBDE42619C0A0843986A704D"> 
+		<title>Drilling Down to Your Data</title> 
+		<p>New name spaces are brought into scope based on the FROM clause in the
+		  SELECT statement. In this query, for example, the FROM expression evaluates to
+		  the 
+		  <codeph>Collection</codeph> of entry values in 
+		  <codeph>/portfolios</codeph>. The attributes of the values are added to
+		  the initial scope of the query and 
+		  <codeph>status</codeph> is resolved within the new scope. 
+		  <codeblock>SELECT DISTINCT * FROM /portfolios 
+    WHERE status = 'active'</codeblock>Each FROM clause expression must resolve to a collection of
+		  objects. The collection is available for iteration in the query expressions
+		  that follow. In the example above, the entry value collection is iterated by
+		  the WHERE clause, comparing the 
+		  <codeph>status</codeph> field to the string ‘active’. When a match is
+		  found, the value object is added to the return set. 
+		</p> 
+		<p>In this query, the collection specified in the first FROM clause
+		  expression is used by the rest of the SELECT statement, including the second
+		  FROM clause expression. 
+		  <codeblock>IMPORT cacheRunner.Position; 
+SELECT DISTINCT "type" FROM /portfolios, positions.values posnVal TYPE Position 
+    WHERE posnVal.qty &gt; 1000.00</codeblock>
+		  <note>You could not change the order of the expressions in this FROM
+			 clause; the second expression depends on the scope created by the first
+			 expression.
+		  </note>
+		</p> 
+	 </section> 
+	 <section id="section_F06B0E2F624B426A967E7AA5EE3DCD83"> 
+		<title>Attribute Visibility</title> 
+		<p>You can access any object or object attribute that is available in the
+		  current scope of a query. In querying, an object’s attribute is any identifier
+		  that can be mapped to a public field or method in the object. In the FROM
+		  specification, any object that is in scope is valid, so at the beginning of a
+		  query, all locally cached regions and their attributes are in scope. This query
+		  is valid because 
+		  <codeph>name</codeph> resolves to the 
+		  <codeph>Region</codeph> method 
+		  <codeph>getName</codeph>. 
+		  <codeblock>/portfolios.name </codeblock>This query is valid because 
+		  <codeph>toArray</codeph> resolves to the 
+		  <codeph>Collection</codeph> method with the same name. 
+		  <codeblock>SELECT DISTINCT * FROM /portfolios.toArray</codeblock>You cannot refer to the attribute of a collection object in the
+		  region expression where the collection itself is specified. The following
+		  statement is invalid because neither 
+		  <codeph>Collection</codeph> nor 
+		  <codeph>Region</codeph> contain an attribute named 
+		  <codeph>positions</codeph>. The entry values collection (specified by 
+		  <codeph>/portfolios</codeph>) that does contain an attribute named 
+		  <codeph>positions</codeph> is not yet part of the query name space. 
+		  <codeblock>/* INCORRECT: positions is not a querying attribute of Region or of Collection */ 
+SELECT DISTINCT * FROM /portfolios.positions</codeblock>This next SELECT statement is valid because positions is an element
+		  of the entry value collection that is specified by 
+		  <codeph>/portfolios</codeph>. The entry value collection is in scope as
+		  soon as the specification in the FROM expression is complete (before WHERE or
+		  SELECT are evaluated). 
+		  <codeblock>SELECT DISTINCT positions FROM /portfolios</codeblock>You can also refer to positions inside the FROM clause after the 
+		  <codeph>/portfolios</codeph> entry value collection is created. In this
+		  example, 
+		  <codeph>positions</codeph> is an element of the 
+		  <codeph>/portfolios</codeph> entry value collection and 
+		  <codeph>values</codeph> is an attribute of 
+		  <codeph>positions</codeph>: 
+		  <codeblock>IMPORT cacheRunner.Position; 
+SELECT DISTINCT posnVal FROM /portfolios, positions.values posnVal TYPE Position 
+    WHERE posnVal.mktValue &gt;= 25.00</codeblock>After the comma in the FROM clause, 
+		  <codeph>/portfolios</codeph> is in scope, so its value collection can
+		  be iterated. In this case, this is done with the second FROM clause
+		  specification, 
+		  <codeph>positions.values</codeph>. 
+		</p> 
+	 </section> 
+	 <section id="section_9116396F28A149C0A4DA5AAD1BB11E7E"> 
+		<title>Nested Query Scopes</title> 
+		<p>Scopes can be nested using nested SELECT statements. Names in an inner
+		  scope hide identical names in an outer scope. 
+		</p> 
+		<p>In this example query, there is one SELECT statement nested inside
+		  another. The inner select is in 
+		  <b>bold</b>. 
+		  <codeblock>IMPORT cacheRunner.Position; 
+SELECT DISTINCT * FROM /portfolios 
+    WHERE NOT 
+    (<b>SELECT DISTINCT * FROM positions.values TYPE Position 
+    WHERE secId='YYY'</b>).isEmpty</codeblock>
+		</p> 
+		<p>The inner SELECT creates a new scope, the positions of the current
+		  portfolio, inside the outer SELECT’s scope, 
+		  <codeph>/portfolios</codeph>. 
+		<ul id="ul_8AE6EBD96CEB406CA71B362673B1D3F5"> 
+		  <li id="li_808514F1D55040E8887AB056C70792B2">The outer scope has all
+			 the attributes of a 
+			 <codeph>Portfolio</codeph> in it.
+		  </li> 
+		  <li id="li_32106A13AB9F437B809B22C197387D78">The inner scope has all
+			 the attributes of a 
+			 <codeph>Portfolio</codeph> in it (inherited from the outer scope) and
+			 all the attributes of a 
+			 <codeph>Position</codeph> as well.
+		  </li> 
+		  <li id="li_6C39827B09704D888E422081CE15D046">The inner scope is first
+			 searched for the 
+			 <codeph>secId</codeph> element. The outer scope is searched only if
+			 the 
+			 <codeph>secId</codeph> element is not found in the inner scope. 
+		  </li> 
+		</ul>
+		</p> 
+	 </section> 
+  </conbody> 
+</concept> 

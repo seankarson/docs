@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "http://docs.oasis-open.org/dita/v1.1/OS/dtd/concept.dtd">
+<concept id="data_serialization_options">
+	<title>Overview of Data Serialization</title>
+	<shortdesc id="shortdesc_B315384FD8CC40C78437E06A0A891C98"><keyword keyref="product_name"/>
+		offers serialization options other than Java serialization that give you higher performance
+		and greater flexibility for data storage, transfers, and language types. </shortdesc>
+	<conbody>
+		<section id="section_B1BDB0E7F6814DFD8BACD8D8C5CAA81B">
+			<p>All data that <keyword keyref="product_name"/> moves out of the local cache must be
+				serializable. However, you do not necessarily need to implement
+					<codeph>java.io.Serializable</codeph> since other serialization options are
+				available in <keyword keyref="product_name"/>. Region data that must be serializable
+				falls under the following categories: <ul id="ul_1B2432F8ED5E49A19AF266A3D54D2BAA">
+					<li id="li_8F45E360EE8445AE804308790AAEE999">Partitioned regions</li>
+					<li id="li_E20EBDA3144B4921BF441CA6F0E5E2E1">Distributed regions</li>
+					<li id="li_ADFA439FF8DD4EF9961CA9BE739F04D7">Regions that are persisted or
+						overflowed to disk</li>
+					<li id="li_FCE5B47DB8664523BE61E10E965D3684">Server or client regions in a
+						client/server installation</li>
+					<li id="li_77704A3DB1694D11AA36974B74F32648">Regions that receive events from
+						remote caches</li>
+					<li id="li_708BF1FE94954C01803069126D3D7E69">Regions that provide function
+						arguments and results</li>
+				</ul>
+			</p>
+			<p>
+				<note>If you are storing objects with the <xref
+						href="../../tools_modules/http_session_mgmt/chapter_overview.xml#http_ses_mgmt_mod"
+						>HTTP Session Management Modules</xref>, these objects must be serializable
+					since they are serialized before being stored in the region.</note>
+			</p>
+			<p>To minimize the cost of serialization and deserialization, <keyword
+					keyref="product_name"/> avoids changing the data format whenever possible. This
+				means your data might be stored in the cache in serialized or deserialized form,
+				depending on how you use it. For example, if a server acts only as a storage
+				location for data distribution between clients, it makes sense to leave the data in
+				serialized form, ready to be transmitted to clients that request it. Partitioned
+				region data is always initially stored in serialized form. </p>
+		</section>
+		<section id="section_691C2CF5A4E24D599070A7AADEDF2BEC">
+			<title>Data Serialization Options</title>
+		</section>
+		<section id="section_44CC2DEEDA0F41D49D416ABA921A6436">
+			<p>With <keyword keyref="product_name"/>, you have the option to serialize your domain
+				objects automatically or to implement serialization using one of <keyword keyref="product_name"/>'s
+				interfaces. Enabling automatic serialization means that domain objects are
+				serialized and deserialized without your having to make any code changes to those
+				objects. This automatic serialization is performed by registering your domain
+				objects with a custom <codeph>PdxSerializer</codeph> called the
+					<codeph>ReflectionBasedAutoSerializer</codeph>, which uses Java reflection to
+				infer which fields to serialize. </p>
+			<p>If autoserialization does not meet your needs, you can serialize your objects by
+				implementing one of the <keyword keyref="product_name"/> interfaces,
+					<codeph>PdxSerializable</codeph> or <codeph>DataSerializable</codeph>. You can
+				use these interfaces to replace any standard Java data serialization for better
+				performance. If you cannot or do not want to modify your domain classes, each
+				interface has an alternate serializer class, <codeph>PdxSerializer</codeph> and
+					<codeph>DataSerializer</codeph>. To use these, you create your custom serializer
+				class and then associate it with your domain class in the <keyword keyref="product_name"/> cache
+				configuration. </p>
+			<p><keyword keyref="product_name"/> Data serialization is about 25% faster than PDX
+				serialization, however using PDX serialization will help you to avoid the even
+				larger costs of performing deserialization. </p>
+		</section>
+		<section id="section_993B4A298874459BB4A8A0A9811854D9">
+			<table id="table_ccf00c9f-9b98-47f7-ab30-3d23ecaff0a1">
+				<title>Serialization Options: Comparison of Features</title>
+				<tgroup cols="3">
+					<colspec colname="1" colnum="1" colwidth="2.75*"/>
+					<colspec colname="2" colnum="2" colwidth="1.00*"/>
+					<colspec colname="3" colnum="3" colwidth="1.10*"/>
+					<colspec colname="4" colnum="4" colwidth="1.05*"/>
+					<thead>
+						<row>
+							<entry>Capability </entry>
+							<entry><keyword keyref="product_name"/> Data Serializable </entry>
+							<entry><keyword keyref="product_name"/> PDX Serializable </entry>
+						</row>
+					</thead>
+					<tbody>
+						<row>
+							<entry>Implements Java Serializable. </entry>
+							<entry>X </entry>
+							<entry/>
+						</row>
+						<row>
+							<entry>Handles multiple versions of application domain objects,
+								providing the versions differ by the addition or subtraction of
+								fields. </entry>
+							<entry/>
+							<entry>X </entry>
+						</row>
+						<row>
+							<entry>Provides single field access of serialized data, without full
+								deserialization - supported also for OQL querying. </entry>
+							<entry/>
+							<entry>X </entry>
+						</row>
+						<row>
+							<entry>Automatically ported to other languages by <keyword
+									keyref="product_name"/>
+							</entry>
+							<entry/>
+							<entry>X </entry>
+						</row>
+						<row>
+							<entry>Works with .NET clients. </entry>
+							<entry>X </entry>
+							<entry>X </entry>
+						</row>
+						<row>
+							<entry>Works with <keyword keyref="product_name"/> delta propagation. </entry>
+							<entry>X </entry>
+							<entry>X (See note below.) </entry>
+						</row>
+					</tbody>
+				</tgroup>
+			</table>
+			<p>
+				<note>By default, you can use <keyword keyref="product_name"/> delta propagation
+					with PDX serialization. However, delta propagation will not work if you have set
+					the <keyword keyref="product_name"/> property <codeph>read-serialized</codeph>
+					to "true". In terms of deserialization, to apply a change delta propagation
+					requires a domain class instance and the <codeph>fromDelta </codeph>method. If
+					you have set <codeph>read-serialized</codeph> to true, then you will receive a
+						<codeph>PdxInstance</codeph> instead of a domain class instance and
+						<codeph>PdxInstance</codeph> does not have the <codeph>fromDelta</codeph>
+					method required for delta propagation. </note>
+			</p>
+		</section>
+		<section id="section_D90C2C09B95C40B6803CF202CF8008BF">
+			<title>Differences between <keyword keyref="product_name"/> Serialization (PDX or Data
+				Serializable) and Java Serialization</title>
+			<p><keyword keyref="product_name"/> serialization (either PDX Serialization or Data
+				Serialization) does not support circular object graphs whereas Java serialization
+				does. In <keyword keyref="product_name"/> serialization, if the same object is
+				referenced more than once in an object graph, the object is serialized for each
+				reference, and deserialization produces multiple copies of the object. By contrast
+				in this situation, Java serialization serializes the object once and when
+				deserializing the object, it produces one instance of the object with multiple
+				references. </p>
+		</section>
+	</conbody>
+</concept>

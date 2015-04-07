@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "http://docs.oasis-open.org/dita/v1.1/OS/dtd/concept.dtd">
+<concept id="multicast">
+	<title>Testing Multicast Speed Limits</title>
+	<shortdesc>TCP automatically adjusts its speed to the capability of the processes using it and
+		enforces bandwidth sharing so that every process gets a turn. With multicast, you must
+		determine and explicitly set those limits. </shortdesc>
+
+	<conbody>
+		<section id="section_AB06591284DB4E9785EE79FBE1C59554">
+			<p>Without the proper configuration, multicast delivers its traffic as fast as possible,
+				overrunning the ability of consumers to process the data and locking out other
+				processes that are waiting for the bandwidth. You can tune your multicast and
+				unicast behavior using mcast-flow-control in <codeph>gemfire.properties</codeph>. </p>
+			<p><b>Using Iperf</b>
+			</p>
+			<p>Iperf is an open-source TCP/UDP performance tool that you can use to find your site’s
+				maximum rate for data distribution over multicast. Iperf can be downloaded from web
+				sites such as the National Laboratory for Applied Network Research (NLANR). </p>
+			<p>Iperf measures maximum bandwidth, allowing you to tune parameters and UDP
+				characteristics. Iperf reports statistics on bandwidth, delay jitter, and datagram
+				loss. On Linux, you can redirect this output to a file; on Windows, use the -o
+				filename parameter. </p>
+			<p>Run each test for ten minutes to make sure any potential problems have a chance to
+				develop. Use the following command lines to start the sender and receivers. </p>
+			<p><b>Sender</b>: </p>
+			<p>
+				<codeblock>iperf -c 224.0.166.111 -u -T 1 -t 100 -i 1 -b 1000000000</codeblock>
+			</p>
+			<p>where: </p>
+			<p>
+				<table id="table_0E8CAF5CF6E04634AADF98D9CFEE41B5">
+					<tgroup cols="2">
+						<colspec colnum="1" colname="col1" colwidth="*"/>
+						<colspec colnum="2" colname="col2" colwidth="*"/>
+						<tbody>
+							<row>
+								<entry colname="col1">-c address </entry>
+								<entry colname="col2">
+									<p>Run in client mode and connect to a multicast address </p>
+								</entry>
+							</row>
+							<row>
+								<entry colname="col1">-u </entry>
+								<entry colname="col2">
+									<p>Use UDP </p>
+								</entry>
+							</row>
+							<row>
+								<entry colname="col1">-T # </entry>
+								<entry colname="col2">
+									<p> Multicast time-to-live: number of subnets across which a
+										multicast packet can travel before the routers drop the
+										packet </p>
+								</entry>
+							</row>
+						</tbody>
+					</tgroup>
+				</table>
+			</p>
+			<p> </p>
+			<p>
+				<note>Do not set the -T parameter above 1 without consulting your network
+					administrator. If this number is too high then the iperf traffic could interfere
+					with production applications or continue out onto the internet. </note>
+			</p>
+			<p> </p>
+			<p>
+				<table id="table_3">
+					<tgroup cols="2">
+						<colspec colnum="1" colname="col1" colwidth="*"/>
+						<colspec colnum="2" colname="col2" colwidth="*"/>
+						<tbody>
+							<row>
+								<entry colname="col1">-t </entry>
+								<entry colname="col2">
+									<p>Length of time to transmit, in seconds </p>
+								</entry>
+							</row>
+							<row>
+								<entry colname="col1">-i </entry>
+								<entry colname="col2">
+									<p>Time between periodic bandwidth reports, in seconds </p>
+								</entry>
+							</row>
+							<row>
+								<entry colname="col1">-b </entry>
+								<entry colname="col2">Sending bandwidth, in bits per second </entry>
+							</row>
+						</tbody>
+					</tgroup>
+				</table>
+			</p>
+			<p><b>Receiver</b>: </p>
+			<p>
+				<codeblock>iperf -s -u -B 224.0.166.111 -i 1</codeblock>
+			</p>
+			<p>where: </p>
+			<p>
+				<table id="table_14B510A78B0341378D650B3C9BD8111C">
+					<tgroup cols="2">
+						<colspec colnum="1" colname="col1" colwidth="*"/>
+						<colspec colnum="2" colname="col2" colwidth="*"/>
+						<tbody>
+							<row>
+								<entry colname="col1">
+									<p>-s </p>
+								</entry>
+								<entry colname="col2">
+									<p>Run in server mode </p>
+								</entry>
+							</row>
+							<row>
+								<entry colname="col1">
+									<p>-u </p>
+								</entry>
+								<entry colname="col2">
+									<p>Use UDP </p>
+								</entry>
+							</row>
+							<row>
+								<entry colname="col1">
+									<p>-B address </p>
+								</entry>
+								<entry colname="col2">
+									<p>Bind to a multicast address </p>
+								</entry>
+							</row>
+							<row>
+								<entry colname="col1">-i # </entry>
+								<entry colname="col2">Time between periodic bandwidth reports, in
+									seconds </entry>
+							</row>
+						</tbody>
+					</tgroup>
+				</table>
+			</p>
+			<p> </p>
+			<p>
+				<note>If your <keyword keyref="product_name"/> distributed system runs across several subnets, start a
+					receiver on each subnet. </note>
+			</p>
+			<p>In the receiver’s output, look at the Lost/Total Datagrams columns for the number and
+				percentage of lost packets out of the total sent. </p>
+			<p><b>Output From Iperf Testing</b>: </p>
+			<p>
+				<codeblock>[	ID] Interval	 Transfer	 Bandwidth	 Jitter	 Lost/Total Datagrams
+[	 3]	0.0- 1.0 sec	 129 KBytes	 1.0 Mbits/sec	0.778 ms	 61/	151 (40%)
+[	 3]	1.0- 2.0 sec	 128 KBytes	 1.0 Mbits/sec	0.236 ms	 0/	 89 (0%)
+[	 3]	2.0- 3.0 sec	 128 KBytes	 1.0 Mbits/sec	0.264 ms	 0/	 89 (0%)
+[	 3]	3.0- 4.0 sec	 128 KBytes	 1.0 Mbits/sec	0.248 ms	 0/	 89 (0%)
+[	 3]	0.0- 4.3 sec	 554 KBytes	 1.0 Mbits/sec	0.298 ms	 61/	447 (14%)</codeblock>
+			</p>
+			<p>Rerun the test at different bandwidths until you find the maximum useful multicast
+				rate. Start high, then gradually decrease the send rate until the test runs
+				consistently with no packet loss. For example, you might need to run five tests in a
+				row, changing the -b (bits per second) parameter each time until there is no loss:
+					<ol id="ol_E417703DB84542C5B84936BB620396B8">
+					<li id="li_C12B66182E7348AEAE47C6F80C09F717">-b 1000000000 (loss) </li>
+					<li id="li_145826C75D4F4C258125966DA7FC447D">-b 900000000 (no loss) </li>
+					<li id="li_6F1D7893311B405485D4ACA7E7A5D0EC">-b 950000000 (no loss) </li>
+					<li id="li_FBFDDA4AAF9C492F9B1273F25FA9EC4A">-b 980000000 (a bit of loss) </li>
+					<li id="li_2B4F523634144B27BD4A6E9C4A3687B2">-b 960000000 (no loss) </li>
+				</ol>
+			</p>
+			<p>Enter iperf -h to see all of the command-line options. For more information, see the
+				Iperf user manual. </p>
+		</section>
+	</conbody>
+</concept>

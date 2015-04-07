@@ -1,0 +1,265 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "http://docs.oasis-open.org/dita/v1.1/OS/dtd/concept.dtd">
+<concept id="custom_partition_region_data">
+	<title>Custom-Partition Your Region Data</title>
+	<shortdesc id="shortdesc_52F3659150FD4E9199399FEF90B97B15">By default, <keyword
+			keyref="product_name"/> partitions each data entry into a bucket using a hashing policy
+		on the key. Additionally, the physical location of the key-value pair is abstracted away
+		from the application. You can change these policies for a partitioned region. You can
+		provide your own data partitioning resolver and you can additionally specify which members
+		host which data buckets. </shortdesc>
+	<conbody>
+		<section id="section_CF05CE974C9C4AF78430DA55601D2158">
+			<p>
+				<note>If you are co-locating data between regions and custom partitioning the data
+					in the regions, all collocated regions must use the same custom partitioning
+					mechanism. See <xref format="dita"
+						href="colocating_partitioned_region_data.xml#colocating_partitioned_region_data"
+					/>. </note>
+			</p>
+		</section>
+		<section id="section_1D7043815DF24308ABE4C78BFDFEE686">
+			<p>For standard partitioning, you use
+					<codeph>com.gemstone.gemfire.cache.PartitionResolver</codeph>. To implement
+				fixed partitioning, you use
+					<codeph>com.gemstone.gemfire.cache.FixedPartitionResolver</codeph>. </p>
+		</section>
+		<section id="section_5A8D752F02834146A37D9430F1CA32DA">
+			<p>
+				<b>Prerequisites </b>
+				<ul id="ul_AB0B6A80DFF1409980DE9C77815DDCE1">
+					<li id="li_8029CB1B357B459AB31FAF1DA2740351">Create partitioned regions. See
+							<xref format="dita"
+							href="how_partitioning_works.xml#how_partitioning_works" scope="local"
+							type="concept"/> and <xref format="dita"
+							href="managing_partitioned_regions.xml#configure_partitioned_regions"
+							scope="local" type="concept"/>. </li>
+					<li id="li_7743A9D8100D48A1BA4751EB02E5FFF7">Decide whether to use standard
+						custom partitioning or fixed custom partitioning. See <xref scope="local"
+							href="custom_partitioning_and_data_colocation.xml#custom_partitioning_and_data_colocation"
+							type="concept" format="dita"/>. </li>
+					<li id="li_5A89E8283C354492887E053E9B41A16E">If you also want to colocate data
+						from multiple regions, understand how to colocate. See <xref format="dita"
+							href="colocating_partitioned_region_data.xml#colocating_partitioned_region_data"
+						/>. </li>
+				</ul>
+			</p>
+			<p><b>Procedure</b>
+			</p>
+			<ol id="ol_12997A3970664C54A326C973CFB67836">
+				<li id="li_B2AF96CAA8484ECDBA70595B305023E6">Using
+						<codeph>com.gemstone.gemfire.cache.PartitionResolver</codeph> (standard
+					partitioning) or
+						<codeph>com.gemstone.gemfire.cache.FixedPartitionResolver</codeph> (fixed
+					partitioning), implement the standard partitioning resolver or the fixed
+					partitioning resolver in one of the following locations, listed here in the
+					search order used by <keyword keyref="product_name"/>: <ul
+						id="ul_7c905137-61ea-4a52-b896-a5c9df1af8c3">
+						<li id="li_3E21FE53133144638DB8568BA77FC61B"><b>Custom class</b>. You
+							provide this class as the partition resolver to the region creation. </li>
+						<li id="li_BFF3C04E738348378D0FAE0C5EFCECD2"><b>Entry key</b>. You use the
+							implementing key object for every operation on the region entries. </li>
+						<li id="li_BB172BB767904AA9A5C435914781736B"><b>Cache callback argument</b>.
+							This implementation restricts you to using methods that accept a cache
+							callback argument to manage the region entries. For a full list of the
+							methods that take a callback argument, see the <codeph>Region</codeph>
+							Javadocs. Among the methods that you <i>cannot</i> use with cache
+							callback are <codeph>putAll</codeph>, <codeph>getAll</codeph>,
+								<codeph>containsKey</codeph>, and
+								<codeph>getDistributedLock</codeph>. These methods do not work with
+							the <codeph>FunctionService</codeph> execution calls. </li>
+					</ul>
+				</li>
+				<li id="li_2828E372372B43A0BAF64972F0AD2B2B">If you need the resolver's
+						<codeph>getName</codeph> method, program that. </li>
+				<li id="li_9111E67480124410BCACD14D33830E70">Program the resolver's
+						<codeph>getRoutingObject</codeph> method to return the routing object for
+					each entry, based on how you want to group the entries. Give the same routing
+					object to entries you want to group together. <keyword keyref="product_name"/>
+					will place the entries in the same bucket. <p>For example, here is an
+						implementation on a region key object that groups the entries by month and
+						year: </p>
+					<codeblock outputclass="language-java">Public class TradeKey implements PartitionResolver 
+{ 
+    private String tradeID; 
+    private Month month; 
+    private Year year; 
+    public TradingKey(){ } 
+    public TradingKey(Month month, Year year)
+    { 
+        this.month = month; 
+        this.year = year; 
+    } 
+<b>    public Serializable getRoutingObject(EntryOperation opDetails)
+    { 
+        return this.month + this.year; 
+    }</b>
+}</codeblock>
+				</li>
+				<li id="li_644D4B5608D1495FA5DB2317813570EE">For fixed partitioning only, program
+					and configure additional fixed partitioning pieces: <ol id="ol_qxo_ypv_nb">
+						<li id="li_0154B432A1D147DE8E60158D51D72F9B">Set the fixed partition
+							attributes for each member. <p/>These attributes define the data stored
+							for the region by the member and must be different for different
+							members. See
+								<codeph>com.gemstone.gemfire.cache.FixedPartitionAttributes</codeph>
+							for definitions of the attributes. Define each
+								<codeph>partition-name</codeph> in your data host members for the
+							region. For each partition name, in the member you want to host the
+							primary copy, define it with <codeph>is-primary</codeph> set to
+								<codeph>true</codeph>. In every member you want to host the
+							secondary copy, define it with <codeph>is-primary</codeph> set to
+								<codeph>false</codeph> (the default). The number of secondaries must
+							match the number of redundant copies you have defined for the region.
+							See <xref format="dita"
+								href="configuring_ha_for_pr.xml#configuring_pr_redundancy"/>.
+								<note>Buckets for a partition are hosted only by the members that
+								have defined the partition name in their
+									<codeph>FixedPartitionAttributes</codeph>. </note>
+							<p>These examples set the partition attributes for a member to be the
+								primary host for the "Q1" partition data and a secondary host for
+								"Q3" partition data. </p><ul id="ul_a5y_w5c_np">
+								<li>XML:<codeblock outputclass="language-xml">&lt;cache&gt;
+   &lt;region name="Trades"&gt;
+      &lt;region-attributes&gt;
+         &lt;partition-attributes redundant-copies="1"&gt;
+           &lt;partition-resolver name="QuarterFixedPartitionResolver"&gt;
+              &lt;class-name>myPackage.QuarterFixedPartitionResolver&lt;/class-name>
+           &lt;/partition-resolver>
+           &lt;fixed-partition-attributes partition-name="Q1" is-primary="true"/&gt;
+           &lt;fixed-partition-attributes partition-name="Q3" is-primary="false" num-buckets="6"/&gt;
+         &lt;/partition-attributes&gt; 
+      &lt;/region-attributes&gt;
+   &lt;/region&gt;
+&lt;/cache&gt;</codeblock></li>
+								<li>Java:<codeblock outputclass="language-java">FixedPartitionAttribute fpa1 = FixedPartitionAttributes.createFixedPartition("Q1", true);
+FixedPartitionAttribute fpa3 = FixedPartitionAttributes.createFixedPartition("Q3", false, 6);
+
+PartitionAttributesFactory paf = new PartitionAttributesFactory()
+     .setPartitionResolver(new QuarterFixedPartitionResolver())
+     .setTotalNumBuckets(12)
+     .setRedundantCopies(2)
+     .addFixedPartitionAttribute(fpa1)
+     .addFixedPartitionAttribute(fpa3);
+
+AttributesFactory attrFactory = new AttributesFactory();
+attrFactory.setPartitionAttributes(paf.create());
+
+DistributedSystem system = DistributedSystem.connect(new Properties());
+Cache cache = CacheFactory.create(system);
+Region createRegion = cache.createRegion("Trades", attrFactory.create());
+Region&lt;String, String&gt; region = (PartitionedRegion)createRegion;</codeblock></li>
+								<li>gfsh:<p>You cannot specify a partition resolver using
+									gfsh.</p></li>
+							</ul>
+						</li>
+						<li id="li_4B7BF625985C49E99A4FD65AC969AC4C">Program the
+								<codeph>FixedPartitionResolver</codeph>
+							<codeph>getPartitionName</codeph> method to return the name of the
+							partition for each entry, based on where you want the entries to reside.
+								<keyword keyref="product_name"/> uses
+								<codeph>getPartitionName</codeph> and
+								<codeph>getRoutingObject</codeph> to determine where an entry is
+							placed. <note> To group entries, assign every entry in the group the
+								same routing object and the same partition name. </note>This example
+							places the data based on date, with a different partition name for each
+							quarter-year and a different routing object for each month.
+							<codeblock outputclass="language-java">/**
+ * Returns one of four different partition names
+ * (Q1, Q2, Q3, Q4) depending on the entry's date
+ */
+class QuarterFixedPartitionResolver implements
+    FixedPartitionResolver&lt;String, String&gt; {
+
+  @Override
+  public String getPartitionName(EntryOperation&lt;String, String&gt; opDetails,
+      Set&lt;String&gt; targetPartitions) {
+
+     Date date = (Date)opDetails.getKey();
+     Calendar cal = Calendar.getInstance();
+     cal.setTime(date);
+     int month = cal.get(Calendar.MONTH);
+     if (month &gt;= 0 &amp;&amp; month &lt; 3) {
+        if (targetPartitions.contains("Q1")) return "Q1";
+     }
+     else if (month &gt;= 3 &amp;&amp; month &lt; 6) {
+        if (targetPartitions.contains("Q2")) return "Q2";
+     }
+     else if (month &gt;= 6 &amp;&amp; month &lt; 9) {
+        if (targetPartitions.contains("Q3")) return "Q3";
+     }
+     else if (month &gt;= 9 &amp;&amp; month &lt; 12) {
+        if (targetPartitions.contains("Q4")) return "Q4";
+     }
+     return "Invalid Quarter";
+  }
+
+  @Override
+  public String getName() {
+     return "QuarterFixedPartitionResolver";
+  }
+
+  @Override
+  public Serializable getRoutingObject(EntryOperation&lt;String, String&gt; opDetails) {
+     Date date = (Date)opDetails.getKey();
+     Calendar cal = Calendar.getInstance();
+     cal.setTime(date);
+     int month = cal.get(Calendar.MONTH);
+     return month;
+  }
+
+  @Override
+  public void close() {
+  }
+}</codeblock>
+						</li>
+					</ol>
+				</li>
+				<li id="li_C7D7E11FC28341079852327B1951060B">Configure or program so <keyword
+						keyref="product_name"/> finds your resolver for every operation that you
+					perform on the region's entries. How you do this depends on where you chose to
+					program your custom partitioning implementation (step 1). <ol
+						id="ol_c13139c4-ef4e-4ad6-877b-419d5ec50c79">
+						<li id="li_49EDCF332F6A49B7959C238F9B202CF0"><b>Custom class</b>. Define the
+							class for the region at creation. The resolver will be used for every
+							entry operation. Use one of these methods: <ul
+								id="ul_97fa9698-dcc0-47b2-b2d8-8d9f3b11f4e0">
+								<li id="li_DC5391A942E54CD99FD379AC415913EB">XML:
+									<codeblock outputclass="language-xml">&lt;region name="trades"&gt;
+    &lt;region-attributes&gt;
+        &lt;partition-attributes&gt;
+            &lt;partition-resolver name="TradesPartitionResolver"&gt; 
+                &lt;class-name&gt;myPackage.TradesPartitionResolver
+                &lt;/class-name&gt;
+            &lt;/partition-resolver&gt;
+        &lt;partition-attributes&gt;
+    &lt;/region-attributes&gt;
+&lt;/region&gt;</codeblock>
+								</li>
+								<li id="li_12AEDA0C8511442BA3D844614D99BAF8">Java:
+									<codeblock outputclass="language-java">PartitionResolver resolver = new TradesPartitionResolver();
+PartitionAttributes attrs = 
+	new PartitionAttributesFactory()
+	.setPartitionResolver(resolver).create();
+Region Trades = 
+	new RegionFactory().setPartitionAttributes(attrs).create("trades");</codeblock>
+								</li>
+								<li>gfsh:<p>You cannot specify a partition resolver using
+									gfsh.</p></li>
+							</ul>
+						</li>
+						<li id="li_89C40E9056B341C7976D8BDF93D11AED"><b>Entry key</b>. Use the key
+							object with the resolver implementation for every entry operation. </li>
+						<li id="li_DA36CEE4CC85439D9B78AC82054FE6AC"><b>Cache callback argument</b>.
+							Provide the argument to every call that accesses an entry. This
+							restricts you to calls that take a callback argument. </li>
+					</ol>
+				</li>
+				<li id="li_35438851FCFB45C3AF8E38672CEA9FD4">If your colocated data is in a server
+					system, add the <codeph>PartitionResolver</codeph> implementation class to the
+						<codeph>CLASSPATH</codeph> of your Java clients. The resolver is used for
+					single hop access to partitioned region data in the servers. </li>
+			</ol>
+		</section>
+	</conbody>
+</concept>

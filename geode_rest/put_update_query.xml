@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE topic PUBLIC "-//OASIS//DTD DITA Topic//EN" "topic.dtd">
+<topic
+  id="topic_itv_mg5_m4">
+  <title>PUT /gemfire-api/v1/queries/{queryId}</title>
+  <shortdesc>Update a named, parameterized query. </shortdesc>
+  <body>
+    <section>
+      <title>Resource URL</title>
+      <codeblock>http://&lt;<i>hostname_or_http-service-bind-address</i>>:&lt;<i>http-service-port</i>>/gemfire-api/v1/queries/{queryId}</codeblock>
+    </section>
+    <section>
+      <title>Parameters</title>
+    </section>
+    <simpletable
+      frame="all"
+      relcolwidth="1.0* 1.0* 1.0*"
+      id="simpletable_b4n_3jv_m4">
+      <sthead>
+        <stentry>Parameter</stentry>
+        <stentry>Description</stentry>
+        <stentry>Example Values</stentry>
+      </sthead>
+      <strow>
+        <stentry>q</stentry>
+        <stentry>OQL String </stentry>
+        <stentry>
+          <p>"SELECT DISTINCT from /customers WHERE lastName=$1"</p>
+        </stentry>
+      </strow>
+    </simpletable>
+    <note>For this release, you cannot specify the query string inside the request body (as JSON).
+      You must specify the query as a URL parameter.</note>
+    <section>
+      <title>Example Request</title>
+      <codeblock>PUT /gemfire-api/v1/queries/selectOrders?q="SELECT DISTINCT from /customers where lastName=$1"
+
+Accept: application/json
+Content-Length: &lt;#-of-bytes&gt;
+</codeblock>
+    </section>
+    <section>
+      <title>Example Success Response</title>
+      <codeblock>
+Response Payload:  null
+
+200 OK
+</codeblock>
+    </section>
+    <section>
+      <title>Error Codes</title>
+      <simpletable
+        frame="all"
+        relcolwidth="1.0* 2.39*"
+        id="simpletable_vfq_33v_m4">
+        <sthead>
+          <stentry>Status Code</stentry>
+          <stentry>Description</stentry>
+        </sthead>
+        <strow>
+          <stentry>404 NOT FOUND</stentry>
+          <stentry>Returned if the specified queryId cannot be found.</stentry>
+        </strow>
+        <strow>
+          <stentry>500 INTERNAL SERVER ERROR</stentry>
+          <stentry>Error encountered at <keyword keyref="product_name"/> server. Check the HTTP response body for a stack
+            trace of the exception. </stentry>
+        </strow>
+      </simpletable>
+    </section>
+    <section>
+      <title>Implementation Notes</title>
+      <p>This operation is idempotent, meaning multiple identical requests should have the same
+        effect as the initial request.</p>
+    </section>
+  </body>
+</topic>

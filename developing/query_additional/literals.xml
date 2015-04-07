@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "http://docs.oasis-open.org/dita/v1.1/OS/dtd/concept.dtd">
+<concept id="literals">
+	<title>Supported Literals</title>
+	<conbody>
+		<section id="section_BA2D0AC444EB45088F00D9E2C8A1DD06">
+			<p><keyword keyref="product_name"/> supports the following literal types: <ul
+					id="ul_892A6F901F18489B9930EDD92102C2FD">
+					<li id="li_DA0D690515C4449ABD61F054088B4521"><b>boolean</b>. A boolean value,
+						either TRUE or FALSE </li>
+					<li id="li_847DC7137FF64A2CA34918AAA3418B12"><b>int and long</b>. An integer
+						literal is of type <codeph>long</codeph> if has a suffix of the ASCII letter
+						L. Otherwise it is of type <codeph>int</codeph>. </li>
+					<li id="li_8903C3352DA749BC9DD803A731E4036E"><b>floating point</b>. A
+						floating-point literal is of type <codeph>float</codeph> if it has a suffix
+						of an ASCII letter F. Otherwise its type is <codeph>double</codeph>.
+						Optionally, it can have a suffix of an ASCII letter D. A double or floating
+						point literal can optionally include an exponent suffix of E or e, followed
+						by a signed or unsigned number. </li>
+					<li id="li_AE529ABC2E844799B7351FAB1B7E5524"><b>string</b>. String literals are
+						delimited by single quotation marks. Embedded single-quotation marks are
+						doubled. For example, the character string 'Hello' evaluates to the value
+							<codeph>Hello</codeph>, while the character string 'He said, ''Hello'''
+						evaluates to <codeph>He said, 'Hello'</codeph>. Embedded newlines are kept
+						as part of the string literal. </li>
+					<li id="li_8111ADE044534CF1894367704DD9ED90"><b>char</b>. A literal is of type
+							<codeph>char</codeph> if it is a string literal prefixed by the keyword
+						CHAR, otherwise it is of type string. The CHAR literal for the
+						single-quotation mark character is CHAR '''' (four single quotation marks). </li>
+					<li id="li_98311A3F70494D28A2C7904B2FF93F71"><b>date</b>. A
+							<codeph>java.sql.Date</codeph> object that uses the JDBC format prefixed
+						with the DATE keyword: <codeph>DATE yyyy-mm-dd</codeph>. In the
+							<codeph>Date</codeph>, <codeph>yyyy</codeph> represents the year,
+							<codeph>mm</codeph> represents the month, and <codeph>dd</codeph>
+						represents the day. The year must be represented by four digits; a two-digit
+						shorthand for the year is not allowed. </li>
+					<li id="li_33DBA08E9310455D9E43F69DB0A9AD7C"><b>time</b>. A
+							<codeph>java.sql.Time</codeph> object that uses the JDBC format (based
+						on a 24-hour clock) prefixed with the TIME keyword: <codeph>TIME
+							hh:mm:ss</codeph>. In the <codeph>Time</codeph>, <codeph>hh</codeph>
+						represents the hours, <codeph>mm</codeph> represents the minutes, and
+							<codeph>ss</codeph> represents the seconds. </li>
+					<li id="li_1C9931522BD74EDF934A6566E4317927"><b>timestamp</b>. A
+							<codeph>java.sql.Timestamp</codeph> object that uses the JDBC format
+						with a TIMESTAMP prefix: <codeph>TIMESTAMP yyyy-mm-dd
+							hh:mm:ss.fffffffff</codeph> In the <codeph>Timestamp</codeph>,
+							<codeph>yyyy-mm-dd</codeph> represents the <codeph>date</codeph>,
+							<codeph>hh:mm:ss</codeph> represents the <codeph>time</codeph>, and
+							<codeph>fffffffff</codeph> represents the fractional seconds (up to nine
+						digits). </li>
+					<li id="li_DA0B162DFAA54B9A93C1B482CCBF9E9B"><b>NIL</b>. Equivalent alternative
+						of <codeph>NULL</codeph>. </li>
+					<li id="li_25F9E302506440AEB493F22B7047A1BD"><b>NULL</b>. The same as
+							<codeph>null</codeph> in Java. </li>
+					<li id="li_94EDD0B5256C417DB3C52CFD217D1981"><b>UNDEFINED</b>. A special literal
+						that is a valid value for any data type. An <codeph>UNDEFINED</codeph> value
+						is the result of accessing an attribute of a null-valued attribute. Note
+						that if you access an attribute that has an explicit value of null, then it
+						is not undefined. For example if a query accesses the attribute address.city
+						and address is null, the result is undefined. If the query accesses address,
+						then the result is not undefined, it is <codeph>NULL</codeph>. </li>
+				</ul>
+			</p>
+			<title>Comparing Values With java.util.Date</title>
+			<p>You can compare temporal literal values <codeph>DATE</codeph>, <codeph>TIME</codeph>,
+				and <codeph>TIMESTAMP</codeph> with <codeph>java.util.Date</codeph> values. There is
+				no literal for <codeph>java.util.Date</codeph> in the query language. </p>
+			<p> </p>
+		</section>
+		<section id="section_9EE6CFC410D2409188EDEAA43AC85851">
+			<title>Type Conversion</title>
+			<p>The <keyword keyref="product_name"/> query processor performs implicit type
+				conversions and promotions under certain cases in order to evaluate expressions that
+				contain different types. The query processor performs binary numeric promotion,
+				method invocation conversion, and temporal type conversion. </p>
+		</section>
+		<section id="section_F5A3FC509FD04E09B5468BA94B814701">
+			<title>Binary Numeric Promotion</title>
+			<p>The query processor performs binary numeric promotion on the operands of the
+				following operators: <ul id="ul_BE026EB646324FDEAA72CF7A7219454D">
+					<li id="li_276BFAC365A7428B8D6F345BEEDFA207">Comparison operators &lt;, &lt;=,
+						&gt;, and &gt;= </li>
+					<li id="li_8C74ECF6CC1649F3914FCAAC46F6C5FD">Equality operators = and &lt;&gt; </li>
+					<li id="li_1256D34FFF074FB4BD6153322A32772B">Binary numeric promotion widens the
+						operands in a numeric expression to the widest representation used by any of
+						the operands. In each expression, the query processor applies the following
+						rules in the prescribed order until a conversion is made: <ol
+							id="ol_9F23C16D4C13440386114FF400A2A8DA">
+							<li id="li_FAB58E632FD441CB84CFD3AD58F27D8C">If either operand is of
+								type double, the other is converted to double </li>
+							<li id="li_85A24F046752415EBD11905125F34BB9">If either operand is of
+								type float, the other is converted to float </li>
+							<li id="li_61E21507C5624E41BBE4AA27D084AEA9">If either operand is of
+								type long, the other is converted to long </li>
+							<li id="li_3BF25E787E5F4F6BABB59067CC6544DE">Both operands are converted
+								to type int char </li>
+						</ol>
+					</li>
+				</ul>
+			</p>
+		</section>
+		<section id="section_BA277AC4A9B34C93A5291ECC1FDC11C7">
+			<title>Method Invocation Conversion</title>
+			<p>Method invocation conversion in the query language follows the same rules as Java
+				method invocation conversion, except that the query language uses runtime types
+				instead of compile time types, and handles null arguments differently than in Java.
+				One aspect of using runtime types is that an argument with a null value has no
+				typing information, and so can be matched with any type parameter. When a null
+				argument is used, if the query processor cannot determine the proper method to
+				invoke based on the non-null arguments, it throws an AmbiguousNameException </p>
+		</section>
+		<section id="section_0A1A6EFE98A24538B651373B1C6ED8C0">
+			<title>Temporal Type Conversion</title>
+			<p>The temporal types that the query language supports include the Java types
+				java.util.Date , java.sql.Date , java.sql.Time , and java.sql.Timestamp , which are
+				all treated the same and can be compared and used in indexes. When compared with
+				each other, these types are all treated as nanosecond quantities. </p>
+		</section>
+		<section id="section_73255A4630C94D04B461B1480AAF2F66">
+			<title>Enum Conversion</title>
+			<p>Enums are not automatically converted. To use Enum values in query, you must use the
+				toString method of the enum object or use a query bind parameter. See <xref
+					href="../query_select/the_where_clause.xml#the_where_clause/section_59E7D64746AE495D942F2F09EF7DB9B5"
+					type="section" format="dita" scope="local"
+					><?xm-replace_text Enum Objects?></xref> for more information. </p>
+		</section>
+		<section id="section_CB624C143A2743C5ADC6F95C962F176B">
+			<title>Query Evaulation of Float.NaN and Double.NaN</title>
+			<p>Float.NaN and Double.NaN are not evaluated as primitives; instead, they are compared
+				in the same manner used as the JDK methods Float.compareTo and Double.compareTo. See
+					<xref
+					href="../query_select/the_where_clause.xml#the_where_clause/section_E7206D045BEC4F67A8D2B793922BF213"
+					type="section" format="dita" scope="local"
+					><?xm-replace_text Double.NaN and Float.NaN Comparisons?></xref> for more
+				information. </p>
+		</section>
+	</conbody>
+</concept>

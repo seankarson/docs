@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept id="concept_37CBBC574FC34FB792FED05E8692702D">
+	<title>Query Language Restrictions and Unsupported Features</title>
+	<shortdesc><?xm-replace_text Short Description?>
+	</shortdesc>
+	<conbody>
+		<p> At a high level, <keyword keyref="product_name"/> does not support the following
+			querying features: </p>
+		<p>
+			<ul id="ul_582EA03D39BD42699DB3E97B5C9D4A56">
+				<li id="li_8630DB22E56F417881078F185D7C5375">GROUPBY is not supported. </li>
+				<li id="li_1EC6C35C4391449D9CA69AB0D3571B7E"> Indexes targeted for joins across more
+					than one region are not supported </li>
+				<li id="li_17F69BE23A8046D4A7CE6D7E6AD23690">Static method invocations. For example,
+					the following query is invalid:
+					<codeblock>SELECT DISTINCT * FROM /QueryRegion0 WHERE aDay = Day.Wednesday</codeblock>
+				</li>
+				<li id="li_C3CC4B675B1F4A9CA36D08881673E034">Aggregate functions are not supported. </li>
+				<li id="li_98F07B2D03D14E819D7BCBBADE63D7D7">You cannot create an index on fields
+					using Set/List types (Collection types) that are not comparable. The OQL index
+					implementation expects fields to be Comparable. To workaround this, you can
+					create a custom Collection type that implements Comparable. </li>
+				<li id="li_97FCCC1E27D3439A98004DD056450ABB">ORDER BY is only supported with
+					DISTINCT queries. </li>
+			</ul>
+		</p>
+		<p> In addition, there are some specific limitations on partitioned region querying. See
+				<xref
+				href="../query_additional/partitioned_region_query_restrictions.xml#concept_5353476380D44CC1A7F586E5AE1CE7E8"
+				type="concept" format="dita" scope="local"/>. </p>
+	</conbody>
+</concept>

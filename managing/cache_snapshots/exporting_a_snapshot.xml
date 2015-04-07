@@ -1,0 +1,68 @@
+<?xml version="1.0"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept id="concept_D1A4D9677F4146078F65C73BF436C19D">
+	<title>Exporting Cache and Region Snapshots</title>
+	<shortdesc>To save <keyword keyref="product_name"/> cache or region data to a snapshot that you
+		can later load into another distributed system or region, use the
+			<codeph>cache.getSnapshotService.save</codeph> API,
+			<codeph>region.getSnapshotService.save</codeph> API, or the <codeph>gfsh</codeph>
+		command-line interface (<codeph>export data</codeph>). </shortdesc>
+	<conbody>
+		<p> If an error occurs during export, the export halts and the snapshot operation is
+			canceled. Typical errors that halt an export include scenarios such as full disk,
+			problems with file permissions, and network partitioning. </p>
+		<section id="section_98B33450FD95450EAC027384EE82E00C">
+			<title>Exporting Cache Snapshots</title>
+			<p> When you export an entire cache, it exports all regions in the cache as individual
+				snapshot files into a directory. If no directory is specified, the default is the
+				current directory. A snapshot file is created for each region, and the export
+				operation automatically names each snapshot filename using the following convention: </p>
+			<p>
+				<codeph>snapshot-&lt;region&gt;[-&lt;subregion&gt;]*</codeph>
+			</p>
+			<p>When the export operation writes the snapshot filename, it replaces each forward
+				slash ('/') in the region path with a dash ('-'). </p>
+			<p><b>Using Java API:</b>
+				<codeblock>
+File mySnapshotDir = ...
+Cache cache = ...
+
+cache.getSnapshotService().save(mySnapshotDir, SnapshotFormat.GEMFIRE);</codeblock>Optionally,
+				you can set a filter on the snapshot entries during the export. See <xref
+					href="filtering_snapshot_entries.xml#concept_7E1F89E70A25465EBEBA584FADFEF353"
+					type="concept" format="dita" scope="local"
+					><?xm-replace_text Filtering Entries During Import or Export?></xref> for an
+				example. </p>
+		</section>
+		<section id="section_30C1BBB41C194825A46E49E5756369D6">
+			<title>Exporting a Region Snapshot</title>
+			<p>You can also export a specific region using the following API or gfsh command: </p>
+			<p><b>Java API:</b>
+				<codeblock>
+File mySnapshot = ...
+Region&lt;String, MyObject&gt; region = ... 
+
+region.getSnapshotService().save(mySnapshot, SnapshotFormat.GEMFIRE);</codeblock>
+			</p>
+			<b>gfsh:</b>
+			<p>Open a gfsh prompt. After connecting to a <keyword keyref="product_name"/>
+				distributed system, at the prompt type:
+				<codeblock>gfsh&gt;export data --region=<i>Region</i> --file=<i>filename</i>.gfd 
+--member=<i>membername</i></codeblock>
+				where <i>Region</i> corresponds to the name of the region that you want to export,
+					<i>filename</i> (must end in .gfd) corresponds to the name of the export file
+				and <i>membername</i> corresponds to a member where the region to export is hosted.
+				For example:
+				<codeblock>gfsh&gt;export data --region=region1 --file=region1_2012_10_10.gfd 
+--member=server1</codeblock>
+			</p>
+			<p>The snapshot file will be written on the remote member at the location specified by
+				the <codeph>--file</codeph> argument. For example, in the example command above, the
+					<codeph>region1_2012_10_10.gfd</codeph> file will be written in the working
+				directory of <codeph>server1</codeph>. For more information on this command, see
+					<xref
+					href="../../tools_modules/gfsh/command-pages/export.xml#topic_263B70069BFC4A7185F86B3272011734"
+					type="topic" format="dita" scope="local"/>. </p>
+		</section>
+	</conbody>
+</concept>

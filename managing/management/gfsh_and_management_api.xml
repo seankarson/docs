@@ -1,0 +1,54 @@
+<?xml version="1.0"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept id="concept_451F0978285245E69C3E8DE795BD8635">
+	<title>Executing gfsh Commands through the Management API</title>
+	<shortdesc>You can also use management APIs to execute gfsh commands programmatically. </shortdesc>
+	<conbody>
+		<p>
+			<note>If you start the JMX Manager programmatically and wish to enable command
+				processing, you must also add the absolute path of
+					<codeph>gfsh-dependencies.jar</codeph> (located in <codeph>$GEMFIRE/lib</codeph>
+				of your <keyword keyref="product_name"/> installation) to the CLASSPATH of your
+				application. Do not copy this library to your CLASSPATH because this library refers
+				to other dependencies in <codeph>$GEMFIRE/lib</codeph> by a relative path. The
+				following code samples demonstrate how to process and execute <codeph>gfsh</codeph>
+				commands using the Java API. </note>
+		</p>
+		<p/>
+		<p>First, retrieve a CommandService instance.<note>The CommandService API is currently only
+				available on JMX Manager
+			nodes.</note><codeblock outputclass="language-java"> 
+// Get existing CommandService instance or create new if it doesn't exist
+commandService = CommandService.createLocalCommandService(cache);
+
+// OR simply get CommandService instance if it exists, don't create new one
+CommandService commandService = CommandService.getUsableLocalCommandService();
+</codeblock>
+		</p>
+		<p>Next, process the command and its output:
+			<codeblock outputclass="language-java">     
+ // Process the user specified command String
+ Result regionListResult = commandService.processCommand("list regions");
+ 
+// Iterate through Command Result in String form line by line
+while (regionListResult.hasNextLine()) {
+   System.out.println(regionListResult.nextLine());
+  }
+      </codeblock>
+		</p>
+		<p>Alternatively, instead of processing the command, you can create a CommandStatement
+			Object from the command string which can be re-used.
+			<codeblock outputclass="language-java">
+// Create a command statement that can be reused multiple times
+CommandStatement showDeadLocksCmdStmt = commandService.createCommandStatement
+("show dead-locks --file=deadlock-info.txt");
+Result showDeadlocksResult = showDeadLocksCmdStmt.process();
+
+// If there is a file as a part of Command Result, it can be saved to a specified directory
+if (showDeadlocksResult.hasIncomingFiles()) {
+     showDeadlocksResult.saveIncomingFiles(System.getProperty("user.dir") + "/commandresults");
+    }
+</codeblock>
+		</p>
+	</conbody>
+</concept>

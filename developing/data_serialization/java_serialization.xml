@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "http://docs.oasis-open.org/dita/v1.1/OS/dtd/concept.dtd">
+<concept id="java_serialization">
+	<title>Standard Java Serialization</title>
+	<shortdesc>You can use standard Java serialization for data you only distribute between Java
+		applications. If you distribute your data between non-Java clients and Java servers, you
+		need to do additional programming to get the data between the various class formats. </shortdesc>
+	<conbody>
+		<section id="section_AD2524E4E3C145D4A2CEB379DD8E9389">
+			<p> Standard Java types are serializable by definition. For your domain classes,
+				implement <codeph>java.io.Serializable</codeph>, then make sure to mark your
+				transient and static variables as needed for your objects. For information, see the
+				online documentation for <codeph>java.io.Serializable</codeph> for your Java
+				version. </p>
+			<p> Mixing <codeph>DataSerializable</codeph> with <codeph>Serializable</codeph> or
+					<codeph>PdxSerializable</codeph> use on the same data can result in increased
+				memory use and lower throughput than using just <codeph>Serializable</codeph> on the
+				entire data, especially if the <codeph>Serializable</codeph> entries are in
+				collections. The bigger the data collection, the lower the throughput as the
+				metadata for the collection entries is not shared when using
+					<codeph>DataSerializable</codeph>. </p>
+		</section>
+	</conbody>
+</concept>

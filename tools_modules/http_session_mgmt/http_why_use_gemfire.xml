@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "http://docs.oasis-open.org/dita/v1.1/OS/dtd/concept.dtd">
+<concept id="http_why_use_gemfire">
+	<title>Advantages of Using <keyword keyref="product_name"/> for Session Management</title>
+	<shortdesc>The HTTP Session Management Module enables you to customize how you manage your
+		session data. </shortdesc>
+	<conbody>
+		<p>Depending on your usage model, the HTTP Session Management Module enables you to
+			accomplish the following tasks: <ul id="ul_3BA36D9F17154F8BABAFE4F80A3AE81F">
+				<li id="li_A8286E1A5ED142458C7A792435F14599">Replicate session data across multiple
+					peers. </li>
+				<li id="li_CD5EC06E6FF649F2B0A883E1202715CA">Partition data across multiple servers. </li>
+				<li id="li_5273B0FCAA3C49C19F7C673768BB566F">Manage your session data in many other
+					customizable ways. </li>
+			</ul>
+		</p>
+		<p> Using <keyword keyref="product_name"/> for session management has many advantages: <ul
+				id="ul_022D677C39254BA785A9A1CB1D980E1E">
+				<li id="li_B232142746EF46F98D95460460178F11">
+					<p><b>tc Server integration</b>
+					</p>
+					<p>The <keyword keyref="product_name"/> module offers clean integration into the
+						tc Server environment with minimal configuration changes necessary. </p>
+				</li>
+				<li id="li_35C0E34F20DE412786808D9FFB6B1CFA">
+					<p><b>Scalability</b>
+					</p>
+					<p>Applications with a small number of frequently-accessed sessions can
+							<b>replicate</b> session information on all members in the system.
+						However, when the number of concurrent sessions being managed is large, data
+						can be <b>partitioned</b> across any number of servers (either embedded
+						within your application server process or managed by <keyword
+							keyref="product_name"/> cache servers), which allows for <b>linear
+							scaling</b>. Additionally, capacity can be <b>dynamically added or
+							removed</b> in a running system and <keyword keyref="product_name"/>
+						re-executes a non-blocking, rebalancing logic to migrate data from existing
+						members to the newly added members. When the session state memory
+						requirements exceed available memory, each partition host can <b>overflow to
+							disk</b>. </p>
+				</li>
+				<li id="li_0C0EAEE883E347FB8BB70CC73EF3587D">
+					<p><b>Server-managed session state</b>
+					</p>
+					<p>Session state can be managed independent of the application server cluster.
+						This allows applications or servers to come and go without impacting session
+						lifetimes. </p>
+				</li>
+				<li id="li_57300496DE3E44B389E9A9796CC8CC79">
+					<p>
+						<b>Shared nothing cluster-wide persistence</b></p>
+					<p>Session state can be persisted (and recovered) - invaluable for scenarios
+						where sessions manage critical application state or have long lifetimes.
+							<keyword keyref="product_name"/> uses a shared nothing persistence model
+						where each member can continuously append to rolling log files without ever
+						needing to seek on disk, providing very high disk throughput. When data is
+						partitioned, the total disk throughput can come close to the aggregate disk
+						transfer rates across each of the members storing data on disk. </p>
+				</li>
+				<li id="li_075B46A00A7D4DD3A80567B4F3701CE2">
+					<p><b>Session deltas</b>
+					</p>
+					<p>When session attributes are updated, only the updated state that is sent over
+						the wire (to cache servers and to replicas). This provides fast updates even
+						for large sessions. Session state is always managed in a serialized state on
+						the servers, avoiding the need for the cache servers to be aware of the
+						application classes. </p>
+				</li>
+				<li id="li_7EB90FD582C94529AE488F6C5701AC05">
+					<p><b>Tiered caching</b>
+					</p>
+					<p>Applications can configure a local or near cache for in-process caching of
+						the most frequently used session state. This local cache delegates to a farm
+						of cache servers where the entire session state is partitioned across any
+						number of peer cache servers. The local cache can be configured to consume a
+						certain percentage of the total heap available before least-recently used
+						(LRU) eviction. This is a simpler and more effective way to manage LRU
+						caches as opposed to alternate strategies based on count or memory size,
+						which increase the risk of getting an "OutOfMemoryException". </p>
+				</li>
+				<li id="li_A24AF5BF4D9C4729840AE77EC2A2B02A">
+					<p><b>Application server sizing</b>
+					</p>
+					<p>Another aspect of tiered-caching functionality is that session replication
+						can be configured so that session objects are stored external to the
+						application server process. This allows the heap settings on the application
+						server to be much smaller than they would otherwise need to be. </p>
+				</li>
+				<li id="li_F171D6DFBED84E15A6DA30BE7078E786">
+					<p><b>High availability (HA), disk-based overflow, synchronization to backend
+							data store, other <keyword keyref="product_name"/> features</b>
+					</p>
+					<p>All the popular <keyword keyref="product_name"/> features are available. For
+						example: more than one synchronous copy of the session state can be
+						maintained providing high availability (HA); the session cache can overflow
+						to disk if the memory capacity in the cache server farm becomes
+						insufficient; state information can be written to a backend database in a
+						synchronous or asynchronous manner. </p>
+				</li>
+			</ul>
+		</p>
+	</conbody>
+</concept>

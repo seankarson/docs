@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "http://docs.oasis-open.org/dita/v1.1/OS/dtd/concept.dtd">
+<concept id="configure_distributed_region">
+	<title>Configure Distributed, Replicated, and Preloaded Regions</title>
+	<shortdesc id="shortdesc_E531F75B111F4B3098CCC3BEB7496BC7">Plan the configuration and ongoing
+		management of your distributed, replicated, and preloaded regions, and configure the
+		regions. </shortdesc>
+	<conbody>
+		<section id="section_11E9E1B3EB5845D9A4FB226A992B8D0D">
+			<p>Before you begin, understand <xref
+					href="../../basic_config/book_intro.xml#basic_config_management" type="concept"
+					format="dita" scope="local"/>. <ol id="ol_495F354FA0C44D9EB065BD6BBA644799">
+					<li id="li_992440BACB4F40EEBFB0C5B7FDFC4690">Choose the region shortcut setting
+						that most closely matches your region configuration. See
+								<b><codeph>com.gemstone.gemfire.cache.RegionShortcut</codeph></b> or
+							<xref
+							href="../../reference/topics/chapter_overview_regionshortcuts.xml#concept_ymp_rkz_4dffhdfhk"
+						/>. To create a replicated region, use one of the <codeph>REPLICATE</codeph>
+						shortcut settings. To create a preloaded region, set your region
+							<codeph>data-policy</codeph> to <codeph>preloaded</codeph>. This
+							<codeph>cache.xml</codeph> declaration creates a replicated region:
+							<codeblock>&lt;region-attributes refid="REPLICATE"&gt; 
+&lt;/region-attributes&gt;</codeblock><p>You
+							can also use gfsh to configure a region. For
+							example:<codeblock>gfsh>create region --name=regionA --type=REPLICATE</codeblock>See
+								<xref href="../region_options/region_types.xml#region_types"/> and
+								<xref
+								href="../../tools_modules/gfsh/command-pages/create.xml#topic_54B0985FEC5241CA9D26B0CE0A5EA863"
+							/>. </p></li>
+					<li id="li_74052A59A95944FFA3C99B1C9097CF65">Choose the level of distribution
+						for your region. The region shortcuts in <codeph>RegionShortcut</codeph> for
+						distributed regions use <codeph>distributed-ack</codeph> scope. If you need
+						a different scope, set the <codeph>region-attributes</codeph>
+						<codeph>scope</codeph> to <codeph>distributed-no-ack</codeph> or
+							<codeph>global</codeph>. <p>Example:
+							<codeblock>&lt;region-attributes refid="REPLICATE" scope="distributed-no-ack"&gt; 
+&lt;/region-attributes&gt;</codeblock>
+						</p>
+					</li>
+					<li id="li_0BA988476DBD40DFA39696B6BB33BF1C">If you are using the
+							<codeph>distributed-ack</codeph> scope, optionally enable concurrency
+						checks for the region. <p>Example:
+							<codeblock>&lt;region-attributes refid="REPLICATE" scope="distributed-ack" concurrency-checks-enable="true"&gt; 
+&lt;/region-attributes&gt;</codeblock>
+						</p>
+					</li>
+					<li id="li_A07D7755ECC94DB1B24AE511E8213CB6">If you are using
+							<codeph>global</codeph> scope, program any explicit locking you need in
+						addition to the automated locking provided by <keyword keyref="product_name"
+						/>. </li>
+				</ol>
+			</p>
+		</section>
+		<section id="section_6F53FB58B8A84D0F8086AFDB08A649F9">
+			<title>Local Destroy and Invalidate in the Replicated Region</title>
+			<p>Of all the operations that affect the local cache only, only local region destroy is
+				allowed in a replicated region. Other operations are not configurable or throw
+				exceptions. For example, you cannot use local destroy as the expiration action on a
+				replicated region. This is because local operations like entry invalidation and
+				destruction remove data from the local cache only. A replicated region would no
+				longer be complete if data were removed locally but left intact. </p>
+		</section>
+	</conbody>
+</concept>

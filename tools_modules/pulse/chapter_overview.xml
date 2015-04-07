@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept id="concept_600D5DC7303548BB96F5E3D1941C77C2">
+	<title><keyword keyref="product_name"/> Pulse</title>
+	<shortdesc><keyword keyref="product_name"/> Pulse is a Web Application that provides a graphical
+		dashboard for monitoring vital, real-time health and performance of <keyword
+			keyref="product_name"/> clusters, members, and regions. </shortdesc>
+	<conbody>
+		<p>Use Pulse to examine total memory, CPU, and disk space used by members, uptime
+			statistics, client connections, and critical notifications. Pulse communicates with a
+				<keyword keyref="product_name"/> JMX manager to provide a complete view of your
+				<keyword keyref="product_name"/> deployment. You can drill down from a high-level
+			cluster view to examine individual members and even regions within a member, to filter
+			the type of information and level of detail. </p>
+		<p>By default, <keyword keyref="product_name"/> Pulse runs in a Tomcat server container that
+			is embedded in a <keyword keyref="product_name"/> JMX manager node. You can optionally
+			deploy Pulse to a Web application server of your choice, so that the tool runs
+			independently of your <keyword keyref="product_name"/> clusters. Hosting Pulse on an
+			application server also enables you to use SSL for accessing the application. </p>
+		<p>See <xref href="system_requirements.xml#system_requirements" type="concept" format="dita"
+				scope="local"/>
+		</p>
+	</conbody>
+</concept>

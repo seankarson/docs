@@ -1,0 +1,56 @@
+<?xml version="1.0"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept id="concept_A7C8890826394B4293C036DD739835BD">
+	<title>High Level Steps for Using PDX Serialization </title>
+	<shortdesc>To use PDX serialization, you can configure and use <keyword keyref="product_name"
+		/>'s reflection-based autoserializer, or you can program the serialization of your objects
+		by using the PDX interfaces and classes. </shortdesc>
+	<conbody>
+		<section id="section_7F357A8E56B54BFB9A5778C0F89E034E">
+			<p>Optionally, program your application code to deserialize individual fields out of PDX
+				representations of your serialized objects. You may also need to persist your PDX
+				metadata to disk for recovery on startup. </p>
+			<p>
+				<b>Procedure</b>
+				<ol id="ol_b6d69a56-78de-4f9e-88de-5d8c6b1b0ddd">
+					<li id="li_D956E80E3B724B36820B1C3D6EAEB062"> Use one of these serialization
+						options for each object type that you want to serialize using PDX
+						serialization: <ul id="ul_2EC41122D8EF46BDB082A8C7303A133A">
+							<li id="li_6A4BEAF164D0491CB02A92C445F3F2F8"><xref
+									href="auto_serialization.xml#auto_serialization" type="concept"
+									format="dita" scope="local"/></li>
+							<li id="li_3CFCF4CC0FF64EA98A08FE0F79DAF28F"><xref scope="local"
+									href="use_pdx_serializer.xml#use_pdx_serializer" type="concept"
+									format="dita"/></li>
+							<li id="li_9AD73B4CDACD4DE79D09D4CE5B4141A9"><xref
+									href="use_pdx_serializable.xml#use_pdx_serializable"
+									type="concept" format="dita" scope="local"/>
+							</li>
+						</ul>
+					</li>
+					<li id="li_3F56636F3A4044769DCB566BFAD5CCA3">To ensure that your servers do not
+						need to load the application classes, set the <codeph>pdx</codeph>
+						<codeph>read-serialized</codeph> attribute to true. In gfsh, execute the
+						following command before starting up your
+						servers:<codeblock>gfsh>configure pdx --read-serialized=true</codeblock> By
+						using gfsh, this configuration can propagated across the cluster through the
+							<xref href="../../configuring/cluster_config/gfsh_persist.xml#concept_r22_hyw_bl"
+							>Cluster Configuration Service</xref>. Alternately, you would need to
+						configure <codeph>pdx read-serialized</codeph> in each server's
+							<codeph>cache.xml</codeph> file. </li>
+					<li id="li_64526767DBE140D2B3C2C51BCAABCEE8">If you are storing any <keyword
+							keyref="product_name"/> data on disk, then you must configure PDX
+						serialization to use persistence. See <xref
+							href="persist_pdx_metadata_to_disk.xml#persist_pdx_metadata_to_disk"
+							type="concept" format="dita" scope="local"/> for more information. </li>
+					<li id="li_88ABDDCDAEBC46ED95A0B570C605E55A">(Optional) Wherever you run
+						explicit application code to retrieve and manage your cached entries, you
+						may want to manage your data objects without using full deserialization. To
+						do this, see <xref scope="local"
+							href="program_application_for_pdx.xml#program_application_for_pdx"
+							type="concept" format="dita"/>. </li>
+				</ol>
+			</p>
+		</section>
+	</conbody>
+</concept>

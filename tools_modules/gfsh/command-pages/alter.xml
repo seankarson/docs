@@ -1,0 +1,615 @@
+<?xml version="1.0"?>
+<!DOCTYPE dita PUBLIC "-//OASIS//DTD DITA Composite//EN" "ditabase.dtd">
+<dita>
+	<topic id="topic_9323467A645D4F2B82EC236448030D14">
+		<title>alter</title>
+		<shortdesc>Modify an existing <keyword keyref="product_name"/> resource. </shortdesc>
+		<topic id="topic_99BCAD98BDB5470189662D2F308B68EB">
+			<title>alter disk-store</title>
+			<shortdesc>Modify configuration options for a specified region or remove a region from
+				an offline disk-store.</shortdesc>
+			<body>
+				<p> You can also use the command to reset specific configuration attributes of the
+					disk-store to their default values. For example, you could use <codeph>alter
+						disk-store</codeph> command to set the region's LRU action to
+						<codeph>overflow-to-disk</codeph>. </p>
+				<p><b> Availability:</b> Offline.</p>
+				<p>
+					<b>Syntax: </b>
+					<codeblock xml:space="preserve">alter disk-store --name=value --region=value --disk-dirs=value(,value)*
+    [--lru-algorthm=value] [--lru-action=value] [--lru-limit=value]
+    [--concurrency-level=value] [--initial-capacity=value] [--load-factor=value]
+    [--compressor(=value)?] [--enable-statistics=value] [--remove(=value)?]</codeblock>
+					<table id="table_DFA153D464C84D95B394023A0AAFB88B">
+						<tgroup cols="3">
+							<colspec colname="col1" colnum="1" colwidth="1.00*"/>
+							<colspec colname="col2" colnum="2" colwidth="2.47*"/>
+							<colspec colname="newCol3" colnum="3" colwidth="1*"/>
+							<thead>
+								<row>
+									<entry colname="col1">Name </entry>
+									<entry colname="col2">Description</entry>
+									<entry>Default Value</entry>
+								</row>
+							</thead>
+							<tbody>
+								<row>
+									<entry colname="col1">
+										<parmname>--name</parmname>
+									</entry>
+									<entry colname="col2"><i>Required</i>. Name of the disk-store
+										whose contents will be altered. </entry>
+									<entry/>
+								</row>
+								<row>
+									<entry colname="col1">
+										<parmname>--region</parmname>
+									</entry>
+									<entry colname="col2"><i>Required</i>. Name (including path) of
+										the region using the disk store. </entry>
+									<entry/>
+								</row>
+								<row>
+									<entry colname="col1">
+										<parmname>--disk-dirs</parmname>
+									</entry>
+									<entry colname="col2"><i>Required</i>. Directories where the
+										data for the disk store was previously written. </entry>
+									<entry/>
+								</row>
+								<row>
+									<entry colname="col1">
+										<parmname>--lru-algorthm</parmname>
+									</entry>
+									<entry colname="col2">Least recently used eviction algorithm.
+										Valid types are:<ul id="ul_b4k_3pf_kl">
+											<li><codeph>none</codeph></li>
+											<li><codeph>lru-entry-count</codeph></li>
+											<li><codeph>lru-heap-percentage</codeph></li>
+											<li><codeph>lru-memory-size</codeph></li>
+										</ul></entry>
+									<entry/>
+								</row>
+								<row>
+									<entry colname="col1">
+										<parmname>--lru-action</parmname>
+									</entry>
+									<entry colname="col2">Action to take when evicting entries from
+										the region. Valid values are: <ul id="ul_czg_lpf_kl">
+											<li><codeph>none</codeph></li>
+											<li><codeph>overflow-to-disk</codeph></li>
+											<li><codeph>local-destroy</codeph></li>
+										</ul></entry>
+									<entry/>
+								</row>
+								<row>
+									<entry colname="col1">
+										<parmname>--lru-limit</parmname>
+									</entry>
+									<entry colname="col2">Number of entries allowed in the region
+										before eviction occurs. </entry>
+									<entry/>
+								</row>
+								<row>
+									<entry colname="col1">
+										<parmname>--concurrency-level</parmname>
+									</entry>
+									<entry colname="col2">An estimate of the maximum number of
+										application threads that will concurrently access a region
+										entry. This attribute does not apply to partitioned regions. </entry>
+									<entry/>
+								</row>
+								<row>
+									<entry colname="col1">
+										<parmname>--initial-capacity</parmname>
+									</entry>
+									<entry colname="col2">Together with
+											<parmname>--load-factor</parmname>, sets the parameters
+										on the underlying
+											<codeph>java.util.ConcurrentHashMap</codeph> used for
+										storing region entries. </entry>
+									<entry/>
+								</row>
+								<row>
+									<entry colname="col1">
+										<parmname>--load-factor</parmname>
+									</entry>
+									<entry colname="col2">Together with
+											<parmname>--initial-capacity</parmname>, sets the
+										parameters on the underlying
+											<codeph>java.util.ConcurrentHashMap</codeph> used for
+										storing region entries. This must be a floating point number
+										between 0 and 1, inclusive. </entry>
+									<entry/>
+								</row>
+								<row>
+									<entry colname="col1">
+										<parmname>--compressor</parmname>
+									</entry>
+									<entry colname="col2">The fully-qualifed class name of the
+										compressor to use when compressing region entry values. A
+										value of <codeph>none</codeph> removes the
+										compressor.</entry>
+									<entry>none</entry>
+								</row>
+								<row>
+									<entry colname="col1">
+										<parmname>--enable-statistics</parmname>
+									</entry>
+									<entry colname="col2">Enables statistics for the region. Valid
+										values are true or false. </entry>
+									<entry>false</entry>
+								</row>
+								<row>
+									<entry colname="col1">
+										<parmname>--remove</parmname>
+									</entry>
+									<entry colname="col2">Specifies whether to remove the region
+										from the disk-store. If the parameter is specified without a
+										value, the value of true is used. </entry>
+									<entry>false</entry>
+								</row>
+							</tbody>
+						</tgroup>
+					</table>
+				</p>
+				<p>
+					<b>Example Commands:</b>
+					<codeblock>
+alter disk-store --name=DiskStore1 --region=region1 --disk-dirs=/Disks/DiskStore1
+alter disk-store --name=DiskStore1 --region=region1 --disk-dirs=/Disks/DiskStore1 --remove</codeblock>
+				</p>
+			</body>
+		</topic>
+		<topic id="topic_E74ED23CB60342538B2175C326E7D758">
+			<title>alter region</title>
+			<shortdesc>Alters the configuration of a region. </shortdesc>
+			<body>
+				<p><b> Availability:</b> Online. You must be connected in <parmname>gfsh</parmname>
+					to a JMX Manager member to use this command. </p>
+				<p>
+					<b>Syntax:</b>
+					<codeblock id="codeblock_jrn_fk1_3l" outputclass="">alter region --name=value [--group=value(,value)*]
+    [--entry-idle-time-expiration(=value)?]
+    [--entry-idle-time-expiration-action(=value)?]
+    [--entry-time-to-live-expiration(=value)?]
+    [--entry-time-to-live-expiration-action(=value)?]
+    [--region-idle-time-expiration(=value)?]
+    [--region-idle-time-expiration-action(=value)?]
+    [--region-time-to-live-expiration(=value)?]
+    [--region-time-to-live-expiration-action(=value)?]
+    [--cache-listener=value(,value)*] [--cache-loader(=value)?]
+    [--cache-writer(=value)?] [--async-event-queue-id=value(,value)*]
+    [--gateway-sender-id=value(,value)*] [--enable-cloning(=value)?]
+    [--eviction-max(=value)?]
+</codeblock>
+					<table id="table_2277A2CE8F6E4731B45FEFA2B1366DB6">
+						<title>Parameters</title>
+						<tgroup cols="3">
+							<colspec colname="col1" colnum="1" colwidth="1.08*"/>
+							<colspec colname="col2" colnum="2" colwidth="4.59*"/>
+							<colspec colname="Col3" colnum="3" colwidth="1*"/>
+							<thead>
+								<row>
+									<entry colname="col1">Name</entry>
+									<entry colname="col2">Description</entry>
+									<entry>Default Value</entry>
+								</row>
+							</thead>
+							<tbody>
+								<row>
+									<entry colname="col1">
+										<parmname>--async-event-queue-id</parmname>
+									</entry>
+									<entry colname="col2">IDs of the Async Event Queues that will be
+										used for write-behind operations.</entry>
+									<entry/>
+								</row>
+								<row>
+									<entry colname="col1">
+										<parmname>--cache-listener</parmname>
+									</entry>
+									<entry colname="col2">Fully qualified class name of a plug-in to
+										be instantiated for receiving after-event notification of
+										changes to the region and its entries. Any number of cache
+										listeners can be configured.</entry>
+									<entry/>
+								</row>
+								<row>
+									<entry colname="col1">
+										<parmname>--cache-loader</parmname>
+									</entry>
+									<entry colname="col2">Fully qualified class name of a plug-in to
+										be instantiated for receiving notification of cache misses
+										in the region. At most, one cache loader can be defined in
+										each member for the region. For distributed regions, a cache
+										loader may be invoked remotely from other members that have
+										the region defined.</entry>
+									<entry>
+										<codeph>__DEFAULT__</codeph>
+									</entry>
+								</row>
+								<row>
+									<entry colname="col1">
+										<parmname>--cache-writer</parmname>
+									</entry>
+									<entry colname="col2">Fully qualified class name of a plug-in to
+										be instantiated for receiving before-event notification of
+										changes to the region and its entries. The plug-in may
+										cancel the event. At most, one cache writer can be defined
+										in each member for the region</entry>
+									<entry>
+										<codeph>__DEFAULT__</codeph>
+									</entry>
+								</row>
+								<row>
+									<entry colname="col1">
+										<parmname>--enable-cloning</parmname>
+									</entry>
+									<entry>
+										<p
+											conref="../../../reference/topics/cache_xml.xml#region-attributes/region-attributes_cloning-enabled"
+										/>
+									</entry>
+									<entry>
+										<codeph>false</codeph>
+									</entry>
+								</row>
+								<row>
+									<entry colname="col1">
+										<parmname>--entry-idle-time-expiration</parmname>
+									</entry>
+									<entry>Number of seconds before a region or an entry expires.
+										Specify <codeph>-1</codeph> to indicate that there is no
+										expiration of this type</entry>
+									<entry>-1</entry>
+								</row>
+								<row>
+									<entry colname="col1">
+										<parmname>--entry-idle-time-expiration-action</parmname>
+									</entry>
+									<entry
+										conref="../../../reference/topics/cache_xml.xml#expiration-attributes/expiration-attributes_action"/>
+									<entry>
+										<codeph>__DEFAULT__</codeph>
+									</entry>
+								</row>
+								<row>
+									<entry colname="col1">
+										<parmname>--entry-time-to-live-expiration</parmname>
+									</entry>
+									<entry>Number of seconds before a region or an entry expires.
+										Specify <codeph>-1</codeph> to indicate that there is no
+										expiration of this type.</entry>
+									<entry>-1</entry>
+								</row>
+								<row>
+									<entry colname="col1">
+										<parmname>--entry-time-to-live-expiration-action</parmname>
+									</entry>
+									<entry
+										conref="../../../reference/topics/cache_xml.xml#expiration-attributes/expiration-attributes_action"/>
+									<entry>
+										<codeph>__DEFAULT__</codeph>
+									</entry>
+								</row>
+								<row>
+									<entry colname="col1">
+										<parmname>--eviction-max</parmname>
+									</entry>
+									<entry colname="col2">Maximum value for the Eviction Attributes
+										that the eviction algorithm uses to determine when to
+										perform its eviction action. The unit of the maximum value
+										is determined by the Eviction Algorithm.</entry>
+									<entry>0</entry>
+								</row>
+								<row>
+									<entry colname="col1">
+										<parmname>--gateway-sender-id</parmname>
+									</entry>
+									<entry colname="col2">IDs of the Gateway Senders where data is
+										routed.</entry>
+									<entry/>
+								</row>
+								<row>
+									<entry colname="col1">
+										<parmname>--group</parmname>
+									</entry>
+									<entry colname="col2">Group(s) of members where the region will
+										be altered.</entry>
+									<entry/>
+								</row>
+								<row>
+									<entry colname="col1">
+										<parmname>--name</parmname>
+									</entry>
+									<entry colname="col2">Required. Name (including path) of the
+										region.</entry>
+									<entry/>
+								</row>
+								<row>
+									<entry colname="col1">
+										<parmname>--region-idle-time-expiration</parmname>
+									</entry>
+									<entry>Number of seconds before a region or an entry expires. If
+										timeout is not specified, it defaults to zero (which means
+										no expiration). </entry>
+									<entry>-1</entry>
+								</row>
+								<row>
+									<entry colname="col1">
+										<parmname>--region-idle-time-expiration-action</parmname>
+									</entry>
+									<entry
+										conref="../../../reference/topics/cache_xml.xml#expiration-attributes/expiration-attributes_action"/>
+									<entry>
+										<codeph>__DEFAULT__</codeph>
+									</entry>
+								</row>
+								<row>
+									<entry colname="col1">
+										<parmname>--region-time-to-live-expiration </parmname>
+									</entry>
+									<entry
+										conref="../../../reference/topics/cache_xml.xml#expiration-attributes/expiration-attributes_timeout"/>
+									<entry>-1</entry>
+								</row>
+								<row>
+									<entry colname="col1">
+										<parmname>--region-time-to-live-expiration-action</parmname>
+									</entry>
+									<entry
+										conref="../../../reference/topics/cache_xml.xml#expiration-attributes/expiration-attributes_action"/>
+									<entry>
+										<codeph>__DEFAULT__</codeph>
+									</entry>
+								</row>
+							</tbody>
+						</tgroup>
+					</table>
+				</p>
+				<p>
+					<b>Example Commands:</b>
+					<codeblock outputclass="">alter region --name=region1 --eviction-max=5000 [-group=all]</codeblock>
+				</p>
+				<p>
+					<b>Sample Output:</b>
+				</p>
+				<p>
+					<codeblock>gfsh>alter region --name=customer --eviction-max=5000
+Member  | Status
+------- | ----------------------------------
+server1 | Region "/customer" altered on "server1"
+</codeblock>
+				</p>
+			</body>
+		</topic>
+		<topic id="topic_7E6B7E1B972D4F418CB45354D1089C2B">
+			<title>alter runtime</title>
+			<shortdesc>Alters configuration properties for all members or a subset of members while
+				the member or members are running.</shortdesc>
+			<body>
+				<p>For more information on these configuration properties, see <xref format="dita"
+						href="../../../reference/topics/gemfire_properties.xml#gemfire_properties"
+						scope="local" type="concept"/> and <xref
+						href="../../../reference/topics/chapter_overview_cache_xml.xml#cache_xml"/>. </p>
+				<p><b> Availability:</b> Online. You must be connected in <codeph>gfsh</codeph> to a
+					JMX Manager member to use this command. </p>
+				<p>
+					<b>Syntax:</b>
+					<codeblock>alter runtime [--member=value] [--group=value] [--archive-disk-space-limit=value]
+    [--archive-file-size-limit=value] [--log-disk-space-limit=value]
+    [--log-file-size-limit=value] [--log-level=value]
+    [--statistic-archive-file=value] [--statistic-sample-rate=value]
+    [--enable-statistics=value] [--copy-on-read(=value)?] [--lock-lease=value]
+    [--lock-timeout=value] [--message-sync-interval=value] [--search-timeout=value]</codeblock>
+					<table id="table_09BEBCECA4A44286A2A56C3714A4F6A3">
+						<title>Parameters</title>
+						<tgroup cols="3">
+							<colspec colname="col1" colnum="1" colwidth="1*"/>
+							<colspec colname="col2" colnum="2" colwidth="2.43*"/>
+							<colspec colname="newCol3" colnum="3" colwidth="1*"/>
+							<thead>
+								<row>
+									<entry colname="col1">Name </entry>
+									<entry colname="col2">Description</entry>
+									<entry>Default Value</entry>
+								</row>
+							</thead>
+							<tbody>
+								<row>
+									<entry colname="col1">
+										<parmname>--member</parmname>
+									</entry>
+									<entry colname="col2">Name or ID of the member whose
+										configuration is to be altered at runtime. If you do not
+										specify this parameter, the configuration properties are
+										modified for all cluster members using the cluster
+										configuration service.</entry>
+									<entry>If not specified, all members using the cluster
+										configuration service</entry>
+								</row>
+								<row>
+									<entry colname="col1">
+										<parmname>--group</parmname>
+									</entry>
+									<entry colname="col2">Name of the group whose members's runtime
+										configuration is to be altered. If you do not specify this
+										parameter, the configuration properties are modified for all
+										cluster members using the cluster configuration
+										service.</entry>
+									<entry>If not specified, all members using the cluster
+										configuration service</entry>
+								</row>
+								<row>
+									<entry colname="col1">
+										<parmname>--archive-disk-space-limit</parmname>
+									</entry>
+									<entry colname="col2">Archive disk space limit. Maximum size (in
+										megabytes) of all inactive statistic archive files combined.
+										If this limit is exceeded, inactive archive files are
+										deleted, oldest first, until the total size is within the
+										limit. If set to zero, disk space use is unlimited. Valid
+										values are (in megabytes): 0 - 1000000. </entry>
+									<entry>0</entry>
+								</row>
+								<row>
+									<entry colname="col1">
+										<parmname>--archive-file-size-limit</parmname>
+									</entry>
+									<entry colname="col2">Archive file size limit. The maximum size
+										(in megabytes) of a single statistic archive file. Once this
+										limit is exceeded, a new statistic archive file is created,
+										and the current archive file becomes inactive. If set to
+										zero, file size is unlimited. Valid values are (in
+										megabytes): 0 - 1000000. </entry>
+									<entry>0</entry>
+								</row>
+								<row>
+									<entry colname="col1">
+										<parmname>--log-disk-space-limit </parmname>
+									</entry>
+									<entry colname="col2">Log disk space limit. Maximum size in
+										megabytes of all inactive log files combined. If this limit
+										is exceeded, inactive log files are deleted, oldest first,
+										until the total size is within the limit. If set to zero,
+										disk space use is unlimited. Valid values are (in
+										megabytes): 0 - 1000000. </entry>
+									<entry>0</entry>
+								</row>
+								<row>
+									<entry colname="col1">
+										<parmname>--log-file-size-limit</parmname>
+									</entry>
+									<entry colname="col2">Log file size limit. Maximum size in
+										megabytes of a log file before it is closed and logging
+										rolls on to a new (child) log file. If set to zero, log
+										rolling is disabled. Valid values are (in megabytes): 0 -
+										1000000. </entry>
+									<entry>0</entry>
+								</row>
+								<row>
+									<entry colname="col1">
+										<parmname>--log-level </parmname>
+									</entry>
+									<entry colname="col2">Log level. Valid values are:<ul
+											id="ul_wft_kpx_34">
+											<li><codeph>none</codeph></li>
+											<li><codeph>error</codeph></li>
+											<li><codeph>info</codeph></li>
+											<li><codeph>config</codeph></li>
+											<li><codeph>warning</codeph></li>
+											<li><codeph>severe</codeph></li>
+											<li><codeph>fine</codeph></li>
+											<li><codeph>finer</codeph></li>
+											<li><codeph>finest</codeph></li>
+										</ul></entry>
+									<entry>config</entry>
+								</row>
+								<row>
+									<entry colname="col1">
+										<parmname>--statistic-archive-file </parmname>
+									</entry>
+									<entry colname="col2">The file to which the running system
+										member writes statistic samples. For example:
+										"StatisticsArchiveFile.gfs". An empty string disables
+										archiving. Adding .gz suffix to the file name causes it to
+										be compressed. See <xref
+											href="../../../managing/statistics/chapter_overview.xml#statistics"
+										/>.</entry>
+									<entry>
+										<i>not set</i>
+									</entry>
+								</row>
+								<row>
+									<entry colname="col1">
+										<parmname>--statistic-sample-rate </parmname>
+									</entry>
+									<entry colname="col2">Statistic sampling rate. Valid values are
+										(in milliseconds): 100 - 60000. See <xref
+											href="../../../managing/statistics/chapter_overview.xml#statistics"
+										/>. </entry>
+									<entry>1000</entry>
+								</row>
+								<row>
+									<entry colname="col1">
+										<parmname>--enable-statistics</parmname>
+									</entry>
+									<entry colname="col2">Whether statistic sampling should be
+										enabled. Valid values are: <codeph>true</codeph> and
+											<codeph>false</codeph>. See <xref
+											href="../../../managing/statistics/chapter_overview.xml#statistics"
+										/>.</entry>
+									<entry>false</entry>
+								</row>
+								<row>
+									<entry colname="col1">
+										<parmname>--copy-on-read</parmname>
+									</entry>
+									<entry colname="col2">True or false. Sets the "copy on read"
+										feature for cache read operations. See <xref
+											href="../../../basic_config/data_entries_custom_classes/managing_data_entries.xml#managing_data_entries/section_A0E0F889AC344EFA8DF304FD64418809"
+										/>.</entry>
+									<entry>false</entry>
+								</row>
+								<row>
+									<entry colname="col1">
+										<parmname>--lock-lease</parmname>
+									</entry>
+									<entry colname="col2">Sets the length, in seconds, of
+										distributed lock leases obtained by this cache. See <xref
+											href="../../../managing/monitor_tune/performance_controls_setting_cache_timeouts.xml#perf"
+										/>.</entry>
+									<entry>120</entry>
+								</row>
+								<row>
+									<entry colname="col1">
+										<parmname>--lock-timeout</parmname>
+									</entry>
+									<entry colname="col2">Sets the number of seconds a cache
+										operation may wait to obtain a distributed lock lease before
+										timing out. See <xref
+											href="../../../managing/monitor_tune/performance_controls_setting_cache_timeouts.xml#perf"
+										/>.</entry>
+									<entry>60</entry>
+								</row>
+								<row>
+									<entry colname="col1">
+										<parmname>--message-sync-interval</parmname>
+									</entry>
+									<entry colname="col2">Sets the frequency (in seconds) at which a
+										message will be sent by the primary cache-server node to all
+										the secondary cache-server nodes to remove the events which
+										have already been dispatched from the queue. See <xref
+											href="../../../developing/events/ha_event_messaging_whats_next.xml#ha_event_messaging_whats_next/section_741052B413F24F47A14F5B7D7955F0AA"
+										/>.</entry>
+									<entry>1</entry>
+								</row>
+								<row>
+									<entry colname="col1">
+										<parmname>--search-timeout</parmname>
+									</entry>
+									<entry colname="col2">Sets the number of seconds a cache get
+										operation can spend searching for a value. See <xref
+											href="../../../managing/monitor_tune/performance_controls_setting_cache_timeouts.xml#perf"
+										/>.</entry>
+									<entry>300</entry>
+								</row>
+							</tbody>
+						</tgroup>
+					</table>
+				</p>
+				<p>
+					<b>Example Commands:</b>
+					<codeblock>alter runtime --member=server1 --log-level=finest --enable-statistics=true</codeblock>
+				</p>
+				<p>
+					<b>Sample Output:</b>
+					<codeblock>gfsh&gt;alter runtime --member=server1 --log-level=finest --enable-statistics=true
+Runtime configuration altered successfully for the following member(s)
+192.168.129.129(server1:240)&lt;v1&gt;:64871</codeblock>
+				</p>
+			</body>
+		</topic>
+	</topic>
+</dita>

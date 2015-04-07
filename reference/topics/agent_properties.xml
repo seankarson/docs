@@ -1,0 +1,238 @@
+<?xml version="1.0"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<!-- Created with XMetaL (http://www.xmetal.com) -->
+<concept id="concept_6AE6E146345544BEA7DB7C6A9DE01395"> 
+  <title>JMX Agent Configuration Properties</title> 
+  <shortdesc><?xm-replace_text Short Description?>
+  </shortdesc>
+  <prolog><metadata><keywords><keyword>gemfire jmx
+			 configuration</keyword><keyword>gemfire jmx agent
+			 configuration</keyword><keyword>gemfire jmx agent
+			 properties</keyword><keyword>gemfire agent.properties</keyword><keyword>gemfire
+			 agent properties</keyword></keywords></metadata>
+  </prolog> 
+  <conbody> 
+	 <p>By default, the Agent properties file is named 
+		<codeph>agent.properties</codeph>. You can specify a different properties
+		file on the command line when you launch the JMX Agent. See 
+		<xref href="../../managing/jmx/starting_jmx_agent.xml#how_logging_works"
+		 type="concept" format="dita" scope="local"><?xm-replace_text Starting the vFabric       JMX Agent?></xref>.
+		Availble Agent properties include: 
+	 <ul id="ul_A3F4B0C478914DA9A99DE364B41064E9"> 
+		<li id="li_9350788676084653BCA2D87D900C2902"><xref
+		  href="agent_properties.xml#concept_6AE6E146345544BEA7DB7C6A9DE01395/section_770CED9E131941F5A638A518A88605B4"
+		  type="section" format="dita" scope="local"><?xm-replace_text Admin Distributed System Properties?></xref>
+		  
+		</li> 
+		<li id="li_2A0651A58F3B42A39D8CB2B6C29C05DA"><xref
+		  href="agent_properties.xml#concept_6AE6E146345544BEA7DB7C6A9DE01395/section_E1170E4BB78E43DC918DC17ACA9D404E"
+		  type="section" format="dita" scope="local"><?xm-replace_text Logging and Statistics Refresh Properties?></xref>
+		  
+		</li> 
+		<li id="li_270A72E48CB0468983239F151393AE1D"><xref
+		  href="agent_properties.xml#concept_6AE6E146345544BEA7DB7C6A9DE01395/section_A0F2E16A5A9F495F8B6763EE93634875"
+		  type="section" format="dita" scope="local"><?xm-replace_text HttpAdaptor Properties?></xref>
+		  
+		</li> 
+		<li id="li_DFDA7153C9544E8B9A8D7F51B7936128"><xref
+		  href="agent_properties.xml#concept_6AE6E146345544BEA7DB7C6A9DE01395/section_5E66AA7D6A7340AF81805C65CE5AEB5E"
+		  type="section" format="dita" scope="local"><?xm-replace_text RMIConnectorServer Properties?></xref>
+		  
+		</li> 
+		<li id="li_CFCE0AE12DFF4B2EA3EA0E5C0F4AA413"><xref
+		  href="agent_properties.xml#concept_6AE6E146345544BEA7DB7C6A9DE01395/section_81EBF04C48554A9DA7C8153E3F6CE26A"
+		  type="section" format="dita" scope="local"><?xm-replace_text Email Notification Properties?></xref>
+		  
+		</li> 
+		<li id="li_C8A484BE8AF4493A9CBF5ED162C9B59D"><xref
+		  href="agent_properties.xml#concept_6AE6E146345544BEA7DB7C6A9DE01395/section_AD9D49B153CA426FABC4F96F35A89DAD"
+		  type="section" format="dita" scope="local"><?xm-replace_text SSL Settings for JMX Agent (Communications Outside of     GemFire)?></xref>
+		</li>
+	 </ul> 
+	 </p> 
+	 <p>The Agent looks for the properties file in the following locations, in
+		order: 
+	 <ol id="ol_67CA2F34D9C64309BDB052C5360A96EE"> 
+		<li id="li_C46FA8B620E54CF4A14FFFC5BBEA512F">A directory that you
+		  explicitly specify with the -dir argument when starting the Agent 
+		</li> 
+		<li id="li_6D26A478E1A948CABDB1AB1CE7C0E25E">The current directory 
+		</li> 
+		<li id="li_44DCAA2DF28144BF967FC24B309B6C57">Your home directory (the
+		  default) 
+		</li> 
+		<li id="li_6F793E3BFAD24A8488D15BB78998C5F2">The CLASSPATH 
+		</li> 
+	 </ol> 
+	 </p> 
+	 <p>You can modify the values in the properties file via the 
+		<codeph>HttpAdaptor</codeph> or any supported JMX interface. 
+	 </p> 
+	 <section id="section_770CED9E131941F5A638A518A88605B4"> 
+		<title>Admin Distributed System Properties</title> 
+		<p> 
+		<table id="table_5B2C4084366C416A8889DDF6379E8520"
+		 conref="../../managing/jmx/table_admin_distributed_system_properties.xml#ditacomponent_C106B74C2A5E4CEE83750F1D922F23A2/table_477FB0290392432586B2CDC918C813AD">
+		  
+		<title><?xm-replace_text Title?></title> 
+		<tgroup cols="-dita-use-conref-target"> 
+		  <tbody> 
+			 <row> 
+				<entry> 
+				</entry> 
+				<entry> 
+				</entry> 
+			 </row> 
+		  </tbody> 
+		</tgroup> 
+		</table> 
+		</p> 
+	 </section> 
+	 <section id="section_E1170E4BB78E43DC918DC17ACA9D404E"> 
+		<title>Logging and Statistics Refresh Properties</title> 
+		<draft-comment>So these were in the "Command Line Parameters" topic-- but
+		  couldn't these be specified in agent.properties as well? Need to verify. 
+		</draft-comment> 
+		<p> 
+		<table id="table_0E2DF803CB8A495D8EDA19FA110684E5"> 
+		  <tgroup cols="3"><colspec colnum="1" colname="col1"
+			 colwidth="*"/><colspec colnum="2" colname="col2" colwidth="*"/><colspec
+			 colnum="3" colname="col3" colwidth="*"/><thead> 
+				<row> 
+				  <entry colname="col1">Argument 
+				  </entry> 
+				  <entry colname="col2">Comments 
+				  </entry> 
+				  <entry colname="col3">Default Value 
+				  </entry> 
+				</row></thead> 
+			 <tbody> 
+				<row> 
+				  <entry colname="col1"><codeph>log-level</codeph> 
+				  </entry> 
+				  <entry colname="col2"> 
+					 <p>A minimum level of log messages to be written. 
+					 </p> 
+				  </entry> 
+				  <entry colname="col3"><codeph>config</codeph> 
+				  </entry> 
+				</row> 
+				<row> 
+				  <entry colname="col1"><codeph>log-disk-space-limit</codeph> 
+				  </entry> 
+				  <entry colname="col2">The maximum disk space to allocate for
+					 logging, in megabytes in the range 0..1000000. 
+				  </entry> 
+				  <entry colname="col3">0 
+				  </entry> 
+				</row> 
+				<row> 
+				  <entry colname="col1"><codeph>log-file-size-limit</codeph> 
+				  </entry> 
+				  <entry colname="col2">The maximum size of the JMX Agent log file,
+					 in megabytes in the range 0..1000000. 
+				  </entry> 
+				  <entry colname="col3">0 
+				  </entry> 
+				</row> 
+				<row> 
+				  <entry colname="col1"><codeph>refresh-interval</codeph> 
+				  </entry> 
+				  <entry colname="col2">The time interval in seconds after which
+					 the system statistics are refreshed. 
+				  </entry> 
+				  <entry colname="col3">5 seconds 
+				  </entry> 
+				</row> 
+			 </tbody> 
+		  </tgroup> 
+		</table> 
+		</p> 
+	 </section> 
+	 <section id="section_A0F2E16A5A9F495F8B6763EE93634875"> 
+		<title>HttpAdaptor Properties</title> 
+		<p> 
+		<table id="table_F93DD235512446458F9C9A292C069A6A"
+		conref="../../managing/jmx/table_httpadapter_properties.xml#ditacomponent_9F0E71553E9B4290B1E6D839FB84B058/table_6648995C170E4E188BDC3B712577342E">
+		  
+		<title><?xm-replace_text Title?></title> 
+		<tgroup cols="-dita-use-conref-target"> 
+		  <tbody> 
+			 <row> 
+				<entry> 
+				</entry> 
+				<entry> 
+				</entry> 
+			 </row> 
+		  </tbody> 
+		</tgroup> 
+		</table> 
+		</p> 
+	 </section> 
+	 <section id="section_5E66AA7D6A7340AF81805C65CE5AEB5E"> 
+		<title>RMIConnectorServer Properties</title> 
+		<p> 
+		<table id="table_30B47F5716104BC098F4B3E511CDDFA4"
+		conref="../../managing/jmx/table_rmi_connector_server.xml#ditacomponent_34EEE7BE05464E1DBCF9D282EEFF3299/table_8B102BBCE95645A09D45BD13BECE2744">
+		  
+		<title><?xm-replace_text Title?></title> 
+		<tgroup cols="-dita-use-conref-target"> 
+		  <tbody> 
+			 <row> 
+				<entry> 
+				</entry> 
+				<entry> 
+				</entry> 
+			 </row> 
+		  </tbody> 
+		</tgroup> 
+		</table> 
+		</p> 
+	 </section> 
+	 <section id="section_81EBF04C48554A9DA7C8153E3F6CE26A"> 
+		<title>Email Notification Properties</title> 
+		<table id="table_3501886AD2234E5FB0A4A30D73B300D8"
+		conref="../../managing/jmx/table_email_notification.xml#ditacomponent_B8A433EADFA34D6FA2212E94BF4CA05A/table_4BC4A3027ECC4DC49652A60747F998D2">
+		  
+		<title><?xm-replace_text Title?></title> 
+		<tgroup cols="-dita-use-conref-target"> 
+		  <tbody> 
+			 <row> 
+				<entry> 
+				</entry> 
+				<entry> 
+				</entry> 
+			 </row> 
+		  </tbody> 
+		</tgroup> 
+		</table> 
+	 </section> 
+	 <section id="section_AD9D49B153CA426FABC4F96F35A89DAD"> 
+		<title>SSL Settings for JMX Agent (Communications Outside of
+		  GemFire)</title> 
+		<p> 
+		  <note>These settings can be the set to the same values as the GemFire
+			 peer SSL settings listed in<xref
+			 href="agent_properties.xml#concept_6AE6E146345544BEA7DB7C6A9DE01395/section_770CED9E131941F5A638A518A88605B4"
+			 type="section" format="dita" scope="local"><?xm-replace_text Admin Distributed System Properties?></xref>.
+			 
+		  </note> 
+		<table id="table_69DFD5BFF16740A68EC43837C3256926"
+		conref="../../managing/jmx/table_ssl_jmx_agent.xml#ditacomponent_6F79F947C3604FC89FF6D38DA6E285EC/table_78CDAFE7E2AC4D16873852FC608A07AE">
+		  
+		<title><?xm-replace_text Title?></title> 
+		<tgroup cols="-dita-use-conref-target"> 
+		  <tbody> 
+			 <row> 
+				<entry> 
+				</entry> 
+				<entry> 
+				</entry> 
+			 </row> 
+		  </tbody> 
+		</tgroup> 
+		</table> 
+		</p> 
+	 </section> 
+  </conbody>
+</concept>

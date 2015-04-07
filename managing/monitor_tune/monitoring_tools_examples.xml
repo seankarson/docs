@@ -1,0 +1,528 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "http://docs.oasis-open.org/dita/dtd/concept.dtd">
+<concept id="programming_examples"> 
+  <title>Programming Examples</title> 
+  <prolog><metadata><keywords><keyword>gemfire monitoring
+			 apis</keyword><keyword>gemfire monitoring examples</keyword><keyword>gemfire
+			 administration apis</keyword><keyword>gemfire administration
+			 examples</keyword></keywords></metadata>
+  </prolog> 
+  <conbody> 
+	 <p>
+		<draft-comment>Admin APIs deprecated in 7.0.
+		</draft-comment>This section provides examples for the following: 
+	 <ul id="ul_73E6863F4B1B4E4D8ADAF79C18F2499E"> 
+		<li id="li_2CD27745AA6C452A9632AB5ED43A5673"><xref format="dota"
+		  href="#programming_examples/accessing_distributed_system_processes"
+		  scope="local">Distributed System Management</xref> 
+		</li> 
+		<li id="li_53D0EA89B31440CA89E248A385B0C805"><xref format="dita"
+		  href="#programming_examples/distributed_system_management"
+		  scope="local">Accessing Distributed System Processes</xref> 
+		</li> 
+		<li id="li_5EAE754ABD5847F388DABF127D224A60"><xref format="dita"
+		  href="#programming_examples/start_stop_managed_entities" scope="local">Starting
+			 and Stopping Managed Entities</xref> 
+		</li> 
+		<li id="li_7524291A3D104ACB8DF6FA510E8C2F0C"><xref format="dita"
+		  href="#programming_examples/access_sys_member_info" scope="local">Accessing
+			 System Member Information</xref> 
+		</li> 
+		<li id="li_D300BECA723A439CBE48BE6578646F4C"><xref format="dita"
+		  href="#programming_examples/cache_management" scope="local">Cache
+			 Management</xref> 
+		</li> 
+		<li id="li_40840200906C44B6943F36339DADFC1D"><xref format="dita"
+		  href="#programming_examples/region_management" scope="local">Region
+			 Management</xref> 
+		</li> 
+		<li id="li_58ED891AE30447FA96C8BC5B300DDE6B"><xref format="dita"
+		  href="#programming_examples/health_monitoring" scope="local">Health
+			 Monitoring</xref> 
+		</li> 
+	 </ul> 
+	 </p> 
+	 <section id="distributed_system_management"> 
+		<title>Distributed System Management</title> 
+		<p>An instance of AdminDistributedSystem implements the administrative
+		  interface for controlling, monitoring, and managing a 
+		  <ph
+			conref="../../product_short_name.xml#ditacomponent_4CDD0B39CDD54D2AAF1CBC81A1FDBA19/ph_2E41EB9BE730428A970C1C206D14DC09"><?xm-replace_text Phrase?></ph>
+		  distributed system. 
+		</p> 
+		<p>The following examples show how to use the 
+		  <codeph>AdminDistributedSystemFactory</codeph> class to define and
+		  create an instance of 
+		  <codeph>AdminDistributedSystem</codeph>. The first example shows how to
+		  create a dedicated admin interface and the second example illustrates the
+		  method to create a colocated admin interface. All attributes set on 
+		  <codeph>DistributedSystemConfig</codeph> (in these examples, a
+		  multicast address and port number) are used to define an 
+		  <codeph>AdminDistributedSystem</codeph>. 
+		</p> 
+		<p>Invoking 
+		  <codeph>com.gemstone.gemfire.admin.AdminDistributedSystem.connect</codeph>
+		  configures the connection using 
+		  <codeph>DistributedSystemConfig</codeph> system properties (including
+		  its defaults), and any settings in the 
+		  <codeph>gemfire.properties</codeph> file. 
+		</p> 
+		<p>The 
+		  <codeph>AdminDistributedSystemFactory.setEnableAdministrationOnly</codeph>
+		  method enables you to configure 
+		  <ph
+			conref="../../product_short_name.xml#ditacomponent_4CDD0B39CDD54D2AAF1CBC81A1FDBA19/ph_2E41EB9BE730428A970C1C206D14DC09"><?xm-replace_text Phrase?></ph>
+		  administration as either dedicated or colocated. A dedicated admin interface
+		  limits the member only to administration APIs, while a colocated interface
+		  allows all 
+		  <ph
+			conref="../../product_short_name.xml#ditacomponent_4CDD0B39CDD54D2AAF1CBC81A1FDBA19/ph_2E41EB9BE730428A970C1C206D14DC09"><?xm-replace_text Phrase?></ph>
+		  APIs. To define an interface as dedicated, set the 
+		  <codeph>AdminDistributedSystemFactory.setEnableAdministrationOnly</codeph>
+		  property to true as shown in the following example. The default value is 
+		  <codeph>false</codeph>. 
+		</p> 
+		<p>If 
+		  <codeph>setEnableAdministrationOnly</codeph> is set to 
+		  <codeph>true</codeph>, be careful to only use the 
+		  <ph
+			conref="../../product_short_name.xml#ditacomponent_4CDD0B39CDD54D2AAF1CBC81A1FDBA19/ph_2E41EB9BE730428A970C1C206D14DC09"><?xm-replace_text Phrase?></ph>
+		  APIs from the 
+		  <codeph>com.gemstone.gemfire.admin</codeph> package. In particular, do
+		  not create a 
+		  <codeph>Cache</codeph> or a normal 
+		  <codeph>DistributedSystem</codeph>. For the caveats associated with
+		  using a colocated admin interface, see "Limitations for Using a Colocated Admin
+		  API." 
+		</p> 
+		<p><b>Creating a Distributed System Administration Interface (dedicated
+			 to administration only)</b> 
+		</p> 
+		<codeblock>AdminDistributedSystemFactory.setEnableAdministrationOnly(true);
+DistributedSystemConfig config =                                     
+    AdminDistributedSystemFactory.defineDistributedSystem();
+config.setMcastAddress("224.0.0.250");
+config.setMcastPort(10333);
+AdminDistributedSystem admin = AdminDistributedSystemFactory.getDistributedSystem(config);
+admin.connect();
+// Wait for the connection to be made
+long timeout = 30 * 1000;
+try {
+    if (!admin.waitToBeConnected(timeout)) {
+        String s = "Could not connect after " + timeout + "ms";
+        throw new Exception(s);
+    }
+} 
+catch (InterruptedException ex) {
+    String s = "Interrupted while waiting to be connected";
+    throw new Exception(s, ex);
+}</codeblock> 
+		<p>The following example creates an 
+		  <codeph>AdminDistributedSystem</codeph> colocated on a 
+		  <codeph>DistributedSystem</codeph> connection, which allows the Admin
+		  API and Caching API to be used in the same member. 
+		</p> 
+		<p><b>Creating a Distributed System Administration Interface (colocated
+			 with DistributedSystem connection)</b> 
+		</p> 
+		<codeblock>Properties props = new Properties();
+props.setProperty("mcast-address", "224.0.0.250");
+props.setProperty("mcast-port", "10333");
+// Before connecting to either AdminDistributedSystem or DistributedSystem, 
+// call setEnableAdministrationOnly.
+AdminDistributedSystemFactory.setEnableAdministrationOnly(false);
+DistributedSystem connection = DistributedSystem.connect(props);
+DistributedSystemConfig config = AdminDistributedSystemFactory.defineDistributedSystem(connection, null);
+AdminDistributedSystem admin = AdminDistributedSystemFactory.getDistributedSystem(config);
+admin.connect();
+// Wait for the connection to be made
+long timeout = 30 * 1000;
+try {
+    if (!admin.waitToBeConnected(timeout)) {
+        String s = "Could not connect after " + timeout + "ms";
+        throw new Exception(s);
+    }
+} 
+catch (InterruptedException ex) {
+    String s = "Interrupted while waiting to be connected";
+    throw new Exception(s, ex);</codeblock> 
+		<p>You can use the 
+		  <codeph>AdminDistributedSystem</codeph> admin object to start and stop
+		  all managed members of the distributed system: 
+		</p> 
+		<p><b>Starting a Distributed System</b> 
+		</p> 
+		<codeblock>this.system.start();</codeblock> 
+		<p><b>Stopping a Distributed System</b> 
+		</p> 
+		<codeblock>this.system.start();</codeblock> 
+		<p><b>Stopping a Distributed System</b> 
+		</p> 
+		<codeblock>this.system.stop();</codeblock> 
+		<p><b>Limitations for Using a Co-located Admin API</b> 
+		</p> 
+		<p>While using the Admin API, the following limitations must be noted: 
+		<ul id="ul_06DE61E681B34C74A2AB2448ECEAE985"> 
+		  <li id="li_7484CB24E89F4504961D4F130DE5A1F3">The 
+			 <codeph>AlertListener</codeph> listens only for remote alerts. 
+		  </li> 
+		  <li id="li_F44554E448434EB2840969A1B5C48803">The Admin API can manage
+			 only remote members. 
+		  </li> 
+		  <li id="li_8BF7C6951BA245059E0B9A8A49130207">The connection does not
+			 display as an Admin connection. 
+		  </li> 
+		</ul> 
+		</p> 
+	 </section> 
+	 <section id="accessing_distributed_system_processes"> 
+		<title>Accessing Distributed System Processes</title> 
+		<p>Once instantiated, the 
+		  <codeph>AdminDistributedSystem</codeph> can be used to access the
+		  various distributed system entities. The following code iterates through the
+		  list of all member applications in the system and identifies a match by name.
+		  The interface also provides a list of locators, through 
+		  <codeph>getDistributionLocators</codeph> and a list of cache servers,
+		  through 
+		  <codeph>getCacheVms</codeph>. 
+		</p> 
+		<p><b>Locating a System Member by Name</b> 
+		  <codeblock>SystemMember findMember(String name) throws AdminException {
+    if (name == null) {
+        return null;
+    }
+    SystemMember[] apps = this.system.getSystemMemberApplications();
+    for (int i = 0; i &lt; apps.length; i++) {
+        if (name.equals(apps[i].getName())) {
+            return apps[i];
+        }
+    }
+    return null;
+}</codeblock> 
+		</p> 
+	 </section> 
+	 <section id="start_stop_managed_entities"> 
+		<title>Starting and Stopping Managed Entities</title> 
+		<p>Locators and cache servers are started and stopped when the
+		  distributed system is started and stopped. They can also be started and stopped
+		  individually. The 
+		  <codeph>DistributionLocator</codeph> and 
+		  <codeph>CacheVm</codeph> interfaces extend 
+		  <codeph>ManagedEntity</codeph>, which provides 
+		  <codeph>start</codeph> and 
+		  <codeph>stop</codeph> methods. This example stops the selected cache
+		  server. 
+		</p> 
+		<p><b>Stopping a cacheserver</b> 
+		  <codeblock>CacheVm csvr = (CacheVm) this.entity.getObject();
+csvr.stop();</codeblock> 
+		</p> 
+	 </section> 
+	 <section id="access_sys_member_info"> 
+		<title>Accessing System Member Information</title> 
+		<p>Applications and cache servers are system members. In the admin API,
+		  applications are represented by 
+		  <codeph>SystemMember</codeph> objects, and the 
+		  <codeph>CacheVm</codeph> interface extends the 
+		  <codeph>SystemMember</codeph> interface. Through the 
+		  <codeph>SystemMember</codeph> interface you can access configuration
+		  parameters, license information and the member’s 
+		  <codeph>AdminDistributedSystem</codeph> object. This code lists basic 
+		  <codeph>SystemMember</codeph> information: 
+		</p> 
+		<p><b>Listing System Member Details</b> 
+		  <codeblock>void listSystemMember() {
+    SystemMember member = (SystemMember) this.entity.getObject();
+    System.out.println("System Member Application Details:");
+    System.out.println("\t" + "id: " + member.getId());
+    System.out.println("\t" + "host: " + member.getHost());
+
+    ConfigurationParameter[] configs = member.getConfiguration();
+    System.out.println("Configuration Parameters:");
+    for (int i = 0; i &lt; configs.length; i++) {
+        System.out.println("\t" 
+            + configs[i].getName() + "=" + configs[i].getValueAsString());
+    }
+
+    try {
+        StatisticResource[] stats = member.getStats();
+        System.out.println("Statistic Resources:");
+        for (int i = 0; i &lt; stats.length; i++) {
+            System.out.println("\t" + stats[i].getName());
+        }
+    } catch (AdminException e) {
+        e.printStackTrace();
+    }
+}</codeblock> 
+		</p> 
+	 </section> 
+	 <section id="cache_management"> 
+		<title>Cache Management</title> 
+		<p>The 
+		  <codeph>SystemMember</codeph> interface also provides the 
+		  <codeph>SystemMemberCache</codeph> object, which allows you to manage
+		  cache attributes, cache statistics, and cache regions. This example retrieves
+		  the 
+		  <codeph>SystemMemberCache</codeph> object from a 
+		  <codeph>SystemMember</codeph>. 
+		</p> 
+		<p><b>Retrieving a Member's Cache</b> 
+		</p> 
+		<codeblock>SystemMember member = (SystemMember) this.entity.getObject();
+SystemMemberCache cache = member.getCache();</codeblock> 
+		<p>This example lists the cache contents after updating its information
+		  with the 
+		  <codeph>refresh</codeph> method. 
+		</p> 
+		<p><b>Listing Cache Contents</b> 
+		</p> 
+		<codeblock>void listSystemMemberCache() {
+    SystemMemberCache cache = (SystemMemberCache) this.entity.getObject();
+    cache.refresh();
+    
+    System.out.println("System Member Cache Details:");
+    System.out.println("\t" + "id: " + cache.getId());
+    System.out.println("\t" + "name: " + cache.getName());
+    System.out.println("\t" + "isClosed: " + cache.isClosed());
+    System.out.println("\t" + "lockTimeout: " + cache.getLockTimeout());
+    System.out.println("\t" + "lockLease: " + cache.getLockLease());
+    System.out.println("\t" + "searchTimeout: " + cache.getSearchTimeout());
+    System.out.println("\t" + "upTime: " + cache.getUpTime());
+
+    System.out.println("Region Names:");
+    Set regionNames = cache.getRegionNames();
+    for (Iterator it = regionNames.iterator(); it.hasNext();) {
+        System.out.println("\t" + it.next());
+    }
+
+    System.out.println("Cache Statistics:");
+    Statistic[] stats = cache.getStatistics();
+    for (int i = 0; i &lt; stats.length; i++) {
+        System.out.println("\t" + 
+                stats[i].getName() + "=" + stats[i].getValue());
+    }
+}</codeblock> 
+		<p>In addition to the information it gives you, the 
+		  <codeph>SystemMemberCache</codeph> allows you to configure what the
+		  cache does, including starting 
+		  <codeph>CacheVms</codeph> in remote caches. For complete details on
+		  available functionality, see the online Java API documentation. The next
+		  section shows region management in the cache. 
+		</p> 
+	 </section> 
+	 <section id="region_management"> 
+		<title>Region Management</title> 
+		<p>The 
+		  <codeph>SystemMemberCache</codeph> interface allows you to create
+		  regions in the cache. While a cache is usually managed by its own member, this
+		  capability is particularly useful for dynamically creating regions in a 
+		  <codeph>cacheserver</codeph>. You can create a region in a 
+		  <codeph>cacheserver</codeph> that outlives any of the applications that
+		  create or use it. For more information, see "Replication and Local Destroy and
+		  Invalidate Operations." If you need to create regions across many members, you
+		  might be better served by the dynamic region functionality, described in
+		  "Dynamic Region Management." 
+		</p> 
+		<p>This example shows region creation using the 
+		  <codeph>SystemMemberCache</codeph>. 
+		</p> 
+		<p><b>Creating a Region</b> 
+		</p> 
+		<codeblock>void createRegion(String command) throws AdminException {
+    String name = parseName(command);
+    if (name.length() == 0) {
+        System.out.println("Please provide a name for the region");
+    }
+    else {
+        if (this.entity.getContext().isSystemMemberCache()) {
+            SystemMemberCache cache = 
+                (SystemMemberCache) this.entity.getObject();
+            AttributesFactory fac = new AttributesFactory();
+            SystemMemberRegion rgn = 
+                cache.createRegion(name, fac.create());
+        }
+        else {
+            System.out.println("Please choose a cache context before creating a region.");
+        }
+    }
+}</codeblock> 
+		<p>This region creation method returns a 
+		  <codeph>SystemMemberRegion</codeph>, similar to how the 
+		  <codeph>Cache</codeph> and 
+		  <codeph>Region</codeph> interfaces operate in the 
+		  <codeph>com.gemstone.gemfire.cache</codeph> package. 
+		</p> 
+		<p>As with the other administrative entities, 
+		  <codeph>Region</codeph> contents are available through the API. This
+		  example lists a region’s attributes and number of entries. 
+		</p> 
+		<p><b>Retrieving Region Contents</b> 
+		</p> 
+		<codeblock>void listSystemMemberRegion() {
+    SystemMemberRegion region = (SystemMemberRegion) this.entity.getObject();
+    region.refresh();
+    
+    System.out.println("System Member Region Details:");
+    System.out.println("\t" + "name: " + region.getName());
+    System.out.println("\t" + "entryCount: " + region.getEntryCount());
+
+    System.out.println("Region Attributes:");
+    System.out.println("\t" + "UserAttribute: " + region.getUserAttribute());
+    System.out.println("\t" + "CacheLoader: " + region.getCacheLoader());
+    System.out.println("\t" + "CacheWriter: " + region.getCacheWriter());
+        . . . 
+    System.out.println("\t" + "DataPolicy: " + region.getDataPolicy());
+        
+    System.out.println("Region Statistics:");
+    System.out.println("\t" + "LastModifiedTime: " 
+        + region.getLastModifiedTime());
+    System.out.println("\t" + "LastAccessedTime: " 
+        + region.getLastAccessedTime());
+    System.out.println("\t" + "HitCount: " + region.getHitCount());
+    System.out.println("\t" + "MissCount: " + region.getMissCount());
+    System.out.println("\t" + "HitRatio: " + region.getHitRatio());
+}</codeblock> 
+	 </section> 
+	 <section id="health_monitoring"> 
+		<title>Health Monitoring</title> 
+		<p>This example registers and configures health MBeans for the
+		  distributed system, then invokes a 
+		  <codeph>setupHealthForAllHosts</codeph> method to create health
+		  monitoring instances for all machines running distributed system components. 
+		</p> 
+		<p><b>Configuring Health Objects</b> 
+		</p> 
+		<codeblock>private void setupHealthMonitors() throws Exception {
+// register the GemFireHealth MBean for the system...
+    this.healthName = (ObjectName) this.mbs.invoke(this.systemName, 
+                "monitorGemFireHealth",new Object[0], new String[0]);
+
+    String systemId = (String) this.mbs.getAttribute(this.systemName, "id");
+
+// get the names of the default health config MBeans 
+    this.systemHealthConfigName = 
+        new ObjectName("GemFire:type=DistributedSystemHealthConfig,id=" 
+                + systemId);
+    this.defaultHealthConfigName = new ObjectName
+        ("GemFire:type=GemFireHealthConfig,id=" + systemId + ",host=default");
+    . . . 
+    Integer seconds = (Integer)
+        this.mbs.getAttribute(this.defaultHealthConfigName,
+                "healthEvaluationInterval");
+
+// Configure StringMonitor for the health attribute on GemFireHealth MBean
+    this.healthMonitorName = 
+        new ObjectName("monitors:type=String,attr=health,system=" + systemId);
+    this.mbs.createMBean("javax.management.monitor.StringMonitor",                                                  
+                this.healthMonitorName);
+
+    AttributeList al = new AttributeList();
+    al.add(new Attribute("ObservedObject", this.healthName));
+    al.add(new Attribute("ObservedAttribute", "healthStatus"));
+    al.add(new Attribute("GranularityPeriod", 
+                new Integer(seconds.intValue() * 1000))); // in millis
+    al.add(new Attribute("StringToCompare", 
+                GemFireHealth.GOOD_HEALTH.toString()));
+    al.add(new Attribute("NotifyMatch", new Boolean(true)));
+    al.add(new Attribute("NotifyDiffer", new Boolean(true)));
+    this.mbs.setAttributes(this.healthMonitorName, al);
+    
+    this.mbs.addNotificationListener(this.healthMonitorName, 
+                this, null, this.mbs);
+    this.mbs.invoke(this.healthMonitorName, "start", 
+                new Object[0], new String[0]);
+    . . . 
+
+// next register health config MBeans for each host in the system...
+    setupHealthForAllHosts();
+}</codeblock> 
+		<p>The 
+		  <codeph>setupHealthForAllHosts</codeph> method runs through all system
+		  members, calling another method, 
+		  <codeph>checkHostFor</codeph>, that checks to see if the member’s host
+		  has a health configuration registered. This is how the 
+		  <codeph>setupHealthForAllHosts</codeph> method works: 
+		</p> 
+		<p><b>Iterate System Members, Registering Health Configuration for the
+			 Member’s Machines</b> 
+		  <codeblock>private void setupHealthForAllHosts() throws Exception {
+// make sure health config MBeans are registered for application hosts...
+    ObjectName[] memberNames = (ObjectName[])
+        this.mbs.invoke(this.systemName, "manageSystemMemberApplications",
+        new Object[0], new String[0]);
+    for (int i = 0; i &lt; memberNames.length; i++) {
+        checkHostFor(memberNames[i]);
+    }
+}</codeblock> 
+		</p> 
+		<p>This is the 
+		  <codeph>checkHostFor</codeph> method: 
+		</p> 
+		<p><b>Register Health Configuration for Each Member’s Machine</b> 
+		  <codeblock>private void checkHostFor(ObjectName memberName) throws Exception {
+    if (memberName == null) return;
+    synchronized(this.healthConfigHostMap) {
+
+// get the member's host...
+        String host = (String) this.mbs.getAttribute(memberName, "host");
+
+// is there a config MBean registered for the host yet?
+        ObjectName gemfireHealthConfigName =
+            (ObjectName) this.healthConfigHostMap.get(host);
+
+        if (gemfireHealthConfigName == null 
+                || !this.mbs.isRegistered(memberName)) {
+// if not registered, create a new config MBean for the host...
+            gemfireHealthConfigName = 
+                    (ObjectName)this.mbs.invoke(this.healthName, 
+                            "manageGemFireHealthConfig",
+                            new Object[] { host },
+                            new String[] { "java.lang.String" });
+            this.healthConfigHostMap.put(host, gemfireHealthConfigName);
+        }
+    }
+}</codeblock> 
+		</p> 
+		<p>Once the health configuration is registered, when changes happen in
+		  the system the listener is notified and can handle the events. In this example
+		  case, if a new member has joined, the method calls 
+		  <codeph>checkHostFor</codeph> to make sure the member’s host has a
+		  health configuration registered. In all events, the method prints a message to
+		  standard output. 
+		</p> 
+		<p><b>Event Handler for Health-Related Notifications</b> 
+		</p> 
+		<codeblock>public void handleNotification(Notification notification, Object handback) {
+    String type = notification.getType();
+    System.out.println("handleNotification: " + type);
+    if ("gemfire.distributedsystem.member.joined".equals(type)) {
+        String memberId = notification.getMessage();
+        System.out.println("MEMBER JOINED: " + memberId);
+// Make sure the new member’s machine has a registered health configuration
+        try {
+            checkHostFor(findSystemMember(memberId));
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+    else if ("gemfire.distributedsystem.member.left".equals(type)) {
+        String memberId = notification.getMessage();
+        System.out.println("MEMBER LEFT: " + memberId);
+    }
+    else if ("gemfire.distributedsystem.member.crashed".equals(type)) {
+        String memberId = notification.getMessage();
+        System.out.println("MEMBER CRASHED: " + memberId);
+    }
+    else if ("gemfire.distributedsystem.alert".equals(type)) {
+        String alert = notification.getMessage();
+        System.out.println("ALERT: " + alert);
+    }
+    else if (MonitorNotification.STRING_TO_COMPARE_VALUE_DIFFERED.equals(type)) {
+        String health = notification.getMessage();
+        System.out.println("HEALTH UPDATED: " + health);
+    }
+}</codeblock> 
+	 </section> 
+  </conbody>
+</concept>

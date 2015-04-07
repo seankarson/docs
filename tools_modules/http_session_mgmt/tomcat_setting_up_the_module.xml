@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "http://docs.oasis-open.org/dita/v1.1/OS/dtd/concept.dtd">
+<concept id="tomcat_setting_up_the_module">
+	<title>Setting Up the HTTP Module for Tomcat</title>
+	<shortdesc>To use the <keyword keyref="product_name"/> HTTP module with Tomcat application
+		servers, you will need to modify Tomcat's <codeph>server.xml</codeph> and
+			<codeph>context.xml</codeph> files.</shortdesc>
+	<conbody>
+		<p>Configuration is slightly different depending on the topology you are setting up. Refer
+			to <xref href="common_gemfire_topologies.xml#common_gemfire_topologies" type="concept"
+				format="dita" scope="local"/> for more information. </p>
+		<section id="section_20294A39368D4402AEFB3D074E8D5887">
+			<title>Peer-to-Peer Setup</title>
+			<image href="../../images_svg/http_module_p2p.svg" placement="break"
+				id="image_F46F5FE6364C4162B615A51A3C11BDB4"/>
+			<p>To run <keyword keyref="product_name"/> in a peer-to-peer configuration, add the
+				following line to Tomcat's <codeph>$CATALINA_HOME$/conf/server.xml</codeph> within
+				the <codeph>&lt;Server&gt;</codeph> tag: </p>
+			<codeblock>&lt;Listener className="com.gemstone.gemfire.modules.session.catalina.
+                         PeerToPeerCacheLifecycleListener"/&gt;</codeblock>
+			<p>Depending on the version of Tomcat you are using, add one of the following lines to
+					<codeph>$CATALINA_HOME$/conf/context.xml</codeph> within the
+					<codeph>&lt;Context&gt;</codeph> tag: </p>
+			<p>For Tomcat 6.0:
+				<codeblock>&lt;Manager className="com.gemstone.gemfire.modules.session.catalina.
+                         Tomcat6DeltaSessionManager"/&gt; </codeblock>
+			</p>
+			<p>For Tomcat 7.0:
+				<codeblock>&lt;Manager className="com.gemstone.gemfire.modules.session.catalina.
+                         Tomcat7DeltaSessionManager"/&gt; </codeblock>
+			</p>
+			<p>Without making any further configuration changes, peers attempt to locate each other
+				using a default multicast channel (as defined by the <codeph>mcast-port</codeph>
+				property found in <xref
+					href="tomcat_changing_gf_default_cfg.xml#tomcat_changing_gf_default_cfg/section_changing_sys_props"
+					type="section" format="dita" scope="local">Changing <keyword
+						keyref="product_name"/> Distributed System Properties</xref>). Refer to
+					<xref
+					href="tomcat_common_configuration_changes.xml#tomcat_common_cfg_changes/p2p_locators"
+					type="section" format="dita" scope="local">Peer-to-peer Configuration Using
+					Locators</xref> for information on creating and using Locators, which provide
+				both discovery and load balancing services. </p>
+		</section>
+		<section id="section_B0CEBE93564540DBA165E0F7A10FDC0B">
+			<title>Client/Server Setup</title>
+			<image href="../../images_svg/http_module_cs.svg" placement="break"
+				id="image_F5EDF6FE394E45C7943DA457DF5586F8"/>
+			<p>To run <keyword keyref="product_name"/> in a client/server configuration, the
+				application server will operate as a <keyword keyref="product_name"/> client. To do
+				this, add the following line to <codeph>$CATALINA_HOME$/conf/server.xml</codeph>
+				within the <codeph>&lt;Server&gt;</codeph> tag: </p>
+			<codeblock>&lt;Listener className="com.gemstone.gemfire.modules.session.catalina.
+                         ClientServerCacheLifecycleListener"/&gt;</codeblock>
+			<p>Depending on the version of Tomcat you are using, add one of the following lines to
+					<codeph>$CATALINA_HOME$/conf/context.xml</codeph> within the
+					<codeph>&lt;Context&gt;</codeph> tag: </p>
+			<p>For Tomcat 6.0:
+				<codeblock>&lt;Manager className="com.gemstone.gemfire.modules.session.catalina.
+                         Tomcat6DeltaSessionManager"/&gt; </codeblock>
+			</p>
+			<p>For Tomcat 7.0:
+				<codeblock>&lt;Manager className="com.gemstone.gemfire.modules.session.catalina.
+                         Tomcat7DeltaSessionManager"/&gt; </codeblock>
+			</p>
+			<p>Since the application server operates as a <keyword keyref="product_name"/> client in
+				this configuration, you must manually launch a <keyword keyref="product_name"/>
+				cache server. You can do this with the following script (which should be installed
+				into the <codeph>bin</codeph> subdirectory): </p>
+			<codeblock>In Unix: 
+  prompt$ ./cacheserver.sh start
+  
+In Windows:
+  prompt&gt; cacheserver.bat start</codeblock>
+			<p>If you plan to use the deprecated cacheserver script that comes with the standalone
+					<keyword keyref="product_name"/> product instead of the cacheserver script that
+				is provided with the module, you must manually add the following JAR files and
+				directory to the server's classpath:</p>
+			<ul id="ul_x21_wmm_hp">
+				<li>$GEMFIRE/lib/gemfire-modules.jar</li>
+				<li><i>INSTANCE_DIR</i>/lib/servlet-api.jar</li>
+				<li><i>INSTANCE_DIR</i>/lib/catalina.jar</li>
+				<li><i>INSTANCE_DIR</i>/bin/tomcat-util.jar</li>
+				<li><i>INSTANCE_DIR</i>/bin/tomcat-juli.jar</li>
+				<li><i>INSTANCE_DIR</i>/conf</li>
+			</ul>
+			<p>where <i>INSTANCE_DIR</i> is the location of the Tomcat Server instance you created
+				with the <keyword keyref="product_name"/> template. These items are automatically
+				added to the classpath by the supplied cacheserver.sh (or cacheserver.bat) script
+				that comes with the Tomcat HTTP Session Management module. </p>
+			<p>Without making any further configuration changes, the client and server attempt to
+				locate each other on the same system using a default port (40404). Though useful for
+				testing purposes, you would not normally deploy a client/server configuration in
+				this way. Refer to <xref
+					href="tomcat_common_configuration_changes.xml#tomcat_common_cfg_changes/section_621D805DB63F46AFBC1EE8D25E4169D8"
+					type="section" format="dita" scope="local"/> for information on creating and
+				using Locators, which provide both discovery and load balancing services. </p>
+		</section>
+		<section id="section_2B97047AB30A4C549D91AD258657FBA6">
+			<title>Starting the Application Server</title>
+			<p>Once you've updated the configuration, you are now ready to start your tc Server or
+				Tomcat instance. Refer to your application server documentation for starting the
+				application server. Once started, <keyword keyref="product_name"/> will
+				automatically launch within the application server process. </p>
+			<note><keyword keyref="product_name"/> session state management provides its own
+				clustering functionality. If you are using <keyword keyref="product_name"/>, you
+				should NOT turn on Tomcat clustering as well. </note>
+		</section>
+		<section id="section_3E186713737E4D5383E23B41CDFED59B">
+			<title>Verifying that <keyword keyref="product_name"/> Started</title>
+			<p>You can verify that <keyword keyref="product_name"/> has successfully started by
+				inspecting the Tomcat log file. For example: </p>
+			<codeblock>Nov 8, 2010 12:12:12 PM
+com.gemstone.gemfire.modules.session.catalina.ClientServerCacheLifecycleListener
+createOrRetrieveCache
+INFO: Created GemFireCache[id = 2066231378; isClosing = false; 
+   created = Mon Nov 08 12:12:12 PDT 2010; server = false; 
+   copyOnRead = false; lockLease = 120; lockTimeout = 60]</codeblock>
+			<p>Information is also logged within the <keyword keyref="product_name"/> log file,
+				which by default is named "gemfire_modules.log". </p>
+		</section>
+	</conbody>
+</concept>

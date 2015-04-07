@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "http://docs.oasis-open.org/dita/v1.1/OS/dtd/concept.dtd">
+<concept id="managing_a_multiuser_cache">
+	<title>Managing RegionServices for Multiple Secure Users</title>
+	<shortdesc id="shortdesc_1C985682D9494502BBC1A47E919026EA">In a secure system, you can create
+		clients with multiple, secure connections to the servers from each client. The most common
+		use case is a <keyword keyref="product_name"/> client embedded in an application server that
+		supports data requests from many users. Each user may be authorized to access a subset of
+		data on the servers. For example, customer users may be allowed to see and update only their
+		own orders and shipments. </shortdesc>
+	<conbody>
+		<section id="section_A2A0F835DF35450E8E4B5304F4BC07E2">
+			<p> </p>In a single client, multiple authenticated users can all access the same
+				<codeph>ClientCache</codeph> through instances of the <codeph>RegionService</codeph>
+			interface. Because there are multiple users with varying authorization levels, access to
+			cached data is done entirely through the servers, where each user’s authorization can be
+			managed. <p>Follow these steps in addition to the steps in <xref
+					href="managing_a_secure_cache.xml#managing_a_secure_cache" type="concept"
+					format="dita" scope="local"/>. <ol id="ol_2771C0BA431A4BC38F1BDAB6DAE36E47">
+					<li id="li_EDF698C96E7A4D61B042860D74CA6AF0">Create your cache and
+							<codeph>RegionService</codeph> instances: <ol
+							id="ol_63684118FDCB452F8BC2E355887F1E46">
+							<li id="li_AB4D4D54B92E46EB88C5FC7B6956ADFC">Configure your client’s
+								server pool for multiple secure user authentication. Example:
+								<codeblock outputclass="language-xml">&lt;pool name="serverPool" multiuser-authentication="true"&gt;
+	&lt;locator host="host1" port="44444"/&gt;
+	&lt;/pool&gt;</codeblock>This
+								enables access through the pool for the
+									<codeph>RegionService</codeph> instances and disables it for the
+									<codeph>ClientCache</codeph> instance. </li>
+							<li id="li_0F1FFB96197C4C6383C41DAE9E650B5E">After you create your
+									<codeph>ClientCache</codeph>, from your
+									<codeph>ClientCache</codeph> instance, for each user call the
+									<codeph>createAuthenticatedView</codeph> method, providing the
+								user’s particular credentials. These are create method calls for two
+								users:
+								<codeblock outputclass="language-java">Properties properties = new Properties();
+properties.setProperty("security-username", cust1Name);
+properties.setProperty("security-password", cust1Pwd);
+RegionService regionService1 = 
+	clientCache.createAuthenticatedView(properties);
+
+properties = new Properties();
+properties.setProperty("security-username", cust2Name);
+properties.setProperty("security-password", cust2Pwd);
+RegionService regionService2 = 	
+	clientCache.createAuthenticatedView(properties);</codeblock>
+							</li>
+						</ol>For each user, do all of your caching and region work through the
+						assigned <codeph>RegionService</codeph> instance. Access to the server cache
+						will be governed by the server’s configured authorization rules for each
+						individual user. </li>
+					<li id="li_255BE05EAC9F4563BE40E3701DD17C29">Close your cache by closing the
+							<codeph>ClientCache</codeph> instance only. Do not close the
+							<codeph>RegionService</codeph> instances first. This is especially
+						important for durable clients. </li>
+				</ol>
+			</p>
+		</section>
+		<section id="section_692D9961E8224739903E483BF8AB4F84">
+			<title>Requirements and Caveats for RegionService</title>
+			<p>Once each region is created, you can perform operations on it through the
+					<codeph>ClientCache</codeph> instance or the <codeph>RegionService</codeph>
+				instances, but not both. </p>
+			<note>You can use the <codeph>ClientCache</codeph> to create a region that uses a pool
+				configured for multi-user authentication, then access and do work on the region
+				using your <codeph>RegionService</codeph> instances. </note>
+			<p>To use <codeph>RegionService</codeph>, regions must be configured as
+					<codeph>EMPTY</codeph>. Depending on your data access requirements, this
+				configuration might affect performance, because the client goes to the server for
+				every get. </p>
+		</section>
+	</conbody>
+</concept>

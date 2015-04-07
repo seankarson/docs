@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "http://docs.oasis-open.org/dita/v1.1/OS/dtd/concept.dtd">
+<concept id="the_from_clause">
+	<title>FROM Clause</title>
+	<conbody>
+		<section id="section_FAEBC02C4E414F91B1CA8D33E11218AF">
+			<p>Use the FROM clause to bring the data you need into scope for the rest of your query.
+				The FROM clause also includes object typing and iterator variables. </p>
+			<p>The query engine resolves names and path expressions according to the name space that
+				is currently in scope in the query. </p>
+		</section>
+		<section id="section_CF6063A6C5134EFC89C43D106B6A6D4D">
+			<title>Path Expressions</title>
+			<p>The initial name space for any query is composed of: <ul
+					id="ul_15EC522A58E34713B5C2AE90DFF315E7">
+					<li id="li_C59D2BFCDCFC4031B6ABFA29793ED8D7">
+						<b>Regions.</b> In the context of a query, the name of a region is specified
+						by its full path starting with a forward slash ( / ) and delimited by the
+						forward slash between region names. For example, <b>/exampleRegion</b> or
+							<b>/root/exampleRegion</b>. </li>
+					<li id="li_04537959517B4AEC982B3D3A1806A881">
+						<b>Region querying attributes</b>. From a region path, you can access the
+						Region object's public fields and methods, referred to in querying as the
+						region's attributes. For example, <b>/exampleRegion.size</b>. </li>
+					<li id="li_F8B396CD256D4E5D93AFE2552097C9AD">
+						<b>Top-level region data.</b> You can access entry keys and entry data
+						through the region path. <ol id="ol_73E3C56766234EF5B777F7831748076A">
+							<li id="li_B5A13F520C774DB989D708D3E0EAE09B"
+										><codeph><b>/exampleRegion.keySet</b></codeph> returns the
+								Set of entry keys in the region </li>
+							<li id="li_3B68083686C6447ABCE83C81C7B7D801"
+										><codeph><b>/exampleRegion.entryset</b></codeph> returns the
+								Set of Region.Entry objects </li>
+							<li id="li_4157FF04B77443E9AE8C129314D28860"
+										><codeph><b>/exampleRegion.values</b></codeph> returns the
+								Collection of entry values </li>
+							<li id="li_DEB114541808484191855DD9A7083553"
+										><codeph><b>/exampleRegion</b></codeph> returns the
+								Collection of entry values </li>
+						</ol>
+					</li>
+				</ul>
+			</p>
+			<p> New name spaces are brought into scope based on the FROM clause in the SELECT
+				statement. </p>
+			<p>
+				<b>Examples:</b>
+				<table id="table_7006AC266FF24FD38AA945405DD78BD6">
+					<tgroup cols="2">
+						<colspec colnum="1" colname="col1" colwidth="*"/>
+						<colspec colnum="2" colname="col2" colwidth="*"/>
+						<thead>
+							<row>
+								<entry colname="col1">Type of Query and Query Description </entry>
+								<entry colname="col2">Query String </entry>
+							</row>
+						</thead>
+						<tbody>
+							<row>
+								<entry colname="col1">Query a region for all distinct values.
+									Returns a collection of unique entry values from the region. </entry>
+								<entry colname="col2">
+									<codeblock>SELECT DISTINCT * FROM /exampleRegion</codeblock>
+								</entry>
+							</row>
+							<row>
+								<entry colname="col1">Query the top level region data using
+									entrySet. Returns the keys and positions of Region.Entry objects
+									whose mktValue attribute is greater than 25.00. </entry>
+								<entry colname="col2">
+									<codeblock>SELECT key, positions FROM /exampleRegion.entrySet, value.positions.values positions WHERE positions.mktValue &gt;= 25.00</codeblock>
+								</entry>
+							</row>
+							<row>
+								<entry colname="col1"> Query the region for its entry values.
+									Returns a set of unique values from Region.Entry objects that
+									have the key equal to 1. </entry>
+								<entry colname="col2">
+									<codeblock>SELECT DISTINCT entry.value FROM /exampleRegion.entries entry WHERE entry.key = '1'</codeblock>
+								</entry>
+							</row>
+							<row>
+								<entry colname="col1"> Query the region for its entry values.
+									Returns the set of all values from Region.Entry objects that
+									have the key equal to 1. </entry>
+								<entry colname="col2">
+									<codeblock>SELECT * FROM /exampleRegion.entries entry WHERE entry.value.ID &gt; 1</codeblock>
+								</entry>
+							</row>
+							<row>
+								<entry colname="col1">Query entry keys in the region. Returns a set
+									of entry keys in the region that have the key equal to '1'. </entry>
+								<entry colname="col2">
+									<codeblock>SELECT * FROM /exampleRegion.keySet key WHERE key = '1'</codeblock>
+								</entry>
+							</row>
+							<row>
+								<entry colname="col1"> Query values in the region. Returns a
+									collection of entry values in the region that have the status
+									attribute value of 'active'. </entry>
+								<entry colname="col2">
+									<codeblock>SELECT * FROM /exampleRegion.values portfolio WHERE portfolio.status = 'active'</codeblock>
+								</entry>
+							</row>
+						</tbody>
+					</tgroup>
+				</table>
+			</p>
+		</section>
+		<section id="section_AB1734C16DC348479C00FD6829B933AA">
+			<title>Aliases and Synonyms</title>
+			<p>In query strings, you can use aliases in path expressions (region and its objects) so
+				that you can refer to the region or objects in other places in the query. </p>
+			<p> You can also use the <b>AS</b> keyword to provide a label for joined path
+				expressions. </p>
+			<p>
+				<b>Examples:</b>
+				<codeblock>SELECT DISTINCT * FROM /exampleRegion <b>p</b> WHERE <b>p</b>.status = ‘active’</codeblock>
+			</p>
+			<p>
+				<codeblock>SELECT * FROM /exampleRegion p, p.positions.values <b>AS</b> pos WHERE pos.secId != '1'</codeblock>
+			</p>
+		</section>
+		<section id="section_A5B42CCB7C924949954AEC2DAAD51134">
+			<title>Object Typing</title>
+			<p>Specifying object type in the FROM clause helps the query engine to process the query
+				at optimal speed. Apart from specifying the object types during configuration (using
+				key-constraint and value-constraint) type can be explicitly specified in the query
+				string. </p>
+			<p>
+				<b>Example:</b>
+				<codeblock>SELECT DISTINCT * FROM /exampleRegion, positions.values positions <b>TYPE Position</b> WHERE positions.mktValue &gt;= 25.00</codeblock>
+			</p>
+		</section>
+	</conbody>
+</concept>

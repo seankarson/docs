@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "http://docs.oasis-open.org/dita/v1.1/OS/dtd/concept.dtd">
+<concept id="how_data_loaders_work">
+	<title>How Data Loaders Work</title>
+	<shortdesc>By default, a region has no data loader defined. Plug an application-defined loader
+		into any region by setting the region attribute cache-loader on the members that host data
+		for the region. </shortdesc>
+	<conbody>
+		<section id="section_1E600469D223498DB49446434CE9B0B4">
+			<p>The loader is called on cache misses during get operations, and it populates the
+				cache with the new entry value in addition to returning the value to the calling
+				thread. </p>
+			<p>A loader can be configured to load data into the <keyword keyref="product_name"/>
+				cache from an outside data store. To do the reverse operation, writing data from the
+					<keyword keyref="product_name"/> cache to an outside data store, use a cache
+				writer event handler. See <xref
+					href="../events/implementing_cache_event_handlers.xml#implementing_cache_event_handlers"
+					type="concept" format="dita" scope="local"/>. </p>
+			<p>How to install your cache loader depends on the type of region. </p>
+		</section>
+		<section id="section_5CD65D559F1A490DAB5ED9326860FE8D">
+			<title>Data Loading in Partitioned Regions</title>
+			<p>Because of the huge amounts of data they can handle, partitioned regions support
+				partitioned loading. Each cache loader loads only the data entries in the member
+				where the loader is defined. If data redundancy is configured, data is loaded only
+				if the member holds the primary copy. So you must install a cache loader in every
+				member where the partitioned attributes <codeph>local-max-memory</codeph> is not
+				zero. </p>
+			<p>If you depend on a JDBC connection, every data store must have a connection to the
+				data source, as shown in the following figure. Here the three members require three
+				connections. See <xref
+					href="../transactions/configuring_db_connections_using_JNDI.xml#topic_A5E3A67C808D48C08E1F0DC167C5C494"
+					type="topic" format="dita" scope="local"/> for information on how to configure
+				data sources. </p>
+			<note>Partitioned regions generally require more JDBC connections than distributed
+				regions. </note>
+			<p>
+				<image placement="break" id="image_CD7CE9BD22ED4782AB6B296187AB983A"
+					href="../../images_svg/cache_data_loader.svg"/>
+			</p>
+		</section>
+		<section id="section_6A2CE777CE9E4BD682B881F6986CF66C">
+			<title>Data Loading in Distributed Regions</title>
+			<p>In a non-partitioned distributed region, a cache loader defined in one member is
+				available to all members that have the region defined. Loaders are usually defined
+				in just a subset of the caches holding the region. When a loader is needed, all
+				available loaders for the region are invoked, starting with the most convenient
+				loader, until the data is loaded or all loaders have been tried. </p>
+			<p>In the following figure, these members of one distributed system can be running on
+				different machines. Loading for the distributed region is performed from M1. </p>
+			<p>
+				<image placement="break" id="image_3C39A50218D64EF28A5448EB01A4C6EC"
+					href="../../images_svg/cache_data_loader_2.svg"/>
+			</p>
+		</section>
+		<section id="section_BE33D9AB27104D1BB8AC8BFCE11A063E">
+			<title>Data Loading in Local Regions</title>
+			<p>For local regions, the cache loader is available only in the member where it is
+				defined. If a loader is defined, it is called whenever a value is not found in the
+				local cache. </p>
+		</section>
+	</conbody>
+</concept>

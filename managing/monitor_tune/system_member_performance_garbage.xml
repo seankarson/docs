@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "http://docs.oasis-open.org/dita/v1.1/OS/dtd/concept.dtd">
+<concept id="sys_mem_perf">
+	<title>Garbage Collection and System Performance</title>
+	<shortdesc>If you experience unacceptably high latencies in application processing, you might
+		improve performance by modifying your JVM’s garbage collection behavior. </shortdesc>
+	<conbody>
+		<p>Garbage collection, while necessary, introduces latency into your system by consuming
+			resources that would otherwise be available to your application. </p>
+		<p>
+			<note>Garbage collection tuning options depend on the JVM you are using. Suggestions
+				given here apply to the Sun HotSpot JVM. If you use a different JVM, check with your
+				vendor to see if these or comparable options are available to you. </note>
+		</p>
+		<p>
+			<note>Modifications to garbage collection sometimes produce unexpected results. Always
+				test your system before and after making changes to verify that the system’s
+				performance has improved. </note>
+		</p>
+		<p>The two options suggested here are likely to expedite garbage collecting activities by
+			introducing parallelism and by focusing on the data that is most likely to be ready for
+			cleanup. The first parameter causes the garbage collector to run concurrent to your
+			application processes. The second parameter causes it to run multiple, parallel threads
+			for the "young generation" garbage collection (that is, garbage collection performed on
+			the most recent objects in memory—where the greatest benefits are expected): </p>
+		<p>
+			<codeblock>-XX:+UseConcMarkSweepGC -XX:+UseParNewGC</codeblock>
+		</p>
+		<p>For applications, if you are using remote method invocation (RMI) Java APIs, you might
+			also be able to reduce latency by disabling explicit calls to the garbage collector. The
+			RMI internals automatically invoke garbage collection every sixty seconds to ensure that
+			objects introduced by RMI activities are cleaned up. Your JVM may be able to handle
+			these additional garbage collection needs. If so, your application may run faster with
+			explicit garbage collection disabled. You can try adding the following command-line
+			parameter to your application invocation and test to see if your garbage collector is
+			able to keep up with demand: </p>
+		<p>
+			<codeblock>-XX:+DisableExplicitGC</codeblock>
+		</p>
+	</conbody>
+</concept>

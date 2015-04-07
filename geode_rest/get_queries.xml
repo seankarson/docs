@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE topic PUBLIC "-//OASIS//DTD DITA Topic//EN" "topic.dtd">
+<topic
+  id="topic_itv_mg5_m4">
+  <title>GET /gemfire-api/v1/queries</title>
+  <shortdesc>List all parameterized queries by ID or name.</shortdesc>
+  <body>
+    <section>
+      <title>Resource URL</title>
+      <codeblock>http://&lt;<i>hostname_or_http-service-bind-address</i>>:&lt;<i>http-service-port</i>>/gemfire-api/v1/queries</codeblock>
+    </section>
+    <section>
+      <title>Parameters</title>
+      <p>None</p>
+    </section>
+    <section>
+      <title>Example Request</title>
+      <p>
+        <codeblock>
+Request Payload: null
+GET /gemfire-api/v1/queries/
+Accept: application/json
+</codeblock>
+      </p>
+    </section>
+    <section>
+      <title>Example Response</title>
+      <p>
+        <codeblock>
+
+Response Payload: application/json
+
+200 OK
+Content-Type: application/json
+Location: http://localhost:8080/gemfire-api/v1/queries
+
+{
+    "queries": [
+        {
+             "id":  "selectCustomer",
+             "oql":  "SELECT c FROM /customers c WHERE c.customerId = $1"
+        },
+        {
+             "id":  "selectHighRollers",
+             "oql":  "SELECT DISTINCT c FROM /customers c, /orders o WHERE o.totalprice &gt; $1 AND c.customerId = o.customerId"
+        }
+    ]
+}
+
+</codeblock>
+      </p>
+    </section>
+    <section>
+      <title>Error Codes</title>
+      <simpletable
+        frame="all"
+        relcolwidth="1.0* 2.39*"
+        id="simpletable_vfq_33v_m4">
+        <sthead>
+          <stentry/>
+          <stentry/>
+        </sthead>
+        <strow>
+          <stentry>500 INTERNAL SERVER ERROR</stentry>
+          <stentry>Error encountered at <keyword keyref="product_name"/> server. Check the HTTP response
+            body for a stack trace of the exception. </stentry>
+        </strow>
+      </simpletable>
+    </section>
+  </body>
+</topic>

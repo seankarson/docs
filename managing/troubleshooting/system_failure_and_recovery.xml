@@ -1,0 +1,239 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "http://docs.oasis-open.org/dita/v1.1/OS/dtd/concept.dtd">
+<concept id="sys_failure">
+	<title>System Failure and Recovery</title>
+	<shortdesc>This section describes alerts for and appropriate responses to various kinds of
+		system failures. It also helps you plan a strategy for data recovery. </shortdesc>
+	<conbody>
+		<p> If a system member withdraws from the distributed system involuntarily because the
+			member, host, or network fails, the other members automatically adapt to the loss and
+			continue to operate. The distributed system does not experience any disturbance such as
+			timeouts. </p>
+		<section id="section_846B00118184487FB8F1E0CD1DC3A81B">
+			<title>Planning for Data Recovery</title>
+			<p>In planning a strategy for data recovery, consider these factors: <ul
+					id="ul_34271EFCD3E54AB5A90110AB648A93CC">
+					<li id="li_CF539F4701BB4D5C96FCCD7DCCC7969F">Whether the region is configured
+						for data redundancy—partitioned regions only. </li>
+					<li id="li_810287C95EB6487BAA861C833DBAF401">The region’s role-loss policy
+						configuration, which controls how the region behaves after a crash or system
+						failure—distributed regions only. </li>
+					<li id="li_DC05F606FA08481AB7510E1061A15BD9"> Whether the region is configured
+						for persistence to disk. </li>
+					<li id="li_B575D93A37194F2886CC5732BE262726">The extent of the failure, whether
+						multiple members or a network outage is involved. </li>
+					<li id="li_FF11C8204B86487693D033657C5124BA">Your application’s specific needs,
+						such as the difficulty of replacing the data and the risk of running with
+						inconsistent data for your application. </li>
+					<li id="li_D90327D6A27445AFBF3B5964635F78C6">When an alert is generated due to
+						network partition or slow response, indicating that certain processes may,
+						or will, fail. </li>
+				</ul>
+			</p>
+			<p>The rest of this section provides recovery instructions for various kinds system
+				failures. </p>
+		</section>
+		<section id="section_2C390F0783724048A6E12F7F369EB8DC">
+			<title>Network Partitioning, Slow Response, and Member Removal Alerts</title>
+			<p>When a network partition detection or slow responses occur, these alerts are
+				generated: <ul id="ul_D033EDFCAACC4A16996EA4B6FA78D131">
+					<li id="li_B0D6B2498E8A4B408607026C6F2D9ED7">Network Partitioning is Detected </li>
+					<li id="li_6F647F7D256E4651A0726439222E0860">Member is Taking Too Long to
+						Respond </li>
+					<li id="li_CE35D1DA21E345AAB9896490A4204CB1">No Locators Can Be Found </li>
+					<li id="li_684A4BA063A14FB1AFB65D1CD9F8AFDC">Warning Notifications Before
+						Removal </li>
+					<li id="li_CE49D8D9B0BB4C08A4C3C0F56C8D8DC3">Member is Forced Out </li>
+				</ul>
+			</p>
+			<p>For information on configuring system members to help avoid a network partition
+				configuration condition in the presence of a network failure or when members lose
+				the ability to communicate to each other, refer to <xref
+					href="recovering_from_network_outages.xml#rec_network_crash" type="concept"
+					format="dita" scope="local"
+					><?xm-replace_text Recovering from Network Outages?></xref>. </p>
+		</section>
+		<section id="section_D52D902E665F4F038DA4B8298E3F8681">
+			<title>Network Partitioning Detected</title>
+			<p>Alert: </p>
+			<p>
+				<codeblock>Membership coordinator <i>id</i> has declared that a network partition has occurred.</codeblock>
+			</p>
+			<p>Description: </p>
+			<p>This alert is issued when network partitioning occurs, followed by this alert on the
+				individual member: </p>
+			<p>Alert:
+				<codeblock>Exiting due to possible network partition event due to loss of {0} cache processes: {1}</codeblock>
+			</p>
+			<p> </p>
+			<p>Response: </p>
+			<p>Check the network connectivity and health of the listed cache processes. </p>
+		</section>
+		<section id="section_2C5E8A37733D4B31A12F22B9155796FD">
+			<title>Member Taking Too Long to Respond</title>
+			<p>Alert: </p>
+			<p>
+				<codeblock>15 sec have elapsed while waiting for replies: &lt;ReplyProcessor21 6 waiting for 1 replies 
+from [ent(27130):60333/36743]&gt; on ent(27134):60330/45855 whose current membership 
+list is: [[ent(27134):60330/45855, ent(27130):60333/36743]]</codeblock>
+			</p>
+			<p>Description: </p>
+			<p>Member ent(27130):60333/36743 is in danger of being forced out of the distributed
+				system because of a suspect-verification failure. This alert is issued at the
+				warning level, after the ack-wait-threshold is reached. </p>
+			<p>Response: </p>
+			<p>The operator should examine the process to see if it is healthy. The process ID of
+				the slow responder is 27130 on the machine named ent. The ports of the slow
+				responder are 60333/36743. Look for the string, Starting distribution manager
+				ent:60333/36743, and examine the process owning the log file containing this string. </p>
+			<p>Alert: </p>
+			<p>
+				<codeblock>30 sec have elapsed while waiting for replies: &lt;ReplyProcessor21 6 waiting for 1 replies 
+from [ent(27130):60333/36743]&gt; on ent(27134):60330/45855 whose current membership 
+list is: [[ent(27134):60330/45855, ent(27130):60333/36743]]</codeblock>
+			</p>
+			<p>Description: </p>
+			<p>Member ent(27134) is in danger of being forced out of the distributed system because
+				of a suspect-verification failure. This alert is issued at the severe level, after
+				the ack-wait-threshold is reached and after ack-severe-alert-threshold seconds have
+				elapsed. </p>
+			<p>Response: </p>
+			<p>The operator should examine the process to see if it is healthy. The process ID of
+				the slow responder is 27134 on the machine named ent. The ports of the slow
+				responder are 60333/36743. Look for the string, Starting distribution manager
+				ent:60333/36743, and examine the process owning the log file containing this string. </p>
+			<p>Alert: </p>
+			<p>
+				<codeblock>15 sec have elapsed while waiting for replies: &lt;DLockRequestProcessor 33636 waiting 
+for 1 replies from [ent(4592):33593/35174]&gt; on ent(4592):33593/35174 whose current 
+membership list is: [[ent(4598):33610/37013, ent(4611):33599/60008, 
+ent(4592):33593/35174, ent(4600):33612/33183, ent(4593):33601/53393, ent(4605):33605/41831]]</codeblock>
+			</p>
+			<p>Description: </p>
+			<p>This alert is issued by partitioned regions and regions with global scope at the
+				warning level, when the lock grantor has not responded to a lock request within the
+				ack-wait-threshold and the ack-severe-alert-threshold. </p>
+			<p>Response: </p>
+			<p>None. </p>
+			<p>Alert: </p>
+			<p>
+				<codeblock>30 sec have elapsed while waiting for replies: &lt;DLockRequestProcessor 23604 waiting 
+for 1 replies from [ent(4592):33593/35174]&gt; on ent(4598):33610/37013 whose current 
+membership list is: [[ent(4598):33610/37013, ent(4611):33599/60008, 
+ent(4592):33593/35174, ent(4600):33612/33183, ent(4593):33601/53393, ent(4605):33605/41831]]</codeblock>
+			</p>
+			<p>Description: </p>
+			<p>This alert is issued by partitioned regions and regions with global scope at the
+				severe level, when the lock grantor has not responded to a lock request within the
+				ack-wait-threshold and the ack-severe-alert-threshold. </p>
+			<p>Response: </p>
+			<p>None. </p>
+			<p>Alert: </p>
+			<p>
+				<codeblock>30 sec have elapsed waiting for global region entry lock held by ent(4600):33612/33183</codeblock>
+			</p>
+			<p>Description </p>
+			<p>This alert is issued by regions with global scope at the severe level, when the lock
+				holder has held the desired lock for ack-wait-threshold + ack-severe-alert-threshold
+				seconds and may be unresponsive. </p>
+			<p>Response: </p>
+			<p>None. </p>
+			<p>Alert: </p>
+			<p>
+				<codeblock>30 sec have elapsed waiting for partitioned region lock held by ent(4600):33612/33183</codeblock>
+			</p>
+			<p>Description: </p>
+			<p>This alert is issued by partitioned regions at the severe level, when the lock holder
+				has held the desired lock for ack-wait-threshold + ack-severe-alert-threshold
+				seconds and may be unresponsive. </p>
+			<p>Response: </p>
+			<p>None. </p>
+		</section>
+		<section id="section_AF4F913C244044E7A541D89EC6BCB961">
+			<title>No Locators Can Be Found</title>
+			<note>It is likely that all processes using the locators will exit with the same
+				message. </note>
+			<p>Alert: </p>
+			<p>
+				<codeblock>Membership service failure: Channel closed: com.gemstone.gemfire.ForcedDisconnectException: 
+There are no processes eligible to be group membership coordinator 
+(last coordinator left view)</codeblock>
+			</p>
+			<p>Description: </p>
+			<p>Network partition detection is enabled (enable-network-partition-detection is set to
+				true), and there are locator problems. </p>
+			<p>Response: </p>
+			<p>The operator should examine the locator processes and logs, and restart the locators. </p>
+			<p>Alert: </p>
+			<p>
+				<codeblock>Membership service failure: Channel closed: com.gemstone.gemfire.ForcedDisconnectException: 
+There are no processes eligible to be group membership coordinator 
+(all eligible coordinators are suspect)</codeblock>
+			</p>
+			<p>Description: </p>
+			<p>Network partition detection is enabled (enable-network-partition-detection is set to
+				true), and there are locator problems. </p>
+			<p>Response: </p>
+			<p>The operator should examine the locator processes and logs, and restart the locators. </p>
+			<p>Alert: </p>
+			<p>
+				<codeblock>Membership service failure: Channel closed: com.gemstone.gemfire.ForcedDisconnectException: 
+Unable to contact any locators and network partition detection is enabled</codeblock>
+			</p>
+			<p>Description: </p>
+			<p>Network partition detection is enabled (enable-network-partition-detection is set to
+				true), and there are locator problems. </p>
+			<p>Response: </p>
+			<p>The operator should examine the locator processes and logs, and restart the locators. </p>
+			<p>Alert: </p>
+			<p>
+				<codeblock>Membership service failure: Channel closed: com.gemstone.gemfire.ForcedDisconnectException: 
+Disconnected as a slow-receiver</codeblock>
+			</p>
+			<p>Description: </p>
+			<p>The member was not able to process messages fast enough and was forcibly disconnected
+				by another process. </p>
+			<p>Response: </p>
+			<p>The operator should examine and restart the disconnected process. </p>
+		</section>
+		<section id="section_77BDB0886A944F87BDA4C5408D9C2FC4">
+			<title>Warning Notifications Before Removal</title>
+			<p>Alert: </p>
+			<p>
+				<codeblock>Membership: requesting removal of ent(10344):21344/24922 Disconnected as a slow-receiver</codeblock>
+			</p>
+			<p>Description: </p>
+			<p>This alert is generated only if the slow-receiver functionality is being used. </p>
+			<p>Response: </p>
+			<p>The operator should examine the locator processes and logs. </p>
+			<p>Alert: </p>
+			<p>
+				<codeblock>Network partition detection is enabled and both membership coordinator and lead member 
+are on the same machine</codeblock>
+			</p>
+			<p>Description: </p>
+			<p>This alert is issued if both the membership coordinator and the lead member are on
+				the same machine. </p>
+			<p>Response: </p>
+			<p>The operator can turn this off by setting the system property
+				gemfire.disable-same-machine-warnings to true. However, it is best to run locator
+				processes, which act as membership coordinators when network partition detection is
+				enabled, on separate machines from cache processes. </p>
+		</section>
+		<section id="section_E777C6EC8DEC4FE692AC5863C4420238">
+			<title>Member Is Forced Out</title>
+			<p>Alert: </p>
+			<p>
+				<codeblock>Membership service failure: Channel closed: com.gemstone.gemfire.ForcedDisconnectException: 
+This member has been forced out of the Distributed System. Please consult GemFire logs to 
+find the reason.</codeblock>
+			</p>
+			<p>Description: </p>
+			<p>The process discovered that it was not in the distributed system and cannot determine
+				why it was removed. The membership coordinator removed the member after it failed to
+				respond to an internal are you alive message. </p>
+			<p>Response: </p>
+			<p>The operator should examine the locator processes and logs. </p>
+		</section>
+	</conbody>
+</concept>

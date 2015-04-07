@@ -1,0 +1,97 @@
+<?xml version="1.0"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<!-- Created with XMetaL (http://www.xmetal.com) -->
+<concept id="concept_C10A15965F01439189DC162372CB76FC"> 
+  <title>Requirements and Limitations</title>
+  <prolog><metadata><keywords><keyword>gemfire gfsh
+			 requirements</keyword><keyword>gemfire gfsh
+			 limitations</keyword></keywords></metadata>
+  </prolog> 
+  <conbody> 
+	 <p>The gfsh command has the following requirements and limitations: 
+	 </p> 
+	 <p> 
+	 <ul id="ul_06C22D89031443478F2CABEF2A424482"> 
+		<li id="li_99D36CE0A03B4281A835DD051B0F3BF3"> 
+		  <p>All members of the distributed system should have cache servers. 
+		  </p> 
+		</li> 
+		<li id="li_A4B2611589394645AAB2258ED37F1997"> 
+		  <p>All members should have gfsh.jar in their CLASSPATH. gfsh.jar is
+			 shipped with GemFire 6.6. Members launched through GemFire's cache server
+			 script include this jar by default. 
+		  </p> 
+		</li> 
+		<li id="li_4A0B711E1ED04F9E91D339FD696C8BF9"> 
+		  <p>Multi-line commands have the following limitations: 
+		  <ul id="ul_D3EF815C6F8C40179C77BCDDD82FC207"> 
+			 <li id="li_13F2F0D9172F4080B4A945D42F5CDC7E"> 
+				<p>Currently multi-line cannot be edited. It is recommended that
+				  you build the command line in an external editor and then paste it at gfsh
+				  command prompt. 
+				</p> 
+			 </li> 
+			 <li id="li_5121DB10ABCA48CCBA46D3B51DEFA3CC"> 
+				<p>While going through history using up arrow key, if there is a
+				  multi-line command, the gfsh prompt disappears. 
+				</p> 
+			 </li> 
+		  </ul> 
+		  </p> 
+		</li> 
+		<li id="li_7F3E0C86C71F4F4EB30968FB91DF6CBD"> 
+		  <p>The bcp command supports only primitive types and java.uti.Date.
+			 Nested objects including Map and Collection are not supported. 
+		  </p> 
+		</li> 
+		<li id="li_A9A34BD4CA924F6A9C5B01E21B84871B"> 
+		  <p>The following options/commands are not supported: 
+		  <ul id="ul_40390106AB4949FD8E6C1CD73237AC59"> 
+			 <li id="li_1381FDDE43164417B96CF658B93A06FD"> 
+				<p>bcp: 'bcp -r' option. 
+				</p> 
+			 </li> 
+			 <li id="li_58992CB0CAFA4A11AA602766F0CAE308"> 
+				<p>ls: 'ls -c &lt;Region Path&gt;' used from root - gfsh:/&gt;. 
+				</p> 
+			 </li> 
+			 <li id="li_6DF8D0F5CB1449D2992DCA70C915A231"> 
+				<p>db: 'db &lt;Region Path&gt; in &lt;Table Name&gt;' is not
+				  supported work if key is of type other than primitve or String or primitive
+				  Wrapper. 
+				</p> 
+			 </li> 
+			 <li id="li_9E57399D1D764580B1B5D0E61CF756A0"> 
+				<p>rm: may not work Without using -k to specify enumerated key
+				  number - enumerated keys can be obtained using 'ls -k'. 
+				</p> 
+			 </li> 
+		  </ul> 
+		  </p> 
+		</li> 
+		<li id="li_3F9F722D97054A6F85FD490C8A7EA75F"> 
+		  <p>Avoid querying a large amount of partitioned region data. gfsh uses
+			 the connected server as a proxy to keep the query results before fetching data
+			 to display. The server could potentially run out of memory if the result set is
+			 larger than its available free memory. 
+		  </p> 
+		</li> 
+		<li id="li_07E9F67EE1C0449FA4F7402E4719052F"> 
+		  <p>gfsh's command parser is not comprehensive. Make sure to use a
+			 single space to separate command options. 
+		  </p> 
+		</li> 
+		<li id="li_85DEB4B8B25E46B1A6BE2C3425B04A15"> 
+		  <p>gfsh may display unmeaningful error messages. You can use the
+			 'debug' command to turn on the debug mode to see the exception stack trace. 
+		  </p> 
+		</li> 
+		<li id="li_CE304BC9899B40A4B4B39700CD0B0723"> 
+		  <p>gfsh does not support cyclic object references. Displaying an object
+			 with a cyclic reference will lead gfsh to enter an infinite loop. 
+		  </p> 
+		</li> 
+	 </ul> 
+	 </p> 
+  </conbody> 
+</concept> 

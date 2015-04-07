@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept id="concept_4C4EE16BFBA74027A32E6B9B84686E9E">
+  <title>Case Sensitivity</title>
+  <shortdesc><?xm-replace_text Short Description?>
+  </shortdesc>
+  <conbody>
+    <p>Query language keywords such as SELECT, NULL, DATE, and &lt;TRACE&gt; are case-insensitive.
+      Identifiers such as attribute names, method names, and path expressions are case-sensitive. </p>
+    <p>In terms of query string and region entry matching, if you want to perform a case-insensitive
+      search on a particular field, you can use the Java String class <codeph>toUpperCase</codeph>
+      and <codeph>toLowerCase</codeph> methods in your query. For
+      example:<codeblock>SELECT entry.value FROM /exampleRegion.entries entry WHERE entry.value.toUpperCase LIKE '%BAR%'</codeblock>or
+      <codeblock>SELECT * FROM /exampleRegion WHERE foo.toLowerCase LIKE '%bar%'</codeblock></p>
+  </conbody>
+</concept>

@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "http://docs.oasis-open.org/dita/v1.1/OS/dtd/concept.dtd">
+<concept id="how_cache_events_work">
+	<title>Peer-to-Peer Event Distribution</title>
+	<shortdesc id="shortdesc_F0F18A15B7624939A96DF03EB21A85DB">When a region or entry operation is
+		performed, <keyword keyref="product_name"/> distributes the associated events in the
+		distributed system according to system and cache configurations. </shortdesc>
+	<conbody>
+		<section id="section_7864A275FDB549FD8E2D046DD59CB9F4">
+			<p>Install a cache listener for a region in each system member that needs to receive
+				notification of region and entry changes. </p>
+		</section>
+		<section id="section_CACE500A00214CD88CE232D22899263B">
+			<title>Events in a Partitioned Region</title>
+			<p>A distributed operation follows this sequence in a partitioned region: <ol
+					id="ol_200B166D4D77429C8019EC4D43BC10F8">
+					<li id="li_F8B563D476C649B199229D0BC3E61143">Apply the operation to the cache
+						with the primary data entry, if appropriate. </li>
+					<li id="li_81CD7D45AB0C4DB4B4F1A27F61FA9CC5">Do the distribution based on the
+						subscription-attributes interest-policy of the other members. </li>
+					<li id="li_0C465F53A7764A6489621A6C680C8DF8">Invoke any listeners in the caches
+						that receive the distribution. </li>
+					<li id="li_860958B559AF4EA889E8A206C1BA0C96">Invoke the listener in the cache
+						with the primary data entry. </li>
+				</ol>
+			</p>
+			<p>In the following figure: <ol id="ol_F3047AB0624540BB8E3F83054158C6E8">
+					<li id="li_259230F5ED5E476C9016FCBA5A36A672">An API call in member M1 creates an
+						entry. </li>
+					<li id="li_4BCCCFA3E2BF4FE786CDA790F65D404C">The partitioned region creates the
+						new entry in the cache in M2. M2, the holder of the primary copy, drives the
+						rest of the procedure. </li>
+					<li id="li_3A600C794A924BB5A3972D29298365B7">These two operations occur
+						simultaneously: <ul id="ul_7E132DD44C9845B6AE4436AE469C3740">
+							<li id="li_0BE345FE78C44DF88EF52E2C6F2FA960">The partitioned region
+								creates a secondary copy of the entry in the cache in M3. Creating
+								the secondary copy does not invoke the listener on M3. </li>
+							<li id="li_2F474DA371F644E391EB079B226A3DBA">M2 distributes the event to
+								M4. This distribution to the other members is based on their
+								interest policies. M4 has an interest-policy of all , so it receives
+								notification of all events anywhere in the region. Since M1 and M3
+								have an interest-policy of cache-content , and this event does not
+								affect any pre-existing entry in their local caches, they do not
+								receive the event. </li>
+						</ul>
+					</li>
+					<li id="li_27E845C16415489C94C84234854A24D9">The cache listener on M4 handles
+						the notification of the remote event on M2. </li>
+					<li id="li_1211B54A6B0F4DF38662100DFD217237">Once everything on the other
+						members has completed successfully, the original create operation on M2
+						succeeds and invokes the cache listener on M2. </li>
+				</ol><image href="../../images/Events-2.gif"
+					id="image_E5E187C14A774144B85FA7B636239DBE" placement="break"/>
+			</p>
+		</section>
+		<section id="section_FACF58272C824907BA020B1727427D7A">
+			<title>Events in a Distributed Region</title>
+			<p>A distributed operation follows this sequence in a distributed region: <ol
+					id="ol_ABECB42D2B7D476EA7A2AA616589937A">
+					<li id="li_1FDB09025A884BCDBCEC355A2C012218">Apply the operation to the local
+						cache, if appropriate. </li>
+					<li id="li_C38A434B28AE4DEDA3F950A46E935D1B">Invoke the local listeners. </li>
+					<li id="li_221A2770B2134C5D859F97E86D24A296">Do the distribution. </li>
+					<li id="li_CE116868C51249E793F93F877CD705AF">Each member that receives the
+						distribution carries out its own operation in response, which invokes any
+						local listeners. </li>
+				</ol>
+			</p>
+			<p>In the following figure: <ol id="ol_040C2656D3664B0EACF38297A40FB43F">
+					<li id="li_4093962FDDAF448C9E4DDA47074D749B">An entry is created through a
+						direct API call on member M1. </li>
+					<li id="li_C67DC8AD0BF043768A05D4F73C269FEC">The create invokes the cache
+						listener on M1. </li>
+					<li id="li_DC0D4F87C9F042F88101FA5A2CCC478B">M1 distributes the event to the
+						other members. </li>
+					<li id="li_5883975FAD0743758C5ACA734AF90A65">M2 and M3 apply the remote change
+						through their own local operations. </li>
+					<li id="li_8D11C687604B4E7C89042F8E8A779B48">M3 does a create, but M2 does an
+						update, because the entry already existed in its cache. </li>
+					<li id="li_169F813795DB4834BC1C3BCBCCFC0800">The cache listener on M2 receives
+						callbacks for the local update. Since there is no cache listener on M3, the
+						callbacks from the create on M3 are not handled. An API call in member M1
+						creates an entry. </li>
+				</ol><image href="../../images/Events-3.gif"
+					id="image_A24D6182B2A840D1843EBD4686966EEF" placement="break"/>
+			</p>
+		</section>
+		<section id="section_B4DCA51DDF7F44699E7355277172BEF0">
+			<title>Managing Events in Multi-threaded Applications</title>
+			<p>For partitioned regions, <keyword keyref="product_name"/> guarantees ordering of
+				events across threads, but for distributed regions it doesn’t. For multi-threaded
+				applications that create distributed regions, you need to use your application
+				synchronization to make sure that one operation completes before the next one
+				begins. Distribution through the distributed-no-ack queue can work with multiple
+				threads if you set the <codeph>conserve-sockets</codeph> attribute to true. Then the
+				threads share one queue, preserving the order of the events in distributed regions.
+				Different threads can invoke the same listener, so if you allow different threads to
+				send events, it can result in concurrent invocations of the listener. This is an
+				issue only if the threads have some shared state - if they are incrementing a serial
+				number, for example, or adding their events to a log queue. Then you need to make
+				your code thread safe. </p>
+		</section>
+	</conbody>
+</concept>

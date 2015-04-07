@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "http://docs.oasis-open.org/dita/v1.1/OS/dtd/concept.dtd">
+<concept id="socket_comm">
+	<title>Ephemeral TCP Port Limits</title>
+	<shortdesc>By default, Windows’ ephemeral ports are within the range 1024-4999, inclusive.You
+		can increase the range. </shortdesc>
+	<conbody>
+		<section id="section_F535D5D99206498DBBD5A6CC3230F25B">
+			<p> If you are repeatedly receiving the following exception: </p>
+			<p>
+				<codeblock>java.net.BindException: Address already in use: connect</codeblock>
+			</p>
+			<p>and if your system is experiencing a high degree of network activity, such as
+				numerous short-lived client connections, this could be related to a limit on the
+				number of ephemeral TCP ports. While this issue could occur with other operating
+				systems, typically, it is only seen with Windows due to a low default limit. </p>
+			<p>Perform this procedure to increase the limit: <ol
+					id="ol_7DD84EA0F70E44AFB63FC0AD4B61E435">
+					<li id="li_27EC80DC93744B25864633FF8FEC9210">Open the Windows Registry Editor. </li>
+					<li id="li_6D09763D817F49C39C882358F15D846B">Navigate to the following key:
+						<codeblock>HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\Tcpip\Parameter</codeblock>
+					</li>
+					<li id="li_ED1EE5EE817343EFBBF4D1A20088DFFA">From the Edit menu, click New, and
+						then add the following registry entry:
+						<codeblock>Value Name: MaxUserPort 
+Value Type: DWORD  
+Value data: 36863</codeblock>
+					</li>
+					<li id="li_F24EC7DCDD594F8A9B6DEE811E8E9F35">Exit the Registry Editor, and then
+						restart the computer. </li>
+				</ol>
+			</p>
+			<p>This affects all versions of the Windows operating system. </p>
+			<p><b>Note for UDP on Unix Systems</b>
+			</p>
+			<p>Unix systems have a default maximum socket buffer size for receiving UDP multicast
+				and unicast transmissions that is lower than the default settings for
+				mcast-recv-buffer-size and udp-recv-buffer-size. To achieve high-volume multicast
+				messaging, you should increase the maximum Unix buffer size to at least one
+				megabyte. </p>
+		</section>
+	</conbody>
+</concept>

@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept id="concept_E6AC3E25404D4D7788F2D52D83EE3071">
+	<title>Cache and Region Snapshots</title>
+	<shortdesc>Snapshots allow you to save region data and reload it later. A typical use case is
+		loading data from one environment to another, such as capturing data from a production
+		system and move it into a smaller QA or development system. </shortdesc>
+	<conbody>
+		<p> In effect, you can load data from one distributed system into another distributed
+			system. Administrators export a snapshot of a region or an entire cache (multiple
+			regions) and later import the snapshot into another region or distributed system by
+			using the <codeph>RegionSnapshotService</codeph> or
+				<codeph>CacheSnapshotService</codeph> interface and the
+				<codeph>Region.getSnapshotService</codeph> or
+				<codeph>Cache.getSnapshotService</codeph> method. </p>
+		<p>The snapshot file is a binary file that contains all data from a particular region. The
+			binary format contains serialized key/value pairs and supports PDX type registry to
+			allow the deserialization of PDX data. The snapshot can be directly imported into a
+			region or read entry-by-entry for further processing or transformation into other
+			formats. </p>
+		<p>
+			<note>The previous <codeph>Region.loadSnapshot</codeph> and
+					<codeph>Region.saveSnapshot</codeph> APIs have been deprecated. Data written in
+				this format is not compatible with the new APIs. </note>
+		</p>
+	</conbody>
+</concept>
