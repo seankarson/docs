@@ -16,7 +16,9 @@ For project Geode, a preconfigured **book** is provided in the directory `/geode
 * Building DITA documentation in bookbinder requires:
   * Java 1.7
   * Ant
-  * The [DITA Open Toolkit (DITA-OT) 1.7.5](http://sourceforge.net/projects/dita-ot/files/DITA-OT%20Stable%20Release/DITA%20Open%20Toolkit%201.7/)
+  * [DITA Open Toolkit (DITA-OT) 1.7.5](http://sourceforge.net/projects/dita-ot/files/DITA-OT%20Stable%20Release/DITA%20Open%20Toolkit%201.7/) Install the DITA-OT to a local directory, and reference the top-level toolkit directory in your environment with `PATH_TO_DITA_OT_LIBRARY`. For example:
+
+      $ export PATH_TO_DITA_OT_LIBRARY=/Users/geodeuser/DITA-OT1.7.5
 
 ## Procedure
 
@@ -32,16 +34,18 @@ The GemFile in the book directory already defines the `gem "bookbindery"` depend
      
 The installed `config.yml` file configures the Project Geode book for building locally.  The installed file configures the local directory for the DITA source files, and identifies the main DITA map file to build. It contains:
 
-    book_repo: Pivotal-DataFabric/docs-book-geode
+    book_repo: project-geode/geode-book
+    public_host: localhost
+    
     dita_sections:
     - repository:
         name: project-geode/docs
       directory: docs
       ditamap_location: Geode.ditamap
-   
+    
     template_variables:
-      support_url: https://github.com/project-geode/docs
-      product_url: https://github.com/project-geode
+      support_url: http://support.pivotal.io
+      product_url: http://pivotal.io/big-data/pivotal-gemfire
       book_title: Project Geode Documentation
 
 To build the files locally using the installed `config.yml` file, execute:
@@ -58,3 +62,5 @@ You can now view the local documentation at [http://localhost:9292](http://local
 ### Getting More Information
 
 Bookbinder provides additional functionality to construct books from multiple Github repos, to perform variable substitution, and also to automatically build documentation in a continuous integration pipeline.  For more information, see [https://github.com/cloudfoundry-incubator/bookbinder](https://github.com/cloudfoundry-incubator/bookbinder).
+
+The latest check-ins to `project-geode/docs` are automatically built and published to [http://geode.cfapps.io](http://geode.cfapps.io).
