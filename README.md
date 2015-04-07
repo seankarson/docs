@@ -64,3 +64,21 @@ You can now view the local documentation at [http://localhost:9292](http://local
 Bookbinder provides additional functionality to construct books from multiple Github repos, to perform variable substitution, and also to automatically build documentation in a continuous integration pipeline.  For more information, see [https://github.com/cloudfoundry-incubator/bookbinder](https://github.com/cloudfoundry-incubator/bookbinder).
 
 The latest check-ins to `project-geode/docs` are automatically built and published to [http://geode.cfapps.io](http://geode.cfapps.io).
+
+### Copyright
+
+Copyright © 2015 Pivotal Software, Inc. All rights reserved.
+
+Pivotal Software, Inc. believes the information in this publication
+is accurate as of its publication date. The information is subject
+to change without notice. THE INFORMATION IN THIS PUBLICATION IS 
+PROVIDED "AS IS." PIVOTAL SOFTWARE, INC. ("Pivotal") MAKES NO 
+REPRESENTATIONS OR WARRANTIES OF ANY KIND WITH RESPECT TO THE 
+INFORMATION IN THIS PUBLICATION, AND SPECIFICALLY DISCLAIMS IMPLIED 
+WARRANTIES OF MERCHANTABILITY OR FITNESS FOR A PARTICULAR PURPOSE.
+
+Use, copying, and distribution of any Pivotal software described in
+this publication requires an applicable software license.
+
+All trademarks used herein are the property of Pivotal or their 
+respective owners.
