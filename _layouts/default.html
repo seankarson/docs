@@ -2,7 +2,7 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="chrome=1">
-    <title>GemFire OSS</title>
+    <title>{{ page.title }}</title>
 
     <link rel="stylesheet" href="/docs/stylesheets/styles.css">
     <link rel="stylesheet" href="/docs/stylesheets/pygment_trac.css">
@@ -13,21 +13,27 @@
     <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
   </head>
-  <body>
-    <header>
-      <a id='logo' href='/docs/'>Logo</a>
-      <div id='navigation'>
-        <ul>
-          <li><a href='/docs/download'>Download</a></li>
-          <li><a href='/docs/getting-started'>Getting Started</a></li>
-          <li><a href='/docs/community'>Community</a></li>
-          <li><a href='/docs/contribute'>Contribute</a></li>
-        </ul>
+  <body id='{{ page.slug }}'>
+    <div class='main'>
+      <header>
+        <a id='logo' href='/docs/'></a>
+        <div id='navigation'>
+          <ul>
+            <li><a href='/docs/getting-started'>Getting Started</a></li>
+            <li><a href='/docs/community'>Community</a></li>
+            <li><a href='/docs/contribute'>Contribute</a></li>
+            <li><a href='/docs/download'>Download</a></li>
+          </ul>
+        </div>
+      </header>
+      <div id='content'>
+        {{ content }}
       </div>
-    </header>
-    {{ content }}
+    </div>
     <footer>
-      <p>&copy; <script>var d = new Date();document.write(d.getFullYear());</script></p>
+      <div class='container'>
+        <p>Copyright &copy; <script>var d = new Date();document.write(d.getFullYear());</script> <a href='http://pivotal.io' target="_blank">Pivotal Software, Inc.</a> All Rights Reserved. <span id='pivotal-links'><a href='http://pivotal.io/terms-of-use' target="_blank">Terms of Use</a> <a href='http://pivotal.io/privacy-policy' target="_blank">Privacy Policy</a></span></p>
+      </div>
     </footer>
   </body>
 </html>

@@ -1,16 +1,228 @@
 ---
 ---
 
+/* Global */
+
+@import url(http://fonts.googleapis.com/css?family=Open+Sans:300,400,500);
+@import url(http://fonts.googleapis.com/css?family=Roboto:300,400,500);
+
+$brightblue: #1e90ff;
+$lightblue: #c8f2ff;
+$black: #3f4256;
+$purple: #7b48fe;
+$lightgrey: #979797;
+$roboto: 'Roboto', sans-serif;
+$opensans: 'Open Sans', sans-serif;
+$helvetica: 'Helvetica Neue', 'Helvetica', sans-serif;
+
+body {
+	margin: 0;
+	font-family: $opensans;
+	color: $lightgrey;
+	font-weight: 300;
+}
+
+a {
+	text-decoration: none;
+	color: $brightblue;
+	&:hover {
+		color: $lightblue;
+	}
+}
+
+p {
+	line-height: 1.6em;
+}
+
+h1,h2,h3 {
+	font-weight: 300;
+	font-family: $roboto;
+}
+
+h1 {
+	font-size: 54px;
+	color: $purple;
+}
+
+h2 {
+	font-size: 30px;
+}
+
+h3 {
+	font-size: 22px;
+	line-height: 1.6em;
+}
+
+.container, .main {
+	max-width: 1130px;
+	padding: 0 20px;
+	margin: 0 auto;
+}
+
+.main {
+	padding: 0 10px;
+}
+
 header {
   overflow: auto;
+  padding: 20px 0 0;
+  max-width: 1170px;
+  margin: 0 auto;
 }
+
+#logo {
+	background: url(/docs/images/logo-geode.png) no-repeat;
+	width: 316px;
+	height: 107px;
+}
+
 #logo, #navigation, #navigation li {
   display: inline-block;
 }
+
 #navigation {
+	font-family: $opensans;
   float: right;
   ul {
     padding: 0;
-    margin: 0;
+    margin: 20px 0 0;
+  }
+  li {
+  	a {
+  		display: block;
+  		color: $black;
+  		font-weight: 600;
+  		padding: 15px 20px;
+  		&:hover {
+  			color: $brightblue;
+  		}
+  	}
+  	&:last-child {
+  		border-radius: 10px;
+  		background: $brightblue;
+  		margin: 0 0 0 20px;
+  		a {
+  			color: white;
+  			padding: 15px 30px;
+  		}
+  		&:hover {
+  			background: $purple;
+  		}
+  	}
   }
 }
+
+#content {
+	margin: 80px 0 0;
+}
+
+footer {
+	background: $brightblue;
+	padding: 60px 0;
+	color: $lightblue;
+	font-family: $helvetica;
+	font-weight: 200;
+	margin: 100px 0 0 0;
+	text-align: center;
+	a {
+		color: white;
+		&:hover {
+			color: $lightblue;
+		}
+	}
+	#pivotal-links {
+		a {
+			margin: 0 0 0 20px;
+		}
+	}
+}
+
+/* Home */
+
+body#home {
+	background: url(/docs/images/bg-topographical.png) no-repeat top center;
+	.main {
+		max-width: 100%;
+  	padding: 0;
+	}
+	#content {
+		text-align: center;
+		.intro {
+			margin: 0 auto;
+			max-width: 805px;
+		}
+		h1 {
+			margin: .67em auto;
+			max-width: 490px;
+		}
+	}
+	.benefits {
+		background: $purple;
+		padding: 83px 0;
+		margin: 130px 0 90px;
+		color: white;
+		.benefit {
+			width: 33%;
+			display: inline-block;
+			vertical-align: top;			
+			p {
+				max-width: 330px;
+				margin: 20px auto;
+			}
+		}
+	}
+	.nextsteps {
+		.nextstep {
+			width: 33%;
+			display: inline-block;
+			vertical-align: top;
+			h3 {
+				color: $black;
+				font-weight: 500;
+			}
+			ul {
+				text-align: left;
+				max-width: 330px;
+				margin: 0 auto 20px;
+			}
+			p {
+				max-width: 330px;
+				margin: 20px auto;
+			}
+		}
+	}
+}
+
+/* Responsive */
+
+@media(max-width: 1200px) {
+	body#home header {
+		padding: 20px 10px 0;
+	}
+}//end 1200px
+
+@media(max-width: 910px) {
+	#logo {
+		display: block;
+		margin: 0 auto;
+	}
+	#navigation {
+		float: none;
+	  text-align: center;
+	  max-width: 160px;
+	  margin: 0 auto;
+	  display: block;
+		li {
+			display: block;
+			&:last-child {
+				margin: 0;
+			}
+		}
+	}
+	body#home {
+		.nextsteps .nextstep,
+		.benefits .benefit {
+			width: 100%;
+		}
+	}
+}//end 910px
