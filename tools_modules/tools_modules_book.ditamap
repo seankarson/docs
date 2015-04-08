@@ -5,7 +5,6 @@
 		<mainbooktitle>Tools and Modules</mainbooktitle>
 	</booktitle>
 	<part format="dita" href="book_intro.xml">
-	
 		<topicref format="dita" href="gfsh/chapter_overview.xml">
 			<topicref format="dita" href="gfsh/about_gfsh.xml"/>
 			<topicref format="dita" href="gfsh/starting_gfsh.xml"/>
@@ -293,75 +292,45 @@
 			<topicref format="dita" href="gemcached/deploying_gemcached.xml"/>
 			<topicref format="dita" href="gemcached/advantages.xml"/>
 		</topicref>
-		<topicref format="dita"
-			href="http_session_mgmt/chapter_overview.xml">
-			<topicref format="dita"
-				href="http_session_mgmt/quick_start.xml"/>
-			<topicref format="dita"
-				href="http_session_mgmt/http_why_use_gemfire.xml"/>
-			<topicref format="dita"
-				href="http_session_mgmt/common_gemfire_topologies.xml"/>
-			<topicref format="dita"
-				href="http_session_mgmt/tc_additional_info.xml"/>
-			<topicref format="dita"
-				href="http_session_mgmt/session_state_log_files.xml"/>
-			<topicref format="dita"
-				href="http_session_mgmt/session_mgmt_tcserver.xml">
-				<topicref format="dita"
-					href="http_session_mgmt/tc_installing_the_module.xml"/>
-				<topicref format="dita"
-					href="http_session_mgmt/tc_setting_up_the_module.xml"/>
-				<topicref format="dita"
-					href="http_session_mgmt/tc_changing_gf_default_cfg.xml">
-					<topicref format="dita"
-						href="http_session_mgmt/interactive_mode_ref.xml"
-					/>
+		<!--<topicref format="dita" href="http_session_mgmt/chapter_overview.xml">
+			<topicref format="dita" href="http_session_mgmt/quick_start.xml"/>
+			<topicref format="dita" href="http_session_mgmt/http_why_use_gemfire.xml"/>
+			<topicref format="dita" href="http_session_mgmt/common_gemfire_topologies.xml"/>
+			<topicref format="dita" href="http_session_mgmt/tc_additional_info.xml"/>
+			<topicref format="dita" href="http_session_mgmt/session_state_log_files.xml"/>
+			<topicref format="dita" href="http_session_mgmt/session_mgmt_tcserver.xml">
+				<topicref format="dita" href="http_session_mgmt/tc_installing_the_module.xml"/>
+				<topicref format="dita" href="http_session_mgmt/tc_setting_up_the_module.xml"/>
+				<topicref format="dita" href="http_session_mgmt/tc_changing_gf_default_cfg.xml">
+					<topicref format="dita" href="http_session_mgmt/interactive_mode_ref.xml"/>
 				</topicref>
 			</topicref>
-			<topicref format="dita"
-				href="http_session_mgmt/session_mgmt_tomcat.xml">
-				<topicref format="dita"
-					href="http_session_mgmt/tomcat_installing_the_module.xml"/>
-				<topicref format="dita"
-					href="http_session_mgmt/tomcat_setting_up_the_module.xml"/>
-				<topicref format="dita"
-					href="http_session_mgmt/tomcat_changing_gf_default_cfg.xml">
+			<topicref format="dita" href="http_session_mgmt/session_mgmt_tomcat.xml">
+				<topicref format="dita" href="http_session_mgmt/tomcat_installing_the_module.xml"/>
+				<topicref format="dita" href="http_session_mgmt/tomcat_setting_up_the_module.xml"/>
+				<topicref format="dita" href="http_session_mgmt/tomcat_changing_gf_default_cfg.xml">
 					<topicref format="dita"
-						href="http_session_mgmt/tomcat_common_configuration_changes.xml"
-					/>
+						href="http_session_mgmt/tomcat_common_configuration_changes.xml"/>
 				</topicref>
 			</topicref>
-			<topicref format="dita"
-				href="http_session_mgmt/session_mgmt_weblogic.xml">
-				<topicref format="dita"
-					href="http_session_mgmt/weblogic_installing_the_module.xml"/>
-				<topicref format="dita"
-					href="http_session_mgmt/weblogic_setting_up_the_module.xml"/>
+			<topicref format="dita" href="http_session_mgmt/session_mgmt_weblogic.xml">
+				<topicref format="dita" href="http_session_mgmt/weblogic_installing_the_module.xml"/>
+				<topicref format="dita" href="http_session_mgmt/weblogic_setting_up_the_module.xml"/>
 				<topicref format="dita"
 					href="http_session_mgmt/weblogic_changing_gf_default_cfg.xml">
 					<topicref format="dita"
-						href="http_session_mgmt/weblogic_common_configuration_changes.xml"
-					/>
+						href="http_session_mgmt/weblogic_common_configuration_changes.xml"/>
 				</topicref>
 			</topicref>
 		</topicref>
-		<topicref format="dita"
-			href="hibernate_cache/chapter_overview.xml">
-			<topicref format="dita"
-				href="hibernate_cache/hibernate_why_use_gemfire.xml"/>
-			<topicref format="dita"
-				href="hibernate_cache/chapter_overview_how_works.xml"/>
-			<topicref format="dita"
-				href="hibernate_cache/installing_gemfire_and_module.xml"/>
-			<topicref format="dita"
-				href="hibernate_cache/setting_up_the_module.xml"/>
-			<topicref format="dita"
-				href="hibernate_cache/advanced_config.xml"/>
-			<topicref format="dita"
-				href="hibernate_cache/changing_gemfire_default_cfg.xml"/>
-			<topicref format="dita"
-				href="hibernate_cache/using_hibernate_with_http_session.xml"
-			/>
+		<topicref format="dita" href="hibernate_cache/chapter_overview.xml">
+			<topicref format="dita" href="hibernate_cache/hibernate_why_use_gemfire.xml"/>
+			<topicref format="dita" href="hibernate_cache/chapter_overview_how_works.xml"/>
+			<topicref format="dita" href="hibernate_cache/installing_gemfire_and_module.xml"/>
+			<topicref format="dita" href="hibernate_cache/setting_up_the_module.xml"/>
+			<topicref format="dita" href="hibernate_cache/advanced_config.xml"/>
+			<topicref format="dita" href="hibernate_cache/changing_gemfire_default_cfg.xml"/>
+			<topicref format="dita" href="hibernate_cache/using_hibernate_with_http_session.xml"/>
 		</topicref>
 		<topicref format="dita" href="pulse/chapter_overview.xml">
 			<topicref format="dita"
@@ -372,8 +341,7 @@
 				href="pulse/quickstart.xml#topic_AC9FFAA6FB044279BAED7A3E099E07AC"
 				navtitle="Configuring Pulse Authentication" scope="local" type="topic"/>
 			<topicref format="dita"
-				href="pulse/quickstart.xml#topic_F0ECE9E8179541CCA3D6C5F4FBA84404"
-			/>
-		</topicref>
+				href="pulse/quickstart.xml#topic_F0ECE9E8179541CCA3D6C5F4FBA84404"/>
+		</topicref>-->
 	</part>
 </bookmap>
