@@ -63,7 +63,7 @@ You can now view the local documentation at [http://localhost:9292](http://local
 
 Bookbinder provides additional functionality to construct books from multiple Github repos, to perform variable substitution, and also to automatically build documentation in a continuous integration pipeline.  For more information, see [https://github.com/cloudfoundry-incubator/bookbinder](https://github.com/cloudfoundry-incubator/bookbinder).
 
-The latest check-ins to `project-geode/docs` are automatically built and published to [http://geode.cfapps.io](http://geode.cfapps.io).
+The latest check-ins to `project-geode/docs` are automatically built and published to [http://geode-docs.cfapps.io](http://geode-docs.cfapps.io).
 
 ### Copyright
 
