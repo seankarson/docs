@@ -29,6 +29,8 @@ Fast Foot Demo - updates from Luke on Friday
 
 [Getting Started with Geode](https://github.com/project-geode/docs/wiki#geode-in-5-minutes)
 
+[Caching Data with Spring Data GemFire](http://www.javabeat.net/spring-data-gemfire-cache/)
+
 here, here, and here..... (luke's code, training example, spatial example) others?
 
 ##Dive into How Tos
@@ -44,6 +46,8 @@ here, here, and here..... (luke's code, training example, spatial example) other
         <li>Querying Geode</li>
         <li><a href="https://github.com/project-geode/docs/wiki/Debugging-Geode-Applications">Debugging Geode Applications</a></li>
 
+	<li><a href=“https://github.com/project-geode/docs/wiki/Reliable-Messaging”>Reliable Messaging</a></li>
+
     </td>
     <td> 
           <b>Design</b><br>
@@ -51,7 +55,11 @@ here, here, and here..... (luke's code, training example, spatial example) other
             <li>Data Architecture in Geode</li>
             <li><a href="https://github.com/project-geode/docs/wiki/Running-in-Embedded-Mode">Running in Embedded Mode</a></li>
             <li>Client Server Architecture</li>
-            <li>Moving from memcached to gemcached</li>
+            <li><a href=“https://github.com/project-geode/docs/wiki/Moving-from-memcached-to-gemcached”>Moving from memcached to gemcached</a></li>
+	    <li><a href=“https://github.com/project-geode/docs/wiki/Sizing-a-Geode-Cluster”>Sizing a Geode Cluster</a></li>
+	<li><a href=“https://github.com/project-geode/docs/wiki/Network-Configuration-Best-Practices”>Network Configuration Best Practices</a></li>
+	<li><a href=“https://github.com/project-geode/docs/wiki/Geode-Security-Framework”>Geode Security Framework</a></li>
+	<li><a href=“https://github.com/project-geode/docs/wiki/Resource-Management-in-Geode”>Resource Management in Geode</a></li>
             
             
           </ul>
@@ -60,26 +68,29 @@ here, here, and here..... (luke's code, training example, spatial example) other
     <td> 
           <b>Troubleshooting</b><br>
           <ul>
-            <li>Sizing</li>
-            <li>What to Monitor</li>
-            <li>Network Configuration</li>
-            <li>Troubleshooting CPU</li>
-            <li>Troubleshooting Heap</li>
-            <li>Troubleshooting Load Average</li>
+            <li><a href=“https://github.com/project-geode/docs/wiki/What-To-Monitor”>What to Monitor</a></li>
+            <li><a href=“https://github.com/project-geode/docs/wiki/Troubleshooting-CPU”>Troubleshooting CPU</a></li>
+	<li><a href=“https://github.com/project-geode/docs/wiki/Troubleshooting-Disk-Space”>Troubleshooting Disk Space</a></li>
+	<li><a href=“https://github.com/project-geode/docs/wiki/Troubleshooting-File-Descriptors”>Troubleshooting File Descriptors</a></li>
+	<li><a href=“https://github.com/project-geode/docs/wiki/Troubleshooting-Garbage-Collection-Pauses”>Troubleshooting Garbage Collection Pauses</a></li>
+            <li><a href=“https://github.com/project-geode/docs/wiki/Troubleshooting-Heap”>Troubleshooting Heap</a></li>
+            <li><a href=“https://github.com/project-geode/docs/wiki/Troubleshooting-Load-Average”>Troubleshooting Load Average</a></li>
+	<li><a href=“https://github.com/project-geode/docs/wiki/Troubleshooting-Native-Memory”>Troubleshooting Native Memory</a></li>
           </ul>
     </td>
   </tr>
 </table>
 
 # Other Resources
+
 ## Training Materials
--- hopefully link to training github - existing materials that are available behind the registration wall are a giant pdf.  This won't fly.
+Geode Introductory Training materials are open source and can be found [here](https://github.com/project-geode/training)
+
 
 ##Documentation
-Find the latest Project Haptic Documentation [here](https://github.com/gemfire/docs-gemfire)
+Find the latest Project Geode Documentation [here](http://geode-docs.cfapps.io/docs/about_geode.html)
 
 
 + [Download](/docs/download) the latest release — you can run locally on your laptop natively, or as a VM.
-+ Read the [quick start guide](https://github.com/gemfire/apache-gemfire-staging/wiki).
-+ Watch videos on how to get started
-+ Learn how to deploy on a cluster.
++ Read the [quick start guide](https://github.com/project-geode/docs/wiki#geode-in-5-minutes).
+
