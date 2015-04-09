@@ -7,7 +7,7 @@ slug: getting-started
 # Getting Started
 
 ## Download Geode 
-<div class='button'><a href='/docs/download'>Download</a></div>
+<div class='button'><a href='/download'>Download</a></div>
 
 ***
 
@@ -70,6 +70,6 @@ Geode Introductory Training materials are open source and can be found [here](ht
 Find the latest Project Geode Documentation [here](http://geode-docs.cfapps.io/docs/about_geode.html).
 
 
-+ [Download](/docs/download) the latest release — you can run locally on your laptop natively, or as a VM.
++ [Download](/download) the latest release — you can run locally on your laptop natively, or as a VM.
 + Read the [quick start guide](https://github.com/project-geode/docs/wiki#geode-in-5-minutes).
 

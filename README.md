@@ -1,6 +1,6 @@
-### Staging URL
+### URL
 
-[http://project-geode.github.io/docs/](http://project-geode.github.io/docs/)
+[http://projectgeode.org/](http://projectgeode.org)
 
 ### Changes
 
@@ -10,10 +10,6 @@ To add a new top-level page (e.g. /download), follow the existing format (folder
 
 To add a second-level page (e.g. /community/secondarypage), add a .md file to the correct directory using the name you want and the correct YAML front matter at the top of the file.
 
-### URLs
-
-For now, you will need to add /docs/ in front of your in-site links to get them to work.  Once we move to a custom domain, this necessity will go away.
-
 ### Technologies
 
 + GitHub Pages use [Jekyll](http://jekyllrb.com/)
@@ -21,8 +17,6 @@ For now, you will need to add /docs/ in front of your in-site links to get them 
 + .scss allows both SASS and CSS ([SASS cheat sheet](http://sass-cheatsheet.brunoscopelliti.com/))
 
 ### Run locally
-
-Until there's a custom domain, running locally will look broken due to needing to have /docs/ in the URLs. 
 
 Ignore the _site directory.  This directory is rebuilt every time Jekyll rebuilds the site and will not be committed to GitHub.
 
