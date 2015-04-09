@@ -7,6 +7,7 @@
 @import url(http://fonts.googleapis.com/css?family=Roboto:300,400,500);
 
 $brightblue: #1e90ff;
+$hoverbrightblue: #3f9ffc;
 $lightblue: #c8f2ff;
 $black: #3f4256;
 $purple: #7b48fe;
@@ -20,18 +21,21 @@ body {
 	font-family: $opensans;
 	color: $lightgrey;
 	font-weight: 300;
+	position: relative;
+	font-size: 18px;
 }
 
 a {
 	text-decoration: none;
 	color: $brightblue;
 	&:hover {
-		color: $lightblue;
+		color: $purple;
 	}
 }
 
 p {
 	line-height: 1.6em;
+	margin: 20px 0;
 }
 
 h1,h2,h3 {
@@ -41,26 +45,61 @@ h1,h2,h3 {
 
 h1 {
 	font-size: 54px;
-	color: $purple;
+	color: white;
+	margin: 110px 0 140px;
 }
 
 h2 {
 	font-size: 30px;
+	color: $black;
 }
 
 h3 {
 	font-size: 22px;
 	line-height: 1.6em;
+	color: $black;
+}
+
+h4 {
+	color: $black;
+	font-size: 18px;
+}
+
+h5 {
+	color: $black;
+	font-size: 16px;
+}
+
+th {
+	text-align: left;
+	font-size: 18px;
+	color: $black;
+	// border-bottom: 1px solid #ececec;
+	padding-bottom: 5px;
+}
+
+td {
+	padding-right: 40px;
+}
+
+tt, code, kbd, samp {
+	background: #f7f7f7;
+	padding: 20px;
+	font-size: 16px;
+}
+
+.billboard-bg {
+	background: url(/docs/images/bg-crystals-secondary.jpg) center top $purple;
+	position: absolute;
+	height: 315px;
+	width: 100%;
+	z-index: -1;
 }
 
 .container, .main {
 	max-width: 1130px;
 	padding: 0 20px;
 	margin: 0 auto;
-}
-
-.main {
-	padding: 0 10px;
 }
 
 header {
@@ -71,9 +110,12 @@ header {
 }
 
 #logo {
-	background: url(/docs/images/logo-geode.png) no-repeat;
-	width: 316px;
-	height: 107px;
+	background: url(/docs/images/logo-geode-white.png) no-repeat center;
+	width: 175px;
+	height: 59px;
+	img {
+		max-width: 100%;
+	}
 }
 
 #logo, #navigation, #navigation li {
@@ -85,12 +127,12 @@ header {
   float: right;
   ul {
     padding: 0;
-    margin: 20px 0 0;
+    margin: 0;
   }
   li {
   	a {
   		display: block;
-  		color: $black;
+  		color: white;
   		font-weight: 600;
   		padding: 15px 20px;
   		&:hover {
@@ -106,14 +148,48 @@ header {
   			padding: 15px 30px;
   		}
   		&:hover {
-  			background: $purple;
+  			background: $hoverbrightblue;
   		}
   	}
   }
 }
 
+.button {
+	border-radius: 10px;
+	background: $brightblue;
+	width: 195px;
+  height: 55px;
+  font-weight: 600;
+	text-align: center;
+	a {
+		color: white;
+		padding: 15px 0;
+		display: block;
+	}
+	&:hover {
+		background: $purple;
+	}
+}
+
+hr {
+	border-style: none;
+  border-bottom: 1px solid #ececec;
+  margin: 70px 0;
+}
+
 #content {
-	margin: 80px 0 0;
+	margin: 60px 0 0;
+	min-height: 900px;
+}
+
+.sidebar {
+	float: right;
+	width: 341px;
+	margin-left: 70px;
+}
+
+#mailing-lists {
+	margin-top:0;
 }
 
 footer {
@@ -124,6 +200,7 @@ footer {
 	font-weight: 200;
 	margin: 100px 0 0 0;
 	text-align: center;
+	font-size: 16px;
 	a {
 		color: white;
 		&:hover {
@@ -140,26 +217,67 @@ footer {
 /* Home */
 
 body#home {
-	background: url(/docs/images/bg-topographical.png) no-repeat top center;
+	.billboard-home {
+		background: url(/docs/images/bg-crystals-placeholder.png) no-repeat bottom center;
+		min-height: 400px;
+		margin: 110px 0 -22px;
+		.inner {
+			max-width: 540px;
+			margin: 0 auto;
+			text-align: center;
+		}
+		.intro {
+			h3 {
+				color: $lightgrey;
+			}
+		}
+	}
+	.billboard-bg {
+		display: none;
+	}
+	#logo {
+		background: url(/docs/images/logo-geode.png) no-repeat center;
+	}
 	.main {
 		max-width: 100%;
   	padding: 0;
 	}
+	#navigation {
+		li {
+			a {
+				color: $black;
+	  		&:hover {
+	  			color: $brightblue;
+	  		}
+			}
+			&:last-child {
+				a {
+					color: white;
+				}
+				&:hover {
+  				background: $purple;
+  			}
+			}
+		}
+	}
 	#content {
 		text-align: center;
-		.intro {
-			margin: 0 auto;
-			max-width: 805px;
-		}
+		margin: 80px 0 0;
 		h1 {
-			margin: .67em auto;
-			max-width: 490px;
+			margin: .67em auto 20px;
+			color: $black;
+		}
+		h1, .intro {
+			padding: 0 20px;
+		}
+		h2 {
+			color: white;
 		}
 	}
 	.benefits {
 		background: $purple;
 		padding: 83px 0;
-		margin: 130px 0 90px;
+		margin: 0 0 90px;
 		color: white;
 		.benefit {
 			width: 33%;
@@ -193,6 +311,21 @@ body#home {
 	}
 }
 
+body#community #content {
+	h3, h5 {
+		margin: 0;
+	}
+	.event-image {
+		float: left;
+		margin: 8px 20px 40px 0;
+		border: 1px solid #ececec;
+	}
+	.description {
+		font-size: 15px;
+		margin: 20px 0;
+	}
+}
+
 /* Responsive */
 
 @media(max-width: 1200px) {
@@ -202,23 +335,6 @@ body#home {
 }//end 1200px
 
 @media(max-width: 910px) {
-	#logo {
-		display: block;
-		margin: 0 auto;
-	}
-	#navigation {
-		float: none;
-	  text-align: center;
-	  max-width: 160px;
-	  margin: 0 auto;
-	  display: block;
-		li {
-			display: block;
-			&:last-child {
-				margin: 0;
-			}
-		}
-	}
 	body#home {
 		.nextsteps .nextstep,
 		.benefits .benefit {
@@ -226,3 +342,47 @@ body#home {
 		}
 	}
 }//end 910px
+
+@media(max-width: 835px) {
+	#navigation {
+		li {
+			a {
+				padding: 15px 5px;
+			}
+		}
+	}
+}//end 835px
+
+@media(max-width: 734px) {
+	#navigation {
+		float: left;
+		li {
+			&:last-child {
+				margin: 0;
+			}
+		}
+	}
+	#logo, #navigation li {
+		display: block;
+	}
+	h1 {
+		margin: 20px 0 60px;
+		color: $purple;
+	}
+	.sidebar {
+    float: none;
+    width: 100%;
+    margin-left: 0;
+	}
+}//end 734px
+
+@media(max-width: 480px) {
+	body#home {
+		.billboard-home {
+			min-height: 550px;
+		}
+		#content h1 {
+			font-size: 45px;
+		}
+	}
+}

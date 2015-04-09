@@ -4,9 +4,12 @@ title: Project Geode | Home
 slug: home
 ---
 
-# Consistency is key. Performance is next.
-
-<div class='intro'><h3>Marketing needs to chime in here with what we want to say. Awesome things we want to say about Project Geode</h3></div>
+<div class='billboard-home'>
+	<div class='inner'>
+		<h1>Consistency is key. Performance is next.</h1>
+		<div class='intro'><h3>Marketing needs to chime in here with what we want to say. Awesome things we want to say about Project Geode</h3></div>
+	</div>
+</div>
 
 <div class='benefits'>
 	<div class='container'>
@@ -50,7 +53,7 @@ slug: home
 	    <h3>Getting Started</h3>
 	    <ul>
 				<li><a href='/docs/download'>Download</a> the latest release — you can run Haptic locally on your laptop natively, or as a VM.</li>
-				<li>Read the quick start guide.</li>
+				<li>Read the <a href='https://github.com/project-geode/docs/wiki#geode-in-5-minutes'>quick start guide</a>.</li>
 				<li>Watch videos on how to get started.</li>
 				<li>Learn how to deploy Geode on a cluster.</li>
 			</ul>

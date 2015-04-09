@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Project Haptic | Community
+title: Project Geode | Community
 slug: community
 ---
 
@@ -8,47 +8,69 @@ slug: community
 
 Project Haptic is used in a wide range of use cases for high performance computing and transactions. You can find example use cases on the Examples page. There are many ways to reach the community
 
-##Mailing Lists and Forums
-For help using Haptic: user@x.pivotal.io
+***
+
+<div class='sidebar'>
+<h2 id='mailing-lists'> Mailing Lists & Forums </h2>
+<p>
+For help using Geode: user@x.pivotal.io
+<br>
 For help related to contributing: dev@x.pivotal.io
+</p>
+<p>
+StackOverflow tag <a href='http://stackoverflow.com/questions/tagged/gemfire'>gemfire</a> is an unofficial but active forum for usage questions and answers.
+</p>
+<p>
+Pivotal also hosts a <a href='https://support.pivotal.io/hc/communities/public/topics/200053218-Pivotal-GemFire-Forum'>GemFire Forum</a> that will have answers to many usage questions as well.
+</p>
+<hr>
 
-StackOverflow tag [gemfire](http://stackoverflow.com/questions/tagged/gemfire) is an unofficial but active forum for usage questions and answers.
-
-Pivotal also hosts a [GemFire Forum](https://support.pivotal.io/hc/communities/public/topics/200053218-Pivotal-GemFire-Forum) that will have answers to many usage questions as well.
-
-###Issue Tracking
+<h2> Issue Tracking </h2>
+<p>
 We use JIRA for issue tracking. (TBD) - need a link here
+<br>
 You can also subscribe to the mailing list issues@x.pivotal.io to receive emails about new issues and commits@x.pivotal.io for emails about commits.
+</p>
 
-###Conferences
-+ApacheCon April 2015 (need more details here, what others shall we list??)
+<br>
+<br>
+</div>
 
-###Meetups
-<table>
-  <tr>
-    <td>Date</td>
-    <td>Title</td>
-    <td>Location</td>
-    <td>Content</td>
-    <td>Video</td>
-  </tr>
-  <tr>
-    <td>4/23/2015</td>
-    <td>What's my name</td>
-    <td>Palo Alto, CA</td>
-    <td>put link here to content in git</td>
-    <td>link to recording</td>
-  </tr>
-  <tr>
-    <td>6/15/2015</td>
-    <td>What's my name</td>
-    <td>Toronto, ON</td>
-    <td>put link here to content in git</td>
-    <td>link to recording</td>
-  </tr>
-</table>
 
-###Project History
+
+## Conferences
+
+<img class='event-image' src='/images/events/apachecon.png'>
+
+### ApacheCon
+
+##### April 13-17 2015 &nbsp; • &nbsp; Austin, TX
+
+<div class='description'>ApacheCon brings together the open source community to learn about and collaborate on the technologies and projects driving the future of open source, big data and cloud computing.</div>
+
+***
+
+## Meetups
+
+### Title
+
+##### Date &nbsp; • &nbsp; Time &nbsp; • &nbsp; Location &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [<i class="fa fa-play-circle"></i> Get the Video](link)
+
+<div class='description'>Description</div>
+
+***
+
+### Title
+
+##### Date &nbsp; • &nbsp; Time &nbsp; • &nbsp; Location &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [<i class="fa fa-play-circle"></i> Get the Video](link)
+
+<div class='description'>Description</div>
+
+
+
+***
+
+## Project History
 ***needs work
 GemFire was launched as a result of lessons learnt from its predecessor - an object oriented database and its performance challenges in a highly scaled environment. The problems primarily stemmed from the centralized design in traditional database (RDB and Object oriented) and a design that used main-memory to optimize disk IO not application access patterns. 
 

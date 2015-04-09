@@ -6,11 +6,13 @@ slug: getting-started
 
 # Getting Started
 
-##Get Geode 
-Download it [here](/docs/download/)
+## Download Geode 
+<div class='button'><a href='/docs/download'>Download</a></div>
 
-##Learn the basics (Videos) 
-**(NOTE: GemFire is a commercial version of Geode)**
+***
+
+##Learn the Basics (Videos) 
+(NOTE: GemFire is a commercial version of Geode)
 
 [Introduction to GemFire](https://s3.amazonaws.com/gemfire-intro/Lesson+00+Introduction.mp4)
 
@@ -24,7 +26,11 @@ Download it [here](/docs/download/)
 
 [Introduction to GemFire:Conclusion](https://s3.amazonaws.com/gemfire-intro/Lesson+05+Conclusion.mp4)
 
-##Understand some examples
+
+***
+
+
+##Understand Some Examples
 Fast Foot Demo - updates from Luke on Friday
 
 [Getting Started with Geode](https://github.com/project-geode/docs/wiki#geode-in-5-minutes)
@@ -33,62 +39,35 @@ Fast Foot Demo - updates from Luke on Friday
 
 here, here, and here..... (luke's code, training example, spatial example) others?
 
+
+***
+
+
 ##Dive into How Tos
-<table>
-  <tr>
-    <td>
-    <b>Develop</b></br>
-        <ul>
-        <li><a href="https://github.com/project-geode/docs/wiki/CacheWriter-and-CacheListener-Best-Practices">CacheListeners and Writers</a></li>
-        <li><a href="https://github.com/project-geode/docs/wiki/Function-Best-Practices">Function Best Practices</a></li>
-        <li><a href="https://github.com/project-geode/docs/wiki/Native-Disk-Persistence">Persistence Best Practices</a></li>
-        <li><a href="https://github.com/project-geode/docs/wiki/PDX-Serialization-Internals">PDX Serialization Internals</a></li>
-        <li>Querying Geode</li>
-        <li><a href="https://github.com/project-geode/docs/wiki/Debugging-Geode-Applications">Debugging Geode Applications</a></li>
 
-	<li><a href=“https://github.com/project-geode/docs/wiki/Reliable-Messaging”>Reliable Messaging</a></li>
-
-    </td>
-    <td> 
-          <b>Design</b><br>
-          <ul>
-            <li>Data Architecture in Geode</li>
-            <li><a href="https://github.com/project-geode/docs/wiki/Running-in-Embedded-Mode">Running in Embedded Mode</a></li>
-            <li>Client Server Architecture</li>
-            <li><a href=“https://github.com/project-geode/docs/wiki/Moving-from-memcached-to-gemcached”>Moving from memcached to gemcached</a></li>
-	    <li><a href=“https://github.com/project-geode/docs/wiki/Sizing-a-Geode-Cluster”>Sizing a Geode Cluster</a></li>
-	<li><a href=“https://github.com/project-geode/docs/wiki/Network-Configuration-Best-Practices”>Network Configuration Best Practices</a></li>
-	<li><a href=“https://github.com/project-geode/docs/wiki/Geode-Security-Framework”>Geode Security Framework</a></li>
-	<li><a href=“https://github.com/project-geode/docs/wiki/Resource-Management-in-Geode”>Resource Management in Geode</a></li>
-            
-            
-          </ul>
-
-    </td>
-    <td> 
-          <b>Troubleshooting</b><br>
-          <ul>
-            <li><a href=“https://github.com/project-geode/docs/wiki/What-To-Monitor”>What to Monitor</a></li>
-            <li><a href=“https://github.com/project-geode/docs/wiki/Troubleshooting-CPU”>Troubleshooting CPU</a></li>
-	<li><a href=“https://github.com/project-geode/docs/wiki/Troubleshooting-Disk-Space”>Troubleshooting Disk Space</a></li>
-	<li><a href=“https://github.com/project-geode/docs/wiki/Troubleshooting-File-Descriptors”>Troubleshooting File Descriptors</a></li>
-	<li><a href=“https://github.com/project-geode/docs/wiki/Troubleshooting-Garbage-Collection-Pauses”>Troubleshooting Garbage Collection Pauses</a></li>
-            <li><a href=“https://github.com/project-geode/docs/wiki/Troubleshooting-Heap”>Troubleshooting Heap</a></li>
-            <li><a href=“https://github.com/project-geode/docs/wiki/Troubleshooting-Load-Average”>Troubleshooting Load Average</a></li>
-	<li><a href=“https://github.com/project-geode/docs/wiki/Troubleshooting-Native-Memory”>Troubleshooting Native Memory</a></li>
-          </ul>
-    </td>
-  </tr>
-</table>
-
-# Other Resources
-
-## Training Materials
-Geode Introductory Training materials are open source and can be found [here](https://github.com/project-geode/training)
+Develop | Design | Troubleshooting
+ ------ | ----------- | --------
+[CacheListeners and Writers](https://github.com/project-geode/docs/wiki/CacheWriter-and-CacheListener-Best-Practices) | Data Architecture in Geode | [What to Monitor](https://github.com/project-geode/docs/wiki/What-To-Monitor)
+[Function Best Practices](https://github.com/project-geode/docs/wiki/Function-Best-Practices) | [Running in Embedded Mode](https://github.com/project-geode/docs/wiki/Running-in-Embedded-Mode) | [Troubleshooting CPU](https://github.com/project-geode/docs/wiki/Troubleshooting-CPU)
+[Persistence Best Practices](https://github.com/project-geode/docs/wiki/Native-Disk-Persistence) | Client Server Architecture |    [Troubleshooting Disk Space](https://github.com/project-geode/docs/wiki/Troubleshooting-Disk-Space)
+[PDX Serialization Internals](https://github.com/project-geode/docs/wiki/PDX-Serialization-Internals) | [Moving from memcached to gemcached](https://github.com/project-geode/docs/wiki/Moving-from-memcached-to-gemcached) |    [Troubleshooting File Descriptors](https://github.com/project-geode/docs/wiki/Troubleshooting-File-Descriptors)
+Querying Geode | [Sizing a Geode Cluster](https://github.com/project-geode/docs/wiki/Sizing-a-Geode-Cluster) |    [Troubleshooting Garbage Collection Pauses](https://github.com/project-geode/docs/wiki/Troubleshooting-Garbage-Collection-Pauses)
+[Debugging Geode Applications](https://github.com/project-geode/docs/wiki/Debugging-Geode-Applications) | [Network Configuration Best Practices](https://github.com/project-geode/docs/wiki/Network-Configuration-Best-Practices) |    [Troubleshooting Heap](https://github.com/project-geode/docs/wiki/Troubleshooting-Heap)
+[Reliable Messaging](https://github.com/project-geode/docs/wiki/Reliable-Messaging) |  [Geode Security Framework](https://github.com/project-geode/docs/wiki/Geode-Security-Framework) |    [Troubleshooting Load Average](https://github.com/project-geode/docs/wiki/Troubleshooting-Load-Average)
+ |   [Resource Management in Geode](https://github.com/project-geode/docs/wiki/Resource-Management-in-Geode) |    [Troubleshooting Native Memory](https://github.com/project-geode/docs/wiki/Troubleshooting-Native-Memory)
 
 
-##Documentation
-Find the latest Project Geode Documentation [here](http://geode-docs.cfapps.io/docs/about_geode.html)
+***
+
+
+##Other Resources
+
+### Training Materials
+Geode Introductory Training materials are open source and can be found [here](https://github.com/project-geode/training).
+
+
+### Documentation
+Find the latest Project Geode Documentation [here](http://geode-docs.cfapps.io/docs/about_geode.html).
 
 
 + [Download](/docs/download) the latest release — you can run locally on your laptop natively, or as a VM.
