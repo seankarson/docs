@@ -42,7 +42,7 @@ here, here, and here..... (luke's code, training example, spatial example) other
         <li><a href="https://github.com/project-geode/docs/wiki/CacheWriter-and-CacheListener-Best-Practices">CacheListeners and Writers</a></li>
         <li><a href="https://github.com/project-geode/docs/wiki/Function-Best-Practices">Function Best Practices</a></li>
         <li><a href="https://github.com/project-geode/docs/wiki/Native-Disk-Persistence">Persistence Best Practices</a></li>
-        </li><a href="https://github.com/project-geode/docs/wiki/PDX-Serialization-Internals">PDX Serialization Internals</a></li>
+        <li><a href="https://github.com/project-geode/docs/wiki/PDX-Serialization-Internals">PDX Serialization Internals</a></li>
         <li>Querying Geode</li>
         <li><a href="https://github.com/project-geode/docs/wiki/Debugging-Geode-Applications">Debugging Geode Applications</a></li>
 
