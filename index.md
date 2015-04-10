@@ -35,7 +35,7 @@ slug: home
 		<div class='nextstep'>
 			<h3>Community</h3>
 
-			<p>The Project Geode community consists of contributers and users of the Geode distributed in-memory database. Here are the many faces of the community:</p>
+			<p>Here is how to get in touch with other users and contributors of the Project Geode community:</p>
 			<ul>
 			<li><a href="http://groups.google.com/d/forum/project-geode">Project Geode Google Group</a> or project-geode@googlegroups.com</li>
 			<li>User questions at <a href="https://support.pivotal.io/hc/communities/public/topics/200053218-Pivotal-GemFire-Forum">Pivotal GemFire forum (registration required)</a>, or <a href="http://stackoverflow.com/questions/tagged/gemfire+or+geode">Stack Overflow</a></li>
