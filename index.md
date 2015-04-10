@@ -15,7 +15,7 @@ slug: home
 	<div class='container'>
 		<div class='benefit'>
 			<h2>Linear performance</h2>
-			<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur faucibus, ex nec elementum pharetra, arcu justo dictum enim.</p>
+			<p>All data in Geode is stored in-memory for low latency. Performance scales linearly as nodes are added. Data is distributed optimally between nodes.</p>
 		</div>
 		<div class='benefit'>
 			<h2>Scale-out consistency</h2>
