@@ -18,8 +18,8 @@ slug: home
 			<p>All data in is stored in-memory for low latency. Performance scales linearly as nodes are added. Data is distributed automatically between nodes to optimize performance.</p>
 		</div>
 		<div class='benefit'>
-			<h2>Consistent database ops</h2>
-			<p>Data is persisted in write-optimized disk storage. Consistency checking is configurable between highest performance caching and ACID transactions. Data can be queried and indexed between nodes.</p>
+			<h2>Database consistency</h2>
+			<p>Data is persisted in write-optimized disk storage. Consistency checking is configurable between highest performance caching and ACID transactions.</p>
 		</div>
 		<div class='benefit'>
 			<h2>Resilient clustering</h2>
