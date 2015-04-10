@@ -58,6 +58,15 @@ You can also subscribe to the mailing list project-geode@googlegroups.com to rec
 #####4/12/15 &nbsp; • &nbsp;7 pm &nbsp; • &nbsp; <a href="http://www.meetup.com/Pivotal-Open-Source-Hub-at-ApacheCon/events/221503278/">Invite</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 
 <div class='description'>Description</div><br>
+Come to this meet up to learn about becoming a contributor to this powerful and fascinating technology:
+
++A brief history of GemFire 
++Architecture and use cases 
++Why we are taking GemFire Open Source 
++Design philosophy and principles 
++Code walk-through 
++How to contribute 
++Ideas for next enhancements
 
 
 
@@ -68,15 +77,7 @@ You can also subscribe to the mailing list project-geode@googlegroups.com to rec
 #####4/23/15 &nbsp; • &nbsp;7 pm &nbsp; • &nbsp; <a href="http://www.meetup.com/Pivotal-Open-Source-Hub-at-ApacheCon/events/221503278/">Invite</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 
 <div class='description'>Description</div>
-Come to this meet up to learn about becoming a contributor to this powerful and fascinating technology:
 
-•  A brief history of GemFire 
-•  Architecture and use cases 
-•  Why we are taking GemFire Open Source 
-•  Design philosophy and principles 
-•  Code walk-through 
-•  How to contribute 
-•  Ideas for next enhancements
 
 
 
