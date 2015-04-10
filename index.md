@@ -6,7 +6,7 @@ slug: home
 
 <div class='billboard-home'>
 	<div class='inner'>
-		<h1>Geode.<BR> The distributed, in-memory database.</h1>
+		<h1>Performance, consistency, and resilience are not tradeoffs for scale</h1>
 		<div class='intro'><h3>Marketing needs to chime in here with what we want to say. Awesome things we want to say about Project Geode</h3></div>
 	</div>
 </div>
