@@ -6,7 +6,7 @@ slug: home
 
 <div class='billboard-home'>
 	<div class='inner'>
-		<h1>Performance is key, Consistency is a must.</h1>
+		<h1>Performance is key. Consistency is a must.</h1>
 		<div class='intro'><h3>Geode is the open source distributed, in-memory database for scale-out applications.</h3></div>
 	</div>
 </div>
@@ -14,15 +14,15 @@ slug: home
 <div class='benefits'>
 	<div class='container'>
 		<div class='benefit'>
-			<h2>Low-latency performance</h2>
+			<h2>Linear performance</h2>
 			<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur faucibus, ex nec elementum pharetra, arcu justo dictum enim.</p>
 		</div>
 		<div class='benefit'>
-			<h2>Consistent data at scale</h2>
+			<h2>Scale-out consistency</h2>
 			<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur faucibus, ex nec elementum pharetra, arcu justo dictum enim.</p>
 		</div>
 		<div class='benefit'>
-			<h2>Highly resilient</h2>
+			<h2>Enterprise-class resilience</h2>
 			<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur faucibus, ex nec elementum pharetra, arcu justo dictum enim.</p>
 		</div>
 	</div>
