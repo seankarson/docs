@@ -6,10 +6,6 @@ slug: community
 
 # Community
 
-There are many ways to reach the Project Geode Community
-
-***
-
 <div class='sidebar'>
 <p>Here is how to get in touch with other users and contributors of the Project Geode community:</p>
 			<ul>
@@ -18,17 +14,6 @@ There are many ways to reach the Project Geode Community
 			<li>We use the <a href="https://github.com/project-geode/docs/issues" target="_blank">Project Geode GitHub for issue tracking</a></li>
 			<li>For other ways to contribute, see the <a href="http://projectgeode.org/community/">Project Geode community page</a></li>
 			</ul>
-<hr>
-
-<h2> Issue Tracking </h2>
-<p>
-We are currently using <a href="https://github.com/project-geode/docs/issues">Git Issues</a> for issue tracking.
-<br>
-You can also subscribe to the mailing list project-geode@googlegroups.com to receive emails about new issues and commits.
-</p>
-
-<br>
-<br>
 </div>
 
 
@@ -48,9 +33,9 @@ You can also subscribe to the mailing list project-geode@googlegroups.com to rec
 ## Meetups
 
 
-### Open Sourced GemFire In-Memory Distributed Database Architecture Talk
+### AUSTIN Pivotal Open Source Hub: Open Sourced GemFire In-Memory Distributed Database Architecture Talk
 
-#####4/12/15 &nbsp; • &nbsp;7 pm &nbsp; • &nbsp; Austin, Tx • &nbsp; <a href="http://www.meetup.com/Pivotal-Open-Source-Hub-at-ApacheCon/events/221503278/">Invite</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+#####4/12/15 &nbsp; • &nbsp;7 pm &nbsp; • &nbsp; Austin, Tx • &nbsp; <a href="http://www.meetup.com/Pivotal-Open-Source-Hub-at-ApacheCon/events/221503278/">RSVP</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 
 <div class='description'>Description</div>
 Come to this meet up to learn about becoming a contributor to this powerful and fascinating technology:
@@ -68,11 +53,23 @@ Come to this meet up to learn about becoming a contributor to this powerful and 
 
 ***
 
-### Open Sourced GemFire In-Memory Distributed Database Architecture Talk
+### Pivotal Open Source Hub San Francisco: Open Sourced GemFire In-Memory Distributed Database Architecture Talk
 
-#####4/23/15 &nbsp; • &nbsp;7 pm &nbsp; • &nbsp; <a href="http://www.meetup.com/Pivotal-Open-Source-Hub-at-ApacheCon/events/221503278/">Invite</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+#####4/23/15 &nbsp; • &nbsp;7 pm &nbsp; • &nbsp; <a href="http://www.meetup.com/Pivotal-Open-Source-Hub/events/221443735/">RSVP</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 
 <div class='description'>Description</div>
+Replay of the Austin Meetup...
+Come to this meet up to learn about becoming a contributor to this powerful and fascinating technology:
+
+<ul>
+<li>A brief history of GemFire</li> 
+<li>Architecture and use cases </li>
+<li>Why we are taking GemFire Open Source</li> 
+<li>Design philosophy and principles</li> 
+<li>Code walk-through </li>
+<li>How to contribute</li> 
+<li>Ideas for next enhancements</li>
+</ul>
 
 
 
