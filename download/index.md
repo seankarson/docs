@@ -6,6 +6,8 @@ slug: download
 
 # Download
 
+## User the source, Luke!
+
 The source for Project Geode can be downloaded here:
 [Pivotal Network Project Geode Source](https://network.pivotal.io/products/project-geode)
 
