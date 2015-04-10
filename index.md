@@ -37,9 +37,9 @@ slug: home
 
 			<p>Here is how to get in touch with other users and contributors of the Project Geode community:</p>
 			<ul>
-			<li><a href="http://groups.google.com/d/forum/project-geode">Project Geode Google Group</a> or project-geode@googlegroups.com</li>
-			<li>User questions at <a href="https://support.pivotal.io/hc/communities/public/topics/200053218-Pivotal-GemFire-Forum">Pivotal GemFire forum (registration required)</a>, or <a href="http://stackoverflow.com/questions/tagged/gemfire+or+geode">Stack Overflow</a></li>
-			<li>We use the <a href="https://github.com/project-geode/docs/issues">Project Geode GitHub for issue tracking</a></li>
+			<li><a href="http://groups.google.com/d/forum/project-geode" target="_blank">Project Geode Google Group</a> or project-geode@googlegroups.com</li>
+			<li>User questions at <a href="https://support.pivotal.io/hc/communities/public/topics/200053218-Pivotal-GemFire-Forum" target="_blank">Pivotal GemFire forum (registration required)</a>, or <a href="http://stackoverflow.com/questions/tagged/gemfire+or+geode" target="_blank">Stack Overflow</a></li>
+			<li>We use the <a href="https://github.com/project-geode/docs/issues" target="_blank">Project Geode GitHub for issue tracking</a></li>
 			<li>For other ways to contribute, see the <a href="http://projectgeode.org/community/">Project Geode community page</a></li>
 			</ul>
 		</div>
@@ -48,14 +48,14 @@ slug: home
 			
 			<p>Development on the code base for Geode was started in 2002 as the commercial product GemFire. The open source version of Geode was released in April, 2015. Primary commiters include members of the GemFire engineering team, customers, and ASF members.</p>
 
-			<p>If you'd like to participate in Project Geode, learn how to contribute <a href ="http://projectgeode.org/contribute">here.</a></p>
+			<p>If you'd like to participate in Project Geode, <a href ="http://projectgeode.org/contribute">learn how to contribute.</a></p>
 		</div>
 		<div class='nextstep'>
 	    <h3>Getting Started</h3>
 	    <p>A proposal has been submitted to The Apache Software Foundation to incubate Project Geode. Until accepted by ASF, source code and binaries are available via an evaluation-only EULA. After acceptance, we intend to release versions under with Apache V2 licenses.</p>
 	    <ul>
-				<li><a href='https://network.pivotal.io/products/pivotal-gemfire'>Download the GemFire community version</a> (registration required) </li>
-				<li><a href='https://network.pivotal.io/products/project-geode'>View the Geode source code</a> (registration required) </li>
+				<li><a href='https://network.pivotal.io/products/pivotal-gemfire' target="_blank">Download the GemFire community version</a> (registration required) </li>
+				<li><a href='https://network.pivotal.io/products/project-geode' target="_blank">View the Geode source code</a> (registration required) </li>
 				<li>Read the <a href='https://github.com/project-geode/docs/wiki#geode-in-5-minutes'>quick start guide</a>.</li>
 				<li><a href='http://projectgeode.org/getting-started/'>Check out the Getting Started page</a></li>
 			</ul>
