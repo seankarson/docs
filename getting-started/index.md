@@ -31,13 +31,14 @@ slug: getting-started
 
 
 ##Understand Some Examples
-Fast Foot Demo - updates from Luke on Friday
+[Geode Demo Application - Fast Foot Shoes](https://github.com/project-geode/docs/wiki/Geode-Demo-Application)
 
 [Getting Started with Geode](https://github.com/project-geode/docs/wiki#geode-in-5-minutes)
 
 [Caching Data with Spring Data GemFire](http://www.javabeat.net/spring-data-gemfire-cache/)
 
-here, here, and here..... (luke's code, training example, spatial example) others?
+[Spatial Indexing Example with GemFire](http://blogs.vmware.com/vfabric/2012/12/gemfire-patternspart-1-the-value-architecture-code-for-building-geography-based-apps.html)
+
 
 
 ***
