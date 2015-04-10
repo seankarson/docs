@@ -6,15 +6,8 @@ slug: download
 
 # Download
 
-The latest stable build can be found here:
-
-project-geode-1.0.0.0-SNAPSHOT.{zip | tar.gz} md5 hash sha1 hash
-
-<br>
-
-The source that this release was built on can be downloaded here:
-
-project-geode-1.0.0.0-SNAPSHOT-src.{zip | tar.gz} md5 hash sha1 hash
+The source for Project Geode can be downloaded here:
+[Pivotal Network Project Geode Source](https://network.pivotal.io/products/project-geode)
 
 ***
 
@@ -34,5 +27,5 @@ If you are interested in working on Project Geode, you can check out the master 
 
 ## Releases
 
-Project Geode 1.0.0.0 	April 13 2015
+Project Geode 1.0.0.0 	April 12 2015
 
