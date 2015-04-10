@@ -60,14 +60,15 @@ You can also subscribe to the mailing list project-geode@googlegroups.com to rec
 <div class='description'>Description</div><br>
 Come to this meet up to learn about becoming a contributor to this powerful and fascinating technology:
 
-+A brief history of GemFire 
-+Architecture and use cases 
-+Why we are taking GemFire Open Source 
-+Design philosophy and principles 
-+Code walk-through 
-+How to contribute 
-+Ideas for next enhancements
-
+<ul>
+<li>A brief history of GemFire</li> 
+<li>Architecture and use cases </li>
+<li>Why we are taking GemFire Open Source</li> 
+<li>Design philosophy and principles</li> 
+<li>Code walk-through </li>
+<li>How to contribute</li> 
+<li>Ideas for next enhancements</li>
+</ul>
 
 
 ***
