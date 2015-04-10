@@ -46,9 +46,9 @@ slug: home
 		<div class='nextstep'>
 	    <h3>Contributors</h3>
 			
-			<p>Project Geode was started as a project in 2002 (as GemFire), and was open sourced in 2015. The primary contributors include long standing members of the GemFire engineering team, implementers, and customers with long standing relationships.</p>
+			<p>Development on the code base for Geode was started in 2002 as the commercial product GemFire. The open source version of Geode was released in April, 2015. Primary commiters include members of the GemFire engineering team, customers, and ASF members.</p>
 
-			<p>If you'd like to participate in Project Geode, or contribute to the libraries on top of it, learn how to contribute <a href ="https://github.com/gemfire/apache-gemfire-staging/wiki/How-to-Contribute">here.</a></p>
+			<p>If you'd like to participate in Project Geode, learn how to contribute <a href ="http://projectgeode.org/contribute">here.</a></p>
 		</div>
 		<div class='nextstep'>
 	    <h3>Getting Started</h3>
