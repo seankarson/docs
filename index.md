@@ -7,7 +7,7 @@ slug: home
 <div class='billboard-home'>
 	<div class='inner'>
 		<h1>Performance is key, Consistency is a must.</h1>
-		<div class='intro'><h3>Geode is the open source distributed in-memory database for scale-out applications.</h3></div>
+		<div class='intro'><h3>Geode is the open source distributed, in-memory database for scale-out applications.</h3></div>
 	</div>
 </div>
 
