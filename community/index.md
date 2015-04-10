@@ -35,7 +35,7 @@ slug: community
 ### Pivotal Open Source Hub Austin 
 **Open Sourced GemFire In-Memory Distributed Database Architecture Talk**
 
-#####4/12/15 &nbsp; • &nbsp;7 pm &nbsp; • &nbsp; Austin, Tx • &nbsp; <a href="http://www.meetup.com/Pivotal-Open-Source-Hub-at-ApacheCon/events/221503278/">RSVP</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+#####4/12/15 &nbsp; • &nbsp;6:30 pm &nbsp; • &nbsp; Austin, Tx • &nbsp; <a href="http://www.meetup.com/Pivotal-Open-Source-Hub-at-ApacheCon/events/221503278/">RSVP</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 
 <div class='description'>Description</div>
 Come to this meet up to learn about becoming a contributor to this powerful and fascinating technology:
@@ -55,7 +55,7 @@ Come to this meet up to learn about becoming a contributor to this powerful and 
 ### Pivotal Open Source Hub San Francisco
 **Open Sourced GemFire In-Memory Distributed Database Architecture Talk**
 
-#####4/23/15 &nbsp; • &nbsp;7 pm &nbsp; • &nbsp; <a href="http://www.meetup.com/Pivotal-Open-Source-Hub/events/221443735/">RSVP</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+#####4/23/15 &nbsp; • &nbsp;5:45 pm &nbsp; • &nbsp; <a href="http://www.meetup.com/Pivotal-Open-Source-Hub/events/221443735/">RSVP</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 
 <div class='description'>Description</div>
 Replay of the Austin Meetup...
