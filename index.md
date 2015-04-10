@@ -52,11 +52,12 @@ slug: home
 		</div>
 		<div class='nextstep'>
 	    <h3>Getting Started</h3>
+	    <p>A proposal has been submitted to The Apache Software Foundation to incubate Project Geode. Until accepted by ASF, source code and binaries are available via an evaluation-only EULA. After acceptance, we intend to release versions under with Apache V2 licenses.</p>
 	    <ul>
-				<li><a href='/docs/download'>Download</a> the latest release — you can run Haptic locally on your laptop natively, or as a VM.</li>
+				<li><a href='https://network.pivotal.io/products/pivotal-gemfire'>Download the GemFire community version</a> (registration required) </li>
+				<li><a href='https://network.pivotal.io/products/project-geode'>View the Geode source code</a> (registration required) </li>
 				<li>Read the <a href='https://github.com/project-geode/docs/wiki#geode-in-5-minutes'>quick start guide</a>.</li>
-				<li>Watch videos on how to get started.</li>
-				<li>Learn how to deploy Geode on a cluster.</li>
+				<li><a href='http://projectgeode.org/getting-started/'>Check out the Getting Started page</a></li>
 			</ul>
 		</div>
 	</div>
