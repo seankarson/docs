@@ -14,16 +14,16 @@ slug: home
 <div class='benefits'>
 	<div class='container'>
 		<div class='benefit'>
-			<h2>Linear performance</h2>
+			<h2>Elastic performance</h2>
 			<p>All data in is stored in-memory for low latency. Performance scales linearly as nodes are added. Data is distributed automatically between nodes to optimize performance.</p>
 		</div>
 		<div class='benefit'>
-			<h2>Scale-out consistency</h2>
-			<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur faucibus, ex nec elementum pharetra, arcu justo dictum enim.</p>
+			<h2>Consistent database operations</h2>
+			<p>Data is persisted in write-optimized disk storage. Consistency checking is configurable between highest performance caching and ACID transactions. Data can be queried and indexed between nodes.</p>
 		</div>
 		<div class='benefit'>
-			<h2>Enterprise-class resilience</h2>
-			<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur faucibus, ex nec elementum pharetra, arcu justo dictum enim.</p>
+			<h2>Resilient clustering</h2>
+			<p>Clusters fail-over to other nodes in case of failures, and rebalance remaining resources. Clusters self-heal when nodes return to operation.</p>
 		</div>
 	</div>
 </div>
