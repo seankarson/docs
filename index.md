@@ -14,15 +14,15 @@ slug: home
 <div class='benefits'>
 	<div class='container'>
 		<div class='benefit'>
-			<h2>Elasticity</h2>
+			<h2>Low-latency performance</h2>
 			<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur faucibus, ex nec elementum pharetra, arcu justo dictum enim.</p>
 		</div>
 		<div class='benefit'>
-			<h2>Availability</h2>
+			<h2>Consistent data at scale</h2>
 			<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur faucibus, ex nec elementum pharetra, arcu justo dictum enim.</p>
 		</div>
 		<div class='benefit'>
-			<h2>Eventability</h2>
+			<h2>Highly resilient</h2>
 			<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur faucibus, ex nec elementum pharetra, arcu justo dictum enim.</p>
 		</div>
 	</div>
