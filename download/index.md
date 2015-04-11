@@ -4,9 +4,7 @@ title: Project Geode | Download
 slug: download
 ---
 
-# Download
-
-## User the source, Luke!
+## Download
 
 The source for Project Geode can be downloaded here:
 [Pivotal Network Project Geode Source](https://network.pivotal.io/products/project-geode)
@@ -15,7 +13,7 @@ The source for Project Geode can be downloaded here:
 
 ## Development and Maintenance Branches
 
-If you are interested in working on Project Geode, you can check out the master branch here:
+If you are interested in working on Project Geode documentation or website, you can clone the docs repository:
 
 [https://github.com/project-geode/docs](https://github.com/project-geode/docs)
 
@@ -26,8 +24,3 @@ If you are interested in working on Project Geode, you can check out the master 
 A preconfigured VM with a Geode cluster running
 
 ***
-
-## Releases
-
-Project Geode 1.0.0.0 	April 12 2015
-
