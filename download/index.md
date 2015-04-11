@@ -6,10 +6,10 @@ slug: download
 
 # Download
 
-A proposal has been submitted to The Apache Software Foundation to incubate Project Geode. Until accepted by ASF, source code and binaries are available via an evaluation-only EULA. After acceptance, we intend to release versions under an Apache V2 license.
+A proposal has been submitted to The Apache Software Foundation to incubate Project Geode. Until accepted by ASF, source code is available via an evaluation-only EULA. After acceptance, we intend to release versions under an Apache V2 license.
 
 The source for Project Geode can be downloaded here:
-[Pivotal Network Project Geode Source](https://network.pivotal.io/products/project-geode)
+[Pivotal Network Project Geode Source](https://network.pivotal.io/products/project-geode).  Follow the [instructions](https://github.com/project-geode/docs/wiki#geode-in-5-minutes) to build and run Geode.
 
 ***
 
@@ -23,4 +23,4 @@ If you are interested in working on the Project Geode documentation or website, 
 
 ##Coming Soon
 
-A preconfigured VM with a Geode cluster running
+A preconfigured VM containing a live Geode cluster.
