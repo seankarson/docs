@@ -52,7 +52,7 @@ slug: home
 		</div>
 		<div class='nextstep'>
 	    <h3>Getting Started</h3>
-	    <p>A proposal has been submitted to The Apache Software Foundation to incubate Project Geode. Until accepted by ASF, source code and binaries are available via an evaluation-only EULA. After acceptance, we intend to release versions under an Apache V2 license.</p>
+	    <p>A proposal has been submitted to The Apache Software Foundation to incubate Project Geode. Until such time as ASF agrees to incubate Project Geode, source code is available via an evaluation-only EULA. </p>
 	    <ul>
 				<li><a href='https://network.pivotal.io/products/project-geode' target="_blank">Download the Geode source code</a> (registration required) </li>
 				<li>Read the <a href='https://github.com/project-geode/docs/wiki#geode-in-5-minutes'>quick start guide</a>.</li>
