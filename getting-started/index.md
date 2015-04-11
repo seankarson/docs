@@ -46,7 +46,7 @@ slug: getting-started
 
 ##Dive into How Tos
 
-Develop | Design | Troubleshooting
+Develop | Design | Troubleshoot
  ------ | ----------- | --------
 [CacheListeners and Writers](https://github.com/project-geode/docs/wiki/CacheWriter-and-CacheListener-Best-Practices) | Data Architecture in Geode | [What to Monitor](https://github.com/project-geode/docs/wiki/What-To-Monitor)
 [Function Best Practices](https://github.com/project-geode/docs/wiki/Function-Best-Practices) | [Running in Embedded Mode](https://github.com/project-geode/docs/wiki/Running-in-Embedded-Mode) | [Troubleshooting CPU](https://github.com/project-geode/docs/wiki/Troubleshooting-CPU)
