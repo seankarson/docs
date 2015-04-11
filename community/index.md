@@ -9,6 +9,7 @@ slug: community
 <div class='sidebar'>
 <p>Here is how to get in touch with other users and contributors of the Project Geode community:</p>
 			<ul>
+			<li>User questions at <a href="http://stackoverflow.com/questions/tagged/gemfire+or+geode" target="_blank">Stack Overflow</a></li>
 			<li><a href="http://groups.google.com/d/forum/project-geode" target="_blank">Project Geode Google Group</a> or project-geode@googlegroups.com</li>
 			<li>We use the <a href="https://github.com/project-geode/docs/issues" target="_blank">Project Geode GitHub for issue tracking</a></li>
 			<li>For other ways to contribute, see the <a href="http://projectgeode.org/community/">Project Geode community page</a></li>
