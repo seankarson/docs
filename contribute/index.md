@@ -24,7 +24,7 @@ There are many ways to [support an open source software project beyond contribut
 
 * **Art & Design:** Offer to help with art & design of Project Geode. Pivotal has donated an initial look and feel, but the logos, branding, and identity are property of the Project.
 
-* **Discuss:** Start and weigh in on discussions. Currently we are hosting threaded discussions both on the [Pivotal GemFire forum](https://support.pivotal.io/hc/communities/public/topics/200053218-Pivotal-GemFire-Forum), and the [Project Geode Google group](https://groups.google.com/forum/#!forum/project-geode). It’s also common to find [Stack Overflow questions covering GemFire and Geode](http://stackoverflow.com/questions/tagged/gemfire+or+geode). 
+* **Discuss:** Start and weigh in on discussions. Currently we are hosting threaded discussions on the [Project Geode Google group](https://groups.google.com/forum/#!forum/project-geode). It’s also common to find [Stack Overflow questions covering GemFire and Geode](http://stackoverflow.com/questions/tagged/gemfire+or+geode). 
 
 * **Present:** Give a presentation or create a video about the project.  We are already beginning to add presentations and [training materials](https://github.com/project-geode/training) as they are created.  Feel free to download and use.  If you are hosting an event, put it into the community calendar on the site. If you create a new presentation, please check it into the project GitHub.
 
