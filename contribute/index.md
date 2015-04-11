@@ -16,7 +16,7 @@ Ideas for extending Geode code can be found in the wiki [here](https://github.co
 
 There are many ways to [support an open source software project beyond contributing code](http://opensource.com/business/14/12/8-ways-contribute-open-source-without-writing-code) to the master branch. For Project Geode, here are some ways you can contribute today:
 
-* **Post Issues:** Try out the [Pivotal GemFire evaluation version](https://network.pivotal.io/products/pivotal-gemfire), and [post issues](https://github.com/project-geode/docs/issues) on the Project Geode GitHub site.
+* **Post Issues:** Build and run the [Project Geode source](https://network.pivotal.io/products/project-geode), and [post issues](https://github.com/project-geode/docs/issues) on the Project Geode GitHub site.
 
 * **Documentation:** [Add to the documentation](https://github.com/project-geode/docs), and [submit new articles](https://github.com/project-geode/docs/wiki) to the wiki for best practices and [user training](https://github.com/project-geode/training).
 
