@@ -53,7 +53,8 @@ For project Geode, a preconfigured **book** is provided in the directory `/geode
             name: project-geode/docs
           directory: docs
           ditamap_location: Geode.ditamap
-        
+          subnav_template: geode_subnav.erb
+          
         template_variables:
           support_url: http://support.pivotal.io
           product_url: http://pivotal.io/big-data/pivotal-gemfire
