@@ -625,90 +625,7 @@
 			<codeblock outputclass="language-xml">&lt;cache-server port=4444&gt;
 &lt;/cache&gt;</codeblock>
 		</body>
-	</topic>
-	<topic id="group_94832834789285">
-		<title>&lt;group&gt;</title>
-		<shortdesc> </shortdesc>
-		<body>
-			<p>Deprecated as of GemFire 7.0. Specify server groups in the gemfire.properties file.
-				See <xref
-					href="../../topologies_and_comm/cs_configuration/configure_servers_into_logical_groups.xml#configure_servers_into_logical_groups"
-					> Organizing Servers Into Logical Member Groups</xref>. </p>
-		</body>
-	</topic>
-	<topic id="client-subscription_342334234">
-		<title>&lt;client-subscription&gt;</title>
-		<shortdesc> </shortdesc>
-		<body>
-			<p>Overflow specification for client subscription queues. Sets a capacity limit on the
-				in-memory queue and specifies where to overflow when capacity is reached. By default
-				no overflow is used. Specified in three parts: <ul id="ul_pls_g5v_dm">
-					<li>eviction-policy</li>
-					<li>capacity</li>
-					<li>disk-store-name</li>
-				</ul></p>
-			<p><b>Default: </b> no overflow </p>
-			<p>
-				<b>API: </b>
-				<codeph>com.gemstone.gemfire.cache.server.CacheServer.getClientSubscriptionConfig</codeph>
-			</p>
-			<table id="table_CA85C7A3AC0C448185019B1382600182">
-				<title>Attributes</title>
-				<tgroup cols="3">
-					<colspec colname="1" colnum="1" colwidth="1.6*"/>
-					<colspec colname="2" colnum="2" colwidth="4.1*"/>
-					<colspec colname="col3" colnum="3" colwidth="1*"/>
-					<thead>
-						<row>
-							<entry>Attribute </entry>
-							<entry>Description </entry>
-							<entry colname="col3">Default </entry>
-						</row>
-					</thead>
-					<tbody>
-						<row>
-							<entry>eviction-policy </entry>
-							<entry>How the capacity is calculated. The options are mem for memory
-								use, entry for message count, and null for no overflow. </entry>
-							<entry colname="col3">null </entry>
-						</row>
-						<row>
-							<entry>capacity </entry>
-							<entry>Used if eviction-policy is not none. Specified in megabytes for
-								mem and as a positive integer for entry. </entry>
-							<entry colname="col3">1 </entry>
-						</row>
-						<row>
-							<entry>disk-store-name </entry>
-							<entry>Used if eviction-policy is not none. Default: default disk store.
-								If specified, the disk-store-name must specify a disk store that is
-								already defined in the cache. </entry>
-							<entry colname="col3">default disk store </entry>
-						</row>
-						<row>
-							<entry>overflow-directory </entry>
-							<entry>DEPRECATED as of GemFire version 6.5. See the
-									<codeph>disk-store-name</codeph> attribute of the element <xref
-									format="dita" href="cache_xml.xml#region-attributes"
-									scope="local" type="topic"/>. </entry>
-							<entry colname="col3"/>
-						</row>
-					</tbody>
-				</tgroup>
-			</table>
-			<p>
-				<b>Example: </b>
-			</p>
-			<codeblock outputclass="language-xml">&lt;cache-server port=4444&gt;
-   &lt;client-subscription 
-     eviction-policy="entry" 
-     capacity=35 
-     disk-store-name="OverflowDir"&gt;
-   &lt;/client-subscription&gt;
- &lt;/cache-server&gt;
-</codeblock>
-		</body>
-	</topic>
+	</topic>	
 	<topic id="custom-load-probe">
 		<title>&lt;custom-load-probe&gt;</title>
 		<shortdesc> </shortdesc>
@@ -2028,10 +1945,10 @@
 				can be of any class. This attribute, along with value-constraint, is useful for
 				querying and indexing because it provides object type information to the query
 				engine. <note>Set the constraint in every cache where you create or update the
-					region entries. For client/server installations, match
-					constraints between client and server and between distributed systems. The
-					constraint is only checked in the cache that does the entry <codeph>put</codeph>
-					or <codeph>create</codeph> operation. To avoid deserializing the object, the
+					region entries. For client/server installations, match constraints between
+					client and server and between distributed systems. The constraint is only
+					checked in the cache that does the entry <codeph>put</codeph> or
+						<codeph>create</codeph> operation. To avoid deserializing the object, the
 					constraint is not checked when the entry is distributed to other caches. </note>
 			</p>
 			<p><b>Default: </b> not set </p>
@@ -2059,10 +1976,10 @@
 				be of any class. This attribute, along with <codeph>key-constraint</codeph>, is
 				useful for querying and indexing because it provides object type information to the
 				query engine. <note>Set the constraint in every cache where you create or update the
-					region entries. For client/server installations, match
-					constraints between client and server and between distributed systems. The
-					constraint is only checked in the cache that does the entry <codeph>put</codeph>
-					or <codeph>create</codeph> operation. To avoid deserializing the object, the
+					region entries. For client/server installations, match constraints between
+					client and server and between distributed systems. The constraint is only
+					checked in the cache that does the entry <codeph>put</codeph> or
+						<codeph>create</codeph> operation. To avoid deserializing the object, the
 					constraint is not checked when the entry is distributed to other caches. </note>
 			</p>
 			<p><b>Default: </b> not set </p>

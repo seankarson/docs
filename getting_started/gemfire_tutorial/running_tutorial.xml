@@ -61,10 +61,8 @@
 						keyref="product_name_long"/> and the product examples. Set the JAVA_HOME,
 					PATH, GF_JAVA, and GEMFIRE environment variables as required for your
 					environment. See <xref
-						href="../install_intro.xml#concept_5111C7EDF7D24CA2BCE5959006453415"
-						type="concept" format="dita" scope="local"/> and <xref scope="local"
-						href="../topics/setting_up_the_product_examples.xml#setting_up_the_product_examples"
-						type="concept" format="dita"/>. </li>
+						href="../../getting_started/installation/install_intro.xml#concept_5111C7EDF7D24CA2BCE5959006453415"
+						type="concept" format="dita" scope="local"/>. </li>
 				<li id="li_4826570B78424553AC3B34A8718F060F">Open several terminal sessions. </li>
 			</ul>
 		</section>
@@ -83,7 +81,7 @@
 				<fig id="fig_A4302B2655624148A94DC557BEFF277A">
 					<title>Peer Discovery Using a Locator</title>
 					<image alt="Peer discovery using a locator"
-						href="../../common/images/DistributedSystem.png"
+						href="../../images/DistributedSystem.png"
 						id="image_6EFC421869FD4F6795104A90E2A33D0A" placement="inline"/>
 				</fig>
 			</p>
@@ -192,7 +190,7 @@ quit
 					scope="local" type="concept"/>. </p>
 			<p>This procedure walks you through the creation of a replicated region called People. </p>
 			<p>
-				<image href="../../common/images/Replicated_Region_Put_Get.png" placement="break"
+				<image href="../../images/Replicated_Region_Put_Get.png" placement="break"
 					id="image_BD5928F82F894D24A4D08F8AE3D008FE"/>
 			</p>
 			<p>Perform the following steps: </p>
@@ -239,7 +237,7 @@ In region people created key Ethan value Profile [friends=[]]</codeblock>
 				your data will exist in the distributed system. The data is partitioned over all
 				peers that host the partitioned region. <keyword keyref="product_name"/>
 				automatically maintains the number of copies of each partition that you request. </p>
-			<image href="../../common/images/Partitioned_Region_Put.png"
+			<image href="../../images/Partitioned_Region_Put.png"
 				id="image_69136F8C78664B019CE835495828B3F9" placement="break"/>
 			<p>In the above diagram, the application code writes the post "I like toast" to two
 				JVMs; it stores a primary copy in one peer (JVM 2) and a redundant copy in another
@@ -305,7 +303,7 @@ Isabella: LOL!</codeblock>
 				but they also listen on a separate port for connections from <keyword
 					keyref="product_name"/> clients. <keyword keyref="product_name"/> clients
 				connect to a limited number of these cache servers. </p><image
-				href="../../common/images/Client.png" id="image_6D983C2DE6D144DA90C85DCDAF12B6E3"
+				href="../../images/Client.png" id="image_6D983C2DE6D144DA90C85DCDAF12B6E3"
 				placement="break"/>Like regular peers, <keyword keyref="product_name"/> servers
 			still need to define the regions they will host. You could take the peer code you
 			already have and create a <codeph>com.gemstone.gemfire.cache.server.CacheServer</codeph>
@@ -488,9 +486,10 @@ Isabella: I want toast</codeblock>
 				automatically discovered by the other peers and the client. The new peers
 				automatically receive a copy of any replicated regions they create. However,
 				partitioned regions do not automatically redistribute data to the new peer unless
-				you explicitly instruct <keyword keyref="product_name"/> to rebalance the partitioned region. With
-				the <codeph>gfsh start server</codeph> command, you can pass a command line flag
-				indicating that the new peer should trigger a rebalance of all partitioned regions. </p>
+				you explicitly instruct <keyword keyref="product_name"/> to rebalance the
+				partitioned region. With the <codeph>gfsh start server</codeph> command, you can
+				pass a command line flag indicating that the new peer should trigger a rebalance of
+				all partitioned regions. </p>
 			<ol id="ol_F90F807A83E04CBA9876C551981B6C99">
 				<li id="li_4A9CE09C52C847BA9EE49A7A805EBC90"><b>Add a new peer</b>. <p>Type the
 						following command at the gfsh command prompt:
@@ -525,12 +524,12 @@ Isabella: I want toast</codeblock></li>
 		</section>
 		<section id="section_7EB34C41E4184DBAA1D4EAF2EFD082B8">
 			<title>Part 7: Configure Persistence</title>
-			<p><keyword keyref="product_name"/> supports shared-nothing persistence. Each member writes its portion of the
-				region data to its own disk files. For the People region, each peer will be writing
-				the entire region to its own disk files. For the Posts region, a copy of each post
-				will reside on two different peers. </p>
-			<image href="../../common/images/Persistence.png"
-				id="image_C9641A6221294CDB8B377AF6A4B33B47" placement="break"/>
+			<p><keyword keyref="product_name"/> supports shared-nothing persistence. Each member
+				writes its portion of the region data to its own disk files. For the People region,
+				each peer will be writing the entire region to its own disk files. For the Posts
+				region, a copy of each post will reside on two different peers. </p>
+			<image href="../../images/Persistence.png" id="image_C9641A6221294CDB8B377AF6A4B33B47"
+				placement="break"/>
 			<ol id="ol_BACFF74544E34CBA832FD2876A6A1786">
 				<li id="li_96820F7EA4AA42B59BE3DF5E45B68BA6"><b>Walk through configuring a
 						persistence region</b>. We will now create a new configuration that uses
@@ -582,13 +581,14 @@ Isabella:  Hello
 					gfsh
 						window:<codeblock>gfsh>stop server --dir=server1</codeblock><codeblock>gfsh>stop server --dir=server2</codeblock><p>When
 						you restart persistent members, you call <b>gfsh start server</b> in
-							parallel for each server. </p><p>The reason is that <keyword keyref="product_name"/> ensures that
-						your complete data set is recovered before allowing the JVMs to start.
-						Remember that each member is persisting only part of the Posts region. Each
-								<keyword keyref="product_name"/> member waits until all posts are available before starting. This
-						protects you from seeing an incomplete view of the posts region. </p><p>To
-						start the servers in parallel, open a new terminal window, run the following
-						command:</p><p><b>Unix</b>
+						parallel for each server. </p><p>The reason is that <keyword
+							keyref="product_name"/> ensures that your complete data set is recovered
+						before allowing the JVMs to start. Remember that each member is persisting
+						only part of the Posts region. Each <keyword keyref="product_name"/> member
+						waits until all posts are available before starting. This protects you from
+						seeing an incomplete view of the posts region. </p><p>To start the servers
+						in parallel, open a new terminal window, run the following
+							command:</p><p><b>Unix</b>
 					</p><p>
 						<codeblock>$ gfsh start server --name=server1 --locators=localhost[55221] --server-port=0 \
 &amp; gfsh start server --name=server2 --locators=localhost[55221] --server-port=0 &amp;</codeblock>
@@ -646,8 +646,8 @@ ubuntu.local[1099]</codeblock>If
   &lt;/region>
 &lt;/cache></codeblock><p>For
 						more information about using gfsh and cluster configurations, see <xref
-							href="../../deploying/gfsh/gfsh_persist.xml#concept_r22_hyw_bl"
-					/>.</p></li>
+							href="../../configuring/cluster_config/gfsh_persist.xml#concept_r22_hyw_bl"
+						/>.</p></li>
 			</ol>
 		</section>
 	</conbody>

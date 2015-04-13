@@ -36,12 +36,13 @@
 		</section>
 		<section>
 			<title><b>Limiting Ephemeral Ports for Peer-to-Peer Membership</b></title>
-			<p>By default, <keyword keyref="product_name"/> assigns <i>ephemeral </i> ports, that is, temporary ports
-				assigned from a designated range, which can encompass a large number of possible
-				ports. When a firewall is present, the ephemeral port range usually must be limited
-				to a much smaller number, for example six. If you are configuring P2P communications
-				through a firewall, you must also set each the tcp port for each process and ensure
-				that UDP traffic is allowed through the firewall. </p>
+			<p>By default, <keyword keyref="product_name"/> assigns <i>ephemeral </i> ports, that
+				is, temporary ports assigned from a designated range, which can encompass a large
+				number of possible ports. When a firewall is present, the ephemeral port range
+				usually must be limited to a much smaller number, for example six. If you are
+				configuring P2P communications through a firewall, you must also set each the tcp
+				port for each process and ensure that UDP traffic is allowed through the firewall.
+			</p>
 		</section>
 		<section>
 			<title><b>Properties for Firewall and Port Configuration</b></title>

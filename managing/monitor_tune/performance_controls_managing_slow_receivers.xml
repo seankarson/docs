@@ -2,11 +2,12 @@
 <!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "http://docs.oasis-open.org/dita/v1.1/OS/dtd/concept.dtd">
 <concept id="perf">
 	<title>Management of Slow Receivers</title>
-	<shortdesc>You have several options for handling slow members that receive data distribution. </shortdesc>
-	<conbody>
-		<note>The slow receiver options control only to peer-to-peer communication between
-			distributed regions using TCP/IP. This topic does not apply to client/server
-			communication, or to communication using the UDP unicast or IP multicast protocols. </note>
+	<shortdesc id="shortdesc_fh1_lpb_rr">You have several options for handling slow members that
+		receive data distribution. The slow receiver options control only to peer-to-peer
+		communication between distributed regions using TCP/IP. This topic does not apply to
+		client/server communication, or to communication using the UDP unicast or IP multicast
+		protocols. </shortdesc>
+	<conbody id="conbody_l4j_lpb_rr">
 		<p>Most of the options for handling slow members are related to on-site configuration during
 			system integration and tuning. For this information, see <xref
 				href="slow_receivers.xml#slow_recv" type="concept" format="dita" scope="local"
