@@ -3,12 +3,12 @@ Contributing to the Project Geode Documentation
 
 Project Geode welcomes your contributions to our documentation efforts. You can participate by writing new content, editing existing content, fixing bugs, and reviewing content. This document covers the following topics:
 
--   [How to Contribute]
--   [Document Source Files and Tools]
--   [Writing Guidelines]
+-   [How to Contribute](#contribute)
+-   [Document Source Files and Tools](#source_tools)
+-   [Writing Guidelines](#guidelines)
 
-How to Contribute
------------------
+<a name="contribute"></a>
+## How to Contribute
 
 We use the "fork and pull" collaboration method on GitHub:
 
@@ -19,14 +19,17 @@ We use the "fork and pull" collaboration method on GitHub:
 
 See [Using Pull Requests](https://help.github.com/articles/using-pull-requests/) on GitHub for more about the fork and pull collaboration method.
 
-Document Source Files and Tools
--------------------------------
+
+<a name="source_tools"></a>
+## Document Source Files and Tools
+
 
 Project Geode documentation source files include DITA XML topics and maps. Image files include .gif and .png graphics and editable image files in the open source SVG format.
 
--   [Working with DITA Files]
--   [Working with Images and Graphics]
+-   [Working with DITA Files](#dita)
+-   [Working with Images and Graphics](#images)
 
+<a name="dita"></a>
 ### Working with DITA Files
 
 We author document content in an XML format called Darwin Information Typing Architecture (DITA). The [DITA standard](http://docs.oasis-open.org/dita/v1.2/os/spec/DITA1.2-spec.html "DITA 1.2 Specification") is maintained by the Organization for the Advancement of Structured Information Standards (OASIS).
@@ -53,10 +56,11 @@ DITA is a topic-oriented authoring system. A topic is a unit of content that cov
 
 A DITA map is an XML document that orders a collection of topics and creates a topic hierarchy. A map can contain references to topics or to other maps. Maps control the generation of both HTML help and PDFs. Project Geode uses the \<bookmap\> document type for maps, because it includes a \<bookmeta\> section that supplies the metadata needed to produce PDFs, such as the document title, copyright date, and revision numbers.
 
-You can produce output from the DITA sources using the DITA Open Toolkit (DITA-OT) or use the DITA transformations built into your XML editor. We generate end-user documentation using a Ruby gem, Bookbinder, which performs the DITA transformations and also processes sources in HTML and markdown to produce a deployable Web application. See the [README](README.html) file for Bookbinder instructions.
+You can produce output from the DITA sources using the DITA Open Toolkit (DITA-OT) or use the DITA transformations built into your XML editor. We generate end-user documentation using a Ruby gem, Bookbinder, which performs the DITA transformations and also processes sources in HTML and markdown to produce a deployable Web application. See the [README](README.md) file for Bookbinder instructions.
 
 To learn more about DITA markup, how to create and edit DITA files, and find more XML editors that support DITA, visit the [DITA online community](http://dita.xml.org).
 
+<a name="images"></a>
 ### Working with Images and Graphics
 
 Image files in .gif or .png format are in the `images` directory in the Project Geode docs repo. Images in .svg format are in the `images_svg` directory.
@@ -70,8 +74,8 @@ The [Inkscape](https://inkscape.org) vector graphics editor is a popular open so
 -   If your windows are disappearing (for example you launch Document Properties or try to open a SVG file and the dialog never appears) try this: in Mission Control, turn off "Displays have separate spaces" if you need to use X11 across multiple displays. There are more solutions here: https://bugs.launchpad.net/inkscape/+bug/1244397
 -   To resize the canvas to fit the SVG (eliminate all the paper-sized whitespace around the image), choose *Document Properties \> Custom Size \> Resize page to content... Resize page to drawing or selection*.
 
-Writing Guidelines
-------------------
+<a name="guidelines"></a>
+## Writing Guidelines
 
 The most important advice we can provide for working with the Project Geode docs is to spend some time becoming familiar with the existing source files and the structure of the project directory. In particular, note the following conventions and tips:
 
@@ -100,8 +104,7 @@ The most important advice we can provide for working with the Project Geode docs
 
 -   Each topic should have a \<shortdesc\> tag following the \<title\> tag to describe the purpose of the topic. This content is included with generated topic lists and is an important element of the documentation navigation. Review existing topics for examples.
 
-Copyright
----------
+## Copyright
 
 Copyright © 2015 Pivotal Software, Inc. All rights reserved.
 
