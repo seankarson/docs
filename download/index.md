@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Project Geode | Download
+title: Apache Geode (incubating) | Download
 slug: download
 ---
 

@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Project Geode | Home
+title: Apache Geode (incubating) | Home
 slug: home
 ---
 
@@ -37,7 +37,7 @@ slug: home
 
 			<p>Here is how to get in touch with other users and contributors of the Project Geode community:</p>
 			<ul>
-			<li><a href="http://groups.google.com/d/forum/project-geode" target="_blank">Project Geode Google Group</a> or project-geode@googlegroups.com</li>
+			<li><a href="http://groups.google.com/d/forum/project-geode" target="_blank">Project Geode Google Group</a> or <a href='mailto:project-geode@googlegroups.com'>project-geode@googlegroups.com</a></li>
 			<li>User questions at <a href="https://support.pivotal.io/hc/communities/public/topics/200053218-Pivotal-GemFire-Forum" target="_blank">Pivotal GemFire forum (registration required)</a>, or <a href="http://stackoverflow.com/questions/tagged/geode+or+gemfire" target="_blank">Stack Overflow</a></li>
 			<li>We use the <a href="https://github.com/project-geode/docs/issues" target="_blank">Project Geode GitHub for issue tracking</a></li>
 			<li>For other ways to contribute, see the <a href="http://projectgeode.org/community/">Project Geode community page</a></li>
@@ -46,7 +46,7 @@ slug: home
 		<div class='nextstep'>
 	    <h3>Contributors</h3>
 			
-			<p>Development on the code base for Geode was started in 2002 as the commercial product GemFire. The open source version of Geode was released in April, 2015. Primary commiters include members of the GemFire engineering team, customers, and ASF members.</p>
+			<p>Development on the code base for Geode was started in 2002 as the commercial product GemFire. The open source version of Geode was released in April, 2015. Primary committers include members of the GemFire engineering team, customers, and ASF members.</p>
 
 			<p>If you'd like to participate in Project Geode, <a href ="http://projectgeode.org/contribute">learn how to contribute.</a></p>
 		</div>

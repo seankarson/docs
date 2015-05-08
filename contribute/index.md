@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Project Geode | Contribute
+title: Apache Geode (incubating) | Contribute
 slug: contribute
 ---
 

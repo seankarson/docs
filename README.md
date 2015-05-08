@@ -1,6 +1,6 @@
 ### URL
 
-[http://projectgeode.org/](http://projectgeode.org)
+[http://geode.incubator.apache.org](http://geode.incubator.apache.org)
 
 ### Changes
 
@@ -21,9 +21,9 @@ To add a second-level page (e.g. /community/secondarypage), add a .md file to th
 Ignore the _site directory.  This directory is rebuilt every time Jekyll rebuilds the site and will not be committed to GitHub.
 
 ```
-git clone git@github.com:project-geode/docs.git
+git clone git@github.com:apache/incubator-geode.git
 cd docs
-git checkout gh-pages
+git checkout asf-site
 gem install jekyll
 jekyll serve
 ```
