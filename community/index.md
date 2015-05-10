@@ -45,6 +45,25 @@ Commits: commits@geode.incubator.apache.org
 
 ## Meetups
 
+### Pivotal Open Source Hub Palo Alto
+**Creating a Highly-Scalable Stock Prediction System with R, Geode & Spring XD**
+
+#### <a href="http://www.meetup.com/Pivotal-Open-Source-Hub/events/221819771/" target="_blank"> RSVP Tuesday, May 12, 2015 6PM to 8:30PM in Palo Alto, CA</a>
+
+***
+
+### Pivotal Open Source Hub San Francisco
+**Open Sourced GemFire In-Memory Distributed Database Architecture Talk**
+
+<a href="https://www.youtube.com/watch?v=Kfi3mj_moAE">Video 1/6</a>
+<a href="https://www.youtube.com/watch?v=gPeZ_K5pmpA">Video 2/6</a>
+<a href="https://www.youtube.com/watch?v=wDupD-UfRjs">Video 3/6</a>
+<a href="https://www.youtube.com/watch?v=n2AUUYH7NBw">Video 4/6</a>
+<a href="https://www.youtube.com/watch?v=7ebYjqe7-i4">Video 5/6</a>
+<a href="https://www.youtube.com/watch?v=bz48V1yovFU">Video 6/6</a>
+
+***
+
 ### Pivotal Open Source Hub Austin 
 **Open Sourced GemFire In-Memory Distributed Database Architecture Talk**
 
@@ -52,17 +71,7 @@ Video to be posted soon
 
 ***
 
-### Pivotal Open Source Hub San Francisco
-**Open Sourced GemFire In-Memory Distributed Database Architecture Talk**
 
-<iframe width="560" height="315" src="https://www.youtube.com/embed/Kfi3mj_moAE" frameborder="0" allowfullscreen></iframe>
-#####<a href="https://www.youtube.com/watch?v=gPeZ_K5pmpA">Video 1/6</a>
-#####<a href="https://www.youtube.com/watch?v=Kfi3mj_moAE">Video 1/6</a>
-#####<a href="https://www.youtube.com/watch?v=Kfi3mj_moAE">Video 1/6</a>
-#####<a href="https://www.youtube.com/watch?v=Kfi3mj_moAE">Video 1/6</a>
-#####<a href="https://www.youtube.com/watch?v=Kfi3mj_moAE">Video 1/6</a>
-
-***
 
 ## Project History
 
