@@ -37,9 +37,22 @@ slug: home
 
 			<p>Here is how to get in touch with other users and contributors of the Project Geode community:</p>
 			<ul>
-			<li><a href="http://groups.google.com/d/forum/project-geode" target="_blank">Project Geode Google Group</a> or <a href='mailto:project-geode@googlegroups.com'>project-geode@googlegroups.com</a></li>
-			<li>User questions at <a href="https://support.pivotal.io/hc/communities/public/topics/200053218-Pivotal-GemFire-Forum" target="_blank">Pivotal GemFire forum (registration required)</a>, or <a href="http://stackoverflow.com/questions/tagged/geode+or+gemfire" target="_blank">Stack Overflow</a></li>
-			<li>We use the <a href="https://github.com/project-geode/docs/issues" target="_blank">Project Geode GitHub for issue tracking</a></li>
+			          <li>
+Contributors: dev@geode.incubator.apache.org
+                            (<a href="mailto:dev-subscribe@geode.incubator.apache.org">subscribe</a>,
+                            <a href="mailto:dev-unsubscribe@geode.incubator.apache.org">unsubscribe</a>)
+                        </li>
+                        <li>
+JIRA notifications: issues@geode.incubator.apache.org
+                            (<a href="mailto:issues-subscribe@geode.incubator.apache.org">subscribe</a>, 
+                            <a href="mailto:issues-unsubscribe@geode.incubator.apache.org">unsubscribe</a>)
+                        </li>
+                        <li>
+Commits: commits@geode.incubator.apache.org
+                            (<a href="mailto:commits-subscribe@geode.incubator.apache.org">subscribe</a>, <a href="mailto:commits-unsubscribe@geode.incubator.apache.org">unsubscribe</a>)
+                        </li>
+			<li>User questions at <a href="http://stackoverflow.com/questions/tagged/geode+or+gemfire" target="_blank">Stack Overflow</a></li>
+			<li>We use the <a href="https://issues.apache.org/jira/browse/GEODE" target="_blank">Apache Geode JIRA for issue tracking</a></li>
 			<li>For other ways to contribute, see the <a href="http://projectgeode.org/community/">Project Geode community page</a></li>
 			</ul>
 		</div>
@@ -52,10 +65,7 @@ slug: home
 		</div>
 		<div class='nextstep'>
 	    <h3>Getting Started</h3>
-	    <p>A proposal has been submitted to The Apache Software Foundation to incubate Project Geode. Until such time as ASF agrees to incubate Project Geode, source code is available via an evaluation-only EULA. </p>
-	    <ul>
-				<li><a href='https://network.pivotal.io/products/project-geode' target="_blank">Download the Geode source code</a> (registration required) </li>
-				<li>Read the <a href='https://github.com/project-geode/docs/wiki#geode-in-5-minutes'>quick start guide</a>.</li>
+				<li>Read the <a href='https://cwiki.apache.org/confluence/display/GEODE/Index#Index-Geodein5minutes'>quick start guide</a>.</li>
 				<li><a href='http://projectgeode.org/getting-started/'>Check out the Getting Started page</a></li>
 			</ul>
 		</div>
