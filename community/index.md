@@ -55,7 +55,7 @@ Video to be posted soon
 ### Pivotal Open Source Hub San Francisco
 **Open Sourced GemFire In-Memory Distributed Database Architecture Talk**
 
-#####<iframe width="560" height="315" src="https://www.youtube.com/embed/Kfi3mj_moAE" frameborder="0" allowfullscreen></iframe>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/Kfi3mj_moAE" frameborder="0" allowfullscreen></iframe>
 #####<a href="https://www.youtube.com/watch?v=gPeZ_K5pmpA">Video 1/6</a>
 #####<a href="https://www.youtube.com/watch?v=Kfi3mj_moAE">Video 1/6</a>
 #####<a href="https://www.youtube.com/watch?v=Kfi3mj_moAE">Video 1/6</a>
