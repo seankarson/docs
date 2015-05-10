@@ -33,13 +33,13 @@ Commits: commits@geode.incubator.apache.org
 
 ## Conferences
 
-<img class='event-image' src='/images/events/apachecon.png'>
+<img class='event-image' src='/images/events/osconlogo.png'>
 
-### ApacheCon
+### OSCON Portland
 
-##### April 13-17 2015 &nbsp; • &nbsp; Austin, TX
+##### July 20-24 2015 &nbsp; • &nbsp; Portland, OR
 
-<div class='description'>ApacheCon brings together the open source community to learn about and collaborate on the technologies and projects driving the future of open source, big data and cloud computing.</div>
+<div class='description'>OSCON is where all of the pieces come of the open source software movement come together: developers, innovators, businesspeople, and investors. </div>
 
 ***
 
@@ -48,39 +48,19 @@ Commits: commits@geode.incubator.apache.org
 ### Pivotal Open Source Hub Austin 
 **Open Sourced GemFire In-Memory Distributed Database Architecture Talk**
 
-#####4/12/15 &nbsp; • &nbsp;6:30 pm &nbsp; • &nbsp; Austin, Tx • &nbsp; <a href="http://www.meetup.com/Pivotal-Open-Source-Hub-at-ApacheCon/events/221503278/">RSVP</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-
-Come to this meet up to learn about becoming a contributor to this powerful and fascinating technology:
-
-<ul>
-<li>A brief history of GemFire</li> 
-<li>Architecture and use cases </li>
-<li>Why we are taking GemFire Open Source</li> 
-<li>Design philosophy and principles</li> 
-<li>Code walk-through </li>
-<li>How to contribute</li> 
-<li>Ideas for next enhancements</li>
-</ul>
+Video to be posted soon
 
 ***
 
 ### Pivotal Open Source Hub San Francisco
 **Open Sourced GemFire In-Memory Distributed Database Architecture Talk**
 
-#####4/23/15 &nbsp; • &nbsp;5:45 pm &nbsp; • &nbsp; <a href="http://www.meetup.com/Pivotal-Open-Source-Hub/events/221443735/">RSVP</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-
-Replay of the Austin Meetup...
-Come to this meet up to learn about becoming a contributor to this powerful and fascinating technology:
-
-<ul>
-<li>A brief history of GemFire</li> 
-<li>Architecture and use cases </li>
-<li>Why we are taking GemFire Open Source</li> 
-<li>Design philosophy and principles</li> 
-<li>Code walk-through </li>
-<li>How to contribute</li> 
-<li>Ideas for next enhancements</li>
-</ul>
+#####<iframe width="560" height="315" src="https://www.youtube.com/embed/Kfi3mj_moAE" frameborder="0" allowfullscreen></iframe>
+#####<a href="https://www.youtube.com/watch?v=gPeZ_K5pmpA">Video 1/6</a>
+#####<a href="https://www.youtube.com/watch?v=Kfi3mj_moAE">Video 1/6</a>
+#####<a href="https://www.youtube.com/watch?v=Kfi3mj_moAE">Video 1/6</a>
+#####<a href="https://www.youtube.com/watch?v=Kfi3mj_moAE">Video 1/6</a>
+#####<a href="https://www.youtube.com/watch?v=Kfi3mj_moAE">Video 1/6</a>
 
 ***
 
