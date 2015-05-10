@@ -48,7 +48,7 @@ JIRA notifications: issues@geode.incubator.apache.org
                             <a href="mailto:issues-unsubscribe@geode.incubator.apache.org">unsubscribe</a>)
                         </li>
                         <li>
-                            <a href="http://apache-ignite-commits.70531.x6.nabble.com/">commits@ignite.incubator.apache.org</a> Commits commits@geode.incubator.apache.org
+Commits: commits@geode.incubator.apache.org
                             (<a href="mailto:commits-subscribe@geode.incubator.apache.org">subsribe</a>, <a href="mailto:commits-unsubscribe@geode.incubator.apache.org">unsubscribe</a>)
                         </li>
 			<li>User questions at <a href="http://stackoverflow.com/questions/tagged/geode+or+gemfire" target="_blank">Stack Overflow</a></li>
