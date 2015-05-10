@@ -39,17 +39,17 @@ slug: home
 			<ul>
 			          <li>
 Contributors: dev@geode.incubator.apache.org
-                            (<a href="mailto:dev-subscribe@geode.incubator.apache.org">subsribe</a>,
+                            (<a href="mailto:dev-subscribe@geode.incubator.apache.org">subscribe</a>,
                             <a href="mailto:dev-unsubscribe@geode.incubator.apache.org">unsubscribe</a>)
                         </li>
                         <li>
 JIRA notifications: issues@geode.incubator.apache.org
-                            (<a href="mailto:issues-subscribe@geode.incubator.apache.org">subsribe</a>, 
+                            (<a href="mailto:issues-subscribe@geode.incubator.apache.org">subscribe</a>, 
                             <a href="mailto:issues-unsubscribe@geode.incubator.apache.org">unsubscribe</a>)
                         </li>
                         <li>
 Commits: commits@geode.incubator.apache.org
-                            (<a href="mailto:commits-subscribe@geode.incubator.apache.org">subsribe</a>, <a href="mailto:commits-unsubscribe@geode.incubator.apache.org">unsubscribe</a>)
+                            (<a href="mailto:commits-subscribe@geode.incubator.apache.org">subscribe</a>, <a href="mailto:commits-unsubscribe@geode.incubator.apache.org">unsubscribe</a>)
                         </li>
 			<li>User questions at <a href="http://stackoverflow.com/questions/tagged/geode+or+gemfire" target="_blank">Stack Overflow</a></li>
 			<li>We use the <a href="https://issues.apache.org/jira/browse/GEODE" target="_blank">Apache Geode JIRA for issue tracking</a></li>
