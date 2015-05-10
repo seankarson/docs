@@ -8,10 +8,24 @@ slug: community
 
 <div class='sidebar'>
 <p>Here is how to get in touch with other users and contributors of the Project Geode community:</p>
-			<ul>
-			<li><a href="http://groups.google.com/d/forum/project-geode" target="_blank">Project Geode Google Group</a> or project-geode@googlegroups.com</li>
+	<ul>
+			          <li>
+Contributors: dev@geode.incubator.apache.org
+                            (<a href="mailto:dev-subscribe@geode.incubator.apache.org">subscribe</a>,
+                            <a href="mailto:dev-unsubscribe@geode.incubator.apache.org">unsubscribe</a>)
+                        </li>
+                        <li>
+JIRA notifications: issues@geode.incubator.apache.org
+                            (<a href="mailto:issues-subscribe@geode.incubator.apache.org">subscribe</a>, 
+                            <a href="mailto:issues-unsubscribe@geode.incubator.apache.org">unsubscribe</a>)
+                        </li>
+                        <li>
+Commits: commits@geode.incubator.apache.org
+                            (<a href="mailto:commits-subscribe@geode.incubator.apache.org">subscribe</a>, <a href="mailto:commits-unsubscribe@geode.incubator.apache.org">unsubscribe</a>)
+                        </li>
 			<li>User questions at <a href="http://stackoverflow.com/questions/tagged/geode+or+gemfire" target="_blank">Stack Overflow</a></li>
-			<li>We use the <a href="https://github.com/project-geode/docs/issues" target="_blank">Project Geode GitHub for issue tracking</a></li>
+			<li>We use the <a href="https://issues.apache.org/jira/browse/GEODE" target="_blank">Apache Geode JIRA for issue tracking</a></li>
+			<li>For other ways to contribute, see the <a href="http://projectgeode.org/community/">Project Geode community page</a></li>
 			</ul>
 </div>
 
