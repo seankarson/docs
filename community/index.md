@@ -55,12 +55,12 @@ Commits: commits@geode.incubator.apache.org
 ### Pivotal Open Source Hub San Francisco
 **Open Sourced GemFire In-Memory Distributed Database Architecture Talk**
 
-<a href="https://www.youtube.com/watch?v=Kfi3mj_moAE">Video 1/6</a>
-<a href="https://www.youtube.com/watch?v=gPeZ_K5pmpA">Video 2/6</a>
-<a href="https://www.youtube.com/watch?v=wDupD-UfRjs">Video 3/6</a>
-<a href="https://www.youtube.com/watch?v=n2AUUYH7NBw">Video 4/6</a>
-<a href="https://www.youtube.com/watch?v=7ebYjqe7-i4">Video 5/6</a>
-<a href="https://www.youtube.com/watch?v=bz48V1yovFU">Video 6/6</a>
++ <a href="https://www.youtube.com/watch?v=Kfi3mj_moAE">Video 1/6</a>
++ <a href="https://www.youtube.com/watch?v=gPeZ_K5pmpA">Video 2/6</a>
++ <a href="https://www.youtube.com/watch?v=wDupD-UfRjs">Video 3/6</a>
++ <a href="https://www.youtube.com/watch?v=n2AUUYH7NBw">Video 4/6</a>
++ <a href="https://www.youtube.com/watch?v=7ebYjqe7-i4">Video 5/6</a>
++ <a href="https://www.youtube.com/watch?v=bz48V1yovFU">Video 6/6</a>
 
 ***
 
