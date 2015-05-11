@@ -10,18 +10,18 @@ slug: community
 <p>Here is how to get in touch with other users and contributors of the Project Geode community:</p>
 	<ul>
 			          <li>
-Contributors: dev@geode.incubator.apache.org
+Contributors: <a href="http://mail-archives.apache.org/mod_mbox/incubator-geode-dev/">dev@geode.incubator.apache.org</a>
                             (<a href="mailto:dev-subscribe@geode.incubator.apache.org">subscribe</a>,
-                            <a href="mailto:dev-unsubscribe@geode.incubator.apache.org">unsubscribe</a>)
+                            <a href="mailto:dev-unsubscribe@geode.incubator.apache.org"> unsubscribe</a>, <a href="http://mail-archives.apache.org/mod_mbox/incubator-geode-dev/"> archive</a>)
                         </li>
                         <li>
-JIRA notifications: issues@geode.incubator.apache.org
+JIRA notifications: <a href="http://mail-archives.apache.org/mod_mbox/incubator-geode-issues/">issues@geode.incubator.apache.org</a>
                             (<a href="mailto:issues-subscribe@geode.incubator.apache.org">subscribe</a>, 
-                            <a href="mailto:issues-unsubscribe@geode.incubator.apache.org">unsubscribe</a>)
+                            <a href="mailto:issues-unsubscribe@geode.incubator.apache.org"> unsubscribe</a>, <a href="http://mail-archives.apache.org/mod_mbox/incubator-geode-issues/"> archive</a>)
                         </li>
                         <li>
-Commits: commits@geode.incubator.apache.org
-                            (<a href="mailto:commits-subscribe@geode.incubator.apache.org">subscribe</a>, <a href="mailto:commits-unsubscribe@geode.incubator.apache.org">unsubscribe</a>)
+Commits: <a href="http://mail-archives.apache.org/mod_mbox/incubator-geode-commits/">commits@geode.incubator.apache.org</a>
+                            (<a href="mailto:commits-subscribe@geode.incubator.apache.org">subscribe</a>, <a href="mailto:commits-unsubscribe@geode.incubator.apache.org"> unsubscribe</a>,<a href="http://mail-archives.apache.org/mod_mbox/incubator-geode-commits/"> archive</a>)
                         </li>
 			<li>User questions at <a href="http://stackoverflow.com/questions/tagged/geode+or+gemfire" target="_blank">Stack Overflow</a></li>
 			<li>We use the <a href="https://issues.apache.org/jira/browse/GEODE" target="_blank">Apache Geode JIRA for issue tracking</a></li>
