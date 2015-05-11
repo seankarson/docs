@@ -31,9 +31,9 @@ slug: getting-started
 
 
 ##Understand Some Examples
-[Geode Demo Application - Fast Foot Shoes](https://github.com/project-geode/docs/wiki/Geode-Demo-Application)
+[Geode Demo Application - Fast Foot Shoes](https://cwiki.apache.org/confluence/display/GEODE/Index)
 
-[Getting Started with Geode](https://github.com/project-geode/docs/wiki#geode-in-5-minutes)
+[Getting Started with Geode](https://cwiki.apache.org/confluence/display/GEODE/Index#Index-Geodein5minutes)
 
 [Caching Data with Spring Data GemFire](http://www.javabeat.net/spring-data-gemfire-cache/)
 
@@ -48,14 +48,14 @@ slug: getting-started
 
 Develop | Design | Troubleshoot
  ------ | ----------- | --------
-[CacheListeners and Writers](https://github.com/project-geode/docs/wiki/CacheWriter-and-CacheListener-Best-Practices) | Data Architecture in Geode | [What to Monitor](https://github.com/project-geode/docs/wiki/What-To-Monitor)
-[Function Best Practices](https://github.com/project-geode/docs/wiki/Function-Best-Practices) | [Running in Embedded Mode](https://github.com/project-geode/docs/wiki/Running-in-Embedded-Mode) | [Troubleshooting CPU](https://github.com/project-geode/docs/wiki/Troubleshooting-CPU)
-[Persistence Best Practices](https://github.com/project-geode/docs/wiki/Native-Disk-Persistence) | Client Server Architecture |    [Troubleshooting Disk Space](https://github.com/project-geode/docs/wiki/Troubleshooting-Disk-Space)
-[PDX Serialization Internals](https://github.com/project-geode/docs/wiki/PDX-Serialization-Internals) | [Moving from memcached to gemcached](https://github.com/project-geode/docs/wiki/Moving-from-memcached-to-gemcached) |    [Troubleshooting File Descriptors](https://github.com/project-geode/docs/wiki/Troubleshooting-File-Descriptors)
-Querying Geode | [Sizing a Geode Cluster](https://github.com/project-geode/docs/wiki/Sizing-a-Geode-Cluster) |    [Troubleshooting Garbage Collection Pauses](https://github.com/project-geode/docs/wiki/Troubleshooting-Garbage-Collection-Pauses)
-[Debugging Geode Applications](https://github.com/project-geode/docs/wiki/Debugging-Geode-Applications) | [Network Configuration Best Practices](https://github.com/project-geode/docs/wiki/Network-Configuration-Best-Practices) |    [Troubleshooting Heap](https://github.com/project-geode/docs/wiki/Troubleshooting-Heap)
-[Reliable Messaging](https://github.com/project-geode/docs/wiki/Reliable-Messaging) |  [Geode Security Framework](https://github.com/project-geode/docs/wiki/Geode-Security-Framework) |    [Troubleshooting Load Average](https://github.com/project-geode/docs/wiki/Troubleshooting-Load-Average)
- |   [Resource Management in Geode](https://github.com/project-geode/docs/wiki/Resource-Management-in-Geode) |    [Troubleshooting Native Memory](https://github.com/project-geode/docs/wiki/Troubleshooting-Native-Memory)
+[CacheListeners and Writers](https://cwiki.apache.org/confluence/display/GEODE/CacheWriter+and+CacheListener+Best+Practices) | Data Architecture in Geode | [What to Monitor](https://cwiki.apache.org/confluence/display/GEODE/What+To+Monitor)
+[Function Best Practices](https://cwiki.apache.org/confluence/display/GEODE/Function+Best+Practices+in+Geode) | [Running in Embedded Mode](https://cwiki.apache.org/confluence/display/GEODE/Running+in+Embedded+Mode) | [Troubleshooting CPU](https://cwiki.apache.org/confluence/display/GEODE/Troubleshooting+CPU)
+[Persistence Best Practices](https://cwiki.apache.org/confluence/display/GEODE/PDX+Serialization+Internals) | Client Server Architecture |    [Troubleshooting Disk Space](https://cwiki.apache.org/confluence/display/GEODE/Troubleshooting+Disk+Space)
+[PDX Serialization Internals](https://cwiki.apache.org/confluence/display/GEODE/PDX+Serialization+Internals) | [Moving from memcached to gemcached](https://cwiki.apache.org/confluence/display/GEODE/Moving+from+memcached+to+gemcached) |    [Troubleshooting File Descriptors](https://cwiki.apache.org/confluence/display/GEODE/Troubleshooting+File+Descriptors)
+Querying Geode | [Sizing a Geode Cluster](https://cwiki.apache.org/confluence/display/GEODE/Sizing+a+Geode+Cluster) |    [Troubleshooting Garbage Collection Pauses](https://cwiki.apache.org/confluence/display/GEODE/Troubleshooting+Garbage+Collection+Pauses)
+[Debugging Geode Applications](https://cwiki.apache.org/confluence/display/GEODE/Debugging+Geode+Applications) | [Network Configuration Best Practices](https://cwiki.apache.org/confluence/display/GEODE/Network+Configuration+Best+Practices) |    [Troubleshooting Heap](https://cwiki.apache.org/confluence/display/GEODE/Troubleshooting+Heap)
+[Reliable Messaging](https://cwiki.apache.org/confluence/display/GEODE/Reliable+Messaging) |  [Geode Security Framework](https://cwiki.apache.org/confluence/display/GEODE/Geode+Security+Framework) |    [Troubleshooting Load Average](https://cwiki.apache.org/confluence/display/GEODE/Troubleshooting+Load+Average)
+ |   [Resource Management in Geode](https://cwiki.apache.org/confluence/display/GEODE/Resource+Management+in+Geode) |    [Troubleshooting Native Memory](https://cwiki.apache.org/confluence/display/GEODE/Troubleshooting+Native+Memory)
 
 
 ***
@@ -68,9 +68,9 @@ Geode Introductory Training materials are open source and can be found [here](ht
 
 
 ### Documentation
-Find the latest Project Geode Documentation [here](http://geode-docs.cfapps.io/docs/about_geode.html).
+Find the latest Geode Documentation [here](http://geode-docs.cfapps.io/docs/about_geode.html).
 
 
 + [Download](/download) the latest release — you can run locally on your laptop natively, or as a VM.
-+ Read the [quick start guide](https://github.com/project-geode/docs/wiki#geode-in-5-minutes).
++ Read the [quick start guide](https://cwiki.apache.org/confluence/display/GEODE/Index#Index-Geodein5minutes).
 

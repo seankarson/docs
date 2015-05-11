@@ -7,7 +7,7 @@ slug: community
 # Community
 
 <div class='sidebar'>
-<p>Here is how to get in touch with other users and contributors of the Project Geode community:</p>
+<p>Here is how to get in touch with other users and contributors of the Apache Geode (incubating) community:</p>
 	<ul>
 			          <li>
 Contributors: <a href="http://mail-archives.apache.org/mod_mbox/incubator-geode-dev/">dev@geode.incubator.apache.org</a>
@@ -25,7 +25,7 @@ Commits: <a href="http://mail-archives.apache.org/mod_mbox/incubator-geode-commi
                         </li>
 			<li>User questions at <a href="http://stackoverflow.com/questions/tagged/geode+or+gemfire" target="_blank">Stack Overflow</a></li>
 			<li>We use the <a href="https://issues.apache.org/jira/browse/GEODE" target="_blank">Apache Geode JIRA for issue tracking</a></li>
-			<li>For other ways to contribute, see the <a href="http://projectgeode.org/community/">Project Geode community page</a></li>
+			<li>For other ways to contribute, see the <a href="/community/">Apache Geode (incubating) community page</a></li>
 			</ul>
 </div>
 
