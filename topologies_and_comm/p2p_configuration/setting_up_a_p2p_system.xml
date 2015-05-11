@@ -10,13 +10,11 @@
 		<section id="section_8C0147A16D5A488FB9C0EB765BDEC07B">
 			<p>Before you begin, you should have a basic understanding of member discovery. You
 				should also have already determined the address and port settings for member
-				discovery. See <xref
-					href="../topology_concepts/chapter_overview.xml#concept_7628F498DB534A2D8A99748F5DA5DC94"
-					format="dita"/>. </p>
+				discovery. See <xref href="../topology_concepts/chapter_overview.xml" format="dita"
+				/>. </p>
 			<p>These options are set through <keyword keyref="product_name"/> properties. See <xref
-					href="../../reference/topics/gemfire_properties.xml#gemfire_properties"
-					type="concept" format="dita" scope="local"/>. <ul
-					id="ul_342764F44EF74999ACFC9222B8335554">
+					href="../../reference/topics/gemfire_properties.xml" type="concept"
+					format="dita" scope="local"/>. <ul id="ul_342764F44EF74999ACFC9222B8335554">
 					<li id="li_A79E816A149848198B710AD8C007320B">To use <b>multicast</b> for
 						membership, in the <codeph>gemfire.properties</codeph> for all system peers,
 						provide the multicast address and port and disable locators for peer
@@ -31,8 +29,8 @@ mcast-port=&lt;mcast port&gt;</codeblock>
 						<codeblock>locators=&lt;locator1-address&gt;[&lt;port1&gt;],&lt;locator2-address&gt;[&lt;port2&gt;]</codeblock>By
 						default, locators provide peer discovery in the system in which they run, so
 						no special settings are required to enable it when you start them. See <xref
-							href="../../configuring/running/running_the_locator.xml#running_the_locator"
-							type="concept" format="dita" scope="local"/>. </li>
+							href="../../configuring/running/running_the_locator.xml" type="concept"
+							format="dita" scope="local"/>. </li>
 					<li id="li_C980AFC673BD4D4C84D395766C21BA91">To run a standalone member, in the
 							<codeph>gemfire.properties</codeph> disable multicasting and locators:
 						<codeblock>locators=

@@ -2,8 +2,9 @@
 <!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
 <concept id="concept_47C4C4F5E59948B694B394B0A57C5ECC">
 	<title>Shutting Down the System</title>
-	<shortdesc>Shut down your <keyword keyref="product_name"/> system by using either <codeph>gfsh</codeph>'s
-			<codeph>shutdown</codeph> command or by shutting down individual members one at a time. </shortdesc>
+	<shortdesc>Shut down your <keyword keyref="product_name"/> system by using either
+			<codeph>gfsh</codeph>'s <codeph>shutdown</codeph> command or by shutting down individual
+		members one at a time. </shortdesc>
 	<conbody>
 		<section id="section_0EB4DDABB6A348BA83B786EEE7C84CF1">
 			<title>Using the shutdown Command</title>
@@ -29,15 +30,15 @@
 			<title>Shutting Down System Members Individually</title>
 			<p>If you are not using persistent regions, you can shut down the distributed system by
 				shutting down each member in the reverse order of their startup. (See <xref
-					href="starting_up.xml#concept_EA4611AE26904770A83F897DFB6D316F" type="concept"
-					format="dita" scope="local"><?xm-replace_text Starting Up Your System?></xref>
-				for the recommended order of member startup.) </p>
+					href="starting_up.xml" type="concept" format="dita" scope="local"
+					><?xm-replace_text Starting Up Your System?></xref> for the recommended order of
+				member startup.) </p>
 			<p>Shut down the distributed system members according to the type of member. For
 				example, use the following mechanisms to shut down members: <ul
 					id="ul_12CC69DA7B8047AFA69CC5F120B66E0F">
 					<li id="li_0C4894CD078B469A869B008331A4FF99">Use the appropriate mechanism to
-						shut down any <keyword keyref="product_name"/>-connected client applications that are running in the
-						distributed system. </li>
+						shut down any <keyword keyref="product_name"/>-connected client applications
+						that are running in the distributed system. </li>
 					<li id="li_534EF2BF81C74B2EB40A3322AD9B8BB3">Shut down any cache servers. To
 						shut down a server, issue the following <codeph>gfsh</codeph> command:
 						<codeblock>gfsh&gt;stop server --name=&lt;...&gt;</codeblock>or

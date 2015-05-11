@@ -18,7 +18,7 @@
         <codeblock>Cache c = CacheFactory.getInstance(system) c.setCopyOnRead(true);</codeblock>The
         copy-on-read attribute and the operations affected by the attribute setting are discussed in
         detail in <xref
-          href="../../basic_config/data_entries_custom_classes/managing_data_entries.xml#managing_data_entries"
+          href="../../basic_config/data_entries_custom_classes/managing_data_entries.xml"
         />.</p>
     </conbody>
   </concept>
@@ -196,7 +196,7 @@ r.put("stringBuf", s); cTxMgr.commit();</codeblock></p>
             listener callbacks - local and remote - are triggered after the transaction commits. The
             system sends the conflated transaction events, in the order they were stored. </li>
         </ul>For more information on writing cache event handlers, see <xref
-          href="../events/implementing_cache_event_handlers.xml#implementing_cache_event_handlers"
+          href="../events/implementing_cache_event_handlers.xml"
         />.</p>
     </conbody>
   </concept>

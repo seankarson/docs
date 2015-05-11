@@ -58,7 +58,7 @@
 				until a new member is brought online to replace the member that crashed. You can
 				control this behavior using the recovery delay attributes. For more information, see
 					<xref scope="local"
-					href="../../developing/partitioned_regions/configuring_ha_for_pr.xml#configuring_pr_redundancy"
+					href="../../developing/partitioned_regions/configuring_ha_for_pr.xml"
 					format="dita"/>. </p>
 			<p>To recover, start a replacement member. The new member regenerates the lost copies
 				and returns them to the configured redundancy level. </p>
@@ -96,7 +96,7 @@
 				automatically begins to create new data. </p>
 			<p>If the members with the relevant disk stores cannot be restarted, then you will have
 				to revoke the missing disk stores manually using gfsh. See <xref
-					href="../../tools_modules/gfsh/command-pages/revoke.xml#concept_22551CABF07B4512B5159DDAE036722D"
+					href="../../tools_modules/gfsh/command-pages/revoke.xml"
 				/>.</p>
 			<p>
 				<b>Maintaining and Recovering Partitioned Region Redundancy</b>
@@ -180,7 +180,7 @@ host a bucket in the partitioned region.</codeblock>
 			<title>Recovering Data from Disk</title>
 			<p>When you persist a region, the entry data on disk outlives the region in memory. If
 				the member exits or crashes, the data remains in the region’s disk directories. See
-					<xref href="../disk_storage/chapter_overview.xml#disk_storage" type="concept"
+					<xref href="../disk_storage/chapter_overview.xml" type="concept"
 					format="dita" scope="local"/>. If the same region is created again, this saved
 				disk data can be used to initialize the region. </p>
 			<p>Some general considerations for disk data recovery: </p>
@@ -193,7 +193,7 @@ host a bucket in the partitioned region.</codeblock>
 				<li>When a region is initialized from disk, last modified time is persisted from
 					before the member exit or crash. For information on how this might affect the
 					region data, see <xref
-						href="../../developing/expiration/chapter_overview.xml#expiration"
+						href="../../developing/expiration/chapter_overview.xml"
 						type="concept" format="dita" scope="local"
 						><?xm-replace_text Expiration?></xref>.</li>
 			</ul>

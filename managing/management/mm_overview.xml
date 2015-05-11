@@ -38,7 +38,7 @@
       <p>gfsh runs in its own shell, or you can <xref
           href="../../tools_modules/gfsh/os_command_line_execution.xml#topic_fpf_y1g_tp">execute
           gfsh commands directly from the OS command line</xref>. gfsh can interact with remote
-        systems <xref href="../../configuring/cluster_config/gfsh_remote.xml#task_nyb_mhn_44">using
+        systems <xref href="../../configuring/cluster_config/gfsh_remote.xml">using
           the http protocol</xref>. You can also <xref
           href="../../tools_modules/gfsh/command_scripting.xml#concept_9B2F7550F16C4717831AD40A56922259"
           >write scripts that run in a gfsh shell</xref> to automate system start up. </p>
@@ -57,7 +57,7 @@
         <li><filepath>cluster.properties</filepath> file shared by the cluster</li>
         <li>Deployed jar files containing application Java classes. </li>
       </ul>
-      <p>See <xref href="../../configuring/cluster_config/gfsh_persist.xml#concept_r22_hyw_bl"/> and
+      <p>See <xref href="../../configuring/cluster_config/gfsh_persist.xml"/> and
           <xref
           href="../../configuring/cluster_config/gfsh_config_troubleshooting.xml#concept_ylt_2cb_y4"
         /> for additional details on gfsh cluster configuration files.</p>
@@ -88,7 +88,7 @@
       <p><keyword keyref="product_name"/>'s implementation of JMX is industry-standard and friendly
         to generic JMX clients. You can monitor or manage the distributed system by using any
         third-party tool that is compliant with JMX. For example, JConsole.</p>
-      <p>See <xref href="management_and_monitoring.xml#concept_28D17783155A4E4EA32526CFB152A13F"
+      <p>See <xref href="management_and_monitoring.xml"
         /></p>
     </section>
     <section>
@@ -108,7 +108,7 @@
           <keyword keyref="product_name"/> JMX manager to provide a complete view of your <keyword
           keyref="product_name"/> deployment. </p>
       <p>See <xref
-          href="../../tools_modules/pulse/chapter_overview.xml#concept_600D5DC7303548BB96F5E3D1941C77C2"
+          href="../../tools_modules/pulse/chapter_overview.xml"
         />.</p>
     </section>
     <section>
@@ -117,7 +117,7 @@
         gfsh to connect to <keyword keyref="product_name"/>, and then launch JConsole with a gfsh
         command. The JConsole application allows you to browse MBeans, attributes, operations, and
         notifications. See <xref
-          href="gemfire_mbeans_jconsole.xml#concept_492532E145834248997BD23BCAC7AD45"/>. </p>
+          href="gemfire_mbeans_jconsole.xml"/>. </p>
     </section>
   </conbody>
 </concept>

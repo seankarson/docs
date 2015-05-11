@@ -168,8 +168,8 @@ create async-event-queue --id=myAEQ --listener=myApp.myListener
 			<title>create defined indexes</title>
 			<shortdesc>Creates all the defined indexes.</shortdesc>
 			<body>
-				<p>See also <xref href="define.xml#concept_B70E7B27CEF1496CB3B7217B15FF4726"/> and
-						<xref href="clear.xml#concept_B70E7B27CEF1496CB3B7217B15FF4726"/>.</p>
+				<p>See also <xref href="define.xml"/> and
+						<xref href="clear.xml"/>.</p>
 				<p><b> Availability:</b> Online. You must be connected in <parmname>gfsh</parmname>
 					to a JMX Manager member to use this command. </p>
 				<p>
@@ -232,7 +232,7 @@ Message : Region ' /r3' not found: from  /r3Occurred on following members
 			<shortdesc> Defines a pool of one or more disk stores, which can be used by regions and
 				client subscription queues. </shortdesc>
 			<body>
-				<p>See <xref href="../../../managing/disk_storage/chapter_overview.xml#disk_storage"
+				<p>See <xref href="../../../managing/disk_storage/chapter_overview.xml"
 					/></p>
 				<p><b> Availability:</b> Online. You must be connected in <parmname>gfsh</parmname>
 					to a JMX Manager member to use this command. </p>
@@ -398,7 +398,7 @@ server1 | Success</codeblock>
 			<body>
 				<p><b>Availability:</b> Online. You must be connected in <codeph>gfsh</codeph> to a
 					JMX Manager member to use this command. </p>
-				<p>See <xref href="../../../developing/query_index/query_index.xml#indexing"/>.</p>
+				<p>See <xref href="../../../developing/query_index/query_index.xml"/>.</p>
 				<p>
 					<b>Syntax:</b>
 					<codeblock>create index --name=value --expression=value --region=value 
@@ -505,7 +505,7 @@ Occurred on following members
 						<codeph>--value-constraint</codeph> makes object type information available
 					during querying and indexing. </p>
 				<p>See <xref
-						href="../../../developing/region_options/chapter_overview.xml#determining_storage_and_dist"
+						href="../../../developing/region_options/chapter_overview.xml"
 					/>. </p>
 				<p><b>Availability:</b> Online. You must be connected in <codeph>gfsh</codeph> to a
 					JMX Manager member to use this command. </p>

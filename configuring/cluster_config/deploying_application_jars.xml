@@ -21,7 +21,7 @@
 			<codeblock>gfsh&gt; deploy --jar=group1_functions.jar --group=MemberGroup1</codeblock>In
 			the example it is assumed that you have already defined the member group that you want
 			to use when starting up your members. See <xref format="dita"
-				href="using_member_groups.xml#concept_5B60087DA11644C49250064BAB8AFFA6"
+				href="using_member_groups.xml"
 				scope="local" type="concept"/> for more information on how to define member groups
 			and add a member to a group. </p>
 		<p>To deploy all the JAR files that are located in a specific directory to all members:
@@ -47,8 +47,7 @@ datanode1 | group1_functions.jar | /usr/local/gemfire/deploy/vf.gf#group1_functi
 datanode2 | group1_functions.jar | /usr/local/gemfire/deploy/vf.gf#group1_functions.jar#1</codeblock>
 		</p>
 		<p>For more information on <codeph>gfsh</codeph> usage, see <xref format="dita"
-				href="../../tools_modules/gfsh/chapter_overview.xml#concept_36339CCA6323430D8B61EE8DC5F64DCB"
-				scope="local" type="concept"/>. </p>
+				href="../../tools_modules/gfsh/chapter_overview.xml" scope="local" type="concept"/>. </p>
 		<section id="section_D36E345C6E254D27B0F4B0C8711F5E6A">
 			<title>Deployment Location for JAR Files</title>
 			<p>The system location where JAR files are written on each member is determined by the
@@ -70,7 +69,7 @@ deploy-working-dir=/usr/local/gemfire/deploy</codeblock>
 				locators in the distributed system. When you start a new server using gfsh, the
 				locator supplies configuration files and deployed jar files to the member and writes
 				them to the server's directory. </p>
-			<p>See <xref href="gfsh_persist.xml#concept_r22_hyw_bl"/>. </p>
+			<p>See <xref href="gfsh_persist.xml"/>. </p>
 		</section>
 		<section id="section_D9219C5EEED64672930200677C2118C9">
 			<title>Versioning of JAR Files</title>

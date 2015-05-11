@@ -30,7 +30,7 @@
 				<ul id="ul_AB0B6A80DFF1409980DE9C77815DDCE1">
 					<li id="li_8029CB1B357B459AB31FAF1DA2740351">Create partitioned regions. See
 							<xref format="dita"
-							href="how_partitioning_works.xml#how_partitioning_works" scope="local"
+							href="how_partitioning_works.xml" scope="local"
 							type="concept"/> and <xref format="dita"
 							href="managing_partitioned_regions.xml#configure_partitioned_regions"
 							scope="local" type="concept"/>. </li>
@@ -112,7 +112,7 @@
 								<codeph>false</codeph> (the default). The number of secondaries must
 							match the number of redundant copies you have defined for the region.
 							See <xref format="dita"
-								href="configuring_ha_for_pr.xml#configuring_pr_redundancy"/>.
+								href="configuring_ha_for_pr.xml"/>.
 								<note>Buckets for a partition are hosted only by the members that
 								have defined the partition name in their
 									<codeph>FixedPartitionAttributes</codeph>. </note>

@@ -50,7 +50,7 @@
 							data:<codeblock>gfsh>configure pdx --auto-serializable-classes=com\.company\.domain\..*</codeblock>
 							By using gfsh, this configuration can propagated across the cluster
 							through the <xref
-								href="../../configuring/cluster_config/gfsh_persist.xml#concept_r22_hyw_bl"
+								href="../../configuring/cluster_config/gfsh_persist.xml"
 								>Cluster Configuration Service</xref>. </li>
 						<li>Alternately, in <codeph>cache.xml</codeph>:
 							<codeblock>&lt;!-- Cache configuration configuring auto serialization behavior --&gt;
@@ -110,7 +110,7 @@ Cache c = new CacheFactory()
 							command:<codeblock>gfsh>configure pdx --portable-auto-serializable-classes=com\.company\.domain\..*</codeblock>By
 							using gfsh, this configuration can propagated across the cluster through
 							the <xref
-								href="../../configuring/cluster_config/gfsh_persist.xml#concept_r22_hyw_bl"
+								href="../../configuring/cluster_config/gfsh_persist.xml"
 								>Cluster Configuration Service</xref>. </li>
 						<li id="li_D81205CA3BAB451C8D1E28330E68623D">In cache.xml:
 							<codeblock>&lt;!-- Cache configuration configuring auto serialization behavior --&gt;

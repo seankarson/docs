@@ -291,7 +291,7 @@ at . . . </codeblock>
 					<li id="li_674154D94A5B4C4AAF21325F953D859D"><b>During initialization</b>—For
 						persistent regions, the member may be waiting for another member with more
 						recent data to start and load from its disk stores. See <xref
-							href="../disk_storage/chapter_overview.xml#disk_storage" format="dita"
+							href="../disk_storage/chapter_overview.xml" format="dita"
 							>Disk Storage</xref>. Wait for the initialization to finish or time out.
 						The process could be busy—some caches have millions of entries, and they can
 						take a long time to load. Look for this especially with cache servers,
@@ -438,7 +438,7 @@ Document root element "cache", must match DOCTYPE root "client-cache".</codebloc
 			<p>Response: Use a partitioned or replicate data-policy for your server regions. This is
 				the only way to provide a consistent view to clients of your server data set. See
 					<xref
-					href="../../developing/region_options/chapter_overview.xml#determining_storage_and_dist"
+					href="../../developing/region_options/chapter_overview.xml"
 					format="dita">Region Data Storage and Distribution Options</xref>. </p>
 		</section>
 		<section id="section_9276E09D9FAC408E899F73B7068E80C6">
@@ -479,9 +479,9 @@ created at timestamp 1270834766733 version 0]</codeblock>
 					<li id="li_940BFF0CB1004D13935D5A48A42A0B14">Partitioned regions—For performance
 						reasons, eviction and expiration behave differently in partitioned regions
 						and can cause entries to be removed before you expect. See <xref
-							href="../../developing/eviction/chapter_overview.xml#eviction"
+							href="../../developing/eviction/chapter_overview.xml"
 							format="dita"><?xm-replace_text Eviction?></xref> and <xref
-							href="../../developing/expiration/chapter_overview.xml#expiration"
+							href="../../developing/expiration/chapter_overview.xml"
 							format="dita"><?xm-replace_text Expiration?></xref>. </li>
 				</ul>
 			</p>
@@ -569,7 +569,7 @@ created at timestamp 1270834766733 version 0]</codeblock>
 						<row>
 							<entry>
 								<xref
-									href="../../developing/management_all_region_types/chapter_overview.xml#storing_data_on_disk"
+									href="../../developing/management_all_region_types/chapter_overview.xml"
 									type="concept" format="dita" scope="local"
 									><?xm-replace_text General Region Data Management?></xref>
 							</entry>
@@ -673,7 +673,7 @@ created at timestamp 1270834766733 version 0]</codeblock>
 						<row>
 							<entry>
 								<xref
-									href="../../developing/management_all_region_types/chapter_overview.xml#storing_data_on_disk"
+									href="../../developing/management_all_region_types/chapter_overview.xml"
 									type="concept" format="dita" scope="local"
 									><?xm-replace_text General Region Data Management?></xref>
 							</entry>
@@ -880,7 +880,7 @@ within member-timeout milliseconds</codeblock>
 			<p>Response: </p>
 			<p>If you are experiencing slow performance and are sending large objects (multiple
 				megabytes), try increasing the socket buffer size settings in your system. For more
-				information, see <xref href="../monitor_tune/socket_communication.xml#socket_comm"
+				information, see <xref href="../monitor_tune/socket_communication.xml"
 					type="concept" format="dita" scope="local"
 					><?xm-replace_text Socket Communication?></xref>. </p>
 		</section>
