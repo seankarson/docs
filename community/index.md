@@ -33,7 +33,7 @@ Commits: <a href="http://mail-archives.apache.org/mod_mbox/incubator-geode-commi
 
 ## Conferences
 
-<img class='event-image' src='/images/events/OSCONLogo.png'>
+<img class='event-image' src='/images/events/osconlogo.png'>
 
 ### OSCON Portland
 
