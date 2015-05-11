@@ -20,7 +20,7 @@
 			or in your environment.</p>
 		<p id="p_lgg_ccp_rr">You can specify non-ASCII text in your properties files by using
 			Unicode escape sequences. See <xref
-				href="non-ascii_strings_in_config_files.xml#concept_D3BC1489F5D8494799E8D2A8FE7EE81D"
+				href="non-ascii_strings_in_config_files.xml"
 				type="concept" format="dita" scope="local"/> for more details. </p>
 		<note>Unless otherwise indicated, these settings only affect activities within this
 			distributed system - not activities between clients and servers. </note>
@@ -172,7 +172,7 @@
 							property (<codeph>server-ssl-enabled</codeph>,
 								<codeph>jmx-manager-ssl-enabled</codeph>, or
 								<codeph>http-service-ssl-enabled</codeph>) is defined. See <xref
-								href="../../managing/security/implementing_ssl.xml#implementing_ssl"
+								href="../../managing/security/implementing_ssl.xml"
 							/>.</entry>
 						<entry id="entry_vmz_4dp_rr">false</entry>
 					</row>
@@ -188,7 +188,7 @@
 							connections. Specify the jmx-manager, server- or http-service- prefix
 							with this property to use a different keystore for the respective SSL
 							connection type. See <xref
-								href="../../managing/security/implementing_ssl.xml#implementing_ssl"
+								href="../../managing/security/implementing_ssl.xml"
 								/>.<note>javax.net.ssl.keyStore is deprecated. Use
 									<codeph>cluster-ssl-keystore</codeph> instead.</note></entry>
 						<entry colname="3" id="entry_jbp_pdp_rr">
@@ -201,7 +201,7 @@
 							server-ssl-keystore-password</entry>
 						<entry id="entry_sq4_tdp_rr">Properties that identify the passwords for the
 							keystores used with SSL connections. See <xref
-								href="../../managing/security/implementing_ssl.xml#implementing_ssl"
+								href="../../managing/security/implementing_ssl.xml"
 								/>.<note>javax.net.ssl.keyStorePassword is deprecated. Use
 								cluster-ssl-keystore-password instead.</note></entry>
 						<entry colname="3" id="entry_k4s_tdp_rr">
@@ -214,7 +214,7 @@
 							server-ssl-keystore-type</entry>
 						<entry id="entry_n5d_5dp_rr">System properties that identify the types of
 							keystores used with SSL connections. See <xref
-								href="../../managing/security/implementing_ssl.xml#implementing_ssl"
+								href="../../managing/security/implementing_ssl.xml"
 								/>.<note>javax.net.ssl.keyStoreType is deprecated. Use
 								cluster-ssl-keystore-type instead.</note></entry>
 						<entry colname="3" id="entry_df3_5dp_rr">
@@ -232,7 +232,7 @@
 								(<codeph>server-ssl-protocols</codeph>,
 								<codeph>jmx-manager-ssl-protocols</codeph>, or
 								<codeph>http-service-ssl-protocols</codeph>) is defined. See <xref
-								href="../../managing/security/implementing_ssl.xml#implementing_ssl"
+								href="../../managing/security/implementing_ssl.xml"
 							/>.</entry>
 						<entry id="entry_cb5_22p_rr">any </entry>
 					</row>
@@ -247,7 +247,7 @@
 								<codeph>jmx-manager-ssl-require-authentication</codeph>, or
 								<codeph>http-service-ssl-require-authentication</codeph>) is
 							defined. See <xref
-								href="../../managing/security/implementing_ssl.xml#implementing_ssl"
+								href="../../managing/security/implementing_ssl.xml"
 							/>.</entry>
 						<entry id="entry_lff_f2p_rr">true </entry>
 					</row>
@@ -264,7 +264,7 @@
 							Specify the jmx-manager, server-, or http-service- prefix with this
 							property to use a different truststore for the respective SSL connection
 							type. See <xref
-								href="../../managing/security/implementing_ssl.xml#implementing_ssl"
+								href="../../managing/security/implementing_ssl.xml"
 								/>.<note>javax.net.ssl.trustStore is deprecated. Use
 									<codeph>cluster-ssl-truststore</codeph> instead.</note></entry>
 						<entry colname="3" id="entry_ikw_f2p_rr">
@@ -278,7 +278,7 @@
 							server-ssl-truststore-password</entry>
 						<entry id="entry_u32_g2p_rr">Properties that identifies the passwords for
 							the truststores used with SSL connections. See <xref
-								href="../../managing/security/implementing_ssl.xml#implementing_ssl"
+								href="../../managing/security/implementing_ssl.xml"
 							/>.</entry>
 						<entry colname="3" id="entry_vqh_g2p_rr">
 							<i>not set</i>
@@ -329,7 +329,7 @@
 							system by a network partition event or has otherwise been shunned by
 							other members. Use this property to turn off the autoreconnect behavior.
 							See <xref
-								href="../../managing/autoreconnect/member-reconnect.xml#concept_22EE6DDE677F4E8CAF5786E17B4183A9"
+								href="../../managing/autoreconnect/member-reconnect.xml"
 							/> for more details.</entry>
 						<entry id="entry_syc_j2p_rr">false </entry>
 					</row>
@@ -409,7 +409,7 @@
 							this member belongs to. Use commas to separate group names. Note that
 							anything defined by the roles gemfire property will also be considered a
 							group. See <xref
-								href="../../configuring/cluster_config/using_member_groups.xml#concept_5B60087DA11644C49250064BAB8AFFA6"
+								href="../../configuring/cluster_config/using_member_groups.xml"
 								type="concept" format="dita" scope="local"/> for more information. </entry>
 						<entry colname="3" id="entry_gjq_52p_rr">
 							<i>not set</i>
@@ -562,7 +562,7 @@
 								<keyword keyref="product_name"/> uses the value of
 								<codeph>cluster-ssl-enabled</codeph> to determine whether JMX
 							connections should use SSL. See <xref
-								href="../../managing/security/implementing_ssl.xml#implementing_ssl"
+								href="../../managing/security/implementing_ssl.xml"
 							/>.</entry>
 						<entry colname="3" id="entry_ift_hfp_rr">value of
 								<codeph>cluster-ssl-enabled</codeph></entry>
@@ -575,7 +575,7 @@
 							this property is not set, then <keyword keyref="product_name"/> uses the
 							value of <codeph>cluster-ssl-ciphers</codeph> to determine which SSL
 							ciphers are used for JMX connections. See <xref
-								href="../../managing/security/implementing_ssl.xml#implementing_ssl"
+								href="../../managing/security/implementing_ssl.xml"
 							/>.</entry>
 						<entry colname="3" id="entry_qzd_3fp_rr">value of
 								<codeph>cluster-ssl-ciphers</codeph></entry>
@@ -588,7 +588,7 @@
 							this property is not set, then <keyword keyref="product_name"/> uses the
 							value of <codeph>cluster-ssl-protocols</codeph> to determine which SSL
 							protocols are used for JMX connections. See <xref
-								href="../../managing/security/implementing_ssl.xml#implementing_ssl"
+								href="../../managing/security/implementing_ssl.xml"
 							/>.</entry>
 						<entry colname="3" id="entry_bxt_3fp_rr">value of
 								<codeph>cluster-ssl-ciphers</codeph></entry>
@@ -601,7 +601,7 @@
 							not set, then <keyword keyref="product_name"/> uses the value of
 								<codeph>cluster-ssl-require-authentication</codeph> to determine
 							whether JMX connections require authentication. See <xref
-								href="../../managing/security/implementing_ssl.xml#implementing_ssl"
+								href="../../managing/security/implementing_ssl.xml"
 							/>.</entry>
 						<entry colname="3" id="entry_bfk_jfp_rr">value of
 								<codeph>cluster-ssl-require-authentication</codeph></entry>
@@ -892,7 +892,7 @@
 							region redundancy. If this property is set, <keyword
 								keyref="product_name"/> will not put redundant copies of data in
 							members with the same redundancy zone setting. See <xref
-								href="../../developing/partitioned_regions/configuring_ha_for_pr.xml#configuring_pr_redundancy"
+								href="../../developing/partitioned_regions/configuring_ha_for_pr.xml"
 							/> for more details.</entry>
 						<entry id="entry_u3r_cgp_rr">
 							<i>not set</i>
@@ -1062,7 +1062,7 @@
 							is not set, then <keyword keyref="product_name"/> uses the value of
 								<codeph>cluster-ssl-ciphers</codeph> to determine which ciphers are
 							used for client connections. See <xref
-								href="../../managing/security/implementing_ssl.xml#implementing_ssl"
+								href="../../managing/security/implementing_ssl.xml"
 							/>.</entry>
 						<entry colname="3" id="entry_m2t_tgp_rr">value of
 								<codeph>cluster-ssl-ciphers</codeph></entry>
@@ -1074,7 +1074,7 @@
 								keyref="product_name"/> uses the value of
 								<codeph>cluster-ssl-enabled</codeph> to determine whether client
 							connections use SSL. See <xref
-								href="../../managing/security/implementing_ssl.xml#implementing_ssl"
+								href="../../managing/security/implementing_ssl.xml"
 							/>.</entry>
 						<entry colname="3" id="entry_q2j_5gp_rr">value of
 								<codeph>cluster-ssl-enabled</codeph></entry>
@@ -1087,7 +1087,7 @@
 							this property is not set, then <keyword keyref="product_name"/> uses the
 							value of <codeph>cluster-ssl-protocols</codeph> to determine which SSL
 							protocols are used for client connections. See <xref
-								href="../../managing/security/implementing_ssl.xml#implementing_ssl"
+								href="../../managing/security/implementing_ssl.xml"
 							/>.</entry>
 						<entry colname="3" id="entry_akz_5gp_rr">value of
 								<codeph>cluster-ssl-protocols</codeph></entry>
@@ -1099,7 +1099,7 @@
 							set, then <keyword keyref="product_name"/> uses the value of
 								<codeph>cluster-ssl-require-authentication</codeph> to determine
 							whether client connections require authentication. See <xref
-								href="../../managing/security/implementing_ssl.xml#implementing_ssl"
+								href="../../managing/security/implementing_ssl.xml"
 							/>.</entry>
 						<entry colname="3" id="entry_yvz_vgp_rr">value of
 								<codeph>cluster-ssl-require-authentication</codeph></entry>

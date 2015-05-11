@@ -11,9 +11,8 @@
 				Manager is. The locator knows when there is no member currently configured as the
 				JMX manager and simply starts up the JMX manager service within itself. gfsh
 				connects as a JMX client to locator JMX RMI port. </p>
-			<p>You can also <xref format="dita"
-					href="#concept_C2DCEE6743304549825C9B62E66DBADF/p_frf_n3k_2l">connect to a
-					remote locator</xref> using the HTTP protocol. </p>
+			<p>You can also connect to a remote
+					locator using the HTTP protocol, as illustrated by the second example below. </p>
 			<p><b> Availability:</b> Offline. You will receive a notification "Already connected to:
 				host[port]" if you are already connected. </p>
 			<p>
@@ -196,7 +195,7 @@ Connecting to Locator at [host=localhost, port=10334] ..
 Connecting to Manager at [host=GemFireStymon, port=1099] ..
 Successfully connected to: [host=GemFireStymon, port=1099]</codeblock>
 			</p>
-			<p id="p_frf_n3k_2l">
+			<p>
 				<b>Example of connecting to a remote locator over HTTP:</b>
 				<codeblock>gfsh>connect --use-http=true --url="http://myLocatorHost.com:8080/gemfire/v1"
 Successfully connected to: GemFire Manager's HTTP service @ http://myLocatorHost.com:8080/gemfire/v1</codeblock>

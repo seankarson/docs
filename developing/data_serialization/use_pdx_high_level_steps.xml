@@ -17,13 +17,13 @@
 						options for each object type that you want to serialize using PDX
 						serialization: <ul id="ul_2EC41122D8EF46BDB082A8C7303A133A">
 							<li id="li_6A4BEAF164D0491CB02A92C445F3F2F8"><xref
-									href="auto_serialization.xml#auto_serialization" type="concept"
+									href="auto_serialization.xml" type="concept"
 									format="dita" scope="local"/></li>
 							<li id="li_3CFCF4CC0FF64EA98A08FE0F79DAF28F"><xref scope="local"
-									href="use_pdx_serializer.xml#use_pdx_serializer" type="concept"
+									href="use_pdx_serializer.xml" type="concept"
 									format="dita"/></li>
 							<li id="li_9AD73B4CDACD4DE79D09D4CE5B4141A9"><xref
-									href="use_pdx_serializable.xml#use_pdx_serializable"
+									href="use_pdx_serializable.xml"
 									type="concept" format="dita" scope="local"/>
 							</li>
 						</ul>
@@ -34,20 +34,20 @@
 						following command before starting up your
 						servers:<codeblock>gfsh>configure pdx --read-serialized=true</codeblock> By
 						using gfsh, this configuration can propagated across the cluster through the
-							<xref href="../../configuring/cluster_config/gfsh_persist.xml#concept_r22_hyw_bl"
+							<xref href="../../configuring/cluster_config/gfsh_persist.xml"
 							>Cluster Configuration Service</xref>. Alternately, you would need to
 						configure <codeph>pdx read-serialized</codeph> in each server's
 							<codeph>cache.xml</codeph> file. </li>
 					<li id="li_64526767DBE140D2B3C2C51BCAABCEE8">If you are storing any <keyword
 							keyref="product_name"/> data on disk, then you must configure PDX
 						serialization to use persistence. See <xref
-							href="persist_pdx_metadata_to_disk.xml#persist_pdx_metadata_to_disk"
+							href="persist_pdx_metadata_to_disk.xml"
 							type="concept" format="dita" scope="local"/> for more information. </li>
 					<li id="li_88ABDDCDAEBC46ED95A0B570C605E55A">(Optional) Wherever you run
 						explicit application code to retrieve and manage your cached entries, you
 						may want to manage your data objects without using full deserialization. To
 						do this, see <xref scope="local"
-							href="program_application_for_pdx.xml#program_application_for_pdx"
+							href="program_application_for_pdx.xml"
 							type="concept" format="dita"/>. </li>
 				</ol>
 			</p>

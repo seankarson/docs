@@ -11,7 +11,7 @@
 					<li id="li_0CBFE55931764F89A7DD9EB50F2EED54">Network partition detection can
 						work in multicast or in locator-based environments. If you are using
 						locators for member discovery, use multiple locators. See <xref
-							href="../../topologies_and_comm/p2p_configuration/setting_up_a_p2p_system.xml#setting_up_membership"
+							href="../../topologies_and_comm/p2p_configuration/setting_up_a_p2p_system.xml"
 							type="concept" format="dita" scope="local"/>. </li>
 					<li id="li_1D5D74CEB2C140149357D9300FD41E33">Enable partition detection
 						consistently in all system members by setting this in their
@@ -83,7 +83,7 @@ This can lead to cache inconsistencies if there is a network failure.</codeblock
 								a network partition event will automatically restart and attempt to
 								reconnect. Data members will attempt to reinitialize the cache. See
 									<xref
-									href="../autoreconnect/member-reconnect.xml#concept_22EE6DDE677F4E8CAF5786E17B4183A9"
+									href="../autoreconnect/member-reconnect.xml"
 								/>. You can modify the number of times that a member will try to
 								reconnect by specifying the <codeph>max-num-reconnect-tries</codeph>
 								property.</li>

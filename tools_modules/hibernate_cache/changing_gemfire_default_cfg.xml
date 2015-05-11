@@ -46,7 +46,7 @@ In Windows:
 			<p>You can change the region attributes from within the
 					<codeph>hibernate.cfg.xml</codeph> file using the same region shortcuts
 				specified in <xref
-					href="../../basic_config/data_regions/region_shortcuts.xml#region_shortcuts"
+					href="../../basic_config/data_regions/region_shortcuts.xml"
 					type="concept" format="dita" scope="local"
 					><?xm-replace_text Region Shortcuts and Custom Named Region Attributes?></xref>.
 				<codeblock>&lt;property name="gemfire.default-region-attributes-id"&gt;
@@ -127,7 +127,7 @@ In Windows:
 				client will not cache data. </p>
 			<p>You can change the client region attributes from within the hibernate.cfg.xml file
 				using the same client region shortcuts specified in <xref
-					href="../../basic_config/data_regions/region_shortcuts.xml#region_shortcuts"
+					href="../../basic_config/data_regions/region_shortcuts.xml"
 					type="concept" format="dita" scope="local"
 					><?xm-replace_text Region Shortcuts and Custom Named Region Attributes?></xref>. </p>
 			<codeblock>&lt;property name="gemfire.default-client-region-attributes-id"&gt;
@@ -180,7 +180,7 @@ In Windows:
   prompt&gt; cacheserver.bat start locators=hostname[port]</codeblock>
 			<p>If you are running more than one locator, use a comma-separated list of locators.
 				Refer to <xref
-					href="../../configuring/running/running_the_cacheserver.xml#running_the_cacheserver"
+					href="../../configuring/running/running_the_cacheserver.xml"
 					type="concept" format="dita" scope="local"/> for more information on using this
 				script. </p>
 			<note>When running the cache server, make sure the Hibernate jar and the <keyword

@@ -21,7 +21,7 @@
 				<li>If you are creating multiple indexes on the same region, first define your
 					indexes and then create the indexes all at once to avoid iterating over the
 					region multiple times. See <xref
-						href="create_multiple_indexes.xml#topic_omf_pxn_jq"/> for details.</li>
+						href="create_multiple_indexes.xml"/> for details.</li>
 			</ul>
 		</section>
 		<section id="section_A8AFAA243B5C43DD9BB9F9235A48AF53">
@@ -46,7 +46,7 @@
 					could have an index on <codeph>qty</codeph> applied for efficiency. However,
 						<codeph>NOT(qty &lt; 10)</codeph> could not have the same index applied. </li>
 				<li>Whenever possible, provide a hint to allow the query engine to prefer a specific
-					index. See <xref href="query_index_hints.xml#topic_cfb_mxn_jq"/></li>
+					index. See <xref href="query_index_hints.xml"/></li>
 			</ul>
 		</section>
 	</conbody>

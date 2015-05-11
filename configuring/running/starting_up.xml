@@ -10,12 +10,12 @@
 				distributed system, follow these guidelines for member startup: <ul
 					id="ul_5863AF9CB6DB436E81D974ACA90A4C11">
 					<li id="li_FD023619751949E883BE95DFA93888FF">Start locators first. See <xref
-							href="running_the_locator.xml#running_the_locator" type="concept"
+							href="running_the_locator.xml" type="concept"
 							format="dita" scope="local"/> for examples of locator startup commands. </li>
 					<li id="li_F6AFBB5A5A954FCAB0AEDD40C5B13B66">Start cache servers before the rest
 						of your processes unless the implementation requires that other processes be
 						started ahead of them. <xref
-							href="running_the_cacheserver.xml#running_the_cacheserver"
+							href="running_the_cacheserver.xml"
 							type="concept" format="dita" scope="local"/> for examples of server
 						startup commands. </li>
 					<li id="li_533E8FB3517845899892FCD816A3A6A4">If your distributed system uses
@@ -42,12 +42,10 @@
 						exception.</li>
 				</ul>
 			</p>
-			<note>You can optionally override the default timeout period for shutting down
-				individual processes. This override setting must be specified during member startup.
-				See <xref
-					href="shutting_down.xml#concept_47C4C4F5E59948B694B394B0A57C5ECC/section_7CF680CF8A924C57A7052AE2F975DA81"
-					type="section" format="dita" scope="local"
-					><?xm-replace_text Option for System Member Shutdown Behavior?></xref> for
+			<note>You can optionally override the default timeout period for shutting down individual
+				processes. This override setting must be specified during member startup. See <xref
+					href="shutting_down.xml#concept_47C4C4F5E59948B694B394B0A57C5ECC/section_7CF680CF8A924C57A7052AE2F975DA81"/>
+				<?xm-replace_text Option for System Member Shutdown Behavior?> for
 				details. </note>
 		</section>
 		<section id="section_2F8ABBFCE641463C8A8721841407993D">
