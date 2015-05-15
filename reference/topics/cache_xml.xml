@@ -149,8 +149,7 @@
 				rollbacks. </p>
 			<p>Specify the Java class and its initialization parameters with the
 					<codeph>&lt;class-name&gt;</codeph> and <codeph>&lt;parameter&gt;</codeph>
-				sub-elements. See <xref format="dita" href="cache_xml.xml#class-name_parameter"
-					scope="local" type="topic"><?xm-replace_text and ?></xref>. </p>
+				sub-elements. See <xref href="#class-name_parameter" format="dita"/>. </p>
 		</body>
 	</topic>
 	<topic id="transaction-writer">
@@ -175,9 +174,7 @@
 				Java code to dynamically create regions. <note>You can not use this element to
 					dynamically create <i>partitioned</i> regions. </note></p>
 			<p>Pivotal Inc. recommends that you use functions to dynamically create regions. See
-					<xref
-					href="../../developing/region_options/dynamic_region_creation.xml#concept_tr5_rdp_wk"
-				/>.</p>
+					<xref href="../../developing/region_options/dynamic_region_creation.xml"/>.</p>
 			<p> The optional <codeph>&lt;disk-dir></codeph> sub-element specifies the directory to
 				store the persistent files that are used for dynamic region bookkeeping. It defaults
 				to the current directory. </p>
@@ -558,7 +555,7 @@
 		<body>
 			<p>Deprecated as of GemFire 7.0. Specify server groups in the gemfire.properties file.
 				See <xref
-					href="../../topologies_and_comm/cs_configuration/configure_servers_into_logical_groups.xml#configure_servers_into_logical_groups"
+					href="../../topologies_and_comm/cs_configuration/configure_servers_into_logical_groups.xml"
 					>Organizing Servers Into Logical Member Groups</xref>. </p>
 		</body>
 	</topic>
@@ -625,7 +622,7 @@
 			<codeblock outputclass="language-xml">&lt;cache-server port=4444&gt;
 &lt;/cache&gt;</codeblock>
 		</body>
-	</topic>	
+	</topic>
 	<topic id="custom-load-probe">
 		<title>&lt;custom-load-probe&gt;</title>
 		<shortdesc> </shortdesc>
@@ -2127,8 +2124,7 @@
 			<p>Specifies the custom class that implements
 					<codeph>com.gemstone.gemfire.cache.CustomExpiry</codeph>. You define this class
 				in order to override the region-wide settings for specific entries. See <xref
-					format="dita"
-					href="../../developing/expiration/configuring_data_expiration.xml#configuring_data_expiration"
+					format="dita" href="../../developing/expiration/configuring_data_expiration.xml"
 					scope="local" type="concept"/> for an example. </p>
 			<p>Specify the Java class and its initialization parameters with the
 					<codeph>&lt;class-name&gt;</codeph> and <codeph>&lt;parameter&gt;</codeph>
@@ -3394,7 +3390,7 @@
 							<entry colname="1">name </entry>
 							<entry colname="2">Specify the name for the region. See <xref
 									format="dita"
-									href="../../basic_config/data_regions/create_a_region_with_cacheXML.xml#create_a_region_with_cacheXML"
+									href="../../basic_config/data_regions/create_a_region_with_cacheXML.xml"
 									scope="local" type="task"/> for details. </entry>
 							<entry colname="col3"/>
 						</row>
@@ -3405,9 +3401,9 @@
 								it will cause the "refid" on the region to be ignored. The "refid"
 								region attriibute can be set to the name of a RegionShortcut or a
 								ClientRegionShortcut. For more information, see <xref format="dita"
-									href="../../basic_config/data_regions/region_shortcuts.xml#region_shortcuts"
+									href="../../basic_config/data_regions/region_shortcuts.xml"
 									scope="local" type="concept"/> and <xref format="dita"
-									href="../../basic_config/data_regions/store_retrieve_region_shortcuts.xml#region_shortcuts"
+									href="../../basic_config/data_regions/store_retrieve_region_shortcuts.xml"
 									scope="local" type="concept"/>. </entry>
 							<entry colname="col3"/>
 						</row>
@@ -3447,10 +3443,10 @@
 			<p>Describes an index to be created on a region. The index node, if any, should all come
 				immediately after the "region-attributes" node. The "name" attribute is a required
 				field which identifies the name of the index. See <xref format="dita"
-					href="../../developing/query_index/query_index.xml#indexing" scope="local"
-					type="concept"/> for more information on indexes. You can create either a
-				functional index with the <codeph>&lt;functional&gt;</codeph> sub-element or a
-				primary-key index with the <codeph>&lt;primary-key&gt;</codeph> element. </p>
+					href="../../developing/query_index/query_index.xml" scope="local" type="concept"
+				/> for more information on indexes. You can create either a functional index with
+				the <codeph>&lt;functional&gt;</codeph> sub-element or a primary-key index with the
+					<codeph>&lt;primary-key&gt;</codeph> element. </p>
 			<p>
 				<b>Default: </b>
 			</p>

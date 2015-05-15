@@ -41,7 +41,7 @@
         <li>http-service-ssl-truststore</li>
         <li>http-service-ssl-truststore-password</li>
       </ul>
-      <p dir="ltr">See <xref href="../managing/security/ssl_overview.xml#ssl"/> for details on
+      <p dir="ltr">See <xref href="../managing/security/ssl_overview.xml"/> for details on
         configuring these parameters.</p>
       <p dir="ltr">The above parameters apply to all HTTP services hosted on the configured server,
         which can include the following:</p>
@@ -68,7 +68,7 @@
         <substeps id="substeps_pgr_x5p_y4">
           <substep>
             <cmd>Start up a locator running the <xref
-                href="../configuring/cluster_config/gfsh_persist.xml#concept_r22_hyw_bl">cluster configuration
+                href="../configuring/cluster_config/gfsh_persist.xml">cluster configuration
                 service</xref> (enabled by default). For example: </cmd>
             <info>
               <codeblock>gfsh>start locator --name=locator1</codeblock>

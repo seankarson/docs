@@ -31,7 +31,7 @@
 			<p>Suppose you want to show all people who have someone listed as a friend. <keyword
 					keyref="product_name"/> supports querying region contents using Object Query
 				Language (OQL). See <xref
-					href="../../developing/querying_basics/chapter_overview.xml#querying_with_oql"
+					href="../../developing/querying_basics/chapter_overview.xml"
 					type="concept" format="dita" scope="local"/> and the Javadocs for the
 					<codeph>com.gemstone.gemfire.cache.query</codeph> package for more information.
 				To find all people who have listed Ethan as a friend: </p>
@@ -60,7 +60,7 @@ Set&lt;String&gt; authors = new HashSet&lt;String&gt;();
 authors.add("Ethan");
 FunctionService.onRegion(people).withFilter(authors).execute(spellcheck);</codeblock>
 			<p>For more information on function execution, see <xref
-					href="../../developing/function_exec/chapter_overview.xml#function_exec"
+					href="../../developing/function_exec/chapter_overview.xml"
 					format="dita"/>. </p>
 		</section>
 		<section id="section_93057612655A4C7C900B4321D6E95EFC">
@@ -83,9 +83,9 @@ FunctionService.onRegion(people).withFilter(authors).execute(spellcheck);</codeb
 				when your heap is getting full. </p>
 			<p>Rather than lose the values completely, you can configure the region to overflow
 				values onto disk. </p>
-			<p>See <xref href="../../developing/eviction/chapter_overview.xml#eviction"
+			<p>See <xref href="../../developing/eviction/chapter_overview.xml"
 					type="concept" format="dita" scope="local"/> and <xref
-					href="../../developing/expiration/chapter_overview.xml#expiration"
+					href="../../developing/expiration/chapter_overview.xml"
 					type="concept" format="dita" scope="local"/> for more information. </p>
 		</section>
 	</conbody>

@@ -115,7 +115,7 @@ SELECT DISTINCT * FROM /exampleRegion p WHERE p.position1.getSecId() = '1'
 			<p> To create indexes for region joins you create single-region indexes for both sides
 				of the join condition. These are used during query execution for the join condition.
 				Partitioned regions do not support region joins. For more information on indexes,
-				see <xref href="../query_index/query_index.xml#indexing" type="concept"
+				see <xref href="../query_index/query_index.xml" type="concept"
 					format="dita" scope="local"/>. </p>
 			<b>Examples:</b>
 			<table id="table_76F4DC6F1FD343748579D76D7D7BEFE3">

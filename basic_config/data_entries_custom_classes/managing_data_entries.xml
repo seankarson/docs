@@ -22,9 +22,9 @@ this.currRegion.put(name,value); </codeblock><note>You
 					can also use the <codeph>gfsh <cmdname>put</cmdname></codeph> command to add
 					entries to a region, and the <cmdname>get</cmdname> command to retrieve entries
 					from a region. See <xref
-						href="../../tools_modules/gfsh/command-pages/get.xml#concept_837F6196CE334C8CA2CAFD34AB6EF869"
+						href="../../tools_modules/gfsh/command-pages/get.xml"
 					/> and <xref format="dita"
-						href="../../tools_modules/gfsh/command-pages/put.xml#concept_2ECE1BB23A814A13924C93422E7EBC5E"
+						href="../../tools_modules/gfsh/command-pages/put.xml"
 						scope="local" type="concept"/> for more information. </note></p>
 			<p>If you want only to create the entry (with a null value and with method failure if
 				the entry already exists), use <codeph>Region.create</codeph> instead. </p>
@@ -165,9 +165,9 @@ region.put("stringBuf", s);</codeblock>
 			<title>Using gfsh to get and put </title>
 			<p>You can use the gfsh <cmdname>get</cmdname> and <cmdname>put</cmdname> commands to
 				manage data. See <xref
-					href="../../tools_modules/gfsh/command-pages/get.xml#concept_837F6196CE334C8CA2CAFD34AB6EF869"
+					href="../../tools_modules/gfsh/command-pages/get.xml"
 				/> and <xref
-					href="../../tools_modules/gfsh/command-pages/put.xml#concept_2ECE1BB23A814A13924C93422E7EBC5E"
+					href="../../tools_modules/gfsh/command-pages/put.xml"
 				/>.</p>
 			<p>For example:<codeblock outputclass="language-java">
 get --key=('id':'133abg124') --region=region1

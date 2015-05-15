@@ -23,7 +23,7 @@
 					<i>gfsh</i> (pronounced "gee-fish") provides a single, intuitive command-line
 					interface from which you can launch, manage, and monitor <keyword
 						keyref="product_name_long"/> processes, data, and applications. See <xref
-						href="../tools_modules/gfsh/chapter_overview.xml#concept_36339CCA6323430D8B61EE8DC5F64DCB"
+						href="../tools_modules/gfsh/chapter_overview.xml"
 					/>. </p>
 				<p>The <i>locator</i> is a <keyword keyref="product_name_long"/> process that tells
 					new, connecting members where running members are located and provides load
@@ -31,9 +31,9 @@
 					s used for monitoring and managing of a <keyword keyref="product_name"/>
 					cluster. The cluster configuration service uses locators to persist and
 					distribute cluster configurations to cluster members. See <xref
-						href="../configuring/running/running_the_locator.xml#running_the_locator"/>
+						href="../configuring/running/running_the_locator.xml"/>
 					and <xref
-						href="../configuring/cluster_config/gfsh_persist.xml#concept_r22_hyw_bl"
+						href="../configuring/cluster_config/gfsh_persist.xml"
 					/>.</p>
 				<ol id="ol_E7093B61F4644E598DB4FF12FCBFC939">
 					<li id="li_9E7D31E90C89499D9C8A89A4878B4C45">Create a scratch working directory
@@ -83,7 +83,7 @@ Cluster configuration service is up and running.
 					tool. <keyword keyref="product_name"/> Pulse is a Web Application that provides
 					a graphical dashboard for monitoring vital, real-time health and performance of
 						<keyword keyref="product_name"/> clusters, members, and regions. See <xref
-						href="../tools_modules/pulse/chapter_overview.xml#concept_600D5DC7303548BB96F5E3D1941C77C2"
+						href="../tools_modules/pulse/chapter_overview.xml"
 					/>.<codeblock>gfsh&gt;start pulse
 Launched <keyword keyref="product_name"/> Pulse</codeblock>This
 					command launches Pulse and automatically connects you to the JMX Manager running
@@ -100,7 +100,7 @@ Launched <keyword keyref="product_name"/> Pulse</codeblock>This
 						keyref="product_name"/> server is used primarily for hosting long-lived data
 					regions and for running standard <keyword keyref="product_name"/> processes such
 					as the server in a client/server configuration. See <xref
-						href="../configuring/running/running_the_cacheserver.xml#running_the_cacheserver"
+						href="../configuring/running/running_the_cacheserver.xml"
 					/>.</p>
 				<p>Start the cache server:
 					<codeblock>gfsh&gt;start server --name=server1 --server-port=40411
@@ -206,7 +206,7 @@ Result
 one</b></codeblock><p>Note
 							that the result displays the values for the two data entries you created
 							with the <cmdname>put</cmdname> commands.</p><p>See <xref
-								href="../basic_config/data_entries_custom_classes/chapter_overview.xml#setting_distributed_properties"
+								href="../basic_config/data_entries_custom_classes/chapter_overview.xml"
 							/>.</p></li>
 					<li>Stop the cache server using the following
 						command:<codeblock>gfsh>stop server --name=server1
@@ -237,7 +237,7 @@ one</b></codeblock><p>Because
 							Note that the result displays the values for the two data entries you
 							created prior to stopping the server with the <cmdname>put</cmdname>
 							commands.</p><p>See <xref
-								href="../basic_config/data_entries_custom_classes/chapter_overview.xml#setting_distributed_properties"
+								href="../basic_config/data_entries_custom_classes/chapter_overview.xml"
 							/>.</p><p>See <xref
 								href="../basic_config/data_regions/chapter_overview.xml#data_regions"
 							/></p></li>
@@ -466,7 +466,7 @@ NEXT_STEP_NAME : END
 							<codeph>gfsh</codeph> session, stop the cluster:
 							<codeblock>gfsh&gt;shutdown --include-locators=true</codeblock><p>See
 								<xref
-								href="../tools_modules/gfsh/command-pages/shutdown.xml#concept_249C98CFF0BF4BCCA7778AE2D751F52E"
+								href="../tools_modules/gfsh/command-pages/shutdown.xml"
 							/>. </p>
 					</li>
 					<li id="li_8DC6EE8843E14C449500A44CBF4091FA">When prompted, type 'Y' to confirm

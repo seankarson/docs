@@ -34,7 +34,7 @@
 						<codeph>$GEMFIRE/lib/locator-dependencies.jar</codeph> inside the command
 					used to launch the locator process. For more information on CLASSPATH settings
 					in <keyword keyref="product_name"/>, see <xref
-						href="../../getting_started/setup_gemfire_classpath.xml#concept_ivh_glr_l4"
+						href="../../getting_started/setup_gemfire_classpath.xml"
 					/>. You can modify the CLASSPATH by specifying the --classpath or parameter</li>
 				<li id="li_2BB86FA6977646CF923BCB5B878ECD57">Locators are members of the distributed
 					system just like any other member. In terms of <codeph>mcast-port</codeph> and
@@ -77,7 +77,7 @@ mcast-port=0</codeblock>
 					try to reconnect to the existing distributed system. When a locator is in the
 					reconnecting state, it provides no discovery services for the distributed
 					system. See <xref
-						href="../../managing/autoreconnect/member-reconnect.xml#concept_22EE6DDE677F4E8CAF5786E17B4183A9"
+						href="../../managing/autoreconnect/member-reconnect.xml"
 					/> for more details.</li>
 			</ul>
 		</section>
@@ -88,7 +88,7 @@ mcast-port=0</codeblock>
 				saved in the Locator's directory and are propagated to all locators in a distributed
 				system. When you start servers using gfsh, the servers receive the group-level and
 				cluster-level configurations from the locators. </p>
-			<p>See<xref href="../cluster_config/gfsh_persist.xml#concept_r22_hyw_bl"/>. </p>
+			<p>See<xref href="../cluster_config/gfsh_persist.xml"/>. </p>
 		</section>
 		<section id="section_FF25228E30624E04ACA8784A2183D585">
 			<title>Start the Locator</title>
@@ -99,7 +99,7 @@ mcast-port=0</codeblock>
 						id="ul_95A227C9D8A74EFD95EC09D0B46B99BF">
 						<li id="li_D5C019CFD76F4F69A2DA324746941636">Use the <codeph>gfsh</codeph>
 							command-line utility. See <xref
-								href="../../tools_modules/gfsh/chapter_overview.xml#concept_36339CCA6323430D8B61EE8DC5F64DCB"
+								href="../../tools_modules/gfsh/chapter_overview.xml"
 								type="concept" format="dita" scope="local"/> for more information on
 							using <codeph>gfsh</codeph>. The syntax for starting the <p>Example
 								commands: </p>

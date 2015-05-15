@@ -12,7 +12,7 @@
 		<section id="section_131EC040055E48A6B35E981B5C845A65">
 			<note>If you are co-locating data between regions and custom partitioning the data in
 				the regions, all co-located regions must use the same custom partitioning mechanism.
-				See <xref href="using_custom_partition_resolvers.xml#custom_partition_region_data"
+				See <xref href="using_custom_partition_resolvers.xml"
 					type="concept" format="dita" scope="local"/>. </note>
 			<p>Data co-location between partitioned regions generally improves the performance of
 				data-intensive operations. You can reduce network hops for iterative operations on
@@ -28,20 +28,20 @@
 			<ul id="ul_44FD90C4658044AAA46AE58026698337">
 				<li id="li_200F734D659044C4BBD1A919F61005ED">Understand how to configure and create
 					your partitioned regions. See <xref format="dita"
-						href="how_partitioning_works.xml#how_partitioning_works" scope="local"
+						href="how_partitioning_works.xml" scope="local"
 						type="concept"/> and <xref format="dita"
 						href="managing_partitioned_regions.xml#configure_partitioned_regions"
 						scope="local" type="concept"/>. </li>
 				<li id="li_20F7B873685D40D8A1EAC02AEF311815">(Optional) Understand how to
 					custom-partition your data. See <xref format="dita"
-						href="using_custom_partition_resolvers.xml#custom_partition_region_data"/>. </li>
+						href="using_custom_partition_resolvers.xml"/>. </li>
 				<li id="li_B898017E0CA142D6B28832F6495DB702">(Optional) If you want your co-located
 					regions to be highly available, understand how high availability for partitioned
 					regions works. See <xref href="how_pr_ha_works.xml#how_pr_ha_works"
 						type="concept" format="dita" scope="local"/>. </li>
 				<li id="li_1A5BA0D0863640BAA49AB42F38432AEE">(Optional) Understand how to persist
 					your region data. See <xref format="dita"
-						href="../storing_data_on_disk/storing_data_on_disk.xml#storing_data_on_disk"
+						href="../storing_data_on_disk/storing_data_on_disk.xml"
 						scope="local" type="concept"/>. </li>
 			</ul>
 			<p>
