@@ -25,7 +25,6 @@ Commits: <a href="http://mail-archives.apache.org/mod_mbox/incubator-geode-commi
                         </li>
 			<li>User questions at <a href="http://stackoverflow.com/questions/tagged/geode+or+gemfire" target="_blank">Stack Overflow</a></li>
 			<li>We use the <a href="https://issues.apache.org/jira/browse/GEODE" target="_blank">Apache Geode JIRA for issue tracking</a></li>
-			<li>For other ways to contribute, see the <a href="/community/">Apache Geode (incubating) community page</a></li>
 			</ul>
 </div>
 
@@ -43,12 +42,26 @@ Commits: <a href="http://mail-archives.apache.org/mod_mbox/incubator-geode-commi
 
 ***
 
-## Meetups
+## Meetups & User Groups
+
+### Portland Java Users Group (PJUG)
+** Unleashing the Silicon Forest Fire: the open sourcing of GemFire **
+
+###<a href="http://pjug.org/" target="_blank"> Tuesday, May 17, 2015, 6:30PM in Porland. No RSVP required.</a>
+
+***
+
+### Spring / Pivotal Open Source Hub Virtual Meetup
+** Hands-on Virtual Meetup for Apache Geode #1 - Getting Started **
+
+###<a href="http://connect.pivotal.io/OSS_Webinar_9AMPOSH_Handson_Virtual_Meetup_Apache_Geode1_GettingStarted_Register.html"> Register for reminder or log in Tuesday, June 2, 2015, 9AM PST</a>
+
+***
 
 ### Pivotal Open Source Hub Palo Alto
 **Creating a Highly-Scalable Stock Prediction System with R, Geode & Spring XD**
 
-#### <a href="http://www.meetup.com/Pivotal-Open-Source-Hub/events/221819771/" target="_blank"> RSVP Tuesday, May 12, 2015 6PM to 8:30PM in Palo Alto, CA</a>
+Video to be posted soon
 
 ***
 
