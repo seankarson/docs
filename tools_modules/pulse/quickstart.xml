@@ -9,12 +9,6 @@
 			application. Optionally, configure Pulse to connect to a <keyword keyref="product_name"
 			/> system of your choice. </shortdesc>
 		<body>
-			<note><keyword keyref="product_name"/> cannot start Pulse in embedded mode if you run
-				the <keyword keyref="product_name"/> member itself inside of a Tomcat server
-				instance. <keyword keyref="product_name"/> displays an error message if you attempt
-				to start an embedded Pulse application using this configuration. See <xref
-					href="quickstart.xml#topic_795C97B46B9843528961A094EE520782" type="topic"
-					format="dita" scope="local"/> instead. </note>
 			<p>To run Pulse in embedded mode: <ol id="ol_953D2A0C17B54B929A7215423425372D">
 					<li id="li_C66E9CFB5CFF425FB9A629AA64BECCFA">
 						<p>Configure a <keyword keyref="product_name"/> member to run as a JMX
@@ -33,9 +27,9 @@ gfsh&gt; start locator --name=loc1</codeblock>
 							application, include the
 									<codeph>--J=-Dgemfire.http-service-port=<i>port_number</i></codeph>
 							option when starting the JMX Manager node. </note>
-						<p>When the JMX Manager node boots, it starts an embedded Tomcat instance
-							and deploys the Pulse Web application at the specified or default HTTP
-							port or 7070 by default. </p>
+						<p>When the JMX Manager node boots, it starts an embedded Jetty instance and deploys the Pulse
+							Web application at the specified or default HTTP port or 7070 by
+							default. </p>
 						<p><codeph>gfsh</codeph> automatically connects to the manager when you
 							start it in this way. If you already started a manager process earlier,
 							use the <codeph>connect</codeph> command in <codeph>gfsh</codeph> to
