@@ -48,6 +48,14 @@
 					</substep>
 				</substeps>
 			</step>
+			<step>
+				<cmd>Decide how many buckets that <keyword keyref="product_name"/> should attempt to
+					recover in parallel when performing redundancy recovery. By default, the system
+					recovers up to 8 buckets in parallel. Use the
+						<codeph>gemfire.MAX_PARALLEL_BUCKET_RECOVERIES</codeph> system property to
+					increase or decrease the maximum number of buckets to recover in parallel any
+					time redundancy recovery is performed.</cmd>
+			</step>
 			<step id="step_1193A0A10460435C96362A8C396318E3">
 				<cmd>For all but fixed partitioned regions, review the points at which you kick off
 					rebalancing. Redundancy recovery is done automatically at the start of any

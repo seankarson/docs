@@ -67,9 +67,14 @@ System.out.println(" and create " + results.getTotalBucketCreatesCompleted() + "
 		<section id="section_1592413D533D454D9E5ACFCDC4685DD1">
 			<title>How Partitioned Region Rebalancing Works</title>
 			<p>The rebalancing operation runs asynchronously. </p>
-			<p>As a general rule, rebalancing is performed on one partitioned region at a time. For
-				regions that have co-located data, the rebalancing works on the regions as a group,
-				maintaining the data co-location between the regions. </p>
+			<p>By default, rebalancing is performed on one partitioned region at a time. For regions that
+				have co-located data, the rebalancing works on the regions as a group, maintaining
+				the data co-location between the regions. </p>
+			<p>You can optionally rebalance multiple regions in parallel by setting the
+					<codeph>gemfire.resource.manager.threads</codeph> system property. Setting this
+				property to a value greater than 1 enables <keyword keyref="product_name"/> to
+				rebalance multiple regions in parallel, any time a rebalance operation is initiated
+				using the API.</p>
 			<p>You can continue to use your partitioned regions normally while rebalancing is in
 				progress. Read operations, write operations, and function executions continue while
 				data is moving. If a function is executing on a local data set, you may see a

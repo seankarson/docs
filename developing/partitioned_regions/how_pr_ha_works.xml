@@ -23,12 +23,15 @@
 				works to recover redundancy when it is not satisfied. You can configure recovery to
 				take place immediately or, if you want to give replacement members a chance to start
 				up, you can configure a wait period. Redundancy recovery is also automatically
-				attempted during any partitioned data rebalancing operation. Without redundancy, the
-				loss of any of the region's data stores causes the loss of some of the region's
-				cached data. </p>
-			<p>Generally, you should not use redundancy when your applications can directly read
-				from another data source, or when write performance is more important than read
-				performance. </p>
+				attempted during any partitioned data rebalancing operation. Use the
+					<codeph>gemfire.MAX_PARALLEL_BUCKET_RECOVERIES</codeph> system property to
+				configure the maximum number of buckets that are recovered in parallel. By default,
+				up to 8 buckets are recovered in parallel any time the system attempts to recover
+				redundancy.</p>
+			<p>Without redundancy, the loss of any of the region's data stores causes the loss of
+				some of the region's cached data. Generally, you should not use redundancy when your
+				applications can directly read from another data source, or when write performance
+				is more important than read performance. </p>
 		</section>
 		<section id="section_7045530D601F4C65A062B5FDD0DD9206">
 			<title>Controlling Where Your Primaries and Secondaries Reside</title>
