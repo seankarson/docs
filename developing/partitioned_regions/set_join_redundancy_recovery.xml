@@ -47,6 +47,12 @@
 				first member started for most or all of the redundancy recovery. </p>
 			<note>Satisfying redundancy is not the same as adding capacity. If redundancy is
 				satisfied, new members do not take buckets until you invoke a rebalance. </note>
+			<note>With parallel recovery introduced in version 8.2, redundancy may be recovered more
+				quickly than in previous versions . For this reason, it is even more important to
+				configure <codeph>startup-recovery-delay</codeph> to an appropriate value if you
+				intend to restart multiple members at once. Set
+					<codeph>startup-recovery-delay</codeph> to a value that ensures all members are
+				up and available <i>before</i> redundancy recovery kicks in.</note>
 			<p>Set join redundancy recovery using one of the following: <ul
 					id="ul_99946990FBF64302AC438A99274235E2">
 					<li id="li_402B014E5B3D4D0A8480CBB97BB18466">XML:

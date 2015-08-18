@@ -49,9 +49,9 @@
 				</substeps>
 			</step>
 			<step>
-				<cmd>Decide how many buckets that <keyword keyref="product_name"/> should attempt to
-					recover in parallel when performing redundancy recovery. By default, the system
-					recovers up to 8 buckets in parallel. Use the
+				<cmd>Decide how many buckets <keyword keyref="product_name"/> should attempt to recover in
+					parallel when performing redundancy recovery. By default, the system recovers up
+					to 8 buckets in parallel. Use the
 						<codeph>gemfire.MAX_PARALLEL_BUCKET_RECOVERIES</codeph> system property to
 					increase or decrease the maximum number of buckets to recover in parallel any
 					time redundancy recovery is performed.</cmd>
