@@ -272,11 +272,11 @@ SELECT DISTINCT * FROM /exampleRegion, positions.values positions TYPE Position 
 			<title>Which APIs should I use to write my queries?</title>
 			<p> If you are querying a Java application’s local cache or querying other members, use
 					<xref
-					href="http://gemfire.docs.pivotal.io/javadocs/japi/com/gemstone/gemfire/cache/query/QueryService.html"
+					href="http://gemfire.docs.pivotal.io/latest/javadocs/japi/com/gemstone/gemfire/cache/query/QueryService.html"
 					scope="external" format="html"
 					>com.gemstone.gemfire.cache.Cache.getQueryService</xref>. </p>
 			<p>If you are writing a Java client to server query, use <xref
-					href="http://gemfire.docs.pivotal.io/javadocs/japi/com/gemstone/gemfire/cache/client/Pool.html"
+					href="http://gemfire.docs.pivotal.io/latest/javadocs/japi/com/gemstone/gemfire/cache/client/Pool.html"
 					scope="external" format="html"
 					>com.gemstone.gemfire.cache.client.Pool.getQueryService</xref>. </p>
 			<p>If you are writing a native client to server query, use the <xref
@@ -355,7 +355,7 @@ SelectResults results = (SelectResults)query.execute(params);
  qs.createKeyIndex("myKeyIndex", "id", "exampleRegion");
 </codeblock>For
 				more information on using this API, see the <xref
-					href="http://gemfire.docs.pivotal.io/javadocs/japi/index.html" scope="external"
+					href="http://gemfire.docs.pivotal.io/latest/javadocs/japi/index.html" scope="external"
 					format="html">GemFire JavaDocs</xref>. </p>
 			<p><b>Sample XML</b>
 				<codeblock>&lt;region name="portfolios"&gt;
