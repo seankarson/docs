@@ -25,30 +25,27 @@
 						keyref="product_name_long"/> processes, data, and applications. See <xref
 						href="../tools_modules/gfsh/chapter_overview.xml"
 					/>. </p>
-				<p>The <i>locator</i> is a <keyword keyref="product_name_long"/> process that tells
-					new, connecting members where running members are located and provides load
-					balancing for server use. A locator, by default, starts up a JMX Manager, which
-					s used for monitoring and managing of a <keyword keyref="product_name"/>
-					cluster. The cluster configuration service uses locators to persist and
-					distribute cluster configurations to cluster members. See <xref
-						href="../configuring/running/running_the_locator.xml"/>
-					and <xref
-						href="../configuring/cluster_config/gfsh_persist.xml"
-					/>.</p>
+				<p>The <i>locator</i> is a <keyword keyref="product_name_long"/> process that tells new,
+					connecting members where running members are located and provides load balancing
+					for server use. A locator, by default, starts up a JMX Manager, which is used
+					for monitoring and managing of a <keyword keyref="product_name"/> cluster. The
+					cluster configuration service uses locators to persist and distribute cluster
+					configurations to cluster members. See <xref
+						href="../configuring/running/running_the_locator.xml"/> and <xref
+						href="../configuring/cluster_config/gfsh_persist.xml"/>.</p>
 				<ol id="ol_E7093B61F4644E598DB4FF12FCBFC939">
 					<li id="li_9E7D31E90C89499D9C8A89A4878B4C45">Create a scratch working directory
 						(for example, <codeph>my_gemfire</codeph>) and change directories into it.
 							<codeph>gfsh</codeph> saves locator and server working directories and
 						log files in this location. </li>
-					<li id="li_D0F19947D83145E59172AFB4B59C89B4">Start gfsh by typing
-							<codeph>gfsh</codeph> at the command line (or <codeph>gfsh.bat</codeph>
-						if you are using Windows).
+					<li id="li_D0F19947D83145E59172AFB4B59C89B4">Start gfsh by typing <codeph>gfsh</codeph> at the
+						command line (or <codeph>gfsh.bat</codeph> if you are using Windows).
 						<codeblock>
     _________________________     __
    / _____/ ______/ ______/ /____/ /
   / /  __/ /___  /_____  / _____  /
  / /__/ / ____/  _____/ / /    / /
-/______/_/      /______/_/    /_/    v8.1.0
+/______/_/      /______/_/    /_/    v8.2.0
 
 Monitor and Manage GemFire
 gfsh&gt;</codeblock>
