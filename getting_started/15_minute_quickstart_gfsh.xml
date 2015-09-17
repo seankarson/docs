@@ -50,22 +50,21 @@
 Monitor and Manage GemFire
 gfsh&gt;</codeblock>
 					</li>
-					<li id="li_94D3B7900CBA4F9FA8066C99E636C9C2"> At the <codeph>gfsh</codeph>
-						prompt, type:
+					<li id="li_94D3B7900CBA4F9FA8066C99E636C9C2"> At the <codeph>gfsh</codeph> prompt, type:
 						<codeblock>gfsh>start locator --name=locator1
 Starting a GemFire Locator in /home/username/my_gemfire/locator1...
 .................................
 Locator in /home/username/my_gemfire/locator1 on ubuntu.local[10334] as locator1 is currently online.
 Process ID: 3529
 Uptime: 18 seconds
-GemFire Version: 8.1.0
+GemFire Version: 8.2.0
 Java Version: 1.7.0_72
 Log File: /home/username/my_gemfire/locator1/locator1.log
 JVM Arguments: -Dgemfire.enable-cluster-configuration=true -Dgemfire.load-cluster-configuration-from-dir=false 
 -Dgemfire.launcher.registerSignalHandlers=true -Djava.awt.headless=true 
 -Dsun.rmi.dgc.server.gcInterval=9223372036854775806
-Class-Path: /home/username/Pivotal_GemFire_810_b50480_Linux/lib/gemfire.jar:
-/home/username/Pivotal_GemFire_810_b50480_Linux/lib/locator-dependencies.jar
+Class-Path: /home/username/Pivotal_GemFire_820_b17919_Linux/lib/gemfire.jar:
+/home/username/Pivotal_GemFire_820_b17919_Linux/lib/locator-dependencies.jar
 
 Successfully connected to: [host=ubuntu.local, port=1099]
 
@@ -368,14 +367,14 @@ entially stale data. It is waiting for another member to recover the latest data
   Use the "gemfire list-missing-disk-stores" command to see all disk stores that 
 are being waited on by other members.
 </codeblock></li>
-					<li>In a second terminal window, change directories to the scratch working
-						directory (for example, <codeph>my_gemfire</codeph>) and start
+					<li>In a second terminal window, change directories to the scratch working directory (for
+						example, <codeph>my_gemfire</codeph>) and start
 						gfsh:<codeblock>[username@localhost ~/my_gemfire]$ gfsh
     _________________________     __
    / _____/ ______/ ______/ /____/ /
   / /  __/ /___  /_____  / _____  / 
  / /__/ / ____/  _____/ / /    / /  
-/______/_/      /______/_/    /_/    v8.1.0
+/______/_/      /______/_/    /_/    v8.2.0
 
 Monitor and Manage GemFire
 </codeblock></li>
@@ -386,20 +385,18 @@ Connecting to Manager at [host=ubuntu.local, port=1099] ..
 Successfully connected to: [host=ubuntu.local, port=1099]
 </codeblock></li>
 					<li>Start
-							server2:<codeblock>gfsh>start server --name=server2 --server-port=40412</codeblock><p>When
-							server2 starts, note that <b>server1 completes its start up</b> in the
-							first gfsh
+							server2:<codeblock>gfsh>start server --name=server2 --server-port=40412</codeblock><p>When server2 starts, note that <b>server1 completes its start up</b> in the first gfsh
 							window:<codeblock>Server in /home/username/my_gemfire/server1 on ubuntu.local[40411] as server1 is currently online.
 Process ID: 3402
 Uptime: 1 minute 46 seconds
-GemFire Version: 8.1.0
+GemFire Version: 8.2.0
 Java Version: 1.7.0_72
 Log File: /home/username/my_gemfire/server1/server1.log
 JVM Arguments: -Dgemfire.default.locators=192.168.129.145[10334] -Dgemfire.use-cluster-configuration=true 
 -XX:OnOutOfMemoryError=kill -KILL %p -Dgemfire.launcher.registerSignalHandlers=true 
 -Djava.awt.headless=true -Dsun.rmi.dgc.server.gcInterval=9223372036854775806
-Class-Path: /home/username/Pivotal_GemFire_810_b50582_Linux/lib/gemfire.jar:
-/home/username/Pivotal_GemFire_810_b50582_Linux/lib/server-dependencies.jar
+Class-Path: /home/username/Pivotal_GemFire_820_b17919_Linux/lib/gemfire.jar:
+/home/username/Pivotal_GemFire_820_b17919_Linux/lib/server-dependencies.jar
 </codeblock></p></li>
 					<li>Verify that the locator and two servers are
 						running:<codeblock>gfsh>list members
@@ -429,9 +426,9 @@ NEXT_STEP_NAME : END
 </codeblock></li>
 					<li>Stop server2 with the following
 						command:<codeblock>gfsh>stop server --dir=server2
-Stopping Cache Server running in /home/username/gf80/jul11/test11/server2 on 172.16.196.144[40412] as server2...
-Process ID: 12404
-Log File: /home/username/gf80/jul11/test11/server2/server2.log
+Stopping Cache Server running in /home/username/my_gemfire/server2 on 192.168.129.145[40412] as server2...
+Process ID: 3992
+Log File: /home/username/my_gemfire/server2/server2.log
 ....
 </codeblock>
 					</li>
