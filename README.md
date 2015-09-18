@@ -1,5 +1,7 @@
 # Project Geode End-User Documentation
 
+The latest check-ins to `project-geode/docs` are automatically built and published to [http://geode-docs.cfapps.io](http://geode-docs.cfapps.io).
+
 Project Geode provides the full source for end-user documentation in DITA XML format. The DITA XML can be built into HTML or PDF output using [Bookbinder](https://github.com/cloudfoundry-incubator/bookbinder).  
 
 Bookbinder is a gem that binds together a unified documentation web application from markdown, html, and/or DITA source material. The source material for bookbinder must be stored either in local directories or in GitHub repositories. Bookbinder runs [middleman](http://middlemanapp.com/) to produce a Rackup app that can be deployed locally or as a Web application.
