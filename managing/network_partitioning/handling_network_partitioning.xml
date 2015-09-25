@@ -79,14 +79,10 @@ This can lead to cache inconsistencies if there is a network failure.</codeblock
 									<codeph>gemfire.member-weight</codeph> upon startup. For
 								example, if you have some VMs that host a needed service, you could
 								assign them a higher weight upon startup. </li>
-							<li>By default, members that are forced out of the distributed system by
-								a network partition event will automatically restart and attempt to
-								reconnect. Data members will attempt to reinitialize the cache. See
-									<xref
-									href="../autoreconnect/member-reconnect.xml"
-								/>. You can modify the number of times that a member will try to
-								reconnect by specifying the <codeph>max-num-reconnect-tries</codeph>
-								property.</li>
+							<li>By default, members that are forced out of the distributed system by a network partition
+								event will automatically restart and attempt to reconnect. Data
+								members will attempt to reinitialize the cache. See <xref
+									href="../autoreconnect/member-reconnect.xml"/>. </li>
 						</ul>
 					</li>
 				</ol>
