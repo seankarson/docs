@@ -56,11 +56,12 @@
 		</section>
 		<section id="section_126A24EC499D4CF39AE766A0B526A9A5">
 			<title>Isolation</title>
-			<p><keyword keyref="product_name"/> isolates transactions at the process thread level.
-				So while a transaction is in progress, its changes are only visible inside the
+			<p><keyword keyref="product_name"/> isolates transactions at the process thread level, so 
+				while a transaction is in progress, its changes are visible only inside the
 				thread that is running the transaction. Threads inside the same process and in other
-				processes do not see the changes until after the commit finishes. Relational
-				database transactions often isolate changes per JDBC connection. </p>
+				processes cannot see changes until after the commit operation begins. At this point  
+				the changes are visible in the cache, but other threads that access the 
+				changing data might see only partial results of the transaction.</p>
 			<p><keyword keyref="product_name"/> reads, like get and getEntry, are volatile, meaning
 				they do not use locks. This makes reads very fast with respect to other entry
 				operations. It also allows transactional writes to proceed without being slowed down
