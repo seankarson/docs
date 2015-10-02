@@ -31,9 +31,6 @@
 				/>.</p>
 			<p>Note that when a locator is in the reconnecting state, it provides no discovery
 				services for the distributed system. </p>
-			<note>Autoreconnection is supported by members that you start with the
-					<codeph>gfsh</codeph> utility, the <codeph>ServerLauncher</codeph> or
-					<codeph>LocatorLauncher</codeph> interface. </note>
 			<p>After the cache has reconnected, applications must fetch a reference to the new
 				Cache, Regions, DistributedSystem and other artifacts. Old references will continue
 				to throw cancellation exceptions like
