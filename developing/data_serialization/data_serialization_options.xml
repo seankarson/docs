@@ -24,12 +24,6 @@
 						arguments and results</li>
 				</ul>
 			</p>
-			<p>
-				<note>If you are storing objects with the <xref
-						href="../../tools_modules/http_session_mgmt/chapter_overview.xml"
-						>HTTP Session Management Modules</xref>, these objects must be serializable
-					since they are serialized before being stored in the region.</note>
-			</p>
 			<p>To minimize the cost of serialization and deserialization, <keyword
 					keyref="product_name"/> avoids changing the data format whenever possible. This
 				means your data might be stored in the cache in serialized or deserialized form,
