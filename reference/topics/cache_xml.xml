@@ -159,8 +159,7 @@
 				including aborting the transaction. </p>
 			<p>Specify the Java class and its initialization parameters with the
 					<codeph>&lt;class-name&gt;</codeph> and <codeph>&lt;parameter&gt;</codeph>
-				sub-elements. See <xref format="dita" href="cache_xml.xml#class-name_parameter"
-					scope="local" type="topic"><?xm-replace_text and ?></xref>. </p>
+				sub-elements. See <xref href="#class-name_parameter" format="dita"/>. </p>
 		</body>
 	</topic>
 	<topic id="dynamic-region-factory">
@@ -386,8 +385,7 @@
 				synchronize region updates with a database. </p>
 			<p>Specify the Java class and its initialization parameters with the
 					<codeph>&lt;class-name&gt;</codeph> and <codeph>&lt;parameter&gt;</codeph>
-				sub-elements. See <xref format="dita" href="cache_xml.xml#class-name_parameter"
-					scope="local" type="topic"/>. </p>
+				sub-elements. See <xref href="#class-name_parameter" format="dita"/>. </p>
 			<p>
 				<b>API: </b>
 				<codeph>com.gemstone.gemfire.cache.asyncqueue.AsyncEventListener</codeph>
@@ -631,8 +629,7 @@
 				the server locators. </p>
 			<p>Specify the Java class and its initialization parameters with the
 					<codeph>&lt;class-name&gt;</codeph> and <codeph>&lt;parameter&gt;</codeph>
-				sub-elements. See <xref format="dita" href="cache_xml.xml#class-name_parameter"
-					scope="local" type="topic"/>. </p>
+				sub-elements. See <xref href="#class-name_parameter" format="dita"/>. </p>
 			<p><b>Default:</b> If this is not defined, the default <keyword keyref="product_name"/>
 				load probe is used.</p>
 			<p>
@@ -1217,8 +1214,7 @@
 				member. </p>
 			<p>Specify the Java class and its initialization parameters with the
 					<codeph>&lt;class-name&gt;</codeph> and <codeph>&lt;parameter&gt;</codeph>
-				sub-elements. See <xref format="dita" href="cache_xml.xml#class-name_parameter"
-					scope="local" type="topic"/>. </p>
+				sub-elements. See <xref href="#class-name_parameter" format="dita"/>. </p>
 			<p>
 				<b>Default: </b>
 			</p>
@@ -1898,12 +1894,10 @@
 						<row>
 							<entry>concurrency-checks-enabled </entry>
 							<entry>
-								<p>Determines whether members perform checks to provide consistent
-									handling for concurrent or out-of-order updates to distributed
-									regions. See <xref format="dita"
+								<p>Determines whether members perform checks to provide consistent handling for concurrent
+									or out-of-order updates to distributed regions. See <xref
+										format="dita"
 										href="../../developing/distributed_regions/region_entry_versions.xml#topic_CF2798D3E12647F182C2CEC4A46E2045"
-										scope="local" type="topic"/> and <xref format="dita"
-										href="../../developing/distributed_regions/how_region_versioning_works.xml#topic_0BDACA590B2C4974AC9C450397FE70B2"
 										scope="local" type="topic"/>. <note>Applications that use a
 											<codeph>client-cache</codeph> may want to disable
 										concurrency checking in order to see all events for a
@@ -2128,8 +2122,7 @@
 					scope="local" type="concept"/> for an example. </p>
 			<p>Specify the Java class and its initialization parameters with the
 					<codeph>&lt;class-name&gt;</codeph> and <codeph>&lt;parameter&gt;</codeph>
-				sub-elements. See <xref format="dita" href="cache_xml.xml#class-name_parameter"
-					scope="local" type="topic"/>. </p>
+				sub-elements. See <xref href="#class-name_parameter" format="dita"/>. </p>
 			<p><b>API:
 					</b><codeph>com.gemstone.gemfire.cache.RegionFactory.setCustomEntryIdleTimeout</codeph>,
 					<codeph>setCustomeEntryTimeToLive</codeph>
@@ -2150,8 +2143,7 @@
 </codeblock>
 			<p>Specify the Java class and its initialization parameters with the
 					<codeph>&lt;class-name&gt;</codeph> and <codeph>&lt;parameter&gt;</codeph>
-				sub-elements. See <xref format="dita" href="cache_xml.xml#class-name_parameter"
-					scope="local" type="topic"/>. </p>
+				sub-elements. See <xref href="#class-name_parameter" format="dita"/>. </p>
 		</body>
 	</topic>
 	<topic id="region-idle-time">
@@ -2430,8 +2422,7 @@
 			</p>
 			<p>Specify the Java class and its initialization parameters with the
 					<codeph>&lt;class-name&gt;</codeph> and <codeph>&lt;parameter&gt;</codeph>
-				sub-elements. See <xref format="dita" href="cache_xml.xml#class-name_parameter"
-					scope="local" type="topic"><?xm-replace_text and ?></xref>. </p>
+				sub-elements. See <xref href="#class-name_parameter" format="dita"/>. </p>
 			<table id="table_7644DF062B5A4B04AFA806F87FB0912A">
 				<title>Attributes</title>
 				<tgroup cols="3">
@@ -2476,8 +2467,7 @@
 			<p>Defines a custom PartitionListener for a partitioned region. </p>
 			<p>Specify the Java class and its initialization parameters with the
 					<codeph>&lt;class-name&gt;</codeph> and <codeph>&lt;parameter&gt;</codeph>
-				sub-elements. See <xref format="dita" href="cache_xml.xml#class-name_parameter"
-					scope="local" type="topic"><?xm-replace_text and ?></xref>. </p>
+				sub-elements. See <xref href="#class-name_parameter" format="dita"/>. </p>
 			<p>
 				<b>API: </b>
 				<codeph>com.gemstone.gemfire.cache.PartitionAttributesFactory.PartitionListener</codeph>
@@ -2837,10 +2827,9 @@
 				subscription attributes, a cache listener may receive only events that originate in
 				the local cache, or it may receive those events along with events that originate
 				remotely. </p>
-			<p>Specify the Java class for the cache listener and its initialization parameters with
-				the <codeph>&lt;class-name&gt;</codeph> and <codeph>&lt;parameter&gt;</codeph>
-				sub-elements. See <xref format="dita" href="cache_xml.xml#class-name_parameter"
-					scope="local" type="topic"/>. </p>
+			<p>Specify the Java class for the cache listener and its initialization parameters with the
+					<codeph>&lt;class-name&gt;</codeph> and <codeph>&lt;parameter&gt;</codeph>
+				sub-elements. See <xref href="#class-name_parameter" format="dita"/>. </p>
 			<p>
 				<b>API: </b>
 				<codeph>com.gemstone.gemfire.cache.RegionFactory.addCacheListener</codeph>
@@ -2964,8 +2953,7 @@
 				implements the ObjectSizer interface to measure the size of objects in the Region. </p>
 			<p>Specify the Java class and its initialization parameters with the
 					<codeph>&lt;class-name&gt;</codeph> and <codeph>&lt;parameter&gt;</codeph>
-				sub-elements. See <xref format="dita" href="cache_xml.xml#class-name_parameter"
-					scope="local" type="topic"><?xm-replace_text and ?></xref>. </p>
+				sub-elements. See <xref href="#class-name_parameter" format="dita"/>. </p>
 			<table id="table_BE5E06D0A882475986AD06D396A6C9D5">
 				<title>Attributes</title>
 				<tgroup cols="3">
@@ -3016,8 +3004,7 @@
 				ObjectSizer interface to measure the size of objects in the Region. </p>
 			<p>Specify the Java class and its initialization parameters with the
 					<codeph>&lt;class-name&gt;</codeph> and <codeph>&lt;parameter&gt;</codeph>
-				sub-elements. See <xref format="dita" href="cache_xml.xml#class-name_parameter"
-					scope="local" type="topic"><?xm-replace_text and ?></xref>. </p>
+				sub-elements. See <xref href="#class-name_parameter" format="dita"/>. </p>
 			<table id="table_FF23FEF0F5884955B7AA55370790F357">
 				<title>Attributes</title>
 				<tgroup cols="3">
@@ -3724,8 +3711,7 @@
 			<p>Defines a function for registration in the function service </p>
 			<p>Specify the Java class for the function and its initialization parameters with the
 					<codeph>&lt;class-name&gt;</codeph> and <codeph>&lt;parameter&gt;</codeph>
-				sub-elements. See <xref format="dita" href="cache_xml.xml#class-name_parameter"
-					scope="local" type="topic"/>. </p>
+				sub-elements. See <xref href="#class-name_parameter" format="dita"/>. </p>
 			<p>
 				<b>Default: </b>
 			</p>
@@ -3920,8 +3906,7 @@
 				client caches. </p>
 			<p>Specify the Java class and its initialization parameters with the
 					<codeph>&lt;class-name&gt;</codeph> and <codeph>&lt;parameter&gt;</codeph>
-				sub-elements. See <xref format="dita" href="cache_xml.xml#class-name_parameter"
-					scope="local" type="topic"/>. </p>
+				sub-elements. See <xref href="#class-name_parameter" format="dita"/>. </p>
 			<p>
 				<b>Default: </b>
 			</p>
@@ -3985,8 +3970,7 @@
 			<p>Specifies a Declarable object to be placed in a Region entry. </p>
 			<p>Specify the Java class and its initialization parameters with the
 					<codeph>&lt;class-name&gt;</codeph> and <codeph>&lt;parameter&gt;</codeph>
-				sub-elements. See <xref format="dita" href="cache_xml.xml#class-name_parameter"
-					scope="local" type="topic"/>. </p>
+				sub-elements. See <xref href="#class-name_parameter" format="dita"/>. </p>
 			<p>
 				<b>API: </b>
 				<codeph>Declarable</codeph>

@@ -16,14 +16,13 @@
 				<codeph>gfsh</codeph> prompt :
 			<codeblock>gfsh&gt; deploy --jar=group1_functions.jar</codeblock>This command deploys
 			the <codeph>group1_functions.jar</codeph> file to all members in the distributed system. </p>
-		<p>To deploy the JAR file to a subset of members, use the <codeph>--group</codeph> argument.
-			For example:
+		<p>To deploy the JAR file to a subset of members, use the <codeph>--group</codeph> argument. For
+			example:
 			<codeblock>gfsh&gt; deploy --jar=group1_functions.jar --group=MemberGroup1</codeblock>In
 			the example it is assumed that you have already defined the member group that you want
-			to use when starting up your members. See <xref format="dita"
-				href="using_member_groups.xml"
-				scope="local" type="concept"/> for more information on how to define member groups
-			and add a member to a group. </p>
+			to use when starting up your members. See <xref
+				href="../chapter_overview.xml#concept_lrh_gyq_s4"/> for more information on how to
+			define member groups and add a member to a group. </p>
 		<p>To deploy all the JAR files that are located in a specific directory to all members:
 			<codeblock>gfsh&gt; deploy --dir=libs/group1-libs</codeblock>You can either provide a
 			JAR file name or a directory of JARs for deployment, but you cannot specify both at
