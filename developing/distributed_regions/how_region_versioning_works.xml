@@ -43,9 +43,9 @@
 					</ul>
 				</p>
 				<p><xref
-						href="how_region_versioning_works.xml#topic_C5B74CCDD909403C815639339AA03758"
+						href="#topic_C5B74CCDD909403C815639339AA03758"
 						type="topic" format="dita" scope="local"/> and <xref
-						href="how_region_versioning_works.xml#topic_321B05044B6641FCAEFABBF5066BD399"
+						href="#topic_321B05044B6641FCAEFABBF5066BD399"
 						type="topic" format="dita" scope="local"/> provide more details about how
 						<keyword keyref="product_name"/> performs conflict checking when applying an
 					update. </p>
@@ -58,7 +58,7 @@
 					that is not present in the region, it first passes that operation to a member
 					that hosts a replicate. The member that hosts the replica generates and provides
 					the version information necessary for subsequent conflict checking. See <xref
-						href="how_region_versioning_works.xml#topic_C5B74CCDD909403C815639339AA03758"
+						href="#topic_C5B74CCDD909403C815639339AA03758"
 						type="topic" format="dita" scope="local"/>. </p>
 				<p>Client caches also perform consistency checking in the same way when they receive
 					an update for a region entry. However, all region operations that originate in
@@ -102,7 +102,7 @@
 				an entry is destroyed, the member temporarily retains the entry with its current
 				version stamp to detect possible conflicts with operations that have occurred. The
 				retained entry is referred to as a tombstone.) See <xref
-					href="how_region_versioning_works.xml#topic_321B05044B6641FCAEFABBF5066BD399"
+					href="#topic_321B05044B6641FCAEFABBF5066BD399"
 					type="topic" format="dita" scope="local"/>. </p>
 			<p>If you cannot support the additional overhead in your deployment, you can disable
 				consistency checks by setting <codeph>concurrency-checks-enabled</codeph> to "false"
