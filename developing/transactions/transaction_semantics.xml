@@ -44,7 +44,7 @@
 				or its post-transaction state, but not the transitional state that occurs while a
 				transaction is in progress. As a distributed cache-based system optimized for
 				performance, <keyword keyref="product_name"/> in its default configuration does not
-				enforce isolation . It allows transactional writes to proceed without being slowed
+				enforce isolation. It allows transactional writes to proceed without being slowed
 				down by in-progress reads.</p>
 			<p>Applications can emulate the slow conventional isolation model by doing the extra
 					work of encapsulating their read operations within transactions. The application
