@@ -8,7 +8,7 @@
     that field. </shortdesc>
   <body>
     <p>For example, you could create a map index to support the following
-      query:<codeblock>SELECT * fROM /users u WHERE u.name['first'] = ‘John’ OR u.name['last'] = ‘Smith’</codeblock></p>
+      query:<codeblock>SELECT * fROM /users u WHERE u.name['first'] = ‘John’ OR u.name['last'] = 'Smith'</codeblock></p>
     <p>The map index extends regular range indexes created on single key by maintaining indexes for
       other specified keys, or for all keys if <codeph>*</codeph> is used. The underlying structure
       of the map index can be thought of as a wrapper around all these indexes.</p>

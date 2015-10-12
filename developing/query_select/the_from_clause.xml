@@ -115,7 +115,7 @@
 				expressions. </p>
 			<p>
 				<b>Examples:</b>
-				<codeblock>SELECT DISTINCT * FROM /exampleRegion <b>p</b> WHERE <b>p</b>.status = ‘active’</codeblock>
+				<codeblock>SELECT DISTINCT * FROM /exampleRegion <b>p</b> WHERE <b>p</b>.status = 'active'</codeblock>
 			</p>
 			<p>
 				<codeblock>SELECT * FROM /exampleRegion p, p.positions.values <b>AS</b> pos WHERE pos.secId != '1'</codeblock>

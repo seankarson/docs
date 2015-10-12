@@ -3,20 +3,20 @@
 <concept id="gemfire_data_serialization">
 	<title><keyword keyref="product_name"/> Data Serialization (DataSerializable and
 		DataSerializer)</title>
-	<shortdesc id="shortdesc_A3EC53CFF24841029C5516F42DB2D155"><keyword keyref="product_name"/> 's
+	<shortdesc id="shortdesc_A3EC53CFF24841029C5516F42DB2D155"><keyword keyref="product_name"/>'s
 			<codeph>DataSerializable</codeph> interface gives you quick serialization of your
 		objects. </shortdesc>
 	<conbody>
 		<section id="section_0C84D6BF5E9748CB865E6BB944A077DE">
 			<title>Data Serialization with the DataSerializable Interface</title>
-			<p><keyword keyref="product_name"/> 's <codeph>DataSerializable</codeph> interface gives
-				you faster and more compact data serialization than the standard Java serialization
-				or <keyword keyref="product_name"/> PDX serialization. However, while <keyword
+			<p><keyword keyref="product_name"/>'s <codeph>DataSerializable</codeph> interface gives you
+				faster and more compact data serialization than the standard Java serialization or
+					<keyword keyref="product_name"/> PDX serialization. However, while <keyword
 					keyref="product_name"/>
 				<codeph>DataSerializable</codeph> interface is generally more performant than
-					<keyword keyref="product_name"/> 's <codeph>PdxSerializable</codeph>, it
-				requires full deserialization on the server and then reserialization to send the
-				data back to the client. </p>
+					<keyword keyref="product_name"/>'s <codeph>PdxSerializable</codeph>, it requires
+				full deserialization on the server and then reserialization to send the data back to
+				the client. </p>
 			<p>You can further speed serialization by registering the instantiator for your
 					<codeph>DataSerializable</codeph> class through <codeph>Instantiator</codeph>,
 				eliminating the need for reflection to find the right serializer. You can provide
