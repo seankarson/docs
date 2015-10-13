@@ -2,8 +2,8 @@
 <!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
 <concept id="concept_3B5E445B19884680900161BDF25E32C9">
 	<title>Main Features of <keyword keyref="product_name_long"/></title>
-	<shortdesc id="shortdesc_DABFF8298A6B400C8C49EFA91A20BA98">Read about <keyword
-			keyref="product_name_long"/> main features and key functionality. </shortdesc>
+	<shortdesc id="shortdesc_DABFF8298A6B400C8C49EFA91A20BA98">This section summarizes the main
+		features and key functionality of <keyword keyref="product_name_long"/>. </shortdesc>
 	<conbody>
 		<p>This section summarizes <keyword keyref="product_name_long"/> main features and describes
 			key functionality. For specific information about functionality that has been added to
@@ -100,12 +100,11 @@
 		</section>
 		<section id="section_9C5D669B583646F1B817284EB494DDA7">
 			<title>Low and Predictable Latency</title>
-			<p><keyword keyref="product_name"/> 's optimized caching layer minimizes context
-				switches between threads and processes. It manages data in highly concurrent
-				structures to minimize contention points. Communication to peer members is
-				synchronous if the receivers can keep up, which keeps the latency for data
-				distribution to a minimum. Servers manage object graphs in serialized form to reduce
-				the strain on the garbage collector. </p>
+			<p><keyword keyref="product_name"/>'s optimized caching layer minimizes context switches between
+				threads and processes. It manages data in highly concurrent structures to minimize
+				contention points. Communication to peer members is synchronous if the receivers can
+				keep up, which keeps the latency for data distribution to a minimum. Servers manage
+				object graphs in serialized form to reduce the strain on the garbage collector. </p>
 			<p><keyword keyref="product_name"/> partitions subscription management (interest
 				registration and continuous queries) across server data stores, ensuring that a
 				subscription is processed only once for all interested clients. The resulting
@@ -133,14 +132,14 @@
 		</section>
 		<section id="section_CEB4ABFF83054AF6A47EA2FA09C240B1">
 			<title>Continuous Availability</title>
-			<p>In addition to guaranteed consistent copies of data in memory, applications can
-				persist data to disk on one or more <keyword keyref="product_name"/> members
-				synchronously or asynchronously, by using <keyword keyref="product_name"/> 's
-				"shared nothing disk architecture". All asynchronous events (store-forward events)
-				are redundantly managed in at least two members such that if one server fails, the
-				redundant one takes over. All clients connect to logical servers, and the client
-				fails over automatically to alternate servers in a group during failures or when
-				servers become unresponsive. </p>
+			<p>In addition to guaranteed consistent copies of data in memory, applications can persist data
+				to disk on one or more <keyword keyref="product_name"/> members synchronously or
+				asynchronously, by using <keyword keyref="product_name"/>'s "shared nothing disk
+				architecture". All asynchronous events (store-forward events) are redundantly
+				managed in at least two members such that if one server fails, the redundant one
+				takes over. All clients connect to logical servers, and the client fails over
+				automatically to alternate servers in a group during failures or when servers become
+				unresponsive. </p>
 		</section>
 		<section id="section_86D2B8CC346349F3913209AF87648A02">
 			<title>Reliable Event Notifications</title>
@@ -159,11 +158,10 @@
 		</section>
 		<section id="section_A65B5F0DE8BF4AA6AFF16E3A75D4E0AD">
 			<title>Parallelized Application Behavior on Data Stores</title>
-			<p>You can execute application business logic in parallel on the <keyword
-					keyref="product_name"/> members. <keyword keyref="product_name"/> 's data-aware
-				function execution service permits execution of arbitrary data-dependent application
-				functions on the members where the data is partitioned for locality of reference and
-				scale. </p>
+			<p>You can execute application business logic in parallel on the <keyword keyref="product_name"/>
+				members. <keyword keyref="product_name"/>'s data-aware function execution service
+				permits execution of arbitrary data-dependent application functions on the members
+				where the data is partitioned for locality of reference and scale. </p>
 			<p>By colocating the relevant data and parallelizing the calculation, you dramatically
 				increase overall throughput. More importantly, the calculation latency is inversely
 				proportional to the number of members on which it can be parallelized. </p>
