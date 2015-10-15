@@ -2,11 +2,11 @@
 <!DOCTYPE topic PUBLIC "-//OASIS//DTD DITA Topic//EN" "topic.dtd">
 <topic id="topic_cm1_wr3_rt">
   <title>Building a New Region with Existing Content</title>
+  <shortdesc>A new region or distributed system may need to be loaded <!-- populated/seeded --> with
+    the data <!-- contents/entries --> of an existing system. There are two approaches to accomplish
+    this task. The approach used depends upon the organization of both the new and the existing
+    distributed system.</shortdesc>
   <body>
-    <p>A new region or distributed system may need to be loaded <!-- populated/seeded --> with the
-      data <!-- contents/entries --> of an existing system. There are two approaches to accomplish
-      this task. The approach used depends upon the organization of both the new and the existing
-      distributed system.</p>
     <p>If both the number and the type of members is the same in both the new and the existing
       distributed system, then the simplest option is to use backup and restore on the persistent
       disk store contents. Make a full online backup of the persistent data in the disk store of the
