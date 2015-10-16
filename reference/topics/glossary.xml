@@ -472,8 +472,8 @@
 				another distributed system. See also <xref
 					href="glossary.xml#glossary/section_CC864725C0014791805D2549D87DA545"
 					type="section" format="dita" scope="local">remote</xref>. </p>
-			<p>Region with local scope: A region whose scope is set to local. This type of region
-				does not distribute anything with other member’s in the distributed system. </p>
+			<p>Region with local scope: A region whose scope is set to local. This type of region does not
+				distribute anything with other members in the distributed system. </p>
 			<p>Region shortcuts: In the RegionShortcut and settings, LOCAL means the scope is set to
 				local. All client regions have local scope. In the ClientRegionShortcut settings,
 				LOCAL means the region does not connect to the client’s servers. </p>
@@ -639,14 +639,14 @@
 		</section>
 		<section id="section_900E459B58914FBFB20480F722F4F46E">
 			<title>pull model</title>
-			<p>Data distribution model where each process receives update only for the data in which
-				the process has explicitly expressed interest. In a <keyword keyref="product_name"/>
+			<p>Data distribution model where each process receives updates only for the data in which the
+				process has explicitly expressed interest. In a <keyword keyref="product_name"/>
 				peer member, this is accomplished using a distributed, non-replicated region and
 				creating the data entries that are of interest in the local region. When updates
 				happen for the region in remote caches, the only updates that are forwarded to the
 				local cache are those for entries that are already defined in the local cache. In a
-				<keyword keyref="product_name"/> client, you get pull behavior by specifically subscribing to the entries of
-				interest. See <xref
+					<keyword keyref="product_name"/> client, you get pull behavior by specifically
+				subscribing to the entries of interest. See <xref
 					href="glossary.xml#glossary/section_B8D00D2F5F574FB4B8D082FA62384D9F"
 					type="section" format="dita" scope="local">push model</xref>. </p>
 		</section>

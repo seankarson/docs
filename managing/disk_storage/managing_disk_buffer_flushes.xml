@@ -6,13 +6,13 @@
 		you may be able to modify your operating system behavior to perform buffer flushes more
 		frequently. </shortdesc>
 	<conbody>
-		<p>Typically, <keyword keyref="product_name"/> writes disk data into the operating system's
-			disk buffers and the operating system periodically flushes the buffers to disk.
-			Increasing the frequency of writes to disk decreases the likelihood of data loss from
-			application or machine crashes, but it impacts performance. Your other option, which may
-			give you better performance, is to use <keyword keyref="product_name"/> 's in-memory
-			data backups. Do this by storing your data in multiple replicated regions or in
-			partitioned regions that are configured with redundant copies. See <xref
+		<p>Typically, <keyword keyref="product_name"/> writes disk data into the operating system's disk
+			buffers and the operating system periodically flushes the buffers to disk. Increasing
+			the frequency of writes to disk decreases the likelihood of data loss from application
+			or machine crashes, but it impacts performance. Your other option, which may give you
+			better performance, is to use <keyword keyref="product_name"/>'s in-memory data backups.
+			Do this by storing your data in multiple replicated regions or in partitioned regions
+			that are configured with redundant copies. See <xref
 				href="../../developing/region_options/region_types.xml#region_types" type="concept"
 				format="dita" scope="local"/>. </p>
 		<section id="section_448348BD28B14F478D81CC2EDC6C7049">
