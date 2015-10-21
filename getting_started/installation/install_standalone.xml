@@ -37,13 +37,13 @@
 			<title>Procedure</title>
 			<p>Use the following procedure to install <keyword keyref="product_name_long"/>: <ol
 					id="ol_E68D8EE5BC324BECA5CE23F76079C07D">
-					<li id="li_4D26A45461BC4ECF981A2F368D6001FA">Navigate to the directory where you
-						built the <keyword keyref="product_name"/> software. Locate the build
-						distribution you wish to use under
-							<codeph>gemfire-assembly/build/distributions</codeph>. Copy either the
-						.zip or .tar file to the target machine where you want to install <keyword
-							keyref="product_name"/>. Unzip the .zip file or expand the .tar file.
-							<ul id="ul_EDDCCEFFBFBC4948AD565E4ADF7F68D9">
+					<li id="li_4D26A45461BC4ECF981A2F368D6001FA">Navigate to the directory where you built the
+							<keyword keyref="product_name"/> software. Locate the build distribution
+						you wish to use under
+							<filepath>gemfire-assembly/build/distributions</filepath>. Copy either
+						the .zip or .tar file to the target machine where you want to install
+							<keyword keyref="product_name"/>. Unzip the .zip file or expand the .tar
+						file. <ul id="ul_EDDCCEFFBFBC4948AD565E4ADF7F68D9">
 							<li id="li_A339E66D6F1E4CCBABFD8FE8767FD45D"> If you are using the
 								command line, type the following command:
 								<codeblock>$ unzip gemfire-1.0.0.0-SNAPSHOT.zip -d <i>path_to_product</i></codeblock>or<codeblock>$ tar -xvf gemfire-1.0.0.0-SNAPSHOT.tar -C <i>path_to_product</i></codeblock>
@@ -78,14 +78,14 @@ export PATH</codeblock>
 								<codeblock>set PATH=%PATH%;%JAVA_HOME%\bin;%GEMFIRE%\bin 
 </codeblock></li>
 						</ul></li>
-					<li id="li_0C4D260BFBDC4C92B8A27DF0A0C277B3">The following step only applies to
-						environments where you are running <keyword keyref="product_name"/>
-						processes or <keyword keyref="product_name"/> client applications outside of
-						gfsh. The gfsh (as well as the deprecated cacheserver) script sets these
-						environment variable for you. If you are running <keyword
-							keyref="product_name"/> processes or applications outside of gfsh, then
-						configure the following environment variables for <keyword
-							keyref="product_name"/>. <ul id="ul_842074AB6B184702A17667831288C0F4">
+					<li id="li_0C4D260BFBDC4C92B8A27DF0A0C277B3">The following step only applies to environments
+						where you are running <keyword keyref="product_name"/> processes or <keyword
+							keyref="product_name"/> client applications outside of gfsh. The gfsh
+						(as well as the deprecated cacheserver) script sets these environment
+						variables for you. If you are running <keyword keyref="product_name"/>
+						processes or applications outside of gfsh, then configure the following
+						environment variables for <keyword keyref="product_name"/>. <ul
+							id="ul_842074AB6B184702A17667831288C0F4">
 							<li id="li_ABB4F057AA744A298CBD9B9D5AAA5098">Set the GEMFIRE environment
 								variable to point to your <keyword keyref="product_name"/>
 								installation top-level directory. (You should see
@@ -124,10 +124,10 @@ set GF_JAVA=%JAVA_HOME%\bin\java.exe
 							</li>
 						</ul>
 					</li>
-					<li>Type <codeph>gfsh version</codeph> at the command line and verify that the
-						output lists the version of <keyword keyref="product_name"/> that you wished
-						to install. For example:<codeblock># gfsh
-v8.1.0</codeblock>If you want more
+					<li>Type <codeph>gfsh version</codeph> at the command line and verify that the output lists the
+						version of <keyword keyref="product_name"/> that you wished to install. For
+						example:<codeblock># gfsh version
+v8.2.0</codeblock>If you want more
 						detailed version information such as the date of the build, build number and
 						JDK version being used, type <codeph>gfsh version --full</codeph>.</li>
 					<li id="li_B157DAF7F75E4269AC5C903502B0F18D">Repeat this procedure for every
