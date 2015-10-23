@@ -76,7 +76,8 @@
 						<codeph>getRoutingObject</codeph> method to return the routing object for
 					each entry, based on how you want to group the entries. Give the same routing
 					object to entries you want to group together. <keyword keyref="product_name"/>
-					will place the entries in the same bucket. <p>For example, here is an
+					will place the entries in the same bucket. <p><note>Only fields on the key should be used when creating the routing object. 
+						Do not use the value or additional metadata for this purpose.</note></p><p>For example, here is an
 						implementation on a region key object that groups the entries by month and
 						year: </p>
 					<codeblock outputclass="language-java">Public class TradeKey implements PartitionResolver 

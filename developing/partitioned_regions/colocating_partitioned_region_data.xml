@@ -11,9 +11,11 @@
 	<conbody>
 		<section id="section_131EC040055E48A6B35E981B5C845A65">
 			<note>If you are co-locating data between regions and custom partitioning the data in
-				the regions, all co-located regions must use the same custom partitioning mechanism.
-				See <xref href="using_custom_partition_resolvers.xml"
-					type="concept" format="dita" scope="local"/>. </note>
+				the regions, all co-located regions must use partitioning mechanisms that return the
+				same routing object. The most common approach, though not the only one, is for all
+				co-located regions to use the same custom PartitionResolver. See <xref
+					href="using_custom_partition_resolvers.xml" type="concept" format="dita"
+					scope="local"/>. </note>
 			<p>Data co-location between partitioned regions generally improves the performance of
 				data-intensive operations. You can reduce network hops for iterative operations on
 				related data sets. Compute-heavy applications that are data-intensive can
