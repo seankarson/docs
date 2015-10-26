@@ -40,7 +40,7 @@
 						regions</b>. Join queries between partitioned region and between partitioned
 					regions and replicated regions are supported through the function service. In
 					order to perform equi-join operations on partitioned regions or partitioned
-					regions and replicated regions, the partitioned regions must be co-located, and
+					regions and replicated regions, the partitioned regions must be colocated, and
 					you need to use the need to use <codeph>Query.execute(RegionFunctionContext
 						context)</codeph>. See the <xref
 						href="http://gemfire.docs.pivotal.io/latest/javadocs/japi/com/gemstone/gemfire/cache/query/Query.html"

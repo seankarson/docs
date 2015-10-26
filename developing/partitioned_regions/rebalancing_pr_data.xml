@@ -68,8 +68,8 @@ System.out.println(" and create " + results.getTotalBucketCreatesCompleted() + "
 			<title>How Partitioned Region Rebalancing Works</title>
 			<p>The rebalancing operation runs asynchronously. </p>
 			<p>By default, rebalancing is performed on one partitioned region at a time. For regions that
-				have co-located data, the rebalancing works on the regions as a group, maintaining
-				the data co-location between the regions. </p>
+				have colocated data, the rebalancing works on the regions as a group, maintaining
+				the data colocation between the regions. </p>
 			<p>You can optionally rebalance multiple regions in parallel by setting the
 					<codeph>gemfire.resource.manager.threads</codeph> system property. Setting this
 				property to a value greater than 1 enables <keyword keyref="product_name"/> to
@@ -110,7 +110,7 @@ System.out.println(" and create " + results.getTotalBucketCreatesCompleted() + "
 					<li id="li_1B3ABCDAA5B341D4B4ADC2C6F19738D9">You have uneven hashing of data.
 						Uneven hashing can occur if your keys do not have a hash code method, which
 						ensures uniform distribution, or if you use a
-							<codeph>PartitionResolver</codeph> to collocate your partitioned region
+							<codeph>PartitionResolver</codeph> to colocate your partitioned region
 						data (see <xref
 							href="colocating_partitioned_region_data.xml#colocating_partitioned_region_data"
 							format="dita" scope="local"/>). In either case, some buckets may receive

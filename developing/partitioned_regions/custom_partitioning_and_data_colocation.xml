@@ -56,27 +56,27 @@
 			</ul>
 		</section>
 		<section id="section_D2C66951FE38426F9C05050D2B9028D8">
-			<title>Data Co-location Between Regions</title>
-			<p>With data co-location, <keyword keyref="product_name"/> stores entries that are
+			<title>Data Colocation Between Regions</title>
+			<p>With data colocation, <keyword keyref="product_name"/> stores entries that are
 				related across multiple data regions in a single member. <keyword
 					keyref="product_name"/> does this by storing all of the regions' buckets with
 				the same ID together in the same member. During rebalancing operations, <keyword
 					keyref="product_name"/> moves these bucket groups together or not at all. </p>
 			<p>So, for example, if you have one region with customer contact information and another
-				region with customer orders, you can use co-location to keep all contact information
+				region with customer orders, you can use colocation to keep all contact information
 				and all orders for a single customer in a single member. This way, any operation
 				done for a single customer uses the cache of only a single member. </p>
-			<p>This figure shows two regions with data co-location where the data is partitioned by
+			<p>This figure shows two regions with data colocation where the data is partitioned by
 				customer type. </p>
 			<p>
 				<image placement="inline" href="../../images_svg/colocated_partitioned_regions.svg"
 					id="image_525AC474950F473ABCDE8E372583C5DF"
 					><?xm-replace_text Paragraph?></image>
 			</p>
-			<p>Data co-location requires the same data partitioning mechanism for all of the
-				co-located regions. You can use the default partitioning provided by <keyword
+			<p>Data colocation requires the same data partitioning mechanism for all of the
+				colocated regions. You can use the default partitioning provided by <keyword
 					keyref="product_name"/> or custom partitioning. </p>
-			<p>You must use the same high availability settings across your co-located regions. </p>
+			<p>You must use the same high availability settings across your colocated regions. </p>
 		</section>
 	</conbody>
 </concept>

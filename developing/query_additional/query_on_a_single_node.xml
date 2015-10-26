@@ -92,7 +92,7 @@ public class MyFunction extends FunctionAdapter {
               ><?xm-replace_text Configuring Partitioned Regions?></xref> for more information.
             <codeblock>
 /** This resolver returns the value of the ID field in the key. With this resolver, 
- * all Portfolios using the same ID are co-located in the same bucket.
+ * all Portfolios using the same ID are colocated in the same bucket.
  */
 public class MyPartitionResolver implements PartitionResolver, Declarable {
 
