@@ -377,6 +377,52 @@
 </codeblock>
 		</body>
 	</topic>
+	<topic id="gateway-event-filter">
+		<title>&lt;gateway-event-filter&gt;</title>
+		<shortdesc> </shortdesc>
+		<body>
+			<p>A GatewayEventFilter implementation determines whether a region event is placed in a
+				gateway sender queue and/or whether an event in a gateway queue is distributed to a
+				remote site. You can optionally add one or more GatewayEventFilter implementations
+				to an async event queue, either in the cache.xml configuration file or using the
+				Java API. </p>
+			<p>Specify the Java class and its initialization parameters with the
+					<codeph>&lt;class-name&gt;</codeph> and <codeph>&lt;parameter&gt;</codeph>
+				sub-elements. See <xref href="#class-name_parameter" format="dita"/>. </p>
+			<p>
+				<b>Example: </b>
+			</p>
+			<codeblock outputclass="language-xml">&lt;gateway-event-filter&gt;
+      &lt;class-name&gt;com.gemstone.gemfire.util.SampleEventFilter&lt;/class-name&gt;
+      &lt;parameter name="param1"&gt;
+        &lt;string&gt;"value1"&lt;/string&gt;
+      &lt;/parameter&gt;
+&lt;/gateway-event-filter&gt;
+</codeblock>
+		</body>
+	</topic>
+	<topic id="gateway-event-substitution-filter">
+		<title>&lt;gateway-event-substitution-filter&gt;</title>
+		<shortdesc/>
+		<body>
+			<p>A GatewayEventSubstitutionFilter provides a way to specify a substitute value to be
+				stored in the GatewayQueueEvent and enqueued in the RegionQueue. You can optionally
+				add one GatewayEventSubstitutionFilter implementation to an async event queue. </p>
+			<p>Specify the Java class and its initialization parameters with the
+					<codeph>&lt;class-name&gt;</codeph> and <codeph>&lt;parameter&gt;</codeph>
+				sub-elements. See <xref href="#class-name_parameter" format="dita"/>. </p>
+			<p>
+				<b>Example: </b>
+			</p>
+			<codeblock outputclass="language-xml">&lt;gateway-event-substitution-filter&gt;
+      &lt;class-name&gt;com.gemstone.gemfire.util.SampleEventSubstitutionFilter&lt;/class-name&gt;
+      &lt;parameter name="param1"&gt;
+        &lt;string&gt;"value1"&lt;/string&gt;
+      &lt;/parameter&gt;
+&lt;/gateway-event-substitution-filter&gt;
+</codeblock>
+		</body>
+	</topic>
 	<topic id="async-event-listener">
 		<title>&lt;async-event-listener&gt;</title>
 		<body>
