@@ -19,20 +19,19 @@
 						network problems. For example, a temporary disruption of the network
 						transport layer could cause a failure in distributing updates to a cache on
 						a remote machine, while the local cache continues being updated. </li>
-					<li id="li_5C67FFB1BFF64FD8BC97A153278474F2"><b>distributed-ack</b>.
-						Distribution waits for acknowledgment from other caches before continuing.
-						This behavior can be modified with the <codeph>early-ack</codeph> region
-						attribute. This is slower than <codeph>distributed-no-ack</codeph>, but
-						covers simple communication problems such as temporary network disruptions.
-							<p>In systems where there are many <codeph>distributed-no-ack</codeph>
-							operations, it is possible for <codeph>distributed-ack</codeph>
-							operations to take a long time to complete. The distributed system has a
-							configurable time to wait for acknowledgment to any
-								<codeph>distributed-ack</codeph> message before sending alerts to
-							the logs about a possible problem with the unresponsive member. No
-							matter how long the wait, the sender keeps waiting in order to honor the
-							distributed-ack region setting. The <codeph>gemfire.properties</codeph>
-							attribute governing this is <codeph>ack-wait-threshold</codeph>. </p>
+					<li id="li_5C67FFB1BFF64FD8BC97A153278474F2"><b>distributed-ack</b>. Distribution waits for
+						acknowledgment from other caches before continuing. This is slower than
+							<codeph>distributed-no-ack</codeph>, but covers simple communication
+						problems such as temporary network disruptions. <p>In systems where there
+							are many <codeph>distributed-no-ack</codeph> operations, it is possible
+							for <codeph>distributed-ack</codeph> operations to take a long time to
+							complete. The distributed system has a configurable time to wait for
+							acknowledgment to any <codeph>distributed-ack</codeph> message before
+							sending alerts to the logs about a possible problem with the
+							unresponsive member. No matter how long the wait, the sender keeps
+							waiting in order to honor the distributed-ack region setting. The
+								<codeph>gemfire.properties</codeph> attribute governing this is
+								<codeph>ack-wait-threshold</codeph>. </p>
 					</li>
 					<li id="li_601E97F86D1E443DBF9E8AB1B6B30101"><b>global</b>. Entries and regions
 						are automatically locked across the distributed system during distribution
