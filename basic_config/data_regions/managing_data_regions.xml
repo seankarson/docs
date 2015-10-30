@@ -19,8 +19,8 @@
 				shortcuts, see <xref
 					href="../../reference/topics/region_shortcuts_reference.xml#reference_lt4_54c_lk"
 				/>.</p>
-			<note>If you change attributes that define a region, you must restart the member before
-				the changes take effect.</note>
+			<note>If you change attributes that define a region, you must restart the member for the changes
+				to take effect.</note>
 		</section>
 		<section id="section_028F2602395646818680C906F205526B">
 			<title>The Region APIs</title>
@@ -38,7 +38,9 @@
 										><b><codeph>com.gemstone.gemfire.cache.Cache.createRegionFactory</codeph>
 								</b>. This method takes a <codeph>RegionShortcut</codeph>
 								<codeph>enum</codeph> to initiate region configuration, and returns
-								a <codeph>RegionFactory</codeph>. </li>
+								a <codeph>RegionFactory</codeph>. Use
+									<codeph>createRegionFactory()</codeph>, not "<codeph>new
+									RegionFactory</codeph>," to create a RegionFactory.</li>
 							<li id="li_F72DE6C600C44CD6891DBE19A7287544"
 										><b><codeph>com.gemstone.gemfire.cache.RegionFactory</codeph></b>.
 								Provides methods to set individual region attributes and to create
@@ -46,7 +48,7 @@
 									<codeph>Region</codeph>. </li>
 							<li id="li_A866FAB611F440D9BB54E2E9C106CCBE"
 										><b><codeph>com.gemstone.gemfire.cache.RegionShortcut</codeph></b>.
-								Common region configurations. Can be retrieved through
+								Common region configurations can be retrieved through
 									<codeph>Cache</codeph>
 								<codeph>createRegionShortcut</codeph> and with the region attribute,
 									<codeph>refid</codeph>. </li>
@@ -72,7 +74,7 @@
 										<codeph>Region</codeph>. </li>
 								<li id="li_98A6D925B4A34E90B621156F276EA9C8"
 											><b><codeph>com.gemstone.gemfire.cache.client.ClientRegionShortcut</codeph>
-									</b>. Common region configurations. Can be retrieved through
+									</b>. Common region configurations can be retrieved through
 										<codeph>ClientCache</codeph>
 									<codeph>createClientRegionFactory</codeph> and with the region
 									attribute, <codeph>refid</codeph>. </li>
@@ -140,23 +142,10 @@
 										creation, the system automatically creates any declared
 										regions. </p>
 								</li>
-								<li id="li_C9A591940D944FA19C305FC0DE03BBD4"
-										><codeph>RegionFactory</codeph> API calls: <p>
+								<li id="li_C9A591940D944FA19C305FC0DE03BBD4"><codeph>RegionFactory</codeph> API calls: <p>
 										<codeblock outputclass="language-java">RegionFactory rf = cache.createRegionFactory(REPLICATE);
 Region pfloRegion = rf.create("Portfolios");</codeblock>
 									</p>
-									<p>With <codeph>RegionFactory</codeph>, if the cache does not
-										already exist, it is created, then the region is created.
-										The <codeph>RegionFactory</codeph> constructor is overloaded
-										to accept member connection properties and region
-										attributes. </p>
-								</li>
-								<li id="li_0D0D6BE737D242508FF454F92BD60352"><codeph>Cache</codeph>
-									and <codeph>Region</codeph> API calls:
-									<codeblock outputclass="language-java">// Create a region
-Cache cache = CacheFactory.create(system);
-AttributesFactory factory = new AttributesFactory();
-Region region = cache.createRegion("SampleRegion", factory.create());</codeblock>
 								</li>
 							</ul>
 						</p>
@@ -336,16 +325,15 @@ Region.InvalidateRegion(); </codeblock>
 				</ul>
 			</p>
 		</section>
-		<section><title>Using gfsh to Mange Regions</title><p>You can also use gfsh commands to
-				manage regions. There are commands to create, alter, describe, destroy, rebalance,
-				and list the regions in your distributed system. By default, the cluster
-				configuration service saves the cluster configuration as you execute gfsh commands.
-				When you add new servers to the cluster, the servers receive this cluster-wide
-				configuration and create the specified regions. You can also define <i>groups</i>
-				that apply only to some of the servers in the cluster. Servers you start that
-				specify a group also receive the group configuration from the cluster configuration
-				service. See <xref href="../../configuring/cluster_config/gfsh_persist.xml"
-				/>.</p>See<xref
+		<section><title>Using gfsh to Manage Regions</title><p>You can also use gfsh commands to manage
+				regions. There are commands to create, alter, describe, destroy, rebalance, and list
+				the regions in your distributed system. By default, the cluster configuration
+				service saves the cluster configuration as you execute gfsh commands. When you add
+				new servers to the cluster, the servers receive this cluster-wide configuration and
+				create the specified regions. You can also define <i>groups</i> that apply only to
+				some of the servers in the cluster. Servers you start that specify a group also
+				receive the group configuration from the cluster configuration service. See <xref
+					href="../../configuring/cluster_config/gfsh_persist.xml"/>.</p>See <xref
 				href="create_a_region_with_gfsh.xml#task_75639BFA7847461D9E006E91B728BB44"/> and
 				<xref
 				href="../../tools_modules/gfsh/quick_ref_commands_by_area.xml#topic_EF03119A40EE492984F3B6248596E1DD"
