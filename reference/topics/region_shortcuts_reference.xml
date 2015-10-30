@@ -52,7 +52,7 @@ Region | data-policy | NORMAL
 				<p conref="region_shortcuts_table.xml#reference_ufj_5kz_4k/p_q44_t11_nk"/>
 			</section>
 			<section id="section_506C4E195E0A412482931CB2BA30D1DD">
-				<title><filepath>cache.xml</filepath> Example</title>
+				<title>XML Definition of <parmname>LOCAL</parmname></title>
 				<codeblock>&lt;region name="myLOCALregion"&gt;
    &lt;region-attributes scope="local"/&gt;
 &lt;/region&gt;</codeblock>
@@ -110,7 +110,7 @@ Eviction | eviction-algorithm | lru-heap-percentage
          | eviction-action    | local-destroy</codeblock>
 			</section>
 			<section id="section_C9C0A77F6EF548898E0B24BDC8C92CD8">
-				<title><filepath>cache.xml</filepath> Example</title>
+				<title>XML Definition of <parmname>LOCAL_HEAP_LRU</parmname></title>
 				<codeblock>&lt;region name="myLHLregion"&gt;
    &lt;region-attributes 
         scope="local"&gt;
@@ -184,7 +184,7 @@ Eviction | eviction-algorithm | lru-heap-percentage
          | eviction-action    | overflow-to-disk</codeblock>
 			</section>
 			<section id="section_6E6C4A4B92D248C59FEAB20C63558F30">
-				<title><filepath>cache.xml</filepath> Example</title>
+				<title>XML Definition of <parmname>LOCAL_OVERFLOW</parmname></title>
 				<codeblock>&lt;region name="myLOregion"&gt;
     &lt;region-attributes 
         scope="local"&gt;
@@ -249,7 +249,7 @@ Non-Default Attributes Shared By Hosting Members
 Region | size | 0</codeblock>
 			</section>
 			<section id="section_3FC68C0F5413452C924C71DC2F8D6BDF">
-				<title><filepath>cache.xml</filepath> Example</title>
+				<title>XML Definition of <parmname>LOCAL_PERSISTENT</parmname></title>
 				<codeblock>&lt;region name="myLPregion"&gt;
     &lt;region-attributes 
       scope="local" 
@@ -316,7 +316,7 @@ Eviction | eviction-algorithm | lru-heap-percentage
          | eviction-action    | overflow-to-disk</codeblock>
 			</section>
 			<section id="section_97980143983D4624B6736F19A9AD42FE">
-				<title><filepath>cache.xml</filepath> Example</title>
+				<title>XML Definition of <parmname>LOCAL_PERSISTENT_OVERFLOW</parmname></title>
 				<codeblock>&lt;region name="myLPOregion"&gt;
    &lt;region-attributes 
         scope="local" 
@@ -384,7 +384,7 @@ Non-Default Attributes Shared By Hosting Members
 Region | size | 0</codeblock>
 			</section>
 			<section id="section_309654CBE5C24F5A85650CEE3AAB38DB">
-				<title><filepath>cache.xml</filepath> Example</title>
+				<title>XML Definition of <parmname>PARTITION</parmname></title>
 				<codeblock>&lt;region name="myPregion"&gt;
     &lt;region-attributes 
       data-policy="partition"/&gt;
@@ -454,7 +454,7 @@ Eviction | eviction-algorithm | lru-heap-percentage
          | eviction-action    | local-destroy</codeblock>
 			</section>
 			<section id="section_53D3C52436A746918383D437FEEC648E">
-				<title><filepath>cache.xml</filepath> Example</title>
+				<title>XML Definition of <parmname>PARTITION_HEAP_LRU</parmname></title>
 				<codeblock>&lt;region name="myPHLregion"&gt;
   &lt;region-attributes 
       data-policy="partition"&gt;
@@ -532,7 +532,7 @@ Eviction | eviction-algorithm | lru-heap-percentage
          | eviction-action    | overflow-to-disk</codeblock>
 			</section>
 			<section id="section_1B882ACE4D234D39BDCF281969593B26">
-				<title><filepath>cache.xml</filepath> Example</title>
+				<title>XML Definition of <parmname>PARTITION_OVERFLOW</parmname></title>
 				<codeblock>&lt;region name="myPOregion"&gt;
     &lt;region-attributes 
         data-policy="partition"&gt;
@@ -603,7 +603,7 @@ Non-Default Attributes Shared By Hosting Members
 Region | size | 0</codeblock>
 			</section>
 			<section id="section_FF304DDCE61C4260AE2BD038C4AE4C65">
-				<title><filepath>cache.xml</filepath> Example</title>
+				<title>XML Definition of <parmname>PARTITION_PERSISTENT</parmname></title>
 				<codeblock>&lt;region name="myPPregion"&gt;
     &lt;region-attributes 
      data-policy="persistent-partition"/&gt;
@@ -671,7 +671,7 @@ Eviction | eviction-algorithm | lru-heap-percentage
          | eviction-action    | overflow-to-disk</codeblock>
 			</section>
 			<section id="section_C73C1D158A034627BC73A7FA46FA4A96">
-				<title><filepath>cache.xml</filepath> Example</title>
+				<title>XML Definition of <parmname>PARTITION_PERSISTENT_OVERFLOW</parmname></title>
 				<codeblock>&lt;region name="myPPOregion"&gt;
    &lt;region-attributes 
         data-policy="persistent-partition"&gt;
@@ -738,7 +738,7 @@ Region    | size             | 0
 Partition | local-max-memory | 0</codeblock>
 			</section>
 			<section id="section_63DE16AB9EC84F4281488D566C0C1AF4">
-				<title><filepath>cache.xml</filepath> Example</title>
+				<title>XML Definition of <parmname>PARTITION_PROXY</parmname></title>
 				<codeblock>&lt;region name="myPPXYregion"&gt;
     &lt;region-attributes 
         data-policy="partition"&gt;
@@ -805,7 +805,7 @@ Partition | redundant-copies | 1
           | local-max-memory | 0</codeblock>
 			</section>
 			<section id="section_F6D8A5F0DB014475BE8FE57185DCD4DB">
-				<title><filepath>cache.xml</filepath> Example</title>
+				<title>XML Definition of <parmname>PARTITION_PROXY_REDUNDANT</parmname></title>
 				<codeblock>&lt;region name="myPPRregion"&gt;
     &lt;region-attributes 
        data-policy="partition"&gt;
@@ -870,7 +870,7 @@ Region    | size             | 0
 Partition | redundant-copies | 1</codeblock>
 			</section>
 			<section id="section_512F8B9D526544DE8BD22E08CFDEC471">
-				<title><filepath>cache.xml</filepath> Example</title>
+				<title>XML Definition of <parmname>PARTITION_REDUNDANT</parmname></title>
 				<codeblock>&lt;region name="myPRregion"&gt;
    &lt;region-attributes 
        data-policy="partition"&gt;
@@ -950,7 +950,7 @@ Eviction  | eviction-algorithm | lru-heap-percentage
 Partition | redundant-copies   | 1</codeblock>
 			</section>
 			<section id="section_9C65B716E4C747D3AD7D1F904FF4B7DA">
-				<title><filepath>cache.xml</filepath> Example</title>
+				<title>XML Definition of <parmname>PARTITION_REDUNDANT_HEAP_LRU</parmname></title>
 				<codeblock>&lt;region name="myPRHLregion"&gt;
     &lt;region-attributes 
         data-policy="partition"&gt;
@@ -1037,7 +1037,7 @@ Eviction  | eviction-algorithm | lru-heap-percentage
 Partition | redundant-copies   | 1</codeblock>
 			</section>
 			<section id="section_045EF130769244CDA2C83AFB6170A3C7">
-				<title><filepath>cache.xml</filepath> Example</title>
+				<title>XML Definition of <parmname>PARTITION_REDUNDANT_OVERFLOW</parmname></title>
 				<codeblock>&lt;region name="myPROregion"&gt;
    &lt;region-attributes 
        data-policy="partition"&gt;
@@ -1110,7 +1110,7 @@ Region    | size             | 0
 Partition | redundant-copies | 1</codeblock>
 			</section>
 			<section id="section_4E26C39621AC4A1D8B27D44CC2690209">
-				<title><filepath>cache.xml</filepath> Example</title>
+				<title>XML Definition of <parmname>PARTITION_REDUNDANT_PERSISTENT</parmname></title>
 				<codeblock>&lt;region name="myPRPregion"&gt;
    &lt;region-attributes 
        data-policy="persistent-partition"&gt;
@@ -1180,7 +1180,7 @@ Eviction  | eviction-algorithm | lru-heap-percentage
 Partition | redundant-copies   | 1</codeblock>
 			</section>
 			<section id="section_0B8062252F014FCCA3826C220499232E">
-				<title><filepath>cache.xml</filepath> Example</title>
+				<title>XML Definition of <parmname>PARTITION_REDUNDANT_PERSISTENT_OVERFLOW</parmname></title>
 				<codeblock>&lt;region name="myPRPOregion"&gt;
     &lt;region-attributes 
        data-policy="persistent-partition"&gt;
@@ -1242,7 +1242,7 @@ server1 | Region "/myRregion" created on "server1"
 server2 | Region "/myRregion" created on "server2"</codeblock>
 			</section>
 			<section id="section_1CEC0DACC13C4092BB2ACD1A9BA0CD66">
-				<title><filepath>cache.xml</filepath> Example</title>
+				<title>XML Definition of <parmname>REPLICATE</parmname></title>
 				<codeblock>&lt;region name="myRregion"&gt;
     &lt;region-attributes 
        scope="distributed-ack" 
@@ -1318,7 +1318,7 @@ Eviction | eviction-algorithm | lru-heap-percentage
          | eviction-action    | local-destroy</codeblock>
 			</section>
 			<section id="section_4033265D958B4551AB93F16DBB084DA8">
-				<title><filepath>cache.xml</filepath> Example</title>
+				<title>XML Definition of <parmname>REPLICATE_HEAP_LRU</parmname></title>
 				<codeblock>&lt;region name="myRHLregion"&gt;
     &lt;region-attributes 
        scope="distributed-ack" 
@@ -1395,7 +1395,7 @@ Eviction | eviction-algorithm | lru-heap-percentage
          | eviction-action    | overflow-to-disk</codeblock>
 			</section>
 			<section id="section_03CBA2AB88084878A5EE83D9B4DE5BF4">
-				<title><filepath>cache.xml</filepath> Example</title>
+				<title>XML Definition of <parmname>REPLICATE_OVERFLOW</parmname></title>
 				<codeblock>&lt;region name="myROregion"&gt;
     &lt;region-attributes 
        scope="distributed-ack" 
@@ -1465,7 +1465,7 @@ Non-Default Attributes Shared By Hosting Members
 Region | size | 0</codeblock>
 			</section>
 			<section id="section_9B8780A631D64431966A0D8723C920F5">
-				<title><filepath>cache.xml</filepath> Example</title>
+				<title>XML Definition of <parmname>REPLICATE_PERSISTENT</parmname></title>
 				<codeblock>&lt;region name="myRPregion"&gt;
     &lt;region-attributes 
         scope="distributed-ack" 
@@ -1540,7 +1540,7 @@ Eviction | eviction-algorithm | lru-heap-percentage
          | eviction-action    | overflow-to-disk</codeblock>
 			</section>
 			<section id="section_ED067AAEB4604438A570CCE3EAFF4F31">
-				<title><filepath>cache.xml</filepath> Example</title>
+				<title>XML Definition of <parmname>REPLICATE_PERSISTENT_OVERFLOW</parmname></title>
 				<codeblock> &lt;region name="myRPOregion"&gt;
     &lt;region-attributes 
        scope="distributed-ack" 
@@ -1606,7 +1606,7 @@ Non-Default Attributes Shared By Accessor Members
 Region | size | 0</codeblock>
 			</section>
 			<section id="section_7B52EA99FD054123BBF5546EC0614FA2">
-				<title><filepath>cache.xml</filepath> Example</title>
+				<title>XML Definition of <parmname>REPLICATE_PROXY</parmname></title>
 				<codeblock>&lt;region name="myRPXYregion"&gt;
     &lt;region-attributes 
         scope="distributed-ack" 
