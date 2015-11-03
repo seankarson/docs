@@ -4,7 +4,7 @@
 	<topic id="transactional_and_nontransactional_ops">
 		<title>Comparing Transactional and Non-Transactional Operations</title>
 		<body>
-			<p>   Between the begin operation and the commit or rollback operation are a series of
+			<p>Between the begin operation and the commit or rollback operation are a series of
 				ordinary <keyword keyref="product_name"/> operations. When they are launched from a transaction, the <keyword keyref="product_name"/>
 				operations can be classified into two types: <ul
 					id="ul_486A6C20B8D248E2B115EDD13ED9A8F7">
@@ -297,7 +297,7 @@
 							<row>
 								<entry>create </entry>
 								<entry>
-									<codeph>createRegion</codeph>
+									<codeph>createRegionFactory().create()</codeph>
 								</entry>
 								<entry>committed </entry>
 								<entry>no </entry>

@@ -19,9 +19,9 @@
 			</p>
 		</section>
 		<section id="section_1D7043815DF24308ABE4C78BFDFEE686">
-			<p>For standard partitioning, you use
+			<p>For standard partitioning, use
 					<codeph>com.gemstone.gemfire.cache.PartitionResolver</codeph>. To implement
-				fixed partitioning, you use
+				fixed partitioning, use
 					<codeph>com.gemstone.gemfire.cache.FixedPartitionResolver</codeph>. </p>
 		</section>
 		<section id="section_5A8D752F02834146A37D9430F1CA32DA">
@@ -143,13 +143,12 @@ PartitionAttributesFactory paf = new PartitionAttributesFactory()
      .addFixedPartitionAttribute(fpa1)
      .addFixedPartitionAttribute(fpa3);
 
-AttributesFactory attrFactory = new AttributesFactory();
-attrFactory.setPartitionAttributes(paf.create());
+Cache c = new CacheFactory().create();
 
-DistributedSystem system = DistributedSystem.connect(new Properties());
-Cache cache = CacheFactory.create(system);
-Region createRegion = cache.createRegion("Trades", attrFactory.create());
-Region&lt;String, String&gt; region = (PartitionedRegion)createRegion;</codeblock></li>
+Region r = c.createRegionFactory()
+	.setPartitionAttributes(paf.create())
+	.create("trades");
+</codeblock></li>
 								<li>gfsh:<p>You cannot specify a partition resolver using
 									gfsh.</p></li>
 							</ul>
@@ -216,7 +215,7 @@ class QuarterFixedPartitionResolver implements
 						</li>
 					</ol>
 				</li>
-				<li id="li_C7D7E11FC28341079852327B1951060B">Configure or program so <keyword
+				<li id="li_C7D7E11FC28341079852327B1951060B">Configure or program the region so <keyword
 						keyref="product_name"/> finds your resolver for every operation that you
 					perform on the region's entries. How you do this depends on where you chose to
 					program your custom partitioning implementation (step 1). <ol
@@ -242,8 +241,12 @@ class QuarterFixedPartitionResolver implements
 PartitionAttributes attrs = 
 	new PartitionAttributesFactory()
 	.setPartitionResolver(resolver).create();
-Region Trades = 
-	new RegionFactory().setPartitionAttributes(attrs).create("trades");</codeblock>
+
+Cache c = new CacheFactory().create();
+
+Region r = c.createRegionFactory()
+	.setPartitionAttributes(attrs)
+	.create("trades");</codeblock>
 								</li>
 								<li>gfsh:<p>You cannot specify a partition resolver using
 									gfsh.</p></li>
