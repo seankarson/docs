@@ -90,9 +90,11 @@
 			<codeblock outputclass="">// Configure a partitioned region for heap LRU eviction. The resource manager controls the limits. 
 &lt;region-attributes refid="PARTITION_HEAP_LRU"&gt; 
 &lt;/region-attributes&gt;</codeblock>
-			<codeblock outputclass="language-xml">AttributesFactory fac = new AttributesFactory(); 
-fac.setEvictionAttributes(EvictionAttributes.createLRUHeapAttributes(EvictionAction.LOCAL_DESTROY); 
-Region currRegion = this.cache.createRegion("root",fac.create());</codeblock>
+			<codeblock outputclass="language-xml">
+Region currRegion = cache.createRegionFactory()
+	.setEvictionAttributes(EvictionAttributes.createLRUHeapAttributes(EvictionAction.LOCAL_DESTROY))
+	.create("root");
+</codeblock>
 		</section>
 	</conbody>
 </concept>

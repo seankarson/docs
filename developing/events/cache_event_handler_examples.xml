@@ -57,14 +57,19 @@ implements Declarable {
     </section>
     <section id="section_2B4275C1AE744794AAD22530E5ECA8CC">
       <title>Installing an Event Handler Through the API </title>
-      <p>This listing defines a cache listener using <codeph>AttributesFactory</codeph>.
-        <codeblock>AttributesFactory fac = new AttributesFactory(); 
-fac.addCacheListener(new SimpleCacheListener()); 
-Region newReg = this.cache.createRegion(name, fac.create()); </codeblock>
+      <p>This listing defines a cache listener using the <codeph>RegionFactory</codeph> 
+        method <codeph>addCacheListener</codeph>.
+        <codeblock>Region newReg = cache.createRegionFactory()
+          .addCacheListener(new SimpleCacheListener())
+          .create(name);
+ </codeblock>
       </p>
-      <p>You can create a cache writer similarly, using the <codeph>AttributesFactory</codeph>
+      <p>You can create a cache writer similarly, using the <codeph>RegionFactory</codeph>
         method <codeph>setCacheWriter</codeph>, like this:
-        <codeblock>fac.setCacheWriter(new SimpleCacheWriter());</codeblock>
+        <codeblock>Region newReg = cache.createRegionFactory()
+          .setCacheWriter(new SimpleCacheWriter())
+          .create(name);
+ </codeblock>
       </p>
     </section>
     <section id="section_C62E9535C43B4BC5A7AA7B8B4125D1EB">
@@ -86,14 +91,17 @@ Region newReg = this.cache.createRegion(name, fac.create()); </codeblock>
 &lt;/region&gt;</codeblock>
       </p>
       <p>API:
-        <codeblock>AttributesFactory fac = new AttributesFactory(this.currRegion.getAttributes()); 
-fac.setScope(Scope.DISTRIBUTED_NO_ACK); 
+        <codeblock>
 CacheListener listener1 = new myCacheListener1(); 
 CacheListener listener2 = new myCacheListener2(); 
 CacheListener listener3 = new myCacheListener3(); 
-fac.initCacheListeners(new CacheListener[] { listener1, listener2, listener3}); 
-Region nr = cache.createRegion(name, fac.create()); 
-regionDefaultAttrMap.put(nr.getFullPath(), fac.create());</codeblock>
+
+Region nr = cache.createRegionFactory()
+  .initCacheListeners(new CacheListener[]
+    {listener1, listener2, listener3})
+  .setScope(Scope.DISTRIBUTED_NO_ACK)
+  .create(name);
+</codeblock>
       </p>
     </section>
     <section id="section_3AF3D7C9927F491F8BACDB72834E42AA">
