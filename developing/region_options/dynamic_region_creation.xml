@@ -161,7 +161,8 @@ public class CreateRegionCacheListener extends CacheListenerAdapter&lt;String,Re
       this.cache.getLogger().fine("CreateRegionCacheListener creating region named: " + regionName + " with attributes: " + attributes);
     }
     try {
-      Region region = this.cache.createRegion(regionName, attributes);
+      Region region = this.cache.createRegionFactory(attributes)
+        .create(regionName);
       if (this.cache.getLogger().fineEnabled()) {
         this.cache.getLogger().fine("CreateRegionCacheListener created: " + region);
       }

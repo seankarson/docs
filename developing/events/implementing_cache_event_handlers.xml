@@ -87,9 +87,9 @@ public class MyCacheListener extends CacheListenerAdapter implements Declarable 
   &lt;/region-attributes&gt;
 &lt;/region&gt;</codeblock>
 						<p>Java Region Event Handler Installation: </p>
-						<codeblock>RegionFactory rf = cache.createRegionFactory(RegionShortcut.PARTITION);
-rf.addCacheListener(new MyCacheListener());
-tradesRegion = rf.create("trades");</codeblock>
+						<codeblock>tradesRegion = cache.createRegionFactory(RegionShortcut.PARTITION)
+  .addCacheListener(new MyCacheListener())
+  .create("trades");</codeblock>
 						<p>XML Transaction Writer and Listener Installation: </p>
 						<codeblock>&lt;cache search-timeout="60"&gt;
 	  &lt;cache-transaction-manager&gt;
@@ -139,14 +139,16 @@ tradesRegion = rf.create("trades");</codeblock>
 &lt;/region&gt;</codeblock>
 			</p>
 			<p>API:
-				<codeblock>AttributesFactory fac = new AttributesFactory(this.currRegion.getAttributes()); 
-fac.setScope(Scope.DISTRIBUTED_NO_ACK); 
-CacheListener listener1 = new myCacheListener1(); 
+				<codeblock>CacheListener listener1 = new myCacheListener1(); 
 CacheListener listener2 = new myCacheListener2(); 
 CacheListener listener3 = new myCacheListener3(); 
-fac.initCacheListeners(new CacheListener[] { listener1, listener2, listener3}); 
-Region nr = cache.createRegion(name, fac.create()); 
-regionDefaultAttrMap.put(nr.getFullPath(), fac.create());</codeblock>
+
+Region nr = cache.createRegionFactory()
+  .initCacheListeners(new CacheListener[]
+    {listener1, listener2, listener3})
+  .setScope(Scope.DISTRIBUTED_NO_ACK)
+  .create(name);
+  </codeblock>
 			</p>
 		</section>
 	</conbody>

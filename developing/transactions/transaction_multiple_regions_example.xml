@@ -45,11 +45,11 @@ public class TransactionalPeer {
 		if (isEmpty) {
 			paf.setLocalMaxMemory(0);
 		}
-		AttributesFactory af = new AttributesFactory&lt;CustomerId, String&gt;();
-		af.setDataPolicy(DataPolicy.PARTITION);
-		af.addCacheListener(new LoggingCacheListener());
-		af.setPartitionAttributes(paf.create());
-		custRegion = cache.createRegion("customer", af.create());
+		custRegion = cache.createRegionFactory&lt;CustomerId, String&gt;()
+			.setDataPolicy(DataPolicy.PARTITION)
+			.addCacheListener(new LoggingCacheListener())
+			.setPartitionAttributes(paf.create())
+			.create("customer");
 		
 		paf = new PartitionAttributesFactory&lt;OrderId, String&gt;();
 		paf.setColocatedWith("customer");
@@ -57,11 +57,11 @@ public class TransactionalPeer {
 		if (isEmpty) {
 			paf.setLocalMaxMemory(0);
 		}
-		af = new AttributesFactory&lt;OrderId, String&gt;();
-		af.setDataPolicy(DataPolicy.PARTITION);
-		af.addCacheListener(new LoggingCacheListener());
-		af.setPartitionAttributes(paf.create());
-		orderRegion = cache.createRegion("order", af.create());
+		orderRegion = cache.createRegionFactory&lt;CustomerId, String&gt;()
+			.setDataPolicy(DataPolicy.PARTITION)
+			.addCacheListener(new LoggingCacheListener())
+			.setPartitionAttributes(paf.create())
+			.create("order");
 	}
 	
 	/**

@@ -37,13 +37,9 @@ RegionFactory rf = cache.createRegionFactory(RegionShortcut.PARTITION);
 rf.addCacheListener(new LoggingCacheListener());
 custRegion = rf.create("customer");</codeblock>
 						<codeblock>// Creating a partitioned region using the RegionFactory, with attribute modifications
-PartitionAttributesFactory paf = 
-  new PartitionAttributesFactory&lt;CustomerId, String&gt;();
-paf.setPartitionResolver(new CustomerOrderResolver());
-  
 RegionFactory rf = 
   cache.createRegionFactory(RegionShortcut.PARTITION);
-rf.setPartitionAttributes(paf.create());
+rf.setPartitionResolver(new CustomerOrderResolver());
 rf.addCacheListener(new LoggingCacheListener());
 custRegion = rf.create("customer");</codeblock>
 						<codeblock>// Creating a client with a Pool Specification Using ClientRegionFactory
@@ -52,28 +48,6 @@ ClientRegionFactory&lt;String,String&gt; cRegionFactory =
 Region&lt;String, String&gt; region = 
 	cRegionFactory.setPoolName("Pool3").create("DATA");</codeblock>
 					</li>
-					<li id="li_EBC9A2936AE6455B88641496FE95E12A"><codeph>AttributesFactory</codeph>
-						API: <ol id="ol_480F822897B645EA9E7E37A3D65BC35F">
-							<li id="li_26EE59BE23FC4C1085C0D157A13A504F">Create an
-									<codeph>AttributesFactory</codeph> instance </li>
-							<li id="li_F8D916FF5F6340F1900D4FD26B09BE80">Use the instance to set
-								non-default attributes </li>
-							<li id="li_861E6F6994D842E29FCC672E46F0F313">Run the factory
-									<codeph>create</codeph> method to create a
-									<codeph>RegionAttributes</codeph> instance </li>
-							<li id="li_A3081AFBF71B45CDAFD14F4D239EDD76">Pass the
-									<codeph>RegionAttributes</codeph> instance to the region create
-								method: </li>
-						</ol>
-						<codeblock>Cache cache = CacheFactory.create(system);
-AttributesFactory factory = new AttributesFactory();
-factory.setScope(Scope.DISTRIBUTED_ACK);
-factory.setDataPolicy(DataPolicy.REPLICATE);
-Region region = cache.createRegion("SampleRegion", factory.create());</codeblock>
-						<codeblock>// Create a new region using another region's attributes
-AttributesFactory fac =
-    new AttributesFactory(this.currRegion.getAttributes());
-Region nr = cache.createRegion(name, fac.create());</codeblock></li>
 					<li>By issuing the gfsh <cmdname>create region</cmdname> command. See <xref
 							href="../../tools_modules/gfsh/command-pages/create.xml#topic_54B0985FEC5241CA9D26B0CE0A5EA863"
 						/>.</li>

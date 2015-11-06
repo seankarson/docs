@@ -9,11 +9,16 @@
 			<p>If the commit fails, it throws a <codeph>CommitConflictException</codeph> and the
 				transaction is rolled back. In this example, this type of exception could only occur
 				if there was concurrent access to the same key and value inside another transaction. </p>
-			<codeblock>Cache c = CacheFactory.create(DistributedSystem.connect(null));
-AttributesFactory af = new AttributesFactory();
-af.setDataPolicy(DataPolicy.REPLICATE);
-Region&lt;String, Integer&gt; cash = c.createRegion("cash", af.create());
-Region&lt;String, Integer&gt; trades = c.createRegion("trades", af.create());
+			<codeblock>Cache c = new CacheFactory().create();
+
+Region&lt;String, Integer&gt; cash = c.createRegionFactory&lt;String, Integer&gt;()
+	.setDataPolicy(DataPolicy.REPLICATE)
+	.create("cash");
+
+Region&lt;String, Integer&gt; trades = c.createRegionFactory&lt;String, Integer&gt;()
+	.setDataPolicy(DataPolicy.REPLICATE)
+	.create("trades");
+
 CacheTransactionManager txmgr = c.getCacheTransactionManager();
 try {
 	txmgr.begin();
