@@ -39,6 +39,13 @@
 				queue, each queue hosted on a <keyword keyref="product_name"/> member is processed
 				by dispatcher threads; the total number of queues created depends on the number of
 				members that host the region.</p>
+			<p>A <codeph>GatewayEventFilter</codeph> can be placed on the <codeph>AsyncEventQueue</codeph> to control whether a
+				particular event is sent to a selected <codeph>AsyncEventListener</codeph>. For example, events
+				associated with sensitive data could be detected and not queued. For more detail, see the Javadocs for <codeph>GatewayEventFilter</codeph>.</p>
+			<p> A <codeph>GatewayEventSubstitutionFilter</codeph> can specify whether the event is transmitted in its
+				entirety or in an altered representation. For example, to reduce the size of the
+				data being serialized, it might be a more efficient to represent a full object by
+				only its key. For more detail, see the Javadocs for <codeph>GatewayEventSubstitutionFilter</codeph>.</p>
 		</section>
 		<section>
 			<title>Operation Distribution from an AsyncEventQueue</title>
