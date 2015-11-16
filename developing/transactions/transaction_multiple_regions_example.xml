@@ -17,21 +17,14 @@ public class TransactionalPeer {
 	private Region&lt;CustomerId, String&gt; custRegion;
 /** The region for storing order information of a customer*/
 	private Region&lt;OrderId, String&gt; orderRegion;
+
+	private Cache cache;
 	
 	private static final int MAX_KEYS_IN_REGION = 10;
 
 	public TransactionalPeer(boolean isEmpty) {
-		createCache();
+		cache = new CacheFactory().create();
 		createRegions(isEmpty);
-	}
-
-	/**
-	 * Connects to the distributed system and creates the cache
-	 */
-	protected void createCache() {
-		Properties props = new Properties();
-		system = DistributedSystem.connect(props);
-		cache = CacheFactory.create(system);
 	}
 	
 	/**

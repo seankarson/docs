@@ -31,7 +31,7 @@ durable-client-timeout=200 </codeblock>
 						<codeblock>Properties props = new Properties(); 
 props.setProperty("durable-client-id", "31"); 
 props.setProperty("durable-client-timeout", "" + 200); 
-DistributedSystem ds = DistributedSystem.connect(props);</codeblock>
+CacheFactory cf = new CacheFactory(props);</codeblock>
 					</li>
 				</ul>
 			</p>

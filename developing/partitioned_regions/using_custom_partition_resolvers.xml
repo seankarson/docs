@@ -147,7 +147,7 @@ Cache c = new CacheFactory().create();
 
 Region r = c.createRegionFactory()
 	.setPartitionAttributes(paf.create())
-	.create("trades");
+	.create("Trades");
 </codeblock></li>
 								<li>gfsh:<p>You cannot specify a partition resolver using
 									gfsh.</p></li>

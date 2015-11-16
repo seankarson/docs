@@ -105,9 +105,9 @@
 					<li id="li_67834D49BD8C43479E03ECB92CEA2488">Peer credentials are initialized
 						and verified automatically when a member joins a distributed system. <ul
 							id="ul_7702E91B21CC48B485F4660C6FC8A970">
-							<li id="li_91AFEFE68B894E508C119782B31BB3DA">If a joining member has
-								invalid credentials, the <codeph>DistributedSystem.connect</codeph>
-								method throws an <codeph>AuthenticationFailedException</codeph>. </li>
+							<li id="li_91AFEFE68B894E508C119782B31BB3DA">If a joining member has invalid credentials, the
+									<codeph>CacheFactory.create</codeph> method throws an
+									<codeph>AuthenticationFailedException</codeph>. </li>
 							<li id="li_115FA2D563FE458E92305438E78CD5DE">If a joining member does
 								not provide credentials, the request throws an
 									<codeph>AuthenticationRequiredException</codeph>. </li>
