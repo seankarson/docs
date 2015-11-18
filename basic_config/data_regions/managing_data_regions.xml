@@ -95,7 +95,7 @@
 										><b><codeph>com.gemstone.gemfire.cache.RegionAttributes</codeph>
 								</b>. Object holding region configuration settings. </li>
 							<li id="li_F153EF2C765642018BA2395EEE2482AD"
-										><b><codeph>com.gemstone.gemfire.cache.AttributesFactory</codeph></b>.
+										><b><codeph>com.gemstone.gemfire.cache.createRegionFactory</codeph></b>.
 								Can be used to create <codeph>RegionAttributes</codeph> to pass to
 									<codeph>RegionFactory</codeph> and
 									<codeph>ClientRegionFactory</codeph>. </li>
@@ -143,7 +143,8 @@
 										regions. </p>
 								</li>
 								<li id="li_C9A591940D944FA19C305FC0DE03BBD4"><codeph>RegionFactory</codeph> API calls: <p>
-										<codeblock outputclass="language-java">RegionFactory rf = cache.createRegionFactory(REPLICATE);
+										<codeblock outputclass="language-java">Cache cache = CacheFactory.create(system);
+RegionFactory rf = cache.createRegionFactory(REPLICATE);
 Region pfloRegion = rf.create("Portfolios");</codeblock>
 									</p>
 								</li>
@@ -203,15 +204,11 @@ Region pfloRegion = rf.create("Portfolios");</codeblock>
 									subregions. </p>
 							</li>
 							<li><codeph>RegionFactory</codeph> API calls: <p>
-									<codeblock outputclass="language-java">RegionFactory rf = cache.createRegionFactory(REPLICATE);
+									<codeblock outputclass="language-java">Cache cache = CacheFactory.create(system);
+RegionFactory rf = cache.createRegionFactory(REPLICATE);
 Region pfloRegion = rf.create("Portfolios");
-   .createSubregion("Portfolios", "Private");</codeblock>
-								</p><p>With <codeph>RegionFactory</codeph>, if the cache does not
-									already exist, the cache is created and then the region and
-									subregion are created. The <codeph>RegionFactory</codeph>
-									constructor is overloaded to accept member connection properties
-									and region attributes. </p>
-							</li>
+Region pvtSubregion = rf.createSubregion(pfloRegion, "Private");</codeblock>
+								</p></li>
 						</ul>
 					</li>
 				</ul>
