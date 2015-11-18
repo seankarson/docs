@@ -107,7 +107,7 @@ WHERE &lt;args&gt;:
                     An appropriate slf4j binding jar must be included for ears
                     or wars using -e or -j respectively. The following jars are
                     provided:
-                        slf4j-jdk14
+                        slf4j-jdk18
                         slf4j-log4j12
                         gemfire-modules-slf4j-weblogic
 
@@ -120,7 +120,7 @@ WHERE &lt;args&gt;:
                         gemfire-modules.jar
                         gemfire-modules-session.jar
                         slf4j-api.jar
-                        slf4j-jdk14.jar (not for WebLogic)
+                        slf4j-jdk18.jar (not for WebLogic)
                         gemfire-modules-slf4j-weblogic.jar (WebLogic only)
                     This option still modifes any web.xml files.
       </codeblock>
@@ -171,25 +171,24 @@ WHERE &lt;args&gt;:
 							<li id="li_C2EACDD48041431FB1B2309D19882E36">gemfire-modules.jar </li>
 							<li id="li_D210AC64A286426F878ED5BAEA10F3CA">gemfire-modules-session.jar </li>
 							<li id="li_71D1C218248449759CE658F4C73C0B73">slf4j-api.jar </li>
-							<li id="li_5DDF9AB9878E4D3083EED62F9146F5BA">slf4j-jdk14.jar (not
-								necessary for WebLogic) </li>
+							<li id="li_5DDF9AB9878E4D3083EED62F9146F5BA">slf4j-jdk18.jar (not necessary for WebLogic) </li>
 							<li id="li_6AF652CC66E847549621C910A45FBEC1"
 								>gemfire-modules-slf4j-weblogic.jar (only for WebLogic) </li>
 						</ul>
 					</li>
-					<li id="li_D9451226FF2643B5AC07D612A6A90CCF">Modify each embedded war file's
-						manifest by adding a Class-Path entry which references the shared jars added
-						above. For example:
+					<li id="li_D9451226FF2643B5AC07D612A6A90CCF">Modify each embedded war file's manifest by adding
+						a Class-Path entry which references the shared jars added above. For
+						example:
 						<codeblock>Manifest-Version: 1.0
 Built-By: joe
-Build-Jdk: 1.6.0_22
+Build-Jdk: 1.8.0_60
 Created-By: Apache Maven
 Archiver-Version: Plexus Archiver
 Class-Path: lib/gemfire-6.6.3.jar 
  lib/gemfire-modules-2.1.1.1.jar 
  lib/gemfire-modules-session-2.1.1.1.jar 
  lib/slf4j-api-1.5.8.jar 
- lib/slf4j-jdk14-1.5.8.jar
+ lib/slf4j-jdk18-1.5.8.jar
 </codeblock>
 					</li>
 				</ul>
@@ -287,7 +286,7 @@ In Windows:
 				<li>$GEMFIRE/lib/gemfire-modules-session-external-<i>X.X.X</i>.jar</li>
 				<li>$GEMFIRE/lib/servlet-api-2.5.jar</li>
 				<li id="li_50AC4F34973145819DAF1807F8C82437">$GEMFIRE/lib/slf4j-api-1.5.8.jar </li>
-				<li id="li_8243983C61D44AA19C3D9303DFE89AD0">$GEMIFRE/lib/slf4j-jdk14-1.5.8.jar </li>
+				<li id="li_8243983C61D44AA19C3D9303DFE89AD0">$GEMIFRE/lib/slf4j-jdk18-1.5.8.jar </li>
 				<li>$GEMFIRE/conf</li>
 			</ul>
 			<p>where <i>X.X.X</i> corresponds to the version of <keyword keyref="product_name"/> you

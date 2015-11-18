@@ -68,15 +68,13 @@
 		</section>
 		<section id="section_53DB74E97CAC4B5F885B2A2FEC279EA6">
 			<title>Part 1: Start a Locator</title>
-			<p>JVMs running <keyword keyref="product_name"/> discover each other through multicast
-				messaging or through a TCP locator service, which is called a locator. Multicasting
-				is a good way to run quick tests, but it is less robust and flexible than the
-				locator service. The locator runs as a separate process to which each new member
-				connects to first discover the list of available peers. Clients connect to the
-				locator to get server connection information. For more information, see <xref
+			<p>JVMs running <keyword keyref="product_name"/> discover each other through a TCP locator
+				service, which is called a locator. The locator runs as a separate process to which
+				each new member connects to first discover the list of available peers. Clients
+				connect to the locator to get server connection information. For more information,
+				see <xref
 					href="../../topologies_and_comm/topology_concepts/how_member_discovery_works.xml#how_member_discovery_works"
-					type="concept" format="dita" scope="local"/>. For this example, we use a
-				locator. </p>
+					type="concept" format="dita" scope="local"/>.</p>
 			<p>
 				<fig id="fig_A4302B2655624148A94DC557BEFF277A">
 					<title>Peer Discovery Using a Locator</title>
@@ -141,9 +139,8 @@ Monitor and Manage GemFire
 						<li id="li_D7F510AA489A44D985CC8707D5A86D1A">The <keyword
 								keyref="product_name"/> locators property tells the cache which
 							locators to use to discover other <keyword keyref="product_name"/> JVMs. </li>
-						<li id="li_65AE7141E2E24C01A1FB8EF98B9E282D">The mcast-port property tells
-								<keyword keyref="product_name"/> not to use multicast discovery to
-							find peers. </li>
+						<li id="li_65AE7141E2E24C01A1FB8EF98B9E282D">The mcast-port property tells <keyword
+								keyref="product_name"/> not to use multicast messaging. </li>
 						<li id="li_0F22822942B94F558E253CB121F8968D">The log-level property controls
 							the log level of <keyword keyref="product_name"/>'s internal logging.
 							Here it is set to "error" to limit the amount of messaging that will
