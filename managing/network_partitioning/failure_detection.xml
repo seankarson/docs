@@ -7,33 +7,35 @@
 	<conbody>
 		<section id="section_1AAE6C92FED249EFBA476D8A480B8E51">
 			<title>Failure Detection</title>
-			<p>Network partitioning has a failure detection protocol that is not subject to hanging
-				when NICs or machines fail. Failure detection works by detecting missing datagram
-				heartbeats from the peer to the left in the membership view (see "Membership Views"
-				below for the view layout), followed by attempting to form a TCP/IP connection, and
-				then sending a <codeph>VERIFY_SUSPECT</codeph> datagram message to all other
-				processes. Those processes all quickly send several <codeph>ARE_YOU_DEAD</codeph>
-				datagram messages to the suspect process. If the process does not answer one of
-				these messages with an <codeph>I_AM_NOT_DEAD</codeph> response, the process is
-				kicked out of membership. It is sent a message to disconnect the distributed system
-				and close the cache. </p>
+			<p>Network partitioning has a failure detection protocol that is not subject to hanging when NICs
+				or machines fail. Failure detection has each member observe messages from the peer
+				to its right within the membership view (see "Membership Views" below for the view
+				layout). A member that suspects the failure of its peer to the right sends a
+				datagram heartbeat request to the suspect member. With no response from the suspect
+				member, the suspicious member broadcasts a <codeph>SuspectMembersMessage</codeph>
+				datagram message to all other members. The coordinator attempts to connect to the
+				suspect member. If the connection attempt is unsuccessful, the suspect member is
+				removed from the membership view. The suspect member is sent a message to disconnect
+				from the distributed system and close the cache. In parallel to the receipt of the
+					<codeph>SuspectMembersMessage</codeph>, a distributed algorithm promotes the
+				leftmost member within the view to act as the coordinator, if the coordinator is the
+				suspect member.</p>
 			<p>Failure detection processing is also initiated on a member if the
-					<codeph>gemfire.properties</codeph>
+					<filepath>gemfire.properties</filepath>
 				<codeph>ack-wait-threshold</codeph> elapses before receiving a response to a
 				message, if a TCP/IP connection cannot be made to the member for peer-to-peer (P2P)
-				messaging, and if no other traffic is detected from the member. For this kind of
-				failure detection, the operator must also have set the
-					<codeph>ack-severe-alert-threshold</codeph> in gemfire.properties. </p>
+				messaging, and if no other traffic is detected from the member. </p>
 			<note>The TCP connection ping is not used for connection keep alive purposes; it is only
 				used to detect failed members. See <xref
 					href="../../managing/monitor_tune/socket_tcp_keepalive.xml#topic_jvc_pw3_34"/>
 				for TCP keep alive configuration.</note>
-			<p> If a new membership view is sent out that includes one or more failed processes, the
-				locator will log new quorum weight calculations. At any point, if quorum loss is
-				detected due to unresponsive processes, the locator will also log a severe level
-				message to identify the failed processes:
+			<p> If a new membership view is sent out that includes one or more failed members, the
+				coordinator will log new quorum weight calculations. At any point, if quorum loss is
+				detected due to unresponsive processes, the coordinator will also log a severe level
+				message to identify the failed members:
 				<msgblock>Possible loss of quorum detected due to loss of {0} cache processes: {1}</msgblock>
-				where {0} is the number of processes that failed and {1} lists the processes. </p>
+				in which {0} is the number of processes that failed and {1} lists the members (cache
+				processes). </p>
 		</section>
 		<section id="section_1170FBBD6B7A483AB2C2A837F1B8876D">
 			<title>Membership Views</title>
@@ -76,8 +78,8 @@ ent(8788)&lt;v7&gt;:24136/53525]
 					<li id="li_C397C4CDBE6048E3A880F31B2F89AE75">The membership-port is the JGroups
 						TCP UDP port that it uses to send datagrams. The distribution-port is the
 						TCP/IP port that is used for cache messaging. </li>
-					<li id="li_C5CB0158A33E42F1AEBC939181906696">Each member watches the member to
-						its left for failure detection purposes. </li>
+					<li id="li_C5CB0158A33E42F1AEBC939181906696">Each member watches the member to its right for
+						failure detection purposes. </li>
 				</ul>
 			</p>
 		</section>

@@ -30,10 +30,9 @@
 		</section>
 		<section id="section_78648D4177E14EA695F0B059E336137C">
 			<title>How to Perform Distributed Operations Based on Events</title>
-			<p>If you need to use the <keyword keyref="product_name"/> API from your handlers, make
-				your work asynchronous to the event handler. You can spawn a separate thread or use
-				a solution like the <codeph>java.util.concurrent.Executor</codeph> interface. The
-					<codeph>Executor</codeph> interface is available in JDK version 1.5 and above. </p>
+			<p>If you need to use the <keyword keyref="product_name"/> API from your handlers, make your work
+				asynchronous to the event handler. You can spawn a separate thread or use a solution
+				like the <codeph>java.util.concurrent.Executor</codeph> interface. </p>
 			<p>This example shows a serial executor where the callback creates a
 					<codeph>Runnable</codeph> that can be pulled off a queue and run by another
 				object. This preserves the ordering of events.

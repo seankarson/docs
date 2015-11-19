@@ -10,15 +10,15 @@
 			<p>Individual members are each assigned a weight, and the quorum is determined by
 				comparing the total weight of currently responsive members to the previous total
 				weight of responsive members. </p>
-			<p>Your distributed system can split into separate running systems when members lose the
-				ability to see each other. The typical cause of this problem is a failure in the
-				network. To guard against this, <keyword keyref="product_name_long"/> offers network
-				partitioning detection so that when a failure occurs, only one side of the system
-				keeps running and the other side automatically shuts down. </p>
+			<p>Your distributed system can split into separate running systems when members lose the ability
+				to see each other. The typical cause of this problem is a failure in the network.
+				When a partitioned system is detected, <keyword keyref="product_name_long"/> only
+				one side of the system keeps running and the other side automatically shuts down. </p>
 			<p>
 				<note>The network partitioning detection feature is only enabled when
 						<codeph>enable-network-partition-detection</codeph> is set to true in
-					gemfire.properties. By default, this property is set to false. See <xref
+						<filepath>gemfire.properties</filepath>. By default, this property is set to
+					false. See <xref
 						href="handling_network_partitioning.xml#handling_network_partitioning"
 						type="concept" format="dita" scope="local"/> for details. Quorum weight
 					calculations are always performed and logged regardless of this configuration
@@ -26,109 +26,94 @@
 			</p>
 			<p>The overall process for detecting a network partition is as follows: </p>
 			<ol id="ol_7C171480785D4371BA8B7990E4A2E696">
-				<li id="li_41DC31ADA0F748F4B7D6DA5328949A9D">The distributed system starts up. When
-					you start up a distributed system, you typically start the locators first, then
-					the cache servers and then other members such as applications or processes that
-					access distributed system data. </li>
-				<li id="li_DD2170672F274BCB957B1936E2B59CBB">After the members start up, the oldest
-					member (if you are using locators, typically this is a locator) assumes the role
-					of the membership coordinator. Peer discovery occurs as members come up and
-					members generate a membership discovery list for the distributed system.
-					Locators or the oldest peer member hand out the membership discovery list as
-					each member process starts up. This list typically contains a hint on who the
-					current membership coordinator is. </li>
+				<li id="li_41DC31ADA0F748F4B7D6DA5328949A9D">The distributed system starts up. When you start up
+					a distributed system, start the locators first, start the cache servers second,
+					and then start other members such as applications or processes that access
+					distributed system data. </li>
+				<li id="li_DD2170672F274BCB957B1936E2B59CBB">After the members start up, the oldest member,
+					typically a locator, assumes the role of the membership coordinator. Peer
+					discovery occurs as members come up and members generate a membership discovery
+					list for the distributed system. Locators  hand out the membership discovery
+					list as each member process starts up. This list typically contains a hint on
+					who the current membership coordinator is. </li>
 				<li id="li_2922195CB67B4F9B9E6CFBE9F6563CC0">Members join and if necessary, depart
 					the distributed system: <p>
 						<ul id="ul_B7CCDA98B8814E60B5A04130A0F9D280">
-							<li id="li_B5D6D98DC12F43FDA7FB34DFA947B6B6">Member processes make a
-								request to the coordinator to join the distributed system. If
-								authenticated, the coordinator hands the new member the current
-								membership view and begins the process of updating the current view
-								(to add the new member or members) by sending out a view preparation
-								message to existing members in the view. </li>
-							<li id="li_DF6256EA18C74E269365796455BCB42C">While members are joining
-								the system, it is possible that members are also being removed
-								through the normal failure detection process. Failure detection
-								removes unresponsive or slow members. See <xref
+							<li id="li_B5D6D98DC12F43FDA7FB34DFA947B6B6">Member processes make a request to the
+								coordinator to join the distributed system. If authenticated, the
+								coordinator creates a new membership view, hands the new membership
+								view to the new member, and begins the process of sending the new
+								membership view (to add the new member or members) by sending out a
+								view preparation message to existing members in the view. </li>
+							<li id="li_DF6256EA18C74E269365796455BCB42C">While members are joining the system, it is
+								possible that members are also leaving or being removed through the
+								normal failure detection process. Failure detection removes
+								unresponsive or slow members. See <xref
 									href="../monitor_tune/slow_receivers_managing.xml"
 									type="concept" format="dita" scope="local"/> and <xref
 									href="failure_detection.xml#concept_CFD13177F78C456095622151D6EE10EB"
 									type="concept" format="dita" scope="local"/> for descriptions of
 								the failure detection process. If a new membership view is sent out
-								that includes one or more failed processes, the locator will log the
-								new weight calculations. At any point, if quorum loss is detected
-								due to unresponsive processes, the locator will also log a severe
-								level message to identify the failed processes:
+								that includes one or more failed processes, the coordinator will log
+								the new weight calculations. At any point, if quorum loss is
+								detected due to unresponsive processes, the coordinator will also
+								log a severe level message to identify the failed processes:
 								<msgblock>Possible loss of quorum detected due to loss of {0} cache processes: {1}</msgblock>
 								where {0} is the number of processes that failed and {1} lists the
 								processes. </li>
 						</ul>
 					</p>
 				</li>
-				<li id="li_4EDA140514664AFDB27EE57127A56F58">Whenever the coordinator is alerted of
-					a membership change (a member either joins or leaves the distributed system), it
+				<li id="li_4EDA140514664AFDB27EE57127A56F58">Whenever the coordinator is alerted of a membership
+					change (a member either joins or leaves the distributed system), the coordinator
 					generates a new membership view. The membership view is generated by a two-phase
 					protocol: <ol id="ol_760C6BE4313E4537AF0618CB7F0A082F">
 						<li id="li_340D4F7C0E014B9D85E06E63B20FA51D">In the first phase, the
-							membership coordinator sends out view preparation message to all members
-							and waits 12 seconds for a view preparation ack return message from each
-							member. If the coordinator does not receive an ack message from a member
-							within 12 seconds, the coordinator attempts to connect to the member's
-							failure-detection socket and then attempts to connect to its
-							direct-channel socket. If the coordinator cannot connect to the member's
-							sockets, it declares the member dead and starts the process over again
-							with a new view. </li>
-						<li id="li_DF1A54D4F2774606B1936CFCDCFB2036">In the second phase, the
-							coordinator sends out the new membership view to all members that
-							acknowledged the view preparation message. The coordinator waits another
-							12 seconds for an acknowledgment of receiving the new view from each
-							member. Any members that fail to acknowledge the view are removed from
-							the view. </li>
+							membership coordinator sends out a view preparation message to all
+							members and waits 12 seconds for a view preparation ack return message
+							from each member. If the coordinator does not receive an ack message
+							from a member within 12 seconds, the coordinator attempts to connect to
+							the member's failure-detection socket. If the coordinator cannot connect
+							to the member's failure-detection socket, the coordinator declares the
+							member dead and starts the membership view protocol again from the
+							beginning. </li>
+						<li id="li_DF1A54D4F2774606B1936CFCDCFB2036">In the second phase, the coordinator sends out
+							the new membership view to all members that acknowledged the view
+							preparation message or passed the connection test.</li>
 					</ol>
 				</li>
-				<li id="li_9DA4E9F97D0240CE883AC6F2BBB4F329">Each time the membership coordinator
-					sends a view, it calculates the total weight of members in the current
-					membership view and compares it to the total weight of the previous membership
-					view. Some conditions to note: <p>
+				<li id="li_9DA4E9F97D0240CE883AC6F2BBB4F329">Each time the membership coordinator sends a view,
+					each member calculates the total weight of members in the current membership
+					view and compares it to the total weight of the previous membership view. Some
+					conditions to note: <p>
 						<ul id="ul_DE0FE0E2E0D345FE8865B03EB58E274B">
-							<li id="li_11731A0A2F184D97B0701F640B5F0B31">When the first membership
-								view is sent out, there are no accumulated losses. The first view
-								only has additions and usually contains the initial
-								locator/coordinator. </li>
+							<li id="li_11731A0A2F184D97B0701F640B5F0B31">When the first membership view is sent out,
+								there are no accumulated losses. The first view only has additions. </li>
 							<li id="li_04BFC02B3ECA42F8B654CD11925B9066">A new coordinator may have
 								a stale view of membership if it did not see the last membership
 								view sent by the previous (failed) coordinator. If new members were
 								added during that failure, then the new members may be ignored when
 								the first new view is sent out. </li>
 							<li id="li_B6C91B6DD8794A6D8F8EFE2D66B6CD4C">If members were removed
-								during the failover to the new coordinator, then the new coordinator
-								will have to determine these losses during the view preparation
-								step. </li>
+								during the fail over to the new coordinator, then the new
+								coordinator will have to determine these losses during the view
+								preparation step. </li>
 						</ul>
 					</p>
 				</li>
-				<li id="li_0BBC813223A046068998881533FABDBB">If <keyword keyref="product_name"/>
-					detects that the total membership weight has dropped by <i>a configured
-						percentage</i> within a single membership view change (loss of quorum), then
-						<keyword keyref="product_name"/> will declare a network partition event if
-					network partitioning detection has been enabled
-						(<codeph>enable-network-partition-detection</codeph> set to true). The
-					coordinator sends a network-partitioned-detected UDP message to all members
-					(even to the non-responsive ones) and then closes the distributed system with a
-						<codeph>ForcedDisconnectException</codeph>. If a member fails to receive the
-					message before the coordinator closes the system, the member is responsible for
-					detecting the event on its own. </li>
+				<li id="li_0BBC813223A046068998881533FABDBB">With
+						<codeph>enable-network-partition-detection</codeph> set to true, any member
+					that detects that the total membership weight has dropped below 51% within a
+					single membership view change (loss of quorum) declares a network partition
+					event. The coordinator sends a network-partitioned-detected UDP message to all
+					members (even to the non-responsive ones) and then closes the distributed system
+					with a <codeph>ForcedDisconnectException</codeph>. If a member fails to receive
+					the message before the coordinator closes the system, the member is responsible
+					for detecting the event on its own. </li>
 			</ol>
-			<p>The presumption is that when a network partition is declared, the members that can
-				generate a quorum of membership will continue operations and assume the role of the
-				"surviving" side. The surviving members will elect a new coordinator, designate a
-				lead member, and so on. </p>
-			<p>Note that it is possible for a member to fail during view transmission and that some
-				other process will reuse its fd-sock or direct-channel port, causing a false
-				positive in the member verification step. This is acceptable because it means that
-				the machine that hosted the process is still reachable. No network failure has
-				occurred and the member that did not acknowledge the view preparation message will
-				be removed in a subsequent view. </p>
+			<p>The presumption is that when a network partition is declared, the members that comprise a
+				quorum will continue operations. The surviving members elect a new coordinator,
+				designate a lead member, and so on. </p>
 		</section>
 	</conbody>
 </concept>

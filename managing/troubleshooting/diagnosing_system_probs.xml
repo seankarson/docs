@@ -124,12 +124,6 @@
 					href="diagnosing_system_probs.xml#diagnosing_system_probs/section_778D150443044847B1C73B9E02BE247B"
 					type="section" format="dita" scope="local">Members cannot see each other</xref>
 			</li>
-			<li id="li_EE184C15DCE94783AC838FB4229ED85B">
-				<xref
-					href="diagnosing_system_probs.xml#diagnosing_system_probs/section_2B3EEEF9C3A9444B9897F6C83DECFF3F"
-					type="section" format="dita" scope="local">Some new members are not seen by
-					existing members</xref>
-			</li>
 			<li id="li_799D11386CDD4D54AB4B51EB102985E2">
 				<xref
 					href="diagnosing_system_probs.xml#diagnosing_system_probs/section_E31AFADE4A3A45C7A6EABB67697CFF33"
@@ -168,19 +162,28 @@
 		</ul>
 		<section id="section_7BC1FF8CE0FC492CB49235FC4BC4060B">
 			<title>Locator does not start</title>
-			<p>Locator startup fails with an error like this: </p>
+			<p>Invocation of a locator with gfsh fails with an error like this: </p>
 			<p>
-				<codeblock>ERROR: Operation "start-locator" failed because: Start of locator failed.
-The end of "/gemfire/GemFire65/bin/start_locator.log"
-contained this message: "[severe 2010/10/14 11:49:49.119 CEST &lt;main&gt;
-tid=0x1] Could not start locator
-com.gemstone.gemfire.GemFireConfigException: Unable to contact a Locator
-service.  Operation either timed out or Locator does not exist.
-Configured list of locators is "[192.168.2.1&lt;v0&gt;:41111]". 	at
-com.gemstone.org.jgroups.protocols.TCPGOSSIP.sendGetMembersRequest(TCPGOSS
-IP.java:189) 	at
-com.gemstone.org.jgroups.protocols.PingSender.run(PingSender.java:86) 	at
-java.lang.Thread.run(Thread.java:637) "..</codeblock>
+				<codeblock>Starting a GemFire Locator in C:\devel\gfcache\locator\locator
+The Locator process terminated unexpectedly with exit status 1. Please refer to the log
+        file in C:\devel\gfcache\locator\locator for full details.
+Exception in thread "main" java.lang.RuntimeException: An IO error occurred while
+        starting a Locator in C:\devel\gfcache\locator\locator on 10.84.192.33[10999]: Network is
+        unreachable; port (10999) is not available on 10.84.192.33.
+at
+com.gemstone.gemfire.distributed.LocatorLauncher.start(LocatorLauncher.java:622)
+at
+com.gemstone.gemfire.distributed.LocatorLauncher.run(LocatorLauncher.java:513)
+at
+com.gemstone.gemfire.distributed.LocatorLauncher.main(LocatorLauncher.java:188)
+Caused by: java.net.BindException: Network is unreachable; port (10999) is not available on
+        10.84.192.33.
+at
+com.gemstone.gemfire.distributed.AbstractLauncher.assertPortAvailable(AbstractLauncher.java:136)
+at
+com.gemstone.gemfire.distributed.LocatorLauncher.start(LocatorLauncher.java:596)
+...
+</codeblock>
 			</p>
 			<p>This indicates a mismatch somewhere in the address, port pairs used for locator
 				startup and configuration. The address you use for locator startup must match the
@@ -243,14 +246,8 @@ java.lang.Thread.run(Thread.java:637) "..</codeblock>
 						server to see that the mcast-port is configured correctly. If you are
 						running multiple distributed systems at your site, each distributed system
 						must use a unique multicast port. </li>
-					<li id="li_99C9B12E0DC546E5A9760D5717E0B190">Can’t connect to locator (when
-						using TCP for discovery). <ul id="ul_F997C16436D943E78F7EAC29FBA380C2">
-							<li id="whatever">Check for an error message that includes this string:
-								<codeblock>[severe 2005/10/24 11:21:02.908 PDT nameFromGemfireProperties DownHandler
-		(FD_SOCK) nid=0xf] GossipClient.getInfo(): exception connecting to host
-		localhost:30303: java.net.ConnectException: Connection refused</codeblock>
-								This error means that the application or cache server is configured
-								to connect to a non-existent locator. </li>
+					<li id="li_99C9B12E0DC546E5A9760D5717E0B190">Can not connect to locator (when using TCP for
+						discovery). <ul id="ul_F997C16436D943E78F7EAC29FBA380C2">
 							<li id="li_9A76E52F8E5D49A892C5000BD0C390C0">Check that the locators
 								attribute in this process’s <codeph>gemfire.properties</codeph> has
 								the correct IP address for the locator. </li>
@@ -273,15 +270,6 @@ java.lang.Thread.run(Thread.java:637) "..</codeblock>
 					<li id="li_0D5328457A4E49D198386F2289E5DDE0">Wrong version of <keyword
 							keyref="product_name"/> . A version mismatch can cause the process to
 						hang or crash. Check the software version with the gemfire version command. </li>
-					<li id="li_27314CDD0A21421E8D21B9DC2CCCA64C">Bad IP address in the system hosts
-						file. Check that the addresses in your hosts file are valid. If this is the
-						problem, the failing member’s log file may contain a message of this type:
-						<codeblock>com.gemstone.gemfire.ForcedDisconnectException: Attempt to
-connect to distributed system timed out
-at 
-com.gemstone.org.jgroups.protocols.pbcast.GMS.down(GMS.java:786)
-at . . . </codeblock>
-					</li>
 				</ul>
 			</p>
 		</section>
@@ -376,7 +364,7 @@ Document root element "cache", must match DOCTYPE root "client-cache".</codebloc
 &lt;/client-cache&gt;</codeblock>
 		</section>
 		<section id="section_B2DAD06E80A4475D96FF2ACCF30FE198">
-			<title>Cache isn’t configured properly</title>
+			<title>Cache is not configured properly</title>
 			<p>An empty cache can be a normal condition. Some applications start with an empty cache
 				and populate it programmatically, but others are designed to bulk load data during
 				initialization. </p>
@@ -487,7 +475,7 @@ created at timestamp 1270834766733 version 0]</codeblock>
 			</p>
 		</section>
 		<section id="section_346C62F16B19491E83B59B0A51D9E2B6">
-			<title>Can’t find the log file</title>
+			<title>Can not find the log file</title>
 			<p>Operating without a log file can be a normal condition, so the process does not log a
 				warning. </p>
 			<p>Response: <ul id="ul_FFCE754666CE4EC4AA746154EA151FCE">
@@ -766,22 +754,6 @@ within member-timeout milliseconds</codeblock>
 					</li>
 				</ul>
 			</p>
-		</section>
-		<section id="section_2B3EEEF9C3A9444B9897F6C83DECFF3F">
-			<title>Some new members are not seen by existing members</title>
-			<p>If your application creates many, many short-lived members, the system may fail to
-				recognize some new members as they appear. When a member departs the distributed
-				system, <keyword keyref="product_name"/> ignores all messages from that member’s
-				address for a period of time called the shun sunset. This keeps the system from
-				trying to process a dead member’s spurious messages. If you have members joining and
-				using departed member’s addresses before the shun sunset has passed, the system will
-				not recognize them. </p>
-			<p>Response: </p>
-			<p>Set the shun sunset low enough to allow the system to recognize your new members. The
-				default sunset is 90 seconds. You can change it using the system property
-				JGroups.SHUN_SUNSET, which is specified in seconds. </p>
-			<p>Note that the available pool of "wildcard" ports on Windows is much smaller than on
-				Linux or Solaris, so this problem is more likely to be seen on Windows. </p>
 		</section>
 		<section id="section_E31AFADE4A3A45C7A6EABB67697CFF33">
 			<title>One part of the distributed system cannot see another part</title>
