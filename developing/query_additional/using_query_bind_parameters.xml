@@ -5,10 +5,11 @@
 	<shortdesc><?xm-replace_text Short Description?>Using query bind parameters in <keyword
 			keyref="product_name"/> queries is similar to using prepared statements in SQL where
 		parameters can be set during query execution. This allows user to build a query once and
-		execute it multiple times by passing the query conditions during run time. </shortdesc>
+		execute it multiple times by passing the query conditions during run time.</shortdesc>
 	<conbody>
+		<p> Query objects are thread-safe. </p>
 		<p> The use of query bind parameters is now supported in Client-to-Server queries. </p>
-		<p>The query parameters are identified by a dollar sign, $ , followed by a digit that
+		<p>The query parameters are identified by a dollar sign, $, followed by a digit that
 			represents the parameter's position in the parameter array passed to the execute method.
 			Counting begins at 1, so $1 references the first bound attribute, $2 the second
 			attribute, and so on. </p>
