@@ -7,8 +7,9 @@
 		parameters can be set during query execution. This allows user to build a query once and
 		execute it multiple times by passing the query conditions during run time. </shortdesc>
 	<conbody>
+		<p> Query objects are thread-safe. </p>
 		<p> The use of query bind parameters is now supported in Client-to-Server queries. </p>
-		<p>The query parameters are identified by a dollar sign, $ , followed by a digit that
+		<p>The query parameters are identified by a dollar sign, $, followed by a digit that
 			represents the parameter's position in the parameter array passed to the execute method.
 			Counting begins at 1, so $1 references the first bound attribute, $2 the second
 			attribute, and so on. </p>
@@ -29,7 +30,7 @@
 			<title>Sample Code</title>
 			<p>
 				<codeblock>// Identify your query string.
- String queryString = SELECT DISTINCT * FROM /exampleRegion p WHERE p.status = $1;
+String queryString = SELECT DISTINCT * FROM /exampleRegion p WHERE p.id = $1 and p.status = $2;
 
 // Get QueryService from Cache.
 QueryService queryService = cache.getQueryService();
@@ -39,7 +40,8 @@ Query query = queryService.newQuery(queryString);
 
 // Set query parameters.
 Object[] params = new Object[1];
-params[0] = "active";
+params[0] = 2;
+params[1] = "active";
 
 // Execute Query locally. Returns results set.
 SelectResults results = (SelectResults)query.execute(params);
