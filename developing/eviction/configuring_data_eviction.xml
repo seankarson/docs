@@ -75,13 +75,13 @@
     &lt;/lru-memory-size&gt; 
   &lt;/eviction-attributes&gt; 
   &lt;/region-attributes&gt;</codeblock>
-			<codeblock outputclass="language-xml">// Create an memory eviction controller on a partitioned region with max bytes of 512 MB
+			<codeblock outputclass="language-xml">// Create a memory eviction controller on a partitioned region with max bytes of 512 MB
 &lt;region name="demoPR"&gt;
   &lt;region-attributes refid="PARTITION"&gt;
     &lt;partition-attributes local-max-memory="512" total-num-buckets="13"/&gt;
     &lt;eviction-attributes&gt;
        &lt;lru-memory-size action="local-destroy"/&gt;
-       &lt;class-name&gt;com.gemstone.gemfire.cache.util.ObjectSizerImpl
+       &lt;class-name&gt;com.gemstone.gemfire.cache.util.ObjectSizer
        &lt;/class-name&gt;
     &lt;/eviction-attributes&gt;
   &lt;/region-attributes&gt;
