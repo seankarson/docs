@@ -3416,9 +3416,7 @@
 				immediately after the "region-attributes" node. The "name" attribute is a required
 				field which identifies the name of the index. See <xref format="dita"
 					href="../../developing/query_index/query_index.xml" scope="local" type="concept"
-				/> for more information on indexes. You can create either a functional index with
-				the <codeph>&lt;functional&gt;</codeph> sub-element or a primary-key index with the
-					<codeph>&lt;primary-key&gt;</codeph> element. </p>
+				/> for more information on indexes. </p>
 			<p>
 				<b>Default: </b>
 			</p>
@@ -3502,82 +3500,6 @@
   expression="p.mktValue" type="hash"/&gt;
  ...
 &lt;/region&gt;</codeblock>
-		</body>
-	</topic>
-	<topic id="functional">
-		<title>&lt;functional&gt;</title>
-		<shortdesc> </shortdesc>
-		<body>
-			<p>Defines a functional index. Deprecated after GemFire 6.6.1. Use the
-					<codeph>type</codeph> attribute of <codeph>&lt;index></codeph> instead.</p>
-			<table id="table_C65C25E8B75C4DF798156A2E2180C43E">
-				<title>Attributes</title>
-				<tgroup cols="3">
-					<colspec colname="1" colnum="1" colwidth="1.6*"/>
-					<colspec colname="2" colnum="2" colwidth="4.1*"/>
-					<colspec colname="col3" colnum="3" colwidth="1*"/>
-					<thead>
-						<row>
-							<entry>Attribute </entry>
-							<entry>Description </entry>
-							<entry colname="col3">Default </entry>
-						</row>
-					</thead>
-					<tbody>
-						<row>
-							<entry>expression </entry>
-							<entry>Specifies the collection(s) of objects that the index ranges
-								over. The from-clause must only contain one and only one region
-								path. </entry>
-							<entry colname="col3"/>
-						</row>
-						<row>
-							<entry>from-clause </entry>
-							<entry>Specifies the lookup value of the index. </entry>
-							<entry colname="col3"/>
-						</row>
-						<row>
-							<entry>imports </entry>
-							<entry>String containing the imports used to create the index. String
-								should be specified in the query language syntax with each import
-								statement separated by a semicolon. The imports statement provides
-								packages and classes used in variable typing in the indexed and FROM
-								expressions. </entry>
-							<entry colname="col3"/>
-						</row>
-					</tbody>
-				</tgroup>
-			</table>
-		</body>
-	</topic>
-	<topic id="primary-key">
-		<title>&lt;primary-key&gt;</title>
-		<shortdesc> </shortdesc>
-		<body>
-			<p>Defines a primary-key index. Deprecated after GemFire 6.6.1. Use the
-					<codeph>key-index</codeph> attribute of <codeph>&lt;index></codeph> instead</p>
-			<table id="table_6ABEBC08A1D34B689FB2032C6BFE6934">
-				<title>Attributes</title>
-				<tgroup cols="3">
-					<colspec colname="1" colnum="1" colwidth="1.6*"/>
-					<colspec colname="2" colnum="2" colwidth="4.1*"/>
-					<colspec colname="col3" colnum="3" colwidth="1*"/>
-					<thead>
-						<row>
-							<entry>Attribute </entry>
-							<entry>Description </entry>
-							<entry colname="col3">Default </entry>
-						</row>
-					</thead>
-					<tbody>
-						<row>
-							<entry>field </entry>
-							<entry>The field used to create the primary-key index. </entry>
-							<entry colname="col3"/>
-						</row>
-					</tbody>
-				</tgroup>
-			</table>
 		</body>
 	</topic>
 	<topic id="entry">
