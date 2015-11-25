@@ -81,7 +81,7 @@ else if (pendingEvents == -1) { // client reconnected but after the timeout peri
 … // handle possible data loss
 } 
 else { // pendingEvents >= 0  
-… // decide to invoke readyForEvents() or cache.close(false)/pool.destroy()
+… // decide to invoke readyForEvents() or ClientCache::close(false)/pool.destroy()
 }</codeblock>For
 									a client with multiple
 									pools:<codeblock>int pendingEvents = 0;

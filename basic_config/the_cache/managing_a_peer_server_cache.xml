@@ -65,8 +65,8 @@ gfsh>create region --name=ordersRegion --type=PARTITION</codeblock></li>
 							</li>
 						</ol>
 					</li>
-					<li id="li_03ACBDC8DB0D49748E23632F65989AF9">Close your cache when you are done
-						using the <codeph>close</codeph> method of your <codeph>Cache</codeph>
+					<li id="li_03ACBDC8DB0D49748E23632F65989AF9">Close your cache when you are done using the
+						inherited <codeph>close</codeph> method of the  <codeph>Cache</codeph>
 						instance: <codeblock>cache.close();</codeblock>
 					</li>
 				</ol>

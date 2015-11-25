@@ -54,9 +54,10 @@ Cache cache = new CacheFactory(properties).create();</codeblock>
 							</li>
 						</ol>
 					</li>
-					<li id="li_B104826C0835474EB7C5AD84DEE84BEB">Close your cache when you are done
-						using the <codeph>close</codeph> method of your <codeph>Cache</codeph> or
-							<codeph>ClientCache</codeph> instance. Example:
+					<li id="li_B104826C0835474EB7C5AD84DEE84BEB">Close your cache when you are done, using the
+							<codeph>close</codeph> method of the <codeph>ClientCache</codeph>
+						instance or the inherited <codeph>close</codeph> method of the
+							<codeph>Cache</codeph> instance. Example:
 						<codeblock>cache.close();</codeblock>
 					</li>
 				</ol>
