@@ -30,12 +30,12 @@ createIndex("indx1", "entries.value.getID", "/exampleRegion.entrySet() entries")
 		<p>The following example indexes will work for overflow regions.
 			<codeblock>createIndex("pkidIndex", "p.pkid", "/Portfolios p");
 
-createIndex("indx1", "ks.toString", "/portfolio.keys() ks");
+createIndex("indx1", "ks.toString", "/portfolio.keySet() ks");
 </codeblock></p>
 		<p>The same working examples in
 			gfsh:<codeblock>gfsh> create index -name="pkidIndex" --expression="p.pkid" --region="/Portfolios p"
 
-gfsh> create index -name="indx1" --expression="ks.toString" --region="/portfolio.keys() ks"
+gfsh> create index -name="indx1" --expression="ks.toString" --region="/portfolio.keySet() ks"
 </codeblock></p>
 	</conbody>
 </concept>
