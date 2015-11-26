@@ -202,20 +202,21 @@
 		</section>
 		<section id="section_92A444D4B422434EBD5F81D11F32C1C7">
 			<title>Single-Hop Capability for Client/Server </title>
-			<p>Clients can send individual data requests, such as put and delete, in a single hop,
-				directly to the server holding the data key. The clients store metadata about bucket
-				locations for partitioned region data. This feature improves performance and client
-				access to partitioned regions in the server tier. </p>
+			<p>Clients can send individual data requests directly to the server holding the data key,
+				avoiding multiple hops to locate data that is partitioned. Metadata in the client
+				identifies the correct server. This feature improves performance and client access
+				to partitioned regions in the server tier. </p>
 		</section>
 		<section id="section_577F601BC9854AA6B53CD3440F9B9A6A">
 			<title>Client/Server Security</title>
 			<p><keyword keyref="product_name"/> supports running multiple, distinct users in client
-				applications. This feature accommodates installations where GemFire clients are
-				embedded in application servers, and each application server supports data requests
-				from many users. Each user may be authorized to access a small subset of data on the
-				servers, as in a customer application where each customer can access only their own
-				orders and shipments. Each user in the client connects to the server with its own
-				set of credentials, and is given its own access authorization to the server cache. </p>
+				applications. This feature accommodates installations in which <keyword
+					keyref="product_name"/> clients are embedded in application servers, and each
+				application server supports data requests from many users. Each user may be
+				authorized to access a small subset of data on the servers, as in a customer
+				application where each customer can access only their own orders and shipments. Each
+				user in the client connects to the server with its own set of credentials, and is
+				given its own access authorization to the server cache. </p>
 			<p>Client/server communication has increased security against replay attacks. The server
 				now sends the client a unique, random identifier with each response, to be used in
 				the next client request. Because of the identifier, even a repeated client operation
