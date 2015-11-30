@@ -25,19 +25,16 @@
 			<p>When the losing side discovers that a network partition event has occurred, all peer
 				members receive a <codeph>RegionDestroyedException</codeph> with
 					<codeph>Operation</codeph>: <codeph>FORCED_DISCONNECT</codeph>. </p>
-			<p>If a <codeph>CacheListener</codeph> is installed, the
-					<codeph>afterRegionDestroy</codeph> callback is invoked with a
-					<codeph>RegionDestroyedEvent</codeph>, as shown in this example logged by the
-				losing side. The peer member process IDs are 14291 (lead member) and 14296, and the
-				locator is 14289.
+			<p>If a <codeph>CacheListener</codeph> is installed, the <codeph>afterRegionDestroy</codeph>
+				callback is invoked with a <codeph>RegionDestroyedEvent</codeph>, as shown in this
+				example logged by the losing side's callback. The peer member process IDs are 14291
+				(lead member) and 14296, and the locator is 14289.
 				<codeblock>[info 2008/05/01 11:14:51.853 PDT &lt;CloserThread&gt; tid=0x4a] 
 Invoked splitBrain.SBListener: afterRegionDestroy in client1 whereIWasRegistered: 14291 
 event.isReinitializing(): false 
 event.getDistributedMember(): thor(14291):40440/34132 
 event.getCallbackArgument(): null 
 event.getRegion(): /TestRegion 
-event.isDistributed(): false 
-event.isExpiration(): false 
 event.isOriginRemote(): false 
 Operation: FORCED_DISCONNECT 
 Operation.isDistributed(): false 
