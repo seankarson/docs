@@ -3,8 +3,11 @@
 <concept id="transaction_semantics">
 	<title><keyword keyref="product_name"/> Cache Transaction Semantics</title>
 	<conbody>
-		<p><keyword keyref="product_name"/> transaction semantics differ in some ways from the semantics
-			of traditional relational databases. </p>
+		<p><keyword keyref="product_name"/> transaction semantics differ in some ways from the
+			Atomicity-Consistency-Isolation-Durability (ACID) semantics of traditional relational
+			databases. For performance reasons, <keyword keyref="product_name"/> transactions do not
+			adhere to ACID constraints by default, but can be configured for ACID support as
+			described in this section.</p>
 		<section id="section_8362ACD06C784B5BBB0B7E986F760169">
 			<title>Atomicity</title>
 			<p>Atomicity is “all or nothing” behavior: a transaction completes successfully only when all of
@@ -14,7 +17,7 @@
 			<p><keyword keyref="product_name"/> transactions provide atomicity and realize speed by using a
 				reservation system, instead of using the traditional relational database technique
 				of a two-phase locking of rows. The reservation prevents other, intersecting
-				transactions from completing , allowing the commit to check for conflicts and to
+				transactions from completing, allowing the commit to check for conflicts and to
 				reserve resources in an all-or-nothing fashion prior to making changes to the data.
 				After all changes have been made, locally and remotely, the reservation is released.
 				With the reservation system, an intersecting transaction is simply discarded. The
@@ -46,9 +49,9 @@
 				performance, <keyword keyref="product_name"/> in its default configuration does not
 				enforce isolation. It allows transactional writes to proceed without being slowed
 				down by in-progress reads.</p>
-			<p>Applications can emulate the slow conventional isolation model by doing the extra
-					work of encapsulating their read operations within transactions. The application
-					sets the <codeph>gemfire.detectReadConflicts </codeph>parameter to ‘true’:</p>
+			<p>Applications can emulate the slow conventional isolation model by doing the extra work of
+				encapsulating their read operations within transactions. The application sets the
+					<codeph>gemfire.detectReadConflicts</codeph> parameter to ‘true’:</p>
 			<p dir="ltr"><codeph>-Dgemfire.detectReadConflicts=true</codeph></p>
 			<p>This causes
 				read operations to succeed only when they read a consistent pre- or
