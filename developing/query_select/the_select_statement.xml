@@ -36,7 +36,7 @@
 							<entry colname="col2">
 								<codeblock>SELECT secId 
 FROM /exampleRegion, positions.values TYPE Position 
-WHERE status = 'active’</codeblock>
+WHERE status = 'active'</codeblock>
 							</entry>
 						</row>
 						<row>
@@ -163,7 +163,7 @@ TYPE Position WHERE portfolio.status = 'active'</codeblock>
 								<entry colname="col3">
 									<codeblock>ELEMENT(SELECT DISTINCT * 
  FROM /exampleRegion 
- WHERE id = ‘XYZ-1’).status = ‘active’</codeblock>
+ WHERE id = 'XYZ-1').status = 'active'</codeblock>
 								</entry>
 							</row>
 							<row>
@@ -173,7 +173,7 @@ TYPE Position WHERE portfolio.status = 'active'</codeblock>
 								<entry colname="col3">
 									<codeblock>IS_DEFINED(SELECT DISTINCT * 
 FROM /exampleRegion p 
-WHERE p.status = ‘active’)</codeblock>
+WHERE p.status = 'active')</codeblock>
 								</entry>
 							</row>
 							<row>

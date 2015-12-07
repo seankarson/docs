@@ -309,10 +309,10 @@ SELECT DISTINCT * FROM /exampleRegion WHERE aDay = Day.Wednesday</codeblock>
 		</section>
 		<section id="section_907DBBBA1AEC4570A15B3491B0A7DF0E">
 			<title>How do I write a reusable query?</title>
-			<p>Using query APIs, you can set query bind parameters that are passed values at query
-				run time. For example:
+			<p>Using query APIs, you can set query bind parameters that are passed values at query run time.
+				For example:
 				<codeblock>// Identify your query string.
- String queryString = SELECT DISTINCT * FROM /exampleRegion p WHERE p.status = $1;
+ String queryString = "SELECT DISTINCT * FROM /exampleRegion p WHERE p.status = $1";
 
 // Get QueryService from Cache.
 QueryService queryService = cache.getQueryService();
