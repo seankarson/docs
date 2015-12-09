@@ -15,16 +15,15 @@
 				known locators. If the member succeeds in reconnecting to a known locator, the
 				member rebuilds its view of the distributed system from existing members and
 				receives a new distributed system ID. </p>
-			<p>If the member cannot connect to a known locator, the member will then check to see if
-				it itself is a locator (or hosting an embedded locator process) or if multicast
-				discovery is being used (instead of locators.) If the member is a locator or if
-				multicast discovery is available, then the member perform a quorum-based reconnect;
-				it will attempt to contact a quorum of the members that were in the membership view
-				just before it became disconnected. If a quorum of members can be contacted, then
-				startup of the distributed system is allowed to begin. Since the reconnecting member
-				does not know which members survived the network partition event, all members that
-				are in a reconnecting state will keep their UDP unicast ports open and respond to
-				ping requests.</p>
+			<p>If the member cannot connect to a known locator, the member will then check to see if it
+				itself is a locator (or hosting an embedded locator process). If the member is a
+				locator, then the member does a quorum-based reconnect; it will attempt to contact a
+				quorum of the members that were in the membership view just before it became
+				disconnected. If a quorum of members can be contacted, then startup of the
+				distributed system is allowed to begin. Since the reconnecting member does not know
+				which members survived the network partition event, all members that are in a
+				reconnecting state will keep their UDP unicast ports open and respond to ping
+				requests.</p>
 			<p>Membership quorum is determined using the same member weighting system used in
 				network partition detection. See <xref
 					href="../network_partitioning/membership_coordinators_lead_members_and_weighting.xml#concept_23C2606D59754106AFBFE17515DF4330"
@@ -81,12 +80,11 @@
 		</section>
 		<section>
 			<title>Operator Intervention</title>
-			<p>You may need to intervene in the autoreconnection process if processes or hardware
-				have crashed or are otherwise shut down before the network connection is healed. In
-				this case the members in a "reconnecting" state will not be able to find the lost
+			<p>You may need to intervene in the autoreconnection process if processes or hardware have
+				crashed or are otherwise shut down before the network connection is healed. In this
+				case the members in a "reconnecting" state will not be able to find the lost
 				processes through UDP probes and will not rejoin the system until they are able to
-				contact a locator. If multicast discovery is being used, then the members in a
-				"reconnecting" state must be bounced in order to have them rejoin.</p>
+				contact a locator.</p>
 		</section>
 	</conbody>
 </concept>

@@ -3,24 +3,19 @@
 <dita>
 	<topic id="topic_686158E9AFBD47518BE1B4BEB232C190">
 		<title>External Interfaces, Ports, and Services</title>
-		<shortdesc>A number of Pivotal GemFire processes use either UDP or TCP/IP ports to
+		<shortdesc><keyword keyref="product_name"/> processes use either UDP or TCP/IP ports to
 			communicate with other processes or clients. </shortdesc>
 		<body>
 			<p>For example: <ul id="ul_FC7D81D6601C43FDA0C0DFE33A6C24C9">
-					<li id="li_F9C3CC761E6E496C985D6E0D726041C1">Pivotal GemFire members can use
-						multicast to locate and communicate with peer members. You specify multicast
-						addresses and multicast ports in your <codeph>gemfire.properties</codeph>
-						file or as parameters on the command-line if starting the members using
-							<codeph>gfsh</codeph>. </li>
-					<li id="li_54B80D5A800E4A09B21E3876BE3174CD">GemFire clients connect to a
-						locator to discover cache servers. </li>
-					<li id="li_A2CE6FC5F6F1481EB7C929D683C0316E">GemFire clients and servers
-						discover each other on a predefined port (40404 by default) on the
-						localhost. </li>
-					<li id="li_8DF6D650031641C7A8947CC590CC8715">JMX clients (such as
-							<codeph>gfsh</codeph> and JConsole) can connect to JMX Managers and
-						other manageable GemFire members on the pre-defined RMI port 1099. You can
-						configure a different port if necessary. </li>
+					<li id="li_F9C3CC761E6E496C985D6E0D726041C1">Members can use multicast to communicate with peer
+						members. You specify multicast addresses and multicast ports in your
+							<codeph>gemfire.properties</codeph> file or as parameters on the
+						command-line when starting the members using <codeph>gfsh</codeph>. </li>
+					<li id="li_54B80D5A800E4A09B21E3876BE3174CD">Clients connect to a locator to discover cache
+						servers. </li>
+					<li id="li_8DF6D650031641C7A8947CC590CC8715">JMX clients (such as <codeph>gfsh</codeph> and
+						JConsole) can connect to JMX Managers and other manageable  members on the
+						pre-defined RMI port 1099. You can configure a different port if necessary. </li>
 					<li id="li_8B9F17E1997B495B94B5BB80D6CABB3E">Each gateway receiver usually has a
 						port range where it listens for incoming communication. </li>
 				</ul>
@@ -29,16 +24,16 @@
 					href="../../configuring/running/firewalls_ports.xml#concept_5ED182BDBFFA4FAB89E3B81366EBC58E"
 					type="concept" format="dita" scope="local"
 					><?xm-replace_text Firewalls and Ports?></xref> for the complete list of ports
-				used by GemFire, their default values, and how to configure them if you do not want
-				to use the default value. </p>
-			<p>Pivotal GemFire does not have any external interfaces or services that need to be
-				enabled or opened. </p>
+				used by <keyword keyref="product_name"/>, their default values, and how to configure
+				them if you do not want to use the default value. </p>
+			<p><keyword keyref="product_name"/> does not have any external interfaces or services that need
+				to be enabled or opened. </p>
 		</body>
 	</topic>
 	<topic id="topic_263072624B8D4CDBAD18B82E07AA44B6">
 		<title>Resources That Must Be Protected</title>
-		<shortdesc>Certain GemFire configuration files should be readable and writeable <i>only</i>
-			by the dedicated user who runs GemFire servers. </shortdesc>
+		<shortdesc>Certain <keyword keyref="product_name"/> configuration files should be readable and
+			writeable <i>only</i> by the dedicated user who runs servers. </shortdesc>
 		<body>
 			<ul id="ul_7B8136339DDE4955B0065F32DB24FD1A">
 				<li id="li_EEA5978CFEF64865886B60EAA6E8BF85">
@@ -57,7 +52,7 @@
 			</ul>
 			<p>The default location of the <filepath>gemfire.properties</filepath> and
 					<filepath>cache.xml</filepath> configuration files is the
-					<codeph>defaultConfigs</codeph> child directory of the main GemFire installation
+					<codeph>defaultConfigs</codeph> child directory of the main installation
 				directory. </p>
 		</body>
 	</topic>
@@ -66,12 +61,13 @@
 		<shortdesc>By default, the log files are located in the working directory used when you
 			started the corresponding processes. </shortdesc>
 		<body>
-			<p>For GemFire members (locators and cache servers), you can also specify a custom
-				working directory location when you start each process. See <xref scope="local"
+			<p>For <keyword keyref="product_name"/> members (locators and cache servers), you can also
+				specify a custom working directory location when you start each process. See <xref
+					scope="local"
 					href="../logging/logging.xml#concept_30DB86B12B454E168B80BB5A71268865"
 					type="concept" format="dita"><?xm-replace_text Logging?></xref> for more
 				details. </p>
-			<p>The GemFire log files are as follows: </p>
+			<p>The log files are as follows: </p>
 			<ul id="ul_4E4C900D836545F595339F3D6FBFEDC4">
 				<li id="li_333D1D84C80547A39701C36135A02314">
 					<codeph><i>locator-name</i>.log</codeph>: Contains logging information for the
@@ -88,8 +84,8 @@
 							href="../../tools_modules/gfsh/configuring_gfsh.xml#concept_3B9C6CE2F64841E98C33D9F6441DF487"
 						/> for more information.</note></li>
 			</ul>
-			<p>These log files should be readable and writable <i>only</i> by the dedicated user who
-				runs the GemFire servers. </p>
+			<p>These log files should be readable and writable <i>only</i> by the dedicated user who runs the
+				servers. </p>
 			<p>If you contact Pivotal technical support for help with an issue and the support
 				engineer requests that you submit log files to help resolve the problem, Pivotal
 				recommends that you remove all sensitive information from the logs before

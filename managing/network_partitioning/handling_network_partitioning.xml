@@ -8,14 +8,14 @@
 			<p>The system uses a combination of member coordinators and system members, designated
 				as lead members, to detect and resolve network partitioning problems. <ol
 					id="ol_4D41D7E7ABD64FBA96A1C1075E1D0B7C">
-					<li id="li_0CBFE55931764F89A7DD9EB50F2EED54">Network partition detection can
-						work in multicast or in locator-based environments. If you are using
-						locators for member discovery, use multiple locators. See <xref
+					<li id="li_0CBFE55931764F89A7DD9EB50F2EED54">Network partition detection works in all
+						environments. Using multiple locators mitigates the effect of network
+						partitioning. See <xref
 							href="../../topologies_and_comm/p2p_configuration/setting_up_a_p2p_system.xml"
 							type="concept" format="dita" scope="local"/>. </li>
-					<li id="li_1D5D74CEB2C140149357D9300FD41E33">Enable partition detection
-						consistently in all system members by setting this in their
-							<codeph>gemfire.properties</codeph>: <codeblock>enable-network-partition-detection=true</codeblock>
+					<li id="li_1D5D74CEB2C140149357D9300FD41E33">Enable partition detection consistently in all
+						system members by setting this in their <codeph>gemfire.properties</codeph>
+						file: <codeblock>enable-network-partition-detection=true</codeblock>
 						<p>Enable network partition detection in all locators and in any other
 							process that should be sensitive to network partitioning. Processes that
 							do not have network partition detection enabled are not eligible to be

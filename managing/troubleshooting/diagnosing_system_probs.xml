@@ -240,12 +240,11 @@ com.gemstone.gemfire.distributed.LocatorLauncher.start(LocatorLauncher.java:596)
 						may need to modify your firewall configuration to permit traffic to Java
 						applications running on your machine. The specific configuration depends on
 						the firewall you are using. </li>
-					<li id="li_EA860AF4F60B470D932BDC91B1158DCD">Wrong multicast port (when using
-						multicast for membership and discovery). Check the
-							<codeph>gemfire.properties</codeph> file of this application or cache
-						server to see that the mcast-port is configured correctly. If you are
-						running multiple distributed systems at your site, each distributed system
-						must use a unique multicast port. </li>
+					<li id="li_EA860AF4F60B470D932BDC91B1158DCD">Wrong multicast port when using multicast for
+						membership. Check the <codeph>gemfire.properties</codeph> file of this
+						application or cache server to see that the mcast-port is configured
+						correctly. If you are running multiple distributed systems at your site,
+						each distributed system must use a unique multicast port. </li>
 					<li id="li_99C9B12E0DC546E5A9760D5717E0B190">Can not connect to locator (when using TCP for
 						discovery). <ul id="ul_F997C16436D943E78F7EAC29FBA380C2">
 							<li id="li_9A76E52F8E5D49A892C5000BD0C390C0">Check that the locators
@@ -736,22 +735,8 @@ within member-timeout milliseconds</codeblock>
 							href="../../topologies_and_comm/topology_concepts/using_bind_addresses.xml#using_bind_addresses"
 							type="concept" format="dita" scope="local"
 							><?xm-replace_text Using Bind Addresses?></xref>. </li>
-					<li id="li_56CC57760306415DBFE1F1A8D1B6094E">If TCP, check that all the
-						applications and cache servers are using the same locator address. </li>
-					<li id="li_7FD79E6CD4CB474BBDD195DFE98DB0D7">If multicast: <ul
-							id="ul_362218FB27A04DE197BFBA8E40B01BF2">
-							<li id="li_5523134893B5449F9FC4ADE2C710A033">Check that all the
-								applications and cache servers are using the same multicast IP
-								address and port. </li>
-							<li id="li_A8B3AD8DFF2543CD82C04AEE18C8A4A7">Confirm that the multicast
-								IP address and port are a valid combination. </li>
-							<li id="li_ADC26682941B499BB63F90E7FCE5B9AA">Confirm that multicast is
-								enabled on the network. For details, see <xref
-									href="../../topologies_and_comm/topology_concepts/how_member_discovery_works.xml#how_member_discovery_works"
-									type="concept" format="dita" scope="local"
-									><?xm-replace_text How Member Discovery Works?></xref>. </li>
-						</ul>
-					</li>
+					<li id="li_56CC57760306415DBFE1F1A8D1B6094E">Check that all the applications and cache servers
+						are using the same locator address. </li>
 				</ul>
 			</p>
 		</section>
@@ -789,7 +774,7 @@ within member-timeout milliseconds</codeblock>
 			</table>
 		</section>
 		<section id="section_04CEF27475924E5D9860BEE6D64C49E2">
-			<title>Data distribution has stopped, though member processes are running</title>
+			<title>Data distribution has stopped, although member processes are running</title>
 			<p>Suspect a problem with the network, the locator, or the multicast configuration,
 				depending on the transport your distributed system is using. </p>
 			<p>Response: <ul id="ul_8D37B278FEF44069B752C7F92706465A">
@@ -805,8 +790,7 @@ within member-timeout milliseconds</codeblock>
 					<li id="li_D637FEB0F24D4E70A49B582D4C2EA8B4">If you are using multicast, check
 						whether the existing configuration is no long appropriate for the current
 						network traffic. </li>
-					<li id="li_A153287B7F0945138D6CB6F8403A6653">If you are using locators for
-						membership and discovery, check whether the locators have stopped. For a
+					<li id="li_A153287B7F0945138D6CB6F8403A6653">Check whether the locators have stopped. For a
 						list of the locators in use, check the locators property in one of the
 						application <codeph>gemfire.properties</codeph> files. <ul
 							id="ul_8E7A4EA3874A466894D2ED580F6168B2">

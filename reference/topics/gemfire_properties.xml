@@ -764,13 +764,13 @@
 					</row>
 					<row>
 						<entry id="entry_dkn_5fp_rr">mcast-port </entry>
-						<entry id="entry_ylr_5fp_rr">Port used, along with the mcast-address, for
-							multicast communication with other members of the distributed system. If
-							zero, multicast is disabled for member discovery and distribution.
-								<note>Select different multicast addresses and ports for different
-								distributed systems. Do not just use different addresses. Some
-								operating systems may not keep communication separate between
-								systems that use unique addresses but the same port number. </note>
+						<entry id="entry_ylr_5fp_rr">Port used, along with the mcast-address, for multicast
+							communication with other members of the distributed system. If zero,
+							multicast is disabled. <note>Select different multicast addresses and
+								ports for different distributed systems. Do not just use different
+								addresses. Some operating systems may not keep communication
+								separate between systems that use unique addresses but the same port
+								number. </note>
 							<p>Valid values are in the range 0..65535. </p>
 							<p>
 								<note>This setting controls only peer-to-peer communication and does

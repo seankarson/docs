@@ -25,35 +25,26 @@
 								faster startup, but no peer-to-peer distribution of any kind. </li>
 							<li id="li_AA27A370B606409A9A4E4DF688DBF274">For all non-standalone
 								members: <ul id="ul_02422E597F444E70B28489278A193999">
-									<li id="li_9F09DF00CDCE48ADA21ED7140A809022">Decide whether you
-										will use <keyword keyref="product_name"/> locators for
-										member discovery. They are recommended for production
-										systems and required for implementing security, network
-										partitioning management, and client/server installations.
-										Decide how many locators you will use and where they will
-										run. To ensure the most stable startup and availability, use
-										multiple locators run on multiple machines. Create a list of
-										your locators' address and port pairs. You will use the list
-										to configure your system members, any clients, and the
-										locators themselves. </li>
-									<li id="li_85FB8AE15B30494A811F301171087EA1">If you will use
-										multicasting for communication or as an alternate to
-										locators for peer member discovery, note the addresses and
-										ports. Select both unique multicast ports and unique
-										addresses for your distributed systems. <note>Use different
-											port numbers for different systems, even if you use
-											different multicast addresses. Some operating systems do
-											not keep communication separate between systems that
-											have unique addresses but the same port number. </note>
+									<li id="li_9F09DF00CDCE48ADA21ED7140A809022">Decide how many locators you will use and
+										where they will run. To ensure the most stable startup and
+										availability, use multiple locators run on multiple
+										machines. Create a list of your locators' address and port
+										pairs. You will use the list to configure your system
+										members, any clients, and the locators themselves. </li>
+									<li id="li_85FB8AE15B30494A811F301171087EA1">If you will use multicasting for
+										communication, note the addresses and ports. Select both
+										unique multicast ports and unique addresses for your
+										distributed systems. <note>Use different port numbers for
+											different systems, even if you use different multicast
+											addresses. Some operating systems do not keep
+											communication separate between systems that have unique
+											addresses but the same port number. </note>
 									</li>
 								</ul>
 							</li>
 						</ol>
 					</li>
-					<li id="li_884B6067FDF141579042360D07AEBE9D">Set up membership in your systems.
-						See <xref
-							href="../p2p_configuration/setting_up_a_p2p_system.xml"
-							type="concept" format="dita" scope="local"/>. </li>
+					<li id="li_884B6067FDF141579042360D07AEBE9D">Set up membership in your systems. </li>
 					<li id="li_FF878A26723941B39A02CD496E2C5380">Set up communication between system
 						members. See <xref
 							href="../p2p_configuration/setting_up_peer_communication.xml"
@@ -64,9 +55,6 @@
 							type="task" format="dita" scope="local"/>. </li>
 				</ol>
 			</p>
-			<p>When you run your systems, your members will find each other and communicate using
-				the configured methods and addresses. </p>
 		</section>
-		<section id="section_8AED2ACD17E2438784D529E97A2810AB"> </section>
 	</conbody>
 </concept>
