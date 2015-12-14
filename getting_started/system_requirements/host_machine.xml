@@ -8,17 +8,7 @@
 		<section id="section_1E1F206FBC8B4A898A449E0699907A7A">
 			<p>Each machine that will run <keyword keyref="product_name_long"/> must meet the
 				following requirements: <ul id="ul_6B9456040C104BEEBA4B5566672BE4D3">
-					<li>A supported Java SE installation. 
-						<!-- See <xref
-							href="supported_configurations.xml#system_requirements"/>. -->
-					</li>
-					<li id="li_4D48592F10C14E8AAB65A473488C1654">An adequate per-user limit on the number of file
-						descriptors; for Unix/Linux, the recommended soft limit is 8192, and the
-						hard limit is 81920. </li>
-					<li>An adequate per-user limit on the number of processes
-							(<codeph>nprocs</codeph>); for Unix/Linux, the recommended soft limit is
-						501408, with an unlimited hard limit.</li>
-					<li id="li_2304FA3B3E2C4164B94C04922FE2AE01">TCP/IP. </li>
+					<li>Java SE 8 or a more recent version.  </li>
 					<li id="li_787413A4D8C34CE6822EEDE6050A9F7D">A system clock set to the correct time and a time
 						synchronization service such as Network Time Protocol (NTP). Correct time
 						stamps permit the following activities: <ul id="ul_jyn_ybf_uc">
@@ -35,9 +25,7 @@
 					</li>
 					<li id="li_D3A8BDF2C64C4345828D6ACDAFA44A26"> The host name and host files are properly
 						configured for the machine. The host name and host file configuration can
-						affect <codeph>gfsh</codeph> and Pulse functionality. For Unix/Linux hosts,
-						see the system man pages for more information on setting the host name and
-						hosts. </li>
+						affect <codeph>gfsh</codeph> and Pulse functionality. </li>
 				</ul>
 			</p>
 		</section>
