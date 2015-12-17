@@ -256,14 +256,12 @@ com.gemstone.gemfire.distributed.LocatorLauncher.start(LocatorLauncher.java:596)
 									href="diagnosing_system_probs.xml#diagnosing_system_probs/section_04CEF27475924E5D9860BEE6D64C49E2"
 									type="section" format="dita"
 									><?xm-replace_text Data distribution has stopped, though member processes are     running?></xref>. </li>
-							<li id="li_D271D64524E549EEAA5F811BBC41F2D1">Bind address set
-								incorrectly on a multi-homed host. When you specify the bind
-								address, use the IP address rather than the host name. Sometimes
-								multiple network adapters are configured with the same hostname. See
-									<xref
-									href="../../topologies_and_comm/topology_concepts/using_bind_addresses.xml#using_bind_addresses"
-									format="dita"><?xm-replace_text Using Bind Addresses?></xref>.
-							</li>
+							<li id="li_D271D64524E549EEAA5F811BBC41F2D1">Bind address set incorrectly on a multi-homed
+								host. When you specify the bind address, use the IP address rather
+								than the host name. Sometimes multiple network adapters are
+								configured with the same hostname. See <xref
+									href="../../topologies_and_comm/topology_concepts/chapter_overview.xml#concept_7628F498DB534A2D8A99748F5DA5DC94"
+								/> for more information about using bind addresses. </li>
 						</ul>
 					</li>
 					<li id="li_0D5328457A4E49D198386F2289E5DDE0">Wrong version of <keyword
@@ -729,12 +727,11 @@ within member-timeout milliseconds</codeblock>
 			<p>Response: <ul id="ul_2ACAA07701614362BC44664AAA7E18DE">
 					<li id="li_97D9B36B0F24473A81A6D096BE1E27D5">Check your network monitoring tools
 						to see whether the network is down or flooded. </li>
-					<li id="li_2DD4858435F44F0B95D14D57DA8BA4E5">If you are using multi-homed hosts,
-						make sure a bind address is set and consistent for all system members. For
-						details, see <xref
-							href="../../topologies_and_comm/topology_concepts/using_bind_addresses.xml#using_bind_addresses"
-							type="concept" format="dita" scope="local"
-							><?xm-replace_text Using Bind Addresses?></xref>. </li>
+					<li id="li_2DD4858435F44F0B95D14D57DA8BA4E5">If you are using multi-homed hosts, make sure a
+						bind address is set and consistent for all system members. For details about
+						using bind addresses, see <xref
+							href="../../topologies_and_comm/topology_concepts/chapter_overview.xml#concept_7628F498DB534A2D8A99748F5DA5DC94"
+						/>. </li>
 					<li id="li_56CC57760306415DBFE1F1A8D1B6094E">Check that all the applications and cache servers
 						are using the same locator address. </li>
 				</ul>

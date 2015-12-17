@@ -1010,11 +1010,11 @@ CLASSPATH=$CLASSPATH:/opt/pulse-config</codeblock></li>
 			</section>
 			<section id="sec_pulsedatabrowser">
 				<title>Data Browser</title>
-				<p>The Pulse Data Browser enables you to query region data. Note that there are two
-					key attributes available on <xref
-						href="../../managing/management/list_of_gemfire_mbeans_full.xml#topic_14E3721DD0CF47D7AD8C742DFBE9FB9C/section_4D7A4C82DD974BB5A5E52B34A6D888B4"
-						outputclass="noPageCitation"/> that you can use to configure limits for the
-					result sets displayed in Data Browser:<ul id="ul_rrw_b41_y4">
+				<p>The Pulse Data Browser enables you to query region data. Note that there are two key
+					attributes available on DistributedSystemMXBean (see <xref
+						href="../../managing/management/list_of_gemfire_mbeans.xml#topic_4BCF867697C3456D96066BAD7F39FC8B"
+					/>) that you can use to configure limits for the result sets displayed in Data
+						Browser:<ul id="ul_rrw_b41_y4">
 						<li><codeph>QueryResultSetLimit</codeph> limits the number of rows that Data
 							Browser queries return. 1000 rows are displayed by default.</li>
 						<li><codeph>QueryCollectionsDepth</codeph> limits the number of elements of
