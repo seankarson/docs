@@ -6,17 +6,13 @@
 		<shortdesc>Use the latest supported version of the guest OS, and use Java large paging. </shortdesc>
 		<body>
 			<ul id="ul_88611090776D40C6B6DD895EBFFA5EE6">
-				<li id="li_3DC593052F764CCEA6393FD56A359235"><b>Use the latest supported version of
-						the guest operating system</b>. This guideline is probably the most
-					important. Upgrade the guest OS to a recent version supported by <keyword
-						keyref="product_name"/>. For example, for RHEL, use at least version 7.0 or
-					for SLES, use at least 11.0. For Windows, use Windows Server 2012. For RedHat
-					Linux users, it is particularly beneficial to use RHEL 7 since there are
-					specific enhancements in the RHEL 7 release that improve virtualized latency
-					sensitive workloads. See <xref
-						href="../../getting_started/system_requirements/supported_configurations.xml#system_requirements"
-						type="concept" format="dita" scope="local"/> for a list of supported
-					operating system versions. </li>
+				<li id="li_3DC593052F764CCEA6393FD56A359235"><b>Use the latest supported version of the guest
+						operating system</b>. This guideline is probably the most important. Upgrade
+					the guest OS to a recent version supported by <keyword keyref="product_name"/>.
+					For example, for RHEL, use at least version 7.0 or for SLES, use at least 11.0.
+					For Windows, use Windows Server 2012. For RedHat Linux users, it is particularly
+					beneficial to use RHEL 7 since there are specific enhancements in the RHEL 7
+					release that improve virtualized latency sensitive workloads. </li>
 				<li id="li_331CB7AEE27E45BBBEC8EBEF850FA481"><b>Use Java large paging in guest
 						OS</b>. Configure Java on the guest OS to use large pages. Add the following
 					command line option when launching Java:

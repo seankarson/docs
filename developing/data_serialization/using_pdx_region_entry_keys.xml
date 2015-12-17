@@ -14,12 +14,9 @@
 				require the hash code of the key to be the same on all JVMs in the distributed
 				system. When the key is a <codeph>PdxInstance</codeph> object, its hash code will
 				likely not be the same as the hash code of the domain object. </p>
-			<p>If you are using PDX serialized objects as region entry keys and you are using
-				persistent regions, then you must configure your PDX disk store to be a different
-				one than the disk store used by the persistent regions. See <xref
-					href="persist_pdx_metadata_to_disk.xml"
-					type="concept" format="dita" scope="local"/> for information on setting up a PDX
-				disk store. </p>
+			<p>If you are using PDX serialized objects as region entry keys and you are using persistent
+				regions, then you must configure your PDX disk store to be a different one than the
+				disk store used by the persistent regions.  </p>
 		</section>
 	</conbody>
 </concept>

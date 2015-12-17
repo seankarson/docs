@@ -91,18 +91,17 @@
 								<entry colname="1">
 									<codeph>conflatedEvents</codeph>
 								</entry>
-								<entry colname="2">The number of events that were conflated, and not
-									delivered to event listeners or gateway senders on this member.
-									Events are typically conflated because a later event was already
-									applied to the cache, or because a concurrent event was ignored
-									to ensure cache consistency. Note that some members may discard
-									an update while other members apply the update, depending on the
-									order in which each member receives the update. For this reason,
-									the <codeph>conflatedEvents</codeph> statistic will differ for
+								<entry colname="2">The number of events that were conflated, and not delivered to event
+									listeners or gateway senders on this member. Events are
+									typically conflated because a later event was already applied to
+									the cache, or because a concurrent event was ignored to ensure
+									cache consistency. Note that some members may discard an update
+									while other members apply the update, depending on the order in
+									which each member receives the update. For this reason, the
+										<codeph>conflatedEvents</codeph> statistic will differ for
 									each <keyword keyref="product_name"/> member. See <xref
-										scope="local"
-										href="../../developing/distributed_regions/how_region_versioning_works.xml#topic_C5B74CCDD909403C815639339AA03758"
-										type="topic" format="dita"/>. </entry>
+										href="../../developing/distributed_regions/region_entry_versions.xml#topic_CF2798D3E12647F182C2CEC4A46E2045"
+									/>. </entry>
 							</row>
 							<row>
 								<entry>
