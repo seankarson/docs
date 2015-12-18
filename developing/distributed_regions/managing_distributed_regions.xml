@@ -10,8 +10,8 @@
 			<p>Before you begin, understand <xref
 					href="../../basic_config/book_intro.xml" type="concept"
 					format="dita" scope="local"/>. <ol id="ol_495F354FA0C44D9EB065BD6BBA644799">
-					<li id="li_992440BACB4F40EEBFB0C5B7FDFC4690">Choose the region shortcut setting
-						that most closely matches your region configuration. See
+					<li id="li_992440BACB4F40EEBFB0C5B7FDFC4690">Choose the region shortcut setting that most
+						closely matches your region configuration. See
 								<b><codeph>com.gemstone.gemfire.cache.RegionShortcut</codeph></b> or
 							<xref
 							href="../../reference/topics/chapter_overview_regionshortcuts.xml#concept_ymp_rkz_4dffhdfhk"
@@ -23,10 +23,8 @@
 &lt;/region-attributes&gt;</codeblock><p>You
 							can also use gfsh to configure a region. For
 							example:<codeblock>gfsh>create region --name=regionA --type=REPLICATE</codeblock>See
-								<xref href="../region_options/region_types.xml#region_types"/> and
-								<xref
-								href="../../tools_modules/gfsh/command-pages/create.xml#topic_54B0985FEC5241CA9D26B0CE0A5EA863"
-							/>. </p></li>
+								<xref href="../region_options/region_types.xml#region_types"/>.
+						</p></li>
 					<li id="li_74052A59A95944FFA3C99B1C9097CF65">Choose the level of distribution
 						for your region. The region shortcuts in <codeph>RegionShortcut</codeph> for
 						distributed regions use <codeph>distributed-ack</codeph> scope. If you need

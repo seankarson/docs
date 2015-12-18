@@ -35,9 +35,8 @@
         steps:</p>
       <ol id="ol_d4f_qhm_jp">
         <li>Delete or move the disk store files from the failed member.</li>
-        <li>Use the gfsh <xref
-            href="../../tools_modules/gfsh/command-pages/show.xml#topic_7B3D624D5B4F41D1A0F8A9C3C8B2E780"
-          /> command to identify any missing data. You may need to manually restore this data.</li>
+        <li>Use the gfsh <codeph>show missing-disk-stores</codeph> command to identify any missing
+          data. You may need to manually restore this data.</li>
         <li>Revoke the missing disk stores using the <xref
             href="../../tools_modules/gfsh/command-pages/revoke.xml"
           /> gfsh command. </li>

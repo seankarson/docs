@@ -30,9 +30,7 @@ locators=localhost[41111]</codeblock>On the machine where
 			<p>You can also configure a cache server using the <cmdname>gfsh</cmdname> command-line
 				utility. For example:
 				<codeblock>gfsh>start server --name=server1 --server-port=40404</codeblock></p>
-			<p>See <xref
-					href="../../tools_modules/gfsh/command-pages/start.xml#topic_3764EE2DB18B4AE4A625E0354471738A"
-				/>.</p>
+			<p>See <codeph>start server</codeph>.</p>
 			<p>The client’s <codeph>cache.xml</codeph>
 				<codeph>&lt;client-cache&gt;</codeph> declaration automatically configures it as a
 				standalone <keyword keyref="product_name"/> application. </p>

@@ -7,20 +7,18 @@
 		recovers its data from its servers through normal operation. </shortdesc>
 	<conbody>
 		<section id="section_777D28109D6141929297F36681F83249">
-			<p>How well a client/server configuration recovers from application or cache server
-				crashes depends on server availability and on client configuration. Typically, the
-				servers are made highly available by running enough servers spread out on enough
-				machines to ensure a minimum of coverage in case of network, machine, or server
-				crashes. The clients are usually configured to connect to a primary and some number
-				of secondary, or redundant, servers. The secondaries act as hot backups to the
-				primary. For high availability of messaging in the case of client crashes, the
-				clients may have durable connections to their servers. If this is the case, some or
-				all of their data and data events remain in server memory and are automatically
-				recovered, providing that you restart the clients within a configured timeout. See
-					<xref
-					href="../../developing/events/implementing_durable_client_server_messaging.xml#implementing_durable_client_server_messaging"
-					type="concept" format="dita" scope="local"
-					><?xm-replace_text Implementing Durable Client/Server Messaging?></xref>. </p>
+			<p>How well a client/server configuration recovers from application or cache server crashes
+				depends on server availability and on client configuration. Typically, the servers
+				are made highly available by running enough servers spread out on enough machines to
+				ensure a minimum of coverage in case of network, machine, or server crashes. The
+				clients are usually configured to connect to a primary and some number of secondary,
+				or redundant, servers. The secondaries act as hot backups to the primary. For high
+				availability of messaging in the case of client crashes, the clients may have
+				durable connections to their servers. If this is the case, some or all of their data
+				and data events remain in server memory and are automatically recovered, providing
+				that you restart the clients within a configured timeout. See <xref
+					href="../../developing/events/configure_client_server_event_messaging.xml#receiving_events_from_servers"
+				/> for information about durable messaging. </p>
 		</section>
 		<section id="section_2A598C85FAD44CDEA605646BF7BEE388">
 			<title>Recovering from Server Failure </title>

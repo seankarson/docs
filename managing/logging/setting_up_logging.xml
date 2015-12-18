@@ -20,19 +20,17 @@
 						have their own characteristics, indicative of your system configuration and
 						of the particular behavior of your applications, so you must become familiar
 						with your applications' logs to use them effectively. </li>
-					<li id="li_F7DDE6F7549C43F2A42C6E314CB14E13">Configure member logging in each
-						member's <codeph>gemfire.properties</codeph> as needed: <codeblock># Default <codeph>gemfire.properties</codeph> log file settings
+					<li id="li_F7DDE6F7549C43F2A42C6E314CB14E13">Configure member logging in each member's
+							<codeph>gemfire.properties</codeph> as needed: <codeblock># Default <codeph>gemfire.properties</codeph> log file settings
 log-level=config
 log-file=
 log-file-size-limit=0
 log-disk-space-limit=0</codeblock>
 						<note>You can also specify logging parameters when you start up members
 							(either locators or servers) using the <codeph>gfsh</codeph>
-							command-line utility. See <xref
-								href="../../tools_modules/gfsh/command-pages/start.xml#topic_3151ACDA3677431BB5059EB7FCB47D87"
-								type="topic" format="dita" scope="local"/> commands for various
-							examples. In addition, you can modify log file properties and log-level
-							settings while a member is already running by using the <xref
+							command-line utility. In addition, you can modify log file properties
+							and log-level settings while a member is already running by using the
+								<xref
 								href="../../tools_modules/gfsh/command-pages/alter.xml#topic_7E6B7E1B972D4F418CB45354D1089C2B"
 								type="topic" format="dita" scope="local"/> command. </note>
 						<ol id="ol_E500EBEF363246A7855DE97D002A5121">
