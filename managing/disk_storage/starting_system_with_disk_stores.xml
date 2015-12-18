@@ -1,24 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "http://docs.oasis-open.org/dita/v1.1/OS/dtd/concept.dtd">
 <concept id="starting_system_with_disk_stores">
-	<title>Starting a System with Disk Stores</title>
-	<shortdesc>Starting members with persisted data at the same time gives you the most efficient
-		startup. </shortdesc>
+	<title>Starting and Shutting Down a System with Disk Stores</title>
+	<shortdesc>Start all members with persisted data in parallel. </shortdesc>
 	<conbody>
 		<section id="section_D0A7403707B847749A22BF9221A2C823">
+			<title>Starting a System</title>
 			<p>To start a system with disk stores: <ol id="ol_872ca5d8-8d37-4566-b5a7-4d98be2d29c6">
-					<li id="li_6BD1656398CD493F8B27445F75C4A982"><b>Start all members with persisted
-							data first and at the same time</b>. Exactly how you do this depends on
-						your members. <p>When you start members with persisted data in parallel, you
-							get the most efficient system startup. While they are initializing their
-							caches, the members determine which have the most recent region data,
-							and initialize their caches from that. </p>
-						<p>
-							<note>For replicates, where you can define persistence only in some of
-								the region's host members, start the persistent replicates before
-								the non-persistent replicates to make sure the data is recovered
-								from disk. </note>
-						</p>
+					<li id="li_6BD1656398CD493F8B27445F75C4A982"><b>Start all members with persisted data first and
+							at the same time</b>. Exactly how you do this depends on your members.
+							<p> While they are initializing their caches, the members determine
+							which have the most recent region data, and initialize their caches from
+							that. </p>
+						<p>For replicates, where you define persistence only in some of the region's
+							host members, start the persistent replicates before the non-persistent
+							replicates to make sure the data is recovered from disk. </p>
 						<p>This is an example bash script for starting members in parallel. The
 							script waits for the startup to finish and exits with an error status if
 							one of the jobs fails.
@@ -37,18 +33,18 @@ done
 exit $STATUS;</codeblock>
 						</p>
 					</li>
-					<li id="li_A8707DF00C7446D3864028598A14406E"><b>Respond to hangs on member
-							startup</b>. If a most recent disk store does not come online, your
-						other members will wait indefinitely rather than come online with stale
-						data. Check for missing disk stores with the gfsh <codeph>show
-							missing-disk-stores</codeph> command. See <xref
+					<li id="li_A8707DF00C7446D3864028598A14406E"><b>Respond to hangs on member startup</b>. If a
+						most recent disk store does not come online, the other members will wait
+						indefinitely rather than come online with stale data. Check for missing disk
+						stores with the <codeph>gfsh show missing-disk-stores</codeph> command. See
+							<xref
 							href="handling_missing_disk_stores.xml#handling_missing_disk_stores"
 							type="concept" format="dita" scope="local"
 							><?xm-replace_text Handling Missing Disk Stores?></xref>. <ol
 							id="ol_2B2D9F9E1B11478F85120A9E6E6EDC30">
 							<li id="li_23DFA910B1A643BC82A6A3CEEE3DB1EB">If no disk stores are
-								missing, your cache initialization is slow for some other reason.
-								Check the information on member hangs in <xref
+								missing, the cache initialization must be slow for some other
+								reason. Check the information on member hangs in <xref
 									href="../../managing/troubleshooting/diagnosing_system_probs.xml#diagnosing_system_probs"
 									type="concept" format="dita" scope="local"
 									><?xm-replace_text Diagnosing System Problems?></xref>. </li>
@@ -78,6 +74,14 @@ exit $STATUS;</codeblock>
 					</li>
 				</ol>
 			</p>
+		</section>
+		<section>
+			<title>Shutting Down a System</title>
+			<p>With all persistent members running, and with <codeph>gfsh</codeph> connected to the
+				system, shut down all members other than locators with
+				<codeblock>gfsh>shutdown</codeblock></p>
+			<p>Shut down all members including locators
+				with<codeblock>gfsh>shutdown --include-locators=true</codeblock></p>
 		</section>
 	</conbody>
 </concept>

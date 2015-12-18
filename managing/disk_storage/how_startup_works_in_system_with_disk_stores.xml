@@ -35,12 +35,11 @@
 					id="ul_0387F10882C7485A9FFD6E30C022B423">
 					<li id="li_EB80DC619E1946F69F62E9FE9FE4B70B">If any region does not hold all
 						most recent data in the system: <ol id="ol_04C5247AC72D49F094449BB7234AAA85">
-							<li id="li_8E8C39C1186649F390B48B4D71B32723"> Region creation is
-								blocked, waiting for the members with the most recent data. <p>If
-									your log level is info or below, the system provides messaging
-									about the wait. Here, the disk store for hostA has the most
-									recent data for the region and the hostB member is waiting for
-									it.
+							<li id="li_8E8C39C1186649F390B48B4D71B32723"> Region creation is blocked, waiting for the
+								members with the most recent data. <p>If your log level is info or
+									below, the system provides messaging about the wait. Here, the
+									disk store for hostA has the most recent data for the region and
+									the hostB member is waiting for it.
 									<codeblock>Region /people has potentially stale data. 
 It is waiting for another member to recover the latest data.
 My persistent id:
@@ -60,7 +59,8 @@ that are being waited on by other members.</codeblock>
 								</p>
 								<p>During normal startup, especially with partitioned regions that
 									were not shut down using the <codeph>gfsh shutdown</codeph>
-									command, you can expect to see some waiting messages. </p>
+									command, you can expect to see some messages that indicate
+									waiting. </p>
 							</li>
 							<li id="li_78F6326402CB44E381FE25BA9A84B010">When the most recent data
 								is available, the system updates the local region as needed, logs a
