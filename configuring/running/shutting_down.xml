@@ -39,22 +39,15 @@
 					<li id="li_0C4894CD078B469A869B008331A4FF99">Use the appropriate mechanism to
 						shut down any <keyword keyref="product_name"/>-connected client applications
 						that are running in the distributed system. </li>
-					<li id="li_534EF2BF81C74B2EB40A3322AD9B8BB3">Shut down any cache servers. To
-						shut down a server, issue the following <codeph>gfsh</codeph> command:
+					<li id="li_534EF2BF81C74B2EB40A3322AD9B8BB3">Shut down any cache servers. To shut down a
+						server, issue the following <codeph>gfsh</codeph> command:
 						<codeblock>gfsh&gt;stop server --name=&lt;...&gt;</codeblock>or
-						<codeblock>gfsh>stop server --dir=&lt;server_working_dir></codeblock> See
-							<xref
-							href="../../tools_modules/gfsh/command-pages/stop.xml#topic_723EE395A63A40D6819618AFC2902115"
-							type="topic" format="dita" scope="local"
-							><?xm-replace_text stop server?></xref> for more details. </li>
-					<li id="li_3BA78A549F184817943F53786FF2CEDE">Shut down any locators. To shut
-						down a locator, issue the following <codeph>gfsh</codeph> command:
+						<codeblock>gfsh>stop server --dir=&lt;server_working_dir></codeblock>
+					</li>
+					<li id="li_3BA78A549F184817943F53786FF2CEDE">Shut down any locators. To shut down a locator,
+						issue the following <codeph>gfsh</codeph> command:
 						<codeblock>gfsh&gt;stop locator --name=&lt;...&gt;</codeblock>
-						or<codeblock>gfsh>stop locator --dir=&lt;locator_working_dir></codeblock>See
-							<xref
-							href="../../tools_modules/gfsh/command-pages/stop.xml#topic_EF61C54B35BA4AB7B14E58CF911F283E"
-							type="topic" format="dita" scope="local"
-							><?xm-replace_text stop locator?></xref> for more details. </li>
+						or<codeblock>gfsh>stop locator --dir=&lt;locator_working_dir></codeblock></li>
 				</ul>
 			</p>
 		</section>

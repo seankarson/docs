@@ -46,10 +46,9 @@
 		</section>
 		<section>
 			<title><b>Properties for Firewall and Port Configuration</b></title>
-			<p>This table contains properties potentially involved in firewall behavior, with a
-				brief description of each property. Click on a property name for a link to the <xref
-					href="../../reference/topics/gemfire_properties.xml#gemfire_properties"/>
-				reference topic. </p>
+			<p>This table contains properties potentially involved in firewall behavior, with a brief
+				description of each property. Click on a property name for a link to the reference
+				topic. </p>
 			<table id="table_0E0561D090C04F3D9A502DFB05ECBBB7">
 				<tgroup cols="3">
 					<colspec colname="col01" colnum="1" colwidth="2.40*"/>
@@ -73,9 +72,7 @@
 						<row>
 							<entry colname="col01">peer-to-peer config </entry>
 							<entry colname="col1">
-								<p><xref scope="local" outputclass="noPageCitation"
-										href="../../reference/topics/gemfire_properties.xml#gemfire_properties"
-										type="concept" format="dita">conserve-sockets</xref>
+								<p><codeph>conserve-sockets</codeph>
 								</p>
 							</entry>
 							<entry colname="col2">
@@ -86,9 +83,7 @@
 						<row>
 							<entry colname="col01">peer-to-peer config </entry>
 							<entry colname="col1">
-								<p><xref scope="local" outputclass="noPageCitation"
-										href="../../reference/topics/gemfire_properties.xml#gemfire_properties"
-										type="concept" format="dita">locators</xref>
+								<p><codeph>locators</codeph>
 								</p>
 							</entry>
 							<entry colname="col2">
@@ -100,9 +95,7 @@
 						<row>
 							<entry colname="col01">peer-to-peer config </entry>
 							<entry colname="col1">
-								<p><xref scope="local" outputclass="noPageCitation"
-										href="../../reference/topics/gemfire_properties.xml#gemfire_properties"
-										type="concept" format="dita">mcast-address</xref>
+								<p><codeph>mcast-address</codeph>
 								</p>
 							</entry>
 							<entry colname="col2">
@@ -114,9 +107,7 @@
 						<row>
 							<entry colname="col01">peer-to-peer config </entry>
 							<entry colname="col1">
-								<p><xref scope="local" outputclass="noPageCitation"
-										href="../../reference/topics/gemfire_properties.xml#gemfire_properties"
-										type="concept" format="dita">mcast-port</xref>
+								<p><codeph>mcast-port</codeph>
 								</p>
 							</entry>
 							<entry colname="col2">
@@ -129,9 +120,7 @@
 						<row>
 							<entry colname="col01">peer-to-peer config </entry>
 							<entry colname="col1">
-								<p><xref scope="local" outputclass="noPageCitation"
-										href="../../reference/topics/gemfire_properties.xml#gemfire_properties"
-										type="concept" format="dita">membership-port-range</xref>
+								<p><codeph>membership-port-range</codeph>
 								</p>
 							</entry>
 							<entry colname="col2">
@@ -143,9 +132,7 @@
 						<row>
 							<entry colname="col01">peer-to-peer config </entry>
 							<entry colname="col1">
-								<p><xref scope="local" outputclass="noPageCitation"
-										href="../../reference/topics/gemfire_properties.xml#gemfire_properties"
-										type="concept" format="dita">tcp-port</xref>
+								<p><codeph>tcp-port</codeph>
 								</p>
 							</entry>
 							<entry colname="col2">
@@ -177,9 +164,7 @@
 							<entry colname="col1">cache server config </entry>
 							<entry colname="col2" outputclass="noPageCitation">
 								<p>
-									<xref
-										href="../../reference/topics/cache_xml.xml#cache-server/entry_lqz_chj_54"
-										>hostname-for-clients</xref></p>
+									<codeph>hostname-for-clients</codeph></p>
 							</entry>
 							<entry colname="col3">
 								<p>Hostname or IP address to pass to the client as the location
@@ -189,9 +174,7 @@
 						<row>
 							<entry colname="col1">cache server config </entry>
 							<entry colname="col2">
-								<p><xref
-										href="../../reference/topics/cache_xml.xml#cache-server/entry_kyz_shj_54"
-										>max-connections</xref>
+								<p><codeph>max-connections</codeph>
 								</p>
 							</entry>
 							<entry colname="col3">
@@ -203,10 +186,8 @@
 						<row>
 							<entry colname="col1">cache server config </entry>
 							<entry colname="col2">
-								<p><xref
-										href="../../reference/topics/cache_xml.xml#cache-server/entry_kxs_thj_54"
-										>port</xref> (cache.xml) or <codeph>--port</codeph>
-									parameter to the gfsh start server command</p>
+								<p><codeph>port</codeph> (cache.xml) or <codeph>--port</codeph> parameter to the gfsh start
+									server command</p>
 							</entry>
 							<entry colname="col3">
 								<p>Port that the server listens on for client communication. </p>
@@ -246,9 +227,7 @@
 								<p>Cache Server </p>
 							</entry>
 							<entry colname="col2">
-								<p><xref
-										href="../../reference/topics/cache_xml.xml#cache-server/entry_kxs_thj_54"
-										>port</xref> (cache.xml)</p>
+								<p><codeph>port</codeph> (cache.xml)</p>
 							</entry>
 							<entry colname="col2">40404 </entry>
 						</row>
@@ -256,20 +235,15 @@
 							<entry colname="col1">
 								<p>HTTP </p>
 							</entry>
-							<entry><xref scope="local" outputclass="noPageCitation"
-									href="../../reference/topics/gemfire_properties.xml#gemfire_properties"
-									type="concept" format="dita">http-service-port</xref></entry>
+							<entry><codeph>http-service-port</codeph></entry>
 							<entry colname="col2">7070 </entry>
 						</row>
 						<row>
 							<entry colname="col1">
 								<p>Locator</p>
 							</entry>
-							<entry><xref scope="local" outputclass="noPageCitation"
-									href="../../reference/topics/gemfire_properties.xml#gemfire_properties"
-									type="concept" format="dita">start-locator</xref> (for embedded
-								locators) or <codeph>--port</codeph> parameter to the gfsh start
-								locator command.</entry>
+							<entry><codeph>start-locator</codeph> (for embedded locators) or <codeph>--port</codeph>
+								parameter to the gfsh start locator command.</entry>
 							<entry colname="col2"><i>if not specified upon startup or in the
 									start-locator property, uses default multicast port
 								10334</i></entry>
@@ -278,46 +252,35 @@
 							<entry colname="col1">
 								<p>Membership Port Range</p>
 							</entry>
-							<entry><xref scope="local" outputclass="noPageCitation"
-									href="../../reference/topics/gemfire_properties.xml#gemfire_properties"
-									type="concept" format="dita">membership port
-								range</xref></entry>
+							<entry><codeph>membership-port-range</codeph></entry>
 							<entry colname="col2">1024 to 65535</entry>
 						</row>
 						<row>
 							<entry colname="col1">
 								<p>Memcached Port</p>
 							</entry>
-							<entry><xref scope="local" outputclass="noPageCitation"
-									href="../../reference/topics/gemfire_properties.xml#gemfire_properties"
-									type="concept" format="dita">memcached-port</xref></entry>
+							<entry><codeph>memcached-port</codeph></entry>
 							<entry colname="col2"><i>not set</i></entry>
 						</row>
 						<row>
 							<entry colname="col1">
 								<p>Multicast</p>
 							</entry>
-							<entry><xref scope="local" outputclass="noPageCitation"
-									href="../../reference/topics/gemfire_properties.xml#gemfire_properties"
-									type="concept" format="dita">mcast port</xref></entry>
+							<entry><codeph>mcast-port</codeph></entry>
 							<entry colname="col2">10334 </entry>
 						</row>
 						<row>
 							<entry colname="col1">
 								<p>RMI</p>
 							</entry>
-							<entry><xref scope="local" outputclass="noPageCitation"
-									href="../../reference/topics/gemfire_properties.xml#gemfire_properties"
-									type="concept" format="dita">jmx-manager-port</xref></entry>
+							<entry><codeph>jmx-manager-port</codeph></entry>
 							<entry colname="col2">1099</entry>
 						</row>
 						<row>
 							<entry colname="col1">
 								<p>TCP</p>
 							</entry>
-							<entry><xref scope="local" outputclass="noPageCitation"
-									href="../../reference/topics/gemfire_properties.xml#gemfire_properties"
-									type="concept" format="dita">tcp-port</xref></entry>
+							<entry><codeph>tcp-port</codeph></entry>
 							<entry colname="col2">ephemeral port</entry>
 						</row>
 					</tbody>

@@ -217,15 +217,13 @@
 									href="../../topologies_and_comm/cs_configuration/setting_up_a_client_server_system.xml#setting_up_a_client_server_system"
 									type="task" format="dita" scope="local"
 									><?xm-replace_text Configuring a Client/Server System?></xref>. </li>
-							<li id="li_93182F2FBD7047388EFE138FB5920390">Configure SSL properties as
-								necessary for different connection types, using the properties
-								listed in <xref href="#implementing_ssl/table_jpw_wqr_n4"
-									format="dita"/> and described further in <xref
-									href="../../reference/topics/gemfire_properties.xml#gemfire_properties"
-									type="concept" format="dita" scope="local"
-									/>.
-								For example, to enable SSL for communication between clients and
-								servers you would configure properties in the
+							<li id="li_93182F2FBD7047388EFE138FB5920390">Configure SSL properties as necessary for
+								different connection types, using the properties listed in <xref
+									href="#implementing_ssl/table_jpw_wqr_n4" format="dita"/> and
+								described further in <xref
+									href="../../reference/book_intro.xml#reference"/>. For example,
+								to enable SSL for communication between clients and servers you
+								would configure properties in the
 									<codeph>gemfire.properties</codeph> file similar to:
 								<codeblock>server-ssl-enabled=true
 server-ssl-protocols=any
