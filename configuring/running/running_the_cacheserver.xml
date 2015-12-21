@@ -30,15 +30,14 @@
 			<p> The gfsh server commands use a working directory for its configuration files and log
 				files. These are the defaults and configuration options: <ul
 					id="ul_99BEF82619984AF0966C9C63E3CD7985">
-					<li>When you start a standalone server using <codeph>gfsh</codeph>,
-							<codeph>gfsh</codeph> will automatically load the required JAR files
-							(<codeph>$GEMFIRE/lib/server-dependencies.jar</codeph> and
-							<codeph>$JAVA_HOME/lib/tools.jar</codeph>-- assuming JAVA_HOME points to
-						an installed JDK) into the CLASSPATH of the JVM process. If you start a
-						standalone server using the ServerLauncher API, you must
-							<codeph>$GEMFIRE/lib/server-dependencies.jar</codeph> inside your
-						command to launch the process. For more information on CLASSPATH settings in
-							<keyword keyref="product_name"/>, see <xref
+					<li>When you start a standalone server using <codeph>gfsh</codeph>, <codeph>gfsh</codeph> will
+						automatically load the required JAR files
+							<codeph>$GEMFIRE/lib/server-dependencies.jar</codeph> and
+							<codeph>$JAVA_HOME/lib/tools.jar</codeph> into the CLASSPATH of the JVM
+						process. If you start a standalone server using the ServerLauncher API, you
+						must specify <codeph>$GEMFIRE/lib/server-dependencies.jar</codeph> inside
+						your command to launch the process. For more information on CLASSPATH
+						settings in <keyword keyref="product_name"/>, see <xref
 							href="../../getting_started/setup_gemfire_classpath.xml#concept_ivh_glr_l4"
 						/>.</li>
 					<li id="li_01CE20B4D7B24580A31FD64CFB9DBE01">Servers are configured like any
