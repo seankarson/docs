@@ -5,14 +5,11 @@
 	<shortdesc>Before you start gfsh, confirm that you have set JAVA_HOME and that your PATH
 		variable includes the gfsh executable. </shortdesc>
 	<conbody>
-		<p>See <xref format="dita"
-				href="../../getting_started/installation/install_intro.xml#concept_5111C7EDF7D24CA2BCE5959006453415"
-				scope="local" type="concept"/> for more information. </p>
-		<p>To manage servers and locators properly, <codeph>gfsh</codeph> requires that tools.jar
-			(provided with the JDK) exist in the CLASSPATH. </p>
+		<p>To manage servers and locators properly, <codeph>gfsh</codeph> requires the
+				<filepath>tools.jar</filepath> file (provided with the JDK) exist in the CLASSPATH. </p>
 		<p>
-			<note>On Windows, you must have the JAVA_HOME variable set properly to use start, stop
-				and status commands for both locators and servers. </note>
+			<note>On Windows, you must have the JAVA_HOME environment variable set properly to use start,
+				stop and status commands for both locators and servers. </note>
 		</p>
 		<p>To launch the gfsh command-line interface, execute the following command at the prompt on
 			any machine that is currently installed with <keyword keyref="product_name_long"/>: </p>

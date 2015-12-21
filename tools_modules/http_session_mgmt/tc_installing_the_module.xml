@@ -18,21 +18,16 @@
 						href="session_mgmt_tomcat.xml" type="concept"
 						format="dita" scope="local"
 						><?xm-replace_text HTTP Session Management Module for Tomcat?></xref>.) </li>
-				<li id="li_2C08538D1E364E6B859799A6CF05807F">If you have not already downloaded and
-					installed <keyword keyref="product_name_long"/> 8.1, download and install
-						<keyword keyref="product_name_long"/> 8.0 from the <xref format="html"
-						href="https://network.pivotal.io/products/pivotal-gemfire" scope="external"
-							><keyword keyref="product_name_long"/> download page</xref> as described
-					in <xref
-						href="../../getting_started/installation/install_intro.xml#concept_5111C7EDF7D24CA2BCE5959006453415"
-					/>. <p>The HTTP Session Management Module for tc Server is included in the
-							<keyword keyref="product_name_long"/> installation package. After you
-						install <keyword keyref="product_name_long"/>, you can find both modules in
-						the following location:
-						<codeblock>$GEMFIRE/tools/Modules/Pivotal_GemFire_Modules-8.X.X-tcServer.zip</codeblock>or<codeblock>$GEMFIRE/tools/Modules/Pivotal_GemFire_Modules-8.X.X-tcServer30.zip</codeblock></p><p>where
-						$GEMFIRE is the location where you installed <keyword keyref="product_name"
-						/> and 8.X.X corresponds to the version of the HTTP Session Management
-						Module (for tc Server 2.X or tc Server 3.0) you are installing.</p>
+				<li id="li_2C08538D1E364E6B859799A6CF05807F">
+					<p>The HTTP Session Management Module for tc Server is included in the <keyword
+							keyref="product_name_long"/> installation package. After you install
+							<keyword keyref="product_name_long"/>, you can find both modules in the
+						following location:
+						<codeblock>$GEMFIRE/tools/Modules/Pivotal_GemFire_Modules-8.X.X-tcServer.zip</codeblock>or<codeblock>$GEMFIRE/tools/Modules/Pivotal_GemFire_Modules-8.X.X-tcServer30.zip</codeblock></p>
+					<p>where $GEMFIRE is the location where you installed <keyword
+							keyref="product_name"/> and 8.X.X corresponds to the version of the HTTP
+						Session Management Module (for tc Server 2.X or tc Server 3.0) you are
+						installing.</p>
 				</li>
 				<li id="li_635346B580EA44708410C2E59BAD7594">Unzip the module into the Pivotal tc
 					Server <codeph>$CATALINA_HOME/templates</codeph> directory so that it creates
