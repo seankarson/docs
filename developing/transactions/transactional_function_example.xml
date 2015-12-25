@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
 <concept id="concept_22331B3DBFAB4C0BA95EF103BFB71257">
-  <title>Transactional Using a Function Example</title>
+  <title>Transaction Using a Function Example</title>
   <shortdesc>This example demonstrates a function that does transactional updates to Customer and
     Order regions. </shortdesc>
   <conbody>
@@ -46,7 +46,7 @@ public class TransactionalFunction extends FunctionAdapter {
    */
   @Override
   public String getId() {
-    return "TxFuntion";
+    return "TxFunction";
   }
 
 }</codeblock>

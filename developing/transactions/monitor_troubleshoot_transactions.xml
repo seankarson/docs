@@ -44,18 +44,17 @@
 				<ul id="ul_11226257B29A4CDE9C7F8B352372B228">
 					<li id="li_E4F2A4A84B8C457C8F5AD5339E4F984C"
 								><b><codeph>TransactionDataNodeHasDepartedException</codeph></b>.
-						This exception means the transactional data host has departed unexpectedly.
-						Clients and members that run transactions but are not the transactional data
-						hosts can get this exception. You can avoid this by working to ensure your
-						transactional data hosts are stable and remain running when transactions are
-						in progress. </li>
+						This exception means the transaction host has departed unexpectedly. Clients
+						and members that run transactions but are not a transaction host can get
+						this exception. You can avoid this by working to ensure your transaction
+						hosts are stable and remain running when transactions are in progress. </li>
 					<li id="li_6438DF05FBB14F95B0A8A78C8E97F331"
 								><b><codeph>TransactionDataNotColocatedException</codeph></b>. You
 						will get this error if you try to run a transaction on data that is not all
-						located in the same member. Partition your data so it is all located in a
-						single member. See <xref
-							href="cache_transactions_by_region_type.xml#concept_ysk_xj1_wk"/> and
-							<xref
+						located in the same member. Partition your data so that a single member
+						contains all data that will be accessed as part of a single transaction. See
+							<xref href="cache_transactions_by_region_type.xml#concept_ysk_xj1_wk"/>
+						and <xref
 							href="../partitioned_regions/custom_partitioning_and_data_colocation.xml#custom_partitioning_and_data_colocation"
 							type="concept" format="dita" scope="local"
 							><?xm-replace_text How Custom Partitioning and Data Colocation Work?></xref>. </li>

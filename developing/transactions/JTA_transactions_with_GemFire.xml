@@ -81,8 +81,8 @@
 						exception is thrown back to JTA transaction manager, which then aborts the
 						transaction. </li>
 					<li id="li_1A1332CC0BB94A8FBF9E62D72EB7A7A5">After a successful
-							<codeph>beforeCommit() </codeph>callback, JTA transaction manager asks
-						other data sources to commit their transaction. </li>
+						<codeph>beforeCommit()</codeph>callback, JTA transaction manager asks other
+						data sources to commit their transaction. </li>
 					<li id="li_B21E2DDBAA774E458E25219B96D49631"><keyword keyref="product_name"/>
 						then gets a <codeph>afterCommit()</codeph> callback in which changes are
 						applied to the cache and distributed to other members. </li>
@@ -104,23 +104,18 @@
 						not configure the data sources in cache.xml . They are not guaranteed to get
 						bound to the JNDI tree.</cmd>
 				</step>
-				<step id="step_3CDBB4A3A2494C0080344DCDB0C83AAE">
-					<cmd>Configure the external data sources in the external container. Do not
-						configure the data sources in cache.xml . They are not guaranteed to get
-						bound to the JNDI tree. </cmd>
-				</step>
 				<step id="step_149E900FC9D0410394E47C3DB4A6E197">
-					<cmd>Configure <keyword keyref="product_name"/> for any necessary transactional
-						behavior in cache.xml. For example, enable <codeph>copy-on-read</codeph> and
-						specify a transaction listener, if you need one. See <xref
-							href="working_with_transactions.xml#concept_vx2_gs4_5k"/> and <xref
-							href="working_with_transactions.xml#concept_ocw_vf1_wk"/> for details.
-					</cmd>
+					<cmd>Configure <keyword keyref="product_name"/> for any necessary transactional behavior in the
+							<filepath>cache.xml</filepath> file. For example, enable
+							<codeph>copy-on-read</codeph> and specify a transaction listener, as
+						needed. See <xref href="working_with_transactions.xml#concept_vx2_gs4_5k"/>
+						and <xref href="working_with_transactions.xml#concept_ocw_vf1_wk"/> for
+						details. </cmd>
 				</step>
 				<step id="step_FE6FEFBB03E841A78F82AEA2A4B7F2A2">
-					<cmd>Make sure that JTA transactions are not disabled for the regions that will
-						participate in the transaction. See <xref
-							href="turning_off_jta.xml#concept_nw2_5gs_xk"/> for details. </cmd>
+					<cmd>Make sure that JTA transactions are enabled for the regions that will participate in the
+						transaction. See <xref href="turning_off_jta.xml#concept_nw2_5gs_xk"/> for
+						details. </cmd>
 				</step>
 				<step id="step_868A61844ABB437EB41327875B9A2369">
 					<cmd> Start the transaction through the external container. </cmd>
@@ -141,20 +136,19 @@
 	<concept id="concept_csy_vfb_wk">
 		<title>Using <keyword keyref="product_name"/> as the "Last Resource" in a Container-Managed
 			JTA Transaction</title>
-		<shortdesc>The "last resource" feature in certain 3rd party containers allows you to use one
-			non-XAResource (such as <keyword keyref="product_name"/> ) in a transaction with
+		<shortdesc>The "last resource" feature in certain 3rd party containers such as WebLogic allow the
+			use one non-XAResource (such as <keyword keyref="product_name"/> ) in a transaction with
 			multiple XAResources while ensuring consistency. </shortdesc>
 		<conbody>
-			<p>In the previous two JTA transaction use cases, if the <keyword keyref="product_name"
-				/> member fails after the other data sources commit but before <keyword
-					keyref="product_name"/> receives the <codeph>afterCommit</codeph> callback,
-					<keyword keyref="product_name"/> and the other data sources may become
-				inconsistent. To prevent this from occurring, you can use the container's "last
-				resource optimization" feature (for example, in WebLogic and others). This feature
-				allows you run transactions with <keyword keyref="product_name"/> set as the "last
+			<p>In the previous two JTA transaction use cases, if the <keyword keyref="product_name"/> member
+				fails after the other data sources commit but before <keyword keyref="product_name"
+				/> receives the <codeph>afterCommit</codeph> callback, <keyword
+					keyref="product_name"/> and the other data sources may become inconsistent. To
+				prevent this from occurring, you can use the container's "last resource
+				optimization" feature, with <keyword keyref="product_name"/> set as the "last
 				resource". Using <keyword keyref="product_name"/> as the last resource ensures that
-				in the event of failure <keyword keyref="product_name"/> remains consistent with the
-				other XAResources involved in the transaction.</p>
+				in the event of failure, <keyword keyref="product_name"/> remains consistent with
+				the other XAResources involved in the transaction.</p>
 			<p>To accomplish this, the application server container must use a JCA Resource Adapter
 				to accomodate <keyword keyref="product_name"/> as the transaction's last resource.
 				The transaction manager of the container first issues a "prepare" message to the
@@ -182,9 +176,9 @@
 							<codeph>gemfire-jca.rar</codeph> file. </cmd>
 					<substeps id="substeps_nx1_5v1_w4">
 						<substep>
-							<cmd>Create a container-specific resource adapter XML file named
-								&lt;container>-ra.xml. For example, an XML file for WebLogic
-								resource adapter XML file might look something like this:</cmd>
+							<cmd>Create a container-specific resource adapter XML file named &lt;container>-ra.xml. For
+								example, an XML file for a WebLogic resource adapter XML file might
+								look something like this:</cmd>
 							<info>
 								<codeblock>&lt;?xml version="1.0"?>
 &lt;!DOCTYPE weblogic-connection-factory-dd PUBLIC '-//BEA Systems, Inc.//DTD WebLogic 9.0.0 Connector//EN' 
@@ -197,15 +191,15 @@
 							</info>
 						</substep>
 						<substep>
-							<cmd>Create a folder named META-INF and place the container-specific XML
-								file inside the directory. For example, the folder structure would
-								look like this:</cmd>
+							<cmd>Create a folder named <filepath>META-INF</filepath>, and place the container-specific
+								XML file inside the directory. For example, the folder structure
+								would look like this:</cmd>
 							<info>
 								<codeblock>META-INF/weblogic-ra.xml</codeblock>
 							</info>
 						</substep>
 						<substep>
-							<cmd>Navigate to the directory above the META-INF folder and execute the
+							<cmd>Navigate to the directory above the <filepath>META-INF</filepath> folder and execute the
 								following command:</cmd>
 							<info>
 								<codeblock>$ jar -uf &lt;GEMFIRE_INSTALL_DIR>/lib/gemfire-jca.rar META-INF/weblogic-ra.xml</codeblock>
@@ -214,14 +208,12 @@
 					</substeps>
 				</step>
 				<step>
-					<cmd>Make sure that <codeph>$GEMFIRE/lib/gemfire.jar</codeph> is accessible in
-						the CLASSPATH on the JTA transaction coordinator container (for example
-						WebLogic).</cmd>
+					<cmd>Make sure that <codeph>$GEMFIRE/lib/gemfire.jar</codeph> is accessible in the CLASSPATH of
+						the JTA transaction coordinator container.</cmd>
 				</step>
 				<step>
-					<cmd>Deploy <codeph>gemfire-jca.rar</codeph> file on the JTA transaction
-						coordinator container (for example WebLogic). When deploying the file, you
-						specify the JNDI name and so on. </cmd>
+					<cmd>Deploy <codeph>gemfire-jca.rar</codeph> file on the JTA transaction coordinator container
+						. When deploying the file, you specify the JNDI name and so on. </cmd>
 				</step>
 				<step>
 					<cmd>Configure <keyword keyref="product_name"/> for any necessary transactional
@@ -255,11 +247,10 @@
 				<step>
 					<cmd>Obtain a <keyword keyref="product_name"/> connection.</cmd>
 					<info>
-						<codeblock>GFConnectionFactory cf = (GFConnectionFactory)
-ctx.lookup("gfe/jca");
+						<codeblock>GFConnectionFactory cf = (GFConnectionFactory) ctx.lookup("gfe/jca");
 
 //This step of obtaining connection is what begins the
-//LocalTransaction on <keyword keyref="product_name"/>.
+//LocalTransaction.
 //If this is absent, GFE operations will not be part of any
 //transaction
 GFConnection gemfireConn = (GFConnection)cf.getConnection();</codeblock>
@@ -319,7 +310,7 @@ GFConnection gemfireConn = (GFConnection)cf.getConnection();</codeblock>
 			</context>
 			<steps id="steps_b32_135_1l">
 				<step id="step_C4BC4E1FFE7F45ACADE90ACD246FD56F">
-					<cmd>Configure the external data sources in cache.xml. See <xref
+					<cmd>Configure the external data sources in the <filepath>cache.xml</filepath> file. See <xref
 							href="configuring_db_connections_using_JNDI.xml#topic_A5E3A67C808D48C08E1F0DC167C5C494"
 						/> for examples. </cmd>
 				</step>
@@ -335,8 +326,8 @@ GFConnection gemfireConn = (GFConnection)cf.getConnection();</codeblock>
 					</cmd>
 				</step>
 				<step id="step_9238FE92E6AF4476B568134033CA62F5">
-					<cmd>Make sure that JTA transactions are not disabled in the cache.xml file or
-						the application code. </cmd>
+					<cmd>Make sure that JTA transactions are not disabled in the <filepath>cache.xml</filepath>
+						file or the application code. </cmd>
 				</step>
 				<step id="step_118A17B4BD904A34A14FFFFE7B6E3721">
 					<cmd>Initialize the <keyword keyref="product_name"/> cache. </cmd>
@@ -357,9 +348,9 @@ GFConnection gemfireConn = (GFConnection)cf.getConnection();</codeblock>
 				<step id="step_02EC6A0BC0AD48D58F69410EB90AA364">
 					<cmd>Look up the <codeph>UserTransaction</codeph> context: </cmd>
 					<info>
-						<codeblock>UserTransaction txManager = (UserTransaction)ctx.lookup("java:/UserTransaction");</codeblock>With
+						<codeblock>UserTransaction txManager = (UserTransaction) ctx.lookup("java:/UserTransaction");</codeblock>With
 							<codeph>UserTransaction</codeph>, you can begin, commit, and rollback
-						transactions. <p>If a global transaction exists, when you use the cache, it
+						transactions. <p>If a global transaction exists when you use the cache, it
 							automatically joins the transaction. Operations on a region
 							automatically detect and become associated with the existing global
 							transaction through JTA synchronization. If the global transaction has
@@ -373,8 +364,8 @@ GFConnection gemfireConn = (GFConnection)cf.getConnection();</codeblock>
 								<codeph>UserTransaction</codeph> interface, the transactions of any
 							registered JTA resources are committed, including the <keyword
 								keyref="product_name"/> cache transaction. If the cache or database
-							transaction fails to commit, UserTransaction throws a
-								<codeph>TransactionRolledBackException</codeph>. If a commit or
+							transaction fails to commit, the <codeph>UserTransaction</codeph> call
+							throws a <codeph>TransactionRolledBackException</codeph>. If a commit or
 							rollback is attempted directly on a <keyword keyref="product_name"/>
 							transaction that is registered with JTA, that action throws an
 								<codeph>IllegalStateException</codeph>. </p>

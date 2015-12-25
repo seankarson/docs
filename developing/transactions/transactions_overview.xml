@@ -6,9 +6,10 @@
 			<codeph>cash</codeph> and <codeph>trades</codeph>, and commits. </shortdesc>
 	<conbody>
 		<section id="section_B6818C348224456387DEC5C9D3B5F250">
-			<p>If the commit fails, it throws a <codeph>CommitConflictException</codeph> and the
-				transaction is rolled back. In this example, this type of exception could only occur
-				if there was concurrent access to the same key and value inside another transaction. </p>
+			<p>If the commit fails, it will be due to a <codeph>CommitConflictException</codeph>, and the
+				transaction is rolled back. In this example, this exception will only occur if there
+				is a concurrent access to the same key and value inside another transaction, and the
+				other transaction's commit occurred first. </p>
 			<codeblock>Cache c = new CacheFactory().create();
 
 Region&lt;String, Integer&gt; cash = c.createRegionFactory&lt;String, Integer&gt;()
@@ -24,13 +25,13 @@ try {
 	txmgr.begin();
 	final String customer = "Customer1";
 	final Integer purchase = Integer.valueOf(1000);
-// Decrement cash
+       // Decrement cash
 	Integer cashBalance = cash.get(customer);
 	Integer newBalance = 
 		Integer.valueOf((cashBalance != null ? cashBalance : 0) 
 			- purchase);
 	cash.put(customer, newBalance);
-// Increment trades
+       // Increment trades
 	Integer tradeBalance = trades.get(customer);
 	newBalance = 
 		Integer.valueOf((tradeBalance != null ? tradeBalance : 0) 

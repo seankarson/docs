@@ -11,29 +11,30 @@
     <conbody>
       <p>Copy-on-read is not specifically a transaction setting, but if you are using transactions,
         you probably want copy-on-read behavior. To enable global copy-on-read for all reads, modify
-        cache.xml or use the Java API.</p>
+        the <filepath>cache.xml</filepath> file or use the corresponding Java API call.</p>
       <p>Using cache.xml:
-        <codeblock>&lt;cache lock-lease="120" lock-timeout="60" search-timeout="300"copy-on-read=<b>"true"</b>></codeblock></p>
+        <codeblock>&lt;cache lock-lease="120" lock-timeout="60" search-timeout="300" copy-on-read=<b>"true"</b>></codeblock></p>
       <p>API:
-        <codeblock>Cache c = CacheFactory.getInstance(system) c.setCopyOnRead(true);</codeblock>The
+        <codeblock>Cache c = CacheFactory.getInstance(system);
+ c.setCopyOnRead(true);</codeblock>The
         copy-on-read attribute and the operations affected by the attribute setting are discussed in
         detail in <xref
-          href="../../basic_config/data_entries_custom_classes/managing_data_entries.xml"
-        />.</p>
+          href="../../basic_config/data_entries_custom_classes/managing_data_entries.xml"/>.</p>
     </conbody>
   </concept>
   <concept id="concept_fdr_wht_vk">
     <title>Making a Safe Change Within a Transaction Using CopyHelper.copy </title>
     <conbody>
-      <p>If you do not have <codeph>copy-on-read</codeph> set globally and are using replicated
-        regions, you must explicitly make copies of the cache objects that you are modifying in your
-        transactions. You can use <codeph>CopyHelper.copy</codeph> to make these copies.</p>
-      <p>For
-        example:<codeblock>CacheTransactionManager cTxMgr = cache.getCacheTransactionManager();
-cTxMgr.begin(); Object o = (StringBuffer)r.get("stringBuf");
+      <p>If <codeph>copy-on-read</codeph> is not globally set and the cache uses replicated regions,
+        explicitly make copies of the cache objects that are to be modified within a transaction.
+        The <codeph>CopyHelper.copy</codeph> method makes
+        copies:<codeblock>CacheTransactionManager cTxMgr = cache.getCacheTransactionManager();
+cTxMgr.begin(); 
+Object o = (StringBuffer) r.get("stringBuf");
 StringBuffer s = (StringBuffer) CopyHelper.copy(o);
 s.append("Changes unseen before commit. Read Committed."); 
-r.put("stringBuf", s); cTxMgr.commit();</codeblock></p>
+r.put("stringBuf", s); 
+cTxMgr.commit();</codeblock></p>
     </conbody>
   </concept>
   <concept id="concept_ihn_zmt_vk">
