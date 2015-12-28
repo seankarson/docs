@@ -2,21 +2,20 @@
 <!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
 <concept id="concept_ffg_sj5_1l">
   <title><keyword keyref="product_name"/> JTA Transaction Example</title>
-  <shortdesc>This example shows how to run a JTA global transaction using <keyword
+  <shortdesc>An example code fragment shows how to run a JTA global transaction using <keyword
       keyref="product_name"/> as the JTA transaction manager.</shortdesc>
   <conbody>
-    <p> The external data sources used in this transaction are configured in cache.xml. See <xref
+    <p> The external data sources used in this transaction are configured in the
+        <filepath>cache.xml</filepath> file. See <xref
         href="configuring_db_connections_using_JNDI.xml#topic_A5E3A67C808D48C08E1F0DC167C5C494"/>
-      for
-      examples.<codeblock>Region r = ...; // the gemfire regionDataSource 
-ds = ...; // other datasource    
+      for a configuration
+      example.<codeblock>Region r = ...; // the  region data source 
+ds = ...; // other data source    
 
   try  {     
          Context ctx = cache.getJNDIContext();      
          Connection conn =  null;
-         UserTransaction
-         tx = (UserTransaction)
-         ctx.lookup("java:/UserTransaction");     
+         UserTransaction tx = (UserTransaction) ctx.lookup("java:/UserTransaction");     
          tx.begin();
          conn = ds.getConnection();
          Statement stmt = conn.createStatement();
@@ -26,7 +25,7 @@ ds = ...; // other datasource
          stmt.close();     
          tx.commit();
          conn.close();
-      } catch (NamingException e) { 
+   } catch (NamingException e) { 
          // handle the exception   
    }</codeblock></p>
   </conbody>
