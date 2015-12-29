@@ -76,7 +76,7 @@
             <li id="li_2033BF5902DC4BBD8821E6F8640CDC5A">If other threads read the keys the
               transaction is modifying, they may see some in their pre-transaction state and some in
               their post-transaction state. </li>
-            <li id="li_6D136E1730C54A1BB5FDCBB7CFA71281">If other, non-transactional, sources update
+            <li id="li_6D136E1730C54A1BB5FDCBB7CFA71281">If other, non-transactional sources update
               the keys the transaction is modifying, the changes may intermingle with this
               transaction’s changes. The other sources can include distributions from remote
               members, loading activities, and other direct cache modification calls from the same

@@ -13,17 +13,17 @@
 					Each operation the cache writer allows is applied to the transactional view in
 					the cache and appended to the CacheEvent list in the TransactionEvent object.
 						<ul id="ul_FCBD223A9F594D7BBB22B2471574E521">
-						<li id="li_B0C6D74C5BF14F7CBF8288A85AA6047A">Event Conflation. The cache
-							events are conflated, so if a key already has an event in the list, that
-							event is removed and the current operation is added to the end of the
-							list. So this series of calls inside a transaction:
+						<li id="li_B0C6D74C5BF14F7CBF8288A85AA6047A">Event Conflation. The cache events are conflated,
+							so if a key already has an event in the list, that event is removed and
+							the current operation is added to the end of the list. So this series of
+							calls inside a transaction:
 							<codeblock>Region.create (A, W);
 Region.put (A, valX);
 Region.put (B, valQ);
 Region.invalidate (A);
 Region.put (A, valY);</codeblock>results
-							in these events stored in the CacheEvent list, with only the most recent
-							operation left: <codeblock>put (B, valQ)
+							in these events stored in the CacheEvent list:
+							<codeblock>put (B, valQ)
 put (A, valY)</codeblock>
 						</li>
 					</ul>
@@ -39,12 +39,11 @@ put (A, valY)</codeblock>
 						<li id="li_4D4DBA289ABB490795E5E0227534EBE0">Walks the
 								<codeph>CacheEvent</codeph> list, calling all locally installed
 							listeners for each operation listed. </li>
-						<li id="li_E66C3AA97A664504B67800E5519430C4">Distributes the
-								<codeph>TransactionEvent</codeph> to all interested caches.
-								<note>For <keyword keyref="product_name"/> and global JTA
-									transactions, the <codeph>EntryEvent</codeph>s contain the <keyword keyref="product_name"/>
-								transaction ID. JTA transaction events do not contain the JTA
-								transaction ID. </note>
+						<li id="li_E66C3AA97A664504B67800E5519430C4">Distributes the <codeph>TransactionEvent</codeph>
+							to all interested caches. <note>For <keyword keyref="product_name"/> and
+								global JTA transactions, the <codeph>EntryEvent</codeph> object
+								contains the <keyword keyref="product_name"/> transaction ID. JTA
+								transaction events do not contain the JTA transaction ID. </note>
 						</li>
 					</ul>
 				</li>

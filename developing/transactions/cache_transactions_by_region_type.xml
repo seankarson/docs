@@ -37,12 +37,11 @@
     <title>Transactions and Partitioned Regions</title>
     <conbody>
       <p>In partitioned regions, transaction operations are done first on the primary data store
-        then distributed to other members from there, regardless of which member initializes the
-        cache operation. This is the same as is done for normal cache operations on partitioned
-        regions. </p>
+        then distributed to other members from there, regardless of which member initiates the cache
+        operation. This is the same as is done for normal cache operations on partitioned regions. </p>
       <p>In this figure, M1 runs two transactions. <ul id="ul_889FCAFEE4F9470EAAB472FF24A4FA52">
-          <li id="li_DF9EBE26A1284703B61804A54D4200A7">The first, T1, works on data whose primary
-            buckets are stored in M1, so M1 is is the transaction  host. </li>
+          <li id="li_DF9EBE26A1284703B61804A54D4200A7">The first transaction, T1, works on data
+            whose primary buckets are stored in M1, so M1 is the transaction host. </li>
           <li id="li_AC8D7C1254BE469692700B22C40EF376">The second transaction, T2, works on data
             whose primary buckets are stored in M2, so M1 is the transaction delegate and M2 is the
             transaction host. </li>

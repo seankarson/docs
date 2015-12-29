@@ -17,10 +17,10 @@
           partitioned region data and make sure the distributed region data is available in any
           member hosting the partitioned region data.</li>
       </ul></p>
-    <p>For transactions involving partitioned regions, any member with the regions defined can run
-      the transactional application, regardless of whether the member hosts data for the regions. If
-      the transactional data resides on a remote member, the transaction is carried out by proxy in
-      the member hosting the data. The member hosting the data is referred to as the transaction
-      host.</p>
+    <p>For transactions involving partitioned regions, any member with the regions defined can
+      orchestrate the transactional operations, regardless of whether that member hosts data for the
+      regions. If the transactional data resides on a remote member, the transaction is carried out
+      by proxy in the member hosting the data. The member hosting the data is referred to as the
+      transaction host.</p>
   </conbody>
 </concept>

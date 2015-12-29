@@ -39,24 +39,10 @@
             </step>
             <step>
                 <cmd>Begin the transaction.</cmd>
-                <substeps id="substeps_nrl_wsk_2l">
-                    <substep>
-                        <cmd>In <keyword keyref="product_name"/> :</cmd>
-                        <info>
-                            <codeblock>CacheTransactionManager txManager =
-      cache.getCacheTransactionManager(); 
-
-      try { 
-            txManager.begin();
-            // ... do GemFire operations</codeblock>
-                        </info>
-                    </substep>
-                    <substep>
-                        <cmd>If you have not previously committed a previous transaction in this
-                            connection, start a database transaction by issuing a BEGIN
-                            statement.</cmd>
-                    </substep>
-                </substeps>
+            </step>
+            <step>
+                <cmd>If you have not previously committed a previous transaction in this connection,
+                    start a database transaction by issuing a BEGIN statement.</cmd>
             </step>
             <step>
                 <cmd>Perform <keyword keyref="product_name"/> cache operations; each cache operation
@@ -64,10 +50,8 @@
                     external database operations.</cmd>
             </step>
             <step>
-                <cmd>Commit the transaction:</cmd>
+                <cmd>Commit the transaction.</cmd>
                 <info>
-                    <codeblock>txManager.commit();
-     } catch (CommitConflictException conflict)</codeblock>
                     <p>At this point, the TransactionWriter is invoked. The TransactionWriter
                         returns a TransactionEvent, which contains all the operations in the
                         transaction. Call PREPARE TRANSACTION within your TransactionWriter
@@ -76,8 +60,8 @@
             </step>
             <step>
                 <cmd>After a transaction is successfully committed in <keyword keyref="product_name"
-                    /> , TransactionListener is invoked. Call COMMIT PREPARED in the
-                    TransactionListener to commit the database transaction.</cmd>
+                    />, the TransactionListener is invoked. The TransactionListener calls COMMIT
+                    PREPARED to commit the database transaction.</cmd>
             </step>
         </steps>
     </taskbody>

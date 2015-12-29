@@ -7,36 +7,30 @@
 			transaction. </shortdesc>
 		<taskbody>
 			<context id="context_1E769459B44B4754AE936CFF7BA77D0F">
-				<p>Applications manage transactions on a per-cache basis. A <keyword
-						keyref="product_name"/> cache transaction starts with a
-						<codeph>CacheTransactionManager.begin</codeph> method and continues with a
-					series of operations, which are typically region operations such as region
-					create, clear and destroy. The begin, commit, and rollback are directly
-					controlled by the application. A commit, failed commit, or voluntary rollback by
-					the transaction manager ends the transaction. </p>
-				<p>You can run transactions on any type of cache region except regions with
-						<b>global</b> scope. A transaction attempted on these regions throws an
-						<codeph>UnsupportedOperationException</codeph>. </p>
-				<p>Before you begin, have your members and regions defined where you want to run
-					transactions. </p>
-				<p>
-					<note>The discussions on transactions in this guide use replicated and
-						partitioned regions. If you use non-replicated distributed regions, follow
-						the guidelines for replicated regions. </note>
-				</p>
+				<p>Applications manage transactions on a per-cache basis. A <keyword keyref="product_name"/>
+					cache transaction starts with a <codeph>CacheTransactionManager.begin</codeph>
+					method and continues with a series of operations, which are typically region
+					operations such as region create, update, clear and destroy. The begin, commit,
+					and rollback are directly controlled by the application. A commit, failed
+					commit, or voluntary rollback by the transaction manager ends the transaction. </p>
+				<p>You can run transactions on any type of cache region except regions with <b>global</b> scope.
+					An operation  attempted on a region with global scope throws an
+						<codeph>UnsupportedOperationException</codeph> exception. </p>
+				<p>This discussion centers on transactions on replicated and partitioned regions. If you use
+					non-replicated distributed regions, follow the guidelines for replicated
+					regions. </p>
 			</context>
 			<steps id="steps_lnk_db1_wk">
 				<step id="step_4153ADD587C64577B9E3139DADFA06D5">
-					<cmd><b>Configure the cache copy-on-read behavior in the members hosting the
-							transactional data, or perform cache updates that avoid in-place
-							changes.</b> This allows the transaction manager to control when your
-						cache updates are visible outside the transaction. </cmd>
+					<cmd><b>Configure the cache copy-on-read behavior in the members hosting the transactional
+							data, or perform cache updates that avoid in-place changes.</b> This
+						allows the transaction manager to control when cache updates are visible
+						outside the transaction. See <xref
+							href="working_with_transactions.xml#concept_vx2_gs4_5k"/>.</cmd>
 				</step>
 				<step id="step_089776F8F48B4F02A30514CF16CEDFFF">
-					<cmd><b>Configure your regions for transactions in the members hosting the
-							transactional data.</b> Depending on the type of regions and features
-						you are using, you should configure your regions differently for
-						transactions. </cmd>
+					<cmd><b>Configure your regions for transactions in the members hosting the transactional
+							data.</b></cmd>
 					<choicetable id="choicetable_nrb_l53_5k">
 						<chhead>
 							<choptionhd>If you use...</choptionhd>
@@ -51,39 +45,38 @@
 						</chrow>
 						<chrow>
 							<choption>partitioned regions</choption>
-							<chdesc>Custom partition and colocate data between regions so all the
-								data for any single transaction is hosted by a single data store. If
-								you run the transaction from another member, it will run by proxy in
-								the member hosting the data. The partitioned region must be defined
-								for the application that runs the transaction, but the data can be
-								hosted in a remote member.</chdesc>
+							<chdesc>Custom partition and colocate data among regions so all the data for any single
+								transaction is hosted by a single member. If the transaction is run
+								from a member other than the one hosting the data, the transaction
+								will run by proxy in the member hosting the data. The partitioned
+								region must be defined for the application that runs the
+								transaction, but the data can be hosted in a remote member.</chdesc>
 						</chrow>
 						<chrow>
 							<choption>persistent regions</choption>
-							<chdesc>Configure <keyword keyref="product_name"/> to allow transactions
-								on peristent regions. By default, <keyword keyref="product_name"/>
-								does not allow transactions on persistent regions. You can enable
-								the use of transactions on persistent regions by setting the gemfire
-								property gemfire.ALLOW_PERSISTENT_TRANSACTIONS to true.</chdesc>
+							<chdesc>Configure <keyword keyref="product_name"/> to allow transactions on peristent
+								regions. By default, the configuration does not allow transactions
+								on persistent regions. Enable the use of transactions on persistent
+								regions by setting the gemfire property
+								gemfire.ALLOW_PERSISTENT_TRANSACTIONS to true.</chdesc>
 						</chrow>
 						<chrow>
 							<choption>a mix of partitioned and replicated regions</choption>
-							<chdesc>Make sure your replicated regions are hosted in every member
+							<chdesc>Make sure any replicated region involved in the transaction is hosted on every member
 								that hosts the partitioned region data. All data for a single
-								transaction must reside in a single host.</chdesc>
+								transaction must reside within a single host.</chdesc>
 						</chrow>
 						<chrow>
 							<choption>delta propagation</choption>
-							<chdesc>Set the region attribute <codeph>cloning-enabled</codeph> to
-								true. This lets <keyword keyref="product_name"/> do conflict checks
-								at commit. Without this, when you run the transaction, you'll get
-								this exception:
-								<msgblock>UnsupportedOperationInTransactionException
-("Delta without cloning cannot be used in transaction");</msgblock></chdesc>
+							<chdesc>Set the region attribute <codeph>cloning-enabled</codeph> to true. This lets <keyword
+									keyref="product_name"/> do conflict checks at commit time.
+								Without this, the transaction will throw an
+									<codeph>UnsupportedOperationInTransactionException </codeph>
+								exception.</chdesc>
 						</chrow>
 						<chrow>
-							<choption>global JTA transactions (but you only want to run a <keyword keyref="product_name"/>
-								cache transaction)</choption>
+							<choption>global JTA transactions with only <keyword keyref="product_name"/> cache
+								transactions</choption>
 							<chdesc>Set the region attribute <codeph>ignore-jta</codeph> to true for
 								all regions that you do <i>not</i> want to participate in JTA global
 								transactions. It is false by default. For instructions on how to run
@@ -99,35 +92,33 @@
 							implementations to handle your transactions.</b>
 					</cmd>
 					<info>
-						<p>Cache event handlers are all used for transactions. Cache listeners are
-							called after the commit, instead of after each cache operation, and they
-							receive the conflated transaction events. Cache writers and loaders are
-							called as usual, as the operations are done. </p>
-						<p>Follow these additional guidelines when writing your cache event handler
-							callbacks: <ul id="ul_uwx_lv3_5k">
+						<p>Cache event handlers may be used with transactions. Cache listeners are called after the
+							commit, instead of after each cache operation, and the cache listeners
+							receive conflated transaction events. Cache writers and loaders are
+							called as usual, at the time of the operation. </p>
+						<p>Follow these additional guidelines when writing cache event handler callbacks: <ul
+								id="ul_uwx_lv3_5k">
 								<li id="li_C140791F29BF41EA975FF723E721774D">Make sure cache
-									callbacks are transactionally aware. A transactional operation
-									can launch callbacks that are not transactional. </li>
+									callbacks are transactionally aware, because a transactional
+									operation could launch callbacks that are not transactional. </li>
 								<li id="li_9B5E2EC270E24279BFBBC6C9ED562384">Make sure cache
-									listeners will operate properly with the entry event conflation
-									done for transactional operations. Two entry events for the same
-									key are conflated by removing the existing event and adding the
-									new event to the end of the list. </li>
+									listeners will operate properly, given entry event conflation.
+									Two events for the same key are conflated by removing the
+									existing event and queuing the new event. </li>
 							</ul>
 						</p>
 						<p>See <xref href="working_with_transactions.xml#concept_ysx_nf1_wk"/> for
 							more information. </p>
-						<p>If desired, you can also configure transaction event handlers.
-							Transaction event handlers are cache-wide. You can install one
-							transaction writer and any number of transaction listeners. Use the
-							following guidelines: <ul id="ul_cvd_gw3_5k">
-								<li id="li_146AAB2438194C1BA2E1AC0FFE2B1E10">Program with
-									synchronization for thread-safety. Your listener and writer
-									methods may be called simultaneously by different threads for
+						<p>Transaction event handlers are available. Transaction event handlers are cache-wide. You
+							can install one transaction writer and any number of transaction
+							listeners. Follow these guidelines: <ul id="ul_cvd_gw3_5k">
+								<li id="li_146AAB2438194C1BA2E1AC0FFE2B1E10">Implement with
+									synchronization for thread safety. Listener and writer handlers
+									may be invoked at the same time by different threads for
 									different transactions. </li>
-								<li id="li_C44EC8D69EB543F5A7B040D96865F429">Keep your transactional
-									callback implementations lightweight and avoid doing anything
-									that might cause them to block. </li>
+								<li id="li_C44EC8D69EB543F5A7B040D96865F429">Keep  transactional
+									callback implementations lightweight, and avoid doing anything
+									that might cause the  callbacks to block. </li>
 							</ul>
 						</p>
 						<p>See <xref href="working_with_transactions.xml#concept_ocw_vf1_wk"/> for
@@ -135,8 +126,7 @@
 					</info>
 				</step>
 				<step id="step_273CF845520140999B76CA02B3CE8F7C">
-					<cmd><b>Using the CacheTransactionManager, write your transaction.</b> For
-						example: </cmd>
+					<cmd><b>Write the transaction code.</b> For example: </cmd>
 					<info>
 						<codeblock>CacheTransactionManager txManager =
 		  cache.getCacheTransactionManager();
@@ -145,14 +135,12 @@ try {
 	txManager.begin();
 	// ... do work
 	txManager.commit();
-     } catch (CommitConflictException conflict)</codeblock>
-						<p>Follow these guidelines when writing your transaction: <ul
-								id="ul_qgz_4bj_5k">
+} catch (CommitConflictException conflict) {
+	// ... do necessary work for a transaction that failed on commit
+}</codeblock>
+						<p>Follow these guidelines when writing the transaction: <ul id="ul_qgz_4bj_5k">
 								<li id="li_094E07EDBD474F33B893C4696383F446">Start each transaction
 									with a begin operation. </li>
-								<li id="li_3ADC8E65B2D54EC2ACB2638F11E7B5CF">Run the <keyword
-										keyref="product_name"/> function and other operations that
-									you want included within the transaction. </li>
 								<li id="li_F5C54C26369B4947BA3EA22B124E4935">Consider whether you
 									will want to suspend and resume the transaction. If some
 									operations should not be part of the transaction, you may want
@@ -162,11 +150,11 @@ try {
 										href="transaction_suspend_resume_example.xml#concept_40AAC4332DCE4E4EB60C4BA141B729A4"
 									/> for an example. </li>
 								<li id="li_3DD31608D05245048BAF64E1A6FD1E1D">If your transaction
-									runs on a mix of partitioned and replicated regions, perform
-									your first transaction operation on a partitioned region. This
-									sets the host for the entire transaction. </li>
+									operates on a mix of partitioned and replicated regions, do the
+									first region operation on an entry of the partitioned region.
+									This sets the host for the entire transaction. </li>
 								<li id="li_BBBEB071A66748A29060EC520EB298B7">If you did not
-									configure copy-on-read to true, be sure your cache updates avoid
+									configure copy-on-read to true, be sure all cache updates avoid
 									in-place changes. </li>
 								<li id="li_A6578FB6A61F486B873AD117E96F0E9D">Take into account the
 									behavior of transactional and non-transactional operations. All
@@ -174,9 +162,8 @@ try {
 									the commit or rollback are included in the transaction. </li>
 								<li id="li_096C06567123466F82547DD76FE7429F">End each transaction
 									with a commit or a rollback. Do not leave any transaction in an
-									uncommitted and unrolled back state. Transactions do not time
-									out, so they will remain in the system for the life of your
-									application. </li>
+									uncommitted or unrolled back state. Transactions do not time
+									out, so they will remain for the life of the application. </li>
 							</ul>
 						</p>
 					</info>
@@ -186,16 +173,16 @@ try {
 						<b>Review all of your code for compatibility with transactions.</b>
 					</cmd>
 					<info>
-						<p>When you commit a transaction, while the commit is taking place, the
-							changes are visible in the distributed cache. This provides better
-							performance than locking everything involved with the transaction
-							updates, but it means that another process accessing data used in the
-							transaction might get some data in the pre-transaction state and some in
-							the post-transaction state. </p>
-						<p>For example, suppose key 1 and 2 are written to in a transaction so both
-							of their values change from A to B. In another thread, it is possible to
-							read key 1 with value B and key 2 with value A, while the transaction is
-							being committed. This is possible due to the nature of <keyword
+						<p>When you commit a transaction, while the commit is in process, the changes are visible in
+							the distributed cache. This provides better performance than locking
+							everything involved with the transaction updates, but it means that
+							another process accessing data used in the transaction might get some
+							data in the pre-transaction state and some in the post-transaction
+							state. </p>
+						<p>For example, suppose key 1 and 2 are modified within a transaction, such that both values
+							change from A to B. In another thread, it is possible to read key 1 with
+							value B and key 2 with value A, after the commit begins, but before the
+							commit completes. This is possible due to the nature of <keyword
 								keyref="product_name"/> reads. This choice sacrifices atomic
 							visibility in favor of performance; reads do not block writes, and
 							writes do not block reads. </p>
