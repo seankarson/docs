@@ -6,7 +6,7 @@
 		<section id="section_881D2FF6761B4D689DDB46C650E2A2E1">
 			<title>Where Functions Are Executed</title>
 			<p>You can execute data-independent functions or data-dependent functions in <keyword
-					keyref="product_name"/> . You run data-independent functions by targeting a
+					keyref="product_name"/>. You run data-independent functions by targeting a
 				specific member or specific members in your distributed system, or by targeting
 				logical member groups on which to execute your function. If you are executing a
 				data-dependent function, you specify a region on which to execute the function. <ul
@@ -18,13 +18,13 @@
 						servers. If you are connected to a distributed system as a client, you can
 						execute the function on a server or servers configured for a specific
 						connection pool, or on a server or servers connected to a given cache. </li>
-					<li id="li_32D051652A39470BA88184043E4EE044"> On member groups or on a single member within
-						each member group. In <keyword keyref="product_name"/> 7.0, you can organize
-						members into logical member groups. (See <xref
+					<li id="li_32D051652A39470BA88184043E4EE044"> On member groups or on a single
+						member within each member group. You can organize members into logical
+						member groups. (See <xref
 							href="../../configuring/chapter_overview.xml#concept_lrh_gyq_s4"/> for
 						more information about using member groups.) You can invoke a data
-						independent function on all members in a specified member group (or member
-						groups) or execute the function on only one member of each specified member
+						independent function on all members in a specified member group or member
+						groups, or execute the function on only one member of each specified member
 						group. </li>
 					<li id="li_CD7893443F68475D9AA336ECD0455DD5">On a data set. Specify a region and
 						possibly a set of keys on which to run the function. </li>
@@ -37,25 +37,16 @@
 			<title>How Functions Are Executed</title>
 			<p> The following things occur when a function is executed: <ol
 					id="ol_afaf5d4b-60bd-4fbb-abcd-1dd17040bb69">
-					<li id="li_2055981FCBDF4FC6823977F1E0DFD3F0">When you call the
-							<codeph>execute</codeph> method on the <codeph>Function</codeph>
-						<codeph>Execution</codeph> object, the execution is sent to all members
-						where it needs to run. The locations are determined by the
+					<li id="li_2055981FCBDF4FC6823977F1E0DFD3F0">When you call the <codeph>execute</codeph> method
+						on the <codeph>Execution</codeph> object, the function is invoked on all
+						members where it needs to run. The locations are determined by the
 							<codeph>FunctionService</codeph>
-						<codeph>on*</codeph> method calls, region configuration, and any filters.
-						With <codeph>onRegion</codeph>, for a client region, the function is sent to
-						the server system. For a non-client region, the function is handled in the
-						calling application’s distributed system. </li>
-					<li id="li_F0499F1C733A4E029995AC4D50E9267F">If the function has results, the
-						result is returned to the <codeph>execute</codeph> method call in a
+						<codeph>on*</codeph> method calls, region configuration, and any filters. </li>
+					<li id="li_F0499F1C733A4E029995AC4D50E9267F">If the function has results, the result is
+						returned to the <codeph>addResult</codeph> method call in a
 							<codeph>ResultCollector</codeph> object. </li>
 					<li id="li_058FFE112FE2465A94C256ECF3E66D68">The originating member collects
 						results using <codeph>ResultCollector.getResult</codeph>. </li>
-					<li>If the <codeph>execute</codeph> method throws a FunctionException, the
-						exception is handled in a specialized manner. <keyword keyref="product_name"
-						/> transmits the exception to the calling side, and the FunctionException is
-						then thrown in the caller’s execution stack as if it had originated on the
-						calling side.</li>
 				</ol>
 			</p>
 		</section>
