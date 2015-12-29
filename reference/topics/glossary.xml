@@ -96,8 +96,8 @@
 		</section>
 		<section id="section_6D9FA50812AC45BCADA7755E4368A5C4">
 			<title>cache miss</title>
-			<p>The situation where an key’s value is requested from a cache and the requested key is
-				not present or has a null value. <keyword keyref="product_name"/> responds to cache
+			<p>The situation where a key’s value is requested from a cache and the requested key is not
+				present or has a null value. <keyword keyref="product_name"/> responds to cache
 				misses in various ways, depending on the region and system configuration. For
 				example, a client region goes to its servers to satisfy cache misses. A region with
 				local scope uses its data loader to load the value from an outside data source, if a
