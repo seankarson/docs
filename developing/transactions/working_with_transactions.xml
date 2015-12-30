@@ -142,29 +142,33 @@ cTxMgr.commit();</codeblock></p>
   <concept id="concept_u5b_ryz_vk">
     <title>Suspending and Resuming Transactions</title>
     <conbody>
-      <p><keyword keyref="product_name"/> APIs provide the ability to suspend and resume
-        transactions. The ability to suspend and resume is useful when a thread must perform some
-        operations that should not be part of the transaction before the transaction can complete. A
-        complex use case of suspend and resume implements a transaction that spans clients in which
-        only one client at a time will not be suspended.</p>
-      <p>When a transaction is suspended, it loses the transactional view of the cache. None of the
-        previous operations (before calling suspend) are visible to the thread. Any operations that
-        are performed by the thread while the transaction is suspended are  not part of the
+      <p>The <keyword keyref="product_name"/>
+        <codeph>CacheTransactionManager</codeph> API provides the ability to suspend and resume
+        transactions with the <codeph>suspend</codeph> and <codeph>resume</codeph> methods. The
+        ability to suspend and resume is useful when a thread must perform some operations that
+        should not be part of the transaction before the transaction can complete. A complex use
+        case of suspend and resume implements a transaction that spans clients in which only one
+        client at a time will not be suspended.</p>
+      <p>Once a transaction is suspended, it loses the transactional view of the cache. None of the
+        operations done within the transaction are visible to the thread. Any operations that are
+        performed by the thread while the transaction is suspended are not part of the
         transaction.</p>
       <p>When a transaction is resumed, the resuming thread assumes the transactional view. A
         transaction that is suspended on a member must be resumed on the same member. </p>
       <p>Before resuming a transaction, you may want to check if the transaction exists on the
         member and whether it is suspended. The <codeph>tryResume</codeph> method implements this
         check and resume as an atomic step.</p>
-      <p>If the member with the primary copy of the data crashes, the transactional view that
-        applied to that data is lost. The secondary member for the data will not be able to resume
-        any transactions suspended on the crashed member. You will need to take remedial steps to
-        retry the transaction on a new primary copy of the data.</p>
+      <p>If the member with the primary copy of the data crashes, the transactional view associated
+        with that data is lost. The secondary member for the data will not be able to resume any
+        transactions suspended on the crashed member. You will need to take remedial steps to retry
+        the transaction on a new primary copy of the data.</p>
       <p>If a suspended transaction is not touched for a period of time, <keyword
           keyref="product_name"/> cleans it up automatically. By default, the timeout for a
         suspended transaction is 30 minutes and can be configured using the system property
           <codeph>gemfire.suspendedtxTimeout</codeph>. For example,
           <codeph>gemfire.suspendedtxTimeout=60</codeph> specifies a timeout of 60 minutes.</p>
+      <p>See <xref href="transaction_suspend_resume_example.xml"/> for a sample code fragment that
+        suspends and resumes a transaction.</p>
     </conbody>
   </concept>
   <concept id="concept_ysx_nf1_wk">
