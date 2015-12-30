@@ -16,6 +16,9 @@
 				<p>You can run transactions on any type of cache region except regions with <b>global</b> scope.
 					An operation  attempted on a region with global scope throws an
 						<codeph>UnsupportedOperationException</codeph> exception. </p>
+				<p>A transaction may not be nested within another transaction. An attempt to begin a
+					nested transaction will throw an <codeph>IllegalStateException</codeph>
+					exception.</p>
 				<p>This discussion centers on transactions on replicated and partitioned regions. If you use
 					non-replicated distributed regions, follow the guidelines for replicated
 					regions. </p>
@@ -54,7 +57,7 @@
 						</chrow>
 						<chrow>
 							<choption>persistent regions</choption>
-							<chdesc>Configure <keyword keyref="product_name"/> to allow transactions on peristent
+							<chdesc>Configure <keyword keyref="product_name"/> to allow transactions on persistent
 								regions. By default, the configuration does not allow transactions
 								on persistent regions. Enable the use of transactions on persistent
 								regions by setting the gemfire property
