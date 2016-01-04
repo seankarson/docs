@@ -60,23 +60,24 @@ export PATH</codeblock>On
 					Windows
 					platforms:<codeblock>set PATH=%PATH%;%JAVA_HOME%\bin;%GEMFIRE%\bin 
 </codeblock></li>
-				<li>This following step only applies to environments where you are running <keyword
+				<li>This step only applies to environments in which you are running <keyword
 						keyref="product_name"/> processes or <keyword keyref="product_name"/> client
-					applications outside of gfsh. The <codeph>gfsh</codeph> script sets these
-					environment variables for you. If you are running <keyword keyref="product_name"
+					applications outside of gfsh.  If you are running <keyword keyref="product_name"
 					/> processes or applications outside of <codeph>gfsh</codeph>, then configure
 					the following two environment variables. <ul id="ul_d24_kvs_35">
-						<li>Set the GEMFIRE environment variable to point to your <keyword keyref="product_name"/>
-							installation top-level directory. Directories <filepath>bin</filepath>,
-								<filepath>lib</filepath>, and <filepath>dtd</filepath> will be
-							within this top-level directory. On Linux/Unix
+						<li>Set the GEMFIRE environment variable to point to your <keyword
+								keyref="product_name"/> installation top-level directory.
+							Directories <filepath>bin</filepath>, <filepath>lib</filepath>, and
+								<filepath>dtd</filepath> will be within this top-level directory. On
+							Linux/Unix
 							platforms:<codeblock>GEMFIRE=<i>path_to_product</i>
 export GEMFIRE</codeblock>For
 							Windows
 							platforms:<codeblock>set GEMFIRE=C:\<i>path_to_product</i></codeblock>
 						</li>
-						<li>Set the GF_JAVA environment variables to point to the <codeph>java</codeph> executable
-							relative to the JAVA_HOME environment variable. On Linux/Unix
+						<li>Set the GF_JAVA environment variables to point to the
+								<codeph>java</codeph> executable relative to the JAVA_HOME
+							environment variable. On Linux/Unix
 							platforms:<codeblock>
 GF_JAVA=$JAVA_HOME/bin/java
 export GF_JAVA  </codeblock>On
@@ -90,10 +91,10 @@ set GF_JAVA=%JAVA_HOME%\bin\java.exe
 				<li>To verify the installation, type <codeph>gfsh version</codeph> at the command line and note
 					that the output lists the installed version of <keyword keyref="product_name"/>.
 					For example:<codeblock>$ gfsh version
-v1.0.0-incubating-SNAPSHOT</codeblock>If
-					you want more detailed version information such as the date of the build, build
-					number and JDK version being used, type <codeph>gfsh version
-					--full</codeph>.</li>
+v1.0.0-incubating-SNAPSHOT</codeblock>For
+					more detailed version information such as the date of the build, build number
+					and JDK version being used,
+					invoke:<codeblock>$ gfsh version --full</codeblock></li>
 			</ol>
 		</section>
 	</conbody>
