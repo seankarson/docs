@@ -86,43 +86,6 @@
 			</ul>
 			<p>These log files should be readable and writable <i>only</i> by the dedicated user who runs the
 				servers. </p>
-			<p>If you contact Pivotal technical support for help with an issue and the support
-				engineer requests that you submit log files to help resolve the problem, Pivotal
-				recommends that you remove all sensitive information from the logs before
-				submitting. </p>
-		</body>
-	</topic>
-	<topic id="topic_E3A290F0EE334AD09359AB978D82E66F">
-		<title> User Accounts Created at Installation</title>
-		<shortdesc>When you install Pivotal GemFire on Red Hat Enterprise Linux (RHEL) using the
-			RPM, a user account is automatically created. </shortdesc>
-		<body>
-			<p>This user has the following characteristics: </p>
-			<ul id="ul_CF590246022549CC942C32F7DBECE649">
-				<li id="li_F7A0913B6CDD4A188A15D5B021CCA281"> ID: <codeph>gemfire</codeph>
-				</li>
-				<li id="li_3E7F58BA50C743E5993BCF53B76054A1"> Group: <codeph>pivotal</codeph>
-				</li>
-				<li id="li_C55AB70516B04A518D1580AD82B35ABA"> Non-interactive, which means that you
-					cannot directly log in to the RHEL computer as this user. Rather, you must log
-					in as <codeph>root</codeph> or user with appropriate <codeph>sudo</codeph>
-					privileges and <codeph>su - gemfire</codeph>. </li>
-			</ul>
-			<p>The GemFire installation directory is owned by the <codeph>gemfire</codeph> user,
-				with group <codeph>pivotal</codeph>. </p>
-			<p>When you install GemFire on Windows or from a <codeph>*.zip</codeph> or
-					<codeph>*.tar.gz</codeph> file, a user account is <i>not</i> automatically
-				created for you. </p>
-		</body>
-	</topic>
-	<topic id="topic_9E11E5A8769E4D1FBA55398F4FD72674">
-		<title>Obtaining and Installing Security Updates</title>
-		<shortdesc>New versions of Pivotal GemFire often include important security fixes, so
-			Pivotal recommends you keep up to date with the latest releases. </shortdesc>
-		<body>
-			<p> For details about any security fixes in a particular release, see the <xref
-					href="http://www.pivotal.io/security" scope="external" format="html">Pivotal
-					security page</xref>. </p>
 		</body>
 	</topic>
 </dita>
