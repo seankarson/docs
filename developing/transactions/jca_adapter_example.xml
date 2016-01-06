@@ -6,32 +6,28 @@
   /> .</shortdesc>
  <conbody>
   <codeblock>Hashtable env = new Hashtable();
-env.put(Context.INITIAL_CONTEXT_FACTORY,
-“weblogic.jndi.WLInitialContextFactory”);
+env.put(Context.INITIAL_CONTEXT_FACTORY, “weblogic.jndi.WLInitialContextFactory”);
 env.put(Context.PROVIDER_URL, “t3://localhost:7001”);
 Context ctx = new InitialContext(env);
-UserTransaction utx = (UserTransaction)
-	ctx.lookup(“javax.transaction.UserTransaction”);
+UserTransaction utx = (UserTransaction) ctx.lookup(“javax.transaction.UserTransaction”);
 utx.begin();
-      // The XA Resource
-javax.sql.DataSource ds = (DataSource(ctx.lookup(“derby”);
+      // the XA Resource
+javax.sql.DataSource ds = (DataSource) ctx.lookup(“derby”);
 javax.sql.Connection derbyConn = ds.getConnection();
 Statement stmt = conn.createStatement();
 stmt.executeUpdate(“insert into test values(2,4) “);
-     //Performing GemFire Connection Factory lookup
+     // do ConnectionFactory lookup
 GFConnectionFactory cf = (GFConnectionFactory) ctx.lookup(“gfe/jca”);
 
-//The following step that obtains the connection is what
-//begins the LocalTransaction on GemFire.
-//If this is absent, GFE operations will not be part of any transaction.
-
-GFConnection gemfireConn cf = (GFConnectionFactory) ctx.lookup(“gfe/jca”);
+     // Obtaining the connection begins the LocalTransaction.
+     // If this is absent, operations will not be part of any transaction.
+GFConnection conn = cf.getConnection();
 
 testRegion.put(“foo”, “bar-”);
 utx.commit();
 
-//The connection can also be closed within the transaction.
+     // the connection can also be closed within the transaction
 derbyConn.close();
-gemfireConn.close();</codeblock>
+conn.close();</codeblock>
  </conbody>
 </concept>
