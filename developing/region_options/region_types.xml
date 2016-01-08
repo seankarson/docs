@@ -149,13 +149,13 @@
 						data will be available without interruption from the remaining members.
 						Partitioned regions can also be persisted to disk for additional high
 						availability. </li>
-					<li id="li_394A5D02F8094790A3BE53EAA13CF04C"><b>Scalability</b>. Partitioned
-						regions can scale to large amounts of data because the data divided between
-						the members available to host the region. Increase your data capacity
-						dynamically by simply adding new members. Partitioned regions also allow you
-						to scale your processing capacity. Because your entries are spread out
-						across the members hosting the region, reads and writes to those entries are
-						also spread out across those members. </li>
+					<li id="li_394A5D02F8094790A3BE53EAA13CF04C"><b>Scalability</b>. Partitioned regions can scale
+						to large amounts of data because the data is divided between the members
+						available to host the region. Increase your data capacity dynamically by
+						simply adding new members. Partitioned regions also allow you to scale your
+						processing capacity. Because your entries are spread out across the members
+						hosting the region, reads and writes to those entries are also spread out
+						across those members. </li>
 					<li id="li_75C74CD33F2946D094E35AF0B95D9666"><b>Good write performance</b>. You
 						can configure the number of copies of your data. The amount of data
 						transmitted per write does not increase with the number of members. By
