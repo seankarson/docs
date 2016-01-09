@@ -2,9 +2,10 @@
 <!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "http://docs.oasis-open.org/dita/v1.1/OS/dtd/concept.dtd">
 <concept id="implementing_write_behind_cache_event_handling">
 	<title>Implementing an AsyncEventListener for Write-Behind Cache Event Handling</title>
-	<shortdesc> An <codeph>AsyncEventListener</codeph> receives callbacks for events that change
-		region data. You can use an <codeph>AsyncEventListener</codeph> implementation as a
-		write-behind cache event handler to synchronize region updates with a database. </shortdesc>
+	<shortdesc> An <codeph>AsyncEventListener</codeph> asynchronously processes batches of events after
+		they have been applied to a region. You can use an <codeph>AsyncEventListener</codeph>
+		implementation as a write-behind cache event handler to synchronize region updates with a
+		database. </shortdesc>
 	<conbody>
 		<section id="section_35B3ADC77E1147468A568E49C8C308E1">
 			<title>How an AsyncEventListener Works</title>
@@ -14,11 +15,11 @@
 				batches of events at a time to the listener implementation. </p>
 			<p>You can configure an <codeph>AsyncEventQueue</codeph> to be either serial or
 				parallel. A serial queue is deployed to one <keyword keyref="product_name"/> member,
-				and it delivers all of a region's events in order to a configured
+				and it delivers all of a region's events, in order of occurrence, to a configured
 					<codeph>AsyncEventListener</codeph> implementation. A parallel queue is deployed
 				to multiple <keyword keyref="product_name"/> members, and each instance of the queue
-				simultaneously delivers region events to a local <codeph>AsyncEventListener</codeph>
-				implementation. </p>
+				delivers region events, possibly simultaneously, to a local
+					<codeph>AsyncEventListener</codeph> implementation. </p>
 			<p>While a parallel queue provides the best throughput for writing events, it provides
 				less control for ordering those events. With a parallel queue, you cannot preserve
 				event ordering for a region as a whole because multiple <keyword
@@ -39,13 +40,16 @@
 				queue, each queue hosted on a <keyword keyref="product_name"/> member is processed
 				by dispatcher threads; the total number of queues created depends on the number of
 				members that host the region.</p>
-			<p>A <codeph>GatewayEventFilter</codeph> can be placed on the <codeph>AsyncEventQueue</codeph> to control whether a
-				particular event is sent to a selected <codeph>AsyncEventListener</codeph>. For example, events
-				associated with sensitive data could be detected and not queued. For more detail, see the Javadocs for <codeph>GatewayEventFilter</codeph>.</p>
-			<p> A <codeph>GatewayEventSubstitutionFilter</codeph> can specify whether the event is transmitted in its
-				entirety or in an altered representation. For example, to reduce the size of the
-				data being serialized, it might be a more efficient to represent a full object by
-				only its key. For more detail, see the Javadocs for <codeph>GatewayEventSubstitutionFilter</codeph>.</p>
+			<p>A <codeph>GatewayEventFilter</codeph> can be placed on the
+					<codeph>AsyncEventQueue</codeph> to control whether a particular event is sent
+				to a selected <codeph>AsyncEventListener</codeph>. For example, events associated
+				with sensitive data could be detected and not queued. For more detail, see the
+				Javadocs for <codeph>GatewayEventFilter</codeph>.</p>
+			<p> A <codeph>GatewayEventSubstitutionFilter</codeph> can specify whether the event is
+				transmitted in its entirety or in an altered representation. For example, to reduce
+				the size of the data being serialized, it might be a more efficient to represent a
+				full object by only its key. For more detail, see the Javadocs for
+					<codeph>GatewayEventSubstitutionFilter</codeph>.</p>
 		</section>
 		<section>
 			<title>Operation Distribution from an AsyncEventQueue</title>
@@ -76,11 +80,13 @@
 						database connection may have been closed due to an earlier exception. For
 						example, check for <cmdname>Connection.isClosed()</cmdname> in a catch block
 						and re-create the connection as needed before performing further operations. </li>
-					<li id="li_AA87F5FD4E044A15875A6F862686EBE1">Use a serial
-							<codeph>AsyncEventQueue</codeph> if you need to preserve the order of
-						region events when delivering events to your listener implementation. Use
-						parallel queues when the order of events is not important, and when you
-						require maximum throughput for processing events. </li>
+					<li id="li_AA87F5FD4E044A15875A6F862686EBE1">Use a serial <codeph>AsyncEventQueue</codeph> if
+						you need to preserve the order of region events within a thread when
+						delivering events to your listener implementation. Use parallel queues when
+						the order of events within a thread is not important, and when you require
+						maximum throughput for processing events. In both cases, serial and
+						parallel, the order of operations on a given key is preserved within the
+						scope of the thread.</li>
 					<li id="li_07BE1FC18FE243B58E68882CA8EC4897">You must install the
 							<codeph>AsyncEventListener</codeph> implementation on a <keyword
 							keyref="product_name"/> member that hosts the region whose events you
@@ -88,12 +94,13 @@
 					<li id="li_BBC8F76D80E34F5BAF829E29A8F3C06F">If you configure a parallel
 							<codeph>AsyncEventQueue</codeph>, deploy the queue on each <keyword
 							keyref="product_name"/> member that hosts the region. </li>
-					<li id="li_4C733AFC19134244BDC4266146F9B4DC">You can install a listener on more
-						than one member to provide high availability and guarantee delivery for
-						events, in the event that a member with the active
-							<codeph>AsyncEventListener</codeph> shuts down. At any given time only
-						one member has an active listener for dispatching events. The listener on
-						other members remain on standby for redundancy. </li>
+					<li id="li_4C733AFC19134244BDC4266146F9B4DC">You can install a listener on more than one member
+						to provide high availability and guarantee delivery for events, in the event
+						that a member with the active <codeph>AsyncEventListener</codeph> shuts
+						down. At any given time only one member has an active listener for
+						dispatching events. The listeners on other members remain on standby for
+						redundancy. For best performance and most efficient use of memory, install
+						only one standby listener (redundancy of at most one).</li>
 					<li id="li_62A8440BA95A431491150A3DCE1E4086">Install no more than one standby
 						listener (redundancy of at most one) for performance and memory reasons. </li>
 					<li id="li_E525B9DC25EB40AC8EAB54C0CE81B3D7">To preserve pending events through
@@ -232,12 +239,14 @@ AsyncEventQueue asyncQueue = factory.create("sampleQueue", listener);</codeblock
 						</p>
 					</li>
 					<li id="li_08DEA6A2C2DD416291A3C14188685AF5">If you are using a parallel
-							<codeph>AsyncEventQueue</codeph>, repeat the above configuration in each
-							<keyword keyref="product_name"/> member that will host the region. Use
-						the same ID and configuration settings for each queue configuration.
-							<note>You can ensure other members use the sample configuration by using
-							the cluster configuration service available in gfsh. See <xref
-								href="../../configuring/cluster_config/gfsh_persist.xml"
+							<codeph>AsyncEventQueue</codeph>, the gfsh example above requires no
+						alteration, as gfsh applies to all members. If using cache.xml or the Java
+						API to configure your <codeph>AsyncEventQueue</codeph>, repeat the above
+						configuration in each <keyword keyref="product_name"/> member that will host
+						the region. Use the same ID and configuration settings for each queue
+						configuration. <note>You can ensure other members use the sample
+							configuration by using the cluster configuration service available in
+							gfsh. See <xref href="../../configuring/cluster_config/gfsh_persist.xml"
 							/>.</note></li>
 					<li id="li_9094768B70D140D5A031B3125710FF52">
 						<p>On each <keyword keyref="product_name"/> member that hosts the
