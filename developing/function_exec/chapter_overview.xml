@@ -2,8 +2,29 @@
 <!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "http://docs.oasis-open.org/dita/v1.1/OS/dtd/concept.dtd">
 <concept id="function_exec">
 	<title>Function Execution</title>
-	<shortdesc> You can write, register, and execute functions for particular use cases. </shortdesc>
+	<shortdesc> A function is a body of code that resides on a server and that an application can
+		invoke from a client or from another server without the need to send the function code
+		itself. The caller can direct a data-dependent function to operate on a particular dataset,
+		or can direct a data-independent function to operate on a particular server, member, or
+		member group.</shortdesc>
 	<conbody>
-		<section id="section_CBD5B04ACC554029B5C710CE8E244FEA"> </section>
+		<section id="section_CBD5B04ACC554029B5C710CE8E244FEA">The function execution service provides
+			solutions for a variety of use cases, including: <ul
+				id="ul_F7D59C66B0644A8FA2FE4A9F0A52A6BB">
+				<li>An application needs to perform an operation on the data associated with a key.
+					A registered server-side function can retrieve the data, operate on it, and put
+					it back, with all processing performed locally to the server.</li>
+				<li id="li_C19A58298C5C4CFA9E86E17963C0D02A">An application needs to initialize some
+					of its components once on each server, which might be used later by executed
+					functions. </li>
+				<li id="li_22B405A0EACF45E2B8832355349D9D85">A third-party service, such as a
+					messaging service, requires initialization and startup. </li>
+				<li id="li_D9D5CC17617D4001A54D70BD506876F6">Any arbitrary aggregation operation
+					requires iteration over local data sets that can be done more efficiently
+					through a single call to the cache server. </li>
+				<li id="li_33796010E69D4F8D9D268CE566FADF11">An external resource needs provisioning
+					that can be done by executing a function on a server. </li>
+			</ul>
+		</section>
 	</conbody>
 </concept>
