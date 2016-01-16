@@ -24,12 +24,8 @@ WHERE status = 'active'</codeblock></p>
 WHERE status = 'active'</codeblock></p>
 		<p>Returns a Collection of struct&lt;portfolios: Portfolio, values: Position&gt; for the
 			active
-			portfolios.:<codeblock>SELECT * 
-FROM /exampleRegion, positions.values TYPE Position 
-WHERE status = 'active'</codeblock></p>
-		<p>Returns a Collection of struct&lt;pflo: Portfolio, posn: Position&gt; for the active
-			portfolios.:<codeblock>SELECT * FROM /exampleRegion portfolio, positions positions 
-TYPE Position WHERE portfolio.status = 'active'</codeblock></p>
+			portfolios:<codeblock>SELECT * FROM /exampleRegion, positions.values 
+TYPE Position WHERE status = 'active'</codeblock></p>
 		<p>Returns a Collection of struct&lt;pflo: Portfolio, posn: Position&gt; for the active
 			portfolios:<codeblock>SELECT * FROM /exampleRegion portfolio, positions positions 
 TYPE Position WHERE portfolio.status = 'active'</codeblock></p>
