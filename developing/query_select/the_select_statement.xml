@@ -9,69 +9,30 @@
 			by a WHERE search operation. The projection list is either specified as * or as a comma
 			delimited list of expressions. </p>
 		<p>For *, the interim results of the WHERE clause are returned from the query. </p>
-		<p>
-			<b>Examples:</b>
-			<table id="table_24D545B90B2342D9BCE762A8E39991F6">
-				<tgroup cols="2">
-					<colspec colnum="1" colname="col1" colwidth="*"/>
-					<colspec colnum="2" colname="col2" colwidth="*"/>
-					<thead>
-						<row>
-							<entry colname="col1">Query Description </entry>
-							<entry colname="col2">Query String </entry>
-						</row>
-					</thead>
-					<tbody>
-						<row>
-							<entry colname="col1">Query all objects from the region using *. Returns
-								the Collection of portfolios (The exampleRegion contains Portfolio
-								as values). </entry>
-							<entry colname="col2">
-								<codeblock>SELECT * FROM /exampleRegion</codeblock>
-							</entry>
-						</row>
-						<row>
-							<entry colname="col1"> Query secIds from positions. Returns the
-								Collection of secIds from the positions of active portfolios. </entry>
-							<entry colname="col2">
-								<codeblock>SELECT secId 
+		<p><b>Examples:</b></p>
+		<p>Query all objects from the region using *. Returns the Collection of portfolios (The
+			exampleRegion contains Portfolio as
+			values).<codeblock>SELECT * FROM /exampleRegion</codeblock></p>
+		<p>Query secIds from positions. Returns the Collection of secIds from the positions of
+			active
+			portfolios:<codeblock>SELECT secId FROM /exampleRegion, positions.values TYPE Position 
+WHERE status = 'active'</codeblock></p>
+		<p>Returns a Collection of struct&lt;type: String, positions: map&gt; for the active
+			portfolios. The second field of the struct is a Map ( jav.utils.Map ) object, which
+			contains the positions map as the
+			value:<codeblock>SELECT "type", positions FROM /exampleRegion 
+WHERE status = 'active'</codeblock></p>
+		<p>Returns a Collection of struct&lt;portfolios: Portfolio, values: Position&gt; for the
+			active
+			portfolios.:<codeblock>SELECT * 
 FROM /exampleRegion, positions.values TYPE Position 
-WHERE status = 'active'</codeblock>
-							</entry>
-						</row>
-						<row>
-							<entry colname="col1">Returns a Collection of struct&lt;type: String,
-								positions: map&gt; for the active portfolios. The second field of
-								the struct is a Map ( jav.utils.Map ) object, which contains the
-								positions map as the value. </entry>
-							<entry colname="col2">
-								<codeblock>SELECT "type", positions 
-FROM /exampleRegion 
-WHERE status = 'active'</codeblock>
-							</entry>
-						</row>
-						<row>
-							<entry colname="col1">Returns a Collection of struct&lt;portfolios:
-								Portfolio, values: Position&gt; for the active portfolios. </entry>
-							<entry colname="col2">
-								<codeblock>SELECT * 
-FROM /exampleRegion, positions.values TYPE Position 
-WHERE status = 'active'</codeblock>
-							</entry>
-						</row>
-						<row>
-							<entry colname="col1">Returns a Collection of struct&lt;pflo: Portfolio,
-								posn: Position&gt; for the active portfolios. </entry>
-							<entry colname="col2">
-								<codeblock>SELECT * 
-FROM /exampleRegion portfolio, positions positions 
-TYPE Position WHERE portfolio.status = 'active'</codeblock>
-							</entry>
-						</row>
-					</tbody>
-				</tgroup>
-			</table>
-		</p>
+WHERE status = 'active'</codeblock></p>
+		<p>Returns a Collection of struct&lt;pflo: Portfolio, posn: Position&gt; for the active
+			portfolios.:<codeblock>SELECT * FROM /exampleRegion portfolio, positions positions 
+TYPE Position WHERE portfolio.status = 'active'</codeblock></p>
+		<p>Returns a Collection of struct&lt;pflo: Portfolio, posn: Position&gt; for the active
+			portfolios:<codeblock>SELECT * FROM /exampleRegion portfolio, positions positions 
+TYPE Position WHERE portfolio.status = 'active'</codeblock></p>
 		<section id="section_1B7762EC686A4808B1D12E8851954E82">
 			<title>SELECT Statement Results</title>
 			<p>The result of a SELECT statement is either UNDEFINED or is a Collection that

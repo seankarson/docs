@@ -43,69 +43,24 @@
 			</p>
 			<p> New name spaces are brought into scope based on the FROM clause in the SELECT
 				statement. </p>
-			<p>
-				<b>Examples:</b>
-				<table id="table_7006AC266FF24FD38AA945405DD78BD6">
-					<tgroup cols="2">
-						<colspec colnum="1" colname="col1" colwidth="*"/>
-						<colspec colnum="2" colname="col2" colwidth="*"/>
-						<thead>
-							<row>
-								<entry colname="col1">Type of Query and Query Description </entry>
-								<entry colname="col2">Query String </entry>
-							</row>
-						</thead>
-						<tbody>
-							<row>
-								<entry colname="col1">Query a region for all distinct values.
-									Returns a collection of unique entry values from the region. </entry>
-								<entry colname="col2">
-									<codeblock>SELECT DISTINCT * FROM /exampleRegion</codeblock>
-								</entry>
-							</row>
-							<row>
-								<entry colname="col1">Query the top level region data using
-									entrySet. Returns the keys and positions of Region.Entry objects
-									whose mktValue attribute is greater than 25.00. </entry>
-								<entry colname="col2">
-									<codeblock>SELECT key, positions FROM /exampleRegion.entrySet, value.positions.values positions WHERE positions.mktValue &gt;= 25.00</codeblock>
-								</entry>
-							</row>
-							<row>
-								<entry colname="col1"> Query the region for its entry values.
-									Returns a set of unique values from Region.Entry objects that
-									have the key equal to 1. </entry>
-								<entry colname="col2">
-									<codeblock>SELECT DISTINCT entry.value FROM /exampleRegion.entries entry WHERE entry.key = '1'</codeblock>
-								</entry>
-							</row>
-							<row>
-								<entry colname="col1"> Query the region for its entry values.
-									Returns the set of all values from Region.Entry objects that
-									have the key equal to 1. </entry>
-								<entry colname="col2">
-									<codeblock>SELECT * FROM /exampleRegion.entries entry WHERE entry.value.ID &gt; 1</codeblock>
-								</entry>
-							</row>
-							<row>
-								<entry colname="col1">Query entry keys in the region. Returns a set
-									of entry keys in the region that have the key equal to '1'. </entry>
-								<entry colname="col2">
-									<codeblock>SELECT * FROM /exampleRegion.keySet key WHERE key = '1'</codeblock>
-								</entry>
-							</row>
-							<row>
-								<entry colname="col1"> Query values in the region. Returns a
-									collection of entry values in the region that have the status
-									attribute value of 'active'. </entry>
-								<entry colname="col2">
-									<codeblock>SELECT * FROM /exampleRegion.values portfolio WHERE portfolio.status = 'active'</codeblock>
-								</entry>
-							</row>
-						</tbody>
-					</tgroup>
-				</table>
-			</p>
+			<p><b>Examples:</b></p>
+			<p>Query a region for all distinct values. Return a collection of unique entry values
+				from the region: <codeblock>SELECT DISTINCT * FROM /exampleRegion</codeblock></p>
+			<p>Query the top level region data using entrySet. Return the keys and positions of
+				Region.Entry objects whose mktValue attribute is greater than 25.00:
+				<codeblock>SELECT key, positions FROM /exampleRegion.entrySet, value.positions.values positions WHERE positions.mktValue &gt;= 25.00</codeblock></p>
+			<p>Query the region for its entry values. Return a set of unique values from
+				Region.Entry objects that have the key equal to
+				1:<codeblock>SELECT DISTINCT entry.value FROM /exampleRegion.entries entry WHERE entry.key = '1'</codeblock></p>
+			<p>Query the region for its entry values. Return the set of all entry values in which
+				the <codeph>ID</codeph> field is greater than
+				1000:<codeblock>SELECT * FROM /exampleRegion.entries entry WHERE entry.value.ID &gt; 1000</codeblock></p>
+			<p>Query entry keys in the region. Return a set of entry keys in the region that have
+				the key equal to
+				'1':<codeblock>SELECT * FROM /exampleRegion.keySet key WHERE key = '1'</codeblock></p>
+			<p>Query values in the region. Return a collection of entry values in the region that
+				have the status attribute value of
+				'active':<codeblock>SELECT * FROM /exampleRegion.values portfolio WHERE portfolio.status = 'active'</codeblock></p>
 		</section>
 		<section id="section_AB1734C16DC348479C00FD6829B933AA">
 			<title>Aliases and Synonyms</title>
@@ -123,9 +78,9 @@
 		</section>
 		<section id="section_A5B42CCB7C924949954AEC2DAAD51134">
 			<title>Object Typing</title>
-			<p>Specifying object type in the FROM clause helps the query engine to process the query
-				at optimal speed. Apart from specifying the object types during configuration (using
-				key-constraint and value-constraint) type can be explicitly specified in the query
+			<p>Specifying object type in the FROM clause helps the query engine to process the query at
+				optimal speed. Apart from specifying the object types during configuration (using
+				key-constraint and value-constraint), type can be explicitly specified in the query
 				string. </p>
 			<p>
 				<b>Example:</b>

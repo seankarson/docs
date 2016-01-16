@@ -10,13 +10,13 @@
 			<p> For example:
 				<codeblock>SELECT DISTINCT * FROM /exampleRegion p <b>WHERE p.status = 'active'</b></codeblock>
 			</p>
-			<p>The entry value collection is iterated by the WHERE clause, comparing the status
-				field to the string 'active'. When a match is found, the value object is added to
+			<p>The entry value collection is iterated by the WHERE clause, comparing the status field to the
+				string 'active'. When a match is found, the value object of the entry is added to
 				the return set. </p>
-			<p> In the next example query, the collection specified in the first FROM clause
-				expression is used by the rest of the SELECT statement, including the second FROM
-				clause expression.
-				<codeblock>SELECT DISTINCT * FROM /exampleRegion, positions.values positions WHERE positions.qty &gt; 1000.00</codeblock>
+			<p> In the next example query, the collection specified in the first FROM clause expression is
+				used by the rest of the SELECT statement, including the second FROM clause
+				expression.
+				<codeblock>SELECT DISTINCT * FROM /exampleRegion, positions.values p WHERE p.qty &gt; 1000.00</codeblock>
 			</p>
 		</section>
 		<section id="section_99CA3FA508B740DCBAB4F01F8F9B1390">
@@ -115,42 +115,17 @@ SELECT DISTINCT * FROM /exampleRegion p WHERE p.position1.getSecId() = '1'
 			<p> To create indexes for region joins you create single-region indexes for both sides
 				of the join condition. These are used during query execution for the join condition.
 				Partitioned regions do not support region joins. For more information on indexes,
-				see <xref href="../query_index/query_index.xml" type="concept"
-					format="dita" scope="local"/>. </p>
-			<b>Examples:</b>
-			<table id="table_76F4DC6F1FD343748579D76D7D7BEFE3">
-				<tgroup cols="2">
-					<colspec colnum="1" colname="col1" colwidth="*"/>
-					<colspec colnum="2" colname="col2" colwidth="*"/>
-					<thead>
-						<row>
-							<entry colname="col1">Query Description </entry>
-							<entry colname="col2">Query String </entry>
-						</row>
-					</thead>
-					<tbody>
-						<row>
-							<entry colname="col1"> Query two regions. Return the ID and status for
-								portfolios that have the same status. </entry>
-							<entry colname="col2">
-								<codeblock>SELECT portfolio1.ID, portfolio2.status FROM /exampleRegion portfolio1, /exampleRegion2 portfolio2 WHERE portfolio1.status = portfolio2.status</codeblock>
-							</entry>
-						</row>
-						<row>
-							<entry colname="col1"> </entry>
-							<entry colname="col2">
-								<codeblock>SELECT * FROM /exampleRegion portfolio1, portfolio1.positions.values positions1, /exampleRegion2 portfolio2, portfolio2.positions.values positions2 WHERE positions1.secId = positions1.secId</codeblock>
-							</entry>
-						</row>
-						<row>
-							<entry colname="col1"> </entry>
-							<entry colname="col2">
-								<codeblock>SELECT * FROM /exampleRegion portfolio1, portfolio1.positions.values positions1, /exampleRegion2 portfolio2, portfolio2.positions.values positions2 WHERE portfolio1.ID = 1 AND positions1.secId = positions1.secID</codeblock>
-							</entry>
-						</row>
-					</tbody>
-				</tgroup>
-			</table>
+				see <xref href="../query_index/query_index.xml" type="concept" format="dita"
+					scope="local"/>. </p>
+			<p><b>Examples:</b></p>
+			<p>Query two regions. Return the ID and status for portfolios that have the same
+				status.<codeblock>SELECT portfolio1.ID, portfolio2.status FROM /exampleRegion portfolio1, /exampleRegion2 portfolio2 WHERE portfolio1.status = portfolio2.status</codeblock></p>
+			<p>
+				<codeblock>SELECT * FROM /exampleRegion portfolio1, portfolio1.positions.values positions1, /exampleRegion2 portfolio2, portfolio2.positions.values positions2 WHERE positions1.secId = positions1.secId</codeblock>
+			</p>
+			<p>
+				<codeblock>SELECT * FROM /exampleRegion portfolio1, portfolio1.positions.values positions1, /exampleRegion2 portfolio2, portfolio2.positions.values positions2 WHERE portfolio1.ID = 1 AND positions1.secId = positions1.secID</codeblock>
+			</p>
 		</section>
 		<section id="section_D91E0B06FFF6431490CC0BFA369425AD">
 			<title>LIKE</title>
@@ -163,38 +138,12 @@ SELECT DISTINCT * FROM /exampleRegion p WHERE p.position1.getSecId() = '1'
 				<note>The '*' wildcard is not supported in OQL LIKE predicates.</note>
 			</p>
 			<p>You can also use the LIKE predicate when an index is present.</p>
-			<p>
-				<b>Examples:</b>
-				<table id="table_747FC85FDE044330BF85D3E8A221DA16">
-					<tgroup cols="2">
-						<colspec colnum="1" colname="col1" colwidth="*"/>
-						<colspec colnum="2" colname="col2" colwidth="*"/>
-						<thead>
-							<row>
-								<entry colname="col1">Query Description </entry>
-								<entry colname="col2">Query String </entry>
-							</row>
-						</thead>
-						<tbody>
-							<row>
-								<entry colname="col1">Query the region. Return all objects where
-									status equals 'active'. </entry>
-								<entry colname="col2">
-									<codeblock>SELECT * FROM /exampleRegion p WHERE p.status LIKE 'active'</codeblock>
-								</entry>
-							</row>
-							<row>
-								<entry colname="col1">Query the region using a wild card for
-									comparison. Returns all objects where status begins with
-									'activ'. </entry>
-								<entry colname="col2">
-									<codeblock>SELECT * FROM /exampleRegion p WHERE p.status LIKE 'activ%'</codeblock>
-								</entry>
-							</row>
-						</tbody>
-					</tgroup>
-				</table>
-			</p>
+			<p><b>Examples:</b></p>
+			<p>Query the region. Return all objects where status equals
+				'active':<codeblock>SELECT * FROM /exampleRegion p WHERE p.status LIKE 'active'</codeblock></p>
+			<p>Query the region using a wild card for comparison. Returns all objects where status
+				begins with
+				'activ':<codeblock>SELECT * FROM /exampleRegion p WHERE p.status LIKE 'activ%'</codeblock></p>
 		</section>
 		<section>
 			<title>Case Insensitive Fields</title>
@@ -268,39 +217,14 @@ select distinct * from /QueryRegion0 where aDay = Day.Wednesday
 				bind parameter. When you query using the toString method, you must already know the
 				constraint value that you wish to query. In the following first example, the known
 				value is 'active'. </p>
-			<p>
-				<b>Examples:</b>
-				<table id="table_35E21C1B0071465F9E30315E6D2EA3D5">
-					<tgroup cols="2">
-						<colspec colnum="1" colname="col1" colwidth="*"/>
-						<colspec colnum="2" colname="col2" colwidth="*"/>
-						<thead>
-							<row>
-								<entry colname="col1">Query Description </entry>
-								<entry colname="col2">Query String </entry>
-							</row>
-						</thead>
-						<tbody>
-							<row>
-								<entry colname="col1"> Query enum type using the toString method. </entry>
-								<entry colname="col2">
-									<codeblock>// eStatus is an enum with values 'active' and 'inactive'
+			<p><b>Examples:</b></p>
+			<p>Query enum type using the toString
+				method:<codeblock>// eStatus is an enum with values 'active' and 'inactive'
 select * from /exampleRegion p where p.eStatus.toString() = 'active'
-</codeblock>
-								</entry>
-							</row>
-							<row>
-								<entry colname="col1">Query enum type using a bind parameter. The
-									value of the desired Enum field ( Day.Wednesday) is passed as an
-									execution parameter. </entry>
-								<entry colname="col2">
-									<codeblock>select distinct * from /QueryRegion0 where aDay = $1</codeblock>
-								</entry>
-							</row>
-						</tbody>
-					</tgroup>
-				</table>
-			</p>
+</codeblock></p>
+			<p>Query enum type using a bind parameter. The value of the desired Enum field (
+				Day.Wednesday) is passed as an execution
+				parameter:<codeblock>select distinct * from /QueryRegion0 where aDay = $1</codeblock></p>
 		</section>
 		<section id="section_AC12146509F141378E493078540950C7">
 			<title>IN and SET</title>
