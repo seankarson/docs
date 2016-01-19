@@ -29,24 +29,21 @@
 		<section id="section_7F5A800E2DA643F2B30162EF45DBA390">
 			<title>Sample Code</title>
 			<p>
-				<codeblock>// Identify your query string.
-String queryString = SELECT DISTINCT * FROM /exampleRegion p WHERE p.id = $1 and p.status = $2;
+				<codeblock>// specify the query string
+String queryString = "SELECT DISTINCT * FROM /exampleRegion p WHERE p.id = $1 and p.status = $2";
 
-// Get QueryService from Cache.
 QueryService queryService = cache.getQueryService();
-
-// Create the Query Object.
 Query query = queryService.newQuery(queryString);
 
-// Set query parameters.
-Object[] params = new Object[1];
+// set query bind parameters
+Object[] params = new Object[2];
 params[0] = 2;
 params[1] = "active";
 
-// Execute Query locally. Returns results set.
-SelectResults results = (SelectResults)query.execute(params);
+// Execute the query locally. It returns the results set.
+SelectResults results = (SelectResults) query.execute(params);
 
-// Find the Size of the ResultSet.
+// use the results of the query; this example only looks at the size 
  int size = results.size();
 </codeblock>
 			</p>
