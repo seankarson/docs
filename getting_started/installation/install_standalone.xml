@@ -57,13 +57,12 @@ export JAVA_HOME
 					Windows
 					platforms:<codeblock>set JAVA_HOME=c:\Program Files\Java\jdk1.8.0_60 
 </codeblock></li>
-				<li>Add the <keyword keyref="product_name"/> scripts to your PATH environment
-					variable. On Linux/Unix
-					platforms:<codeblock>
+				<li>Add the <keyword keyref="product_name"/> scripts to your PATH environment 
+					variable. On Linux/Unix platforms:<codeblock>
 PATH=$PATH:$JAVA_HOME/bin:<i>path_to_product</i>/bin
 export PATH</codeblock>On
 					Windows
-					platforms:<codeblock>set PATH=%PATH%;%JAVA_HOME%\bin;%GEMFIRE%\bin 
+					platforms:<codeblock>set PATH=%PATH%;%JAVA_HOME%\bin;<i>path_to_product</i>\bin 
 </codeblock></li>
 				<li>To verify the installation, type <codeph>gfsh version</codeph> at the command line and note
 					that the output lists the installed version of <keyword keyref="product_name"/>.
