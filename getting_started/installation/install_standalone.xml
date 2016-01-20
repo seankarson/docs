@@ -18,32 +18,37 @@ export JAVA_HOME
 </codeblock></li>
 				<li>Download the project source from the Releases page found at <xref format="html"
 						href="http://geode.incubator.apache.org/" scope="external"
-						>http://geode.incubator.apache.org</xref>.</li>
-				<li>Within the <filepath>incubator-geode</filepath> directory, build on Linux/Unix
+						>http://geode.incubator.apache.org</xref>, and unpack the source code.
+					Alternatively, clone the repository at <xref
+						href="https://github.com/apache/incubator-geode" scope="external" type=""
+						format="html">https://github.com/apache/incubator-geode</xref>.</li>
+				<li>Within the directory containing the unpacked source code,  build on Linux/Unix
 					platforms:<codeblock>$ ./gradlew build installDist -Dskip.tests=true</codeblock>Within
-					the <filepath>incubator-geode</filepath> folder, build on Windows
+					the folder containing the unpacked source code, build on Windows
 					platforms:<codeblock>$ gradlew.bat build installDist -Dskip.tests=true</codeblock></li>
-				<li>Verify the installation by invoking <codeph>gfsh</codeph> to print version
-					information and exit. On Linux/Unix
-					platforms:<codeblock>$ cd gemfire-assembly/build/install/apache-geode
+				<li>Verify the installation by invoking <codeph>gfsh</codeph> to print version information and
+					exit. On Linux/Unix platforms, the version will be similar
+					to:<codeblock>$ cd gemfire-assembly/build/install/apache-geode
 $ gfsh version
-v1.0.0-incubating-SNAPSHOT</codeblock>On
+v1.0.0-incubating</codeblock>On
 					Windows
 					platforms:<codeblock>$ cd gemfire-assembly\build\install\apache-geode
 $ gfsh version
-v1.0.0-incubating-SNAPSHOT</codeblock></li>
+v1.0.0-incubating</codeblock></li>
 			</ol>
 		</section>
 		<section id="section_D3326496B2BB47A7AB0CFC1A5E266842">
-			<title>Install from .zip or .tar File</title>
+			<title>Install Binaries from .zip or .tar File</title>
 			<ol id="ol_qsn_kvs_35">
 				<li>Download the .zip or .tar file from the Releases page found at <xref
 						format="html" href="http://geode.incubator.apache.org/" scope="external"
 						>http://geode.incubator.apache.org</xref>.</li>
-				<li>Unzip the .zip file or expand the .tar file. For the .zip
-					format:<codeblock>$ unzip gemfire-1.0.0.0-SNAPSHOT.zip -d <i>path_to_product</i></codeblock>For
+				<li>Unzip the .zip file or expand the .tar file, where <codeph><i>path_to_product</i></codeph>
+					is an absolute path, and the file name will vary due to the version number. For
+					the .zip
+					format:<codeblock>$ unzip apache-geode-1.0.0-incubating.zip -d <i>path_to_product</i></codeblock>For
 					the .tar
-					format:<codeblock>$ tar -xvf gemfire-1.0.0.0-SNAPSHOT.tar -C <i>path_to_product</i></codeblock>
+					format:<codeblock>$ tar -xvf apache-geode-1.0.0-incubating.tar -C <i>path_to_product</i></codeblock>
 				</li>
 				<li>Set the JAVA_HOME environment variable. On Linux/Unix platforms:
 					<codeblock>JAVA_HOME=/usr/java/jdk1.8.0_60
@@ -60,41 +65,12 @@ export PATH</codeblock>On
 					Windows
 					platforms:<codeblock>set PATH=%PATH%;%JAVA_HOME%\bin;%GEMFIRE%\bin 
 </codeblock></li>
-				<li>This step only applies to environments in which you are running <keyword
-						keyref="product_name"/> processes or <keyword keyref="product_name"/> client
-					applications outside of gfsh.  If you are running <keyword keyref="product_name"
-					/> processes or applications outside of <codeph>gfsh</codeph>, then configure
-					the following two environment variables. <ul id="ul_d24_kvs_35">
-						<li>Set the GEMFIRE environment variable to point to your <keyword
-								keyref="product_name"/> installation top-level directory.
-							Directories <filepath>bin</filepath>, <filepath>lib</filepath>, and
-								<filepath>dtd</filepath> will be within this top-level directory. On
-							Linux/Unix
-							platforms:<codeblock>GEMFIRE=<i>path_to_product</i>
-export GEMFIRE</codeblock>For
-							Windows
-							platforms:<codeblock>set GEMFIRE=C:\<i>path_to_product</i></codeblock>
-						</li>
-						<li>Set the GF_JAVA environment variables to point to the
-								<codeph>java</codeph> executable relative to the JAVA_HOME
-							environment variable. On Linux/Unix
-							platforms:<codeblock>
-GF_JAVA=$JAVA_HOME/bin/java
-export GF_JAVA  </codeblock>On
-							Windows
-							platforms:<codeblock>
-set GF_JAVA=%JAVA_HOME%\bin\java.exe 
-</codeblock>
-						</li>
-					</ul>
-				</li>
 				<li>To verify the installation, type <codeph>gfsh version</codeph> at the command line and note
 					that the output lists the installed version of <keyword keyref="product_name"/>.
 					For example:<codeblock>$ gfsh version
-v1.0.0-incubating-SNAPSHOT</codeblock>For
-					more detailed version information such as the date of the build, build number
-					and JDK version being used,
-					invoke:<codeblock>$ gfsh version --full</codeblock></li>
+v1.0.0-incubating</codeblock>For more
+					detailed version information such as the date of the build, build number and JDK
+					version being used, invoke:<codeblock>$ gfsh version --full</codeblock></li>
 			</ol>
 		</section>
 	</conbody>
