@@ -120,12 +120,14 @@ SELECT DISTINCT * FROM /exampleRegion p WHERE p.position1.getSecId() = '1'
 			<p><b>Examples:</b></p>
 			<p>Query two regions. Return the ID and status for portfolios that have the same
 				status.<codeblock>SELECT portfolio1.ID, portfolio2.status FROM /exampleRegion portfolio1, /exampleRegion2 portfolio2 WHERE portfolio1.status = portfolio2.status</codeblock></p>
-			<p>
-				<codeblock>SELECT * FROM /exampleRegion portfolio1, portfolio1.positions.values positions1, /exampleRegion2 portfolio2, portfolio2.positions.values positions2 WHERE positions1.secId = positions1.secId</codeblock>
-			</p>
-			<p>
-				<codeblock>SELECT * FROM /exampleRegion portfolio1, portfolio1.positions.values positions1, /exampleRegion2 portfolio2, portfolio2.positions.values positions2 WHERE portfolio1.ID = 1 AND positions1.secId = positions1.secID</codeblock>
-			</p>
+			<p>Query two regions, iterating over all <codeph>positions</codeph> within each portfolio. Return
+				all 4-tuples consisting of the value from each of the two regions and the value
+				portion of the <codeph>positions</codeph> map from both regions in which the
+					<codeph>secId</codeph> field of positions
+				match.<codeblock>SELECT * FROM /exampleRegion portfolio1, portfolio1.positions.values positions1, /exampleRegion2 portfolio2, portfolio2.positions.values positions2 WHERE positions1.secId = positions2.secId</codeblock></p>
+			<p>Same query as the previous example, with the additional constraint that matches will have a
+					<codeph>ID</codeph> of
+				1.<codeblock>SELECT * FROM /exampleRegion portfolio1, portfolio1.positions.values positions1, /exampleRegion2 portfolio2, portfolio2.positions.values positions2 WHERE portfolio1.ID = 1 AND positions1.secId = positions2.secId</codeblock></p>
 		</section>
 		<section id="section_D91E0B06FFF6431490CC0BFA369425AD">
 			<title>LIKE</title>
