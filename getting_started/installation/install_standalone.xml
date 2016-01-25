@@ -16,16 +16,14 @@ export JAVA_HOME
 					Windows
 					platforms:<codeblock>set JAVA_HOME=c:\Program Files\Java\jdk1.8.0_60 
 </codeblock></li>
+				<li> Install Gradle, version 2.3 or a more recent version.</li>
 				<li>Download the project source from the Releases page found at <xref format="html"
 						href="http://geode.incubator.apache.org/" scope="external"
-						>http://geode.incubator.apache.org</xref>, and unpack the source code.
-					Alternatively, clone the repository at <xref
-						href="https://github.com/apache/incubator-geode" scope="external" type=""
-						format="html">https://github.com/apache/incubator-geode</xref>.</li>
-				<li>Within the directory containing the unpacked source code,  build on Linux/Unix
-					platforms:<codeblock>$ ./gradlew build installDist -Dskip.tests=true</codeblock>Within
+						>http://geode.incubator.apache.org</xref>, and unpack the source code. </li>
+				<li>Within the directory containing the unpacked source code, build on Linux/Unix
+					platforms:<codeblock>$ gradle build installDist -Dskip.tests=true</codeblock>Within
 					the folder containing the unpacked source code, build on Windows
-					platforms:<codeblock>$ gradlew.bat build installDist -Dskip.tests=true</codeblock></li>
+					platforms:<codeblock>$ gradle.bat build installDist -Dskip.tests=true</codeblock></li>
 				<li>Verify the installation by invoking <codeph>gfsh</codeph> to print version information and
 					exit. On Linux/Unix platforms, the version will be similar
 					to:<codeblock>$ cd gemfire-assembly/build/install/apache-geode
