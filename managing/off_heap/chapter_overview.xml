@@ -2,10 +2,19 @@
 <!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "http://docs.oasis-open.org/dita/v1.1/OS/dtd/concept.dtd">
 <concept id="off-heap">
 	<title>Using Off-Heap Memory</title>
-	<shortdesc>the short desc of this off-heap concept
-		</shortdesc>
+	<shortdesc>Large quantities of memory outside the control of the Java garbage collector may be used
+		for region data values by enabling the off-heap feature.</shortdesc>
 	<conbody>
-		<p>Some prose goes here.
-		</p>
+		<p>Garbage collection within a JVM can prove to be a performance impediment. A server cannot exert
+			control over when garbage collection takes place, and the server has little control over
+			the triggers for invocation.</p>
+		<p><keyword keyref="product_name"/> can be configured to store region values in off-heap
+			memory, which is memory within the JVM that is not subject to garbage collection.
+				<keyword keyref="product_name"/>'s own slab memory manager efficiently handles the
+			off-heap memory.</p>
+		<p>Meant for data values that are all the same size, because the slab manager works best
+			with same-sized data. The ideal application for off-heap memory creates and destroys or
+			clears region values.  It does not update values, as this requires deserialization and
+			movement of the values, incurring a performance hit.</p>
 	</conbody>
 </concept>
