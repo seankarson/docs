@@ -164,12 +164,11 @@
 								<entry><codeph>TransactionEvent</codeph> with embedded list of
 										<codeph>EntryEvent</codeph>
 								</entry>
-								<entry>Receives events for <i>pending</i> transaction commits. Has
-									the ability to abort the transaction. Extends
-										<codeph>CacheCallback</codeph> interface. Installed in cache
-									using transaction manager. At most one writer is called per
-									transaction. Install a writer in every transactional data host.
-								</entry>
+								<entry>Receives events for <i>pending</i> transaction commits. Has the ability to abort the
+									transaction. Extends <codeph>CacheCallback</codeph> interface.
+									Installed in cache using transaction manager. At most one writer
+									is called per transaction. Install a writer in every transaction
+									host. </entry>
 							</row>
 							<row>
 								<entry><codeph>UniversalMembershipListenerAdapter</codeph><p><apiname>(com.gemstone.gemfire.management.membership.UniversalMembershipListenerAdapter)</apiname></p></entry>
