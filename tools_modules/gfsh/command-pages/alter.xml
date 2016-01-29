@@ -19,7 +19,8 @@
 					<codeblock xml:space="preserve">alter disk-store --name=value --region=value --disk-dirs=value(,value)*
     [--lru-algorthm=value] [--lru-action=value] [--lru-limit=value]
     [--concurrency-level=value] [--initial-capacity=value] [--load-factor=value]
-    [--compressor(=value)?] [--enable-statistics=value] [--remove(=value)?]</codeblock>
+    [--compressor(=value)?] [--enable-statistics=value] [--remove(=value)?]
+    [--off-heap(=value)?]</codeblock>
 					<table id="table_DFA153D464C84D95B394023A0AAFB88B">
 						<tgroup cols="3">
 							<colspec colname="col1" colnum="1" colwidth="1.00*"/>
@@ -147,6 +148,14 @@
 									<entry colname="col2">Specifies whether to remove the region
 										from the disk-store. If the parameter is specified without a
 										value, the value of true is used. </entry>
+									<entry>false</entry>
+								</row>
+								<row>
+									<entry><parmname>--off-heap</parmname></entry>
+									<entry>Specifies whether the region values are in heap memory or
+										off-heap memory.  When true, region values are in off-heap
+										memory. If the parameter is specified without a value, the
+										value of true is used. </entry>
 									<entry>false</entry>
 								</row>
 							</tbody>
