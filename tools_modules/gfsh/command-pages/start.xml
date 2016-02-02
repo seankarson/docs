@@ -543,10 +543,11 @@ start pulse --url=http://gemfire.mycompany.com:7070/pulse</codeblock>
     [--server-port=value] [--spring-xml-location=value]
     [--statistic-archive-file=value] [--dir=value] [--initial-heap=value]
     [--max-heap=value] [--use-cluster-configuration(=value)?] [--J=value(,value)*]
-    [--critical-heap-percentage=value] [--eviction-heap-percentage=value]
+    [--critical-heap-percentage=value] [--critical-off-heap-percentage=value] 
+    [--eviction-heap-percentage=value] [--eviction-off-heap-percentage=value]
     [--hostname-for-clients=value] [--max-connections=value]
     [--message-time-to-live=value] [--max-message-count=value] [--max-threads=value]
-    [--socket-buffer-size=value]
+    [--socket-buffer-size=value] [--lock-memory=value] [--off-heap-memory-size=value] 
 </codeblock>
 					<table id="table_A93F709669E142E185F079706F987C9A">
 						<title>Parameters</title>
@@ -868,6 +869,13 @@ start pulse --url=http://gemfire.mycompany.com:7070/pulse</codeblock>
 									<entry/>
 								</row>
 								<row>
+									<entry><parmname>--critical-off-heap-percentage</parmname></entry>
+									<entry>The percentage of off-heap memory used at or above which
+										the cache is considered in danger of becoming inoperable due
+										to out of memory exceptions.</entry>
+									<entry/>
+								</row>
+								<row>
 									<entry colname="col1">
 										<parmname>--eviction-heap-percentage</parmname>
 									</entry>
@@ -885,6 +893,17 @@ start pulse --url=http://gemfire.mycompany.com:7070/pulse</codeblock>
 											<codeph>--max-heap</codeph> and
 											<codeph>--intial-heap</codeph> to the same
 										value.</entry>
+									<entry/>
+								</row>
+								<row>
+									<entry><parmname>--eviction-off-heap-percentage</parmname></entry>
+									<entry>The percentage of off-heap memory used at or above which
+										the eviction should begin on regions configured for off-heap
+										and HeapLRU eviction. Changing this value may cause eviction
+										to begin immediately. Only one change to this attribute or
+										critical off-heap percentage will be allowed at any given
+										time, and its effect will be fully realized before the next
+										change is allowed.</entry>
 									<entry/>
 								</row>
 								<row>
@@ -946,6 +965,24 @@ start pulse --url=http://gemfire.mycompany.com:7070/pulse</codeblock>
 										socket connection for this CacheServer. The default is 32768
 										bytes.</entry>
 									<entry/>
+								</row>
+								<row>
+									<entry><parmname>--lock-memory</parmname></entry>
+									<entry>When true, both heap and off-heap pages are locked in
+										RAM, preventing them from being swappped to disk.
+										Corresponding operating system parameters must also be set
+										to lock pages.</entry>
+									<entry>false</entry>
+								</row>
+								<row>
+									<entry><parmname>--off-heap-memory-size</parmname></entry>
+									<entry>The integer quantity of off-heap memory to be used for
+										storing region values. Specified in GB with a 'g' suffix, or
+										MB with an 'm' suffix. For example, allocate a 2 Gigabyte
+										off-heap space with
+											<codeph>--off-heap-memory-size=2g</codeph>. The default
+										value of 0 does not use any off-heap memory.</entry>
+									<entry>0</entry>
 								</row>
 							</tbody>
 						</tgroup>
