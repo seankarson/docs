@@ -855,12 +855,13 @@ start pulse --url=http://gemfire.mycompany.com:7070/pulse</codeblock>
 									<entry colname="col1">
 										<parmname>--critical-heap-percentage</parmname>
 									</entry>
-									<entry colname="col2">Set the percentage of heap at or above
-										which the cache is considered in danger of becoming
-										inoperable due to garbage collection pauses or out of memory
-										exceptions. This feature requires additional VM flags to
-										perform properly; you must set
-											<codeph>--initial-heap</codeph> and
+									<entry colname="col2">Set the percentage of heap at or above which the cache is considered
+										in danger of becoming inoperable due to garbage collection
+										pauses or out of memory exceptions. Past the threshold,
+										operations that require heap space will throw a
+											<codeph>LowMemoryException</codeph>.  This feature
+										requires additional VM flags to perform properly; you must
+										set <codeph>--initial-heap</codeph> and
 											<codeph>--max-heap</codeph> or the corresponding JVM
 										properties to use this threshold. You must also set
 											<codeph>--max-heap</codeph> and
@@ -870,9 +871,11 @@ start pulse --url=http://gemfire.mycompany.com:7070/pulse</codeblock>
 								</row>
 								<row>
 									<entry><parmname>--critical-off-heap-percentage</parmname></entry>
-									<entry>The percentage of off-heap memory used at or above which
-										the cache is considered in danger of becoming inoperable due
-										to out of memory exceptions.</entry>
+									<entry>The percentage of off-heap memory used at or above which the cache is considered in
+										danger of becoming inoperable due to out of memory
+										exceptions. Past the threshold, operations that require heap
+										space will throw a
+										<codeph>LowMemoryException</codeph>.</entry>
 									<entry/>
 								</row>
 								<row>
