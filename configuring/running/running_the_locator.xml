@@ -88,7 +88,7 @@ mcast-port=0</codeblock>
 				saved in the Locator's directory and are propagated to all locators in a distributed
 				system. When you start servers using gfsh, the servers receive the group-level and
 				cluster-level configurations from the locators. </p>
-			<p>See<xref href="../cluster_config/gfsh_persist.xml"/>. </p>
+			<p>See <xref href="../cluster_config/gfsh_persist.xml"/>. </p>
 		</section>
 		<section id="section_FF25228E30624E04ACA8784A2183D585">
 			<title>Start the Locator</title>
@@ -128,10 +128,11 @@ gfsh&gt; start locator --name=locator2 --bind-address=192.168.129.205 --port=134
 							command.</li>
 					</ul>
 				</li>
-				<li id="li_5AF8201E427541B3A9887432CFBCB0ED"><b>Embedded (co-located) locator</b>.
-					Manage a co-located locator at member startup or through the APIs: <ul
+				<li id="li_5AF8201E427541B3A9887432CFBCB0ED"><b>Embedded (colocated) locator</b>. Manage a
+					colocated locator at member startup or through the APIs: <ul
 						id="ul_497CD894DDE644A8A77FAEA682496B15">
-						<li id="li_F5FDF4BABD0E4C85849CCEED8E92770B">Use the <codeph>gemfire.properties</codeph>
+						<li id="li_F5FDF4BABD0E4C85849CCEED8E92770B">Use the
+								<codeph>gemfire.properties</codeph>
 							<codeph>start-locator</codeph> setting to start the locator
 							automatically inside your <keyword keyref="product_name"/> member. See
 							the <xref href="../../reference/book_intro.xml#reference"/>. The locator
