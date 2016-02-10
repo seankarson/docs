@@ -73,5 +73,24 @@
 					href="../../images_svg/cs_locator_discovery.svg"/>
 			</p>
 		</section>
+		<section id="section_1CB9D1439346415FB630E9DCD373CAC9">
+			<title>Multi-site Discovery</title>
+			<p>In a multi-site (WAN) configuration, a <keyword keyref="product_name"/> cluster uses
+				locators to discover remote <keyword keyref="product_name"/> clusters as well as to
+				discover local <keyword keyref="product_name"/> members. Each locator in a WAN
+				configuration uniquely identifies the local cluster to which it belongs, and it can
+				also identify locators in remote <keyword keyref="product_name"/> clusters to which
+				it will connect for WAN distribution. </p>
+			<p>When a locator starts up, it contacts each remote locator to exchange information
+				about the available locators and gateway receiver configurations in the remote
+				cluster. In addition to sharing information about its own cluster, a locator shares
+				information that it has obtained from all other connected clusters. Each time a new
+				locator starts up or an existing locator shuts down, the changed information is
+				broadcast to other connected <keyword keyref="product_name"/> clusters across the
+				WAN. </p>
+			<p>See <xref scope="local"
+					href="multisite_overview.xml#topic_1742957C8D4B4F7590847EB8DB6CD4F7"
+					type="topic" format="dita"/> for more information. </p>
+		</section>
 	</conbody>
 </concept>

@@ -3,59 +3,48 @@
 <topic
 	id="topic_E97BB68748F14987916CD1A50E4B4542">
 	<title>Filtering Events for Multi-Site (WAN) Distribution</title>
-	<shortdesc>You can optionally create gateway sender and/or gateway receiver
-		filters to control which events are queued and distributed to a remote
-		site, or to modify the data stream that is transmitted between GemFire
-		sites. </shortdesc>
+	<shortdesc>You can optionally create gateway sender and/or gateway receiver filters to control
+		which events are queued and distributed to a remote site, or to modify the data stream that
+		is transmitted between <keyword keyref="product_name"/> sites. </shortdesc>
 	<body>
 		<p>You can implement and deploy two different types of filter for
 			multi-site events: <ul
 				id="ul_550709738F274B6E85316B892DE18DEF">
-				<li
-					id="li_919DDFEF5F2446CE9C289157927018C2"><codeph>GatewayEventFilter</codeph>.
-					A <codeph>GatewayEventFilter</codeph> implementation
-					determines whether a region event is placed in a gateway
-					sender queue and/or whether an event in a gateway queue is
-					distributed to a remote site. You can optionally add one or
-					more <codeph>GatewayEventFilter</codeph> implementations to
-					a gateway sender, etiher in the
-						<filepath>cache.xml</filepath> configuration file or
-					using the Java API. <p>GemFire makes a synchronous call to
-						the filter's <codeph>beforeEnqueue</codeph> method
-						before it places a region event in the gateway sender
-						queue. The filter returns a boolean value that specifies
-						whether the event should be added to the queue. </p>
-					<p>GemFire asynchronously calls the filter's
-							<codeph>beforeTransmit</codeph> method to determine
-						whether the gateway sender dispatcher thread should
-						distribute the event to a remote gateway receiver. </p>
-					<p>For events that are distributed to another site, GemFire
-						calls the listener's
-							<codeph>afterAcknowledgement</codeph> method to
-						indicate that is has received an ack from the remote
-						site after the event was received. </p>
+				<li id="li_919DDFEF5F2446CE9C289157927018C2"><codeph>GatewayEventFilter</codeph>. A
+						<codeph>GatewayEventFilter</codeph> implementation determines whether a
+					region event is placed in a gateway sender queue and/or whether an event in a
+					gateway queue is distributed to a remote site. You can optionally add one or
+					more <codeph>GatewayEventFilter</codeph> implementations to a gateway sender,
+					etiher in the <filepath>cache.xml</filepath> configuration file or using the
+					Java API. <p><keyword keyref="product_name"/> makes a synchronous call to the
+						filter's <codeph>beforeEnqueue</codeph> method before it places a region
+						event in the gateway sender queue. The filter returns a boolean value that
+						specifies whether the event should be added to the queue. </p>
+					<p><keyword keyref="product_name"/> asynchronously calls the filter's
+							<codeph>beforeTransmit</codeph> method to determine whether the gateway
+						sender dispatcher thread should distribute the event to a remote gateway
+						receiver. </p>
+					<p>For events that are distributed to another site, <keyword
+							keyref="product_name"/> calls the listener's
+							<codeph>afterAcknowledgement</codeph> method to indicate that is has
+						received an ack from the remote site after the event was received. </p>
 				</li>
-				<li
-					id="li_1867AB4313A144E7AD9F489110BE3A42">GatewayTransportFilter.
-					Use a <codeph>GatewayTransportFilter</codeph> implementation
-					to process the TCP stream that sends a batch of events that
-					is distributed from one GemFire cluster to another over a
-					WAN. A <codeph>GatewayTransportFilter</codeph> is typically
-					used to perform encryption or compression on the data that
-					distributed. You install the same
-						<codeph>GatewayTransportFilter</codeph> implementation
-					on both a gateway sender and gateway receiver. <p>When a
-						gateway sender processes a batch of events for
-						distribution, GemFire delivers the stream to the
-							<codeph>getInputStream</codeph> method of a
-						configured <codeph>GatewayTransportFilter</codeph>
-						implementation. The filter processes and returns the
-						stream, which is then transmitted to the gateway
-						receiver. When the gateway receiver receives the batch,
-						GemFire calls the <codeph>getOutputStream</codeph>
-						method of a configured filter, which again processes and
-						returns the stream so that the events can be applied in
-						the local cluster. </p>
+				<li id="li_1867AB4313A144E7AD9F489110BE3A42">GatewayTransportFilter. Use a
+						<codeph>GatewayTransportFilter</codeph> implementation to process the TCP
+					stream that sends a batch of events that is distributed from one <keyword
+						keyref="product_name"/> cluster to another over a WAN. A
+						<codeph>GatewayTransportFilter</codeph> is typically used to perform
+					encryption or compression on the data that distributed. You install the same
+						<codeph>GatewayTransportFilter</codeph> implementation on both a gateway
+					sender and gateway receiver. <p>When a gateway sender processes a batch of
+						events for distribution, <keyword keyref="product_name"/> delivers the
+						stream to the <codeph>getInputStream</codeph> method of a configured
+							<codeph>GatewayTransportFilter</codeph> implementation. The filter
+						processes and returns the stream, which is then transmitted to the gateway
+						receiver. When the gateway receiver receives the batch, <keyword
+							keyref="product_name"/> calls the <codeph>getOutputStream</codeph>
+						method of a configured filter, which again processes and returns the stream
+						so that the events can be applied in the local cluster. </p>
 				</li>
 			</ul>
 		</p>

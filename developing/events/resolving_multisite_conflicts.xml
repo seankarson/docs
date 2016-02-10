@@ -1,6 +1,5 @@
 <?xml version="1.0"?>
 <!DOCTYPE topic PUBLIC "-//OASIS//DTD DITA Topic//EN" "topic.dtd">
-<!-- Created with XMetaL (http://www.xmetal.com) -->
 <topic
 	id="topic_E97BB68748F14987916CD1A50E4B4542">
 	<title>Resolving Conflicting Events</title>
@@ -22,10 +21,9 @@
 			you may decide that updates from a particular cluster should always
 			"win" a conflict when the timestamp difference between updates is
 			less than some fixed period of time. </p>
-		<p>Pivotal GemFire installs an example
-				<codeph>GatewayConflictResolver</codeph> implementation in the
-				<filepath>SampleCode\examples\dist\wanActiveActive</filepath>
-			subdirectory of the GemFire installation. </p>
+		<p><keyword keyref="product_name"/> installs an example <codeph>GatewayConflictResolver</codeph>
+			implementation in the <filepath>SampleCode\examples\dist\wanActiveActive</filepath>
+			subdirectory of the <keyword keyref="product_name"/> installation. </p>
 		<section
 			id="section_E20B4A8A98FD4EDAAA8C14B8059AA7F7">
 			<title>Implementing a GatewayConflictResolver</title>
@@ -45,14 +43,11 @@
 						id="li_1B40CD950F364280B83D58532CFECF00">Program the
 						event handler: <ol
 							id="ol_413E3118514C484194D7008360E10A92">
-							<li
-								id="li_AC1B977A8EDC4EA783803B40BB591FBF">Create
-								a class that implements the
-									<codeph>GatewayConflictResolver</codeph>
-								interface. See the example conflict resolver
-								installed in the
+							<li id="li_AC1B977A8EDC4EA783803B40BB591FBF">Create a class that implements the
+									<codeph>GatewayConflictResolver</codeph> interface. See the
+								example conflict resolver installed in the
 									<filepath>SampleCode\examples\dist\wanActiveActive</filepath>
-								subdirectory of the GemFire installation. </li>
+								subdirectory of the installation. </li>
 							<li
 								id="li_C1C9011677F145EDBDC5596ECADAC042">If you
 								want to declare the handler in
@@ -92,8 +87,9 @@
 							</li>
 						</ol>
 					</li>
-					<li
-						id="li_0C5501593E624EBBA8DA4AB25C39DE3B">Install the conflict resolver for the cache, using either the <codeph>cache.xml</codeph> file or the Java API. <p><b>cache.xml</b>
+					<li id="li_0C5501593E624EBBA8DA4AB25C39DE3B">Install the conflict resolver for the cache, using
+						either the <codeph>cache.xml</codeph> file or the Java API.
+								<p><b>cache.xml</b>
 						</p>
 						<codeblock>&lt;cache&gt;
      ... 
@@ -104,7 +100,7 @@
 &lt;/cache&gt;</codeblock>
 						<p><b>Java API</b>
 						</p>
-						<codeblock>// Create or obtain the GemFire cache
+						<codeblock>// Create or obtain the cache
 Cache cache = new CacheFactory().create();
 
 // Create and add a conflict resolver
