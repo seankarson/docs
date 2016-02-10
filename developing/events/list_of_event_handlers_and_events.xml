@@ -99,6 +99,15 @@
 									(graceful exit). </entry>
 							</row>
 							<row>
+								<entry><codeph>GatewayConflictResolver</codeph></entry>
+								<entry><codeph>TimestampedEntryEvent</codeph></entry>
+								<entry>Decides whether to apply a potentially conflicting event to a
+									region that is distributed over a WAN configuration. This event
+									handler is called only when the distributed system ID of an
+									update event is different from the ID that last updated the
+									region entry.</entry>
+							</row>
+							<row>
 								<entry><codeph>MembershipListener</codeph><p><apiname>(com.gemstone.gemfire.management.membership.MembershipListener)
 										</apiname></p></entry>
 								<entry>

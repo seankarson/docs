@@ -2,30 +2,30 @@
 <!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
 <concept id="concept_6C52A037E39E4FD6AE4C6A982A4A1A85">
 	<title>Configuring Dispatcher Threads and Order Policy for Event Distribution</title>
-	<shortdesc>By default, GemFire uses multiple dispatcher threads to process region events
-		simultaneously in a gateway sender queue for distribution between sites, or in an
-		asynchronous event queue for distributing events for write-behind caching. With serial
+	<shortdesc>By default, <keyword keyref="product_name"/> uses multiple dispatcher threads to process
+		region events simultaneously in a gateway sender queue for distribution between sites, or in
+		an asynchronous event queue for distributing events for write-behind caching. With serial
 		queues, you can also configure the ordering policy for dispatching those events.</shortdesc>
 	<prolog>
 		<metadata>
 			<keywords>
-				<keyword>gemfire gateway sender queues</keyword>
-				<keyword>gemfire gateway sender concurrency</keyword>
-				<keyword>gemfire gateway sender order policy</keyword>
-				<keyword>gemfire concurrent queues</keyword>
-				<keyword>gemfire concurrent gateway sender WAN</keyword>
-				<keyword>gemfire dispatcher threads</keyword>
+				<keyword> gateway sender queues</keyword>
+				<keyword> gateway sender concurrency</keyword>
+				<keyword> gateway sender order policy</keyword>
+				<keyword> concurrent queues</keyword>
+				<keyword> concurrent gateway sender WAN</keyword>
+				<keyword> dispatcher threads</keyword>
 				<keyword>wbcl write-behind cache listener async event queue order policy</keyword>
 			</keywords>
 		</metadata>
 	</prolog>
 	<conbody>
-		<p>By default, a gateway sender queue or asynchronous event queue uses 5 dispatcher threads
-			per queue. This provides support for applications that have the ability to process
-			queued events concurrently for distribution to another GemFire site or listener. If your
-			application does not require concurrent distribution, or if you do not have enough
-			resources to support the requirements of multiple dispatcher threads, then you can
-			configure a single dispatcher thread to process a queue. </p>
+		<p>By default, a gateway sender queue or asynchronous event queue uses 5 dispatcher threads per
+			queue. This provides support for applications that have the ability to process queued
+			events concurrently for distribution to another <keyword keyref="product_name"/> site or
+			listener. If your application does not require concurrent distribution, or if you do not
+			have enough resources to support the requirements of multiple dispatcher threads, then
+			you can configure a single dispatcher thread to process a queue. </p>
 		<ul id="ul_6E0239ABB2024F68A7F11BB2DBA24DA0">
 			<li id="li_ADD8D88F3A514E7386AC9A17BC0CA316">
 				<xref
@@ -50,14 +50,15 @@
 		</ul>
 		<section id="section_20E8EFCE89EB4DC7AA822D03C8E0F470">
 			<title>Using Multiple Dispatcher Threads to Process a Queue</title>
-			<p>When multiple dispatcher threads are configured for a parallel queue, GemFire simply
-				uses multiple threads to process the contents of each individual queue. The total
-				number of queues that are created is still determined by the number of GemFire
-				members that host the region.</p>
-			<p>When multiple dispatcher threads are configured for a serial queue, GemFire creates
-				an additional copy of the queue for each thread on each member that hosts the queue.
-				To obtain the maximum throughput, increase the number of dispatcher threads until
-				your network is saturated. </p>
+			<p>When multiple dispatcher threads are configured for a parallel queue, <keyword
+					keyref="product_name"/> simply uses multiple threads to process the contents of
+				each individual queue. The total number of queues that are created is still
+				determined by the number of <keyword keyref="product_name"/> members that host the
+				region.</p>
+			<p>When multiple dispatcher threads are configured for a serial queue, <keyword
+					keyref="product_name"/> creates an additional copy of the queue for each thread
+				on each member that hosts the queue. To obtain the maximum throughput, increase the
+				number of dispatcher threads until your network is saturated. </p>
 			<p>The following diagram illustrates a serial gateway sender queue that is configured with
 				multiple dispatcher threads. <image id="image_093DAC58EBEE456485562C92CA79899F"
 					href="../../images/MultisiteConcurrency_WAN_Gateway.png" placement="break"
@@ -89,17 +90,17 @@
 				serial event queue, you can also configure the <codeph>order-policy</codeph> that
 				those threads use to distribute events from the queue. The valid order policy values
 				are: <ul id="ul_47807C8ED95C40428931A9188AD455AD">
-					<li id="li_6DADFD3B2EFF4478897C24C6D973F613"><b>key (default)</b>. All updates
-						to the same key are distributed in order. GemFire preserves key ordering by
-						placing all updates to the same key in the same dispatcher thread queue. You
-						typically use key ordering when updates to entries have no relationship to
-						each other, such as for an application that uses a single feeder to
-						distribute stock updates to several other systems. </li>
-					<li id="li_EF5FFB92865542079486EA1604AE874C"><b>thread</b>. All region updates
-						from a given thread are distributed in order. GemFire preserves thread
-						ordering by placing all region updates from the same thread into the same
-						dispatcher thread queue. In general, use thread ordering when updates to one
-						region entry affect updates to another region entry. </li>
+					<li id="li_6DADFD3B2EFF4478897C24C6D973F613"><b>key (default)</b>. All updates to the same key
+						are distributed in order. <keyword keyref="product_name"/> preserves key
+						ordering by placing all updates to the same key in the same dispatcher
+						thread queue. You typically use key ordering when updates to entries have no
+						relationship to each other, such as for an application that uses a single
+						feeder to distribute stock updates to several other systems. </li>
+					<li id="li_EF5FFB92865542079486EA1604AE874C"><b>thread</b>. All region updates from a given
+						thread are distributed in order. <keyword keyref="product_name"/> preserves
+						thread ordering by placing all region updates from the same thread into the
+						same dispatcher thread queue. In general, use thread ordering when updates
+						to one region entry affect updates to another region entry. </li>
 					<li id="li_38BC66164C0949F48CAEB8796EDCFCB8"><b>partition</b>. All region events that share the
 						same partitioning key are distributed in order. Specify partition ordering
 						when applications use a <xref

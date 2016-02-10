@@ -7,11 +7,11 @@
 	<prolog>
 		<metadata>
 			<keywords>
-				<keyword>gemfire gateway sender queues</keyword>
-				<keyword>gemfire highly available gateway sender queues</keyword>
-				<keyword>gemfire highly available gateway sender</keyword>
-				<keyword>gemfire maximum-queue-memory</keyword>
-				<keyword>gemfire disk-store-name</keyword>
+				<keyword> gateway sender queues</keyword>
+				<keyword> highly available gateway sender queues</keyword>
+				<keyword> highly available gateway sender</keyword>
+				<keyword> maximum-queue-memory</keyword>
+				<keyword> disk-store-name</keyword>
 			</keywords>
 		</metadata>
 	</prolog>
@@ -21,9 +21,9 @@
 			persistent gateway sender queue exits for any reason, when the member that hosts the
 			sender restarts it automatically reloads the queue and resumes sending messages. If an
 			asynchronous event queue exits for any reason, write-back caching can resume where it
-			left off when the queue is brought back online. <p>GemFire persists an event queue if
-				you set the <codeph>enable-persistence</codeph> attribute to true. The queue is
-				persisted to the disk store specified in the queue's
+			left off when the queue is brought back online. <p><keyword keyref="product_name"/>
+				persists an event queue if you set the <codeph>enable-persistence</codeph> attribute
+				to true. The queue is persisted to the disk store specified in the queue's
 					<codeph>disk-store-name</codeph> attribute, or to the default disk store if you
 				do not specify a store name. </p><p>You must configure the event queue to use
 				persistence if you are using persistent regions. The use of non-persistent event
@@ -64,8 +64,8 @@ sender.start();
 				</ul>
 			</p><p> If you were to configure 10 dispatcher threads for the serial gateway sender,
 				then the total maximum memory for the gateway sender queue would be 1000MB on each
-				GemFire member that hosted the sender because GemFire creates a separate copy of the
-				queue per thread.. </p>
+					<keyword keyref="product_name"/> member that hosted the sender, because <keyword
+					keyref="product_name"/> creates a separate copy of the queue per thread.. </p>
 			<p>The following example shows a similar configuration for an asynchronous event queue:
 					<ul id="ul_AE4C2AA4D710479DA034C064831023AC">
 					<li id="li_E3E57AE7DF6448779DBCB149E98D8C61">XML example:

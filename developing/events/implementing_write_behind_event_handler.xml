@@ -201,7 +201,9 @@
 					<li id="li_C93F467F57BA4806BA2063A4F302BAA0">Configure a unique
 							<codeph>AsyncEventQueue</codeph> with the name of your listener
 						implementation. You can optionally configure the queue for parallel
-						operation, persistence, batch size, and maximum memory size. <p><b>gfsh
+						operation, persistence, batch size, and maximum memory size. See <xref
+							href="../../reference/topics/elements_ref.xml#topic_7B1CABCAD056499AA57AF3CFDBF8ABE3/li_6F17A9E253DB488F9E565F790D9808BF"
+							>WAN Configuration</xref> for more information. <p><b>gfsh
 								configuration</b><codeblock>gfsh>create async-event-queue --id=sampleQueue --persistent --disk-store=exampleStore --listener=com.myCompany.MyAsyncEventListener --listener-param=url#jdbc:db2:SAMPLE,username#gfeadmin,password#admin1</codeblock>The
 							parameters for this command uses the following
 							syntax:</p><codeblock>create async-event-queue --id=value --listener=value [--group=value] [--batch-size=value] 
@@ -293,6 +295,10 @@ mutator.addAsyncEventQueueId("sampleQueue");		</codeblock>
 							to be persistent if you are using persistent data regions. Using a
 							non-persistent queue with a persistent region is not
 						supported.</note></li>
+					<li>Optionally configure multiple dispatcher threads and the ordering policy for
+						the queue using the instructions in <xref
+							href="configuring_gateway_concurrency_levels.xml" type="concept"
+							format="dita" scope="local"/>.</li>
 				</ol>
 			</p>
 			<p>The <codeph>AsyncEventListener</codeph> receives events from every region configured

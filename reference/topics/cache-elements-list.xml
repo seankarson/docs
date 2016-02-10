@@ -11,7 +11,18 @@
    <xref format="dita" href="cache_xml.xml#cache-transaction-manager" scope="local" type="topic">&lt;cache-transaction-manager&gt;</xref>
         <xref format="dita" href="cache_xml.xml#transaction-listener" scope="local" type="topic">&lt;transaction-listener&gt;</xref>
         <xref format="dita" href="cache_xml.xml#transaction-writer" scope="local" type="topic">&lt;transaction-writer.</xref>
-   <xref format="dita" href="cache_xml.xml#async-event-queue" scope="local" type="topic">&lt;async-event-queue&gt;</xref>
+  <xref format="dita" href="gfe_cache_xml.xml#gateway-hub" scope="local" type="topic">&lt;gateway-hub&gt; </xref>
+        &lt;gateway&gt;
+           &lt;gateway-endpoint&gt;
+           &lt;gateway-listener&gt;
+           &lt;gateway-queue&gt;
+   <xref format="dita" href="gfe_cache_xml.xml#gateway-sender" scope="local" type="topic"/>
+      <xref format="dita" href="gfe_cache_xml.xml#gateway-event-filter" scope="local" type="topic">&lt;gateway-event-filter&gt;</xref>
+      <xref format="dita" href="gfe_cache_xml.xml#gateway-transport-filter" scope="local" type="topic">&lt;gateway-transport-filter&gt;</xref>
+   <xref format="dita" href="gfe_cache_xml.xml#gateway-receiver" scope="local" type="topic"/>
+      <xref format="dita" href="gfe_cache_xml.xml#gateway-receiver_gateway-transport-filter" scope="local" type="topic">&lt;gateway-transport-filter&gt;</xref>
+   <xref format="dita" href="gfe_cache_xml.xml#gateway-conflict-resolver" scope="local" type="topic">&lt;gateway-conflict-resolver&gt;</xref>
+     <xref format="dita" href="cache_xml.xml#async-event-queue" scope="local" type="topic">&lt;async-event-queue&gt;</xref>
       <xref format="dita" href="cache_xml.xml#async-event-listener" scope="local" type="topic">&lt;async-event-listener&gt;</xref>
          &lt;class-name&gt;
          &lt;parameter&gt;
@@ -83,12 +94,26 @@
       <xref format="dita" href="cache_xml.xml#membership-attributes" scope="local" type="topic">&lt;membership-attributes&gt;</xref> 
          <xref format="dita" href="cache_xml.xml#required-role" scope="local" type="topic">&lt;required-role&gt;</xref>
       <xref format="dita" href="cache_xml.xml#subscription-attributes" scope="local" type="topic">&lt;subscription-attributes&gt;</xref>
-          <xref format="dita" href="cache_xml.xml#cache-listener" scope="local" type="topic">&lt;cache-listener&gt;</xref> 
+        <xref format="dita" href="gfe_cache_xml.xml#id_o1f_l2q_rr" scope="local" type="topic">&lt;cache-loader&gt;</xref> 
+           &lt;class-name&gt;
+            &lt;parameter&gt;
+               &lt;string&gt;
+               &lt;declarable&gt;
+         <xref format="dita" href="gfe_cache_xml.xml#id_j31_m2q_rr" scope="local" type="topic">&lt;cache-writer&gt;</xref>
+            &lt;class-name&gt;
+            &lt;parameter&gt;
+               &lt;string&gt;
+               &lt;declarable&gt;          
+         <xref format="dita" href="cache_xml.xml#cache-listener" scope="local" type="topic">&lt;cache-listener&gt;</xref> 
           &lt;class-name&gt;
             &lt;parameter&gt;
                &lt;string&gt;
                &lt;declarable&gt;
-       <xref href="cache_xml.xml#topic_pcd_t25_44"/>
+       <xref href="cache_xml.xml#topic_pcd_t25_44"/>        
+            &lt;class-name&gt;
+            &lt;parameter&gt;
+               &lt;string&gt;
+               &lt;declarable&gt;
        <xref format="dita" href="cache_xml.xml#eviction-attributes" scope="local" type="topic">&lt;eviction-attributes&gt;</xref>
          <xref format="dita" href="cache_xml.xml#lru-entry-count" scope="local" type="topic">&lt;lru-entry-count&gt;</xref>
          <xref format="dita" href="cache_xml.xml#lru-heap-percentage" scope="local" type="topic">&lt;lru-heap-percentage&gt;</xref>
@@ -117,7 +142,6 @@
          <xref format="dita" href="cache_xml.xml#value" scope="local" type="topic">&lt;value&gt;</xref>
             &lt;string&gt;
             &lt;declarable&gt;
-      &lt;region&gt;
    &lt;vm-root-region&gt;
    <xref format="dita" href="cache_xml.xml#function-service" scope="local" type="topic">&lt;function-service&gt;</xref>
       <xref format="dita" href="cache_xml.xml#function" scope="local" type="topic">&lt;function&gt;</xref>
@@ -130,7 +154,7 @@
       <xref format="dita" href="cache_xml.xml#serializer" scope="local" type="topic">&lt;serializer&gt;</xref>
          &lt;class-name&gt;
       <xref format="dita" href="cache_xml.xml#instantiator" scope="local" type="topic">&lt;instantiator&gt;</xref>
-         &lt;class-name?
+         &lt;class-name>
    <xref format="dita" href="cache_xml.xml#backup" scope="local" type="topic">&lt;backup></xref>
    <xref format="dita" href="cache_xml.xml#initializer" scope="local" type="topic">&lt;initializer></xref>
       &lt;class-name&gt;
