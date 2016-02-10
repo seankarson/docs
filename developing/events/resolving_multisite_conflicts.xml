@@ -1,0 +1,118 @@
+<?xml version="1.0"?>
+<!DOCTYPE topic PUBLIC "-//OASIS//DTD DITA Topic//EN" "topic.dtd">
+<!-- Created with XMetaL (http://www.xmetal.com) -->
+<topic
+	id="topic_E97BB68748F14987916CD1A50E4B4542">
+	<title>Resolving Conflicting Events</title>
+	<shortdesc>You can optionally create a
+			<codeph>GatewayConflictResolver</codeph> cache plug-in to decide
+		whether a potentially conflicting event that was delivered from another
+		site should be applied to the local cache. </shortdesc>
+	<body>
+		<p>By default, all regions perform consistency checks when a member applies an update received
+			either from another cluster member or from a remote cluster over the WAN. The default
+			consistency checking for WAN events is described in <xref
+				href="../distributed_regions/how_region_versioning_works_wan.xml#topic_fpy_z3h_j5"
+			/>. </p>
+		<p>You can override the default consistency checking behavior by writing
+			and configuring a custom <codeph>GatewayConflictResolver</codeph>.
+			The <codeph>GatewayConflictResolver</codeph> implementation can use
+			the timestamp and distributed system ID included in a WAN update
+			event to determine whether or not to apply the update. For example,
+			you may decide that updates from a particular cluster should always
+			"win" a conflict when the timestamp difference between updates is
+			less than some fixed period of time. </p>
+		<p>Pivotal GemFire installs an example
+				<codeph>GatewayConflictResolver</codeph> implementation in the
+				<filepath>SampleCode\examples\dist\wanActiveActive</filepath>
+			subdirectory of the GemFire installation. </p>
+		<section
+			id="section_E20B4A8A98FD4EDAAA8C14B8059AA7F7">
+			<title>Implementing a GatewayConflictResolver</title>
+			<note>A <codeph>GatewayConflictResolver</codeph> implementation is
+				called only for update events that could cause a conflict in the
+				region. This corresponds to update events that have a different
+				distributed system ID than the distributed system that last
+				updated the region entry. If the same distributed system ID
+				makes consecutive updates to a region entry, no conflict is
+				possible, and the <codeph>GatewayConflictResolver</codeph> is
+				not called. </note>
+			<p>
+				<b>Procedure</b>
+				<ol
+					id="ol_9016EDE9E0B64AA4AA0182935A90660B">
+					<li
+						id="li_1B40CD950F364280B83D58532CFECF00">Program the
+						event handler: <ol
+							id="ol_413E3118514C484194D7008360E10A92">
+							<li
+								id="li_AC1B977A8EDC4EA783803B40BB591FBF">Create
+								a class that implements the
+									<codeph>GatewayConflictResolver</codeph>
+								interface. See the example conflict resolver
+								installed in the
+									<filepath>SampleCode\examples\dist\wanActiveActive</filepath>
+								subdirectory of the GemFire installation. </li>
+							<li
+								id="li_C1C9011677F145EDBDC5596ECADAC042">If you
+								want to declare the handler in
+									<codeph>cache.xml</codeph>, implement the
+									<codeph>com.gemstone.gemfire.cache.Declarable</codeph>
+								interface as well. </li>
+							<li
+								id="li_3C2CAC8BFF59485B9E39E17BA95B1611">Implement
+								the handler's <codeph>onEvent()</codeph> method
+								to determine whether the WAN event should be
+								allowed. <codeph>onEvent()</codeph> receives
+								both a <codeph>TimestampedEntryEvent</codeph>
+								and a <codeph>GatewayConflictHelper</codeph>
+								instance. <codeph>TimestampedEntryEvent</codeph>
+								has methods for obtaining the timestamp and
+								distributed system ID of both the update event
+								and the current region entry. Use methods in the
+									<codeph>GatewayConflictHelper</codeph> to
+								either disallow the update event (retaining the
+								existing region entry value) or provide an
+								alternate value. <p>
+									<b>Example:</b>
+									<codeblock> public void onEvent(TimestampedEntryEvent event, GatewayConflictHelper helper) {
+    if (event.getOperation().isUpdate()) {
+      ShoppingCart oldCart = (ShoppingCart)event.getOldValue();
+      ShoppingCart newCart = (ShoppingCart)event.getNewValue();
+      oldCart.updateFromConflictingState(newCart);
+      helper.changeEventValue(oldCart);
+    }
+  }</codeblock>
+									<note>In order to maintain consistency in
+										the region, your conflict resolver must
+										always resolve two events in the same
+										way regardless of which event it
+										receives first. </note>
+								</p>
+							</li>
+						</ol>
+					</li>
+					<li
+						id="li_0C5501593E624EBBA8DA4AB25C39DE3B">Install the conflict resolver for the cache, using either the <codeph>cache.xml</codeph> file or the Java API. <p><b>cache.xml</b>
+						</p>
+						<codeblock>&lt;cache&gt;
+     ... 
+    &lt;gateway-conflict-resolver&gt;
+      &lt;class-name&gt;myPackage.MyConflictResolver&lt;/class-name&gt;
+    &lt;/gateway-conflict-resolver&gt;
+    ...
+&lt;/cache&gt;</codeblock>
+						<p><b>Java API</b>
+						</p>
+						<codeblock>// Create or obtain the GemFire cache
+Cache cache = new CacheFactory().create();
+
+// Create and add a conflict resolver
+cache.setGatewayConflictResolver(new MyConflictResolver);
+</codeblock>
+					</li>
+				</ol>
+			</p>
+		</section>
+	</body>
+</topic>

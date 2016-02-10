@@ -260,5 +260,14 @@ Cluster configuration service is up and running.
 					&lt;<i>locator_working_directory</i>&gt; corresponds to the local working
 				directory where the locator is running. </p>
 		</section>
+		<section>
+			<title>Locators and Multi-Site (WAN) Deployments</title>
+			<p>If you use a multi-site (WAN) configuration, you can connect a locator to a remote
+				site when starting the locator.</p>
+			<p>To connect a new locator process to a remote locator in a WAN configuration, specify
+				the following at
+				startup:<codeblock>gfsh> start locator --name=locator1 --port=9009 --mcast-port=0 \
+--J='-Dgemfire.remote-locators=10.117.33.214[9009],10.117.33.220[9009]'</codeblock></p>
+		</section>
 	</conbody>
 </concept>

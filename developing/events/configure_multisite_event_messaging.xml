@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "http://docs.oasis-open.org/dita/v1.1/OS/dtd/concept.dtd">
+<concept id="configure_multisite_event_messaging">
+	<title>Configuring Multi-Site (WAN) Event Queues</title>
+	<shortdesc>In a multi-site (WAN) installation, GemFire uses gateway sender queues to distribute
+		events for regions that are configured with a gateway sender. AsyncEventListeners also use
+		an asynchronous event queue to distribute events for configured regions. This section
+		describes additional options for configuring the event queues that are used by gateway
+		senders or AsyncEventListener implementations. </shortdesc>
+	<prolog>
+		<metadata>
+			<keywords>
+				<keyword>gemfire multisite messaging</keyword>
+				<keyword>gemfire multisite events</keyword>
+				<keyword>gemfire WAN events</keyword>
+				<keyword>gemfire gateway events</keyword>
+			</keywords>
+		</metadata>
+	</prolog>
+	<conbody>
+		<section id="section_1BBF77E166E84F7CA110385FD03D8453">
+			<p>Before you begin, set up your multi-site (WAN) installation or configure asynchronous event
+				queues and AsyncEventListener implementations. See <xref
+					href="../../topologies_and_comm/multi_site_configuration/setting_up_a_multisite_system.xml#setting_up_a_multisite_system"
+					type="concept" format="dita" scope="local"/> or <xref
+					href="implementing_write_behind_event_handler.xml#implementing_write_behind_cache_event_handling"
+				/>. </p>
+			<p> </p>
+		</section>
+	</conbody>
+</concept>

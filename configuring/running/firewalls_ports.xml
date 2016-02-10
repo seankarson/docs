@@ -287,5 +287,121 @@
 				</tgroup>
 			</table>
 		</section>
+		<section>
+			<title><b>Properties for Firewall and Port Configuration in Multi-Site (WAN)
+					Configurations</b></title>
+			<p>Each gateway receiver uses a port to listen for incoming communication from one or
+				more gateway senders communication between <keyword keyref="product_name"/> sites.
+				The full range of port values for gateway receivers must be made accessible within
+				the firewall from across the WAN.</p>
+			<p>This table contains properties potentially involved in firewall behavior, with a
+				brief description of each property. Click on a property name for a link to the <xref
+					href="../../reference/topics/gemfire_properties.xml#gemfire_properties"/>
+				reference topic. </p>
+			<table id="table_zrn_yf4_ft">
+				<tgroup cols="3">
+					<colspec colnum="1" colname="col1" colwidth="*"/>
+					<colspec colnum="2" colname="col2" colwidth="*"/>
+					<colspec colnum="3" colname="col3" colwidth="*"/>
+					<thead>
+						<row>
+							<entry namest="col1" nameend="col3" align="center">Configuration</entry>
+						</row>
+						<row>
+							<entry colname="col1">Configuration Area</entry>
+							<entry colname="col2"><b>Property or Setting</b>
+							</entry>
+							<entry colname="col3"><b>Definition</b>
+							</entry>
+						</row>
+					</thead>
+					<tbody>
+						<row>
+							<entry colname="col1">multi-site (WAN) config </entry>
+							<entry colname="col2" outputclass="noPageCitation">
+								<p><xref href="../../reference/topics/gfe_cache_xml.xml#gateway-receiver"
+										>hostname-for-senders</xref></p>
+							</entry>
+							<entry colname="col3">
+								<p>Hostname or IP address of the gateway receiver used by gateway
+									senders to connect. </p>
+							</entry>
+						</row>
+						<row>
+							<entry colname="col1">multi-site (WAN) config </entry>
+							<entry colname="col2"><xref scope="local" outputclass="noPageCitation"
+									href="../../reference/topics/gemfire_properties.xml#gemfire_properties"
+									type="concept" format="dita">remote-locators</xref></entry>
+							<entry colname="col3">
+								<p>List of locators (and their ports) that are available on the
+									remote WAN site.</p>
+							</entry>
+						</row>
+						<row>
+							<entry colname="col1">multi-site (WAN) config </entry>
+							<entry colname="col2">
+								<p><xref href="../../reference/topics/gfe_cache_xml.xml#gateway-receiver">start-port</xref>
+									and <xref
+										href="../../reference/topics/gfe_cache_xml.xml#gateway-receiver"
+										>end-port</xref> (cache.xml) or
+										<codeph>--start-port</codeph> and
+										<codeph>--end-port</codeph> parameters to the gfsh start
+									gateway receiver command</p>
+							</entry>
+							<entry colname="col3">
+								<p>Port range that the gateway receiver can use to listen for
+									gateway sender communication. </p>
+							</entry>
+						</row>
+					</tbody>
+				</tgroup>
+			</table>
+		</section>
+		<section>
+			<title>Default Port Configuration</title>
+			<p>
+				<table id="table_dzw_zf4_ft">
+					<tgroup cols="3">
+						<thead>
+							<row>
+								<entry colname="col1">
+									<p><b>Port Name</b>
+									</p>
+								</entry>
+								<entry>Related Configuration Setting</entry>
+								<entry colname="col2">
+									<p><b>Default Port</b>
+									</p>
+								</entry>
+							</row>
+						</thead>
+						<tbody>
+							<row>
+								<entry colname="col1">
+									<p>Gateway Receiver</p>
+								</entry>
+								<entry colname="col2">
+									<p><xref href="../../reference/topics/gfe_cache_xml.xml#gateway-receiver">start-port</xref>
+										and <xref
+											href="../../reference/topics/gfe_cache_xml.xml#gateway-receiver"
+											>end-port</xref> (cache.xml) or
+											<codeph>--start-port</codeph> and
+											<codeph>--end-port</codeph> parameters to the
+											<codeph>gfsh start gateway receiver</codeph> command</p>
+								</entry>
+								<entry colname="col2"><i>not set</i> Each gateway receiver uses a
+									single port to accept connections from gateway senders in other
+									systems. However, the configuration of a gateway receiver
+									specifies a range of possible port values to use. <keyword
+										keyref="product_name"/> selects an available port from the
+									specified range when the gateway receiver starts. Configure your
+									firewall so that the full range of possible port values is
+									accessible by gateway senders from across the WAN. </entry>
+							</row>
+						</tbody>
+					</tgroup>
+				</table>
+			</p>
+		</section>
 	</conbody>
 </concept>

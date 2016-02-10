@@ -22,8 +22,9 @@
 			Unicode escape sequences. See <xref
 				href="non-ascii_strings_in_config_files.xml"
 				type="concept" format="dita" scope="local"/> for more details. </p>
-		<note>Unless otherwise indicated, these settings only affect activities within this
-			distributed system - not activities between clients and servers. </note>
+		<note>Unless otherwise indicated, these settings only affect activities within this distributed
+			system - not activities between clients and servers or between a gateway sender and
+			gateway receiver in a multi-site installation. </note>
 		<table id="table_4F6DA593C76A447F851B5FE382C169DE">
 			<tgroup cols="3">
 				<colspec colname="1" colnum="1" colwidth="1.02*"/>
@@ -73,15 +74,15 @@
 					</row>
 					<row>
 						<entry id="entry_m1v_n3p_rr">async-distribution-timeout </entry>
-						<entry id="entry_bmg_ddp_rr">The number of milliseconds a process that is
-							publishing to this process should attempt to distribute a cache
-							operation before switching over to asynchronous messaging for this
-							process. The switch to asynchronous messaging lasts until this process
-							catches up, departs, or some specified limit is reached, such as
-							async-queue-timeout or async-max-queue-size. <p>To enable asynchronous
-								messaging, the value must be set above zero. Valid values are in the
-								range 0...60000. <note>This setting controls only peer-to-peer
-									communication and does not apply to client/server communication.
+						<entry id="entry_bmg_ddp_rr">The number of milliseconds a process that is publishing to this
+							process should attempt to distribute a cache operation before switching
+							over to asynchronous messaging for this process. The switch to
+							asynchronous messaging lasts until this process catches up, departs, or
+							some specified limit is reached, such as async-queue-timeout or
+							async-max-queue-size. <p>To enable asynchronous messaging, the value
+								must be set above zero. Valid values are in the range 0...60000.
+									<note>This setting controls only peer-to-peer communication and
+									does not apply to client/server or multi-site communication.
 								</note>
 							</p>
 						</entry>
@@ -89,24 +90,24 @@
 					</row>
 					<row>
 						<entry id="entry_ibq_ddp_rr">async-max-queue-size </entry>
-						<entry id="entry_ex5_ddp_rr">Affects non-conflated asynchronous queues for
-							members that publish to this member. This is the maximum size the queue
-							can reach (in megabytes) before the publisher asks this member to leave
-							the distributed system. <p>Valid values are in the range 0..1024.
-									<note>This setting controls only peer-to-peer communication and
-									does not apply to client/server communication. </note>
+						<entry id="entry_ex5_ddp_rr">Affects non-conflated asynchronous queues for members that
+							publish to this member. This is the maximum size the queue can reach (in
+							megabytes) before the publisher asks this member to leave the
+							distributed system. <p>Valid values are in the range 0..1024. <note>This
+									setting controls only peer-to-peer communication and does not
+									apply to client/server or multi-site communication. </note>
 							</p>
 						</entry>
 						<entry id="entry_kbz_ddp_rr">8 </entry>
 					</row>
 					<row>
 						<entry id="entry_gb5_fdp_rr">async-queue-timeout </entry>
-						<entry id="entry_cj3_fdp_rr">Affects asynchronous queues for members that
-							publish to this member. This is the maximum milliseconds the publisher
-							should wait with no distribution to this member before it asks this
-							member to leave the distributed system. Used for handling slow
-							receivers. <note>This setting controls only peer-to-peer communication
-								and does not apply to client/server communication. </note>
+						<entry id="entry_cj3_fdp_rr">Affects asynchronous queues for members that publish to this
+							member. This is the maximum milliseconds the publisher should wait with
+							no distribution to this member before it asks this member to leave the
+							distributed system. Used for handling slow receivers. <note>This setting
+								controls only peer-to-peer communication and does not apply to
+								client/server or multi-site communication. </note>
 						</entry>
 						<entry id="entry_z4l_fdp_rr">60000 </entry>
 					</row>
@@ -148,46 +149,47 @@
 					</row>
 					<row>
 						<entry id="entry_ztf_4dp_rr">cluster-ssl-ciphers </entry>
-						<entry id="entry_jrj_4dp_rr">Used for SSL security. A space-separated list
-							of the valid SSL ciphers for peer-to-peer connections in the cluster. A
-							setting of 'any' uses any ciphers that are enabled by default in the
-							configured JSSE provider. This attribute must be consistent across all
-							members of the distributed system. <keyword keyref="product_name"/>
-							applies this peer-to-peer connection property setting to client/server,
-							JMX manager, and HTTP service connections unless the corresponding SSL
+						<entry id="entry_jrj_4dp_rr">Used for SSL security. A space-separated list of the valid SSL
+							ciphers for peer-to-peer connections in the cluster. A setting of 'any'
+							uses any ciphers that are enabled by default in the configured JSSE
+							provider. This attribute must be consistent across all members of the
+							distributed system. <keyword keyref="product_name"/> applies this
+							peer-to-peer connection property setting to client/server, JMX manager,
+							WAN gateway and HTTP service connections unless the corresponding SSL
 							property (<codeph>server-ssl-ciphers</codeph>,
-								<codeph>jmx-manager-ssl-ciphers</codeph>, or
+								<codeph>jmx-manager-ssl-ciphers</codeph>,
+								<codeph>gateway-ssl-ciphers</codeph>, or
 								<codeph>http-service-ssl-ciphers</codeph>) is defined. See <xref
 								href="../../managing/security/implementing_ssl.xml"/>.</entry>
 						<entry id="entry_yzn_4dp_rr">any</entry>
 					</row>
 					<row>
 						<entry id="entry_swr_4dp_rr">cluster-ssl-enabled </entry>
-						<entry id="entry_wqv_4dp_rr">Used for SSL security. Boolean indicating
-							whether to use SSL for peer-to-peer communications. A true setting
-							requires the use of locators. This attribute must be consistent across
-							all members of the distributed system. <keyword keyref="product_name"/>
-							applies this peer-to-peer connection property setting to client/server,
-							JMX manager, and HTTP service connections unless the corresponding SSL
+						<entry id="entry_wqv_4dp_rr">Used for SSL security. Boolean indicating whether to use SSL for
+							peer-to-peer communications. A true setting requires the use of
+							locators. This attribute must be consistent across all members of the
+							distributed system. <keyword keyref="product_name"/> applies this
+							peer-to-peer connection property setting to client/server, JMX manager,
+							WAN gateway, and HTTP service connections unless the corresponding SSL
 							property (<codeph>server-ssl-enabled</codeph>,
-								<codeph>jmx-manager-ssl-enabled</codeph>, or
+								<codeph>jmx-manager-ssl-enabled</codeph>,
+								<codeph>gateway-ssl-enabled</codeph>, or
 								<codeph>http-service-ssl-enabled</codeph>) is defined. See <xref
-								href="../../managing/security/implementing_ssl.xml"
-							/>.</entry>
+								href="../../managing/security/implementing_ssl.xml"/>.</entry>
 						<entry id="entry_vmz_4dp_rr">false</entry>
 					</row>
 					<row>
-						<entry id="entry_kkg_pdp_rr">cluster-ssl-keystore,
+						<entry id="entry_kkg_pdp_rr">cluster-ssl-keystore, gateway-ssl-keystore,
 							http-service-ssl-keystore, jmx-manager-ssl-keystore,
 							server-ssl-keystore</entry>
-						<entry id="entry_m3k_pdp_rr">Properties that dentify the keystores to use
-							for SSL connections.<codeph>cluster-ssl-keystore</codeph> defines the
+						<entry id="entry_m3k_pdp_rr">Properties that dentify the keystores to use for SSL
+								connections.<codeph>cluster-ssl-keystore</codeph> defines the
 							keystore for <keyword keyref="product_name"/> peer-to-peer connections.
 							If you specify only <codeph>cluster-ssl-keystore</codeph>, then the same
-							keystore is also used for client/server, JMX manager, and HTTP service
-							connections. Specify the jmx-manager, server- or http-service- prefix
-							with this property to use a different keystore for the respective SSL
-							connection type. See <xref
+							keystore is also used for client/server, JMX manager, WAN gateway and
+							HTTP service connections. Specify the gateway, jmx-manager, server- or
+							http-service- prefix with this property to use a different keystore for
+							the respective SSL connection type. See <xref
 								href="../../managing/security/implementing_ssl.xml"
 								/>.<note>javax.net.ssl.keyStore is deprecated. Use
 									<codeph>cluster-ssl-keystore</codeph> instead.</note></entry>
@@ -196,7 +198,7 @@
 						</entry>
 					</row>
 					<row>
-						<entry id="entry_czk_tdp_rr">cluster-ssl-keystore-password,
+						<entry id="entry_czk_tdp_rr">cluster-ssl-keystore-password, gateway-ssl-keystore-password,
 							http-service-ssl-keystore-password, jmx-manager-ssl-keystore-password,
 							server-ssl-keystore-password</entry>
 						<entry id="entry_sq4_tdp_rr">Properties that identify the passwords for the
@@ -209,7 +211,7 @@
 						</entry>
 					</row>
 					<row>
-						<entry id="entry_c31_5dp_rr">cluster-ssl-keystore-type,
+						<entry id="entry_c31_5dp_rr">cluster-ssl-keystore-type, gateway-ssl-keystore-type,
 							http-service-ssl-keystore-type, jmx-manager-ssl-keystore-type,
 							server-ssl-keystore-type</entry>
 						<entry id="entry_n5d_5dp_rr">System properties that identify the types of
@@ -223,47 +225,47 @@
 					</row>
 					<row>
 						<entry id="entry_asj_22p_rr">cluster-ssl-protocols </entry>
-						<entry id="entry_t5p_22p_rr">Used for SSL security. A space-separated list
-							of the valid SSL protocols for peer-to-peer connections in the cluster.
-							A setting of 'any' uses any protocol that is enabled by default in the
-							configured JSSE provider. <keyword keyref="product_name"/> applies this
+						<entry id="entry_t5p_22p_rr">Used for SSL security. A space-separated list of the valid SSL
+							protocols for peer-to-peer connections in the cluster. A setting of
+							'any' uses any protocol that is enabled by default in the configured
+							JSSE provider. <keyword keyref="product_name"/> applies this
 							peer-to-peer connection property setting to client/server, JMX manager,
-							and HTTP service connections unless the corresponding SSL property
-								(<codeph>server-ssl-protocols</codeph>,
-								<codeph>jmx-manager-ssl-protocols</codeph>, or
+							WAN gateway and HTTP service connections unless the corresponding SSL
+							property (<codeph>server-ssl-protocols</codeph>,
+								<codeph>jmx-manager-ssl-protocols</codeph>,
+								<codeph>gateway-ssl-protocols</codeph>, or
 								<codeph>http-service-ssl-protocols</codeph>) is defined. See <xref
-								href="../../managing/security/implementing_ssl.xml"
-							/>.</entry>
+								href="../../managing/security/implementing_ssl.xml"/>.</entry>
 						<entry id="entry_cb5_22p_rr">any </entry>
 					</row>
 					<row>
 						<entry id="entry_jby_22p_rr">cluster-ssl-require-authentication </entry>
-						<entry id="entry_njb_f2p_rr">Used for SSL security. Boolean indicating
-							whether to require authentication for member communication. <keyword
-								keyref="product_name"/> applies this peer-to-peer connection
-							property setting to client/server, JMX manager, and HTTP service
-							connections unless the corresponding SSL property
+						<entry id="entry_njb_f2p_rr">Used for SSL security. Boolean indicating whether to require
+							authentication for member communication. <keyword keyref="product_name"
+							/> applies this peer-to-peer connection property setting to
+							client/server, JMX manager, WAN gateway and HTTP service connections
+							unless the corresponding SSL property
 								(<codeph>server-ssl-require-authentication</codeph>,
-								<codeph>jmx-manager-ssl-require-authentication</codeph>, or
+								<codeph>jmx-manager-ssl-require-authentication</codeph>,
+								<codeph>gateway-ssl-require-authentication</codeph>, or
 								<codeph>http-service-ssl-require-authentication</codeph>) is
-							defined. See <xref
-								href="../../managing/security/implementing_ssl.xml"
+							defined. See <xref href="../../managing/security/implementing_ssl.xml"
 							/>.</entry>
 						<entry id="entry_lff_f2p_rr">true </entry>
 					</row>
 					<row>
-						<entry id="entry_h14_f2p_rr">cluster-ssl-truststore,
+						<entry id="entry_h14_f2p_rr">cluster-ssl-truststore, gateway-ssl-truststore,
 							http-service-ssl-truststore, jmx-manager-ssl-truststore,
 							server-ssl-truststore</entry>
-						<entry id="entry_t3s_f2p_rr">Properties that identify the truststores to use
-							for SSL connections. <codeph>cluster-ssl-truststore</codeph> defines the
+						<entry id="entry_t3s_f2p_rr">Properties that identify the truststores to use for SSL
+							connections. <codeph>cluster-ssl-truststore</codeph> defines the
 							truststore for <keyword keyref="product_name"/> peer-to-peer
 							connections. If you specify only
 							<codeph>cluster-ssl-truststore</codeph>, then the same truststore is
-							also used for client/server, JMX manager, and HTTP service connections.
-							Specify the jmx-manager, server-, or http-service- prefix with this
-							property to use a different truststore for the respective SSL connection
-							type. See <xref
+							also used for client/server, JMX manager, WAN gateway and HTTP service
+							connections. Specify the gateway-, jmx-manager, server-, or
+							http-service- prefix with this property to use a different truststore
+							for the respective SSL connection type. See <xref
 								href="../../managing/security/implementing_ssl.xml"
 								/>.<note>javax.net.ssl.trustStore is deprecated. Use
 									<codeph>cluster-ssl-truststore</codeph> instead.</note></entry>
@@ -273,7 +275,7 @@
 					</row>
 					<row>
 						<entry id="entry_tt1_g2p_rr">cluster-ssl-truststore-password,
-							http-service-ssl-truststore-password,
+							gateway-ssl-truststore-password, http-service-ssl-truststore-password,
 							jmx-manager-ssl-truststore-password,
 							server-ssl-truststore-password</entry>
 						<entry id="entry_u32_g2p_rr">Properties that identifies the passwords for
@@ -295,14 +297,18 @@
 					</row>
 					<row>
 						<entry id="entry_ezz_g2p_rr">conserve-sockets </entry>
-						<entry id="entry_bjd_h2p_rr">Specifies whether sockets are shared by the
-							system member’s threads. If true, threads share, and a minimum number of
-							sockets are used to connect to the distributed system. If false, every
-							application thread has its own sockets for distribution purposes. You
-							can override this setting for individual threads inside your
-							application. Where possible, it is better to set conserve-sockets to
-							true and enable the use of specific extra sockets in the application
-							code if needed. </entry>
+						<entry id="entry_bjd_h2p_rr">Specifies whether sockets are shared by the system member’s
+							threads. If true, threads share, and a minimum number of sockets are
+							used to connect to the distributed system. If false, every application
+							thread has its own sockets for distribution purposes. You can override
+							this setting for individual threads inside your application. Where
+							possible, it is better to set conserve-sockets to true and enable the
+							use of specific extra sockets in the application code if needed. WAN
+							deployments increase the messaging demands on a <keyword
+								keyref="product_name"/> system. To avoid hangs related to WAN
+							messaging, always set <codeph>conserve-sockets=false</codeph> for
+								<keyword keyref="product_name"/> members that participate in a WAN
+							deployment.</entry>
 						<entry id="entry_dbh_h2p_rr">true</entry>
 					</row>
 					<row>
@@ -339,6 +345,17 @@
 							of TCP/IP sockets for inter-cache point-to-point messaging. If disabled,
 							the cache uses datagram (UDP) sockets. </entry>
 						<entry id="entry_amr_j2p_rr">false</entry>
+					</row>
+					<row>
+						<entry>distributed-system-id </entry>
+						<entry>Identifier used to distinguish messages from different distributed
+							systems. Set this to different values for different systems in a
+							multi-site (WAN) configuration. This is required for Portable Data
+							eXchange (PDX) data serialization. This setting must be the same for
+							every member in the same distributed system and unique to the
+							distributed system within the WAN installation. -1 means no setting.
+							Valid values are integers in the range -1...255.</entry>
+						<entry>-1</entry>
 					</row>
 					<row>
 						<entry id="entry_k4v_j2p_rr">durable-client-id </entry>
@@ -402,6 +419,47 @@
 							to true prevents this and requires different machines for redundant
 							copies. </entry>
 						<entry id="entry_d1z_s2p_rr">false </entry>
+					</row>
+					<row>
+						<entry>gateway-ssl-ciphers</entry>
+						<entry>A space-separated list of the valid SSL ciphers for WAN gateway
+							connections. A setting of 'any' uses any ciphers that are enabled by
+							default in the configured JSSE provider. If this property is not set,
+							then <keyword keyref="product_name"/> uses the value of
+								<codeph>cluster-ssl-ciphers</codeph> to determine which SSL ciphers
+							are used for WAN connections. See <xref
+								href="../../managing/security/security_multisite.xml"/>.</entry>
+						<entry>value of <codeph>ssl-ciphers</codeph></entry>
+					</row>
+					<row>
+						<entry>gateway-ssl-enabled</entry>
+						<entry>Enables or disables SSL for WAN gateway connections. If this property
+							is not set, then <keyword keyref="product_name"/> uses the value of
+								<codeph>cluster-ssl-enabled</codeph> to determine whether JMX
+							connections use SSL. See <xref
+								href="../../managing/security/security_multisite.xml"/>.</entry>
+						<entry>value of <codeph>ssl-enabled</codeph></entry>
+					</row>
+					<row>
+						<entry>gateway-ssl-protocols</entry>
+						<entry>A space-separated list of the valid SSL protocols for WAN gateway
+							connections. A setting of 'any' uses any protocol that is enabled by
+							default in the configured JSSE provider. If this property is not set,
+							then <keyword keyref="product_name"/> uses the value of
+								<codeph>cluster-ssl-protocols</codeph> to determine which SSL
+							protocols are used by WAN connections. See <xref
+								href="../../managing/security/security_multisite.xml"/>.</entry>
+						<entry>value of <codeph>ssl-protocols</codeph></entry>
+					</row>
+					<row>
+						<entry>gateway-ssl-require-authentication</entry>
+						<entry>Boolean indicating whether to require authentication for WAN gateway
+							connections. If this property is not set, then <keyword
+								keyref="product_name"/> uses the value of
+								<codeph>cluster-ssl-require-authentication</codeph> to determine
+							whether WAN connections require authentication. See <xref
+								href="../../managing/security/security_multisite.xml"/>.</entry>
+						<entry>value of <codeph>ssl-require-authentication</codeph></entry>
 					</row>
 					<row>
 						<entry colname="1" id="entry_crt_t2p_rr">groups </entry>
@@ -729,20 +787,23 @@
 					</row>
 					<row>
 						<entry id="entry_ls2_sfp_rr">mcast-address </entry>
-						<entry id="entry_lsl_tfp_rr">Address used to discover other members of the
-							distributed system. Only used if mcast-port is non-zero. This attribute
-							must be consistent across the distributed system. <p>This default
-								multicast address was assigned by IANA (<xref
+						<entry id="entry_lsl_tfp_rr">Address used to discover other members of the distributed system.
+							Only used if mcast-port is non-zero. This attribute must be consistent
+							across the distributed system. Select different multicast addresses and
+							different ports for different distributed systems. Do not just use
+							different addresses. Some operating systems may not keep communication
+							separate between systems that use unique addresses but the same port
+							number. <p>This default multicast address was assigned by IANA (<xref
 									href="http://www.iana.org/assignments/multicast-addresses"
 									format="html" scope="external"
 									>http://www.iana.org/assignments/multicast-addresses</xref>).
 								Consult the IANA chart when selecting another multicast address to
 								use with <keyword keyref="product_name"/>. </p>
 							<note>This setting controls only peer-to-peer communication and does not
-								apply to client/server communication. If multicast is enabled,
-								distributed regions use it for most communication. Partitioned
-								regions only use multicast for a few purposes, and mainly use either
-								TCP or UDP unicast. </note>
+								apply to client/server or multi-site communication. If multicast is
+								enabled, distributed regions use it for most communication.
+								Partitioned regions only use multicast for a few purposes, and
+								mainly use either TCP or UDP unicast. </note>
 						</entry>
 						<entry id="entry_ubp_tfp_rr">
 							<p>239.192.81.1 for IPv4 (the default IP version) </p>
@@ -773,8 +834,8 @@
 								number. </note>
 							<p>Valid values are in the range 0..65535. </p>
 							<p>
-								<note>This setting controls only peer-to-peer communication and does
-									not apply to client/server communication. </note>
+								<note>This setting controls only peer-to-peer communication and does not apply to
+									client/server or multi-site communication. </note>
 							</p>
 							<p>If you have values specified for the <codeph>locators</codeph>
 								property, the <codeph>mcast-port</codeph> property defaults to 0.
@@ -784,35 +845,34 @@
 					</row>
 					<row>
 						<entry id="entry_os1_vfp_rr">mcast-recv-buffer-size </entry>
-						<entry id="entry_jp2_vfp_rr">Size of the socket buffer used for incoming
-							multicast transmissions. You should set this high if there will be high
-							volumes of messages. <p>Valid values are in the range 2048.. OS_maximum. </p>
+						<entry id="entry_jp2_vfp_rr">Size of the socket buffer used for incoming multicast
+							transmissions. You should set this high if there will be high volumes of
+							messages. <p>Valid values are in the range 2048.. OS_maximum. </p>
 							<note>The default setting is higher than the default OS maximum buffer
 								size on Unix, which should be increased to at least 1 megabyte to
 								provide high-volume messaging on Unix systems. </note>
 							<note>This setting controls only peer-to-peer communication and does not
-								apply to client/server communication. </note>
+								apply to client/server or multi-site communication. </note>
 						</entry>
 						<entry id="entry_hl3_vfp_rr">1048576 </entry>
 					</row>
 					<row>
 						<entry id="entry_qbm_vfp_rr">mcast-send-buffer-size </entry>
 						<entry id="entry_hmp_vfp_rr">The size of the socket buffer used for outgoing
-							multicast transmissions. <p>Valid values are in the range 2048..
-								OS_maximum. <note>This setting controls only peer-to-peer
-									communication and does not apply to client/server communication.
-								</note>
+							multicast transmissions. <p>Valid values are in the range 2048.. OS_maximum. <note>This
+									setting controls only peer-to-peer communication and does not
+									apply to client/server or multi-site communication. </note>
 							</p>
 						</entry>
 						<entry id="entry_hbt_vfp_rr">65535 </entry>
 					</row>
 					<row>
 						<entry id="entry_qd1_wfp_rr">mcast-ttl </entry>
-						<entry id="entry_cd2_wfp_rr">How far multicast messaging goes in your
-							network. Lower settings may improve system performance. A setting of 0
-							constrains multicast messaging to the machine. <note>This setting
-								controls only peer-to-peer communication and does not apply to
-								client/server communication. </note>
+						<entry id="entry_cd2_wfp_rr">How far multicast messaging goes in your network. Lower settings
+							may improve system performance. A setting of 0 constrains multicast
+							messaging to the machine. <note>This setting controls only peer-to-peer
+								communication and does not apply to client/server or multi-site
+								communication. </note>
 						</entry>
 						<entry id="entry_p23_wfp_rr">32 </entry>
 					</row>
@@ -890,6 +950,21 @@
 						<entry id="entry_u3r_cgp_rr">
 							<i>not set</i>
 						</entry>
+					</row>
+					<row>
+						<entry>remote-locators</entry>
+						<entry>Used to configure the locators that a cluster will use in order to
+							connect to a remote site in a multi-site (WAN) configuration. To use
+							locators in a WAN configuration, you must specify a unique distributed
+							system ID (<codeph>distributed-system-id</codeph>) for the local cluster
+							and remote locator(s) for the remote clusters to which you will connect.
+								<p>For each remote locator, provide a host name and/or address
+								(separated by ‘@’, if you use both), followed by a port number in
+								brackets. Examples: <codeblock>remote-locators=address1[port1],address2[port2] </codeblock>
+								<codeblock>remote-locators=hostName1@address1[port1],hostName2@address2[port2] </codeblock>
+								<codeblock>remote-locators=hostName1[port1],hostName2[port2]</codeblock>
+							</p></entry>
+						<entry><i>not set</i></entry>
 					</row>
 					<row>
 						<entry id="entry_n5h_2gp_rr">remove-unresponsive-client </entry>
@@ -1029,18 +1104,18 @@
 					</row>
 					<row>
 						<entry id="serverbindaddress_Prop">server-bind-address </entry>
-						<entry id="entry_tbz_sgp_rr">Relevant only for multi-homed hosts - machines
-							with multiple network interface cards. Network adapter card a <keyword
+						<entry id="entry_tbz_sgp_rr">Relevant only for multi-homed hosts - machines with multiple
+							network interface cards. Network adapter card a <keyword
 								keyref="product_name"/> server binds to for client/server
 							communication. You can use this to separate the server’s client/server
 							communication from its peer-to-peer communication, spreading the traffic
 							load. <p>This is a machine-wide attribute used for communication with
-								clients in client/server installations. This setting has no effect
-								on locator configuration. </p><p>Specify the IP address, not the
-								hostname, because each network card may not have a unique hostname.
-								</p><p>An empty string causes the servers to listen on the same card
-								used for peer-to-peer communication. This is either the
-									<codeph>bind-address</codeph> or, if that is not set, the
+								clients in client/server and multi-site installations. This setting
+								has no effect on locator configuration. </p><p>Specify the IP
+								address, not the hostname, because each network card may not have a
+								unique hostname. </p><p>An empty string causes the servers to listen
+								on the same card used for peer-to-peer communication. This is either
+								the <codeph>bind-address</codeph> or, if that is not set, the
 								machine’s default card. </p>
 						</entry>
 						<entry id="entry_jtd_tgp_rr">

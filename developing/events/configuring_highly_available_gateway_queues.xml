@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "http://docs.oasis-open.org/dita/v1.1/OS/dtd/concept.dtd">
+<concept id="configuring_highly_available_gateway_queues">
+	<title>Persisting an Event Queue</title>
+	<shortdesc>You can configure a gateway sender queue or an asynchronous event queue to persist
+		data to disk similar to the way in which replicated regions are persisted. </shortdesc>
+	<prolog>
+		<metadata>
+			<keywords>
+				<keyword>gemfire gateway sender queues</keyword>
+				<keyword>gemfire highly available gateway sender queues</keyword>
+				<keyword>gemfire highly available gateway sender</keyword>
+				<keyword>gemfire maximum-queue-memory</keyword>
+				<keyword>gemfire disk-store-name</keyword>
+			</keywords>
+		</metadata>
+	</prolog>
+	<conbody>
+		<section id="section_7EB2A7E38B074AAAA06D22C59687CB8A">Persisting a queue provides high
+			availability for the event messaging that the sender performs. For example, if a
+			persistent gateway sender queue exits for any reason, when the member that hosts the
+			sender restarts it automatically reloads the queue and resumes sending messages. If an
+			asynchronous event queue exits for any reason, write-back caching can resume where it
+			left off when the queue is brought back online. <p>GemFire persists an event queue if
+				you set the <codeph>enable-persistence</codeph> attribute to true. The queue is
+				persisted to the disk store specified in the queue's
+					<codeph>disk-store-name</codeph> attribute, or to the default disk store if you
+				do not specify a store name. </p><p>You must configure the event queue to use
+				persistence if you are using persistent regions. The use of non-persistent event
+				queues with persistent regions is not supported.</p><p>When you enable persistence
+				for a queue, the <codeph>maximum-queue-memory</codeph> attribute determines how much
+				memory the queue can consume before it overflows to disk. By default, this value is
+				set to 100MB. </p><note>If you configure a parallel queue and/or you configure
+				multiple dispatcher threads for a queue, the values that are defined in the
+					<codeph>maximum-queue-memory</codeph> and <codeph>disk-store-name</codeph>
+				attributes apply to each instance of the queue. </note><p>In the example below the
+				gateway sender queue uses "diskStoreA" for persistence and overflow, and the queue
+				has a maximum queue memory of 100MB: <ul id="ul_7E1869577DD24D1D9C714C2A474C539C">
+					<li id="li_10F187A1DCC4446394E2C953E43A19C6">XML example:
+						<codeblock outputclass="language-xml">&lt;cache&gt;
+  &lt;gateway-sender id="persistedsender1" parallel="false" 
+   remote-distributed-system-id="1"
+   enable-persistence="true"
+   disk-store-name="diskStoreA"
+   maximum-queue-memory="100"/&gt; 
+   ... 
+&lt;/cache&gt;</codeblock>
+					</li>
+					<li id="li_3F1D784F3E764CCCB12A56B56D5B410C">API example:
+						<codeblock outputclass="language-java">Cache cache = new CacheFactory().create();
+
+GatewaySenderFactory gateway = cache.createGatewaySenderFactory();
+gateway.setParallel(false);
+gateway.setPersistenceEnabled(true);
+gateway.setDiskStoreName("diskStoreA");
+gateway.setMaximumQueueMemory(100); 
+GatewaySender sender = gateway.create("persistedsender1", "1");
+sender.start();
+</codeblock></li>
+					<li>gfsh:<codeblock outputclass="language-bourne">gfsh>create gateway-sender --id="persistedsender1 --parallel=false 
+--remote-distributed-system-id=1 --enable-persistence=true --disk-store-name=diskStoreA 
+--maximum-queue-memory=100</codeblock>
+					</li>
+				</ul>
+			</p><p> If you were to configure 10 dispatcher threads for the serial gateway sender,
+				then the total maximum memory for the gateway sender queue would be 1000MB on each
+				GemFire member that hosted the sender because GemFire creates a separate copy of the
+				queue per thread.. </p>
+			<p>The following example shows a similar configuration for an asynchronous event queue:
+					<ul id="ul_AE4C2AA4D710479DA034C064831023AC">
+					<li id="li_E3E57AE7DF6448779DBCB149E98D8C61">XML example:
+						<codeblock outputclass="language-xml">&lt;cache&gt;
+   &lt;async-event-queue id="persistentAsyncQueue" persistent="true"
+    disk-store-name="diskStoreA" parallel="true"&gt;
+      &lt;async-event-listener&gt;
+         &lt;class-name&gt;MyAsyncEventListener&lt;/class-name&gt;
+         &lt;parameter name="url"&gt; 
+           &lt;string&gt;jdbc:db2:SAMPLE&lt;/string&gt; 
+         &lt;/parameter&gt; 
+         &lt;parameter name="username"&gt; 
+           &lt;string&gt;gfeadmin&lt;/string&gt; 
+         &lt;/parameter&gt; 
+         &lt;parameter name="password"&gt; 
+           &lt;string&gt;admin1&lt;/string&gt; 
+         &lt;/parameter&gt; 
+      &lt;/async-event-listener&gt;
+    &lt;/async-event-queue&gt;
+...
+&lt;/cache&gt;</codeblock>
+					</li>
+					<li id="li_DC4D38F58D6A442686F076A63D34A80D">API example:
+						<codeblock outputclass="language-java">Cache cache = new CacheFactory().create();
+AsyncEventQueueFactory factory = cache.createAsyncEventQueueFactory();
+factory.setPersistent(true);
+factory.setDiskStoreName("diskStoreA");
+factory.setParallel(true);
+AsyncEventListener listener = new MyAsyncEventListener();
+AsyncEventQueue persistentAsyncQueue = factory.create("customerWB", listener);</codeblock></li>
+					<li>gfsh:<codeblock outputclass="language-bourne">gfsh>create async-event-queue --id="persistentAsyncQueue" --persistent=true 
+--disk-store="diskStoreA" --parallel=true --listener=MyAsyncEventListener 
+--listener-param=url#jdbc:db2:SAMPLE --listener-param=username#gfeadmin --listener-param=password#admin1</codeblock>
+					</li>
+				</ul>
+			</p>
+		</section>
+	</conbody>
+</concept>
