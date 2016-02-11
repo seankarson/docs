@@ -1942,6 +1942,26 @@
 							</entry>
 							<entry colname="col3">true </entry>
 						</row>
+						<row>
+							<entry>off-heap</entry>
+							<entry>
+								<p>Specifies that the region uses off-heap memory to store entry values, including values
+									for region entries and queue entries. The region will still use
+									heap memory for everything else, such as entry keys and the
+									ConcurrentHashMap.  </p>
+								<p>
+									<b>API:</b>
+									<codeph>setOffHeap</codeph>
+								</p>
+								<p>
+									<b>Example:</b>
+								</p>
+								<codeblock outputclass="language-xml">&lt;region-attributes 
+  off-heap="true"&gt;
+&lt;/region-attributes&gt;</codeblock>
+							</entry>
+							<entry colname="col3">false </entry>
+						</row>
 					</tbody>
 				</tgroup>
 			</table>
