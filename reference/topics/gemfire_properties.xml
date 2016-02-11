@@ -678,6 +678,12 @@
 						</entry>
 					</row>
 					<row>
+						<entry>lock-memory </entry>
+						<entry>When <codeph>true</codeph>, locks heap and off-heap memory pages into RAM to prevent
+							the operating system from swapping the pages out to disk.</entry>
+						<entry>false </entry>
+					</row>
+					<row>
 						<entry id="entry_tzl_mfp_rr">log-disk-space-limit </entry>
 						<entry id="entry_t4z_mfp_rr">Maximum size in megabytes of all inactive log
 							files combined. If this limit is exceeded, inactive log files are
