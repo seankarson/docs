@@ -3,11 +3,16 @@
 <dita>
 	<topic id="topic_9663C9448D2745B387FC08F84818DDEC">
 		<title>create</title>
-		<shortdesc>Create async-event-queues, disk-stores, indexes, and regions. </shortdesc>
+		<shortdesc>Create async-event-queues, disk-stores, gateway receivers, gateway senders, indexes,
+			and regions. </shortdesc>
 		<topic id="topic_ryz_pb1_dk">
 			<title>create async-event-queue</title>
-			<shortdesc>Creates an asynchronous event queue for batching events. </shortdesc>
+			<shortdesc>Creates an asynchronous event queue for batching events before they are delivered by a
+				gateway sender. </shortdesc>
 			<body>
+				<p>See <xref
+						href="../../../developing/events/configure_multisite_event_messaging.xml#configure_multisite_event_messaging"
+					/>.</p>
 				<p><b> Availability:</b> Online. You must be connected in <codeph>gfsh</codeph> to a
 					JMX Manager member to use this command.</p>
 				<p>
@@ -17,6 +22,8 @@
     [--batch-time-interval=value] [--persistent(=value)?] [--disk-store=value]
     [--disk-synchronous(=value)?] [--max-queue-memory=value]
     [--dispatcher-threads=value] [--order-policy=value]
+    [--gateway-event-filter=value(,value)*]
+    [--gateway-event-substitution-filter=value] 
     [--listener-param=value(,value)*]
 </codeblock>
 					<table id="table_jzz_pb1_dk">
@@ -86,9 +93,9 @@
 										<parmname>--persistent</parmname>
 									</entry>
 									<entry
-										conref="../../../reference/topics/cache_xml.xml#async-event-queue/entry_xsv_kl1_dk">
-										<p>If specified with out a value, default is true.</p>
-									</entry>
+										conref="../../../reference/topics/cache_xml.xml#async-event-queue/entry_xsv_kl1_dk"
+											><p>If specified with out a value, default is
+										true.</p></entry>
 									<entry>false<p>If specified with out a value, default is
 											true.</p></entry>
 								</row>
@@ -130,6 +137,20 @@
 										is > 1. Possible values are <codeph>THREAD</codeph>,
 											<codeph>KEY</codeph>, <codeph>PARTITION</codeph>. </entry>
 									<entry>KEY</entry>
+								</row>
+								<row>
+									<entry><parmname>--gateway-event-filter</parmname></entry>
+									<entry> List of fully qualified class names of
+										GatewayEventFilters for this queue. These classes filter
+										events before dispatching to remote servers.</entry>
+									<entry/>
+								</row>
+								<row>
+									<entry><parmname>--gateway-event-substitution-filter</parmname></entry>
+									<entry>Fully-qualified class name of the
+											<codeph>GatewayEventSubstitutionFilter</codeph> for this
+										queue.</entry>
+									<entry/>
 								</row>
 								<row>
 									<entry colname="col1">
@@ -229,8 +250,8 @@ Message : Region ' /r3' not found: from  /r3Occurred on following members
 		</topic>
 		<topic id="topic_bkn_zty_ck">
 			<title>create disk-store</title>
-			<shortdesc> Defines a pool of one or more disk stores, which can be used by regions and
-				client subscription queues. </shortdesc>
+			<shortdesc> Defines a pool of one or more disk stores, which can be used by regions and client
+				subscription queues, and gateway sender queues for WAN distribution. </shortdesc>
 			<body>
 				<p>See <xref href="../../../managing/disk_storage/chapter_overview.xml"
 					/></p>
@@ -389,6 +410,363 @@ Message : Region ' /r3' not found: from  /r3Occurred on following members
 Member  | Result
 ------- | -------
 server1 | Success</codeblock>
+				</p>
+			</body>
+		</topic>
+		<topic id="topic_a4x_pb1_dk">
+			<title>create gateway-receiver</title>
+			<shortdesc> Creates a gateway receiver. You can only have one gateway receiver on each
+				member, and unlike a gateway sender, you do not need to specify an identifier for
+				the gateway receiver .</shortdesc>
+			<body>
+				<p>See <xref
+						href="../../../topologies_and_comm/topology_concepts/multisite_overview.xml#topic_4DB3D9CF01AD4F4899457D1250468D00"
+					/>. </p>
+				<p><b> Availability:</b> Online. You must be connected in <codeph>gfsh</codeph> to a
+					JMX Manager member to use this command. </p>
+				<p>
+					<b>Syntax:</b>
+					<codeblock>create gateway-receiver [--group=value(,value)*] [--member=value(,value)*] 
+  [--manual-start=value] [--start-port=value] [--end-port=value] [--bind-address=value] 
+  [--maximum-time-between-pings=value] [--socket-buffer-size=value]
+  [--gateway-transport-filter=value(,value)*]
+</codeblock>
+					<table id="table_v4x_pb1_dk">
+						<title>Parameters</title>
+						<tgroup cols="3">
+							<colspec colname="col1" colnum="1" colwidth="1*"/>
+							<colspec colname="col2" colnum="2" colwidth="2.45*"/>
+							<colspec colname="newCol3" colnum="3" colwidth="1.32*"/>
+							<thead>
+								<row>
+									<entry colname="col1"> Name</entry>
+									<entry colname="col2">Description</entry>
+									<entry>Default Value</entry>
+								</row>
+							</thead>
+							<tbody>
+								<row>
+									<entry colname="col1">
+										<parmname>--group</parmname>
+									</entry>
+									<entry colname="col2">Gateway receivers are created on the
+										members of this group. </entry>
+									<entry/>
+								</row>
+								<row>
+									<entry colname="col1">
+										<parmname>--member</parmname>
+									</entry>
+									<entry colname="col2">Name of the distributed system member on
+										which to create the gateway receiver.</entry>
+									<entry/>
+								</row>
+								<row>
+									<entry colname="col1">
+										<parmname>--manual-start</parmname>
+									</entry>
+									<entry colname="col2">Boolean value that specifies whether you
+										need to manually start the gateway receiver. If you supply a
+										null value, the default is "true" and you will need to start
+										the gateway receiver manually. </entry>
+									<entry>true</entry>
+								</row>
+								<row>
+									<entry colname="col1">
+										<parmname>--start-port</parmname>
+									</entry>
+									<entry
+										conref="../../../reference/topics/gfe_cache_xml.xml#gateway-receiver/entry_yd2_ld1_dk"/>
+									<entry>5000</entry>
+								</row>
+								<row>
+									<entry colname="col1">
+										<parmname>--end-port</parmname>
+									</entry>
+									<entry
+										conref="../../../reference/topics/gfe_cache_xml.xml#gateway-receiver/entry_fkl_ld1_dk"/>
+									<entry>5500</entry>
+								</row>
+								<row>
+									<entry colname="col1">
+										<parmname>--bind-address</parmname>
+									</entry>
+									<entry
+										conref="../../../reference/topics/gfe_cache_xml.xml#gateway-receiver/entry_ecs_ld1_dk"/>
+									<entry/>
+								</row>
+								<row>
+									<entry colname="col1">
+										<parmname>--socket-buffer-size</parmname>
+									</entry>
+									<entry
+										conref="../../../reference/topics/gfe_cache_xml.xml#gateway-receiver/entry_ysw_531_dk"/>
+									<entry>32768</entry>
+								</row>
+								<row>
+									<entry colname="col1">
+										<parmname>--gateway-transport-filter</parmname>
+									</entry>
+									<entry colname="col2"> The fully qualified class name of the
+										GatewayTransportFilter to be added to the Gateway
+										receiver.</entry>
+									<entry/>
+								</row>
+								<row>
+									<entry colname="col1">
+										<parmname>--maximum-time-between-pings</parmname>
+									</entry>
+									<entry
+										conref="../../../reference/topics/gfe_cache_xml.xml#gateway-receiver/entry_dg1_md1_dk"/>
+									<entry>60000</entry>
+								</row>
+							</tbody>
+						</tgroup>
+					</table>
+				</p>
+				<p>
+					<b>Example Commands:</b>
+					<codeblock>gfsh>create gatweway-receiver --member=server1</codeblock>
+				</p>
+				<p>
+					<b>Sample Output:</b>
+				</p>
+				<p>
+					<codeblock>gfsh>create gateway-receiver --member=server1
+Member  | Status
+------- | ---------------------------------------------------------------------------
+server1 | GatewayReceiver created on member "server1" and will listen on the port "0"
+
+</codeblock>
+				</p>
+			</body>
+		</topic>
+		<topic id="topic_hg2_bjz_ck">
+			<title>create gateway-sender</title>
+			<shortdesc> Creates a gateway sender on one or more members of a distributed
+				system.</shortdesc>
+			<body>
+				<p>See <xref
+						href="../../../topologies_and_comm/topology_concepts/multisite_overview.xml#topic_9AA37B43642D4DE19072CA3367C849BA"
+					/>. </p>
+				<p>
+					<note>The gateway sender configuration for a specific sender <codeph>id</codeph>
+						must be identical on each <keyword keyref="product_name"/> member that hosts
+						the gateway sender. </note>
+				</p>
+				<p><b> Availability:</b> Online. You must be connected in <codeph>gfsh</codeph> to a
+					JMX Manager member to use this command. </p>
+				<p>
+					<b>Syntax:</b>
+					<codeblock>create gateway-sender --id=value --remote-distributed-system-id=value 
+   [--group=value(,value)*] [--member=value(,value)*] [--parallel=value] 
+   [--manual-start=value] [--socket-buffer-size=value] [--socket-read-timeout=value] 
+   [--enable-batch-conflation=value] [--batch-size=value] [--batch-time-interval=value]
+   [--enable-persistence=value] [--disk-store-name=value] [--disk-synchronous=value] 
+   [--maximum-queue-memory=value] [--alert-threshold=value] [--dispatcher-threads=value] 
+   [--order-policy=value][--gateway-event-filter=value(,value)*] 
+   [--gateway-transport-filter=value(,value)*]
+
+</codeblock>
+					<table id="table_ah2_bjz_ck">
+						<title>Parameters</title>
+						<tgroup cols="3">
+							<colspec colname="col1" colnum="1" colwidth="1*"/>
+							<colspec colname="col2" colnum="2" colwidth="2.89*"/>
+							<colspec colname="newCol3" colnum="3" colwidth="1.75*"/>
+							<thead>
+								<row>
+									<entry colname="col1"> Name</entry>
+									<entry colname="col2">Description</entry>
+									<entry>Default</entry>
+								</row>
+							</thead>
+							<tbody>
+								<row>
+									<entry colname="col1">
+										<parmname>--id</parmname>
+									</entry>
+									<entry><i>Required.</i> Unique identifier for the gateway
+										sender, usually an identifier associated with a physical
+										location.</entry>
+									<entry/>
+								</row>
+								<row>
+									<entry colname="col1">
+										<parmname>--remote-distributed-system-id</parmname>
+									</entry>
+									<entry><i>Required.</i> ID of the remote distributed system
+										where this gateway sender sends events.</entry>
+									<entry/>
+								</row>
+								<row>
+									<entry colname="col1">
+										<parmname>--group</parmname>
+									</entry>
+									<entry colname="col2">Gateway senders are created on the members
+										of this group.</entry>
+									<entry/>
+								</row>
+								<row>
+									<entry colname="col1">
+										<parmname>--member</parmname>
+									</entry>
+									<entry colname="col2">Name of the distributed system member on
+										which to create the gateway sender. </entry>
+									<entry/>
+								</row>
+								<row>
+									<entry colname="col1">
+										<parmname>--parallel</parmname>
+									</entry>
+									<entry>When set to true, specifies a parallel Gateway
+										Sender.</entry>
+									<entry>false</entry>
+								</row>
+								<row>
+									<entry colname="col1">
+										<parmname>--enable-batch-conflation</parmname>
+									</entry>
+									<entry
+										conref="../../../reference/topics/gfe_cache_xml.xml#gateway-sender/entry_qp4_llz_ck"/>
+									<entry>false</entry>
+								</row>
+								<row>
+									<entry colname="col1">
+										<parmname>--manual-start</parmname>
+									</entry>
+									<entry
+										conref="../../../reference/topics/gfe_cache_xml.xml#gateway-sender/entry_yct_mlz_ck"/>
+									<entry>false</entry>
+								</row>
+								<row>
+									<entry colname="col1">
+										<parmname>--socket-buffer-size</parmname>
+									</entry>
+									<entry
+										conref="../../../reference/topics/gfe_cache_xml.xml#gateway-sender/entry_ol4_mlz_ck"/>
+									<entry>32768</entry>
+								</row>
+								<row>
+									<entry colname="col1">
+										<parmname>--socket-read-timeout</parmname>
+									</entry>
+									<entry
+										conref="../../../reference/topics/gfe_cache_xml.xml#gateway-sender/entry_ofj_mlz_ck"/>
+									<entry>0</entry>
+								</row>
+								<row>
+									<entry colname="col1">
+										<parmname>--batch-size</parmname>
+									</entry>
+									<entry
+										conref="../../../reference/topics/gfe_cache_xml.xml#gateway-sender/entry_unn_4lz_ck"/>
+									<entry>100</entry>
+								</row>
+								<row>
+									<entry colname="col1">
+										<parmname>--batch-time-interval</parmname>
+									</entry>
+									<entry
+										conref="../../../reference/topics/gfe_cache_xml.xml#gateway-sender/entry_ynt_4lz_ck"/>
+									<entry>1000</entry>
+								</row>
+								<row>
+									<entry colname="col1">
+										<parmname>--enable-persistence</parmname>
+									</entry>
+									<entry
+										conref="../../../reference/topics/gfe_cache_xml.xml#gateway-sender/entry_vty_4lz_ck"/>
+									<entry>false</entry>
+								</row>
+								<row>
+									<entry colname="col1">
+										<parmname>--disk-store-name</parmname>
+									</entry>
+									<entry
+										conref="../../../reference/topics/gfe_cache_xml.xml#gateway-sender/entry_icd_plz_ck"/>
+									<entry/>
+								</row>
+								<row>
+									<entry colname="col1">
+										<parmname>--disk-synchronous</parmname>
+									</entry>
+									<entry
+										conref="../../../reference/topics/gfe_cache_xml.xml#gateway-sender/entry_kmz_cnz_ck"/>
+									<entry>true</entry>
+								</row>
+								<row>
+									<entry colname="col1">
+										<parmname>--maximum-queue-memory</parmname>
+									</entry>
+									<entry
+										conref="../../../reference/topics/gfe_cache_xml.xml#gateway-sender/entry_om3_dnz_ck"/>
+									<entry>100 MB</entry>
+								</row>
+								<row>
+									<entry colname="col1">
+										<parmname>--alert-threshold</parmname>
+									</entry>
+									<entry
+										conref="../../../reference/topics/gfe_cache_xml.xml#gateway-sender/entry_ztr_plz_ck"/>
+									<entry>0</entry>
+								</row>
+								<row>
+									<entry colname="col1">
+										<parmname>--dispatcher-threads</parmname>
+									</entry>
+									<entry
+										conref="../../../reference/topics/gfe_cache_xml.xml#gateway-sender/entry_zqz_jlz_ck"/>
+									<entry>5</entry>
+								</row>
+								<row>
+									<entry colname="col1">
+										<parmname>--order-policy</parmname>
+									</entry>
+									<entry
+										conref="../../../reference/topics/gfe_cache_xml.xml#gateway-sender/entry_hg3_klz_ck"/>
+									<entry>key</entry>
+								</row>
+								<row>
+									<entry colname="col1">
+										<parmname>--gateway-event-filter</parmname>
+									</entry>
+									<entry colname="col2">A list of fully-qualified class names of
+										GatewayEventFilters (separated by comma) to be associated
+										with the GatewaySender. This serves as a callback for users
+										to filter out events before dispatching to remote
+										distributed system. For example:
+										<codeblock>gateway-event-filter=com.user.filters.MyFilter1,com.user.filters.MyFilters2</codeblock></entry>
+									<entry/>
+								</row>
+								<row>
+									<entry colname="col1">
+										<parmname>--gateway-transport-filter</parmname>
+									</entry>
+									<entry colname="col2"> The fully-qualified class name of the
+										GatewayTransportFilter to be added to the
+										GatewaySender.</entry>
+									<entry/>
+								</row>
+							</tbody>
+						</tgroup>
+					</table>
+				</p>
+				<p>
+					<b>Example Commands:</b>
+					<codeblock>gfsh>create gateway-sender --remote-distributed-system-id="2" --id="sender2"
+</codeblock>
+				</p>
+				<p>
+					<b>Sample Output:</b>
+				</p>
+				<p>
+					<codeblock>gfsh>create gateway-sender --remote-distributed-system-id="2" --id="sender2"
+Member  | Status
+------- | --------------------------------------------
+server1 | GatewaySender "sender2" created on "server1"
+
+</codeblock>
 				</p>
 			</body>
 		</topic>
@@ -774,6 +1152,12 @@ Occurred on following members
 								</entry>
 								<entry colname="col2"> IDs of the Async Event Queues that will be
 									used for write-behind operations. </entry>
+								<entry/>
+							</row>
+							<row>
+								<entry><parmname>--gateway-sender-id</parmname></entry>
+								<entry>IDs of the Gateway Senders to which data will be
+									routed.</entry>
 								<entry/>
 							</row>
 							<row>
