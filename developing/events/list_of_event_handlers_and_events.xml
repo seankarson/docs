@@ -99,6 +99,14 @@
 									(graceful exit). </entry>
 							</row>
 							<row>
+								<entry><codeph>CqListener</codeph></entry>
+								<entry><codeph>CqEvent</codeph></entry>
+								<entry>Receives events from the server cache that satisfy a
+									client-specified query. Extends <codeph>CacheCallback</codeph>
+									interface. Installed in the client inside a
+										<codeph>CqQuery</codeph>. </entry>
+							</row>
+							<row>
 								<entry><codeph>GatewayConflictResolver</codeph></entry>
 								<entry><codeph>TimestampedEntryEvent</codeph></entry>
 								<entry>Decides whether to apply a potentially conflicting event to a
@@ -113,13 +121,12 @@
 								<entry>
 									<codeph>MembershipEvent</codeph>
 								</entry>
-								<entry>One of the interfaces that replaces the deprecated Admin
-									APIs. You can use the to receive membership events only about
-									peers. This listener's callback methods are invoked when peer
-									members join or leave the <keyword keyref="product_name"/> distributed system. Callback
-									methods include <codeph>memberCrashed</codeph>,
-										<codeph>memberJoined</codeph>, <codeph>memberLeft</codeph>
-									(graceful exit).</entry>
+								<entry>Use this interface to receive membership events only about peers. This listener's
+									callback methods are invoked when peer members join or leave the
+										<keyword keyref="product_name"/> distributed system.
+									Callback methods include <codeph>memberCrashed</codeph>,
+										<codeph>memberJoined</codeph>, and
+										<codeph>memberLeft</codeph> (graceful exit).</entry>
 							</row>
 							<row>
 								<entry>
@@ -241,6 +248,13 @@
 							<entry>An event delivered to a <codeph>ClientMembershipListener</codeph>
 								when this process detects connection changes to servers or
 								clients.</entry>
+						</row>
+						<row>
+							<entry><codeph>CqEvent</codeph></entry>
+							<entry><codeph>CqListener</codeph></entry>
+							<entry>Provides information about a change to the results of a
+								continuous query running on a server on behalf of a client.
+									<codeph>CqEvent</codeph>s are processed on the client. </entry>
 						</row>
 						<row>
 							<entry>

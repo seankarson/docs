@@ -150,30 +150,30 @@
 		</section>
 		<section id="section_DE1CC494C2B547B083AA00821250972A">
 			<title>Monitor and Tune Heap LRU Configurations</title>
-			<p>In tuning the resource manager, your central focus should be keeping the member below
-				the critical threshold. The critical threshold is provided to avoid member hangs and
-				crashes, but because of its exception throwing behavior for distributed updates, the
-				time spent in critical negatively impacts the entire distributed system. To stay
-				below critical, tune so that the <keyword keyref="product_name"/> eviction and the
-				JVM's GC respond adequately when the eviction threshold is reached. </p>
+			<p>In tuning the resource manager, your central focus should be keeping the member below the
+				critical threshold. Although the critical threshold helps avoid member hangs and
+				crashes, a member in the critical state negatively impacts the entire distributed
+				system's performance because it throws exceptions for distributed updates. To stay
+				below the critical threshold, tune so that the <keyword keyref="product_name"/>
+				eviction and the JVM's GC respond adequately when the eviction threshold is reached. </p>
 			<p>Use the statistics provided by your JVM to make sure your memory and GC settings are
 				sufficient for your needs. </p>
 			<p>The <keyword keyref="product_name"/>
 				<codeph>ResourceManagerStats</codeph> provide information about memory use and the
 				manager thresholds and eviction activities. </p>
-			<p>If you are spiking above the critical threshold on a regular basis, try lowering the
-				eviction threshold. If you never go near critical, you might raise the eviction
-				threshold to gain more usable memory without the overhead of unneeded evictions or
-				GC cycles. </p>
+			<p>If your application is spiking above the critical threshold on a regular basis, try lowering
+				the eviction threshold. If the application never goes near the critical threshold,
+				you might raise the eviction threshold to gain more usable memory without the
+				overhead of unneeded evictions or GC cycles. </p>
 			<p>The settings that will work well for your system depend on a number of factors,
 				including these: <ul id="ul_20162307E6494A3EAF3A7003D8D4B4D6">
-					<li id="li_5C12E3176B9149BD9337595810EA998B">The size of the data objects you
-						store in the cache. Very large data objects can be evicted and garbage
+					<li id="li_5C12E3176B9149BD9337595810EA998B">The size of the data objects your application
+						stores in the cache. Very large data objects can be evicted and garbage
 						collected relatively quickly. The same amount of space in use by many small
 						objects takes more processing effort to clear and might require lower
 						thresholds to allow eviction and GC activities to keep up. </li>
-					<li id="li_B0ADFB5F2B9D46DBA3931C69F13DE726">Application behavior. Applications
-						that quickly put a lot of data into the cache can more easily overrun the
+					<li id="li_B0ADFB5F2B9D46DBA3931C69F13DE726">Application update frequency. Applications that
+						quickly put a lot of data into the cache can more easily overrun the
 						eviction and GC capabilities. Applications that operate more slowly may be
 						more easily offset by eviction and GC efforts, possibly allowing you to set
 						your thresholds higher than in the more volatile system. </li>
@@ -182,19 +182,18 @@
 						operate, how quickly it kicks in when needed, and other factors. </li>
 				</ul>
 			</p>
-			<p>In this sample statistics chart in VSD, the manager's evictions and the JVM's GC
-				efforts are good enough to keep heap use very close to the eviction threshold. The
-				eviction threshold could be increased to a setting closer to the critical threshold,
-				allowing the member to keep more data in tenured memory without the risk of
-				overwhelming the JVM. This chart also shows the blocks of times when the manager was
-				running cache evictions. </p>
+			<p>In this sample statistics chart in VSD, the manager's evictions and the JVM's GC efforts are
+				good enough to keep heap use very close to the eviction threshold. The eviction
+				threshold could be increased to a setting closer to the critical threshold, allowing
+				the member to keep more data in tenured memory without the risk of overwhelming the
+				JVM. This chart also shows when the manager was running cache evictions. </p>
 			<image href="../../images/DataManagement-10.gif"
 				id="image_2943FAA725374674AAD9ED280923440F" placement="break"/>
-			<p>In this next chart, it looks like the manager's evictions are kicking in at the right
-				time, but the concurrent mark sweep GC is not starting soon enough to keep memory
-				use in check. It might be that it is not configured to start as soon as it should.
-				It should be started just before the eviction threshold is reached. Or there might
-				be some other issue with the garbage collection service. </p>
+			<p>In this next chart, it looks like the manager's evictions are kicking in at the right time,
+				but the concurrent mark sweep GC is not starting soon enough to keep memory use in
+				check. It might be that it is not configured to start as soon as it should. GC
+				should be started just before the eviction threshold is reached. Or there might be
+				some other issue with the garbage collection service. </p>
 			<image href="../../images/DataManagement-11.gif"
 				id="image_A16112A8AA3847C195D7CFFC7F9FDB23" placement="break"/>
 		</section>

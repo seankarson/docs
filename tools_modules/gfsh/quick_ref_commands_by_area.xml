@@ -493,7 +493,7 @@
 		</body>
 	</topic>
 	<topic id="topic_10613D4850F04A3EB507F6B441AD3413">
-		<title>Durable Client Commands</title>
+		<title>Durable CQ and  Client Commands</title>
 		<body>
 			<table frame="all" id="table_kqb_mz1_3l">
 				<title> Commands</title>
@@ -510,10 +510,33 @@
 					</thead>
 					<tbody>
 						<row>
-							<entry><codeph>close durable-client</codeph></entry>
-							<entry>Attempts to close the durable client. The client must be
-								disconnected.</entry>
+							<entry><xref href="command-pages/list.xml#topic_66016A698C334F4EBA19B99F51B0204B"/></entry>
+							<entry>List durable client CQs associated with the specified durable client id.</entry>
 							<entry>online </entry>
+						</row>
+						<row>
+							<entry><xref
+									href="command-pages/close.xml#topic_1BC15B3132BA480DB227921A9B3ABDD1"
+								/></entry>
+							<entry>Closes the durable CQ registered by the durable client and drain
+								events held for the durable CQ from the subscription queue.</entry>
+							<entry>online</entry>
+						</row>
+						<row>
+							<entry><xref
+									href="command-pages/close.xml#topic_4125AAAB9FE44CD787166E48B694C41D"
+								/></entry>
+							<entry>Attempts to close the durable client. The client must be disconnected.</entry>
+							<entry>online</entry>
+						</row>
+						<row>
+							<entry><xref
+									href="command-pages/show.xml#topic_395C96B500AD430CBF3D3C8886A4CD2E"
+								/></entry>
+							<entry>Shows the number of events in the subscription queue. If a CQ name is provided, it
+								counts the number of events in the subscription queue for the
+								specified CQ.</entry>
+							<entry>online</entry>
 						</row>
 					</tbody>
 				</tgroup>

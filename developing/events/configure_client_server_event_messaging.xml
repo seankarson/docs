@@ -67,6 +67,15 @@ region1.registerInterestRegex("[a-zA-Z]+_[0-9]+"); </codeblock>
 										format="dita" scope="local"/>. </li>
 								<li id="li_3F23BA50904149539D1A533B27FF940B">To have events enqueued for your clients during
 									client downtime, configure durable client/server messaging. </li>
+								<li>Write any continuous queries (CQs) that you want to run to
+									receive continuously streaming updates to client queries. CQ
+									events do not update the client cache. If you have dependencies
+									between CQs and/or interest registrations, so that you want the
+									two types of subscription events to arrive as closely together
+									on the client, use a single server pool for everything. Using
+									different pools can lead to time differences in the delivery of
+									events because the pools might use different servers to process
+									and deliver the event messages. </li>
 							</ol>
 						</p></li>
 				</ol>
