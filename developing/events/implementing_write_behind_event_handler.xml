@@ -202,7 +202,7 @@
 							<codeph>AsyncEventQueue</codeph> with the name of your listener
 						implementation. You can optionally configure the queue for parallel
 						operation, persistence, batch size, and maximum memory size. See <xref
-							href="../../reference/topics/elements_ref.xml#topic_7B1CABCAD056499AA57AF3CFDBF8ABE3/li_6F17A9E253DB488F9E565F790D9808BF"
+							href="../../reference/topics/elements_ref.xml#topic_7B1CABCAD056499AA57AF3CFDBF8ABE3"
 							>WAN Configuration</xref> for more information. <p><b>gfsh
 								configuration</b><codeblock>gfsh>create async-event-queue --id=sampleQueue --persistent --disk-store=exampleStore --listener=com.myCompany.MyAsyncEventListener --listener-param=url#jdbc:db2:SAMPLE,username#gfeadmin,password#admin1</codeblock>The
 							parameters for this command uses the following
