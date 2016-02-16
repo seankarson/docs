@@ -31,6 +31,9 @@
 						href="using_disk_stores.xml#defining_disk_stores/section_AFB254CA9C5A494A8E335352A6849C16"
 						type="section" format="dita" scope="local"/>
 				</li>
+				<li><xref 
+					href="using_disk_stores.xml#defining_disk_stores/config-disk-store-gateway"
+					type="section" format="dita" scope="local"/></li>
 			</ul>
 		</p>
 		<section id="section_0CD724A12EE4418587046AAD9EEC59C5">
@@ -186,23 +189,6 @@
 						href="../../configuring/cluster_config/gfsh_persist.xml"
 					/>.</note>
 			</p>
-			<table frame="all" id="table_90850e59-9601-4714-a305-1f2ba839c04b">
-				<tgroup cols="1">
-					<colspec colname="topic_link" colnum="1"/>
-					<thead>
-						<row>
-							<entry>Related Topics </entry>
-						</row>
-					</thead>
-					<tbody>
-						<row>
-							<entry>
-								<codeph>com.gemstone.gemfire.cache.DiskStore</codeph>
-							</entry>
-						</row>
-					</tbody>
-				</tgroup>
-			</table>
 		</section>
 		<section>
 			<title>Modifying Disk Stores</title>
@@ -234,38 +220,41 @@
     persistent="true" 
     disk-store-name="SerializationDiskStore"&gt;
 &lt;/pdx&gt;</codeblock>
-			<table frame="all" id="table_C83F7CA128204781B52961392EBBB13B">
-				<tgroup cols="1">
-					<colspec colname="topic_link" colnum="1"/>
-					<thead>
-						<row>
-							<entry>Related Topics </entry>
-						</row>
-					</thead>
-					<tbody>
-						<row>
-							<entry>
-								<xref href="../../reference/topics/cache_xml.xml#region-attributes"
-								/>
-							</entry>
-						</row>
-						<row>
-							<entry>
-								<xref
-									href="../../reference/topics/chapter_overview_cache_xml.xml#cache_xml"
-								/>
-							</entry>
-						</row>
-						<row>
-							<entry>
-								<xref
-									href="../../developing/data_serialization/chapter_overview.xml#data_serialization"
-									type="concept" format="dita" scope="local"/>
-							</entry>
-						</row>
-					</tbody>
-				</tgroup>
-			</table>
 		</section>
+		
+		
+		<section id="config-disk-store-gateway">
+			<title>Configuring Disk Stores on Gateway Senders</title>
+			<p>Gateway sender queues are always overflowed and may be persisted. Assign them to
+				overflow disk stores if you do not persist, and to persistence disk stores if you
+				do. </p>
+			<p>Example of using a named disk store for gateway sender queue persistence: </p>
+			<ul id="ul_zk1_c23_1v">
+				<li>gfsh:<codeblock>gfsh>create gateway-sender --id=persistedSender1 --remote-distributed-system-id=1 \
+--enable-persistence=true --disk-store-name=diskStoreA --maximum-queue-memory=100  </codeblock></li>
+				<li>cache.xml:<codeblock>&lt;cache&gt;
+  &lt;gateway-sender id="persistedsender1" parallel="true" 
+   remote-distributed-system-id="1"
+   enable-persistence="true"
+   disk-store-name="diskStoreA"
+   maximum-queue-memory="100"/&gt; 
+   ... 
+&lt;/cache&gt;</codeblock></li>
+			</ul>
+			<p>Examples of using the default disk store for gateway sender queue persistence and
+				overflow:</p>
+			<ul id="ul_al1_c23_1v">
+				<li>gfsh:<codeblock>gfsh>create gateway-sender --id=persistedSender1 --remote-distributed-system-id=1 \
+--enable-persistence=true --maximum-queue-memory=100 </codeblock></li>
+				<li>cache.xml:<codeblock>&lt;cache&gt;
+  &lt;gateway-sender id="persistedsender1" parallel="true" 
+   remote-distributed-system-id="1"
+   enable-persistence="true"
+   maximum-queue-memory="100"/&gt; 
+   ... 
+&lt;/cache&gt;</codeblock></li>
+			</ul>
+		</section>
+		
 	</conbody>
 </concept>
