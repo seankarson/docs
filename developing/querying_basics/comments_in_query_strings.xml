@@ -7,14 +7,15 @@
   <prolog>
     <metadata>
       <keywords>
-        <keyword>gemfire query comments</keyword>
+        <keyword>OQL query comments</keyword>
       </keywords>
     </metadata>
   </prolog>
   <conbody>
     <p>Comment lines being with -- (double dash). Comment blocks begin with /* and end with */. For
       example:
-      <codeblock>SELECT * --my comment FROM /exampleRegion /* here is
+      <codeblock>SELECT * --my comment 
+FROM /exampleRegion /* here is
 a comment */ WHERE status = ‘active’
 </codeblock>
     </p>

@@ -79,5 +79,12 @@
 					href="../../images_svg/developing_persistence_and_overflow.svg"/>
 			</p>
 		</section>
+		<section>
+			<title>Persistence and Multi-Site Configurations</title>
+			<p>Multi-site gateway sender queues overflow most recently used (MRU) entries. These are
+				the messages that are at the end of the queue and so are last in line to be sent to
+				the remote site. You can also configure gateway sender queues to persist for high
+				availability. </p>
+		</section>
 	</conbody>
 </concept>

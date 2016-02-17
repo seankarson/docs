@@ -23,10 +23,11 @@
 			<p>
 				<b>Procedure</b>
 				<ol id="ol_b6d69a56-78de-4f9e-88de-5d8c6b1b0ddd">
-					<li id="li_29376F34C6C1410AA1878A6303E19D4E">Set the
-							<codeph>&lt;pdx&gt;</codeph> attribute <codeph>persistent</codeph> to
-						true in your cache configuration. This is required for caches that use PDX
-						with persistent regions. Otherwise, it is optional. </li>
+					<li id="li_29376F34C6C1410AA1878A6303E19D4E">Set the <codeph>&lt;pdx&gt;</codeph> attribute
+							<codeph>persistent</codeph> to true in your cache configuration. This is
+						required for caches that use PDX with persistent regions and with regions
+						that use a gateway sender to distribute events across a WAN.. Otherwise, it
+						is optional. </li>
 					<li id="li_6EC2C073FA8F48D7AE392DB6662A5E1D">(Optional) If you want to use a
 						disk store that is not the <keyword keyref="product_name"/> default disk
 						store, set the <codeph>&lt;pdx&gt;</codeph> attribute
@@ -56,28 +57,6 @@
   &lt;region ...
 </codeblock>
 			</p>
-			<p>
-				<table frame="all" id="table_713A82A94B4544B3A86D9193F1015E3C">
-					<tgroup cols="1">
-						<colspec colname="topic_link" colnum="1"/>
-						<thead>
-							<row>
-								<entry>Related Topics </entry>
-							</row>
-						</thead>
-						<tbody>
-							<row>
-								<entry>
-									<xref
-										href="../storing_data_on_disk/storing_data_on_disk.xml"
-										type="concept" format="dita" scope="local"/>
-								</entry>
-							</row>
-						</tbody>
-					</tgroup>
-				</table>
-			</p>
-			<p> </p>
 		</section>
 	</conbody>
 </concept>
