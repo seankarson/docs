@@ -5195,6 +5195,140 @@
 			</p>
 		</body>
 	</topic>
+	<topic id="section_C4199A541B1F4B82B6178C416C0FAE4B">
+		<title>Gateway Queue (GatewayStatistics)</title>
+		<body>
+			<p>These statistics are for outgoing gateway queue and its connection. The primary
+				statistics are: </p>
+			<p>
+				<table id="table_83F17708AC6C4EA5A4EC6B5318029CD1">
+					<tgroup cols="2">
+						<colspec colname="1" colnum="1" colwidth="*"/>
+						<colspec colname="2" colnum="2" colwidth="*"/>
+						<thead>
+							<row>
+								<entry>Statistic </entry>
+								<entry>Description </entry>
+							</row>
+						</thead>
+						<tbody>
+							<row>
+								<entry>
+									<codeph>batchDistributionTime</codeph>
+								</entry>
+								<entry>Total time, in nanoseconds, spent distributing batches of
+									events to other gateways. </entry>
+							</row>
+							<row>
+								<entry>
+									<codeph>batchesDistributed</codeph>
+								</entry>
+								<entry>Number of batches of events operations removed from the event
+									queue and sent. </entry>
+							</row>
+							<row>
+								<entry>
+									<codeph>batchesRedistributed</codeph>
+								</entry>
+								<entry>Number of batches of events operations removed from the event
+									queue and resent. </entry>
+							</row>
+							<row>
+								<entry>
+									<codeph>eventQueueSize</codeph>
+								</entry>
+								<entry>Size of the event operations queue. </entry>
+							</row>
+							<row>
+								<entry>
+									<codeph>eventQueueTime</codeph>
+								</entry>
+								<entry>Total time, in nanoseconds, spent queueing events. </entry>
+							</row>
+							<row>
+								<entry>
+									<codeph>eventsDistributed</codeph>
+								</entry>
+								<entry>Number of events operations removed from the event queue and
+									sent. </entry>
+							</row>
+							<row>
+								<entry>
+									<codeph>eventsNotQueuedConflated</codeph>
+								</entry>
+								<entry>Number of events operations received but not added to the
+									event queue because the queue already contains an event with the
+									event's key. </entry>
+							</row>
+							<row>
+								<entry>
+									<codeph>eventsQueued</codeph>
+								</entry>
+								<entry>Number of events operations added to the event queue.
+								</entry>
+							</row>
+							<row>
+								<entry>
+									<codeph>unprocessedEventMapSize</codeph>
+								</entry>
+								<entry>Current number of events entries in the secondary's
+									unprocessed event map. </entry>
+							</row>
+							<row>
+								<entry>
+									<codeph>unprocessedEventsAddedBySecondary</codeph>
+								</entry>
+								<entry>Number of events added to the secondary's unprocessed event
+									map by the secondary. </entry>
+							</row>
+							<row>
+								<entry>
+									<codeph>unprocessedEventsRemovedByPrimary</codeph>
+								</entry>
+								<entry>Number of events removed through a listener from the
+									secondary's unprocessed event map by the primary. </entry>
+							</row>
+							<row>
+								<entry>
+									<codeph>unprocessedEventsRemovedByTimeout</codeph>
+								</entry>
+								<entry>Number of events removed from the secondary's unprocessed
+									event map by a timeout. </entry>
+							</row>
+							<row>
+								<entry>
+									<codeph>unprocessedTokenMapSize</codeph>
+								</entry>
+								<entry>Current number of tokens entries in the secondary's
+									unprocessed token map. </entry>
+							</row>
+							<row>
+								<entry>
+									<codeph>unprocessedTokensAddedByPrimary</codeph>
+								</entry>
+								<entry>Number of tokens added through a listener to the secondary's
+									unprocessed token map by the primary. </entry>
+							</row>
+							<row>
+								<entry>
+									<codeph>unprocessedTokensRemovedBySecondary</codeph>
+								</entry>
+								<entry>Number of tokens removed from the secondary's unprocessed
+									token map by the secondary. </entry>
+							</row>
+							<row>
+								<entry>
+									<codeph>unprocessedTokensRemovedByTimeout</codeph>
+								</entry>
+								<entry>Number of tokens removed from the secondary's unprocessed
+									token map by a timeout. </entry>
+							</row>
+						</tbody>
+					</tgroup>
+				</table>
+			</p>
+		</body>
+	</topic>
 	<topic id="section_86A61860024B480592DAC67FFB882538">
 		<title>Indexes (IndexStats)</title>
 		<body>
