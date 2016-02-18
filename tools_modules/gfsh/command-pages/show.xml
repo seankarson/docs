@@ -245,6 +245,8 @@ query     | queryRequestRate      | 0
 			<title>show subscription-queue-size</title>
 			<shortdesc>Shows the number of events in the subscription queue. </shortdesc>
 			<body>
+ 				<p>If a CQ name is provided, it counts the number of events in the subscription
+                                        queue for the specified CQ. </p>
 				<p><b>Availability:</b> Online. You must be connected in <codeph>gfsh</codeph> to a
 					JMX Manager member to use this command. </p>
 				<p><b>Syntax:</b>
@@ -269,6 +271,11 @@ query     | queryRequestRate      | 0
 									<entry colname="col2"><i>Required. </i>The ID used to identify
 										the durable client. </entry>
 								</row>
+<row>
+                                                                        <entry colname="col1"><parmname>--durable-cq-name
+                                                                                </parmname></entry>
+                                                                        <entry colname="col2">The name that identifies the CQ. </entry>
+                                                                </row>
 								<row>
 									<entry colname="col1"><parmname>--member </parmname></entry>
 									<entry colname="col2">Name/Id of the member for which

@@ -1,0 +1,192 @@
+<?xml version="1.0"?>
+<!DOCTYPE dita PUBLIC "-//OASIS//DTD DITA Composite//EN" "ditabase.dtd">
+<dita>
+	<topic id="mbean_notifications_list">
+		<title>List of JMX MBean Notifications</title>
+		<shortdesc>This topic lists all available JMX notifications emitted by <keyword
+				keyref="product_name"/> MBeans. </shortdesc>
+		<body>
+			<p> Notifications are emitted by the following MBeans: </p>
+		</body>
+	</topic>
+	<reference id="reference_czt_hq2_vj">
+		<title>MemberMXBean Notifications</title>
+		<refbody>
+			<properties id="properties_oh1_32v_wj">
+				<prophead>
+					<proptypehd>Notification Type</proptypehd>
+					<propvaluehd>Notification Source</propvaluehd>
+					<propdeschd>Message</propdeschd>
+				</prophead>
+				<property>
+					<proptype>gemfire.distributedsystem.cache.region.created</proptype>
+					<propvalue>Member name or ID</propvalue>
+					<propdesc>Region Created with Name &lt;Region Name&gt;</propdesc>
+				</property>
+				<property>
+					<proptype>gemfire.distributedsystem.cache.region.closed</proptype>
+					<propvalue>Member name or ID</propvalue>
+					<propdesc>Region Destroyed/Closed with Name &lt;Region Name&gt;</propdesc>
+				</property>
+				<property>
+					<proptype>gemfire.distributedsystem.cache.disk.created</proptype>
+					<propvalue>Member name or ID</propvalue>
+					<propdesc>DiskStore Created with Name &lt;DiskStore Name&gt;</propdesc>
+				</property>
+				<property>
+					<proptype>gemfire.distributedsystem.cache.disk.closed</proptype>
+					<propvalue>Member name or ID</propvalue>
+					<propdesc>DiskStore Destroyed/Closed with Name &lt;DiskStore Name&gt;</propdesc>
+				</property>
+				<property>
+					<proptype>gemfire.distributedsystem.cache.lockservice.created</proptype>
+					<propvalue>Member name or ID</propvalue>
+					<propdesc>LockService Created with Name &lt;LockService Name&gt;</propdesc>
+				</property>
+				<property>
+					<proptype>gemfire.distributedsystem.cache.lockservice.closed</proptype>
+					<propvalue>Member name or ID</propvalue>
+					<propdesc>Lockservice Closed with Name &lt;LockService Name&gt;</propdesc>
+				</property>
+				<property>
+					<proptype>gemfire.distributedsystem.async.event.queue.created</proptype>
+					<propvalue>Member name or ID</propvalue>
+					<propdesc>Async Event Queue is Created in the VM</propdesc>
+				</property>
+				<property>
+					<proptype>gemfire.distributedsystem.cache.server.started</proptype>
+					<propvalue>Member name or ID</propvalue>
+					<propdesc>Cache Server is Started in the VM</propdesc>
+				</property>
+				<property>
+					<proptype>gemfire.distributedsystem.cache.server.stopped</proptype>
+					<propvalue>Member name or ID</propvalue>
+					<propdesc>Cache Server is stopped in the VM</propdesc>
+				</property>
+				<property>
+					<proptype>gemfire.distributedsystem.locator.started</proptype>
+					<propvalue>Member name or ID</propvalue>
+					<propdesc>Locator is Started in the VM</propdesc>
+				</property>
+			</properties>
+		</refbody>
+	</reference>
+	<reference id="reference_dzt_hq2_vj">
+		<title>MemberMXBean Gateway Notifications</title>
+		<refbody>
+			<properties id="properties_oh1_32v_wj">
+				<prophead>
+					<proptypehd>Notification Type</proptypehd>
+					<propvaluehd>Notification Source</propvaluehd>
+					<propdeschd>Message</propdeschd>
+				</prophead>
+				<property>
+					<proptype>gemfire.distributedsystem.gateway.sender.created</proptype>
+					<propvalue>Member name or ID</propvalue>
+					<propdesc>GatewaySender Created in the VM</propdesc>
+				</property>
+				<property>
+					<proptype>gemfire.distributedsystem.gateway.sender.started</proptype>
+					<propvalue>Member name or ID</propvalue>
+					<propdesc>GatewaySender Started in the VM &lt;Sender Id&gt;</propdesc>
+				</property>
+				<property>
+					<proptype>gemfire.distributedsystem.gateway.sender.stopped</proptype>
+					<propvalue>Member name or ID</propvalue>
+					<propdesc>GatewaySender Stopped in the VM &lt;Sender Id&gt;</propdesc>
+				</property>
+				<property>
+					<proptype>gemfire.distributedsystem.gateway.sender.paused</proptype>
+					<propvalue>Member name or ID</propvalue>
+					<propdesc>GatewaySender Paused in the VM &lt;Sender Id&gt;</propdesc>
+				</property>
+				<property>
+					<proptype>gemfire.distributedsystem.gateway.sender.resumed</proptype>
+					<propvalue>Member name or ID</propvalue>
+					<propdesc>GatewaySender Resumed in the VM &lt;Sender Id&gt;</propdesc>
+				</property>
+				<property>
+					<proptype>gemfire.distributedsystem.gateway.receiver.created</proptype>
+					<propvalue>Member name or ID</propvalue>
+					<propdesc>GatewayReceiver Created in the VM</propdesc>
+				</property>
+				<property>
+					<proptype>gemfire.distributedsystem.gateway.receiver.started</proptype>
+					<propvalue>Member name or ID</propvalue>
+					<propdesc>GatewayReceiver Started in the VM</propdesc>
+				</property>
+				<property>
+					<proptype>gemfire.distributedsystem.gateway.receiver.stopped</proptype>
+					<propvalue>Member name or ID</propvalue>
+					<propdesc>GatewayReceiver Stopped in the VM</propdesc>
+				</property>
+				<property>
+					<proptype>gemfire.distributedsystem.cache.server.started</proptype>
+					<propvalue>Member name or ID</propvalue>
+					<propdesc>Cache Server is Started in the VM</propdesc>
+				</property>
+			</properties>
+		</refbody>
+	</reference>
+	<reference id="cacheservermxbean_notifications">
+		<title>CacheServerMXBean Notifications</title>
+		<refbody>
+			<properties id="properties_wxk_32v_wj">
+				<prophead>
+					<proptypehd>Notification Type</proptypehd>
+					<propvaluehd>Notification Source</propvaluehd>
+					<propdeschd>Message</propdeschd>
+				</prophead>
+				<property>
+					<proptype>gemfire.distributedsystem.cacheserver.client.joined</proptype>
+					<propvalue>CacheServer MBean Name</propvalue>
+					<propdesc>Client joined with Id &lt;Client ID&gt;</propdesc>
+				</property>
+				<property>
+					<proptype>gemfire.distributedsystem.cacheserver.client.left</proptype>
+					<propvalue>CacheServer MBean Name</propvalue>
+					<propdesc>Client crashed with Id &lt;Client ID&gt;</propdesc>
+				</property>
+				<property>
+					<proptype>gemfire.distributedsystem.cacheserver.client.crashed</proptype>
+					<propvalue>CacheServer MBean name</propvalue>
+					<propdesc>Client left with Id &lt;Client ID&gt;</propdesc>
+				</property>
+			</properties>
+		</refbody>
+	</reference>
+	<reference id="distributedsystemmxbean_notifications">
+		<title>DistributedSystemMXBean Notifications</title>
+		<refbody>
+			<properties id="properties_fcc_j2v_wj">
+				<prophead>
+					<proptypehd>Notification Type</proptypehd>
+					<propvaluehd>Notification Source</propvaluehd>
+					<propdeschd>Message</propdeschd>
+				</prophead>
+				<property>
+					<proptype>gemfire.distributedsystem.cache.member.joined</proptype>
+					<propvalue>Name or ID of member who joined</propvalue>
+					<propdesc>Member Joined &lt;Member Name or ID&gt;</propdesc>
+				</property>
+				<property>
+					<proptype>gemfire.distributedsystem.cache.member.departed</proptype>
+					<propvalue>Name or ID of member who departed</propvalue>
+					<propdesc>Member Departed &lt;Member Name or ID&gt; has crashed =
+						&lt;true/false&gt;</propdesc>
+				</property>
+				<property>
+					<proptype>gemfire.distributedsystem.cache.member.suspect</proptype>
+					<propvalue>Name or ID of member who is suspected</propvalue>
+					<propdesc>Member Suspected &lt;Member Name or ID&gt; By &lt;Who
+						Suspected&gt;</propdesc>
+				</property>
+				<property>
+					<proptype>system.alert.*</proptype>
+					<propvalue>DistributedSystem("&lt;DistributedSystem ID"&gt;)</propvalue>
+					<propdesc>Alert Message</propdesc>
+				</property>
+			</properties>
+		</refbody>
+	</reference>
+</dita>

@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept id="concept_fn2_qls_5q">
+ <title>load-balance gateway-sender</title>
+ <shortdesc>Causes the specified gateway sender to close its current connections and reconnect to
+  remote gateway receivers in a more balanced fashion.</shortdesc>
+ <conbody>
+  <p>Use this command to load balance connections between gateway senders to receivers. For example,
+   when you add a new gateway receiver node at a remote site, execute this command so that the new
+   gateway receiver can pick up connections from the specified gateway sender. Invoking this command
+   redistributes a sender's connections more evenly among all the gateway receivers.</p>
+  <note>This command has no effect on ping connections. </note>
+  <p><b>Availability:</b> Online. You must be connected in <codeph>gfsh</codeph> to a JMX Manager
+   member to use this command. </p>
+  <p><b>Syntax:</b>
+   <codeblock>load-balance gateway-sender --id=value</codeblock>
+   <table id="table_C2C10DB115D64C3F8B7E7F72941CA2DC">
+    <title>Parameters</title>
+    <tgroup cols="2">
+     <colspec colnum="1" colname="col1" colwidth="1.00*"/>
+     <colspec colnum="2" colname="col2" colwidth="3.09*"/>
+     <thead>
+      <row>
+       <entry colname="col1">Name </entry>
+       <entry colname="col2">Description</entry>
+      </row>
+     </thead>
+     <tbody>
+      <row>
+       <entry colname="col1"><parmname>--id</parmname>
+       </entry>
+       <entry colname="col2"><i>Required.</i> ID of the Gateway Sender. </entry>
+      </row>
+     </tbody>
+    </tgroup>
+   </table>
+  </p>
+  <p><b>Example Commands:</b>
+   <codeblock>load-balance gateway-sender --id=sender1-LN</codeblock>
+  </p>
+  <p><b>Sample Output:</b>
+   <codeblock>load-balance gateway-sender --id=ny
+ 
+                 Member             | Result | Message
+  --------------------------------- | ------ |--------------------------------------------------------------------------
+boglesbymac(ln-1:88651)&lt;v2&gt;:48277 | OK     | GatewaySender ny is rebalanced on member boglesbymac(ln-1:88651)&lt;v2&gt;:48277
+boglesbymac(ln-4:88681)&lt;v5&gt;:42784 | OK     | GatewaySender ny is rebalanced on member boglesbymac(ln-4:88681)&lt;v5&gt;:42784
+boglesbymac(ln-3:88672)&lt;v4&gt;:43675 | OK     | GatewaySender ny is rebalanced on member boglesbymac(ln-3:88672)&lt;v4&gt;:43675
+boglesbymac(ln-2:88662)&lt;v3&gt;:12796 | OK     | GatewaySender ny is rebalanced on member boglesbymac(ln-2:88662)&lt;v3&gt;:12796</codeblock>
+  </p>
+  
+
+
+
+
+ </conbody>
+</concept>

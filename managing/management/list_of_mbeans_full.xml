@@ -1,0 +1,549 @@
+<?xml version="1.0"?>
+<!DOCTYPE dita PUBLIC "-//OASIS//DTD DITA Composite//EN" "ditabase.dtd">
+<dita>
+	<topic id="topic_14E3721DD0CF47D7AD8C742DFBE9FB9C">
+		<title>JMX Manager MBeans</title>
+		<shortdesc>This section describes the MBeans that are available on the JMX Manager node. </shortdesc>
+		<body>
+			<p>The JMX Manager node includes all local beans listed under <xref scope="local"
+					href="list_of_mbeans_full.xml#topic_48194A5BDF3F40F68E95A114DD702413"
+					type="topic" format="dita"/> and the following beans that are available only on
+				the JMX Manager node: <ul id="ul_E472A1F1E6124AB380611229B6F51614">
+					<li id="li_6053CEBB25F34A948C0916AFCED40840"><xref scope="local"
+							href="list_of_mbeans_full.xml#topic_14E3721DD0CF47D7AD8C742DFBE9FB9C/section_7B878B450B994514BDFE96571F0D3827"
+							type="section" format="dita"/>
+					</li>
+					<li id="li_164DF23D1EEE4C19B0172F3E5D7C2143"><xref scope="local"
+							href="list_of_mbeans_full.xml#topic_14E3721DD0CF47D7AD8C742DFBE9FB9C/section_4D7A4C82DD974BB5A5E52B34A6D888B4"
+							type="section" format="dita"/>
+					</li>
+					<li id="li_2121CE41B4DA4811A5EFF697996401B1"><xref scope="local"
+							href="list_of_mbeans_full.xml#topic_14E3721DD0CF47D7AD8C742DFBE9FB9C/section_48384B091AB846E591F22EEA2770DD36"
+							type="section" format="dita"/>
+					</li>
+					<li id="li_42892B54A7984EA7BB7AAFB6FB7F8D42"><xref scope="local"
+							href="list_of_mbeans_full.xml#topic_14E3721DD0CF47D7AD8C742DFBE9FB9C/section_9E004D8AA3D24647A5C19CAA1879F0A4"
+							type="section" format="dita"/>
+					</li>
+				</ul>
+			</p>
+			<section id="section_7B878B450B994514BDFE96571F0D3827">
+				<title>ManagerMXBean</title>
+				<p>Represents the <keyword keyref="product_name"/> Management layer for the hosting
+					member. Controls the scope of management. This MBean provides
+						<codeph>start</codeph> and <codeph>stop</codeph> methods to turn a managed
+					node into a JMX Manager node or to stop a node from being a JMX Manager. For
+					potential managers (<codeph>jmx-manager=true</codeph> and
+						<codeph>jmx-manager-start=false</codeph>), this MBean is created when a
+					Locator requests it. </p>
+				<p>
+					<note>You must configure the node to allow it to become a JMX Manager. See <xref
+							scope="local"
+							href="jmx_manager_operations.xml#topic_263072624B8D4CDBAD18B82E07AA44B6"
+							type="topic" format="dita"/> for configuration information. </note>
+				</p>
+				<p>
+					<table id="table_A606D083BECD4716A2A39DE2F3A0A9F5">
+						<tgroup cols="2">
+							<colspec colnum="1" colname="col1" colwidth="1.00*"/>
+							<colspec colnum="2" colname="col2" colwidth="2.51*"/>
+							<tbody>
+								<row>
+									<entry namest="col1" nameend="col2">
+										<b>MBean Details</b>
+									</entry>
+								</row>
+								<row>
+									<entry colname="col1">Scope </entry>
+									<entry colname="col2">ALL </entry>
+								</row>
+								<row>
+									<entry colname="col1">Proxied </entry>
+									<entry colname="col2">No </entry>
+								</row>
+								<row>
+									<entry colname="col1">Object Name </entry>
+									<entry colname="col2">GemFire:type=Member,
+										service=Manager,member=&lt;name-or-dist-member-id&gt;
+									</entry>
+								</row>
+								<row>
+									<entry colname="col1">Instances Per Node </entry>
+									<entry colname="col2">1 </entry>
+								</row>
+							</tbody>
+						</tgroup>
+					</table>
+				</p>
+				<p>See the <codeph>com.gemstone.gemfire.management.ManagerMXBean</codeph> JavaDocs
+					for information on available MBean methods and attributes. </p>
+			</section>
+			<section id="section_4D7A4C82DD974BB5A5E52B34A6D888B4">
+				<title>DistributedSystemMXBean</title>
+				<p>System-wide aggregate MBean that provides a high-level view of the entire
+					distributed system including all members (cache servers, peers, locators) and
+					their caches. At any given point of time, it can provide a snapshot of the
+					complete distributed system and its operations. </p>
+				<p>The DistributedSystemMXBean provides APIs for performing distributed system-wide
+					operations such as backing up all members, shutting down all members or showing
+					various distributed system metrics. </p>
+				<p>You can attach a standard JMX NotificationListener to this MBean to listen for
+					notifications throughout the distributed system. See <xref
+						href="mbean_notifications.xml"/> for more information. </p>
+				<p>This MBean also provides some MBean model navigation APIS. These APIs should be
+					used to navigate through all the MBeans exposed by a <keyword
+						keyref="product_name"/> System. </p>
+				<p>
+					<table id="table_55FE7F0564114CB4A38E0EDF5C8A88CD">
+						<tgroup cols="2">
+							<colspec colnum="1" colname="col1" colwidth="1.00*"/>
+							<colspec colnum="2" colname="col2" colwidth="2.51*"/>
+							<tbody>
+								<row>
+									<entry namest="col1" nameend="col2">
+										<b>MBean Details</b>
+									</entry>
+								</row>
+								<row>
+									<entry colname="col1">Scope </entry>
+									<entry colname="col2">Aggregate </entry>
+								</row>
+								<row>
+									<entry colname="col1">Proxied </entry>
+									<entry colname="col2">No </entry>
+								</row>
+								<row>
+									<entry colname="col1">Object Name </entry>
+									<entry colname="col2">GemFire:type=Distributed,service=System
+									</entry>
+								</row>
+								<row>
+									<entry colname="col1">Instances Per Node </entry>
+									<entry colname="col2">1 </entry>
+								</row>
+							</tbody>
+						</tgroup>
+					</table>
+				</p>
+				<p>See the <codeph>com.gemstone.gemfire.management.DistributedSystemMXBean</codeph>
+					JavaDocs for information on available MBean methods and attributes. </p>
+			</section>
+			<section id="section_48384B091AB846E591F22EEA2770DD36">
+				<title>DistributedRegionMXBean </title>
+				<p> System-wide aggregate MBean of a named region. It provides a high-level view of
+					a region for all members hosting and/or using that region. For example, you can
+					obtain a list of all members that are hosting the region. Some methods are only
+					available for partitioned regions. </p>
+				<table id="table_CF9E19F1AAE3432CAA94C0EB2011A970">
+					<tgroup cols="2">
+						<colspec colnum="1" colname="col1" colwidth="1.00*"/>
+						<colspec colnum="2" colname="col2" colwidth="2.51*"/>
+						<tbody>
+							<row>
+								<entry namest="col1" nameend="col2">
+									<b>MBean Details</b>
+								</entry>
+							</row>
+							<row>
+								<entry colname="col1">Scope </entry>
+								<entry colname="col2">Aggregate </entry>
+							</row>
+							<row>
+								<entry colname="col1">Proxied </entry>
+								<entry colname="col2">No </entry>
+							</row>
+							<row>
+								<entry colname="col1">Object Name </entry>
+								<entry colname="col2"
+									>GemFire:type=Distributed,service=Region,name=&lt;regionName&gt;
+								</entry>
+							</row>
+							<row>
+								<entry colname="col1">Instances Per Node </entry>
+								<entry colname="col2">0..N </entry>
+							</row>
+						</tbody>
+					</tgroup>
+				</table>
+				<p>See the <codeph>com.gemstone.gemfire.management.DistributedRegionMXBean</codeph>
+					JavaDocs for information on available MBean methods and attributes. </p>
+			</section>
+			<section id="section_9E004D8AA3D24647A5C19CAA1879F0A4">
+				<title>DistributedLockServiceMXBean</title>
+				<p>Represents a named instance of DistributedLockService . Any number of
+					DistributedLockService can be created in a member. </p>
+				<p>A named instance of DistributedLockService defines a space for locking arbitrary
+					names across the distributed system defined by a specified distribution manager.
+					Any number of DistributedLockService instances can be created with different
+					service names. For all processes in the distributed system that have created an
+					instance of DistributedLockService with the same name, no more than one thread
+					is permitted to own the lock on a given name in that instance at any point in
+					time. Additionally, a thread can lock the entire service, preventing any other
+					threads in the system from locking the service or any names in the service. </p>
+				<table id="table_DB426F4E5B354E1DAE51A436F2B17C71">
+					<tgroup cols="2">
+						<colspec colnum="1" colname="col1" colwidth="1.00*"/>
+						<colspec colnum="2" colname="col2" colwidth="2.51*"/>
+						<tbody>
+							<row>
+								<entry namest="col1" nameend="col2">
+									<b>MBean Details</b>
+								</entry>
+							</row>
+							<row>
+								<entry colname="col1">Scope </entry>
+								<entry colname="col2">Aggregate </entry>
+							</row>
+							<row>
+								<entry colname="col1">Proxied </entry>
+								<entry colname="col2">No </entry>
+							</row>
+							<row>
+								<entry colname="col1">Object Name </entry>
+								<entry colname="col2"
+									>GemFire:type=Distributed,service=LockService,name=&lt;dlsName&gt;</entry>
+							</row>
+							<row>
+								<entry colname="col1">Instances Per Node </entry>
+								<entry colname="col2">0..N </entry>
+							</row>
+						</tbody>
+					</tgroup>
+				</table>
+				<p>See the
+						<codeph>com.gemstone.gemfire.management.DistributedLockServiceMXBean</codeph>
+					JavaDocs for information on available MBean methods and attributes. </p>
+			</section>
+		</body>
+	</topic>
+	<topic id="topic_48194A5BDF3F40F68E95A114DD702413">
+		<title>Managed Node MBeans</title>
+		<shortdesc>This section describes the MBeans that are available on all managed nodes. </shortdesc>
+		<body>
+			<p> MBeans that are available on all managed nodes include: <ul
+					id="ul_7398DA4A16544BC68BCB885B0DE029F5">
+					<li id="li_D87962F779EA4683BCE872C66944E2D6"><xref scope="local"
+							href="list_of_mbeans_full.xml#topic_48194A5BDF3F40F68E95A114DD702413/section_796A989549304BF7A536A33A913322A4"
+							type="section" format="dita"/>
+					</li>
+					<li id="li_7EC4EEC757854A35AE39FE1179D04AB7"><xref scope="local"
+							href="list_of_mbeans_full.xml#topic_48194A5BDF3F40F68E95A114DD702413/section_7287A7560650426E9B8249E2D87CE55F"
+							type="section" format="dita"/>
+					</li>
+					<li id="li_44961EA877FD4BED813E729A07905D44"><xref scope="local"
+							href="list_of_mbeans_full.xml#topic_48194A5BDF3F40F68E95A114DD702413/section_577A666924E54352AF69294DC8DEFEBF"
+							type="section" format="dita"/>
+					</li>
+					<li id="li_20ACC71CBE6A47D488EA2895FFF0DF93"><xref scope="local"
+							href="list_of_mbeans_full.xml#topic_48194A5BDF3F40F68E95A114DD702413/section_2F9F00081BB14CE0ADA251F5B6289BF2"
+							type="section" format="dita"/>
+					</li>
+					<li id="li_55E546E6B5734CB7B1564FF7BB73FDC9"><xref scope="local"
+							href="list_of_mbeans_full.xml#topic_48194A5BDF3F40F68E95A114DD702413/section_1F475F68E73B4EAE875BA40825E736C9"
+							type="section" format="dita"/>
+					</li>
+					<li id="li_2F00BAD6570741569895765DB7A92B1A"><xref scope="local"
+							href="list_of_mbeans_full.xml#topic_48194A5BDF3F40F68E95A114DD702413/section_6A77030A15704BFEAEBBD7DB88266BF6"
+							type="section" format="dita"/>
+					</li>
+					<li id="li_9B8D8D3FE17943BBA1D3D6E44ED10E01"><xref scope="local"
+							href="list_of_mbeans_full.xml#topic_48194A5BDF3F40F68E95A114DD702413/section_BB83107990D346F39271ACCC14CB84A0"
+							type="section" format="dita"/>
+					</li>
+				</ul>
+			</p>
+			<p>JMX Manager nodes will have managed node MBeans for themselves since they are also
+				manageable entities in the distributed system. </p>
+			<section id="section_796A989549304BF7A536A33A913322A4">
+				<title>MemberMXBean </title>
+				<p> Member's local view of its connection and cache. It is the primary gateway to
+					manage a particular member. It exposes member level attributes and statistics.
+					Some operations like <codeph>createCacheServer()</codeph> and
+						<codeph>createManager()</codeph> will help to create some <keyword
+						keyref="product_name"/> resources. Any JMX client can connect to the MBean
+					server and start managing a <keyword keyref="product_name"/> Member by using
+					this MBean. </p>
+				<p>See <xref href="list_of_mbean_notifications.xml#reference_czt_hq2_vj"
+						type="reference" format="dita" scope="local"/> for a list of notifications
+					emitted by this MBean. </p>
+				<p>
+					<table id="table_1D03CB1FCD814B38A6E20704D5E72C15">
+						<tgroup cols="2">
+							<colspec colnum="1" colname="col1" colwidth="1.00*"/>
+							<colspec colnum="2" colname="col2" colwidth="2.51*"/>
+							<tbody>
+								<row>
+									<entry namest="col1" nameend="col2">
+										<b>MBean Details</b>
+									</entry>
+								</row>
+								<row>
+									<entry colname="col1">Scope </entry>
+									<entry colname="col2">Local </entry>
+								</row>
+								<row>
+									<entry colname="col1">Proxied </entry>
+									<entry colname="col2">Yes </entry>
+								</row>
+								<row>
+									<entry colname="col1">Object Name </entry>
+									<entry colname="col2"
+										>GemFire:type=Member,member=&lt;name-or-dist-member-id&gt;
+									</entry>
+								</row>
+								<row>
+									<entry colname="col1">Instances Per Node </entry>
+									<entry colname="col2">1 </entry>
+								</row>
+							</tbody>
+						</tgroup>
+					</table>
+				</p>
+				<p>See the <codeph>com.gemstone.gemfire.management.MemberMXBean</codeph> JavaDocs
+					for information on available MBean methods and attributes. </p>
+			</section>
+			<section id="section_7287A7560650426E9B8249E2D87CE55F">
+				<title>CacheServerMXBean </title>
+				<p>Represents the <keyword keyref="product_name"/> CacheServer. Provides data and
+					notifications about server, subscriptions, durable queues and indices. </p>
+				<p>See <xref
+						href="list_of_mbean_notifications.xml#cacheservermxbean_notifications"
+						type="reference" format="dita" scope="local"/> for a list of notifications
+					emitted by this MBean. </p>
+				<p>
+					<table id="table_35F0D7308AFE457E9931469231EA36BA">
+						<tgroup cols="2">
+							<colspec colnum="1" colname="col1" colwidth="1.00*"/>
+							<colspec colnum="2" colname="col2" colwidth="2.51*"/>
+							<tbody>
+								<row>
+									<entry namest="col1" nameend="col2">
+										<b>MBean Details</b>
+									</entry>
+								</row>
+								<row>
+									<entry colname="col1">Scope </entry>
+									<entry colname="col2">Local </entry>
+								</row>
+								<row>
+									<entry colname="col1">Proxied </entry>
+									<entry colname="col2">Yes </entry>
+								</row>
+								<row>
+									<entry colname="col1">Object Name </entry>
+									<entry colname="col2"
+										>GemFire:type=Member,service=CacheServer,member=&lt;name-or-dist-member-id&gt;
+									</entry>
+								</row>
+								<row>
+									<entry colname="col1">Instances Per Node </entry>
+									<entry colname="col2">1 </entry>
+								</row>
+							</tbody>
+						</tgroup>
+					</table>
+				</p>
+				<p>See the <codeph>com.gemstone.gemfire.management.CacheServerMXBean</codeph>
+					JavaDocs for information on available MBean methods and attributes. </p>
+			</section>
+			<section id="section_577A666924E54352AF69294DC8DEFEBF">
+				<title>RegionMXBean</title>
+				<p> Member's local view of region. </p>
+				<p>
+					<table id="table_DD11C8368365421E8FDAA48C648A9B77">
+						<tgroup cols="2">
+							<colspec colnum="1" colname="col1" colwidth="1.00*"/>
+							<colspec colnum="2" colname="col2" colwidth="2.51*"/>
+							<tbody>
+								<row>
+									<entry namest="col1" nameend="col2">
+										<b>MBean Details</b>
+									</entry>
+								</row>
+								<row>
+									<entry colname="col1">Scope </entry>
+									<entry colname="col2">Local </entry>
+								</row>
+								<row>
+									<entry colname="col1">Proxied </entry>
+									<entry colname="col2">Yes </entry>
+								</row>
+								<row>
+									<entry colname="col1">Object Name </entry>
+									<entry colname="col2"
+										>GemFire:type=Member,service=Region,name=&lt;regionName&gt;,member=&lt;name-or-dist-member-id&gt;
+									</entry>
+								</row>
+								<row>
+									<entry colname="col1">Instances Per Node </entry>
+									<entry colname="col2">0..N </entry>
+								</row>
+							</tbody>
+						</tgroup>
+					</table>
+				</p>
+				<p>See the <codeph>com.gemstone.gemfire.management.RegionMXBean</codeph> JavaDocs
+					for information on available MBean methods and attributes. </p>
+			</section>
+			<section id="section_2F9F00081BB14CE0ADA251F5B6289BF2">
+				<title>LockServiceMXBean</title>
+				<p>Represents a named instance of a LockService . Any number of LockServices can be
+					created in a member. </p>
+				<p>
+					<table id="table_2CCAAAF14CAB4301ADF9DAFFC061EB3E">
+						<tgroup cols="2">
+							<colspec colnum="1" colname="col1" colwidth="1.00*"/>
+							<colspec colnum="2" colname="col2" colwidth="2.51*"/>
+							<tbody>
+								<row>
+									<entry namest="col1" nameend="col2">
+										<b>MBean Details</b>
+									</entry>
+								</row>
+								<row>
+									<entry colname="col1">Scope </entry>
+									<entry colname="col2">Local </entry>
+								</row>
+								<row>
+									<entry colname="col1">Proxied </entry>
+									<entry colname="col2">Yes </entry>
+								</row>
+								<row>
+									<entry colname="col1">Object Name </entry>
+									<entry colname="col2"
+										>GemFire:type=Member,service=LockService,name=&lt;dlsName&gt;,member=&lt;name-or-dist-member-id&gt;
+									</entry>
+								</row>
+								<row>
+									<entry colname="col1">Instances Per Node </entry>
+									<entry colname="col2">0..N </entry>
+								</row>
+							</tbody>
+						</tgroup>
+					</table>
+				</p>
+				<p>See the <codeph>com.gemstone.gemfire.management.LockServiceMXBean</codeph>
+					JavaDocs for information on available MBean methods and attributes. </p>
+			</section>
+			<section id="section_1F475F68E73B4EAE875BA40825E736C9">
+				<title>DiskStoreMXBean</title>
+				<p> Represents a DiskStore object which provides disk storage for one or more
+					regions </p>
+				<p>
+					<table id="table_C317AE757F5A4EAB8F378F336E9F4BEC">
+						<tgroup cols="2">
+							<colspec colnum="1" colname="col1" colwidth="1.00*"/>
+							<colspec colnum="2" colname="col2" colwidth="2.51*"/>
+							<tbody>
+								<row>
+									<entry namest="col1" nameend="col2">
+										<b>MBean Details</b>
+									</entry>
+								</row>
+								<row>
+									<entry colname="col1">Scope </entry>
+									<entry colname="col2">Local </entry>
+								</row>
+								<row>
+									<entry colname="col1">Proxied </entry>
+									<entry colname="col2">Yes </entry>
+								</row>
+								<row>
+									<entry colname="col1">Object Name </entry>
+									<entry colname="col2"
+										>GemFire:type=Member,service=DiskStore,name=&lt;name&gt;,member=&lt;name-or-dist-member-id&gt;
+									</entry>
+								</row>
+								<row>
+									<entry colname="col1">Instances Per Node </entry>
+									<entry colname="col2">0..N </entry>
+								</row>
+							</tbody>
+						</tgroup>
+					</table>
+				</p>
+				<p>See the <codeph>com.gemstone.gemfire.management.DiskStoreMXBean</codeph> JavaDocs
+					for information on available MBean methods and attributes. </p>
+			</section>
+			<section id="section_6A77030A15704BFEAEBBD7DB88266BF6">
+				<title>AsyncEventQueueMXBean</title>
+				<p> An AsyncEventQueueMXBean provides access to an AsyncEventQueue, which represent
+					the channel over which events are delivered to the AsyncEventListener. </p>
+				<p>
+					<table id="table_46F0961647BB420FA47AEF4236CF4437">
+						<tgroup cols="2">
+							<colspec colnum="1" colname="col1" colwidth="1.00*"/>
+							<colspec colnum="2" colname="col2" colwidth="2.51*"/>
+							<tbody>
+								<row>
+									<entry namest="col1" nameend="col2">
+										<b>MBean Details</b>
+									</entry>
+								</row>
+								<row>
+									<entry colname="col1">Scope </entry>
+									<entry colname="col2">Local </entry>
+								</row>
+								<row>
+									<entry colname="col1">Proxied </entry>
+									<entry colname="col2">Yes </entry>
+								</row>
+								<row>
+									<entry colname="col1">Object Name </entry>
+									<entry colname="col2">
+										GemFire:type=Member,service=AsyncEventQueue=&lt;AsyncEventQueue&gt;
+										,member=&lt;name-or-dist-member-id&gt; </entry>
+								</row>
+								<row>
+									<entry colname="col1">Instances Per Node </entry>
+									<entry colname="col2">0..N </entry>
+								</row>
+							</tbody>
+						</tgroup>
+					</table>
+				</p>
+				<p>See the <codeph>com.gemstone.gemfire.management.AsyncEventQueueMXBean</codeph>
+					JavaDocs for information on available MBean methods and attributes. </p>
+			</section>
+			<section id="section_BB83107990D346F39271ACCC14CB84A0">
+				<title>LocatorMXBean</title>
+				<p> A LocatorMXBean represents a locator . </p>
+				<p>
+					<table id="table_AAF3217277304CE497B5AD1E43A8E833">
+						<tgroup cols="2">
+							<colspec colnum="1" colname="col1" colwidth="1.00*"/>
+							<colspec colnum="2" colname="col2" colwidth="2.51*"/>
+							<tbody>
+								<row>
+									<entry namest="col1" nameend="col2">
+										<b>MBean Details</b>
+									</entry>
+								</row>
+								<row>
+									<entry colname="col1">Scope </entry>
+									<entry colname="col2">Local </entry>
+								</row>
+								<row>
+									<entry colname="col1">Proxied </entry>
+									<entry colname="col2">Yes </entry>
+								</row>
+								<row>
+									<entry colname="col1">Object Name </entry>
+									<entry colname="col2"
+										>GemFire:type=Member,service=Locator,port=&lt;port&gt;,member=&lt;name-or-dist-member-id&gt;
+									</entry>
+								</row>
+								<row>
+									<entry colname="col1">Instances Per Node </entry>
+									<entry colname="col2">0..1 </entry>
+								</row>
+							</tbody>
+						</tgroup>
+					</table>
+				</p>
+				<p>See the <codeph>com.gemstone.gemfire.management.LocatorMXBean</codeph> JavaDocs
+					for information on available MBean methods and attributes. </p>
+			</section>
+		</body>
+	</topic>
+</dita>

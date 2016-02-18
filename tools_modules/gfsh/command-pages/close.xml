@@ -2,7 +2,7 @@
 <!DOCTYPE topic PUBLIC "-//OASIS//DTD DITA Topic//EN" "topic.dtd">
 <topic id="topic_27555B1929D7487D9158096BC065D372">
 	<title>close</title>
-	<shortdesc>Close durable clients. </shortdesc>
+	<shortdesc>Close durable client CQs and durable clients. </shortdesc>
 	<topic id="topic_4125AAAB9FE44CD787166E48B694C41D">
 		<title>close durable-client</title>
 		<shortdesc>Attempts to close a durable client. The client must be disconnected for this
@@ -54,6 +54,98 @@
 Closed the durable client : "client1". on following members.
 1.server4
 2.server3</codeblock>
+			</p>
+			<p><b>Error Messages:</b>
+				<codeblock>gfsh&gt;close durable-cq --durable-cq-name=cq1 --durable-client-id=client1
+
+Could not close the durable-cq : "cq1" for the durable-client-id : "client1" due to following reasons.
+
+CacheClientProxy: Could not drain cq cq1 because client proxy id client1 is connected.
+Occurred on members
+1.server4
+2.server3
+
+No client found with client-id : client1
+Occurred on members
+1.server1
+
+</codeblock>
+			</p>
+		</body>
+	</topic>
+	<topic id="topic_1BC15B3132BA480DB227921A9B3ABDD1">
+		<title>close durable-cq</title>
+		<shortdesc>Closes the durable continuous query (CQ) registered by the durable client and
+			drain events held for the durable CQ from the subscription queue.</shortdesc>
+		<body>
+			<p><b>Availability:</b> Online. You must be connected in <codeph>gfsh</codeph> to a JMX
+				Manager member to use this command. </p>
+			<p><b>Syntax:</b>
+				<codeblock>close durable-cq --durable-client-id=value --durable-cq-name=value 
+[--member=value] [--group=value]
+</codeblock>
+				<table id="table_CEFFFECABBDF4DC4A37E8861422EEB5C">
+					<title>Parameters</title>
+					<tgroup cols="2">
+						<colspec colnum="1" colname="col1" colwidth="1.00*"/>
+						<colspec colnum="2" colname="col2" colwidth="4.43*"/>
+						<thead>
+							<row>
+								<entry colname="col1">Name </entry>
+								<entry colname="col2">Description</entry>
+							</row>
+						</thead>
+						<tbody>
+							<row>
+								<entry colname="col1"><parmname>--durable-client-id</parmname>
+								</entry>
+								<entry colname="col2">Required. The ID of the durable client.
+								</entry>
+							</row>
+							<row>
+								<entry colname="col1"><parmname>--durable-cq-name</parmname>
+								</entry>
+								<entry colname="col2">Required. Name of the CQ to be closed.
+								</entry>
+							</row>
+							<row>
+								<entry colname="col1"><parmname>--member</parmname>
+								</entry>
+								<entry colname="col2">Name or ID of the member for which the durable
+									client is registered and the durable CQ to be closed. </entry>
+							</row>
+							<row>
+								<entry colname="col1"><parmname>--group</parmname>
+								</entry>
+								<entry colname="col2"> Group of members for which the durable client
+									is registered and the durable CQ to be closed. </entry>
+							</row>
+						</tbody>
+					</tgroup>
+				</table>
+			</p>
+			<p><b>Example Commands:</b>
+				<codeblock>close durable-cq --durable-client-id=client1 --durable-cq-name=cq1</codeblock>
+			</p>
+			<p><b>Sample Output:</b>
+				<codeblock>gfsh&gt;close durable-cq --durable-cq-name=cq1 --durable-client-id=client1
+Closed the durable cq : "cq1" for the durable client : "client1". on following members.
+1.server4
+2.server3</codeblock>
+			</p>
+			<p><b>Error Messages:</b>
+				<codeblock>gfsh&gt;close durable-client --durable-client-id=client1
+Unable to close the durable client : "client1" due to following reasons.
+
+Cannot close a running durable client : client1
+Occurred on members
+1.server4
+2.server3
+
+No client found with client-id : client1
+Occurred on members
+1.server1
+</codeblock>
 			</p>
 		</body>
 	</topic>

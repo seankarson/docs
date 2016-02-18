@@ -21,6 +21,8 @@
 						><?xm-replace_text Disk Store Commands?></xref> for a list of commands. </li>
 				<li id="li_ACF58D2C2B1E427E94C3DD7010258506">Manage specific indexes or regions
 					across all members of a group. </li>
+				<li id="li_B74B8AB94E8A471F89D3722C2CDD8EE6">Start and stop multi-site (WAN)
+					services such as gateway senders and gateway receivers across a member group. </li>
 				<li id="li_2CE257F2C2CD4EB6908C6688DDD829D2">Deploy or undeploy JAR applications on
 					all members in a group. </li>
 				<li id="li_3988CBF7F1D34C00870BE1FFA7ED9B2B">Execute functions on all members of a
@@ -38,7 +40,7 @@
 		</p>
 		<p>To add a member to a group, add the name of a member group to the
 				<codeph>gemfire.properties</codeph> file of the member prior to startup or you can
-			startup a member in <codeph>gfsh</codeph> and pass in the <codeph>--group</codeph>
+			start up a member in <codeph>gfsh</codeph> and pass in the <codeph>--group</codeph>
 			argument at startup time. </p>
 		<p>A single member can belong to more than one group. </p>
 		<p>Member groups can also be used to organize members from either a client's perspective or

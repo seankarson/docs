@@ -1,0 +1,282 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE task PUBLIC "-//OASIS//DTD DITA Task//EN" "task.dtd">
+<task id="implementing_continous_querying">
+    <title>Implementing Continuous Querying</title>
+    <shortdesc id="shortdesc_A7BDD8AC0B104A3FA62777B36352DE2B">Use continuous querying in your
+        clients to receive continuous updates to queries run on the servers. </shortdesc>
+    <prolog>
+        <metadata>
+            <keywords>
+                <keyword> continuous query</keyword>
+                <keyword> continuous querying</keyword>
+                <keyword> continuous query syntax</keyword>
+            </keywords>
+        </metadata>
+    </prolog>
+    <taskbody>
+        <prereq id="prereq_C3AAAF87F1F54BD5BB5F2AE391E5B3E6">
+            <p id="p_0027061755374B34AF127BA91A4A04D3">CQs are only run by a client on its servers. </p>
+            <p>Before you begin, you should be familiar with <xref
+                    href="../querying_basics/chapter_overview.xml"/> and have your client/server
+                system configured. </p>
+        </prereq>
+        <steps id="steps_B02B4D89CFB94B39B230EE577A3F7E6A">
+            <step id="step_543E3F90C83646A089635ECDEBA21516">
+                <cmd>Configure the client pools you will use for CQs with
+                    <codeph>subscription-enabled</codeph> set to true. </cmd>
+                <info>To have CQ and interest subscription events arrive as closely together as
+                    possible, use a single pool for everything. Different pools might use different
+                    servers, which can lead to greater differences in event delivery time. </info>
+            </step>
+            <step id="step_361ACAE041BC4A6AB3063A9410A54A18">
+                <cmd>Write your OQL query to retrieve the data you need from the server. </cmd>
+                <info>The query must satisfy these CQ requirements in addition to the standard
+                    GemFire querying specifications: <ul id="ul_A9ED44DE2E4C47BE9C6427CE672B09D7">
+                        <li id="li_943929456A834CB7AA03F8A2E5E2F8B4">The FROM clause must contain
+                            only a single region specification, with optional iterator variable. </li>
+                        <li id="li_0C8AE0872DEA4506BBFB87D23C424D19">The query must be a SELECT
+                            expression only, preceded by zero or more IMPORT statements. This means
+                            the query cannot be a statement like "/tradeOrder.name" or "(SELECT *
+                            from /tradeOrder).size". </li>
+                        <li id="li_E5720DF0B6FA4E38B88779DAB07D520E">The CQ query cannot use: <ul
+                            id="ul_CF87AC90BB98444791C5D62FB5A34BB8">
+                            <li id="li_4BD0AF7D64D942C9BA759CFE181F7408">Cross region joins </li>
+                            <li id="li_B1DE79CB2DC94A1AB5933E38FEFE5060">Drill-downs into nested
+                                collections </li>
+                            <li id="li_73EC237DDF784364851E9CF4F496EBCC">DISTINCT </li>
+                            <li id="li_A35CC556584C4D6D8EB51324E233F2BA">Projections </li>
+                            <li id="li_B9739515000942339B3B2D812C4E5FC1">Bind parameters </li>
+                        </ul>
+                        </li>
+                        <li>The CQ query must be created on a partitioned or replicated region. See
+                            <xref
+                                href="how_continuous_querying_works.xml#how_continuous_querying_works/section_bfs_llr_gr"
+                            />.</li>
+                    </ul> This is the basic syntax for the CQ query:
+                    <codeblock>SELECT * FROM /fullRegionPath [iterator] [WHERE clause]</codeblock>
+                    This example query could be used to get all trade orders where the price is over
+                    $100:
+                    <codeblock>SELECT * FROM /tradeOrder t WHERE t.price &gt; 100.00 </codeblock>
+                </info>
+            </step>
+            <step id="step_D48D7C32C866401984963581A31B9858">
+                <cmd>Write your CQ listeners to handle CQ events from the server. </cmd>
+                <info>
+                    <p>Implement <codeph>com.gemstone.gemfire.cache.query.CqListener</codeph> in
+                        each event handler you need. In addition to your main CQ listeners, you
+                        might have listeners that you use for all CQs to track statistics or other
+                        general information. </p>
+                    <note>Be especially careful if you choose to update your cache from your
+                        <codeph>CqListener</codeph>. If your listener updates the region that is
+                        queried in its own CQ and that region has a <codeph>Pool</codeph> named, the
+                        update will be forwarded to the server. If the update on the server
+                        satisfies the same CQ, it may be returned to the same listener that did the
+                        update, which could put your application into an infinite loop. This same
+                        scenario could be played out with multiple regions and multiple CQs, if the
+                        listeners are programmed to update each other's regions. </note>
+                    <p>This example outlines a <codeph>CqListener</codeph> that might be used to
+                        update a display screen with current data from the server. The listener gets
+                        the <codeph>queryOperation</codeph> and entry key and value from the
+                        <codeph>CqEvent</codeph> and then updates the screen according to the
+                        type of <codeph>queryOperation</codeph>.
+                        <codeblock>// CqListener class 
+public class TradeEventListener implements CqListener 
+{ 
+  public void onEvent(CqEvent cqEvent) 
+  { 
+    // com.gemstone.gemfire.cache Operation associated with the query op 
+    Operation queryOperation = cqEvent.getQueryOperation(); 
+    // key and new value from the event 
+    Object key = cqEvent.getKey(); 
+    TradeOrder tradeOrder = (TradeOrder)cqEvent.getNewValue(); 
+    if (queryOperation.isUpdate()) 
+    { 
+      // update data on the screen for the trade order . . . 
+    } 
+    else if (queryOperation.isCreate()) 
+    { 
+      // add the trade order to the screen . . . 
+    } 
+    else if (queryOperation.isDestroy()) 
+    { 
+      // remove the trade order from the screen . . . 
+    } 
+  } 
+  public void onError(CqEvent cqEvent) 
+  { 
+    // handle the error 
+  } 
+  // From CacheCallback public void close() 
+  { 
+    // close the output screen for the trades . . . 
+  } 
+}</codeblock>
+                    </p>
+                </info>
+                <stepresult>When you install the listener and run the query, your listener will
+                    handle all of the CQ results. </stepresult>
+            </step>
+            <step id="step_F4527412A99A4E2AB49953A5DFA8A3E5">
+                <cmd>If you need your CQs to detect whether they are connected to any of the servers
+                    that host its subscription queues, implement a <codeph>CqStatusListener</codeph>
+                    instead of a <codeph>CqListener</codeph>. </cmd>
+                <info>
+                    <p><codeph>CqStatusListener</codeph> extends the current
+                        <codeph>CqListener</codeph>, allowing a client to detect when a CQ is
+                        connected and/or disconnected from the server(s). The
+                        <codeph>onCqConnected()</codeph> method will be invoked when the CQ is
+                        connected, and when the CQ has been reconnected after being disconnected.
+                        The <codeph>onCqDisconnected()</codeph> method will be invoked when the CQ
+                        is no longer connected to any servers. </p>
+                    <p>Taking the example from step 3, we can instead implement a
+                        <codeph>CqStatusListener</codeph>: </p>
+                    <codeblock>
+public class TradeEventListener implements CqStatusListener 
+{ 
+  public void onEvent(CqEvent cqEvent) 
+  { 
+    // com.gemstone.gemfire.cache Operation associated with the query op 
+    Operation queryOperation = cqEvent.getQueryOperation(); 
+    // key and new value from the event 
+    Object key = cqEvent.getKey(); 
+    TradeOrder tradeOrder = (TradeOrder)cqEvent.getNewValue(); 
+    if (queryOperation.isUpdate()) 
+    { 
+      // update data on the screen for the trade order . . . 
+    } 
+    else if (queryOperation.isCreate()) 
+    { 
+      // add the trade order to the screen . . . 
+    } 
+    else if (queryOperation.isDestroy()) 
+    { 
+      // remove the trade order from the screen . . . 
+    } 
+  } 
+  public void onError(CqEvent cqEvent) 
+  { 
+    // handle the error 
+  } 
+  // From CacheCallback public void close() 
+  { 
+    // close the output screen for the trades . . . 
+  } 
+
+  public void onCqConnected() {
+    //Display connected symbol
+  }
+
+  public void onCqDisconnected() {
+    //Display disconnected symbol
+  }
+}
+</codeblock>
+                </info>
+                <stepresult>When you install the <codeph>CqStatusListener</codeph>, your listener
+                    will be able to detect its connection status to the servers that it is querying.
+                </stepresult>
+            </step>
+            <step id="step_4B3E80B03D3840639EEA6900B6937E02">
+                <cmd>Program your client to run the CQ: </cmd>
+                <substeps id="substeps_34AD471271364A8B9CEF8D3195510DA0">
+                    <substep id="substep_7923CC52380F4067BF86BD4CC4DC50CC">
+                        <cmd>Create a <codeph>CqAttributesFactory</codeph> and use it to set your
+                            <codeph>CqListener</codeph>s and <codeph>CqStatusListener</codeph>.
+                        </cmd>
+                    </substep>
+                    <substep id="substep_18D43FAE84874BB5898F681097C9EED3">
+                        <cmd>Pass the attributes factory and the CQ query and its unique name to the
+                            <codeph>QueryService</codeph> to create a new
+                            <codeph>CqQuery</codeph>. </cmd>
+                    </substep>
+                    <substep id="substep_5C8F1F299C4E42DC95C5551E22FC9D34">
+                        <cmd>Start the query running by calling one of the execute methods on the
+                            <codeph>CqQuery</codeph> object. </cmd>
+                        <info> You can execute with or without an initial result set. </info>
+                    </substep>
+                    <substep id="substep_B1C229AFB1C4462C9488EAED2AEE6B56">
+                        <cmd>When you are done with the CQ, close it. </cmd>
+                    </substep>
+                </substeps>
+            </step>
+        </steps>
+        <example id="example_51EFAA6B9BFC45CF9449EFC2ED4718C2">
+            <title>Continuous Query Implementation</title>
+            <codeblock>// Get cache and queryService - refs to local cache and QueryService 
+// Create client /tradeOrder region configured to talk to the server
+                
+// Create CqAttribute using CqAttributeFactory
+CqAttributesFactory cqf = new CqAttributesFactory();
+                
+// Create a listener and add it to the CQ attributes callback defined below
+CqListener tradeEventListener = new TradeEventListener();
+cqf.addCqListener(tradeEventListener);
+CqAttributes cqa = cqf.create();
+// Name of the CQ and its query
+String cqName = "priceTracker";
+String queryStr = "SELECT * FROM /tradeOrder t where t.price &gt; 100.00";
+                
+// Create the CqQuery
+CqQuery priceTracker = queryService.newCq(cqName, queryStr, cqa);
+                
+try
+{  // Execute CQ, getting the optional initial result set
+   // Without the initial result set, the call is priceTracker.execute();
+  SelectResults sResults = priceTracker.executeWithInitialResults();
+  for (Object o : sResults) {
+       Struct s = (Struct) o;
+       TradeOrder to = (TradeOrder) s.get("value");
+       System.out.println("Intial result includes: " + to);
+  }                
+} 
+  catch (Exception ex)
+{
+  ex.printStackTrace();
+}
+// Now the CQ is running on the server, sending CqEvents to the listener
+. . .
+                
+// End of life for the CQ - clear up resources by closing
+priceTracker.close();</codeblock>
+        </example>
+        <postreq id="postreq_BFAC200CFEEE4F48AEB32BD970820500">
+            <p id="p_92235E98CE8F4941B19ECC641B632D75">With continuous queries, you can optionally
+                implement: <ul id="ul_1D613019081B49CAAD9658FE7A2D57C5">
+                    <li id="li_C3B24605DAAB4DE69BD9F21F5D94654C">Highly available CQs by configuring
+                        your servers for high availability. </li>
+                    <li id="li_8C28F952ABD548C7AF32E77D193FAAC9">Durable CQs by configuring your
+                        clients for durable messaging and indicating which CQs are durable at
+                        creation. </li>
+                </ul>
+            </p>
+            <p>
+                <table frame="all" id="table_713A82A94B4544B3A86D9193F1015E3C">
+                    <tgroup cols="1">
+                        <colspec colname="topic_link" colnum="1"/>
+                        <thead>
+                            <row>
+                                <entry>Related Topics </entry>
+                            </row>
+                        </thead>
+                        <tbody>
+                            <row>
+                                <entry>
+                                    <codeph>com.gemstone.gemfire.cache.query</codeph>
+                                </entry>
+                            </row>
+                            <row>
+                                <entry>
+                                    <xref
+                                        href="http://community.gemstone.com/display/gemfire/Continuous+Querying+Example"
+                                        scope="external" format="html">Continuous Querying (GemFire
+                                        Example)</xref>
+                                </entry>
+                            </row>
+                        </tbody>
+                    </tgroup>
+                </table>
+            </p>
+            <p> </p>
+        </postreq>
+    </taskbody>
+</task>

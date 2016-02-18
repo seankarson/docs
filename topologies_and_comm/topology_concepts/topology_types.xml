@@ -10,10 +10,17 @@
 				id="ul_6dda387c-55b4-4629-adf7-82828d360412">
 				<li id="li_4DEF4FFCC28A4AB1A671AD4B45DEB68C">At the core of all systems is the
 					single, peer-to-peer distributed system. </li>
-				<li id="li_39A6DB5543774EC78DFD67CBCF867823">For horizontal and vertical scaling,
-					you can combine individual systems into client/server topologies. In
-					client/server systems, a small number of server processes manage data and event
-					processing for a much larger client group. </li>
+				<li id="li_39A6DB5543774EC78DFD67CBCF867823">For horizontal and vertical scaling, you can
+					combine individual systems into client/server and multi-site (WAN) topologies:
+						<ul id="ul_4feacf96-0b93-4e01-97ce-3928651058b4">
+						<li id="li_1F08C2C65A06435AA05D6B9A2AB7F714">In client/server systems, a
+							small number of server processes manage data and event processing for a
+							much larger client group. </li>
+						<li id="li_55C12610D91D4F599E8C99FCE9254776">In multi-site systems, several
+							geographically disparate systems are loosely coupled into a single,
+							cohesive processing unit. </li>
+					</ul>
+				</li>
 			</ul>
 		</p>
 		<section id="section_333142A36A3E4AF7A1EC31856ED99FCA">
@@ -42,6 +49,20 @@
 			<p>
 				<image href="../../images_svg/cs_topology.svg" placement="break"
 					id="image_073094D7ED05419A9EE8E6AE552BE3F3"/>
+			</p>
+		</section>
+		<section id="section_566EC05894D6461AA0E7DD7B065D457B">
+			<title>Multi-site Configuration</title>
+			<p>For horizontal scaling, you can use a loosely coupled multi-site topology. With
+				multi-site, multiple <keyword keyref="product_name"/> systems are loosely coupled,
+				generally across geographical distances with slower connections, such as with a WAN.
+				This topology provides better performance than the tight coupling of a single
+				system, and greater independence between locations, so that each site can function
+				on its own if the connection or remote site become unavailable. In a multi-site
+				installation, each individual site is a peer-to-peer or Client/Server system. </p>
+			<p>
+				<image href="../../images/multisite_topology.png"
+					id="image_6501FD66F0F94273A1F7EEE5747B3925" placement="break"/>
 			</p>
 		</section>
 	</conbody>

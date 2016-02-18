@@ -49,8 +49,16 @@
 						href="product_intro.xml#concept_3B5E445B19884680900161BDF25E32C9/section_92A444D4B422434EBD5F81D11F32C1C7"
 						type="section" format="dita" scope="local"/>
 				</li>
-				<li id="li_59A1BD6D4E60453184BD2C9424BDF610"><xref
+				<li><xref
 						href="product_intro.xml#concept_3B5E445B19884680900161BDF25E32C9/section_577F601BC9854AA6B53CD3440F9B9A6A"
+						type="section" format="dita" scope="local"/>
+				</li>
+				<li> <xref
+						href="product_intro.xml#concept_3B5E445B19884680900161BDF25E32C9/section_091A306900D7402CAE5A46B5F9BFD612"
+						type="section" format="dita" scope="local"/>
+				</li>
+				<li id="li_FF4C3B6E26104C4D93186F6FFE22B321"><xref
+						href="product_intro.xml#concept_3B5E445B19884680900161BDF25E32C9/section_FF4C3B6E26104C4D93186F6FFE22B321"
 						type="section" format="dita" scope="local"/>
 				</li>
 			</ul>
@@ -81,9 +89,12 @@
 					<li id="li_5963D43ADCD342BBA5A6E289DEDB26B3">JTA compliant transaction support. </li>
 					<li>Cluster-wide configurations that can be persisted and exported to other
 						clusters.</li>
+					<li id="li_E3EAC96F3FEA4E1297F226E762BAFDD4">Continuous querying to provide
+						active data change notifications. </li>
 					<li>Remote cluster management through HTTP.</li>
 					<li>REST APIs for REST-enabled application development.</li>
 					<li>Rolling upgrade between major version releases.</li>
+					<li id="li_E3EAC96F3FEA4E1297F226E762BAFDD5">WAN replication.</li>
 				</ul></p>
 		</section>
 		<section id="section_CF0E3E5C4F884374B8F2F536DD2A375C">
@@ -221,6 +232,28 @@
 				now sends the client a unique, random identifier with each response, to be used in
 				the next client request. Because of the identifier, even a repeated client operation
 				call is sent as a unique request to the server. </p>
+		</section>
+		<section id="section_091A306900D7402CAE5A46B5F9BFD612">
+			<title>Multisite Data Distribution</title>
+			<p>Scalability problems can result from data sites being spread out geographically
+				across a WAN. GemFire offers a novel model to address these topologies, ranging from
+				a single peer-to-peer cluster to reliable communications between data centers across
+				the WAN. This model allows distributed systems to scale out in an unbounded and
+				loosely-coupled fashion without loss of performance, reliability or data
+				consistency. </p>
+			<p>At the core of this architecture is the gateway sender configuration used for
+				distributing region events to a remote site. You can deploy gateway sender instances
+				in parallel, which enables GemFire to increase the throughput for distributing
+				region events across the WAN. You can also configure gateway sender queues for
+				persistence and high availability to avoid data loss in the case of a member
+				failure. </p>
+		</section>
+		<section id="section_FF4C3B6E26104C4D93186F6FFE22B321">
+			<title>Continuous Querying</title>
+			<p>In messaging systems like JMS, clients subscribe to topics and queues. Any message
+				delivered to a topic is sent to the subscriber. <keyword keyref="product_name"/>
+				allows continuous querying by having applications express complex interest using the
+				OQL query language. </p>
 		</section>
 	</conbody>
 </concept>

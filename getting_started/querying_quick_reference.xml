@@ -272,18 +272,18 @@ SELECT DISTINCT * FROM /exampleRegion, positions.values positions TYPE Position 
 			<title>Which APIs should I use to write my queries?</title>
 			<p> If you are querying a Java application’s local cache or querying other members, use
 					<xref
-					href="http://gemfire.docs.pivotal.io/latest/javadocs/japi/com/gemstone/gemfire/cache/query/QueryService.html"
+					href="/docs-gemfire/latest/javadocs/japi/com/gemstone/gemfire/cache/query/QueryService.html"
 					scope="external" format="html"
 					>com.gemstone.gemfire.cache.Cache.getQueryService</xref>. </p>
 			<p>If you are writing a Java client to server query, use <xref
-					href="http://gemfire.docs.pivotal.io/latest/javadocs/japi/com/gemstone/gemfire/cache/client/Pool.html"
+					href="/docs-gemfire/latest/javadocs/japi/com/gemstone/gemfire/cache/client/Pool.html"
 					scope="external" format="html"
 					>com.gemstone.gemfire.cache.client.Pool.getQueryService</xref>. </p>
 			<p>If you are writing a native client to server query, use the <xref
-					href="http://gemfire.docs.pivotal.io/net_api/DotNetDocs/Index.html"
-					scope="external" format="html">.NET C# API</xref> or the <xref
-					href="http://gemfire.docs.pivotal.io/cpp_api/cppdocs/index.html"
-					scope="external" format="html">C++ API</xref>. </p>
+					href="/docs-gemfire/latest/net_api/DotNetDocs/Index.html" scope="external"
+					format="html">.NET C# API</xref> or the <xref
+					href="/docs-gemfire/latest/cpp_api/cppdocs/index.html" scope="external"
+					format="html">C++ API</xref>. </p>
 		</section>
 		<section id="section_3E6E4B33D57846008EF4404D2B687597">
 			<title>How do I invoke an object's method in a query?</title>
@@ -352,7 +352,7 @@ SelectResults results = (SelectResults) query.execute(params);
  qs.createKeyIndex("myKeyIndex", "id", "exampleRegion");
 </codeblock>For
 				more information on using this API, see the <xref
-					href="http://gemfire.docs.pivotal.io/latest/javadocs/japi/index.html" scope="external"
+					href="/docs-gemfire/latest/javadocs/japi/index.html" scope="external"
 					format="html">GemFire JavaDocs</xref>. </p>
 			<p><b>Sample XML</b>
 				<codeblock>&lt;region name="portfolios"&gt;

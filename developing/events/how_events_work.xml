@@ -4,7 +4,8 @@
 	<title>How Events Work</title>
 	<shortdesc id="shortdesc_D8F95F7C1D2A4C05B1D61A9184DA3523">Members in your <keyword
 			keyref="product_name"/> distributed system receive cache updates from other members
-		through cache events. The other members can be peers to the member, clients or servers. </shortdesc>
+		through cache events. The other members can be peers to the member, clients or servers or
+		other distributed systems. </shortdesc>
 	<conbody>
 		<section id="section_6C75098DDBB84944ADE57F2088330D5A">
 			<title>Events Features</title>
@@ -21,6 +22,7 @@
 						only-once delivery </li>
 					<li id="li_B01269FC078C4E28B349213A1FE32FA1">Distributed event notifications </li>
 					<li id="li_517DD01F196A43BF80D3F989EB702F83">Durable subscriptions </li>
+					<li id="li_ACED060CB708431DB021323F918F3CF7">Continuous querying </li>
 				</ul>
 			</p>
 		</section>
@@ -28,9 +30,9 @@
 			<title>Types of Events</title>
 			<p>There are two categories of events and event handlers. <ul
 					id="ul_D51552C793B24E7D9E6883C483A9B483">
-					<li id="li_220A4D1E1E174DFBA836E32C78DB58E4">Cache events in the caching API are
-						used by applications with a cache. Cache events provide detail-level
-						notification for changes to your data. </li>
+					<li id="li_220A4D1E1E174DFBA836E32C78DB58E4">Cache events in the caching API are used by
+						applications with a cache. Cache events provide detail-level notification
+						for changes to your data. Continuous query events are in this category. </li>
 					<li>Administrative events in the administration API are used by administrative
 						applications without caches.</li>
 				</ul>
@@ -96,11 +98,14 @@
 		</section>
 		<section id="section_2EA59E9F7203433A8AD248C499D61BF4">
 			<title>Event Distribution</title>
-			<p>After a member processes an event in its local cache, it distributes it to remote
-				caches according to the member's configuration and the configurations of the remote
-				caches. For example, if a client updates its cache, the update is forwarded to the
-				client's server. The server distributes the update to its peers and forwards it to
-				any other clients according to their interest in the data entry. </p>
+			<p>After a member processes an event in its local cache, it distributes it to remote caches
+				according to the member's configuration and the configurations of the remote caches.
+				For example, if a client updates its cache, the update is forwarded to the client's
+				server. The server distributes the update to its peers and forwards it to any other
+				clients according to their interest in the data entry. If the server system is part
+				of a multi-site deployment and the data region is configured to use a gateway
+				sender, then the gateway sender also forwards the update to a remote site, where the
+				update is further distributed and propagated. </p>
 		</section>
 		<section id="section_C18D3CA923FB427AA01DD811589D63C0">
 			<title>Event Handlers and Region Data Storage</title>

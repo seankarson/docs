@@ -3,7 +3,8 @@
 <topic id="topic_7B1CABCAD056499AA57AF3CFDBF8ABE3">
 	<title>cache.xml Quick Reference</title>
 	<shortdesc id="shortdesc_gwf_f1q_rr">This section documents cache.xml file requirements and
-		variables. It also points you to specific element sections for server and client. </shortdesc>
+		variables. It also points you to specific element sections for server, client, and WAN
+		configuration. </shortdesc>
 	<body>
 		<ul id="ul_B8FEB11979A34D7B9537BDA33DFB860A">
 			<li id="li_7D34615AB21D4D4F814AD9ECA548BDF5">
@@ -96,7 +97,8 @@ gfsh&gt;start server --name=server2 --cache-xml-file=cache.xml --J=-DPORT=30333 
 		</section>
 		<section id="section_2076DDF1F0464CF8894B42ABC32AE4CB">
 			<title>Configuration Quick Reference</title>
-			<p id="p_ikn_h1q_rr">To configure cache servers and clients, see the following sections: </p>
+			<p id="p_ikn_h1q_rr">To configure cache servers, clients, and WAN topologies, see the following
+				sections: </p>
 			<ul id="ul_gxf_fk5_t3">
 				<li id="li_7EE4F046C9F44261B61CFA1E7C740D79">Server Configuration <ul
 						id="ul_x2s_pjb_53">
@@ -129,6 +131,21 @@ gfsh&gt;start server --name=server2 --cache-xml-file=cache.xml --J=-DPORT=30333 
 							<apiname>com.gemstone.gemfire.cache.clientClientCache</apiname> and
 							<apiname>Pool</apiname> interfaces. For detailed information, see the
 						online Java API documentation. </p>
+				</li>
+				<li id="li_6F17A9E253DB488F9E565F790D9808BF">Multi-site (WAN) Configuration and
+					Asynchronous Event Queue Configuration<ul id="ul_y4l_mtb_53">
+						<li id="li_B457A173689042C18BFB407434D0A7DA"><xref
+								href="../../reference/topics/gfe_cache_xml.xml#gateway-sender"/>
+						</li>
+						<li id="li_74BCA8091CD646498EEE1A5474DB5C3D"><xref
+								href="../../reference/topics/gfe_cache_xml.xml#gateway-receiver"/>
+						</li>
+						<li><xref href="../../reference/topics/gfe_cache_xml.xml#id_zrr_scq_rr"
+								type="topic" format="dita" scope="local"
+								>&lt;async-event-queue&gt;</xref></li>
+					</ul><p>The gateway sender and receiver APIs in
+							<apiname>com.gemstone.gemfire.cache.util</apiname> provide corresponding
+						getter and setter methods for these attributes. </p>
 				</li>
 			</ul>
 		</section>
