@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "http://docs.oasis-open.org/dita/v1.1/OS/dtd/concept.dtd">
+<concept id="concept_lb4_wzf_z5">
+ <title>How the Off-Heap Memory Manager Works</title>
+ <shortdesc>Off-heap memory is not subject to garbage collection, but values stored there are
+  subject to serialization and deserialization. The off-heap memory manager resembles the heap
+  resource manager in some ways, but not in others.</shortdesc>
+ <conbody>
+  <p>The off-heap memory manager monitors the contents of off-heap memory and performs cleanup and
+   consolidation operations in accordance with two thresholds similar to those used by the heap
+   resource manager: <codeph>off-heap-eviction-threshold</codeph> and
+    <codeph>off-heap-critical-threshold</codeph>.</p>
+  <p>Off-heap memory works in conjunction with the heap, it does not replace it. Instead, it
+   offloads values to a storage area that is not subject to Java garbage collection (GC). By taking
+   advantage of off-heap storage, an application can reduce the amount of heap storage that is
+   subject to GC overhead.</p>
+  <p>Keys are stored in Java heap, but values can be moved to off-heap storage. In order to be moved
+   to off-heap memory, those values must be serialized. In order to be retrieved from off-heap
+   storage, those values must be deserialized. (There are some exceptions - PDX allows some
+   operations on serialized data without going through deserialization). Therefore, there is some
+   overhead involved in using off-heap storage. Some applications may find that, on balance,
+   performance improves with off-heap storage.</p>
+  <p>Off-heap storage is best suited to data patterns where:<ul id="ul_dzc_sbg_z5">
+    <li>Stored values are of uniform size</li>
+    <li>Stored values are moderate to large in size</li>
+    <li>Update frequency is low or moderate</li>
+   </ul></p>
+  <p>Off-heap storage offers fewer advantages in scenarios where:<ul id="ul_fq1_ybg_z5">
+    <li>Stored values vary in size</li>
+    <li>Data values are small</li>
+    <li>Updates are frequent</li>
+   </ul></p>
+  <p>The following table shows which objects can be stored in off-heap memory and which are stored
+   in JVM heap.</p>
+  <table id="table_h1v_cwh_1v">
+   <title>On-heap vs. Off-heap Storage Candidates by Data Type</title>
+   <tgroup cols="2">
+    <thead>
+     <row>
+      <entry>Stored On-heap</entry>
+      <entry>Stored Off-heap</entry>
+     </row>
+    </thead>
+    <tbody>
+     <row>
+      <entry>Region metadata</entry>
+      <entry>Values</entry>
+     </row>
+     <row>
+      <entry>Entry metadata</entry>
+      <entry>Reference counts</entry>
+     </row>
+     <row>
+      <entry>Off-heap addresses</entry>
+      <entry>List of free memory blocks</entry>
+     </row>
+     <row>
+      <entry>Keys</entry>
+      <entry>WAN queue elements</entry>
+     </row>
+     <row>
+      <entry>Indexes</entry>
+      <entry/>
+     </row>
+     <row>
+      <entry>Subscription queue elements</entry>
+      <entry/>
+     </row>
+    </tbody>
+   </tgroup>
+  </table>
+  
+  <section id="section_fzn_ml3_1v"><title>Off-heap Recommendations</title> <p>Off-heap storage offers advantages when:<ul id="ul_gyp_w33_1v">
+     <li>The values are relatively uniform in size</li>
+     <li>The values are mostly less than 128K in size</li>
+     <li>The usage patterns involve cycles of many creates followed by destroys or clear</li>
+     <li>The values do not need to be frequently deserialized</li>
+    </ul></p></section>
+  <section><title>Off-heap Caveats</title> <p>When using off-heap storage:<ul>
+     <li>Avoid a large number of updates</li>
+     <li>Avoid values of widely varying sizes</li>
+     <li>Avoid using deltas</li>
+     <li>Minimize querying off-heap data. (Exception: PDX objects can be accessed without
+      deserialization, and so are reasonably efficient.)</li>
+     <li>Do not use functional range indexes</li>
+    </ul></p></section>
+
+ 
+   <section>
+    <title>Specifying Off-heap Memory</title>
+    <p>To use off-heap memory, specify the following options when setting up servers and
+     regions:
+    <ul id="ul_dtl_nxh_1v">
+     <li>Set the off-heap memory size for the process. Use the property
+       <codeph>off-heap-memory-size</codeph>.</li>
+     <li>Mark regions whose entry values should be stored off-heap. Set the region attribute
+       <codeph>off-heap</codeph> to <codeph>true</codeph>.</li>
+     <li>Adjust the JVM heap memory size down. Size below 32GB is optimal.</li>
+     <li>Configure the Resource Manager, if necessary. This is optional.</li>
+    </ul></p>
+   </section>
+ </conbody>
+</concept>
