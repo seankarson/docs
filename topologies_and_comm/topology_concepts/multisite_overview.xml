@@ -84,9 +84,10 @@
 					queue to dispatch events for all regions that use the gateway sender. <fig
 						id="fig_07C402FC855047F5AAAB2D3E8E3953E3">
 						<image id="image_CEF888583FAC4CCBB0445F2BF8F15F20"
-							href="../../images/serial_sender.png" placement="break" width="6.5in"/>
+							href="../../images/serial_sender.png" placement="break" width="6.0in"/>
 					</fig>
 				</p>
+				
 				<p> Because a serial gateway sender distributes all of a region's events from a single  member,
 					it provides the most control over ordering region events as they are distributed
 					across the WAN. However, a serial gateway sender provides only a finite amount
@@ -105,7 +106,7 @@
 					automatically with each new instance of the parallel gateway sender. </p>
 				<fig id="fig_C57DD858D55F48CD9A04F88CEA179CC8">
 					<image id="image_D3BEABE6269543758DD0FAF4FFCD713A" href="../../images/parallel_sender.png"
-						placement="break" width="6.5in"/>
+						placement="break" width="6.0in"/>
 				</fig>
 				<p>A parallel gateway sender uses multiple queues on multiple <keyword keyref="product_name"/>
 					members to simultaneously distribute region events to a remote <keyword
