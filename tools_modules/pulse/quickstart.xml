@@ -60,9 +60,11 @@ gfsh&gt; start locator --name=loc1</codeblock>
 							type="topic" format="dita" scope="local"/>. </li>
 				</ol>
 			</p>
-			<note>When running in embedded mode, the Pulse application connects only to the JMX
-				Manager running in the locator or member that hosts Pulse. This enables you to
-				monitor all members of that distributed system. </note>
+			<note>When running in embedded mode, the Pulse application connects only to the JMX Manager
+				running in the locator or member that hosts Pulse. This enables you to monitor all
+				members of that distributed system. You can also view (but not monitor) connected
+				WAN clusters, and can view gateway senders and receivers that are configured in the
+				local cluster. </note>
 		</body>
 	</topic>
 	<topic id="topic_795C97B46B9843528961A094EE520782">
@@ -613,6 +615,11 @@ CLASSPATH=$CLASSPATH:/opt/pulse-config</codeblock></li>
 							<stentry>Total number of functions registered in the cluster.</stentry>
 						</strow>
 						<strow>
+							<stentry>Unique CQs</stentry>
+							<stentry>Total number of unique CQs. Corresponds to the UNIQUE _CQ_QUERY
+								statistic.</stentry>
+						</strow>
+						<strow>
 							<stentry>Subscriptions</stentry>
 							<stentry>Total number of client event subscriptions.</stentry>
 						</strow>
@@ -721,6 +728,13 @@ CLASSPATH=$CLASSPATH:/opt/pulse-config</codeblock></li>
 							<stentry><b>No. of JVM Pauses</b></stentry>
 							<stentry>Number of times the JVM has paused during the last five minutes
 								to perform garbage collection.</stentry>
+						</strow>
+						<strow>
+							<stentry><b>WAN Information</b></stentry>
+							<stentry>If you have configured gateway senders or receivers for a
+								multi-site (WAN) deployment, this box displays whether the remote
+								cluster is reachable (working connectivity represented by a green
+								triangle).</stentry>
 						</strow>
 						<strow>
 							<stentry><b>Disk Throughput</b></stentry>
@@ -894,6 +908,12 @@ CLASSPATH=$CLASSPATH:/opt/pulse-config</codeblock></li>
 							<stentry><b>No. of JVM Pauses</b></stentry>
 							<stentry>Number of times the JVM has paused during the last five minutes
 								due to garbage collection or excessive CPU usage.</stentry>
+						</strow>
+						<strow>
+							<stentry><b>WAN Information</b></stentry>
+							<stentry>Displays cluster information. This dialog box only appears if
+								you have configured WAN functionality (gateway senders and gateway
+								receivers).</stentry>
 						</strow>
 						<strow>
 							<stentry><b>Disk Throughput</b></stentry>
