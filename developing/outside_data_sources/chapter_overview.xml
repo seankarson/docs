@@ -32,12 +32,11 @@
 								cache writers are usually defined in only a subset of the caches
 								holding the region - often in only one cache. The cache writer can
 								abort the region entry operation. </li>
-							<li id="li_51055A8DED414A8393485ACE5AF8152D"
-									><codeph>CacheListener</codeph> is run asynchronously after the
-								cache is updated. This listener works only on local cache events, so
-								install your listener in every cache where you want it to handle
-								events. You can install multiple cache listeners in any of your
-								caches. </li>
+							<li id="li_51055A8DED414A8393485ACE5AF8152D"><codeph>CacheListener</codeph> is run
+								synchronously after the cache is updated. This listener works only
+								on local cache events, so install your listener in every cache where
+								you want it to handle events. You can install multiple cache
+								listeners in any of your caches. </li>
 						</ul>
 					</li>
 				</ol>
