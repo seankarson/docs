@@ -348,10 +348,10 @@ JDK installation or the JDK bin directory is in the system PATH.</codeblock>
 				<p><b> Availability:</b> Online or offline. </p>
 				<p>
 					<b>Syntax:</b>
-					<codeblock>start locator --name=value [--bind-address=value] [--force(=value)?] [--group=value] [--hostname-for-clients=value]
+					<codeblock>start locator --name=value [--bind-address=value] [--force(=value)] [--group=value] [--hostname-for-clients=value]
  [--locators=value] [--log-level=value] [--mcast-address=value] [--mcast-port=value] [--port=value] [--dir=value] 
  [--properties-file=value] [--security-properties-file=value] [--initial-heap=value] [--max-heap=value] 
- [--connect(=value)?] [--enable-cluster-configuration(=value)?] [--load-from-cluster-configuration-dir(=value)?]
+ [--connect(=value)] [--enable-cluster-configuration(=value)] [--load-from-cluster-configuration-dir(=value)]
  [--cluster-config-dir=value] [--J=value(,value)*] 
 </codeblock>
 					<table id="table_D7D1EC149B39483B816583F3D4A775E7">
@@ -537,9 +537,9 @@ JDK installation or the JDK bin directory is in the system PATH.</codeblock>
 									<entry colname="col1">
 										<parmname>--enable-cluster-configuration</parmname>
 									</entry>
-									<entry colname="col2">Enables cluster configuration behavior where locators maintain
-										configurations for all members of a distributed system. See
-											<xref
+									<entry colname="col2">Enables cluster configuration behavior
+										where locators maintain configurations for all members of a
+										distributed system. See <xref
 											href="../../../configuring/cluster_config/gfsh_persist.xml"
 										/>.</entry>
 									<entry>true</entry>
@@ -681,16 +681,16 @@ start pulse --url=http://gemfire.mycompany.com:7070/pulse</codeblock>
 				<p><b> Availability:</b> Online or offline. </p>
 				<p>
 					<b>Syntax:</b>
-					<codeblock id="start-server-syntax">start server --name=value [--assign-buckets(=value)?] [--bind-address=value]
-    [--cache-xml-file=value] [--classpath=value] [--disable-default-server(=value)?]
-    [--disable-exit-when-out-of-memory(=value)?] [--enable-time-statistics(=value)?]
-    [--force(=value)?] [--properties-file=value] [--security-properties-file=value]
+					<codeblock id="start-server-syntax">start server --name=value [--assign-buckets(=value)] [--bind-address=value]
+    [--cache-xml-file=value] [--classpath=value] [--disable-default-server(=value)]
+    [--disable-exit-when-out-of-memory(=value)] [--enable-time-statistics(=value)]
+    [--force(=value)] [--properties-file=value] [--security-properties-file=value]
     [--group=value] [--locators=value] [--locator-wait-time=value] [--log-level=value]
     [--mcast-address=value] [--mcast-port=value] [--memcached-port=value]
-    [--memcached-protocol=value] [--rebalance(=value)?] [--server-bind-address=value]
+    [--memcached-protocol=value] [--rebalance(=value)] [--server-bind-address=value]
     [--server-port=value] [--spring-xml-location=value]
     [--statistic-archive-file=value] [--dir=value] [--initial-heap=value]
-    [--max-heap=value] [--use-cluster-configuration(=value)?] [--J=value(,value)*]
+    [--max-heap=value] [--use-cluster-configuration(=value)] [--J=value(,value)*]
     [--critical-heap-percentage=value] [--eviction-heap-percentage=value]
     [--hostname-for-clients=value] [--max-connections=value]
     [--message-time-to-live=value] [--max-message-count=value] [--max-threads=value]
@@ -722,8 +722,9 @@ start pulse --url=http://gemfire.mycompany.com:7070/pulse</codeblock>
 									<entry colname="col1">
 										<parmname>--assign-buckets</parmname>
 									</entry>
-									<entry colname="col2">Whether to assign buckets to the
-										partitioned regions of the cache on server start. </entry>
+									<entry colname="col2">When true, assign buckets to the
+										partitioned regions of the cache on server start. Specifying
+										this parameter without a value sets it to true.</entry>
 									<entry>false</entry>
 								</row>
 								<row>
@@ -755,18 +756,18 @@ start pulse --url=http://gemfire.mycompany.com:7070/pulse</codeblock>
 									<entry colname="col1">
 										<parmname>--disable-default-server</parmname>
 									</entry>
-									<entry colname="col2">Whether the cache server will be started
-										by default. If the parameter is specified without a value,
-										the value is set to true. If set to true, the cache server
-										acts as a peer. </entry>
+									<entry colname="col2">When true, the the cache server will be
+										started and will act as a peer. Specifying this parameter
+										without a value sets it to true.</entry>
 									<entry>false</entry>
 								</row>
 								<row>
 									<entry colname="col1">
 										<parmname>--disable-exit-when-out-of-memory</parmname>
 									</entry>
-									<entry colname="col2">Prevents the JVM from exiting when an
-										OutOfMemoryError occurs. </entry>
+									<entry colname="col2">When true, prevents the JVM from exiting
+										when an OutOfMemoryError occurs. Specifying this parameter
+										without a value sets it to true.</entry>
 									<entry>false</entry>
 								</row>
 								<row>
@@ -774,7 +775,9 @@ start pulse --url=http://gemfire.mycompany.com:7070/pulse</codeblock>
 										<parmname>--enable-time-statistics</parmname>
 									</entry>
 									<entry colname="col2">Causes additional time-based statistics to
-										be gathered for <keyword keyref="product_name"/> operations. </entry>
+										be gathered for <keyword keyref="product_name"/> operations.
+										Specifying this parameter without a value sets it to
+										true.</entry>
 									<entry>true</entry>
 								</row>
 								<row>
@@ -811,8 +814,9 @@ start pulse --url=http://gemfire.mycompany.com:7070/pulse</codeblock>
 									<entry colname="col1">
 										<parmname>--force</parmname>
 									</entry>
-									<entry colname="col2">Whether to allow the PID file from a
-										previous Cache Server run to be overwritten. </entry>
+									<entry colname="col2">When true, allows the PID file from a
+										previous Cache Server run to be overwritten. Specifying this
+										parameter without a value sets it to true.</entry>
 									<entry>false</entry>
 								</row>
 								<row>
@@ -917,8 +921,9 @@ start pulse --url=http://gemfire.mycompany.com:7070/pulse</codeblock>
 									<entry colname="col1">
 										<parmname>--rebalance</parmname>
 									</entry>
-									<entry colname="col2">Whether to initiate rebalancing across the
-											<keyword keyref="product_name"/> cluster.</entry>
+									<entry colname="col2">When true, initiates rebalancing across
+										the <keyword keyref="product_name"/> cluster.  Specifying
+										this parameter without a value sets it to true.</entry>
 									<entry>false</entry>
 								</row>
 								<row>
@@ -992,8 +997,10 @@ start pulse --url=http://gemfire.mycompany.com:7070/pulse</codeblock>
 									<entry colname="col1">
 										<parmname>--use-cluster-configuration</parmname>
 									</entry>
-									<entry colname="col2">Specifies whether the server requests a
-										cluster configuration from the locator. See <xref
+									<entry colname="col2">When true, specifies that the server
+										should request a cluster configuration from the locator.
+										Specifying this parameter without a value sets it to true.
+										See <xref
 											href="../../../configuring/cluster_config/gfsh_persist.xml"
 										/>.</entry>
 									<entry>true</entry>
