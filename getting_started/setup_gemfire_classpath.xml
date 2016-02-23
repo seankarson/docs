@@ -59,11 +59,11 @@
     for security reasons.</p>
    <p><b>Option 2:</b> Define the CLASSPATH environment variable in your OS environment. Then,
     specify the <codeph>--include-system-classpath</codeph> parameter upon process startup. For
-    example:<codeblock>gfsh> start locator --name=locator1 --include-system-classpath</codeblock>
+    example:<codeblock>gfsh> start locator --name=locator1 --include-system-classpath=true</codeblock>
     The same can also be done for server
-    processes:<codeblock>gfsh> start server --name=server1 --include-system-classpath</codeblock>This
+    processes:<codeblock>gfsh> start server --name=server1 --include-system-classpath=true</codeblock>This
     option <i>appends</i> the contents of the system CLASSPATH environment variable to the locator
-    or server's CLASSPATH upon startup.</p>
+    or server's CLASSPATH upon startup. Specifying this option without a value sets it to true.</p>
   </section>
   <section>
    <title>Setting the CLASSPATH for Applications and Standalone Java Processes</title>
