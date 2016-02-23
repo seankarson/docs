@@ -342,16 +342,16 @@ JDK installation or the JDK bin directory is in the system PATH.</codeblock>
 						not want the additional default GC properties set by the Resource Manager,
 						then use the<codeph>-Xms</codeph> and <codeph>-Xmx</codeph> JVM options. See
 							<xref format="dita"
-							href="../../../managing/heap_use/controlling_heap_use.xml"
+								href="../../../managing/heap_use/heap_management.xml#configuring_resource_manager"
 							scope="local" type="concept"/> for more information. </note>
 				</p>
 				<p><b> Availability:</b> Online or offline. </p>
 				<p>
 					<b>Syntax:</b>
-					<codeblock>start locator --name=value [--bind-address=value] [--force(=value)?] [--group=value] [--hostname-for-clients=value]
+					<codeblock>start locator --name=value [--bind-address=value] [--force(=value)] [--group=value] [--hostname-for-clients=value]
  [--locators=value] [--log-level=value] [--mcast-address=value] [--mcast-port=value] [--port=value] [--dir=value] 
  [--properties-file=value] [--security-properties-file=value] [--initial-heap=value] [--max-heap=value] 
- [--connect(=value)?] [--enable-cluster-configuration(=value)?] [--load-from-cluster-configuration-dir(=value)?]
+ [--connect(=value)] [--enable-cluster-configuration(=value)] [--load-from-cluster-configuration-dir(=value)]
  [--cluster-config-dir=value] [--J=value(,value)*] 
 </codeblock>
 					<table id="table_D7D1EC149B39483B816583F3D4A775E7">
@@ -570,12 +570,11 @@ JDK installation or the JDK bin directory is in the system PATH.</codeblock>
 									<entry colname="col2">Argument passed to the JVM on which the
 										Locator will run. For example, specifying
 											<codeph>--J=-Dfoo.bar=true</codeph> sets property
-										"foo.bar" to "true".<note id="note_z2t_crj_2l">
-											<p id="p_b1h_kz3_2l">If the argument you are passing
+										"foo.bar" to "true".<note><p>If the argument you are passing
 												contains spaces or commas, enclose the option in
 												single quotes. For
 												example:<codeblock>start locator --name=locator1 --port=9009 --mcast-port=0\
- --J=<b>'-Dgemfire.remote-locators=10.116.34.222[9009],10.116.35.225[9009]'</b></codeblock></p>
+--J=<b>'-Dgemfire.remote-locators=10.116.34.222[9009],10.116.35.225[9009]'</b></codeblock></p>
 										</note>
 									</entry>
 									<entry>none</entry>
@@ -675,22 +674,22 @@ start pulse --url=http://gemfire.mycompany.com:7070/pulse</codeblock>
 						additional default GC properties set by the Resource Manager, then use the
 							<codeph>-Xms</codeph> and <codeph>-Xmx</codeph> JVM options. See <xref
 							format="dita"
-							href="../../../managing/heap_use/controlling_heap_use.xml"
+							href="../../../managing/heap_use/heap_management.xml#configuring_resource_manager"
 							scope="local" type="concept"/> for more information. </note>
 				</p>
 				<p><b> Availability:</b> Online or offline. </p>
 				<p>
 					<b>Syntax:</b>
-					<codeblock id="start-server-syntax">start server --name=value [--assign-buckets(=value)?] [--bind-address=value]
-    [--cache-xml-file=value] [--classpath=value] [--disable-default-server(=value)?]
-    [--disable-exit-when-out-of-memory(=value)?] [--enable-time-statistics(=value)?]
-    [--force(=value)?] [--properties-file=value] [--security-properties-file=value]
+					<codeblock id="start-server-syntax">start server --name=value [--assign-buckets(=value)] [--bind-address=value]
+    [--cache-xml-file=value] [--classpath=value] [--disable-default-server(=value)]
+    [--disable-exit-when-out-of-memory(=value)] [--enable-time-statistics(=value)]
+    [--force(=value)] [--properties-file=value] [--security-properties-file=value]
     [--group=value] [--locators=value] [--locator-wait-time=value] [--log-level=value]
     [--mcast-address=value] [--mcast-port=value] [--memcached-port=value]
-    [--memcached-protocol=value] [--rebalance(=value)?] [--server-bind-address=value]
+    [--memcached-protocol=value] [--rebalance(=value)] [--server-bind-address=value]
     [--server-port=value] [--spring-xml-location=value]
     [--statistic-archive-file=value] [--dir=value] [--initial-heap=value]
-    [--max-heap=value] [--use-cluster-configuration(=value)?] [--J=value(,value)*]
+    [--max-heap=value] [--use-cluster-configuration(=value)] [--J=value(,value)*]
     [--critical-heap-percentage=value] [--critical-off-heap-percentage=value] 
     [--eviction-heap-percentage=value] [--eviction-off-heap-percentage=value]
     [--hostname-for-clients=value] [--max-connections=value]
@@ -1119,17 +1118,16 @@ start pulse --url=http://gemfire.mycompany.com:7070/pulse</codeblock>
 								</row>
 								<row>
 									<entry><parmname>--lock-memory</parmname></entry>
-									<entry>When true, both heap and off-heap pages are locked in
-										RAM, preventing them from being swappped to disk.
-										Corresponding operating system parameters must also be set
-										to lock pages.</entry>
+									<entry>(Linux only) When true, both heap and off-heap pages are locked in RAM, preventing
+										them from being swapped to disk. Corresponding operating
+										system parameters must also be set to lock pages.</entry>
 									<entry>false</entry>
 								</row>
 								<row>
 									<entry><parmname>--off-heap-memory-size</parmname></entry>
 									<entry>The integer quantity of off-heap memory to be used for
-										storing region values. Specified in GB with a 'g' suffix, or
-										MB with an 'm' suffix. For example, allocate a 2 Gigabyte
+										storing region values. Specified in Gigabytes with a 'g' suffix, or
+										Megabytes with an 'm' suffix. For example, allocate a 2 Gigabyte
 										off-heap space with
 											<codeph>--off-heap-memory-size=2g</codeph>. The default
 										value of 0 does not use any off-heap memory.</entry>

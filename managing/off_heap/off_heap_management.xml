@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE dita PUBLIC "-//OASIS//DTD DITA Composite//EN" "ditabase.dtd">
+<dita>
+	<concept id="managing-off-heap-memory">
+	<title>Managing Off-Heap Memory</title>
+		<shortdesc>Large quantities of memory outside the control of the Java garbage collector may be used
+			for region data values by enabling the off-heap feature.</shortdesc>
+		<conbody>
+
+		<p>Garbage collection within a JVM can prove to be a performance impediment. A server cannot exert
+			control over when garbage collection within the JVM heap memory takes place, and the
+			server has little control over the triggers for invocation.</p>
+		<p><keyword keyref="product_name"/> can be configured to store region values in off-heap memory,
+			which is memory within the JVM that is not subject to Java garbage collection. The keys
+			are stored in heap memory space. <keyword keyref="product_name"/>'s own slab memory
+			manager handles the off-heap memory with better performance than the Java garbage
+			collector would for certain sets of region data. Regions that meet the criterion are
+			excellent candidates for using the off-heap feature.</p>
+		<p>The off-heap memory manager is efficient at handling region data values that are all the same
+			size or are of fixed sizes. It does not do well with varying sized region values, as
+			this causes a fragmentation of free space into chunks that cannot be easily re-used. The
+			fragmentation can result in a time consuming coalesce. With fixed and same-sized data
+			values allocated within the off-heap memory, freed chunks can often be re-used, and
+			there is little to no need for a coalesce.</p>
+		<p>Region values that are less than or equal to eight bytes in size will not reside in
+			off-heap memory, even if the region is configured to use off-heap memory. These very
+			small size region values reside in place of where the reference to the data would have
+			been. This performance enhancement saves space and load time.</p>
+		</conbody>
+</concept>
+	
+<concept id="off-heap-implementation-details">
+	<title>How the Off-Heap Memory Manager Works</title>
+	<shortdesc>Off-heap memory is not subject to garbage collection, but values stored there are
+		subject to serialization and deserialization. The off-heap memory manager resembles the heap
+		resource manager in some ways, but not in others.</shortdesc>
+	<conbody>
+		<p>The off-heap memory manager monitors the contents of off-heap memory and performs cleanup and
+			consolidation operations in accordance with two thresholds similar to those used by the heap
+			resource manager: <codeph>off-heap-eviction-threshold</codeph> and
+			<codeph>off-heap-critical-threshold</codeph>.</p>
+		<p>Off-heap memory works in conjunction with the heap, it does not replace it. Instead, it
+			offloads values to a storage area that is not subject to Java garbage collection (GC). By taking
+			advantage of off-heap storage, an application can reduce the amount of heap storage that is
+			subject to GC overhead.</p>
+		<p>Keys are stored in Java heap, but values can be moved to off-heap storage. In order to be moved
+			to off-heap memory, those values must be serialized. In order to be retrieved from off-heap
+			storage, those values must be deserialized. (There are some exceptions - PDX allows some
+			operations on serialized data without going through deserialization). Therefore, there is some
+			overhead involved in using off-heap storage. Some applications may find that, on balance,
+			performance improves with off-heap storage.</p>
+		<p>Off-heap storage is best suited to data patterns where:<ul id="ul_dzc_sbg_z5">
+			<li>Stored values are of uniform size</li>
+			<li>Stored values are moderate to large in size</li>
+			<li>Update frequency is low or moderate</li>
+		</ul></p>
+		<p>Off-heap storage offers fewer advantages in scenarios where:<ul id="ul_fq1_ybg_z5">
+			<li>Stored values vary in size</li>
+			<li>Data values are small</li>
+			<li>Updates are frequent</li>
+		</ul></p>
+		<p>The following table shows which objects can be stored in off-heap memory and which are stored
+			in JVM heap.</p>
+		<table id="table_h1v_cwh_1v">
+			<title>On-heap vs. Off-heap Storage Candidates by Data Type</title>
+			<tgroup cols="2">
+				<thead>
+					<row>
+						<entry>Stored On-heap</entry>
+						<entry>Stored Off-heap</entry>
+					</row>
+				</thead>
+				<tbody>
+					<row>
+						<entry>Region metadata</entry>
+						<entry>Values</entry>
+					</row>
+					<row>
+						<entry>Entry metadata</entry>
+						<entry>Reference counts</entry>
+					</row>
+					<row>
+						<entry>Off-heap addresses</entry>
+						<entry>List of free memory blocks</entry>
+					</row>
+					<row>
+						<entry>Keys</entry>
+						<entry>WAN queue elements</entry>
+					</row>
+					<row>
+						<entry>Indexes</entry>
+						<entry/>
+					</row>
+					<row>
+						<entry>Subscription queue elements</entry>
+						<entry/>
+					</row>
+				</tbody>
+			</tgroup>
+		</table>
+		
+		<section id="section_fzn_ml3_1v"><title>Off-heap Recommendations</title> 
+			<p>Off-heap storage offers advantages when:
+			<ul id="ul_gyp_w33_1v">
+			<li>The values are relatively uniform in size</li>
+			<li>The values are mostly less than 128K in size</li>
+			<li>The usage patterns involve cycles of many creates followed by destroys or clear</li>
+			<li>The values do not need to be frequently deserialized</li>
+		</ul></p></section>
+		
+		<section><title>Off-heap Caveats</title> <p>When using off-heap storage:
+			<ul>
+			<li>Avoid a large number of updates</li>
+			<li>Avoid values of widely varying sizes</li>
+			<li>Avoid using deltas</li>
+			<li>Minimize querying off-heap data. (Exception: PDX objects can be accessed without
+				deserialization, and so are reasonably efficient.)</li>
+			<li>Do not use functional range indexes</li>
+		</ul></p></section>
+		
+		
+		<section>
+			<title>Specifying Off-heap Memory</title>
+			<p>To use off-heap memory, specify the following options when setting up servers and
+				regions:
+				<ul id="ul_dtl_nxh_1v">
+					<li>Set the off-heap memory size for the process. Use the property
+						<codeph>off-heap-memory-size</codeph>.</li>
+					<li>Mark regions whose entry values should be stored off-heap. Set the region attribute
+						<codeph>off-heap</codeph> to <codeph>true</codeph>.</li>
+					<li>Adjust the JVM heap memory size down. Size below 32GB is optimal.</li>
+					<li>Configure the Resource Manager, if necessary. This is optional.</li>
+				</ul></p>
+		</section>
+		<section><title>System Properties</title>
+		<p>off-heap-memory-size</p>
+		<p>lock-memory</p>
+		</section>
+		<section>Region Attributes
+		<p>ON or OFF</p>
+		</section>
+		<section>Resource Manager
+		<p>Out of memory semantics, etc, pretty much the same as for JVM heap.</p>
+		<p>Critical threshold<ul>
+			<li>always applies if off-heap-memory is specified</li>
+			<li>triggers LowMemoryException for puts into off-heap regions</li>
+			<li>default is 90% of off-heap-memory amount specified</li>
+			<li>critical member informs other members that it is critical</li>
+		</ul></p>
+		<p>Eviction threshold<ul>
+			<li>applies only when LRU_HEAP is in effect</li>
+			<li>triggers entry eviction when exceeded</li>
+			<li>default is 90% of CriticalOffHeapPercentage specified</li>
+		</ul></p></section>
+		<section>Startup Options
+		<p>Example:
+			<codeblock>
+				start server –initial-heap=10G –max-heap=10G –off-heap-memory-size=200G –lock-memory=true –critical-off-heap-percentage=99
+			</codeblock></p>
+		</section>
+		<section><title>ResourceManager API</title>
+		<p>GemFireCache#getResourceManager()</p>
+		<p>com.gemstone.gemfire.cache.control.ResourceManager
+			<ul>
+			<li>exposes getters and setters for all of the heap and off-heap threshold percentages</li>
+			</ul>
+		</p>
+		<p><codeblock>public void setCriticalOffHeapPercentage(float offHeapPercentage);</codeblock>
+				<codeblock>public float getCriticalOffHeapPercentage();
+				</codeblock></p>
+		</section>
+	</conbody>
+</concept>
+</dita>
