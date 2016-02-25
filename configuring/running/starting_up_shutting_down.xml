@@ -2,7 +2,153 @@
 <!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "http://docs.oasis-open.org/dita/v1.1/OS/dtd/concept.dtd">
 <concept id="starting_up_shutting_down">
 	<title>Starting Up and Shutting Down Your System</title>
-	<shortdesc id="shortdesc_3F7FF7DA09E24DE69F5DE910E85DE26C">Determine the proper startup and
-		shutdown procedures and write your startup and shutdown scripts. </shortdesc>
-	<conbody/>
+	<shortdesc>Determine the proper startup and
+		shutdown procedures, and write your startup and shutdown scripts. </shortdesc>
+	<conbody>
+	<p>Well-designed procedures for starting and stopping your system can speed startup and
+			protect your data. The processes you need to start and stop include server and locator processes and
+			your other <keyword keyref="product_name"/> applications, including clients. The
+			procedures you use depend in part on your system’s configuration and the
+			dependencies between your system processes. </p>
+		<p>Use the following guidelines to create startup and shutdown procedures and scripts.
+			Some of these instructions use <xref
+				href="../../tools_modules/gfsh/chapter_overview.xml" type="concept"
+				format="dita" scope="local"/>. </p>
+		<section id="section_3D111558326D4A38BE48C17D44BB66DB">
+			<title>Starting Up Your System</title>
+			<p>You should follow certain order guidelines when starting your <keyword
+				keyref="product_name"/> system. </p>
+			<p>Start server-distributed systems before you start their client applications. In each
+				distributed system, follow these guidelines for member startup: <ul
+					id="ul_5863AF9CB6DB436E81D974ACA90A4C11">
+					<li id="li_FD023619751949E883BE95DFA93888FF">Start locators first. See <xref
+						href="running_the_locator.xml" type="concept"
+						format="dita" scope="local"/> for examples of locator startup commands. </li>
+					<li id="li_F6AFBB5A5A954FCAB0AEDD40C5B13B66">Start cache servers before the rest
+						of your processes unless the implementation requires that other processes be
+						started ahead of them. <xref
+							href="running_the_cacheserver.xml"
+							type="concept" format="dita" scope="local"/> for examples of server
+						startup commands. </li>
+					<li id="li_533E8FB3517845899892FCD816A3A6A4">If your distributed system uses
+						both persistent replicated and non-persistent replicated regions, you should
+						start up all the persistent replicated members in parallel before starting
+						the non-persistent regions. This way, persistent members will not delay
+						their startup for other persistent members with later data. </li>
+					<li id="li_BCFA0D08977B49CB84928EBEE322764D">If you are running producer
+						processes and consumer or event listener processes, start the producers
+						first. This ensures the consumers and listeners receive all notifications
+						and updates. </li>
+					<li>If you are starting up your locators and peer members all at once, you can
+						use the <codeph>locator-wait-time</codeph> property (in seconds) upon
+						process start up. This timeout allows peers to wait for the locators to
+						finish starting up before attempting to join the distributed system. If a
+						process has been configured to wait for a locator to start, it will log an
+						info-level message<lq><codeph>GemFire startup was unable to contact a
+							locator. Waiting for one to start. Configured locators are
+							frodo[12345],pippin[12345]. </codeph></lq>The process will then
+						sleep for a second and retry until it either connects or the number of
+						seconds specified in <codeph>locator-wait-time</codeph> has elapsed. By
+						default, <codeph>locator-wait-time</codeph> is set to zero meaning that a
+						process that cannot connect to a locator upon startup will throw an
+						exception.</li>
+				</ul>
+			</p>
+			<note>You can optionally override the default timeout period for shutting down individual
+				processes. This override setting must be specified during member startup. See <xref
+					href="#starting_up_shutting_down/section_mnx_4cp_cv" format="dita">Shutting Down
+					the System</xref> for details. </note>
+		</section>
+		<section id="section_2F8ABBFCE641463C8A8721841407993D">
+			<title>Starting Up After Losing Data on Disk </title>
+			<p>This information pertains to catastrophic loss of <keyword keyref="product_name"/>
+				disk store files. If you lose disk store files, your next startup may hang, waiting
+				for the lost disk stores to come back online. If your system hangs at startup, use
+				the <codeph>gfsh</codeph> command <codeph>show missing-disk-store</codeph> to list
+				missing disk stores and, if needed, revoke missing disk stores so your system
+				startup can complete. You must use the Disk Store ID to revoke a disk store. These
+				are the two commands:
+				<codeblock>
+gfsh&gt;show missing-disk-stores
+
+Disk Store ID             |   Host    |               Directory                                           
+------------------------------------ | --------- | -------------------------------------
+60399215-532b-406f-b81f-9b5bd8d1b55a | excalibur | /usr/local/gemfire/deploy/disk_store1 
+
+gfsh&gt;revoke missing-disk-store --id=60399215-532b-406f-b81f-9b5bd8d1b55a</codeblock>
+			</p>
+			<p>
+				<note>This gfsh commands require that you are connected to the distributed system
+					via a JMX Manager node. </note>
+			</p>
+			<p> </p>
+		</section>
+		<section id="section_mnx_4cp_cv">
+			<title>Shutting Down the System</title>
+			<p>Shut down your <keyword keyref="product_name"/> system by using either
+					<codeph>gfsh</codeph>'s <codeph>shutdown</codeph> command or by shutting down
+				individual members one at a time.</p>
+		</section>
+		<section id="section_0EB4DDABB6A348BA83B786EEE7C84CF1">
+			<title>Using the shutdown Command</title>
+			<p>If you are using persistent regions, (members are persisting data to disk), you
+				should use the <codeph>gfsh</codeph>
+				<codeph>shutdown</codeph> command to stop the running system in an orderly fashion.
+				This command synchronizes persistent partitioned regions before shutting down, which
+				makes the next startup of the distributed system as efficient as possible. </p>
+			<p>If possible, all members should be running before you shut them down so
+				synchronization can occur. Shut down the system using the following
+				<codeph>gfsh</codeph> command: <codeblock>gfsh&gt;shutdown</codeblock> By
+				default, the shutdown command will only shut down data nodes. If you want to shut
+				down all nodes including locators, specify the
+				<codeph>--include-locators=true</codeph> parameter. For example:
+				<codeblock>gfsh>shutdown --include-locators=true</codeblock>This will shut down all
+				locators one by one, shutting down the manager last.</p>
+			<p>To shutdown all data members after a grace period, specify a time-out option (in
+				seconds). <codeblock>gfsh&gt;shutdown --time-out=60</codeblock> To shutdown all
+				members including locators after a grace period, specify a time-out option (in
+				seconds).<codeblock>gfsh>shutdown --include-locators=true --time-out=60</codeblock></p>
+		</section>
+		<section id="section_A07D40BC118544D0984860A3B4A5CB29">					
+			<title>Shutting Down System Members Individually</title>
+			<p>If you are not using persistent regions, you can shut down the distributed system by shutting
+				down each member in the reverse order of their startup. (See <xref
+					href="#starting_up_shutting_down/section_3D111558326D4A38BE48C17D44BB66DB"
+					format="dita">Starting Up Your System</xref> for the recommended order of member
+				startup.) </p>
+			<p>Shut down the distributed system members according to the type of member. For
+				example, use the following mechanisms to shut down members: <ul
+					id="ul_12CC69DA7B8047AFA69CC5F120B66E0F">
+					<li id="li_0C4894CD078B469A869B008331A4FF99">Use the appropriate mechanism to
+						shut down any <keyword keyref="product_name"/>-connected client applications
+						that are running in the distributed system. </li>
+					<li id="li_534EF2BF81C74B2EB40A3322AD9B8BB3">Shut down any cache servers. To shut down a
+						server, issue the following <codeph>gfsh</codeph> command:
+						<codeblock>gfsh&gt;stop server --name=&lt;...&gt;</codeblock>or
+						<codeblock>gfsh>stop server --dir=&lt;server_working_dir></codeblock>
+					</li>
+					<li id="li_3BA78A549F184817943F53786FF2CEDE">Shut down any locators. To shut down a locator,
+						issue the following <codeph>gfsh</codeph> command:
+						<codeblock>gfsh&gt;stop locator --name=&lt;...&gt;</codeblock>
+						or<codeblock>gfsh>stop locator --dir=&lt;locator_working_dir></codeblock></li>
+				</ul>
+			</p>
+		</section>
+		<section id="section_7CF680CF8A924C57A7052AE2F975DA81">					
+			<title>Option for System Member Shutdown Behavior</title>
+			<p>The <codeph>DISCONNECT_WAIT</codeph> command line argument sets the maximum time for
+				each individual step in the shutdown process. If any step takes longer than the
+				specified amount, it is forced to end. Each operation is given this grace period, so
+				the total length of time the cache member takes to shut down depends on the number
+				of operations and the <codeph>DISCONNECT_WAIT</codeph> setting. During the shutdown
+				process, <keyword keyref="product_name"/> produces messages such as:
+				<codeblock>Disconnect listener still running</codeblock>The
+				<codeph>DISCONNECT_WAIT</codeph> default is 10000 milliseconds. </p>
+			<p>To change it, set this system property on the Java command line used for member
+				startup. For example:
+				<codeblock>gfsh&gt;start server --J=-DDistributionManager.DISCONNECT_WAIT=&lt;milliseconds&gt;</codeblock>
+				Each process can have different <codeph>DISCONNECT_WAIT</codeph> settings. </p>
+			<p> </p>
+		</section>
+	</conbody>
 </concept>
