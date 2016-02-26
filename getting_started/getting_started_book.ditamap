@@ -5,8 +5,13 @@
 		<mainbooktitle>Getting Started with <keyword keyref="product_name_long"/></mainbooktitle>
 	</booktitle>
 	<part format="dita" href="book_intro.xml">
-		<topicref href="15_minute_quickstart_gfsh.xml" type="topic"/>
 		<topicref href="geode_overview.xml"/>
-		<topicref href="product_intro.xml"/>
+		<topicref href="../prereq_and_install.xml">
+			<topicref href="system_requirements/host_machine.xml"/>
+			<topicref href="installation/install_standalone.xml"/>
+			<topicref href="setup_gemfire_classpath.xml"/>
+			<topicref href="uninstall_gemfire.xml"/>
+		</topicref>
+		<topicref href="15_minute_quickstart_gfsh.xml" type="topic"/>
 	</part>
 </bookmap>
