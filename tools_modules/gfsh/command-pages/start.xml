@@ -1118,9 +1118,9 @@ start pulse --url=http://gemfire.mycompany.com:7070/pulse</codeblock>
 								</row>
 								<row>
 									<entry><parmname>--lock-memory</parmname></entry>
-									<entry>(Linux only) When true, both heap and off-heap pages are locked in RAM, preventing
-										them from being swapped to disk. Corresponding operating
-										system parameters must also be set to lock pages.</entry>
+									<entry>(Linux only) When true, the member's heap and off-heap memory are locked in RAM, preventing
+										them from being paged to disk. You must increase the related <codeph>ulimit</codeph> operating
+										system resource to allow the OS to lock memory chunks of sufficient size.</entry>
 									<entry>false</entry>
 								</row>
 								<row>

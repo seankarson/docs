@@ -3,11 +3,20 @@
 <dita>
 	<topic id="resource_manager">
 
-<title>Managing the JVM Heap</title>
+<title>Managing Heap and Off-heap Memory</title>
   <body>
-	<p>The <keyword keyref="product_name_long"/> resource manager
-		works with your JVM's tenured garbage collector (GC) to control heap use and protect your
-		member from hangs and crashes due to memory overload. </p>
+	<p>Because <keyword keyref="product_name_long"/> is specifically designed to manipulate data held
+				in memory, best results depend on making best use of RAM. The primary interface to
+				RAM is the JVM heap. <keyword keyref="product_name_long"/> also offers an option to
+				store data off-heap. This section describes how to manage heap and off-heap memory
+				to best support your application. Topics include:<ul id="ul_vpk_jfv_cv">
+					<li>Managing the JVM Heap</li>
+					<li>Using the <keyword keyref="product_name_long"/> resource manager</li>
+					<li>Managing off-heap memory</li>
+					<li>Locking memory (Linux systems only)</li>
+				</ul>The <keyword keyref="product_name_long"/> resource manager works with your
+				JVM's tenured garbage collector (GC) to control heap use and protect your member
+				from hangs and crashes due to memory overload. </p>
   </body>
 </topic>
 

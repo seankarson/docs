@@ -51,11 +51,13 @@ gfsh&gt;start server --name=<i>server-name</i> --J=-Xss512k</codeblock>
 				memory to allocate. Setting <codeph>off-heap-memory-size</codeph> is prerequisite to
 				enabling the off-heap capability for individual regions. For
 				example:<codeblock>gfsh>start server --name=<i>server-name</i> --off-heap-memory-size=200G</codeblock>
-			</li>
-			<li>Lock memory—You can prevent memory from being swapped out by setting the
-					<codeph>lock-memory</codeph> parameter to <codeph>true</codeph>. Memory locking
-				is often used with the off-heap capability, but applies to heap memory as well. For
-				example:<codeblock>gfsh>start server --name=<i>server-name</i> --off-heap-memory-size=200G --lock-memory=true</codeblock></li>
+				See <xref href="../heap_use/off_heap_management.xml#managing-off-heap-memory">Using Off-heap Memory</xref> for additional considerations regarding this
+				parameter.</li>
+			<li>Lock memory—On Linux systems, you can prevent heap and off-heap memory from being paged out
+				by setting the <codeph>lock-memory</codeph> parameter to <codeph>true</codeph>. For
+				example:<codeblock>gfsh>start server --name=<i>server-name</i> --off-heap-memory-size=200G --lock-memory=true</codeblock>See
+				<xref href="../heap_use/off_heap_management.xml#locking-memory">Locking Memory</xref> for additional considerations regarding this
+				parameter.</li>
 		</ul>
 	</conbody>
 </concept>
