@@ -10,7 +10,7 @@
 				RAM is the JVM heap. <keyword keyref="product_name_long"/> also offers an option to
 				store data off-heap. This section describes how to manage heap and off-heap memory
 				to best support your application. Topics include:<ul id="ul_vpk_jfv_cv">
-					<li>Managing the JVM Heap</li>
+					<li>Tuning the JVM's GC Parameters</li>
 					<li>Using the <keyword keyref="product_name_long"/> resource manager</li>
 					<li>Managing off-heap memory</li>
 					<li>Locking memory (Linux systems only)</li>
@@ -19,23 +19,86 @@
 				from hangs and crashes due to memory overload. </p>
   </body>
 </topic>
+	<concept id="section_590DA955523246ED980E4E351FF81F71">
+		<title>Tuning the JVM's GC Parameters</title>
+		<conbody>
+			<p>See your JVM documentation for all JVM-specific settings that can be used to improve
+				GC response. </p>
+			<p>At a minimum, do the following: <ol id="ol_DC01BC62088F413FBE75A5644C8B6A3F">
+					<li id="li_0A1C47243C794135BD920F295FA6A0FC">Set the initial and maximum heap
+						switches, <codeph>-Xms</codeph> and <codeph>-Xmx</codeph>, to the same
+						values. </li>
+					<li id="li_9FB6FB8C5963422EA08C314AF2895B40">Configure your JVM for concurrent
+						mark-sweep (CMS) collector garbage collection. </li>
+					<li id="li_74E207A05D1643F98DCF91C64969DDA9">If your JVM allows, configure it to
+						initiate concurrent mark-sweep collection when heap use is at least 10%
+						lower than your setting for the resource manager
+							<codeph>eviction-heap-percentage</codeph>. You want the collector to be
+						working when <keyword keyref="product_name"/> is evicting or the evictions
+						will not result in more free memory. For example, if the
+							<codeph>eviction-heap-percentage</codeph> is set to 65, set your garbage
+						collection to start when the heap use is no higher than 55%. </li>
+				</ol>
+			</p>
+			<table id="table_7CD0BD404DAB41D0B4253D2B993FBDD9">
+				<tgroup cols="3">
+					<colspec colname="1" colnum="1" colwidth="110"/>
+					<colspec colname="2" colnum="2" colwidth="230"/>
+					<colspec colname="3" colnum="3" colwidth="320"/>
+					<thead>
+						<row>
+							<entry>JVM </entry>
+							<entry>Conc mark-sweep switch flag </entry>
+							<entry>CMS initiation (begin at heap % N) </entry>
+						</row>
+					</thead>
+					<tbody>
+						<row>
+							<entry>Sun HotSpot </entry>
+							<entry>
+								<codeph>-XX:+UseConcMarkSweepGC</codeph>
+							</entry>
+							<entry>
+								<codeph>-XX:CMSInitiatingOccupancyFraction=N</codeph>
+							</entry>
+						</row>
+						<row>
+							<entry>JRockit </entry>
+							<entry>
+								<codeph>-Xgc:gencon</codeph>
+							</entry>
+							<entry>
+								<codeph>-XXgcTrigger:N</codeph>
+							</entry>
+						</row>
+						<row>
+							<entry>IBM </entry>
+							<entry>
+								<codeph>-Xgcpolicy:gencon</codeph>
+							</entry>
+							<entry>N/A </entry>
+						</row>
+					</tbody>
+				</tgroup>
+			</table>
+			<p>For the <codeph>gfsh start server</codeph> command, pass these settings with the
+					<codeph>--J</codeph> switch, like <codeph>--J=-XX:+UseConcMarkSweepGC</codeph>. </p>
+			<p>The following is an example of setting JVM for an application:<codeblock>$ java app.MyApplication -Xms=30MB -Xmx=30MB -XX:+UseConcMarkSweepGC -XX:CMSInitiatingOccupancyFraction=60</codeblock>
+				<note>Do not use the <codeph>-XX:+UseCompressedStrings</codeph> and
+						<codeph>-XX:+UseStringCache</codeph> JVM configuration properties when
+					starting up servers. These JVM options can cause issues with data corruption and
+					compatibility.</note></p>
+		</conbody>
+	</concept>
 
 <concept id="how_the_resource_manager_works">
-	<title>How the Resource Manager Works</title>
+	<title>Using the <keyword keyref="product_name"/> Resource Manager</title>
 	<shortdesc>The <keyword keyref="product_name"/> resource manager prevents the cache from
 		consuming too much memory by evicting old data. If the garbage collector is unable to keep
 		up, the resource manager refuses additions to the cache until the collector has freed an
 		adequate amount of memory. </shortdesc>
 	<conbody>
 		<section id="section_53E80B61991447A2915E8A754383B32D">
-			<p>You can use the resource manager in any <keyword keyref="product_name_long"/> member,
-				but you may not want to use it everywhere. For some members it might be better to
-				occasionally restart after a hang or OME crash than to evict data and/or refuse
-				distributed caching activities. Also, members that do not risk running past their
-				memory limits would not benefit from the overhead required to run the resource
-				manager. Cache servers are often configured to use the manager because they
-				generally host more data and have more data activity than other members, requiring
-				greater responsiveness in data cleanup and collection. </p>
 			<p>The resource manager has two threshold settings, each expressed as a percentage of
 				the total tenured heap. Both are disabled by default. <ol
 					id="ol_AC9431F3040B4C5499FE2F1FC2A8EFF5">
@@ -104,13 +167,21 @@
 			<section id="section_B47A78E7BA0048C89FBBDB7441C308BE">
 				<p>The recommendations provided here for using the manager assume you have a solid
 					understanding of your Java VM's heap management and garbage collection service. </p>
+				<p>You can use the resource manager in any <keyword keyref="product_name_long"/>
+					member, but you may not want to use it everywhere. For some members it might be
+					better to occasionally restart after a hang or OME crash than to evict data
+					and/or refuse distributed caching activities. Also, members that do not risk
+					running past their memory limits would not benefit from the overhead required to
+					run the resource manager. Cache servers are often configured to use the manager
+					because they generally host more data and have more data activity than other
+					members, requiring greater responsiveness in data cleanup and collection. </p>
 				<p>For the members where you want to implement the resource manager functionality: <ol
 					id="ol_8A9C2BAB102842E49EBF68B494391980">
 					<li id="li_37DDA02E74F54A9E9B271F6DD6DEBA5E">Configure <keyword
 						keyref="product_name"/> for heap LRU management. </li>
-					<li id="li_D536B22DD1834393AB0860A24AA81314">Set the JVM GC tuning parameters to
-						handle heap and garbage collection in conjunction with the <keyword
-							keyref="product_name"/> manager. </li>
+					<li id="li_D536B22DD1834393AB0860A24AA81314">Set the JVM GC tuning parameters to handle heap
+							and garbage collection in conjunction with the <keyword
+								keyref="product_name"/> manager.</li>
 					<li id="li_4539A438E52043ECAE42EAC5774CE6F4">Monitor and tune heap LRU
 						configurations and your GC configurations. </li>
 					<li id="li_313DAC5D943346DAB0281623C4689BC1">Before going into production, run
@@ -174,76 +245,14 @@
 					<note>The <codeph>resource-manager</codeph> specification must appear after the
 						region declarations in your cache.xml file.</note></p>
 			</section>
-			<section id="section_590DA955523246ED980E4E351FF81F71">
-				<title>Set the JVM's GC Tuning Parameters</title>
-				<p>See your JVM documentation for all JVM-specific settings that can be used to improve
-					GC response. </p>
-				<p>At a minimum, do the following: <ol id="ol_DC01BC62088F413FBE75A5644C8B6A3F">
-					<li id="li_0A1C47243C794135BD920F295FA6A0FC">Set the initial and maximum heap
-						switches, <codeph>-Xms</codeph> and <codeph>-Xmx</codeph>, to the same
-						values. </li>
-					<li id="li_9FB6FB8C5963422EA08C314AF2895B40">Configure your JVM for concurrent
-						mark-sweep collector garbage collection. </li>
-					<li id="li_74E207A05D1643F98DCF91C64969DDA9">If your JVM allows, configure it to
-						initiate concurrent mark-sweep collection when heap use is at least 10%
-						lower than your setting for the resource manager
-						<codeph>eviction-heap-percentage</codeph>. You want the collector to be
-						working when <keyword keyref="product_name"/> is evicting or the evictions
-						will not result in more free memory. For example if the
-						<codeph>eviction-heap-percentage</codeph> is set to 65, set your garbage
-						collection to start when the heap use is no higher than 55%. </li>
-				</ol>
-				</p>
-				<table id="table_7CD0BD404DAB41D0B4253D2B993FBDD9">
-					<tgroup cols="3">
-						<colspec colname="1" colnum="1" colwidth="110"/>
-						<colspec colname="2" colnum="2" colwidth="230"/>
-						<colspec colname="3" colnum="3" colwidth="320"/>
-						<thead>
-							<row>
-								<entry>JVM </entry>
-								<entry>Conc mark-sweep switch flag </entry>
-								<entry>CMS initiation (begin at heap % N) </entry>
-							</row>
-						</thead>
-						<tbody>
-							<row>
-								<entry>Sun HotSpot </entry>
-								<entry>
-									<codeph>-XX:+UseConcMarkSweepGC</codeph>
-								</entry>
-								<entry>
-									<codeph>-XX:CMSInitiatingOccupancyFraction=N</codeph>
-								</entry>
-							</row>
-							<row>
-								<entry>JRockit </entry>
-								<entry>
-									<codeph>-Xgc:gencon</codeph>
-								</entry>
-								<entry>
-									<codeph>-XXgcTrigger:N</codeph>
-								</entry>
-							</row>
-							<row>
-								<entry>IBM </entry>
-								<entry>
-									<codeph>-Xgcpolicy:gencon</codeph>
-								</entry>
-								<entry>N/A </entry>
-							</row>
-						</tbody>
-					</tgroup>
-				</table>
-				<p>For the <codeph>gfsh start server</codeph> command, pass these settings with the
-					<codeph>--J</codeph> switch, like <codeph>--J=-XX:+UseConcMarkSweepGC</codeph>. </p>
-				<p>The following is an example of setting JVM for an
-					application:<codeblock>$ java app.MyApplication -Xms=30MB -Xmx=30MB -XX:+UseConcMarkSweepGC -XX:CMSInitiatingOccupancyFraction=60</codeblock>
-					<note>Do not use the <codeph>-XX:+UseCompressedStrings</codeph>
-						and <codeph>-XX:+UseStringCache</codeph> JVM configuration properties when
-						starting up servers. These JVM options can cause issues with data corruption and
-						compatibility.</note></p>
-			</section>
+			<section><title>Set the JVM GC Tuning Parameters</title>If your JVM allows, configure it
+				to initiate concurrent mark-sweep collection when heap use is at least 10% lower
+				than your setting for the resource manager
+				<codeph>eviction-heap-percentage</codeph>. You want the collector to be working when
+					<keyword keyref="product_name"/> is evicting or the evictions will not result in
+				more free memory. For example, if the <codeph>eviction-heap-percentage</codeph> is
+				set to 65, set your garbage collection to start when the heap use is no higher than
+				55%.</section>
 			<section id="section_DE1CC494C2B547B083AA00821250972A">
 				<title>Monitor and Tune Heap LRU Configurations</title>
 				<p>In tuning the resource manager, your central focus should be keeping the member below
