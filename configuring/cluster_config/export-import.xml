@@ -17,7 +17,7 @@
         contents of these directories are described in <xref
           href="gfsh_config_troubleshooting.xml#concept_ylt_2cb_y4"/>.</p>
       <p>To export a cluster configuration, run the <codeph>export cluster-configuration</codeph>
-        gfsh command while connected to a <keyword keyref="product_name_long"/> cluster. For example: </p>
+        gfsh command while connected to a <keyword keyref="product_name"/> cluster. For example: </p>
       <codeblock>export cluster-configuration --zip-file-name=myClusterConfig.zip --dir=/home/username/configs</codeblock>
       <p>See <xref href="../../tools_modules/gfsh/command-pages/export.xml#topic_mdv_jgz_ck"/>.</p>
       <note>gfsh only saves cluster configuration values for configurations specified using gfsh.

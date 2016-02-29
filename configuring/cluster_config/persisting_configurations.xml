@@ -3,16 +3,16 @@
 <task id="task_bt3_z1v_dl">
     <title>Tutorial: Creating and Using a Cluster Configuration</title>
     <shortdesc>A short walk-through that uses a single computer to demonstrate how to use gfsh to
-        create a cluster configuration for a <keyword keyref="product_name_long"/> cluster. </shortdesc>
+        create a cluster configuration for a <keyword keyref="product_name"/> cluster. </shortdesc>
     <taskbody>
         <context>
             <p>The <codeph>gfsh</codeph> command-line tool allows you to configure and start a
-                    <keyword keyref="product_name_long"/> cluster. The cluster configuration service
-                uses <keyword keyref="product_name_long"/> locators to store the configuration at
-                the group and cluster levels and serves these configurations to new members as they
-                are started. The locators store the configurations in a hidden region that is
-                available to all locators and also write the configuration data to disk as XML
-                files. Configuration data is updated as gfsh commands are executed. </p>
+                    <keyword keyref="product_name"/> cluster. The cluster configuration service uses
+                    <keyword keyref="product_name_long"/> locators to store the configuration at the
+                group and cluster levels and serves these configurations to new members as they are
+                started. The locators store the configurations in a hidden region that is available
+                to all locators and also write the configuration data to disk as XML files.
+                Configuration data is updated as gfsh commands are executed. </p>
             <p>This section provides a walk-through example of configuring a simple <keyword
                     keyref="product_name_long"/> cluster and then re-using that configuration in a
                 new context.</p>

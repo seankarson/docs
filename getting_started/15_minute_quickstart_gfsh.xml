@@ -20,10 +20,10 @@
 						keyref="product_name_long"/> processes, data, and applications. See <xref
 						href="../tools_modules/gfsh/chapter_overview.xml"
 					/>. </p>
-				<p>The <i>locator</i> is a <keyword keyref="product_name_long"/> process that tells new,
-					connecting members where running members are located and provides load balancing
-					for server use. A locator, by default, starts up a JMX Manager, which is used
-					for monitoring and managing of a <keyword keyref="product_name"/> cluster. The
+				<p>The <i>locator</i> is a <keyword keyref="product_name"/> process that tells new, connecting
+					members where running members are located and provides load balancing for server
+					use. A locator, by default, starts up a JMX Manager, which is used for
+					monitoring and managing of a <keyword keyref="product_name"/> cluster. The
 					cluster configuration service uses locators to persist and distribute cluster
 					configurations to cluster members. See <xref
 						href="../configuring/running/running_the_locator.xml"/> and <xref
@@ -88,14 +88,12 @@ Cluster configuration service is up and running.
 			</section>
 			<section id="section_C617BC1C70EB41B8BCA3691D6E3C891A">
 				<title>Step 4: Start a server.</title>
-				<p>A <keyword keyref="product_name"/> server is a <keyword
-						keyref="product_name_long"/> process that runs as a long-lived, configurable
-					member of a cluster (also called a <i>distributed system</i>). The <keyword
-						keyref="product_name"/> server is used primarily for hosting long-lived data
-					regions and for running standard <keyword keyref="product_name"/> processes such
-					as the server in a client/server configuration. See <xref
-						href="../configuring/running/running_the_cacheserver.xml"
-					/>.</p>
+				<p>A <keyword keyref="product_name"/> server is a process that runs as a long-lived,
+					configurable member of a cluster (also called a <i>distributed system</i>). The
+						<keyword keyref="product_name"/> server is used primarily for hosting
+					long-lived data regions and for running standard <keyword keyref="product_name"
+					/> processes such as the server in a client/server configuration. See <xref
+						href="../configuring/running/running_the_cacheserver.xml"/>.</p>
 				<p>Start the cache server:
 					<codeblock>gfsh&gt;start server --name=server1 --server-port=40411
 </codeblock></p>
