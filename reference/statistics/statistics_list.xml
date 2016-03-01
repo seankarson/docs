@@ -5895,57 +5895,60 @@
 							<entry>
 								<codeph>compactions</codeph>
 							</entry>
-							<entry> The total number of times the off-heap memory space has been
-								compacted.</entry>
+							<entry> The total number of times the off-heap memory manager has coalesced the off-heap
+								memory space.</entry>
 						</row>
 						<row>
 							<entry>
 								<codeph>compactionTime</codeph>
 							</entry>
-							<entry>The total amount of time, in seconds, spent compacting the
-								off-heap memory space.</entry>
+							<entry>The total number of nanoseconds spent coalescing adjacent off-heap memory space
+								fragments.</entry>
 						</row>
 						<row>
 							<entry>
 								<codeph>fragmentation</codeph>
 							</entry>
-							<entry>The percentage of off-heap memory fragmentation. This statistic
-								is updated every time a compaction is performed. </entry>
+							<entry>This statistic gives an indication of the level of fragmentation in the off-heap
+								memory space by providing a ratio of the current number of fragments
+								of free space to the largest number of fragments that could be
+								formed from that free space. It is expressed as a percentage; the
+								higher this value, the more fragmented the free space currently is.
+								This statistic is 0 if the memory manager has never coalesced the
+								off-heap space, and it is recalculated after each coalesce. </entry>
 						</row>
 						<row>
 							<entry>
 								<codeph>fragments</codeph>
 							</entry>
-							<entry>The number of fragments of free off-heap memory. This statistic
-								is updated every time a compaction is performed.</entry>
+							<entry>The current number of fragments of free off-heap memory. This statistic is 0 if no
+								coalescing has ever been done, and it is updated after each
+								coalesce.</entry>
 						</row>
 						<row>
-							<entry>freeMemory</entry>
-							<entry>The number of bytes of off-heap memory that are not being
-								used.</entry>
+							<entry><codeph>freeMemory</codeph></entry>
+							<entry>The number of bytes of off-heap memory that are not currently allocated.</entry>
 						</row>
 						<row>
-							<entry>largestFragment</entry>
-							<entry>The largest fragment of memory found by the last compaction of
-								off-heap memory. This statistic is updated every time a compaction
-								is done.</entry>
+							<entry><codeph>largestFragment</codeph></entry>
+							<entry>The largest fragment of memory found by the last coalesce. This statistic is updated
+								after each coalesce.</entry>
 						</row>
 						<row>
-							<entry>maxMemory</entry>
-							<entry>The number of bytes of off-heap memory initially
-								allocated.</entry>
+							<entry><codeph>maxMemory</codeph></entry>
+							<entry>The number of bytes of off-heap memory initially declared.</entry>
 						</row>
 						<row>
-							<entry>objects</entry>
+							<entry><codeph>objects</codeph></entry>
 							<entry>The number of objects currently stored in off-heap
 								memory.</entry>
 						</row>
 						<row>
-							<entry>reads</entry>
-							<entry>The total number of reads of off-heap memory.</entry>
+							<entry><codeph>reads</codeph></entry>
+							<entry>The total number of reads of objects that are stored in off-heap memory.</entry>
 						</row>
 						<row>
-							<entry>usedMemory</entry>
+							<entry><codeph>usedMemory</codeph></entry>
 							<entry>The number of bytes of off-heap memory currently used for region
 								values.</entry>
 						</row>
