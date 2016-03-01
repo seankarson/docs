@@ -5,26 +5,18 @@
 
 <title>Managing Heap and Off-heap Memory</title>
   <body>
-	<p>Because <keyword keyref="product_name_long"/> is specifically designed to manipulate data held
-				in memory, best results depend on making best use of RAM. The primary interface to
-				RAM is the JVM heap. <keyword keyref="product_name_long"/> also offers an option to
+	<p>The primary interface to RAM is the JVM heap. <keyword keyref="product_name_long"/> also offers an option to
 				store data off-heap. This section describes how to manage heap and off-heap memory
-				to best support your application. Topics include:<ul id="ul_vpk_jfv_cv">
-					<li>Tuning the JVM's GC Parameters</li>
-					<li>Using the <keyword keyref="product_name_long"/> resource manager</li>
-					<li>Managing off-heap memory</li>
-					<li>Locking memory (Linux systems only)</li>
-				</ul>The <keyword keyref="product_name_long"/> resource manager works with your
-				JVM's tenured garbage collector (GC) to control heap use and protect your member
-				from hangs and crashes due to memory overload. </p>
+				to best support your application. </p>
   </body>
 </topic>
 	<concept id="section_590DA955523246ED980E4E351FF81F71">
 		<title>Tuning the JVM's GC Parameters</title>
+		<shortdesc>Because <keyword keyref="product_name_long"/> is specifically designed to
+			manipulate data held in memory, your application's depends on making best use of RAM. </shortdesc>
 		<conbody>
 			<p>See your JVM documentation for all JVM-specific settings that can be used to improve
-				GC response. </p>
-			<p>At a minimum, do the following: <ol id="ol_DC01BC62088F413FBE75A5644C8B6A3F">
+				GC response. At a minimum, do the following: <ol id="ol_DC01BC62088F413FBE75A5644C8B6A3F">
 					<li id="li_0A1C47243C794135BD920F295FA6A0FC">Set the initial and maximum heap
 						switches, <codeph>-Xms</codeph> and <codeph>-Xmx</codeph>, to the same
 						values. </li>
@@ -93,12 +85,15 @@
 
 <concept id="how_the_resource_manager_works">
 	<title>Using the <keyword keyref="product_name"/> Resource Manager</title>
-	<shortdesc>The <keyword keyref="product_name"/> resource manager prevents the cache from
-		consuming too much memory by evicting old data. If the garbage collector is unable to keep
-		up, the resource manager refuses additions to the cache until the collector has freed an
-		adequate amount of memory. </shortdesc>
+	<shortdesc>The <keyword keyref="product_name"/> resource manager works with your
+		JVM's tenured garbage collector (GC) to control heap use and protect your member
+		from hangs and crashes due to memory overload.  </shortdesc>
 	<conbody>
 		<section id="section_53E80B61991447A2915E8A754383B32D">
+			<p>The <keyword keyref="product_name"/> resource manager prevents the cache from consuming too
+					much memory by evicting old data. If the garbage collector is unable to keep up,
+					the resource manager refuses additions to the cache until the collector has
+					freed an adequate amount of memory.</p>
 			<p>The resource manager has two threshold settings, each expressed as a percentage of
 				the total tenured heap. Both are disabled by default. <ol
 					id="ol_AC9431F3040B4C5499FE2F1FC2A8EFF5">
@@ -160,22 +155,22 @@
 	</conbody>
 </concept>
 	<concept id="configuring_resource_manager">
-		<title>Control Heap Use with the Resource Manager</title>
+		<title>Controlling Heap Use with the Resource Manager</title>
 		<shortdesc>Resource manager behavior is closely tied to the triggering of GC activities, the use
 			of concurrent GCs in the JVM, and the number of parallel GC threads used for concurrency. </shortdesc>
 		<conbody>
 			<section id="section_B47A78E7BA0048C89FBBDB7441C308BE">
 				<p>The recommendations provided here for using the manager assume you have a solid
 					understanding of your Java VM's heap management and garbage collection service. </p>
-				<p>You can use the resource manager in any <keyword keyref="product_name_long"/>
-					member, but you may not want to use it everywhere. For some members it might be
+				<p>The resource manager is available for use in any <keyword keyref="product_name_long"/>
+					member, but you may not want to activate it everywhere. For some members it might be
 					better to occasionally restart after a hang or OME crash than to evict data
 					and/or refuse distributed caching activities. Also, members that do not risk
-					running past their memory limits would not benefit from the overhead required to
-					run the resource manager. Cache servers are often configured to use the manager
+					running past their memory limits would not benefit from the overhead 
+					 the resource manager consumes. Cache servers are often configured to use the manager
 					because they generally host more data and have more data activity than other
 					members, requiring greater responsiveness in data cleanup and collection. </p>
-				<p>For the members where you want to implement the resource manager functionality: <ol
+				<p>For the members where you want to activate the resource manager: <ol
 					id="ol_8A9C2BAB102842E49EBF68B494391980">
 					<li id="li_37DDA02E74F54A9E9B271F6DD6DEBA5E">Configure <keyword
 						keyref="product_name"/> for heap LRU management. </li>
@@ -266,10 +261,10 @@
 				<p>The <keyword keyref="product_name"/>
 					<codeph>ResourceManagerStats</codeph> provide information about memory use and the
 					manager thresholds and eviction activities. </p>
-				<p>If you are spiking above the critical threshold on a regular basis, try lowering the
-					eviction threshold. If you never go near critical, you might raise the eviction
-					threshold to gain more usable memory without the overhead of unneeded evictions or
-					GC cycles. </p>
+				<p>If your application spikes above the critical threshold on a regular basis, try lowering the
+					eviction threshold. If the application never goes near critical, you might raise
+					the eviction threshold to gain more usable memory without the overhead of
+					unneeded evictions or GC cycles. </p>
 				<p>The settings that will work well for your system depend on a number of factors,
 					including these: <ul id="ul_20162307E6494A3EAF3A7003D8D4B4D6">
 						<li id="li_5C12E3176B9149BD9337595810EA998B">The size of the data objects you
@@ -307,11 +302,10 @@
 	</concept>
 	<concept id="resource_manager_example_configurations">
 		<title>Resource Manager Example Configurations</title>
-		<shortdesc>These examples set the critical threshold to 85 percent of the tenured heap and the
-			eviction threshold to 75 percent. </shortdesc>
 		<conbody>
 			<section id="section_B50C552B114D47F3A63FC906EB282024">
-				<p>The region <codeph>bigDataStore</codeph> is configured to participate in the resource
+				<p>These examples set the critical threshold to 85 percent of the tenured heap and
+					the eviction threshold to 75 percent. The region <codeph>bigDataStore</codeph> is configured to participate in the resource
 					manager's eviction activities. <ul id="ul_3AB02B56AA364E25867FC3A9446F5CC9">
 						<li>gfsh
 							Example:

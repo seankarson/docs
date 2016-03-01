@@ -3,9 +3,10 @@
 <dita>
 	<concept id="locking-memory">
 		<title>Locking Memory (Linux Systems Only)</title>
+		<shortdesc>On Linux systems, you can lock memory to prevent the operating system from paging
+			out heap or off-heap memory.</shortdesc>
 		<conbody>
-			<p>On Linux systems, you can lock memory to prevent the operating system from paging out heap or
-				off-heap memory. To use this feature:<ol id="ol_umj_whw_cv">
+			<p> To use this feature:<ol id="ol_umj_whw_cv">
 					<li> Configure the operating system limits for locked memory. Increase the
 						operating system's <codeph>ulimit -l</codeph> value (the maximum size that
 						may be locked in memory) from the default (typically 32 KB or 64 KB) to at

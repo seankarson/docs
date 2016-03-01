@@ -3,30 +3,70 @@
 <dita>
 	<concept id="managing-off-heap-memory">
 	<title>Managing Off-Heap Memory</title>
+		<shortdesc><keyword keyref="product_name"/> can be configured to store region values in
+			off-heap memory, which is memory within the JVM that is not subject to Java garbage
+			collection.</shortdesc>
 		<conbody>
 
 		<p>Garbage collection within a JVM can prove to be a performance impediment. A server cannot exert
-			control over when garbage collection within the JVM heap memory takes place, and the
-			server has little control over the triggers for invocation.</p>
-		<p><keyword keyref="product_name"/> can be configured to store region values in off-heap memory,
-			which is memory within the JVM that is not subject to Java garbage collection. The keys
-			are stored in heap memory space. <keyword keyref="product_name"/>'s own slab memory
-			manager handles the off-heap memory with better performance than the Java garbage
-			collector would for certain sets of region data.</p>
+				control over when garbage collection within the JVM heap memory takes place, and the
+				server has little control over the triggers for invocation. Off-heap memory offloads
+				values to a storage area that is not subject to Java garbage collection (GC). By
+				taking advantage of off-heap storage, an application can reduce the amount of heap
+				storage that is subject to GC overhead.</p>
+		<p> Off-heap memory works in conjunction with the heap, it does not replace it. The keys are
+				stored in heap memory space. <keyword keyref="product_name"/>'s own slab memory
+				manager handles the off-heap memory with better performance than the Java garbage
+				collector would for certain sets of region data. </p>
 
 		<p>The resource manager monitors the contents of off-heap memory and performs cleanup and
 			consolidation operations in accordance with two thresholds similar to those used for monitoring the JVM heap: <codeph>off-heap-eviction-threshold</codeph> and
 			<codeph>off-heap-critical-threshold</codeph>.</p>
-		<p>Off-heap memory works in conjunction with the heap, it does not replace it. Instead, it
-			offloads values to a storage area that is not subject to Java garbage collection (GC). By taking
-			advantage of off-heap storage, an application can reduce the amount of heap storage that is
-			subject to GC overhead.</p>
 		<p>Keys are stored in Java heap, but values can be moved to off-heap storage. In order to be moved
 			to off-heap memory, those values must be serialized. In order to be retrieved from off-heap
 			storage, those values must be deserialized. (There are some exceptions - PDX allows some
 			operations on serialized data without going through deserialization). Therefore, there is some
 			overhead involved in using off-heap storage. Some applications may find that, on balance,
 			performance improves with off-heap storage.</p>
+			<p>The following table shows which objects can be stored in off-heap memory and which are
+				stored in JVM heap.</p>
+			<table id="table_h1v_cwh_1v">
+				<title>On-heap vs. Off-heap Storage Candidates by Data Type</title>
+				<tgroup cols="2">
+					<thead>
+						<row>
+							<entry>Stored On-heap</entry>
+							<entry>Stored Off-heap</entry>
+						</row>
+					</thead>
+					<tbody>
+						<row>
+							<entry>Region metadata</entry>
+							<entry>Values</entry>
+						</row>
+						<row>
+							<entry>Entry metadata</entry>
+							<entry>Reference counts</entry>
+						</row>
+						<row>
+							<entry>Off-heap addresses</entry>
+							<entry>List of free memory blocks</entry>
+						</row>
+						<row>
+							<entry>Keys</entry>
+							<entry>WAN queue elements</entry>
+						</row>
+						<row>
+							<entry>Indexes</entry>
+							<entry/>
+						</row>
+						<row>
+							<entry>Subscription queue elements</entry>
+							<entry/>
+						</row>
+					</tbody>
+				</tgroup>
+			</table>
 			<section>
 				<title>Off-heap Recommendations</title>
 		<p>Off-heap storage is best suited to data patterns where:<ul id="ul_dzc_sbg_z5">
@@ -47,7 +87,9 @@
 						<li>Do not use functional range indexes</li>
 					</ul>
 </p>
-				<p>!!work on this section!!</p>
+				</section>
+			<section>
+				<title>Implementation Details</title>
 
 				<p>The off-heap memory manager is efficient at handling region data values that are all the same
 					size or are of fixed sizes. With fixed and same-sized data
@@ -57,46 +99,6 @@
 					off-heap memory, even if the region is configured to use off-heap memory. These very
 					small size region values reside in place of where the reference to the data would have
 					been. This performance enhancement saves space and load time.</p>
-
-				<p>The following table shows which objects can be stored in off-heap memory and which are stored
-			in JVM heap.</p>
-		<table id="table_h1v_cwh_1v">
-			<title>On-heap vs. Off-heap Storage Candidates by Data Type</title>
-			<tgroup cols="2">
-				<thead>
-					<row>
-						<entry>Stored On-heap</entry>
-						<entry>Stored Off-heap</entry>
-					</row>
-				</thead>
-				<tbody>
-					<row>
-						<entry>Region metadata</entry>
-						<entry>Values</entry>
-					</row>
-					<row>
-						<entry>Entry metadata</entry>
-						<entry>Reference counts</entry>
-					</row>
-					<row>
-						<entry>Off-heap addresses</entry>
-						<entry>List of free memory blocks</entry>
-					</row>
-					<row>
-						<entry>Keys</entry>
-						<entry>WAN queue elements</entry>
-					</row>
-					<row>
-						<entry>Indexes</entry>
-						<entry/>
-					</row>
-					<row>
-						<entry>Subscription queue elements</entry>
-						<entry/>
-					</row>
-				</tbody>
-			</tgroup>
-		</table>
 	</section>
 		
 		<section>
@@ -104,45 +106,64 @@
 			<p>To use off-heap memory, specify the following options when setting up servers and
 				regions:
 				<ul id="ul_dtl_nxh_1v">
-					<li>Set the off-heap memory size for the process. Use the property
-						<codeph>off-heap-memory-size</codeph>.</li>
+					<li>Set the system property <codeph>off-heap-memory-size</codeph> to the size of off-heap
+							memory in megabytes (m) or gigabytes (g). For
+							example:<codeblock>off-heap-memory-size=4096m
+off-heap-memory-size=120g</codeblock>.</li>
+					<li>Adjust the JVM heap memory size downward using the JVM <codeph>-Xms</codeph> and
+						<codeph>-Xmx</codeph> options. Sizes below 32GB are optimal.</li>
 					<li>Mark regions whose entry values should be stored off-heap. Set the region attribute
 						<codeph>off-heap</codeph> to <codeph>true</codeph>.</li>
-						<li>Configure off-heap memory uniformly for all members that host data for
-							the same region. </li>
-					<li>Adjust the JVM heap memory size down. Size below 32GB is optimal.</li>
-					<li>Configure the Resource Manager, if necessary. This is optional. If you plan to use the Resource Manager, you must configure each region with the HEAP_LRU characteristic.</li>
+						<li>Configure off-heap memory uniformly for all members that host data for the same region.</li>
+				
+					<li>Configure the resource manager, if desired.</li>
 				</ul></p>
 		</section>
 		<section>
-				<title>System Properties</title>
-				<p>To use off-heap memory, specify the following system properties:</p>
-				<p>off-heap-memory-size</p>
-				<p>Specifies the size of off-heap memory in megabytes (m) or gigabytes (g). For
-					example:<codeblock>off-heap-memory-size=4096m
-off-heap-memory-size=120g</codeblock></p>
-				<p>lock-memory</p>
-				<p>(Linux only) When <codeph>true</codeph>, locks heap and off-heap memory into RAM
-					to prevent the operating system from paging the memory out to disk. Before
-					locking memory on a Linux system, issue the operating system command
-						<codeph>ulimit -l</codeph> to allow locking of large chunks of memory.</p>
+				<title>Controlling Off-heap Use with the Resource Manager</title>
+				<p>The <keyword keyref="product_name"/> resource manager controls off-heap memory,
+					in much the same way as it does JVM heap memory, by means of two thresholds.
+					(See <xref href="heap_management.xml#how_the_resource_manager_works"/>.) The resource manager prevents the
+					cache from consuming too much off-heap memory by evicting old data. If the
+					off-heap memory manager is unable to keep up, the resource manager refuses
+					additions to the cache until the off-heap memory manager has freed an adequate amount of
+					memory.</p>
+				<p>The resource manager has two threshold settings, each expressed as a percentage
+					of the total off-heap memory. Both are disabled by default. <ol
+						id="ol_AC9431F3040B4C5499FE2F1FC2A8EFF5">
+						<li id="li_2C361A1F3D9549ABA34B3770894599F0"><b>Eviction Threshold</b>.
+							Set the eviction threshold with the <codeph>-eviction-off-heap-percentage</codeph> region attribute.
+							Configure each region that will use the resource manager with the HEAP_LRU characteristic.
+			Above this, the manager orders evictions for all regions with
+							eviction-attributes set to lru-heap-percentage. This prompts dedicated
+							background evictions, independent of any application threads and it also
+							tells all application threads adding data to the regions to evict at
+							least as much data as they add. The evictions continue until the
+							manager determines that off-heap memory use is again below the eviction threshold. </li>
+						<li id="li_0B2E41AD95624A6CAD079D39C5661B10"><b>Critical Threshold</b>.
+							Above this, all activity that might add data to the cache is refused.
+							This threshold is set above the eviction threshold and is intended to
+							allow the eviction work to catch up. This JVM, all other JVMs in
+							the distributed system, and all clients to the system receive
+							LowMemoryException for operations that would add to this critical
+							member's heap consumption. Activities that fetch or reduce data are
+							allowed. For a list of refused operations, see the Javadocs for the
+								<codeph>ResourceManager</codeph> method
+								<codeph>setCriticalHeapPercentage</codeph>. </li>
+					</ol></p>
+				<p>Out of memory semantics, etc, pretty much the same as for JVM heap.</p>
+				<p>Critical threshold<ul>
+						<li>always applies if off-heap-memory is specified</li>
+						<li>triggers LowMemoryException for puts into off-heap regions</li>
+						<li>default is 90% of off-heap-memory amount specified</li>
+						<li>critical member informs other members that it is critical</li>
+					</ul></p>
+				<p>Eviction threshold<ul>
+						<li>applies only when HEAP_LRU is in effect</li>
+						<li>triggers entry eviction when exceeded</li>
+						<li>default is 90% of CriticalOffHeapPercentage specified</li>
+					</ul></p>
 			</section>
-		<section>Region Attributes
-		<p>ON or OFF</p>
-		</section>
-		<section>Resource Manager
-		<p>Out of memory semantics, etc, pretty much the same as for JVM heap.</p>
-		<p>Critical threshold<ul>
-			<li>always applies if off-heap-memory is specified</li>
-			<li>triggers LowMemoryException for puts into off-heap regions</li>
-			<li>default is 90% of off-heap-memory amount specified</li>
-			<li>critical member informs other members that it is critical</li>
-		</ul></p>
-		<p>Eviction threshold<ul>
-			<li>applies only when HEAP_LRU is in effect</li>
-			<li>triggers entry eviction when exceeded</li>
-			<li>default is 90% of CriticalOffHeapPercentage specified</li>
-		</ul></p></section>
 		<section>Startup Options
 		<p>Example:
 					<codeblock>start server –initial-heap=10G –max-heap=10G –off-heap-memory-size=200G –lock-memory=true –critical-off-heap-percentage=99
