@@ -1006,15 +1006,15 @@ start pulse --url=http://gemfire.mycompany.com:7070/pulse</codeblock>
 										in danger of becoming inoperable due to garbage collection
 										pauses or out of memory exceptions. Past the threshold,
 										operations that require heap space will throw a
-											<codeph>LowMemoryException</codeph>.  This feature
+											<codeph>LowMemoryException</codeph>. This feature
 										requires additional VM flags to perform properly; you must
 										set <codeph>--initial-heap</codeph> and
 											<codeph>--max-heap</codeph> or the corresponding JVM
 										properties to use this threshold. You must also set
 											<codeph>--max-heap</codeph> and
-											<codeph>--intial-heap</codeph> to the same
+											<codeph>--initial-heap</codeph> to the same
 										value.</entry>
-									<entry/>
+									<entry>0 (no critical heap threshold enforced)</entry>
 								</row>
 								<row>
 									<entry><parmname>--critical-off-heap-percentage</parmname></entry>
@@ -1023,27 +1023,34 @@ start pulse --url=http://gemfire.mycompany.com:7070/pulse</codeblock>
 										exceptions. Past the threshold, operations that require heap
 										space will throw a
 										<codeph>LowMemoryException</codeph>.</entry>
-									<entry/>
+									<entry>0 (no critical off-heap threshold enforced)</entry>
 								</row>
 								<row>
 									<entry colname="col1">
 										<parmname>--eviction-heap-percentage</parmname>
 									</entry>
-									<entry colname="col2">Set the percentage of heap at or above
-										which the eviction should begin on Regions configured for
-										HeapLRU eviction. Changing this value may cause eviction to
-										begin immediately. Only one change to this attribute or
-										critical heap percentage will be allowed at any given time
-										and its effect will be fully realized before the next change
-										is allowed. This feature requires additional VM flags to
-										perform properly; you must set
-											<codeph>--initial-heap</codeph> and
+									<entry colname="col2">Set the percentage of heap at or above which the eviction should
+										begin on Regions configured for HeapLRU eviction. Changing
+										this value may cause eviction to begin immediately. Only one
+										change to this attribute or critical heap percentage will be
+										allowed at any given time and its effect will be fully
+										realized before the next change is allowed. This feature
+										requires additional VM flags to perform properly; you must
+										set <codeph>--initial-heap</codeph> and
 											<codeph>--max-heap</codeph> or the corresponding JVM
 										properties to use this threshold. You must also set
 											<codeph>--max-heap</codeph> and
-											<codeph>--intial-heap</codeph> to the same
+											<codeph>--initial-heap</codeph> to the same
 										value.</entry>
-									<entry/>
+									<entry>
+										<ul id="ul_fpl_qv5_2v">
+											<li>0, if no region is configured with heap eviction </li>
+											<li>If <codeph>critical-heap-percentage</codeph> is set
+												to a non-zero value, 5% less than that value. </li>
+											<li>80%, if <codeph>critical-heap-percentage</codeph> is
+												not configured. </li>
+										</ul>
+									</entry>
 								</row>
 								<row>
 									<entry><parmname>--eviction-off-heap-percentage</parmname></entry>
@@ -1054,7 +1061,16 @@ start pulse --url=http://gemfire.mycompany.com:7070/pulse</codeblock>
 										critical off-heap percentage will be allowed at any given
 										time, and its effect will be fully realized before the next
 										change is allowed.</entry>
-									<entry/>
+									<entry>
+										<ul id="ul_j1d_dbh_2v">
+											<li>0, if no region is configured with heap eviction </li>
+											<li>If <codeph>critical-off-heap-percentage</codeph> is
+												set to a non-zero value, 5% less than that value. </li>
+											<li>80%, if
+												<codeph>critical-off-heap-percentage</codeph> is
+												not configured. </li>
+										</ul>
+									</entry>
 								</row>
 								<row>
 									<entry colname="col1">
