@@ -4,16 +4,15 @@
 	<topic id="resource_manager">
 
 <title>Managing Heap and Off-heap Memory</title>
-  <body>
-	<p>The primary interface to RAM is the JVM heap. <keyword keyref="product_name_long"/> also offers an option to
-				store data off-heap. This section describes how to manage heap and off-heap memory
-				to best support your application. </p>
-  </body>
+		<shortdesc>The primary interface to RAM is the JVM heap. <keyword keyref="product_name_long"
+			/> also offers an option to store data off-heap. This section describes how to manage
+			heap and off-heap memory to best support your application. </shortdesc>
 </topic>
 	<concept id="section_590DA955523246ED980E4E351FF81F71">
 		<title>Tuning the JVM's GC Parameters</title>
-		<shortdesc>Because <keyword keyref="product_name_long"/> is specifically designed to
-			manipulate data held in memory, your application's depends on making best use of RAM. </shortdesc>
+		<shortdesc>Because <keyword keyref="product_name_long"/> is specifically designed to manipulate
+			data held in memory, you can optimize your application's performance by making good use
+			of RAM. </shortdesc>
 		<conbody>
 			<p>See your JVM documentation for all JVM-specific settings that can be used to improve
 				GC response. At a minimum, do the following: <ol id="ol_DC01BC62088F413FBE75A5644C8B6A3F">
@@ -48,10 +47,10 @@
 						<row>
 							<entry>Sun HotSpot </entry>
 							<entry>
-								<codeph>-XX:+UseConcMarkSweepGC</codeph>
+								<codeph>&#x2011;XX:+UseConcMarkSweepGC</codeph>
 							</entry>
 							<entry>
-								<codeph>-XX:CMSInitiatingOccupancyFraction=N</codeph>
+								<codeph>&#x2011;XX:CMSInitiatingOccupancyFraction=N</codeph>
 							</entry>
 						</row>
 						<row>
@@ -74,7 +73,7 @@
 				</tgroup>
 			</table>
 			<p>For the <codeph>gfsh start server</codeph> command, pass these settings with the
-					<codeph>--J</codeph> switch, like <codeph>--J=-XX:+UseConcMarkSweepGC</codeph>. </p>
+				<codeph>--J</codeph> switch, for example: <codeph>&#x2011;&#x2011;J=&#x2011;XX:+UseConcMarkSweepGC</codeph>. </p>
 			<p>The following is an example of setting JVM for an application:<codeblock>$ java app.MyApplication -Xms=30MB -Xmx=30MB -XX:+UseConcMarkSweepGC -XX:CMSInitiatingOccupancyFraction=60</codeblock>
 				<note>Do not use the <codeph>-XX:+UseCompressedStrings</codeph> and
 						<codeph>-XX:+UseStringCache</codeph> JVM configuration properties when
@@ -118,13 +117,13 @@
 			</p>
 			<image href="../../images/DataManagement-9.gif"
 				id="image_C3568D47EE1B4F2C9F0742AE9C291BF1" placement="break"/>
-			<p>When heap use passes the eviction threshold, in either direction, the manager logs an
-				info-level message. When it passes the critical threshold, the manager logs an
-				error-level message. </p>
-			<note>Avoid passing the critical threshold. It might be better than a hang or an OME,
-				but the <keyword keyref="product_name"/> member that becomes a critical member is a
+			<p>When heap use passes the eviction threshold in either direction, the manager logs an
+					info-level message. </p>
+				<p>When heap use exceeds the critical threshold, the manager logs an error-level
+					message. Avoid exceeding the critical threshold. Once identified as critical,
+				the <keyword keyref="product_name"/> member becomes a
 				read-only member that refuses cache updates for all of its regions, including
-				incoming distributed updates. </note>
+				incoming distributed updates. </p>
 			<p>For more information, see
 				<codeph>com.gemstone.gemfire.cache.control.ResourceManager</codeph> in the
 				online API documentation. </p>
@@ -229,10 +228,9 @@
 				</p>
 			</section>
 			<section id="section_5D88064B75C643B0849BBD4345A6671B">
-				<p>gfsh
-					Example:<codeblock>gfsh&gt;start server --name=server1 --initial-heap=30MB --max-heap=30MB \
---critical-heap-percentage=80 --eviction-heap-percentage=90</codeblock></p>
-				<p>cache.xml Example: <codeblock>&lt;cache>
+				<p>gfsh example:<codeblock>gfsh&gt;start server --name=server1 --initial-heap=30MB --max-heap=30MB \
+--critical-heap-percentage=80 --eviction-heap-percentage=60</codeblock></p>
+				<p>cache.xml example: <codeblock>&lt;cache>
 &lt;region refid="REPLICATE_HEAP_LRU" /&gt;
 ...
 &lt;resource-manager critical-heap-percentage="80" eviction-heap-percentage="60"/>

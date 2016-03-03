@@ -3661,10 +3661,11 @@
 		<title>&lt;resource-manager&gt;</title>
 		<shortdesc> </shortdesc>
 		<body>
-			<p>A memory monitor that tracks cache size as a percentage of total tenured heap and
+			<p>A memory monitor that tracks cache size as a percentage of total heap or off-heap memory and
 				controls size by restricting access to the cache and prompting eviction of old
-				entries from the cache. Used in conjunction with settings for JVM memory and Java
-				garbage collection. </p>
+				entries from the cache. For tenured heap, used in conjunction with settings for JVM
+				memory and Java garbage collection. For off-heap memory, used with the off-heap
+				memory manager.</p>
 			<p>
 				<b>API: </b>
 				<codeph>com.gemstone.gemfire.cache.control.ResourceManager</codeph>
@@ -3685,9 +3686,14 @@
 					<tbody>
 						<row>
 							<entry>critical-heap-percentage </entry>
-							<entry>Percentage of heap at or above which the cache is considered in
-								danger of becoming inoperable due to garbage collection pauses or
-								out of memory exceptions. </entry>
+							<entry>Percentage of heap at or above which the cache is considered in danger of becoming
+								inoperable due to garbage collection pauses or out of memory
+								exceptions. <p>Only one change to this attribute or critical heap
+									percentage will be allowed at any given time and its effect will
+									be fully realized before the next change is allowed. This
+									feature requires additional VM flags to perform properly. See
+										<codeph>setCriticalHeapPercentage()</codeph> for details.
+								</p></entry>
 							<entry colname="col3">0 </entry>
 						</row>
 						<row>
@@ -3696,12 +3702,6 @@
 								<p>Set the percentage of heap at or above which the eviction should
 									begin on Regions configured for HeapLRU eviction. </p>
 								<p>Changing this value may cause eviction to begin immediately. </p>
-								<p>Only one change to this attribute or critical heap percentage
-									will be allowed at any given time and its effect will be fully
-									realized before the next change is allowed. This feature
-									requires additional VM flags to perform properly. See
-										<codeph>setCriticalHeapPercentage()</codeph> for details.
-								</p>
 							</entry>
 							<entry colname="col3">
 								<ul id="ul_A07F93B86A05498F901C1B07291E0FE7">
@@ -3712,6 +3712,27 @@
 										non-zero value, 5% less than that value. </li>
 									<li id="li_AD34B3A77DB44F72A46E7BA3DB1190BD">80%, if
 											<codeph>critical-heap-percentage</codeph> is not
+										configured. </li>
+								</ul>
+							</entry>
+						</row>
+						<row>
+							<entry>critical-off-heap-percentage</entry>
+							<entry>Percentage of off-heap memory at or above which the cache is
+								considered in danger of becoming inoperable due to garbage
+								collection pauses or out of memory exceptions. </entry>
+							<entry>0</entry>
+						</row>
+						<row>
+							<entry>eviction-off-heap-percentage </entry>
+							<entry>Set the percentage of off-heap memory at or above which the
+								eviction should begin on Regions configured for HeapLRU eviction. </entry>
+							<entry>
+								<ul id="ul_j1d_dbh_2v">
+									<li>0, If no region is configured with heap eviction </li>
+									<li>If <codeph>critical-off-heap-percentage</codeph> is set to a
+										non-zero value, 5% less than that value. </li>
+									<li>80%, if <codeph>critical-off-heap-percentage</codeph> is not
 										configured. </li>
 								</ul>
 							</entry>
