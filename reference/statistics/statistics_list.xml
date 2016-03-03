@@ -5895,35 +5895,36 @@
 							<entry>
 								<codeph>compactions</codeph>
 							</entry>
-							<entry> The total number of times the off-heap memory manager has coalesced the off-heap
-								memory space.</entry>
+							<entry> The total number of times the off-heap memory manager has invoked the defragmentation
+								algorithm on the off-heap memory space.</entry>
 						</row>
 						<row>
 							<entry>
 								<codeph>compactionTime</codeph>
 							</entry>
-							<entry>The total number of nanoseconds spent coalescing adjacent off-heap memory space
-								fragments.</entry>
+							<entry>The total number of nanoseconds spent running the defragmentation algorithm on
+								off-heap memory space fragments.</entry>
 						</row>
 						<row>
 							<entry>
 								<codeph>fragmentation</codeph>
 							</entry>
-							<entry>This statistic gives an indication of the level of fragmentation in the off-heap
-								memory space by providing a ratio of the current number of fragments
-								of free space to the largest number of fragments that could be
-								formed from that free space. It is expressed as a percentage; the
-								higher this value, the more fragmented the free space currently is.
-								This statistic is 0 if the memory manager has never coalesced the
-								off-heap space, and it is recalculated after each coalesce. </entry>
+							<entry>This statistic gives an indication of the level of external fragmentation in the
+								off-heap memory space by providing a ratio of the current number of
+								fragments of free space to the largest number of fragments that
+								could be formed from that free space. It is expressed as a
+								percentage; the higher this value, the more fragmented the free
+								space currently is. This statistic is 0 if the memory manager has
+								never run its defragmentation algorithm on the off-heap space, and
+								it is recalculated after each defragmentation. </entry>
 						</row>
 						<row>
 							<entry>
 								<codeph>fragments</codeph>
 							</entry>
 							<entry>The current number of fragments of free off-heap memory. This statistic is 0 if no
-								coalescing has ever been done, and it is updated after each
-								coalesce.</entry>
+								defragmentation has ever been done, and it is updated after each
+								defragmentation.</entry>
 						</row>
 						<row>
 							<entry><codeph>freeMemory</codeph></entry>
@@ -5931,8 +5932,9 @@
 						</row>
 						<row>
 							<entry><codeph>largestFragment</codeph></entry>
-							<entry>The largest fragment of memory found by the last coalesce. This statistic is updated
-								after each coalesce.</entry>
+							<entry>The number of bytes in the largest fragment of memory found by the last run of the
+								defragmentation algorithm. This statistic is updated after each
+								defragmentation.</entry>
 						</row>
 						<row>
 							<entry><codeph>maxMemory</codeph></entry>
