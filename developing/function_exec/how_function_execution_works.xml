@@ -80,7 +80,7 @@
 		</section>
 		<section id="section_A0FD54B73E9A453AA38FC4A4D5282351"><title>Function Execution
 				Scenarios</title>
-			<fig id="testing">
+			<fig id="fig_server_distributed_system">
 				<title id="title_vks_l3t_2v">Server-distributed System</title>
 				<image href="../../images/FuncExecOnServers.png"
 					id="image_993D1FD7705E40EA801CF0656C4E91E5" placement="break">
@@ -88,17 +88,17 @@
 						invoked from a client on all available servers</alt>
 				</image>
 			</fig>
-			<p> Figure 1 shows the sequence of events for a data-independent function invoked from a client on all
+			<p> <xref href="#how_function_execution_works/fig_server_distributed_system" type="fig" format="dita"/> shows the sequence of events for a data-independent function invoked from a client on all
 				available servers. The client contacts a locator to obtain host and port identifiers
 				for each server in the distributed system and issues calls to each server. As the
 				instigator of the calls, the client also receives the call results.</p>
-			<fig>
+			<fig id="fig_peer_distributed_system">
 				<title id="title_uyf_xgv_2v">Peer-to-peer Distributed System</title>
 				<image href="../../images/FuncExecOnMembers.png"
 					id="image_041832B370AA4241980B8C2632DD1DC8" placement="break"><alt>The sequence of events for a data-independent
 						function executed against members in a peer-to-peer distributed system.</alt></image>
 			</fig>
-				<p>Figure 2 shows the sequence of events for a data-independent function executed against
+			<p><xref href="#how_function_execution_works/fig_peer_distributed_system" type="fig" format="dita"/> shows the sequence of events for a data-independent function executed against
 				members in a peer-to-peer distributed system. You can think of
 					<codeph>onMembers()</codeph> as the peer-to-peer counterpart of a client-server
 				call to <codeph>onServers()</codeph>. Because it is called from a peer of other
@@ -107,12 +107,12 @@
 				locator. The caller invokes the function on itself, if appropriate, as well as other
 				members in the distributed system and collects the results of all of the function
 				executions.</p>
-			<fig>
+			<fig id="fig_data_dependent_function_region">
 				<title id="title_ztx_5gv_2v">Data-dependent Function on a Region</title>
 				<image href="../../images/FuncExecOnRegionNoMetadata.png"
 					id="image_68742923936F4EEC8E50819F5CEECBCC" placement="break"><alt>The path followed when the client lacks detailed metadata regarding target locations</alt></image>
 			</fig>
-			<p>Figure 3 shows a data-dependent function run on a region. An <codeph>onRegion()</codeph>
+			<p><xref href="#how_function_execution_works/fig_data_dependent_function_region" type="fig" format="dita"/> shows a data-dependent function run on a region. An <codeph>onRegion()</codeph>
 				call requires more detailed metadata than a locator provides in its host:port
 				identifier. This diagram shows the path followed when the client lacks detailed
 				metadata regarding target locations, as on the first call or when previously
@@ -130,36 +130,36 @@
 				regarding the bucket layout for the region, the client can act as its own dispatcher
 				on subsequent calls and identify multiple targets for itself, eliminating at least
 				one hop. </p>
-			<fig>
+			<fig id="fig_data_dependent_function_obtaining_current_metadata">
 				<title id="title_whg_ygv_2v">Data-dependent function after obtaining current metadata</title>
 				<image
 					href="../../images/FuncExecOnRegionWithMetadata.png" placement="break"><alt>A diagram showing the client acting as its own dispatcher after having obtained current metadata.</alt></image>
 			</fig>
 			<p>After it has obtained current metadata, the client can act as its own dispatcher on subsequent
-				calls, identifying multiple targets for itself and eliminating one hop, as shown in figure 4.</p>
-			<fig>
+				calls, identifying multiple targets for itself and eliminating one hop, as shown in <xref href="#how_function_execution_works/fig_data_dependent_function_obtaining_current_metadata" type="fig" format="dita"/>.</p>
+			<fig id ="fig_data_dependent_function_region_keys">
 				<title id="title_vtc_qhv_2v">Data-dependent Function on a Region with Keys</title>	
 				<image href="../../images/FuncExecOnRegionWithFilter.png" placement="break"
 					id="image_7FA8BE5D02F24CF8B49186C6FEB786BD"><alt>A data-dependent function on a region with specification of keys on which to run</alt></image>
 			</fig>
-			<p>Figure 5 shows the same data-dependent function with the added specification of a set of keys
+			<p><xref href="#how_function_execution_works/fig_data_dependent_function_region_keys" type="fig" format="dita"/> shows the same data-dependent function with the added specification of a set of keys
 				on which to run. Servers that do not hold any keys are left out of the function execution. </p>
-			<fig>
+			<fig id ="fig_peer_data_dependent_function">
 				<title id="title_cnn_phv_2v">Peer-to-peer Data-dependent Function</title>
 				<image href="../../images/FuncExecOnRegionPeersWithFilter.png" placement="break"
 					id="image_9B8E914BA80E4BBA99856E9603A9BDA0"><alt>A data-dependent function where the caller is not an external client</alt></image>
 			</fig>
-			<p>Figure 6 shows a peer-to-peer data-dependent call. The caller is a member of the
+			<p><xref href="#how_function_execution_works/fig_peer_data_dependent_function" type="fig" format="dita"/> shows a peer-to-peer data-dependent call. The caller is a member of the
 				distributed system, not an external client, so the function runs in the caller’s
 				distributed system. Note the similarities between this diagram and figure 5, which shows a
 				client-server model where the client has up-to-date metadata regarding target locations within 
 				the distributed system.</p>
-			<fig>
+			<fig id="fig_client_server_system_target_metadata">
 				<title id="title_msw_4hv_2v">Client-server system with Up-to-date Target Metadata</title>
 				<image href="../../images/FuncExecOnRegionHAWithFilter.png" placement="break"
 					id="image_05E94BB0EBF349FF8822158F2001F313"><alt>A sequence of steps in a call to a highly available function in a client-server systemin which the client has up-to-date metadata regarding target locations</alt></image>
 			</fig>
-			<p>Figure 7 demonstrates a sequence of steps in a call to a highly available function in a
+			<p><xref href="#how_function_execution_works/fig_client_server_system_target_metadata" type="fig" format="dita"/> demonstrates a sequence of steps in a call to a highly available function in a
 				client-server system in which the client has up-to-date metadata regarding target
 				locations. In this example, three primary keys (X, Y, Z) and their secondary copies
 				(X', Y', Z') are distributed among three servers. Because <codeph>optimizeForWrite</codeph> 
