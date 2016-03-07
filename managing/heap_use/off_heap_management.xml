@@ -15,9 +15,9 @@
 				advantage of off-heap storage, an application can reduce the amount of heap storage
 				that is subject to GC overhead.</p>
 		<p> Off-heap memory works in conjunction with the heap, it does not replace it. The keys are
-				stored in heap memory space. <keyword keyref="product_name"/>'s own slab memory
-				manager handles the off-heap memory with better performance than the Java garbage
-				collector would for certain sets of region data. </p>
+				stored in heap memory space. <keyword keyref="product_name"/>'s own memory manager
+				handles the off-heap memory with better performance than the Java garbage collector
+				would for certain sets of region data. </p>
 		<p>The resource manager monitors the contents of off-heap memory and invokes memory management
 				operations in accordance with two thresholds similar to those used for monitoring
 				the JVM heap: <codeph>eviction-off-heap-percentage</codeph> and
@@ -137,10 +137,10 @@
 								<codeblock>gfsh> start server –initial-heap=10G –max-heap=10G –off-heap-memory-size=200G \
 –lock-memory=true –critical-off-heap-percentage=90 –eviction-off-heap-percentage=80</codeblock></p>
 						</li>
-					<li>Configure off-heap memory uniformly for all members that host data for the same region.
-							Mark regions whose entry values should be stored off-heap by setting the
-								<codeph>off-heap</codeph> region attribute to <codeph>true</codeph>.
-								<p>Example:
+					<li>Mark regions whose entry values should be stored off-heap by setting the
+								<codeph>off-heap</codeph> region attribute to <codeph>true</codeph>
+							Configure other region attributes uniformly for all members that host
+							data for the same region. . <p>Example:
 								<codeblock>gfsh&gt;create region --name=region1 --type=PARTITION_HEAP_LRU --off-heap=true</codeblock></p></li>
 				</ul></p>
 		</section>
