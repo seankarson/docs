@@ -22,19 +22,11 @@
 				operations in accordance with two thresholds similar to those used for monitoring
 				the JVM heap: <codeph>eviction-off-heap-percentage</codeph> and
 					<codeph>critical-off-heap-percentage</codeph>.</p>
-		<p>There is some overhead involved in using off-heap storage. For example, keys are stored in Java
-				heap, but values can be placed in off-heap storage. In order to be placed in
-				off-heap memory, those values must be serialized and in order to be retrieved from
-				off-heap storage, those values must be deserialized. There are some
-				exceptions&#8212;PDX allows some operations on serialized data without going through
-				deserialization. Some applications may find that, on balance, performance improves
-				with off-heap storage.</p>
 			<section>
 				<title>On-heap and Off-heap Objects</title>
 				<p>The following objects are always stored in the JVM heap:<ul id="ul_sgv_p5b_fv">
 						<li>Region metadata</li>
 						<li>Entry metadata</li>
-						<li>Off-heap addresses</li>
 						<li>Keys</li>
 						<li>Indexes</li>
 						<li>Subscription queue elements</li>
@@ -45,22 +37,30 @@
 						<li>List of free memory blocks</li>
 						<li>WAN queue elements</li>
 					</ul></p>
+				<note>Do not use functional range indexes with off-heap data, as they are not
+					supported. An attempt to do so generates an exception.</note>
 			</section>
 			<section>
 				<title>Off-heap Recommendations</title>
 		<p>Off-heap storage is best suited to data patterns where:<ul id="ul_dzc_sbg_z5">
 			<li>Stored values are relatively uniform in size</li>
-			<li>Stored values are mostly less than 128K in size</li>
+			<li>Stored values are mostly less than 128K in size. (See <xref href="off_heap_management.xml#tuning-off-heap-memory"
+							/>.)</li>
 					<li>The usage patterns involve cycles of many creates followed by destroys or
 						clear</li>
 					<li>The values do not need to be frequently deserialized</li>
+						<li>Many of the values are long-lived reference data</li>
 		</ul></p>
-				<p>When using off-heap storage: <ul id="ul_oxv_4jp_cv">
-						<li>Avoid frequent updates</li>
-						<li>Avoid stored values are of widely varying sizes</li>
-						<li>Avoid using deltas</li>
-						<li>Minimize querying off-heap data.</li>
-						<li>Do not use functional range indexes</li>
+				<p>Be aware that <keyword keyref="product_name"/> has to perform extra work to access the data
+					stored in off-heap memory since it is stored in serialized form. This extra work
+					may cause some use cases to run slower in an off-heap configuration, even though
+					they use less memory and avoid garbage collection overhead. However, even with
+					the extra deserialization, off-heap storage may give you the best performance.
+					Features that may increase overhead include<ul id="ul_oxv_4jp_cv">
+						<li>frequent updates</li>
+						<li>stored values of widely varying sizes</li>
+						<li>deltas</li>
+						<li>queries.</li>
 					</ul>
 				</p>
 			</section>
@@ -71,8 +71,6 @@
 					size or are of fixed sizes. With fixed and same-sized data values allocated
 					within the off-heap memory, freed chunks can often be re-used, and there is
 					little or no need to devote cycles to defragmentation.</p>
-				<p>Off-heap memory is comprised of 2 GB 'slabs' located in off-heap space. The initial request
-					for off-heap memory is rounded up to the nearest 2GB. </p>
 				<p>Region values that are less than or equal to eight bytes in size will not reside in off-heap
 					memory, even if the region is configured to use off-heap memory. These very
 					small size region values reside in the JVM heap in place of a reference to an
@@ -130,8 +128,8 @@
 							/>. In particular, set the initial and maximum heap sizes to the same
 							value. Sizes less than 32GB are optimal when you plan to use off-heap
 							memory. <p>Example:
-								<codeblock>$ java app.MyApplication -Xms=30MB -Xmx=30MB -XX:+UseConcMarkSweepGC \
--XX:CMSInitiatingOccupancyFraction=60</codeblock></p></li>
+								<codeblock>$ java app.MyApplication -Xms=30m -Xmx=30m -XX:+UseConcMarkSweepGC \
+-XX:CMSInitiatingOccupancyFraction=60 -Dgemfire.off-heap-memory-size=42g</codeblock></p></li>
 						<li>
 							<p>From gfsh, start each server that will support off-heap memory with a non-zero
 									<codeph>off-heap-memory-size</codeph> value, specified in
@@ -253,12 +251,24 @@ off-heap-memory-size=120g</codeblock>
 ...
 &lt;/cache></codeblock></p>
 		</section>
-			<section>
+			<section id="tuning-off-heap-memory">
 				<title>Tuning Off-heap Memory Usage</title>
 				<p><keyword keyref="product_name"/> collects statistics on off-heap memory usage
 					which you can view with the gfsh <codeph>show metrics</codeph> command. See
 					<xref href="../../reference/statistics/statistics_list.xml#topic_ohc_tjk_w5"/> for a
 					description of available off-heap statistics.</p>
+				<p>Off-heap memory is optimized, by default, for storing values of 128 KB in size. This figure
+					is known as the "maximum optimized stored value size," which we will denote here
+					by <i>maxOptStoredValSize</i>. If your data typically runs larger, you can
+					enhance performance by increasing the OFF_HEAP_FREE_LIST_COUNT system parameter
+					to a number larger than <codeph><i>maxOptStoredValSize</i>/8</codeph>, where
+						<i>maxOptStoredValSize</i> is expressed in KB (1024 bytes). So, the default
+					values correspond
+					to:<codeblock>128 KB / 8 = (128 * 1024) / 8 = 131,072 / 8 = 16,384
+-Dgemfire.OFF_HEAP_FREE_LIST_COUNT=16384</codeblock>
+					To optimize for a maximum optimized stored value size that is twice the default,
+					or 256 KB, the free list count should be
+					doubled:<codeblock>-Dgemfire.OFF_HEAP_FREE_LIST_COUNT=32768</codeblock></p>
 			</section>
 	</conbody>
 </concept>

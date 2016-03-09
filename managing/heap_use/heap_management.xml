@@ -241,7 +241,8 @@
 				</p>
 			</section>
 			<section id="section_5D88064B75C643B0849BBD4345A6671B">
-				<p>gfsh example:<codeblock>gfsh&gt;start server --name=server1 --initial-heap=30MB --max-heap=30MB \
+				<p>gfsh
+					example:<codeblock>gfsh&gt;start server --name=server1 --initial-heap=30M --max-heap=30M \
 --critical-heap-percentage=80 --eviction-heap-percentage=60</codeblock></p>
 				<p>cache.xml example: <codeblock>&lt;cache>
 &lt;region refid="REPLICATE_HEAP_LRU" /&gt;
