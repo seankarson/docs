@@ -92,14 +92,19 @@
 						id="ol_AC9431F3040B4C5499FE2F1FC2A8EFF5">
 						<li id="li_2C361A1F3D9549ABA34B3770894599F0"><b>Eviction Threshold</b>. The percentage of
 							off-heap memory at which eviction should begin. Evictions continue until
-							the  resource  manager determines that off-heap memory use is again
-							below the eviction threshold. Set the eviction threshold with the
+							the resource manager determines that off-heap memory use is again below
+							the eviction threshold. Set the eviction threshold with the
 								<codeph>-eviction-off-heap-percentage</codeph> region attribute. The
 							resource manager enforces an eviction threshold only on regions with the
 							HEAP_LRU characteristic. If critical threshold is non-zero, the default
 							eviction threshold is 5% below the critical threshold. If critical
 							threshold is zero, the default eviction threshold is 80% of total
-							off-heap memory.</li>
+							off-heap memory.<p>The resource manager enforces eviction thresholds
+								only on regions whose LRU eviction policies are based on heap
+								percentage. Regions whose eviction policies based on entry count or
+								memory size use other mechanisms to manage evictions. See <xref
+									href="../../developing/eviction/chapter_overview.xml"/> for more
+								detail regarding eviction policies.</p></li>
 						<li id="li_0B2E41AD95624A6CAD079D39C5661B10"><b>Critical Threshold</b>. The percentage of
 							off-heap memory at which the cache is at risk of becoming inoperable.
 							When cache use exceeds the critical threshold, all activity that might
@@ -107,11 +112,11 @@
 							consumption of off-heap memory throws a
 								<codeph>LowMemoryException</codeph> instead of completing its
 							operation. Set the critical threshold with the
-								<codeph>-critical-off-heap-percentage</codeph> region attribute. The
-							resource manager enforces a critical threshold on regions for which it
-							is specified (that is, unlike eviction threshold, critical threshold is
-							not tied to the state of the HEAP_LRU characteristic). The default
-							critical threshold is 0, meaning that no critical threshold is enforced. </li>
+								<codeph>-critical-off-heap-percentage</codeph> region
+								attribute.<p>Critical threshold is enforced on all regions,
+								regardless of LRU eviction policy, though it can be set to zero to
+								disable its effect.</p>
+						</li>
 					</ol></p>
 			</section>
 		
