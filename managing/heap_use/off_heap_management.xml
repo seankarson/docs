@@ -44,8 +44,7 @@
 				<title>Off-heap Recommendations</title>
 		<p>Off-heap storage is best suited to data patterns where:<ul id="ul_dzc_sbg_z5">
 			<li>Stored values are relatively uniform in size</li>
-			<li>Stored values are mostly less than 128K in size. (See <xref href="off_heap_management.xml#tuning-off-heap-memory"
-							/>.)</li>
+			<li>Stored values are mostly less than 128K in size</li>
 					<li>The usage patterns involve cycles of many creates followed by destroys or
 						clear</li>
 					<li>The values do not need to be frequently deserialized</li>
@@ -92,7 +91,7 @@
 							off-heap memory at which eviction should begin. Evictions continue until
 							the resource manager determines that off-heap memory use is again below
 							the eviction threshold. Set the eviction threshold with the
-								<codeph>-eviction-off-heap-percentage</codeph> region attribute. The
+								<codeph>eviction-off-heap-percentage</codeph> region attribute. The
 							resource manager enforces an eviction threshold only on regions with the
 							HEAP_LRU characteristic. If critical threshold is non-zero, the default
 							eviction threshold is 5% below the critical threshold. If critical
@@ -110,7 +109,7 @@
 							consumption of off-heap memory throws a
 								<codeph>LowMemoryException</codeph> instead of completing its
 							operation. Set the critical threshold with the
-								<codeph>-critical-off-heap-percentage</codeph> region
+								<codeph>critical-off-heap-percentage</codeph> region
 								attribute.<p>Critical threshold is enforced on all regions,
 								regardless of LRU eviction policy, though it can be set to zero to
 								disable its effect.</p>
@@ -127,9 +126,7 @@
 								href="heap_management.xml#section_590DA955523246ED980E4E351FF81F71"
 							/>. In particular, set the initial and maximum heap sizes to the same
 							value. Sizes less than 32GB are optimal when you plan to use off-heap
-							memory. <p>Example:
-								<codeblock>$ java app.MyApplication -Xms=30m -Xmx=30m -XX:+UseConcMarkSweepGC \
--XX:CMSInitiatingOccupancyFraction=60 -Dgemfire.off-heap-memory-size=42g</codeblock></p></li>
+							memory. </li>
 						<li>
 							<p>From gfsh, start each server that will support off-heap memory with a non-zero
 									<codeph>off-heap-memory-size</codeph> value, specified in
@@ -137,8 +134,8 @@
 								manager, specify critical threshold, eviction threshold, or (in most
 								cases) both. </p>
 							<p>Example:
-								<codeblock>gfsh> start server –initial-heap=10G –max-heap=10G –off-heap-memory-size=200G \
-–lock-memory=true –critical-off-heap-percentage=90 –eviction-off-heap-percentage=80</codeblock></p>
+								<codeblock>gfsh> start server --name=server1 -–initial-heap=10G -–max-heap=10G -–off-heap-memory-size=200G \
+-–lock-memory=true -–critical-off-heap-percentage=90 -–eviction-off-heap-percentage=80</codeblock></p>
 						</li>
 					<li>Mark regions whose entry values should be stored off-heap by setting the
 								<codeph>off-heap</codeph> region attribute to <codeph>true</codeph>
@@ -251,24 +248,27 @@ off-heap-memory-size=120g</codeblock>
 ...
 &lt;/cache></codeblock></p>
 		</section>
-			<section id="tuning-off-heap-memory">
+			<section id="section_o4s_tg5_gv">
 				<title>Tuning Off-heap Memory Usage</title>
 				<p><keyword keyref="product_name"/> collects statistics on off-heap memory usage
 					which you can view with the gfsh <codeph>show metrics</codeph> command. See
-					<xref href="../../reference/statistics/statistics_list.xml#topic_ohc_tjk_w5"/> for a
-					description of available off-heap statistics.</p>
-				<p>Off-heap memory is optimized, by default, for storing values of 128 KB in size. This figure
-					is known as the "maximum optimized stored value size," which we will denote here
-					by <i>maxOptStoredValSize</i>. If your data typically runs larger, you can
-					enhance performance by increasing the OFF_HEAP_FREE_LIST_COUNT system parameter
-					to a number larger than <codeph><i>maxOptStoredValSize</i>/8</codeph>, where
-						<i>maxOptStoredValSize</i> is expressed in KB (1024 bytes). So, the default
-					values correspond
+						<xref href="../../reference/statistics/statistics_list.xml#topic_ohc_tjk_w5"
+					/> for a description of available off-heap statistics.</p>
+				<p>Off-heap memory is optimized, by default, for storing values of 128 KB in size.
+					This figure is known as the "maximum optimized stored value size," which we will
+					denote here by <i>maxOptStoredValSize</i>. If your data typically runs larger,
+					you can enhance performance by increasing the OFF_HEAP_FREE_LIST_COUNT system
+					parameter to a number larger than <codeph><i>maxOptStoredValSize</i>/8</codeph>,
+					where <i>maxOptStoredValSize</i> is expressed in KB (1024 bytes). So, the
+					default values correspond
 					to:<codeblock>128 KB / 8 = (128 * 1024) / 8 = 131,072 / 8 = 16,384
 -Dgemfire.OFF_HEAP_FREE_LIST_COUNT=16384</codeblock>
 					To optimize for a maximum optimized stored value size that is twice the default,
 					or 256 KB, the free list count should be
 					doubled:<codeblock>-Dgemfire.OFF_HEAP_FREE_LIST_COUNT=32768</codeblock></p>
+				<p>During the tuning process, you can toggle the <codeph>off-heap</codeph> region
+					attribute on and off, leaving other off-heap settings and parameters in place,
+					in order to compare your application's on-heap and off-heap performance.</p>
 			</section>
 	</conbody>
 </concept>
