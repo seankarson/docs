@@ -909,7 +909,7 @@ Occurred on following members
     [--colocated-with=value] [--local-max-memory=value]
     [--recovery-delay=value] [--redundant-copies=value]
     [--startup-recovery-delay=value] [--total-max-memory=value]
-    [--total-num-buckets=value] [--compressor=value]
+    [--total-num-buckets=value] [--compressor=value] [--off-heap(=value)]
 </codeblock>
 				</p>
 				<table id="table_4CDCDC115DD043D5B8ACAA8D4CCFB145">
@@ -1268,6 +1268,14 @@ Occurred on following members
 										href="../../../managing/region_compression/region_compression.xml#topic_r43_wgc_gl"
 									/>.</entry>
 								<entry>no compression</entry>
+							</row>
+							<row>
+								<entry><parmname>--off-heap</parmname></entry>
+								<entry>Specifies whether the region values are stored in heap memory
+									or off-heap memory. When true, region values are in off-heap
+									memory. If the parameter is specified without a value, the value
+									of true is used.</entry>
+								<entry>false</entry>
 							</row>
 						</tbody>
 					</tgroup>

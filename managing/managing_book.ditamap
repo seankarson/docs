@@ -45,10 +45,15 @@
 			<topicref format="dita" href="management/configuring_rmi_connector.xml"/>
 			<topicref format="dita" href="management/gfsh_and_management_api.xml"/>
 		</topicref>
-		<topicref format="dita" href="heap_use/chapter_overview.xml">
-			<topicref href="heap_use/how_the_resource_manager_works.xml"/>
-			<topicref href="heap_use/controlling_heap_use.xml"/>
-			<topicref href="heap_use/resource_manager_example_configurations.xml"/>
+		<topicref format="dita" href="heap_use/heap_management.xml">
+			<topicref href="heap_use/heap_management.xml#section_590DA955523246ED980E4E351FF81F71"/>
+			<topicref href="heap_use/heap_management.xml#how_the_resource_manager_works"/>
+			<topicref href="heap_use/heap_management.xml#configuring_resource_manager">
+				<topicref
+					href="heap_use/heap_management.xml#resource_manager_example_configurations"/>
+			</topicref>
+			<topicref format="dita" href="heap_use/off_heap_management.xml"/>
+			<topicref href="heap_use/lock_memory.xml"/>
 		</topicref>
 		<topicref format="dita" href="disk_storage/chapter_overview.xml">
 			<topicref href="disk_storage/how_disk_stores_work.xml"/>

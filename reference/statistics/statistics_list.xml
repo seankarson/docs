@@ -5876,6 +5876,89 @@
 			</p>
 		</body>
 	</topic>
+	<topic id="topic_ohc_tjk_w5">
+		<title>Off-Heap (OffHeapMemoryStats)</title>
+		<body>
+			<p>These statistics quantify the use of off-heap memory. The primary statistics are:</p>
+			<table id="table_m3w_2kk_w5">
+				<tgroup cols="2">
+					<colspec colname="1" colnum="1" colwidth="*"/>
+					<colspec colname="2" colnum="2" colwidth="*"/>
+					<thead>
+						<row>
+							<entry>Statistic </entry>
+							<entry>Description </entry>
+						</row>
+					</thead>
+					<tbody>
+						<row>
+							<entry>
+								<codeph>compactions</codeph>
+							</entry>
+							<entry> The total number of times the off-heap memory manager has invoked the defragmentation
+								algorithm on the off-heap memory space.</entry>
+						</row>
+						<row>
+							<entry>
+								<codeph>defragmentationTime</codeph>
+							</entry>
+							<entry>The total number of nanoseconds spent running the defragmentation algorithm on
+								off-heap memory space fragments.</entry>
+						</row>
+						<row>
+							<entry>
+								<codeph>fragmentation</codeph>
+							</entry>
+							<entry>This statistic gives an indication of the level of external fragmentation in the
+								off-heap memory space by providing a ratio of the current number of
+								fragments of free space to the largest number of fragments that
+								could be formed from that free space. It is expressed as a
+								percentage; the higher this value, the more fragmented the free
+								space currently is. This statistic is 0 if the memory manager has
+								never run its defragmentation algorithm on the off-heap space, and
+								it is recalculated after each defragmentation. </entry>
+						</row>
+						<row>
+							<entry>
+								<codeph>fragments</codeph>
+							</entry>
+							<entry>The current number of fragments of free off-heap memory. This statistic is 0 if no
+								defragmentation has ever been done, and it is updated after each
+								defragmentation.</entry>
+						</row>
+						<row>
+							<entry><codeph>freeMemory</codeph></entry>
+							<entry>The number of bytes of off-heap memory that are not currently allocated.</entry>
+						</row>
+						<row>
+							<entry><codeph>largestFragment</codeph></entry>
+							<entry>The number of bytes in the largest fragment of memory found by the last run of the
+								defragmentation algorithm. This statistic is updated after each
+								defragmentation.</entry>
+						</row>
+						<row>
+							<entry><codeph>maxMemory</codeph></entry>
+							<entry>The number of bytes of off-heap memory initially declared.</entry>
+						</row>
+						<row>
+							<entry><codeph>objects</codeph></entry>
+							<entry>The number of objects currently stored in off-heap
+								memory.</entry>
+						</row>
+						<row>
+							<entry><codeph>reads</codeph></entry>
+							<entry>The total number of reads of objects that are stored in off-heap memory.</entry>
+						</row>
+						<row>
+							<entry><codeph>usedMemory</codeph></entry>
+							<entry>The number of bytes of off-heap memory currently used for region
+								values.</entry>
+						</row>
+					</tbody>
+				</tgroup>
+			</table>
+		</body>
+	</topic>
 	<topic id="section_35AC170770C944C3A336D9AEC2D2F7C5">
 		<title>Partitioned Regions
 			(PartitionedRegion&lt;partitioned_region_name&gt;Statistics)</title>
