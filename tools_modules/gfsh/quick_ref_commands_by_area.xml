@@ -14,7 +14,7 @@
 						<row>
 							<entry>Command</entry>
 							<entry>Description</entry>
-							<entry>Availablity</entry>
+							<entry>Availability</entry>
 						</row>
 					</thead>
 					<tbody>
@@ -148,7 +148,7 @@
 						<row>
 							<entry>Command</entry>
 							<entry>Description</entry>
-							<entry>Availablity</entry>
+							<entry>Availability</entry>
 						</row>
 					</thead>
 					<tbody>
@@ -214,7 +214,7 @@
 							<entry>online</entry>
 						</row>
 						<row>
-							<entry><codeph>status cluster-config-service</codeph></entry>
+							<entry><xref href="command-pages/status.xml#topic_ts1_qb1_dk2"/></entry>
 							<entry>Reports on the status of the cluster configuration
 								server.</entry>
 							<entry>online</entry>
@@ -237,7 +237,7 @@
 						<row>
 							<entry>Command</entry>
 							<entry>Description</entry>
-							<entry>Availablity</entry>
+							<entry>Availability</entry>
 						</row>
 					</thead>
 					<tbody>
@@ -321,7 +321,7 @@
 						<row>
 							<entry>Command</entry>
 							<entry>Description</entry>
-							<entry>Availablity</entry>
+							<entry>Availability</entry>
 						</row>
 					</thead>
 					<tbody>
@@ -336,7 +336,9 @@
 						</row>
 						<row>
 							<entry>
-								<codeph>list deployed</codeph>
+								<xref
+									href="command-pages/list.xml#topic_59DF60DE71AD4097B281749425254BFF"
+								/>
 							</entry>
 							<entry>Display a list of JARs that were deployed to members using the
 									<codeph>deploy</codeph> command. </entry>
@@ -370,7 +372,7 @@
 						<row>
 							<entry>Command</entry>
 							<entry>Description</entry>
-							<entry>Availablity</entry>
+							<entry>Availability</entry>
 						</row>
 					</thead>
 					<tbody>
@@ -413,7 +415,7 @@
 							<entry>online, offline</entry>
 						</row>
 						<row>
-							<entry><codeph>create disk-store </codeph></entry>
+							<entry><xref href="command-pages/create.xml#topic_bkn_zty_ck" /></entry>
 							<entry>Defines a pool of one or more disk stores, which can be used by
 								regions and client subscription queues. </entry>
 							<entry>online</entry>
@@ -444,7 +446,7 @@
 							<entry>online</entry>
 						</row>
 						<row>
-							<entry><codeph>list disk-stores</codeph></entry>
+							<entry><xref href="command-pages/list.xml#topic_BC14AD57EA304FB3845766898D01BD04"/></entry>
 							<entry>List all available disk stores in a <keyword
 									keyref="product_name"/> cluster.</entry>
 							<entry>online</entry>
@@ -460,7 +462,9 @@
 							<entry>online</entry>
 						</row>
 						<row>
-							<entry><codeph>show missing-disk-stores</codeph>
+
+							<entry>
+								<xref href="command-pages/show.xml#topic_7B3D624D5B4F41D1A0F8A9C3C8B2E780"/>
 							</entry>
 							<entry>Display a summary of the disk stores that are currently missing
 								from a distributed system. </entry>
@@ -470,8 +474,9 @@
 							<entry>
 								<xref href="../../../tools_modules/gfsh/command-pages/upgrade.xml"/>
 							</entry>
-							<entry>Upgrade offline disk-stores used in Pivotal GemFire 6.5 or 6.6 installations to a
-								format that is compatible with Pivotal GemFire 7.0 or
+							<entry>Upgrade offline disk-stores used in Pivotal GemFire 6.5 or 6.6
+								installations to a format that is compatible with <keyword
+									keyref="product_name_long"/> or Pivotal GemFire 7.0 or
 								higher.</entry>
 							<entry>offline</entry>
 						</row>
@@ -502,7 +507,7 @@
 						<row>
 							<entry>Command</entry>
 							<entry>Description</entry>
-							<entry>Availablity</entry>
+							<entry>Availability</entry>
 						</row>
 					</thead>
 					<tbody>
@@ -553,7 +558,7 @@
 						<row>
 							<entry>Command</entry>
 							<entry>Description</entry>
-							<entry>Availablity</entry>
+							<entry>Availability</entry>
 						</row>
 					</thead>
 					<tbody>
@@ -578,7 +583,8 @@
 							<entry>online</entry>
 						</row>
 						<row>
-							<entry><codeph>list functions</codeph>
+							<entry>
+								<xref href="command-pages/list.xml#topic_DCC7CCBBEF5942B783A8F2A4A5B2FABF" />
 							</entry>
 							<entry>Display a list of registered functions. The default is to display
 								functions for all members.</entry>
@@ -602,7 +608,7 @@
 						<row>
 							<entry>Command</entry>
 							<entry>Description</entry>
-							<entry>Availablity</entry>
+							<entry>Availability</entry>
 						</row>
 					</thead>
 					<tbody>
@@ -747,18 +753,20 @@
 						<row>
 							<entry>Command</entry>
 							<entry>Description</entry>
-							<entry>Availablity</entry>
+							<entry>Availability</entry>
 						</row>
 					</thead>
 					<tbody>
 						<row>
-							<entry><codeph>create async-event-queue</codeph>
+							<entry>
+								<xref href="command-pages/create.xml#topic_ryz_pb1_dk"/>
 							</entry>
 							<entry>Creates an asynchronous event queue.</entry>
 							<entry>online</entry>
 						</row>
 						<row>
-							<entry><codeph>list async-event-queues</codeph>
+							<entry>
+								<xref href="command-pages/list.xml#topic_j22_kzk_2l"/>
 							</entry>
 							<entry>Display a list of async event queues for all members. </entry>
 							<entry>online</entry>
@@ -781,7 +789,7 @@
 						<row>
 							<entry>Command</entry>
 							<entry>Description</entry>
-							<entry>Availablity</entry>
+							<entry>Availability</entry>
 						</row>
 					</thead>
 					<tbody>
@@ -829,14 +837,19 @@
 							<entry>online</entry>
 						</row>
 						<row>
-							<entry><codeph>list clients</codeph>
+							<entry>
+								<xref
+									href="command-pages/list.xml#topic_ts1_qb1_dk"
+								/>
 							</entry>
 							<entry>Displays a list of connected clients. </entry>
 							<entry>online</entry>
 						</row>
 						<row>
 							<entry>
-								<codeph>list members</codeph>
+								<xref
+									href="command-pages/list.xml#topic_5B5BFB2E5F314210858641BE3A689637"
+								/>
 							</entry>
 							<entry>Display all or a subset of members.</entry>
 							<entry>online</entry>
@@ -852,19 +865,28 @@
 							<entry>online</entry>
 						</row>
 						<row>
-							<entry><codeph>show dead-locks</codeph></entry>
+							<entry>
+								<xref
+									href="command-pages/show.xml#topic_1125347FAD6541DF995C9999650165B1"
+								/>
+							</entry>
 							<entry>Display deadlocks, logs, metrics and missing disk-stores. </entry>
 							<entry>online</entry>
 						</row>
 						<row>
-							<entry><codeph>show log</codeph>
+							<entry>
+								<xref
+									href="command-pages/show.xml#topic_45AAEDAC3AFF46EC9BB68B24FC9A32B3"
+								/>
 							</entry>
 							<entry>Display the log for a member.</entry>
 							<entry>online</entry>
 						</row>
 						<row>
 							<entry>
-								<codeph>show metrics</codeph>
+								<xref
+									href="command-pages/show.xml#topic_6EB786C63AEB46179EEE8FA18624295A"
+								/>
 							</entry>
 							<entry>Display or export metrics for the entire distributed system, a
 								member or a region. </entry>
@@ -880,7 +902,10 @@
 							<entry>online</entry>
 						</row>
 						<row>
-							<entry><codeph>start jconsole</codeph>
+							<entry>
+								<xref
+									href="command-pages/start.xml#topic_D00507416F3944DFAB48D2FA2B9E4A31"
+								/>
 							</entry>
 							<entry>Start the JDK JConsole monitoring application in a separate
 								process. JConsole automatically connects to a running JMX Manager
@@ -889,7 +914,9 @@
 						</row>
 						<row>
 							<entry>
-								<codeph>start jvisualvm</codeph>
+								<xref
+									href="command-pages/start.xml#topic_5B5BF8BEE905463D8B7762B89E2D65E7"
+								/>
 							</entry>
 							<entry>Start the JDK's Java VisualVM monitoring application in a
 								separate process. </entry>
@@ -920,7 +947,7 @@
 						<row>
 							<entry>Command</entry>
 							<entry>Description</entry>
-							<entry>Availablity</entry>
+							<entry>Availability</entry>
 						</row>
 					</thead>
 					<tbody>
@@ -932,12 +959,16 @@
 							<entry>online, offline</entry>
 						</row>
 						<row>
-							<entry><codeph>create defined indexes</codeph></entry>
+							<entry><xref
+								href="command-pages/create.xml#topic_w2t_l3m_qq"
+							/></entry>
 							<entry>Creates all the defined indexes.</entry>
 							<entry>online</entry>
 						</row>
 						<row>
-							<entry><codeph>create index</codeph>
+							<entry><xref
+								href="command-pages/create.xml#topic_960A5B6FD3D84E1881EE118E299DD12D"
+							/>
 							</entry>
 							<entry>Create an index that can be used when executing queries. </entry>
 							<entry>online</entry>
@@ -959,7 +990,9 @@
 							<entry>online</entry>
 						</row>
 						<row>
-							<entry><codeph>list indexes</codeph>
+							<entry><xref
+								href="command-pages/list.xml#topic_B3B51B6DEA484EE086C4F657EC9831F2"
+							/>
 							</entry>
 							<entry>Display the list of indexes created for all members. </entry>
 							<entry>online</entry>
@@ -982,7 +1015,7 @@
 						<row>
 							<entry>Command</entry>
 							<entry>Description</entry>
-							<entry>Availablity</entry>
+							<entry>Availability</entry>
 						</row>
 					</thead>
 					<tbody>
@@ -1031,12 +1064,14 @@
 						<row>
 							<entry>Command</entry>
 							<entry>Description</entry>
-							<entry>Availablity</entry>
+							<entry>Availability</entry>
 						</row>
 					</thead>
 					<tbody>
 						<row>
-							<entry><codeph>start locator</codeph></entry>
+							<entry><xref
+								href="command-pages/start.xml#topic_591260CF25D64562A0EDD7260D2AC6D4"
+							/></entry>
 							<entry>Start a locator. The command creates a subdirectory and log file
 								named after the locator. If the locator detects that no other JMX
 								Manager exists, then the locator will automatically start an
@@ -1045,14 +1080,18 @@
 							<entry>online, offline</entry>
 						</row>
 						<row>
-							<entry><codeph>status locator</codeph>
+							<entry><xref
+								href="command-pages/status.xml#topic_E96D0EFA513C4CD79B833FCCDD69C832"
+							/>
 							</entry>
 							<entry>Displays the status of the specified locator.</entry>
 							<entry>online, offline</entry>
 						</row>
 						<row>
 							<entry>
-								<codeph>stop locator</codeph>
+								<xref
+									href="command-pages/stop.xml#topic_EF61C54B35BA4AB7B14E58CF911F283E"
+								/>
 							</entry>
 							<entry>Stop a locator.</entry>
 							<entry>online, offline </entry>
@@ -1075,7 +1114,7 @@
 						<row>
 							<entry>Command</entry>
 							<entry>Description</entry>
-							<entry>Availablity</entry>
+							<entry>Availability</entry>
 						</row>
 					</thead>
 					<tbody>
@@ -1110,7 +1149,7 @@
 						<row>
 							<entry>Command</entry>
 							<entry>Description</entry>
-							<entry>Availablity</entry>
+							<entry>Availability</entry>
 						</row>
 					</thead>
 					<tbody>
@@ -1125,7 +1164,9 @@
 						</row>
 						<row>
 							<entry>
-								<codeph>create region</codeph>
+								<xref
+									href="command-pages/create.xml#topic_54B0985FEC5241CA9D26B0CE0A5EA863"
+								/>
 							</entry>
 							<entry>Create and configure a region. </entry>
 							<entry>online</entry>
@@ -1150,7 +1191,9 @@
 						</row>
 						<row>
 							<entry>
-								<codeph>list regions</codeph>
+								<xref
+									href="command-pages/list.xml#topic_F0ECEFF26086474498598035DD83C588"
+								/>
 							</entry>
 							<entry>Display regions of a member or members. If no parameter is
 								specified, all regions in the <keyword keyref="product_name"/>
@@ -1184,23 +1227,29 @@
 						<row>
 							<entry>Command</entry>
 							<entry>Description</entry>
-							<entry>Availablity</entry>
+							<entry>Availability</entry>
 						</row>
 					</thead>
 					<tbody>
 						<row>
-							<entry><codeph>start server</codeph></entry>
+							<entry><xref
+								href="command-pages/start.xml#topic_3764EE2DB18B4AE4A625E0354471738A"
+							/></entry>
 							<entry>Start a <keyword keyref="product_name"/> cache server process. </entry>
 							<entry>online, offline</entry>
 						</row>
 						<row>
-							<entry><codeph>status server</codeph></entry>
+							<entry><xref
+								href="command-pages/status.xml#topic_E5DB49044978404D9D6B1971BF5D400D"
+							/></entry>
 							<entry>Display the status of the specified <keyword
 									keyref="product_name"/> cache server. </entry>
 							<entry>online, offline</entry>
 						</row>
 						<row>
-							<entry><codeph>stop server</codeph></entry>
+							<entry><xref
+								href="command-pages/stop.xml#topic_723EE395A63A40D6819618AFC2902115"
+							/></entry>
 							<entry>Stop a <keyword keyref="product_name"/> cache server.</entry>
 							<entry>online, offline </entry>
 						</row>
