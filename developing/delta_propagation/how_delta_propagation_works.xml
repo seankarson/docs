@@ -108,12 +108,11 @@
 						keyref="product_name"/> system members distribute and receive entry changes
 					using delta propagation, with these requirements and caveats: <ul
 						id="ul_938FB350A55643DCB29A05B6AB630928">
-						<li id="li_AD41D50B883D49C48809B4D9037ECC07">Regions must be partitioned or
-							have their scope set to <codeph>distributed-ack</codeph> or
-								<codeph>global</codeph>. The region shortcut settings for
-							distributed regions use <codeph>distributed-ack</codeph>
-							<codeph>scope</codeph>. Delta propagation does not work for regions with
-								<codeph>distributed-no-ack</codeph>
+						<li id="li_AD41D50B883D49C48809B4D9037ECC07">Regions must be partitioned or have their scope
+							set to <codeph>distributed-ack</codeph> or <codeph>global</codeph>. The
+							region shortcut settings for replicated regions use
+								<codeph>distributed-ack</codeph> scope. Delta propagation does not
+							work for regions with <codeph>distributed-no-ack</codeph>
 							<codeph>scope</codeph> because the receiver could not recover if an
 							exception occurred while applying the delta. </li>
 						<li id="li_BE14EFF16F224697BAE3D8631D1AE6A9">For partitioned regions, if a

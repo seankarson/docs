@@ -242,15 +242,16 @@ Region pvtSubregion = rf.createSubregion(pfloRegion, "Private");</codeblock>
 					id="ul_67DD7137893D4039B415218A00195211">
 					<li id="li_744F99236B0949E8810B69BF29274871">As automated data expiration
 						actions. </li>
-					<li>As a gfsh <xref
+					<li>As a <codeph>gfsh</codeph>
+						<xref
 							href="../../tools_modules/gfsh/command-pages/destroy.xml#topic_BEDACECF4599407794ACBC0E56B30F65"
 							>destroy region</xref> command.</li>
-					<li id="li_AF5D1355DAA04C10AFC882FDB7F8B2A7">As API calls, through the
-							<codeph>Region</codeph> instance:
+					<li id="li_AF5D1355DAA04C10AFC882FDB7F8B2A7">As API calls, through the <codeph>Region</codeph>
+						instance:
 						<codeblock>// Clear the local region
 Region.localClear(); 
 
-// Invalidate the entire distributed region 
+// Invalidate the referenced region 
 Region.InvalidateRegion(); </codeblock>
 					</li>
 				</ul>
