@@ -32,11 +32,11 @@
 -DgemfirePropertyFile=defaultConfigs/gemfire.properties
 testApplication.TestApp1 </codeblock> 
 	 </p> 
-	 <p>The gfsh start server command can use the same specifications: 
-		<codeblock>gfsh&gt;server start 
+	 <p>The gfsh start server command can use the same specifications:
+			<codeblock>gfsh&gt;start server
 -J-Dgemfire.cache-xml-file=/gemfireSamples/examples/dist/cacheRunner/queryPortfolios.xml 
--J-DgemfirePropertyFile=defaultConfigs/gemfire.properties</codeblock> 
-	 </p> 
+-J-DgemfirePropertyFile=defaultConfigs/gemfire.properties</codeblock>
+		</p> 
 	 <p>You can also change the specifications for the 
 		<codeph>cache.xml</codeph> file inside the 
 		<codeph>gemfire.properties</codeph> file. 
