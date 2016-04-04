@@ -48,12 +48,17 @@
 		</section>
 		<section id="section_A364D16DFADA49D1A838A7EAF8E4251C">
 			<title>Storing Data in the Local Cache</title>
-			<p>To store data in your local cache, use a region <codeph>refid</codeph> with a
+			<p>In most cases, when you define a data region in a member’s cache, you also specify
+				whether the member is a data store. Members that store data for a region are
+				referred to as data stores or data hosts. Members that do not store data are
+				referred to as accessor members, or empty members. Any member, store or accessor,
+				that defines a region can access it, put data into it, and receive events from other
+				members. To configure a region so the member is a data accessor, you use
+				configurations that specify no local data storage for the region. To store data in
+				your local cache, use a region <codeph>refid</codeph> with a
 					<codeph>RegionShortcut</codeph> or <codeph>ClientRegionShortcut</codeph> that
 				has local state. These automatically set the region <codeph>data-policy</codeph> to
-				a non-empty policy. The regions without storage can send and receive event
-				distributions without storing anything in your application heap. With the other
-				settings, all entry operations received are stored locally. </p>
+				a non-empty policy.  </p>
 		</section>
 	</conbody>
 </concept>
