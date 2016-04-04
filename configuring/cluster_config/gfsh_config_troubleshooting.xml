@@ -83,7 +83,7 @@
             <codeph>ClusterConfigurationNotAvailableException</codeph>, the cluster configuration
           service may not be in the <systemoutput>RUNNING</systemoutput> state. Because the server
           requests the cluster configuration from the locator, which is not available, the
-            <cmdname>server start</cmdname> command fails.</li>
+            <cmdname>start server</cmdname> command fails.</li>
         <li>You can determine what configurations a server received from a locator by examining the
           server's log file. See <xref
             href="../../managing/logging/logging.xml#concept_30DB86B12B454E168B80BB5A71268865"
