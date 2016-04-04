@@ -19,8 +19,8 @@
 							script waits for the startup to finish and exits with an error status if
 							one of the jobs fails.
 							<codeblock>#!/bin/bash
-ssh servera "cd /my/directory;  gfsh server start --name=servera &amp;
-ssh serverb "cd /my/directory; gfsh server start --name=serverb &amp;
+ssh servera "cd /my/directory; gfsh start server --name=servera &amp;
+ssh serverb "cd /my/directory; gfsh start server --name=serverb &amp;
 
 STATUS=0;
 for job in `jobs -p`
