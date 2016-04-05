@@ -53,14 +53,15 @@
 								either update both fields or neither. As with regular updates, the
 								fewer producers you have on a data region, the lower your likelihood
 								of concurrency issues. </li>
-							<li id="li_BC109E7597244A3693F2BDD4B9BD9287">In the application code that puts entries, put
-								the fully populated object into the local cache. Even though you are
-								planning to send only deltas, errors on the receiving end could
-								cause <keyword keyref="product_name"/> to request the full object,
-								so you must provide it to the originating put method. Do this even
-								in empty producers, with regions configured for no local data
-								storage. This usually means doing a get on the entry unless you are
-								sure it does not already exist anywhere in the region. </li>
+							<li id="li_BC109E7597244A3693F2BDD4B9BD9287">In the application code
+								that puts entries, put the fully populated object into the local
+								cache. Even though you are planning to send only deltas, errors on
+								the receiving end could cause <keyword keyref="product_name"/> to
+								request the full object, so you must provide it to the originating
+								put method. Do this even in empty producers, with regions configured
+								for no local data storage. This usually means doing a get on the
+								entry unless you are sure it does not already exist anywhere in the
+								distributed region. </li>
 							<li id="li_1E2E92911ED341318370E7713C5F6A2A">Change each field's update
 								method to record information about the update. The information must
 								be sufficient for <codeph>toDelta</codeph> to encode the delta and
