@@ -2,16 +2,19 @@
 <!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "http://docs.oasis-open.org/dita/v1.1/OS/dtd/concept.dtd">
 <concept id="region_types">
 	<title>Region Types</title>
-	<shortdesc id="shortdesc_559DCD41E31446DB9DF5ECFD15AC867B">Region types define the data storage and
-		distribution behavior within a distributed system.</shortdesc>
+	<shortdesc id="shortdesc_559DCD41E31446DB9DF5ECFD15AC867B">Region types define region behavior
+		within a single distributed system. You have various options for region data storage and
+		distribution. </shortdesc>
 	<conbody>
 		<section id="section_E3435ED1D0D142538B99FA69A9E449EF">
-			<p><keyword keyref="product_name"/> has both distributed and non-distributed regions, such that
-				you can define regions whose data is spread across the distributed system, as well
-				as regions whose data is entirely contained in a single member. </p>
-			<p>The appropriate type of region depends on the application. The regions of a client/server
-				system have more restrictions, to provide effective communication between the two
-				tiers. Guidelines for region type: <ul id="ul_328ea15b-8d11-43f9-87ba-e1753f26c239">
+			<p>Within a <keyword keyref="product_name"/> distributed system, you can define
+				distributed regions and non-distributed regions, and you can define regions whose
+				data is spread across the distributed system, and regions whose data is entirely
+				contained in a single member. </p>
+			<p>Your choice of region type is governed in part by the type of application you are
+				running. In particular, you need to use specific region types for your servers and
+				clients for effective communication between the two tiers: <ul
+					id="ul_328ea15b-8d11-43f9-87ba-e1753f26c239">
 					<li id="li_5248B58F175548E1A5B025EE0BEAD1A8">Server regions are created inside a
 							<codeph>Cache</codeph> by servers and are accessed by clients that
 						connect to the servers from outside the server's distributed system. Server
@@ -27,34 +30,132 @@
 						be regions that are not accessed by clients. Peer regions can have any
 						region type. Peer region configuration uses the
 							<codeph>RegionShortcut</codeph> enum settings. </li>
-				</ul>
+				</ul><note>
+					<p>When you configure a server or peer region using <codeph>gfsh</codeph> or
+						with the <filepath>cache.xml</filepath> file, you can use <i>region
+							shortcuts</i> to define the basic configuration of your region. A region
+						shortcut provides a set of default configuration attributes that are
+						designed for various types of caching architectures. You can then add
+						additional configuration attributes as needed to customize your application.
+						For more information and a complete reference of these region shortcuts, see
+							<xref
+							href="../../reference/topics/region_shortcuts_reference.xml#reference_lt4_54c_lk"
+						/>.</p>
+				</note>
 			</p>
+		</section>
+		<section id="section_A3449B07598C47A881D9219574DE46C5">
+			<p>These are the primary configuration choices for each data region. </p>
+			<table id="table_4938AC356E914601BDCCE593D406923A">
+				<tgroup cols="3">
+					<colspec colname="1" colnum="1" colwidth="1.00*"/>
+					<colspec colname="2" colnum="2" colwidth="1.46*"/>
+					<colspec colname="3" colnum="3" colwidth="1.25*"/>
+					<colspec colname="4" colnum="3" colwidth="*"/>
+					<thead>
+						<row>
+							<entry>Region Type </entry>
+							<entry>Description </entry>
+							<entry>Best suited for... </entry>
+						</row>
+					</thead>
+					<tbody>
+						<row>
+							<entry>Partitioned </entry>
+							<entry>System-wide setting for the data set. Data is divided into
+								buckets across the members that define the region. For high
+								availability, configure redundant copies so each bucket is stored in
+								multiple members with one member holding the primary. </entry>
+							<entry>Server regions and peer regions <ul
+									id="ul_CA1A76A4C5F8480987183210514D4AB0">
+									<li id="li_7CD5FE9E556E4D529A17C50EFD0F12F1">Very large data
+										sets </li>
+									<li id="li_78B8667EC08A4D6D9546B22BB443C609">High availability </li>
+									<li id="li_4C25E8C0EF7F4748B93828F91605FE23">Write performance </li>
+									<li id="li_B3616616134F4148A6760AA8D681F5B2">Partitioned event
+										listeners and data loaders </li>
+								</ul>
+							</entry>
+						</row>
+						<row>
+							<entry>Replicated (distributed) </entry>
+							<entry>Holds all data from the distributed region. The data from the
+								distributed region is copied into the member replica region. Can be
+								mixed with non-replication, with some members holding replicas and
+								some holding non-replicas. </entry>
+							<entry>Server regions and peer regions <ul
+									id="ul_16F3AD50156547A89C2791BA5A6EEF3D">
+									<li id="li_641F926151DC4C269A07A0834A4EAC58">Read heavy, small
+										datasets </li>
+									<li id="li_A61FB31ED24A4946B86AB455F179CB4F">Asynchronous
+										distribution </li>
+									<li id="li_E23F6D58B64A440798C9D0D34841CD23">Query performance
+									</li>
+								</ul>
+							</entry>
+						</row>
+						<row>
+							<entry>Distributed non-replicated </entry>
+							<entry>Data is spread across the members that define the region. Each
+								member holds only the data it has expressed interest in. Can be
+								mixed with replication, with some members holding replicas and some
+								holding non-replicas. </entry>
+							<entry>Peer regions, but not server regions and not client regions <ul
+									id="ul_3E314E6D3E984F3885BC7DD746A6E2BC">
+									<li id="li_51E6F1279FA742678EF8A4F282DB8884">Asynchronous
+										distribution </li>
+									<li id="li_95E11B06AB804601BDFC7E8ED4D1C279">Query performance
+									</li>
+								</ul>
+							</entry>
+						</row>
+						<row>
+							<entry>Non-distributed (local) </entry>
+							<entry>The region is visible only to the defining member. </entry>
+							<entry>Client regions and peer regions <ul
+									id="ul_3B03514F163F490381FDBF3480D4BF3F">
+									<li id="li_B960CF57C546492EB947241DE6450063">Data that is not
+										shared between applications </li>
+								</ul>
+							</entry>
+						</row>
+					</tbody>
+				</tgroup>
+			</table>
 		</section>
 		<section id="section_C92C7DBD8EF44F1789FCB36281D3F8BF">
 			<title>Partitioned Regions</title>
-			<p>Partitioned regions map entries into buckets, and each member stores a subset of the buckets.
-				Which bucket an entry is assigned to does not affect the logical view. All members
-				see the same logical data set. Configuration allows the specification of redundant
-				copies of buckets, leading to higher availablility in case of member failure.</p>
+			<p>Partitioning is a good choice for very large server regions. Partitioned regions are
+				ideal for data sets in the hundreds of gigabytes and beyond. </p>
+			<note>Partitioned regions generally require more JDBC connections than other region
+				types because each member that hosts data must have a connection. </note>
+			<p>Partitioned regions group your data into buckets, each of which is stored on a subset
+				of all of the system members. Data location in the buckets does not affect the
+				logical view - all members see the same logical data set. </p>
 			<p>Use partitioning for: <ul id="ul_EEF600FD984346B285B8E82F5E47BD29">
-					<li id="li_FF7B924C7DB1458695E824AF02B92997"><b>Large data sets</b>. Since each member hosts a
-						subset of the region entries, no member hosts all of the region’s data.
-							<keyword keyref="product_name"/> provides dynamic redundancy recovery.
-							<keyword keyref="product_name"/> can rebalance partitioned regions,
-						facilitating system throughput and horizontal scaling, as new members are
-						added. </li>
-					<li id="li_6528B3B018844D5881A1C536267A9E9B"><b>High availability</b>. Partitioned regions
-						allow specification of the number of redundant copies of data entries. If a
-						member fails, the entries will be available without interruption from the a
-						remaining member's copy. Partitioned regions can also be persisted to disk
-						for additional high availability. </li>
+					<li id="li_FF7B924C7DB1458695E824AF02B92997"><b>Large data sets</b>. Store data
+						sets that are too large to fit into a single member, and all members will
+						see the same logical data set. Partitioned regions divide the data into
+						units of storage called buckets that are split across the members hosting
+						the partitioned region data, so no member needs to host all of the region’s
+						data. <keyword keyref="product_name"/> provides dynamic redundancy recovery
+						and rebalancing of partitioned regions, making them the choice for
+						large-scale data containers. More members in the system can accommodate more
+						uniform balancing of the data across all host members, allowing system
+						throughput (both gets and puts) to scale as new members are added. </li>
+					<li id="li_6528B3B018844D5881A1C536267A9E9B"><b>High availability</b>.
+						Partitioned regions allow you configure the number of copies of your data
+						that <keyword keyref="product_name"/> should make. If a member fails, your
+						data will be available without interruption from the remaining members.
+						Partitioned regions can also be persisted to disk for additional high
+						availability. </li>
 					<li id="li_394A5D02F8094790A3BE53EAA13CF04C"><b>Scalability</b>. Partitioned regions can scale
-						to hold large amounts of data, because the data is divided among the members
-						hosting the region. Increase data capacity dynamically by adding new
-						members. Partitioned regions also allow increased processing capacity,
-						because the region entries are spread across the members hosting the region,
-						such that reads and writes to those entries are also spread out across those
-						members. </li>
+						to large amounts of data because the data is divided between the members
+						available to host the region. Increase your data capacity dynamically by
+						simply adding new members. Partitioned regions also allow you to scale your
+						processing capacity. Because your entries are spread out across the members
+						hosting the region, reads and writes to those entries are also spread out
+						across those members. </li>
 					<li id="li_75C74CD33F2946D094E35AF0B95D9666"><b>Good write performance</b>. You
 						can configure the number of copies of your data. The amount of data
 						transmitted per write does not increase with the number of members. By
@@ -66,48 +167,63 @@
 			<p>In partitioned regions, you can colocate keys within buckets and across multiple
 				partitioned regions. You can also control which members store which data buckets.
 			</p>
-			<p>Partitioned regions generally require more JDBC connections than other region types,
-				because each member that hosts data must have a connection. </p>
 		</section>
 		<section id="section_iwt_dnj_bm">
 			<title>Replicated Regions</title>
-			<p>Each member hosts the entire region, meaning all the region's entries. Replicated regions
-				provide the highest performance in terms of throughput and latency. They are most
-				appropriate for small, read-heavy data sets.</p>
+			<note>Replication is a good choice for small to medium size server regions. </note>
+			<p>Replicated regions provide the highest performance in terms of throughput and
+				latency. </p>
 			<p>Use replicated regions for: <ul id="ul_307615353A48423E85CBD2AFF4F05A5C">
-					<li id="li_D8B8E58C75EA46F7B754F508F648D05A"><b>Small to medium quantities of data that fit
-							well within a single member</b>. Examples of small data sets are
-						currency rate information and mortgage rates. </li>
-					<li id="li_C72620EFE1F443F8AAFC28009A6DE29C"><b>High performance data access</b>. Replication
-						means that reads remain local. Access is from the heap for application
-						threads, providing the lowest possible latency. Queries benefit in the same
-						manner.</li>
-					<li id="li_94D285258ADD4291806DAEB3CEED1E47"><b>Asynchronous distribution</b>. The default
-						distribution of data from one member to another does not require locking or
-						acknowledgement, so replicated regions provide the fastest distribution
-						speeds. </li>
+					<li id="li_D8B8E58C75EA46F7B754F508F648D05A"><b>Small amounts of data required
+							by all members of the distributed system</b>. For example, currency rate
+						information and mortgage rates. </li>
+					<li id="li_F7B15052C77B417F9D39889033C9F3B4"><b>Data sets that can be contained
+							entirely in a single member</b>. Each replicated region holds the
+						complete data set for the region </li>
+					<li id="li_C72620EFE1F443F8AAFC28009A6DE29C"><b>High performance data
+						access</b>. Replication guarantees local access from the heap for
+						application threads, providing the lowest possible latency for data access. </li>
+					<li id="li_94D285258ADD4291806DAEB3CEED1E47"><b>Asynchronous distribution</b>.
+						All distributed regions, replicated and non-replicated, provide the fastest
+						distribution speeds. </li>
 				</ul>
 			</p>
-			<p>It is possible to set up a member within a replicated region such that the member
-				does not store the entire region, and thus, is not a replica. Instead, the member
-				interacts with the other region's members through the distribution of entries. The
-				member is then acting as if it were a client within a client/server system, while
-				being a member of a peer-to-peer system.</p>
+		</section>
+		<section id="section_2232BEC969F74CDB91B1BB74FEF67EE1">
+			<title>Distributed, Non-Replicated Regions</title>
+			<p>Distributed regions provide the same performance as replicated regions, but each
+				member only stores data it has expressed interest in, either by subscribing to
+				events from other members or by defining the data entries in its cache. </p>
+			<p>Use distributed, non-replicated regions for: <ul
+					id="ul_C23E4ECB092B48049DE3A3CB50AFBB73">
+					<li id="li_3A68FC2B4D044F8EBDF38F2AB9EE6C97"><b>Peer regions, but not server
+							regions or client regions</b>. Server regions must be either replicated
+						or partitioned. Client regions must be local. </li>
+					<li id="li_E68FDFB364884391AA987EA3F6000228"><b>Data sets where individual
+							members only need notification and updates for changes to a subset of
+							the data</b>. In non-replicated regions, each member only receives
+						update events for the data entries it has defined in the local cache. </li>
+					<li id="li_782D017266ED48289BE05BAB69537AE1"><b>Asynchronous distribution</b>.
+						All distributed regions, replicated and non-replicated, provide the fastest
+						distribution speeds. </li>
+				</ul>
+			</p>
 		</section>
 		<section id="section_A8150BDBC74E4019B1942481877A4370">
 			<title>Local Regions</title>
-			<p>A local region is only visible to the member that defines the region. A local region has no
+			<p>
+				<note>When created using the <codeph>ClientRegionShortcut</codeph> settings, client
+					regions are automatically defined as local, since all client distribution
+					activities go to and come from the server tier. </note>The local region has no
 				peer-to-peer distribution activity. </p>
 			<p>Use local regions for: <ul id="ul_9F2EE05E49214FEABD83D5806C681C27">
 					<li id="li_7FC21C4DD7AF4866AAA2235698158060"><b>Client regions</b>. Distribution
 						is only between the client and server tier. </li>
-					<li id="li_CD4AD2D0597D475CB215BDB0ADD779AC"><b>Private data sets</b>. The local region is not
-						visible to peer members, so the data is private to the defining member. </li>
+					<li id="li_CD4AD2D0597D475CB215BDB0ADD779AC"><b>Private data sets for the
+							defining member</b>. The local region is not visible to peer members.
+					</li>
 				</ul>
 			</p>
-			<p>When created using <codeph>ClientRegionShortcut</codeph> settings, client regions are
-				automatically defined as local, since all client distribution activities go to and
-				come from the server tier. </p>
 		</section>
 	</conbody>
 </concept>
