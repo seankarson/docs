@@ -26,10 +26,10 @@ set variable                  sh
 sleep                         start jconsole	     	  
 start jvisualvm               start locator
 start pulse                   start server
-start vsd                     status locator
-status server                 stop locator
-stop server                   upgrade offline-disk-store
-validate offline-disk-store   version</codeblock>
+status locator                status server
+stop locator                  stop server
+upgrade offline-disk-store    validate offline-disk-store
+version</codeblock>
 			</p>
 			<p><b>Use the hint command to get information on a particular topic.</b>
 			</p>
@@ -99,6 +99,10 @@ Statistics
 				to a JMX Manager node), so some start commands are unavailable.
 				<codeblock>
 gfsh&gt;help start
+start gateway-receiver (Not Available)
+    Start the Gateway Receiver on a member or members.
+start gateway-sender (Not Available)
+    Start the Gateway Sender on a member or members.
 start jconsole (Available)
     Start the JDK's JConsole tool in a separate process. JConsole will be
     launched, but connecting to GemFire must be done manually.

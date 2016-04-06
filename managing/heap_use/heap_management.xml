@@ -310,21 +310,6 @@
 						</dlentry>
 					</dl>
 				</p>
-				<p>In this sample statistics chart in VSD, the manager's evictions and the JVM's GC
-					efforts are good enough to keep heap use very close to the eviction threshold. The
-					eviction threshold could be increased to a setting closer to the critical threshold,
-					allowing the member to keep more data in tenured memory without the risk of
-					overwhelming the JVM. This chart also shows the blocks of times when the manager was
-					running cache evictions. </p>
-				<image href="../../images/DataManagement-10.gif"
-					id="image_2943FAA725374674AAD9ED280923440F" placement="break"/>
-				<p>In this next chart, it looks like the manager's evictions are kicking in at the right time,
-					but the CMS garbage collector is not starting soon enough to keep memory use in
-					check. It might be that it is not configured to start as soon as it should. It
-					should be started just before the eviction threshold is reached. Or there might
-					be some other issue with the garbage collection service. </p>
-				<image href="../../images/DataManagement-11.gif"
-					id="image_A16112A8AA3847C195D7CFFC7F9FDB23" placement="break"/>
 			</section>
 		</conbody>
 	</concept>
