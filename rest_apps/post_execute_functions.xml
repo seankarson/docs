@@ -11,45 +11,29 @@
     </section>
     <section>
       <title>Parameters</title>
-      <p>
-        <simpletable frame="all" relcolwidth="1.0* 2.13* 1.0*" id="simpletable_bqn_nx5_m4">
-          <sthead>
-            <stentry>Parameter</stentry>
-            <stentry>Description</stentry>
-            <stentry>Example</stentry>
-          </sthead>
-          <strow>
-            <stentry>{functionId}</stentry>
-            <stentry>Required. The name of the function to execute.</stentry>
-            <stentry>AddFreeItemToOrders</stentry>
-          </strow>
-          <strow>
-            <stentry>onRegion</stentry>
-            <stentry>Optional. Specify the target region for the function. You can only invoke a
-              function on a single region.</stentry>
-            <stentry>onRegion=regionname</stentry>
-          </strow>
-          <strow>
-            <stentry>onMembers</stentry>
-            <stentry>Optional. Specify the target members of the function. For multiple members,
-              specify a comma-delimited list of member names.</stentry>
-            <stentry>onMembers=member1,member2</stentry>
-          </strow>
-          <strow>
-            <stentry>onGroups</stentry>
-            <stentry>Optional. Specify the target members of the function. For multiple members,
-              specify a comma-delimited list of member group names.</stentry>
-            <stentry>onGroups=membergroup1,membergroup2</stentry>
-          </strow>
-          <strow>
-            <stentry>
-              <i>function arguments</i>
-            </stentry>
-            <stentry>Passed in the request body (JSON). The content of the args can depend on how
-              the function is defined. Use @type to declare argument types and @value for specifying
-              a scalar value.</stentry>
-            <stentry>For
-              example:<codeblock>
+      <ul id="ul_krq_n23_4v">
+        <li><b>{functionId}</b> This required parameter is the name of the function to execute.
+          Place it in the Resource URL, as in the example request:
+            <codeph>AddFreeItemToOrders</codeph>.</li>
+        <li><b>onRegion</b>  This optional parameter specifies the target region for the function.
+          You can only invoke a function on a single region. Substitute the region's name for
+            <codeph>regionname</codeph> within the sample syntax
+            <codeph>onRegion=regionname</codeph>.</li>
+        <li><b>onMembers</b>  This optional parameter specifies the target members of the function.
+          For multiple members, specify a comma-delimited list of member names, as in the sample
+            <codeph>onMembers=member1,member2</codeph>.</li>
+        <li><b>onGroups</b>  This optional parameter specifies the target groups of the function.
+          For multiple groups, specify a comma-delimited list of group names, as in the sample
+            <codeph>onGroups=membergroup1,membergroup2</codeph>.</li>
+        <li><b>filter</b> This optional parameter can only be used with the <b>onRegion</b>
+          parameter, where the region has a <codeph>data-policy</codeph> of
+            <codeph>PARTITION</codeph>. The parameter specifies a list of applicable keys that the
+          function needs to filter on. There are 3 keys in the example Resource URL:
+          <codeblock>http://serverURL/functions/SampleFunction?onRegion=TestPartitionRegion&amp;filter=key1,key2,key3</codeblock></li>
+        <li>Any <i>function arguments</i> are passed in the request body in JSON format. The content
+          of the arguments can depend on how the function is defined. Use @type to declare argument
+          types and @value for specifying a scalar value. An example set of
+          arguments:<codeblock>
 [
         {
              "@type":  "double",
@@ -63,10 +47,8 @@
              "unitprice":  "5",
              "totalprice":  "10.00"
         }
-]</codeblock></stentry>
-          </strow>
-        </simpletable>
-      </p>
+]</codeblock></li>
+      </ul>
     </section>
     <section><title>Example
       Requests</title><codeblock>Request Payload: application/json
@@ -119,34 +101,22 @@ Location: http://localhost:8080/gemfire-api/v1/functions/getDeliveredOrders
 ]</codeblock></section>
     <section>
       <title>Error Codes</title>
-      <p>
-        <simpletable frame="all" relcolwidth="1.0* 3.75*" id="simpletable_byx_kx5_m4">
-          <sthead>
-            <stentry>Status Code</stentry>
-            <stentry>Description</stentry>
-          </sthead>
-          <strow>
-            <stentry>500 INTERNAL SERVER ERROR</stentry>
-            <stentry>Error encountered at <keyword keyref="product_name"/> server. Check the HTTP
-              response body for a stack trace of the exception. <ul id="ul_rxk_yth_y4">
-                <li>The Region identified by name (%1$s) could not found!</li>
-                <li>Could not found the specified members in disributed system!</li>
-                <li>no member(s) are found belonging to the provided group(s)!</li>
-                <li>Disributed system does not contain any valid data node to run the specified
-                  function!</li>
-                <li>Key is of an inappropriate type for this region!</li>
-                <li>Specified key is null and this region does not permit null keys!</li>
-                <li>Server has encountered low memory condition!</li>
-                <li>Input parameter is null!</li>
-                <li>Could not convert function results into Restful (JSON) format!</li>
-                <li>Function has returned results that could not be converted into Restful (JSON)
-                  format!</li>
-                <li>Server has encountered an error while processing function execution!</li>
-              </ul>
-            </stentry>
-          </strow>
-        </simpletable>
-      </p>
+      <p>Status code 500 INTERNAL SERVER ERROR is an error encountered in a server. Check the HTTP
+        response body for a stack trace of the exception. Causes:<ul id="ul_trc_2h3_4v">
+          <li>The Region identified by name (%1$s) could not found!</li>
+          <li>Could not found the specified members in disributed system!</li>
+          <li>no member(s) are found belonging to the provided group(s)!</li>
+          <li>Disributed system does not contain any valid data node to run the specified
+            function!</li>
+          <li>Key is of an inappropriate type for this region!</li>
+          <li>Specified key is null and this region does not permit null keys!</li>
+          <li>Server has encountered low memory condition!</li>
+          <li>Input parameter is null!</li>
+          <li>Could not convert function results into Restful (JSON) format!</li>
+          <li>Function has returned results that could not be converted into Restful (JSON)
+            format!</li>
+          <li>Server has encountered an error while processing function execution!</li>
+        </ul></p>
     </section>
   </body>
 </topic>
