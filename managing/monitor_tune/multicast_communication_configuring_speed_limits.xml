@@ -27,18 +27,12 @@
 							<codeblock>gfsh&gt;start server --name=<varname>server_name</varname> --enable-time-statistics=true</codeblock>
 						</p>
 					</li>
-					<li id="li_6F09E7D5F35349208CE0B92E34AAFFEB">Monitor the members that receive
-						data for signs of data loss. A few data loss messages can happen normally
-						during region creation. Data loss monitoring can be done by reviewing the
-							<keyword keyref="product_name"/> DistributionStats in the statistics
-						archive using the optional Visual Statistics Display (VSD) tool. If the
-						cache regions are configured to require acknowledgment, you could see
-						messages timing out as they wait for a response. After a put into a region,
-						the next operations might report that the entry could not be found.
-						Multicast retransmit requests and unicast retransmits can also be monitored
-						to detect data loss. Even when you see data loss, the cause of the problem
-						may have nothing to do with the network. However, if it happens constantly
-						then you should try testing the flow control rate again </li>
+					<li id="li_6F09E7D5F35349208CE0B92E34AAFFEB">Monitor the members that receive data for signs of
+						data loss. A few data loss messages can happen normally during region
+						creation. Multicast retransmit requests and unicast retransmits can also be
+						monitored to detect data loss. Even when you see data loss, the cause of the
+						problem may have nothing to do with the network. However, if it happens
+						constantly then you should try testing the flow control rate again </li>
 					<li id="li_E7811457826D443D86C10EB240EA3D53">If necessary, reconfigure all the
 							<codeph>gemfire.properties</codeph> files and repeat with lower flow
 						control maximum credits until you find the maximum useful rate for your
