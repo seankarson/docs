@@ -149,9 +149,9 @@
 					>AsyncEventListener.processEvents</xref></codeph> method to process AsyncEvents.
 				This method is called asynchronously when events are queued to be processed. The
 				size of the list reflects the number of batch events where batch size is defined in
-				the AsyncEventQueueFactory. The <codeph>processEvents</codeph> returns a boolean;
-				true if the AsyncEvents are processed correctly, and false if any events fail
-				processing. As long as <codeph>processEvents</codeph> returns false, <keyword
+				the AsyncEventQueueFactory. The <codeph>processEvents</codeph> method returns a
+				boolean; true if the AsyncEvents are processed correctly, and false if any events
+				fail processing. As long as <codeph>processEvents</codeph> returns false, <keyword
 					keyref="product_name"/> continues to re-try processing the events.</p>
 			<p>You can use the <codeph>getDeserializedValue</codeph> method to obtain cache values
 				for entries that have been updated or created. Since the
