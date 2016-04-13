@@ -33,6 +33,9 @@
 						start up all the persistent replicated members in parallel before starting
 						the non-persistent regions. This way, persistent members will not delay
 						their startup for other persistent members with later data. </li>
+					<li>For a system that includes persistent regions, see <xref
+							href="../../managing/disk_storage/starting_system_with_disk_stores.xml"
+						 format="dita" type="concept"/>.</li>
 					<li id="li_BCFA0D08977B49CB84928EBEE322764D">If you are running producer processes and consumer
 						or event listener processes, start the consumers first. This ensures the
 						consumers and listeners do not miss any notifications or updates. </li>
