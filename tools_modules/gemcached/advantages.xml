@@ -14,8 +14,8 @@
 			retrieve stale data. In <keyword keyref="product_name"/> clusters, all members communicate with each other to
 			maintain data consistency, which eliminates the need to code these behaviors in the
 			memcached clients. </p>
-		<p><b>High availability</b>.When a memcached server becomes unavailable, memcached clusters
-			are subject to failures or degraded performance because clients must directly query the
+		<p><b>High availability</b>. When a memcached server becomes unavailable, memcached clusters are
+			subject to failures or degraded performance because clients must directly query the
 			backend database. Memcached-based applications must be coded to handle these failures,
 			while <keyword keyref="product_name"/> clusters handle such failures natively. </p>
 		<p><b>Faster cluster startup time</b>. When a memcached cluster fails and a restart is
