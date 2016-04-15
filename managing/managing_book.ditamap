@@ -153,8 +153,8 @@
 		</topicref>
 		<topicref format="dita" href="monitor_tune/chapter_overview.xml"
 			navtitle="Performance Tuning and Configuration" type="concept">
-			<topicref format="dita" href="monitor_tune/gemfire_performance_on_vsphere.xml" type="topic"/>
-			<topicref
+			<topicref format="dita" href="monitor_tune/gemfire_performance_on_vsphere.xml" type="topic">
+			<topicref format="dita"
 				href="monitor_tune/gemfire_performance_on_vsphere_guidelines.xml#topic_F48990A6A37144988D49E132E17E117C"/>
 			<topicref format="dita"
 				href="monitor_tune/gemfire_performance_on_vsphere_guidelines.xml#topic_D8393B1A75364E46B0F959F0DE820E9E"
@@ -179,7 +179,7 @@
 			<topicref format="dita"
 				href="monitor_tune/gemfire_performance_on_vsphere_guidelines.xml#topic_628F038FD4954E56BF4192F17FD3D119"
 				navtitle="Additional Resources" scope="local" type="topic"/>
-		</topicref>
+			</topicref>
 		<topicref href="monitor_tune/performance_controls.xml" navtitle="Performance Controls"
 			type="concept">
 			<topicref format="dita" href="monitor_tune/performance_controls_data_serialization.xml"
@@ -206,35 +206,37 @@
 			<topicref format="dita"
 				href="monitor_tune/system_member_performance_connection_thread_settings.xml"/>
 		</topicref>
-		<topicref href="monitor_tune/slow_receivers.xml">
-			<topicref format="dita" href="monitor_tune/slow_receivers_preventing_problems.xml"/>
-			<topicref format="dita" href="monitor_tune/slow_receivers_managing.xml"/>
+			<topicref href="monitor_tune/slow_receivers.xml">
+				<topicref format="dita" href="monitor_tune/slow_receivers_preventing_problems.xml"/>
+				<topicref format="dita" href="monitor_tune/slow_receivers_managing.xml"/>
+			</topicref>
+			<topicref href="monitor_tune/slow_messages.xml"/>
+			<topicref href="monitor_tune/socket_communication.xml">
+				<topicref format="dita"
+					href="monitor_tune/socket_communication_setting_socket_buffer_sizes.xml"/>
+				<topicref format="dita"
+					href="monitor_tune/socket_communication_ephemeral_tcp_port_limits.xml"/>
+				<topicref format="dita"
+					href="monitor_tune/socket_communication_have_enough_sockets.xml"/>
+				<topicref href="monitor_tune/socket_tcp_keepalive.xml" type="topic"/>
+				<topicref format="dita"
+					href="monitor_tune/socket_communication_tcpip_p2p_handshake_timeouts.xml"/>
+			</topicref>
+			<topicref href="monitor_tune/udp_communication.xml"/>
+			<topicref href="monitor_tune/multicast_communication.xml">
+				<topicref format="dita"
+					href="monitor_tune/multicast_communication_provisioning_bandwidth.xml"/>
+				<topicref format="dita"
+					href="monitor_tune/multicast_communication_testing_multicast_speed_limits.xml"/>
+				<topicref format="dita"
+					href="monitor_tune/multicast_communication_configuring_speed_limits.xml"/>
+				<topicref format="dita"
+					href="monitor_tune/multicast_communication_runtime_considerations.xml"/>
+				<topicref format="dita"
+					href="monitor_tune/multicast_communication_troubleshooting.xml"/>
+			</topicref>
+			<topicref href="monitor_tune/cache_consistency.xml"/>
 		</topicref>
-		<topicref href="monitor_tune/slow_messages.xml"/>
-		<topicref href="monitor_tune/socket_communication.xml">
-			<topicref format="dita"
-				href="monitor_tune/socket_communication_setting_socket_buffer_sizes.xml"/>
-			<topicref format="dita"
-				href="monitor_tune/socket_communication_ephemeral_tcp_port_limits.xml"/>
-			<topicref format="dita" href="monitor_tune/socket_communication_have_enough_sockets.xml"/>
-			<topicref href="monitor_tune/socket_tcp_keepalive.xml" type="topic"/>
-			<topicref format="dita"
-				href="monitor_tune/socket_communication_tcpip_p2p_handshake_timeouts.xml"/>
-		</topicref>
-		<topicref href="monitor_tune/udp_communication.xml"/>
-		<topicref href="monitor_tune/multicast_communication.xml">
-			<topicref format="dita"
-				href="monitor_tune/multicast_communication_provisioning_bandwidth.xml"/>
-			<topicref format="dita"
-				href="monitor_tune/multicast_communication_testing_multicast_speed_limits.xml"/>
-			<topicref format="dita"
-				href="monitor_tune/multicast_communication_configuring_speed_limits.xml"/>
-			<topicref format="dita"
-				href="monitor_tune/multicast_communication_runtime_considerations.xml"/>
-			<topicref format="dita" href="monitor_tune/multicast_communication_troubleshooting.xml"
-			/>
-		</topicref>
-		<topicref href="monitor_tune/cache_consistency.xml"/>
 
 
 		<topicref format="dita" href="logging/logging.xml">
