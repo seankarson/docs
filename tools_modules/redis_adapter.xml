@@ -17,24 +17,24 @@
 				<ol id="ol_hy4_4hv_qv">
 					<li dir="ltr">The port number through which clients will communicate</li>
 					<li dir="ltr">The IP address of the host where the server is to reside</li>
-					<li dir="ltr">A choice of which attributes you will use for a Geode partitioned
+					<li dir="ltr">A choice of which attributes you will use for a <keyword keyref="product_name"/> partitioned
 						region</li>
 				</ol>
 				<p dir="ltr">The IP address and port number should be the same ones coded in the
 					Redis clients.</p>
-				<p dir="ltr">In order to take advantage of Geode’s scaling capabilities, you should
-					specify the Geode region as one of the types that use the PARTITION data policy.
+				<p dir="ltr">In order to take advantage of <keyword keyref="product_name"/>’s scaling capabilities, you should
+					specify the <keyword keyref="product_name"/> region as one of the types that use the PARTITION data policy.
 					PARTITION is the default. Other possibilities include PARTITION_REDUNDANT and
 					PARTITION_PERSISTENT. (See <xref
 						href="../reference/topics/region_shortcuts_table.xml">“Region Shortcuts
 						Quick Reference”</xref> for a complete list.)</p>
-				<p dir="ltr">To implement a Geode instance using the Redis Adapter:</p>
+				<p dir="ltr">To implement a <keyword keyref="product_name"/> instance using the Redis Adapter:</p>
 				<ol id="ol_hdd_m3v_qv">
-					<li>Install Geode on the system where the server is to reside.</li>
-					<li>Use gfsh to start a Geode server, specifying the three configuration options
+					<li>Install <keyword keyref="product_name"/> on the system where the server is to reside.</li>
+					<li>Use gfsh to start a <keyword keyref="product_name"/> server, specifying the three configuration options
 						described above:<ul id="ul_igc_p3v_qv">
 							<li>Use <codeph>--redis-port</codeph> to specify the port. This
-								parameter is required -- the Geode server will listen on this port
+								parameter is required -- the <keyword keyref="product_name"/> server will listen on this port
 								for Redis commands.</li>
 							<li>Use <codeph>--redis-bind-address</codeph> to specify the IP address
 								of the server host. This parameter is optional. If not specified,
@@ -54,7 +54,7 @@
 			</concept>
 			<concept id="how-the-redis-adapter-works">
 				<title>How the Redis Adapter Works</title>
-				<conbody><p dir="ltr">The Geode Redis Adapter supports all Redis data structures,
+				<conbody><p dir="ltr">The <keyword keyref="product_name"/> Redis Adapter supports all Redis data structures,
 					including</p>
 				<ul id="ul_yk5_ygv_qv">
 					<li dir="ltr">String</li>
@@ -64,18 +64,18 @@
 					<li dir="ltr">SortedSet</li>
 					<li dir="ltr">HyperLogLog</li>
 				</ul>
-				<p dir="ltr">In Geode these data structures are implemented using partitioned
-					regions. In most cases, Geode allocates one partitioned region for each data
+				<p dir="ltr">In <keyword keyref="product_name"/> these data structures are implemented using partitioned
+					regions. In most cases, <keyword keyref="product_name"/> allocates one partitioned region for each data
 					structure. For example, each Sorted Set is allocated its own partitioned region,
 					in which the key is the user data and the value is the user-provided score, and
 					entries are indexed by score. The two exceptions to this design are data types
 					String and HyperLogLog. All Strings are allocated to a single partitioned
 					region. Similarly, all HyperLogLogs are allocated to a single region. Regions
-					use Geode’s OQL and indexes.</p>
-				<p dir="ltr">The Geode Redis Adapter supports all Redis commands for each of the
+					use <keyword keyref="product_name"/>’s OQL and indexes.</p>
+				<p dir="ltr">The <keyword keyref="product_name"/> Redis Adapter supports all Redis commands for each of the
 					Redis data structures. (See the Javadocs for the GemFireRedisServer class for a
-					detailed list.) The Geode server’s responses to Redis commands are identical to
-					those of a Redis server with the following exceptions, resulting from Geode’s
+					detailed list.) The <keyword keyref="product_name"/> server’s responses to Redis commands are identical to
+					those of a Redis server with the following exceptions, resulting from <keyword keyref="product_name"/>’s
 					more extensive partitioning model:</p>
 				<ul id="ul_zk5_ygv_qv">
 					<li dir="ltr">Any command that removes keys and returns a count of removed
@@ -91,7 +91,7 @@
 						local to the executing server, that is on a partitioned region in a
 						different server instance, or that is on a persistent region that does not
 						have transactions enabled. Also, you cannot watch or unwatch keys, as all
-						keys within a Geode transaction are watched by default.</li>
+						keys within a <keyword keyref="product_name"/> transaction are watched by default.</li>
 				</ul></conbody>
 			</concept>
 			<concept id="advantages-of-geode-over-redis"><title>Advantages of <keyword keyref="product_name"/> over a Redis Server</title> 
