@@ -1,0 +1,114 @@
+<?xml version="1.0"?>
+<!DOCTYPE dita PUBLIC "-//OASIS//DTD DITA Composite//EN" "ditabase.dtd">
+<dita>
+	<topic id="topic_523F6DE33FE54307BBE8F83BB7D9355D">
+		<title><keyword keyref="product_name"/> Redis Adapter</title>
+		<shortdesc>The <keyword keyref="product_name"/> Redis adapter allows <keyword
+				keyref="product_name"/> to function as a drop-in replacement for a Redis data store,
+			letting Redis applications take advantage of <keyword keyref="product_name"/>’s scaling
+			capabilities without changing their client code. Redis clients connect to a <keyword
+				keyref="product_name"/> server in the same way they connect to a Redis server, using
+			an IP address and a port number.</shortdesc></topic>
+			<concept id="using-the-redis-adapter">
+				<title>Using the Redis Adapter</title>
+<conbody>
+	<p dir="ltr">To use the Redis Adapter, you will need three pieces of
+					information:</p>
+				<ol id="ol_hy4_4hv_qv">
+					<li dir="ltr">The port number through which clients will communicate</li>
+					<li dir="ltr">The IP address of the host where the server is to reside</li>
+					<li dir="ltr">A choice of which attributes you will use for a Geode partitioned
+						region</li>
+				</ol>
+				<p dir="ltr">The IP address and port number should be the same ones coded in the
+					Redis clients.</p>
+				<p dir="ltr">In order to take advantage of Geode’s scaling capabilities, you should
+					specify the Geode region as one of the types that use the PARTITION data policy.
+					PARTITION is the default. Other possibilities include PARTITION_REDUNDANT and
+					PARTITION_PERSISTENT. (See <xref
+						href="../reference/topics/region_shortcuts_table.xml">“Region Shortcuts
+						Quick Reference”</xref> for a complete list.)</p>
+				<p dir="ltr">To implement a Geode instance using the Redis Adapter:</p>
+				<ol id="ol_hdd_m3v_qv">
+					<li>Install Geode on the system where the server is to reside.</li>
+					<li>Use gfsh to start a Geode server, specifying the three configuration options
+						described above:<ul id="ul_igc_p3v_qv">
+							<li>Use <codeph>--redis-port</codeph> to specify the port. This
+								parameter is required -- the Geode server will listen on this port
+								for Redis commands.</li>
+							<li>Use <codeph>--redis-bind-address</codeph> to specify the IP address
+								of the server host. This parameter is optional. If not specified,
+								the default is determined from the /etc/hosts file.</li>
+							<li>Use <codeph>--J=-Dgemfireredis.regiontype</codeph> to specify the
+								region type. This parameter is optional. If not specified,
+								regiontype is set to PARTITION.</li>
+						</ul></li>
+				</ol>
+				<p dir="ltr">For example:</p>
+				<p dir="ltr">
+					<codeblock>gfsh> start server --name=server1 --redis-bind-address=localhost \
+ --redis-port=11211 --J=-Dgemfireredis.regiontype=PARTITION_PERSISTENT</codeblock>
+				</p>
+				<p dir="ltr">Redis clients can then connect to the server at localhost:11211.</p>
+</conbody>
+			</concept>
+			<concept id="how-the-redis-adapter-works">
+				<title>How the Redis Adapter Works</title>
+				<conbody><p dir="ltr">The Geode Redis Adapter supports all Redis data structures,
+					including</p>
+				<ul id="ul_yk5_ygv_qv">
+					<li dir="ltr">String</li>
+					<li dir="ltr">List</li>
+					<li dir="ltr">Hash</li>
+					<li dir="ltr">Set</li>
+					<li dir="ltr">SortedSet</li>
+					<li dir="ltr">HyperLogLog</li>
+				</ul>
+				<p dir="ltr">In Geode these data structures are implemented using partitioned
+					regions. In most cases, Geode allocates one partitioned region for each data
+					structure. For example, each Sorted Set is allocated its own partitioned region,
+					in which the key is the user data and the value is the user-provided score, and
+					entries are indexed by score. The two exceptions to this design are data types
+					String and HyperLogLog. All Strings are allocated to a single partitioned
+					region. Similarly, all HyperLogLogs are allocated to a single region. Regions
+					use Geode’s OQL and indexes.</p>
+				<p dir="ltr">The Geode Redis Adapter supports all Redis commands for each of the
+					Redis data structures. (See the Javadocs for the GemFireRedisServer class for a
+					detailed list.) The Geode server’s responses to Redis commands are identical to
+					those of a Redis server with the following exceptions, resulting from Geode’s
+					more extensive partitioning model:</p>
+				<ul id="ul_zk5_ygv_qv">
+					<li dir="ltr">Any command that removes keys and returns a count of removed
+						entries will return a count of how many entries have been removed from the
+						local vm, rather than a total count of items removed across all members.
+						However, all entries will be removed.</li>
+					<li dir="ltr">Any command that returns a count of newly set members has an
+						unspecified return value. The command will work just as the Redis protocol
+						states, but the count will not necessarily reflect the number set compared
+						to the number overridden.</li>
+					<li dir="ltr">Transactions work just as they would on a Redis instance; they are
+						local transactions. Transactions cannot be executed on data that is not
+						local to the executing server, that is on a partitioned region in a
+						different server instance, or that is on a persistent region that does not
+						have transactions enabled. Also, you cannot watch or unwatch keys, as all
+						keys within a Geode transaction are watched by default.</li>
+				</ul></conbody>
+			</concept>
+			<concept id="advantages-of-geode-over-redis"><title>Advantages of <keyword keyref="product_name"/> over a Redis Server</title> 
+			<conbody>	<p dir="ltr"
+						><keyword keyref="product_name"/>’s primary advantage is its
+						<b>scalability</b>. While the Redis server is single threaded, <keyword
+						keyref="product_name"/> supports high concurrency. Many Redis clients can
+					execute commands on the <keyword keyref="product_name"/> server
+					simultaneously.</p>
+				<p dir="ltr"><keyword keyref="product_name"/> supports <b>stored procedures</b>,
+					which can execute on the server and report results to the requesting client.</p>
+				<p dir="ltr"><keyword keyref="product_name"/> architecture and management features
+					help detect and resolve <b>network partitioning</b> problems without explicit
+					management on the part of the Redis client.</p>
+				<p dir="ltr"><keyword keyref="product_name"/>
+					<b>WAN replication</b> allows the data store to expand horizontally, across
+					physically distant sites, while maintaining data consistency.</p></conbody>
+			</concept>
+		
+</dita>
