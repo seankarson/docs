@@ -237,66 +237,74 @@ Region pvtSubregion = rf.createSubregion(pfloRegion, "Private");</codeblock>
 			</p>
 		</section>
 		<section id="section_953E19F03F4541BAA3AE58118E7EA7E4">
-			<title id="inv_clear_destroy_region">Invalidate, Clear, and Destroy a Region</title>
-			<p>You can do these operations in three ways: <ul
-					id="ul_67DD7137893D4039B415218A00195211">
-					<li id="li_744F99236B0949E8810B69BF29274871">As automated data expiration
-						actions. </li>
-					<li>As a gfsh <xref
-							href="../../tools_modules/gfsh/command-pages/destroy.xml#topic_BEDACECF4599407794ACBC0E56B30F65"
-							>destroy region</xref> command.</li>
-					<li id="li_AF5D1355DAA04C10AFC882FDB7F8B2A7">As API calls, through the
-							<codeph>Region</codeph> instance:
-						<codeblock>// Clear the local region
-Region.localClear(); 
-
-// Invalidate the entire distributed region 
-Region.InvalidateRegion(); </codeblock>
-					</li>
-				</ul>
+			<title id="inv_clear_destroy_region">Invalidate a Region</title>
+			<p>An invalidate region operation removes all entry values for a region, while leaving the entry
+				keys intact. This operation can be invoked only through the API on a
+					<codeph>Region</codeph> instance. Event notification
+				occurs.<codeblock>// Invalidate the entire distributed region 
+Region.invalidateRegion(); </codeblock>
 			</p>
-			<p>You can remove all values or entries from the region or remove the region itself. </p>
-			<table id="table_2420F772FD0342B9924D734B459D021D">
-				<tgroup cols="2">
-					<colspec colname="1" colnum="1" colwidth="*"/>
-					<colspec colname="2" colnum="2" colwidth="*"/>
-					<thead>
-						<row>
-							<entry>Operation type </entry>
-							<entry>Behavior </entry>
-						</row>
-					</thead>
-					<tbody>
-						<row>
-							<entry>Region invalidate </entry>
-							<entry>Removes entry values from the region, leaving only data keys.
-							</entry>
-						</row>
-						<row>
-							<entry>Region clear </entry>
-							<entry>Removes entry keys and values from the region, leaving the region
-								empty of data. </entry>
-						</row>
-						<row>
-							<entry>Region destroy </entry>
-							<entry>Removes the region from the cache. For persistent regions, also
-								removes data stored to disk. </entry>
-						</row>
-					</tbody>
-				</tgroup>
-			</table>
-			<p>Do this in the local cache only or as a distributed operation. The cache distributes
-				the non-local operations according to the region’s scope. </p>
-			<note>Local invalidate and clear cannot be performed in replicated regions as doing so
-				would invalidate the replication contract. </note>
-			<p>These operations cause event notification. The <codeph>CacheEvent</codeph> object
-				includes the flag <codeph>getOperation.isExpiration</codeph> that is set to true for
-				events resulting from expiration activities and to false for all others. </p>
+			<p>The API also offers a method to invalidate only the entries within the local cache.
+				This method may not be used on a replicated region, as doing so would invalidate the
+				replication
+				contract.<codeblock>// Invalidate the region within this member
+Region.localInvalidateRegion(); </codeblock></p>
+		</section>
+		<section>
+			<title>Clear a Region</title>
+			<p>A clear region operation removes all entries from a region. This operation is not
+				available for partitioned regions. This operation can be invoked through the API on
+				a <codeph>Region</codeph>
+				instance:<codeblock>// Remove all entries for the region
+Region.clear(); </codeblock></p>
+			<p>It can be invoked with the <codeph>gfsh</codeph>
+				command:<codeblock>gfsh>remove --region=Region1 --all </codeblock>Event notification
+				occurs for a clear region operation.</p>
+		</section>
+		<section>
+			<title>Destroy a Region</title>
+			<p>A destroy region operation removes the entire region. This operation can be invoked
+				through the API on a <codeph>Region</codeph>
+				instance:<codeblock>// Remove the entire region
+Region.destroyRegion();</codeblock></p>
+			<p>A destroy region operation can be invoked with the <codeph>gfsh</codeph>
+				command:<codeblock>gfsh>destroy region --name=Region1</codeblock>Event notification
+				occurs for a destroy region operation.</p>
+			<p>A region can be destroyed by removing the region's specification from the
+					<codeph>cache.xml</codeph> file.</p>
+			<p>Destroying the region by an API invocation or by using the <codeph>gfsh
+					destroy</codeph> command while all members are online is the best way to remove
+				a region, as <keyword keyref="product_name"/> handles all aspects of the removal,
+				including removing the region's persistent disk stores across the online members
+				hosting the region. Destroying the region by removing its specification from the
+					<codeph>cache.xml</codeph> file does not remove the region's existing persistent
+				disk stores.</p>
+			<p>The destroy operation can be propagated only to online members. The system will
+				encounter restart issues if a region is destroyed while some members are online and
+				others are offline.  As those members that were offline restart, they will block
+				indefinitely, waiting for persistent region data that no longer exists.  To fix this
+				issue, shut down all members that are blocked waiting for the removed region.  Once
+				those members are in the offline state, use the <codeph>gfsh alter
+					disk-store</codeph> command with the <codeph>--remove</codeph> option on each
+				offline member to remove the region.  Then, restart each member.</p>
+			<p>An edge case results in issues when destroying a persistent region (R-removed) by
+				removing its specification from the <codeph>cache.xml</codeph> file, and region
+				R-removed was colocated with another persistent region (R-remains). The issue occurs
+				because the persistent information contained within R-remains is inconsistent with
+				the (lack of) specification of R-removed. Upon restart of R-remains, its persisted
+				metadata refers to R-removed as a colocated region, and the startup of R-remains is
+				dependent on that removed region. Thus, the startup of R-remains blocks, unable to
+				complete. The issue may manifest with operations on the R-remains region such as a
+				query, put, or get, that never finishes. To fix this issue, shut down all members
+				with the persisted metadata that refers to the removed region.  Once those members
+				are in the offline state, use the <codeph>gfsh alter disk-store</codeph> command
+				with the <codeph>--remove</codeph> option on each offline member to remove the
+				region.  Then, restart each member.</p>
 		</section>
 		<section id="section_3C0A7E088FDB413297ED8C0CD606968D">
 			<title>Close a Region</title>
-			<p>Use this to stop local caching of persistent and partitioned regions without closing
-				the entire cache: <codeblock>region.close();</codeblock>
+			<p>Use this to stop local caching of persistent and partitioned regions without closing the
+				entire cache: <codeblock>Region.close();</codeblock>
 			</p>
 			<p>The <codeph>Region.close</codeph> operation works like the
 					<codeph>Region.localDestroyRegion</codeph> operation with these significant
