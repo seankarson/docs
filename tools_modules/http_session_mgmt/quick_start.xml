@@ -8,8 +8,8 @@
 		<section id="section_6A4A00B6DA404E10A5C29E5E31101445">
 			<title>Quick Start Instructions</title>
 			<ol id="ol_40C7EB2429AA41F8884418EB835E26A9">
-				<li id="li_924BC991E6FC42728433EC21798AD144">Download and install one of the
-					application servers supported by <keyword keyref="product_name_long"/>. <p>
+				<li id="li_924BC991E6FC42728433EC21798AD144">Download and install one of the application
+					servers. <p>
 						<table id="table_5F7D42DF4901436C95F0902B9801DBB2">
 							<tgroup cols="3" align="left">
 								<colspec colnum="1" colname="col1" colwidth="1.54*"/>
@@ -25,51 +25,16 @@
 								<tbody>
 									<row>
 										<entry colname="col1">tc Server </entry>
-										<entry colname="col02">2.5 </entry>
-										<entry colname="col2"><xref
-												href="https://my.vmware.com/web/vmware/info/slug/datacenter_downloads/vmware_vfabric_tc_server/2_5"
-												scope="external" format="html"
-												>https://my.vmware.com/web/vmware/info/slug/datacenter_downloads/vmware_vfabric_tc_server/2_5</xref>
-										</entry>
-									</row>
-									<row>
-										<entry colname="col1">tc Server </entry>
-										<entry colname="col02">2.6 </entry>
-										<entry colname="col2"><xref
-												href="https://my.vmware.com/web/vmware/info/slug/datacenter_downloads/vmware_vfabric_tc_server/2_5"
-												scope="external" format="html"
-												>https://my.vmware.com/web/vmware/info/slug/datacenter_downloads/vmware_vfabric_tc_server/2_6</xref>
-										</entry>
-									</row>
-									<row>
-										<entry colname="col1">tc Server </entry>
-										<entry colname="col02">2.7 </entry>
-										<entry colname="col2"><xref
-												href="https://my.vmware.com/web/vmware/info/slug/application_platform/vmware_vfabric_tc_server/2_7"
-												scope="external" format="html"
-												>https://my.vmware.com/web/vmware/info/slug/application_platform/vmware_vfabric_tc_server/2_7</xref>
-										</entry>
-									</row>
-									<row>
-										<entry colname="col1">tc Server </entry>
-										<entry colname="col02">2.8 </entry>
+										<entry colname="col02">2.9, 2.8, 2.7, 2.6, and 2.5 </entry>
 										<entry colname="col2"><xref
 												href="https://my.vmware.com/web/vmware/info/slug/application_platform/vmware_vfabric_tc_server/2_8"
 												scope="external" format="html"
-												>https://my.vmware.com/web/vmware/info/slug/application_platform/vmware_vfabric_tc_server/2_8</xref>
+												>https://my.vmware.com/web/vmware/info/slug/application_platform/vmware_vfabric_tc_server/2_9</xref>
 										</entry>
 									</row>
 									<row>
 										<entry colname="col1">tc Server</entry>
-										<entry colname="col02">2.9</entry>
-										<entry colname="col2"><xref
-												href="https://network.pivotal.io/products/pivotal-tcserver"
-												format="html" scope="external"
-												>https://network.pivotal.io/products/pivotal-tcserver</xref></entry>
-									</row>
-									<row>
-										<entry colname="col1">tc Server</entry>
-										<entry colname="col02">3.0</entry>
+										<entry colname="col02">3.0 and 3.1</entry>
 										<entry colname="col2"><xref
 												href="https://network.pivotal.io/products/pivotal-tcserver"
 												format="html" scope="external"
@@ -92,6 +57,13 @@
 												scope="external" format="html"
 												>http://tomcat.apache.org/download-70.cgi</xref>
 										</entry>
+									</row>
+									<row>
+										<entry>Tomcat</entry>
+										<entry>8.0</entry>
+										<entry><xref href="http://tomcat.apache.org/download-80.cgi"
+												scope="external" format="html"
+												>http://tomcat.apache.org/download-80.cgi</xref></entry>
 									</row>
 									<row>
 										<entry colname="col1">WebLogic</entry>
@@ -124,21 +96,16 @@
 								</tbody>
 							</tgroup>
 						</table>
-					</p><p>
-						<note>This table lists all application server versions that have been tested
-							with the <keyword keyref="product_name"/> HTTP Session Management
-							modules. However, the generic HTTP Session Management Module for
-							AppServers is implemented as a servlet filter and should work on any
-							application server platform that supports the Java Servlet 2.4
-							specification. </note>
-					</p>
+					</p><p>The generic HTTP Session Management Module for AppServers is implemented
+						as a servlet filter and should work on any application server platform that
+						supports the Java Servlet 2.4 specification.</p>
 				</li>
-				<li id="li_F2DF845ED3E64270AF6F097EFA87472A">The HTTP Session Management Modules
-					installation .zip files are located in the <b>tools/Modules</b> directory of the
-						<keyword keyref="product_name"/> product download. Locate the .zip file for
-					the HTTP Session Management Module that you wish to install. Unzip the
-					appropriate HTTP Session Management Module into the specified directory for your
-					application server: <p>
+				<li id="li_F2DF845ED3E64270AF6F097EFA87472A">The HTTP Session Management Modules installation
+					.zip files are located in the <codeph>tools/Modules</codeph>  directory of the
+						<keyword keyref="product_name"/> product installation directory. Locate the
+					.zip file for the HTTP Session Management Module that you wish to install. Unzip
+					the appropriate HTTP Session Management Module into the specified directory for
+					your application server: <p>
 						<table id="table_A96D977BD01D45C9A80AD7BA8AF05E8A">
 							<tgroup cols="4">
 								<colspec colnum="1" colname="col1" colwidth="1.54*"/>
@@ -156,47 +123,12 @@
 								<tbody>
 									<row>
 										<entry colname="col1">tc Server </entry>
-										<entry colname="col02">2.5 </entry>
+										<entry colname="col02">2.5, 2.6, 2.7, 2.8, and 2.9 </entry>
 										<entry colname="col3">HTTP Session Management Module for
 											Pivotal tc Server </entry>
 										<entry colname="col2"><codeph>&lt;tc Server root
 												dir&gt;/templates</codeph>
 										</entry>
-									</row>
-									<row>
-										<entry colname="col1">tc Server </entry>
-										<entry colname="col02">2.6 </entry>
-										<entry colname="col3">HTTP Session Management Module for
-											Pivotal tc Server </entry>
-										<entry colname="col2"><codeph>&lt;tc Server root
-												dir&gt;/templates</codeph>
-										</entry>
-									</row>
-									<row>
-										<entry colname="col1">tc Server </entry>
-										<entry colname="col02">2.7 </entry>
-										<entry colname="col3">HTTP Session Management Module for
-											Pivotal tc Server </entry>
-										<entry colname="col2"><codeph>&lt;tc Server root
-												dir&gt;/templates</codeph>
-										</entry>
-									</row>
-									<row>
-										<entry colname="col1">tc Server </entry>
-										<entry colname="col02">2.8 </entry>
-										<entry colname="col3">HTTP Session Management Module for
-											Pivotal tc Server </entry>
-										<entry colname="col2"><codeph>&lt;tc Server root
-												dir&gt;/templates</codeph>
-										</entry>
-									</row>
-									<row>
-										<entry colname="col1">tc Server</entry>
-										<entry colname="col02">2.9</entry>
-										<entry colname="col3">HTTP Session Management Module for
-											Pivotal tc Server</entry>
-										<entry colname="col2"><codeph>&lt;tc Server root
-												dir&gt;/templates</codeph></entry>
 									</row>
 									<row>
 										<entry colname="col1">tc Server</entry>
@@ -208,15 +140,7 @@
 									</row>
 									<row>
 										<entry colname="col1">Tomcat </entry>
-										<entry colname="col02">6.0 </entry>
-										<entry colname="col3">HTTP Session Management Module for
-											Tomcat </entry>
-										<entry colname="col2"><codeph>$CATALINA_HOME</codeph>
-										</entry>
-									</row>
-									<row>
-										<entry colname="col1">Tomcat </entry>
-										<entry colname="col02">7.0 </entry>
+										<entry colname="col02">6.0 and 7.0 </entry>
 										<entry colname="col3">HTTP Session Management Module for
 											Tomcat </entry>
 										<entry colname="col2"><codeph>$CATALINA_HOME</codeph>
@@ -273,25 +197,25 @@
 		<section id="section_EE60463F524A46B7B83CE74C1C3E8E0E">
 			<title>Additional Quick Start Instructions for tc Server Module</title>
 			<p>These steps provide a basic starting point for using the tc Server module. For more
-				configuration options, see <xref href="session_mgmt_tcserver.xml"
-					type="concept" format="dita" scope="local"/>. <ol
+				configuration options, see <xref href="session_mgmt_tcserver.xml" type="concept"
+					format="dita" scope="local"/>. As a prerequisite, module set up requires a
+				JAVA_HOME environment variable set to the java installation.<ol
 					id="ol_9F97B5EC18E34D278BEF7D128CDE0E57">
 					<li id="li_FD4958D29B714ADFABCA63F0BE6BB1A4">Navigate to the root directory of
 						tc Server. </li>
 					<li id="li_FFFD7643081341EABE6B8F1EAA5E2C79"> Create a <keyword
 							keyref="product_name"/> instance using one of the provided templates and
-						start the instance. For example: <codeblock>
-prompt$ ./tcruntime-instance.sh create my_instance_name --template gemfire-p2p
-prompt$ ./tcruntime-ctl.sh my_instance_name start</codeblock>
+						start the instance after starting up a locator. For example: <codeblock>
+$ gfsh start locator --name=locator1
+$ ./tcruntime-instance.sh create my_instance_name --template geode-p2p
+$ ./tcruntime-ctl.sh my_instance_name start</codeblock>
 						<p>This will create and run a <keyword keyref="product_name"/> instance
 							using the peer-to-peer topology and default configuration values.
 							Another <keyword keyref="product_name"/> instance on another system can
 							be created and started in the same way. </p>
 						<p>If you need to pin your tc Server instance to a specific tc Server
-							runtime version, use the --version parameter when creating the instance.
-							See <xref
-								href="tc_setting_up_the_module.xml#tc_setting_up_the_module/section_DC0A4F7CDB9E4C64BFFB6FAED0CC205A"
-								type="section" format="dita" scope="local"/> for details. </p>
+							runtime version, use the <codeph>--version</codeph> option when creating
+							the instance. </p>
 					</li>
 				</ol>
 			</p>
@@ -305,19 +229,18 @@ prompt$ ./tcruntime-ctl.sh my_instance_name start</codeblock>
 					<li id="li_A72CA5E5A2324B7F9A42D765985FA005">Modify Tomcat's
 							<codeph>server.xml</codeph> and <codeph>context.xml</codeph> files.
 						Configuration is slightly different depending on the topology you are
-						setting up and the version of Tomcat you are using. <p>For example, in a
-							peer-to-peer configuration using Tomcat 7, you would add the following
-							entry within the <codeph>&lt;server&gt;</codeph> element of server.xml:
+						setting up and the version of Tomcat you are using. <p>For example, in a peer-to-peer
+							configuration using Tomcat 7, you would add the following entry within
+							the <codeph>&lt;server&gt;</codeph> element of server.xml:
 							<codeblock>&lt;Listener className="com.gemstone.gemfire.modules.session.catalina.
-                         PeerToPeerCacheLifecycleListener"/&gt;</codeblock>and
+                         PeerToPeerCacheLifecycleListener"
+                         locator="localhost[10334]" /&gt;</codeblock>and
 							the following entry within the <codeph>&lt;context&gt;</codeph> tag in
 							the context.xml file:
 							<codeblock>&lt;Manager className="com.gemstone.gemfire.modules.session.catalina.
                          Tomcat7DeltaSessionManager"/&gt; </codeblock>See
-								<xref
-								href="tomcat_setting_up_the_module.xml"
-								type="concept" format="dita" scope="local"/> for additional
-							instructions. </p>
+								<xref href="tomcat_setting_up_the_module.xml" type="concept"
+								format="dita" scope="local"/> for additional instructions. </p>
 					</li>
 					<li id="li_ED8F2832336D4F96B1BC34E4C60B0A30">Restart the application server.
 					</li>
@@ -331,6 +254,10 @@ prompt$ ./tcruntime-ctl.sh my_instance_name start</codeblock>
 					href="session_mgmt_weblogic.xml" type="concept"
 					format="dita" scope="local"/>. <note>
 					<ul id="ul_8844FFA8319F44BFAF3DDF1E430B73EC">
+						<li>The <codeph>modify_war</codeph> script relies upon a GEODE environment
+							variable. Set the GEODE environment variable to the <keyword
+								keyref="product_name"/> product directory; this is the parent
+							directory of  <codeph>bin</codeph>.</li>
 						<li id="li_0052B12E1C6E4EF79B7A0B80655DD4C4">The <codeph>modify_war</codeph>
 							script, described below, relies on files within the distribution tree
 							and should not be run outside of a complete distribution. </li>
@@ -342,13 +269,15 @@ prompt$ ./tcruntime-ctl.sh my_instance_name start</codeblock>
 			</p>
 			<p>To set up the AppServers module, perform the following steps: <ol
 					id="ol_1E95779A48AE4BDFBADF625FC70C4566">
-					<li id="li_692B4060F5014E6BA129EDDE8E7A2B55">Run the <codeph>modify_war</codeph>
-						script against an existing .war or .ear file to integrate the necessary
-						components. The example below will create a configuration suitable for a
-						peer-to-peer <keyword keyref="product_name"/> system, placing the necessary
-						libraries into <codeph>WEB-INF/lib</codeph> for wars and
+					<li id="li_692B4060F5014E6BA129EDDE8E7A2B55">Run the <codeph>modify_war</codeph> script against
+						an existing <codeph>.war</codeph> or <codeph>.ear</codeph> file to integrate
+						the necessary components. The example below will create a configuration
+						suitable for a peer-to-peer <keyword keyref="product_name"/> system, placing
+						the necessary libraries into <codeph>WEB-INF/lib</codeph> for wars and
 							<codeph>lib</codeph> for ears and modifying any <codeph>web.xml</codeph>
-						files: <codeblock>prompt$ bin/modify_war -w my-app.war -x</codeblock>
+						files:
+						<codeblock>$ bin/modify_war -w my-app.war -p gemfire.property.locators=localhost[10334] \
+                  -t peer-to-peer</codeblock>
 					</li>
 					<li id="li_31E336DE04E8414EAE5D4762B8683D87"> A new war file will be created
 						called <codeph>session-my-app.war</codeph>. This file can now be deployed to

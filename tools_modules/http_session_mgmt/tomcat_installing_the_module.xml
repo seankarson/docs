@@ -5,43 +5,29 @@
 	<shortdesc>This topic describes how to install the HTTP session management module for Tomcat. </shortdesc>
 	<conbody>
 		<ol id="ol_D5796DD8F5D3480390C611965D03F5B6">
-			<li id="li_4A9346C0F6F744C6933C6CA3811DD202">If you do not already have Tomcat
-				installed, download Tomcat 6.0 or 7.0 from the <xref format="html"
+			<li id="li_4A9346C0F6F744C6933C6CA3811DD202">If you do not already have Tomcat installed,
+				download the desired version from the <xref format="html"
 					href="http://tomcat.apache.org/" scope="external">Apache Website</xref>. </li>
 			<li id="li_2C08538D1E364E6B859799A6CF05807F">
 				<p>The HTTP Session Management Module for Tomcat is included in the Pivotal <keyword
 						keyref="product_name"/> installation package. After you install <keyword
-						keyref="product_name_long"/>, you can find the module in the following
-					location:
-					<codeblock>&lt;product_dir&gt;/tools/Modules/Pivotal_GemFire_Modules-8.X.X-Tomcat.zip</codeblock>where
-					&lt;product_dir&gt; is the location where you installed <keyword
-						keyref="product_name"/> and 8.X.X corresponds to the version of the module
-					you are installing. </p>
+						keyref="product_name_long"/>, you will find the module in the
+						<codeph>tools/Modules</codeph> directory of the installation. </p>
 			</li>
 			<li id="li_635346B580EA44708410C2E59BAD7594">Unzip the module into the
 					<codeph>$CATALINA_HOME</codeph> directory or wherever you installed the
 				application server. </li>
-			<li id="li_73AFBEC5EE434F2494105FCC1222EB07">Copy the following JAR files to the lib
-				directory of your Tomcat server (<codeph>$CATALINA_HOME/lib</codeph>). <ul
-					id="ul_40DECF8E743B40A6965609618622E141">
-					<li id="li_A2D70DC0CFAC4A2CBF1135A603FA2BDB"
-							><codeph>$GEMFIRE/lib/gemfire.jar</codeph>
-					</li>
-					<li id="li_B919410A44B64DB6B7C333DC1115556D"
-							><codeph>$GEMFIRE/lib/antlr.jar</codeph>
-					</li>
-					<li id="li_68FA432814C04C249C70D84827083DA5"
-							><codeph>$GEMFIRE/lib/spring-core-3.2.12.RELEASE.jar</codeph>
-					</li>
-					<li id="li_80CBB736F529463F880FBFBD8F04D90D"
-							><codeph>$GEMFIRE/lib/spring-shell-1.0.0.RELEASE.jar</codeph>
-					</li>
-					<li>
-						<codeph>$GEMFIRE/lib/log4j-api-2.1.jar</codeph>
-					</li>
-					<li>
-						<codeph>$GEMFIRE/lib/log4j-core-2.1.jar</codeph>
-					</li>
+			<li id="li_73AFBEC5EE434F2494105FCC1222EB07">Copy the following jar files to the
+					<codeph>lib</codeph> directory of your Tomcat server
+					(<codeph>$CATALINA_HOME/lib</codeph>):<ul id="ul_cl5_1rd_5v">
+					<li>antlr jar</li>
+					<li>fastutil jar</li>
+					<li>geode-core jar</li>
+					<li>javax.transaction-api jar</li>
+					<li>jgroups jar</li>
+					<li>log4j-api jar</li>
+					<li>log4j-core jar</li>
+					<li>log4j-jul jar</li>
 				</ul>
 			</li>
 		</ol>

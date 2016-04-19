@@ -35,12 +35,15 @@
 		</section>
 		<section id="section_0013BDC875A44344B7B062F46AFA073C">
 			<title>Module Version Information</title>
-			<p>To acquire <keyword keyref="product_name"/> module version information, look in the
-				web server's log file for the following message: </p>
-			<codeblock>Nov 8, 2010 12:12:12 PM 
-com.gemstone.gemfire.modules.session.catalina.AbstractCacheLifecycleListener 
-lifecycleEvent
-INFO: Initializing GemFire Modules Version 1.1</codeblock>
+			<p>To acquire <keyword keyref="product_name"/> module version information, look in the web
+				server's log file for a message similar to: </p>
+			<codeblock>INFO: Initializing Geode Modules
+Java version:   1.0.0-incubating.M3-SNAPSHOT user1 041216 2016-04-12 11:18:37 -0700
+          javac 1.8.0_77
+Native version: native code unavailable
+Source revision: 857bb75916640a066eb832b43b3c805f0dd7ed0b
+Source repository: develop
+Running on: /10.118.33.250, 8 cpu(s), x86_64 Mac OS X 10.11.4</codeblock>
 		</section>
 		<section>
 			<title>Object Serialization</title>

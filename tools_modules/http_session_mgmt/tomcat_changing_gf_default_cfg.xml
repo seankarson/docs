@@ -8,11 +8,7 @@
 		settings. </shortdesc>
 	<conbody>
 		<p>Here are the default settings: <ul id="ul_65B4FEDEB4374C9993E5C9593DAC3C08">
-				<li id="li_28CFA4A15B1F42548A679CF481BB52C5">
-					<keyword keyref="product_name"/> peer-to-peer members are discovered using a
-					default multicast channel. </li>
-				<li id="li_0862E52FD76F4AECA1BB565C61672E86">
-					<keyword keyref="product_name"/> locators are not used for member discovery. </li>
+				<li id="li_0862E52FD76F4AECA1BB565C61672E86"> Locators are used for member discovery. </li>
 				<li id="li_53D6101E21134FA88A1DCB1A27EE72B1">The region name is set to
 						<codeph>gemfire_modules_sessions</codeph>. </li>
 				<li id="li_E1E7EDBA49E5442888BB97AA779CE937">The cache region is replicated for
@@ -29,42 +25,30 @@
 					type="section" format="dita" scope="local"
 					><?xm-replace_text Session Expiration?></xref>. </note>
 		</p>
-		<p>However, you may want to change this default configuration. For example, you might want
-			to change the region from replicated to partitioned, or use locators for discovery. This section describes how to change these
-			configuration values. </p>
 		<section id="section_changing_sys_props">
 			<title>Changing <keyword keyref="product_name"/> Distributed System Properties</title>
-			<p>To edit <keyword keyref="product_name"/> system properties (such as how <keyword
-					keyref="product_name"/> members locate each other), you must add properties to
-				Tomcat's server.xml file. When adding properties, use the following syntax: </p>
+			<p><keyword keyref="product_name"/> system properties must be set by adding properties to
+				Tomcat's <codeph>server.xml</codeph> file. When setting properties, use the
+				following syntax: </p>
 			<codeblock>&lt;Listener 
   className="com.gemstone.gemfire.modules.session.catalina.xxxLifecycleListener"
   name="value" 
   name="value" 
   ...
 /&gt; </codeblock>
-			<p>In the preceding code snippet, <codeph>xxxLifecycleListener</codeph> is either a
-					<codeph>PeerToPeerCacheLifecycleListener</codeph> or a
-					<codeph>ClientServerCacheLifecycleListener</codeph> depending on your
-				configuration; <codeph>name</codeph> is the property name and <codeph>value</codeph>
-				is the property value. For example: </p>
-			<codeblock>&lt;Listener className="com.gemstone.gemfire.modules.session.catalina.
-      PeerToPeerCacheLifecycleListener" 
+			<p>If the <codeph>xxxLifecycleListener</codeph> is a
+					<codeph>PeerToPeerCacheLifecycleListener</codeph>, then a minimal addition to
+				the <codeph>server.xml</codeph> file is
+				<codeblock>&lt;Listener 
+  className="com.gemstone.gemfire.modules.session.catalina.
+     PeerToPeerCacheLifecycleListener"
   cache-xml-file="cache-peer.xml" 
-  mcast-port=0
-  locators="hostname[10334]" 
-/&gt; </codeblock>
-			<p>This example specifies that the filename for <keyword keyref="product_name"/>'s cache
-				xml configuration is <codeph>cache-peer.xml</codeph> and that a locator can be found
-				at "<codeph>hostname:10334</codeph>". Note that when using a locator, you must turn
-				off multicast discovery by setting the <codeph>mcast-port</codeph> property to
-					<codeph>0</codeph>. Locators are explained in more detail in <xref
-					href="tomcat_common_configuration_changes.xml#tomcat_common_cfg_changes"
-					type="concept" format="dita" scope="local"/>. </p>
-			<p>The list of configurable Tomcat's <codeph>server.xml</codeph> system properties
-				include any of the properties that can be specified in <keyword
-					keyref="product_name"/>'s <codeph>gemfire.properties</codeph> file. The
-				following list contains some of the more common parameters that can be configured. </p>
+  locators="localhost[10334]" 
+ /&gt; </codeblock></p>
+			<p>The list of configurable Tomcat's <codeph>server.xml</codeph> system properties include any of
+				the properties that can be specified in <keyword keyref="product_name"/>'s
+					<codeph>gemfire.properties</codeph> file. The following list contains some of
+				the properties that can be configured. </p>
 			<simpletable relcolwidth="1* 3* 1*" id="simpletable_657FE218AD9347BAA484CA6F30AA7A1E">
 				<sthead>
 					<stentry>Parameter</stentry>
@@ -74,38 +58,25 @@
 				<strow>
 					<stentry>cache-xml-file</stentry>
 					<stentry>name of the cache configuration file</stentry>
-					<stentry>cache-peer.xml for peer-to-peer, cache-client.xml for
-						client/server</stentry>
+					<stentry><codeph>cache-peer.xml</codeph> for peer-to-peer, <codeph>cache-client.xml</codeph>
+						for client/server</stentry>
 				</strow>
 				<strow>
-					<stentry>locators (only for peer-to-peer config)</stentry>
-					<stentry>list of locators (host[port]) used by <keyword keyref="product_name"/>
-						members to discover each other; if this value is empty, then multicast
-						discovery will take place instead; when using a locator, you should turn off
-						multicast discovery by setting <codeph>mcast-port</codeph> to
-							<codeph>0</codeph> and you must manually start the locator using a
-						command such as "<codeph>gemfire start-locato</codeph>r"; refer to " <xref
-							href="tomcat_common_configuration_changes.xml#tomcat_common_cfg_changes/p2p_locators"
-							type="section" format="dita" scope="local">Peer-to-peer Configuration
-							Using Locators</xref>" for more information</stentry>
-					<stentry>empty string (i.e. use multicast instead)</stentry>
+					<stentry>locators (only for peer-to-peer topology)</stentry>
+					<stentry>(required) list of locators (host[port]) used by <keyword keyref="product_name"/>
+						members; if a single locator listens on its default port, then set this
+						value to <codeph>"localhost[10334]"</codeph></stentry>
+					<stentry>empty string</stentry>
 				</strow>
 				<strow>
 					<stentry>log-file</stentry>
 					<stentry>name of the <keyword keyref="product_name"/> log file</stentry>
-					<stentry>gemfire_modules.log</stentry>
-				</strow>
-				<strow>
-					<stentry>mcast-port (only for peer-to-peer config)</stentry>
-					<stentry>port used by <keyword keyref="product_name"/> members to discover each
-						other using multicast networking; when using locators in place of multicast,
-						this value should be disabled by setting it to 0</stentry>
-					<stentry>10334</stentry>
+					<stentry><codeph>gemfire_modules.log</codeph></stentry>
 				</strow>
 				<strow>
 					<stentry>statistic-archive-file</stentry>
 					<stentry>name of the <keyword keyref="product_name"/> statistics file</stentry>
-					<stentry>gemfire_modules.gfs</stentry>
+					<stentry><codeph>gemfire_modules.gfs</codeph></stentry>
 				</strow>
 				<strow>
 					<stentry>statistic-sampling-enabled</stentry>
@@ -152,8 +123,8 @@
 		</section>
 		<section id="section_changing_cache_config_props">
 			<title>Changing Cache Configuration Properties</title>
-			<p>To edit <keyword keyref="product_name"/> cache properties (such as the name and the
-				characteristics of the cache region), you must add these properties to Tomcat's
+			<p>To edit <keyword keyref="product_name"/> cache properties such as the name and the
+				characteristics of the cache region, you add these properties to Tomcat's
 					<codeph>context.xml</codeph> file. When adding properties, unless otherwise
 				specified, use the following syntax: </p>
 			<codeblock>&lt;Manager 
@@ -218,9 +189,9 @@ factory.addCacheListener(new DebugCacheListener());</codeblock>
 						<p>The <keyword keyref="product_name"/> API equivalent to setting this
 							parameter: </p>
 						<codeblock>// For peer-to-peer members: 
-Cache.createRegionFactory (REPLICATE_PROXY) 
+Cache.createRegionFactory(REPLICATE_PROXY); 
 // For client members: 
-ClientCache.createClientRegionFactory(CACHING_PROXY_HEAP_LRU)</codeblock>
+ClientCache.createClientRegionFactory(CACHING_PROXY_HEAP_LRU);</codeblock>
 					</pd>
 				</plentry>
 				<plentry>
@@ -253,9 +224,6 @@ RegionFactory.create(regionName); </codeblock>
 					</pd>
 				</plentry>
 			</parml>
-			<p>Refer to <xref href="../../basic_config/the_cache/chapter_overview.xml#the_cache"
-					type="concept" format="dita" scope="local"/> for more information about
-				configuring the cache. </p>
 		</section>
 	</conbody>
 </concept>

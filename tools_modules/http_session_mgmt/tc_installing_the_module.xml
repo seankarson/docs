@@ -7,51 +7,34 @@
 	<conbody>
 		<p>
 			<ol id="ol_F1CE471073194D54B55E915AF3C2BB6E">
-				<li id="li_0DE822800C9A4FE3BF5F7F156EE01A53"> If you do not already have tc Server,
-					download and install the product from the <xref format="html"
-						href="https://my.vmware.com/web/vmware/info/slug/application_platform/vmware_vfabric_tc_server/2_7"
+				<li id="li_0DE822800C9A4FE3BF5F7F156EE01A53"> If you do not already have tc Server, download and
+					install the product from the <xref format="html"
+						href="https://my.vmware.com/web/vmware/info/slug/application_platform/vmware_vfabric_tc_server/2_9"
 						scope="external">VMware tc Server download page</xref> or the <xref
 						format="html" href="https://network.pivotal.io/products/pivotal-tcserver"
 						scope="external">Pivotal tc Server download page</xref>. These instructions
-					require <b>tc Server 2.1</b> or later. (If you are using an older version of tc
-					Server, you should set up the plug-in without templates: <xref
-						href="session_mgmt_tomcat.xml" type="concept"
-						format="dita" scope="local"
-						><?xm-replace_text HTTP Session Management Module for Tomcat?></xref>.) </li>
+					require <b>tc Server 2.5</b> or later.</li>
 				<li id="li_2C08538D1E364E6B859799A6CF05807F">
 					<p>The HTTP Session Management Module for tc Server is included in the <keyword
 							keyref="product_name_long"/> installation package. After you install
-							<keyword keyref="product_name_long"/>, you can find both modules in the
-						following location:
-						<codeblock>$GEMFIRE/tools/Modules/Pivotal_GemFire_Modules-8.X.X-tcServer.zip</codeblock>or<codeblock>$GEMFIRE/tools/Modules/Pivotal_GemFire_Modules-8.X.X-tcServer30.zip</codeblock></p>
-					<p>where $GEMFIRE is the location where you installed <keyword
-							keyref="product_name"/> and 8.X.X corresponds to the version of the HTTP
-						Session Management Module (for tc Server 2.X or tc Server 3.0) you are
-						installing.</p>
+							<keyword keyref="product_name_long"/>, you will find the module in the
+							<codeph>tools/Modules</codeph> directory of the installation.</p>
 				</li>
-				<li id="li_635346B580EA44708410C2E59BAD7594">Unzip the module into the Pivotal tc
-					Server <codeph>$CATALINA_HOME/templates</codeph> directory so that it creates
-						<codeph>gemfire-p2p</codeph> and <codeph>gemfire-cs</codeph> subdirectories
+				<li id="li_635346B580EA44708410C2E59BAD7594">Unzip the module into the Pivotal tc Server
+						<codeph>$CATALINA_HOME/templates</codeph> directory so that it creates
+						<codeph>geode-p2p</codeph> and <codeph>geode-cs</codeph> subdirectories
 					within the tc Server <codeph>templates</codeph> directory. </li>
-				<li id="li_73AFBEC5EE434F2494105FCC1222EB07">Copy the following jar files to the lib
-					directory of your tc server (<codeph>$CATALINA_HOME/lib</codeph>): <ul
-						id="ul_40DECF8E743B40A6965609618622E141">
-						<li id="li_A2D70DC0CFAC4A2CBF1135A603FA2BDB"
-								><codeph>$GEMFIRE/lib/gemfire.jar</codeph>
-						</li>
-						<li id="li_B919410A44B64DB6B7C333DC1115556D"
-								><codeph>$GEMFIRE/lib/antlr.jar</codeph>
-						</li>
-						<li id="li_68FA432814C04C249C70D84827083DA5"
-								><codeph>$GEMFIRE/lib/spring-core-3.2.12.RELEASE.jar</codeph>
-						</li>
-						<li id="li_80CBB736F529463F880FBFBD8F04D90D"
-								><codeph>$GEMFIRE/lib/spring-shell-1.0.0.RELEASE.jar</codeph>
-						</li>
-						<li><codeph>$GEMFIRE/lib/log4j-api-2.1.jar</codeph>
-						</li>
-						<li><codeph>$GEMFIRE/lib/log4j-core-2.1.jar</codeph>
-						</li>
+				<li id="li_73AFBEC5EE434F2494105FCC1222EB07">Copy these jar files from the Geode distribution
+						<codeph>lib</codeph> directory to the <codeph>lib</codeph> directory of your
+					tc server (<codeph>&lt;instance>/lib</codeph>):<ul id="ul_ptp_2nd_5v">
+						<li>antlr jar</li>
+						<li>fastutil jar</li>
+						<li>geode-core jar</li>
+						<li>javax.transaction-api jar</li>
+						<li>jgroups jar</li>
+						<li>log4j-api jar</li>
+						<li>log4j-core jar</li>
+						<li>log4j-jul jar</li>
 					</ul>
 				</li>
 			</ol>
