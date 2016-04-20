@@ -17,9 +17,8 @@ export JAVA_HOME
 						href="http://geode.incubator.apache.org/" scope="external"
 						>http://geode.incubator.apache.org</xref>, and unpack the source code. </li>
 				<li>Within the directory containing the unpacked source code, build without
-						tests:<codeblock>$ ./gradlew build installDist -Dskip.tests=true</codeblock><p>Or,
-						build with the
-						tests:<codeblock>$ ./gradlew build installDist</codeblock></p></li>
+						tests:<codeblock>$ ./gradlew build -Dskip.tests=true</codeblock><p>Or, build
+						with the tests:<codeblock>$ ./gradlew build </codeblock></p></li>
 				<li>Verify the installation by invoking <codeph>gfsh</codeph> to print version
 					information and exit. On Linux/Unix platforms, the version will be similar
 					to:<codeblock>$ cd geode-assembly/build/install/apache-geode
@@ -38,9 +37,8 @@ v1.0.0-incubating</codeblock></li>
 						href="http://geode.incubator.apache.org/" scope="external"
 						>http://geode.incubator.apache.org</xref>, and unpack the source code. </li>
 				<li>Within the folder containing the unpacked source code, build without the
-						tests:<codeblock>$ gradle build installDist -Dskip.tests=true</codeblock><p>Or,
-						build with the
-					tests:<codeblock>$ gradle build installDist</codeblock></p></li>
+						tests:<codeblock>$ gradle build -Dskip.tests=true</codeblock><p>Or, build
+						with the tests:<codeblock>$ gradle build</codeblock></p></li>
 				<li>Verify the installation by invoking <codeph>gfsh</codeph> to print version information and
 					exit.<codeblock>$ cd geode-assembly\build\install\apache-geode\bin
 $ gfsh.bat version
