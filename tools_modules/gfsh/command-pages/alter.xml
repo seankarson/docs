@@ -6,31 +6,36 @@
 		<shortdesc>Modify an existing <keyword keyref="product_name"/> resource. </shortdesc>
 		<topic id="topic_99BCAD98BDB5470189662D2F308B68EB">
 			<title>alter disk-store</title>
-			<shortdesc>Modify configuration options for a specified region or remove a region from
-				an offline disk-store.</shortdesc>
+			<shortdesc>Modify or remove a region from an offline disk-store.</shortdesc>
 			<body>
-				<p> You can also use the command to reset specific configuration attributes of the
-					disk-store to their default values. For example, you could use <codeph>alter
-						disk-store</codeph> command to set the region's LRU action to
-						<codeph>overflow-to-disk</codeph>. </p>
+				<p>When modifying a region's configuration, it is customary to take the region off-line and
+					restart using the new configuration. You can use the <codeph>alter
+						disk-store</codeph> command  to change the configuration of the region
+					stored in the disk-store to match the configuration you will use at restart. </p>
 				<p><b> Availability:</b> Offline.</p>
 				<p>
 					<b>Syntax: </b>
 					<codeblock xml:space="preserve">alter disk-store --name=value --region=value --disk-dirs=value(,value)*
+    [--compressor(=value)] [--concurrency-level=value]
+    [--enable-statistics=value] [--initial-capacity=value] [--load-factor=value]
     [--lru-algorthm=value] [--lru-action=value] [--lru-limit=value]
-    [--concurrency-level=value] [--initial-capacity=value] [--load-factor=value]
-    [--compressor(=value)] [--enable-statistics=value] [--remove(=value)]
-    [--off-heap(=value)]</codeblock>
+    [--off-heap(=value)] [--remove(=value)]</codeblock>
+				</p>
+				<p>The three required options, <codeph><parmname>--name</parmname></codeph>,
+							<codeph><parmname>--region</parmname></codeph>, and
+							<codeph><parmname>--disk-dirs</parmname></codeph>, identify the disk
+					store and region to be altered. If no additional options are specified,
+						<codeph>gfsh</codeph> displays the current configuration without making any
+					changes.</p>
+				<p>
 					<table id="table_DFA153D464C84D95B394023A0AAFB88B">
-						<tgroup cols="3">
+						<tgroup cols="2">
 							<colspec colname="col1" colnum="1" colwidth="1.00*"/>
 							<colspec colname="col2" colnum="2" colwidth="2.47*"/>
-							<colspec colname="newCol3" colnum="3" colwidth="1*"/>
 							<thead>
 								<row>
 									<entry colname="col1">Name </entry>
 									<entry colname="col2">Description</entry>
-									<entry>Default Value</entry>
 								</row>
 							</thead>
 							<tbody>
@@ -40,7 +45,6 @@
 									</entry>
 									<entry colname="col2"><i>Required</i>. Name of the disk-store
 										whose contents will be altered. </entry>
-									<entry/>
 								</row>
 								<row>
 									<entry colname="col1">
@@ -48,7 +52,6 @@
 									</entry>
 									<entry colname="col2"><i>Required</i>. Name (including path) of
 										the region using the disk store. </entry>
-									<entry/>
 								</row>
 								<row>
 									<entry colname="col1">
@@ -56,7 +59,69 @@
 									</entry>
 									<entry colname="col2"><i>Required</i>. Directories where the
 										data for the disk store was previously written. </entry>
-									<entry/>
+								</row>
+								<row>
+									<entry colname="col1">
+										<parmname>--compressor</parmname>
+									</entry>
+									<entry colname="col2">The fully-qualified class name of the
+										compressor to use when compressing region entry values. A
+										value of <codeph>none</codeph> removes the
+										compressor.</entry>
+								</row>
+								<row>
+									<entry colname="col1">
+										<parmname>--concurrency-level</parmname>
+									</entry>
+									<entry colname="col2">An estimate of the maximum number of
+										application threads that will concurrently access a region
+										entry. Together with <parmname>--initial-capacity</parmname>
+											and<parmname> --load-factor</parmname>, sets the
+										parameters on the underlying
+											<codeph>java.util.ConcurrentHashMap</codeph> used for
+										storing region entries. This attribute does not apply to
+										partitioned regions. </entry>
+								</row>
+								<row>
+									<entry colname="col1">
+										<parmname>--enable-statistics</parmname>
+									</entry>
+									<entry colname="col2">Enables statistics for the region. Valid
+										values are true or false.  If the parameter is specified
+										without a value, the value of true is used. </entry>
+								</row>
+								<row>
+									<entry colname="col1">
+										<parmname>--initial-capacity</parmname>
+									</entry>
+									<entry colname="col2">Together with
+											<parmname>--concurrency-level</parmname> and<parmname>
+											--load-factor</parmname>, sets the parameters on the
+										underlying <codeph>java.util.ConcurrentHashMap</codeph> used
+										for storing region entries. </entry>
+								</row>
+								<row>
+									<entry colname="col1">
+										<parmname>--load-factor</parmname>
+									</entry>
+									<entry colname="col2">Together with
+											<parmname>--concurrency-level</parmname> and
+											<parmname>--initial-capacity</parmname>, sets the
+										parameters on the underlying
+											<codeph>java.util.ConcurrentHashMap</codeph> used for
+										storing region entries. This must be a floating point number
+										between 0 and 1, inclusive. </entry>
+								</row>
+								<row>
+									<entry colname="col1">
+										<parmname>--lru-action</parmname>
+									</entry>
+									<entry colname="col2">Action to take when evicting entries from
+										the region. Valid values are: <ul id="ul_czg_lpf_kl">
+											<li><codeph>none</codeph></li>
+											<li><codeph>overflow-to-disk</codeph></li>
+											<li><codeph>local-destroy</codeph></li>
+										</ul></entry>
 								</row>
 								<row>
 									<entry colname="col1">
@@ -69,19 +134,6 @@
 											<li><codeph>lru-heap-percentage</codeph></li>
 											<li><codeph>lru-memory-size</codeph></li>
 										</ul></entry>
-									<entry/>
-								</row>
-								<row>
-									<entry colname="col1">
-										<parmname>--lru-action</parmname>
-									</entry>
-									<entry colname="col2">Action to take when evicting entries from
-										the region. Valid values are: <ul id="ul_czg_lpf_kl">
-											<li><codeph>none</codeph></li>
-											<li><codeph>overflow-to-disk</codeph></li>
-											<li><codeph>local-destroy</codeph></li>
-										</ul></entry>
-									<entry/>
 								</row>
 								<row>
 									<entry colname="col1">
@@ -89,66 +141,6 @@
 									</entry>
 									<entry colname="col2">Number of entries allowed in the region
 										before eviction occurs. </entry>
-									<entry/>
-								</row>
-								<row>
-									<entry colname="col1">
-										<parmname>--concurrency-level</parmname>
-									</entry>
-									<entry colname="col2">An estimate of the maximum number of
-										application threads that will concurrently access a region
-										entry. This attribute does not apply to partitioned regions. </entry>
-									<entry/>
-								</row>
-								<row>
-									<entry colname="col1">
-										<parmname>--initial-capacity</parmname>
-									</entry>
-									<entry colname="col2">Together with
-											<parmname>--load-factor</parmname>, sets the parameters
-										on the underlying
-											<codeph>java.util.ConcurrentHashMap</codeph> used for
-										storing region entries. </entry>
-									<entry/>
-								</row>
-								<row>
-									<entry colname="col1">
-										<parmname>--load-factor</parmname>
-									</entry>
-									<entry colname="col2">Together with
-											<parmname>--initial-capacity</parmname>, sets the
-										parameters on the underlying
-											<codeph>java.util.ConcurrentHashMap</codeph> used for
-										storing region entries. This must be a floating point number
-										between 0 and 1, inclusive. </entry>
-									<entry/>
-								</row>
-								<row>
-									<entry colname="col1">
-										<parmname>--compressor</parmname>
-									</entry>
-									<entry colname="col2">The fully-qualifed class name of the
-										compressor to use when compressing region entry values. A
-										value of <codeph>none</codeph> removes the
-										compressor.</entry>
-									<entry>none</entry>
-								</row>
-								<row>
-									<entry colname="col1">
-										<parmname>--enable-statistics</parmname>
-									</entry>
-									<entry colname="col2">Enables statistics for the region. Valid
-										values are true or false. </entry>
-									<entry>false</entry>
-								</row>
-								<row>
-									<entry colname="col1">
-										<parmname>--remove</parmname>
-									</entry>
-									<entry colname="col2">Specifies whether to remove the region
-										from the disk-store. If the parameter is specified without a
-										value, the value of true is used. </entry>
-									<entry>false</entry>
 								</row>
 								<row>
 									<entry><parmname>--off-heap</parmname></entry>
@@ -156,7 +148,18 @@
 										off-heap memory. When true, region values are in off-heap
 										memory. If the parameter is specified without a value, the
 										value of true is used. </entry>
-									<entry>false</entry>
+								</row>
+								<row>
+									<entry colname="col1">
+										<parmname>--remove</parmname>
+									</entry>
+									<entry colname="col2">Specifies whether to remove the region
+										from the disk-store. If the parameter is specified without a
+										value, the value of true is used. Note:
+											<parmname>--remove</parmname> deletes all persistent
+										data for the region. Consider copying the disk store files
+										to a backup before using this option if you might want to
+										retrieve the data at a later date.</entry>
 								</row>
 							</tbody>
 						</tgroup>
@@ -165,7 +168,7 @@
 				<p>
 					<b>Example Commands:</b>
 					<codeblock>
-alter disk-store --name=DiskStore1 --region=region1 --disk-dirs=/Disks/DiskStore1
+alter disk-store --name=DiskStore1 --region=region1 --disk-dirs=/Disks/DiskStore1 --off-heap
 alter disk-store --name=DiskStore1 --region=region1 --disk-dirs=/Disks/DiskStore1 --remove</codeblock>
 				</p>
 			</body>
