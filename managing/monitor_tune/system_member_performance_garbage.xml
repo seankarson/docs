@@ -2,11 +2,16 @@
 <!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "http://docs.oasis-open.org/dita/v1.1/OS/dtd/concept.dtd">
 <concept id="sys_mem_perf">
 	<title>Garbage Collection and System Performance</title>
-	<shortdesc>If you experience unacceptably high latencies in application processing, you might
-		improve performance by modifying your JVM’s garbage collection behavior. </shortdesc>
+	<shortdesc>If your application exhibits unacceptably high latencies, you might improve performance
+		by modifying your JVM’s garbage collection behavior. </shortdesc>
 	<conbody>
-		<p>Garbage collection, while necessary, introduces latency into your system by consuming
-			resources that would otherwise be available to your application. </p>
+		<p>Garbage collection, while necessary, introduces latency into your system by consuming resources
+			that would otherwise be available to your application. You can reduce the impact of
+			garbage collection in two ways:<ul id="ul_dlp_kpd_bv">
+				<li>Optimize garbage collection in the JVM heap.</li>
+				<li>Reduce the amount of data exposed to garbage collection by storing values in
+					off-heap memory.</li>
+			</ul></p>
 		<p>
 			<note>Garbage collection tuning options depend on the JVM you are using. Suggestions
 				given here apply to the Sun HotSpot JVM. If you use a different JVM, check with your
@@ -17,6 +22,7 @@
 				test your system before and after making changes to verify that the system’s
 				performance has improved. </note>
 		</p>
+		<p><b>Optimizing Garbage Collection</b></p>
 		<p>The two options suggested here are likely to expedite garbage collecting activities by
 			introducing parallelism and by focusing on the data that is most likely to be ready for
 			cleanup. The first parameter causes the garbage collector to run concurrent to your
@@ -37,5 +43,9 @@
 		<p>
 			<codeblock>-XX:+DisableExplicitGC</codeblock>
 		</p>
+		<p><b>Using Off-heap Memory</b></p>
+		<p>You can improve the performance of some applications by storing data values in off-heap
+			memory. Certain objects, such as keys, must remain in the JVM heap. See <xref
+				href="../heap_use/off_heap_management.xml"/> for more information.</p>
 	</conbody>
 </concept>

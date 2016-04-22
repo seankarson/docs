@@ -13,8 +13,7 @@
    into the process's CLASSPATH for you.</p>
   <p>
    <note>To embed <keyword keyref="product_name"/> in your application, add
-      <codeph><i>path_to_product</i>/lib/gemfire-core-dependencies.jar</codeph> to your
-    CLASSPATH.</note>
+      <codeph><i>path_to_product</i>/lib/geode-dependencies.jar</codeph> to your CLASSPATH.</note>
   </p>
   <p>The following table lists the dependency JAR files associated with various <keyword
     keyref="product_name"/> processes:<table frame="all" id="table_slb_p4s_l4">
@@ -34,9 +33,9 @@
       </row>
       <row>
        <entry>server and locator</entry>
-       <entry>gemfire-core-dependencies.jar<note> Use this library for all standalone or embedded
-          <keyword keyref="product_name"/> processes (including Java clients) that host cache
-         data.</note></entry>
+       <entry>geode-dependencies.jar<note> Use this library for all standalone or embedded <keyword
+          keyref="product_name"/> processes (including Java clients) that host cache
+        data.</note></entry>
       </row>
       <row>
        <entry>Pulse</entry>
@@ -53,17 +52,14 @@
     example, to modify the CLASSPATH of a locator:
     <codeblock>gfsh> start locator --name=locator1 --classpath=/path/to/applications/classes.jar</codeblock>And
     to modify the CLASSPATH of a
-    server:<codeblock>gfsh> start server --name=server1 --classpath=/path/to/applications/classes.jar</codeblock>Any
-    application classes supplied by the user are <i>prepended</i> to the server or locator's
-    CLASSPATH minus the <codeph>gemfire.jar</codeph>, which always appears first on the CLASSPATH
-    for security reasons.</p>
+    server:<codeblock>gfsh> start server --name=server1 --classpath=/path/to/applications/classes.jar</codeblock></p>
    <p><b>Option 2:</b> Define the CLASSPATH environment variable in your OS environment. Then,
     specify the <codeph>--include-system-classpath</codeph> parameter upon process startup. For
-    example:<codeblock>gfsh> start locator --name=locator1 --include-system-classpath</codeblock>
+    example:<codeblock>gfsh> start locator --name=locator1 --include-system-classpath=true</codeblock>
     The same can also be done for server
-    processes:<codeblock>gfsh> start server --name=server1 --include-system-classpath</codeblock>This
+    processes:<codeblock>gfsh> start server --name=server1 --include-system-classpath=true</codeblock>This
     option <i>appends</i> the contents of the system CLASSPATH environment variable to the locator
-    or server's CLASSPATH upon startup.</p>
+    or server's CLASSPATH upon startup. Specifying this option without a value sets it to true.</p>
   </section>
   <section>
    <title>Setting the CLASSPATH for Applications and Standalone Java Processes</title>
@@ -75,12 +71,12 @@
     applications modifying its value.</p>
    <p>For example, to start up a <keyword keyref="product_name"/> locator process using the
     LocatorLauncher API, you can execute the following on the command
-    line:<codeblock>prompt# java -cp "<i>path_to_product</i>/lib/gemfire-core-dependencies.jar"
+    line:<codeblock>prompt# java -cp "<i>path_to_product</i>/lib/geode-dependencies.jar"
 <b>com.gemstone.gemfire.distributed.LocatorLauncher</b> start locator1
 &lt;locator-launcher-options&gt;
 </codeblock></p>
    <p>To start up a <keyword keyref="product_name"/> server process using the ServerLauncher
-    API:<codeblock>prompt# java -cp "<i>path_to_product</i>/lib/gemfire-core-dependencies.jar:/path/to/your/applications/classes.jar"
+    API:<codeblock>prompt# java -cp "<i>path_to_product</i>/lib/geode-dependencies.jar:/path/to/your/applications/classes.jar"
 <b>com.gemstone.gemfire.distributed.ServerLauncher</b> start server1
 &lt;server-launcher-options&gt;
 </codeblock>Note
@@ -90,7 +86,7 @@
     compressor on your regions, you should specify the application JAR that contains the compressor
     application you wish to use.</p>
    <p>To start up an application with an embedded
-    cache:<codeblock>java -cp "<i>path_to_product</i>/lib/gemfire-core-dependencies.jar:/path/to/your/applications/classes.jar"
+    cache:<codeblock>java -cp "<i>path_to_product</i>/lib/geode-dependencies.jar:/path/to/your/applications/classes.jar"
 <b>com.mycompany.package.ApplicationWithEmbeddedCache</b></codeblock></p>
    <p>
     <note>Another method for updating the CLASSPATH of a server process with your own applications

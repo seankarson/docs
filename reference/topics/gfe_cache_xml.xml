@@ -1,0 +1,725 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE dita PUBLIC "-//OASIS//DTD DITA Composite//EN" "ditabase.dtd">
+<dita>
+	<topic id="id_zn4_qbq_rr" conref="../../reference/topics/cache_xml.xml#cache_xml_cache">
+		<title>&lt;cache&gt; Element Reference</title>
+	</topic>
+	<topic id="id_hdt_tbq_rr" conref="../../reference/topics/cache_xml.xml#cache-transaction-manager">
+		<title>&lt;cache-transaction-manager&gt;</title>
+	</topic>
+	<topic id="id_s4p_ybq_rr" conref="../../reference/topics/cache_xml.xml#transaction-listener">
+		<title>&lt;transaction-listener&gt;</title>
+	</topic>
+	<topic id="id_ohj_dcq_rr" conref="../../reference/topics/cache_xml.xml#transaction-writer">
+		<title>&lt;transaction-writer&gt;</title>
+	</topic>
+	<topic id="id_sqg_3cq_rr" conref="../../reference/topics/cache_xml.xml#dynamic-region-factory">
+		<title>&lt;dynamic-region-factory&gt;</title>
+	</topic>
+	<topic id="gateway-hub">
+		<title>&lt;gateway-hub&gt;</title>
+		<shortdesc> </shortdesc>
+		<body>
+			<p>Deprecated See <xref href="#gateway-sender" format="dita"/> and <xref href="#gateway-receiver"
+					format="dita"/> instead. </p>
+		</body>
+	</topic>
+	<topic id="gateway">
+		<title>&lt;gateway&gt;</title>
+		<shortdesc> </shortdesc>
+		<body>
+			<p>Deprecated </p>
+		</body>
+	</topic>
+	<topic id="topic_99006504F94C4666BE33D3B5E7C90FB2">
+		<title>&lt;gateway-endpoint&gt;</title>
+		<shortdesc> </shortdesc>
+		<body>
+			<p>Deprecated </p>
+		</body>
+	</topic>
+	<topic id="topic_EEA017734DFF438AB8C08034C813D594">
+		<title>&lt;gateway-listener&gt;</title>
+		<shortdesc> </shortdesc>
+		<body>
+			<p>Deprecated </p>
+		</body>
+	</topic>
+	<topic id="topic_4939576D40C74BF28F4BE5EDB9607D8D">
+		<title>&lt;gateway-queue&gt;</title>
+		<shortdesc> </shortdesc>
+		<body>
+			<p>Deprecated </p>
+		</body>
+	</topic>
+	<topic id="gateway-sender">
+		<title>&lt;gateway-sender&gt;</title>
+		<body>
+			<p>Configures a gateway sender to distribute region events to another <keyword
+					keyref="product_name"/> site. See <xref
+					href="../../topologies_and_comm/multi_site_configuration/setting_up_a_multisite_system.xml#setting_up_a_multisite_system"
+				/>. </p>
+			<p>
+				<b>API: </b>
+				<codeph>GatewaySender</codeph>
+			</p>
+			<table id="table_E3CCD986A16F4FE8B9C6BB0F70E90E2E">
+				<title>Attributes</title>
+				<tgroup cols="3">
+					<colspec colname="1" colnum="1" colwidth="1.6*"/>
+					<colspec colname="2" colnum="2" colwidth="4.1*"/>
+					<colspec colname="col3" colnum="3" colwidth="1*"/>
+					<thead>
+						<row>
+							<entry>Attribute </entry>
+							<entry>Description </entry>
+							<entry colname="col3">Default </entry>
+						</row>
+					</thead>
+					<tbody>
+						<row>
+							<entry>parallel </entry>
+							<entry id="entry_lpj_tlz_ck">Value of "true" or "false" that specifies
+								the type of gateway sender that <keyword keyref="product_name"/>
+								creates. </entry>
+							<entry colname="col3">false </entry>
+						</row>
+						<row>
+							<entry>dispatcher-threads </entry>
+							<entry id="entry_zqz_jlz_ck">Number of dispatcher threads that are used
+								to process region events from a gateway sender queue or asynchronous
+								event queue. </entry>
+							<entry colname="col3">5</entry>
+						</row>
+						<row>
+							<entry>order-policy </entry>
+							<entry id="entry_hg3_klz_ck">When the
+									<codeph>dispatcher-threads</codeph> attribute is greater than 1,
+									<codeph>order-policy</codeph> configures the way in which
+								multiple dispatcher threads process region events from a serial
+								gateway queue or serial asynchronous event queue. This attribute can
+								have one of the following values: <p>
+									<simpletable frame="none" id="simpletable_jrd_vf1_dk"
+										relcolwidth="1.0* 5.49*">
+										<strow>
+											<stentry><option>key</option></stentry>
+											<stentry>When distributing region events from the local
+												queue, multiple dispatcher threads preserve the
+												order of key updates.</stentry>
+										</strow>
+										<strow>
+											<stentry><option>thread</option></stentry>
+											<stentry>When distributing region events from the local
+												queue, multiple dispatcher threads preserve the
+												order in which a given thread added region events to
+												the queue. </stentry>
+										</strow>
+										<strow>
+											<stentry><option>partition</option></stentry>
+											<stentry>When distributing region events from the local
+												queue, multiple dispatcher threads preserve the
+												order in which region events were added to the local
+												queue. For a partitioned region, this means that all
+												region events delivered to a specific partition are
+												delivered in the same order to the remote <keyword
+												keyref="product_name"/> site. For a distributed
+												region, this means that all key updates delivered to
+												the local gateway sender queue are distributed to
+												the remote site in the same order. </stentry>
+										</strow>
+										<strow/>
+									</simpletable>
+								</p><p>You cannot configure the <codeph>order-policy</codeph> for a
+									parallel event queue, because parallel queues cannot preserve
+									event ordering for regions. Only the ordering of events for a
+									given partition (or in a given queue of a distributed region)
+									can be preserved. </p></entry>
+							<entry colname="col3">key </entry>
+						</row>
+						<row>
+							<entry>id </entry>
+							<entry id="entry_f1t_klz_ck">Unique identifier for the gateway sender,
+								usually an identifier associated with a physical location. This
+								attribute is required. </entry>
+							<entry colname="col3">null </entry>
+						</row>
+						<row>
+							<entry>remote-distributed-system-id </entry>
+							<entry id="entry_iyb_nlz_ck">Integer that uniquely identifies the remote
+									<keyword keyref="product_name"/> cluster to which this gateway
+								sender will send region events. This value corresponds to the
+									<codeph>distributed-system-id</codeph> property specified in
+								locators for the remote cluster. This attribute is required. </entry>
+							<entry colname="col3">null </entry>
+						</row>
+						<row>
+							<entry>manual-start </entry>
+							<entry id="entry_yct_mlz_ck">Boolean value that specifies whether you
+								need to manually start the gateway sender. If you supply a null
+								value, the default is "false" and the gateway sender attempts to
+								start automatically. </entry>
+							<entry colname="col3">null (false) </entry>
+						</row>
+						<row>
+							<entry>socket-buffer-size </entry>
+							<entry id="entry_ol4_mlz_ck">Size of the socket buffer that sends
+								messages to remote sites. This size should match the size of the
+									<codeph>socket-buffer-size</codeph> attribute of remote gateway
+								receivers that process region events. </entry>
+							<entry colname="col3">32768</entry>
+						</row>
+						<row>
+							<entry>socket-read-timeout </entry>
+							<entry id="entry_ofj_mlz_ck">Amount of time in milliseconds that the
+								gateway sender will wait to receive an acknowledgment from a remote
+								site. By default this is set to 0, which means there is no timeout.
+								If you do set this timeout, you must set it to a minimum of 30000
+								(milliseconds). Setting it to a lower number will generate an error
+								message and reset the value to the default of 0. </entry>
+							<entry colname="col3">0</entry>
+						</row>
+						<row>
+							<entry>enable-batch-conflation </entry>
+							<entry id="entry_qp4_llz_ck">Boolean value that determines whether
+									<keyword keyref="product_name"/> should conflate messages. </entry>
+							<entry colname="col3">false </entry>
+						</row>
+						<row>
+							<entry>batch-size </entry>
+							<entry id="entry_unn_4lz_ck">Maximum number of messages that a batch can
+								contain. </entry>
+							<entry colname="col3">100 </entry>
+						</row>
+						<row>
+							<entry>batch-time-interval </entry>
+							<entry id="entry_ynt_4lz_ck">Maximum number of milliseconds that can
+								elapse between sending batches. </entry>
+							<entry colname="col3">1000 </entry>
+						</row>
+						<row>
+							<entry>enable-persistence </entry>
+							<entry id="entry_vty_4lz_ck">Boolean value that determines whether
+									<keyword keyref="product_name"/> persists the gateway queue. </entry>
+							<entry colname="col3">false </entry>
+						</row>
+						<row>
+							<entry>disk-store-name </entry>
+							<entry id="entry_icd_plz_ck">Named disk store to use for storing the
+								queue overflow, or for persisting the queue. If you specify a value,
+								the named disk store must exist. If you specify a null value,
+									<keyword keyref="product_name"/> uses the default disk store for
+								overflow and queue persistence. </entry>
+							<entry colname="col3"/>
+						</row>
+						<row id="row_dc3_plz_ck">
+							<entry>disk-synchronous </entry>
+							<entry id="entry_kmz_cnz_ck">For regions that write to disk, boolean
+								that specifies whether disk writes are done synchronously for the
+								region. </entry>
+							<entry colname="col3">true </entry>
+						</row>
+						<row id="row_g1n_plz_ck">
+							<entry>maximum-queue-memory </entry>
+							<entry id="entry_om3_dnz_ck">Maximum amount of memory in megabytes that
+								the queue can consume before overflowing to disk. </entry>
+							<entry colname="col3">100 MB </entry>
+						</row>
+						<row>
+							<entry>alert-threshold </entry>
+							<entry id="entry_ztr_plz_ck">Maximum number of milliseconds that a
+								region event can remain in the gateway sender queue before <keyword
+									keyref="product_name"/> logs an alert. </entry>
+							<entry colname="col3">0 </entry>
+						</row>
+					</tbody>
+				</tgroup>
+			</table>
+			<p>
+				<b>Example: </b>
+			</p>
+			<codeblock outputclass="language-xml">&lt;cache&gt;
+  
+  &lt;gateway-sender 
+    id="remoteA" 
+    parallel="true" 
+    remote-distributed-system-id="1"&gt; 
+    &lt;gateway-event-filter&gt;
+      &lt;class-name&gt;com.gemstone.gemfire.util.SampleEventFilter&lt;/class-name&gt;
+      &lt;parameter 
+       name="param1"&gt;
+        &lt;string&gt;"value1"&lt;/string&gt;
+      &lt;/parameter&gt;
+    &lt;/gateway-event-filter&gt;
+    &lt;gateway-transport-filter&gt;
+      &lt;class-name&gt;com.gemstone.gemfire.util.SampleTransportFilter&lt;/class-name&gt;
+      &lt;parameter 
+       name="param1"&gt;
+        &lt;string&gt;"value1"&lt;/string&gt;
+      &lt;/parameter&gt;
+    &lt;/gateway-transport-filter&gt;
+  &lt;/gateway-sender&gt; 
+  ...
+&lt;/cache&gt;
+</codeblock>
+		</body>
+	</topic>
+	<topic id="gateway-event-filter">
+		<title>&lt;gateway-event-filter&gt;</title>
+		<shortdesc> </shortdesc>
+		<body>
+			<p>A GatewayEventFilter implementation determines whether a region event is placed in a gateway
+				sender queue and/or whether an event in a gateway queue is distributed to a remote
+				site. You can optionally add one or more GatewayEventFilter implementations to a
+				gateway sender, either in the cache.xml configuration file or using the Java API. </p>
+			<p>Specify the Java class and its initialization parameters with the
+					<codeph>&lt;class-name&gt;</codeph> and <codeph>&lt;parameter&gt;</codeph>
+				sub-elements. See <xref href="#class-name_parameter" format="dita"/>. </p>
+			<p>
+				<b>Example: </b>
+			</p>
+			<codeblock outputclass="language-xml">&lt;gateway-event-filter&gt;
+      &lt;class-name&gt;com.gemstone.gemfire.util.SampleEventFilter&lt;/class-name&gt;
+      &lt;parameter name="param1"&gt;
+        &lt;string&gt;"value1"&lt;/string&gt;
+      &lt;/parameter&gt;
+&lt;/gateway-event-filter&gt;
+</codeblock>
+		</body>
+	</topic>
+	<topic id="gateway-event-substitution-filter">
+		<title>&lt;gateway-event-substitution-filter&gt;</title>
+		<shortdesc/>
+		<body>
+			<p>A GatewayEventSubstitutionFilter provides a way to specify a substitute value to be
+				stored in the GatewayQueueEvent and enqueued in the RegionQueue. You can optionally
+				add one  GatewayEventSubstitutionFilter implementation to a gateway sender. </p>
+			<p>Specify the Java class and its initialization parameters with the
+					<codeph>&lt;class-name&gt;</codeph> and <codeph>&lt;parameter&gt;</codeph>
+				sub-elements. See <xref href="#class-name_parameter" format="dita"/>. </p>
+			<p>
+				<b>Example: </b>
+			</p>
+			<codeblock outputclass="language-xml">&lt;gateway-event-substitution-filter&gt;
+      &lt;class-name&gt;com.gemstone.gemfire.util.SampleEventSubstitutionFilter&lt;/class-name&gt;
+      &lt;parameter name="param1"&gt;
+        &lt;string&gt;"value1"&lt;/string&gt;
+      &lt;/parameter&gt;
+&lt;/gateway-event-substitution-filter&gt;
+</codeblock>
+		</body>
+	</topic>
+	<topic id="gateway-transport-filter">
+		<title>&lt;gateway-transport-filter&gt;</title>
+		<shortdesc> </shortdesc>
+		<body>
+			<p>Use a GatewayTransportFilter implementation to process the TCP stream that sends a
+				batch of events that is distributed from one <keyword keyref="product_name"/>
+				cluster to another over a WAN. A GatewayTransportFilter is typically used to perform
+				encryption or compression on the data that distributed. You install the same
+				GatewayTransportFilter implementation on both a gateway sender and gateway receiver. </p>
+			<p>Specify the Java class and its initialization parameters with the
+					<codeph>&lt;class-name&gt;</codeph> and <codeph>&lt;parameter&gt;</codeph>
+				sub-elements. See <xref href="#class-name_parameter" format="dita"/>. </p>
+			<p>
+				<b>Example: </b>
+			</p>
+			<codeblock outputclass="language-xml">&lt;gateway-transport-filter&gt;
+      &lt;class-name&gt;com.gemstone.gemfire.util.SampleTransportFilter&lt;/class-name&gt;
+      &lt;parameter 
+       name="param1"&gt;
+        &lt;string&gt;"value1"&lt;/string&gt;
+      &lt;/parameter&gt;
+&lt;/gateway-transport-filter&gt;
+</codeblock>
+		</body>
+	</topic>
+	<topic id="gateway-receiver">
+		<title>&lt;gateway-receiver&gt;</title>
+		<shortdesc> </shortdesc>
+		<body>
+			<p>Configures a gateway receiver to receive and apply region events that were
+				distributed from another <keyword keyref="product_name"/> site. You can only specify
+				one gateway receiver on a member. See <xref
+					href="../../topologies_and_comm/multi_site_configuration/setting_up_a_multisite_system.xml#setting_up_a_multisite_system"
+				/>. </p>
+			<p>
+				<b>API: </b>
+				<codeph>GatewayReceiverFactory</codeph>, <codeph>GatewayTransportFilter</codeph></p>
+			<table id="table_430418178B3B4D94B0EEAB9A83E005CF">
+				<title>Attributes</title>
+				<tgroup cols="3">
+					<colspec colname="1" colnum="1" colwidth="1.6*"/>
+					<colspec colname="2" colnum="2" colwidth="4.1*"/>
+					<colspec colname="col3" colnum="3" colwidth="1*"/>
+					<thead>
+						<row>
+							<entry>Attribute </entry>
+							<entry>Description </entry>
+							<entry colname="col3">Default </entry>
+						</row>
+					</thead>
+					<tbody>
+						<row>
+							<entry>start-port </entry>
+							<entry id="entry_yd2_ld1_dk">
+								<p>Starting port number to use when specifying the range of possible
+									port numbers this gateway receiver will use to connects to
+									gateway senders in other sites. <keyword keyref="product_name"/>
+									chooses an unused port number in the specified port number range
+									to start the receiver. If no port numbers in the range are
+									available, an exception is thrown. </p>
+								<p>The <codeph>STARTPORT</codeph> value is inclusive while the
+										<codeph>ENDPORT</codeph> value is exclusive. For example, if
+									you specify <codeph>STARTPORT="50510"</codeph> and
+										<codeph>ENDPOINT="50520"</codeph>, <keyword
+										keyref="product_name"/> chooses a port value from 50510 to
+									50519. </p>
+							</entry>
+							<entry colname="col3">5000 </entry>
+						</row>
+						<row>
+							<entry>end-port </entry>
+							<entry id="entry_fkl_ld1_dk">
+								<p>Defines the upper bound port number to use when specifying the
+									range of possible port numbers this gateway receiver will use to
+									for connections from gateway senders in other sites. <keyword
+										keyref="product_name"/> chooses an unused port number in the
+									specified port number range to start the receiver. If no port
+									numbers in the range are available, an exception is thrown.</p>
+								<p>The <codeph>ENDPORT</codeph> value is exclusive while the
+										<codeph>STARTPORT</codeph> value is inclusive. For example,
+									if you specify <codeph>STARTPORT="50510"</codeph> and
+										<codeph>ENDPOINT="50520"</codeph>, <keyword
+										keyref="product_name"/> chooses a port value from 50510 to
+									50519. </p>
+							</entry>
+							<entry colname="col3">5500 </entry>
+						</row>
+						<row>
+							<entry>bind-address </entry>
+							<entry id="entry_ecs_ld1_dk">Network address for connections from
+								gateway senders in other sites. Specify the address as a literal
+								string value. </entry>
+							<entry colname="col3"/>
+						</row>
+						<row>
+							<entry id="entry_zfc_5gj_54">hostname-for-senders</entry>
+							<entry>Attribute where you can specify an IP address or hostname for
+								gateway sender connections. If you configure hostname-for-senders,
+								locators will use the provided hostname or IP address when
+								instructing gateway senders on how to connect to gateway receivers.
+								If you provide "" or null as the value, by default the gateway
+								receiver's bind-address will be sent to clients.</entry>
+							<entry colname="col3"/>
+						</row>
+						<row>
+							<entry>manual-start</entry>
+							<entry>When set to false, the gateway receiver will automatically start
+								when the receiver is created. If set to true, you must manually
+								start the receiver. </entry>
+							<entry colname="col3">true</entry>
+						</row>
+						<row>
+							<entry>maximum-time-between-pings </entry>
+							<entry id="entry_dg1_md1_dk">Integer value that specifies the time
+								interval (in milliseconds) to use between pings to connected WAN
+								sites. This value determines the maximum amount of time that can
+								elapse before a remote WAN site is considered offline. </entry>
+							<entry colname="col3">60000 </entry>
+						</row>
+						<row>
+							<entry>socket-buffer-size </entry>
+							<entry id="entry_ysw_531_dk">An integer value that sets the buffer size
+								(in bytes) of the socket connection for this gateway receiver. This
+								value should match the <codeph>socket-buffer-size</codeph> setting
+								of gateway senders that connect to this receiver. </entry>
+							<entry colname="col3">32768 </entry>
+						</row>
+					</tbody>
+				</tgroup>
+			</table>
+			<p>
+				<b>Example: </b>
+			</p>
+			<codeblock outputclass="language-xml">&lt;cache&gt;
+     &lt;gateway-receiver start-port="1530" end-port="1551"&gt; 
+    &lt;gateway-transport-filter&gt;&gt;
+      &lt;class-name&gt;com.gemstone.gemfire.util.SampleTransportFilter&lt;/class-name&gt;
+      &lt;parameter 
+       name="param1"&gt;
+        &lt;string&gt;"value1"&lt;/string&gt;
+      &lt;/parameter&gt;
+    &lt;/gateway-transport-filter&gt;
+  &lt;/gateway-receiver&gt;
+&lt;/cache&gt;
+</codeblock>
+		</body>
+	</topic>
+	<topic conref="#gateway-transport-filter" id="gateway-receiver_gateway-transport-filter">
+		<title>&lt;gateway-transport-filter&gt;</title>
+		<shortdesc>?? </shortdesc>
+		<body>
+			<p>??P </p>
+		</body>
+	</topic>
+	<topic id="gateway-conflict-resolver">
+		<title>&lt;gateway-conflict-resolver&gt;</title>
+		<shortdesc> </shortdesc>
+		<body>
+			<p>An event-handler plug-in that is called in order to determine whether a potentially
+				conflicting WAN update should be applied to the local cache. A
+				GatewayConflictResolver is invoked if the current value in a cache entry was
+				established by a different distributed system (with a different
+				distributed-system-id) than an event that is attempting to modify the entry. It is
+				not invoked if the event has the same distributed system ID as the event that last
+				changed the entry. See <xref format="dita"
+					href="../../developing/events/resolving_multisite_conflicts.xml#topic_E97BB68748F14987916CD1A50E4B4542"
+					scope="local" type="topic"/>
+			</p>
+			<p>Specify the Java class for the gateway conflict resolver plug-in and its initialization
+				parameters with the <codeph>&lt;class-name&gt;</codeph> and
+					<codeph>&lt;parameter&gt;</codeph> sub-elements. See <xref
+					href="#class-name_parameter" format="dita"/>. </p>
+			<p>
+				<b>API: </b>
+				<codeph>com.gemstone.gemfire.cache.util.GatewayConflictResolver</codeph>
+			</p>
+			<p>
+				<b>Example: </b>
+			</p>
+			<codeblock outputclass="language-xml">&lt;gateway-conflict-resolver&gt;
+    &lt;class-name&gt;
+     myPackage.MyConflictResolver
+    &lt;/class-name&gt;
+  &lt;/gateway-conflict-resolver&gt;
+</codeblock>
+		</body>
+	</topic>
+	<topic id="id_zrr_scq_rr" conref="../../reference/topics/cache_xml.xml#async-event-queue">
+		<title>&lt;async-event-queue&gt;</title>
+	</topic>
+	<topic id="id_obx_tcq_rr" conref="../../reference/topics/cache_xml.xml#async-event-listener">
+		<title>&lt;async-event-listener&gt;</title>
+	</topic>
+	<topic id="id_j5l_xcq_rr" conref="../../reference/topics/cache_xml.xml#cache-server">
+		<title>&lt;cache-server&gt;</title>
+	</topic>
+	<topic id="id_pqz_ycq_rr" conref="../../reference/topics/cache_xml.xml#group">
+		<title>&lt;group&gt;</title>
+	</topic>
+	<topic id="id_zbs_zcq_rr" conref="../../reference/topics/cache_xml.xml#client-subscription">
+		<title>&lt;client-subscription&gt;</title>
+	</topic>
+	<topic id="id_vfw_3dq_rr" conref="../../reference/topics/cache_xml.xml#custom-load-probe">
+		<title>&lt;custom-load-probe&gt;</title>
+	</topic>
+	<topic id="id_jbr_kdq_rr" conref="../../reference/topics/cache_xml.xml#pool">
+		<title>&lt;pool&gt;</title>
+	</topic>
+	<topic id="id_fsd_ldq_rr" conref="../../reference/topics/cache_xml.xml#locator">
+		<title>&lt;locator&gt;</title>
+	</topic>
+	<topic id="id_ds3_ndq_rr" conref="../../reference/topics/cache_xml.xml#server">
+		<title>&lt;server&gt;</title>
+	</topic>
+	<topic id="id_q21_5dq_rr" conref="../../reference/topics/cache_xml.xml#disk-store">
+		<title>&lt;disk-store&gt;</title>
+	</topic>
+	
+	<topic id="id_s5t_5dq_rr" conref="../../reference/topics/cache_xml.xml#disk-dirs">
+		<title>&lt;disk-dirs&gt;</title>
+	</topic>
+	<topic id="id_o3f_vdq_rr" conref="../../reference/topics/cache_xml.xml#disk-dir">
+		<title>&lt;disk-dir&gt;</title>
+	</topic>
+	<topic id="id_vvt_vdq_rr" conref="../../reference/topics/cache_xml.xml#pdx">
+		<title>&lt;pdx&gt;</title>
+	</topic>
+	<topic id="id_td2_ydq_rr" conref="../../reference/topics/cache_xml.xml#pdx-serializer_24898989679">
+		<title>&lt;pdx-serializer&gt;</title>
+	</topic>
+	<topic id="id_p1s_ydq_rr" conref="../../reference/topics/cache_xml.xml#region-attributes">
+		<title>&lt;region-attributes&gt;</title>
+	</topic>
+	<topic id="id_b1f_zdq_rr" conref="../../reference/topics/cache_xml.xml#key-constraint">
+		<title>&lt;key-constraint&gt;</title>
+	</topic>
+	<topic id="id_uyf_b2q_rr" conref="../../reference/topics/cache_xml.xml#value-constraint">
+		<title>&lt;value-constraint&gt;</title>
+	</topic>
+	<topic id="id_zxp_b2q_rr" conref="../../reference/topics/cache_xml.xml#region-time-to-live">
+		<title>&lt;region-time-to-live&gt;</title>
+	</topic>
+	<topic id="id_ekj_c2q_rr" conref="../../reference/topics/cache_xml.xml#expiration-attributes">
+		<title>&lt;expiration-attributes&gt;</title>
+	</topic>
+	<topic id="id_l2x_c2q_rr" conref="../../reference/topics/cache_xml.xml#custom-expiry">
+		<title>&lt;custom-expiry&gt;</title>
+	</topic>
+	<topic id="id_m2p_3gr_rr" conref="../../reference/topics/cache_xml.xml#region-idle-time">
+		<title>&lt;region-idle-time&gt;</title>
+	</topic>
+	<topic id="id_bbz_3gr_rr"
+		conref="../../reference/topics/cache_xml.xml#region-idle-time_expiration-attributes">
+		<title>&lt;expiration-attributes&gt;</title>
+	</topic>
+	<topic id="id_fvd_jgr_rr"
+		conref="../../reference/topics/cache_xml.xml#region-idle-time_custom-expiry">
+		<title/>
+	</topic>
+	<topic id="id_axp_22q_rr" conref="../../reference/topics/cache_xml.xml#entry-time-to-live">
+		<title>&lt;entry-time-to-live&gt;</title>
+	</topic>
+	<topic id="id_yjk_kgr_rr"
+		conref="../../reference/topics/cache_xml.xml#entry-time-to-live_expiration-attributes">
+		<title/>
+	</topic>
+	<topic id="id_yl4_kgr_rr"
+		conref="../../reference/topics/cache_xml.xml#entry-time-to-live_custom_expiry">
+		<title/>
+	</topic>
+	<topic id="id_gx2_f2q_rr" conref="../../reference/topics/cache_xml.xml#entry-idle-time">
+		<title>&lt;entry-idle-time&gt;</title>
+	</topic>
+	<topic id="id_hzb_lgr_rr"
+		conref="../../reference/topics/cache_xml.xml#entry-idle-time_expiration-attributes">
+		<title/>
+	</topic>
+	<topic id="id_ngf_lgr_rr"
+		conref="../../reference/topics/cache_xml.xml#entry-idle-time_custom-expiry">
+		<title/>
+	</topic>
+	<topic id="id_thp_h2q_rr" conref="../../reference/topics/cache_xml.xml#partition-attributes">
+		<title>&lt;partition-attributes&gt;</title>
+	</topic>
+	<topic id="id_wjb_32q_rr" conref="../../reference/topics/cache_xml.xml#partition-resolver">
+		<title>&lt;partition-resolver&gt;</title>
+	</topic>
+	<topic id="id_jgn_32q_rr" conref="../../reference/topics/cache_xml.xml#partition-listener">
+		<title>&lt;partition-listener&gt;</title>
+	</topic>
+	<topic id="id_vgx_32q_rr" conref="../../reference/topics/cache_xml.xml#fixed-partition-attributes">
+		<title>&lt;fixed-partition-attributes&gt;</title>
+	</topic>
+	<topic id="id_dsh_j2q_rr" conref="../../reference/topics/cache_xml.xml#membership-attributes">
+		<title>&lt;membership-attributes&gt;</title>
+	</topic>
+	<topic id="id_kfw_j2q_rr" conref="../../reference/topics/cache_xml.xml#required-role">
+		<title>&lt;required-role&gt;</title>
+	</topic>
+	<topic id="id_a3g_k2q_rr" conref="../../reference/topics/cache_xml.xml#subscription-attributes">
+		<title>&lt;subscription-attributes&gt;</title>
+	</topic>
+	<topic id="id_o1f_l2q_rr" conref="../../reference/topics/cache_xml.xml#topic_qsb_pnw_bm">
+		<title>&lt;cache-loader></title>
+	</topic>
+	<topic id="id_j31_m2q_rr" conref="../../reference/topics/cache_xml.xml#topic_h53_pnw_bm">
+		<title>&lt;cache-writer></title>
+	</topic>
+	<topic id="id_xt4_m2q_rr" conref="../../reference/topics/cache_xml.xml#cache-listener">
+		<title>&lt;cache-listener&gt;</title>
+	</topic>
+	<topic id="id_ks2_n2q_rr" conref="../../reference/topics/cache_xml.xml#topic_pcd_t25_44">
+		<title>&lt;compressor&gt;</title>
+	</topic>
+	<topic id="id_kc4_n2q_rr" conref="../../reference/topics/cache_xml.xml#eviction-attributes">
+		<title>&lt;eviction-attributes&gt;</title>
+	</topic>
+	<topic id="id_wpy_n2q_rr" conref="../../reference/topics/cache_xml.xml#lru-entry-count">
+		<title>&lt;lru-entry-count&gt;</title>
+	</topic>
+	<topic id="id_gpn_42q_rr" conref="../../reference/topics/cache_xml.xml#lru-heap-percentage">
+		<title>&lt;lru-heap-percentage&gt;</title>
+	</topic>
+	<topic id="id_brh_p2q_rr" conref="../../reference/topics/cache_xml.xml#lru-memory-size">
+		<title>&lt;lru-memory-size&gt;</title>
+	</topic>
+	<topic id="id_wnw_p2q_rr" conref="../../reference/topics/cache_xml.xml#jndi-bindings">
+		<title>&lt;jndi-bindings&gt;</title>
+	</topic>
+	<topic id="id_jrf_q2q_rr" conref="../../reference/topics/cache_xml.xml#jndi-binding">
+		<title>&lt;jndi-binding&gt;</title>
+	</topic>
+	<topic id="id_rls_q2q_rr" conref="../../reference/topics/cache_xml.xml#config-property">
+		<title>&lt;config-property&gt;</title>
+	</topic>
+	<topic id="id_zjc_r2q_rr" conref="../../reference/topics/cache_xml.xml#config-property-name">
+		<title>&lt;config-property-name&gt;</title>
+	</topic>
+	<topic id="id_wrk_r2q_rr" conref="../../reference/topics/cache_xml.xml#config-property-type">
+		<title>&lt;config-property-type&gt;</title>
+	</topic>
+	<topic id="id_d5s_r2q_rr" conref="../../reference/topics/cache_xml.xml#config-property-value">
+		<title>&lt;config-property-value&gt;</title>
+	</topic>
+	<topic id="id_q5c_s2q_rr" conref="../../reference/topics/cache_xml.xml#region">
+		<title>&lt;region&gt;</title>
+	</topic>
+	<topic id="id_kcn_s2q_rr" conref="../../reference/topics/cache_xml.xml#index">
+		<title>&lt;index&gt;</title>
+	</topic>
+	<topic id="id_lyg_52q_rr" conref="../../reference/topics/cache_xml.xml#entry">
+		<title>&lt;entry&gt;</title>
+	</topic>
+	<topic id="id_xlq_52q_rr" conref="../../reference/topics/cache_xml.xml#key">
+		<title>&lt;key&gt;</title>
+	</topic>
+	<topic id="id_g4r_chr_rr" conref="../../reference/topics/cache_xml.xml#declarable">
+		<title>&lt;declarable&gt;</title>
+	</topic>
+	<topic id="id_vxp_1hr_rr" conref="../../reference/topics/cache_xml.xml#string">
+		<title>&lt;string&gt;</title>
+	</topic>
+	<topic id="id_rc2_v2q_rr" conref="../../reference/topics/cache_xml.xml#value">
+		<title>&lt;value&gt;</title>
+	</topic>
+	<topic id="id_cyf_dhr_rr" conref="../../reference/topics/cache_xml.xml#declarable">
+		<title>&lt;declarable&gt;</title>
+	</topic>
+	<topic id="id_dbq_dhr_rr" conref="../../reference/topics/cache_xml.xml#string">
+		<title>&lt;string&gt;</title>
+	</topic>
+	<topic id="id_zbw_v2q_rr" conref="../../reference/topics/cache_xml.xml#region_region">
+		<title>&lt;region&gt;</title>
+	</topic>
+	<topic id="id_dh3_w2q_rr" conref="../../reference/topics/cache_xml.xml#vm-root-region">
+		<title>&lt;vm-root-region&gt;</title>
+	</topic>
+	<topic id="id_d4q_w2q_rr" conref="../../reference/topics/cache_xml.xml#function-service">
+		<title>&lt;function-service&gt;</title>
+	</topic>
+	<topic id="id_p5c_x2q_rr" conref="../../reference/topics/cache_xml.xml#function">
+		<title>&lt;function&gt;</title>
+	</topic>
+	<topic id="id_yvl_x2q_rr" conref="../../reference/topics/cache_xml.xml#resource-manager">
+		<title>&lt;resource-manager&gt;</title>
+	</topic>
+	<topic id="id_z5z_x2q_rr" conref="../../reference/topics/cache_xml.xml#serialization-registration">
+		<title>&lt;serialization-registration&gt;</title>
+	</topic>
+	<topic id="id_jsk_y2q_rr" conref="../../reference/topics/cache_xml.xml#serializer">
+		<title>&lt;serializer&gt;</title>
+	</topic>
+	<topic id="id_p5t_y2q_rr" conref="../../reference/topics/cache_xml.xml#instantiator">
+		<title>&lt;instantiator&gt;</title>
+	</topic>
+	<topic id="id_cld_z2q_rr" conref="../../reference/topics/cache_xml.xml#backup">
+		<title>&lt;backup></title>
+	</topic>
+	<topic id="id_rn4_z2q_rr" conref="../../reference/topics/cache_xml.xml#initializer">
+		<title>&lt;initializer></title>
+	</topic>
+	<topic id="id_vsr_23r_rr"
+		conref="../../reference/topics/cache_xml.xml#topic_BDE840596CD24A7A8754A56E7D31FE3F">
+		<title>&lt;declarable&gt;</title>
+	</topic>
+	<topic id="class-name_parameter" conref="../../reference/topics/cache_xml.xml#class-name_parameter">
+		<title>&lt;class-name&gt; and &lt;parameter&gt;</title>
+	</topic>
+	<topic id="id_ytq_1fq_rr" conref="../../reference/topics/cache_xml.xml#declarable">
+		<title>&lt;declarable&gt;</title>
+	</topic>
+	<topic id="id_nzc_bfq_rr" conref="../../reference/topics/cache_xml.xml#string">
+		<title>&lt;string&gt;</title>
+	</topic>
+</dita>

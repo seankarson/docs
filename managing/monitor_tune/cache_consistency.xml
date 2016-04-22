@@ -70,5 +70,38 @@
 				the machine’s memory or the capacity of <keyword keyref="product_name"/>. Those limits can vary by machine,
 				so the two members may not be in sync. </p>
 		</section>
+		<section id="section_qxx_kvn_nr">
+			<title>Guidelines for Multi-Site Deployments</title>
+			<p><b>Optimize socket-buffer-size</b>
+			</p>
+			<p>In a multi-site installation using gateways, if the link between sites is not tuned
+				for optimum throughput, it could cause messages to back up in the cache queues. If a
+				queue overflows because of inadequate buffer sizes, it will become out of sync with
+				the sender and the receiver will be unaware of the condition. You can configure the
+				send-receive buffer sizes of the TCP/IP connections used for data transmissions by
+				changing the socket-buffer-size attribute of the gateway-sender and gateway-receiver
+				elements in the <codeph>cache.xml</codeph> file. Set the buffer size by determining
+				the link bandwidth and then using ping to measure the round-trip time. </p>
+			<p>When optimizing socket-buffer sizes, use the same value for both gateway senders and
+				gateway receivers. </p>
+			<p><b>Prevent Primary and Secondary Gateway Senders from Going Offline</b>
+			</p>
+			<p>In a multi-site installation, if the primary gateway server goes offline, a secondary
+				gateway sender must take over primary responsibilities as the failover system. The
+				existing secondary gateway sender detects that the primary gateway sender has gone
+				offline, and a secondary one becomes the new primary. Because the queue is
+				distributed, its contents are available to all gateway senders. So, when a secondary
+				gateway sender becomes primary, it is able to start processing the queue where the
+				previous primary left off with no loss of data. </p>
+			<p>If both the primary gateway sender and all its secondary senders go offline and
+				messages are in their queues, data loss could occur, because there is no failover
+				system. </p>
+			<p><b>Verify That isOriginRemote Is Set to False</b>
+			</p>
+			<p>The isOriginRemote flag for a server or a multi-site gateway is set to false by
+				default, which ensures that updates are distributed to other members. Setting its
+				value to true in the server or the receiving gateway member applies updates to that
+				member only, so updates are not distributed to peer members. </p>
+		</section>
 	</conbody>
 </concept>

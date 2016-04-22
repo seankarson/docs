@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept id="concept_65874F58A47C4D10B29248BBF0635BFC">
+    <title>Multi-Site (WAN) Deployment Security</title>
+    <shortdesc>In addition to peer and client authentication, <keyword keyref="product_name_long"/>
+        can authenticate remote sites.</shortdesc>
+    <conbody>
+        <p>The following list covres guidelines for implementing security in multi-site (WAN)
+                deployments:<ul id="ul_grw_hnb_rr">
+                <li>Implement membership authentication. Depending on your installation and security
+                    requirements, you may use a combination of peer-to-peer, client/server, and
+                    multi-site settings. </li>
+                <li>Joining members provide credentials to existing members who check the
+                    credentials and either reject the joining member or approve it. In terms of
+                    multi-site authentication, gateway senders and gateway receivers mutually
+                    authenticate each other when they connect.</li>
+                <li>If you want to use secure socket layer (SSL) protocol for your peer-to-peer and
+                    client/server connections, implement that. You can configure SSL separately for
+                    peer-to-peer, client/server, JMX, and WAN gateway connections.</li>
+            </ul></p>
+        <section>
+            <title>Gateway SSL Configuration</title>
+            <p> The following table lists the SSL configuration property names used to configure SSL
+                for peer-to-peer and WAN gateway connections. Remember that if you do not define a
+                client/server, JMX, or WAN property, then GemFire uses the property value defined
+                for peer-to-peer communication (cluster-ssl*) or the default peer-to-peer property
+                value if unspecified. </p>
+            <table frame="all" id="table_jpw_wqr_n4">
+                <title>SSL Configuration Property Names by Connection Type</title>
+                <tgroup cols="2">
+                    <colspec colname="c1" colnum="1" colwidth="1.0*"/>
+                    <colspec colname="c4" colnum="2" colwidth="1.0*"/>
+                    <thead>
+                        <row>
+                            <entry>Peer-to-Peer Connection Property <p>(provides default value for
+                                    all other connection types)</p></entry>
+                            <entry>WAN Gateway Connection Property</entry>
+                        </row>
+                    </thead>
+                    <tbody>
+                        <row>
+                            <entry>cluster-ssl-enabled</entry>
+                            <entry>gateway-ssl-enabled</entry>
+                        </row>
+                        <row>
+                            <entry>cluster-ssl-ciphers</entry>
+                            <entry>gateway-ssl-ciphers</entry>
+                        </row>
+                        <row>
+                            <entry>cluster-ssl-protocols</entry>
+                            <entry>gateway-ssl-protocols</entry>
+                        </row>
+                        <row>
+                            <entry>cluster-ssl-require-authentication</entry>
+                            <entry>gateway-ssl-require-authentication</entry>
+                        </row>
+                        <row>
+                            <entry>cluster-ssl-keystore-type</entry>
+                            <entry>gateway-ssl-keystore-type</entry>
+                        </row>
+                        <row>
+                            <entry>cluster-ssl-keystore</entry>
+                            <entry>gateway-ssl-keystore</entry>
+                        </row>
+                        <row>
+                            <entry>cluster-ssl-keystore-password</entry>
+                            <entry>gateway-ssl-keystore-password</entry>
+                        </row>
+                        <row>
+                            <entry>cluster-ssl-truststore</entry>
+                            <entry>gateway-ssl-truststore</entry>
+                        </row>
+                        <row>
+                            <entry>cluster-ssl-keystore-password</entry>
+                            <entry>gateway-ssl-keystore-password</entry>
+                        </row>
+                    </tbody>
+                </tgroup>
+            </table>
+            <p>If you configure the above peer-to-peer SSL properties, then by default <keyword
+                    keyref="product_name"/> uses the same SSL property values for all stream-socket
+                communication. This includes communication between cache servers and clients,
+                between the JMX manager and JMX clients, and between two <keyword
+                    keyref="product_name"/> distributed systems connected by a WAN gateway. </p>
+        </section>
+    </conbody>
+</concept>

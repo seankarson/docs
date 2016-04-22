@@ -1,0 +1,378 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE dita PUBLIC "-//OASIS//DTD DITA Composite//EN" "ditabase.dtd">
+<dita>
+	<topic id="resource_manager">
+
+<title>Managing Heap and Off-heap Memory</title>
+		<shortdesc>By default, <keyword keyref="product_name_long"/> uses the JVM heap. <keyword
+				keyref="product_name_long"/> also offers an option to store data off heap. This
+			section describes how to manage heap and off-heap memory to best support your
+			application. </shortdesc>
+</topic>
+	<concept id="section_590DA955523246ED980E4E351FF81F71">
+		<title>Tuning the JVM's Garbage Collection Parameters</title>
+		<shortdesc>Because <keyword keyref="product_name_long"/> is specifically designed to manipulate
+			data held in memory, you can optimize your application's performance by tuning the way
+				<keyword keyref="product_name_long"/> uses the JVM heap. </shortdesc>
+		<conbody>
+			<p>See your JVM documentation for all JVM-specific settings that can be used to improve garbage
+				collection (GC) response. At a minimum, do the following: <ol
+					id="ol_DC01BC62088F413FBE75A5644C8B6A3F">
+					<li id="li_0A1C47243C794135BD920F295FA6A0FC">Set the initial and maximum heap
+						switches, <codeph>-Xms</codeph> and <codeph>-Xmx</codeph>, to the same
+						values. The <codeph>gfsh start server</codeph> options
+							<codeph>--initial-heap</codeph> and <codeph>--max-heap</codeph>
+						accomplish the same purpose, with the added value of providing resource
+						manager defaults such as eviction threshold and critical threshold.</li>
+					<li id="li_9FB6FB8C5963422EA08C314AF2895B40">Configure your JVM for concurrent
+						mark-sweep (CMS) garbage collection. </li>
+					<li id="li_74E207A05D1643F98DCF91C64969DDA9">If your JVM allows, configure it to
+						initiate CMS collection when heap use is at least 10% lower than your
+						setting for the resource manager <codeph>eviction-heap-percentage</codeph>.
+						You want the collector to be working when <keyword keyref="product_name"/>
+						is evicting or the evictions will not result in more free memory. For
+						example, if the <codeph>eviction-heap-percentage</codeph> is set to 65, set
+						your garbage collection to start when the heap use is no higher than 55%.
+					</li>
+				</ol>
+			</p>
+			<table id="table_7CD0BD404DAB41D0B4253D2B993FBDD9">
+				<tgroup cols="3">
+					<colspec colname="1" colnum="1" colwidth="110"/>
+					<colspec colname="2" colnum="2" colwidth="230"/>
+					<colspec colname="3" colnum="3" colwidth="320"/>
+					<thead>
+						<row>
+							<entry>JVM </entry>
+							<entry>CMS switch flag </entry>
+							<entry>CMS initiation (begin at heap % N) </entry>
+						</row>
+					</thead>
+					<tbody>
+						<row>
+							<entry>Sun HotSpot </entry>
+							<entry>
+								<codeph>&#x2011;XX:+UseConcMarkSweepGC</codeph>
+							</entry>
+							<entry>
+								<codeph>&#x2011;XX:CMSInitiatingOccupancyFraction=N</codeph>
+							</entry>
+						</row>
+						<row>
+							<entry>JRockit </entry>
+							<entry>
+								<codeph>-Xgc:gencon</codeph>
+							</entry>
+							<entry>
+								<codeph>-XXgcTrigger:N</codeph>
+							</entry>
+						</row>
+						<row>
+							<entry>IBM </entry>
+							<entry>
+								<codeph>-Xgcpolicy:gencon</codeph>
+							</entry>
+							<entry>N/A </entry>
+						</row>
+					</tbody>
+				</tgroup>
+			</table>
+			<p>For the <codeph>gfsh start server</codeph> command, pass these settings with the
+				<codeph>--J</codeph> switch, for example: <codeph>&#x2011;&#x2011;J=&#x2011;XX:+UseConcMarkSweepGC</codeph>. </p>
+			<p>The following is an example of setting JVM for an application:<codeblock>$ java app.MyApplication -Xms=30m -Xmx=30m -XX:+UseConcMarkSweepGC -XX:CMSInitiatingOccupancyFraction=60</codeblock>
+				<note>Do not use the <codeph>-XX:+UseCompressedStrings</codeph> and
+						<codeph>-XX:+UseStringCache</codeph> JVM configuration properties when
+					starting up servers. These JVM options can cause issues with data corruption and
+					compatibility.</note></p>
+			<p>Or, using
+				<codeph>gfsh</codeph>:<codeblock>$ gfsh start server --name=app.MyApplication --initial-heap=30m --max-heap=30m \
+--J=-XX:+UseConcMarkSweepGC --J=-XX:CMSInitiatingOccupancyFraction=60</codeblock>
+			</p>
+		</conbody>
+	</concept>
+
+<concept id="how_the_resource_manager_works">
+	<title>Using the <keyword keyref="product_name"/> Resource Manager</title>
+	<shortdesc>The <keyword keyref="product_name"/> resource manager works with your JVM's tenured
+			garbage collector to control heap use and protect your member from hangs and crashes due
+			to memory overload. </shortdesc>
+	<conbody>
+		<section id="section_53E80B61991447A2915E8A754383B32D">
+			<p>The <keyword keyref="product_name"/> resource manager prevents the cache from consuming too
+					much memory by evicting old data. If the garbage collector is unable to keep up,
+					the resource manager refuses additions to the cache until the collector has
+					freed an adequate amount of memory.</p>
+			<p>The resource manager has two threshold settings, each expressed as a percentage of
+				the total tenured heap. Both are disabled by default. <ol
+					id="ol_AC9431F3040B4C5499FE2F1FC2A8EFF5">
+					<li id="li_2C361A1F3D9549ABA34B3770894599F0"><b>Eviction Threshold</b>. Above this, the manager
+							orders evictions for all regions with
+								<codeph>eviction-attributes</codeph> set to
+								<codeph>lru-heap-percentage</codeph>. This prompts dedicated
+							background evictions, independent of any application threads and it also
+							tells all application threads adding data to the regions to evict at
+							least as much data as they add. The JVM garbage collector removes the
+							evicted data, reducing heap use. The evictions continue until the
+							manager determines that heap use is again below the eviction threshold.
+								<p>The resource manager enforces eviction thresholds only on regions
+								whose LRU eviction policies are based on heap percentage. Regions
+								whose eviction policies based on entry count or memory size use
+								other mechanisms to manage evictions. See <xref
+									href="../../developing/eviction/chapter_overview.xml"/> for more
+								detail regarding eviction policies.</p></li>
+					<li id="li_0B2E41AD95624A6CAD079D39C5661B10"><b>Critical Threshold</b>. Above this, all
+							activity that might add data to the cache is refused. This threshold is
+							set above the eviction threshold and is intended to allow the eviction
+							and GC work to catch up. This JVM, all other JVMs in the distributed
+							system, and all clients to the system receive
+								<codeph>LowMemoryException</codeph> for operations that would add to
+							this critical member's heap consumption. Activities that fetch or reduce
+							data are allowed. For a list of refused operations, see the Javadocs for
+							the <codeph>ResourceManager</codeph> method
+								<codeph>setCriticalHeapPercentage</codeph>. <p/><p>Critical
+								threshold is enforced on all regions, regardless of LRU eviction
+								policy, though it can be set to zero to disable its effect.</p></li>
+				</ol>
+			</p>
+			<image href="../../images/DataManagement-9.gif"
+				id="image_C3568D47EE1B4F2C9F0742AE9C291BF1" placement="break"/>
+			<p>When heap use passes the eviction threshold in either direction, the manager logs an
+					info-level message. </p>
+				<p>When heap use exceeds the critical threshold, the manager logs an error-level
+					message. Avoid exceeding the critical threshold. Once identified as critical,
+				the <keyword keyref="product_name"/> member becomes a
+				read-only member that refuses cache updates for all of its regions, including
+				incoming distributed updates. </p>
+			<p>For more information, see
+				<codeph>com.gemstone.gemfire.cache.control.ResourceManager</codeph> in the
+				online API documentation. </p>
+		</section>
+		<section id="section_EA5E52E65923486488A71E3E6F0DE9DA">
+			<title>How Background Eviction Is Performed</title>
+			<p>When the manager kicks off evictions: <ol id="ol_F6A52A2AD78149BBBBACA22BBCA896A9">
+				<li id="li_F33A94506303483F96B255BCA0381FA0">From all regions in the local cache
+					that are configured for heap LRU eviction, the background eviction manager
+					creates a randomized list containing one entry for each partitioned region
+					bucket (primary or secondary) and one entry for each non-partitioned region.
+					So each partitioned region bucket is treated the same as a single,
+					non-partitioned region. </li>
+				<li id="li_EADC8BB193D84D6EAFE38EB128724160">The background eviction manager
+					starts four evictor threads for each processor on the local machine. The
+					manager passes each thread its share of the bucket/region list. The manager
+					divides the bucket/region list as evenly as possible by count, and not by
+					memory consumption. </li>
+				<li id="li_DA9CC2A2F156460487FC142A8EF24BFF">Each thread iterates round-robin
+					over its bucket/region list, evicting one LRU entry per bucket/region until
+					the resource manager sends a signal to stop evicting. </li>
+			</ol>
+			</p>
+			<p>See also <xref
+				href="../../reference/topics/memory_requirements_for_cache_data.xml#calculating_memory_requirements"
+				type="concept" format="dita" scope="local"/>. </p>
+		</section>
+	</conbody>
+</concept>
+	<concept id="configuring_resource_manager">
+		<title>Controlling Heap Use with the Resource Manager</title>
+		<shortdesc>Resource manager behavior is closely tied to the triggering of Garbage Collection (GC)
+			activities, the use of concurrent garbage collectors in the JVM, and the number of
+			parallel GC threads used for concurrency. </shortdesc>
+		<conbody>
+			<section id="section_B47A78E7BA0048C89FBBDB7441C308BE">
+				<p>The recommendations provided here for using the manager assume you have a solid
+					understanding of your Java VM's heap management and garbage collection service. </p>
+				<p>The resource manager is available for use in any <keyword keyref="product_name_long"/>
+					member, but you may not want to activate it everywhere. For some members it might be
+					better to occasionally restart after a hang or OME crash than to evict data
+					and/or refuse distributed caching activities. Also, members that do not risk
+					running past their memory limits would not benefit from the overhead 
+					 the resource manager consumes. Cache servers are often configured to use the manager
+					because they generally host more data and have more data activity than other
+					members, requiring greater responsiveness in data cleanup and collection. </p>
+				<p>For the members where you want to activate the resource manager: <ol
+					id="ol_8A9C2BAB102842E49EBF68B494391980">
+					<li id="li_37DDA02E74F54A9E9B271F6DD6DEBA5E">Configure <keyword
+						keyref="product_name"/> for heap LRU management. </li>
+					<li id="li_D536B22DD1834393AB0860A24AA81314">Set the JVM GC tuning parameters to handle heap
+							and garbage collection in conjunction with the <keyword
+								keyref="product_name"/> manager.</li>
+					<li id="li_4539A438E52043ECAE42EAC5774CE6F4">Monitor and tune heap LRU
+						configurations and your GC configurations. </li>
+					<li id="li_313DAC5D943346DAB0281623C4689BC1">Before going into production, run
+						your system tests with application behavior and data loads that approximate
+						your target systems so you can tune as well as possible for production
+						needs. </li>
+					<li id="li_94E859E96DE9463CAA9C85D0EFAE670F">In production, keep monitoring and
+						tuning to meet changing needs. </li>
+				</ol>
+				</p>
+			</section>
+			<section id="section_4949882892DA46F6BB8588FA97037F45">
+				<title>Configure <keyword keyref="product_name"/> for Heap LRU Management</title>
+				<p>The configuration terms used here are <codeph>cache.xml</codeph> elements and
+					attributes, but you can also configure through <codeph>gfsh</codeph> and the
+					<codeph>com.gemstone.gemfire.cache.control.ResourceManager</codeph> and
+					<codeph>Region</codeph> APIs. <ol id="ol_DA0AF4AD773C4697B4A24ACD038396CD">
+						<li>When starting up your server, set <codeph>initial-heap</codeph> and
+							<codeph>max-heap</codeph> to the same value.</li>
+						<li id="li_DD58D1DBAA6742CF96BC8857F54027C9">Set the
+							<codeph>resource-manager</codeph>
+							<codeph>critical-heap-percentage</codeph> threshold. This should be as as
+							close to 100 as possible while still low enough so the manager's response
+							can prevent the member from hanging or getting
+							<codeph>OutOfMemoryError</codeph>. The threshold is zero (no threshold)
+							by default. <p>
+								<note>When you set this threshold, it also enables a query monitoring
+									feature that prevents most out-of-memory exceptions when executing
+									queries or creating indexes. See <xref
+										href="../../developing/querying_basics/monitor_queries_for_low_memory.xml#topic_685CED6DE7D0449DB8816E8ABC1A6E6F"
+									/>.</note>
+							</p>
+						</li>
+						<li id="li_5ABE1BDC58E04777A15B581BA617C88B">Set the
+							<codeph>resource-manager</codeph>
+							<codeph>eviction-heap-percentage</codeph> threshold to a value lower than
+							the critical threshold. This should be as high as possible while still low
+							enough to prevent your member from reaching the critical threshold. The
+							threshold is zero (no threshold) by default. </li>
+						<li id="li_475488CEFD8D48D5BE1CCBAE024D2D7D">Decide which regions will
+							participate in heap eviction and set their
+							<codeph>eviction-attributes</codeph> to
+							<codeph>lru-heap-percentage</codeph>. See <xref
+								href="../../developing/eviction/chapter_overview.xml"
+								type="concept" format="dita" scope="local"/>. The regions you configure
+							for eviction should have enough data activity for the evictions to be useful
+							and should contain data your application can afford to delete or offload to
+							disk. </li>
+					</ol>
+				</p>
+			</section>
+			<section id="section_5D88064B75C643B0849BBD4345A6671B">
+				<p>gfsh
+					example:<codeblock>gfsh&gt;start server --name=server1 --initial-heap=30m --max-heap=30m \
+--critical-heap-percentage=80 --eviction-heap-percentage=60</codeblock></p>
+				<p>cache.xml example: <codeblock>&lt;cache>
+&lt;region refid="REPLICATE_HEAP_LRU" /&gt;
+...
+&lt;resource-manager critical-heap-percentage="80" eviction-heap-percentage="60"/>
+&lt;/cache></codeblock>
+					<note>The <codeph>resource-manager</codeph> specification must appear after the
+						region declarations in your cache.xml file.</note></p>
+			</section>
+			<section><title>Set the JVM GC Tuning Parameters</title>If your JVM allows, configure it to
+				initiate concurrent mark-sweep (CMS) garbage collection when heap use is at least
+				10% lower than your setting for the resource manager
+					<codeph>eviction-heap-percentage</codeph>. You want the collector to be working
+				when <keyword keyref="product_name"/> is evicting or the evictions will not result
+				in more free memory. For example, if the <codeph>eviction-heap-percentage</codeph>
+				is set to 65, set your garbage collection to start when the heap use is no higher
+				than 55%.</section>
+			<section id="section_DE1CC494C2B547B083AA00821250972A">
+				<title>Monitor and Tune Heap LRU Configurations</title>
+				<p>In tuning the resource manager, your central focus should be keeping the member below the
+					critical threshold. The critical threshold is provided to avoid member hangs and
+					crashes, but because of its exception-throwing behavior for distributed updates,
+					the time spent in critical negatively impacts the entire distributed system. To
+					stay below critical, tune so that the <keyword keyref="product_name"/> eviction
+					and the JVM's GC respond adequately when the eviction threshold is reached. </p>
+				<p>Use the statistics provided by your JVM to make sure your memory and GC settings are
+					sufficient for your needs. </p>
+				<p>The <keyword keyref="product_name"/>
+					<codeph>ResourceManagerStats</codeph> provide information about memory use and the
+					manager thresholds and eviction activities. </p>
+				<p>If your application spikes above the critical threshold on a regular basis, try lowering the
+					eviction threshold. If the application never goes near critical, you might raise
+					the eviction threshold to gain more usable memory without the overhead of
+					unneeded evictions or GC cycles. </p>
+				<p>The settings that will work well for your system depend on a number of factors, including
+					these: <dl>
+						<dlentry>
+							<dt>The size of the data objects you store in the cache</dt>
+							<dd>Very large data objects can be evicted and garbage collected
+								relatively quickly. The same amount of space in use by many small
+								objects takes more processing effort to clear and might require
+								lower thresholds to allow eviction and GC activities to keep up.
+							</dd>
+						</dlentry>
+						<dlentry>
+							<dt>Application behavior</dt>
+							<dd>Applications that quickly put a lot of data into the cache can more
+								easily overrun the eviction and GC capabilities. Applications that
+								operate more slowly may be more easily offset by eviction and GC
+								efforts, possibly allowing you to set your thresholds higher than in
+								the more volatile system. </dd>
+						</dlentry>
+						<dlentry>
+							<dt>Your choice of JVM</dt>
+							<dd>Each JVM has its own GC behavior, which affects how efficiently the
+								collector can operate, how quickly it kicks in when needed, and
+								other factors. </dd>
+						</dlentry>
+					</dl>
+				</p>
+			</section>
+		</conbody>
+	</concept>
+	<concept id="resource_manager_example_configurations">
+		<title>Resource Manager Example Configurations</title>
+		<conbody>
+			<section id="section_B50C552B114D47F3A63FC906EB282024">
+				<p>These examples set the critical threshold to 85 percent of the tenured heap and
+					the eviction threshold to 75 percent. The region <codeph>bigDataStore</codeph> is configured to participate in the resource
+					manager's eviction activities. <ul id="ul_3AB02B56AA364E25867FC3A9446F5CC9">
+						<li>gfsh
+							Example:
+							<codeblock>gfsh&gt;start server --name=server1 --initial-heap=30MB --max-heap=30MB \
+--critical-heap-percentage=85 --eviction-heap-percentage=75</codeblock>
+							<codeblock>gfsh>create region --name=bigDataStore --type=PARTITION_HEAP_LRU</codeblock></li>
+						<li id="li_735E11D9356D4A9EB7FC8435387FA9A2">XML: 
+							<codeblock>&lt;cache&gt;
+&lt;region name="bigDataStore" refid="PARTITION_HEAP_LRU"/&gt;
+...	
+&lt;resource-manager critical-heap-percentage="85" eviction-heap-percentage="75"/&gt;
+&lt;/cache&gt;</codeblock>
+							<note>The <codeph>resource-manager</codeph> specification must appear after
+								the region declarations in your cache.xml file.</note></li>
+						<li id="li_5E6AA34E0E5640ECBD3E04EB0150FA0A">Java:
+							<codeblock>Cache cache = CacheFactory.create();
+								
+ResourceManager rm = cache.getResourceManager();
+rm.setCriticalHeapPercentage(85);
+rm.setEvictionHeapPercentage(75);
+								
+RegionFactory rf = 
+  cache.createRegionFactory(RegionShortcut.PARTITION_HEAP_LRU);
+  Region region = rf.create("bigDataStore");</codeblock>
+						</li>
+					</ul>
+				</p>
+			</section>
+			<section id="section_95497FDF114A4DC8AC5D899E05E324E5">
+				<title>Use Case for the Example Code</title>
+				<p>This is one possible scenario for the configuration used in the examples: <ul
+					id="ul_F89443DA5BAC4CCC9F229D24CB27D6E6">
+					<li id="li_D17D2124300F499FBA92ACA65E72BFFE">A 64-bit Sun Java VM 1.6 JVM, with
+						8 Gb of heap space on an 4 CPU system running Linux. </li>
+					<li id="li_AF7898AA2C904AF499FC3BFE953AC8CF">The data region bigDataStore has
+						approximately 2-3 million small values with average entry size of 512 bytes.
+						So approximately 4-6 Gb of the heap is for region storage. </li>
+					<li id="li_7C1C7D9577CB4CEABF93F897498AF4FF">The member hosting the region also
+						runs an application that may take up to 1 Gb of the heap. </li>
+					<li id="li_884C094BAD424735B09B534933BF3A0C">The application must never run out
+						of heap space and has been crafted such that data loss in the region is
+						acceptable if the heap space becomes limited due to application issues, so
+						the default <codeph>lru-heap-percentage</codeph> action destroy is suitable. </li>
+					<li id="li_44F36741108B4B6F8CB3AA1E2B491A8A">The application's service guarantee
+						makes it very intolerant of <codeph>OutOfMemoryException</codeph>s. Testing
+						has shown that leaving 15% head room above the critical threshold when
+						adding data to the region gives 99.5% uptime with no
+						<codeph>OutOfMemoryException</codeph>s, when configured with the CMS
+						garbage collector using
+						<codeph>-XX:CMSInitiatingOccupancyFraction=70</codeph>. </li>
+				</ul>
+				</p>
+			</section>
+		</conbody>
+	</concept>
+	
+</dita>

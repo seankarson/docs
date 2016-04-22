@@ -3,7 +3,162 @@
 <dita>
 	<topic id="topic_45125131A45F4713BBC63E7225AAD91B">
 		<title>stop</title>
-		<shortdesc>Stop locators and servers. </shortdesc>
+		<shortdesc>Stop gateway receivers, gateway senders, locators and servers. </shortdesc>
+		<topic id="topic_CD1D526FD6F84A7B80B25C741129ED30">
+			<title>stop gateway-receiver </title>
+			<shortdesc>Stop the gateway receiver on a member or members.</shortdesc>
+			<body>
+				<p><b> Availability:</b> Online. You must be connected in <codeph>gfsh</codeph> to a
+					JMX Manager member to use this command. </p>
+				<p>
+					<b>Syntax:</b>
+					<codeblock>stop gateway-receiver [--group=value(,value)*] [--member=value]</codeblock>
+					<table id="table_A4F2266D424F474FAF9A5E0281419B4C">
+						<title>Parameters</title>
+						<tgroup cols="2">
+							<colspec colnum="1" colname="col1" colwidth="1.00*"/>
+							<colspec colnum="2" colname="col2" colwidth="4.74*"/>
+							<thead>
+								<row>
+									<entry colname="col1">Name </entry>
+									<entry colname="col2">Description</entry>
+								</row>
+							</thead>
+							<tbody>
+								<row>
+									<entry colname="col1">
+										<parmname> --group</parmname>
+									</entry>
+									<entry colname="col2">Group(s) of members on which to stop the
+										Gateway Receiver. Use a comma-separated list for multiple
+										member groups. </entry>
+								</row>
+								<row>
+									<entry colname="col1">
+										<parmname>--member </parmname>
+									</entry>
+									<entry colname="col2">Name/Id of the member on which to stop the
+										Gateway Receiver. </entry>
+								</row>
+							</tbody>
+						</tgroup>
+					</table>
+				</p>
+				<p>
+					<b>Example Commands:</b>
+					<codeblock>stop gateway-receiver --member=receiver1-LN 
+stop gateway-receiver --group=LN-Group1</codeblock>
+				</p>
+				<p>
+					<b>Sample Output:</b>
+					<codeblock>gfsh&gt;stop gateway-receiver
+      Member                | Result | Message
+--------------------------- | -------| -----------------------------------------------------------------------
+pc13(2266)&lt;v6&gt;:56852        | OK     | GatewayReceiver is stopped on member pc13(2266)&lt;v6&gt;:56852
+pc13(Manager:2242)&lt;v5&gt;:57631| Error  | GatewayReceiver is not available on member pc13(Manager:2242)&lt;v5&gt;:57631
+pc13(2275)&lt;v7&gt;:47480        | OK     | GatewayReceiver is stopped on member pc13(2275)&lt;v7&gt;:47480
+pc13(2293)&lt;v8&gt;:55472        | OK     | GatewayReceiver is stopped on member pc13(2293)&lt;v8&gt;:55472
+
+gfsh&gt;stop gateway-receiver --member=pc13(2266)&lt;v14&gt;:36579
+GatewayReceiver is stopped on member pc13(2266)&lt;v14&gt;:36579
+
+gfsh&gt;stop gateway-receiver --group=RG1
+         Member      | Result | Message
+-------------------- | -------| ----------------------------------------------------------
+pc13(2275)&lt;v23&gt;:27484| OK     | GatewayReceiver is stopped on member pc13(2275)&lt;v23&gt;:27484
+pc13(2293)&lt;v24&gt;:55810| OK     | GatewayReceiver is stopped on member pc13(2293)&lt;v24&gt;:55810
+pc13(2266)&lt;v22&gt;:4522 | OK     | GatewayReceiver is stopped on member pc13(2266)&lt;v22&gt;:4522
+</codeblock>
+				</p>
+			</body>
+		</topic>
+		<topic id="topic_0BBDD4B3B8A44A65A610F766C9E85519">
+			<title>stop gateway-sender</title>
+			<shortdesc>Stop a gateway sender with a given id on a specified member or members of a
+				specified member group. </shortdesc>
+			<body>
+				<p>
+					<note class="- topic/note " type="caution">Use caution with the <codeph>stop
+							gateway-sender</codeph> command (or equivalent
+							<codeph>GatewaySender.stop()</codeph> API) on parallel gateway senders.
+						Instead of stopping an individual parallel gateway sender on a member,
+						Pivotal recommends shutting down the entire member to ensure that proper
+						failover of partition region events to other gateway sender members. Using
+						this command on an individual parallel gateway sender can occur in event
+						loss. See <xref
+							href="../../../topologies_and_comm/topology_concepts/multisite_overview.xml#topic_9AA37B43642D4DE19072CA3367C849BA/section_aqm_2js_bq"
+						/> for more details.</note>
+				</p>
+				<p><b> Availability:</b> Online. You must be connected in <codeph>gfsh</codeph> to a
+					JMX Manager member to use this command. </p>
+				<p>
+					<b>Syntax:</b>
+					<codeblock>stop gateway-sender --id=value [--group=value(,value)*] [--member=value]</codeblock>
+					<table id="table_C5EDFCBDB6F649C6900D9445A4CB20CA">
+						<title>Parameters</title>
+						<tgroup cols="2">
+							<colspec colnum="1" colname="col1" colwidth="1.00*"/>
+							<colspec colnum="2" colname="col2" colwidth="3.48*"/>
+							<thead>
+								<row>
+									<entry colname="col1">Name </entry>
+									<entry colname="col2">Description</entry>
+								</row>
+							</thead>
+							<tbody>
+								<row>
+									<entry colname="col1">
+										<parmname> --id </parmname>
+									</entry>
+									<entry colname="col2"><i>Required.</i> ID of the Gateway Sender.
+									</entry>
+								</row>
+								<row>
+									<entry colname="col1">
+										<parmname> --group</parmname>
+									</entry>
+									<entry colname="col2">Group(s) of members on which to stop the
+										Gateway Sender. </entry>
+								</row>
+								<row>
+									<entry colname="col1">
+										<parmname> --member</parmname>
+									</entry>
+									<entry colname="col2">Name/Id of the member on which to stop the
+										Gateway Sender. </entry>
+								</row>
+							</tbody>
+						</tgroup>
+					</table>
+				</p>
+				<p>
+					<b>Example Commands:</b>
+					<codeblock>stop gateway-sender --id=ln --member=server1</codeblock>
+				</p>
+				<p>
+					<b>Sample Output:</b>
+					<codeblock>gfsh&gt;stop gateway-sender --id=ln
+Member                       | Result | Message
+---------------------------- | ------ | ------------------------------------------------------------------------
+pc13(5184)&lt;v7&gt;:41914         | OK     | GatewaySender ln is stopped on member pc13(5184)&lt;v7&gt;:41914
+pc13(5192)&lt;v8&gt;:25704         | OK     | GatewaySender ln is stopped on member pc13(5192)&lt;v8&gt;:25704
+pc13(5174)&lt;v6&gt;:53996         | OK     | GatewaySender ln is stopped on member pc13(5174)&lt;v6&gt;:53996
+pc13(Manager:5148)&lt;v5&gt;:64040 | Error  | GatewaySender ln is not available on member pc13(Manager:5148)&lt;v5&gt;:64040
+gfsh&gt;stop gateway-sender --id=ln --member=pc13(5174)&lt;v14&gt;:17819
+GatewaySender ln is stopped on member pc13(5174)&lt;v14&gt;:17819
+
+gfsh&gt;stop gateway-sender --id=ln --group=SenderGroup1
+
+Member                | Result | Message
+--------------------- | ------ | -----------------------------------------------------------
+pc13(5174)&lt;v18&gt;:63332 | OK     | GatewaySender ln is stopped on member pc13(5174)&lt;v18&gt;:63332
+pc13(5184)&lt;v19&gt;:20055 | OK     | GatewaySender ln is stopped on member pc13(5184)&lt;v19&gt;:20055
+pc13(5192)&lt;v20&gt;:14622 | OK     | GatewaySender ln is stopped on member pc13(5192)&lt;v20&gt;:14622
+
+</codeblock>
+				</p>
+			</body>
+		</topic>
 		<topic id="topic_EF61C54B35BA4AB7B14E58CF911F283E">
 			<title>stop locator</title>
 			<shortdesc>Stop a locator. </shortdesc>

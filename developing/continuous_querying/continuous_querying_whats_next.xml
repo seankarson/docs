@@ -1,0 +1,229 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "http://docs.oasis-open.org/dita/v1.1/OS/dtd/concept.dtd">
+<concept id="continuous_querying_whats_next">
+	<title>Managing Continuous Querying</title>
+	<shortdesc>This topic discusses CQ management options, CQ states, and retrieving initial result
+		sets. </shortdesc>
+	<prolog>
+		<metadata>
+			<keywords>
+				<keyword> continuous query states</keyword>
+				<keyword> continuous query results</keyword>
+				<keyword> continuous query management</keyword>
+				<keyword> CQ management options</keyword>
+			</keywords>
+		</metadata>
+	</prolog>
+	<conbody>
+		<section>
+			<title>Using CQs from a RegionService Instance</title>
+			<p>If you are running durable client queues (CQs) from the
+					<codeph>RegionService</codeph> instance, stop and start the offline event
+				storage for the client as a whole. The server manages one queue for the entire
+				client process, so you need to request the stop and start of durable CQ event
+				messaging for the cache as a whole, through the <codeph>ClientCache</codeph>
+				instance. If you closed the <codeph>RegionService</codeph> instances, event
+				processing would stop, but the server would continue to send events, and those
+				events would be lost. </p>
+			<p>Stop with:
+				<codeblock outputclass="language-java">clientCache.close(true);</codeblock>
+			</p>
+			<p>Start up again in this order: <ol id="ol_ryy_hwg_4r">
+					<li>Create <codeph>ClientCache</codeph> instance. </li>
+					<li>Create all <codeph>RegionService</codeph> instances. Initialize CQ
+						listeners. </li>
+					<li>Call <codeph>ClientCache</codeph> instance <codeph>readyForEvents</codeph>
+						method. </li>
+				</ol>
+			</p>
+		</section>
+		<section id="section_35F929682CD24478AF0B2249C5065A27">
+			<title>States of a CQ</title>
+			<p>A CQ has three possible states, which are maintained on the server. You can check
+				them from the client through <codeph>CqQuery.getState</codeph>. </p>
+			<p>
+				<table id="table_42DDDF9FA2534D4CBBEE51D47E09CBFF">
+					<tgroup cols="4">
+						<colspec colname="1" colnum="1" colwidth="1.0*"/>
+						<colspec colname="2" colnum="2" colwidth="1.8*"/>
+						<colspec colname="3" colnum="3" colwidth="2.04*"/>
+						<colspec colname="4" colnum="4" colwidth="3.45*"/>
+						<thead>
+							<row>
+								<entry>Query State </entry>
+								<entry>What does this mean? </entry>
+								<entry>When does the CQ reach this state? </entry>
+								<entry>Notes </entry>
+							</row>
+						</thead>
+						<tbody>
+							<row>
+								<entry>STOPPED </entry>
+								<entry>The CQ is in place and ready to run, but is not running. </entry>
+								<entry>When CQ is first created and after being stopped from a
+									running state. </entry>
+								<entry>A stopped CQ uses system resources. Stopping a CQ only stops
+									the CQ event messaging from server to client. All server-side CQ
+									processing continues, but new CQ events are not placed into the
+									server's client queue. Stopping a CQ does not change anything on
+									the client side (but, of course, the client stops receiving
+									events for the CQ that is stopped). </entry>
+							</row>
+							<row>
+								<entry>RUNNING </entry>
+								<entry>The CQ is running against server region events and the client
+									listeners are waiting for CQ events. </entry>
+								<entry>When CQ is executed from a stopped state. </entry>
+								<entry>This is the only state in which events are sent to the
+									client. </entry>
+							</row>
+							<row>
+								<entry>CLOSED </entry>
+								<entry>The CQ is not available for any further activities. You
+									cannot rerun a closed CQ. </entry>
+								<entry>When CQ is closed by the client and when cache or connection
+									conditions make it impossible to maintain or run. </entry>
+								<entry>The closed CQ does not use system resources. </entry>
+							</row>
+						</tbody>
+					</tgroup>
+				</table>
+			</p>
+		</section>
+		<section id="section_4E308A70BCE44031BB1F37B95B4D06E6">
+			<title>CQ Management Options </title>
+			<p>You manage your CQs from the client side. All calls are executed only for the calling
+				client's CQs. </p>
+			<p>
+				<table id="table_E400DFA8B3E34163AA81EA1D7D9DECE9">
+					<tgroup cols="3">
+						<colspec colname="1" colnum="1" colwidth="*"/>
+						<colspec colname="2" colnum="2" colwidth="*"/>
+						<colspec colname="3" colnum="3" colwidth="*"/>
+						<thead>
+							<row>
+								<entry>Task </entry>
+								<entry>For a single CQ use ... </entry>
+								<entry>For groups of CQs use ... </entry>
+							</row>
+						</thead>
+						<tbody>
+							<row>
+								<entry>Create a CQ </entry>
+								<entry>
+									<codeph>QueryService.newCq</codeph>
+								</entry>
+								<entry>N/A </entry>
+							</row>
+							<row>
+								<entry>Execute a CQ </entry>
+								<entry><codeph>CqQuery.execute</codeph> and
+										<codeph>CqQuery.executeWithInitialResults</codeph>
+								</entry>
+								<entry>
+									<codeph>QueryService.executeCqs</codeph>
+								</entry>
+							</row>
+							<row>
+								<entry>Stop a CQ </entry>
+								<entry>
+									<codeph>CqQuery.stop</codeph>
+								</entry>
+								<entry>
+									<codeph>QueryService.stopCqs</codeph>
+								</entry>
+							</row>
+							<row>
+								<entry>Close a CQ </entry>
+								<entry>
+									<codeph>CqQuery.close</codeph>
+								</entry>
+								<entry>
+									<codeph>QueryService.closeCqs</codeph>
+								</entry>
+							</row>
+							<row>
+								<entry>Access a CQ </entry>
+								<entry><codeph>CqEvent.getCq</codeph> and
+										<codeph>QueryService.getCq</codeph>
+								</entry>
+								<entry>
+									<codeph>QueryService.getCq</codeph>
+								</entry>
+							</row>
+							<row>
+								<entry>Modify CQ Listeners </entry>
+								<entry>
+									<codeph>CqQuery.getCqAttributesMutator</codeph>
+								</entry>
+								<entry>N/A </entry>
+							</row>
+							<row>
+								<entry>Access CQ Runtime Statistics </entry>
+								<entry>
+									<codeph>CqQuery.getStatistics</codeph>
+								</entry>
+								<entry>
+									<codeph>QueryService.getCqStatistics</codeph>
+								</entry>
+							</row>
+							<row>
+								<entry>Get all durable CQs registered on the server </entry>
+								<entry>N/A 
+								</entry>
+								<entry>
+									<codeph>QueryService.getAllDurableCqsFromServer</codeph>
+								</entry>
+							</row>
+						</tbody>
+					</tgroup>
+				</table>
+			</p>
+		</section>
+		<section id="section_B274DA982AE6441288323A1D11B58786">
+			<title>Managing CQs and Durable Clients Using gfsh</title>
+			<p>Using the <codeph>gfsh</codeph> command-line utility, you can perform the following
+				actions: <ul id="ul_953C8243F41949F786BE8F70A7CCB398">
+					<li id="li_B6C9A05373E14376A59974EA8AA83FF4">Close durable clients and durable
+						client CQs. See <xref
+							href="../../tools_modules/gfsh/command-pages/close.xml#topic_27555B1929D7487D9158096BC065D372"
+							type="topic" format="dita" scope="local"/>. </li>
+					<li id="li_B64EB94E7A7C4C349D9ECAF357217E2D">List all durable CQs for a given durable client
+						ID. See <xref href="../../tools_modules/gfsh/command-pages/list.xml"
+							type="topic" format="dita" scope="local"/>. </li>
+					<li id="li_7494D0CE53824CE8B441069854FDD217">Show the subscription event queue
+						size for a given durable client ID. See <xref
+							href="../../tools_modules/gfsh/command-pages/show.xml#topic_395C96B500AD430CBF3D3C8886A4CD2E"
+							type="topic" format="dita" scope="local"/>. </li>
+				</ul>
+			</p>
+		</section>
+		<section id="section_345E9C144EB544FBA61FC9C83BF1C1ED">
+			<title id="cq_initial_result_set">Retrieving an Initial Result Set of a CQ</title>
+			<p>You can optionally retrieve an initial result set when you execute your CQ. To do
+				this, execute the CQ with the <codeph>executeWithInitialResults</codeph> method. The
+				initial <codeph>SelectResults</codeph> returned is the same that you would get if
+				you ran the query ad hoc, by calling <codeph>QueryService.newQuery.execute</codeph>
+				on the server cache, but with the key included. This example retrieves keys and
+				values from an initial result set: </p>
+			<p>
+				<codeblock>SelectResults cqResults = cq.executeWithInitialResults();
+for (Object o : cqResults.asList()) {
+  Struct s = (Struct) o; // Struct with Key, value pair
+  Portfolio p = (Portfolio) s.get("value"); // get value from the Struct
+  String id = (String) s.get("key"); // get key from the Struct
+}</codeblock>
+			</p>
+			<p>If you are managing a data set from the CQ results, you can initialize the set by
+				iterating over the result set and then updating it from your listeners as events
+				arrive. For example, you might populate a new screen with initial results and then
+				update the screen from a CQ listener. </p>
+			<p>If a CQ is executed using the <codeph>ExecuteWithInitialResults</codeph> method, the
+				returned result may already include the changes with respect to the event. This can
+				arise when updates are happening on the region while CQ registration is in progress.
+				The CQ does not block any region operation as it could affect the performance of the
+				region operation. Design your application to synchronize between the region
+				operation and CQ registration to avoid duplicate events from being delivered. </p>
+		</section>
+	</conbody>
+</concept>

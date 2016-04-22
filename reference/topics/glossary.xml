@@ -185,14 +185,14 @@
 		</section>
 		<section id="section_6D18D4A3D0D046E6B3664B4C95065EB3">
 			<title>connection</title>
-			<p>The connection used by an application to access a <keyword keyref="product_name"/>
-				system. A Java application connects to its <keyword keyref="product_name"/>
-				distributed system when it creates its cache. The application must connect to a
-				distributed system to gain access to the <keyword keyref="product_name"/>
-				functionalities. A client connects to a running <keyword keyref="product_name"/>
-				server to distribute data and events between itself and the server tier. These
-				client connections are managed by server connection pools within the client
-				applications. </p>
+			<p>The connection used by an application to access a <keyword keyref="product_name"/> system. A
+				Java application connects to its <keyword keyref="product_name"/> distributed system
+				when it creates its cache. The application must connect to a distributed system to
+				gain access to the <keyword keyref="product_name"/> functionalities. A client
+				connects to a running <keyword keyref="product_name"/> server to distribute data and
+				events between itself and the server tier. These client connections are managed by
+				server connection pools within the client applications. Gateway senders connect to a
+				remote gateway receiver to distribute data events between sites. </p>
 		</section>
 		<section id="section_32D2C413690A4F44BA8F7B0F2AF3CD1A">
 			<title>consumer</title>
@@ -272,10 +272,10 @@
 		</section>
 		<section id="section_672E5F70BE09465589253DEA25FA90EA">
 			<title>disk-store</title>
-			<p>Cache element specifying location and write behavior for disk storage. Used for
-				persistence and overflow of data. The cache can have multiple disk stores, which are
-				specified by name for region attributes, and client subscription queues (for
-				servers). </p>
+			<p>Cache element specifying location and write behavior for disk storage. Used for persistence
+				and overflow of data. The cache can have multiple disk stores, which are specified
+				by name for region attributes,  client subscription queues (for servers), and WAN
+				gateway sender queues. </p>
 		</section>
 		<section id="section_1BE6131144994E89A8F68685D8DCF490">
 			<title>distributed cache</title>
@@ -362,6 +362,16 @@
 		<section id="section_87AAD34154CB49C4A47B88FFDAAFE690">
 			<title>forced disconnect</title>
 			<p>Forcible removal of a member from membership without the member’s consent. </p>
+		</section>
+		<section id="section_A4B70DE75E364C4796B1ADA75A09E935">
+			<title>gateway receiver</title>
+			<p>A gateway receiver defines connection information for receiving region events that
+				were distributed from a gateway sender in a multi-site deployment. </p>
+		</section>
+		<section id="section_1AAED2CD15094B2FBE7B6064176884CD">
+			<title>gateway sender</title>
+			<p>A gateway sender defines a single remote distributed system site and an associated
+				queue for distributing region events in a multi-site deployment. </p>
 		</section>
 		<section id="section_B7B1440197B84F72B1145A44032768C4">
 			<title>gemfire.properties</title>
@@ -712,13 +722,15 @@
 		</section>
 		<section id="section_CC864725C0014791805D2549D87DA545">
 			<title>remote</title>
-			<p>Resident or running in a cache other than the current member’s cache, but connected
-				to the current member’s cache through <keyword keyref="product_name"/>. For example, if a member does not
-				have a data entry in the region in its local cache, it can do a netSearch in an
-				attempt to retrieve the entry from the region in a remote cache within the same
-				distributed system. Or, if the member is a client, it can send a request to a server
-				in an attempt to retrieve the entry from the region in a remote server cache in the
-				server’s distributed system. See also <xref
+			<p>Resident or running in a cache other than the current member’s cache, but connected to the
+				current member’s cache through <keyword keyref="product_name"/>. For example, if a
+				member does not have a data entry in the region in its local cache, it can do a
+				netSearch in an attempt to retrieve the entry from the region in a remote cache
+				within the same distributed system. Or, if the member is a client, it can send a
+				request to a server in an attempt to retrieve the entry from the region in a remote
+				server cache in the server’s distributed system.  In multi-site installations, a
+				gateway sends events from the local cache to remote caches in other distributed
+				systems. See also <xref
 					href="glossary.xml#glossary/section_598D82A75D9842438BB934E01E77266E"
 					type="section" format="dita" scope="local">local</xref>. </p>
 		</section>

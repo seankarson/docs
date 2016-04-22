@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "http://docs.oasis-open.org/dita/v1.1/OS/dtd/concept.dtd">
+<concept id="socket_comm">
+	<title>Configuring Sockets in Multi-Site (WAN) Deployments</title>
+	<shortdesc>When you determine buffer size settings, you try to strike a balance between
+		communication needs and other processing. </shortdesc>
+	<conbody>
+		<p>This table lists the settings for gateway relationships and protocols, and tells where to
+			set them. </p>
+		<p>
+			<table id="table_36E8EA4BDB3E47EA89EDB46149E632CD">
+				<tgroup cols="3">
+					<colspec colnum="1" colname="col1" colwidth="*"/>
+					<colspec colnum="2" colname="col2" colwidth="*"/>
+					<colspec colnum="3" colname="col3" colwidth="*"/>
+					<thead>
+						<row>
+							<entry colname="col1">Protocol / Area Affected </entry>
+							<entry colname="col2">Configuration Location </entry>
+							<entry colname="col3">Property Name </entry>
+						</row>
+					</thead>
+					<tbody>
+						<row>
+							<entry colname="col1">
+								<b>TCP / IP</b>
+							</entry>
+							<entry colname="col2"> --- </entry>
+							<entry colname="col3">--- </entry>
+						</row>
+						<row>
+							<entry colname="col1">Gateway sender </entry>
+							<entry colname="col2"><codeph>gfsh create gateway-sender</codeph>
+									or<p>cache.xml &lt;gateway-sender&gt; </p></entry>
+							<entry colname="col3">socket-buffer-size </entry>
+						</row>
+						<row>
+							<entry colname="col1">Gateway receiver </entry>
+							<entry colname="col2"><codeph>gfsh create gateway-receiver</codeph> or
+								cache.xml &lt;gateway-receiver&gt; </entry>
+							<entry colname="col3">socket-buffer-size </entry>
+						</row>
+					</tbody>
+				</tgroup>
+			</table>
+		</p>
+		<p>
+			<b>TCP/IP Buffer Sizes</b>
+		</p>
+		<p>If possible, your TCP/IP buffer size settings should match across your GemFire
+			installation. At a minimum, follow the guidelines listed here. </p>
+		<p>
+			<ul id="ul_9FD9276320D747968BA88B43075AF8BA">
+				<li><b>Multisite (WAN)</b>. In a multi-site installation using gateways, if the link
+					between sites is not tuned for optimum throughput, it could cause messages to
+					back up in the cache queues. If a receiving queue overflows because of
+					inadequate buffer sizes, it will become out of sync with the sender and the
+					receiver will be unaware of the condition. <p>The gateway sender's
+						socket-buffer-size attribute should match the gateway receiver’s
+						socket-buffer-size attribute for all gateway receivers that the sender
+						connects to, as in these example <codeph>cache.xml</codeph> snippets: </p><p>
+						<codeblock><b>Gateway Sender Socket Buffer Size <codeph>cache.xml</codeph> Configuration: </b>
+
+&lt;gateway-sender id="sender2" parallel="true"
+ remote-distributed-system-id="2"
+ socket-buffer-size="42000"
+ maximum-queue-memory="150"/>
+
+<b>Gateway Receiver Socket Buffer Size <codeph>cache.xml</codeph> Configuration:</b>
+&lt;gateway-receiver start-port="1530" end-port="1551"
+ socket-buffer-size="42000"/&gt;  </codeblock>
+					</p></li>
+			</ul>
+		</p>
+		<p>
+			<note> WAN deployments increase the messaging demands on a <keyword
+					keyref="product_name"/> system. To avoid hangs related to WAN messaging, always
+				set <codeph>conserve-sockets=false</codeph> for GemFire members that participate in
+				a WAN deployment. </note>
+		</p>
+		<section id="section_4A7C60D4471A4339884AA5AAC97B4DAA">
+			<title>Multi-site (WAN) Socket Requirements </title>
+			<p>Each gateway sender and gateway receiver uses a socket to distribute events or to
+				listen for incoming connections from remote sites. <table
+					id="table_53F5D044D20541AFA052F7D82A34712A">
+					<tgroup cols="2">
+						<colspec colnum="1" colname="col1" colwidth="*"/>
+						<colspec colnum="2" colname="col2" colwidth="*"/>
+						<thead>
+							<row>
+								<entry colname="col1">Multi-site Socket Description </entry>
+								<entry colname="col2">Number Used </entry>
+							</row>
+						</thead>
+						<tbody>
+							<row>
+								<entry colname="col1">
+									<p>Listener for incoming connections</p>
+								</entry>
+								<entry colname="col2">
+									<p>summation of the number of gateway-receivers defined for the
+										member </p>
+								</entry>
+							</row>
+							<row>
+								<entry colname="col1">
+									<p>Incoming connection </p>
+								</entry>
+								<entry colname="col2">
+									<p>summation of the total number of remote gateway senders
+										configured to connect to the gateway receiver </p>
+								</entry>
+							</row>
+							<row>
+								<entry colname="col1">
+									<p>Outgoing connection</p>
+								</entry>
+								<entry colname="col2">
+									<p>summation of the number of gateway senders defined for the
+										member </p>
+								</entry>
+							</row>
+						</tbody>
+					</tgroup>
+				</table>
+			</p>
+			<p>Servers are peers in their own distributed system and have the additional socket
+				requirements as noted in the Peer-to-Peer section above. </p>
+		</section>
+		<section id="section_66D11C8E84F941B58800EDB52194B087">
+			<title>Member produces SocketTimeoutException</title>
+			<p>A client, server, gateway sender, or gateway receiver produces a
+				SocketTimeoutException when it stops waiting for a response from the other side of
+				the connection and closes the socket. This exception typically happens on the
+				handshake or when establishing a callback connection. </p>
+			<p>Response: </p>
+			<p>Increase the default socket timeout setting for the member. This timeout is set separately for
+				the client Pool and for the gateway sender and gateway receiver, either in the
+					<codeph>cache.xml</codeph> file or through the API. For a client/server
+				configuration, adjust the "read-timeout" value as described in <xref
+					href="../../reference/topics/client-cache.xml#cc-pool"/> or use the
+					<codeph>com.gemstone.gemfire.cache.client.PoolFactory.setReadTimeout</codeph>
+				method. For a gateway sender or gateway receiver, see <xref
+					href="../../reference/topics/elements_ref.xml#topic_7B1CABCAD056499AA57AF3CFDBF8ABE3"
+					>WAN Configuration</xref>. </p>
+		</section>
+	</conbody>
+</concept>

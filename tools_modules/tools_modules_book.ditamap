@@ -28,6 +28,8 @@
 				<topicref format="dita"
 					href="gfsh/quick_ref_commands_by_area.xml#topic_8BB061D1A7A9488C819FE2B7881A1278"/>
 				<topicref format="dita"
+					href="gfsh/quick_ref_commands_by_area.xml#topic_F0AE5CE40D6D49BF92247F5EF4F871D2"/>
+				<topicref format="dita"
 					href="gfsh/quick_ref_commands_by_area.xml#topic_B742E9E862BA457082E2346581C97D03"/>
 				<topicref format="dita"
 					href="gfsh/quick_ref_commands_by_area.xml#topic_688C66526B4649AFA51C0F72F34FA45E"/>
@@ -65,6 +67,8 @@
 					<topicref format="dita"
 						href="gfsh/command-pages/close.xml#topic_4125AAAB9FE44CD787166E48B694C41D"
 						navtitle="close durable-client" scope="local" type="topic"/>
+					<topicref format="dita" href="gfsh/command-pages/close.xml#topic_1BC15B3132BA480DB227921A9B3ABDD1" 
+						navtitle="close durable-cq" scope="local" type="topic"/>
 				</topicref>
 				<topicref format="dita" href="gfsh/command-pages/compact.xml" navtitle="compact"
 					scope="local" type="topic">
@@ -83,6 +87,8 @@
 					<topicref href="gfsh/command-pages/create.xml#topic_ryz_pb1_dk"/>
 					<topicref href="gfsh/command-pages/create.xml#topic_w2t_l3m_qq"/>
 					<topicref href="gfsh/command-pages/create.xml#topic_bkn_zty_ck"/>
+					<topicref href="gfsh/command-pages/create.xml#topic_a4x_pb1_dk"/>
+					<topicref href="gfsh/command-pages/create.xml#topic_hg2_bjz_ck"/>
 					<topicref format="dita"
 						href="gfsh/command-pages/create.xml#topic_960A5B6FD3D84E1881EE118E299DD12D"
 						navtitle="create index" scope="local" type="topic"/>
@@ -181,9 +187,15 @@
 					<topicref format="dita"
 						href="gfsh/command-pages/list.xml#topic_BC14AD57EA304FB3845766898D01BD04"
 						navtitle="list disk-stores" scope="local" type="topic"/>
+					<topicref format="dita" 
+						href="gfsh/command-pages/list.xml#topic_66016A698C334F4EBA19B99F51B0204B" 
+						navtitle="list durable-cqs" scope="local" type="topic"/>
 					<topicref format="dita"
 						href="gfsh/command-pages/list.xml#topic_DCC7CCBBEF5942B783A8F2A4A5B2FABF"
 						navtitle="list functions" scope="local" type="topic"/>
+					<topicref format="dita" 
+						href="gfsh/command-pages/list.xml#topic_B1D89671C7B74074899C7D52F15849ED" 
+						navtitle="list gateways" scope="local" type="topic"/>
 					<topicref format="dita"
 						href="gfsh/command-pages/list.xml#topic_B3B51B6DEA484EE086C4F657EC9831F2"
 						navtitle="list indexes" scope="local" type="topic"/>
@@ -194,9 +206,13 @@
 						href="gfsh/command-pages/list.xml#topic_F0ECEFF26086474498598035DD83C588"
 						navtitle="list regions" scope="local" type="topic"/>
 				</topicref>
+				<topicref format="dita" href="gfsh/command-pages/load-balance.xml" navtitle="load-balance"
+					scope="local" type="concept"/>
 				<topicref format="dita" href="gfsh/command-pages/locate.xml" navtitle="locate"
 					scope="local" type="concept"/>
 				<topicref format="dita" href="gfsh/command-pages/netstat.xml" navtitle="netstat"
+					scope="local" type="concept"/>
+				<topicref format="dita" href="gfsh/command-pages/pause.xml" navtitle="pause"
 					scope="local" type="concept"/>
 				<topicref href="gfsh/command-pages/pdx.xml"/>
 				<topicref format="dita" href="gfsh/command-pages/put.xml" navtitle="put"
@@ -207,6 +223,8 @@
 					scope="local" type="concept"/>
 				<topicref format="dita" href="gfsh/command-pages/remove.xml" navtitle="remove"
 					scope="local" type="concept"/>
+				<topicref format="dita" href="gfsh/command-pages/resume.xml" navtitle="resume gateway-sender"
+						scope="local" type="concept"/>
 				<topicref format="dita" href="gfsh/command-pages/revoke.xml"
 					navtitle="revoke missing-disk-store" scope="local" type="concept"/>
 				<topicref format="dita" href="gfsh/command-pages/run.xml" navtitle="run"
@@ -239,6 +257,10 @@
 				<topicref format="dita" href="gfsh/command-pages/start.xml" navtitle="start"
 					scope="local" type="topic">
 					<topicref format="dita"
+						href="gfsh/command-pages/start.xml#topic_67738A5B68E84DEE95D1C92DAB2E26E5"/>
+					<topicref format="dita"
+						href="gfsh/command-pages/start.xml#topic_AB8BA3F42B9645A8BE9BD97CE2F839A8"/>
+					<topicref format="dita"
 						href="gfsh/command-pages/start.xml#topic_D00507416F3944DFAB48D2FA2B9E4A31"
 						navtitle="start jconsole" scope="local" type="topic"/>
 					<topicref format="dita"
@@ -247,18 +269,23 @@
 					<topicref format="dita"
 						href="gfsh/command-pages/start.xml#topic_591260CF25D64562A0EDD7260D2AC6D4"
 						navtitle="start locator" scope="local" type="topic"/>
-				<!-- Pulse is not in the Apache Geode incubating M1 release
 						<topicref format="dita"
 						href="gfsh/command-pages/start.xml#topic_E906BA7D9E7F4C5890FEFA7ECD40DD77"
 						navtitle="start pulse" scope="local" type="topic"/>
-				-->
 					<topicref format="dita"
 						href="gfsh/command-pages/start.xml#topic_3764EE2DB18B4AE4A625E0354471738A"
 						navtitle="start server" scope="local" type="topic"/>
 				</topicref>
 				<topicref format="dita" href="gfsh/command-pages/status.xml" navtitle="status"
 					scope="local" type="topic">
-					<topicref href="gfsh/command-pages/status.xml#topic_ts1_qb1_dk2"/>
+					<topicref href="gfsh/command-pages/status.xml#topic_ts1_qb1_dk2"
+						navtitle="status status cluster-config-service" scope="local" type="topic"/>
+					<topicref format="dita"
+						href="gfsh/command-pages/status.xml#topic_B0F45DC2D5F64FB1A2F738206BC6539E"
+						navtitle="status gateway-receiver" scope="local" type="topic"/>
+					<topicref format="dita"
+						href="gfsh/command-pages/status.xml#topic_6F539877F0564F05AF264A9E704EC842"
+							navtitle="status gateway-sender" scope="local" type="topic"/>
 					<topicref format="dita"
 						href="gfsh/command-pages/status.xml#topic_E96D0EFA513C4CD79B833FCCDD69C832"
 						navtitle="status locator" scope="local" type="topic"/>
@@ -269,16 +296,20 @@
 				<topicref format="dita" href="gfsh/command-pages/stop.xml" navtitle="stop"
 					scope="local" type="topic">
 					<topicref format="dita"
-						href="gfsh/command-pages/stop.xml#topic_EF61C54B35BA4AB7B14E58CF911F283E"
-						navtitle="stop locator" scope="local" type="topic"/>
+						href="gfsh/command-pages/stop.xml#topic_CD1D526FD6F84A7B80B25C741129ED30"
+						navtitle="stop gateway-receiver" scope="local" type="topic"/>
+					<topicref format="dita"
+						href="gfsh/command-pages/stop.xml#topic_0BBDD4B3B8A44A65A610F766C9E85519"
+							navtitle="stop gateway-sender" scope="local" type="topic"/>
+					<topicref format="dita"
+							href="gfsh/command-pages/stop.xml#topic_EF61C54B35BA4AB7B14E58CF911F283E"
+							navtitle="stop locator" scope="local" type="topic"/>
 					<topicref format="dita"
 						href="gfsh/command-pages/stop.xml#topic_723EE395A63A40D6819618AFC2902115"
 						navtitle="stop server" scope="local" type="topic"/>
 				</topicref>
 				<topicref format="dita" href="gfsh/command-pages/undeploy.xml" navtitle="undeploy"
 					scope="local" type="concept"/>
-				<topicref format="dita" href="gfsh/command-pages/upgrade.xml"
-					navtitle="upgrade offline-disk-store" scope="local" type="topic"/>
 				<topicref format="dita" href="gfsh/command-pages/validate.xml"
 					navtitle="validate offline-disk-store" scope="local" type="concept"/>
 				<topicref format="dita" href="gfsh/command-pages/version.xml" navtitle="version"
@@ -294,7 +325,7 @@
 			<topicref format="dita" href="gemcached/deploying_gemcached.xml"/>
 			<topicref format="dita" href="gemcached/advantages.xml"/>
 		</topicref>
-<!-- HTTP session managment module documentation commented out for Geode alpha release 
+<!-- HTTP session management module documentation commented out for Geode alpha release 
 
 		<topicref format="dita"
 			href="http_session_mgmt/chapter_overview.xml">
@@ -348,14 +379,19 @@
 			</topicref>
 		</topicref>
 end of commenting out HTTP session state mgmt module for Geode alpha release -->
-<!-- Pulse documentation commented out for Geode M1 release 
+
 		<topicref href="pulse/chapter_overview.xml">
 			<topicref href="pulse/quickstart.xml#topic_523F6DE33FE54307BBE8F83BB7D9355D"/>
 			<topicref href="pulse/quickstart.xml#topic_795C97B46B9843528961A094EE520782"/>
 			<topicref href="pulse/quickstart.xml#topic_AC9FFAA6FB044279BAED7A3E099E07AC"/>
 			<topicref href="pulse/quickstart.xml#topic_F0ECE9E8179541CCA3D6C5F4FBA84404"/>
 		</topicref>
--->		
+		<topicref href="redis_adapter.xml">
+			<topicref href="redis_adapter.xml#using-the-redis-adapter"/>
+			<topicref href="redis_adapter.xml#how-the-redis-adapter-works"/>
+			<topicref href="redis_adapter.xml#advantages-of-geode-over-redis"/>
+		</topicref>
+	
 		
 	</part>
 </bookmap>

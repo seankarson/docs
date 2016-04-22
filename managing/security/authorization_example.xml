@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "http://docs.oasis-open.org/dita/v1.1/OS/dtd/concept.dtd">
+<concept id="authorization_example">
+	<title>Authorization Example</title>
+	<shortdesc>This topic discusses the authorization example provided in the product under
+			<codeph>templates/security</codeph> using <codeph>XmlAuthorization.java</codeph>,
+			<codeph>XmlErrorHandler.java</codeph>, and <codeph>authz6_0.dtd</codeph>. </shortdesc>
+	<conbody>
+		<p>The security implementation of every installation is unique, so this example cannot be
+			used as is. This example intends to provide a starting point. Modify it to handle the
+			implementation-specific needs of your system.</p>
+		<p><codeph>XmlAuthorization</codeph> provides authorization for each region at the operation
+			level by using the permissions specified in an XML file. The sample implementation also
+			shows the post-authorization implementation for the function execution operation. For
+			pre-operation, all the required values are available. </p>
+		<p>You can configure authorization for all server region operations on a per-region and
+			per-operation basis by using a role-based mechanism. A role can be provided with
+			permissions to execute operations for each region. Each principal name can be associated
+			with a set of roles. </p>
+		<p>Information such as the region reference, arguments, the operation being invoked, and a
+			reference to the cache instance can be made available to the
+				<codeph>XmlAuthorization</codeph> callback. If an authenticated client is not
+			authorized to perform an operation, the operation fails with a
+				<codeph>NotAuthorizedException</codeph>. </p>
+		<section id="section_076277507223430E9455E3DE5150D656">
+			<title>Server Settings</title>
+			<p>These are the <codeph>gemfire.properties</codeph> file (or
+					<codeph>gfsecurity.properties</codeph> file if you are creating a special
+				restricted access file for security configuration) settings for each server:
+				<codeblock>security-client-accessor=templates.security.XmlAuthorization.create
+security-authz-xml-uri=&lt;URI of XML file&gt; </codeblock>
+			</p>
+		</section>
+		<section id="section_85F79DD53FD7453D87DF915A91595218">
+			<title>XML File Sample Settings</title>
+			<p>The <codeph>XmlAuthorization</codeph> sample is configured through an XML file, which
+				is described in the <codeph>authz6_0.dtd</codeph> in the security templates
+				directory. See the dtd for documentation about the elements and attributes you use
+				to configure <codeph>XmlAuthorization</codeph>. To run the example, create an XML
+				file following the dtd specifications. </p>
+			<p>The user names you use should be the strings returned by the
+					<codeph>Principal.getName</codeph> method of the <codeph>Authenticator</codeph>
+				configured on the server </p>
+			<p>This topic lists an example XML file for the dtd. The example defines five roles: <ol
+					id="ol_7115DB2E578D4A9ABA5D700DBDB2FEA6">
+					<li id="li_343A5EB3619B471492D31C5FB8D1C84D"><codeph>reader</codeph>
+					</li>
+					<li id="li_87293679923849BA8751D25965418335"><codeph>writer</codeph>
+					</li>
+					<li id="li_B55E9CB34B6C46D78A148F546E6C1D2D"><codeph>cacheOps</codeph>
+					</li>
+					<li id="li_C11BFEC2032E47208416134DFA676752"><codeph>queryRegions</codeph>
+					</li>
+					<li id="li_0F5F0CDAB3AD4C2291F681841BAA19A4"
+							><codeph>onRegionFunctionExecutor</codeph>
+					</li>
+				</ol>
+			</p>
+			<p>The listing below is a sample XML file: <ul id="ul_16829264085F4197B09F0887E6E68C1A">
+					<li id="li_58F5C6A7A929411DA96A0894BE4AF5D8">The permissions for each of the
+						roles are described in the permission tags. </li>
+					<li id="li_37433F22BD3E457280985475EEDC2214">The <codeph>reader</codeph>,
+							<codeph>writer</codeph>, and <codeph>cacheOps</codeph> roles have no
+						regions mentioned, so they apply to all regions. </li>
+					<li id="li_31DB4B1FC0C64F6AAE5817A0E016C871">The <codeph>queryRegions</codeph>
+						role has permissions on <codeph>Portfolios</codeph> and
+							<codeph>Positions</codeph> regions. </li>
+					<li id="li_DED84AEF28414735AD186988E5EC709B">The role of
+							<codeph>onRegionFunctionExecutor</codeph> can only operate on regions
+							<codeph>secureRegion</codeph> and <codeph>Positions</codeph>, and only
+						with functions with ids <codeph>SecureFunction</codeph> or
+							<codeph>OptimizationFunction</codeph>. On the functions,
+							<codeph>optimizeForWrite</codeph> must be <codeph>false</codeph> and
+							<codeph>keySet</codeph> must be <codeph>KEY-0</codeph> and
+							<codeph>KEY-1</codeph>. </li>
+				</ul>
+				<codeblock>&lt;!DOCTYPE acl PUBLIC
+"-//GemStone Systems, Inc.//GemFire XML Authorization 1.0//EN"
+"http://www.gemstone.com/dtd/authz6_0.dtd"&gt;
+ 
+&lt;acl&gt;
+&lt;role name="reader"&gt;
+  &lt;user&gt;reader&lt;/user&gt;
+  &lt;user&gt;admin&lt;/user&gt;
+&lt;/role&gt;
+&lt;role name="writer"&gt;
+  &lt;user&gt;writer&lt;/user&gt;
+  &lt;user&gt;admin&lt;/user&gt;
+&lt;/role&gt;
+&lt;role name="cacheOps"&gt;
+  &lt;user&gt;admin&lt;/user&gt;
+&lt;/role&gt;
+&lt;role name="queryRegions"&gt;
+  &lt;user&gt;query&lt;/user&gt;
+&lt;/role&gt;
+&lt;role name="onRegionFunctionExecutor"&gt;
+  &lt;user&gt;admin&lt;/user&gt;
+&lt;/role&gt;
+&lt;permission role="cacheOps"&gt;
+  &lt;operation&gt;QUERY&lt;/operation&gt;
+  &lt;operation&gt;EXECUTE_CQ&lt;/operation&gt;
+  &lt;operation&gt;STOP_CQ&lt;/operation&gt;
+  &lt;operation&gt;CLOSE_CQ&lt;/operation&gt;
+  &lt;operation&gt;REGION_CREATE&lt;/operation&gt;
+  &lt;operation&gt;REGION_DESTROY&lt;/operation&gt;
+&lt;/permission&gt;
+&lt;permission role="reader"&gt;
+  &lt;operation&gt;GET&lt;/operation&gt;
+  &lt;operation&gt;REGISTER_INTEREST&lt;/operation&gt;
+  &lt;operation&gt;UNREGISTER_INTEREST&lt;/operation&gt;
+  &lt;operation&gt;KEY_SET&lt;/operation&gt;
+  &lt;operation&gt;CONTAINS_KEY&lt;/operation&gt;
+&lt;/permission&gt;
+&lt;permission role="writer"&gt;
+  &lt;operation&gt;PUT&lt;/operation&gt;
+  &lt;operation&gt;DESTROY&lt;/operation&gt;
+  &lt;operation&gt;REGION_CLEAR&lt;/operation&gt;
+&lt;/permission&gt;
+&lt;permission role="queryRegions" regions="/Portfolios,Positions"&gt;
+  &lt;operation&gt;QUERY&lt;/operation&gt;
+  &lt;operation&gt;EXECUTE_CQ&lt;/operation&gt;
+  &lt;operation&gt;STOP_CQ&lt;/operation&gt;
+  &lt;operation&gt;CLOSE_CQ&lt;/operation&gt;
+&lt;/permission&gt;
+&lt;permission role="onRegionFunctionExecutor" regions="secureRegion,Positions"&gt;
+  &lt;operation functionIds="SecureFunction,OptimizationFunction" 
+    optimizeForWrite="false" keySet="KEY-0,KEY-1"&gt;EXECUTE_FUNCTION&lt;/operation&gt;
+&lt;/permission&gt;
+&lt;/acl&gt;</codeblock>
+			</p>
+		</section>
+	</conbody>
+</concept>

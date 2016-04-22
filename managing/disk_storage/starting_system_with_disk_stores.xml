@@ -1,26 +1,74 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "http://docs.oasis-open.org/dita/v1.1/OS/dtd/concept.dtd">
 <concept id="starting_system_with_disk_stores">
-	<title>Starting and Shutting Down a System with Disk Stores</title>
-	<shortdesc>Start all members with persisted data in parallel. </shortdesc>
+	<title>Start Up and Shut Down with Disk Stores</title>
+	<shortdesc>This section describes what happens during startup and shutdown and provides procedures
+		for those operations.</shortdesc>
 	<conbody>
+		<section>
+			<title>Start Up</title>
+			<p>When you start a member with a persistent region, the data is retrieved from disk
+				stores to recreate the member’s persistent region. If the member does not hold all
+				of the most recent data for the region, then other members have the data, and region
+				creation blocks, waiting for the those other members. A partitioned region with
+				colocated entries also blocks on start up, waiting for the entries of the colocated
+				region to be available. </p>
+			<p>With a log level of info or below, the system provides messaging about the wait.
+				Here, the disk store for server2 has the most recent data for the region, and
+				server1 is waiting for server2.
+				<codeblock>Region /people has potentially stale data. 
+It is waiting for another member to recover the latest data.
+My persistent id:
+
+  DiskStore ID: 6893751ee74d4fbd-b4780d844e6d5ce7
+  Name: server1
+  Location: /10.118.32.49:/home/dsmith/server1/.
+
+Members with potentially new data:
+[
+  DiskStore ID: 160d415538c44ab0-9f7d97bae0a2f8de
+  Name: server2
+  Location: /10.118.32.49:/home/dsmith/server2/.
+]
+Use the "gfsh show missing-disk-stores" command to see all disk stores 
+that are being waited on by other members.</codeblock>
+			</p>
+			<p>When the most recent data is available, the system updates the region, logs a
+				message, and continues the startup.
+				<codeblock>[info 2010/04/09 10:52:13.010 PDT CacheRunner &lt;main&gt; tid=0x1]    
+   Done waiting for the remote data to be available.</codeblock></p>
+			<p>If the member's disk store has data for a region that is never created, the data
+				remains in the disk store.</p>
+			<p>Each member’s persistent regions load and go online as quickly as possible, not
+				waiting unnecessarily for other members to complete. For performance reasons, these
+				actions occur asynchronously: <ul id="ul_btw_4rr_pv">
+					<li>Once at least one copy of each and every bucket is recovered from disk, the
+						region is available. Secondary buckets will load asynchronously. </li>
+					<li> Entry keys are loaded from the key file in the disk store before
+						considering entry values. Once all keys are loaded, <keyword
+							keyref="product_name"/> loads the entry values asynchronously. If a
+						value is requested before it has loaded, the value will immediately be
+						fetched from the disk store. </li>
+				</ul>
+			</p>
+		</section>
 		<section id="section_D0A7403707B847749A22BF9221A2C823">
-			<title>Starting a System</title>
+			<title>Start Up Procedure</title>
 			<p>To start a system with disk stores: <ol id="ol_872ca5d8-8d37-4566-b5a7-4d98be2d29c6">
-					<li id="li_6BD1656398CD493F8B27445F75C4A982"><b>Start all members with persisted data first and
-							at the same time</b>. Exactly how you do this depends on your members.
-							<p> While they are initializing their caches, the members determine
-							which have the most recent region data, and initialize their caches from
-							that. </p>
-						<p>For replicates, where you define persistence only in some of the region's
-							host members, start the persistent replicates before the non-persistent
-							replicates to make sure the data is recovered from disk. </p>
-						<p>This is an example bash script for starting members in parallel. The
-							script waits for the startup to finish and exits with an error status if
-							one of the jobs fails.
+					<li id="li_6BD1656398CD493F8B27445F75C4A982"><b>Start all members with persisted
+							data first and at the same time</b>. Exactly how you do this depends on
+						your members. <p> While they are initializing their regions, the members
+							determine which have the most recent region data, and initialize their
+							regions with the most recent data. </p><p>For replicated regions, where
+							you define persistence only in some of the region's host members, start
+							the persistent replicate members prior to the non-persistent replicate
+							members to make sure the data is recovered from disk. </p><p>This is an
+							example bash script for starting members in parallel. The script waits
+							for the startup to finish. It exits with an error status if one of the
+							jobs fails.
 							<codeblock>#!/bin/bash
-ssh servera "cd /my/directory;  gfsh server start --name=servera &amp;
-ssh serverb "cd /my/directory; gfsh server start --name=serverb &amp;
+ssh servera "cd /my/directory; gfsh start server --name=servera &amp;
+ssh serverb "cd /my/directory; gfsh start server --name=serverb &amp;
 
 STATUS=0;
 for job in `jobs -p`
@@ -33,55 +81,93 @@ done
 exit $STATUS;</codeblock>
 						</p>
 					</li>
-					<li id="li_A8707DF00C7446D3864028598A14406E"><b>Respond to hangs on member startup</b>. If a
-						most recent disk store does not come online, the other members will wait
-						indefinitely rather than come online with stale data. Check for missing disk
-						stores with the <codeph>gfsh show missing-disk-stores</codeph> command. See
-							<xref
+					<li id="li_A8707DF00C7446D3864028598A14406E"><b>Respond to blocked members</b>.
+						When a member blocks waiting for more recent data from another member, the
+						member waits indefinitely rather than coming online with stale data. Check
+						for missing disk stores with the <codeph>gfsh show
+							missing-disk-stores</codeph> command. See <xref
 							href="handling_missing_disk_stores.xml#handling_missing_disk_stores"
 							type="concept" format="dita" scope="local"
-							><?xm-replace_text Handling Missing Disk Stores?></xref>. <ol
-							id="ol_2B2D9F9E1B11478F85120A9E6E6EDC30">
-							<li id="li_23DFA910B1A643BC82A6A3CEEE3DB1EB">If no disk stores are
-								missing, the cache initialization must be slow for some other
-								reason. Check the information on member hangs in <xref
+							><?xm-replace_text Handling Missing Disk Stores?></xref>. <ul
+							id="ul_qtb_xcy_pv">
+							<li>If no disk stores are missing, the cache initialization must be slow
+								for some other reason. Check the information on member hangs in
+									<xref
 									href="../../managing/troubleshooting/diagnosing_system_probs.xml#diagnosing_system_probs"
 									type="concept" format="dita" scope="local"
 									><?xm-replace_text Diagnosing System Problems?></xref>. </li>
-							<li id="li_703DD70716944BE793535FCE6E23E7B3">If disk stores are missing
-								that you think should be there: <ol
-									id="ol_BA4C7EC43C76432987AD690F3FDB46B6">
-									<li id="li_7B9C66674B094AB2851AB992117B13C7">Make sure you have
-										started the member. Check the logs for any failure messages.
-										See <xref scope="local"
+							<li>If disk stores are missing that you think should be there: <ul
+									id="ul_twq_bdy_pv">
+									<li>Make sure you have started the member. Check the logs for
+										any failure messages. See <xref scope="local"
 											href="../logging/logging.xml#concept_30DB86B12B454E168B80BB5A71268865"
 											type="concept" format="dita"
 											><?xm-replace_text Logging?></xref>. </li>
-									<li id="li_A1798A07319048CA8C80BF37B7FD22E9">Make sure your disk
-										store files are accessible. If you have moved your member or
-										disk store files, you must update your disk store
-										configuration to match. </li>
-								</ol>
-							</li>
-							<li id="li_EEE3DB74D6B84095A30F5673E704192F">If disk stores are missing
-								that you know are lost, because you have deleted them or their files
-								are otherwise unavailable, revoke them so the startup can continue.
-								See <xref
-									href="handling_missing_disk_stores.xml#handling_missing_disk_stores"
-									type="concept" format="dita" scope="local"
-									><?xm-replace_text Handling Missing Disk Stores?></xref>. </li>
-						</ol>
+									<li>Make sure your disk store files are accessible. If you have
+										moved your member or disk store files, you must update your
+										disk store configuration to match.</li>
+								</ul></li>
+							<li>If disk stores are missing that you know are lost, because you have
+								deleted them or their files are otherwise unavailable, revoke them
+								so the startup can continue.</li>
+						</ul>
 					</li>
 				</ol>
 			</p>
 		</section>
+		<section id="section_5E32F488EB5D4E74AAB6BF394E4329D6">
+			<title>Example Startup to Illustrate Ordering</title>
+			<p>The following lists the two possibilities for starting up a replicated persistent
+				region after a shutdown. Assume that Member A (MA) exits first, leaving persisted
+				data on disk for RegionP. Member B (MB) continues to run operations on RegionP,
+				which update its disk store and leave the disk store for MA in a stale condition. MB
+				exits, leaving the most up-to-date data on disk for RegionP.<ul
+					id="ul_7502260991C946B1804B009742795721">
+					<li id="li_7EE18F6D39CF4D9184A194F274CDD268">Restart order 1 <ol
+							id="ol_BEE64732FB554FFD89460953C6561347">
+							<li id="li_4882EB3622CD43869A8E1BABC124C10C">MB is started first. MB
+								identifies that it has the most recent disk data for RegionP and
+								initializes the region from disk. MB does not block.</li>
+							<li id="li_9BDCF00287C84CD798DAFDFD8A797C33">MA is started, recovers its
+								data from disk, and updates region data as needed from the data in
+								MB. </li>
+						</ol>
+					</li>
+					<li id="li_F25155C9DCAB42539FB9755220037FD7">Restart order 2 <ol
+							id="ol_7C728211D0794B89BF543AE83EF167D0">
+							<li id="li_1A26837B310C42D6930EDC6C8F74D1FD">MA is started first.  MA
+								identifies that it does not have the most recent disk data and
+								blocks, waiting for MB to start before recreating RegionP in MA. </li>
+							<li id="li_2DD4785DA379443DB7946377CEACD653">MB is started. MB
+								identifies that it has the most recent disk data for RegionP and
+								initializes the region from disk. </li>
+							<li id="li_A490E0DBF3814C6ABC450D7445CE47AC">MA recovers its RegionP
+								data from disk and updates region data as needed from the data in
+								MB. </li>
+						</ol>
+					</li>
+				</ul>
+			</p>
+		</section>
 		<section>
-			<title>Shutting Down a System</title>
-			<p>With all persistent members running, and with <codeph>gfsh</codeph> connected to the
-				system, shut down all members other than locators with
-				<codeblock>gfsh>shutdown</codeblock></p>
-			<p>Shut down all members including locators
-				with<codeblock>gfsh>shutdown --include-locators=true</codeblock></p>
+			<title>Shutdown</title>
+			<p> If more than one member hosts a persistent region or queue, the order in which the
+				various members shut down may be significant upon restart of the system. The last
+				member to exit the system or shut down has the most up-to-date data on disk. Each
+				member knows which other system members were online at the time of exit or shutdown.
+				This permits a member to acquire the most recent data upon subsequent start up.</p>
+			<p>For a replicated region with persistence, the last member to exit has the most recent
+				data.</p>
+			<p>For a partitioned region every member persists its own buckets. A shutdown using
+					<codeph>gfsh shutdown</codeph> will synchronize the disk stores before exiting,
+				so all disk stores hold the most recent data. Without an orderly shutdown, some disk
+				stores may have more recent bucket data than others. </p>
+			<p>The best way to shut down a system is to invoke the <codeph>gfsh shutdown</codeph>
+				command with all members running. All online data stores will be synchronized before
+				shutting down, so all hold the most recent data copy. To shut down all members other
+				than locators:<codeblock>gfsh>shutdown</codeblock></p>
+			<p>To shut down all members, including
+				locators:<codeblock>gfsh>shutdown --include-locators=true</codeblock></p>
 		</section>
 	</conbody>
 </concept>

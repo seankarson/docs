@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "http://docs.oasis-open.org/dita/v1.1/OS/dtd/concept.dtd">
+<concept id="how_continuous_querying_works">
+	<title>How Continuous Querying Works</title>
+	<shortdesc id="shortdesc_8C5670D1BF9E47729A03EABB56C10E94">Clients subscribe to server-side
+		events by using SQL-type query filtering. The server sends all events that modify the query
+		results. CQ event delivery uses the client/server subscription framework. </shortdesc>
+	<prolog>
+		<metadata>
+			<keywords>
+				<keyword> continuous query data flow</keyword>
+				<keyword> continuous querying architecture</keyword>
+				<keyword> continuous query architecture</keyword>
+				<keyword> continuous query events</keyword>
+			</keywords>
+		</metadata>
+	</prolog>
+	<conbody>
+		<section id="section_D473C4D532E14044820B7D76DEE83450">
+			<p>With CQ, the client sends a query to the server side for execution and receives the
+				events that satisfy the criteria. For example, in a region storing stock market
+				trade orders, you can retrieve all orders over a certain price by running a CQ with
+				a query like this:
+				<codeblock>SELECT * FROM /tradeOrder t WHERE t.price &gt; 100.00</codeblock>When the
+				CQ is running, the server sends the client all new events that affect the results of
+				the query. On the client side, listeners programmed by you receive and process
+				incoming events. For this example query on <codeph>/tradeOrder</codeph>, you might
+				program a listener to push events to a GUI where higher-priced orders are displayed.
+				CQ event delivery uses the client/server subscription framework. </p>
+		</section>
+		<section id="section_777DEEA9D1DD45F59EC1BB35789C3A5D">
+			<title>Logical Architecture of Continuous Querying </title>
+			<p>Your clients can execute any number of CQs, with each CQ assigned any number of
+				listeners. </p>
+			<p>
+				<image href="../../images/ContinuousQuerying-1.gif" id="image_B7C36491E8CA4376AEAE4E030C3DF86B"
+					placement="break"/>
+			</p>
+		</section>
+		<section id="section_F0E19919B3F645EF83EACBD7AFDF527E">
+			<title>Data Flow with CQs </title>
+			<p>CQs do not update the client region. This is in contrast to other server-to-client
+				messaging like the updates sent to satisfy interest registration and responses to
+				get requests from the client's <codeph>Pool</codeph>. CQs serve as notification
+				tools for the CQ listeners, which can be programmed in any way your application
+				requires. </p>
+			<p>When a CQ is running against a server region, each entry event is evaluated against
+				the CQ query by the thread that updates the server cache. If either the old or the
+				new entry value satisfies the query, the thread puts a <codeph>CqEvent</codeph> in
+				the client's queue. The <codeph>CqEvent</codeph> contains information from the
+				original cache event plus information specific to the CQ's execution. Once received
+				by the client, the <codeph>CqEvent</codeph> is passed to the
+					<codeph>onEvent</codeph> method of all <codeph>CqListener</codeph>s defined for
+				the CQ. </p>
+			<p>Here is the typical CQ data flow for entries updated in the server cache: <ol
+					id="ol_806F719D2EBF42AE86C84509B15A1F50">
+					<li id="li_5815225F93EA4D538E77F5DFF41C9F20">Entry events come to the server's
+						cache from the server or its peers, distribution from remote sites, or
+						updates from a client. </li>
+					<li id="li_EB9A80C4EBF14590BD600F25208857B2">For each event, the server's CQ
+						executor framework checks for a match with its running CQs. </li>
+					<li id="li_C823E9EA806940FE9951D71E61DFEAF9">If the old or new entry value
+						satisfies a CQ query, a CQ event is sent to the CQ's listeners on the client
+						side. Each listener for the CQ gets the event. </li>
+				</ol>
+			</p>
+			<p>In the following figure: <ul id="ul_93261E8039304D5D840779BF19815ECA">
+					<li id="li_7B344202AAC84E2C9A4369FDB13B5341">Both the new and old prices for
+						entry X satisfy the CQ query, so that event is sent indicating an update to
+						the query results. </li>
+					<li id="li_0F84B0550D464B20B7A07F6C5DD4C89D">The old price for entry Y satisfied
+						the query, so it was part of the query results. The invalidation of entry Y
+						makes it not satisfy the query. Because of this, the event is sent
+						indicating that it is destroyed in the query results. </li>
+					<li id="li_8C380CCD235748F4A5866E65A65A2FCC">The price for the newly created
+						entry Z does not satisfy the query, so no event is sent. </li>
+				</ul>
+			</p>
+			<p>
+				<image href="../../images/ContinuousQuerying-3.gif" id="image_2F21A3820906449FAABE7ACC9654A564"
+					placement="break"/>
+			</p>
+		</section>
+		<section id="section_819CDBA814024315A6DDA83BD56D125C">
+			<title>CQ Events</title>
+			<p>CQ events do not change your client cache. They are provided as an event service
+				only. This allows you to have any collection of CQs without storing large amounts of
+				data in your regions. If you need to persist information from CQ events, program
+				your listener to store the information where it makes the most sense for your
+				application. </p>
+			<p>The <codeph>CqEvent</codeph> object contains this information: <ul
+					id="ul_86204F971C464F1EB994C731C56D3D3D">
+					<li id="li_37FB1BDB286F4834BA8D06F6FA913018">Entry key and new value. </li>
+					<li id="li_ADBE9D64F29F4C44BD3387B6EE2914B7">Base operation that triggered the
+						cache event in the server. This is the standard <codeph>Operation</codeph>
+						class instance used for cache events in GemFire. </li>
+					<li id="li_8F4BB7AF2E64435DB5321BE128816E10"><codeph>CqQuery</codeph> object
+						associated with this CQ event. </li>
+					<li id="li_8276B03E5EEF41F4A624A7ADB1A5829A"><codeph>Throwable</codeph> object,
+						returned only if an error occurred when the <codeph>CqQuery</codeph> ran for
+						the cache event. This is non-null only for <codeph>CqListener</codeph>
+						onError calls. </li>
+					<li id="li_DF965F2555A44250915BF03F6D1D5B09">Query operation associated with
+						this CQ event. This operation describes the change affected to the query
+						results by the cache event. Possible values are: <ul
+							id="ul_6E3CA816C5834EAEB0F415EE34B7B164">
+							<li id="li_E2841908CC124D788D6A83465B45806C"><codeph>CREATE</codeph>,
+								which corresponds to the standard database </li>
+							<li id="li_0100C696A9D345F2882285B6B99989C7"><codeph>INSERT</codeph>
+								operation </li>
+							<li id="li_CF8DB41105C649A7AC08795C6D61F40E"><codeph>UPDATE</codeph>
+							</li>
+							<li id="li_00CC3E0ABF7A49F7814BFEE587200E7B"><codeph>DESTROY</codeph>,
+								which corresponds to the standard database DELETE operation </li>
+						</ul>
+					</li>
+				</ul>
+			</p>
+			<p>Region operations do not translate to specific query operations and query operations
+				do not specifically describe region events. Instead, the query operation describes
+				how the region event affects the query results. </p>
+			<p>
+				<table id="table_F12FE3ECDDC24B1AB16DD5756A5C745B" frame="all">
+					<tgroup cols="3" colsep="1" rowsep="1">
+						<colspec colname="1" colnum="1" colwidth="*"/>
+						<colspec colname="2" colnum="2" colwidth="*"/>
+						<colspec colname="3" colnum="3" colwidth="*"/>
+						<thead>
+							<row>
+								<entry>Query operations based on old and new entry values </entry>
+								<entry> New value does not satisfy the query </entry>
+								<entry> New value satisfies the query </entry>
+							</row>
+						</thead>
+						<tbody>
+							<row>
+								<entry>Old value does not satisfy the query </entry>
+								<entry>no event </entry>
+								<entry><codeph>CREATE</codeph> query operation </entry>
+							</row>
+							<row>
+								<entry>Old value does satisfies the query </entry>
+								<entry><codeph>DESTROY</codeph> query operation </entry>
+								<entry><codeph>UPDATE</codeph> query operation </entry>
+							</row>
+						</tbody>
+					</tgroup>
+				</table>
+			</p>
+			<p>You can use the query operation to decide what to do with the
+					<codeph>CqEvent</codeph> in your listeners. For example, a
+					<codeph>CqListener</codeph> that displays query results on screen might stop
+				displaying the entry, start displaying the entry, or update the entry display
+				depending on the query operation. </p>
+		</section>
+		<section id="section_bfs_llr_gr">
+			<title>Region Type Restrictions for CQs</title>
+			<p>You can only create CQs on replicated or partitioned regions. If you attempt to create a CQ on
+				a non-replicated or non-partitioned region, you will receive the following error
+				message:<codeblock>The region &lt;region name&gt; specified in CQ creation is neither replicated nor partitioned; only replicated or partitioned regions are allowed in CQ creation.</codeblock>In
+				addition, you cannot create a CQ on a replicated region with eviction setting of
+				local-destroy since this eviction setting changes the region's data policy. If you
+				attempt to create a CQ on this kind of region, you will receive the following error
+				message:<codeblock>CQ is not supported for replicated region: &lt;region name&gt; with eviction action: LOCAL_DESTROY</codeblock>See
+				also <xref href="../distributed_regions/managing_distributed_regions.xml"/> for
+				potential issues with setting local-destroy eviction on replicated regions. </p>
+		</section>
+	</conbody>
+</concept>

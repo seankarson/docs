@@ -109,6 +109,7 @@
 			<topicref href="events/how_events_work.xml">
 				<topicref href="events/how_cache_events_work.xml"/>
 				<topicref href="events/how_client_server_distribution_works.xml"/>
+				<topicref href="events/how_multisite_distribution_works.xml"/>
 				<topicref href="events/list_of_event_handlers_and_events.xml"/>
 			</topicref>
 			<topicref href="events/event_handler_overview.xml">
@@ -123,15 +124,22 @@
 				<topicref href="events/configuring_highly_available_servers.xml">
 					<topicref href="events/ha_event_messaging_whats_next.xml"/>
 				</topicref>
-				<topicref href="events/implementing_durable_client_server_messaging.xml">
-					<topicref href="events/durable_event_messaging_whats_next.xml"/>
-				</topicref>
+				<topicref href="events/implementing_durable_client_server_messaging.xml"/>
 				<topicref format="dita" href="events/tune_client_server_event_messaging.xml">
 					<topicref format="dita" href="events/conflate_server_subscription_queue.xml"/>
 					<topicref format="dita" href="events/limit_server_subscription_queue_size.xml"/>
 					<topicref format="dita" href="events/tune_client_message_tracking_timeout.xml"/>
 				</topicref>
 			</topicref>
+<!-- new configuring multi-side (WAN) section STARTS here -->
+			<topicref href="events/configure_multisite_event_messaging.xml">
+                                <topicref
+                                        href="events/configuring_highly_available_gateway_queues.xml"/>
+                                <topicref
+                                        href="events/configuring_gateway_concurrency_levels.xml"/>
+                                <topicref href="events/conflate_multisite_gateway_queue.xml"/>
+                        </topicref>
+<!-- new configuring multi-side (WAN) section ENDS here -->
 		</topicref>
 		<topicref format="dita" href="delta_propagation/chapter_overview.xml">
 			<topicref href="delta_propagation/how_delta_propagation_works.xml"/>
@@ -200,6 +208,14 @@
 				<topicref format="dita" href="query_additional/query_debugging.xml"/>
 			</topicref>
 		</topicref>
+<!-- new topic starts here -->
+		<topicref href="continuous_querying/chapter_overview.xml" format="dita" scope="local"
+                        type="topic" navtitle="Continuous Query">
+                        <topicref type="topic" href="continuous_querying/how_continuous_querying_works.xml"/>
+                        <topicref href="continuous_querying/implementing_continuous_querying.xml" type="topic"/>
+                        <topicref href="continuous_querying/continuous_querying_whats_next.xml" type="topic"/>
+                </topicref>
+<!-- new topic ends here -->
 		<topicref format="dita" href="transactions/chapter_overview.xml" navtitle="Transactions"
 			scope="local" type="topic">
 			<topicref href="transactions/about_transactions.xml" type="topic"/>
@@ -269,19 +285,19 @@
 					<topicref href="transactions/transaction_semantics.xml"/>
 				</topicref>
 			</topicref>
-			<topicref format="dita" href="transactions/JTA_transactions_with_GemFire.xml">
-				<topicref href="transactions/JTA_transactions_with_GemFire.xml#concept_cp1_zx1_wk">
-					<topicref href="transactions/JTA_transactions_with_GemFire.xml#task_j3g_3mn_1l"
+			<topicref format="dita" href="transactions/JTA_transactions.xml">
+				<topicref href="transactions/JTA_transactions.xml#concept_cp1_zx1_wk">
+					<topicref href="transactions/JTA_transactions.xml#task_j3g_3mn_1l"
 					/>
 				</topicref>
-				<topicref href="transactions/JTA_transactions_with_GemFire.xml#concept_csy_vfb_wk"
+				<topicref href="transactions/JTA_transactions.xml#concept_csy_vfb_wk"
 					type="concept">
-					<topicref href="transactions/JTA_transactions_with_GemFire.xml#task_sln_x3b_wk"
+					<topicref href="transactions/JTA_transactions.xml#task_sln_x3b_wk"
 						type="task"/>
 				</topicref>
 				<topicref
-					href="transactions/JTA_transactions_with_GemFire.xml#concept_8567sdkbigige">
-					<topicref href="transactions/JTA_transactions_with_GemFire.xml#task_qjv_khb_wk"
+					href="transactions/JTA_transactions.xml#concept_8567sdkbigige">
+					<topicref href="transactions/JTA_transactions.xml#task_qjv_khb_wk"
 						type="task">
 						<topicref format="dita"
 							href="transactions/configuring_db_connections_using_JNDI.xml" type="topic"/>

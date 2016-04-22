@@ -4,46 +4,47 @@
 	<title>Planning Topology and Communication </title>
 	<shortdesc id="shortdesc_3D09792BB7F54D7886BB78605D7D02FD">Create a topology plan and a detailed
 		list of machines and communication ports that your members will use. Configure your <keyword
-			keyref="product_name_long"/> systems and configure the communication between the
-		systems. </shortdesc>
+			keyref="product_name_long"/> systems and the communication between systems. </shortdesc>
 	<conbody>
 		<section id="section_AC0D7685A2CA4999A40BCEFD514BF599">
+			<title>Determine Protocols and Addresses</title>
 			<p>Your configuration governs how your applications find each other and distribute
-				events and data among themselves. <ol id="ol_1E6289A025014087B9DFC894A5B3F175">
-					<li id="li_AEEAA78479124BC1965D5D902CDD27B0">Work with your system administrator
-						to determine the protocols and addresses you will use for membership and
-						communication. The communication details you determine in this step will be
-						used in the system configuration steps that follow. <ol
-							id="ol_4AD248AF77904667BAE4A8248896D109">
-							<li id="li_E6D9546817224CE1B7B41A18628E9BF3">For each host machine with
-								more than one network adapter card, decide whether to use the
-								default address or one or more non-default bind addresses. You can
-								use different cards for peer and server. </li>
-							<li id="li_618EB76434254A44984E62B3ED8D0C97">Identify any members you
-								want to run as standalone, isolated members, with no member
-								discovery. This is sometimes a good option for clients. It has
-								faster startup, but no peer-to-peer distribution of any kind. </li>
-							<li id="li_AA27A370B606409A9A4E4DF688DBF274">For all non-standalone
-								members: <ul id="ul_02422E597F444E70B28489278A193999">
-									<li id="li_9F09DF00CDCE48ADA21ED7140A809022">Decide how many locators you will use and
-										where they will run. To ensure the most stable startup and
-										availability, use multiple locators run on multiple
-										machines. Create a list of your locators' address and port
-										pairs. You will use the list to configure your system
-										members, any clients, and the locators themselves. </li>
-									<li id="li_85FB8AE15B30494A811F301171087EA1">If you will use multicasting for
-										communication, note the addresses and ports. Select both
-										unique multicast ports and unique addresses for your
-										distributed systems. <note>Use different port numbers for
-											different systems, even if you use different multicast
-											addresses. Some operating systems do not keep
-											communication separate between systems that have unique
-											addresses but the same port number. </note>
-									</li>
-								</ul>
-							</li>
-						</ol>
-					</li>
+				events and data among themselves.</p>
+			<p> Work with your system administrator to determine the protocols and addresses you will use for
+				membership and communication.<ol
+					id="ol_4AD248AF77904667BAE4A8248896D109">
+					<li id="li_E6D9546817224CE1B7B41A18628E9BF3">For each host machine with more
+						than one network adapter card, decide whether to use the default address or
+						one or more non-default bind addresses. You can use different cards for peer
+						and server. </li>
+					<li id="li_618EB76434254A44984E62B3ED8D0C97">Identify any members you want to
+						run as standalone, isolated members with no member discovery. This can be
+						a good option for clients, because it has faster startup but no peer-to-peer
+						distribution of any kind. </li>
+					<li id="li_AA27A370B606409A9A4E4DF688DBF274">For all non-standalone members: <ul
+							id="ul_02422E597F444E70B28489278A193999">
+							<li id="li_9F09DF00CDCE48ADA21ED7140A809022">Decide how many locators
+								you will use and where they will run. To ensure the most stable
+								startup and availability, use multiple locators on multiple
+								machines.</li>
+							<li id="li_lrw_lh1_2v">Create a list of your locators' address and port pairs. You will use
+								the list to configure your system members, any clients, and the
+								locators themselves. </li>
+							<li id="li_85FB8AE15B30494A811F301171087EA1">If you will use
+								multicasting for communication, note the addresses and ports. Select
+								both unique multicast ports and unique addresses for your
+								distributed systems. <note>Use different port numbers for different
+									systems, even if you use different multicast addresses. Some
+									operating systems do not keep communication separate between
+									systems that have unique addresses but the same port number.
+								</note></li>
+						</ul></li>
+				</ol></p>
+		</section>
+		<section id="section_vy1_cg1_2v">
+			<title>Set Up Membership and Communication</title>
+			<p>Using the protocols and addresses you determined above, do the following: <ul
+					id="ol_1E6289A025014087B9DFC894A5B3F175">
 					<li id="li_884B6067FDF141579042360D07AEBE9D">Set up membership in your systems. </li>
 					<li id="li_FF878A26723941B39A02CD496E2C5380">Set up communication between system
 						members. See <xref
@@ -53,7 +54,7 @@
 						between your systems. See <xref
 							href="../cs_configuration/setting_up_a_client_server_system.xml#setting_up_a_client_server_system"
 							type="task" format="dita" scope="local"/>. </li>
-				</ol>
+				</ul>
 			</p>
 		</section>
 	</conbody>

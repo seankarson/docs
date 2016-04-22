@@ -47,10 +47,6 @@
 				regions, where data buckets are divided among members, this can result in some data
 				only on disk and some on disk and in memory. The disk data can be used at member
 				startup to populate the same region. </p>
-			<p>See <xref
-					href="../../managing/disk_storage/how_startup_works_in_system_with_disk_stores.xml"
-					type="concept" format="dita" scope="local"/> for information about the startup
-				process with persistent data. </p>
 		</section>
 		<section id="section_55A7BBEB48574F649C40EB5D3E9CD0AC">
 			<title>Overflow</title>
@@ -78,6 +74,13 @@
 				<image placement="break" id="image_E40D9C2EA238406A991E954477C7EB78"
 					href="../../images_svg/developing_persistence_and_overflow.svg"/>
 			</p>
+		</section>
+		<section>
+			<title>Persistence and Multi-Site Configurations</title>
+			<p>Multi-site gateway sender queues overflow most recently used (MRU) entries. These are
+				the messages that are at the end of the queue and so are last in line to be sent to
+				the remote site. You can also configure gateway sender queues to persist for high
+				availability. </p>
 		</section>
 	</conbody>
 </concept>

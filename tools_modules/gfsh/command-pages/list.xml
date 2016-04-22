@@ -103,8 +103,8 @@ datanode2 | group1_functions.jar | /usr/local/gemfire/deploy/vf.gf#group1_functi
 				cluster</shortdesc>
 			<body>
 				<p> The command also lists the configured disk directories and any Regions, Cache
-					Servers, PDX Serialization and Async Event Queues using Disk Stores to either
-					overflow and/or persist information to disk. Use the <codeph>describe
+					Servers, Gateways, PDX Serialization and Async Event Queues using Disk Stores to
+					either overflow and/or persist information to disk. Use the <codeph>describe
 						disk-store</codeph> command to see the details for a particular Disk Store. </p>
 				<p><b> Availability:</b> Online. You must be connected in <codeph>gfsh</codeph> to a
 					JMX Manager member to use this command. </p>
@@ -131,6 +131,78 @@ No Disk Stores Found
 		</codeblock>
 				</p>
 				<p> </p>
+			</body>
+		</topic>
+		<topic id="topic_66016A698C334F4EBA19B99F51B0204B">
+			<title>list durable-cqs</title>
+			<shortdesc>List durable client CQs associated with the specified durable client id. </shortdesc>
+			<body>
+				<p><b>Availability:</b> Online. You must be connected in <codeph>gfsh</codeph> to a
+					JMX Manager member to use this command. </p>
+				<p><b>Syntax:</b>
+					<codeblock>list durable-cqs --durable-client-id=value [--member=value] [--group=value]
+</codeblock>
+					<table id="table_618C978BA2B442A9A979243B50856885">
+						<title>Parameters</title>
+						<tgroup cols="2">
+							<colspec colnum="1" colname="col1" colwidth="1.00*"/>
+							<colspec colnum="2" colname="col2" colwidth="4.43*"/>
+							<thead>
+								<row>
+									<entry colname="col1">Name </entry>
+									<entry colname="col2">Description</entry>
+								</row>
+							</thead>
+							<tbody>
+								<row>
+									<entry colname="col1"><parmname>--durable-client-id
+										</parmname></entry>
+									<entry colname="col2"><i>Required.</i> The ID used to identify
+										the durable client. </entry>
+								</row>
+								<row>
+									<entry colname="col1"><parmname>--member</parmname>
+									</entry>
+									<entry colname="col2">Name or Id of the member for which the
+										durable client is registered and durable CQs will be
+										displayed. </entry>
+								</row>
+								<row>
+									<entry colname="col1"><parmname>--group</parmname>
+									</entry>
+									<entry colname="col2"> Group of members for which the durable
+										client is registered and durable CQs will be displayed.
+									</entry>
+								</row>
+							</tbody>
+						</tgroup>
+					</table>
+				</p>
+				<p><b>Example Commands</b>:
+					<codeblock>list durable-cqs --durable-client-id=client1</codeblock>
+				</p>
+				<p><b>Sample Output</b>:
+					<codeblock>gfsh&gt;list durable-cqs --durable-client-id=client1
+member  | durable-cq-name
+------- | ---------------
+server3 | cq3
+        | cq1
+        | cq2
+server4 | cq3
+        | cq1</codeblock>
+				</p>
+				<p><b>Error Messages:</b>
+					<codeblock>gfsh&gt;list durable-cqs --durable-client-id=client1
+
+Unable to list durable-cqs for durable-client-id : "client1" due to following reasons.
+
+No client found with client-id : client1
+Occurred on members
+1.server4
+2.server1
+3.server3
+</codeblock>
+				</p>
 			</body>
 		</topic>
 		<topic id="topic_DCC7CCBBEF5942B783A8F2A4A5B2FABF">
@@ -213,6 +285,50 @@ No Functions Found.</codeblock>
 				</p>
 			</body>
 		</topic>
+		<topic id="topic_B1D89671C7B74074899C7D52F15849ED">
+			<title>list gateways</title>
+			<shortdesc>Displays the gateway senders and receivers for a member or members. </shortdesc>
+			<body>
+				<p><b> Availability:</b> Online. You must be connected in <codeph>gfsh</codeph> to a
+					JMX Manager member to use this command. </p>
+				<p><b>Syntax:</b>
+					<codeblock>list gateways [--group=value(,value)*]</codeblock>
+					<table id="table_179071B4E44F464382CAF4F1D1CF0F71">
+						<title>Parameters</title>
+						<tgroup cols="2">
+							<colspec colnum="1" colname="col1" colwidth="1.00*"/>
+							<colspec colnum="2" colname="col2" colwidth="4.28*"/>
+							<thead>
+								<row>
+									<entry colname="col1">Name </entry>
+									<entry colname="col2">Description</entry>
+								</row>
+							</thead>
+							<tbody>
+								<row>
+									<entry colname="col1"><parmname>--member</parmname></entry>
+									<entry colname="col2">Member(s) whose gateways senders and
+										receiver display.</entry>
+								</row>
+								<row>
+									<entry colname="col1"><parmname>--group</parmname>
+									</entry>
+									<entry colname="col2"> Group(s) of members for which Gateway
+										Senders and Receivers will be displayed. Use a comma
+										separated list for multiple groups. </entry>
+								</row>
+							</tbody>
+						</tgroup>
+					</table>
+				</p>
+				<p><b>Example Commands:</b>
+					<codeblock>list gateways</codeblock>
+				</p>
+				<p>
+					
+				</p>
+			</body>
+		</topic>
 		<topic id="topic_B3B51B6DEA484EE086C4F657EC9831F2">
 			<title>list indexes</title>
 			<shortdesc>Display the list of indexes created for all members. </shortdesc>
@@ -252,6 +368,7 @@ No Functions Found.</codeblock>
 list indexes --with-stats</codeblock>
 				</p>
 				<p><b>Sample Output:</b>
+					
 					<codeblock>gfsh&gt;list indexes
 Member Name    |                   Member ID                   | Region Path |   Name   | Type  | Indexed Expression | From Clause
 -------------- | --------------------------------------------- | ----------- | -------- | ----- | ------------------ | -----------
@@ -368,6 +485,17 @@ List of regions
 ---------------
 region1
 region2</codeblock>
+				</p>
+				<p>
+					
+
+
+
+
+
+
+
+
 				</p>
 			</body>
 		</topic>

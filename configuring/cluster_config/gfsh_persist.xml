@@ -108,6 +108,16 @@
           <i>before</i> starting your data members. This command does not affect any currently
         running members in the system. Data members (with cluster configuration enabled) that are
         started after running this command will pick up the new PDX configuration.</p>
+      <p>The following gateway-related commands use the cluster configuration service, and their
+        configuration is saved by locators:</p>
+      <ul id="ul_jrn_x13_mr">
+        <li>
+          <cmdname>create gateway-sender</cmdname>
+        </li>
+        <li>
+          <cmdname>create gateway-receiver</cmdname>
+        </li>
+      </ul>
     </section>
     <section id="section_bn3_23p_y4">
       <title>gfsh Limitations</title>
@@ -144,6 +154,20 @@
         <li>Adding or removing a TransactionListener</li>
         <li>Adding JNDI bindings</li>
         <li>Deleting an AsyncEventQueue</li>
+      </ul>
+      <p>In addition, there are some limitations on configuring gateways using gfsh.You must use
+        cache.xml or the Java APIs to configure the following:</p>
+      <ul id="ul_s15_x11_x5">
+        <li>Configuring a GatewayConflictResolver</li>
+        <li>You cannot specify parameters and values for Java classes for the following: <ul
+            id="ul_t15_x11_x5">
+            <li><codeph>gateway-listener</codeph></li>
+            <li><codeph>gateway-conflict-resolver</codeph></li>
+            <li><codeph>gateway-event-filter</codeph></li>
+            <li><codeph>gateway-transport-filter</codeph></li>
+            <li><codeph>gateway-event-substitution-filter</codeph></li>
+          </ul>
+        </li>
       </ul>
     </section>
     <section id="section_fh1_c3p_y4">

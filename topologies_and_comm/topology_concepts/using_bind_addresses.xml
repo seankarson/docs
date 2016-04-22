@@ -107,6 +107,96 @@ bind-address=194.124.0.104</codeblock>
 </codeblock>
 			</p>
 		</section>
+		<section>
+			<title>Gateway Receiver Communication</title>
+			<p>If you are using multi-site (WAN) topology, you can also configure gateway receiver
+				communication (in addition to peer and server communication) so that each
+				communication type uses its own address. </p>
+			<p>This table lists the settings used for peer, server, and gateway receiver
+				communication, ordered by precedence. For example, for gateway receiver
+				communication, <keyword keyref="product_name"/> searches first for a
+					<codeph>cache.xml</codeph>
+				<codeph>&lt;gateway-receiver&gt;</codeph>
+				<codeph>bind-address</codeph> setting. If that is not set, <keyword
+					keyref="product_name"/> searches for the <codeph>gfsh start server</codeph>
+				<codeph>server-bind-address</codeph> setting, and so on until a setting is found or
+				all possibilities are exhausted. </p>
+			<table id="table_j4n_x1n_4r">
+				<tgroup cols="5">
+					<colspec colname="1" colnum="1" colwidth="4.74*"/>
+					<colspec colname="2" colnum="2" align="center" colwidth="1.54*"/>
+					<colspec colname="3" colnum="3" align="center" colwidth="1.00*"/>
+					<colspec colname="4" colnum="4" align="center" colwidth="1.86*"/>
+					<colspec colname="5" colnum="5" colwidth="3.29*"/>
+					<thead>
+						<row>
+							<entry>Property Setting Ordered by Precedence </entry>
+							<entry>Peer </entry>
+							<entry>Server </entry>
+							<entry>Gateway Receiver </entry>
+							<entry>Syntax </entry>
+						</row>
+					</thead>
+					<tbody>
+						<row>
+							<entry>cache.xml &lt;gateway-receiver&gt; bind-address </entry>
+							<entry> </entry>
+							<entry> </entry>
+							<entry>X </entry>
+							<entry>&lt;gateway-receiver&gt;bind-address=<i>address</i>
+							</entry>
+						</row>
+						<row>
+							<entry>cache.xml &lt;cache-server&gt; bind-address </entry>
+							<entry> </entry>
+							<entry>X </entry>
+							<entry> </entry>
+							<entry>&lt;cache-server&gt;bind-address=<i>address</i>
+							</entry>
+						</row>
+						<row>
+							<entry>gfsh start server command-line --server-bind-address </entry>
+							<entry> </entry>
+							<entry>X </entry>
+							<entry>X </entry>
+							<entry>gfsh start server --server-bind-address=<i>address</i>
+							</entry>
+						</row>
+						<row>
+							<entry>gemfire.properties server-bind-address </entry>
+							<entry> </entry>
+							<entry>X </entry>
+							<entry>X </entry>
+							<entry>server-bind-address=<i>address</i>
+							</entry>
+						</row>
+						<row>
+							<entry>gemfire.properties bind-address </entry>
+							<entry>X </entry>
+							<entry>X </entry>
+							<entry>X </entry>
+							<entry>bind-address=<i>address</i>
+							</entry>
+						</row>
+					</tbody>
+				</tgroup>
+			</table>
+			<p>For example, a member started with these configurations in its
+					<codeph>gemfire.properties</codeph> and <codeph>cache.xml</codeph> files will
+				use three separate addresses for peer, server, and gateway receiver communication: <codeblock>// gemfire.properties setting for peer communication
+bind-address=194.124.0.104</codeblock>
+				<codeblock>//cache.xml settings 
+&lt;cache&gt;
+// Gateway receiver configuration
+  &lt;gateway-receiver start-port="1530" end-port="1551" bind-address="194.124.0.105"/&gt;
+
+// Server communication
+  &lt;cache-server bind-address="194.124.0.106" ...
+
+  &lt;region ...
+</codeblock>
+			</p>
+		</section>
 		<section id="section_B58645AD8C504AF6822315BB94BA2E0B">
 			<title>Locator Communication</title>
 			<p>Set the locator bind address using one of these methods: <ul

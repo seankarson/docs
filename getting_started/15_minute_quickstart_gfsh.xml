@@ -20,10 +20,10 @@
 						keyref="product_name_long"/> processes, data, and applications. See <xref
 						href="../tools_modules/gfsh/chapter_overview.xml"
 					/>. </p>
-				<p>The <i>locator</i> is a <keyword keyref="product_name_long"/> process that tells new,
-					connecting members where running members are located and provides load balancing
-					for server use. A locator, by default, starts up a JMX Manager, which is used
-					for monitoring and managing of a <keyword keyref="product_name"/> cluster. The
+				<p>The <i>locator</i> is a <keyword keyref="product_name"/> process that tells new, connecting
+					members where running members are located and provides load balancing for server
+					use. A locator, by default, starts up a JMX Manager, which is used for
+					monitoring and managing of a <keyword keyref="product_name"/> cluster. The
 					cluster configuration service uses locators to persist and distribute cluster
 					configurations to cluster members. See <xref
 						href="../configuring/running/running_the_locator.xml"/> and <xref
@@ -71,45 +71,39 @@ Cluster configuration service is up and running.
 <!--
       The Steps (in each title) must be renumbered for the M2 release.
 -->
-<!--  COMMENTED OUT FOR M1 RELEASE, WHICH DOES NOT HAVE Pulse
+
 			<section id="section_02C79BFFB5334E78A5856AE1EB1F1F84">
-				<title>Step 3. Start <keyword keyref="product_name"/> Pulse.</title>
-				<p>Start up the browser-based <keyword keyref="product_name"/> Pulse monitoring
-					tool. <keyword keyref="product_name"/> Pulse is a Web Application that provides
+				<title>Step 3. Start Pulse.</title>
+				<p>Start up the browser-based Pulse monitoring
+					tool. Pulse is a Web Application that provides
 					a graphical dashboard for monitoring vital, real-time health and performance of
 						<keyword keyref="product_name"/> clusters, members, and regions. See <xref
 						href="../tools_modules/pulse/chapter_overview.xml"
-					/>.<codeblock>gfsh&gt;start pulse
-Launched <keyword keyref="product_name"/> Pulse</codeblock>This
+					/>.<codeblock>gfsh&gt;start pulse</codeblock> This
 					command launches Pulse and automatically connects you to the JMX Manager running
 					in the Locator. At the Pulse login screen, type in the default username
 						<codeph>admin</codeph> and password <codeph>admin</codeph>. </p>
 				<p>The Pulse application now displays the locator you just started (locator1): </p>
-				<image href="../images/pulse_locator.png" id="image_ign_ff5_t4"/>
+				<image href="../images/pulse_locator.png" id="image_ign_ff5_t4"/>		
 			</section>
--->
 			<section id="section_C617BC1C70EB41B8BCA3691D6E3C891A">
-				<title>Step 3: Start a server.</title>
-				<p>A <keyword keyref="product_name"/> server is a <keyword
-						keyref="product_name_long"/> process that runs as a long-lived, configurable
-					member of a cluster (also called a <i>distributed system</i>). The <keyword
-						keyref="product_name"/> server is used primarily for hosting long-lived data
-					regions and for running standard <keyword keyref="product_name"/> processes such
-					as the server in a client/server configuration. See <xref
-						href="../configuring/running/running_the_cacheserver.xml"
-					/>.</p>
+				<title>Step 4: Start a server.</title>
+				<p>A <keyword keyref="product_name"/> server is a process that runs as a long-lived,
+					configurable member of a cluster (also called a <i>distributed system</i>). The
+						<keyword keyref="product_name"/> server is used primarily for hosting
+					long-lived data regions and for running standard <keyword keyref="product_name"
+					/> processes such as the server in a client/server configuration. See <xref
+						href="../configuring/running/running_the_cacheserver.xml"/>.</p>
 				<p>Start the cache server:
 					<codeblock>gfsh&gt;start server --name=server1 --server-port=40411
 </codeblock></p>
 				<p>This commands starts a cache server named "server1" on the specified port of
 					40411. </p>
-<!--  COMMENTED OUT FOR M1 RELEASE, WHICH DOES NOT HAVE Pulse
 				<p>Observe the changes (new member and server) in Pulse. Try expanding the
 					distributed system icon to see the locator and cache server graphically. </p>
--->
 			</section>
 			<section id="section_3EA12E44B8394C6A9302DF4D14888AF4">
-				<title>Step 4: Create a replicated, persistent region.</title>
+				<title>Step 5: Create a replicated, persistent region.</title>
 				<p>In this step you create a region with the <codeph>gfsh</codeph> command line
 					utility. Regions are the core building blocks of the <keyword
 						keyref="product_name"/> cluster and provide the means for organizing your
@@ -158,18 +152,16 @@ Region | size | 0
 
 </codeblock>
 					</li>
-<!--  COMMENTED OUT FOR M1 RELEASE, WHICH DOES NOT HAVE Pulse
 					<li id="li_1A1D3C3AC94146C1AB2334D6F58BDFA4">In Pulse, click the green cluster
 						icon to see all the new members and new regions that you just added to your
 						cluster. </li>
--->
 				</ol>
 				<p>
 					<note>Keep this <codeph>gfsh</codeph> prompt open for the next steps. </note>
 				</p>
 			</section>
 			<section>
-				<title>Step 5: Manipulate data in the region and demonstrate persistence.</title>
+				<title>Step 6: Manipulate data in the region and demonstrate persistence.</title>
 				<p><keyword keyref="product_name_long"/> manages data as key/value pairs. In most
 					applications, a Java program adds, deletes and modifies stored data. You can
 					also use gfsh commands to add and retrieve data. See <xref
@@ -244,7 +236,7 @@ one</b></codeblock><p>Because
 				</ol>
 			</section>
 			<section>
-				<title>Step 6: Examine the effects of replication.</title>
+				<title>Step 7: Examine the effects of replication.</title>
 				<p>In this step, you start a second cache server. Because regionA is replicated, the
 					data will be available on any server hosting the region. </p>
 				<p>See <xref href="../basic_config/data_regions/chapter_overview.xml#data_regions"
@@ -281,11 +273,9 @@ Key         : 3
 Value Class : java.lang.String
 Old Value   : &lt;NULL>
 </codeblock></li>
-<!--  COMMENTED OUT FOR M1 RELEASE, WHICH DOES NOT HAVE Pulse
 					<li>Open the Pulse application (in a Web browser) and observe the cluster
 						topology. You should see a locator with two attached servers. Click the
 							<uicontrol>Data</uicontrol> tab to view information about regionA.</li>
--->
 					<li>Stop the first cache server with the following
 						command:<codeblock>gfsh>stop server --name=server1
 Stopping Cache Server running in /home/username/my_gemfire/server1 on ubuntu.local[40411] as server1...
@@ -341,7 +331,7 @@ Log File: /home/username/my_gemfire/server2/server2.log
 				</ol>
 			</section>
 			<section>
-				<title>Step 7: Restart the cache servers in parallel.</title>
+				<title>Step 8: Restart the cache servers in parallel.</title>
 				<p>In this step you restart the cache servers in parallel. Because the data is
 					persisted, the data is available when the servers restart. Because the data is
 					replicated, you must start the servers in parallel so that they can synchronize
@@ -459,7 +449,7 @@ NEXT_STEP_NAME : END
 				</ol>
 			</section>
 			<section id="section_E417BEEC172B4E96A92A61DC7601E572">
-				<title>Step 8: Shut down the system including your locators.</title>
+				<title>Step 9: Shut down the system including your locators.</title>
 				<p>To shut down your cluster, do the following: </p>
 				<ol id="ol_4941DF79F7384DF39346AF222FC46EA2">
 					<li id="li_38EBD1508AFC43A99C801C3C515947E5">In the current
@@ -483,7 +473,7 @@ gfsh>
 				</ol>
 			</section>
 			<section id="section_C8694C6BB07E4430A73DDD72ABB473F1">
-				<title>Step 9: What to do next... </title>
+				<title>Step 10: What to do next... </title>
 				<p>Here are some suggestions on what to explore next with <keyword
 						keyref="product_name_long"/>: </p>
 				<ul id="ul_D619F2EB20E24191BE20FCFB547CC294">

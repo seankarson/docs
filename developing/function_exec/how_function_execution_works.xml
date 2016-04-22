@@ -6,44 +6,46 @@
 		<section id="section_881D2FF6761B4D689DDB46C650E2A2E1">
 			<title>Where Functions Are Executed</title>
 			<p>You can execute data-independent functions or data-dependent functions in <keyword
-					keyref="product_name"/>. You run data-independent functions by targeting a
-				specific member or specific members in your distributed system, or by targeting
-				logical member groups on which to execute your function. If you are executing a
-				data-dependent function, you specify a region on which to execute the function. <ul
-					id="ul_CCB842FDAB294745A836BF0B2C192AEA">
-					<li id="li_5522C5F0CB4445D28A8F984B99F69F8F"><b>On a specific member or members.</b> Execute
-						the function in your own distributed system, and specify the member or
-						members where you want to run the function. </li>
-					<li id="li_26F94678990C4756947790F1511436CE"><b>On a specific server or set of servers.</b> If
-						you are connected to a distributed system as a client, you can execute the
-						function on a server or servers configured for a specific connection pool,
-						or on a server or servers connected to a given cache. </li>
-					<li id="li_32D051652A39470BA88184043E4EE044">
-						<b>On member groups or on a single member within each member group.</b> You
-						can organize members into logical member groups. (See <xref
+					keyref="product_name"/> in the following places:</p>
+			<p><b>For Data-independent Functions</b>
+				<ul id="ul_CCB842FDAB294745A836BF0B2C192AEA">
+					<li id="li_5522C5F0CB4445D28A8F984B99F69F8F"><b>On a specific member or
+							members—</b>Execute the function in your own distributed system, and
+						specify the member or members where you want to run the function. </li>
+					<li id="li_26F94678990C4756947790F1511436CE"><b>On a specific server or set of
+							servers—</b>If you are connected to a distributed system as a client,
+						you can execute the function on a server or servers configured for a
+						specific connection pool, or on a server or servers connected to a given
+						cache. </li>
+					<li id="li_32D051652A39470BA88184043E4EE044"><b>On member groups or on a single
+							member within each member group—</b>You can organize members into
+						logical member groups. (See <xref
 							href="../../configuring/chapter_overview.xml#concept_lrh_gyq_s4"/> for
 						more information about using member groups.) You can invoke a data
 						independent function on all members in a specified member group or member
 						groups, or execute the function on only one member of each specified member
 						group. </li>
-					<li id="li_CD7893443F68475D9AA336ECD0455DD5"><b>On a data set.</b> Specify a region and
-						possibly a set of keys on which to run the function. </li>
-				</ul>
-			</p>
-			<p>See the <codeph>com.gemstone.gemfire.cache.execute.FunctionService</codeph> Java API
-				documentation for more details. </p>
+				</ul></p>
+			<p><b>For Data-dependent Functions</b>
+				<ul>
+					<li id="li_CD7893443F68475D9AA336ECD0455DD5"><b>On a data set—</b>If you are executing a
+						data-dependent function, specify a region and, optionally, a set of keys on
+						which to run the function. </li>
+				</ul>See the <codeph>com.gemstone.gemfire.cache.execute.FunctionService</codeph>
+				Java API documentation for more details. </p>
 		</section>
 		<section id="section_E0C4B7D2E4414F099788A5A441FF0E03">
 			<title>How Functions Are Executed</title>
-			<p> The following things occur when a function is executed: <ol
+			<p>The following things occur when executing a function: <ol
 					id="ol_afaf5d4b-60bd-4fbb-abcd-1dd17040bb69">
-					<li id="li_2055981FCBDF4FC6823977F1E0DFD3F0">When you call the <codeph>execute</codeph> method
-						on the <codeph>Execution</codeph> object, the function is invoked on all
-						members where it needs to run. The locations are determined by the
-							<codeph>FunctionService</codeph>
+					<li id="li_2055981FCBDF4FC6823977F1E0DFD3F0">When you call the
+							<codeph>execute</codeph> method on the <codeph>Execution</codeph>
+						object, <keyword
+							keyref="product_name"/> invokes the function on all members where it needs to run. The
+						locations are determined by the <codeph>FunctionService</codeph>
 						<codeph>on*</codeph> method calls, region configuration, and any filters. </li>
-					<li id="li_F0499F1C733A4E029995AC4D50E9267F">If the function has results, the result is
-						returned to the <codeph>addResult</codeph> method call in a
+					<li id="li_F0499F1C733A4E029995AC4D50E9267F">If the function has results, they are returned to
+						the <codeph>addResult</codeph> method call in a
 							<codeph>ResultCollector</codeph> object. </li>
 					<li id="li_058FFE112FE2465A94C256ECF3E66D68">The originating member collects
 						results using <codeph>ResultCollector.getResult</codeph>. </li>
@@ -52,51 +54,75 @@
 		</section>
 		<section id="section_14FF9932C7134C5584A14246BB4D4FF6">
 			<title>Highly Available Functions</title>
-			<p>Generally, function execution errors are returned to the calling application. You can
-				code for high availability for <codeph>onRegion</codeph> functions that return a
-				result, so <keyword keyref="product_name"/> automatically retries a function if it
-				does not execute successfully. To be highly available, the function must be coded
-				and configured for it, and the calling application must invoke the function using
-				the results collector <codeph>getResult</codeph> method. </p>
-			<p>When a failure occurs (such as an execution error or member crash while executing),
-				the system responds as follows: <ol id="ol_9C0026A3FD15427CB1567D8F6D89CCF4">
-					<li id="li_C9867A85FB5A4A20941CCD972316FA9F">Waits for all calls to return </li>
-					<li id="li_D9C00DE1CED3490DB2D09046A47EC135">Sets a boolean indicating a
-						re-execution is being done </li>
-					<li id="li_041CBA5BCC4744538E5CC801D228BC3B">Calls the result collector’s
+			<p>Generally, function execution errors are returned to the calling application. You can code for
+				high availability for <codeph>onRegion</codeph> functions that return a result, so
+					<keyword keyref="product_name"/> automatically retries a function if it does not
+				execute successfully. You must code and configure the function to be highly
+				available, and the calling application must invoke the function using the results
+				collector <codeph>getResult</codeph> method. </p>
+			<p>When a failure (such as an execution error or member crash while executing) occurs, the system
+				responds by: <ol id="ol_9C0026A3FD15427CB1567D8F6D89CCF4">
+					<li id="li_C9867A85FB5A4A20941CCD972316FA9F">Waiting for all calls to
+						return</li>
+					<li id="li_D9C00DE1CED3490DB2D09046A47EC135">Setting a boolean indicating a
+						re-execution</li>
+					<li id="li_041CBA5BCC4744538E5CC801D228BC3B">Calling the result collector’s
 							<codeph>clearResults</codeph> method </li>
-					<li id="li_809B4573996F4668A53964C7F2F59DAC">Executes the function </li>
+					<li id="li_809B4573996F4668A53964C7F2F59DAC">Executing the function </li>
 				</ol>
 			</p>
 			<p>For client regions, the system retries the execution according to
 					<codeph>com.gemstone.gemfire.cache.client.Pool</codeph>
 				<codeph>retryAttempts</codeph>. If the function fails to run every time, the final
 				exception is returned to the <codeph>getResult</codeph> method. </p>
-			<p>For member calls, the system retries until it succeeds or no data remains in the
-				system for the function to operate on. </p>
+			<p>For member calls, the system retries until either it succeeds or no data remains in the system
+				for the function to operate on. </p>
 		</section>
 		<section id="section_A0FD54B73E9A453AA38FC4A4D5282351"><title>Function Execution
-				Scenarios</title><p>The diagram shows the sequence of events for a data-independent
-				function invoked from a client on all available servers. The client contacts a
-				locator to obtain host and port identifiers for each server in the distributed
-				system and issues calls to each server. As the instigator of the calls, the client
-				also receives the call results.</p><p>
+				Scenarios</title>
+			<p>
+				<xref href="#how_function_execution_works/fig_server_distributed_system" type="fig"
+					format="dita"/> shows the sequence of events for a data-independent function
+				invoked from a client on all available servers. </p>
+			<fig id="fig_server_distributed_system">
+				<title id="title_vks_l3t_2v">Server-distributed System</title>
 				<image href="../../images/FuncExecOnServers.png"
-					id="image_993D1FD7705E40EA801CF0656C4E91E5" placement="break"/>
-			</p><p>The next figure shows the sequence of events for a data-independent function executed against
-				members in a peer-to-peer distributed system. You can think of
-					<codeph>onMembers()</codeph> as the peer-to-peer counterpart of a client-server
-				call to <codeph>onServers()</codeph>. Because it is called from a peer of other
-				members in the distributed system, an <codeph>onMembers()</codeph> function
+					id="image_993D1FD7705E40EA801CF0656C4E91E5" placement="break">
+					<alt>A diagram showing the sequence of events for a data-independent function
+						invoked from a client on all available servers</alt>
+				</image>
+			</fig>
+			<p>The client contacts a locator to obtain host and port identifiers for each server in the
+				distributed system and issues calls to each server. As the instigator of the calls,
+				the client also receives the call results.</p>
+			<p><xref href="#how_function_execution_works/fig_peer_distributed_system" type="fig"
+					format="dita"/> shows the sequence of events for a data-independent function
+				executed against members in a peer-to-peer distributed system. </p>
+			<fig id="fig_peer_distributed_system">
+				<title id="title_uyf_xgv_2v">Peer-to-peer Distributed System</title>
+				<image href="../../images/FuncExecOnMembers.png"
+					id="image_041832B370AA4241980B8C2632DD1DC8" placement="break"><alt>The sequence of events for a data-independent
+						function executed against members in a peer-to-peer distributed system.</alt></image>
+			</fig>
+			<p>You can think of <codeph>onMembers()</codeph> as the peer-to-peer counterpart of a
+				client-server call to <codeph>onServers()</codeph>. Because it is called from a peer
+				of other members in the distributed system, an <codeph>onMembers()</codeph> function
 				invocation has access to detailed metadata and does not require the services of a
 				locator. The caller invokes the function on itself, if appropriate, as well as other
 				members in the distributed system and collects the results of all of the function
-				executions: </p><p>
-				<image href="../../images/FuncExecOnMembers.png"
-					id="image_041832B370AA4241980B8C2632DD1DC8" placement="break"/>
-			</p><p>The next figure shows a data-dependent function run on a region. An <codeph>onRegion()</codeph>
-				call requires more detailed metadata than a locator provides in its host:port
-				identifier.</p><p>The first time a client invokes a function to be executed on a particular region of a distributed
+				executions.</p>
+			<p><xref href="#how_function_execution_works/fig_data_dependent_function_region"
+					type="fig" format="dita"/> shows a data-dependent function run on a region. </p>
+			<fig id="fig_data_dependent_function_region">
+				<title id="title_ztx_5gv_2v">Data-dependent Function on a Region</title>
+				<image href="../../images/FuncExecOnRegionNoMetadata.png"
+					id="image_68742923936F4EEC8E50819F5CEECBCC" placement="break"><alt>The path followed when the client lacks detailed metadata regarding target locations</alt></image>
+			</fig>
+			<p>An <codeph>onRegion()</codeph> call requires more detailed metadata than a locator provides in
+				its host:port identifier. This diagram shows the path followed when the client lacks
+				detailed metadata regarding target locations, as on the first call or when
+				previously obtained metadata is no longer up to date.</p>
+			<p>The first time a client invokes a function to be executed on a particular region of a distributed
 				system, the client's knowledge of target locations is limited to the host and port
 				information provided by the locator. Given only this limited information, the client
 				sends its execution request to whichever server is next in line to be called
@@ -108,40 +134,57 @@
 				efficiency, the client requests a copy of the metadata. With additional details
 				regarding the bucket layout for the region, the client can act as its own dispatcher
 				on subsequent calls and identify multiple targets for itself, eliminating at least
-				one hop. </p><p>This diagram shows the path followed when the client lacks detailed
-				metadata regarding target locations, as on the first call or when previously
-				obtained metadata is no longer up to date: </p><p>
-				<image href="../../images/FuncExecOnRegionNoMetadata.png"
-					id="image_68742923936F4EEC8E50819F5CEECBCC" placement="break"/>
-			</p><p>After it has obtained current metadata, the client can act as its own dispatcher on subsequent
-				calls and identify multiple targets for itself, eliminating one hop:</p><p><image
-					href="../../images/FuncExecOnRegionWithMetadata.png" placement="break"/></p>
-			<p>The next figure shows the same data-dependent
-				function with the added specification of a set of keys on which to run. Servers that
-				do not hold any keys are left out of the function execution. </p><p>
-					<image href="../../images/FuncExecOnRegionWithFilter.png" placement="break"
-					id="image_7FA8BE5D02F24CF8B49186C6FEB786BD"/>
-			</p><p>The next figure shows a peer-to-peer data-dependent call. The caller is a member of the
-				distributed system, not an external client, so the function runs in the caller’s
-				distributed system. Note the similarities between this diagram and the preceding
-				one, which shows a client-server model where the client has up-to-date metadata
-				regarding target locations within the distributed system.</p><p>
-					<image href="../../images/FuncExecOnRegionPeersWithFilter.png" placement="break"
-					id="image_9B8E914BA80E4BBA99856E9603A9BDA0"/>
-			</p><p>The next figure demonstrates a sequence of steps in a call to a highly available function in a
-				client-server system in which the client has up-to-date metadata regarding target
-				locations. In this example, three primary keys (X, Y, Z) and their secondary copies
-				(X', Y', Z') are distributed among three servers. Because
-					<codeph>optimizeForWrite</codeph> is <codeph>true</codeph>, the system first
-				attempts to invoke the function where the primary keys reside: Server 1 and Server
-				2. Suppose, however, that Server 2 is off-line for some reason, so the call targeted
-				for key Y fails. Because <codeph>isHA</codeph> is set to <codeph>true</codeph>, the
-				call is retried on Server 1 (which succeeded the first time, so likely will do
-				so again) and Server 3, where key Y' resides. This time, the function call returns
-				successfully. Calls to highly available functions retry until they obtain a
-				successful result or they reach a retry limit.</p><p>
-					<image href="../../images/FuncExecOnRegionHAWithFilter.png" placement="break"
-					id="image_05E94BB0EBF349FF8822158F2001F313"/>
-			</p></section>
+				one hop. </p>
+			<p>After it has obtained current metadata, the client can act as its own dispatcher on
+				subsequent calls, identifying multiple targets for itself and eliminating one hop,
+				as shown in <xref
+					href="#how_function_execution_works/fig_data_dependent_function_obtaining_current_metadata"
+					type="fig" format="dita"/>.</p>
+			<fig id="fig_data_dependent_function_obtaining_current_metadata">
+				<title id="title_whg_ygv_2v">Data-dependent function after obtaining current metadata</title>
+				<image
+					href="../../images/FuncExecOnRegionWithMetadata.png" placement="break"><alt>A diagram showing the client acting as its own dispatcher after having obtained current metadata.</alt></image>
+			</fig>
+			<p><xref href="#how_function_execution_works/fig_data_dependent_function_region_keys"
+					type="fig" format="dita"/> shows the same data-dependent function with the added
+				specification of a set of keys on which to run. </p>
+			<fig id ="fig_data_dependent_function_region_keys">
+				<title id="title_vtc_qhv_2v">Data-dependent Function on a Region with Keys</title>	
+				<image href="../../images/FuncExecOnRegionWithFilter.png" placement="break"
+					id="image_7FA8BE5D02F24CF8B49186C6FEB786BD"><alt>A data-dependent function on a region with specification of keys on which to run</alt></image>
+			</fig>
+			<p>Servers that do not hold any keys are left out of the function execution. </p>
+			<p><xref href="#how_function_execution_works/fig_peer_data_dependent_function"
+					type="fig" format="dita"/> shows a peer-to-peer data-dependent call. </p>
+			<fig id ="fig_peer_data_dependent_function">
+				<title id="title_cnn_phv_2v">Peer-to-peer Data-dependent Function</title>
+				<image href="../../images/FuncExecOnRegionPeersWithFilter.png" placement="break"
+					id="image_9B8E914BA80E4BBA99856E9603A9BDA0"><alt>A data-dependent function where the caller is not an external client</alt></image>
+			</fig>
+			<p>The caller is a member of the distributed system, not an external client, so the function runs
+				in the caller’s distributed system. Note the similarities between this diagram and
+				figure 5, which shows a client-server model where the client has up-to-date metadata
+				regarding target locations within the distributed system.</p>
+			<p><xref href="#how_function_execution_works/fig_client_server_system_target_metadata"
+					type="fig" format="dita"/> demonstrates a sequence of steps in a call to a
+				highly available function in a client-server system in which the client has
+				up-to-date metadata regarding target locations.</p>
+			<fig id="fig_client_server_system_target_metadata">
+				<title id="title_msw_4hv_2v">Client-server system with Up-to-date Target Metadata</title>
+				<image href="../../images/FuncExecOnRegionHAWithFilter.png" placement="break"
+					id="image_05E94BB0EBF349FF8822158F2001F313"><alt>A sequence of steps in a call to a highly available function in a client-server system in which
+						the client has up-to-date metadata regarding target locations</alt></image>
+			</fig>
+			<p> In this example, three primary keys (X, Y, Z) and their secondary copies (X', Y', Z') are
+				distributed among three servers. Because <codeph>optimizeForWrite</codeph> is
+					<codeph>true</codeph>, the system first attempts to invoke the function where
+				the primary keys reside: Server 1 and Server 2. Suppose, however, that Server 2 is
+				off-line for some reason, so the call targeted for key Y fails. Because
+					<codeph>isHA</codeph> is set to <codeph>true</codeph>, the call is retried on
+				Server 1 (which succeeded the first time, so likely will do so again) and Server 3,
+				where key Y' resides. This time, the function call returns successfully. Calls to
+				highly available functions retry until they obtain a successful result or they reach
+				a retry limit.</p>
+		</section>
 	</conbody>
 </concept>

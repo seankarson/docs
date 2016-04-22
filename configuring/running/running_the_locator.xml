@@ -3,7 +3,7 @@
 <concept id="running_the_locator">
 	<title>Running <keyword keyref="product_name"/> Locator Processes</title>
 	<shortdesc id="shortdesc_C1677A850E2F497D8BFCFCAAC86533FC">The locator is a <keyword
-			keyref="product_name_long"/> process that tells new, connecting members where running
+			keyref="product_name"/> process that tells new, connecting members where running
 		members are located and provides load balancing for server use. </shortdesc>
 	<conbody>
 		<section id="section_E9C98E8756524552BEA9B0CA49A2069E">
@@ -26,16 +26,16 @@
 			<title>Locator Configuration and Log Files</title>
 			<p>Locator configuration and log files have the following properties: </p>
 			<ul id="ul_FBBF9569984E4B65848F5AA202DFF8C2">
-				<li>When you start a standalone locator using <codeph>gfsh</codeph>,
-						<codeph>gfsh</codeph> will automatically load the required JAR files
+				<li>When you start a standalone locator using <codeph>gfsh</codeph>, 
+					    <codeph>gfsh</codeph> will automatically load the required JAR files
 						(<codeph>$GEMFIRE/lib/locator-dependencies.jar</codeph> into the CLASSPATH
 					of the JVM process. If you start a standalone locator using the
 						<codeph>LocatorLauncher</codeph> API, you must specify
 						<codeph>$GEMFIRE/lib/locator-dependencies.jar</codeph> inside the command
 					used to launch the locator process. For more information on CLASSPATH settings
 					in <keyword keyref="product_name"/>, see <xref
-						href="../../getting_started/setup_gemfire_classpath.xml"
-					/>. You can modify the CLASSPATH by specifying the --classpath or parameter</li>
+						href="../../getting_started/setup_gemfire_classpath.xml"/>. You can modify
+					the CLASSPATH by specifying the --classpath parameter</li>
 				<li id="li_2BB86FA6977646CF923BCB5B878ECD57">Locators are members of the distributed
 					system just like any other member. In terms of <codeph>mcast-port</codeph> and
 						<codeph>locators</codeph> configuration, a locator should be configured in
@@ -260,6 +260,15 @@ Cluster configuration service is up and running.
 				<codeblock>gfsh&gt;stop locator --dir=&lt;locator_working_directory&gt;</codeblock>where
 					&lt;<i>locator_working_directory</i>&gt; corresponds to the local working
 				directory where the locator is running. </p>
+		</section>
+		<section>
+			<title>Locators and Multi-Site (WAN) Deployments</title>
+			<p>If you use a multi-site (WAN) configuration, you can connect a locator to a remote
+				site when starting the locator.</p>
+			<p>To connect a new locator process to a remote locator in a WAN configuration, specify
+				the following at
+				startup:<codeblock>gfsh> start locator --name=locator1 --port=9009 --mcast-port=0 \
+--J='-Dgemfire.remote-locators=10.117.33.214[9009],10.117.33.220[9009]'</codeblock></p>
 		</section>
 	</conbody>
 </concept>
