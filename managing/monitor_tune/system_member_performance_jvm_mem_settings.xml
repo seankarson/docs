@@ -56,8 +56,8 @@ gfsh&gt;start server --name=<i>server-name</i> --J=-Xss512k</codeblock>
 			<li>Lock memory—On Linux systems, you can prevent heap and off-heap memory from being paged out
 				by setting the <codeph>lock-memory</codeph> parameter to <codeph>true</codeph>. For
 				example:<codeblock>gfsh>start server --name=<i>server-name</i> --off-heap-memory-size=200G --lock-memory=true</codeblock>See
-				<xref href="../heap_use/off_heap_management.xml#locking-memory">Locking Memory</xref> for additional considerations regarding this
-				parameter.</li>
+					<xref href="../heap_use/lock_memory.xml">Locking Memory</xref> for additional
+				considerations regarding this parameter.</li>
 		</ul>
 	</conbody>
 </concept>
