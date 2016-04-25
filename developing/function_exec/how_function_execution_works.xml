@@ -9,14 +9,20 @@
 					keyref="product_name"/> in the following places:</p>
 			<p><b>For Data-independent Functions</b>
 				<ul id="ul_CCB842FDAB294745A836BF0B2C192AEA">
-					<li id="li_5522C5F0CB4445D28A8F984B99F69F8F"><b>On a specific member or
-							members—</b>Execute the function in your own distributed system, and
-						specify the member or members where you want to run the function. </li>
-					<li id="li_26F94678990C4756947790F1511436CE"><b>On a specific server or set of
-							servers—</b>If you are connected to a distributed system as a client,
-						you can execute the function on a server or servers configured for a
-						specific connection pool, or on a server or servers connected to a given
-						cache. </li>
+					<li id="li_5522C5F0CB4445D28A8F984B99F69F8F"><b>On a specific member or members—</b>Execute the
+						function within a peer-to-peer distributed system, specifying the member or
+						members where you want to run the function by using
+							<codeph>FunctionService</codeph> methods <codeph>onMember()</codeph> and
+							<codeph>onMembers()</codeph>.</li>
+					<li id="li_26F94678990C4756947790F1511436CE"><b>On a specific server or set of servers—</b>If
+						you are connected to a distributed system as a client, you can execute the
+						function on a server or servers configured for a specific connection pool,
+						or on a server or servers connected to a given cache using the default
+						connection pool. For data-independent functions on client/server
+						architectures, a client invokes <codeph>FunctionService</codeph> methods
+							<codeph>onServer()</codeph> or <codeph>onServers()</codeph>. (See <xref
+							href="../../topologies_and_comm/topology_concepts/how_the_pool_manages_connections.xml"
+						/> for details regarding pool connections.) </li>
 					<li id="li_32D051652A39470BA88184043E4EE044"><b>On member groups or on a single
 							member within each member group—</b>You can organize members into
 						logical member groups. (See <xref
@@ -28,9 +34,11 @@
 				</ul></p>
 			<p><b>For Data-dependent Functions</b>
 				<ul>
-					<li id="li_CD7893443F68475D9AA336ECD0455DD5"><b>On a data set—</b>If you are executing a
+					<li id="li_CD7893443F68475D9AA336ECD0455DD5"><b>On a region—</b>If you are executing a
 						data-dependent function, specify a region and, optionally, a set of keys on
-						which to run the function. </li>
+						which to run the function. The method
+							<codeph>FunctionService.onRegion()</codeph> directs a data-dependent
+						function to execute on a specific region. </li>
 				</ul>See the <codeph>com.gemstone.gemfire.cache.execute.FunctionService</codeph>
 				Java API documentation for more details. </p>
 		</section>
@@ -38,12 +46,11 @@
 			<title>How Functions Are Executed</title>
 			<p>The following things occur when executing a function: <ol
 					id="ol_afaf5d4b-60bd-4fbb-abcd-1dd17040bb69">
-					<li id="li_2055981FCBDF4FC6823977F1E0DFD3F0">When you call the
-							<codeph>execute</codeph> method on the <codeph>Execution</codeph>
-						object, <keyword
-							keyref="product_name"/> invokes the function on all members where it needs to run. The
-						locations are determined by the <codeph>FunctionService</codeph>
-						<codeph>on*</codeph> method calls, region configuration, and any filters. </li>
+					<li id="li_2055981FCBDF4FC6823977F1E0DFD3F0">When you call the <codeph>execute</codeph> method
+						on the <codeph>Execution</codeph> object, <keyword keyref="product_name"/>
+						invokes the function on all members where it needs to run. The locations are
+						determined by the <codeph>FunctionService</codeph>
+						<codeph>on*</codeph> method calls, region configuration, and any filters.  </li>
 					<li id="li_F0499F1C733A4E029995AC4D50E9267F">If the function has results, they are returned to
 						the <codeph>addResult</codeph> method call in a
 							<codeph>ResultCollector</codeph> object. </li>
