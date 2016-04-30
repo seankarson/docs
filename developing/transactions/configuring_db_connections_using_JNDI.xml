@@ -96,10 +96,10 @@
 				<p>
 					<codeblock>&lt;?xml version="1.0" encoding="UTF-8"?&gt;
 &lt;cache
-    xmlns="<xref href="http://schema.pivotal.io/gemfire/cache" format="html" scope="external">http://schema.pivotal.io/gemfire/cache</xref>"
+    xmlns="<keyword keyref="xsd_namespace"/>"
     xmlns:xsi="<xref href="http://www.w3.org/2001/XMLSchema-instance" format="html" scope="external">http://www.w3.org/2001/XMLSchema-instance</xref>"
-    xsi:schemaLocation="<xref href="http://schema.pivotal.io/gemfire/cache" format="html" scope="external">http://schema.pivotal.io/gemfire/cache</xref> <xref href="http://schema.pivotal.io/gemfire/cache/cache-8.1.xsd" format="html" scope="external">http://schema.pivotal.io/gemfire/cache/cache-8.1.xsd</xref>"
-    version="8.1"
+    xsi:schemaLocation="<keyword keyref="xsd_namespace"/> <keyword keyref="xsd_namespace"/>/<keyword keyref="xsd_filename"/>"
+    version="<keyword keyref="xsd_version"/>"
     lock-lease="120" lock-timeout="60" search-timeout="300"&gt; 
    &lt;region name="root"&gt;
       &lt;region-attributes scope="distributed-no-ack" data-policy="cached" initial-capacity="16"
@@ -245,10 +245,10 @@ load-factor="0.75" concurrency-level="16" statistics-enabled="true"&gt;
 					instead of an <codeph>xa-datasource-class</codeph>. </p>
 				<p>
 					<codeblock>&lt;?xml version="1.0"?&gt;
-&lt;cache xmlns="<xref href="http://schema.pivotal.io/gemfire/cache" format="html" scope="external">http://schema.pivotal.io/gemfire/cache</xref>"
+&lt;cache xmlns="<keyword keyref="xsd_namespace"/>"
     xmlns:xsi="<xref href="http://www.w3.org/2001/XMLSchema-instance" format="html" scope="external">http://www.w3.org/2001/XMLSchema-instance</xref>"
-    xsi:schemaLocation="<xref href="http://schema.pivotal.io/gemfire/cache" format="html" scope="external">http://schema.pivotal.io/gemfire/cache</xref> <xref href="http://schema.pivotal.io/gemfire/cache/cache-8.1.xsd" format="html" scope="external">http://schema.pivotal.io/gemfire/cache/cache-8.1.xsd</xref>"
-    version="8.1"
+    xsi:schemaLocation="<keyword keyref="xsd_namespace"/> <keyword keyref="xsd_namespace"/>/<keyword keyref="xsd_filename"/>"
+    version="<keyword keyref="xsd_version">8.1</keyword>"
     lock-lease="120" 
     lock-timeout="60"
     search-timeout="300"&gt;
@@ -313,10 +313,10 @@ load-factor="0.75" concurrency-level="16" statistics-enabled="true"&gt;
 						scope="local"><?xm-replace_text Encrypting Passwords for Use in cache.xml?></xref>. </p>
 				<p>
 					<codeblock>&lt;?xml version="1.0"?&gt;
-&lt;cache xmlns="<xref href="http://schema.pivotal.io/gemfire/cache" format="html" scope="external">http://schema.pivotal.io/gemfire/cache</xref>"
+&lt;cache xmlns="<keyword keyref="xsd_namespace"/>"
     xmlns:xsi="<xref href="http://www.w3.org/2001/XMLSchema-instance" format="html" scope="external">http://www.w3.org/2001/XMLSchema-instance</xref>"
-    xsi:schemaLocation="<xref href="http://schema.pivotal.io/gemfire/cache" format="html" scope="external">http://schema.pivotal.io/gemfire/cache</xref> <xref href="http://schema.pivotal.io/gemfire/cache/cache-8.1.xsd" format="html" scope="external">http://schema.pivotal.io/gemfire/cache/cache-8.1.xsd</xref>"
-    version="8.1"
+    xsi:schemaLocation="<keyword keyref="xsd_namespace"/> <keyword keyref="xsd_namespace"/>/<keyword keyref="xsd_filename"/>"
+    version="<keyword keyref="xsd_version"/>"
     lock-lease="120"
     lock-timeout="60"
     search-timeout="300"&gt;
@@ -376,10 +376,10 @@ initial-capacity="16" load-factor="0.75" concurrency-level="16" statistics-enabl
 					earlier examples. </p>
 				<p>
 					<codeblock>&lt;?xml version="1.0"?&gt;
-&lt;cache xmlns="<xref href="http://schema.pivotal.io/gemfire/cache" format="html" scope="external">http://schema.pivotal.io/gemfire/cache</xref>"
+&lt;cache xmlns="<keyword keyref="xsd_namespace"/>"
     xmlns:xsi="<xref href="http://www.w3.org/2001/XMLSchema-instance" format="html" scope="external">http://www.w3.org/2001/XMLSchema-instance</xref>"
-    xsi:schemaLocation="<xref href="http://schema.pivotal.io/gemfire/cache" format="html" scope="external">http://schema.pivotal.io/gemfire/cache</xref> <xref href="http://schema.pivotal.io/gemfire/cache/cache-8.1.xsd" format="html" scope="external">http://schema.pivotal.io/gemfire/cache/cache-8.1.xsd</xref>"
-    version="8.1"
+    xsi:schemaLocation="<keyword keyref="xsd_namespace"/> <keyword keyref="xsd_namespace"/>/<keyword keyref="xsd_filename"/>"
+    version="<keyword keyref="xsd_version"/>"
     lock-lease="120" 
     lock-timeout="60" 
     search-timeout="300"&gt;

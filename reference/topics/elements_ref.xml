@@ -36,27 +36,24 @@
 						schema declaration of one of the following forms: <p>
 							<ul
 								id="cache_configuration_settings__ul_47F8E8410A074D8F90FEF0AE41ECB7C6">
-								<li
-									id="cache_configuration_settings__li_0EDDDED3E1F44A0BB7BA226E06D05BE2"
-									>Server or peer cache:
+								<li id="cache_configuration_settings__li_0EDDDED3E1F44A0BB7BA226E06D05BE2">Server or peer
+									cache:
 									<codeblock outputclass="language-xml">&lt;?xml version="1.0" encoding="UTF-8"?&gt;
 &lt;cache
-    xmlns="<xref href="http://schema.pivotal.io/gemfire/cache" format="html" scope="external">http://schema.pivotal.io/gemfire/cache</xref>"
+    xmlns="<keyword keyref="xsd_namespace"/>"
     xmlns:xsi="<xref href="http://www.w3.org/2001/XMLSchema-instance" format="html" scope="external">http://www.w3.org/2001/XMLSchema-instance</xref>"
-    xsi:schemaLocation="<xref href="http://schema.pivotal.io/gemfire/cache" format="html" scope="external">http://schema.pivotal.io/gemfire/cache</xref> <xref href="http://schema.pivotal.io/gemfire/cache/cache-8.1.xsd" format="html" scope="external">http://schema.pivotal.io/gemfire/cache/cache-8.1.xsd</xref>"
-    version="8.1"&gt;
+    xsi:schemaLocation="<keyword keyref="xsd_namespace"/> <keyword keyref="xsd_namespace"/>/<keyword keyref="xsd_filename"/>"
+    version="<keyword keyref="xsd_version"/>"&gt;
 ...
 &lt;/cache&gt;</codeblock>
 								</li>
-								<li
-									id="cache_configuration_settings__li_2AE6075FECAD4A2999CDF85169A5646A"
-									>Client cache:
+								<li id="cache_configuration_settings__li_2AE6075FECAD4A2999CDF85169A5646A">Client cache:
 									<codeblock outputclass="language-xml">&lt;?xml version="1.0" encoding="UTF-8"?&gt;
 &lt;client-cache
-    xmlns="<xref href="http://schema.pivotal.io/gemfire/cache" format="html" scope="external">http://schema.pivotal.io/gemfire/cache</xref>"
+    xmlns="<keyword keyref="xsd_namespace"/>"
     xmlns:xsi="<xref href="http://www.w3.org/2001/XMLSchema-instance" format="html" scope="external">http://www.w3.org/2001/XMLSchema-instance</xref>"
-    xsi:schemaLocation="<xref href="http://schema.pivotal.io/gemfire/cache" format="html" scope="external">http://schema.pivotal.io/gemfire/cache</xref> <xref href="http://schema.pivotal.io/gemfire/cache/cache-8.1.xsd" format="html" scope="external">http://schema.pivotal.io/gemfire/cache/cache-8.1.xsd</xref>"
-    version="8.1"&gt;
+    xsi:schemaLocation="<keyword keyref="xsd_namespace"/> <keyword keyref="xsd_namespace"/>/<keyword keyref="xsd_filename"/>"
+    version="<keyword keyref="xsd_version"/>"&gt;
 ...
 &lt;/client-cache&gt;</codeblock>
 								</li>
@@ -78,13 +75,13 @@
 				without modifying the XML file. </p>
 			<p>Set your variables in Java system properties when you start your cache server or
 				application process. </p>
-			<p>Example cache.xml with variables and the gfsh <codeph>start server</codeph> command
-				that sets the variables: <codeblock outputclass="language-xml">&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+			<p>Example cache.xml with variables and the gfsh <codeph>start server</codeph> command that sets
+				the variables: <codeblock outputclass="language-xml">&lt;?xml version="1.0" encoding="UTF-8"?&gt;
 &lt;cache
-    xmlns="<xref href="http://schema.pivotal.io/gemfire/cache" format="html" scope="external">http://schema.pivotal.io/gemfire/cache</xref>"
+    xmlns="<keyword keyref="xsd_namespace"/>"
     xmlns:xsi="<xref href="http://www.w3.org/2001/XMLSchema-instance" format="html" scope="external">http://www.w3.org/2001/XMLSchema-instance</xref>"
-    xsi:schemaLocation="<xref href="http://schema.pivotal.io/gemfire/cache" format="html" scope="external">http://schema.pivotal.io/gemfire/cache</xref> <xref href="http://schema.pivotal.io/gemfire/cache/cache-8.1.xsd" format="html" scope="external">http://schema.pivotal.io/gemfire/cache/cache-8.1.xsd</xref>"
-    version="8.1"&gt;
+    xsi:schemaLocation="<keyword keyref="xsd_namespace"/> <keyword keyref="xsd_namespace"/>/<keyword keyref="xsd_filename"/>"
+    version="<keyword keyref="xsd_version"/>"&gt;
   &lt;cache-server port="${PORT}" max-connections="${MAXCNXS}"/&gt;
   &lt;region name="root"&gt;
     &lt;region-attributes refid="REPLICATE"/&gt;
