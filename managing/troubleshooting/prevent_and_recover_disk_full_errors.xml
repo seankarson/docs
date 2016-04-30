@@ -11,7 +11,7 @@
     <p>After you make sufficient disk space available to the member, you can restart the member. </p>
     <p>You can prevent disk file errors using the following techniques: </p>
     <ul id="ul_ctx_2fm_jp">
-      <li>If you are using ext4 filsystem, we recommend that you pre-allocate disk store files and
+      <li>If you are using ext4 file system, we recommend that you pre-allocate disk store files and
         disk store metadata files. Pre-allocation reserves disk space for these files and leaves the
         member in a healthy state when the disk store and regions are shut down, allowing you to
         restart the member once sufficient disk space has been made available. Pre-allocation is
@@ -19,7 +19,7 @@
       <li>Configure critical usage thresholds
           (<systemoutput>disk-usage-warning-percentage</systemoutput> and
           <systemoutput>disk-usage-critical-percentage</systemoutput>) for the disk. By default,
-        these are set to 80% for warning and 99% for errors that will shut down the cache.</li>
+        these are set to 90% for warning and 99% for errors that will shut down the cache.</li>
       <li>Follow the recommendations in <xref
           href="../disk_storage/optimize_availability_and_performance.xml#optimize_avail_disk_store"
         /> for general disk management best practices.</li>
