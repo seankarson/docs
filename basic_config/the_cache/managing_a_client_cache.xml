@@ -20,16 +20,15 @@
 			<ol id="ol_2A5E8F0BC4944C5F8A02D410D340E602">
 				<li id="li_8918816ED61A4A328EF9AE2B4418ECA8">Create your client cache: <ol
 						id="ol_31BABBFDA92140558F264C1F85610BD1">
-						<li id="li_9BA8BE63CD0B48FAB69991CDE21ADA4D">In your
-								<codeph>cache.xml</codeph>, use the <codeph>client-cache</codeph>
-							DOCTYPE and configure your cache inside a
-								<codeph>&lt;client-cache&gt;</codeph> element. Configure your server
-							connection pool and your regions as needed. Example: <codeblock>&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+						<li id="li_9BA8BE63CD0B48FAB69991CDE21ADA4D">In your <codeph>cache.xml</codeph>, use the
+								<codeph>client-cache</codeph> DOCTYPE and configure your cache
+							inside a <codeph>&lt;client-cache&gt;</codeph> element. Configure your
+							server connection pool and your regions as needed. Example: <codeblock>&lt;?xml version="1.0" encoding="UTF-8"?&gt;
 &lt;client-cache
-    xmlns="<xref href="http://schema.pivotal.io/gemfire/cache" format="html" scope="external">http://schema.pivotal.io/gemfire/cache</xref>"
+    xmlns="<keyword keyref="xsd_namespace"/>"
     xmlns:xsi="<xref href="http://www.w3.org/2001/XMLSchema-instance" format="html" scope="external">http://www.w3.org/2001/XMLSchema-instance</xref>"
-    xsi:schemaLocation="<xref href="http://schema.pivotal.io/gemfire/cache" format="html" scope="external">http://schema.pivotal.io/gemfire/cache</xref> <xref href="http://schema.pivotal.io/gemfire/cache/cache-8.1.xsd" format="html" scope="external">http://schema.pivotal.io/gemfire/cache/cache-8.1.xsd</xref>"
-    version="8.1"&gt;
+    xsi:schemaLocation="<keyword keyref="xsd_namespace"/> <keyword keyref="xsd_namespace"/>/<keyword keyref="xsd_filename"/>"
+    version="<keyword keyref="xsd_version">8.1</keyword>"&gt;
 	&lt;pool name="serverPool"&gt;
 		&lt;locator host="host1" port="44444"/&gt;
 	&lt;/pool&gt;

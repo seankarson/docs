@@ -93,10 +93,10 @@
     <body>
       <p>To enable compression on your region, set the following region attribute in your
         cache.xml:<codeblock outputclass="language-xml">&lt;?xml version="1.0" encoding= "UTF-8"?&gt;
-&lt;cache xmlns="<xref href="http://schema.pivotal.io/gemfire/cache" format="html" scope="external">http://schema.pivotal.io/gemfire/cache</xref>"
+&lt;cache xmlns="<keyword keyref="xsd_namespace"/>"
     xmlns:xsi="<xref href="http://www.w3.org/2001/XMLSchema-instance" format="html" scope="external">http://www.w3.org/2001/XMLSchema-instance</xref>"
-    xsi:schemaLocation="<xref href="http://schema.pivotal.io/gemfire/cache" format="html" scope="external">http://schema.pivotal.io/gemfire/cache</xref> <xref href="http://schema.pivotal.io/gemfire/cache/cache-8.1.xsd" format="html" scope="external">http://schema.pivotal.io/gemfire/cache/cache-8.1.xsd</xref>"
-    version="8.1” lock-lease="120"  lock-timeout= "60" search-timeout= "300"  is-server= "true"  copy-on-read= "false" &gt; 
+    xsi:schemaLocation="<keyword keyref="xsd_namespace"/> <keyword keyref="xsd_namespace"/>/<keyword keyref="xsd_filename"/>"
+    version="<keyword keyref="xsd_version"/>” lock-lease="120"  lock-timeout= "60" search-timeout= "300"  is-server= "true"  copy-on-read= "false" &gt; 
    &lt;region name="compressedRegion" &gt; 
       &lt;region-attributes data-policy="replicate" ... /&gt; 
          &lt;Compressor>
