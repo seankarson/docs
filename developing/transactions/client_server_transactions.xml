@@ -17,13 +17,13 @@
 			<p>When a client performs a transaction, the transaction is delegated to a server that
 				acts as the transaction initiator in the server system. As with regular, non-client
 				transactions, this server delegate may or may not be the transaction host. </p>
-			<p>In this figure, the application code on the client (M1) makes changes to data entries
-				Y and Z within a transaction. The delegate performing the transaction (M2) does not
-				host the primary copy of the data being modified. The transaction takes place on the
-				server containing this data (M3). </p>
+			<p>In this figure, the application code on the client makes changes to data entries Y and Z
+				within a transaction. The delegate performing the transaction (M1) does not host the
+				primary copy of the data being modified. The transaction takes place on the server
+				containing this data (M2). </p>
 			<p>
 				<image placement="break" id="image_5DCA65F2B88F450299EFD19DAAA93D4F"
-					href="../../images_svg/transactions_client_1.svg"/>
+					href="../../images/transactions-client-1.png"/>
 			</p>
 		</conbody>
 	</concept>
