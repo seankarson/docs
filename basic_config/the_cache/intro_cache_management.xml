@@ -70,16 +70,16 @@
 		<section id="section_6486BDAF06EC4B91A548872066F3EC8C">
 			<title>The Cache XML</title>
 			<p>Your <codeph>cache.xml</codeph> must be formatted according to the product XML schema
-				definition <codeph>cache8-1.xsd</codeph>. The schema definition file is available in
-				the product distribution at
-					<filepath>$GEMFIRE/schemas/schema.pivotal.io/gemfire/cache/cache8-1.xsd</filepath>.</p>
+				definition <codeph><keyword keyref="xsd_filename"/></codeph>. The schema definition
+				file is available in the product distribution at <filepath><keyword
+						keyref="xsd_path"/>/<keyword keyref="xsd_filename"/></filepath>.</p>
 			<p>You use one format for peer and server caches and another for client caches. </p>
 			<p><codeph>cache.xml</codeph> for Peer/Server:
 				<codeblock>&lt;?xml version="1.0" encoding="UTF-8"?&gt;
 &lt;cache xmlns="<keyword keyref="xsd_namespace"/>"
     xmlns:xsi="<xref href="http://www.w3.org/2001/XMLSchema-instance" format="html" scope="external">http://www.w3.org/2001/XMLSchema-instance</xref>"
     xsi:schemaLocation="<keyword keyref="xsd_namespace"/> <keyword keyref="xsd_namespace"/>/<keyword keyref="xsd_filename"/>"
-    version="<keyword keyref="xsd_version">8.1</keyword>”&gt;
+    version="<keyword keyref="xsd_version"/>”&gt;
 ...
 &lt;/cache&gt;</codeblock>
 			</p>
@@ -89,7 +89,7 @@
     xmlns="<keyword keyref="xsd_namespace"/>"
     xmlns:xsi="<xref href="http://www.w3.org/2001/XMLSchema-instance" format="html" scope="external">http://www.w3.org/2001/XMLSchema-instance</xref>"
     xsi:schemaLocation="<keyword keyref="xsd_namespace"/> <keyword keyref="xsd_namespace"/>/<keyword keyref="xsd_filename"/>"
-    version="<keyword keyref="xsd_version">8.1</keyword>”&gt;
+    version="<keyword keyref="xsd_version"></keyword>”&gt;
 ...
 &lt;/client-cache&gt;</codeblock>
 			</p>
@@ -108,10 +108,10 @@
 					<codeph>cache.xml</codeph> file examples, except where API is required. You can
 				configure your distributed system properties and cache through the API as well, and
 				you can use a combination of file configuration and API configuration. </p>
-			<p>The XML examples may not include the full <codeph>cache.xml</codeph> file listing.
-				All of your declarative cache configuration must conform to the cache XSD in the
-				product installation
-					<filepath>$GEMFIRE/schemas/schema.pivotal.io/gemfire/cache/cache8-1.xsd</filepath>. </p>
+			<p>The XML examples may not include the full <codeph>cache.xml</codeph> file listing. All of your
+				declarative cache configuration must conform to the cache XSD in the product
+				installation <filepath><keyword keyref="xsd_path"/>/<keyword keyref="xsd_filename"
+					/></filepath>. </p>
 			<p>For all of your <keyword keyref="product_name"/> applications: </p>
 			<p>
 				<ol id="ol_BECC562B09A84C3CBABB720C92C00166">
