@@ -2,16 +2,19 @@
 <!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "http://docs.oasis-open.org/dita/dtd/concept.dtd">
 <concept id="settup_up_the_module">
 	<title>Setting Up the <keyword keyref="product_name"/> Hibernate Cache Module</title>
-	<shortdesc>You need to edit Hibernate's <codeph>hibernate.cfg.xml</codeph> file in order to use
-		the <keyword keyref="product_name_long"/> module. </shortdesc>
+	<shortdesc>Edit the <codeph>hibernate.cfg.xml</codeph> file to use the Hibernate Cache module. </shortdesc>
 	<conbody>
 		<ol id="ol_1F2ED24E071E44A68B23AC9EDEDD3391">
 			<li id="li_4F25C5224D0244389F9132357F82101F">
 				<p><b>Turn on L2 Cache</b>
 				</p>
-				<p>In the hibernate.cfg.xml file, turn on the L2 cache: </p>
-				<codeblock>&lt;property name="hibernate.cache.use_second_level_cache"&gt;true&lt;/property&gt;
-</codeblock>
+				<p>In the <codeph>hibernate.cfg.xml</codeph> file, turn on the L2 cache and identify
+					the <keyword keyref="product_name"/> locator(s):
+					<codeblock>&lt;property name="hibernate.cache.use_second_level_cache"&gt;true&lt;/property&gt;
+&lt;property name="gemfire.locators"&gt;host1[port1],host2[port2]&lt;/property&gt;</codeblock></p>
+				<p>Change <codeph>host1</codeph> and <codeph>host2 </codeph> to the hostnames (or IP
+					addresses) for each of the locators; <codeph>port1</codeph> and <codeph>port2
+					</codeph>are the ports for each of the locators.</p>
 			</li>
 			<li id="li_315E9E0DAB474DB5827AE21FBDF3E16F">
 				<p><b>Set Region Factory or Cache Provider</b>
@@ -31,23 +34,23 @@
 						<stentry>Description</stentry>
 					</sthead>
 					<strow>
-						<stentry>Read Only</stentry>
+						<stentry><codeph>read-only</codeph></stentry>
 						<stentry>This mode is used when you do not plan on modifying the data
 							already stored in your persistent storage.</stentry>
 					</strow>
 					<strow>
-						<stentry>Read/Write</stentry>
+						<stentry><codeph>read-write</codeph></stentry>
 						<stentry>This mode is used when you plan to both read from and write to your
 							data.</stentry>
 					</strow>
 					<strow>
-						<stentry>Non-strict Read/Write</stentry>
+						<stentry><codeph>nonstrict-read-write</codeph></stentry>
 						<stentry>This mode is a special read/write mode that has faster write
 							performance; however, only use this mode if no more than one client will
 							update content at a time.</stentry>
 					</strow>
 					<strow>
-						<stentry>Transactional</stentry>
+						<stentry><codeph>transactional</codeph></stentry>
 						<stentry>This mode allows for transaction-based data access.</stentry>
 					</strow>
 				</simpletable>
@@ -63,21 +66,22 @@
 							<codeblock>    
     &lt;hibernate-mapping package="PACKAGE"&gt;
       &lt;class name="ENTITY_NAME" ...&gt;
-        &lt;cache usage="read-write|nonstrict-read-write|read-only"/&gt;
+        &lt;cache usage="USAGE_MODE"/&gt;
         ...
       &lt;/class&gt;
     &lt;/hibernate-mapping&gt;
  </codeblock>
 							<p>In this example, <codeph>PACKAGE</codeph> is the name of the entity
-								package and <codeph>ENTITY_NAME</codeph> is the name of your entity.
-								The cache usage values correspond to the cache usage modes,
-								described above. Refer to the <xref href="http://hibernate.org/docs"
-									scope="external" format="html">Hibernate documentation</xref>
-								for further information. </p>
+								package, <codeph>ENTITY_NAME</codeph> is the name of your entity,
+								and <codeph>USAGE_MODE</codeph> is the chosen usage mode from the
+								table given above. Refer to the <xref
+									href="http://hibernate.org/docs" scope="external" format="html"
+									>Hibernate documentation</xref> for further information. </p>
 						</li>
 						<li id="li_EA65BDE0A48D4D6BBE37D91348AC3D8C">
 							<p>To set the mode using annotations, your class definition should look
-								something like this: </p>
+								something like this example which specifies the
+									<codeph>read-only</codeph> usage mode: </p>
 							<codeblock>
 import org.hibernate.annotations.Cache; 
 import org.hibernate.annotations.CacheConcurrencyStrategy; 
@@ -86,7 +90,7 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 @Cacheable
 @Cache(
    region = 'REGION_NAME',
-   usage = CacheConcurrencyStrategy.READ_ONLY|READ_WRITE|NONSTRICT_READ_WRITE|TRANSACTIONAL
+   usage = CacheConcurrencyStrategy.READ_ONLY
 )
 
 public class MyClass implements Serializable { ... }</codeblock>
@@ -94,14 +98,16 @@ public class MyClass implements Serializable { ... }</codeblock>
 					</ul>
 				</p>
 			</li>
+			<li><b>Start a
+				Locator</b><codeblock>$ gfsh start locator –-name=locator1</codeblock></li>
 			<li id="li_C4D07349E34942419BD525189D1B1B14">
 				<p><b>Start Hibernate</b>
 				</p>
 				<p>You are now ready to build, deploy, and run your Hibernate application, which
 					will also launch <keyword keyref="product_name"/>. See the <xref
 						href="http://hibernate.org/docs" scope="external" format="html">Hibernate
-						documentation</xref> for further information about performing these actions.
-				</p>
+						website documentation</xref> for further information about performing these
+					actions. </p>
 			</li>
 			<li id="li_D9003EAD2ADA42ADA8C50357CAEFBD91">
 				<p><b>Verify that <keyword keyref="product_name"/> Started Successfully</b>
@@ -110,7 +116,7 @@ public class MyClass implements Serializable { ... }</codeblock>
 					for Java (SLF4J) to log messages. Upon successful startup, <keyword
 						keyref="product_name"/> will log the following message: </p>
 				<codeblock>2010-11-15 INFO [com.gemstone.gemfire.modules.hibernate.GemFireRegionFactory] - 
-    &lt;Initializing GemFire Modules Version 1.1&gt;
+    &lt;Initializing Apache Geode Modules Version 1.1&gt;
 
 </codeblock>
 				<p>SLF4J can send this and other <keyword keyref="product_name"/> log messages to

@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "http://docs.oasis-open.org/dita/dtd/concept.dtd">
 <concept id="changing_gemfire_default_cfg">
-	<title>Changing <keyword keyref="product_name_long"/> Default Configuration (Hibernate Cache
-		Module)</title>
+	<title>Changing Default Configuration of the Hibernate Cache Module</title>
 	<shortdesc>To edit <keyword keyref="product_name"/> configuration information (such as how
 		members locate each other), you can add <keyword keyref="product_name"/> properties to
 		Hibernate's <codeph>hibernate.cfg.xml</codeph> file. </shortdesc>
@@ -19,36 +18,30 @@
 			<p>By default, the topology is set for a peer-to-peer configuration rather than a
 				client/server configuration. To use the peer-to-peer configuration, you don't have
 				to make any changes. If you want to change the configuration to a client/server
-				topology, edit the Hibernate configuration file: </p>
+				topology, alter this line of the Hibernate configuration file to be: </p>
 			<codeblock>&lt;property name="gemfire.cache-topology"&gt;client-server&lt;/property&gt;</codeblock>
 			<p>Since the Hibernate process operates as a <keyword keyref="product_name"/> client in
 				this configuration, you must manually launch a <keyword keyref="product_name"/>
-				cache server. You can do this with the following script (which should be installed
-				into the <b>bin</b> subdirectory wherever <keyword keyref="product_name"/> is
-				located): </p>
-			<codeblock>In Unix: 
-  prompt$ ./cacheserver.sh start
-  
-In Windows:
-  prompt&gt; cacheserver.bat start</codeblock>
-			<note>When running the cache server, make sure the Hibernate jar and the <keyword
-					keyref="product_name"/> modules jar are in the classpath, along with any
-				dependencies. You can use the CLASSPATH environment variable or you can set the
-					<codeph>-classpath &lt;classpath&gt;</codeph> command line argument when
-				launching the cache server. </note>Without making any further configuration changes,
-			the client and server attempt to locate each other on the same system using a default
-			port (40404). Though useful for testing purposes, you would not normally deploy a
-			client/server configuration in this way. Refer to "Using <keyword keyref="product_name"
-			/> Locators with a Client/Server Configuration" for information on creating and using
-			Locators, which provide both discovery and load balancing services. </section>
+				cache server. Do this after starting the locator. Make sure the Hibernate jar and
+				the <keyword keyref="product_name"/> modules jar are in the classpath, along with
+				any dependencies. This command to start the server assumes that gfsh is in your path
+				and sets the classpath on the command line needs to be altered to fill in the path
+				to the directory in which contains the Hibernate jar files and correct the names of
+				the jar files: </p>
+			<codeblock>$ gfsh start server \
+--name=server1 \
+--locators=localhost[10334] \
+--server-port=0 \
+--classpath=<i>path/to/hibernate-jars</i>/geode-modules-1.0.0.jar:\
+<i>path/to/hibernate-jars</i>/geode-modules-hibernate-1.0.0.jar</codeblock>
+		</section>
 		<section id="changing_p2p_region_atts">
 			<title>Changing Peer-to-Peer Region Attributes</title>
 			<p>You can change the region attributes from within the
 					<codeph>hibernate.cfg.xml</codeph> file using the same region shortcuts
 				specified in <xref
 					href="../../basic_config/data_regions/region_shortcuts.xml"
-					type="concept" format="dita" scope="local"
-					><?xm-replace_text Region Shortcuts and Custom Named Region Attributes?></xref>.
+					type="concept" format="dita" scope="local"></xref>.
 				<codeblock>&lt;property name="gemfire.default-region-attributes-id"&gt;
   REGION_ATTRIBUTE
 &lt;/property&gt; </codeblock>
@@ -67,46 +60,8 @@ In Windows:
 			<p>In this example, com.foo.Bar is the name of your class and REGION_ATTRIBUTE can be
 				one of the region shortcuts. </p>
 		</section>
-		<section id="using_diff_mc_port_with_pp">
-			<title>Using a Different Multicast Port with a Peer-to-Peer Configuration</title>
-			<p>For a <keyword keyref="product_name"/> peer-to-peer member to communicate on a
-				different multicast port than the default (10334), use the
-					<codeph>mcast-port</codeph> property. </p>
-			<codeblock>&lt;property name="gemfire.mcast-port"&gt;10445&lt;/property&gt; </codeblock>This
-			example uses port 10445 as the multicast port. </section>
-		<section id="using_locators_with_pp_cfg">
-			<title>Using <keyword keyref="product_name"/> Locators with a Peer-to-Peer
-				Configuration</title>
-			<p>By default, <keyword keyref="product_name"/> peers discover each other using
-				multicast communication on a known port (as specified by the
-					<codeph>mcast-port</codeph> property). Alternatively, you can configure member
-				discovery using one or more dedicated locators. A locator provides both discovery
-				and load balancing services. </p>
-			<p>To run <keyword keyref="product_name"/> with one or more locators instead of a
-				multicast port, use the <codeph>locators </codeph>property. </p>
-			<codeblock>&lt;property name="gemfire.locators"&gt;host1[port1],host2[port2]&lt;/property&gt; </codeblock>
-			<p>In this example, <codeph>host1</codeph> and <codeph>host2 </codeph>are the hostnames
-				(or IP addresses) for each of the locators; <codeph>port1</codeph> and <codeph>port2
-				</codeph>are the ports for each of the locators. </p>
-			<p>Although this code will tell the peer to look for a locator, it does not
-				automatically start the locator. To launch a locator automatically within the same
-				application as the one running the Hibernate process, use this code, with your
-				hostname (or IP address) and port settings: </p>
-			<codeblock>&lt;property name="gemfire.start-locator"&gt;host[port]&lt;/property&gt; </codeblock>
-			<p>Alternatively, you can start a locator in a separate process using the
-					<codeph>gemfire</codeph> command-line tool found in the <codeph>bin
-				</codeph>subdirectory wherever <keyword keyref="product_name"/> is located. </p>
-			<codeblock>In Unix:
-  ./gemfire.sh start-locator -port=10334
-  
-In Windows:
-  gemfire.bat start-locator -port=10334</codeblock>
-			<p>This example starts a locator that listens on port 10334. </p>
-		</section>
 		<section id="section_1AB292DC8D0B420DABFD2120A38FEDB4">
-			<title>
-				<b>Changing Region Names</b>
-			</title>
+			<title> Changing Region Names </title>
 			<p> By default, the <keyword keyref="product_name"/> Hibernate module puts entities in a
 				region whose name is the fully qualified path of the entity. The module uses these
 				region names to eagerly prefetch related entities. Therefore, we recommend that you
@@ -143,51 +98,6 @@ In Windows:
 &lt;/property&gt; </codeblock>
 			<p>In this example, com.foo.Bar is the name of your class and CLIENT_REGION_ATTRIBUTE
 				can be one of the client region shortcuts. </p>
-		</section>
-		<section id="section_57B3FEAFF926487DAF368D67FFE59E1B">
-			<title id="using_locators_with_cs_cfg">Using <keyword keyref="product_name"/> Locators
-				with a Client/Server Configuration</title>
-			<p>By default, <keyword keyref="product_name"/> clients and servers discover each other
-				on a pre-defined port (40404) on the localhost. This is not typically the way you
-				would deploy a client/server configuration. A preferred solution is to use one or
-				more dedicated locators. A locator provides both discovery and load balancing
-				services. </p>
-			<p>To run <keyword keyref="product_name"/> with one or more locators, use the
-					<codeph>locators</codeph> property. </p>
-			<codeblock>&lt;property name="gemfire.locators"&gt;host1[port1],host2[port2]&lt;/property&gt; </codeblock>
-			<p>In this example, <codeph>host1</codeph> and <codeph>host2</codeph> are the hostnames
-				(or IP addresses) for each of the locators; <codeph>port1</codeph> and
-					<codeph>port2</codeph> are the ports for each of the locators. </p>
-			<p>Although this code will tell the <b>client</b> to look for a locator, it does not
-				automatically start the locator. You can start a locator using the
-					<codeph>gemfire</codeph> command-line tool found in the <codeph>bin</codeph>
-				subdirectory wherever <keyword keyref="product_name"/> is located. </p>
-			<codeblock>In Unix:
-  ./gemfire.sh start-locator -port=10334
-  
-In Windows:
-  gemfire.bat start-locator -port=10334</codeblock>
-			<p>This example starts a locator that listens on port 10334. </p>
-			<p>You also need to tell the <keyword keyref="product_name"/>
-				<b>server</b> to use a locator when you launch the server. You can do this through a
-				command-line argument when you start up the server with the script provided in the
-					<codeph>bin</codeph> subdirectory wherever <keyword keyref="product_name"/> is
-				located: </p>
-			<codeblock>In Unix: 
-  prompt$ ./cacheserver.sh start locators=hostname[port]
-  
-In Windows:
-  prompt&gt; cacheserver.bat start locators=hostname[port]</codeblock>
-			<p>If you are running more than one locator, use a comma-separated list of locators.
-				Refer to <xref
-					href="../../configuring/running/running_the_cacheserver.xml"
-					type="concept" format="dita" scope="local"/> for more information on using this
-				script. </p>
-			<note>When running the cache server, make sure the Hibernate jar and the <keyword
-					keyref="product_name"/> modules jar are in the classpath, along with any
-				dependencies. You can use the CLASSPATH environment variable or you can set the
-					<codeph>-classpath &lt;classpath&gt;</codeph> command line argument when
-				launching the cache server. </note>
 		</section>
 		<section id="turning_on_persistence">
 			<title>Turning On Persistence</title>

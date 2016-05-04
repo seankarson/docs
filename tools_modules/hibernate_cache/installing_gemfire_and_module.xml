@@ -6,27 +6,23 @@
 		installation package. </shortdesc>
 	<conbody>
 		<ol id="ol_09B50F21A342468689F67A3A0E4557C7">
-			<li id="li_8AFC5249925C40478A7430E94EBA0AC7">
-				<p>If you have not done so, download and install <xref format="html"
-						href="http://www.hibernate.org/" scope="external">Hibernate</xref>. See
-						<xref
-						href="../../getting_started/system_requirements/modules_system_requirements.xml#concept_93DC5047FF79417CAF803DE996D5E844/section_A7877CA6FE994EE28380A57A401A29B4"
-						type="section" format="dita" scope="local"
-						><?xm-replace_text Hibernate Module Supported Configurations?></xref> for
-					currently supported versions of Hibernate. </p>
-			</li>
-			<li id="li_1FD8FC8A6D184B0DA6A89472D8215697">
-				<p>The Hibernate module is included in the <keyword keyref="product_name_long"/> installation
-					package. You can find the module in the following location:
-					<codeblock>&lt;product_dir&gt;/tools/Modules/Pivotal_GemFire_Modules-8.2-Hibernate.zip</codeblock>where
-					&lt;product_dir&gt; is the location where you installed <keyword
-						keyref="product_name"/>. </p>
-			</li>
+			<li id="li_8AFC5249925C40478A7430E94EBA0AC7">If you have not done so, download and install <xref
+					format="html" href="http://www.hibernate.org/" scope="external"
+				>Hibernate</xref>. <keyword keyref="product_name_long"/> supports Hibernate 3.3 and
+				later (up to version 3.6.10) for use with the Hibernate Cache module. <keyword
+					keyref="product_name_long"/> does not currently support Hibernate 4.x for use
+				with the Hibernate Cache module. </li>
+			<li id="li_1FD8FC8A6D184B0DA6A89472D8215697">The Hibernate module is included in the <keyword
+					keyref="product_name_long"/> installation package. You can find the module in
+				the <codeph>&lt;product_dir&gt;/tools/Modules</codeph> directory, in a zip file that
+				includes the version and the string <codeph>Hibernate</codeph>.
+					<codeph>&lt;product_dir&gt;</codeph> is the location where you installed
+					<keyword keyref="product_name"/>.</li>
 			<li id="li_8C47817083514BAA83C52483C5950DAB">Make sure that
-					<codeph>&lt;product_dir&gt;/lib/gemfire.jar</codeph> is part of the CLASSPATH
-				when you run Hibernate. Alternatively, you can place the
-					<codeph>gemfire.jar</codeph> in a location that is accessible to your Hibernate
-				application. </li>
+					<codeph>&lt;product_dir&gt;/lib/geode-dependencies.jar</codeph> is part of the
+				CLASSPATH when you run Hibernate. Alternatively, you can place the
+					<codeph>geode-dependencies.jar</codeph> in a location that is accessible to your
+				Hibernate application. </li>
 		</ol>
 	</conbody>
 </concept>
