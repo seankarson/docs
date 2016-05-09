@@ -5964,6 +5964,307 @@
 			</table>
 		</body>
 	</topic>
+	<topic id="section_923B28F01BC3416786D3AFBD87F22A5E">
+		<title>Operating System Statistics - Linux</title>
+		<body>
+			<section>
+				<title>Linux Process Performance (LinuxProcessStats)</title>
+				<p>Operating system statistics on the member’s process. These can be used to
+					determine the member’s CPU, memory, and disk usage. Operating system statistics
+					are not available in pure Java mode, where <keyword keyref="product_name"/> runs
+					without the use of the <keyword keyref="product_name"/> native library. These
+					are the equivalent of <codeph>SolarisProcessStats</codeph> when we're running on
+					Linux. The primary statistics are: </p>
+				<p>
+					<table id="table_F9740BD6AD8648548E1978EAD4FA123A">
+						<tgroup cols="2">
+							<colspec colname="1" colnum="1" colwidth="*"/>
+							<colspec colname="2" colnum="2" colwidth="*"/>
+							<thead>
+								<row>
+									<entry>Statistic </entry>
+									<entry>Description </entry>
+								</row>
+							</thead>
+							<tbody>
+								<row>
+									<entry>
+										<codeph>imageSize</codeph>
+									</entry>
+									<entry>Size, in megabytes, of the process's image. </entry>
+								</row>
+								<row>
+									<entry>
+										<codeph>rssSize</codeph>
+									</entry>
+									<entry>Size, in megabytes, of the process's resident size.
+									</entry>
+								</row>
+							</tbody>
+						</tgroup>
+					</table>
+				</p>
+			</section>
+			<section>
+				<title>Linux Operating System (LinuxSystemStats)</title>
+				<p> Operating system statistics on the member’s machine. These can be used to
+					determine total cpu, memory, and disk usage on the machine. Operating system
+					statistics are not available in pure Java mode. These are the equivalent of
+					SolarisSystemStats when running on Linux. The primary statistics are: </p>
+				<p>
+					<table id="table_8F976577F9454C79BAB88520ABBCA0C1">
+						<tgroup cols="2">
+							<colspec colname="1" colnum="1" colwidth="*"/>
+							<colspec colname="2" colnum="2" colwidth="*"/>
+							<thead>
+								<row>
+									<entry>Statistic </entry>
+									<entry>Description </entry>
+								</row>
+							</thead>
+							<tbody>
+								<row>
+									<entry>
+										<codeph>allocatedSwap</codeph>
+									</entry>
+									<entry>Number of megabytes of swap space that have actually been
+										written to. Swap space must be reserved before it can be
+										allocated. </entry>
+								</row>
+								<row>
+									<entry>
+										<codeph>bufferMemory</codeph>
+									</entry>
+									<entry>Number of megabytes of memory allocated to buffers.
+									</entry>
+								</row>
+								<row>
+									<entry>
+										<codeph>contextSwitches</codeph>
+									</entry>
+									<entry>Total number of context switches from one thread to
+										another on the computer. Thread switches can occur either
+										inside of a single process or across processes. A thread
+										switch may be caused either by one thread asking another for
+										information, or by a thread being preempted by another,
+										higher priority thread becoming ready to run. </entry>
+								</row>
+								<row>
+									<entry>
+										<codeph>cpuActive</codeph>
+									</entry>
+									<entry>Percentage of the total available time that has been used
+										in a non-idle state. </entry>
+								</row>
+								<row>
+									<entry>
+										<codeph>cpuIdle</codeph>
+									</entry>
+									<entry>Percentage of the total available time that has been
+										spent sleeping. </entry>
+								</row>
+								<row>
+									<entry>
+										<codeph>cpuNice</codeph>
+									</entry>
+									<entry>Percentage of the total available time that has been used
+										to execute user code in processes with low priority.
+									</entry>
+								</row>
+								<row>
+									<entry>
+										<codeph>cpus</codeph>
+									</entry>
+									<entry>Number of online CPUs (items) on the local machine.
+									</entry>
+								</row>
+								<row>
+									<entry>
+										<codeph>cpuSystem</codeph>
+									</entry>
+									<entry>Percentage of the total available time that has been used
+										to execute system (that is, kernel) code. </entry>
+								</row>
+								<row>
+									<entry>
+										<codeph>cpuUser</codeph>
+									</entry>
+									<entry>Percentage of the total available time that has been used
+										to execute user code. </entry>
+								</row>
+								<row>
+									<entry>
+										<codeph>freeMemory</codeph>
+									</entry>
+									<entry>Number of megabytes of unused memory on the machine.
+									</entry>
+								</row>
+								<row>
+									<entry>
+										<codeph>loadAverage1</codeph>
+									</entry>
+									<entry>Average number of threads in the run queue or waiting for
+										disk I/O over the last minute. </entry>
+								</row>
+								<row>
+									<entry>
+										<codeph>loadAverage15</codeph>
+									</entry>
+									<entry>Average number of threads in the run queue or waiting for
+										disk I/O over the last fifteen minutes. </entry>
+								</row>
+								<row>
+									<entry>
+										<codeph>loadAverage5</codeph>
+									</entry>
+									<entry>Average number of threads in the run queue or waiting for
+										disk I/O over the last five minutes. </entry>
+								</row>
+								<row>
+									<entry>
+										<codeph>loopbackBytes</codeph>
+									</entry>
+									<entry>Number of network bytes sent (or received) on the
+										loopback interface. </entry>
+								</row>
+								<row>
+									<entry>
+										<codeph>loopbackPackets</codeph>
+									</entry>
+									<entry>Number of network packets sent (or received) on the
+										loopback interface. </entry>
+								</row>
+								<row>
+									<entry>
+										<codeph>pagesPagedIn</codeph>
+									</entry>
+									<entry>Total number of pages that have been brought into memory
+										from disk by the operating system's memory manager. </entry>
+								</row>
+								<row>
+									<entry>
+										<codeph>pagesPagedOut</codeph>
+									</entry>
+									<entry>Total number of pages that have been flushed from memory
+										to disk by the operating system's memory manager. </entry>
+								</row>
+								<row>
+									<entry>
+										<codeph>pagesSwappedIn</codeph>
+									</entry>
+									<entry>Total number of swap pages that have been read in from
+										disk by the operating system's memory manager. </entry>
+								</row>
+								<row>
+									<entry>
+										<codeph>pagesSwappedOut</codeph>
+									</entry>
+									<entry>Total number of swap pages that have been written out to
+										disk by the operating system's memory manager. </entry>
+								</row>
+								<row>
+									<entry>
+										<codeph>physicalMemory</codeph>
+									</entry>
+									<entry>Actual amount of total physical memory on the machine.
+									</entry>
+								</row>
+								<row>
+									<entry>
+										<codeph>processCreates</codeph>
+									</entry>
+									<entry>The total number of times a process (operation) has been
+										created. </entry>
+								</row>
+								<row>
+									<entry>
+										<codeph>processes</codeph>
+									</entry>
+									<entry>Number of processes in the computer at the time of data
+										collection. Notice that this is an instantaneous count, not
+										an average over the time interval. Each process represents
+										the running of a program. </entry>
+								</row>
+								<row>
+									<entry>
+										<codeph>recvBytes</codeph>
+									</entry>
+									<entry>Total number of network bytes received (excluding
+										loopback). </entry>
+								</row>
+								<row>
+									<entry>
+										<codeph>recvDrops</codeph>
+									</entry>
+									<entry>Total number network receives (packets) dropped. </entry>
+								</row>
+								<row>
+									<entry>
+										<codeph>recvErrors</codeph>
+									</entry>
+									<entry>Total number of network receive errors. </entry>
+								</row>
+								<row>
+									<entry>
+										<codeph>recvPackets</codeph>
+									</entry>
+									<entry>Total number of network packets received (excluding
+										loopback). </entry>
+								</row>
+								<row>
+									<entry>
+										<codeph>sharedMemory</codeph>
+									</entry>
+									<entry>Number of megabytes of shared memory on the machine.
+									</entry>
+								</row>
+								<row>
+									<entry>
+										<codeph>unallocatedSwap</codeph>
+									</entry>
+									<entry>Number of megabytes of swap space that have not been
+										allocated. </entry>
+								</row>
+								<row>
+									<entry>
+										<codeph>xmitBytes</codeph>
+									</entry>
+									<entry>Total number of network bytes transmitted (excluding
+										loopback). </entry>
+								</row>
+								<row>
+									<entry>
+										<codeph>xmitCollisions</codeph>
+									</entry>
+									<entry>Total number of network transmit collisions. </entry>
+								</row>
+								<row>
+									<entry>
+										<codeph>xmitDrops</codeph>
+									</entry>
+									<entry>Total number of network transmits (packets) dropped.
+									</entry>
+								</row>
+								<row>
+									<entry>
+										<codeph>xmitErrors</codeph>
+									</entry>
+									<entry>Total number of network transmit errors. </entry>
+								</row>
+								<row>
+									<entry>
+										<codeph>xmitPackets</codeph>
+									</entry>
+									<entry>Total number of network packets transmitted (excluding
+										loopback. </entry>
+								</row>
+							</tbody>
+						</tgroup>
+					</table>
+				</p>
+			</section>
+		</body>
+	</topic>
 	<topic id="section_35AC170770C944C3A336D9AEC2D2F7C5">
 		<title>Partitioned Regions
 			(PartitionedRegion&lt;partitioned_region_name&gt;Statistics)</title>
