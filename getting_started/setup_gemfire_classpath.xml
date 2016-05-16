@@ -49,6 +49,10 @@
     <codeblock>gfsh> start locator --name=locator1 --classpath=/path/to/applications/classes.jar</codeblock>And
     to modify the CLASSPATH of a
     server:<codeblock>gfsh> start server --name=server1 --classpath=/path/to/applications/classes.jar</codeblock></p>
+   <p>Application classes supplied as arguments to the <codeph>--classpath</codeph> option are
+     <i>prepended</i> to the server or locator's CLASSPATH, beginning in second position. The first
+    entry in the CLASSPATH is reserved for the core <keyword keyref="product_name"/> jar file, for
+    security reasons. </p>
    <p><b>Option 2:</b> Define the CLASSPATH environment variable in your OS environment. Then,
     specify the <codeph>--include-system-classpath</codeph> parameter upon process startup. For
     example:<codeblock>gfsh> start locator --name=locator1 --include-system-classpath=true</codeblock>
