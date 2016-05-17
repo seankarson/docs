@@ -35,6 +35,8 @@ this.cache = new ClientCacheFactory(props).create();</codeblock>
 					<li id="li_B53244A0B6104168BC7DA06CEE7FFCA9">If the <codeph>Cache</codeph>
 						attribute <codeph>copy-on-read</codeph> is true, cloning is enabled,
 						regardless of what this attribute is set to. </li>
+					<li>If the <codeph>Region</codeph> attribute <codeph>off-heap</codeph> is true,
+						cloning is enabled, regardless of what this attribute is set to. </li>
 				</ul>
 			</p>
 			<p>Cloning can be expensive, but it ensures that the new object is fully initialized
