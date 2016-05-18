@@ -25,14 +25,13 @@
 										as much work here as you can to save time on the individual
 											<codeph>authorizeOperation</codeph> calls. </note>
 								</li>
-								<li id="li_E300D88CF0C847129EA980C647D0A2C2">Program the
-										<codeph>authorizeOperation</codeph> method to perform
-									whatever pre- and post-operation authorization activities
-									required by your application. The
+								<li id="li_E300D88CF0C847129EA980C647D0A2C2">Program the <codeph>authorizeOperation</codeph>
+									method to perform whatever pre- and post-operation authorization
+									activities your application requires. The
 										<codeph>OperationContext</codeph> has the
 										<codeph>OperationCode</codeph> and a boolean indicating
 									whether the call is pre-operation or post-operation. For all but
-									function calls, you can filter the post-operation results, to
+									function calls, you can filter the post-operation results to
 									remove any data you do not want your clients to receive.
 									Function calls can be allowed or disallowed only in their
 									entirety. </li>
@@ -41,18 +40,18 @@
 						<li id="li_A96900BFA2E74A77BB94E79FB6D7E8FB">Set the
 								<codeph>gemfire.properties</codeph> uniformly on all servers to
 							implement the plug-in: <ul id="ul_07F485DB594445AAACB931E7402E496D">
-								<li id="li_E8D991DB779147ECBD8CA9E945DB716F">For pre-operative
-									calls, set <codeph>security-client-accessor</codeph> to the
-									fully qualified name of the static method you programmed to
-									return an instance of the class. Example:
+								<li id="li_E8D991DB779147ECBD8CA9E945DB716F">For pre-operation calls, set
+										<codeph>security-client-accessor</codeph> to the fully
+									qualified name of the static method you programmed to return an
+									instance of the class. Example:
 									<codeblock>//Pre-op example where myAccessControl.create returns the 
 // instance of AccessControl 
 security-client-accessor=myAuthPkg.myAccessControl.create</codeblock>
 								</li>
-								<li id="li_395B58EC8D964F5EBF7CFA4B39BAE173">For post-operative
-									calls, set <codeph>security-client-accessor-pp</codeph> to the
-									fully qualified name of the static method you programmed to
-									return an instance of the class.
+								<li id="li_395B58EC8D964F5EBF7CFA4B39BAE173">For post-operation calls, set
+										<codeph>security-client-accessor-pp</codeph> to the fully
+									qualified name of the static method you programmed to return an
+									instance of the class.
 									<codeblock>//Post-op example where myAccessControl.create returns the 
 // instance of AuthInitialize 
 security-client-accessor-pp=myAuthPkg.myAccessControl.create</codeblock>

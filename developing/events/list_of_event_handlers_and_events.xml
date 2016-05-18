@@ -142,20 +142,7 @@
 										<codeph>CacheListener</codeph>. Installed in region as a
 										<codeph>CacheListener</codeph>. </entry>
 							</row>
-							<row>
-								<entry>
-									<codeph>RegionRoleListener</codeph>
-								</entry>
-								<entry><codeph>RoleEvent</codeph>, <codeph>RegionEvent</codeph>,
-										<codeph>EntryEvent</codeph>
-								</entry>
-								<entry>Tracks the presence of essential membership roles in the
-									distributed system, and changes to member, region, and data
-									entries. Extends <codeph>CacheCallback</codeph>,
-										<codeph>CacheListener</codeph>, and
-										<codeph>RegionMembershipListener</codeph>. Installed in
-									region as a <codeph>CacheListener</codeph>. </entry>
-							</row>
+
 							<row>
 								<entry>
 									<codeph>TransactionListener</codeph>
@@ -261,7 +248,6 @@
 								<codeph>EntryEvent</codeph>
 							</entry>
 							<entry><codeph>CacheListener</codeph>, <codeph>CacheWriter</codeph>,
-									<codeph>RegionRoleListener</codeph>,
 									<codeph>TransactionListener</codeph> (inside the
 									<codeph>TransactionEvent</codeph>) </entry>
 							<entry>Extends <codeph>CacheEvent</codeph> for entry events. Contains
@@ -299,25 +285,13 @@
 								<codeph>RegionEvent</codeph>
 							</entry>
 							<entry><codeph>CacheListener</codeph>, <codeph>CacheWriter</codeph>,
-									<codeph>RegionMembershipListener</codeph>,
-									<codeph>RegionRoleListener</codeph>
+									<codeph>RegionMembershipListener</codeph>
 							</entry>
 							<entry>Extends <codeph>CacheEvent</codeph> for region events. Provides
 								information about operations that affect the whole region, such as
 								reinitialization of the region after being destroyed. </entry>
 						</row>
-						<row>
-							<entry>
-								<codeph>RoleEvent</codeph>
-							</entry>
-							<entry>
-								<codeph>RegionRoleListener</codeph>
-							</entry>
-							<entry>Extends <codeph>RegionEvent</codeph> for region reliability
-								events. Contains information about an event where membership roles
-								are lost or gained, which might affect a region’s reliability.
-							</entry>
-						</row>
+
 						<row>
 							<entry>
 								<codeph>TimestampedEntryEvent</codeph>

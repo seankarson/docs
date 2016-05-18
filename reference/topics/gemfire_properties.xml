@@ -904,13 +904,13 @@
 					</row>
 					<row>
 						<entry id="entry_lxj_xfp_rr">membership-port-range </entry>
-						<entry id="entry_p4n_xfp_rr">The range of ports available for unicast UDP
-							messaging and for TCP failure detection. This is specified as two
-							integers separated by a minus sign. Different members can use different
-							ranges. <p><keyword keyref="product_name"/> randomly chooses at least
-								two unique integers from this range for the member, one for UDP
-								unicast messaging and the other for TCP failure detection messaging.
-								If tcp-port is configured to 0, it will also randomly select a port
+						<entry id="entry_p4n_xfp_rr">The range of ports available for unicast UDP messaging and for
+							TCP failure detection. This is specified as two integers separated by a
+							hyphen. Different members can use different ranges. <p><keyword
+									keyref="product_name"/> randomly chooses at least two unique
+								integers from this range for the member, one for UDP unicast
+								messaging and the other for TCP failure detection messaging. If
+								tcp-port is configured to 0, it will also randomly select a port
 								from this range for TCP sockets used for peer-to-peer communication
 								only.</p><p>Therefore, the specified range must include at least
 								three available port numbers (UDP, FD_SOCK, and TCP
@@ -992,18 +992,7 @@ off-heap-memory-size=120g</codeblock></entry>
 							the queue block on the server. </entry>
 						<entry id="entry_mxw_ggp_rr">false </entry>
 					</row>
-					<row>
-						<entry id="entry_hfh_hwp_rr">roles </entry>
-						<entry id="entry_ktk_hwp_rr">Comma-delimited list of strings specifying the
-							membership roles that this member performs in the distributed system.
-							Note that this property has been deprecated in favor of member
-								groups.<note>Anything defined in this property will be considered a
-								"group" as defined in the <codeph>groups</codeph> property
-								above.</note></entry>
-						<entry id="entry_mr4_hwp_rr">
-							<i>not set</i>
-						</entry>
-					</row>
+
 					<row>
 						<entry id="entry_pf5_hgp_rr">security-* </entry>
 						<entry id="entry_exy_hgp_rr">Used for authentication. Any custom properties

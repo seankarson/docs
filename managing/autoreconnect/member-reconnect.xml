@@ -52,10 +52,9 @@
 				methods you can use to take actions while a member is reconnecting to the
 				distributed system:</p>
 			<ul id="ul_fjt_2r3_3l">
-				<li><codeph>DistributedSystem.isReconnecting()</codeph> returns true if the member
-					is in the process of reconnecting and recreating the cache after having been
-					removed from the system by other members, or has shut down due to missing Roles
-					and is reconnecting. </li>
+				<li><codeph>DistributedSystem.isReconnecting()</codeph> returns true if the member is in the
+					process of reconnecting and recreating the cache after having been removed from
+					the system by other members. </li>
 				<li><codeph>DistributedSystem.waitUntilReconnected(long, TimeUnit)</codeph> waits
 					for a period of time, and then returns a boolean value to indicate whether the
 					member has reconnected to the DistributedSystem. Use a value of -1 seconds to

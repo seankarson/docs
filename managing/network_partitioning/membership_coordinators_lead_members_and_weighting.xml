@@ -8,15 +8,15 @@
 	<conbody>
 		<section id="section_7C67F1D30C1645CC8489E481873691D9">
 			<title>Membership Coordinators and Lead Members</title>
-			<p> The membership coordinator is a member that manages entry and exit of other members
-				of the distributed system. With network partition detection enabled, the coordinator
-				can be any <keyword keyref="product_name"/> member but locators are preferred. In a
+			<p> The membership coordinator is a member that manages entry and exit of other members of the
+				distributed system. With network partition detection enabled, the coordinator can be
+				any <keyword keyref="product_name"/> member but locators are preferred. In a
 				locator-based system, if all locators are in the reconnecting state, the system
-				continues to function, but new members are not be able to join until a locator has
+				continues to function, but new members are not able to join until a locator has
 				successfully reconnected. After a locator has reconnected, the reconnected locator
 				will take over the role of coordinator. </p>
-			<p>When a coordinator is shutting down, it sends out a view that removes itself from
-				list and the other members must determine who the new coordinator is. </p>
+			<p>When a coordinator is shutting down, it sends out a view that removes itself from the list and
+				the other members must determine who the new coordinator is. </p>
 			<p>The lead member is determined by the coordinator. Any member that has enabled network
 				partition detection, is not hosting a locator, and is not an administrator
 				interface-only member is eligible to be designated as the lead member by the
@@ -70,10 +70,10 @@
 						member) and 1 locator become unreachable. Membership weight loss equals 58
 						(52%). Since 52% is greater than the 51% threshold, the coordinator
 						initiates shutdown. </li>
-					<li id="li_FA83569BA9264847A9211DBA11290995">6 cache servers (not including the
-						lead member) and both locators become unreachable. Membership weight loss
-						equals 66 (59%). Since 59% is greater than the 51% threshold, the newly
-						elected coordinator (a cache server since lo locators remain) will initiate
+					<li id="li_FA83569BA9264847A9211DBA11290995">6 cache servers (not including the lead member)
+						and both locators become unreachable. Membership weight loss equals 66
+						(59%). Since 59% is greater than the 51% threshold, the newly elected
+						coordinator (a cache server since no locators remain) will initiate
 						shutdown. </li>
 				</ul>
 			</p>
@@ -83,11 +83,11 @@
 					<li id="li_2F3A68402EA54577A52A8E7732F00F30">Cache server designated as lead
 						member becomes unreachable. Membership weight loss equals 15 or 48%.
 						Distributed system stays up. </li>
-					<li id="li_482218AB09764A1A9E5E3CCF638FCA0D">Cache server designated as lead
-						member and 1 locator become unreachable. Member weight loss equals 18 or
-						58%. Membership coordinator initiates shutdown. If the locator that became
-						unreachable was the membership coordinator, the other locator is elected
-						coordinator and the initiates shutdown. </li>
+					<li id="li_482218AB09764A1A9E5E3CCF638FCA0D">Cache server designated as lead member and 1
+						locator become unreachable. Member weight loss equals 18 or 58%. Membership
+						coordinator initiates shutdown. If the locator that became unreachable was
+						the membership coordinator, the other locator is elected coordinator and
+						then initiates shutdown. </li>
 				</ul>
 			</p>
 			<p>Even if network partitioning is not enabled, if quorum loss is detected due to
