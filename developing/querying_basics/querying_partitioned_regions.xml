@@ -13,25 +13,23 @@
 			<p>The following list summarizes the querying functionality supported by <keyword
 					keyref="product_name"/> for partitioned regions: </p>
 			<ul id="ul_FEDBE40E83694F9DB23452F99B35A145">
-				<li id="li_DB2BA6CEFE904FAD884B6FB7921DF00E"><b>Ability to target specific nodes in
-						a query</b>. If you know that a specific bucket contains the data that you
-					want to query, you can use a function to ensure that your query only runs the
-					specific node that holds the data. This can greatly improve query efficiency.
-					The ability to query data on a specific node is only available if you are using
-					functions and if the function is executed on one single region. In order to do
-					this, you need to use <codeph>Query.execute(RegionFunctionContext
-						context)</codeph>. See the <xref
-						href="/docs-gemfire/latest/javadocs/japi/com/gemstone/gemfire/cache/query/Query.html"
+				<li id="li_DB2BA6CEFE904FAD884B6FB7921DF00E"><b>Ability to target specific nodes in a query</b>.
+					If you know that a specific bucket contains the data that you want to query, you
+					can use a function to ensure that your query only runs the specific node that
+					holds the data. This can greatly improve query efficiency. The ability to query
+					data on a specific node is only available if you are using functions and if the
+					function is executed on one single region. In order to do this, you need to use
+						<codeph>Query.execute(RegionFunctionContext context)</codeph>. See the <xref
+						href="http://geode.incubator.apache.org/releases/latest/javadoc/com/gemstone/gemfire/cache/query/Query.html"
 						scope="external" format="html">Java API</xref> and <xref
 						href="../query_additional/query_on_a_single_node.xml#concept_30B18A6507534993BD55C2C9E0544A97"
 						type="concept" format="dita" scope="local"/> for more details. </li>
-				<li id="li_1F10DA7509634768BDF1BB9820943E34"><b>Ability to optimize partitioned
-						region query performance using key indexes</b>. You can improve query
-					performance on data that is partitioned by key or a field value by creating a
-					key index and then executing the query using use
-						<codeph>Query.execute(RegionFunctionContext context)</codeph> with the key
-					or field value used as filter. See the <xref
-						href="/docs-gemfire/latest/javadocs/japi/com/gemstone/gemfire/cache/query/Query.html"
+				<li id="li_1F10DA7509634768BDF1BB9820943E34"><b>Ability to optimize partitioned region query
+						performance using key indexes</b>. You can improve query performance on data
+					that is partitioned by key or a field value by creating a key index and then
+					executing the query using use <codeph>Query.execute(RegionFunctionContext
+						context)</codeph> with the key or field value used as filter. See the <xref
+						href="http://geode.incubator.apache.org/releases/latest/javadoc/com/gemstone/gemfire/cache/query/Query.html"
 						scope="external" format="html">Java API</xref> and <xref
 						href="../query_additional/partitioned_region_key_or_field_value.xml#concept_3010014DFBC9479783B2B45982014454"
 						type="concept" format="dita" scope="local"/> for more details. </li>
@@ -43,7 +41,7 @@
 					regions and replicated regions, the partitioned regions must be colocated, and
 					you need to use the need to use <codeph>Query.execute(RegionFunctionContext
 						context)</codeph>. See the <xref
-						href="/docs-gemfire/latest/javadocs/japi/com/gemstone/gemfire/cache/query/Query.html"
+						href="http://geode.incubator.apache.org/releases/latest/javadoc/com/gemstone/gemfire/cache/query/Query.html"
 						scope="external" format="html">Java API</xref> and <xref
 						href="../partitioned_regions/join_query_partitioned_regions.xml#concept_B930D276F49541F282A2CFE639F107DD"
 						type="concept" format="dita" scope="local"/> for more details. </li>
