@@ -4,22 +4,6 @@
 	<title>Configuring a Multi-site (WAN) System</title>
 	<shortdesc id="shortdesc_13CE632E827F45FE991F669C3301C21F">Plan and configure your multi-site
 		topology, and configure the regions that will be shared between systems. </shortdesc>
-	<prolog>
-		<metadata>
-			<keywords>
-				<keyword> gateway configure</keyword>
-				<keyword> multisite configuration</keyword>
-				<keyword> gateway configuration</keyword>
-				<keyword> gateway hub configuration</keyword>
-				<keyword> multi-site configuration</keyword>
-				<keyword> WAN configuration</keyword>
-				<keyword> enable-gateway</keyword>
-				<keyword> startup-policy</keyword>
-				<keyword> distributed system ID</keyword>
-				<keyword> jvm startup</keyword>
-			</keywords>
-		</metadata>
-	</prolog>
 	<conbody>
 		<section id="section_5DF2D8D199364E6C8B7F83382A134B5E">
 			<title>Prerequisites</title>
@@ -58,8 +42,8 @@ locators=&lt;locator1-address&gt;[&lt;port1&gt;],&lt;locator2-address&gt;[&lt;po
 distributed-system-id=1
 remote-locators=&lt;remote-locator-addr1&gt;[&lt;port1&gt;],&lt;remote-locator-addr2&gt;[&lt;port2&gt;]</codeblock>
 				</li>
-				<li id="li_7304AED2EBBA4E5DA84A6A52C8CC6007">Configure the gateway senders that you
-					will use to distribute region events to remote systems.See <xref
+				<li id="li_7304AED2EBBA4E5DA84A6A52C8CC6007">Configure the gateway senders that you will use to
+					distribute region events to remote systems. See <xref
 						href="setting_up_a_multisite_system.xml#setting_up_a_multisite_system/section_1500299A8F9A4C2385680E337F5D3DEC"
 						type="section" format="dita" scope="local"/>. </li>
 				<li id="li_3B64C007106A4224943AC118B3E9F51C">Create the data regions that you want
@@ -110,8 +94,8 @@ remote-locators=&lt;remote-locator-addr1&gt;[&lt;port1&gt;],&lt;remote-locator-a
 					of memory used by the queue, whether the queue is persisted to disk, and how one
 					or more gateway sender threads dispatch events from the queue. </li>
 			</ul>
-			<note>To configure a gateway sender that uses gfsh to create the cache.xml
-				configurations described below, see <xref
+			<note>To configure a gateway sender that uses gfsh to create the cache.xml configurations
+				described below, as well as other options, see <xref
 					href="../../tools_modules/gfsh/command-pages/create.xml#topic_hg2_bjz_ck"
 				/>.</note>
 			<p>See <xref
@@ -173,9 +157,9 @@ sender.start();
 </codeblock></li>
 						</ul>
 					</li>
-					<li id="li_60987C8F5BD3400CAE7F2A641F6BE5D5">Depending on your applications, you
-						may need to configure additional features in each gateway sender. Things you
-						need to consider are: <p>
+					<li id="li_60987C8F5BD3400CAE7F2A641F6BE5D5">Depending on your applications, you may need to
+						configure additional features in each gateway sender. Things you need to
+						consider are: <p>
 							<ul id="ul_D0385DE63A6B4AD68C15F1C5A108B31C">
 								<li id="li_F268678407C44FABBA38DE5220E6BBF2">The maximum amount of
 									memory each gateway sender queue can use. When the queue exceeds
@@ -232,26 +216,22 @@ sender.start();
 								<li>Decide whether the gateway sender should start automatically or
 									requires a manual start. This is controlled by the
 										<codeph>manual-start</codeph> attribute. For example, in
-										gfsh:<codeblock>gfsh>create gateway-sender --id=sender2 --parallel=true --remote-distributed-system-id=2 <b>--manual-start=true</b></codeblock>
-
-
-In
+									gfsh:<codeblock>gfsh>create gateway-sender --id=sender2 --parallel=true --remote-distributed-system-id=2 <b>--manual-start=true</b></codeblock>
+									In
 									cache.xml:<codeblock>&lt;gateway-sender id="sender2" parallel="false"
  remote-distributed-system-id="2" 
  dispatcher-threads="2" order-policy="partition" manual-start="true" /&gt;</codeblock>
 									By default, this is set to false on gateway senders and the
 									senders are started automatically.</li>
 							</ul>
-						</p><note>You can configure additional features using parameters of the gfsh
-								<cmdname>create gateway-sender</cmdname> command. See <xref
-								href="../../tools_modules/gfsh/command-pages/create.xml#topic_hg2_bjz_ck"
-							/> for more information.</note>
+						</p>
 					</li>
-					<li>If you have configured the gateway sender with <codeph>manual-start</codeph>
-						equal to true, then start the gateway sender when appropriate. In
-							gfsh:<codeblock>gfsh> start gateway-sender --id=sender2</codeblock>
-
-</li>
+					<li>If you have configured the gateway sender with <codeph>manual-start</codeph> equal to true,
+						then start the gateway sender when appropriate. For persistent gateway
+						senders, the appropriate time to start them is when all other members
+						hosting persistent regions are started. In
+						gfsh:<codeblock>gfsh> start gateway-sender --id=sender2</codeblock>
+					</li>
 				</ol>
 			</p>
 			<p>
@@ -329,11 +309,11 @@ custRegion = rf.create("customer");</codeblock>
 				listen. The <keyword keyref="product_name"/> server picks an unused port number from
 				the specified range to use for the receiver process. You can use this functionality
 				to easily deploy the same gateway receiver configuration to multiple members.</p>
-			<p>You can optionally configure gateway receivers to provide a specific IP address or
-				hostname for gateway sender connections. If you configure hostname-for-senders,
-				locators will use the provided hostname or IP address when instructing gateway
-				senders on how to connect to gateway receivers. If you provide "" or null as the
-				value, by default the gateway receiver's bind-address will be sent to clients.</p>
+			<p>You can optionally configure gateway receivers to provide a specific IP address or host name
+				for gateway sender connections. If you configure hostname-for-senders, locators will
+				use the provided host name or IP address when instructing gateway senders on how to
+				connect to gateway receivers. If you provide "" or null as the value, by default the
+				gateway receiver's bind-address will be sent to clients.</p>
 			<p>In addition, you can configure gateway receivers to start automatically or to require
 				a manual start. By default, gateway receivers must be started manually.</p>
 			<p>
