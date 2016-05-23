@@ -59,15 +59,11 @@
 							provide this class as the partition resolver to the region creation. </li>
 						<li id="li_BFF3C04E738348378D0FAE0C5EFCECD2"><b>Entry key</b>. You use the
 							implementing key object for every operation on the region entries. </li>
-						<li id="li_BB172BB767904AA9A5C435914781736B"><b>Cache callback argument</b>.
-							This implementation restricts you to using methods that accept a cache
+						<li id="li_BB172BB767904AA9A5C435914781736B"><b>Cache callback argument</b>. This
+							implementation restricts you to using methods that accept a cache
 							callback argument to manage the region entries. For a full list of the
 							methods that take a callback argument, see the <codeph>Region</codeph>
-							Javadocs. Among the methods that you <i>cannot</i> use with cache
-							callback are <codeph>putAll</codeph>, <codeph>getAll</codeph>,
-								<codeph>containsKey</codeph>, and
-								<codeph>getDistributedLock</codeph>. These methods do not work with
-							the <codeph>FunctionService</codeph> execution calls. </li>
+							Javadocs.</li>
 					</ul>
 				</li>
 				<li id="li_2828E372372B43A0BAF64972F0AD2B2B">If you need the resolver's
