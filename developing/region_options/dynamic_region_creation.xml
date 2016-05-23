@@ -44,7 +44,8 @@ public class CreateRegionFunction implements Function, Declarable {
   
   private final Region&lt;String,RegionAttributes> regionAttributesMetadataRegion;
 
-  private static final String REGION_ATTRIBUTES_METADATA_REGION = "__regionAttributesMetadata";
+  private static final String REGION_ATTRIBUTES_METADATA_REGION = 
+                                     "__regionAttributesMetadata";
   
   public enum Status {SUCCESSFUL, UNSUCCESSFUL, ALREADY_EXISTS};
 
@@ -65,11 +66,13 @@ public class CreateRegionFunction implements Function, Declarable {
     context.getResultSender().lastResult(status);
   }
   
-  private Status createOrRetrieveRegion(String regionName, RegionAttributes attributes) {
+  private Status createOrRetrieveRegion(String regionName, 
+                                        RegionAttributes attributes) {
     Status status = Status.SUCCESSFUL;
     Region region = this.cache.getRegion(regionName);
     if (region == null) {
-      // Put the attributes into the metadata region. The afterCreate call will actually create the region.
+      // Put the attributes into the metadata region. The afterCreate call will
+      // actually create the region.
       this.regionAttributesMetadataRegion.put(regionName, attributes);
       
       // Retrieve the region after creating it
@@ -84,9 +87,11 @@ public class CreateRegionFunction implements Function, Declarable {
   }
   
   private Region&lt;String,RegionAttributes> createRegionAttributesMetadataRegion() {
-    Region&lt;String, RegionAttributes> metaRegion = this.cache.getRegion(REGION_ATTRIBUTES_METADATA_REGION);
+    Region&lt;String, RegionAttributes> metaRegion = 
+                              this.cache.getRegion(REGION_ATTRIBUTES_METADATA_REGION);
     if (metaRegion == null) {
-      RegionFactory&lt;String, RegionAttributes> factory = this.cache.createRegionFactory();
+      RegionFactory&lt;String, RegionAttributes> factory =
+                              this.cache.createRegionFactory();
       factory.setDataPolicy(DataPolicy.REPLICATE);
       factory.setScope(Scope.DISTRIBUTED_ACK);
       factory.addCacheListener(new CreateRegionCacheListener());
@@ -137,7 +142,9 @@ import com.gemstone.gemfire.cache.util.CacheListenerAdapter;
 import java.util.Map;
 import java.util.Properties;
 
-public class CreateRegionCacheListener extends CacheListenerAdapter&lt;String,RegionAttributes> implements Declarable {
+public class CreateRegionCacheListener 
+             extends CacheListenerAdapter&lt;String,RegionAttributes>
+             implements Declarable {
 
   private Cache cache;
   
@@ -158,7 +165,8 @@ public class CreateRegionCacheListener extends CacheListenerAdapter&lt;String,Re
   
   private void createRegion(String regionName, RegionAttributes attributes) {
     if (this.cache.getLogger().fineEnabled()) {
-      this.cache.getLogger().fine("CreateRegionCacheListener creating region named: " + regionName + " with attributes: " + attributes);
+      this.cache.getLogger().fine("CreateRegionCacheListener creating region named: "
+                                  + regionName + " with attributes: " + attributes);
     }
     try {
       Region region = this.cache.createRegionFactory(attributes)
