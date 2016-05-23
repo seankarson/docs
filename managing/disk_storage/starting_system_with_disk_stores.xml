@@ -7,12 +7,13 @@
 	<conbody>
 		<section>
 			<title>Start Up</title>
-			<p>When you start a member with a persistent region, the data is retrieved from disk
-				stores to recreate the member’s persistent region. If the member does not hold all
-				of the most recent data for the region, then other members have the data, and region
-				creation blocks, waiting for the those other members. A partitioned region with
-				colocated entries also blocks on start up, waiting for the entries of the colocated
-				region to be available. </p>
+			<p>When you start a member with a persistent region, the data is retrieved from disk stores to
+				recreate the member’s persistent region. If the member does not hold all of the most
+				recent data for the region, then other members have the data, and region creation
+				blocks, waiting for the those other members. A partitioned region with colocated
+				entries also blocks on start up, waiting for the entries of the colocated region to
+				be available. A persistent gateway sender is treated the same as a colocated region,
+				so it can also block region creation.</p>
 			<p>With a log level of info or below, the system provides messaging about the wait.
 				Here, the disk store for server2 has the most recent data for the region, and
 				server1 is waiting for server2.
@@ -55,17 +56,18 @@ that are being waited on by other members.</codeblock>
 		<section id="section_D0A7403707B847749A22BF9221A2C823">
 			<title>Start Up Procedure</title>
 			<p>To start a system with disk stores: <ol id="ol_872ca5d8-8d37-4566-b5a7-4d98be2d29c6">
-					<li id="li_6BD1656398CD493F8B27445F75C4A982"><b>Start all members with persisted
-							data first and at the same time</b>. Exactly how you do this depends on
-						your members. <p> While they are initializing their regions, the members
-							determine which have the most recent region data, and initialize their
-							regions with the most recent data. </p><p>For replicated regions, where
-							you define persistence only in some of the region's host members, start
-							the persistent replicate members prior to the non-persistent replicate
-							members to make sure the data is recovered from disk. </p><p>This is an
-							example bash script for starting members in parallel. The script waits
-							for the startup to finish. It exits with an error status if one of the
-							jobs fails.
+					<li id="li_6BD1656398CD493F8B27445F75C4A982"><b>Start all members with persisted data first and
+							at the same time</b>. Exactly how you do this depends on your members.
+						Make sure to start members that host colocated regions, as well as
+						persistent gateway senders.<p> While they are initializing their regions,
+							the members determine which have the most recent region data, and
+							initialize their regions with the most recent data. </p><p>For
+							replicated regions, where you define persistence only in some of the
+							region's host members, start the persistent replicate members prior to
+							the non-persistent replicate members to make sure the data is recovered
+							from disk. </p><p>This is an example bash script for starting members in
+							parallel. The script waits for the startup to finish. It exits with an
+							error status if one of the jobs fails.
 							<codeblock>#!/bin/bash
 ssh servera "cd /my/directory; gfsh start server --name=servera &amp;
 ssh serverb "cd /my/directory; gfsh start server --name=serverb &amp;

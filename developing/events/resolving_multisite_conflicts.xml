@@ -21,9 +21,6 @@
 			you may decide that updates from a particular cluster should always
 			"win" a conflict when the timestamp difference between updates is
 			less than some fixed period of time. </p>
-		<p><keyword keyref="product_name"/> installs an example <codeph>GatewayConflictResolver</codeph>
-			implementation in the <filepath>SampleCode\examples\dist\wanActiveActive</filepath>
-			subdirectory of the <keyword keyref="product_name"/> installation. </p>
 		<section
 			id="section_E20B4A8A98FD4EDAAA8C14B8059AA7F7">
 			<title>Implementing a GatewayConflictResolver</title>
@@ -44,10 +41,7 @@
 						event handler: <ol
 							id="ol_413E3118514C484194D7008360E10A92">
 							<li id="li_AC1B977A8EDC4EA783803B40BB591FBF">Create a class that implements the
-									<codeph>GatewayConflictResolver</codeph> interface. See the
-								example conflict resolver installed in the
-									<filepath>SampleCode\examples\dist\wanActiveActive</filepath>
-								subdirectory of the installation. </li>
+									<codeph>GatewayConflictResolver</codeph> interface. </li>
 							<li
 								id="li_C1C9011677F145EDBDC5596ECADAC042">If you
 								want to declare the handler in
