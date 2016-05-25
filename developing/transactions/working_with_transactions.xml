@@ -42,10 +42,11 @@ cTxMgr.commit();</codeblock></p>
     <conbody>
       <p>You can run a function from inside a transaction and you can nest a transaction within a
         function, as long as your combination of functions and transactions does not result in
-        nested transactions.</p>
-      <p>Multiple functions may participate within a single transaction.</p>
+        nested transactions. (See <xref href="../function_exec/chapter_overview.xml"/> for more
+        about functions.)</p>
+      <p>A single transaction may contain multiple functions.</p>
       <p>If you are suspending and resuming a transaction with multiple function calls, all function
-        calls participating in the transaction must execute on the same member.</p>
+        calls in the transaction must execute on the same member.</p>
       <p>See <xref
           href="transactional_function_example.xml#concept_22331B3DBFAB4C0BA95EF103BFB71257"
           type="concept" format="dita" scope="local"/> for an example.</p>
