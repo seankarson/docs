@@ -137,7 +137,7 @@
 		<title>Using <keyword keyref="product_name"/> as the "Last Resource" in a Container-Managed
 			JTA Transaction</title>
 		<shortdesc>The "last resource" feature in certain 3rd party containers such as WebLogic allow the
-			use one non-XAResource (such as <keyword keyref="product_name"/> ) in a transaction with
+			use one non-XAResource (such as <keyword keyref="product_name"/>) in a transaction with
 			multiple XAResources while ensuring consistency. </shortdesc>
 		<conbody>
 			<p>In the previous two JTA transaction use cases, if the <keyword keyref="product_name"/> member
@@ -149,13 +149,13 @@
 				resource". Using <keyword keyref="product_name"/> as the last resource ensures that
 				in the event of failure, <keyword keyref="product_name"/> remains consistent with
 				the other XAResources involved in the transaction.</p>
-			<p>To accomplish this, the application server container must use a JCA Resource Adapter
-				to accomodate <keyword keyref="product_name"/> as the transaction's last resource.
-				The transaction manager of the container first issues a "prepare" message to the
+			<p>To accomplish this, the application server container must use a JCA Resource Adapter to
+				accomodate <keyword keyref="product_name"/> as the transaction's last resource. The
+				transaction manager of the container first issues a "prepare" message to the
 				participating XAResources. If the XAResources all accept the transaction, then the
 				manager issues a "commit" instruction to the non-XAResource (in this case, <keyword
-					keyref="product_name"/> .) The non-XAResource (in this case, <keyword
-					keyref="product_name"/> ) participates as a local transaction resource. If the
+					keyref="product_name"/>). The non-XAResource (in this case, <keyword
+					keyref="product_name"/>) participates as a local transaction resource. If the
 				non-XAResource fails, then the transaction manager can rollback the XAResources. </p>
 			<p>
 				<image href="../../images_svg/transactions_jca_adapter.svg" id="image_opb_sgb_wk"/>
