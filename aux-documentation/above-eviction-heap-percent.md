@@ -1,4 +1,4 @@
-## Eviction Heap Percentage is exceeded:
+# Eviction Heap Percentage Is exceeded
 
 Eviction is configured for a region and implemented on a per member basis.
 The Least Recently Used data on the member is chosen for eviction from 
@@ -21,18 +21,18 @@ If the eviction-heap-percentage is exceeded,
 immediate and urgent action is *not* needed.
 Instead, monitor to determine if and when further changes are indicated.
 
-## How the situation manifests (presents):
-A message is logged at the info level when monitoring detects 
+## Symptoms May Include
+ - A message is logged at the info level when monitoring detects 
 that the threshold is crossed.
-Evictions occur.
+ - Evictions occur.
 
-## Action to take:
+## Action to Take
 Track heap space usage over time.
 If usage is consistently above the heap-eviction-percentage,
 such that evictions occur,
 implement one or more of the following:
 
-1. Increase the configured value for eviction-heap-percentage.
+ - Increase the configured value for eviction-heap-percentage.
 Be aware that the standard recommendation is for the
 eviction-heap-percentage to be 10% lower than the 
 critical-heap-percentage and 10% higher than 
@@ -43,7 +43,7 @@ the 10% difference may be too much,
 causing evictions when there is plenty of heap space available.
 Raising the eviction-heap-percentage tunes the system.
 
-2. Lower the JVM garbage collector's initiating occupancy fraction.
+ - Lower the JVM garbage collector's initiating occupancy fraction.
 The goal is for garbage collection to be initiated
 when less memory has been used,
 such that more heap space is freed,
@@ -53,11 +53,11 @@ such that the system stays below the eviction heap percentage most of the time.
 Track garbage collection to make sure that the collector is 
 not constantly running, as it potentially competes for system resources.
 
-3. Increase tenured heap size.
+ - Increase tenured heap size.
 
-4. For GemFire 9.0, use a larger-capacity, off-heap space.
+ - For GemFire 9.0, use a larger-capacity, off-heap space.
 
-5. For partitioned regions,
+ - For partitioned regions,
 increase capacity by adding more members (servers).
 Rebalance across the system.
 

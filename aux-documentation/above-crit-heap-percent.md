@@ -1,4 +1,4 @@
-## Critical Heap Percentage is exceeded:
+# Critical Heap Percentage Is Exceeded
 
 Once the critical-heap-percentage is exceeded, operations do not complete,
 instead throwing a LowMemoryException for 
@@ -14,7 +14,7 @@ and the Java garbage collector has not been able to reduce
 the quantity of allocated memory.
 Since further heap allocations would likely cause an OOME,
 the member does not complete those operations that require 
-further memory allocations.  
+further memory allocations.
 Exceeding this threshold signals that a significantly larger 
 than expected burst of allocations occurred or that something 
 is critically wrong with the member. 
@@ -25,29 +25,29 @@ for the current set of regions that this member hosts.
 Be aware that exceeding the threshold on one member 
 may affect other members.  
 With operations not completing, 
-the membership in the distributed system of the member that is 
-above the critical-heap-percentage may be revoked. 
+the system may revoke the membership of the member that is 
+above the critical-heap-percentage.
 This can cause the remaining members to increase their 
 usage of memory to compensate for the missing member. 
 If these remaining members are not sized to handle the increased load, 
 the critical heap threshold issue may cascade through the system.
 
-## How the situation manifests (presents):
+## Symptoms May Include
 
-Operations that would require memory allocation throw `LowMemoryException`,
+ - Operations that would require memory allocation throw `LowMemoryException`,
 and what happens after that depends on the code that catches the exception. 
-With system monitoring, 
+ - With system monitoring, 
 alerts identify a member that is above the specified critical-heap-percentage.
 
-## Action to take:
-Some possible temporary (bandaid) measures:
+## Action to Take
+### Temporary Measures
 
-1. Force garbage collection.
+ - Force garbage collection.
 From the command line, 
 find the PID of the member, 
 and use it in the command `jcmd <pid> GC.run` .
 
-2. Proactively shut down the member that is above 
+ - Proactively shut down the member that is above 
 the critical-heap-percentage, 
 and restart it with a larger tenured heap size. 
 This action does an orderly shutdown, 
@@ -58,7 +58,7 @@ This measure does not address the underlying question of why
 the member surpassed the configured critical-heap-percentage;
 that still needs to be done.
 
-3. If the member that is above critical-heap-percentage 
+ - If the member that is above critical-heap-percentage 
 is hosting considerably more buckets of partitioned regions 
 than other members hosting the same partitioned regions, 
 a rebalance may help. 
@@ -69,8 +69,10 @@ once connected,
 with `gfsh rebalance`, or use the `--include-region` option 
 to explicitly specify those regions that are to be included in the rebalance.
 
-## Redesign actions come under 3 categories.
-More than one action can be taken to mitigate the issue.
+### Redesign Actions
+Redesign falls into 3 categories.
+More than one action in more than one category may be
+appropriate to mitigate the issue.
 
 1. Increase the amount of available memory.
 The increase may need to be applied to all the members.
