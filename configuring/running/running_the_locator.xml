@@ -26,9 +26,9 @@
 			<title>Locator Configuration and Log Files</title>
 			<p>Locator configuration and log files have the following properties: </p>
 			<ul id="ul_FBBF9569984E4B65848F5AA202DFF8C2">
-				<li>When you start a standalone locator using <codeph>gfsh</codeph>, 
-					    <codeph>gfsh</codeph> will automatically load the required JAR files
-						(<codeph>$GEMFIRE/lib/locator-dependencies.jar</codeph> into the CLASSPATH
+				<li>When you start a standalone locator using <codeph>gfsh</codeph>, <codeph>gfsh</codeph> will
+					automatically load the required JAR files
+						(<codeph>$GEMFIRE/lib/locator-dependencies.jar</codeph>) into the CLASSPATH
 					of the JVM process. If you start a standalone locator using the
 						<codeph>LocatorLauncher</codeph> API, you must specify
 						<codeph>$GEMFIRE/lib/locator-dependencies.jar</codeph> inside the command
