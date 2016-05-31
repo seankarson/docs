@@ -180,7 +180,7 @@ try {
 							another process accessing data used in the transaction might get some
 							data in the pre-transaction state and some in the post-transaction
 							state. </p>
-						<p>For example, suppose key 1 and 2 are modified within a transaction, such that both values
+						<p>For example, suppose keys 1 and 2 are modified within a transaction, such that both values
 							change from A to B. In another thread, it is possible to read key 1 with
 							value B and key 2 with value A, after the commit begins, but before the
 							commit completes. This is possible due to the nature of <keyword
