@@ -8,7 +8,8 @@
 		<section id="section_F098CAC546164094BE6872BF0C443A71">
 			<title>CLASSPATH</title>
 			<p>Each member’s <codeph>CLASSPATH</codeph> must include classes for all objects the
-				member accesses. <ul id="ul_84CB0C696E0E4430AC17969BD15EE63A">
+				member accesses. </p>
+				<ul id="ul_84CB0C696E0E4430AC17969BD15EE63A">
 					<li id="li_639438CD43FE459E811F47C34944D3DA">For Java applications, use the
 						standard Java <codeph>CLASSPATH</codeph>. </li>
 					<li id="li_4CEA11C57FF543CF892605AA20FA8B25">For the cache server process, use
@@ -18,12 +19,12 @@
 							href="../../configuring/running/running_the_cacheserver.xml"
 							type="concept" format="dita" scope="local"/>. </li>
 				</ul>
-			</p>
 			<p>Data is sent between clients and servers in serialized form and the server stores
 				client data in serialized form. The server does not need to deserialize data to send
 				it to another client or to access it through a <codeph>PDXInstance</codeph>, but it
 				does need to deserialize it to access it in other ways. The server
-					<codeph>CLASSPATH</codeph> must include the classes for: <ul
+				<codeph>CLASSPATH</codeph> must include the classes for:</p>
+				<ul
 					id="ul_FE97B74563FB423B9EA6E2709163D3B5">
 					<li id="li_B2EA2A60950C4C71A4AA42DB83C0EE98">All entry keys</li>
 					<li id="li_A7475E53F31E4996839DB49B1C2FCA8B">Entry values in regions that the
@@ -32,7 +33,6 @@
 						for any reason other than access using a <codeph>PdxInstance</codeph> or
 						transfer of the full entry value to a client </li>
 				</ul>
-			</p>
 			<p> For information on <codeph>PdxInstance</codeph>s, see <xref
 					href="../../developing/data_serialization/chapter_overview.xml#data_serialization"
 					format="dita"/>. </p>
@@ -50,7 +50,8 @@
 		<section id="section_CE776B94EDCB4D269A71C3C9CFEDD5FD">
 			<title>Classes Used as Keys</title>
 			<p>The region uses hashing on keys. If you define a custom class to use as a key, for
-				the class, override: <ul id="ul_0188AF8D4EF443ECA297BECD475F7DCB">
+				the class, override:</p>
+				<ul id="ul_0188AF8D4EF443ECA297BECD475F7DCB">
 					<li id="li_7FB3D5798CF94E8CB97D0078D6E0D113"><codeph><b>equals</b></codeph>
 					</li>
 					<li id="li_46CF79A001FE49B583FBCC9B224DB936"><codeph><b>hashCode</b></codeph>.
@@ -60,7 +61,6 @@
 						details, see the Java API documentation for
 							<codeph>java.lang.Object</codeph>. </li>
 				</ul>
-			</p>
 		</section>
 		<section id="section_D4CBA2B5150343D7A86334ED8808806B"> </section>
 	</conbody>

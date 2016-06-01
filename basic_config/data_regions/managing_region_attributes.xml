@@ -12,7 +12,8 @@
 		</section>
 		<section id="section_DDBF2810ABB54A55B1479AD786ED48DF">
 			<title>Define Region Attributes</title>
-			<p>Create region attributes using any of these methods: <ul
+			<p>Create region attributes using any of these methods: </p>
+				<ul
 					id="ul_6EF485AA9F7E481CB574E24A5D0AF38A">
 					<li id="li_B2F2751D84BC45DBA60372DD42CDC008">Declarations inside the
 							<codeph>cache.xml</codeph>
@@ -50,7 +51,6 @@ Region&lt;String, String&gt; region =
 					</li>
 					<li>By issuing the gfsh <cmdname>create region</cmdname> command.</li>
 				</ul>
-			</p>
 		</section>
 		<section id="section_F69A7664F72D47BBA463D81B72C03B4D">
 			<title>Modify Region Attributes </title>
@@ -59,7 +59,8 @@ Region&lt;String, String&gt; region =
 					absolutely necessary. Creating the attributes you need at region creation is
 					more efficient. </note>
 			</p>
-			<p>Modify attributes in one of these ways: <ul id="ul_DAF86055FF714E61939969125150D087">
+			<p>Modify attributes in one of these ways:</p>
+				<ul id="ul_DAF86055FF714E61939969125150D087">
 					<li id="li_119B3FEAB1614C1EBE30DE51331AC0C7">By loading a
 							<codeph>cache.xml</codeph> with modified region attribute
 						specifications:
@@ -92,7 +93,6 @@ mutator.addCacheListener(new LoggingCacheListener()); </codeblock>
 							href="../../tools_modules/gfsh/command-pages/alter.xml#topic_E74ED23CB60342538B2175C326E7D758"
 						/>.</li>
 				</ul>
-			</p>
 		</section>
 	</conbody>
 </concept>

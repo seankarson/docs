@@ -26,7 +26,6 @@
 			<title>The Region APIs</title>
 			<p><keyword keyref="product_name"/>'s regions APIs provide specialized behavior for
 				different system member types. </p>
-			<p>
 				<ul id="ul_E5B57E4F897A43DD89CE457E9212289B">
 					<li id="li_F2D1FE114EA0429AAAD0774A40574D86"><b>Peer/Server Region APIs</b>. Use
 						these methods, interfaces, and classes for peer/server region creation.
@@ -61,7 +60,8 @@
 						element for creating and configuring regions. <p>These are client versions
 							of the Peer/Server Region APIs. These client APIs provide similar
 							functionality, but are tailored to the needs and behaviors of client
-							regions. <ul id="ul_BE9FDAAEA6304FEFB106D3DFD96646D7">
+							regions.</p>
+							<ul id="ul_BE9FDAAEA6304FEFB106D3DFD96646D7">
 								<li id="li_50CE9C80D9E944D3B034B9673B85394F"
 											><b><codeph>com.gemstone.gemfire.cache.clientCache.createRegionFactory</codeph>
 									</b>. This method takes a <codeph>ClientRegionShortcut</codeph>
@@ -79,7 +79,6 @@
 									<codeph>createClientRegionFactory</codeph> and with the region
 									attribute, <codeph>refid</codeph>. </li>
 							</ul>
-						</p>
 					</li>
 					<li id="li_FA6B4807546942478C8FA3F428BFED7E"><b>Region APIs Used For All Member
 							Types</b>. These interfaces and classes are used universally for region
@@ -102,14 +101,12 @@
 						</ul>
 					</li>
 				</ul>
-			</p>
 		</section>
 		<section id="section_9F898C23D2164ED5BB3789FD8B1F68C3">
 			<title>Create and Access Data Regions</title>
 			<p>Before you start, have your cache configuration defined, along with any cache-wide
 				configuration your region requires, like disk store configuration and client server
 				pool configuration. </p>
-			<p>
 				<ol id="ol_1BF5C8C9F4C9460AB6FB6030451CEBF6">
 					<li id="li_FD265BA2AE244AC581C235029F38E46E">Determine the region attributes
 						requirements and identify the region shortcut setting that most closely
@@ -152,7 +149,6 @@ Region pfloRegion = rf.create("Portfolios");</codeblock>
 						</p>
 					</li>
 				</ol>
-			</p>
 			<p>Once you have created your regions, you can access them through the
 					<codeph>Cache</codeph> and <codeph>Region</codeph> APIs as full region lists or
 				individually. </p>
@@ -163,7 +159,6 @@ Region pfloRegion = rf.create("Portfolios");</codeblock>
 				create a hierarchical namespace within your cache or to group cached objects for
 				management purposes. The use of subregions is subject to the following
 				restrictions:</p>
-			<p>
 				<ul id="ul_kyk_xwx_5m">
 					<li>A region with LOCAL scope can only have subregions with LOCAL scope.</li>
 					<li>You cannot create a subregion under a partitioned region or create a
@@ -173,11 +168,9 @@ Region pfloRegion = rf.create("Portfolios");</codeblock>
 						in another cache or than the parent region.</li>
 					<li>You cannot reuse an existing region or subregion name.</li>
 				</ul>
-			</p>
 			<p>If the subregion is a distributed replicated region, it will be initialized with data
 				from all other caches in this distributed system that have the same region.</p>
 			<p>You can create subregions using one of the following methods:</p>
-			<p>
 				<ul id="ul_fpd_1zx_5m">
 					<li>
 						<ul id="ul_qgz_rzx_5m">
@@ -212,12 +205,12 @@ Region pvtSubregion = rf.createSubregion(pfloRegion, "Private");</codeblock>
 						</ul>
 					</li>
 				</ul>
-			</p>
 		</section>
 		<section id="section_7AD53DCC71064883BFA9C53E6040D85A">
 			<title>Update Data Regions</title>
 			<p>Update your region properties and contents through <codeph>alter region</codeph>
-				command, the API or from <codeph>cache.xml</codeph> file declarations. <ul
+				command, the API or from <codeph>cache.xml</codeph> file declarations.</p>
+				<ul
 					id="ul_9F4BDD575FBD459BAB35BCF322B33783">
 					<li>Execute the <xref
 							href="../../tools_modules/gfsh/command-pages/alter.xml#topic_E74ED23CB60342538B2175C326E7D758"
@@ -234,7 +227,6 @@ Region pvtSubregion = rf.createSubregion(pfloRegion, "Private");</codeblock>
 						does not already exist, it is created. Entries and indexes are created or
 						updated according to the state of the cache and the file declarations. </li>
 				</ul>
-			</p>
 		</section>
 		<section id="section_953E19F03F4541BAA3AE58118E7EA7E4">
 			<title id="inv_clear_destroy_region">Invalidate a Region</title>
@@ -309,7 +301,6 @@ Region.destroyRegion();</codeblock></p>
 			<p>The <codeph>Region.close</codeph> operation works like the
 					<codeph>Region.localDestroyRegion</codeph> operation with these significant
 				differences: </p>
-			<p>
 				<ul id="ul_A5A4627EA17B41AAA93F3647E48860ED">
 					<li id="li_51794A8A35B349A1A3AE65595C31670A">The <codeph>close</codeph> method
 						is called for every callback installed on the region. </li>
@@ -328,7 +319,6 @@ Region.destroyRegion();</codeblock></p>
 						data caching fails over to another cache. Otherwise, local data is lost.
 					</li>
 				</ul>
-			</p>
 		</section>
 		<section><title>Using gfsh to Manage Regions</title><p>You can also use gfsh commands to manage
 				regions. There are commands to create, alter, describe, destroy, rebalance, and list

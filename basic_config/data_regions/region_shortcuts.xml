@@ -53,7 +53,8 @@
 		<section id="section_20548383511141B19EBC053E36877B1A">
 			<title>Shortcut Attribute Options</title>
 			<p>You can select the most common region attributes settings from <keyword keyref="product_name"/>’s predefined
-				named region attributes in these classes: <ul
+				named region attributes in these classes:</p>
+				<ul
 					id="ul_820c4d30-05ba-45cd-9cee-3f4ae2b9f1ec">
 					<li id="li_19EA18F02D76487D94DE1DA552EC6FD4"
 								><b><codeph>com.gemstone.gemfire.cache.RegionShortcut</codeph></b>.
@@ -62,7 +63,6 @@
 								><b><codeph>com.gemstone.gemfire.cache.client.ClientRegionShortcut</codeph></b>.
 						For clients. </li>
 				</ul>
-			</p>
 			<p>Shortcut attributes are a convenience only. They are just named attributes that
 				<keyword keyref="product_name"/> has already stored for you. You can override their settings by storing new
 				attributes with the same id as the predefined attributes. </p>
@@ -78,7 +78,8 @@
 				listed appear in the shortcut identifier alone or in combination, like
 					"<codeph>PARTITION</codeph>" in <codeph>PARTITION</codeph>,
 					<codeph>PARTITION_PROXY</codeph>, and <codeph>PARTITION_REDUNDANT</codeph>. </p>
-			<p><b>Cache Data Storage Mode</b>l <ul id="ul_D9A50013FFFB49128B410A9ABD596E66">
+			<p><b>Cache Data Storage Mode</b></p>
+				<ul id="ul_D9A50013FFFB49128B410A9ABD596E66">
 					<li id="li_5065B95544524AEC882ADE14C2989A1D"><b>
 							<codeph>PARTITION</codeph>
 						</b>. Creates a partitioned region. This is a data store for the region. You
@@ -109,20 +110,19 @@
 							<codeph>LOCAL</codeph></b>. Creates a region private to the defining
 						member. </li>
 				</ul>
-			</p>
 			<p>
-				<b>Data Eviction</b>
+				<b>Data Eviction</b></p>
 				<ul id="ul_56400136-a3ec-405c-8be6-85e905f24fe7">
 					<li id="li_22574613843A4A4F801BA21CD255145A"><b>
 							<codeph>HEAP_LRU</codeph></b>. Causes least recently used data to be
 						evicted from memory when the <keyword keyref="product_name"/> resource manager determines that the
 						cache has reached configured storage limits. </li>
 				</ul>
-			</p>
 			<p>
 				<b>Disk Storage</b>
 			</p>
-			<p>You can specify these alone or in combination: <ul
+			<p>You can specify these alone or in combination:</p>
+				<ul
 					id="ul_f3060b17-f409-4ef8-a8d4-7ebb38456d9f">
 					<li id="li_0384201AFC094583B5C39C7B490285A4"><b>
 							<codeph>PERSISTENT</codeph></b>. Backs up all data to disk, in addition
@@ -131,7 +131,6 @@
 							<codeph>OVERFLOW</codeph></b>. Moves data out of memory and on to disk,
 						when memory use becomes too high. </li>
 				</ul>
-			</p>
 		</section>
 		<section id="section_BD136ACEB8274B17ACFB9A5954D116E4">
 			<title>ClientRegionShortcuts for Clients</title>
@@ -140,7 +139,7 @@
 					"<codeph>PROXY</codeph>" in <codeph>PROXY</codeph> and
 					<codeph>CACHING_PROXY</codeph>. </p>
 			<p>
-				<b>Communication with Servers and Data Storage</b>
+				<b>Communication with Servers and Data Storage</b></p>
 				<ul id="ul_CF5E1132ACAB47EF99A5D5108C253187">
 					<li id="li_87B53AA4FC944B14B5A62F3C76EECF1C"><b>
 							<codeph>PROXY</codeph></b>. Does not store data in the client cache, but
@@ -156,21 +155,20 @@
 						that this is not the same as setting the region's <codeph>scope</codeph>
 						attribute to <codeph>LOCAL</codeph>. </li>
 				</ul>
-			</p>
 			<p>
-				<b>Data Eviction</b>
+				<b>Data Eviction</b></p>
 				<ul>
 					<li id="li_F4237E924A1E45FAAB2D124F02711317"><b>
 							<codeph>HEAP_LRU</codeph></b>. Causes least recently used data to be
 						evicted from memory when the <keyword keyref="product_name"/> resource manager determines that the
 						cache has reached configured storage limits. </li>
 				</ul>
-			</p>
 			<p>
 				<b>Disk Storage</b>
 			</p>
 			<p>With the LOCAL and CACHING data storage shortcut options, you can also specify these
-				disk storage options, alone or in combination: <ul>
+				disk storage options, alone or in combination:</p>
+				<ul>
 					<li id="li_398C63AA94EE42F19E961C2E5A3FD587"><b>
 							<codeph>PERSISTENT</codeph></b>. Backs up all data to disk, in addition
 						to storing it in memory. </li>
@@ -178,7 +176,6 @@
 							<codeph>OVERFLOW</codeph></b>. Moves data out of memory and on to disk,
 						when memory use becomes too high. </li>
 				</ul>
-			</p>
 		</section>
 	</conbody>
 </concept>
