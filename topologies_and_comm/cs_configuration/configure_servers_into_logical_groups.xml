@@ -10,33 +10,31 @@
 		<section id="section_411EA6C46AD4456C987C0759A05340F2">
 			<p>You can also define member groups to deploy JARs in parallel or to perform
 				administrative commands across a member group. </p>
-			<p>To add servers to a member group, you can configure the following: <ol
-					id="ol_CF1BC16A8E50438CBA7BB5E2E87EEC3D">
-					<li id="li_75559CF3D6D549D19CC1505A7BDC1E6E">Add the member group names to the
-							<codeph>gemfire.properties</codeph> file for the server. For example:
-						<codeblock>#gemfire.properties
-groups=Portfolios,ManagementGroup1</codeblock>
-						A server can belong to more than one member group. If specifying multiple
-						group membership for the server, use a comma-separated list. Alternatively,
-						if you are using the <codeph>gfsh</codeph> command interface to start up the
-						server, provide a group name as a parameter:
-						<codeblock>gfsh&gt;start server --name=server1 \
+			<p>To add servers to a member group, you can configure the following:  </p>
+			<ol id="ol_km1_dzy_dw">
+				<li>Add the member group names to the <codeph>gemfire.properties</codeph> file for
+					the server. For example:
+					<codeblock>groups=Portfolios,ManagementGroup1</codeblock> A server can belong to
+					more than one member group. If specifying multiple group membership for the
+					server, use a comma-separated list. Alternatively, if you are using the
+						<codeph>gfsh</codeph> command interface to start up the server, provide a
+					group name as a parameter:
+					<codeblock>gfsh&gt;start server --name=server1 \
 --group=Portfolios,ManagementGroup1</codeblock>
-					</li>
-					<li id="li_733E937303C04D0C8ADEF866757F7125">To configure a client to connect to
-						a specific member group, modify the client's <codeph>cache.xml</codeph> file
-						to define a distinct pool for each <codeph>server-group</codeph> and assign
-						the pools to the corresponding client regions:
-						<codeblock>&lt;pool name="PortfolioPool" server-group="Portfolios" ...
+				</li>
+				<li>To configure a client to connect to a specific member group, modify the client's
+						<codeph>cache.xml</codeph> file to define a distinct pool for each
+						<codeph>server-group</codeph> and assign the pools to the corresponding
+					client regions:
+					<codeblock>&lt;pool name="PortfolioPool" server-group="Portfolios" ...
   &lt;locator host="lucy" port="41111"&gt;
   ...
 &lt;/pool&gt;
    ...
 &lt;region name="clientRegion" ... 
   &lt;region-attributes pool-name="PortfolioPool" ...</codeblock>
-					</li>
-				</ol>
-			</p>
+				</li>
+			</ol>
 		</section>
 	</conbody>
 </concept>

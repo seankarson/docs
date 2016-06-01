@@ -6,17 +6,14 @@
 		one or more locators. </shortdesc>
 	<conbody>
 		<section id="section_8C0147A16D5A488FB9C0EB765BDEC07B">
-			<p>The <filepath>gemfire.properties</filepath> file can list the locators:
-				<codeblock>locators=&lt;locator1-address&gt;[&lt;port1&gt;],&lt;locator2-address&gt;[&lt;port2&gt;]</codeblock></p>
-			<p>To run a standalone member, the <codeph>gemfire.properties</codeph> file disables
-				using locators:
-				<codeblock>locators=
+			<p>The <filepath>gemfire.properties</filepath> file can list the locators: </p>
+			<codeblock>locators=&lt;locator1-address&gt;[&lt;port1&gt;],&lt;locator2-address&gt;[&lt;port2&gt;]</codeblock>
+			<p>To run a standalone member, the <codeph>gemfire.properties</codeph> file disables using
+				locators: </p>
+			<codeblock>locators=
 mcast-address=                    
-mcast-port=0</codeblock></p>
-			<p>
-				<note>Locator settings must be consistent throughout the distributed system. </note>
-			</p>
-			<p> </p>
+mcast-port=0</codeblock>
+			<note>Locator settings must be consistent throughout the distributed system. </note>
 		</section>
 	</conbody>
 </concept>

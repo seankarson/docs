@@ -95,9 +95,10 @@
 			</table>
 			<p>For example, a member started with these configurations in its
 					<codeph>gemfire.properties</codeph> and <codeph>cache.xml</codeph> files will
-				use two separate addresses for peer and server communication: <codeblock>// gemfire.properties setting for peer communication
+				use two separate addresses for peer and server communication:  </p>
+			<codeblock>// gemfire.properties setting for peer communication
 bind-address=194.124.0.104</codeblock>
-				<codeblock>//cache.xml settings 
+			<codeblock>//cache.xml settings 
 &lt;cache&gt;
 
 // Server communication
@@ -105,7 +106,6 @@ bind-address=194.124.0.104</codeblock>
 
   &lt;region ...
 </codeblock>
-			</p>
 		</section>
 		<section>
 			<title>Gateway Receiver Communication</title>
@@ -183,9 +183,10 @@ bind-address=194.124.0.104</codeblock>
 			</table>
 			<p>For example, a member started with these configurations in its
 					<codeph>gemfire.properties</codeph> and <codeph>cache.xml</codeph> files will
-				use three separate addresses for peer, server, and gateway receiver communication: <codeblock>// gemfire.properties setting for peer communication
+				use three separate addresses for peer, server, and gateway receiver communication:   </p>
+			<codeblock>// gemfire.properties setting for peer communication
 bind-address=194.124.0.104</codeblock>
-				<codeblock>//cache.xml settings 
+			<codeblock>//cache.xml settings 
 &lt;cache&gt;
 // Gateway receiver configuration
   &lt;gateway-receiver start-port="1530" end-port="1551" bind-address="194.124.0.105"/&gt;
@@ -195,7 +196,6 @@ bind-address=194.124.0.104</codeblock>
 
   &lt;region ...
 </codeblock>
-			</p>
 		</section>
 		<section id="section_B58645AD8C504AF6822315BB94BA2E0B">
 			<title>Locator Communication</title>

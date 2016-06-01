@@ -101,52 +101,47 @@ remote-locators=&lt;remote-locator-addr1&gt;[&lt;port1&gt;],&lt;remote-locator-a
 			<p>See <xref
 					href="../../reference/topics/elements_ref.xml#topic_7B1CABCAD056499AA57AF3CFDBF8ABE3"
 					>WAN Configuration</xref> for more information about individual configuration
-				properties. <ol id="ol_AF085F029E8944CBBC857A761FCF7D8F">
-					<li id="li_E9E556C06A4F4A2593F29E0C1531AD82">For each <keyword keyref="product_name"/> system,
-						choose the members that will host a gateway sender configuration and
-						distribute region events to remote sites: <p>
-							<ul id="ul_F8C52891F99145F5AF324C2B9FBC644A">
-								<li id="li_4BA0A005904842C994320DC94C00B714">You must deploy a
-									parallel gateway sender configuration on each <keyword
-										keyref="product_name"/> member that hosts a region that uses
-									the sender. </li>
-								<li id="li_B21BF4C233184A16B7F3D3088EA54FA1">You may choose to
-									deploy a serial gateway sender configuration on one or more
-										<keyword keyref="product_name"/> members in order to provide
-									high availability. However, only one instance of a given serial
-									gateway sender configuration distributes region events at any
-									given time. </li>
-							</ul>
-						</p>
-					</li>
-					<li id="li_9ECB14DC34534D79A4C0166B90736EC5">Configure each gateway sender on a <keyword
-							keyref="product_name"/> member using gfsh,
-							<filepath>cache.xml</filepath> or Java API: <ul
-							id="ul_674148EEDFE648E384A9058FC5D1BAAB">
-							<li><b>gfsh configuration command</b><p>
-									<codeblock>gfsh>create gateway-sender --id="sender2" --parallel=true --remote-distributed-system-id="2"
+				properties.  </p>
+			<ol id="ol_p1r_ryy_dw">
+				<li>For each <keyword keyref="product_name"/> system, choose the members that will
+					host a gateway sender configuration and distribute region events to remote
+					sites: <p>
+						<ul id="ul_q1r_ryy_dw">
+							<li>You must deploy a parallel gateway sender configuration on each
+									<keyword keyref="product_name"/> member that hosts a region that
+								uses the sender. </li>
+							<li>You may choose to deploy a serial gateway sender configuration on
+								one or more <keyword keyref="product_name"/> members in order to
+								provide high availability. However, only one instance of a given
+								serial gateway sender configuration distributes region events at any
+								given time. </li>
+						</ul>
+					</p>
+				</li>
+				<li>Configure each gateway sender on a <keyword keyref="product_name"/> member using
+					gfsh, <filepath>cache.xml</filepath> or Java API: <ul id="ul_r1r_ryy_dw">
+						<li><b>gfsh configuration command</b><p>
+								<codeblock>gfsh>create gateway-sender --id="sender2" --parallel=true --remote-distributed-system-id="2"
 
 gfsh>create gateway-sender --id="sender3" --parallel=true --remote-distributed-system-id="3"</codeblock>
-								</p></li>
-							<li id="li_78CC75CA4B494819B2375FBBE609CDC6"><b>cache.xml
-									configuration</b>
-								<p>These example <filepath>cache.xml</filepath> entries configure
-									two parallel gateway senders to distribute region events to two
-									remote <keyword keyref="product_name"/> clusters (clusters "2"
-									and "3"):
-									<codeblock>&lt;cache&gt;
+							</p></li>
+						<li><b>cache.xml configuration</b>
+							<p>These example <filepath>cache.xml</filepath> entries configure two
+								parallel gateway senders to distribute region events to two remote
+									<keyword keyref="product_name"/> clusters (clusters "2" and
+								"3"):
+							</p><codeblock>&lt;cache&gt;
   <b>&lt;gateway-sender id="sender2" parallel="true" 
    remote-distributed-system-id="2"/&gt; 
   &lt;gateway-sender id="sender3" parallel="true" 
    remote-distributed-system-id="3"/&gt; </b>
    ... 
 &lt;/cache&gt;</codeblock>
-								</p>
-							</li>
-							<li id="li_60B4C80C4BC740FD8CC1C93489DE159A"><b>Java configuration </b>
-								<p>This example code shows how to configure a parallel gateway
-									sender using the API: </p>
-								<codeblock>// Create or obtain the cache
+						</li>
+						<li><b>Java configuration </b>
+							<p>This example code shows how to configure a parallel gateway sender
+								using the API: </p>
+							<codeblock>// Create or obtain the cache
 Cache cache = new CacheFactory().create();
 
 // Configure and create the gateway sender
@@ -155,85 +150,76 @@ gateway.setParallel(true);
 GatewaySender sender = gateway.create("sender2", "2");
 sender.start();
 </codeblock></li>
-						</ul>
-					</li>
-					<li id="li_60987C8F5BD3400CAE7F2A641F6BE5D5">Depending on your applications, you may need to
-						configure additional features in each gateway sender. Things you need to
-						consider are: <p>
-							<ul id="ul_D0385DE63A6B4AD68C15F1C5A108B31C">
-								<li id="li_F268678407C44FABBA38DE5220E6BBF2">The maximum amount of
-									memory each gateway sender queue can use. When the queue exceeds
-									the configured amount of memory, the contents of the queue
-									overflow to disk. For
-									example:<codeblock>gfsh>create gateway-sender --id=sender2 --parallel=true --remote-distributed-system-id=2 --maximum-queue-memory=150</codeblock>
-									In
-									cache.xml:<codeblock>&lt;gateway-sender id="sender2" parallel="true"
+					</ul>
+				</li>
+				<li>Depending on your applications, you may need to configure additional features in
+					each gateway sender. Things you need to consider are: <ul id="ul_s1r_ryy_dw">
+						<li>The maximum amount of memory each gateway sender queue can use. When the
+							queue exceeds the configured amount of memory, the contents of the queue
+							overflow to disk. For
+							example:<codeblock>gfsh>create gateway-sender --id=sender2 --parallel=true --remote-distributed-system-id=2 --maximum-queue-memory=150</codeblock>
+							In
+							cache.xml:<codeblock>&lt;gateway-sender id="sender2" parallel="true"
  remote-distributed-system-id="2" 
  <b>maximum-queue-memory="150"</b>/&gt; </codeblock>
-								</li>
-								<li id="li_125132E5A76D4FDB91BD499F29269EFD">Whether to enable disk
-									persistence, and whether to use a named disk store for
-									persistence or for overflowing queue events. See <xref
-										scope="local"
-										href="../../developing/events/configuring_highly_available_gateway_queues.xml#configuring_highly_available_gateway_queues"
-										type="concept" format="dita"/>. For example:
-									<codeblock>gfsh>create gateway-sender --id=sender2 --parallel=true --remote-distributed-system-id=2 \
+						</li>
+						<li>Whether to enable disk persistence, and whether to use a named disk
+							store for persistence or for overflowing queue events. See <xref
+								scope="local"
+								href="../../developing/events/configuring_highly_available_gateway_queues.xml#configuring_highly_available_gateway_queues"
+								type="concept" format="dita"/>. For example:
+							<codeblock>gfsh>create gateway-sender --id=sender2 --parallel=true --remote-distributed-system-id=2 \
 --maximum-queue-memory=150 --enable-persistence=true --disk-store-name=cluster2Store</codeblock>In
-									cache.xml:<codeblock>&lt;gateway-sender id="sender2" parallel="true"
+							cache.xml:<codeblock>&lt;gateway-sender id="sender2" parallel="true"
  remote-distributed-system-id="2" 
  <b>enable-persistence="true" disk-store-name="cluster2Store"</b>
  maximum-queue-memory="150"/&gt; </codeblock>
-								</li>
-								<li id="li_D1161F49245649BA8FA8A57EF2E61533">The number of
-									dispatcher threads to use for processing events from each each
-									gateway queue. The <codeph>dispatcher-threads</codeph> attribute
-									of the gateway sender specifies the number of threads that
-									process the queue (default of 5). For example:
-									<codeblock>gfsh>create gateway-sender --id=sender2 --parallel=true --remote-distributed-system-id=2 \
+						</li>
+						<li>The number of dispatcher threads to use for processing events from each
+							each gateway queue. The <codeph>dispatcher-threads</codeph> attribute of
+							the gateway sender specifies the number of threads that process the
+							queue (default of 5). For example:
+							<codeblock>gfsh>create gateway-sender --id=sender2 --parallel=true --remote-distributed-system-id=2 \
 --dispatcher-threads=2 --order-policy=partition</codeblock>In
-										cache.xml:<codeblock>&lt;gateway-sender id="sender2" parallel="false"
+								cache.xml:<codeblock>&lt;gateway-sender id="sender2" parallel="false"
  remote-distributed-system-id="2" 
  <b>dispatcher-threads="2" order-policy="partition"</b>/&gt;</codeblock><note>When
-										multiple dispatcher threads are configured for a serial
-										queue, each thread operates on its own copy of the gateway
-										sender queue. Queue configuration attributes such as
-											<codeph>maximum-queue-memory</codeph> are repeated for
-										each dispatcher thread that you configure. </note>
-									<p>See <xref format="dita"
-											href="../../developing/events/configuring_gateway_concurrency_levels.xml#concept_6C52A037E39E4FD6AE4C6A982A4A1A85"
-											scope="local" type="concept"/>. </p>
-								</li>
-								<li>For serial gateway senders (parallel=false) that use multiple
-										<codeph>dispatcher-threads</codeph>, also configure the
-									ordering policy to use for dispatching the events. See <xref
-										format="dita"
-										href="../../developing/events/configuring_gateway_concurrency_levels.xml#concept_6C52A037E39E4FD6AE4C6A982A4A1A85"
-										scope="local" type="concept"/>.</li>
-								<li id="li_623C37AD9A2746EE9B8A4A34A0423289">Determine whether you
-									should conflate events in the queue. See <xref
-										href="../../developing/events/conflate_multisite_gateway_queue.xml#conflate_multisite_gateway_queue"
-										type="concept" format="dita" scope="local"/>. </li>
-								<li>Decide whether the gateway sender should start automatically or
-									requires a manual start. This is controlled by the
-										<codeph>manual-start</codeph> attribute. For example, in
-									gfsh:<codeblock>gfsh>create gateway-sender --id=sender2 --parallel=true --remote-distributed-system-id=2 <b>--manual-start=true</b></codeblock>
-									In
-									cache.xml:<codeblock>&lt;gateway-sender id="sender2" parallel="false"
+								multiple dispatcher threads are configured for a serial queue, each
+								thread operates on its own copy of the gateway sender queue. Queue
+								configuration attributes such as
+									<codeph>maximum-queue-memory</codeph> are repeated for each
+								dispatcher thread that you configure. </note>
+							<p>See <xref format="dita"
+									href="../../developing/events/configuring_gateway_concurrency_levels.xml#concept_6C52A037E39E4FD6AE4C6A982A4A1A85"
+									scope="local" type="concept"/>. </p>
+						</li>
+						<li>For serial gateway senders (parallel=false) that use multiple
+								<codeph>dispatcher-threads</codeph>, also configure the ordering
+							policy to use for dispatching the events. See <xref format="dita"
+								href="../../developing/events/configuring_gateway_concurrency_levels.xml#concept_6C52A037E39E4FD6AE4C6A982A4A1A85"
+								scope="local" type="concept"/>.</li>
+						<li>Determine whether you should conflate events in the queue. See <xref
+								href="../../developing/events/conflate_multisite_gateway_queue.xml#conflate_multisite_gateway_queue"
+								type="concept" format="dita" scope="local"/>. </li>
+						<li>Decide whether the gateway sender should start automatically or requires
+							a manual start. This is controlled by the <codeph>manual-start</codeph>
+							attribute. For example, in
+							gfsh:<codeblock>gfsh>create gateway-sender --id=sender2 --parallel=true --remote-distributed-system-id=2 <b>--manual-start=true</b></codeblock>
+							In
+							cache.xml:<codeblock>&lt;gateway-sender id="sender2" parallel="false"
  remote-distributed-system-id="2" 
  dispatcher-threads="2" order-policy="partition" manual-start="true" /&gt;</codeblock>
-									By default, this is set to false on gateway senders and the
-									senders are started automatically.</li>
-							</ul>
-						</p>
-					</li>
-					<li>If you have configured the gateway sender with <codeph>manual-start</codeph> equal to true,
-						then start the gateway sender when appropriate. For persistent gateway
-						senders, the appropriate time to start them is when all other members
-						hosting persistent regions are started. In
-						gfsh:<codeblock>gfsh> start gateway-sender --id=sender2</codeblock>
-					</li>
-				</ol>
-			</p>
+							By default, this is set to false on gateway senders and the senders are
+							started automatically.</li>
+					</ul>
+				</li>
+				<li>If you have configured the gateway sender with <codeph>manual-start</codeph>
+					equal to true, then start the gateway sender when appropriate. For persistent
+					gateway senders, the appropriate time to start them is when all other members
+					hosting persistent regions are started. In
+					gfsh:<codeblock>gfsh> start gateway-sender --id=sender2</codeblock>
+				</li>
+			</ol>
 			<p>
 				<note>The gateway sender configuration for a specific sender <codeph>id</codeph> must be
 					identical on each <keyword keyref="product_name"/> member that hosts the gateway
@@ -247,42 +233,40 @@ sender.start();
 				geographical locations, not all changes are passed between sites. After you define
 				gateway senders, configure regions to use the gateway sender to distribute region
 				events. </p>
-			<p>
-				<ul id="ul_DD396F543E3D4939B64EA9026931193E">
-					<li>
-						<b>gfsh Configuration</b>
-						<codeblock>gfsh>create region --name=customer --gateway-sender-id=sender2,sender3</codeblock>or
-						to modify an existing
-						region:<codeblock>gfsh>alter region --name=customer --gateway-sender-id=sender2,sender3</codeblock>
-					</li>
-					<li id="li_B15988ABB1ED48DB8D6B7B270D4D8E01">
-						<b>cache.xml Configuration</b>
-						<p>Use the <codeph>gateway-sender-ids</codeph> region attribute to add
-							gateway senders to a region. To assign multiple gateway senders, use a
-							comma-separated list. For example:
-							<codeblock>&lt;region-attributes <b>gateway-sender-ids="sender2,sender3"</b>&gt;
+			<ul id="ul_pgp_5yy_dw">
+				<li>
+					<b>gfsh Configuration</b>
+					<codeblock>gfsh>create region --name=customer --gateway-sender-id=sender2,sender3</codeblock>or
+					to modify an existing
+					region:<codeblock>gfsh>alter region --name=customer --gateway-sender-id=sender2,sender3</codeblock>
+				</li>
+				<li>
+					<b>cache.xml Configuration</b>
+					<p>Use the <codeph>gateway-sender-ids</codeph> region attribute to add gateway
+						senders to a region. To assign multiple gateway senders, use a
+						comma-separated list. For example:
+						<codeblock>&lt;region-attributes <b>gateway-sender-ids="sender2,sender3"</b>&gt;
 &lt;/region-attributes&gt;</codeblock>
-						</p>
-					</li>
-					<li id="li_344B46737F9949E0AC5D417B971EC9D0">
-						<b>Java API Configuration</b>
-						<p>This example shows adding two gateway senders (configured in the earlier
-							example) to a partitioned region: <codeblock>RegionFactory rf = 
+					</p>
+				</li>
+				<li>
+					<b>Java API Configuration</b>
+					<p>This example shows adding two gateway senders (configured in the earlier
+						example) to a partitioned region: <codeblock>RegionFactory rf = 
   cache.createRegionFactory(RegionShortcut.PARTITION);
 rf.addCacheListener(new LoggingCacheListener());
 rf.addGatewaySenderId("sender2");
 rf.addGatewaySenderId("sender3");
 custRegion = rf.create("customer");</codeblock>
-							<note>When using the Java API, you must configure a parallel gateway
-								sender <i>before</i> you add its id to a region. This ensures that
-								the sender distributes region events that were persisted before new
-								cache operations take place. If the gateway sender id does not exist
-								when you add it to a region, you receive an
-									<codeph>IllegalStateException</codeph>. </note>
-						</p>
-					</li>
-				</ul>
-			</p>
+						<note>When using the Java API, you must configure a parallel gateway sender
+								<i>before</i> you add its id to a region. This ensures that the
+							sender distributes region events that were persisted before new cache
+							operations take place. If the gateway sender id does not exist when you
+							add it to a region, you receive an
+								<codeph>IllegalStateException</codeph>. </note>
+					</p>
+				</li>
+			</ul>
 			<note>Replicated regions cannot use a parallel gateway sender. Use a serial gateway
 				sender instead. </note>
 			<note>In addition to configuring regions with gateway senders to distribute events, you

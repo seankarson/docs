@@ -78,17 +78,15 @@
 		</section>
 		<section id="section_396E1207E2E84590B9557D449F0846FD">
 			<title>Release a Thread-Local Connection</title>
-			<p>If you use thread-local connections, you should release the connection as soon as
-				your thread finishes its server activities. <ul
-					id="ul_2F26B35DFAFB405A844D3773FBD53C0C">
-					<li id="li_CB5A687D94124E1E8D1AA6CF35FB334E">Call
-							<codeph>releaseThreadLocalConnection</codeph> on the
-							<codeph>Pool</codeph> instance you are using for the region:
-						<codeblock>Region myRegion ...
+			<p>If you use thread-local connections, you should release the connection as soon as your thread
+				finishes its server activities.  </p>
+			<ul id="ul_xdw_2zy_dw">
+				<li>Call <codeph>releaseThreadLocalConnection</codeph> on the <codeph>Pool</codeph>
+					instance you are using for the region:
+					<codeblock>Region myRegion ...
 PoolManager.find(myRegion).releaseThreadLocalConnection();</codeblock>
-					</li>
-				</ul>
-			</p>
+				</li>
+			</ul>
 		</section>
 	</conbody>
 </concept>

@@ -28,19 +28,18 @@
 					id="image_6DD8320AF78C42F89CFC665F2AF1BEA3" placement="break"/>
 			</p>
 			<p>The locator and servers have the same peer discovery configured in their
-					<codeph>gemfire.properties</codeph>:
-				<codeblock>locators=lucy[41111] </codeblock> The servers, run on their respective
-				hosts, have this <codeph>cache-server</codeph> configuration in their
-					<codeph>cache.xml</codeph>:
-				<codeblock>&lt;cache-server port="40404" ...</codeblock> The client’s
-					<codeph>cache.xml</codeph>
-				<codeph>pool</codeph> configuration and <codeph>region-attributes</codeph>:
-				<codeblock>&lt;pool name="PoolA" ...
+					<codeph>gemfire.properties</codeph>:  </p>
+			<codeblock>locators=lucy[41111] </codeblock>
+			<p>The servers, run on their respective hosts, have this <codeph>cache-server</codeph>
+				configuration in their <codeph>cache.xml</codeph>:  </p>
+			<codeblock>&lt;cache-server port="40404" ...</codeblock>
+			<p>The client’s <codeph>cache.xml</codeph>
+				<codeph>pool</codeph> configuration and <codeph>region-attributes</codeph>:  </p>
+			<codeblock>&lt;pool name="PoolA" ...
   &lt;locator host="lucy" port="41111"&gt;
 
 &lt;region ...
 &lt;region-attributes pool-name="PoolA" ...    </codeblock>
-			</p>
 		</section>
 		<section id="section_7C4C60F40936432899CE86619B8D6CBF">
 			<title>Using Member Groups</title>
@@ -57,13 +56,12 @@
 				<image href="../../images_svg/server_grouping.svg" alt=" "
 					id="image_AB77DA6DB7EA49FD8864F39C6C64E056" placement="break"/>
 			</p>
-			<p>This is the <codeph>gemfire.properties</codeph> definition for Server 1:
-				<codeblock>#gemfire.properties
-groups=Portfolios</codeblock> And the
-					<codeph>pool</codeph> declaration for Client 1:
-				<codeblock>&lt;pool name="PortfolioPool" server-group="Portfolios"...
+			<p>This is the <codeph>gemfire.properties</codeph> definition for Server 1:  </p>
+			<codeblock>#gemfire.properties
+groups=Portfolios</codeblock>
+			<p>And the <codeph>pool</codeph> declaration for Client 1:  </p>
+			<codeblock>&lt;pool name="PortfolioPool" server-group="Portfolios"...
   &lt;locator host="lucy" port="41111"&gt;</codeblock>
-			</p>
 		</section>
 	</conbody>
 </concept>

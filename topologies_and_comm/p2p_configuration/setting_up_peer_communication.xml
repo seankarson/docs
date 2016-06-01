@@ -12,15 +12,14 @@
 					href="../topology_concepts/chapter_overview.xml" format="dita"/>. </p>
 			<p>See the <xref href="../../reference/book_intro.xml#reference"/>. <ol
 					id="ol_7905622C6AC645E584D7759AB4291361">
-					<li id="li_82420B8FE1F7481591DB2D4E923891A4"><b>Configure general messaging to
-							use TCP or UDP unicast</b>. <p>TCP is the default protocol for
-							communication. To use it, just make sure you do not have it disabled in
+					<li id="li_82420B8FE1F7481591DB2D4E923891A4"><b>Configure general messaging to use TCP or UDP
+							unicast</b>. <p>TCP is the default protocol for communication. To use
+							it, just make sure you do not have it disabled in
 								<codeph>gemfire.properties</codeph>. Either have no entry for
 								<codeph>disable-tcp</codeph>, or have this entry:
-							<codeblock>disable-tcp=false</codeblock>To use UDP unicast for general
-							messaging, add this entry to <codeph>gemfire.properties</codeph>:
-							<codeblock>disable-tcp=true</codeblock>
-						</p>
+							</p><codeblock>disable-tcp=false</codeblock><p>To use UDP unicast for
+							general messaging, add this entry to
+							<codeph>gemfire.properties</codeph>:  </p><codeblock>disable-tcp=true</codeblock>
 						<p>The <codeph>disable-tcp</codeph> setting has no effect on the use of TCP
 							locators or the TCP connections used to detect failed members. </p>
 					</li>

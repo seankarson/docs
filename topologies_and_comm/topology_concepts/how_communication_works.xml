@@ -62,13 +62,12 @@
 			<p>For each member, <keyword keyref="product_name"/> selects a unique port for UDP unicast
 				communication. You can restrict the range used for the selection by setting
 					<codeph>membership-port-range</codeph> in the
-					<codeph>gemfire.properties</codeph> file. Example:
-					<codeblock>membership-port-range=1024-60000</codeblock><note> In addition to UDP
-					port configuration, the <codeph>membership-port-range</codeph> property defines
-					the TCP port used for failure detection. See the <xref
-						href="../../reference/book_intro.xml#reference"/> for a description of the
-						<keyword keyref="product_name"/> property.</note>
-			</p>
+					<codeph>gemfire.properties</codeph> file. Example:  </p>
+			<codeblock>membership-port-range=1024-60000</codeblock>
+			<note> In addition to UDP port configuration, the <codeph>membership-port-range</codeph>
+				property defines the TCP port used for failure detection. See the <xref
+					href="../../reference/book_intro.xml#reference"/> for a description of the
+					<keyword keyref="product_name"/> property.</note>
 		</section>
 		<section id="section_15F9EEDD65374F3E9D26C5A960D9D9D3">
 			<title>UDP Multicast</title>
