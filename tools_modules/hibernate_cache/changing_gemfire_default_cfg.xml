@@ -37,15 +37,13 @@
 		</section>
 		<section id="changing_p2p_region_atts">
 			<title>Changing Peer-to-Peer Region Attributes</title>
-			<p>You can change the region attributes from within the
-					<codeph>hibernate.cfg.xml</codeph> file using the same region shortcuts
-				specified in <xref
-					href="../../basic_config/data_regions/region_shortcuts.xml"
-					type="concept" format="dita" scope="local"></xref>.
-				<codeblock>&lt;property name="gemfire.default-region-attributes-id"&gt;
+			<p>You can change the region attributes from within the <codeph>hibernate.cfg.xml</codeph> file
+				using the same region shortcuts specified in <xref
+					href="../../basic_config/data_regions/region_shortcuts.xml" type="concept"
+					format="dita" scope="local"/>.  </p>
+			<codeblock>&lt;property name="gemfire.default-region-attributes-id"&gt;
   REGION_ATTRIBUTE
 &lt;/property&gt; </codeblock>
-			</p>
 			<p>In this example, <codeph>REGION_ATTRIBUTE</codeph> can be any of the pre-defined
 				region shortcuts. By default, this is REPLICATE_HEAP_LRU. Other available region
 				shortcuts include: REPLICATE, REPLICATE_PERSISTENT, PARTITION, PARTITION_PERSISTENT,
@@ -163,14 +161,13 @@
 					<codeph>org.hibernate.type.EnumType</codeph>. </p>
 			<p>To configure Hibernate to use the <keyword keyref="product_name"/> EnumType, modify
 					<codeph>hibernate.cfg.xml</codeph> to add a property for the mapping. For
-				example:
-				<codeblock>&lt;property name="myEnum"&gt;
+				example:  </p>
+			<codeblock>&lt;property name="myEnum"&gt;
     &lt;type name="<b>com.gemstone.gemfire.modules.hibernate.EnumType</b>"&gt;
     &lt;param name="enumClass"&gt;com.mycompany.MyEnum&lt;/param&gt;
    &lt;/type&gt;
 &lt;/property&gt;
 </codeblock>
-			</p>
 		</section>
 	</conbody>
 </concept>

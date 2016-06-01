@@ -11,15 +11,13 @@
 		<body>
 			<p>To run Pulse in embedded mode: <ol id="ol_953D2A0C17B54B929A7215423425372D">
 					<li id="li_C66E9CFB5CFF425FB9A629AA64BECCFA">
-						<p>Configure a <keyword keyref="product_name"/> member to run as a JMX
-							Manager node, specifying the HTTP port on which you will access the
-							Pulse Web application (port 7070 by default). For example, the following
-							command starts a <keyword keyref="product_name"/> locator as a JMX
-							Manager node, using the default HTTP port 7070 for the Pulse
-							application:
-							<codeblock>gfsh
+						<p>Configure a <keyword keyref="product_name"/> member to run as a JMX Manager node,
+							specifying the HTTP port on which you will access the Pulse Web
+							application (port 7070 by default). For example, the following command
+							starts a <keyword keyref="product_name"/> locator as a JMX Manager node,
+							using the default HTTP port 7070 for the Pulse application:  </p>
+						<codeblock>gfsh
 gfsh&gt; start locator --name=loc1</codeblock>
-						</p>
 						<note><keyword keyref="product_name"/> locators become JMX Manager nodes by
 							default. To start a non-locator member as a JMX Manager node, include
 							the <codeph>--J=-Dgemfire.jmx-manager=true</codeph> option. To specify a
@@ -36,11 +34,11 @@ gfsh&gt; start locator --name=loc1</codeblock>
 							connect to that process. </p>
 					</li>
 					<li id="li_F83552FCFB834AD993E56F92FA774656">
-						<p>Access the embedded Pulse application from a Web browser. If you are
-							connected to the <keyword keyref="product_name"/> cluster using gfsh,
-							use the <codeph>start pulse</codeph> command to load the correct URL in
-							your browser: <codeblock>gfsh&gt; start pulse</codeblock>
-						</p>
+						<p>Access the embedded Pulse application from a Web browser. If you are connected to the
+								<keyword keyref="product_name"/> cluster using gfsh, use the
+								<codeph>start pulse</codeph> command to load the correct URL in your
+							browser:  </p>
+						<codeblock>gfsh&gt; start pulse</codeblock>
 						<p>Or, enter the URL http://<i>address</i>:<i>http-service-port</i>/pulse
 							directly in your Web browser, substituting the address and HTTP port of
 							the manager. For example, you access Pulse on the local locator machine
@@ -89,8 +87,8 @@ gfsh&gt; start locator --name=loc1</codeblock>
 								<filepath>pulse.properties</filepath> file in the
 								<filepath>$TOMCAT_SERVER/lib</filepath> directory. </p>
 					</li>
-					<li id="li_2CC54310EDF34237AFDFD02949C6E4D4">Define the following configuration
-						properties in the <filepath>pulse.properties</filepath> file: <table
+					<li id="li_2CC54310EDF34237AFDFD02949C6E4D4">Define the following configuration properties in
+						the <filepath>pulse.properties</filepath> file: <table
 							id="table_9C0EA1396A8341878F30F0D563238F6B">
 							<tgroup cols="2">
 								<colspec colnum="1" colname="col1" colwidth="*"/>
@@ -175,21 +173,18 @@ gfsh&gt; start locator --name=loc1</codeblock>
 							</tgroup>
 						</table>
 						<p>For example, with this configuration Pulse connects to the locator at
-							mylocator[10334] and accesses any available JMX Manager:
-							<codeblock>pulse.useLocator=true
+							mylocator[10334] and accesses any available JMX Manager:  </p><codeblock>pulse.useLocator=true
 pulse.host=locsrv.gemstone.com
 pulse.port=10334
 pulse.jmxUserName=pulseapp
 pulse.jmxUserPassword=pulsepass</codeblock>
-						</p>
 						<p>With this configuration Pulse accesses only the JMX Manager instance at
 							manager1[8080]:
-							<codeblock>pulse.useLocator=false
+						</p><codeblock>pulse.useLocator=false
 pulse.host=jmxsrv.gemstone.com
 pulse.port=8080
 pulse.jmxUserName=pulseapp
 pulse.jmxUserPassword=pulsepass</codeblock>
-						</p>
 					</li>
 					<li id="li_7B562C0CAEFA43B5926DFADE003961AC">(Optional.) Configure
 						authentication for the Pulse Web application using the instructions in <xref
@@ -283,13 +278,13 @@ pulse.jmxUserPassword=pulsepass</codeblock>
 							<stentry>ROLE_USER</stentry>
 						</strow>
 					</simpletable></p>
-				<p>Pulse uses this default authentication profile if you do not specify a profile
-					when starting the application, or if you specify the default profile at startup
-					using the system
-					property:<codeblock>-Dspring.profiles.active=pulse.authentication.default</codeblock></p>
-				<p>You can also configure Pulse to use a custom authentication configuration by
-					specifying activating the custom profile at startup with the system
-					property:<codeblock>-Dspring.profiles.active=pulse.authentication.custom</codeblock></p>
+				<p>Pulse uses this default authentication profile if you do not specify a profile when starting
+					the application, or if you specify the default profile at startup using the
+					system property:</p>
+				<codeblock>-Dspring.profiles.active=pulse.authentication.default</codeblock>
+				<p>You can also configure Pulse to use a custom authentication configuration by specifying
+					activating the custom profile at startup with the system property:</p>
+				<codeblock>-Dspring.profiles.active=pulse.authentication.custom</codeblock>
 				<p>Using a custom configuration enables you to use either the simple in-memory User
 					Details Service or an external properties file to authenticate users to the
 					application. Even if you choose to use the default Spring security simple
@@ -300,22 +295,22 @@ pulse.jmxUserPassword=pulsepass</codeblock>
 					Pulse authentication. See <xref
 						href="#topic_AC9FFAA6FB044279BAED7A3E099E07AC/section_kjx_ylq_kq"
 						format="dita"/></note>
-				<p>To configure and use a custom authentication configuration:<ol id="ol_nt4_d32_xn">
-						<li>Create a directory in which you will store the custom authentication
-							configuration. For
-							example:<codeblock>$ mkdir /opt/pulse-config</codeblock></li>
-						<li>Ensure that the new directory you created is available on the Java
-							CLASSPATH:<codeblock>$ export CLASSPATH=$CLASSPATH:/opt/pulse-config</codeblock></li>
-						<li>Create a new text file named
-								<filepath>pulse-authentication-custom.xml</filepath> in the new
-							directory:<codeblock>$ touch /opt/pulse-config/pulse-authentication-custom.xml</codeblock></li>
-						<li>Use a text editor to add the bean definitions for the authentication
-							managers and providers that you want to use. The following listings show
-							the example file contents for using the in-memory User Details Service
-							and an external properties file:<p><b>Example
-									pulse-authentication-custom.xml for Spring simple in-memory User
-									Details
-								Service</b><codeblock>&lt;beans:beans >
+				<p>To configure and use a custom authentication configuration:</p>
+				<ol id="ol_tj3_53z_dw">
+					<li>Create a directory in which you will store the custom authentication
+						configuration. For
+						example:<codeblock>$ mkdir /opt/pulse-config</codeblock></li>
+					<li>Ensure that the new directory you created is available on the Java
+						CLASSPATH:<codeblock>$ export CLASSPATH=$CLASSPATH:/opt/pulse-config</codeblock></li>
+					<li>Create a new text file named
+							<filepath>pulse-authentication-custom.xml</filepath> in the new
+						directory:<codeblock>$ touch /opt/pulse-config/pulse-authentication-custom.xml</codeblock></li>
+					<li>Use a text editor to add the bean definitions for the authentication
+						managers and providers that you want to use. The following listings show the
+						example file contents for using the in-memory User Details Service and an
+						external properties file:<p><b>Example pulse-authentication-custom.xml for
+								Spring simple in-memory User Details
+								Service</b></p><codeblock>&lt;beans:beans >
   &lt;authentication-manager>
     &lt;authentication-provider>
       &lt;user-service id="userDetailsService">
@@ -324,37 +319,35 @@ pulse.jmxUserPassword=pulsepass</codeblock>
       &lt;/user-service>
     &lt;/authentication-provider>
   &lt;/authentication-manager>
-&lt;/beans:beans></codeblock></p><p><b>Example
-									pulse-authentication-custom.xml for external properties
-								file</b><codeblock>&lt;beans:beans >
+&lt;/beans:beans></codeblock><p><b>Example
+								pulse-authentication-custom.xml for external properties
+							file</b></p><codeblock>&lt;beans:beans >
   &lt;authentication-manager>
     &lt;authentication-provider>
       &lt;user-service properties="classpath:pulse-users.properties">
       &lt;/user-service>
     &lt;/authentication-provider>
   &lt;/authentication-manager>
-&lt;/beans:beans></codeblock></p><p>With
-								file-based authentication mechanism, you define the names and
-								passwords for valid Pulse users in a
-									<filepath>pulse-users.properties</filepath> file, which must be
-								available in the classpath of the Pulse application. Each line in
-								the <filepath>pulse-users.properties</filepath> file defines the
-								username, password, and access level for a Pulse user with the
-								format:
-								<codeblock><i>username</i>=<i>password</i>,<i>role</i>,{enabled | disabled}</codeblock>The
-									<i>role</i> entry must correspond to a valid Spring security
-								role. For example, this entry shows the default "admin" user enabled
-								with basic user access:
-								<codeblock>admin=admin,ROLE_USER,enabled</codeblock>
-							</p></li>
-						<li>When you start <keyword keyref="product_name"/> members, specify the
-							custom authentication profile using the
-								<codeph>-Dspring.profiles.active=pulse.authentication.custom</codeph>
-							system property. For
-							example:<codeblock>gfsh> start server --name=server1 --J=-Dspring.profiles.active=pulse.authentication.custom</codeblock></li>
-						<li>Start Pulse and log in using credentials that are authorized in the
-							custom configuration.</li>
-					</ol></p>
+&lt;/beans:beans></codeblock><p>With
+							file-based authentication mechanism, you define the names and passwords
+							for valid Pulse users in a <filepath>pulse-users.properties</filepath>
+							file, which must be available in the classpath of the Pulse application.
+							Each line in the <filepath>pulse-users.properties</filepath> file
+							defines the username, password, and access level for a Pulse user with
+							the format:
+							</p><codeblock><i>username</i>=<i>password</i>,<i>role</i>,{enabled | disabled}</codeblock><p>The
+								<i>role</i> entry must correspond to a valid Spring security role.
+							For example, this entry shows the default "admin" user enabled with
+							basic user access:
+						</p><codeblock>admin=admin,ROLE_USER,enabled</codeblock></li>
+					<li>When you start <keyword keyref="product_name"/> members, specify the custom
+						authentication profile using the
+							<codeph>-Dspring.profiles.active=pulse.authentication.custom</codeph>
+						system property. For
+						example:<codeblock>gfsh> start server --name=server1 --J=-Dspring.profiles.active=pulse.authentication.custom</codeblock></li>
+					<li>Start Pulse and log in using credentials that are authorized in the custom
+						configuration.</li>
+				</ol>
 			</section>
 			<section id="section_kjx_ylq_kq">
 				<title>Using LDAP Authentication in Pulse</title>
@@ -497,27 +490,25 @@ CLASSPATH=$CLASSPATH:/opt/pulse-config</codeblock></li>
 				keyref="product_name"/> clusters, members, and regions. </shortdesc>
 		<body>
 			<section>
-				<p>The following sections provide an overview of the main Pulse views: <ul
-						id="ul_DC9EBD24A54B44579B355B6E384AD8A3">
-						<li id="li_28EC4D83F1154AAAAB85D8C67617B9FF"><xref scope="local"
-								href="quickstart.xml#topic_F0ECE9E8179541CCA3D6C5F4FBA84404/section_9794B5754E474E10ABFBCD8B1DA240F8"
-								type="section" format="dita"/>
-						</li>
-						<li id="li_C5783061B3834039A4049DEBA96AD1C9"><xref scope="local"
-								href="quickstart.xml#topic_F0ECE9E8179541CCA3D6C5F4FBA84404/section_3629814A3DF64D31A190495782DB0DBF"
-								type="section" format="dita"/>
-						</li>
-						<li id="li_208034A8BC48450A93027EA3B6947BA2"><xref scope="local"
-								href="quickstart.xml#topic_F0ECE9E8179541CCA3D6C5F4FBA84404/section_D151776BAC8B4704A71F37F8B5CE063D"
-								type="section" format="dita"/>
-						</li>
-						<li><xref
-								href="#topic_F0ECE9E8179541CCA3D6C5F4FBA84404/sec_pulsedatabrowser"
-								format="dita"/></li>
-						<li><xref href="#topic_F0ECE9E8179541CCA3D6C5F4FBA84404/section_bfk_sc3_wn"
-								format="dita"/></li>
-					</ul>
-				</p>
+				<p>The following sections provide an overview of the main Pulse views:  </p>
+				<ul id="ul_adn_z3z_dw">
+					<li><xref scope="local"
+							href="quickstart.xml#topic_F0ECE9E8179541CCA3D6C5F4FBA84404/section_9794B5754E474E10ABFBCD8B1DA240F8"
+							type="section" format="dita"/>
+					</li>
+					<li><xref scope="local"
+							href="quickstart.xml#topic_F0ECE9E8179541CCA3D6C5F4FBA84404/section_3629814A3DF64D31A190495782DB0DBF"
+							type="section" format="dita"/>
+					</li>
+					<li><xref scope="local"
+							href="quickstart.xml#topic_F0ECE9E8179541CCA3D6C5F4FBA84404/section_D151776BAC8B4704A71F37F8B5CE063D"
+							type="section" format="dita"/>
+					</li>
+					<li><xref href="#topic_F0ECE9E8179541CCA3D6C5F4FBA84404/sec_pulsedatabrowser"
+							format="dita"/></li>
+					<li><xref href="#topic_F0ECE9E8179541CCA3D6C5F4FBA84404/section_bfk_sc3_wn"
+							format="dita"/></li>
+				</ul>
 			</section>
 			<section id="section_9794B5754E474E10ABFBCD8B1DA240F8">
 				<title>Cluster View</title>
@@ -755,22 +746,18 @@ CLASSPATH=$CLASSPATH:/opt/pulse-config</codeblock></li>
 						href="../../images/pulse_member_view.png" placement="break" width="6.5in"
 						align="left"/>
 				</p>		
-				<p>Use these basic controls while in Member View: <ol
-						id="ol_ECC9232ABD344DD288CD3B2F2E9892AB">
-						<li id="li_A6BE844083F84B57A1C4990AFC9B4D62">Click the display icons to
-							display regions using block view or table view. </li>
-						<li id="li_E48126EA3EE14644B7052352032E6A48">Use the drop down menu to
-							select a specific member or search for specific members by name. </li>
-						<li id="li_259FB414031B493E91B573F50996B779">Click <b>Cluster View</b> to
-							return to Cluster View. See <xref
-								href="quickstart.xml#topic_F0ECE9E8179541CCA3D6C5F4FBA84404/section_9794B5754E474E10ABFBCD8B1DA240F8"
-								type="section" format="dita" scope="local"/>. </li>
-						<li id="li_407504D5CFD2484488BE1A99BF21675C">Click <b>Data Browser</b> to
-							query region data. See <xref
-								href="#topic_F0ECE9E8179541CCA3D6C5F4FBA84404/sec_pulsedatabrowser"
-								format="dita"/>. </li>
-					</ol>
-				</p>
+				<p>Use these basic controls while in Member View:  </p>
+				<ol id="ol_kqk_cjz_dw">
+					<li>Click the display icons to display regions using block view or table view. </li>
+					<li>Use the drop down menu to select a specific member or search for specific
+						members by name. </li>
+					<li>Click <b>Cluster View</b> to return to Cluster View. See <xref
+							href="quickstart.xml#topic_F0ECE9E8179541CCA3D6C5F4FBA84404/section_9794B5754E474E10ABFBCD8B1DA240F8"
+							type="section" format="dita" scope="local"/>. </li>
+					<li>Click <b>Data Browser</b> to query region data. See <xref
+							href="#topic_F0ECE9E8179541CCA3D6C5F4FBA84404/sec_pulsedatabrowser"
+							format="dita"/>. </li>
+				</ol>
 				<p>
 					<b>Member View Screen Components</b>
 				</p>
@@ -1034,43 +1021,42 @@ CLASSPATH=$CLASSPATH:/opt/pulse-config</codeblock></li>
 					attributes available on DistributedSystemMXBean (see <xref
 						href="../../managing/management/list_of_mbeans.xml#topic_4BCF867697C3456D96066BAD7F39FC8B"
 					/>) that you can use to configure limits for the result sets displayed in Data
-						Browser:<ul id="ul_rrw_b41_y4">
-						<li><codeph>QueryResultSetLimit</codeph> limits the number of rows that Data
-							Browser queries return. 1000 rows are displayed by default.</li>
-						<li><codeph>QueryCollectionsDepth</codeph> limits the number of elements of
-							a collection that Data Browser queries return. This attribute applies to
-							query results contain collections such as Map, List, and so forth. The
-							default value is 100 elements.</li>
-					</ul></p>
+					Browser:</p>
+				<ul id="ul_cyn_2jz_dw">
+					<li><codeph>QueryResultSetLimit</codeph> limits the number of rows that Data
+						Browser queries return. 1000 rows are displayed by default.</li>
+					<li><codeph>QueryCollectionsDepth</codeph> limits the number of elements of a
+						collection that Data Browser queries return. This attribute applies to query
+						results contain collections such as Map, List, and so forth. The default
+						value is 100 elements.</li>
+				</ul>
 				<p>See the <codeph>com.gemstone.gemfire.management.DistributedSystemMXBean</codeph>
 					JavaDocs for information on available MBean methods and attributes. </p>
 				<p>The following shows an example Data Browser view:<image
 						href="../../images/pulse-data-browser.png" placement="break" width="6.5in"
 						align="left" id="image_hhp_dz2_44"/>
 				</p>
-				<p>Use these basic controls while in Data Browser view: <ol id="ol_jhp_dz2_44">
-						<li>Search for the name of a specific region. </li>
-						<li>Select one or more regions to display the <keyword keyref="product_name"
-							/> members that host those regions. The hosting <keyword
-								keyref="product_name"/> members appear in the Region Members
-							section. </li>
-						<li>Select one or more members from the Region Members section to restrict
-							query results to those members. </li>
-						<li>Type in the text of a query to execute. See <xref
-								href="../../developing/querying_basics/chapter_overview.xml"
-							/>.</li>
-						<li>Display a list of previously-executed queries. Double-click on a query
-							from the history list to copy it to the Query Editor, or delete the
-							query from your history.</li>
-						<li>Execute your query or clear the contents of the Query Editor.</li>
-						<li>View the current query results.</li>
-						<li>Export the query results to a text file.</li>
-						<li>Return to <xref
-								href="quickstart.xml#topic_F0ECE9E8179541CCA3D6C5F4FBA84404/section_9794B5754E474E10ABFBCD8B1DA240F8"
-								type="section" format="dita" scope="local"
-								outputclass="noPageCitation"/>. </li>
-					</ol>
-				</p>
+				<p>Use these basic controls while in Data Browser view:  </p>
+				<ol id="ol_brp_fjz_dw">
+					<li>Search for the name of a specific region. </li>
+					<li>Select one or more regions to display the <keyword keyref="product_name"/>
+						members that host those regions. The hosting <keyword keyref="product_name"
+						/> members appear in the Region Members section. </li>
+					<li>Select one or more members from the Region Members section to restrict query
+						results to those members. </li>
+					<li>Type in the text of a query to execute. See <xref
+							href="../../developing/querying_basics/chapter_overview.xml"/>.</li>
+					<li>Display a list of previously-executed queries. Double-click on a query from
+						the history list to copy it to the Query Editor, or delete the query from
+						your history.</li>
+					<li>Execute your query or clear the contents of the Query Editor.</li>
+					<li>View the current query results.</li>
+					<li>Export the query results to a text file.</li>
+					<li>Return to <xref
+							href="quickstart.xml#topic_F0ECE9E8179541CCA3D6C5F4FBA84404/section_9794B5754E474E10ABFBCD8B1DA240F8"
+							type="section" format="dita" scope="local" outputclass="noPageCitation"
+						/>. </li>
+				</ol>
 			</section>
 			<section id="section_bfk_sc3_wn">
 				<title>Alerts Widget</title>
@@ -1085,20 +1071,21 @@ CLASSPATH=$CLASSPATH:/opt/pulse-config</codeblock></li>
 				<p>
 					<image href="../../images/pulse_alerts_widget.png" id="image_jrc_smt_qn"/>
 				</p>
-				<p>Use these basic controls in the Alerts Widget:<ol id="ol_tkg_rkt_qn">
-						<li>Select an alert level to view only alerts with a specific severity.</li>
-						<li>Enter text in the search box to filter the list of alerts.</li>
-						<li>Select an alert and click Clear to remove it from the alert list.</li>
-						<li>Click <b>Clear All</b> to remove all alerts from the widget.</li>
-						<li>Double-click an alert to open a pop-up window that displays the full
-							text of the alert message.</li>
-						<li>Click the check mark in an alert pop-up window to acknowledge the alert.
-							Acknowledged alerts display a check mark in the list of alerts.</li>
-						<li>Triple-click the alert in the pop-up or in the alert list to select the
-							message text. You can then copy and paste the text into another
-							application.</li>
-						<li>Click the <b>X</b> to close the pop-up alert window.</li>
-					</ol></p>
+				<p>Use these basic controls in the Alerts Widget:</p>
+				<ol id="ol_jkr_3jz_dw">
+					<li>Select an alert level to view only alerts with a specific severity.</li>
+					<li>Enter text in the search box to filter the list of alerts.</li>
+					<li>Select an alert and click Clear to remove it from the alert list.</li>
+					<li>Click <b>Clear All</b> to remove all alerts from the widget.</li>
+					<li>Double-click an alert to open a pop-up window that displays the full text of
+						the alert message.</li>
+					<li>Click the check mark in an alert pop-up window to acknowledge the alert.
+						Acknowledged alerts display a check mark in the list of alerts.</li>
+					<li>Triple-click the alert in the pop-up or in the alert list to select the
+						message text. You can then copy and paste the text into another
+						application.</li>
+					<li>Click the <b>X</b> to close the pop-up alert window.</li>
+				</ol>
 			</section>
 		</body>
 	</topic>

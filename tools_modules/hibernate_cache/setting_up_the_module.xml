@@ -8,10 +8,10 @@
 			<li id="li_4F25C5224D0244389F9132357F82101F">
 				<p><b>Turn on L2 Cache</b>
 				</p>
-				<p>In the <codeph>hibernate.cfg.xml</codeph> file, turn on the L2 cache and identify
-					the <keyword keyref="product_name"/> locator(s):
-					<codeblock>&lt;property name="hibernate.cache.use_second_level_cache"&gt;true&lt;/property&gt;
-&lt;property name="gemfire.locators"&gt;host1[port1],host2[port2]&lt;/property&gt;</codeblock></p>
+				<p>In the <codeph>hibernate.cfg.xml</codeph> file, turn on the L2 cache and identify the
+						<keyword keyref="product_name"/> locator(s): </p>
+				<codeblock>&lt;property name="hibernate.cache.use_second_level_cache"&gt;true&lt;/property&gt;
+&lt;property name="gemfire.locators"&gt;host1[port1],host2[port2]&lt;/property&gt;</codeblock>
 				<p>Change <codeph>host1</codeph> and <codeph>host2 </codeph> to the hostnames (or IP
 					addresses) for each of the locators; <codeph>port1</codeph> and <codeph>port2
 					</codeph>are the ports for each of the locators.</p>
@@ -59,11 +59,11 @@
 				<p><b>Set Cache Usage Mode</b>
 				</p>
 				<p>The usage mode can either be set using the hibernate-mapping file or through Java
-					annotations. <ul id="ul_94501E7BF6C448CB89382D16ACF96E52">
-						<li id="li_F6A855B829784C1C9252570989234EFB">
-							<p>To set the mode with the hibernate-mapping file, refer to this
-								example: </p>
-							<codeblock>    
+					annotations.  </p>
+				<ul id="ul_tlq_drz_dw">
+					<li>
+						<p>To set the mode with the hibernate-mapping file, refer to this example: </p>
+						<codeblock>    
     &lt;hibernate-mapping package="PACKAGE"&gt;
       &lt;class name="ENTITY_NAME" ...&gt;
         &lt;cache usage="USAGE_MODE"/&gt;
@@ -71,18 +71,18 @@
       &lt;/class&gt;
     &lt;/hibernate-mapping&gt;
  </codeblock>
-							<p>In this example, <codeph>PACKAGE</codeph> is the name of the entity
-								package, <codeph>ENTITY_NAME</codeph> is the name of your entity,
-								and <codeph>USAGE_MODE</codeph> is the chosen usage mode from the
-								table given above. Refer to the <xref
-									href="http://hibernate.org/docs" scope="external" format="html"
-									>Hibernate documentation</xref> for further information. </p>
-						</li>
-						<li id="li_EA65BDE0A48D4D6BBE37D91348AC3D8C">
-							<p>To set the mode using annotations, your class definition should look
-								something like this example which specifies the
-									<codeph>read-only</codeph> usage mode: </p>
-							<codeblock>
+						<p>In this example, <codeph>PACKAGE</codeph> is the name of the entity
+							package, <codeph>ENTITY_NAME</codeph> is the name of your entity, and
+								<codeph>USAGE_MODE</codeph> is the chosen usage mode from the table
+							given above. Refer to the <xref href="http://hibernate.org/docs"
+								scope="external" format="html">Hibernate documentation</xref> for
+							further information. </p>
+					</li>
+					<li>
+						<p>To set the mode using annotations, your class definition should look
+							something like this example which specifies the
+								<codeph>read-only</codeph> usage mode: </p>
+						<codeblock>
 import org.hibernate.annotations.Cache; 
 import org.hibernate.annotations.CacheConcurrencyStrategy; 
 
@@ -94,9 +94,8 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 )
 
 public class MyClass implements Serializable { ... }</codeblock>
-						</li>
-					</ul>
-				</p>
+					</li>
+				</ul>
 			</li>
 			<li><b>Start a
 				Locator</b><codeblock>$ gfsh start locator –-name=locator1</codeblock></li>

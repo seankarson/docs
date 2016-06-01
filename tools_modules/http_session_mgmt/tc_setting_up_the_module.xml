@@ -47,7 +47,7 @@ In Windows, for a client/server topology, with a pinned tc Server instance:
   $ tcruntime-instance.bat create  --version 6.0.32.A.RELEASE ^
   my_instance_name --template geode-cs</codeblock><p>To
 				run, first start the locator, which will listen on its default of port number
-				10334:<codeblock>$ gfsh start locator --name=locator1</codeblock></p>With a similar
+				10334:</p><codeblock>$ gfsh start locator --name=locator1</codeblock>With a similar
 			environment to this example that is for a client/server set
 				up,<codeblock>TC_VER=tomcat-8.0.30.C.RELEASE
 INSTANCE=geode-cs
@@ -58,8 +58,8 @@ $PWD/$TC_VER/lib/catalina.jar:\
 $PWD/$TC_VER/lib/tomcat-util.jar:\
 $PWD/$TC_VER/bin/tomcat-juli.jar</codeblock><p>start
 				the server using
-				<codeph>gfsh</codeph>:<codeblock>$ gfsh start server --name=server1 --locators=localhost[10334] \
-        --server-port=0 --classpath=$CLASSPATH</codeblock></p></section>
+			<codeph>gfsh</codeph>:</p><codeblock>$ gfsh start server --name=server1 --locators=localhost[10334] \
+        --server-port=0 --classpath=$CLASSPATH</codeblock></section>
 		<section id="section_B6AA6C00DBBD44E68649BDB793578694"><title>Starting the Application
 				Server</title><p>Once you've created a tc Server instance, you are ready to start
 				the instance.
@@ -77,7 +77,7 @@ In Windows:
 					keyref="product_name"/>, you should NOT turn on Tomcat clustering as well.
 				</note><p>To verify that the system is running, check the log file for a message
 				similar
-				to:<codeblock>Mar 29, 2016 8:38:31 AM com.gemstone.gemfire.modules.session.bootstrap.AbstractCache
+			to:</p><codeblock>Mar 29, 2016 8:38:31 AM com.gemstone.gemfire.modules.session.bootstrap.AbstractCache
 lifecycleEvent
 INFO: Initializing GemFire Modules
 Modules version: 1.0.0-incubating.M2-SNAPSHOT
@@ -86,7 +86,7 @@ javac 1.8.0_66
 Native version: native code unavailable
 Source revision: c36591b73243c7ee3a0186710338453d12efe364
 Source repository: develop
-Running on: /10.118.33.250, 8 cpu(s), x86_64 Mac OS X 10.11.4</codeblock></p>Information
+Running on: /10.118.33.250, 8 cpu(s), x86_64 Mac OS X 10.11.4</codeblock>Information
 			is also logged within the <keyword keyref="product_name"/> log file, which by default is
 			named <codeph>gemfire_modules.log</codeph>. </section>
 		<section id="section_B2396FB0879248DBA85ADFDBBEFA987E">

@@ -16,15 +16,14 @@
 			<title>Adding FINE Debug Logging to catalina.log</title>
 			<p>To add <keyword keyref="product_name"/>-specific FINE logging to the
 					<codeph>catalina.log</codeph> file, add the following lines to your
-					<codeph>&lt;instance>/conf/logging.properties</codeph> file:
-				<codeblock>
+					<codeph>&lt;instance>/conf/logging.properties</codeph> file:  </p>
+			<codeblock>
 com.gemstone.gemfire.modules.session.catalina.DeltaSessionManager.level = FINE
 com.gemstone.gemfire.modules.session.catalina.DeltaSession.level = FINE
 </codeblock>
-			</p>
 			<p>These configurations will add FINE logging to the <codeph>catalina.DATE.log</codeph> file. The
-				following is an example of FINE logging:
-				<codeblock>06-Sep-2011 15:59:47.250 FINE com.gemstone.gemfire.modules.session.catalina.DeltaSessionManager.start 
+				following is an example of FINE logging:  </p>
+			<codeblock>06-Sep-2011 15:59:47.250 FINE com.gemstone.gemfire.modules.session.catalina.DeltaSessionManager.start 
 DeltaSessionManager[container=StandardEngine[Catalina].StandardHost[localhost].StandardContext[/manager]; 
 regionName=gemfire_modules_sessions; regionAttributesId=PARTITION_REDUNDANT]: Starting
 
@@ -35,16 +34,14 @@ regionName=gemfire_modules_sessions; regionAttributesId=PARTITION_REDUNDANT]: Re
 06-Sep-2011 15:59:47.351 FINE com.gemstone.gemfire.modules.session.catalina.ClientServerSessionCache.createOrRetrieveRegion 
 Created session region: com.gemstone.gemfire.internal.cache.LocalRegion[path='/gemfire_modules_sessions';
 scope=LOCAL';dataPolicy=EMPTY; gatewayEnabled=false]</codeblock>
-			</p>
 		</section>
 		<section id="section_CF950FC81CC046838F42A3E6783985BD">
 			<title>Add Session State Logging to the Geode Server Log</title>
 			<p>To add session-state-specific logging to the Geode server log file, add the following property
-				to the <codeph>catalina.properties</codeph> file for the tc Server instance:
-				<codeblock>geode-cs.enable.debug.listener=true</codeblock>
-			</p>
-			<p>Adding this configuration will print logging in the server log such as the following:
-				<codeblock>[info 2011/09/06 15:18:27.749 PDT  &lt;ServerConnection on port 40404 Thread 3&gt; tid=0x32] DebugCacheListener: Received 
+				to the <codeph>catalina.properties</codeph> file for the tc Server instance:  </p>
+			<codeblock>geode-cs.enable.debug.listener=true</codeblock>
+			<p>Adding this configuration will print logging in the server log such as the following:  </p>
+			<codeblock>[info 2011/09/06 15:18:27.749 PDT  &lt;ServerConnection on port 40404 Thread 3&gt; tid=0x32] DebugCacheListener: Received 
 CREATE for key=5782ED83A3D9F101BBF8D851CE4E798E; value=DeltaSession[id=5782ED83A3D9F101BBF8D851CE4E798E; 
 sessionRegionName=gemfire_modules_sessions; operatingRegionName=unset]
 
@@ -54,15 +51,13 @@ sessionRegionName=gemfire_modules_sessions; operatingRegionName=unset]
 
 [info 2011/09/06 15:19:36.729 PDT  &lt;Timer-2&gt; tid=0x24] DebugCacheListener: Received EXPIRE_DESTROY for 
 key=5782ED83A3D9F101BBF8D851CE4E798E</codeblock>
-			</p>
 		</section>
 		<section id="section_B446063292F0447CA178DB67245B72C1">
 			<title>Adding Additional Debug Logging to the Geode Server Log</title>
 			<p>To add fine-level logging to the <keyword keyref="product_name"/> cache server, add the
-				'log-level' property to the server process. For example:
-				<codeblock>gfsh> start server --name=server1 --cache-xml-file=../conf/cache-server.xml 
+				'log-level' property to the server process. For example:  </p>
+			<codeblock>gfsh> start server --name=server1 --cache-xml-file=../conf/cache-server.xml 
               <b>--log-level=fine</b></codeblock>
-			</p>
 			<p>This will add fine-level logging to the <codeph>server.log</codeph> file. </p>
 			<p>
 				<note>This will help debug <keyword keyref="product_name"/> server issues, but it
@@ -73,8 +68,8 @@ key=5782ED83A3D9F101BBF8D851CE4E798E</codeblock>
 			<title>Add Debug Logging to gemfire_modules.log </title>
 			<p>To add fine-level logging to the <keyword keyref="product_name"/> Cache Client, add the
 				'log-level' property to the Listener element in the tc Server or Tomcat
-					<codeph>server.xml</codeph> file. For example:
-				<codeblock>&lt;Listener <b>log-level="fine"</b> 
+					<codeph>server.xml</codeph> file. For example:  </p>
+			<codeblock>&lt;Listener <b>log-level="fine"</b> 
 cache-xml-file="${geode-cs.cache.configuration.file}" 
 className="com.gemstone.gemfire.modules.session.catalina.ClientServerCacheLifecycleListener"
 criticalHeapPercentage="${geode-cs.critical.heap.percentage}"
@@ -83,7 +78,6 @@ evictionHeapPercentage="${geode-cs.eviction.heap.percentage}"
 statistic-archive-file="${geode-cs.statistic.archive.file}"
 statistic-sampling-enabled="${geode-cs.statistic.sampling.enabled}"/&gt;
 		</codeblock>
-			</p>
 			<p>This will add fine-level logging to the file defined by the
 					<codeph>${geode-cs.log.file}</codeph> property. The default log file name is
 					<codeph>gemfire_modules.log</codeph>. </p>

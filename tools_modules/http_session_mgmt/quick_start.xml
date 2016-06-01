@@ -199,91 +199,80 @@
 			<p>These steps provide a basic starting point for using the tc Server module. For more
 				configuration options, see <xref href="session_mgmt_tcserver.xml" type="concept"
 					format="dita" scope="local"/>. As a prerequisite, module set up requires a
-				JAVA_HOME environment variable set to the java installation.<ol
-					id="ol_9F97B5EC18E34D278BEF7D128CDE0E57">
-					<li id="li_FD4958D29B714ADFABCA63F0BE6BB1A4">Navigate to the root directory of
-						tc Server. </li>
-					<li id="li_FFFD7643081341EABE6B8F1EAA5E2C79"> Create a <keyword
-							keyref="product_name"/> instance using one of the provided templates and
-						start the instance after starting up a locator. For example: <codeblock>
+				JAVA_HOME environment variable set to the java installation. </p>
+			<ol id="ol_bpc_gqz_dw">
+				<li>Navigate to the root directory of tc Server. </li>
+				<li> Create a <keyword keyref="product_name"/> instance using one of the provided
+					templates and start the instance after starting up a locator. For example: <codeblock>
 $ gfsh start locator --name=locator1
 $ ./tcruntime-instance.sh create my_instance_name --template geode-p2p
 $ ./tcruntime-ctl.sh my_instance_name start</codeblock>
-						<p>This will create and run a <keyword keyref="product_name"/> instance
-							using the peer-to-peer topology and default configuration values.
-							Another <keyword keyref="product_name"/> instance on another system can
-							be created and started in the same way. </p>
-						<p>If you need to pin your tc Server instance to a specific tc Server
-							runtime version, use the <codeph>--version</codeph> option when creating
-							the instance. </p>
-					</li>
-				</ol>
-			</p>
+					<p>This will create and run a <keyword keyref="product_name"/> instance using
+						the peer-to-peer topology and default configuration values. Another <keyword
+							keyref="product_name"/> instance on another system can be created and
+						started in the same way. </p>
+					<p>If you need to pin your tc Server instance to a specific tc Server runtime
+						version, use the <codeph>--version</codeph> option when creating the
+						instance. </p>
+				</li>
+			</ol>
 		</section>
 		<section id="section_4689A4FA609A4F4FB091F03E9BECA4DB">
 			<title>Additional Quick Start Instructions for Tomcat Module</title>
-			<p>These steps provide a basic starting point for using the Tomcat module. For more
-				configuration options, see <xref href="session_mgmt_tomcat.xml"
-					type="concept" format="dita" scope="local"/>. <ol
-					id="ol_88CF6319267D4C65AA872BD695C1065C">
-					<li id="li_A72CA5E5A2324B7F9A42D765985FA005">Modify Tomcat's
-							<codeph>server.xml</codeph> and <codeph>context.xml</codeph> files.
-						Configuration is slightly different depending on the topology you are
-						setting up and the version of Tomcat you are using. <p>For example, in a peer-to-peer
-							configuration using Tomcat 7, you would add the following entry within
-							the <codeph>&lt;server&gt;</codeph> element of server.xml:
-							<codeblock>&lt;Listener className="com.gemstone.gemfire.modules.session.catalina.
+			<p>These steps provide a basic starting point for using the Tomcat module. For more configuration
+				options, see <xref href="session_mgmt_tomcat.xml" type="concept" format="dita"
+					scope="local"/>.  </p>
+			<ol id="ol_v4w_hqz_dw">
+				<li>Modify Tomcat's <codeph>server.xml</codeph> and <codeph>context.xml</codeph>
+					files. Configuration is slightly different depending on the topology you are
+					setting up and the version of Tomcat you are using. <p>For example, in a
+						peer-to-peer configuration using Tomcat 7, you would add the following entry
+						within the <codeph>&lt;server&gt;</codeph> element of server.xml:
+						</p><codeblock>&lt;Listener className="com.gemstone.gemfire.modules.session.catalina.
                          PeerToPeerCacheLifecycleListener"
-                         locator="localhost[10334]" /&gt;</codeblock>and
-							the following entry within the <codeph>&lt;context&gt;</codeph> tag in
-							the context.xml file:
-							<codeblock>&lt;Manager className="com.gemstone.gemfire.modules.session.catalina.
-                         Tomcat7DeltaSessionManager"/&gt; </codeblock>See
-								<xref href="tomcat_setting_up_the_module.xml" type="concept"
-								format="dita" scope="local"/> for additional instructions. </p>
-					</li>
-					<li id="li_ED8F2832336D4F96B1BC34E4C60B0A30">Restart the application server.
-					</li>
-				</ol>
-			</p>
+                         locator="localhost[10334]" /&gt;</codeblock><p>and
+						the following entry within the <codeph>&lt;context&gt;</codeph> tag in the
+						context.xml file:
+						</p><codeblock>&lt;Manager className="com.gemstone.gemfire.modules.session.catalina.
+                         Tomcat7DeltaSessionManager"/&gt; </codeblock><p>See
+							<xref href="tomcat_setting_up_the_module.xml" type="concept"
+							format="dita" scope="local"/> for additional instructions. </p>
+				</li>
+				<li>Restart the application server. </li>
+			</ol>
 		</section>
 		<section id="section_1587C3E55F06406EBD4AB13014A406D4">
 			<title>Additional Instructions for AppServers Module</title>
-			<p>These steps provide a basic starting point for using the AppServers module with
-				WebLogic, WebSphere or JBoss. For more configuration options, see <xref
-					href="session_mgmt_weblogic.xml" type="concept"
-					format="dita" scope="local"/>. <note>
-					<ul id="ul_8844FFA8319F44BFAF3DDF1E430B73EC">
-						<li>The <codeph>modify_war</codeph> script relies upon a GEODE environment
-							variable. Set the GEODE environment variable to the <keyword
-								keyref="product_name"/> product directory; this is the parent
-							directory of  <codeph>bin</codeph>.</li>
-						<li id="li_0052B12E1C6E4EF79B7A0B80655DD4C4">The <codeph>modify_war</codeph>
-							script, described below, relies on files within the distribution tree
-							and should not be run outside of a complete distribution. </li>
-						<li id="li_62394ABDF3FF411FB4322BA51517253E">The <codeph>modify_war</codeph>
-							script is a <codeph>bash</codeph> script and does not run on Windows.
-						</li>
-					</ul>
-				</note>
-			</p>
-			<p>To set up the AppServers module, perform the following steps: <ol
-					id="ol_1E95779A48AE4BDFBADF625FC70C4566">
-					<li id="li_692B4060F5014E6BA129EDDE8E7A2B55">Run the <codeph>modify_war</codeph> script against
-						an existing <codeph>.war</codeph> or <codeph>.ear</codeph> file to integrate
-						the necessary components. The example below will create a configuration
-						suitable for a peer-to-peer <keyword keyref="product_name"/> system, placing
-						the necessary libraries into <codeph>WEB-INF/lib</codeph> for wars and
-							<codeph>lib</codeph> for ears and modifying any <codeph>web.xml</codeph>
-						files:
-						<codeblock>$ bin/modify_war -w my-app.war -p gemfire.property.locators=localhost[10334] \
+			<p>These steps provide a basic starting point for using the AppServers module with WebLogic,
+				WebSphere or JBoss. For more configuration options, see <xref
+					href="session_mgmt_weblogic.xml" type="concept" format="dita" scope="local"/>.  </p>
+			<note>
+				<ul id="ul_ojb_nqz_dw">
+					<li>The <codeph>modify_war</codeph> script relies upon a GEODE environment
+						variable. Set the GEODE environment variable to the <keyword
+							keyref="product_name"/> product directory; this is the parent directory
+						of <codeph>bin</codeph>.</li>
+					<li>The <codeph>modify_war</codeph> script, described below, relies on files
+						within the distribution tree and should not be run outside of a complete
+						distribution. </li>
+					<li>The <codeph>modify_war</codeph> script is a <codeph>bash</codeph> script and
+						does not run on Windows. </li>
+				</ul>
+			</note>
+			<p>To set up the AppServers module, perform the following steps:  </p>
+			<ol id="ol_e2z_nqz_dw">
+				<li>Run the <codeph>modify_war</codeph> script against an existing
+						<codeph>.war</codeph> or <codeph>.ear</codeph> file to integrate the
+					necessary components. The example below will create a configuration suitable for
+					a peer-to-peer <keyword keyref="product_name"/> system, placing the necessary
+					libraries into <codeph>WEB-INF/lib</codeph> for wars and <codeph>lib</codeph>
+					for ears and modifying any <codeph>web.xml</codeph> files:
+					<codeblock>$ bin/modify_war -w my-app.war -p gemfire.property.locators=localhost[10334] \
                   -t peer-to-peer</codeblock>
-					</li>
-					<li id="li_31E336DE04E8414EAE5D4762B8683D87"> A new war file will be created
-						called <codeph>session-my-app.war</codeph>. This file can now be deployed to
-						the server. </li>
-				</ol>
-			</p>
+				</li>
+				<li> A new war file will be created called <codeph>session-my-app.war</codeph>. This
+					file can now be deployed to the server. </li>
+			</ol>
 		</section>
 	</conbody>
 </concept>

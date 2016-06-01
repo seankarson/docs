@@ -11,10 +11,9 @@
 		<p>The above properties allow you to fine-tune your JVM heap and garbage collector. For more
 			information, refer to <xref
 				href="../../managing/heap_use/heap_management.xml#resource_manager" type="concept"
-				format="dita" scope="local"/>.
-			<codeblock>  Please specify whether to enable a Geode listener that logs session create, 
+				format="dita" scope="local"/>.  </p>
+		<codeblock>  Please specify whether to enable a Geode listener that logs session create, 
   update, destroy and expiration events. Default 'false':</codeblock>
-		</p>
 		<p>The above property determines whether a debug cache listener is added to the session
 			region. When true, info-level messages are logged to the <keyword keyref="product_name"
 			/> log when sessions are created, updated, invalidated, or expired. </p>
