@@ -11,7 +11,8 @@
 			timeouts. </p>
 		<section id="section_846B00118184487FB8F1E0CD1DC3A81B">
 			<title>Planning for Data Recovery</title>
-			<p>In planning a strategy for data recovery, consider these factors: <ul
+			<p>In planning a strategy for data recovery, consider these factors: </p>
+				<ul
 					id="ul_34271EFCD3E54AB5A90110AB648A93CC">
 					<li id="li_CF539F4701BB4D5C96FCCD7DCCC7969F">Whether the region is configured
 						for data redundancy—partitioned regions only. </li>
@@ -29,14 +30,14 @@
 						network partition or slow response, indicating that certain processes may,
 						or will, fail. </li>
 				</ul>
-			</p>
 			<p>The rest of this section provides recovery instructions for various kinds system
 				failures. </p>
 		</section>
 		<section id="section_2C390F0783724048A6E12F7F369EB8DC">
 			<title>Network Partitioning, Slow Response, and Member Removal Alerts</title>
 			<p>When a network partition detection or slow responses occur, these alerts are
-				generated: <ul id="ul_D033EDFCAACC4A16996EA4B6FA78D131">
+				generated:</p>
+				<ul id="ul_D033EDFCAACC4A16996EA4B6FA78D131">
 					<li id="li_B0D6B2498E8A4B408607026C6F2D9ED7">Network Partitioning is Detected </li>
 					<li id="li_6F647F7D256E4651A0726439222E0860">Member is Taking Too Long to
 						Respond </li>
@@ -45,7 +46,6 @@
 						Removal </li>
 					<li id="li_CE49D8D9B0BB4C08A4C3C0F56C8D8DC3">Member is Forced Out </li>
 				</ul>
-			</p>
 			<p>For information on configuring system members to help avoid a network partition
 				configuration condition in the presence of a network failure or when members lose
 				the ability to communicate to each other, refer to <xref

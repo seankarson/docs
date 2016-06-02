@@ -102,7 +102,8 @@ Location: http://localhost:8080/gemfire-api/v1/functions/getDeliveredOrders
     <section>
       <title>Error Codes</title>
       <p>Status code 500 INTERNAL SERVER ERROR is an error encountered in a server. Check the HTTP
-        response body for a stack trace of the exception. Causes:<ul id="ul_trc_2h3_4v">
+        response body for a stack trace of the exception. Causes:</p>
+        <ul id="ul_trc_2h3_4v">
           <li>The Region identified by name (%1$s) could not found!</li>
           <li>Could not found the specified members in disributed system!</li>
           <li>no member(s) are found belonging to the provided group(s)!</li>
@@ -116,7 +117,7 @@ Location: http://localhost:8080/gemfire-api/v1/functions/getDeliveredOrders
           <li>Function has returned results that could not be converted into Restful (JSON)
             format!</li>
           <li>Server has encountered an error while processing function execution!</li>
-        </ul></p>
+        </ul>
     </section>
   </body>
 </topic>

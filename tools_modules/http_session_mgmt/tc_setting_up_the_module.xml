@@ -99,7 +99,8 @@ Running on: /10.118.33.250, 8 cpu(s), x86_64 Mac OS X 10.11.4</codeblock>Informa
 				<b>Peer-to-Peer</b>
 			</p>
 			<p>For peer-to-peer topologies, apply the following settings to enable non-sticky
-				sessions to work correctly: <ul id="ul_krx_uum_kj">
+				sessions to work correctly: </p>
+				<ul id="ul_krx_uum_kj">
 					<li id="li_A04FBC410C814A8DB14243272E8F0CED">Java system property
 							<codeph>gemfire.loadClassOnEveryDeserialization=true</codeph>. Set this
 						property by editing the <codeph>bin/setenv.sh</codeph> file. </li>
@@ -107,7 +108,6 @@ Running on: /10.118.33.250, 8 cpu(s), x86_64 Mac OS X 10.11.4</codeblock>Informa
 							><codeph>prefer.deserialized.form=false</codeph>. Set this property in
 							<codeph>conf/catalina.properties</codeph>. </li>
 				</ul>
-			</p>
 			<p>
 				<b>Client-server</b>
 			</p>

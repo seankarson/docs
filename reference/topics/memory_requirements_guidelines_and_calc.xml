@@ -67,7 +67,8 @@
   <topic id="topic_kjx_brz_j4">
     <title>Calculating Application Object Overhead</title>
     <body>
-      <p>To compute the memory overhead of a Java object, perform the following steps:<ol
+      <p>To compute the memory overhead of a Java object, perform the following steps:</p>
+        <ol
           id="ol_g4d_w4q_34">
           <li><b>Determine the object header size.</b> Each Java object has an object header. For a
             32-bit JVM, it is 8 bytes. For a 64-bit JVM with a heap less than or equal to 32GB, it
@@ -83,7 +84,7 @@
             than 32GB. For all other JVMs, use 4 bytes.</li>
           <li><b>Add up the numbers from Step 1 and 2 and round it up to the next multiple of 8.</b>
             The result is the memory overhead of that Java object.</li>
-        </ol></p>
+        </ol>
       <p><b>Java arrays.</b> To compute the memory overhead of a Java array, you would add the
         object header (since the array is an object) and a primitive int field that contains its
         size. Treat each element of the array as if it was an instance field. For example, a byte
@@ -218,7 +219,8 @@
       </table>
       <p>For indexes used in querying, the overhead varies greatly depending on the type of data you
         are storing and the type of index you create. You can roughly estimate the overhead for some
-        types of indexes as follows: <ul id="ul_29DD7F53D938413DB2274C7D43223E72">
+        types of indexes as follows: </p>
+        <ul id="ul_29DD7F53D938413DB2274C7D43223E72">
           <li id="li_B2B86845C6554578A8F9F15B213D94D8">If the index has a single value per region
             entry for the indexed expression, the index introduces at most 243 bytes per region
             entry. An example of this type of index is: <codeph>fromClause="/portfolios",
@@ -230,7 +232,6 @@
             the index introduces at most 236 C + 75 bytes per region entry, where C is the average
             number of values per region entry for the expression. </li>
         </ul>
-      </p>
     </body>
   </topic>
   <topic id="topic_i1m_stz_j4">

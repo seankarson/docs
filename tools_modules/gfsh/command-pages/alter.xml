@@ -27,7 +27,6 @@
 					store and region to be altered. If no additional options are specified,
 						<codeph>gfsh</codeph> displays the current configuration without making any
 					changes.</p>
-				<p>
 					<table id="table_DFA153D464C84D95B394023A0AAFB88B">
 						<tgroup cols="2">
 							<colspec colname="col1" colnum="1" colwidth="1.00*"/>
@@ -164,7 +163,6 @@
 							</tbody>
 						</tgroup>
 					</table>
-				</p>
 				<p>
 					<b>Example Commands:</b>
 					<codeblock>
@@ -413,7 +411,7 @@ server1 | Region "/customer" altered on "server1"
     [--log-file-size-limit=value] [--log-level=value]
     [--statistic-archive-file=value] [--statistic-sample-rate=value]
     [--enable-statistics=value] [--copy-on-read(=value)?] [--lock-lease=value]
-    [--lock-timeout=value] [--message-sync-interval=value] [--search-timeout=value]</codeblock>
+    [--lock-timeout=value] [--message-sync-interval=value] [--search-timeout=value]</codeblock></p>
 					<table id="table_09BEBCECA4A44286A2A56C3714A4F6A3">
 						<title>Parameters</title>
 						<tgroup cols="3">
@@ -609,7 +607,6 @@ server1 | Region "/customer" altered on "server1"
 							</tbody>
 						</tgroup>
 					</table>
-				</p>
 				<p>
 					<b>Example Commands:</b>
 					<codeblock>alter runtime --member=server1 --log-level=finest --enable-statistics=true</codeblock>

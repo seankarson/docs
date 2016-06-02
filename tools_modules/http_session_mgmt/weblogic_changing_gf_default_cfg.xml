@@ -7,7 +7,8 @@
 		automatically with preconfigured settings. You can change these <keyword
 			keyref="product_name"/> settings. </shortdesc>
 	<conbody>
-		<p> Here are the default settings: <ul id="ul_65B4FEDEB4374C9993E5C9593DAC3C08">
+		<p> Here are the default settings: </p>
+			<ul id="ul_65B4FEDEB4374C9993E5C9593DAC3C08">
 				<li id="li_28CFA4A15B1F42548A679CF481BB52C5"><keyword keyref="product_name"/> peer-to-peer
 					members are discovered using locators. </li>
 				<li id="li_53D6101E21134FA88A1DCB1A27EE72B1">The region name is set to
@@ -19,7 +20,7 @@
 					clients have local caching turned on and when the local cache needs to evict
 					data, it will evict least-recently-used (LRU) data first. </li>
 			</ul>
-			<note>On the application server side, the default inactive interval for session
+			<p><note>On the application server side, the default inactive interval for session
 				expiration is set to 30 minutes. To change this value, refer to <xref
 					href="tc_additional_info.xml#tc_additional_info/section_C7C4365EA2D84636AE1586F187007EC4"
 					type="section" format="dita" scope="local"
@@ -45,14 +46,15 @@
 				web.xml file. As mentioned previously, this can be done by using the <b>-p</b>
 				option to the <codeph>modify_war</codeph> script. All <keyword keyref="product_name"
 				/> system properties should be prefixed with the string <b>gemfire.property</b>. For
-				example: <ul id="ul_039BF1791DBE47C2B1EA3223652A9DA3">
+				example: </p>
+				<ul id="ul_039BF1791DBE47C2B1EA3223652A9DA3">
 					<li id="li_EE9DFFC77B0A4122B7491211AF479569"><b>-p
 							gemfire.property.locators=hostname[10334] </b>
 					</li>
 					<li id="li_A8C1F037F0984A34911C2104FFACB4B3"><b>-p
 							gemfire.property.cache-xml-file=/u01/weblogic/conf/cache.xml</b>. </li>
 				</ul>
-			</p>
+			<p>
 			<codeblock>&lt;filter&gt;
     &lt;filter-name&gt;gemfire-session-filter&lt;/filter-name&gt;
     &lt;filter-class&gt;
@@ -70,7 +72,7 @@
         &lt;param-name&gt;gemfire.property.cache-xml-file&lt;/param-name&gt;
         &lt;param-value&gt;/u01/weblogic/conf/cache.xml&lt;/param-value&gt;
     &lt;/init-param&gt;
-&lt;/filter&gt;</codeblock>
+&lt;/filter&gt;</codeblock></p>
 			<p>This example specifies that the file name for <keyword keyref="product_name"/>'s cache XML
 				configuration is <codeph>cache-peer.xml</codeph>. </p>
 			<p>The list of configurable <codeph>server.xml</codeph> system properties include any of the
