@@ -13,33 +13,34 @@
   <p><b>Availability:</b> Online. You must be connected in <codeph>gfsh</codeph> to a JMX Manager
    member to use this command. </p>
   <p><b>Syntax:</b>
-   <codeblock>load-balance gateway-sender --id=value</codeblock>
-   <table id="table_C2C10DB115D64C3F8B7E7F72941CA2DC">
-    <title>Parameters</title>
-    <tgroup cols="2">
-     <colspec colnum="1" colname="col1" colwidth="1.00*"/>
-     <colspec colnum="2" colname="col2" colwidth="3.09*"/>
-     <thead>
-      <row>
-       <entry colname="col1">Name </entry>
-       <entry colname="col2">Description</entry>
-      </row>
-     </thead>
-     <tbody>
-      <row>
-       <entry colname="col1"><parmname>--id</parmname>
-       </entry>
-       <entry colname="col2"><i>Required.</i> ID of the Gateway Sender. </entry>
-      </row>
-     </tbody>
-    </tgroup>
-   </table>
   </p>
+  <codeblock>load-balance gateway-sender --id=value</codeblock>
+  <table id="table_jwk_tdg_2w">
+   <title>Parameters</title>
+   <tgroup cols="2">
+    <colspec colnum="1" colname="col1" colwidth="1.00*"/>
+    <colspec colnum="2" colname="col2" colwidth="3.09*"/>
+    <thead>
+     <row>
+      <entry colname="col1">Name </entry>
+      <entry colname="col2">Description</entry>
+     </row>
+    </thead>
+    <tbody>
+     <row>
+      <entry colname="col1"><parmname>--id</parmname>
+      </entry>
+      <entry colname="col2"><i>Required.</i> ID of the Gateway Sender. </entry>
+     </row>
+    </tbody>
+   </tgroup>
+  </table>
   <p><b>Example Commands:</b>
-   <codeblock>load-balance gateway-sender --id=sender1-LN</codeblock>
   </p>
+  <codeblock>load-balance gateway-sender --id=sender1-LN</codeblock>
   <p><b>Sample Output:</b>
-   <codeblock>load-balance gateway-sender --id=ny
+  </p>
+  <codeblock>load-balance gateway-sender --id=ny
  
                  Member             | Result | Message
   --------------------------------- | ------ |--------------------------------------------------------------------------
@@ -47,7 +48,6 @@ boglesbymac(ln-1:88651)&lt;v2&gt;:48277 | OK     | GatewaySender ny is rebalance
 boglesbymac(ln-4:88681)&lt;v5&gt;:42784 | OK     | GatewaySender ny is rebalanced on member boglesbymac(ln-4:88681)&lt;v5&gt;:42784
 boglesbymac(ln-3:88672)&lt;v4&gt;:43675 | OK     | GatewaySender ny is rebalanced on member boglesbymac(ln-3:88672)&lt;v4&gt;:43675
 boglesbymac(ln-2:88662)&lt;v3&gt;:12796 | OK     | GatewaySender ny is rebalanced on member boglesbymac(ln-2:88662)&lt;v3&gt;:12796</codeblock>
-  </p>
   
 
 

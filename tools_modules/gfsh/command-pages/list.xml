@@ -12,12 +12,12 @@
 				<p><b> Availability:</b> Online. You must be connected in <codeph>gfsh</codeph> to a
 					JMX Manager member to use this command. </p>
 				<p><b>Syntax:</b>
-					<codeblock xml:space="preserve">list async-event-queues</codeblock>
 				</p>
+				<codeblock xml:space="preserve">list async-event-queues</codeblock>
 				<p><b>Example Commands:</b>
-					<codeblock xml:space="preserve">list async-event-queues
-</codeblock>
 				</p>
+				<codeblock xml:space="preserve">list async-event-queues
+</codeblock>
 			</body>
 		</topic>
 		<topic id="topic_ts1_qb1_dk">
@@ -28,15 +28,14 @@
 				<p><b> Availability:</b> Online. You must be connected in <codeph>gfsh</codeph> to a
 					JMX Manager member to use this command. </p>
 				<p><b>Syntax:</b>
-					<codeblock>list clients</codeblock>
 				</p>
+				<codeblock>list clients</codeblock>
 				<p><b>Example Commands:</b>
-					<codeblock>list clients</codeblock>
 				</p>
+				<codeblock>list clients</codeblock>
 				<p><b>Sample Output:</b>
 				</p>
-				<p>
-					<codeblock>gfsh>list clients
+				<codeblock>gfsh>list clients
 
 ClientList
 
@@ -45,7 +44,6 @@ ClientList
 172.16.196.144(4987:loner):58922:7b3398cf | member=server2,port=53508;  member=server1,port=56806
 172.16.196.144(5065:loner):39906:a6f598cf | member=server2,port=53508;  member=server1,port=56806
 </codeblock>
-				</p>
 			</body>
 		</topic>
 		<topic id="topic_59DF60DE71AD4097B281749425254BFF">
@@ -56,45 +54,45 @@ ClientList
 				<p><b> Availability:</b> Online. You must be connected in <codeph>gfsh</codeph> to a
 					JMX Manager member to use this command. </p>
 				<p><b>Syntax:</b>
-					<codeblock xml:space="preserve">list deployed [--group=value(,value)*]</codeblock>
-					<table id="table_F8558F9C696E4DE6BA8476BD4D369FB7">
-						<title>Parameters</title>
-						<tgroup cols="2">
-							<colspec colnum="1" colname="col1" colwidth="1.00*"/>
-							<colspec colnum="2" colname="col2" colwidth="4.43*"/>
-							<thead>
-								<row>
-									<entry colname="col1">Name </entry>
-									<entry colname="col2">Description</entry>
-								</row>
-							</thead>
-							<tbody>
-								<row>
-									<entry colname="col1"><parmname>--group</parmname>
-									</entry>
-									<entry colname="col2"> Group(s) of members for which deployed
-										JARs will be displayed. If not specified, JARs for all
-										members are displayed. </entry>
-								</row>
-							</tbody>
-						</tgroup>
-					</table>
 				</p>
+				<codeblock xml:space="preserve">list deployed [--group=value(,value)*]</codeblock>
+				<table id="table_ch5_b2g_2w">
+					<title>Parameters</title>
+					<tgroup cols="2">
+						<colspec colnum="1" colname="col1" colwidth="1.00*"/>
+						<colspec colnum="2" colname="col2" colwidth="4.43*"/>
+						<thead>
+							<row>
+								<entry colname="col1">Name </entry>
+								<entry colname="col2">Description</entry>
+							</row>
+						</thead>
+						<tbody>
+							<row>
+								<entry colname="col1"><parmname>--group</parmname>
+								</entry>
+								<entry colname="col2"> Group(s) of members for which deployed JARs
+									will be displayed. If not specified, JARs for all members are
+									displayed. </entry>
+							</row>
+						</tbody>
+					</tgroup>
+				</table>
 				<p><b>Example Commands:</b>
-					<codeblock xml:space="preserve">list deployed
-list deployed --group=Group2</codeblock>
 				</p>
+				<codeblock xml:space="preserve">list deployed
+list deployed --group=Group2</codeblock>
 				<p><b>Sample Output:</b>
-					<codeblock>gfsh&gt; list deployed  --group=Group2
+				</p>
+				<codeblock>gfsh&gt; list deployed  --group=Group2
 
  Member   |     Deployed JAR     |                JAR Location            
 --------- | -------------------- | ---------------------------------------------------
 datanode1 | group1_functions.jar | /usr/local/gemfire/deploy/vf.gf#group1_functions.jar#1
 datanode2 | group1_functions.jar | /usr/local/gemfire/deploy/vf.gf#group1_functions.jar#1</codeblock>
-				</p>
 				<p><b>Error Messages:</b>
-					<codeblock>No JAR Files Found</codeblock>
 				</p>
+				<codeblock>No JAR Files Found</codeblock>
 			</body>
 		</topic>
 		<topic id="topic_BC14AD57EA304FB3845766898D01BD04">
@@ -109,13 +107,14 @@ datanode2 | group1_functions.jar | /usr/local/gemfire/deploy/vf.gf#group1_functi
 				<p><b> Availability:</b> Online. You must be connected in <codeph>gfsh</codeph> to a
 					JMX Manager member to use this command. </p>
 				<p><b>Syntax:</b>
-					<codeblock>list disk-stores</codeblock>
 				</p>
+				<codeblock>list disk-stores</codeblock>
 				<p><b>Example Commands:</b>
-					<codeblock>list disk-stores</codeblock>
 				</p>
+				<codeblock>list disk-stores</codeblock>
 				<p><b>Sample Output:</b>
-					<codeblock>
+				</p>
+				<codeblock>
 gfsh&gt; list disk-stores
 
    Member Name   |                   Member Id                   | Disk Store Name |            Disk Store ID            
@@ -124,12 +123,11 @@ gfsh&gt; list disk-stores
   consumerServer | 10.237.177.10(consumerServer:13825)&lt;v5&gt;:3545  | observerData    | 7e0316ad-963c-49b0-9b01-8f59b8d9e29e
   producerServer | 10.237.177.10(producerServer:13826)&lt;v3&gt;:53764 | producerData    | 4670e4eb-1c50-4465-b418-08ede3d5dbed
 </codeblock>
-				</p>
 				<p><b>Error Messages:</b>
-					<codeblock>gfsh&gt; list disk-stores
+				</p>
+				<codeblock>gfsh&gt; list disk-stores
 No Disk Stores Found 
 		</codeblock>
-				</p>
 				<p> </p>
 			</body>
 		</topic>
@@ -140,49 +138,46 @@ No Disk Stores Found
 				<p><b>Availability:</b> Online. You must be connected in <codeph>gfsh</codeph> to a
 					JMX Manager member to use this command. </p>
 				<p><b>Syntax:</b>
-					<codeblock>list durable-cqs --durable-client-id=value [--member=value] [--group=value]
+				</p>
+				<codeblock>list durable-cqs --durable-client-id=value [--member=value] [--group=value]
 </codeblock>
-					<table id="table_618C978BA2B442A9A979243B50856885">
-						<title>Parameters</title>
-						<tgroup cols="2">
-							<colspec colnum="1" colname="col1" colwidth="1.00*"/>
-							<colspec colnum="2" colname="col2" colwidth="4.43*"/>
-							<thead>
-								<row>
-									<entry colname="col1">Name </entry>
-									<entry colname="col2">Description</entry>
-								</row>
-							</thead>
-							<tbody>
-								<row>
-									<entry colname="col1"><parmname>--durable-client-id
-										</parmname></entry>
-									<entry colname="col2"><i>Required.</i> The ID used to identify
-										the durable client. </entry>
-								</row>
-								<row>
-									<entry colname="col1"><parmname>--member</parmname>
-									</entry>
-									<entry colname="col2">Name or Id of the member for which the
-										durable client is registered and durable CQs will be
-										displayed. </entry>
-								</row>
-								<row>
-									<entry colname="col1"><parmname>--group</parmname>
-									</entry>
-									<entry colname="col2"> Group of members for which the durable
-										client is registered and durable CQs will be displayed.
-									</entry>
-								</row>
-							</tbody>
-						</tgroup>
-					</table>
-				</p>
-				<p><b>Example Commands</b>:
-					<codeblock>list durable-cqs --durable-client-id=client1</codeblock>
-				</p>
-				<p><b>Sample Output</b>:
-					<codeblock>gfsh&gt;list durable-cqs --durable-client-id=client1
+				<table id="table_esj_32g_2w">
+					<title>Parameters</title>
+					<tgroup cols="2">
+						<colspec colnum="1" colname="col1" colwidth="1.00*"/>
+						<colspec colnum="2" colname="col2" colwidth="4.43*"/>
+						<thead>
+							<row>
+								<entry colname="col1">Name </entry>
+								<entry colname="col2">Description</entry>
+							</row>
+						</thead>
+						<tbody>
+							<row>
+								<entry colname="col1"><parmname>--durable-client-id
+									</parmname></entry>
+								<entry colname="col2"><i>Required.</i> The ID used to identify the
+									durable client. </entry>
+							</row>
+							<row>
+								<entry colname="col1"><parmname>--member</parmname>
+								</entry>
+								<entry colname="col2">Name or Id of the member for which the durable
+									client is registered and durable CQs will be displayed. </entry>
+							</row>
+							<row>
+								<entry colname="col1"><parmname>--group</parmname>
+								</entry>
+								<entry colname="col2"> Group of members for which the durable client
+									is registered and durable CQs will be displayed. </entry>
+							</row>
+						</tbody>
+					</tgroup>
+				</table>
+				<p><b>Example Commands</b>:  </p>
+				<codeblock>list durable-cqs --durable-client-id=client1</codeblock>
+				<p><b>Sample Output</b>:  </p>
+				<codeblock>gfsh&gt;list durable-cqs --durable-client-id=client1
 member  | durable-cq-name
 ------- | ---------------
 server3 | cq3
@@ -190,9 +185,9 @@ server3 | cq3
         | cq2
 server4 | cq3
         | cq1</codeblock>
-				</p>
 				<p><b>Error Messages:</b>
-					<codeblock>gfsh&gt;list durable-cqs --durable-client-id=client1
+				</p>
+				<codeblock>gfsh&gt;list durable-cqs --durable-client-id=client1
 
 Unable to list durable-cqs for durable-client-id : "client1" due to following reasons.
 
@@ -202,7 +197,6 @@ Occurred on members
 2.server1
 3.server3
 </codeblock>
-				</p>
 			</body>
 		</topic>
 		<topic id="topic_DCC7CCBBEF5942B783A8F2A4A5B2FABF">
@@ -213,52 +207,53 @@ Occurred on members
 				<p><b> Availability:</b> Online. You must be connected in <codeph>gfsh</codeph> to a
 					JMX Manager member to use this command. </p>
 				<p><b>Syntax:</b>
-					<codeblock>list functions [--matches=value] [--group=value(,value)*] 
-[--member=value(,value)*]</codeblock>
-					<table id="table_B7C6A7B6BA1D42DD9AFCE741A4D3B75C">
-						<title>Parameters</title>
-						<tgroup cols="2">
-							<colspec colnum="1" colname="col1" colwidth="1.00*"/>
-							<colspec colnum="2" colname="col2" colwidth="4.91*"/>
-							<thead>
-								<row>
-									<entry colname="col1">Name </entry>
-									<entry colname="col2">Description</entry>
-								</row>
-							</thead>
-							<tbody>
-								<row>
-									<entry colname="col1"><parmname>--matches </parmname></entry>
-									<entry colname="col2"> Pattern that the function ID must match
-										in order to be included. Uses Java pattern matching rules,
-										not UNIX. For example, to match any character any number of
-										times use ".*" instead of "*". </entry>
-								</row>
-								<row>
-									<entry colname="col1"><parmname>--group</parmname>
-									</entry>
-									<entry colname="col2"> Group(s) of members for which functions
-										will be displayed. Use a comma separated list for multiple
-										groups. </entry>
-								</row>
-								<row>
-									<entry colname="col1"><parmname>--member </parmname></entry>
-									<entry colname="col2"> Name or ID of the member(s) for which
-										functions will be displayed. Use a comma separated list for
-										multiple members. </entry>
-								</row>
-							</tbody>
-						</tgroup>
-					</table>
 				</p>
+				<codeblock>list functions [--matches=value] [--group=value(,value)*] 
+[--member=value(,value)*]</codeblock>
+				<table id="table_d3y_l2g_2w">
+					<title>Parameters</title>
+					<tgroup cols="2">
+						<colspec colnum="1" colname="col1" colwidth="1.00*"/>
+						<colspec colnum="2" colname="col2" colwidth="4.91*"/>
+						<thead>
+							<row>
+								<entry colname="col1">Name </entry>
+								<entry colname="col2">Description</entry>
+							</row>
+						</thead>
+						<tbody>
+							<row>
+								<entry colname="col1"><parmname>--matches </parmname></entry>
+								<entry colname="col2"> Pattern that the function ID must match in
+									order to be included. Uses Java pattern matching rules, not
+									UNIX. For example, to match any character any number of times
+									use ".*" instead of "*". </entry>
+							</row>
+							<row>
+								<entry colname="col1"><parmname>--group</parmname>
+								</entry>
+								<entry colname="col2"> Group(s) of members for which functions will
+									be displayed. Use a comma separated list for multiple groups.
+								</entry>
+							</row>
+							<row>
+								<entry colname="col1"><parmname>--member </parmname></entry>
+								<entry colname="col2"> Name or ID of the member(s) for which
+									functions will be displayed. Use a comma separated list for
+									multiple members. </entry>
+							</row>
+						</tbody>
+					</tgroup>
+				</table>
 				<p><b>Example Commands:</b>
-					<codeblock>
+				</p>
+				<codeblock>
 gfsh&gt; list functions
 gfsh&gt; list functions --matches=reconcile.*
 </codeblock>
-				</p>
 				<p><b>Sample Output:</b>
-					<codeblock>list functions
+				</p>
+				<codeblock>list functions
 
    Member   |          Function   
   --------- | --------------------------
@@ -282,7 +277,6 @@ Example of 'list functions' when no functions are found in <keyword keyref="prod
 
 gfsh&gt; list functions
 No Functions Found.</codeblock>
-				</p>
 			</body>
 		</topic>
 		<topic id="topic_B1D89671C7B74074899C7D52F15849ED">
@@ -292,41 +286,38 @@ No Functions Found.</codeblock>
 				<p><b> Availability:</b> Online. You must be connected in <codeph>gfsh</codeph> to a
 					JMX Manager member to use this command. </p>
 				<p><b>Syntax:</b>
-					<codeblock>list gateways [--group=value(,value)*]</codeblock>
-					<table id="table_179071B4E44F464382CAF4F1D1CF0F71">
-						<title>Parameters</title>
-						<tgroup cols="2">
-							<colspec colnum="1" colname="col1" colwidth="1.00*"/>
-							<colspec colnum="2" colname="col2" colwidth="4.28*"/>
-							<thead>
-								<row>
-									<entry colname="col1">Name </entry>
-									<entry colname="col2">Description</entry>
-								</row>
-							</thead>
-							<tbody>
-								<row>
-									<entry colname="col1"><parmname>--member</parmname></entry>
-									<entry colname="col2">Member(s) whose gateways senders and
-										receiver display.</entry>
-								</row>
-								<row>
-									<entry colname="col1"><parmname>--group</parmname>
-									</entry>
-									<entry colname="col2"> Group(s) of members for which Gateway
-										Senders and Receivers will be displayed. Use a comma
-										separated list for multiple groups. </entry>
-								</row>
-							</tbody>
-						</tgroup>
-					</table>
 				</p>
+				<codeblock>list gateways [--group=value(,value)*]</codeblock>
+				<table id="table_n3w_q2g_2w">
+					<title>Parameters</title>
+					<tgroup cols="2">
+						<colspec colnum="1" colname="col1" colwidth="1.00*"/>
+						<colspec colnum="2" colname="col2" colwidth="4.28*"/>
+						<thead>
+							<row>
+								<entry colname="col1">Name </entry>
+								<entry colname="col2">Description</entry>
+							</row>
+						</thead>
+						<tbody>
+							<row>
+								<entry colname="col1"><parmname>--member</parmname></entry>
+								<entry colname="col2">Member(s) whose gateways senders and receiver
+									display.</entry>
+							</row>
+							<row>
+								<entry colname="col1"><parmname>--group</parmname>
+								</entry>
+								<entry colname="col2"> Group(s) of members for which Gateway Senders
+									and Receivers will be displayed. Use a comma separated list for
+									multiple groups. </entry>
+							</row>
+						</tbody>
+					</tgroup>
+				</table>
 				<p><b>Example Commands:</b>
-					<codeblock>list gateways</codeblock>
 				</p>
-				<p>
-					
-				</p>
+				<codeblock>list gateways</codeblock>
 			</body>
 		</topic>
 		<topic id="topic_B3B51B6DEA484EE086C4F657EC9831F2">
@@ -336,40 +327,40 @@ No Functions Found.</codeblock>
 				<p><b> Availability:</b> Online. You must be connected in <codeph>gfsh</codeph> to a
 					JMX Manager member to use this command. </p>
 				<p><b>Syntax:</b>
-					<codeblock>list indexes [--with-stats(=value)?]</codeblock>
-					<table id="table_D6512DD121D44818A52B40400757FAA9">
-						<title>Parameters </title>
-						<tgroup cols="3">
-							<colspec colname="col1" colnum="1" colwidth="1.00*"/>
-							<colspec colname="col2" colnum="2" colwidth="4.28*"/>
-							<colspec colname="newCol3" colnum="3" colwidth="1*"/>
-							<thead>
-								<row>
-									<entry colname="col1">Name </entry>
-									<entry colname="col2">Description</entry>
-									<entry>Default Value</entry>
-								</row>
-							</thead>
-							<tbody>
-								<row>
-									<entry colname="col1"><parmname>--with-stats</parmname>
-									</entry>
-									<entry colname="col2"> Specifies whether statistics should also
-										be displayed. </entry>
-									<entry>false</entry>
-								</row>
-							</tbody>
-						</tgroup>
-					</table>
 				</p>
+				<codeblock>list indexes [--with-stats(=value)?]</codeblock>
+				<table id="table_hth_t2g_2w">
+					<title>Parameters </title>
+					<tgroup cols="3">
+						<colspec colname="col1" colnum="1" colwidth="1.00*"/>
+						<colspec colname="col2" colnum="2" colwidth="4.28*"/>
+						<colspec colname="newCol3" colnum="3" colwidth="1*"/>
+						<thead>
+							<row>
+								<entry colname="col1">Name </entry>
+								<entry colname="col2">Description</entry>
+								<entry>Default Value</entry>
+							</row>
+						</thead>
+						<tbody>
+							<row>
+								<entry colname="col1"><parmname>--with-stats</parmname>
+								</entry>
+								<entry colname="col2"> Specifies whether statistics should also be
+									displayed. </entry>
+								<entry>false</entry>
+							</row>
+						</tbody>
+					</tgroup>
+				</table>
 				<p><b>Example Commands:</b>
-					<codeblock>list indexes
+				</p>
+				<codeblock>list indexes
 
 list indexes --with-stats</codeblock>
-				</p>
 				<p><b>Sample Output:</b>
-					
-					<codeblock>gfsh&gt;list indexes
+				</p>
+				<codeblock>gfsh&gt;list indexes
 Member Name    |                   Member ID                   | Region Path |   Name   | Type  | Indexed Expression | From Clause
 -------------- | --------------------------------------------- | ----------- | -------- | ----- | ------------------ | -----------
 consumerServer | 10.237.177.10(consumerServer:13873):6317      | /consumers  | cidIdx   | KEY   | id                 | /consumers  
@@ -386,14 +377,12 @@ cs...        | 10...     | /consumers  | cidIdx   | KEY   | id                 |
 cs...        | 10...     | /consumers  | cnameIdx | RANGE | name               | /consumers  | 0    | 5020    | 421224000   | 0    | 5020  
 ps...        | 10...     | /producers  | pidIdx   | RANGE | id                 | /producers  | 0    | 5031    | 497872000   | 5031 | 5031  
 </codeblock>
-				</p>
 				<p><b>Error Messages:</b>
 				</p>
-				<p>Example of output when no indexes are found in <keyword keyref="product_name"/>:
-					<codeblock>
+				<p>Example of output when no indexes are found in <keyword keyref="product_name"/>:  </p>
+				<codeblock>
 gfsh&gt; list indexes
 No Indexes Found</codeblock>
-				</p>
 			</body>
 		</topic>
 		<topic id="topic_5B5BFB2E5F314210858641BE3A689637">
@@ -403,41 +392,41 @@ No Indexes Found</codeblock>
 				<p><b> Availability:</b> Online. You must be connected in <codeph>gfsh</codeph> to a
 					JMX Manager member to use this command. </p>
 				<p><b>Syntax:</b>
-					<codeblock>list members [--group=value]</codeblock>
-					<table id="table_246077F3F18B4A90AA5AA6EEC0534202">
-						<title>Parameters</title>
-						<tgroup cols="2">
-							<colspec colnum="1" colname="col1" colwidth="1.00*"/>
-							<colspec colnum="2" colname="col2" colwidth="4.28*"/>
-							<thead>
-								<row>
-									<entry colname="col1">Name </entry>
-									<entry colname="col2">Description</entry>
-								</row>
-							</thead>
-							<tbody>
-								<row>
-									<entry colname="col1"><parmname>--group</parmname>
-									</entry>
-									<entry colname="col2"> Group name for which members will be
-										displayed. </entry>
-								</row>
-							</tbody>
-						</tgroup>
-					</table>
 				</p>
+				<codeblock>list members [--group=value]</codeblock>
+				<table id="table_r2h_x2g_2w">
+					<title>Parameters</title>
+					<tgroup cols="2">
+						<colspec colnum="1" colname="col1" colwidth="1.00*"/>
+						<colspec colnum="2" colname="col2" colwidth="4.28*"/>
+						<thead>
+							<row>
+								<entry colname="col1">Name </entry>
+								<entry colname="col2">Description</entry>
+							</row>
+						</thead>
+						<tbody>
+							<row>
+								<entry colname="col1"><parmname>--group</parmname>
+								</entry>
+								<entry colname="col2"> Group name for which members will be
+									displayed. </entry>
+							</row>
+						</tbody>
+					</tgroup>
+				</table>
 				<p><b>Example Commands:</b>
-					<codeblock>list members
-list members --group=Group1</codeblock>
 				</p>
+				<codeblock>list members
+list members --group=Group1</codeblock>
 				<p><b>Sample Output:</b>
-					<codeblock>gfsh&gt;list members
+				</p>
+				<codeblock>gfsh&gt;list members
   Name   | Id
 -------- | -------------------------------------
 server1  | GemFireStymon(server1:888)&lt;v7&gt;:10839
 server2  | GemFireStymon(server2:3260)&lt;v8&gt;:16721
 locator1 | localhost(locator1:216:locator):33368</codeblock>
-				</p>
 			</body>
 		</topic>
 		<topic id="topic_F0ECEFF26086474498598035DD83C588">
@@ -446,57 +435,46 @@ locator1 | localhost(locator1:216:locator):33368</codeblock>
 				regions in the <keyword keyref="product_name"/> distributed system are listed. </shortdesc>
 			<body>
 				<p><b>Syntax:</b>
-					<codeblock>list regions [--group=value] [--member=value]</codeblock>
-					<table id="table_6A22231E64D0472DAD504EDB6CDE6004">
-						<title>Parameters</title>
-						<tgroup cols="2">
-							<colspec colnum="1" colname="col1" colwidth="1.00*"/>
-							<colspec colnum="2" colname="col2" colwidth="4.31*"/>
-							<thead>
-								<row>
-									<entry colname="col1">Name </entry>
-									<entry colname="col2">Description</entry>
-								</row>
-							</thead>
-							<tbody>
-								<row>
-									<entry colname="col1"><parmname>--group</parmname>
-									</entry>
-									<entry colname="col2">Group of members for which regions will be
-										displayed. </entry>
-								</row>
-								<row>
-									<entry colname="col1"><parmname>--member </parmname></entry>
-									<entry colname="col2">Name or ID of the member of the member for
-										which regions will be displayed. </entry>
-								</row>
-							</tbody>
-						</tgroup>
-					</table>
 				</p>
+				<codeblock>list regions [--group=value] [--member=value]</codeblock>
+				<table id="table_ckh_1fg_2w">
+					<title>Parameters</title>
+					<tgroup cols="2">
+						<colspec colnum="1" colname="col1" colwidth="1.00*"/>
+						<colspec colnum="2" colname="col2" colwidth="4.31*"/>
+						<thead>
+							<row>
+								<entry colname="col1">Name </entry>
+								<entry colname="col2">Description</entry>
+							</row>
+						</thead>
+						<tbody>
+							<row>
+								<entry colname="col1"><parmname>--group</parmname>
+								</entry>
+								<entry colname="col2">Group of members for which regions will be
+									displayed. </entry>
+							</row>
+							<row>
+								<entry colname="col1"><parmname>--member </parmname></entry>
+								<entry colname="col2">Name or ID of the member of the member for
+									which regions will be displayed. </entry>
+							</row>
+						</tbody>
+					</tgroup>
+				</table>
 				<p><b>Example Commands:</b>
-					<codeblock>list regions
+				</p>
+				<codeblock>list regions
 list regions --group=G1
 list regions --member=member1</codeblock>
-				</p>
 				<p><b>Sample Output:</b>
-					<codeblock>gfsh&gt;list regions
+				</p>
+				<codeblock>gfsh&gt;list regions
 List of regions
 ---------------
 region1
 region2</codeblock>
-				</p>
-				<p>
-					
-
-
-
-
-
-
-
-
-				</p>
 			</body>
 		</topic>
 	</topic>

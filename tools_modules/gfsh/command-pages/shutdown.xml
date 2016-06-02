@@ -12,54 +12,53 @@
 			Manager member to use this command. </p>
 		<p>
 			<b>Syntax:</b>
-			<codeblock>shutdown [--time-out=value] [--include-locators=value]</codeblock>
-			<table id="table_AB48B5AD825A4829954EE15759F0CDF1">
-				<title>Parameters</title>
-				<tgroup cols="3">
-					<colspec colname="col1" colnum="1" colwidth="1.00*"/>
-					<colspec colname="col2" colnum="2" colwidth="2.68*"/>
-					<colspec colname="newCol3" colnum="3" colwidth="1*"/>
-					<thead>
-						<row>
-							<entry colname="col1">Name </entry>
-							<entry colname="col2">Description</entry>
-							<entry>Default Value</entry>
-						</row>
-					</thead>
-					<tbody>
-						<row>
-							<entry colname="col1">
-								<parmname>--time-out </parmname>
-							</entry>
-							<entry colname="col2">Time to wait (in seconds) for a graceful shutdown.
-								Should be at least 10 seconds. The default value if not specified is
-								10. </entry>
-							<entry>10</entry>
-						</row>
-						<row>
-							<entry colname="col1"><parmname>--include-locators</parmname></entry>
-							<entry colname="col2">To shutdown locators, specify this option as
-								true.</entry>
-							<entry>false</entry>
-						</row>
-					</tbody>
-				</tgroup>
-			</table>
 		</p>
+		<codeblock>shutdown [--time-out=value] [--include-locators=value]</codeblock>
+		<table id="table_gfr_3jf_2w">
+			<title>Parameters</title>
+			<tgroup cols="3">
+				<colspec colname="col1" colnum="1" colwidth="1.00*"/>
+				<colspec colname="col2" colnum="2" colwidth="2.68*"/>
+				<colspec colname="newCol3" colnum="3" colwidth="1*"/>
+				<thead>
+					<row>
+						<entry colname="col1">Name </entry>
+						<entry colname="col2">Description</entry>
+						<entry>Default Value</entry>
+					</row>
+				</thead>
+				<tbody>
+					<row>
+						<entry colname="col1">
+							<parmname>--time-out </parmname>
+						</entry>
+						<entry colname="col2">Time to wait (in seconds) for a graceful shutdown.
+							Should be at least 10 seconds. The default value if not specified is 10. </entry>
+						<entry>10</entry>
+					</row>
+					<row>
+						<entry colname="col1"><parmname>--include-locators</parmname></entry>
+						<entry colname="col2">To shutdown locators, specify this option as
+							true.</entry>
+						<entry>false</entry>
+					</row>
+				</tbody>
+			</tgroup>
+		</table>
 		<p>
 			<b>Example Commands:</b>
-			<codeblock>shutdown
+		</p>
+		<codeblock>shutdown
 shutdown --time-out=15
 shutdown --include-locators=true</codeblock>
-		</p>
 		<p>
 			<b>Sample Output:</b>
-			<codeblock>gfsh&gt;shutdown
+		</p>
+		<codeblock>gfsh&gt;shutdown
 "As a lot of data in memory will be lost, including possibly events in
 queues, do you really want to shutdown the entire distributed system? (Y/n):"
 Y
 Shutdown is triggered
  </codeblock>
-		</p>
 	</conbody>
 </concept>

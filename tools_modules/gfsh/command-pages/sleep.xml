@@ -7,39 +7,39 @@
 		<p> Delay for a specified amount of time in seconds - floating point values are allowed. </p>
 		<p><b> Availability:</b> Online of offline. </p>
 		<p><b>Syntax:</b>
-			<codeblock>sleep [--time=value]</codeblock>
-			<table id="table_AB48B5AD825A4829954EE15759F0CDF1">
-				<title>Parameters</title>
-				<tgroup cols="3">
-					<colspec colname="col1" colnum="1" colwidth="1.00*"/>
-					<colspec colname="col2" colnum="2" colwidth="2.68*"/>
-					<colspec colname="newCol3" colnum="3" colwidth="1*"/>
-					<thead>
-						<row>
-							<entry colname="col1">Name </entry>
-							<entry colname="col2">Description</entry>
-							<entry colname="col3">Default Value</entry>
-						</row>
-					</thead>
-					<tbody>
-						<row>
-							<entry colname="col1"><parmname>--time </parmname></entry>
-							<entry colname="col2">Number of seconds to sleep. </entry>
-							<entry>3</entry>
-						</row>
-					</tbody>
-				</tgroup>
-			</table>
 		</p>
+		<codeblock>sleep [--time=value]</codeblock>
+		<table id="table_kyd_fjf_2w">
+			<title>Parameters</title>
+			<tgroup cols="3">
+				<colspec colname="col1" colnum="1" colwidth="1.00*"/>
+				<colspec colname="col2" colnum="2" colwidth="2.68*"/>
+				<colspec colname="newCol3" colnum="3" colwidth="1*"/>
+				<thead>
+					<row>
+						<entry colname="col1">Name </entry>
+						<entry colname="col2">Description</entry>
+						<entry colname="col3">Default Value</entry>
+					</row>
+				</thead>
+				<tbody>
+					<row>
+						<entry colname="col1"><parmname>--time </parmname></entry>
+						<entry colname="col2">Number of seconds to sleep. </entry>
+						<entry>3</entry>
+					</row>
+				</tbody>
+			</tgroup>
+		</table>
 		<p><b>Example Commands:</b>
-			<codeblock>sleep
+		</p>
+		<codeblock>sleep
 sleep --time=60
 </codeblock>
-		</p>
 		<p><b>Sample Output:</b>
-			<codeblock>gfsh&gt;sleep --time=60
+		</p>
+		<codeblock>gfsh&gt;sleep --time=60
 
 gfsh&gt;</codeblock>
-		</p>
 	</conbody>
 </concept>
