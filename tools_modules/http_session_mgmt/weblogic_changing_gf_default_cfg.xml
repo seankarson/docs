@@ -54,7 +54,6 @@
 					<li id="li_A8C1F037F0984A34911C2104FFACB4B3"><b>-p
 							gemfire.property.cache-xml-file=/u01/weblogic/conf/cache.xml</b>. </li>
 				</ul>
-			<p>
 			<codeblock>&lt;filter&gt;
     &lt;filter-name&gt;gemfire-session-filter&lt;/filter-name&gt;
     &lt;filter-class&gt;
@@ -72,7 +71,7 @@
         &lt;param-name&gt;gemfire.property.cache-xml-file&lt;/param-name&gt;
         &lt;param-value&gt;/u01/weblogic/conf/cache.xml&lt;/param-value&gt;
     &lt;/init-param&gt;
-&lt;/filter&gt;</codeblock></p>
+&lt;/filter&gt;</codeblock>
 			<p>This example specifies that the file name for <keyword keyref="product_name"/>'s cache XML
 				configuration is <codeph>cache-peer.xml</codeph>. </p>
 			<p>The list of configurable <codeph>server.xml</codeph> system properties include any of the
