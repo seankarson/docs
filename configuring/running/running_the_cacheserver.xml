@@ -10,7 +10,8 @@
 			<p>The <keyword keyref="product_name"/> server is used primarily for hosting long-lived
 				data regions and for running standard <keyword keyref="product_name"/> processes
 				such as the server in a client/server configuration. You can start and stop servers
-				using the following methods: <ul id="ul_183E8771AC75410A8DAC849B2FE331A1">
+				using the following methods:</p>
+				<ul id="ul_183E8771AC75410A8DAC849B2FE331A1">
 					<li id="li_D963D963762C478FB93FABEBA8986209">The <codeph>gfsh</codeph> tool
 						allows you to manage <keyword keyref="product_name"/> server processes from
 						the command line. </li>
@@ -23,12 +24,12 @@
 						itself. See the JavaDocs for additional specifics on using the
 							<codeph>ServerLauncher</codeph> API. </li>
 				</ul>
-			</p>
 		</section>
 		<section id="section_E15FB1B039CE4F6CB2E4B5618D7ECAA1">
 			<title>Default Server Configuration and Log Files</title>
 			<p> The gfsh server commands use a working directory for its configuration files and log
-				files. These are the defaults and configuration options: <ul
+				files. These are the defaults and configuration options:</p>
+				<ul
 					id="ul_99BEF82619984AF0966C9C63E3CD7985">
 					<li>When you start a standalone server using <codeph>gfsh</codeph>, <codeph>gfsh</codeph> will
 						automatically load the required JAR files
@@ -99,7 +100,6 @@
 						starting up servers. These JVM options can cause issues with data corruption
 						and compatibility.</li>
 				</ul>
-			</p>
 		</section>
 		<section id="section_07001480D33745139C3707EDF8166D86">
 			<title>Start the Server</title>

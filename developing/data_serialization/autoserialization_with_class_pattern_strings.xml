@@ -17,7 +17,8 @@
 			of the pattern string is:
 			<codeblock>&lt;class pattern&gt; [# (identity|exclude) = &lt;field pattern&gt;]... [, &lt;class pattern&gt;...]</codeblock>
 		</p>
-		<p>The following example pattern string sets these PDX serialization criteria: <ul
+		<p>The following example pattern string sets these PDX serialization criteria:</p>
+			<ul
 				id="ul_F2392A36C81A4761B2F077D11C0D65A0">
 				<li id="li_8AE6B7E706F54F1CA1589E8070984EDF">Classes with names matching the pattern
 						<codeph>com.company.DomainObject.*</codeph> are serialized. In those
@@ -29,7 +30,6 @@
 			</ul>
 			<codeblock>com.company.DomainObject.*#identity=id.*#exclude=creationDate, 
 com.company.special.Patient#identity=ssn</codeblock>
-		</p>
 		<note>There is no association between the <codeph>identity</codeph> and
 				<codeph>exclude</codeph> options, so the pattern above could also be expressed as:
 			<codeblock>com.company.DomainObject.*#identity=id.*, com.company.DomainObject.*#exclude=creationDate, 
@@ -38,7 +38,8 @@ com.company.special.Patient#identity=ssn</codeblock>
 		<note>The order of the patterns is not relevant. All defined class patterns are used when
 			determining whether a field should be considered as an identity field or should be
 			excluded. </note>
-		<p>Examples: <ul id="ul_6206892EB2B540DE899D48CD7FA3D64A">
+		<p>Examples:</p>
+			<ul id="ul_6206892EB2B540DE899D48CD7FA3D64A">
 				<li id="li_525BB2D5D74F45B1BA72689FDCB97BFA">This XML uses the example pattern shown
 					above:
 					<codeblock>&lt;parameter name="classes"&gt;
@@ -60,6 +61,5 @@ com.company.special.Patient#identity=ssn&lt;/string&gt;
 </codeblock>
 				</li>
 			</ul>
-		</p>
 	</conbody>
 </concept>

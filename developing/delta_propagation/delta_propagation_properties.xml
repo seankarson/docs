@@ -12,7 +12,8 @@
 			<p>A <codeph>gemfire.properties</codeph> boolean that enables or disables delta
 				propagation. When false, full entry values are sent for every update. The default
 				setting is true, which enables delta propagation. </p>
-			<p>Disable delta propagation as follows: <ul id="ul_D79DEF5F70FF402AAC84F2E986B94B73">
+			<p>Disable delta propagation as follows: </p>
+				<ul id="ul_D79DEF5F70FF402AAC84F2E986B94B73">
 					<li id="li_86074428AE9D411F94DCF2188CBBB7BF"
 						><codeph>gemfire.properties</codeph>:
 						<codeblock>delta-propagation=false</codeblock>
@@ -23,7 +24,6 @@ props.setProperty("delta-propagation", false);
 this.cache = new ClientCacheFactory(props).create();</codeblock>
 					</li>
 				</ul>
-			</p>
 		</section>
 		<section id="section_7D4590512D1548FD94F81C8726A2CA44">
 			<title>cloning-enabled</title>
@@ -31,14 +31,14 @@ this.cache = new ClientCacheFactory(props).create();</codeblock>
 				deltas to the local cache. When true, the updates are applied to a clone of the
 				value and then the clone is saved to the cache. When false, the value is modified in
 				place in the cache. The default value is false. </p>
-			<p>Exceptions to this behavior: <ul id="ul_813FE29533364E42B53D8A9B29B8805D">
+			<p>Exceptions to this behavior:</p>
+				<ul id="ul_813FE29533364E42B53D8A9B29B8805D">
 					<li id="li_B53244A0B6104168BC7DA06CEE7FFCA9">If the <codeph>Cache</codeph>
 						attribute <codeph>copy-on-read</codeph> is true, cloning is enabled,
 						regardless of what this attribute is set to. </li>
 					<li>If the <codeph>Region</codeph> attribute <codeph>off-heap</codeph> is true,
 						cloning is enabled, regardless of what this attribute is set to. </li>
 				</ul>
-			</p>
 			<p>Cloning can be expensive, but it ensures that the new object is fully initialized
 				with the delta before any application code sees it. </p>
 			<p>When cloning is enabled, by default <keyword keyref="product_name"/> does a deep copy
@@ -47,7 +47,8 @@ this.cache = new ClientCacheFactory(props).create();</codeblock>
 					<codeph>clone</codeph> method, making a deep copy of anything to which a delta
 				may be applied. The goal is to reduce significantly the overhead of copying the
 				object while still retaining the isolation needed for your deltas. </p>
-			<p>Without cloning: <ul id="ul_3A485298D7E34F92ADDD748C425C5484">
+			<p>Without cloning:</p>
+				<ul id="ul_3A485298D7E34F92ADDD748C425C5484">
 					<li id="li_005857ED4556401A8BA4DC2DAA27EEE6">It is possible for application code
 						to read the entry value as it is being modified, possibly seeing the value
 						in an intermediate, inconsistent state, with just part of the delta applied.
@@ -66,14 +67,14 @@ this.cache = new ClientCacheFactory(props).create();</codeblock>
 						unchanged. If you do not use cloning, keep this in mind when you program
 						your error handling in your <codeph>fromDelta</codeph> implementation. </li>
 				</ul>
-			</p>
-			<p>With cloning: <ul id="ul_E7D746003E334D15BC125950077E1001">
+			<p>With cloning: </p>
+				<ul id="ul_E7D746003E334D15BC125950077E1001">
 					<li id="li_47921CAF619642658F49D13F2EC5C34A">The <codeph>fromDelta</codeph>
 						method generates more garbage in memory. </li>
 					<li id="li_9EC7482981CA4DF4A30700EAC2255E3A">Performance is reduced. </li>
 				</ul>
-			</p>
-			<p>Enable cloning as follows: <ul id="ul_BC54740329F846759AD65145EE552699">
+			<p>Enable cloning as follows:</p>
+				<ul id="ul_BC54740329F846759AD65145EE552699">
 					<li id="li_31F83246432D482D908B6D0EECDEF5DC"><codeph>cache.xml</codeph>:
 						<codeblock outputclass="language-xml">&lt;region name="region_with_cloning"&gt;
     &lt;region-attributes refid="REPLICATE" cloning-enabled="true"&gt;
@@ -89,7 +90,6 @@ custRegion = rf.create("customer");</codeblock></li>
 --enable-cloning=true</codeblock>
 					</li>
 				</ul>
-			</p>
 		</section>
 	</conbody>
 </concept>
