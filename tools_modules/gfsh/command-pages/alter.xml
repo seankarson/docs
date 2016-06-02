@@ -235,9 +235,7 @@ alter disk-store --name=DiskStore1 --region=region1 --disk-dirs=/Disks/DiskStore
 										each member for the region. For distributed regions, a cache
 										loader may be invoked remotely from other members that have
 										the region defined.</entry>
-									<entry>
-										<codeph>__DEFAULT__</codeph>
-									</entry>
+									<entry> </entry>
 								</row>
 								<row>
 									<entry colname="col1">
@@ -248,9 +246,7 @@ alter disk-store --name=DiskStore1 --region=region1 --disk-dirs=/Disks/DiskStore
 										changes to the region and its entries. The plug-in may
 										cancel the event. At most, one cache writer can be defined
 										in each member for the region</entry>
-									<entry>
-										<codeph>__DEFAULT__</codeph>
-									</entry>
+									<entry> </entry>
 								</row>
 								<row>
 									<entry colname="col1">
@@ -281,7 +277,7 @@ alter disk-store --name=DiskStore1 --region=region1 --disk-dirs=/Disks/DiskStore
 									<entry
 										conref="../../../reference/topics/cache_xml.xml#expiration-attributes/expiration-attributes_action"/>
 									<entry>
-										<codeph>__DEFAULT__</codeph>
+										<codeph>invalidate</codeph>
 									</entry>
 								</row>
 								<row>
@@ -300,7 +296,7 @@ alter disk-store --name=DiskStore1 --region=region1 --disk-dirs=/Disks/DiskStore
 									<entry
 										conref="../../../reference/topics/cache_xml.xml#expiration-attributes/expiration-attributes_action"/>
 									<entry>
-										<codeph>__DEFAULT__</codeph>
+										<codeph>invalidate</codeph>
 									</entry>
 								</row>
 								<row>
@@ -353,7 +349,7 @@ alter disk-store --name=DiskStore1 --region=region1 --disk-dirs=/Disks/DiskStore
 									<entry
 										conref="../../../reference/topics/cache_xml.xml#expiration-attributes/expiration-attributes_action"/>
 									<entry>
-										<codeph>__DEFAULT__</codeph>
+										<codeph>invalidate</codeph>
 									</entry>
 								</row>
 								<row>
@@ -371,7 +367,7 @@ alter disk-store --name=DiskStore1 --region=region1 --disk-dirs=/Disks/DiskStore
 									<entry
 										conref="../../../reference/topics/cache_xml.xml#expiration-attributes/expiration-attributes_action"/>
 									<entry>
-										<codeph>__DEFAULT__</codeph>
+										<codeph>invalidate</codeph>
 									</entry>
 								</row>
 							</tbody>
