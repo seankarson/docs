@@ -14,31 +14,31 @@
 				passwords. </p>
 			<p><b> Availability:</b> Online or offline. </p>
 			<p><b>Syntax:</b>
-				<codeblock>
+			</p>
+			<codeblock>
 encrypt password --password=value</codeblock>
-				<table id="table_9172A25D12684164B221A699F35F7487">
-					<title>Parameters</title>
-					<tgroup cols="2">
-						<colspec colnum="1" colname="col1" colwidth="1.00*"/>
-						<colspec colnum="2" colname="col2" colwidth="4.27*"/>
-						<tbody>
-							<row>
-								<entry colname="col1"><parmname>--password </parmname></entry>
-								<entry colname="col2"><i>Required.</i> Password string to be
-									encrypted. </entry>
-							</row>
-						</tbody>
-					</tgroup>
-				</table>
-			</p>
+			<table id="table_uvh_gch_2w">
+				<title>Parameters</title>
+				<tgroup cols="2">
+					<colspec colnum="1" colname="col1" colwidth="1.00*"/>
+					<colspec colnum="2" colname="col2" colwidth="4.27*"/>
+					<tbody>
+						<row>
+							<entry colname="col1"><parmname>--password </parmname></entry>
+							<entry colname="col2"><i>Required.</i> Password string to be encrypted.
+							</entry>
+						</row>
+					</tbody>
+				</tgroup>
+			</table>
 			<p><b>Example Commands:</b>
-				<codeblock>
+			</p>
+			<codeblock>
 encrypt password --password=Aht23fbd1234#q</codeblock>
-			</p>
 			<p><b>Sample Output:</b>
-				<codeblock>gfsh&gt;encrypt password --password=Aht23fbd1234#q
-21793243D4F4B1C90B032D0CC0A80821</codeblock>
 			</p>
+			<codeblock>gfsh&gt;encrypt password --password=Aht23fbd1234#q
+21793243D4F4B1C90B032D0CC0A80821</codeblock>
 		</section>
 	</conbody>
 </concept>
