@@ -5,7 +5,7 @@
 	<shortdesc> </shortdesc>
 	<conbody>
 		<p>Transactional cache operations are handled somewhat differently inside transactions than
-			out. <ol id="ol_F78AE8AB0F504C198FE32CCA482C5496">
+			out. </p><ol id="ol_F78AE8AB0F504C198FE32CCA482C5496">
 				<li id="li_DB77B68CC1A940B28D4DF5EAA37AAAB3">During the Transaction. While the
 					transaction is running, each transactional operation is passed to the cache
 					writer local to the transactional view, if one is available. As with cache
@@ -48,6 +48,5 @@ put (A, valY)</codeblock>
 					</ul>
 				</li>
 			</ol>
-		</p>
 	</conbody>
 </concept>

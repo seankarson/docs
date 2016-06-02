@@ -38,7 +38,8 @@
 				surpasses a configured percentage of the total file. A record is garbage when its
 				operation is superseded by a more recent operation for the same object. During
 				compaction, the non-garbage records are added to the current log along with new
-				cache operations. Online compaction does not block current system operations. <ul
+				cache operations. Online compaction does not block current system operations.</p>
+				<ul
 					id="ul_DC1F95BD89C841F39EDEA8F96E4BB77B">
 					<li id="li_A58CD62D447D48A5832E780527CF7540"><b>Automatic compaction</b>. When
 							<codeph>auto-compact</codeph> is true, <keyword keyref="product_name"/>
@@ -81,7 +82,6 @@ gfsh&gt;compact disk-store --name=Disk1 --group=MemberGroup1,MemberGroup2</codeb
 						</ul>
 					</li>
 				</ul>
-			</p>
 		</section>
 		<section id="section_25BDB098E9584EAA9BC6582597544726">
 			<title>Run Offline Compaction</title>
@@ -125,7 +125,8 @@ gfsh&gt;compact offline-disk-store --name=Disk2 --disk-dirs=/Disks/Disk2
 		<section id="section_A9EE86F662EE4D46A327C336E901A0F2">
 			<title>Directory Size Limits</title>
 			<p>Reaching directory size limits during has different results depending on whether you
-				are running an automatic or manual compaction: <ul
+				are running an automatic or manual compaction: </p>
+				<ul
 					id="ul_2458B7E568AE4778B5660BF7E5637CB0">
 					<li id="li_207983DED512409E84DE9A9388A665E7">For automatic compaction, the
 						system logs a warning, but does not stop. </li>
@@ -133,7 +134,6 @@ gfsh&gt;compact offline-disk-store --name=Disk2 --disk-dirs=/Disks/Disk2
 						operation stops and returns a <codeph>DiskAccessException</codeph> to the
 						calling process, reporting that the system has run out of disk space. </li>
 				</ul>
-			</p>
 		</section>
 		<section id="section_7A311038408440D49097B8FA4E2BCED9">
 			<title>Example Compaction Run</title>

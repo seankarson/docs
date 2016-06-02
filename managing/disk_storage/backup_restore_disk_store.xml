@@ -52,7 +52,7 @@
 				</note>
 			</p>
 			<p>
-				<b>Preparing to Make a Backup</b>
+				<b>Preparing to Make a Backup</b></p>
 				<ul id="ul_s5w_wsz_pt">
 					<li>Consider compacting your disk store before making a backup. If
 						auto-compaction is turned off, you may want to do a manual compaction to
@@ -82,7 +82,8 @@
 							a backup is made, a new subdirectory is created within the specified
 							directory, and that new subdirectory's name represents the date and
 							time. </p>
-						<p>You can use one of two locations for the backup: <ul id="ul_qmg_3tz_pt">
+						<p>You can use one of two locations for the backup: </p>
+							<ul id="ul_qmg_3tz_pt">
 								<li>a single physical location, such as a network file server, for
 									example:
 									<codeblock>/export/fileServerDirectory/gemfireBackupLocation</codeblock>
@@ -91,14 +92,13 @@
 									for example: <codeblock>./gemfireBackupLocation</codeblock>
 								</li>
 							</ul>
-						</p></li>
+						</li>
 					<li>Make sure all members with persistent data are running in the system, because offline
 						members cannot back up their disk stores. Output from the backup command
 						will not identify members hosting replicated regions that are offline.</li>
 				</ul>
-			</p>
 			<p>
-				<b>How to Do a Full Online Backup</b>
+				<b>How to Do a Full Online Backup</b></p>
 				<ol id="ol_870E3FACA7FC4DCE9D517FE542847CFC">
 					<li id="li_5DD5496960ED444C92D3AA7C17E06057">If auto-compaction is disabled, and
 						manual compaction is needed:
@@ -121,7 +121,6 @@
 						<codeblock>cd 2010-04-10-11-35/straw_14871_53406_34322/diskstores/ds1
 gfsh validate offline-disk-store --name=ds1 --disk-dirs=/home/dsmith/dir1</codeblock></li>
 				</ol>
-			</p>
 			<p>
 				<b>How to Do an Incremental Backup</b>
 			</p>
@@ -140,7 +139,8 @@ gfsh validate offline-disk-store --name=ds1 --disk-dirs=/home/dsmith/dir1</codeb
 		</section>
 		<section id="section_C08E52E65DAD4CD5AE076BBDCF1DB340">
 			<title>What a Full Online Backup Saves</title>
-			<p>For each member with persistent data, a full backup includes the following: <ul
+			<p>For each member with persistent data, a full backup includes the following:</p>
+				<ul
 					id="ul_E08684424FA84732AA61C7C981288D26">
 					<li id="li_089BCC632AD1420183B346A3B6A28682">Disk store files for all members
 						containing persistent region data. </li>
@@ -173,7 +173,6 @@ gfsh validate offline-disk-store --name=ds1 --disk-dirs=/home/dsmith/dir1</codeb
 						do a restore. The script copies files back to their original locations.
 					</li>
 				</ul>
-			</p>
 		</section>
 		<section id="section_59E23EEA4AB24374A45B99A8B44FD49B">
 			<title>What an Incremental Online Backup Saves</title>
@@ -243,7 +242,8 @@ BACKUPDEFAULT_1.crf BACKUPDEFAULT_1.drf BACKUPDEFAULT.if
 						where the backup originated. </li>
 				</ol>
 			</p>
-			<p>The restore copies these files back to their original location: <ul
+			<p>The restore copies these files back to their original location:</p>
+				<ul
 					id="ul_FDE0B5475EB3404C840C8A22AAD746AC">
 					<li id="li_9EF35C6DF88547BB81D4474D3DEB8EF6">Disk store files for all stores
 						containing persistent region data. </li>
@@ -251,7 +251,6 @@ BACKUPDEFAULT_1.crf BACKUPDEFAULT_1.drf BACKUPDEFAULT.if
 						configured to be backed up in the <codeph>cache.xml</codeph>
 						<codeph>&lt;backup&gt;</codeph> elements. </li>
 				</ul>
-			</p>
 		</section>
 	</conbody>
 </concept>

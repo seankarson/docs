@@ -14,7 +14,7 @@
 					href="using_disk_stores.xml#defining_disk_stores/section_37BC5A4D84B34DB49E489DD4141A4884"
 					type="section" format="dita" scope="local"/> and <xref
 					href="using_the_default_disk_store.xml#using_the_default_disk_store"
-					type="concept" format="dita" scope="local"/>. </note>
+					type="concept" format="dita" scope="local"/>. </note></p>
 			<ul id="ul_3AA2F87DCB404E528C9E5C73EE9FD3D4">
 				<li id="li_02C6746343A143159C49F728263512A2">
 					<xref
@@ -35,12 +35,12 @@
 					href="using_disk_stores.xml#defining_disk_stores/config-disk-store-gateway"
 					type="section" format="dita" scope="local"/></li>
 			</ul>
-		</p>
 		<section id="section_0CD724A12EE4418587046AAD9EEC59C5">
 			<title>Design Your Disk Stores</title>
 			<p>Before you begin, you should understand <keyword keyref="product_name"/>
 				<xref href="../../basic_config/book_intro.xml"
-					type="concept" format="dita" scope="local"/>. <ol
+					type="concept" format="dita" scope="local"/>. </p>
+				<ol
 					id="ol_4C758B1E5FE34E3499AF2918DB68B917">
 					<li id="li_9759033182A44184A17BC5D950B1D3B1">Work with your system designers and
 						developers to plan for anticipated disk storage requirements in your testing
@@ -85,7 +85,6 @@
 						</ul>
 					</li>
 				</ol>
-			</p>
 		</section>
 		<section id="section_37BC5A4D84B34DB49E489DD4141A4884">
 			<title>Create and Configure Your Disk Stores</title>
@@ -201,12 +200,13 @@
 			<title>Configuring Regions, Queues, and PDX Serialization to Use the Disk Stores</title>
 			<p>The following are examples of using already created and named disk stores for
 				Regions, Queues, and PDX Serialization. </p>
-			<p>Example of using a disk store for region persistence and overflow: <ul
+			<p>Example of using a disk store for region persistence and overflow:</p>
+				<ul
 					id="ul_wf4_j3z_n4">
 					<li>gfsh:<codeblock>gfsh>create region --name=regionName --type=PARTITION_PERSISTENT_OVERFLOW \
 --disk-store=serverPersistOverflow</codeblock></li>
 					<li>cache.xml<codeblock>&lt;region refid="PARTITION_PERSISTENT_OVERFLOW" disk-store-name="persistOverflow1"/&gt;</codeblock></li>
-				</ul></p>
+				</ul>
 			<p>Example of using a named disk store for server subscription queue overflow
 				(cache.xml): </p>
 			<codeblock>&lt;cache-server port="40404"&gt;

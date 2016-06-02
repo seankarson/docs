@@ -11,7 +11,8 @@
 					keyref="product_name"/> cache transactions and JDBC transactions globally under
 				one umbrella. JTA provides direct coordination between the <keyword
 					keyref="product_name"/> cache and another transactional resource, such as a
-				database. The parties involved in a JTA transaction include: <ul id="ul_l5h_vkn_1l">
+				database. The parties involved in a JTA transaction include:</p>
+				<ul id="ul_l5h_vkn_1l">
 					<li id="li_129D609E932A45EABE0C4CEA07C6AF1A">The Java application, responsible
 						for starting the global transaction </li>
 					<li id="li_B35ABBEAAD854E629CFFF196CA92A538">The JTA transaction manager,
@@ -21,7 +22,6 @@
 						the JDBC resource manager, responsible for managing operations in the cache
 						and database respectively </li>
 				</ul>
-			</p>
 			<p>Using JTA, your application controls all transactions in the same standard way,
 				whether the transactions act on the <keyword keyref="product_name"/> cache, a JDBC
 				resource, or both together. When a JTA global transaction is done, the <keyword
@@ -284,7 +284,8 @@ GFConnection gemfireConn = (GFConnection)cf.getConnection();</codeblock>
 			<p>The <keyword keyref="product_name"/> JTA implementation also supports the J2EE
 				Connector Architecture (JCA) <codeph>ManagedConnectionFactory</codeph>. </p>
 			<p>The <keyword keyref="product_name"/> implementation of JTA has the following
-				limitations: <ul id="sggdhgbjavdbhip">
+				limitations: </p>
+				<ul id="sggdhgbjavdbhip">
 					<li id="li_89B2CCA21A6A4C9A8DEF15CE2CAB67CE">Only one JDBC database instance per
 						transaction is allowed, although you can have multiple connections to that
 						database. </li>
@@ -292,11 +293,9 @@ GFConnection gemfireConn = (GFConnection)cf.getConnection();</codeblock>
 						in a transaction. </li>
 					<li id="li_4A334C46B9F246AD80CD6C40A467D4F4">Transaction recovery after a crash
 						is not supported. </li>
-				</ul>In addition, JTA transactions are subject to the limitations of <keyword
-					keyref="product_name"/> cache transactions such as not being supported on
-				regions with global scope. When a global transaction needs to access the <keyword
-					keyref="product_name"/> cache, JTA silently starts a <keyword
-					keyref="product_name"/> cache transaction. </p>
+				</ul>
+			<p>In addition, JTA transactions are subject to the limitations of <keyword keyref="product_name"/> cache transactions such as not being supported on
+				regions with global scope. When a global transaction needs to access the <keyword keyref="product_name"/> cache, JTA silently starts a <keyword keyref="product_name"/> cache transaction.</p>
 		</conbody>
 	</concept>
 	<task id="task_qjv_khb_wk">

@@ -37,7 +37,8 @@
 				deadlocks. </note>
 		</p>
 		<p>You can override the <codeph>conserve-sockets</codeph> setting for individual threads. These
-			methods are in <codeph>com.gemstone.gemfire.distributed.DistributedSystem</codeph>: <ul
+			methods are in <codeph>com.gemstone.gemfire.distributed.DistributedSystem</codeph>: </p>	
+			<ul
 				id="ul_7010F64589704376B00718BD934CA2F4">
 				<li
 					id="li_B913A1EB0AF544679C7CFC059D15DCD5"><codeph>setThreadsSocketPolicy</codeph>.
@@ -52,7 +53,6 @@
 					this method to avoid holding the sockets until the socket-lease-time has
 					expired. </li>
 			</ul>
-		</p>
 		<p>A typical implementation might set conserve-sockets to true at the application level and
 			then override the setting for the specific application threads that perform the bulk of
 			the distributed operations. The example below shows an implementation of the two API

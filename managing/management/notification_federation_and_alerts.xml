@@ -20,7 +20,8 @@
 ObjectName mbeanName = ... 
 MBeanServer.addNotificationListener(mbeanName, myListener, null, null);  </codeblock>
 			<p>JMX Managers will emit notifications for all distributed system members with two
-				exceptions: <ul id="ul_kjn_1xw_wj">
+				exceptions: </p>
+				<ul id="ul_kjn_1xw_wj">
 					<li id="li_CCB2BD5C4683486294C2AD514A21C9F2">If you use cache.xml to define
 						resources such as regions and disks, then notifications for these resources
 						are not federated to the JMX Manager. In those cases, the
@@ -29,7 +30,6 @@ MBeanServer.addNotificationListener(mbeanName, myListener, null, null);  </codeb
 						resource has been created, the JMX Manager cannot emit notifications for
 						that resource. </li>
 				</ul>
-			</p>
 		</section>
 		<section id="section_7463D13112D54406953416356835E290">
 			<title>System Alert Notifications</title>
@@ -46,7 +46,8 @@ MBeanServer.addNotificationListener(mbeanName, myListener, null, null);  </codeb
 				the JMX Manager will only emit that level of log message as notifications. </p>
 			<p>Notification objects include <b>type</b>, <b>source</b> and <b>message</b>
 				attributes. System alerts also include the <b>userData</b> attribute. For system
-				alerts, the notification object attributes correspond to the following: <ul
+				alerts, the notification object attributes correspond to the following: </p>
+				<ul
 					id="ul_F3559BE838F74787BECE76FBD4B47C38">
 					<li id="li_D7B051D19B374946A25E3413E50C92AF"><b>type</b>: system.alert </li>
 					<li id="li_66DA89D71D0042FCA4A3A5EA046F9FA8"><b>source</b>: Distributed System
@@ -55,7 +56,6 @@ MBeanServer.addNotificationListener(mbeanName, myListener, null, null);  </codeb
 					<li id="li_9F2C786A97154D07BEAB60B10B6F1E00"><b>userData</b>: name or ID of the
 						member that raised the alert </li>
 				</ul>
-			</p>
 		</section>
 	</body>
 </topic>

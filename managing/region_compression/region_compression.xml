@@ -36,12 +36,14 @@
         <li><b>Use compression when JVM memory usage is too high.</b> Compression allows you to
           store more region data in-memory and to reduce the number of expensive garbage collection
           cycles that prevent JVMs from running out of memory when memory usage is high.<p>To
-            determine if JVM memory usage is high, examine the the following statistics:<ul
+            determine if JVM memory usage is high, examine the the following statistics:</p>
+            <ul
               id="ul_r15_vrk_g4">
               <li>vmStats>freeMemory</li>
               <li>vmStats->maxMemory</li>
               <li>ConcurrentMarkSweep->collectionTime</li>
-            </ul></p><p>If the amount of free memory regularly drops below 20% - 25% or the duration
+            </ul>
+          <p>If the amount of free memory regularly drops below 20% - 25% or the duration
             of the garbage collection cycles is generally on the high side, then the regions hosted
             on that JVM are good candidates for having compression enabled.</p></li>
         <li><b>Consider the types and lengths of the fields in the region's entries.</b> Since

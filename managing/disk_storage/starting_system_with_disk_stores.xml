@@ -42,7 +42,8 @@ that are being waited on by other members.</codeblock>
 				remains in the disk store.</p>
 			<p>Each member’s persistent regions load and go online as quickly as possible, not
 				waiting unnecessarily for other members to complete. For performance reasons, these
-				actions occur asynchronously: <ul id="ul_btw_4rr_pv">
+				actions occur asynchronously: </p>
+				<ul id="ul_btw_4rr_pv">
 					<li>Once at least one copy of each and every bucket is recovered from disk, the
 						region is available. Secondary buckets will load asynchronously. </li>
 					<li> Entry keys are loaded from the key file in the disk store before
@@ -51,11 +52,11 @@ that are being waited on by other members.</codeblock>
 						value is requested before it has loaded, the value will immediately be
 						fetched from the disk store. </li>
 				</ul>
-			</p>
 		</section>
 		<section id="section_D0A7403707B847749A22BF9221A2C823">
 			<title>Start Up Procedure</title>
-			<p>To start a system with disk stores: <ol id="ol_872ca5d8-8d37-4566-b5a7-4d98be2d29c6">
+			<p>To start a system with disk stores: </p>
+				<ol id="ol_872ca5d8-8d37-4566-b5a7-4d98be2d29c6">
 					<li id="li_6BD1656398CD493F8B27445F75C4A982"><b>Start all members with persisted data first and
 							at the same time</b>. Exactly how you do this depends on your members.
 						Make sure to start members that host colocated regions, as well as
@@ -115,7 +116,6 @@ exit $STATUS;</codeblock>
 						</ul>
 					</li>
 				</ol>
-			</p>
 		</section>
 		<section id="section_5E32F488EB5D4E74AAB6BF394E4329D6">
 			<title>Example Startup to Illustrate Ordering</title>
@@ -123,7 +123,8 @@ exit $STATUS;</codeblock>
 				region after a shutdown. Assume that Member A (MA) exits first, leaving persisted
 				data on disk for RegionP. Member B (MB) continues to run operations on RegionP,
 				which update its disk store and leave the disk store for MA in a stale condition. MB
-				exits, leaving the most up-to-date data on disk for RegionP.<ul
+				exits, leaving the most up-to-date data on disk for RegionP.</p>
+				<ul
 					id="ul_7502260991C946B1804B009742795721">
 					<li id="li_7EE18F6D39CF4D9184A194F274CDD268">Restart order 1 <ol
 							id="ol_BEE64732FB554FFD89460953C6561347">
@@ -149,7 +150,6 @@ exit $STATUS;</codeblock>
 						</ol>
 					</li>
 				</ul>
-			</p>
 		</section>
 		<section>
 			<title>Shutdown</title>

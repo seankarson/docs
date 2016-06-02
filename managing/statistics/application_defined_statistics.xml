@@ -7,8 +7,8 @@
 	<conbody>
 		<section id="section_88C31FA62A194947BF71AD54B5F9BAB3">
 			<p>The <keyword keyref="product_name"/> package, <codeph>com.gemstone.gemfire</codeph>,
-				includes the following interfaces for defining and maintaining your own statistics:
-					<ul id="ul_47DF1DCBACA34E3ABBFC788B242DEE12">
+				includes the following interfaces for defining and maintaining your own statistics:</p>
+				<ul id="ul_47DF1DCBACA34E3ABBFC788B242DEE12">
 					<li id="li_361B89FB8D0D461F976D8BCC383BC6A6"><b>StatisticDescriptor</b>.
 						Describes an individual statistic. Each statistic has a name and information
 						on the statistic it holds, such as its class type (long, int, etc.) and
@@ -35,7 +35,6 @@
 						Creates instances of <codeph>StatisticDescriptor</codeph> and
 							<codeph>StatisticsType</codeph>. </li>
 				</ul>
-			</p>
 			<p>The statistics interfaces are instantiated using statistics factory methods that are
 				included in the package. For coding examples, see the online Java API documentation
 				for <codeph>StatisticsFactory</codeph> and <codeph>StatisticsTypeFactory</codeph>. </p>

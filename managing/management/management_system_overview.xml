@@ -25,14 +25,14 @@
 			<p>Each member of a distributed system is a managed node. Any node that is not currently
 				also acting as a JMX Manager node is referred to simply as a managed node. A managed
 				node has the following resources so that it can answer JMX queries both locally and
-				remotely: <ul id="ul_48C4CEA0999644F6967C4AF474CBE17A">
+				remotely: </p>
+				<ul id="ul_48C4CEA0999644F6967C4AF474CBE17A">
 					<li id="li_A85A14463FFB49B8BF784777E39D33CA">Local MXBeans that represent the locally monitored
 						components on the node. See <xref
 							href="list_of_mbeans.xml#topic_4BCF867697C3456D96066BAD7F39FC8B"
 						/> for a list of possible MXBeans existing for the managed node. </li>
 					<li id="li_ABB6917DEAC3426E8DAE064E1A7B90F7">Built-in platform MBeans.</li>
 				</ul>
-			</p>
 		</section>
 		<section id="section_8604838507194C8B86F1420FBA46894C">
 			<title>JMX Manager Node</title>
@@ -50,7 +50,8 @@
 					type="topic" format="dita" scope="local"
 					><?xm-replace_text Starting a JMX Manager?></xref> for more information. </p>
 			<p>The JMX Manager node has the following extra resources allocated so that it can
-				answer JMX queries: <ul id="ul_69C06766D3A84A73AC8266400A9C925D">
+				answer JMX queries:</p>
+				<ul id="ul_69C06766D3A84A73AC8266400A9C925D">
 					<li id="li_FEA80A46E8A245E08D58EDE5F78E91DF">RMI connector that allows JMX
 						clients to connect to and access all MXBeans in the distributed system. </li>
 					<li id="li_02D5CB4E8F3E4819B0A2FABD869ED702">Local MXBeans that represent the
@@ -68,7 +69,6 @@
 					<li id="li_D2AACC1E7EA947C49BE312D1643B8255">Proxy to MXBeans on managed nodes. </li>
 					<li id="li_B39B5A08649545C9B98F47CE668F4D71">Built-in platform MXBeans. </li>
 				</ul>
-			</p>
 		</section>
 		<section id="section_32D9F98189B14AA09BAC5E843EC18EDA">
 			<title>JMX Integration</title>
@@ -120,7 +120,8 @@
 				distributed system. The implementation of getManagementService is a singleton for
 				now but may eventually support multiple cache instances. </p>
 			<p>You can use the <keyword keyref="product_name"/> management APIs to accomplish the
-				following tasks: <ul id="ul_481ED7BE05A0415FB42A55D58E141EF7">
+				following tasks:</p>
+				<ul id="ul_481ED7BE05A0415FB42A55D58E141EF7">
 					<li id="li_07DDC78F05DE41EDB4A4749DA36D99BD">Monitor the health status of
 						clients. </li>
 					<li id="li_7A394BA792844372AF83553AB22F86AA">Obtain the status and results of
@@ -140,7 +141,6 @@
 						such as disk store ID. </li>
 					<li id="li_4C7EB73824564C2689AC7402DDA727F6">Browse region attributes. </li>
 				</ul>
-			</p>
 			<p> See the JavaDocs for the <codeph>com.gemstone.gemfire.management</codeph> package
 				for more details. </p>
 			<p>You can also execute gfsh commands using the ManagementService API. See <xref
@@ -153,7 +153,8 @@
 		<section id="section_E69A93A6309E4747B52850D81FE1674E">
 			<title><keyword keyref="product_name"/> Management and Monitoring Tools</title>
 			<p>This section lists the currently available tools for managing and monitoring <keyword
-					keyref="product_name"/>: <ul id="ul_678D0F9DE1EC49B2851536F5924DEAE8">
+				keyref="product_name"/>: </p>
+				<ul id="ul_678D0F9DE1EC49B2851536F5924DEAE8">
 					<li id="li_BE696BD38583491C8BB023F66C8715E1"><b>gfsh</b>. <keyword
 							keyref="product_name_long"/> command-line interface that provides a
 						simple &amp; powerful command shell that supports the administration,
@@ -193,7 +194,6 @@
 							scope="external" format="html"
 							><?xm-replace_text http://docs.oracle.com/javase/6/docs/technotes/tools/share/jvisualvm.html?></xref>. </li>
 				</ul>
-			</p>
 			<p/>
 		</section>
 	</body>

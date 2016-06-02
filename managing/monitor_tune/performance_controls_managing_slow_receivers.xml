@@ -78,7 +78,8 @@
 		<p>You can enable queue conflation on a region-by-region basis. You should always enable it
 			unless it is incompatible with your application needs. Conflation reduces the amount of
 			data queued and distributed. </p>
-		<p>These are reasons why conflation might not work for your application: <ul
+		<p>These are reasons why conflation might not work for your application:</p>
+			<ul
 				id="ul_649B3D10A5704719AA009CA7154B6A39">
 				<li id="li_EF005A6CB594451B813D96EF44AEA2FB">With conflation, earlier entry updates
 					are removed from the queue and replaced by updates sent later in the queue. This
@@ -93,6 +94,5 @@
 					sent, it is removed in favor of update 3, and so on. This could result in
 					unacceptably stale data on the receiver. </li>
 			</ul>
-		</p>
 	</conbody>
 </concept>

@@ -173,7 +173,8 @@
 				&lt;cache-server&gt; element of the <codeph>cache.xml</codeph>. These settings limit
 				the number of connections the server accepts and the maximum number of threads that
 				can service client requests. Both of these limit the server's overall connection
-				requirements: <ul id="ul_221730C6A6664DAA97C1670841884D0A">
+				requirements: </p>
+				<ul id="ul_221730C6A6664DAA97C1670841884D0A">
 					<li id="li_88A240F6413F4C2BBBBD2A16BE99B0BE">When the connection limit is
 						reached, the server refuses additional connections. This limits the number
 						of connections the server uses for clients. </li>
@@ -185,7 +186,6 @@
 						peers. The max-threads setting puts a cap on the number of this type of peer
 						connection that your server needs. </li>
 				</ul>
-			</p>
 			<p>The server uses one socket for each incoming client pool connection. If client
 				subscriptions are used, the server creates an additional connection to each client
 				that enables subscriptions. </p>

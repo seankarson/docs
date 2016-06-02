@@ -94,7 +94,8 @@ cTxMgr.commit();</codeblock></p>
         <title>Configure Expiration</title>
         <p>Local expiration actions do not cause write conflicts, but distributed expiration can
           cause conflicts and prevent transactions from committing in the members receiving the
-          distributed operation. <ul id="ul_ayp_gyz_vk">
+          distributed operation.</p>
+          <ul id="ul_ayp_gyz_vk">
             <li>When you are using transactions on local, preloaded or empty regions, make
               expiration local if possible. For every instance of that region, configure an
               expiration action of local invalidate or local destroy. In a cache.xml declaration,
@@ -117,7 +118,7 @@ cTxMgr.commit();</codeblock></p>
                   this:<codeblock>&lt;expiration-attributes timeout="300" <b>action="destroy"</b> /></codeblock></li>
                 <li>Run the transactions from the member in which expiration is configured.</li>
               </ul></li>
-          </ul></p>
+          </ul>
       </section>
     </conbody>
   </concept>
@@ -190,7 +191,8 @@ cTxMgr.commit();</codeblock></p>
           keyref="product_name"/> transaction ID, so the cache listener can associate each event, as
         it occurs, with a particular transaction. The transaction ID of an
           <codeph>EntryEvent</codeph> that is not part of a transaction is null to distinguish it
-        from a transaction ID. <ul id="ul_13E121CD255D4C7692787F5DCAF075A5">
+        from a transaction ID. </p>
+        <ul id="ul_13E121CD255D4C7692787F5DCAF075A5">
           <li id="li_46F1FD8534274841B0EDEE90C83E8D45"><codeph>CacheLoader</codeph>. When a cache
             loader is called by a transaction operation, values loaded by the cache loader may cause
             a write conflict when the transaction commits. </li>
@@ -202,8 +204,9 @@ cTxMgr.commit();</codeblock></p>
           <li id="li_8B057E2FA8174DAFADFE9DB32BA00E2F"><codeph>CacheListener</codeph>. The cache
             listener callbacks - local and remote - are triggered after the transaction commits. The
             system sends the conflated transaction events, in the order they were stored. </li>
-        </ul>For more information on writing cache event handlers, see <xref
-          href="../events/implementing_cache_event_handlers.xml"/>.</p>
+        </ul>
+      <p>For more information on writing cache event handlers, see <xref
+        href="../events/implementing_cache_event_handlers.xml"/>.</p>
     </conbody>
   </concept>
   <concept id="concept_ocw_vf1_wk">

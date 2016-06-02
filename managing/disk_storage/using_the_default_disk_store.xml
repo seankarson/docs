@@ -11,11 +11,12 @@
 			<p>For example, these region and queue configurations specify persistence and/or
 				overflow, but do not specify the disk-store-name. Because no disk store is
 				specified, these use the disk store named "DEFAULT".</p>
-			<p>Examples of using the default disk store for region persistence and overflow:<ul
+			<p>Examples of using the default disk store for region persistence and overflow:</p>
+				<ul
 					id="ul_wf4_j3z_n4">
 					<li>gfsh:<codeblock>gfsh>create region --name=regionName --type=PARTITION_PERSISTENT_OVERFLOW</codeblock></li>
 					<li>cache.xml<codeblock>&lt;region refid="PARTITION_PERSISTENT_OVERFLOW"/&gt;</codeblock></li>
-				</ul></p>
+				</ul>
 			<p>Example of using the default disk store for server subscription queue overflow
 				(cache.xml):
 				<codeblock>&lt;cache-server port="40404"&gt;
