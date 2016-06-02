@@ -47,7 +47,8 @@
 			<title>How a Gateway Sender Processes Its Queue</title>
 			<p>Each primary gateway sender contains a processor thread that reads messages from the
 				queue, batches them, and distributes the batches to a gateway receiver in a remote
-				site. To process the queue, a gateway sender thread takes the following actions: <ol
+				site. To process the queue, a gateway sender thread takes the following actions:</p>
+				<ol
 					id="ol_A2420B733EC64E0399C25D385A6F3D1F">
 					<li id="li_F41363F1C67C4A0D8BB34090D8F8A822">Reads messages from the queue </li>
 					<li id="li_ECE65DED97974302ABF37792EACD7A03">Creates a batch of the messages </li>
@@ -56,7 +57,6 @@
 					<li id="li_2AC1353DD9C649BBA10BD04525F892AD">Removes the batch from the queue
 						after the other site has successfully replied </li>
 				</ol>
-			</p>
 			<p>Because the batch is not removed from the queue until after the other site has
 				replied, the message cannot get lost. On the other hand, in this mode a message
 				could be processed more than once. If a site goes offline in the middle of

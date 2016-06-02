@@ -9,7 +9,8 @@
 		<section id="section_D3649ADD28DB4FF78C47A3E428C80510">
 			<p>Rebalancing is a member operation. It affects all partitioned regions defined by the
 				member, regardless of whether the member hosts data for the regions. The rebalancing
-				operation performs two tasks: <ol id="ol_d5bb92f6-f96a-429a-a536-e5fc52dab5a2">
+				operation performs two tasks: </p>
+				<ol id="ol_d5bb92f6-f96a-429a-a536-e5fc52dab5a2">
 					<li id="li_63A45700885144BA83CCAE32AB013CEA">If the configured partition region
 						redundancy is not satisfied, rebalancing does what it can to recover
 						redundancy. See <xref
@@ -19,7 +20,6 @@
 						region data buckets between host members as needed to establish the most
 						fair balance of data and behavior across the distributed system. </li>
 				</ol>
-			</p>
 			<p>For efficiency, when starting multiple members, trigger the rebalance a single time,
 				after you have added all members. </p>
 			<p>

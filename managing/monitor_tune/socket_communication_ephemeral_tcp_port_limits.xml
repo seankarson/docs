@@ -14,7 +14,8 @@
 				numerous short-lived client connections, this could be related to a limit on the
 				number of ephemeral TCP ports. While this issue could occur with other operating
 				systems, typically, it is only seen with Windows due to a low default limit. </p>
-			<p>Perform this procedure to increase the limit: <ol
+			<p>Perform this procedure to increase the limit: </p>
+				<ol
 					id="ol_7DD84EA0F70E44AFB63FC0AD4B61E435">
 					<li id="li_27EC80DC93744B25864633FF8FEC9210">Open the Windows Registry Editor. </li>
 					<li id="li_6D09763D817F49C39C882358F15D846B">Navigate to the following key:
@@ -29,7 +30,6 @@ Value data: 36863</codeblock>
 					<li id="li_F24EC7DCDD594F8A9B6DEE811E8E9F35">Exit the Registry Editor, and then
 						restart the computer. </li>
 				</ol>
-			</p>
 			<p>This affects all versions of the Windows operating system. </p>
 			<p><b>Note for UDP on Unix Systems</b>
 			</p>

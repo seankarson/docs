@@ -146,7 +146,8 @@
 			disconnected, as shown in the following figure. </p>
 		<image placement="break" id="image_BA474143B16744F28DE0AB1CAD00FB48"
 			href="../../images_svg/member_severe_alert.svg"/>
-		<p>The events occur in this order: <ol id="ol_29295799A8AD49238FCAC7E8B3A24C53">
+		<p>The events occur in this order: </p>
+			<ol id="ol_29295799A8AD49238FCAC7E8B3A24C53">
 				<li id="li_D7124E0DC9814FCF960234EFC2E1C27B">CACHE_OPERATION - transmission of cache
 					operation is initiated. </li>
 				<li id="li_E35B3014A8924C088B1155C948A29C9B">SUSPECT - identified as a suspect by
@@ -159,7 +160,6 @@
 				<li id="li_8F504017CE1D4762817F6C30E3561BE0">SEVERE ALERT- the result of
 					ack-severe-wait-threshold elapsing without receiving a reply. </li>
 			</ol>
-		</p>
 		<p>When a member fails suspect processing, its cache is closed and its CacheListeners are
 			notified with the afterRegionDestroyed notification. The RegionEvent passed with this
 			notification has a CACHE_CLOSED operation and a FORCED_DISCONNECT operation, as shown in

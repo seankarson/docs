@@ -18,7 +18,8 @@
 				<image placement="break" id="image_66AB57EEDC154962B32F7951667F4656"
 					href="../../images_svg/client_server_event_dist.svg"/>
 			</p>
-			<p>The figure shows the following process: <ol id="ol_34D6F49D07994C039FEE11C487F4C4AC">
+			<p>The figure shows the following process: </p>
+				<ol id="ol_34D6F49D07994C039FEE11C487F4C4AC">
 					<li id="li_7477E1B0C8304CF1A8E2BA22633C7405">Entry X is updated or created in
 						Region A through a direct API call on Client1. </li>
 					<li id="li_A7FC1634DC1544578CA4453C3F90AFE3">The update to the region is passed
@@ -31,7 +32,6 @@
 					<li id="li_64B76F248C9943A5BFD8CBB11774CB2A">The event for entry X is sent out
 						of the queue to Client2. When this happens is indeterminate. </li>
 				</ol>
-			</p>
 			<p>Client to server distribution uses the client pool connections to send updates to the
 				server. Any region with a named pool automatically forwards updates to the server.
 				Client cache modifications pass first through a client <codeph>CacheWriter</codeph>,

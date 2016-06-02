@@ -52,7 +52,8 @@
 				by the client, the <codeph>CqEvent</codeph> is passed to the
 					<codeph>onEvent</codeph> method of all <codeph>CqListener</codeph>s defined for
 				the CQ. </p>
-			<p>Here is the typical CQ data flow for entries updated in the server cache: <ol
+			<p>Here is the typical CQ data flow for entries updated in the server cache: </p>
+				<ol
 					id="ol_806F719D2EBF42AE86C84509B15A1F50">
 					<li id="li_5815225F93EA4D538E77F5DFF41C9F20">Entry events come to the server's
 						cache from the server or its peers, distribution from remote sites, or
@@ -63,7 +64,6 @@
 						satisfies a CQ query, a CQ event is sent to the CQ's listeners on the client
 						side. Each listener for the CQ gets the event. </li>
 				</ol>
-			</p>
 			<p>In the following figure: </p>
 				<ul id="ul_93261E8039304D5D840779BF19815ECA">
 					<li id="li_7B344202AAC84E2C9A4369FDB13B5341">Both the new and old prices for

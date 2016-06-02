@@ -36,7 +36,8 @@
 				Synchronized time stamps ensure that log messages on different hosts can be merged
 				to accurately reproduce a chronological history of a distributed run. </note>
 		</p>
-		<p>For each process, complete these steps: <ol id="ol_D36655ABBE484FF7ABEBA078B0B53D94">
+		<p>For each process, complete these steps: </p>
+			<ol id="ol_D36655ABBE484FF7ABEBA078B0B53D94">
 				<li id="li_AB1E0E68E42F4423AB9508D703A7A9D8">Make sure the host’s clock is
 					synchronized with the other hosts. Use a time synchronization tool such as
 					Network Time Protocol (NTP). </li>
@@ -70,6 +71,5 @@ statistic-archive-file=StatisticsArchiveFile.gfs</codeblock>
 						command</codeph>. For
 					example:<codeblock>gfsh> export stack-traces --file=ApplicationStackTrace.txt --member=member1</codeblock></li>
 			</ol>
-		</p>
 	</conbody>
 </concept>

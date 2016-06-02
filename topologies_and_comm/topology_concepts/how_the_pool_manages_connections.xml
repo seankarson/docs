@@ -60,7 +60,8 @@
 			<title>How the Pool Connects to a Server</title>
 			<p>When a pool needs a new connection, it goes through these steps until either it
 				successfully establishes a connection, it has exhausted all available servers, or
-				the <codeph>free-connection-timeout</codeph> is reached. <ol
+				the <codeph>free-connection-timeout</codeph> is reached. </p>
+				<ol
 					id="ol_375B19ADAE4F435CB7098F4978CF72CA">
 					<li id="li_BAC8A6811DDE4226948761E299C3514C">Requests server connection
 						information from the locator or retrieves the next server from the static
@@ -68,7 +69,6 @@
 					<li id="li_7D9ACFCC446448FA88ADB22774E844E2">Sends a connection request to the
 						server. </li>
 				</ol>
-			</p>
 			<p>If the pool fails to connect while creating a subscription connection or provisioning
 				the pool to reach the <codeph>min-connections</codeph> setting, it logs a fine level
 				message and retries after the time indicated by <codeph>ping-interval</codeph>. </p>

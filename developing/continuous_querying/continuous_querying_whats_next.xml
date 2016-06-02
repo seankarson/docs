@@ -28,14 +28,14 @@
 			<p>Stop with:
 				<codeblock outputclass="language-java">clientCache.close(true);</codeblock>
 			</p>
-			<p>Start up again in this order: <ol id="ol_ryy_hwg_4r">
+			<p>Start up again in this order: </p>
+				<ol id="ol_ryy_hwg_4r">
 					<li>Create <codeph>ClientCache</codeph> instance. </li>
 					<li>Create all <codeph>RegionService</codeph> instances. Initialize CQ
 						listeners. </li>
 					<li>Call <codeph>ClientCache</codeph> instance <codeph>readyForEvents</codeph>
 						method. </li>
 				</ol>
-			</p>
 		</section>
 		<section id="section_35F929682CD24478AF0B2249C5065A27">
 			<title>States of a CQ</title>

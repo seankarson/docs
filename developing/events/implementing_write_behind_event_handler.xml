@@ -197,7 +197,7 @@
 				implementation. You then assign the queue to a region in order to process that
 				region's events. </p>
 			<p>
-				<b>Procedure</b>
+				<b>Procedure</b></p>
 				<ol id="ol_89B8A1BD55CA40B0991EF11DE102A0F6">
 					<li id="li_C93F467F57BA4806BA2063A4F302BAA0">Configure a unique
 							<codeph>AsyncEventQueue</codeph> with the name of your listener
@@ -301,7 +301,6 @@ mutator.addAsyncEventQueueId("sampleQueue");		</codeblock>
 							href="configuring_gateway_concurrency_levels.xml" type="concept"
 							format="dita" scope="local"/>.</li>
 				</ol>
-			</p>
 			<p>The <codeph>AsyncEventListener</codeph> receives events from every region configured
 				with the associated <codeph>AsyncEventQueue</codeph>. </p>
 		</section>

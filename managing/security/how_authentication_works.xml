@@ -30,7 +30,8 @@
 			implement the required <keyword keyref="product_name"/> interfaces. </p>
 		<section id="section_3C5F1D7D27CC4C85B01F6F91AA602ED6">
 			<title>Client Authentication Options</title>
-			<p>The <keyword keyref="product_name"/> client can connect in two different ways: <ol
+			<p>The <keyword keyref="product_name"/> client can connect in two different ways: </p>
+				<ol
 					id="ol_072217B4FBC24A678F0FD5817813ACA9">
 					<li id="li_8A134F3DC13649359BA0D285BFE729EA"><b>Process level</b>. Each pool
 						creates a configured minimum number of connections across the server group.
@@ -49,7 +50,6 @@
 						server process can service a large number of users, each with their own
 						unique identification and with varied access permissions. </li>
 				</ol>
-			</p>
 			<p>By default, the server pools in clients use process level authentication. You can
 				enable user level authentication by setting the pool’s multiuser-authentication
 				attribute to true. Process level and user level pools can be used inside one client
@@ -63,7 +63,8 @@
 			<p>The client authentication process occurs for each connection established by a pool,
 				regardless of whether the pool is configured for process-wide or single user
 				connections. All credentials are checked for each connection between client and
-				server, including the server-to-client notification channel. <ol
+				server, including the server-to-client notification channel. </p>
+				<ol
 					id="ol_8F5B36BF82ED43A8B01EC7F8509B54CC">
 					<li id="li_B40D2DA45F45447CA5CC7A629745AFF1">When the client requests a new
 						connection: <ol id="ol_7D807FD00EF446FAA272341F5A235ABA">
@@ -88,7 +89,6 @@
 						</ol>
 					</li>
 				</ol>
-			</p>
 			<p>This ever-changing identifier provides protection against replay attacks, because
 				each client request must include the unique identifier. The server never processes
 				the same request twice. For the most secure communication, add encryption, like

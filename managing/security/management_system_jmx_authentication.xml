@@ -6,7 +6,8 @@
 		into the <keyword keyref="product_name"/> management system, you must configure the JMX Manager node. </shortdesc>
 	<body>
 		<p>By default, the JMX manager allows clients without credentials to connect. To set up JMX
-			authentication for the management system: <ol id="ol_0F67C8B1EE584E8BAFA1B52D0EF3FBEC">
+			authentication for the management system: </p>
+			<ol id="ol_0F67C8B1EE584E8BAFA1B52D0EF3FBEC">
 				<li id="li_13A1A9F3E2DE476BA88374EAA4E66634">Verify that the
 					<codeph>jmx-manager</codeph> <keyword keyref="product_name"/> property is set to true on any node
 					that you want to be able to become a JMX Manager and authenticate clients. If
@@ -52,8 +53,6 @@ gemfiremanager readwrite</codeblock>
 						href="implementing_ssl.xml" type="concept" format="dita"
 						scope="local"/>. </li>
 			</ol>
-		</p>
-		<p> </p>
 		<p>For more information on the format of the password and access file, see <xref
 				href="http://docs.oracle.com/javase/6/docs/technotes/guides/management/agent.html"
 				scope="external" format="html"

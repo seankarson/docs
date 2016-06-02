@@ -154,7 +154,7 @@
 			<p>Rerun the test at different bandwidths until you find the maximum useful multicast
 				rate. Start high, then gradually decrease the send rate until the test runs
 				consistently with no packet loss. For example, you might need to run five tests in a
-				row, changing the -b (bits per second) parameter each time until there is no loss:
+				row, changing the -b (bits per second) parameter each time until there is no loss:</p>
 					<ol id="ol_E417703DB84542C5B84936BB620396B8">
 					<li id="li_C12B66182E7348AEAE47C6F80C09F717">-b 1000000000 (loss) </li>
 					<li id="li_145826C75D4F4C258125966DA7FC447D">-b 900000000 (no loss) </li>
@@ -162,7 +162,6 @@
 					<li id="li_FBFDDA4AAF9C492F9B1273F25FA9EC4A">-b 980000000 (a bit of loss) </li>
 					<li id="li_2B4F523634144B27BD4A6E9C4A3687B2">-b 960000000 (no loss) </li>
 				</ol>
-			</p>
 			<p>Enter iperf -h to see all of the command-line options. For more information, see the
 				Iperf user manual. </p>
 		</section>
