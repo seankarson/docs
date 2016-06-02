@@ -12,44 +12,45 @@
 		<p><b> Availability:</b> Online. You must be connected in <codeph>gfsh</codeph> to a JMX
 			Manager member to use this command. </p>
 		<p><b>Syntax:</b>
-			<codeblock>undeploy [--jar=&lt;jar to be undeployed&gt;] [--group=&lt;member-group-name&gt;]</codeblock>
-			<table id="table_EF6A53D594D4492D9D8240BEA5B702E7">
-				<title>Parameters</title>
-				<tgroup cols="3">
-					<colspec colname="col1" colnum="1" colwidth="1.00*"/>
-					<colspec colname="col2" colnum="2" colwidth="2.00*"/>
-					<colspec colname="newCol3" colnum="3" colwidth="1*"/>
-					<thead>
-						<row>
-							<entry colname="col1">Name </entry>
-							<entry colname="col2">Description</entry>
-							<entry colname="col3">Default Value</entry>
-						</row>
-					</thead>
-					<tbody>
-						<row>
-							<entry colname="col1"><parmname>--group</parmname>
-							</entry>
-							<entry colname="col2">Group(s) from which the specified JAR(s) will be
-								undeployed. </entry>
-							<entry>undeploy will occur on all members. </entry>
-						</row>
-						<row>
-							<entry colname="col1"><parmname>--jar</parmname>
-							</entry>
-							<entry colname="col2">JAR or JARs to be undeployed.</entry>
-							<entry>All JARs will be undeployed. </entry>
-						</row>
-					</tbody>
-				</tgroup>
-			</table>
 		</p>
+		<codeblock>undeploy [--jar=&lt;jar to be undeployed&gt;] [--group=&lt;member-group-name&gt;]</codeblock>
+		<table id="table_mcj_l5g_2w">
+			<title>Parameters</title>
+			<tgroup cols="3">
+				<colspec colname="col1" colnum="1" colwidth="1.00*"/>
+				<colspec colname="col2" colnum="2" colwidth="2.00*"/>
+				<colspec colname="newCol3" colnum="3" colwidth="1*"/>
+				<thead>
+					<row>
+						<entry colname="col1">Name </entry>
+						<entry colname="col2">Description</entry>
+						<entry colname="col3">Default Value</entry>
+					</row>
+				</thead>
+				<tbody>
+					<row>
+						<entry colname="col1"><parmname>--group</parmname>
+						</entry>
+						<entry colname="col2">Group(s) from which the specified JAR(s) will be
+							undeployed. </entry>
+						<entry>undeploy will occur on all members. </entry>
+					</row>
+					<row>
+						<entry colname="col1"><parmname>--jar</parmname>
+						</entry>
+						<entry colname="col2">JAR or JARs to be undeployed.</entry>
+						<entry>All JARs will be undeployed. </entry>
+					</row>
+				</tbody>
+			</tgroup>
+		</table>
 		<p><b>Example Commands:</b>
-			<codeblock>undeploy --jar=domain-objects.jar
-undeploy --group=Group1</codeblock>
 		</p>
+		<codeblock>undeploy --jar=domain-objects.jar
+undeploy --group=Group1</codeblock>
 		<p><b>Sample Output:</b>
-			<codeblock>gfsh&gt;undeploy --jar=domain-objects.jar
+		</p>
+		<codeblock>gfsh&gt;undeploy --jar=domain-objects.jar
 
   Member   |  Un-Deployed JAR   |         Un-Deployed From JAR Location        
 ---------- | ------------------ | ---------------------------------------------
@@ -65,9 +66,8 @@ datanode1 | group1_functions.jar    | /usr/local/gemfire/deploy/GF#group1_functi
 datanode1 | group1_dependencies.jar | /usr/local/gemfire/deploy/GF#group1_dependencies.jar#1 
 datanode2 | group1_functions.jar    | /usr/local/gemfire/deploy/GF#group1_functions.jar#1
 datanode2 | group1_dependencies.jar | /usr/local/gemfire/deploy/GF#group1_dependencies.jar#1</codeblock>
-		</p>
 		<p><b>Error Messages:</b>
-			<codeblock>No JAR Files Found</codeblock>
 		</p>
+		<codeblock>No JAR Files Found</codeblock>
 	</conbody>
 </concept>

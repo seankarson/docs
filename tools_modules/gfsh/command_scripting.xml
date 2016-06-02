@@ -9,14 +9,10 @@
 		<section
 			id="section_037953D46A644471910B295001E5CE6B">
 			<title>Running gfsh Scripts</title>
-			<p>You can create and run scripts that contain gfsh commands that
-				you wish to execute. To execute the script, use the gfsh <xref
-					href="command-pages/run.xml"
-					type="concept"
-					format="dita"
-					scope="local">run</xref> command. For example:
-				<codeblock>gfsh run --file=mycommands.gfsh</codeblock>
-			</p>
+			<p>You can create and run scripts that contain gfsh commands that you wish to execute. To execute
+				the script, use the gfsh <xref href="command-pages/run.xml" type="concept"
+					format="dita" scope="local">run</xref> command. For example:  </p>
+			<codeblock>gfsh run --file=mycommands.gfsh</codeblock>
 			<note>When you run a gfsh script, interactive parameters are
 				ignored. You can also set the script to run in quiet mode to
 				prevent output and instruct the script to skip any errors it

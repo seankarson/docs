@@ -108,12 +108,11 @@
 				><?xm-replace_text Useful gfsh Shell Variables?></xref> for more information. </section>
 		<section id="section_BE7FB8B355E748FA8BEFE75B2C3CB86E">
 			<title>Configuring gfsh Session Logging</title>
-			<p>By default, <codeph>gfsh</codeph> session logging is disabled. To enable gfsh
-				logging, you must set the Java system property
-						<codeph>-Dgfsh.log-level=<i>desired_log_level</i>
+			<p>By default, <codeph>gfsh</codeph> session logging is disabled. To enable gfsh logging, you
+				must set the Java system property <codeph>-Dgfsh.log-level=<i>desired_log_level</i>
 				</codeph>where <i>desired_log _level</i> is one of the following values: severe,
-				warning, info, config, fine, finer, finest. For example, in
-				Linux:<codeblock>export JAVA_ARGS=-Dgfsh.log-level=info</codeblock></p>
+				warning, info, config, fine, finer, finest. For example, in Linux:</p>
+			<codeblock>export JAVA_ARGS=-Dgfsh.log-level=info</codeblock>
 			<p>Then, start <codeph>gfsh</codeph>. </p>
 			<p>gfsh produces a log file named <b>gfsh-<i>%u</i>_<i>%g</i>.log</b>. This log file
 				records the events of an individual gfsh session. It includes environment
@@ -129,12 +128,12 @@
 					>http://docs.oracle.com/javase/7/docs/api/java/util/logging/FileHandler.html</xref>
 				for a description of how the variables are used in naming the log file. The default
 				name of the generated gfsh log file cannot be changed.</p>
-			<p>By default, the log file is written to the current working directory where you have
-				executed the <codeph>gfsh</codeph> or <codeph>gfsh.bat</codeph> script. To modify
-				the directory location where log files are written, use the
-					<codeph>gfsh.log-dir</codeph> Java system property. For
-				example:<codeblock>export JAVA_ARGS="-Dgfsh.log-level=info -Dgfsh.log-dir=/machinename/logs"</codeblock>Then,
-				start <codeph>gfsh</codeph>.</p>
+			<p>By default, the log file is written to the current working directory where you have executed
+				the <codeph>gfsh</codeph> or <codeph>gfsh.bat</codeph> script. To modify the
+				directory location where log files are written, use the
+					<codeph>gfsh.log-dir</codeph> Java system property. For example:</p>
+			<codeblock>export JAVA_ARGS="-Dgfsh.log-level=info -Dgfsh.log-dir=/machinename/logs"</codeblock>
+			<p>Then, start <codeph>gfsh</codeph>.</p>
 			<p>In addition, <codeph>gfsh</codeph> records a history of commands in the
 					<codeph>${SYS_USER_HOME}/.gemfire/.gfsh.history</codeph> file, which you can use
 				to create scripts or review past commands. </p>

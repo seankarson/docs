@@ -9,55 +9,53 @@
 			application. Optionally, configure Pulse to connect to a <keyword keyref="product_name"
 			/> system of your choice. </shortdesc>
 		<body>
-			<p>To run Pulse in embedded mode: <ol id="ol_953D2A0C17B54B929A7215423425372D">
-					<li id="li_C66E9CFB5CFF425FB9A629AA64BECCFA">
-						<p>Configure a <keyword keyref="product_name"/> member to run as a JMX Manager node,
-							specifying the HTTP port on which you will access the Pulse Web
-							application (port 7070 by default). For example, the following command
-							starts a <keyword keyref="product_name"/> locator as a JMX Manager node,
-							using the default HTTP port 7070 for the Pulse application:  </p>
-						<codeblock>gfsh
+			<p>To run Pulse in embedded mode:  </p>
+			<ol id="ol_fgr_2hg_2w">
+				<li>
+					<p>Configure a <keyword keyref="product_name"/> member to run as a JMX Manager
+						node, specifying the HTTP port on which you will access the Pulse Web
+						application (port 7070 by default). For example, the following command
+						starts a <keyword keyref="product_name"/> locator as a JMX Manager node,
+						using the default HTTP port 7070 for the Pulse application: </p>
+					<codeblock>gfsh
 gfsh&gt; start locator --name=loc1</codeblock>
-						<note><keyword keyref="product_name"/> locators become JMX Manager nodes by
-							default. To start a non-locator member as a JMX Manager node, include
-							the <codeph>--J=-Dgemfire.jmx-manager=true</codeph> option. To specify a
-							non-default port number for the HTTP service that hosts the Pulse
-							application, include the
-									<codeph>--J=-Dgemfire.http-service-port=<i>port_number</i></codeph>
-							option when starting the JMX Manager node. </note>
-						<p>When the JMX Manager node boots, it starts an embedded Jetty instance and deploys the Pulse
-							Web application at the specified or default HTTP port or 7070 by
-							default. </p>
-						<p><codeph>gfsh</codeph> automatically connects to the manager when you
-							start it in this way. If you already started a manager process earlier,
-							use the <codeph>connect</codeph> command in <codeph>gfsh</codeph> to
-							connect to that process. </p>
-					</li>
-					<li id="li_F83552FCFB834AD993E56F92FA774656">
-						<p>Access the embedded Pulse application from a Web browser. If you are connected to the
-								<keyword keyref="product_name"/> cluster using gfsh, use the
-								<codeph>start pulse</codeph> command to load the correct URL in your
-							browser:  </p>
-						<codeblock>gfsh&gt; start pulse</codeblock>
-						<p>Or, enter the URL http://<i>address</i>:<i>http-service-port</i>/pulse
-							directly in your Web browser, substituting the address and HTTP port of
-							the manager. For example, you access Pulse on the local locator machine
-							from Step 1 at the URL http://localhost:7070/pulse. </p>
-					</li>
-					<li id="li_316CDCB6AC304C2E9AD54D3129B49724">If you have configured
-						authentication for the Pulse application, enter the username and password of
-						a valid Pulse account in the login screen. Otherwise, enter the default
-						"admin" in both fields. Click <b>Sign In</b> to continue. <p>See <xref
-								scope="local"
-								href="quickstart.xml#topic_AC9FFAA6FB044279BAED7A3E099E07AC"
-								type="topic" format="dita"/>. </p>
-					</li>
-					<li id="li_810340A19E834A7C8033A0DB853CD0B8">After you log in, Pulse displays
-						the main cluster view for the local distributed system. See <xref
-							href="quickstart.xml#topic_F0ECE9E8179541CCA3D6C5F4FBA84404"
-							type="topic" format="dita" scope="local"/>. </li>
-				</ol>
-			</p>
+					<note><keyword keyref="product_name"/> locators become JMX Manager nodes by
+						default. To start a non-locator member as a JMX Manager node, include the
+							<codeph>--J=-Dgemfire.jmx-manager=true</codeph> option. To specify a
+						non-default port number for the HTTP service that hosts the Pulse
+						application, include the
+								<codeph>--J=-Dgemfire.http-service-port=<i>port_number</i></codeph>
+						option when starting the JMX Manager node. </note>
+					<p>When the JMX Manager node boots, it starts an embedded Jetty instance and
+						deploys the Pulse Web application at the specified or default HTTP port or
+						7070 by default. </p>
+					<p><codeph>gfsh</codeph> automatically connects to the manager when you start it
+						in this way. If you already started a manager process earlier, use the
+							<codeph>connect</codeph> command in <codeph>gfsh</codeph> to connect to
+						that process. </p>
+				</li>
+				<li>
+					<p>Access the embedded Pulse application from a Web browser. If you are
+						connected to the <keyword keyref="product_name"/> cluster using gfsh, use
+						the <codeph>start pulse</codeph> command to load the correct URL in your
+						browser: </p>
+					<codeblock>gfsh&gt; start pulse</codeblock>
+					<p>Or, enter the URL http://<i>address</i>:<i>http-service-port</i>/pulse
+						directly in your Web browser, substituting the address and HTTP port of the
+						manager. For example, you access Pulse on the local locator machine from
+						Step 1 at the URL http://localhost:7070/pulse. </p>
+				</li>
+				<li>If you have configured authentication for the Pulse application, enter the
+					username and password of a valid Pulse account in the login screen. Otherwise,
+					enter the default "admin" in both fields. Click <b>Sign In</b> to continue.
+						<p>See <xref scope="local"
+							href="quickstart.xml#topic_AC9FFAA6FB044279BAED7A3E099E07AC"
+							type="topic" format="dita"/>. </p>
+				</li>
+				<li>After you log in, Pulse displays the main cluster view for the local distributed
+					system. See <xref href="quickstart.xml#topic_F0ECE9E8179541CCA3D6C5F4FBA84404"
+						type="topic" format="dita" scope="local"/>. </li>
+			</ol>
 			<note>When running in embedded mode, the Pulse application connects only to the JMX Manager
 				running in the locator or member that hosts Pulse. This enables you to monitor all
 				members of that distributed system. You can also view (but not monitor) connected
@@ -72,157 +70,144 @@ gfsh&gt; start locator --name=loc1</codeblock>
 			When you host Pulse in this way, you also configure Pulse to connect to a specific
 			locator or JMX Manager node for monitoring. </shortdesc>
 		<body>
-			<p>To host Pulse on a Web application server: <ol
-					id="ol_E06DD255F588414BBD5CD8A8F7A3969F">
-					<li id="li_03845BE53E56471B9F923D9B488EEA8E">Set the
-							<codeph>http-service-port</codeph> property to zero
-							(<codeph>-Dgemfire.http-service-port=0</codeph>) when you start your
-							<keyword keyref="product_name"/> JMX Manager nodes. Setting this
-						property to zero disables the embedded Web server for hosting the Pulse
-						application. </li>
-					<li id="li_5DA8BECE62B146ED865557468A163932">
-						<p>Create a <filepath>pulse.properties</filepath> file somewhere in the
-							classpath of your Web application server. For example, if you are
-							hosting Pulse on Tomcat, create the
-								<filepath>pulse.properties</filepath> file in the
-								<filepath>$TOMCAT_SERVER/lib</filepath> directory. </p>
-					</li>
-					<li id="li_2CC54310EDF34237AFDFD02949C6E4D4">Define the following configuration properties in
-						the <filepath>pulse.properties</filepath> file: <table
-							id="table_9C0EA1396A8341878F30F0D563238F6B">
-							<tgroup cols="2">
-								<colspec colnum="1" colname="col1" colwidth="*"/>
-								<colspec colnum="2" colname="col2" colwidth="*"/>
-								<thead>
-									<row>
-										<entry colname="col1">Property </entry>
-										<entry colname="col2">Description </entry>
-									</row>
-								</thead>
-								<tbody>
-									<row>
-										<entry colname="col1"><codeph>pulse.useLocator</codeph>
-										</entry>
-										<entry colname="col2">Specify "true" to configure Pulse to
-											connect to a <keyword keyref="product_name"/> Locator
-											member, or "false" to connect directly to a JMX Manager.
-												<p>When Pulse connects to a <keyword
+			<p>To host Pulse on a Web application server:  </p>
+			<ol id="ol_gzt_hhg_2w">
+				<li>Set the <codeph>http-service-port</codeph> property to zero
+						(<codeph>-Dgemfire.http-service-port=0</codeph>) when you start your
+						<keyword keyref="product_name"/> JMX Manager nodes. Setting this property to
+					zero disables the embedded Web server for hosting the Pulse application. </li>
+				<li>
+					<p>Create a <filepath>pulse.properties</filepath> file somewhere in the
+						classpath of your Web application server. For example, if you are hosting
+						Pulse on Tomcat, create the <filepath>pulse.properties</filepath> file in
+						the <filepath>$TOMCAT_SERVER/lib</filepath> directory. </p>
+				</li>
+				<li>Define the following configuration properties in the
+						<filepath>pulse.properties</filepath> file: <table id="table_hzt_hhg_2w">
+						<tgroup cols="2">
+							<colspec colnum="1" colname="col1" colwidth="*"/>
+							<colspec colnum="2" colname="col2" colwidth="*"/>
+							<thead>
+								<row>
+									<entry colname="col1">Property </entry>
+									<entry colname="col2">Description </entry>
+								</row>
+							</thead>
+							<tbody>
+								<row>
+									<entry colname="col1"><codeph>pulse.useLocator</codeph>
+									</entry>
+									<entry colname="col2">Specify "true" to configure Pulse to
+										connect to a <keyword keyref="product_name"/> Locator
+										member, or "false" to connect directly to a JMX Manager.
+											<p>When Pulse connects to a <keyword
 												keyref="product_name"/> locator, the locator
-												provides the address and port of an available JMX
-												Manager to use for monitoring the distributed
-												system. In most production deployments, you should
-												connect Pulse to a locator instance; this allows
-												Pulse to provide monitoring services using any
-												available JMX Manager. </p>
-											<p>If you specify "false," Pulse connects directly to a
-												specific JMX Manager. If this manager is not
-												available, the Pulse connection fails, even if
-												another JMX Manager is available in the distributed
-												system. </p>
-										</entry>
-									</row>
-									<row>
-										<entry colname="col1"><codeph>pulse.host</codeph>
-										</entry>
-										<entry colname="col2">Specify the DNS name or IP address of
-											the <keyword keyref="product_name"/> locator or JMX
-											Manager machine to which Pulse should connect. You
-											specify either a locator or JMX Manager address
-											depending on how you configured the
-												<codeph>pulse.useLocator</codeph> property. </entry>
-									</row>
-									<row>
-										<entry colname="col1"><codeph>pulse.port</codeph>
-										</entry>
-										<entry colname="col2">Specify the port number of the
-												<keyword keyref="product_name"/> locator or the HTTP
-											port number of the JMX Manager to which Pulse should
-											connect. You specify either a locator or JMX Manager
-											port depending on how you configured the
-												<codeph>pulse.useLocator</codeph> property. <p>If
-												you configured
+											provides the address and port of an available JMX
+											Manager to use for monitoring the distributed system. In
+											most production deployments, you should connect Pulse to
+											a locator instance; this allows Pulse to provide
+											monitoring services using any available JMX Manager. </p>
+										<p>If you specify "false," Pulse connects directly to a
+											specific JMX Manager. If this manager is not available,
+											the Pulse connection fails, even if another JMX Manager
+											is available in the distributed system. </p>
+									</entry>
+								</row>
+								<row>
+									<entry colname="col1"><codeph>pulse.host</codeph>
+									</entry>
+									<entry colname="col2">Specify the DNS name or IP address of the
+											<keyword keyref="product_name"/> locator or JMX Manager
+										machine to which Pulse should connect. You specify either a
+										locator or JMX Manager address depending on how you
+										configured the <codeph>pulse.useLocator</codeph> property.
+									</entry>
+								</row>
+								<row>
+									<entry colname="col1"><codeph>pulse.port</codeph>
+									</entry>
+									<entry colname="col2">Specify the port number of the <keyword
+											keyref="product_name"/> locator or the HTTP port number
+										of the JMX Manager to which Pulse should connect. You
+										specify either a locator or JMX Manager port depending on
+										how you configured the <codeph>pulse.useLocator</codeph>
+										property. <p>If you configured
 												<codeph>pulse.useLocator=false</codeph>, then
 												<codeph>pulse.port</codeph> must correspond to the
 												<codeph>http-service-port</codeph> setting of the
-												JMX Manager. </p>
-										</entry>
-									</row>
-									<row>
-										<entry colname="col1"><codeph>pulse.jmxUserName</codeph>
-										</entry>
-										<entry colname="col2">If you configured authentication for
-											the <keyword keyref="product_name"/> JMX Manager node,
-											specify a valid JMX user name that the Pulse application
-											will use to authenticate to the JMX Manager. <note>The
-												JMX account that Pulse uses must have both read and
-												write privileges. </note>
-											<p>See <xref scope="local"
+											JMX Manager. </p>
+									</entry>
+								</row>
+								<row>
+									<entry colname="col1"><codeph>pulse.jmxUserName</codeph>
+									</entry>
+									<entry colname="col2">If you configured authentication for the
+											<keyword keyref="product_name"/> JMX Manager node,
+										specify a valid JMX user name that the Pulse application
+										will use to authenticate to the JMX Manager. <note>The JMX
+											account that Pulse uses must have both read and write
+											privileges. </note>
+										<p>See <xref scope="local"
 												href="../../managing/management/jmx_manager_operations.xml#topic_263072624B8D4CDBAD18B82E07AA44B6"
 												type="topic" format="dita"/> for information about
-												configuring authentication for JMX Manager nodes.
-											</p>
-										</entry>
-									</row>
-									<row>
-										<entry colname="col1"><codeph>pulse.jmxUserPassword</codeph>
-										</entry>
-										<entry colname="col2">Specify the password of the JMX user
-											account to use for authentication at startup. </entry>
-									</row>
-								</tbody>
-							</tgroup>
-						</table>
-						<p>For example, with this configuration Pulse connects to the locator at
-							mylocator[10334] and accesses any available JMX Manager:  </p><codeblock>pulse.useLocator=true
+											configuring authentication for JMX Manager nodes. </p>
+									</entry>
+								</row>
+								<row>
+									<entry colname="col1"><codeph>pulse.jmxUserPassword</codeph>
+									</entry>
+									<entry colname="col2">Specify the password of the JMX user
+										account to use for authentication at startup. </entry>
+								</row>
+							</tbody>
+						</tgroup>
+					</table>
+					<p>For example, with this configuration Pulse connects to the locator at
+						mylocator[10334] and accesses any available JMX Manager: </p><codeblock>pulse.useLocator=true
 pulse.host=locsrv.gemstone.com
 pulse.port=10334
 pulse.jmxUserName=pulseapp
 pulse.jmxUserPassword=pulsepass</codeblock>
-						<p>With this configuration Pulse accesses only the JMX Manager instance at
-							manager1[8080]:
-						</p><codeblock>pulse.useLocator=false
+					<p>With this configuration Pulse accesses only the JMX Manager instance at
+						manager1[8080]:
+					</p><codeblock>pulse.useLocator=false
 pulse.host=jmxsrv.gemstone.com
 pulse.port=8080
 pulse.jmxUserName=pulseapp
 pulse.jmxUserPassword=pulsepass</codeblock>
-					</li>
-					<li id="li_7B562C0CAEFA43B5926DFADE003961AC">(Optional.) Configure
-						authentication for the Pulse Web application using the instructions in <xref
+				</li>
+				<li>(Optional.) Configure authentication for the Pulse Web application using the
+					instructions in <xref
+						href="quickstart.xml#topic_AC9FFAA6FB044279BAED7A3E099E07AC" type="topic"
+						format="dita" scope="local"/>. </li>
+				<li>Deploy the Pulse Web application to your application server. <keyword
+						keyref="product_name"/> installs the <filepath>pulse.war</filepath> file in
+					the <filepath>tools/Pulse</filepath> subdirectory of your <keyword
+						keyref="product_name"/> installation directory. Depending on your
+					application server, you may need to copy the <filepath>pulse.war</filepath> file
+					to a deployment directory or use a configuration tool to deploy the file. </li>
+				<li>
+					<p>Access the Pulse application using the address, port, and application URL
+						that you configure in your Web application server. For example, with Tomcat
+						the default URL is http://<i>address</i>:8080/pulse. Your application server
+						provides options for configuring the address, port, and application name;
+						substitute the correct items to access the deployed Pulse application. </p>
+					<p>Pulse connects to the locator or JMX Manager that you configured in the
+							<codeph>pulse.properties</codeph> file, authenticating using the
+						credentials that you configured in the file. </p>
+				</li>
+				<li>If you have configured authentication for the Pulse application, enter the
+					username and password of a valid Pulse account in the login screen. Otherwise,
+					enter the default "admin" in both fields. Click <b>Sign In</b> to continue.
+						<p>See <xref scope="local"
 							href="quickstart.xml#topic_AC9FFAA6FB044279BAED7A3E099E07AC"
-							type="topic" format="dita" scope="local"/>. </li>
-					<li id="li_D3EB4CA9D8074DB0BFC19E4946E36D34">Deploy the Pulse Web application to
-						your application server. <keyword keyref="product_name"/> installs the
-							<filepath>pulse.war</filepath> file in the
-							<filepath>tools/Pulse</filepath> subdirectory of your <keyword
-							keyref="product_name"/> installation directory. Depending on your
-						application server, you may need to copy the <filepath>pulse.war</filepath>
-						file to a deployment directory or use a configuration tool to deploy the
-						file. </li>
-					<li id="li_AC5D2505A5BA467788E577D57A595413">
-						<p>Access the Pulse application using the address, port, and application URL
-							that you configure in your Web application server. For example, with
-							Tomcat the default URL is http://<i>address</i>:8080/pulse. Your
-							application server provides options for configuring the address, port,
-							and application name; substitute the correct items to access the
-							deployed Pulse application. </p>
-						<p>Pulse connects to the locator or JMX Manager that you configured in the
-								<codeph>pulse.properties</codeph> file, authenticating using the
-							credentials that you configured in the file. </p>
-					</li>
-					<li id="li_7570C6D5D1C54EE2B6C18941B534CD39">If you have configured
-						authentication for the Pulse application, enter the username and password of
-						a valid Pulse account in the login screen. Otherwise, enter the default
-						"admin" in both fields. Click <b>Sign In</b> to continue. <p>See <xref
-								scope="local"
-								href="quickstart.xml#topic_AC9FFAA6FB044279BAED7A3E099E07AC"
-								type="topic" format="dita"/>. </p>
-					</li>
-					<li id="li_195772D5D14347D3B0DB2DAF9C586772">After you log in, Pulse displays
-						the main cluster view for the distributed system to which it has connected.
-						See <xref href="quickstart.xml#topic_F0ECE9E8179541CCA3D6C5F4FBA84404"
-							type="topic" format="dita" scope="local"/>. </li>
-				</ol>
-			</p>
+							type="topic" format="dita"/>. </p>
+				</li>
+				<li>After you log in, Pulse displays the main cluster view for the distributed
+					system to which it has connected. See <xref
+						href="quickstart.xml#topic_F0ECE9E8179541CCA3D6C5F4FBA84404" type="topic"
+						format="dita" scope="local"/>. </li>
+			</ol>
 		</body>
 	</topic>
 	<topic id="topic_AC9FFAA6FB044279BAED7A3E099E07AC">
