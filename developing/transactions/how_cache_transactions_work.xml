@@ -3,19 +3,14 @@
 <dita>
   <topic id="topic_fls_1j1_wk">
     <title>How <keyword keyref="product_name"/> Cache Transactions Work</title>
-    <shortdesc>This section provides an explanation on how transactions work on <keyword
+    <shortdesc>This section provides an explanation of how transactions work on <keyword
         keyref="product_name"/> caches.</shortdesc>
     <body>
-      <p><keyword keyref="product_name"/> transactions operate on data in local member caches. All
-        the regions in a member cache can participate in a transaction. A Java application can
+      <p>All
+        the regions in a <keyword keyref="product_name"/> member cache can participate in a transaction. A Java application can
         operate on the cache using multiple transactions. A transaction is associated with only one
         thread, and a thread can operate on only one transaction at a time. Child threads do not
         inherit existing transactions. </p>
-      <p>The diagram shows a transaction operating against a local member cache. </p>
-      <p>
-        <image placement="break" id="image_04663C41965F4D349DD6D4D168892BDA"
-          href="../../images_svg/transactions_1.svg"/>
-      </p>
     </body>
   </topic>
   <concept id="concept_hls_1j1_wk">
@@ -25,12 +20,12 @@
         its own private view of the cache, including the entries it has read and the changes it has
         made. The first time the transaction touches an entry in the cache, either to read or write,
         it produces a snapshot of that entry’s state in the transaction’s view. The transaction
-        remembers the entry’s original state and uses it at commit time to discover write conflicts.
-        The transaction maintains its current view of the entry, which reflects only the changes
-        made within the transaction. </p>
+        maintains its current view of the entry, which reflects only the changes made within the
+        transaction. The transaction remembers the entry’s original state and uses it at commit time
+        to discover write conflicts.</p>
       <p>
         <image placement="break" id="image_D21EF847CD1D4B64AD1786033FB44F5C"
-          href="../../images_svg/transactions_2.svg"/>
+          href="../../images/transaction-simple.png"/>
       </p>
     </conbody>
   </concept>
