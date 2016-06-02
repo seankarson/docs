@@ -19,7 +19,8 @@
 			<p>You should follow certain order guidelines when starting your <keyword
 				keyref="product_name"/> system. </p>
 			<p>Start server-distributed systems before you start their client applications. In each
-				distributed system, follow these guidelines for member startup: <ul
+				distributed system, follow these guidelines for member startup: </p>
+				<ul
 					id="ul_5863AF9CB6DB436E81D974ACA90A4C11">
 					<li id="li_FD023619751949E883BE95DFA93888FF">Start locators first. See <xref
 							href="running_the_locator.xml" type="concept" format="dita"
@@ -53,7 +54,6 @@
 						process that cannot connect to a locator upon startup will throw an
 						exception.</li>
 				</ul>
-			</p>
 			<note>You can optionally override the default timeout period for shutting down individual
 				processes. This override setting must be specified during member startup. See <xref
 					href="#starting_up_shutting_down/section_mnx_4cp_cv" format="dita">Shutting Down
@@ -117,7 +117,8 @@ gfsh&gt;revoke missing-disk-store --id=60399215-532b-406f-b81f-9b5bd8d1b55a</cod
 					format="dita">Starting Up Your System</xref> for the recommended order of member
 				startup.) </p>
 			<p>Shut down the distributed system members according to the type of member. For
-				example, use the following mechanisms to shut down members: <ul
+				example, use the following mechanisms to shut down members:</p>
+				<ul
 					id="ul_12CC69DA7B8047AFA69CC5F120B66E0F">
 					<li id="li_0C4894CD078B469A869B008331A4FF99">Use the appropriate mechanism to
 						shut down any <keyword keyref="product_name"/>-connected client applications

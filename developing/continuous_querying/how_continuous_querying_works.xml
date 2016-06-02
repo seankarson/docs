@@ -64,7 +64,8 @@
 						side. Each listener for the CQ gets the event. </li>
 				</ol>
 			</p>
-			<p>In the following figure: <ul id="ul_93261E8039304D5D840779BF19815ECA">
+			<p>In the following figure: </p>
+				<ul id="ul_93261E8039304D5D840779BF19815ECA">
 					<li id="li_7B344202AAC84E2C9A4369FDB13B5341">Both the new and old prices for
 						entry X satisfy the CQ query, so that event is sent indicating an update to
 						the query results. </li>
@@ -75,7 +76,6 @@
 					<li id="li_8C380CCD235748F4A5866E65A65A2FCC">The price for the newly created
 						entry Z does not satisfy the query, so no event is sent. </li>
 				</ul>
-			</p>
 			<p>
 				<image href="../../images/ContinuousQuerying-3.gif" id="image_2F21A3820906449FAABE7ACC9654A564"
 					placement="break"/>
@@ -88,7 +88,8 @@
 				data in your regions. If you need to persist information from CQ events, program
 				your listener to store the information where it makes the most sense for your
 				application. </p>
-			<p>The <codeph>CqEvent</codeph> object contains this information: <ul
+			<p>The <codeph>CqEvent</codeph> object contains this information:</p>
+				<ul
 					id="ul_86204F971C464F1EB994C731C56D3D3D">
 					<li id="li_37FB1BDB286F4834BA8D06F6FA913018">Entry key and new value. </li>
 					<li id="li_ADBE9D64F29F4C44BD3387B6EE2914B7">Base operation that triggered the
@@ -115,7 +116,6 @@
 						</ul>
 					</li>
 				</ul>
-			</p>
 			<p>Region operations do not translate to specific query operations and query operations
 				do not specifically describe region events. Instead, the query operation describes
 				how the region event affects the query results. </p>

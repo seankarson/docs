@@ -13,7 +13,8 @@
 					<codeph>ReflectionBasedAutoSerializer</codeph> is that you want it to handle an
 				object that would currently need to be handled by standard Java serialization. There
 				are several issues with having to use standard Java serialization that can be
-				addressed by extending the PDX <codeph>ReflectionBasedAutoSerializer</codeph>. <ul
+				addressed by extending the PDX <codeph>ReflectionBasedAutoSerializer</codeph>.</p>
+				<ul
 					id="ul_B23259DC192244DCA50F45869ED93DD4">
 					<li id="li_701A01C38B0B4053B78BA3B53EF54C91">Each time we transition from a
 							<keyword keyref="product_name"/> serialized object to an object that
@@ -35,13 +36,13 @@
 						standard Java serialization (by getting an exception on them) and then
 						enhancing your auto serializer to handle them. </li>
 				</ul>
-			</p>
 		</section>
 		<section id="section_A739691C60FB4EB291289AADCD66C675">
 			<title>Overriding ReflectionBasedAutoSerializer Behavior</title>
 			<p>You can customize the specific behaviors in
 					<codeph>ReflectionBasedAutoSerializer</codeph> by overriding the following
-				methods: <ul id="ul_6C66CFC92B5B4566A2A91ADA5A1C2EFA">
+				methods:</p>
+				<ul id="ul_6C66CFC92B5B4566A2A91ADA5A1C2EFA">
 					<li id="li_B52B78CBC09547D39B9232F836A2AC95"
 								><b><codeph>isClassAutoSerialized</codeph></b> customizes which
 						classes to autoserialize. </li>
@@ -69,7 +70,6 @@
 							><b><codeph>readTransform</codeph></b> controls what field value is read
 						during auto deserialization. </li>
 				</ul>
-			</p>
 			<p>These methods are only called the first time the
 					<codeph>ReflectionBasedAutoSerializer</codeph> sees a new class. The results
 				will be remembered and used the next time the same class is seen. </p>

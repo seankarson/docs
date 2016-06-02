@@ -10,7 +10,8 @@
 					keyref="product_name"/> distributed system that do not act as clients to another
 					<keyword keyref="product_name"/> distributed system. <keyword
 					keyref="product_name"/> servers are peers that also listen for and process
-				client requests. <ol id="ol_1132BF713A1E4558A5ACFF355F584FBA">
+				client requests.</p>
+				<ol id="ol_1132BF713A1E4558A5ACFF355F584FBA">
 					<li id="li_13D37B0BB9244C7AAF0A1E300E6469F0">Create your cache: <ol
 							id="ol_4D8853D1ED4D4980903E8157DF629F0D">
 							<li>Start up a cluster and the cluster configuration service:<ol
@@ -70,7 +71,6 @@ gfsh>create region --name=ordersRegion --type=PARTITION</codeblock></li>
 						instance: <codeblock>cache.close();</codeblock>
 					</li>
 				</ol>
-			</p>
 		</section>
 	</conbody>
 </concept>

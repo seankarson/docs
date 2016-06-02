@@ -72,13 +72,14 @@
             message:<codeblock>Cluster configuration service is up and running.</codeblock><p>If you
             do not see this message, there may be a problem with the cluster configuration service.
             Use the <cmdname>status cluster-configuration-service</cmdname> command to check the
-            status of the cluster configuration. <ul id="ul_p4v_2hp_y4">
+              status of the cluster configuration.</p>
+            <ul id="ul_p4v_2hp_y4">
               <li>If the command returns <systemoutput>RUNNING</systemoutput>, the cluster
                 configuration is running normally.</li>
               <li>If the command returns <systemoutput>WAITING</systemoutput>, run the
                   <cmdname>status locator</cmdname> command. The output of this command returns the
                 cause of the <systemoutput>WAITING</systemoutput> status. </li>
-            </ul></p></li>
+            </ul></li>
         <li>If a server start fails with the following exception:
             <codeph>ClusterConfigurationNotAvailableException</codeph>, the cluster configuration
           service may not be in the <systemoutput>RUNNING</systemoutput> state. Because the server
