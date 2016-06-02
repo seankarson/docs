@@ -13,7 +13,8 @@
 			<p>When the client pool requests connection information from the server locator, the
 				locator returns the least-loaded server for the connection type. The pool uses this
 				"best server" response to open new connections and to condition (rebalance) its
-				existing pool connections. <ul id="ul_22DF825FDD8941CC842F572E8356B338">
+				existing pool connections. </p>
+				<ul id="ul_22DF825FDD8941CC842F572E8356B338">
 					<li id="li_02683DCE613B45A7933822873119C83E">The locator tracks server
 						availability and load according to information that the servers provide.
 						Each server probes its load metrics periodically and, when it detects a
@@ -51,7 +52,6 @@
 						the number of subscription queues hosted by this server. The load estimate
 						for each additional subscription connection is 1. </li>
 				</ul>
-			</p>
 			<p>To use your own server load metrics instead of the default, implement the
 					<codeph>ServerLoadProbe</codeph> or <codeph>ServerLoadProbeAdapter</codeph> and
 				related interfaces and classes in the

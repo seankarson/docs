@@ -81,13 +81,12 @@
 						keyref="product_name"/> server in the local cluster to a remote <keyword
 						keyref="product_name"/> cluster. Although multiple regions can use the same
 					serial gateway for distribution, a serial gateway uses a single logical event
-					queue to dispatch events for all regions that use the gateway sender. <fig
+					queue to dispatch events for all regions that use the gateway sender. </p>
+					<fig
 						id="fig_07C402FC855047F5AAAB2D3E8E3953E3">
 						<image id="image_CEF888583FAC4CCBB0445F2BF8F15F20"
 							href="../../images/serial_sender.png" placement="break" width="6.0in"/>
 					</fig>
-				</p>
-				
 				<p> Because a serial gateway sender distributes all of a region's events from a single  member,
 					it provides the most control over ordering region events as they are distributed
 					across the WAN. However, a serial gateway sender provides only a finite amount

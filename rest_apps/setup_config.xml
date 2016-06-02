@@ -57,14 +57,14 @@
       <step>
         <cmd>Configure PDX for your cluster. You must configure PDX if either or both of the
           following conditions apply: </cmd>
-        <info><p>
+        <info>
             <ul id="ul_shp_4qx_dp">
               <li>Application peer member caches will access REST-accessible Regions (resources)
                 with the <codeph>Region.get(key)</codeph>.</li>
               <li>Your deployment has persistent regions that must be available as resources to the
                 REST API. </li>
             </ul>
-          </p> To configure PDX in your cluster, perform the following steps:</info>
+          <p>To configure PDX in your cluster, perform the following steps:</p></info>
         <substeps id="substeps_pgr_x5p_y4">
           <substep>
             <cmd>Start up a locator running the <xref

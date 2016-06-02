@@ -76,7 +76,8 @@ Date: Sat, 18 Jan 2014 20:05:47 GMT
     ]
 }
 </codeblock>Each
-          region listed in the response includes the following region attributes:<ul
+          region listed in the response includes the following region attributes:</p>
+          <ul
             id="ul_gyt_typ_p4">
             <li><b>name</b>. Name of the region.</li>
             <li><b>type</b>. Type of region. For example, REPLICATE, PARTITION, or EMPTY. See <xref
@@ -86,12 +87,13 @@ Date: Sat, 18 Jan 2014 20:05:47 GMT
               Otherwise, null.</li>
             <li><b>value-constraint</b>. If defined, the fully qualified class name of the value's
               type. Otherwise, null.</li>
-          </ul></p>
+          </ul>
         <p>If no resources (regions) are available in the cluster, the call returns a 404 NOT FOUND
           error.</p>
       </section>
       <section><title>Reading Region Data</title><p>You can read data from a region by using any of
-          the following REST-enabled mechanisms:<ul id="ul_x3q_31q_p4">
+        the following REST-enabled mechanisms:</p>
+          <ul id="ul_x3q_31q_p4">
             <li dir="ltr"><b id="docs-internal-guid-cb157eff-ee8a-4a16-1334-b9afbbe9a9f7">GET
                 /gemfire-api/v1/{region}?limit=ALL</b> - Read all entries in a region</li>
             <li dir="ltr"><b>GET /gemfire-api/v1/{region}?limit=<i>N</i></b> - Read a limited number
@@ -99,7 +101,8 @@ Date: Sat, 18 Jan 2014 20:05:47 GMT
             <li dir="ltr"><b>GET /gemfire-api/v1/{region}/keys</b> - List all keys in a region </li>
             <li dir="ltr"><b>GET /gemfire-api/v1/{region}/{keys}</b> - Read data for specific key or
               keys in a region</li>
-          </ul></p><p><b>Reading Entries</b></p><p>To read entries in a region, use the following
+          </ul>
+        <p><b>Reading Entries</b></p><p>To read entries in a region, use the following
           REST
           endpoint:<codeblock>GET /gemfire-api/v1/{region}?[limit={&lt;number&gt;|ALL}]</codeblock>For
           example:<codeblock>http://localhost:7070/gemfire-api/v1/items</codeblock></p><p>To read
@@ -135,7 +138,8 @@ http://localhost:7070/gemfire-api/v1/items/1,3,5</codeblock></p>
         example:<codeblock>http://localhost:7070/gemfire-api/v1/items/1,3,5?ignoreMissingKey=true</codeblock></p>
       <section>
         <title>Adding or Modifying Region Data</title>
-        <p>To add data to a region, you have several options:<ul id="ul_wty_ccq_p4">
+        <p>To add data to a region, you have several options:</p>
+          <ul id="ul_wty_ccq_p4">
             <li dir="ltr">Create new a brand new entry (both key and value) in a region</li>
             <li dir="ltr">Update or insert a value for a key (if the key does not exist, it will be
               created)</li>
@@ -144,7 +148,7 @@ http://localhost:7070/gemfire-api/v1/items/1,3,5</codeblock></p>
             <li dir="ltr">Compare existing value for a key before replacing value</li>
             <li dir="ltr">Update or insert multiple values in the region for a set of provided
               keys</li>
-          </ul></p>
+          </ul>
         <p>
           <b>Adding entries</b>
         </p>
@@ -308,12 +312,13 @@ Content-Type: application/json
       </section>
       <section>
         <title>Deleting Region Data</title>
-        <p>There are three options for deleting data in a region using REST APIs:<ul
+        <p>There are three options for deleting data in a region using REST APIs:</p>
+          <ul
             id="ul_rvg_j2q_p4">
             <li dir="ltr">Delete all the data in the region</li>
             <li dir="ltr">Delete the data associated with a particular key</li>
             <li dir="ltr">Delete the data associated with a set of keys</li>
-          </ul></p>
+          </ul>
         <p>
           <b>Deleting all data</b>
         </p>

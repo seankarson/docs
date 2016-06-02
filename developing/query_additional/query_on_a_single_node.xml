@@ -6,7 +6,8 @@
   </shortdesc>
   <conbody>
     <p>To direct a query to specific partitioned region node, you can execute the query within a
-      function. Use the following steps: <ol id="ol_D2DBE305642F4512812227E77CBC86DC">
+      function. Use the following steps: </p>
+      <ol id="ol_D2DBE305642F4512812227E77CBC86DC">
         <li id="li_A39119A454604D9DA7BD85162F52D63C"> Implement a function which executes a query
           using RegionFunctionContext.
           <codeblock>/**
@@ -159,6 +160,5 @@ public class TestFunctionQuery {
 </codeblock>
         </li>
       </ol>
-    </p>
   </conbody>
 </concept>

@@ -28,7 +28,8 @@
 					keyref="product_name"/> transaction and the database transaction are both
 				complete. </p>
 			<p>When using JTA global transactions with <keyword keyref="product_name"/>, you have three
-				options: <ol id="ol_iwf_qx1_wk">
+				options: </p>
+				<ol id="ol_iwf_qx1_wk">
 					<li id="li_ED6F4886753A48669E603A33DF9FFCC5">Coordinate with an external JTA
 						transaction manager in a container (such as WebLogic or JBoss) </li>
 					<li>Set <keyword keyref="product_name"/> as the “last resource” while using a
@@ -36,7 +37,6 @@
 					<li id="li_3869D2AB21B0422791CEA6A0EE683BDC">Have <keyword keyref="product_name"
 						/> act as the JTA transaction manager</li>
 				</ol>
-			</p>
 			<p>An application creates a global transaction by using
 					<codeph>javax.transaction.UserTransaction</codeph> bound to the JNDI context
 					<codeph>java:/UserTransaction</codeph> to start and terminate transactions.
@@ -67,7 +67,8 @@
 				<image id="image_C2935E48415349659FC39BF5C7E75579"
 					href="../../images_svg/transactions_jta_app_server.svg"/>
 			</fig>
-			<p>An externally coordinated JTA global transaction is run in the following manner: <ol
+			<p>An externally coordinated JTA global transaction is run in the following manner: </p>
+				<ol
 					id="ol_eq5_1fb_wk">
 					<li id="li_B9901259E6C4449E8FC0D1EFE02FEDF8">Each region operation looks up for
 						presence of a global transaction. If one is detected, then a <keyword
@@ -87,7 +88,6 @@
 						then gets a <codeph>afterCommit()</codeph> callback in which changes are
 						applied to the cache and distributed to other members. </li>
 				</ol>
-			</p>
 			<p>You can disable JTA in any region that should not participate in JTA transactions.
 				See <xref href="turning_off_jta.xml#concept_nw2_5gs_xk"
 					><?xm-replace_text Turning Off JTA Transactions ?></xref>. </p>

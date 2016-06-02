@@ -274,7 +274,8 @@ clientCache.readyForEvents(); </codeblock>
 				messaging to the client. To avoid overwriting current entries with old data, the
 				stored events are not applied to the client cache. Stored events are distinguished
 				from new normal events by a marker that is sent to the client once all old events
-				are replayed. <ol id="ol_5AB7763AA8454CBE8CE6F92107C55524">
+				are replayed. </p>
+				<ol id="ol_5AB7763AA8454CBE8CE6F92107C55524">
 					<li id="li_62290041A988427581155969A5333610">All servers with a queue for this
 						client place a marker in their queue when the client reconnects. </li>
 					<li id="li_4D90AB38EF504B9B9D3554BBCF95F2D0">The primary server sends the queued
@@ -292,7 +293,6 @@ clientCache.readyForEvents(); </codeblock>
 						the callback, the client begins normal processing of events from the server
 						and applies the updates to its cache. </li>
 				</ol>
-			</p>
 			<p>Even when a new client starts up for the first time, the client cache ready markers
 				are inserted in the queues. If messages start coming into the new queues before the
 				servers insert the marker, those messages are considered as having happened while

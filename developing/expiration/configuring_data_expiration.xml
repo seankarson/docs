@@ -5,7 +5,8 @@
 	<shortdesc>Configure the type of expiration and the expiration action to use. </shortdesc>
 	<conbody>
 		<section id="section_ADB8302125624E01A808EA5E4FF79A5C">
-			<p>You do not have to perform these steps in the exact sequence shown. <ol
+			<p>You do not have to perform these steps in the exact sequence shown. </p>
+				<ol
 					id="ol_B1F96C143AF145489A4E25BB0B86913A">
 					<li id="li_2A1F4422737E4960B034D98225F27DA2">Set the region's
 							<codeph>statistics-enabled</codeph> attribute to true. <p>
@@ -76,7 +77,6 @@ public class MyClass implements CustomExpiry, Declarable
 						</ol>
 					</li>
 				</ol>
-			</p>
 			<note>You can also configure Regions using the gfsh command-line interface, however, you
 				cannot configure <codeph>custom-expiry</codeph> using gfsh. See <xref
 					href="../../tools_modules/gfsh/quick_ref_commands_by_area.xml#topic_EF03119A40EE492984F3B6248596E1DD"

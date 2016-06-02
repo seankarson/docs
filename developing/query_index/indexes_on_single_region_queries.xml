@@ -12,7 +12,8 @@
 				key, a range index on pkid should improve performance.
 				<codeblock>SELECT DISTINCT * FROM /exampleRegion portfolio WHERE portfolio.pkid = '123'</codeblock></p>
 			<p>With multiple comparison operations, you can create a range index on one or more of
-				the attributes. Try the following: <ol id="ol_9627F6320DCF4CF8AD1077DBCC44A9CE">
+				the attributes. Try the following: </p>
+				<ol id="ol_9627F6320DCF4CF8AD1077DBCC44A9CE">
 					<li id="li_0873B1F1410C4764B9BB852449C213E5"> Create a single index on the
 						condition you expect to have the smallest result set size. Check performance
 						with this index. </li>
@@ -24,7 +25,6 @@
 						comparisons so the earlier ones give you the fewest results on which to run
 						subsequent comparisons. </li>
 				</ol>
-			</p>
 			<p>For this query, you would try a range index on name, age, or on both:
 				<codeblock>SELECT DISTINCT * FROM /exampleRegion portfolio WHERE portfolio.status = 'active' and portfolio.ID &gt; 45</codeblock>
 			</p>

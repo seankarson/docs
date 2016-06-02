@@ -37,7 +37,8 @@
           cache. If the commit fails or the transaction is rolled back, all of its changes are
           dropped. </p>
         <p>When a transaction is committed, the transaction management system uses a two-phase
-          commit protocol: <ol id="ol_5B048F061DA443119DA143C8BC35F128">
+          commit protocol: </p>
+          <ol id="ol_5B048F061DA443119DA143C8BC35F128">
             <li id="li_9ECEDCE63B1D455AAC60DD11EA3ED143">Reserves all the entries involved in the
               transaction from changes by any other transactional thread. For distributed regions,
               it reserves the entries in the entire distributed system. For partitioned regions, it
@@ -65,7 +66,6 @@
             <li id="li_B432F703921D4380B94245B5E3F4D89C">Releases the transaction reservations on
               the entries. </li>
           </ol>
-        </p>
         <p>The manager updates the local cache and distributes the updates to other members in a
           non-atomic way.</p>
           <ul id="ul_5B08C071186546A2812E871BF91C9B4B">

@@ -6,7 +6,8 @@
 		<shortdesc>On Linux systems, you can lock memory to prevent the operating system from paging
 			out heap or off-heap memory.</shortdesc>
 		<conbody>
-			<p> To use this feature:<ol id="ol_umj_whw_cv">
+			<p> To use this feature:</p>
+				<ol id="ol_umj_whw_cv">
 					<li> Configure the operating system limits for locked memory. Increase the
 						operating system's <codeph>ulimit -l</codeph> value (the maximum size that
 						may be locked in memory) from the default (typically 32 KB or 64 KB) to at
@@ -37,7 +38,7 @@ max locked memory       (kbytes, -l) 64
 						can cause failures (even machine crashes) if you accidentally over-allocate
 						the available RAM. After you verify that the system configuration is stable,
 						you can then start servers concurrently.</li>
-				</ol></p>
+				</ol>
 		</conbody>
 	</concept>
 </dita>

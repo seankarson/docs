@@ -153,27 +153,30 @@
           until the changes are made in the remote caches and M1 receives the acknowledgement that
           verifies that the tasks are complete. </p>
         <p><b>Step 1:</b> Before commit, Transactions T1 and T2 each change the same entry in Region
-          B within their local cache. T1 also makes a change to Region A.<fig id="fig_jhg_vzj_54">
+          B within their local cache. T1 also makes a change to Region A.</p>
+          <fig id="fig_jhg_vzj_54">
             <image href="../../images_svg/transactions_replicate_1.svg" id="image_cj1_zzj_54"/>
-          </fig></p>
+          </fig>
         <p><b>Step 2:</b> Conflict detected and eliminated. The distributed system recognizes the
           potential conflict from Transactions T1 and T2 using the same entry. T1 started to commit
-          first, so it is allowed to continue. T2's commit fails with a conflict.<fig
+          first, so it is allowed to continue. T2's commit fails with a conflict.</p><fig
             id="fig_bz1_b1k_54">
             <image href="../../images_svg/transactions_replicate_2.svg" id="image_sbh_21k_54"/>
-          </fig></p>
+          </fig>
         <p><b>Step 3:</b> Changes are in transit. T1 commits and its changes are merged into the
           local cache. The commit does not complete until <keyword keyref="product_name"/>
-          distributes the changes to the remote regions and acknowledgment is received.<fig
+          distributes the changes to the remote regions and acknowledgment is received.</p>
+          <fig
             id="fig_jyt_j1k_54">
             <image href="../../images_svg/transactions_replicate_3.svg" id="image_qgl_k1k_54"/>
-          </fig></p>
+          </fig>
         <p><b>Step 4:</b> After commit. Region A in M2 and Region B in M3 reflect the changes from
           transaction T1 and M1 has received acknowledgment. Results may not be identical in
-          different members if their region attributes (such as expiration) are different.<fig
+          different members if their region attributes (such as expiration) are different.</p>
+          <fig
             id="fig_sgr_p1k_54">
             <image href="../../images_svg/transactions_replicate_4.svg" id="image_mkm_q1k_54"/>
-          </fig></p>
+          </fig>
       </section>
       <section>
         <title>Conflicting Transactions in Distributed-No-Ack Regions</title>
@@ -182,21 +185,24 @@
           conflicting changes cross paths and leave the data in an inconsistent state. </p>
         <p><b>Step 1:</b> As in the previous example, Transactions T1 and T2 each change the same
           entry in Region B within their local cache. T1 also makes a change to Region A. Neither
-          commit fails, and the data becomes inconsistent.<fig id="fig_d5y_51k_54">
+          commit fails, and the data becomes inconsistent.</p>
+          <fig id="fig_d5y_51k_54">
             <image href="../../images_svg/transactions_replicate_1.svg" id="image_jn2_cbk_54"/>
-          </fig></p>
+          </fig>
         <p><b>Step 2:</b> Changes are in transit. Transactions T1 and T2 commit and merge their
           changes into the local cache. <keyword keyref="product_name"/> then distributes changes to
-          the remote regions.<fig id="fig_z3q_2bk_54">
+          the remote regions.</p>
+          <fig id="fig_z3q_2bk_54">
             <image href="../../images_svg/transactions_replicate_no_ack_1.svg" id="image_fk1_hbk_54"
             />
-          </fig></p>
+          </fig>
         <p><b>Step 3:</b> Distribution is complete. The non-conflicting changes in Region A have
           been distributed to M2 as expected. For Region B however, T1 and T2 have traded changes,
-          which is not the intended result.<fig id="fig_vl4_mbk_54">
+          which is not the intended result.</p>
+          <fig id="fig_vl4_mbk_54">
             <image href="../../images_svg/transactions_replicate_no_ack_2.svg" id="image_ijc_4bk_54"
             />
-          </fig></p>
+          </fig>
       </section>
       <section id="section_760DE9F2226B46AD8A025F562CEA4D40">
         <title>Conflicting Transactions with Local Scope</title>

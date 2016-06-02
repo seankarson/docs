@@ -87,7 +87,8 @@ this.currRegion.put(name,value); </codeblock><note>You
 				</note>
 			</p>
 			<p>Always change your entries using copies of the retrieved objects—never directly
-				modify the returned objects. You can do this in one of two ways: <ol
+				modify the returned objects. You can do this in one of two ways: </p>
+				<ol
 					id="ol_E5F0ED67E2D54C18BBA3473206E8C8C4">
 					<li id="li_22EF5D6D349B44FD82173D996A7D5A0B">Change the entry retrieval behavior
 						for your cache by setting the cache attribute,
@@ -148,7 +149,6 @@ s.append("Changes to value, added using put.");
 region.put("stringBuf", s);</codeblock>
 					</li>
 				</ol>
-			</p>
 		</section>
 		<section id="section_78F6731642944DE594316B86ECB4E70F">
 			<title>Retrieving Region Entries from Proxy Members </title>

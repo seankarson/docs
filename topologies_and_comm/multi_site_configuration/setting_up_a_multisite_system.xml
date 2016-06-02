@@ -105,7 +105,7 @@ remote-locators=&lt;remote-locator-addr1&gt;[&lt;port1&gt;],&lt;remote-locator-a
 			<ol id="ol_p1r_ryy_dw">
 				<li>For each <keyword keyref="product_name"/> system, choose the members that will
 					host a gateway sender configuration and distribute region events to remote
-					sites: <p>
+					sites: 
 						<ul id="ul_q1r_ryy_dw">
 							<li>You must deploy a parallel gateway sender configuration on each
 									<keyword keyref="product_name"/> member that hosts a region that
@@ -116,7 +116,6 @@ remote-locators=&lt;remote-locator-addr1&gt;[&lt;port1&gt;],&lt;remote-locator-a
 								serial gateway sender configuration distributes region events at any
 								given time. </li>
 						</ul>
-					</p>
 				</li>
 				<li>Configure each gateway sender on a <keyword keyref="product_name"/> member using
 					gfsh, <filepath>cache.xml</filepath> or Java API: <ul id="ul_r1r_ryy_dw">

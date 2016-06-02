@@ -6,7 +6,8 @@
 		<section id="section_BE483D79B81C49EE9855F506ED5AB014">
 			<p>In this procedure it is assumed that you have your members and regions defined where
 				you want to run functions. </p>
-			<p>Main tasks: <ol id="ol_61EDD679C23F42BFBF3BD6135D8355F4">
+			<p>Main tasks: </p>
+				<ol id="ol_61EDD679C23F42BFBF3BD6135D8355F4">
 					<li id="li_2C9D602F261F4912A3B344836EA43C60">Write the function code. </li>
 					<li id="li_F817EF01CDE54B4AB2370144D41BD00F">Register the function on all
 						servers where you want to execute the function. The easiest way to register
@@ -26,7 +27,6 @@
 							<codeph>ResultsCollector</codeph> implementation and use it in your
 						function execution. </li>
 				</ol>
-			</p>
 		</section>
 		<section id="section_7D43B0C628D54F579D5C434D3DF69B3C">
 			<title>Write the Function Code </title>
@@ -180,7 +180,8 @@ to be called using FunctionService.onRegion.");
 			<p>When you deploy a JAR file that contains a Function (in other words, contains a class
 				that implements the Function interface), the Function will be automatically
 				registered via the <codeph>FunctionService.registerFunction</codeph> method. </p>
-			<p>To register a function by using <codeph>gfsh</codeph>: <ol
+			<p>To register a function by using <codeph>gfsh</codeph>:</p>
+				<ol
 					id="ol_BC87AAB773E24C49872FD0435BAE77DE">
 					<li id="li_5789DCEF2B2D49A6B6C5B0D748395076">Package your class files into a JAR
 						file. </li>
@@ -193,7 +194,7 @@ to be called using FunctionService.onRegion.");
 						<codeblock>gfsh&gt;deploy --jar=group1_functions.jar</codeblock>where
 						group1_functions.jar corresponds to the JAR file that you created in step 1.
 					</li>
-				</ol>If another JAR file is deployed (either with the same JAR filename or another
+				</ol><p>If another JAR file is deployed (either with the same JAR filename or another
 				filename) with the same Function, the new implementation of the Function will be
 				registered, overwriting the old one. If a JAR file is undeployed, any Functions that
 				were auto-registered at the time of deployment will be unregistered. Since deploying
@@ -255,7 +256,7 @@ FunctionService.registerFunction(myFun);</codeblock>
 				results, you can use the <codeph>gfsh</codeph> command line to run the function or
 				you can write an application to run the function. </p>
 			<p>
-				<b>Running the Function Using gfsh</b>
+				<b>Running the Function Using gfsh</b></p>
 				<ol id="ol_2CCD1625F9B345F4866B34DD05997E8C">
 					<li id="li_ADD43FA36A784073ADABC710B6E325CB">Start a gfsh prompt. </li>
 					<li id="li_B9A442CE010944FC98E9AC4F435D1A54">If necessary, start a Locator and
@@ -267,7 +268,6 @@ FunctionService.registerFunction(myFun);</codeblock>
 							<i>function_id</i> equals the unique ID assigned to the function. You
 						can obtain this ID using the <codeph>Function.getId</codeph> method. </li>
 				</ol>
-			</p>
 			<p>See <xref
 					href="../../tools_modules/gfsh/quick_ref_commands_by_area.xml#topic_8BB061D1A7A9488C819FE2B7881A1278"
 					type="topic" format="dita" scope="local"/> for more <codeph>gfsh</codeph>
@@ -348,7 +348,8 @@ List result = (List)rc.getResult();</codeblock>
 			<p><keyword keyref="product_name"/>’s default <codeph>ResultCollector</codeph> collects
 				all results into an <codeph>ArrayList</codeph>. Its <codeph>getResult</codeph>
 				methods block until all results are received. Then they return the full result set. </p>
-			<p>To customize results collecting: <ol id="ol_d6f29311-d9ed-40b1-8375-1691c5e87c9c">
+			<p>To customize results collecting: </p>
+				<ol id="ol_d6f29311-d9ed-40b1-8375-1691c5e87c9c">
 					<li id="li_11D471980B324907A24A252BB03200B6">Write a class that extends
 							<codeph>ResultCollector</codeph> and code the methods to store and
 						retrieve the results as you need. Note that the methods are of two types:
@@ -386,7 +387,6 @@ List result = (List)rc.getResult();</codeblock>
     .withCollector(new MyArrayListResultCollector());</codeblock>
 					</li>
 				</ol>
-			</p>
 		</section>
 		<section id="section_638E1FB9B08F4CC4B62C07DDB3661C14">
 			<title>Targeting Single Members of a Member Group or Entire Member Groups</title>

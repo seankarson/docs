@@ -9,7 +9,8 @@
 	<conbody>
 		<section id="section_065B3A57CCCA4F17821D170A312B6675">
 			<p>In regions with global scope, locking helps ensure cache consistency. </p>
-			<p>Locking of regions and entries is done in two ways: <ol
+			<p>Locking of regions and entries is done in two ways:</p>
+				<ol
 					id="ol_1D73468BE38E423F92049460873FE66C">
 					<li id="li_80312BB8A8304FE1AA971A924CA933B6"><b>Implicit</b>. <keyword
 							keyref="product_name"/> automatically locks global regions and their
@@ -32,7 +33,6 @@
 							locking methods. </note>
 					</li>
 				</ol>
-			</p>
 		</section>
 		<section id="section_5B47F9C5C27A4B789A3498AC553BB1FB">
 			<title>Lock Timeouts</title>
@@ -87,7 +87,8 @@
 						assigns a lock grantor from the members that have the region defined in
 						their caches. </li>
 				</ul>
-			<p>You can request lock grantor status: <ol id="ol_AC61BDC82B524E6C9151B4B29DA193BD">
+			<p>You can request lock grantor status:</p>
+				<ol id="ol_AC61BDC82B524E6C9151B4B29DA193BD">
 					<li id="li_0CCCD8A33ED0463A827EA73AE29D0D7B">At region creation through the
 							<codeph>is-lock-grantor</codeph> attribute. You can retrieve this
 						attribute through the region method, <codeph>getAttributes</codeph>, to see
@@ -101,7 +102,6 @@
 						operations. In particular, be careful to avoid creating a situation where
 						you have members vying for lock grantor status. </li>
 				</ol>
-			</p>
 		</section>
 		<section id="section_34661E38DFF9420B89C1A2B25F232D53">
 			<title>Examples</title>

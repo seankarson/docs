@@ -15,7 +15,8 @@
 				<p>A region configured with the <parmname>LOCAL</parmname> region shortcut is scoped
 					only to its JVM and is not visible to other peer members. The region does not
 					distribute data and operations to other caches. </p>
-				<p>For more information, see: <ul id="ul_if5_2md_4k">
+				<p>For more information, see: </p>
+					<ul id="ul_if5_2md_4k">
 						<li id="li_6F92D26408194EDDBB1CF19B0B029EA2"><xref
 								href="../../developing/region_options/region_types.xml#region_types/section_A8150BDBC74E4019B1942481877A4370"
 								>Local Regions</xref>
@@ -24,7 +25,7 @@
 								href="../../basic_config/data_regions/region_shortcuts.xml#region_shortcuts/section_D0975C76572E41F79C1A6EE7CF371251"
 								>RegionShortcuts for Peers and Servers</xref>
 						</li>
-					</ul></p>
+					</ul>
 			</section>
 			<section id="section_54BD7A01BDB14D8A9FE5928F03E0D33D">
 				<title>Default Attributes</title>
@@ -71,7 +72,8 @@ Region | data-policy | NORMAL
 					not distribute data and operations to other caches. The region destroys the
 					least recently used entries when it detects that the JVM is running low on
 					memory. </p>
-				<p>For more information, see: <ul id="ul_et2_5md_4k">
+				<p>For more information, see:</p>
+					<ul id="ul_et2_5md_4k">
 						<li id="li_D6DE1BBFC7814EA3AB3AC6A99EE21E9F"><xref
 								href="../../developing/eviction/chapter_overview.xml"/>
 						</li>
@@ -80,7 +82,6 @@ Region | data-policy | NORMAL
 								>Local Regions</xref>
 						</li>
 					</ul>
-				</p>
 			</section>
 			<section id="section_2E433A09EE974B90A0482766268DE433">
 				<title>Default Attributes</title>
@@ -138,7 +139,8 @@ Eviction | eviction-algorithm | lru-heap-percentage
 					is scoped only to its JVM and is not visible to other peer members. The region
 					does not distribute data and operations to other caches. The region moves the
 					values of entries to disk when it detects that the JVM is running low on memory. </p>
-				<p>For more information, see: <ul id="ul_mx2_435_mk">
+				<p>For more information, see: </p>
+					<ul id="ul_mx2_435_mk">
 						<li id="li_0A2E85BC5DF942D4AC7B7DF42B5C66C2"><xref
 								href="../../developing/storing_data_on_disk/chapter_overview.xml"
 							/>
@@ -151,7 +153,6 @@ Eviction | eviction-algorithm | lru-heap-percentage
 								href="../../developing/eviction/chapter_overview.xml"/>
 						</li>
 					</ul>
-				</p>
 			</section>
 			<section id="section_DA75B0D2F8A94AE1A4FD48A8B59F4554">
 				<title>Default Attributes</title>
@@ -208,7 +209,8 @@ Eviction | eviction-algorithm | lru-heap-percentage
 					shortcut is scoped to its JVM and is not visible to other peer members. The
 					region does not distribute data and operations to other caches. The region
 					writes its state to disk and can recover that state when the member restarts. </p>
-				<p>For more information, see: <ul id="ul_pwg_x35_mk">
+				<p>For more information, see:</p>
+					<ul id="ul_pwg_x35_mk">
 						<li id="li_D9BCDB9A8E8C4823AAC67AA658E4B9DF"><xref
 								href="../../developing/storing_data_on_disk/chapter_overview.xml"
 							/>
@@ -218,7 +220,6 @@ Eviction | eviction-algorithm | lru-heap-percentage
 								>Local Regions</xref>
 						</li>
 					</ul>
-				</p>
 			</section>
 			<section id="section_338E763857B845BD8C2ED4C3C0D62E4E">
 				<title>Default Attributes</title>
@@ -271,7 +272,8 @@ Region | size | 0</codeblock>
 					writes its state to disk and can recover that state when the member restarts.
 					The region also removes the values of entries from memory when it detects that
 					the JVM is running low on memory. </p>
-				<p>For more information, see: <ul id="ul_vll_gj5_mk">
+				<p>For more information, see:</p>
+					<ul id="ul_vll_gj5_mk">
 						<li id="li_2F9F24A2E9D244B195C1049AB4384A02"><xref
 								href="../../developing/storing_data_on_disk/chapter_overview.xml"
 							/>
@@ -281,7 +283,6 @@ Region | size | 0</codeblock>
 								>Local Regions</xref>
 						</li>
 					</ul>
-				</p>
 			</section>
 			<section id="section_06524290FD6347B19D91BBB2B98B6D7E">
 				<title>Default Attributes</title>
@@ -339,7 +340,8 @@ Eviction | eviction-algorithm | lru-heap-percentage
 				<title>Description</title>
 				<p>A region configured with the <parmname>PARTITION</parmname> region shortcut has
 					local scope that is partitioned across each peer member that created the region. </p>
-				<p>For more information, see: <ul id="ul_u4y_mx5_mk">
+				<p>For more information, see:</p>
+					<ul id="ul_u4y_mx5_mk">
 						<li id="li_DB85DFB0D76B4DB38B5ADBAAEF135A18"><xref
 								href="../../developing/region_options/region_types.xml#region_types/section_A8150BDBC74E4019B1942481877A4370"
 								>Local Regions</xref>
@@ -353,7 +355,6 @@ Eviction | eviction-algorithm | lru-heap-percentage
 								>RegionShortcuts for Peers and Servers</xref>
 						</li>
 					</ul>
-				</p>
 			</section>
 			<section id="section_8F8F7C54F95B41D79ED814717E62961E">
 				<title>Default Attributes</title>
@@ -402,7 +403,8 @@ Region | size | 0</codeblock>
 				<p>A region configured with <parmname>PARTITION_HEAP_LRU</parmname> has local scope
 					that is partitioned across each peer member that created the region. The region
 					destroys entries when it detects that the JVM is running low on memory. </p>
-				<p>For more information, see: <ul id="ul_lcp_5k5_mk">
+				<p>For more information, see: </p>
+					<ul id="ul_lcp_5k5_mk">
 						<li id="li_E7CCD0A6C60F40EEBB68A78489B748CA"><xref
 								href="../../developing/storing_data_on_disk/chapter_overview.xml"
 							/>
@@ -419,7 +421,6 @@ Region | size | 0</codeblock>
 							/>
 						</li>
 					</ul>
-				</p>
 			</section>
 			<section id="section_4A9CCE754E8F486FB33CC1D7B91D3B7C">
 				<title>Default Attributes</title>
@@ -480,7 +481,8 @@ Eviction | eviction-algorithm | lru-heap-percentage
 					shortcut has local state that is partitioned across each peer member that
 					created the region. The region moves the values of entries to disk when it
 					detects that the JVM is running low on memory. </p>
-				<p>For more information, see: <ul id="ul_hhf_dl5_mk">
+				<p>For more information, see: </p>
+					<ul id="ul_hhf_dl5_mk">
 						<li id="li_F625DDFDA4DB457B917E4BFCA4E224A4"><xref
 								href="../../developing/storing_data_on_disk/chapter_overview.xml"
 							/>
@@ -497,7 +499,6 @@ Eviction | eviction-algorithm | lru-heap-percentage
 								href="../../developing/eviction/chapter_overview.xml"/>
 						</li>
 					</ul>
-				</p>
 			</section>
 			<section id="section_06393B7E4B3A4BEABF992607626555DE">
 				<title>Default Attributes</title>
@@ -556,7 +557,8 @@ Eviction | eviction-algorithm | lru-heap-percentage
 					state that is partitioned across each peer member that created the region. The
 					region writes its state to disk and can recover that state when the member
 					restarts. </p>
-				<p>For more information, see: <ul id="ul_nh3_ds5_mk">
+				<p>For more information, see: </p>
+					<ul id="ul_nh3_ds5_mk">
 						<li id="li_4ABA8CAAC89B45AFB7E2AA006B6FA4A9">
 							<p><xref
 									href="../../basic_config/data_regions/region_shortcuts.xml#region_shortcuts/section_D0975C76572E41F79C1A6EE7CF371251"
@@ -572,7 +574,6 @@ Eviction | eviction-algorithm | lru-heap-percentage
 							/>
 						</li>
 					</ul>
-				</p>
 			</section>
 			<section id="section_CFD6C4ADD9C84C48A846166DD047621C">
 				<title>Default Attributes</title>
@@ -623,7 +624,8 @@ Region | size | 0</codeblock>
 					region. The region writes its state to disk and can recover that state when the
 					member restarts. . The region removes the values of entries from memory when it
 					detects that the JVM is running low on memory. </p>
-				<p>For more information, see: <ul id="ul_r4p_5t5_mk">
+				<p>For more information, see: </p>
+					<ul id="ul_r4p_5t5_mk">
 						<li id="li_AD33F0B48FEB4C819CF3479C73354F98">
 							<xref
 								href="../../basic_config/data_regions/region_shortcuts.xml#region_shortcuts/section_D0975C76572E41F79C1A6EE7CF371251"
@@ -637,7 +639,6 @@ Region | size | 0</codeblock>
 							/>
 						</li>
 					</ul>
-				</p>
 			</section>
 			<section id="section_3A5BF41715ED499193A42119F9F4C8B8"><xref
 					href="../../basic_config/data_regions/region_shortcuts.xml#region_shortcuts/section_D0975C76572E41F79C1A6EE7CF371251"
@@ -695,7 +696,8 @@ Eviction | eviction-algorithm | lru-heap-percentage
 					has no local state and forwards all operations to a peer region configured with
 					the <parmname>PARTITION</parmname> shortcut or a peer region configured with the
 						<parmname>PARTITION_PERSISTENT</parmname> shortcut. </p>
-				<p>See: <ul id="ul_ubc_kx5_mk">
+				<p>See: </p>
+					<ul id="ul_ubc_kx5_mk">
 						<li><xref
 								href="../../basic_config/data_regions/region_shortcuts.xml#region_shortcuts/section_D0975C76572E41F79C1A6EE7CF371251"
 								>RegionShortcuts for Peers and Servers</xref>
@@ -705,7 +707,6 @@ Eviction | eviction-algorithm | lru-heap-percentage
 							/>
 						</li>
 					</ul>
-				</p>
 			</section>
 			<section id="section_527EB23A43234FD3A1B8A1A98BF2D4F4">
 				<title>Default Attributes</title>
@@ -761,7 +762,8 @@ Partition | local-max-memory | 0</codeblock>
 					configured with the <parmname>PARTITION_REDUNDANT</parmname> shortcut or a peer
 					region configured with the <parmname>PARTITION_REDUNDANT_PERSISTENT</parmname>
 					shortcut. </p>
-				<p>See: <ul id="ul_al5_jx5_mk">
+				<p>See: </p>
+					<ul id="ul_al5_jx5_mk">
 						<li id="li_DA8669F108B6486F9F9E6C4E825F2A90"><xref
 								href="../../basic_config/data_regions/region_shortcuts.xml#region_shortcuts/section_D0975C76572E41F79C1A6EE7CF371251"
 								>RegionShortcuts for Peers and Servers</xref>
@@ -771,7 +773,6 @@ Partition | local-max-memory | 0</codeblock>
 							/>
 						</li>
 					</ul>
-				</p>
 			</section>
 			<section id="section_2279D137C360400B885C5CEFD1F24579">
 				<title>Default Attributes</title>
@@ -827,7 +828,8 @@ Partition | redundant-copies | 1
 				<p>A region configured with the <parmname>PARTITION_REDUNDANT</parmname> region
 					shortcut has local state that is partitioned across each peer member that
 					created the region. The region maintains an extra copy of the data in memory. </p>
-				<p>See: <ul id="ul_qlr_hx5_mk">
+				<p>See: </p>
+					<ul id="ul_qlr_hx5_mk">
 						<li id="li_0C18E0BD453B459B855FE2D89D4C5707"><xref
 								href="../../basic_config/data_regions/region_shortcuts.xml#region_shortcuts/section_D0975C76572E41F79C1A6EE7CF371251"
 								>RegionShortcuts for Peers and Servers</xref>
@@ -837,7 +839,6 @@ Partition | redundant-copies | 1
 							/>
 						</li>
 					</ul>
-				</p>
 			</section>
 			<section id="section_5F453E9AC5094AE6AA4FF111A7E5DB75">
 				<title>Default Attributes</title>
@@ -892,7 +893,8 @@ Partition | redundant-copies | 1</codeblock>
 					region shortcut has local state that is partitioned across each peer member that
 					created the region. The region keeps an extra copy of the data in memory. The
 					region destroys entries when it detects that the JVM is running low on memory. </p>
-				<p>For more information, see: <ul id="ul_jkm_jw5_mk">
+				<p>For more information, see: </p>
+					<ul id="ul_jkm_jw5_mk">
 						<li id="li_1C1C22968CCA4B468E6AC444948F434F"><xref
 								href="../../developing/storing_data_on_disk/chapter_overview.xml"
 							/>
@@ -913,7 +915,6 @@ Partition | redundant-copies | 1</codeblock>
 							/>
 						</li>
 					</ul>
-				</p>
 			</section>
 			<section id="section_9439F1B932754F3085175C331431425A">
 				<title>Default Attributes</title>
@@ -979,7 +980,8 @@ Partition | redundant-copies   | 1</codeblock>
 					created the region. The region keeps an extra copy of the data in memory. The
 					region moves the values of entries to disk when it detects that the JVM is
 					running low on memory. </p>
-				<p>For more information, see: <ul id="ul_llk_pw5_mk">
+				<p>For more information, see:</p>
+					<ul id="ul_llk_pw5_mk">
 						<li id="li_15FBCDF9D5D9474B9511CD68838E1C2E"><xref
 								href="../../developing/storing_data_on_disk/chapter_overview.xml"
 							/>
@@ -1000,7 +1002,6 @@ Partition | redundant-copies   | 1</codeblock>
 							/>
 						</li>
 					</ul>
-				</p>
 			</section>
 			<section id="section_78AD311F20D4495E9CDBA219F64CB79D">
 				<title>Default Attributes</title>
@@ -1064,7 +1065,8 @@ Partition | redundant-copies   | 1</codeblock>
 					created the region. The region writes its state to disk and recovers its state
 					from disk when the region is created. The region maintains an extra copy of the
 					data in memory. </p>
-				<p>For more information, see: <ul id="ul_d3d_5w5_mk">
+				<p>For more information, see:</p>
+					<ul id="ul_d3d_5w5_mk">
 						<li id="li_DCF0B1E5637D41E99737FF94ACC12E22"><xref
 								href="../../developing/storing_data_on_disk/chapter_overview.xml"
 							/>
@@ -1077,7 +1079,6 @@ Partition | redundant-copies   | 1</codeblock>
 							/>
 						</li>
 					</ul>
-				</p>
 			</section>
 			<section id="section_390DABC994794F9C9FF19A50B8E53D71">
 				<title>Default Attributes</title>
@@ -1135,7 +1136,8 @@ Partition | redundant-copies | 1</codeblock>
 					when the region is created. The region maintains an extra copy of the data in
 					memory. The region removes the values of entries from memory when it detects
 					that the JVM is running out of memory. </p>
-				<p>For more information, see: <ul id="ul_e1q_px5_mk">
+				<p>For more information, see: </p>
+					<ul id="ul_e1q_px5_mk">
 						<li id="li_BF95755417764586A2FB772F278BDCF1"><xref
 								href="../../developing/storing_data_on_disk/chapter_overview.xml"
 							/>
@@ -1148,7 +1150,6 @@ Partition | redundant-copies | 1</codeblock>
 							/>
 						</li>
 					</ul>
-				</p>
 			</section>
 			<section id="section_BADCEF8DBEDC446A85A353EF846C12C8">
 				<title>Default Attributes</title>
@@ -1205,7 +1206,8 @@ Partition | redundant-copies   | 1</codeblock>
 				<p>A region configured with the <parmname>REPLICATE</parmname> region shortcut has
 					local state that is kept in sync with all other peer regions configured with a
 					REPLICATE data policy. </p>
-				<p>For more information, see: <ul id="ul_rvz_tx5_mk">
+				<p>For more information, see:</p>
+					<ul id="ul_rvz_tx5_mk">
 						<li id="li_9B052217184342A79C229B9F5C3F7D2B"><xref
 								href="../../developing/storing_data_on_disk/chapter_overview.xml"
 							/>
@@ -1219,7 +1221,6 @@ Partition | redundant-copies   | 1</codeblock>
 							/>
 						</li>
 					</ul>
-				</p>
 			</section>
 			<section id="section_CAC42D7285E14540AA825F8A111D295D">
 				<title>Default Attributes</title>
@@ -1269,7 +1270,8 @@ server2 | Region "/myRregion" created on "server2"</codeblock>
 						synch by registering interest in the keys of its peer's replicated
 						regions.</note>
 				</p>
-				<p>For more information, see: <ul id="ul_qps_by5_mk">
+				<p>For more information, see: </p>	
+					<ul id="ul_qps_by5_mk">
 						<li id="li_10C77CD8883E49E39404535FADBA6EAB"><xref
 								href="../../basic_config/data_regions/region_shortcuts.xml#region_shortcuts/section_D0975C76572E41F79C1A6EE7CF371251"
 								>RegionShortcuts for Peers and Servers</xref>
@@ -1282,7 +1284,6 @@ server2 | Region "/myRregion" created on "server2"</codeblock>
 							/>
 						</li>
 					</ul>
-				</p>
 			</section>
 			<section id="section_ECA05E395EBC4671BA3AA2C05EC50868">
 				<title>Default Attributes</title>
@@ -1346,7 +1347,8 @@ Eviction | eviction-algorithm | lru-heap-percentage
 				<p>A region configured with the <parmname>REPLICATE_OVERFLOW</parmname> region
 					shortcut has local state that is kept in sync with all other peer regions
 					configured with a <parmname>REPLICATE</parmname> data policy. </p>
-				<p>For more information, see: <ul id="ul_qtd_hyz_mk">
+				<p>For more information, see:</p>	
+					<ul id="ul_qtd_hyz_mk">
 						<li id="li_CFC3BB41C3B746DC94D6A68C1B4319D3"><xref
 								href="../../developing/storing_data_on_disk/chapter_overview.xml"
 							/>
@@ -1360,7 +1362,6 @@ Eviction | eviction-algorithm | lru-heap-percentage
 							/>
 						</li>
 					</ul>
-				</p>
 			</section>
 			<section id="section_446237A732494640B82C918E0274E300">
 				<title>Default Attributes</title>
@@ -1420,7 +1421,8 @@ Eviction | eviction-algorithm | lru-heap-percentage
 					shortcut has local state that is kept in sync with all other peer regions that
 					are configured with a <parmname>REPLICATE</parmname> data policy. The region
 					writes its state to disk and recovers that state when the member restarts. </p>
-				<p>For more information, see: <ul id="ul_ujj_5yz_mk">
+				<p>For more information, see:</p>
+					<ul id="ul_ujj_5yz_mk">
 						<li id="li_FB06DCCC83F24816B178A691FDE49917"><xref
 								href="../../developing/storing_data_on_disk/chapter_overview.xml"
 							/>
@@ -1434,7 +1436,6 @@ Eviction | eviction-algorithm | lru-heap-percentage
 							/>
 						</li>
 					</ul>
-				</p>
 			</section>
 			<section id="section_667FE780E8B040478B1A88EA4782DCD7">
 				<title>Default Attributes</title>
@@ -1487,7 +1488,8 @@ Region | size | 0</codeblock>
 					its state to disk and recovers that state when the member restarts. The region
 					removes the values of entries from memory when it detects that the JVM is
 					running low on memory. </p>
-				<p>For more information, see: <ul id="ul_mvv_hzz_mk">
+				<p>For more information, see:</p>
+					<ul id="ul_mvv_hzz_mk">
 						<li id="li_40C64F31834F4C30A79579FF7D7A1A57"><xref
 								href="../../developing/storing_data_on_disk/chapter_overview.xml"
 							/>
@@ -1501,7 +1503,6 @@ Region | size | 0</codeblock>
 							/>
 						</li>
 					</ul>
-				</p>
 			</section>
 			<section id="section_5992CA09DAC145D88940879ED690C8CA">
 				<title>Default Attributes</title>
@@ -1565,7 +1566,8 @@ Eviction | eviction-algorithm | lru-heap-percentage
 					has no local state and forwards all operations to a peer region configured with
 					the <xref format="dita" href="#reference_wq4_jpy_lk"/> or <xref format="dita"
 						href="#reference_emp_jpy_lk"/> region shortcut. </p>
-				<p>For more information, see: <ul id="ul_jph_111_nk">
+				<p>For more information, see:</p>
+					<ul id="ul_jph_111_nk">
 						<li id="li_B7735E87B7C24364A1378F2876EC6762"><xref
 								href="../../basic_config/data_regions/region_shortcuts.xml#region_shortcuts/section_D0975C76572E41F79C1A6EE7CF371251"
 								>RegionShortcuts for Peers and Servers</xref>
@@ -1575,7 +1577,6 @@ Eviction | eviction-algorithm | lru-heap-percentage
 							/>
 						</li>
 					</ul>
-				</p>
 			</section>
 			<section id="section_C9BA03C04A0A4FBFAC42D6413B353A2B">
 				<title>Default Attributes</title>

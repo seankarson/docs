@@ -7,7 +7,8 @@
 		automatically with pre-configured settings. You can change these <keyword
 			keyref="product_name"/> settings. </shortdesc>
 	<conbody>
-		<p> Here are the default <keyword keyref="product_name"/> settings: <ul
+		<p> Here are the default <keyword keyref="product_name"/> settings: </p>
+			<ul
 				id="ul_5F0C1E4883C7487C91637C8F46D5785C">
 				<li id="li_1FFCE93C376B4731B623D34859714C42"><keyword keyref="product_name"/> peer-to-peer
 					members use locators for discovery. </li>
@@ -20,7 +21,7 @@
 					clients have local caching turned on and when the local cache needs to evict
 					data, it will evict least-recently-used (LRU) data first. </li>
 			</ul>
-			<note>On the application server side, the default inactive interval for session
+			<p><note>On the application server side, the default inactive interval for session
 				expiration is set to 30 minutes. To change this value, refer to <xref
 					href="tc_additional_info.xml#tc_additional_info/section_C7C4365EA2D84636AE1586F187007EC4"
 					type="section" format="dita" scope="local"

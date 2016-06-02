@@ -13,13 +13,13 @@
 				ownership of a GLOBAL entry, then the next attempt to obtain that ownership acts as
 				if no owner exists. </p>
 			<p>Recovery depends on how the member has its cache configured. This section covers the
-				following: <ul id="ul_D0789BCC44D9466DB25D7893841024A1">
+				following: </p>
+				<ul id="ul_D0789BCC44D9466DB25D7893841024A1">
 					<li id="li_03309D6FB3F94BD8981B21BB06D2F623">Recovery for Partitioned Regions </li>
 					<li id="li_F5F3C080E28D4A0DB3F5FE34562E088C">Recovery for Distributed Regions </li>
 					<li id="li_E4101B654AD84328A68CDE3BF0D2EC52">Recovery for Regions of Local Scope </li>
 					<li id="li_6B48F5B8E2364016B20B5C0C1EC1B131">Recovering Data From Disk </li>
 				</ul>
-			</p>
 			<p>To tell whether the regions are partitioned, distributed, or local, check the
 					<codeph>cache.xml</codeph> file. If the file contains a local scope setting, the
 				region has no connection to any other member: </p>
@@ -140,7 +140,7 @@ successfully allocated = 0 number needed = 2 Data stores available:
 			<p>Exception: </p>
 			<p>
 				<codeblock>com.gemstone.gemfire.cache.PartitionedRegionStorageException: Unable to find any members to 
-host a bucket in the partitioned region.</codeblock>
+					host a bucket in the partitioned region.</codeblock></p>
 				<ul id="ul_362D847224564959B1C24EDC7575BE36">
 					<li id="li_59CBEA772F624E8AA45BDB105C3014C3">Region name = /partitionedregion </li>
 					<li id="li_6D2326A96B794FB3A4DA6115EECBE09B">Current number of available data
@@ -151,14 +151,13 @@ host a bucket in the partitioned region.</codeblock>
 					<li id="li_BF80732F98CD49988E16456362DE5B02">Data stores successfully allocated:
 						[] </li>
 				</ul>
-			</p>
-			<p>Response: <ul id="ul_B03716EF279D42C29527B9E20F7615B9">
+			<p>Response:</p>
+				<ul id="ul_B03716EF279D42C29527B9E20F7615B9">
 					<li id="li_B6DCCC9393A44486AE60C8465F90D1D1">Add additional members configured
 						as data stores for the partitioned region. </li>
 					<li id="li_3A863FCF74FE4D11B78671F3CF32DE27">Consider starting another member.
 					</li>
 				</ul>
-			</p>
 		</section>
 		<section id="section_19CFA40F5EE64C4F8062BFBF7A6C1571">
 			<title>Recovery for Distributed Regions</title>
