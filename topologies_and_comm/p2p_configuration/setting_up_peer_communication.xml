@@ -10,43 +10,37 @@
 			<p>Before you begin, you should have already determined the address and port settings for
 				multicast, including any bind addresses. See <xref
 					href="../topology_concepts/chapter_overview.xml" format="dita"/>. </p>
-			<p>See the <xref href="../../reference/book_intro.xml#reference"/>. <ol
-					id="ol_7905622C6AC645E584D7759AB4291361">
-					<li id="li_82420B8FE1F7481591DB2D4E923891A4"><b>Configure general messaging to use TCP or UDP
-							unicast</b>. <p>TCP is the default protocol for communication. To use
-							it, just make sure you do not have it disabled in
-								<codeph>gemfire.properties</codeph>. Either have no entry for
-								<codeph>disable-tcp</codeph>, or have this entry:
-							</p><codeblock>disable-tcp=false</codeblock><p>To use UDP unicast for
-							general messaging, add this entry to
-							<codeph>gemfire.properties</codeph>:  </p><codeblock>disable-tcp=true</codeblock>
-						<p>The <codeph>disable-tcp</codeph> setting has no effect on the use of TCP
-							locators or the TCP connections used to detect failed members. </p>
-					</li>
-					<li id="li_E4B2B24BD3594791BF0BF216106E1A18"><b>Configure any regions you want
-							to distribute using UDP multicast</b>. <ol
-							id="ol_E9C73BC5C9DC4F668E511305E827B0AB">
-							<li id="li_7415892096F343619E2053129186CD00">Configure UDP multicast for
-								region messaging, set non-default multicast address and port
-								selections in <codeph>gemfire.properties</codeph>:
-								<codeblock>mcast-address=&lt;address&gt;
+			<p>See the <xref href="../../reference/book_intro.xml#reference"/>.  </p>
+			<ol id="ol_ykj_s5z_dw">
+				<li><b>Configure general messaging to use TCP or UDP unicast</b>. <p>TCP is the
+						default protocol for communication. To use it, just make sure you do not
+						have it disabled in <codeph>gemfire.properties</codeph>. Either have no
+						entry for <codeph>disable-tcp</codeph>, or have this entry:
+						</p><codeblock>disable-tcp=false</codeblock><p>To use UDP unicast for
+						general messaging, add this entry to <codeph>gemfire.properties</codeph>: </p><codeblock>disable-tcp=true</codeblock>
+					<p>The <codeph>disable-tcp</codeph> setting has no effect on the use of TCP
+						locators or the TCP connections used to detect failed members. </p>
+				</li>
+				<li><b>Configure any regions you want to distribute using UDP multicast</b>. <ol
+						id="ol_zkj_s5z_dw">
+						<li>Configure UDP multicast for region messaging, set non-default multicast
+							address and port selections in <codeph>gemfire.properties</codeph>:
+							<codeblock>mcast-address=&lt;address&gt;
 mcast-port=&lt;port&gt;</codeblock>
-							</li>
-							<li id="li_4F28BB635EA3419C843F101409A2E76D">In
-									<codeph>cache.xml</codeph>, enable multicast for each region
-								that needs multicast messaging: <codeblock>&lt;region-attributes multicast-enabled="true"/&gt; </codeblock>
-								<note>Improperly configured multicast can affect production systems.
-									If you intend to use multicast on a shared network, work with
-									your network administrator and system administrator from the
-									planning stage of the project. In addition, you may need to
-									address interrelated setup and tuning issues at the <keyword
-										keyref="product_name"/>, operating system, and network
-									level. </note>
-							</li>
-						</ol>
-					</li>
-				</ol>
-			</p>
+						</li>
+						<li>In <codeph>cache.xml</codeph>, enable multicast for each region that
+							needs multicast messaging: <codeblock>&lt;region-attributes multicast-enabled="true"/&gt; </codeblock>
+							<note>Improperly configured multicast can affect production systems. If
+								you intend to use multicast on a shared network, work with your
+								network administrator and system administrator from the planning
+								stage of the project. In addition, you may need to address
+								interrelated setup and tuning issues at the <keyword
+									keyref="product_name"/>, operating system, and network level.
+							</note>
+						</li>
+					</ol>
+				</li>
+			</ol>
 			<p>Once your members establish their connections to each other, they will send
 				distributed data and messages according to your configuration. </p>
 		</section>

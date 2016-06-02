@@ -86,8 +86,7 @@ private static void runPublisher() {
 			</title>
 			<p>This API example creates a standalone subscriber client using the same
 					<codeph>connectStandalone</codeph> method as the previous example. </p>
-			<p>
-				<codeblock outputclass="language-java">private static void runSubscriber() throws InterruptedException {
+			<codeblock outputclass="language-java">private static void runSubscriber() throws InterruptedException {
 	ClientCacheFactory ccf = connectStandalone("subscriber");
 	ccf.setPoolSubscriptionEnabled(true);
 	ClientCache cache = ccf.create();
@@ -107,7 +106,6 @@ private static void runPublisher() {
 
     cache.close();
 } </codeblock>
-			</p>
 		</example>
 		<section id="section_A7759DCB9BFE47448B8E8D72DDCDE058">
 			<title>Example of a Static Server List in Client/Server Configuration </title>

@@ -199,32 +199,27 @@ bind-address=194.124.0.104</codeblock>
 		</section>
 		<section id="section_B58645AD8C504AF6822315BB94BA2E0B">
 			<title>Locator Communication</title>
-			<p>Set the locator bind address using one of these methods: <ul
-					id="ul_DB8FD7964E654B3297C2CF7A2A0E6C87">
-					<li id="li_AC4BB4598F5D42CE8FF3D35AF20AE102">On the gfsh command line, specify
-						the bind address when you start the locator, the same as you specify any
-						other address:
-						<codeblock>gfsh&gt;start locator --name=my_locator --bind-address=<i>ip-address-to-bind</i> --port=<i>portNumber</i></codeblock>
-					</li>
-					<li id="li_0D8F2C08E11D48C187F6C9C3C67B6A9F">Inside a <keyword
-							keyref="product_name"/> application, take one of the following actions:
-							<ul id="ul_F0A26343D2BF4694B5C7BE624845166D">
-							<li id="li_796574B4D65949D3B1185E4D2DAD3392">Automatically start a
-								co-located locator using the gemfire property
-									<codeph>start-locator</codeph>, and specifying the bind address
-								for it in that property setting. </li>
-							<li id="li_46CAF7820C3545D6993CBA8764B6A67B">Use
-									<codeph>com.gemstone.gemfire.distributed.LocatorLauncher</codeph>
-								API to start the locator inside your code. Use the
-									<codeph>LocatorLauncher.Builder</codeph> class to construct an
-								instance of the <codeph>LocatorLauncher</codeph>, use the
-									<codeph>setBindAddress</codeph> method to specify the IP address
-								to use and then use the start() method to start a Locator service
-								embedded in your Java application process. </li>
-						</ul>
-					</li>
-				</ul>
-			</p>
+			<p>Set the locator bind address using one of these methods:  </p>
+			<ul id="ul_lt4_m5z_dw">
+				<li>On the gfsh command line, specify the bind address when you start the locator,
+					the same as you specify any other address:
+					<codeblock>gfsh&gt;start locator --name=my_locator --bind-address=<i>ip-address-to-bind</i> --port=<i>portNumber</i></codeblock>
+				</li>
+				<li>Inside a <keyword keyref="product_name"/> application, take one of the following
+					actions: <ul id="ul_mt4_m5z_dw">
+						<li>Automatically start a co-located locator using the gemfire property
+								<codeph>start-locator</codeph>, and specifying the bind address for
+							it in that property setting. </li>
+						<li>Use <codeph>com.gemstone.gemfire.distributed.LocatorLauncher</codeph>
+							API to start the locator inside your code. Use the
+								<codeph>LocatorLauncher.Builder</codeph> class to construct an
+							instance of the <codeph>LocatorLauncher</codeph>, use the
+								<codeph>setBindAddress</codeph> method to specify the IP address to
+							use and then use the start() method to start a Locator service embedded
+							in your Java application process. </li>
+					</ul>
+				</li>
+			</ul>
 			<p>If your locator uses a bind address, make sure every process that accesses the
 				locator has the address as well. For peer-to-peer access to the locator, use the
 				locator's bind address and the locator's port in your
