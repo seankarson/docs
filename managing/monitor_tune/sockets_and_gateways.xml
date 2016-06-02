@@ -49,7 +49,6 @@
 		</p>
 		<p>If possible, your TCP/IP buffer size settings should match across your GemFire
 			installation. At a minimum, follow the guidelines listed here. </p>
-		<p>
 			<ul id="ul_9FD9276320D747968BA88B43075AF8BA">
 				<li><b>Multisite (WAN)</b>. In a multi-site installation using gateways, if the link
 					between sites is not tuned for optimum throughput, it could cause messages to
@@ -71,7 +70,6 @@
  socket-buffer-size="42000"/&gt;  </codeblock>
 					</p></li>
 			</ul>
-		</p>
 		<p>
 			<note> WAN deployments increase the messaging demands on a <keyword
 					keyref="product_name"/> system. To avoid hangs related to WAN messaging, always

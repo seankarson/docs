@@ -23,7 +23,8 @@
 			<p>In partitioned regions, <keyword keyref="product_name"/> removes the oldest entry it can find <i>in the bucket
 				where the new entry operation is being performed</i>. <keyword keyref="product_name"/> maintains LRU
 				entry information on a bucket-by-bucket bases, as the cost of maintaining
-				information across the partitioned region would be too great a performance hit. <ul
+				information across the partitioned region would be too great a performance hit. </p>
+				<ul
 					id="ul_AF0508C9381C42718B36AAB393CD0633">
 					<li id="li_67F2CD9145CD4DDA8E4FF55C820F0FD2">For memory and entry count
 						eviction, LRU eviction is done in the bucket where the new entry operation
@@ -35,7 +36,6 @@
 						action only considering the LRU for the bucket, and not the partitioned
 						region as a whole. </li>
 				</ul>
-			</p>
 			<p>Because of this, eviction in partitioned regions may leave older entries for the
 				region in other buckets in the local data store as well as in other stores in the
 				distributed system. It may also leave entries in a primary copy that it evicts from

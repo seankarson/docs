@@ -6,7 +6,8 @@
 		and either reject the joining member or approve it. </shortdesc>
 	<conbody>
 		<p>If approved, the connection request returns a <codeph>java.security.Principal</codeph>
-			object, used to identify the member in future operations. <ul
+			object, used to identify the member in future operations. </p>
+			<ul
 				id="ul_A1FB7D6866964A5E8B12B1122DBB25AD">
 				<li id="li_7B436F246F9446B585E49CF4E90C803E">Joining peer members are authenticated
 					by the locator to which they connect. </li>
@@ -18,7 +19,6 @@
 					may in turn become an authenticator to other joining members. Members joining a
 					system must trust that existing members are already authenticated. </li>
 			</ul>
-		</p>
 		<p>Locators maintain and distribute the authenticated member list. The distributed member
 			list is also authenticated by all members, which prevents an unauthorized application
 			from introducing itself into membership by distributing an member list that includes
@@ -100,7 +100,8 @@
 		</section>
 		<section id="section_05201B3F7B8D466C97EEE5235C749984">
 			<title>When a Member Fails to Join </title>
-			<p> The following describe the scenarios that occur when a member fails to join: <ul
+			<p> The following describe the scenarios that occur when a member fails to join: </p>
+				<ul
 					id="ul_AA00FA26B2EC429B840DFDE9CE9F68B5">
 					<li id="li_67834D49BD8C43479E03ECB92CEA2488">Peer credentials are initialized
 						and verified automatically when a member joins a distributed system. <ul
@@ -131,7 +132,6 @@
 						</ul>
 					</li>
 				</ul>
-			</p>
 		</section>
 	</conbody>
 </concept>

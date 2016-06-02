@@ -44,7 +44,8 @@ drwxrwxr-x   2 person users       2560 Mar 22 13:57 .</codeblock>
 		<section id="section_8431984F4E6644D79292850CCA60E6E3">
 			<title>When Disk Store Oplogs Reach the Configured Disk Capacity</title>
 			<p>If no directory exists that is within its capacity limits, how <keyword keyref="product_name"/> handles this
-				depends on whether automatic compaction is enabled. <ul
+				depends on whether automatic compaction is enabled. </p>
+				<ul
 					id="ul_D44949D9249F4B7BB9BE2A44968A9438">
 					<li id="li_C9035C20D42B42E0B8A9F44113735704">If auto-compaction is enabled,
 						<keyword keyref="product_name"/> creates a new oplog in one of the directories, going over the limit,
@@ -63,7 +64,6 @@ space used in the directory is YYY.</codeblock>
 						<codeblock>Disk is full and rolling is disabled. No space can be created</codeblock>
 					</li>
 				</ul>
-			</p>
 		</section>
 	</conbody>
 </concept>

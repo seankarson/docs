@@ -10,13 +10,13 @@
 				<codeph>gfsecurity.properties</codeph> file. This way, you can still allow read or
 			write access for your <codeph>gemfire.properties</codeph> file. </p>
 		<p>Upon startup, <keyword keyref="product_name"/> processes will look for the
-				<codeph>gfsecurity.properties</codeph> file in the following locations in order: <ul
+			<codeph>gfsecurity.properties</codeph> file in the following locations in order: </p>
+			<ul
 				id="ul_DE1034684DFE4860BAD35AF07237187E">
 				<li id="li_7ADFA0E09CE546DF8CBB56ACEF289B7A">current working directory </li>
 				<li id="li_31B73A57ECC14ED8A48EE4F5B696C772">user's home directory </li>
 				<li id="li_1BA79E250FD644BBA07D52B739AF25AE">classpath </li>
 			</ul>
-		</p>
 		<p>If any password-related security properties are listed in the file but have a blank
 			value, the process will prompt the user to enter a password upon startup. </p>
 		<section id="section_155ED414321E4D4ABBD7ED3508E7BD62">

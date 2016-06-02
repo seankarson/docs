@@ -39,7 +39,8 @@
 				join redundancy recovery can help you avoid unnecessary data shuffling while members
 				are down. By waiting for lost members to rejoin, redundancy recovery is done using
 				the newly started members and partitioning is better balanced with less processing. </p>
-			<p>Set crash redundancy recovery using one of the following: <ul
+			<p>Set crash redundancy recovery using one of the following: </p>
+				<ul
 					id="ul_92FB86BE6CDD4DB9B0B4DAF73F9BC8B1">
 					<li id="li_B818E272E2E246A0BB548873DEC480A2">XML:
 						<codeblock outputclass="language-xml">// Give a crashed member 10 seconds to restart 
@@ -55,7 +56,6 @@
 					</li>
 					<li>gfsh:<codeblock outputclass="language-bourne">gfsh>create region --name="PR1" type=PARTITION --recovery-delay=10000</codeblock></li>
 				</ul>
-			</p>
 		</section>
 	</conbody>
 </concept>

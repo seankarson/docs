@@ -41,7 +41,8 @@
 		</p>
 		<p>Each consumer member determines how its own slow behavior is to be handled by its
 			producers. The settings are specified as distributed system connection properties. This
-			section describes the settings and lists the associated properties. <ul
+			section describes the settings and lists the associated properties. </p>
+			<ul
 				id="ul_34B7B6CE0C9F4AF18F711788181B26BB">
 				<li id="li_FD952B8AA10541849D3EE197CB022020">async-distribution-timeout—The
 					distribution timeout specifies how long producers are to wait for the consumer
@@ -61,7 +62,6 @@
 					When the maximum is reached, the producer asks the consumer to leave the
 					distributed system. </li>
 			</ul>
-		</p>
 		<p><b>Configuring Async Queue Conflation</b>
 		</p>
 		<p>When the scope is distributed-no-ack scope, you can configure the producer to conflate
@@ -77,7 +77,8 @@
 			changes for the slow receiver while they wait for that receiver to catch up. It also
 			allows the slow member to start fresh, possibly clearing up the issues that were causing
 			it to run slowly. </p>
-		<p>When a producer gives up on a slow receiver, it logs one of these types of warnings: <ul
+		<p>When a producer gives up on a slow receiver, it logs one of these types of warnings:</p>
+			<ul
 				id="ul_19433186B9FD4D56BFA4BC48856B54BD">
 				<li id="li_3375351BD7A24835BCF80BF144557FAC">Blocked for time ms which is longer
 					than the max of asyncQueueTimeout ms so asking slow receiver slow_receiver_ID to
@@ -85,13 +86,12 @@
 				<li id="li_6B72BC691D1940699A4E34ABF80A4B36">Queued bytes exceed max of
 					asyncMaxQueueSize so asking slow receiver slow_receiver_ID to disconnect. </li>
 			</ul>
-		</p>
 		<p>When a process disconnects after receiving a request to do so by a producer, it logs a
-			warning message of this type: <ul id="ul_28BE03E6C66A4E238C8B7B3E29FDB874">
+			warning message of this type: </p>
+			<ul id="ul_28BE03E6C66A4E238C8B7B3E29FDB874">
 				<li id="li_773DE682A4B04A81859EE62C6271C4E3">Disconnect forced by producer because
 					we were too slow. </li>
 			</ul>
-		</p>
 		<p>These messages only appear in your logs if logging is enabled and the log level is set to
 			a level that includes warning (which it does by default). See <xref scope="local"
 				href="../logging/logging.xml#concept_30DB86B12B454E168B80BB5A71268865"
@@ -102,7 +102,8 @@
 			will eventually cause the member to leave the distributed system on its own. </p>
 		<p><b>Use Cases</b>
 		</p>
-		<p>These are the main use cases for the slow receiver specifications: <ul
+		<p>These are the main use cases for the slow receiver specifications: </p>
+			<ul
 				id="ul_142C38D316814498BAC3335885042D6C">
 				<li id="li_AC266A7388FF49138F0CE515F7CE9012">Message bursts—With message bursts, the
 					socket buffer can overflow and cause the producer to block. To keep from
@@ -126,7 +127,6 @@
 					distribution timeout low and the queue timeout high, as for the message bursts
 					scenario. </li>
 			</ul>
-		</p>
 		<p><b>Managing Slow distributed-ack Receivers</b>
 		</p>
 		<p>When using a distribution scope other than distributed-no-ack, alerts are issued for slow

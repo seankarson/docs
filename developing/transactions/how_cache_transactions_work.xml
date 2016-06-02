@@ -67,7 +67,8 @@
           </ol>
         </p>
         <p>The manager updates the local cache and distributes the updates to other members in a
-          non-atomic way. <ul id="ul_5B08C071186546A2812E871BF91C9B4B">
+          non-atomic way.</p>
+          <ul id="ul_5B08C071186546A2812E871BF91C9B4B">
             <li id="li_2033BF5902DC4BBD8821E6F8640CDC5A">If other threads read the keys the
               transaction is modifying, they may see some in their pre-transaction state and some in
               their post-transaction state. </li>
@@ -78,7 +79,6 @@
               member. When this happens, after your commit finishes, the cache state may not be what
               you expected. </li>
           </ul>
-        </p>
         <p>If the transaction fails to complete any of the steps, a CommitConflictException is
           thrown to the calling application. </p>
         <p>Once the members involved in the transaction have been asked to commit, the transaction

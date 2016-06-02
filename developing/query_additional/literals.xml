@@ -4,7 +4,8 @@
 	<title>Supported Literals</title>
 	<conbody>
 		<section id="section_BA2D0AC444EB45088F00D9E2C8A1DD06">
-			<p><keyword keyref="product_name"/> supports the following literal types: <ul
+			<p><keyword keyref="product_name"/> supports the following literal types: </p>
+				<ul
 					id="ul_892A6F901F18489B9930EDD92102C2FD">
 					<li id="li_DA0D690515C4449ABD61F054088B4521"><b>boolean</b>. A boolean value,
 						either TRUE or FALSE </li>
@@ -60,7 +61,6 @@
 						and address is null, the result is undefined. If the query accesses address,
 						then the result is not undefined, it is <codeph>NULL</codeph>. </li>
 				</ul>
-			</p>
 			<title>Comparing Values With java.util.Date</title>
 			<p>You can compare temporal literal values <codeph>DATE</codeph>, <codeph>TIME</codeph>,
 				and <codeph>TIMESTAMP</codeph> with <codeph>java.util.Date</codeph> values. There is
@@ -77,7 +77,8 @@
 		<section id="section_F5A3FC509FD04E09B5468BA94B814701">
 			<title>Binary Numeric Promotion</title>
 			<p>The query processor performs binary numeric promotion on the operands of the
-				following operators: <ul id="ul_BE026EB646324FDEAA72CF7A7219454D">
+				following operators: </p>
+				<ul id="ul_BE026EB646324FDEAA72CF7A7219454D">
 					<li id="li_276BFAC365A7428B8D6F345BEEDFA207">Comparison operators &lt;, &lt;=,
 						&gt;, and &gt;= </li>
 					<li id="li_8C74ECF6CC1649F3914FCAAC46F6C5FD">Equality operators = and &lt;&gt; </li>
@@ -97,7 +98,6 @@
 						</ol>
 					</li>
 				</ul>
-			</p>
 		</section>
 		<section id="section_BA277AC4A9B34C93A5291ECC1FDC11C7">
 			<title>Method Invocation Conversion</title>

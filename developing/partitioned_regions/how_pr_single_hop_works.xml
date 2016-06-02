@@ -37,14 +37,16 @@
 			<title>Balancing Single-Hop Server Connection Use </title>
 			<p>Single-hop gives the biggest benefits when data access is well balanced across your
 				servers. In particular, the loads for client/server connections can get out of
-				balance if you have these in combination: <ul
+				balance if you have these in combination: </p>
+				<ul
 					id="ul_1512a17f-6cb6-4557-9140-01d230a67a57">
 					<li id="li_4F402D615728475C9ECC94E749F583EA">Servers that are empty data
 						accessors or that do not host the data the clients access through single-key
 						operations </li>
 					<li id="li_86364FD5B5E74FD9A8930FF00EDF0DB3">Many single-key operations from the
 						clients </li>
-				</ul>If data access is greatly out of balance, clients can thrash trying to get to
+				</ul>
+			<p>If data access is greatly out of balance, clients can thrash trying to get to
 				the data servers. In this case, it might be faster to disable single hop and go
 				through servers that do not host the data. </p>
 		</section>

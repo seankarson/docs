@@ -42,7 +42,8 @@ Class Employee {
 		</p>
 		<p> After you have set <codeph>gemfire.Query.VERBOSE</codeph> to "true", you could see the
 			following debug messages in the logs after running queries on the EmployeeRegion or its
-			indexes: <ul id="ul_10DC2EF076F74F34B58CBA5A68D4F4C8">
+			indexes: </p>
+			<ul id="ul_10DC2EF076F74F34B58CBA5A68D4F4C8">
 				<li id="li_CDCBAF77FE59470B9463AD014B13325F"> If indexes are not used in the query
 					execution, you would see a debug message like this:
 					<codeblock>[info 2011/08/29 11:24:35.472 PDT CqServer &lt;main&gt; tid=0x1] Query Executed in 9.619656 ms; rowCount = 99; indexesUsed(0) "select * from /test k where ID &gt; 0 and status='active'"</codeblock>
@@ -56,8 +57,8 @@ Class Employee {
 					<codeblock>[info 2011/08/29 11:24:35.472 PDT CqServer &lt;main&gt; tid=0x1] Query Executed in 79.43847 ms; rowCount = 199; indexesUsed(2):sampleIndex-2(Results: 100),sampleIndex-1(Results: 199) "select * from /test k where ID &gt; 0 OR status='active'"</codeblock>
 				</li>
 			</ul>
-		</p>
-		<p>In above log messages, the following information is provided: <ul
+		<p>In above log messages, the following information is provided: </p>
+			<ul
 				id="ul_E7B5FD1D653941779711258B8C127008">
 				<li id="li_F682293469FC4C08A4EB8612CF727F18"> "rowCount" represents ResultSet size
 					for the query. </li>
@@ -68,6 +69,5 @@ Class Employee {
 				<li id="li_8B170E95603144BE844AF30A33D6F955"> The log can be identified with the
 					original query string itself appended in the end. </li>
 			</ul>
-		</p>
 	</conbody>
 </concept>

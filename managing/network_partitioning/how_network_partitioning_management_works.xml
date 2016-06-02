@@ -37,7 +37,7 @@
 					list as each member process starts up. This list typically contains a hint on
 					who the current membership coordinator is. </li>
 				<li id="li_2922195CB67B4F9B9E6CFBE9F6563CC0">Members join and if necessary, depart
-					the distributed system: <p>
+					the distributed system:
 						<ul id="ul_B7CCDA98B8814E60B5A04130A0F9D280">
 							<li id="li_B5D6D98DC12F43FDA7FB34DFA947B6B6">Member processes make a request to the
 								coordinator to join the distributed system. If authenticated, the
@@ -62,7 +62,6 @@
 								where {0} is the number of processes that failed and {1} lists the
 								processes. </li>
 						</ul>
-					</p>
 				</li>
 				<li id="li_4EDA140514664AFDB27EE57127A56F58">Whenever the coordinator is alerted of a membership
 					change (a member either joins or leaves the distributed system), the coordinator
@@ -85,7 +84,7 @@
 				<li id="li_9DA4E9F97D0240CE883AC6F2BBB4F329">Each time the membership coordinator sends a view,
 					each member calculates the total weight of members in the current membership
 					view and compares it to the total weight of the previous membership view. Some
-					conditions to note: <p>
+					conditions to note:
 						<ul id="ul_DE0FE0E2E0D345FE8865B03EB58E274B">
 							<li id="li_11731A0A2F184D97B0701F640B5F0B31">When the first membership view is sent out,
 								there are no accumulated losses. The first view only has additions. </li>
@@ -99,7 +98,6 @@
 								coordinator will have to determine these losses during the view
 								preparation step. </li>
 						</ul>
-					</p>
 				</li>
 				<li id="li_0BBC813223A046068998881533FABDBB">With
 						<codeph>enable-network-partition-detection</codeph> set to true, any member

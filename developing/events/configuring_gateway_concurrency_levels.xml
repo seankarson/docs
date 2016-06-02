@@ -68,7 +68,8 @@
 		<section id="section_C4C83B5C0FDD4913BA128365EE7E4E35">
 			<title>Performance and Memory Considerations </title>
 			<p>When a serial gateway sender or an asynchronous event queue uses multiple dispatcher
-				threads, consider the following: <ul id="ul_398002435B7C4C4EBC4A9C8B59F4B9CD">
+				threads, consider the following: </p>
+				<ul id="ul_398002435B7C4C4EBC4A9C8B59F4B9CD">
 					<li id="li_F62451E09C4340F1B4ADB1E4228E6B9E">Queue attributes are repeated for
 						each copy of the queue that is created for a dispatcher thread. That is,
 						each concurrent queue points to the same disk store, so the same disk
@@ -82,14 +83,14 @@
 						queue memory is set to 100MB, then the total maximum queue memory for the
 						queue is 1000MB on each member that hosts the queue. </li>
 				</ul>
-			</p>
 		</section>
 		<section id="section_4835BA30CDFD4B658BD2576F6BC2E23F">
 			<title>Configuring the Ordering Policy for Serial Queues</title>
 			<p>When using multiple <codeph>dispatcher-threads</codeph> (greater than 1) with a
 				serial event queue, you can also configure the <codeph>order-policy</codeph> that
 				those threads use to distribute events from the queue. The valid order policy values
-				are: <ul id="ul_47807C8ED95C40428931A9188AD455AD">
+				are: </p>
+				<ul id="ul_47807C8ED95C40428931A9188AD455AD">
 					<li id="li_6DADFD3B2EFF4478897C24C6D973F613"><b>key (default)</b>. All updates to the same key
 						are distributed in order. <keyword keyref="product_name"/> preserves key
 						ordering by placing all updates to the same key in the same dispatcher
@@ -105,14 +106,13 @@
 						same partitioning key are distributed in order. Specify partition ordering
 						when applications use a <xref
 							href="/releases/latest/javadoc/com/gemstone/gemfire/cache/PartitionResolver.html"
-							format="html" scope="external">PartitionResolver</xref>f to implement
+							format="html" scope="external">PartitionResolver</xref> to implement
 							<xref scope="local"
 							href="../partitioned_regions/using_custom_partition_resolvers.xml"
 							type="concept" format="dita">custom partitioning</xref>. With partition
 						ordering, all entries that share the same "partitioning key" (RoutingObject)
 						are placed into the same dispatcher thread queue. </li>
 				</ul>
-			</p>
 			<p>You cannot configure the <codeph>order-policy</codeph> for a parallel event queue,
 				because parallel queues cannot preserve event ordering for regions. Only the
 				ordering of events for a given partition (or in a given queue of a distributed
@@ -122,7 +122,8 @@
 			<title>Examples: Configuring Dispatcher Threads and Ordering Policy for a Serial Gateway
 				Sender Queue</title>
 			<p>To increase the number of dispatcher threads and set the ordering policy for a serial
-				gateway sender, use one of the following mechanisms. <ul
+				gateway sender, use one of the following mechanisms. </p>
+				<ul
 					id="ul_1D24F5A045A14338BF74A3543D61682F">
 					<li id="li_E3C9DF3A23D247159131355CAD0204E2"><b>cache.xml configuration</b>
 						<codeblock outputclass="language-xml">&lt;cache&gt;
@@ -157,9 +158,9 @@ sender.start();
    --dispatcher-threads=7 
    --order-policy="key"</codeblock></li>
 				</ul>
-			</p>
 			<p>The following examples show how to set dispatcher threads and ordering policy for an
-				asynchronous event queue: <ul id="ul_A2468E49D1B847DA8A86B970A6C91D30">
+				asynchronous event queue: </p>
+				<ul id="ul_A2468E49D1B847DA8A86B970A6C91D30">
 					<li id="li_52409A3DE9E04BB6AF4BD678108AE85B"><b>cache.xml configuration</b>
 						<codeblock outputclass="language-xml">&lt;cache&gt;
    &lt;async-event-queue id="sampleQueue" persistent="true"
@@ -201,7 +202,6 @@ AsyncEventQueue sampleQueue = factory.create("customerWB", listener);</codeblock
 --listener-param=username#gfeadmin 
 --listener-param=password#admin1</codeblock></li>
 				</ul>
-			</p>
 		</section>
 	</conbody>
 </concept>

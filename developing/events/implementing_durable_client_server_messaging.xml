@@ -21,7 +21,8 @@
 		</section>
 		<section id="section_643EB5FA6F09463C80646786394F1E02">
 			<title>Configure the Client as Durable</title>
-			<p>Use one of the following methods: <ul id="ul_A54F40A08DC04DC2924CD312F54B77FD">
+			<p>Use one of the following methods: </p>
+				<ul id="ul_A54F40A08DC04DC2924CD312F54B77FD">
 					<li id="li_7BDFF0632DE9452C93881FA4C0EAF569"><codeph>gemfire.properties</codeph>
 						file:
 						<codeblock>durable-client-id=31 
@@ -34,7 +35,6 @@ props.setProperty("durable-client-timeout", "" + 200);
 CacheFactory cf = new CacheFactory(props);</codeblock>
 					</li>
 				</ul>
-			</p>
 		</section>
 		<section id="section_B8E01FE4B5A347EB96085DA3194F6AE8">
 			<p>The <codeph>durable-client-id</codeph> indicates that the client is durable and gives
@@ -79,7 +79,8 @@ CqQuery myCq = queryService.newCq(cqName, queryString, cqAttributes, true);</cod
 		<section id="section_0FBD23CC79784E588135FE93306EC0A4">
 			<title>Program the Client to Manage Durable Messaging</title>
 			<p>Program your durable client to be durable-messaging aware when it disconnects,
-				reconnects, and handles events from the server. <ol
+				reconnects, and handles events from the server. </p>
+				<ol
 					id="ol_09522205F2E54F39864D1887425AAB75">
 					<li id="li_25D30E5C54B44E578C8CF6A925E98EDC">Disconnect with a request to keep your queues
 						active by using <codeph>Pool.close</codeph> or
@@ -189,7 +190,6 @@ clientCache.readyForEvents(); </codeblock>
 						</ol>
 					</li>
 				</ol>
-			</p>
 		</section>
 		<section>
 			<title>Initial Operation</title>
@@ -201,7 +201,8 @@ clientCache.readyForEvents(); </codeblock>
 		<section id="section_9B9A9EE8C7FF47948C8108A0F7F4E32E">
 			<title>Disconnection</title>
 			<p>While the client and servers are disconnected, their operation varies depending on
-				the circumstances. <ul id="ul_F057BABA198E43959EF89CEEF241530C">
+				the circumstances. </p>
+				<ul id="ul_F057BABA198E43959EF89CEEF241530C">
 					<li id="li_C24BD71533434F02841A8C532EEE7E9B"><b>Normal disconnect</b>. When a
 						client closes its connection, the servers stop sending messages to the
 						client and release its connection. If the client requests it, the servers
@@ -231,14 +232,14 @@ clientCache.readyForEvents(); </codeblock>
 						also log an alert. When a timed-out client reconnects, the servers treat it
 						as a new client making its initial connection. </li>
 				</ul>
-			</p>
 		</section>
 		<section id="section_E3C42A6FDC884FC38ECC121955C06BDC">
 			<title>Reconnection</title>
 			<p>During initialization, the client cache is not blocked from doing operations, so you
 				might be receiving old stored events from the server at the same time that your
 				client cache is being updated by much more current events. These are the things that
-				can act on the cache concurrently: <ul id="ul_543689C87D3140D4A8FE3CDFD1CE80A5">
+				can act on the cache concurrently: </p>
+				<ul id="ul_543689C87D3140D4A8FE3CDFD1CE80A5">
 					<li id="li_B970DE3946E94801BE3F9EF19254BDC5">Results returned by the server in
 						response to the client’s interest registrations. </li>
 					<li id="li_05D6ED43B2674B7D9167FE5EB5344E47">Client cache operations by the
@@ -246,7 +247,6 @@ clientCache.readyForEvents(); </codeblock>
 					<li id="li_8D7F1862DD4A4F6C837A129BFE9B2138">Callbacks triggered by replaying
 						old events from the queue </li>
 				</ul>
-			</p>
 			<p><keyword keyref="product_name"/> handles the conflicts between the application and
 				interest registrations so they do not create cache update conflicts. But you must
 				program your event handlers so they don't conflict with current operations. This is
@@ -304,7 +304,8 @@ clientCache.readyForEvents(); </codeblock>
 			<p>Application operations take precedence over interest registration responses. The
 				client can perform operations while it is receiving its interest registration
 				responses. When adding register interest responses to the client cache, the
-				following rules are applied: <ul id="ul_F07A8DC8746F4A19B3BF8CA30B0770C7">
+				following rules are applied: </p>
+				<ul id="ul_F07A8DC8746F4A19B3BF8CA30B0770C7">
 					<li id="li_7E2A957E7CC64BE188C2B59F9CF859D8">If the entry already exists in the
 						cache with a valid value, it is not updated. </li>
 					<li id="li_B8B5818EF6BC4EE6B3D1BBBE33B62F16">If the entry is invalid, and the
@@ -318,7 +319,6 @@ clientCache.readyForEvents(); </codeblock>
 						messages related to those keys, the events are still replayed in the
 						client’s cache. </li>
 				</ul>
-			</p>
 		</section>
 	</conbody>
 </concept>

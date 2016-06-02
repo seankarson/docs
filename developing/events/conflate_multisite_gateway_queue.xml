@@ -36,7 +36,7 @@
 		</section>
 		<section id="section_207FA6BF0F734F9A91EAACB136F8D6B5">
 			<title>Examples: Configuring Conflation for a Gateway Sender Queue</title>
-			<p>To enable conflation for a gateway sender queue, use one of the following mechanisms:
+			<p>To enable conflation for a gateway sender queue, use one of the following mechanisms:</p>
 					<ul id="ul_1D24F5A045A14338BF74A3543D61682F">
 					<li id="li_E3C9DF3A23D247159131355CAD0204E2"><b>cache.xml configuration</b>
 						<codeblock outputclass="language-xml">&lt;cache&gt;
@@ -68,9 +68,9 @@ sender.start();
    --enable-batch-conflation=true</codeblock>
 					</li>
 				</ul>
-			</p>
 			<p>The following examples show how to configure conflation for an asynchronous event
-				queue: <ul id="ul_A2468E49D1B847DA8A86B970A6C91D30">
+				queue: </p>
+				<ul id="ul_A2468E49D1B847DA8A86B970A6C91D30">
 					<li id="li_52409A3DE9E04BB6AF4BD678108AE85B"><b>cache.xml configuration</b>
 						<codeblock outputclass="language-xml">&lt;cache&gt;
    &lt;async-event-queue id="sampleQueue" persistent="true"
@@ -111,7 +111,6 @@ AsyncEventQueue sampleQueue = factory.create("customerWB", listener);</codeblock
 --listener-param=username#gfeadmin 
 --listener-param=password#admin1</codeblock></li>
 				</ul>
-			</p>
 		</section>
 	</conbody>
 </concept>

@@ -24,7 +24,8 @@
 			<title>How Data Is Persisted and Overflowed</title>
 			<p>For persistence, the entry keys and values are copied to disk. For overflow, only the
 				entry values are copied. Other data, such as statistics and user attributes, are
-				retained in memory only. <ul id="ul_5858A8C7B4D1482B86665348CAA83A79">
+				retained in memory only. </p>
+				<ul id="ul_5858A8C7B4D1482B86665348CAA83A79">
 					<li id="li_919C9B39F896430F8714B22D4F26F159">Data regions are overflowed to disk
 						by least recently used (LRU) entries because those entries are deemed of
 						least interest to the application and therefore less likely to be accessed. </li>
@@ -32,7 +33,6 @@
 						most recently used (MRU) entries. These are the messages that are at the end
 						of the queue and so are last in line to be sent to the client. </li>
 				</ul>
-			</p>
 		</section>
 		<section id="section_1A3AE288145749058880D98C699FE124">
 			<title>Persistence</title>

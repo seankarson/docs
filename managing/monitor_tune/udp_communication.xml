@@ -45,7 +45,8 @@
 				credits run too low, it explicitly requests a recharge from its receivers. </p>
 			<p>This flow control protocol, which is used for all multicast and unicast no-ack
 				messaging, is configured using a three-part <keyword keyref="product_name"/>
-				property mcast-flow-control. This property is composed of: <ul
+				property mcast-flow-control. This property is composed of: </p>
+				<ul
 					id="ul_9B55968F6ECC4DAD918FD044EB3AE68D">
 					<li id="li_D0007D7F88994AC2B656D75B76736F75">byteAllowance—Determines how many
 						bytes (also referred to as credits) can be sent before receiving a recharge
@@ -59,7 +60,6 @@
 						how long to wait while needing a recharge before explicitly requesting one.
 					</li>
 				</ul>
-			</p>
 			<p>In a well-tuned system, where consumers of cache events are keeping up with
 				producers, the byteAllowance can be set high to limit flow-of-control messaging and
 				pauses. JVM bloat or frequent message retransmissions are an indication that cache

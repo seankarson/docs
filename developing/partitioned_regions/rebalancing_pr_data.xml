@@ -31,7 +31,8 @@
 					unless you run your transactions and your rebalancing operations at different
 					times. </note>
 			</p>
-			<p>Kick off a rebalance using one of the following: <ul
+			<p>Kick off a rebalance using one of the following: </p>
+				<ul
 					id="ul_24D520AEB104495FB2B1F23404EB02E7">
 					<li id="li_6303FCD77EFF4936AA3DF887C537CA7F"><codeph>gfsh</codeph> command.
 						First, starting a <codeph>gfsh</codeph> prompt and connect to the <keyword
@@ -54,7 +55,6 @@ System.out.println("Took " + results.getTotalTime() + " milliseconds\n");
 System.out.println("Transfered " + results.getTotalBucketTransferBytes()+ "bytes\n");</codeblock>
 					</li>
 				</ul>
-			</p>
 			<p>You can also just simulate a rebalance through the API, to see if it's worth it to
 				run:
 				<codeblock>ResourceManager manager = cache.getResourceManager(); 
@@ -84,7 +84,8 @@ System.out.println(" and create " + results.getTotalBucketCreatesCompleted() + "
 				percentage of its available space used for each partitioned region. The percentage
 				is configured in the <codeph>partition-attributes</codeph>
 				<codeph>local-max-memory</codeph> setting. </p>
-			<p>Partitioned region rebalancing: <ul id="ul_3F12E1D923704763B4F7AFC7D62382AD">
+			<p>Partitioned region rebalancing: </p>
+				<ul id="ul_3F12E1D923704763B4F7AFC7D62382AD">
 					<li id="li_3107CBB858AD48C3832766AE2FC803E9">Does not allow the
 							<codeph>local-max-memory</codeph> setting to be exceeded unless LRU
 						eviction is enabled with overflow to disk. </li>
@@ -94,13 +95,13 @@ System.out.println(" and create " + results.getTotalBucketCreatesCompleted() + "
 						time statistics during bucket migration. </li>
 					<li id="li_004C4A383FE244C39A9B4285BE360DEA">Replaces offline members. </li>
 				</ul>
-			</p>
 		</section>
 		<section id="section_BE71EE52DE1A4275BC7854CA597797F4">
 			<title>When to Rebalance a Partitioned Region</title>
 			<p>You typically want to trigger rebalancing when capacity is increased or reduced
 				through member startup, shut down or failure. </p>
-			<p>You may also need to rebalance when: <ul id="ul_8ac29c0f-ec2e-4d37-9c50-23c0b1f7bf6d">
+			<p>You may also need to rebalance when: </p>
+				<ul id="ul_8ac29c0f-ec2e-4d37-9c50-23c0b1f7bf6d">
 					<li id="li_679B1EFC055A4407B4ACA42C640025B3">You use redundancy for high
 						availability and have configured your region to not automatically recover
 						redundancy after a loss. In this case, <keyword keyref="product_name"/> only
@@ -118,7 +119,6 @@ System.out.println(" and create " + results.getTotalBucketCreatesCompleted() + "
 						data stores by putting fewer buckets on members that are hosting large
 						buckets. </li>
 				</ul>
-			</p>
 		</section>
 		<section id="section_495FEE48ED60433BADB7D36C73279C89">
 			<title>How to Simulate Region Rebalancing</title>

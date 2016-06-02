@@ -77,7 +77,8 @@
 				recovered immediately, and some may be recovered lazily as the client requests it.
 				Additionally, the server may be configured to replay events for some data and for
 				some client queries. These are the different configurations that affect client
-				recovery: <ul id="ul_56ED8F44D3CE404AA0C327B26244A62F">
+				recovery:</p>
+				<ul id="ul_56ED8F44D3CE404AA0C327B26244A62F">
 					<li id="li_5DF183374BA84EE1B9493E71C3AC4D3C"><b>Entries immediately sent to the
 							client</b>—Entries are immediately sent to the client for entries the
 						client registers interest in, if those entries are present in the server
@@ -92,7 +93,6 @@
 						events for entries in which the client has registered durable interest are
 						saved. </li>
 				</ul>
-			</p>
 			<p>If you have a durable client configured to connect to multiple servers, keep in mind
 				that <keyword keyref="product_name"/> does not maintain server redundancy while the
 				client is disconnected. If you lose all of its primary and secondary servers, you

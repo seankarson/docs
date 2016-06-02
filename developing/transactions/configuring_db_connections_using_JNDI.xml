@@ -13,7 +13,8 @@
 				and reuse a connection as long as necessary and then free it for
 				another thread to use. </p>
 			<p>The following are a list of <codeph>DataSource</codeph>
-				connection types used in JTA transactions. <ul
+				connection types used in JTA transactions. </p>
+				<ul
 					id="ul_A47A3B05CDF14A1C86FA2F7388B2A708">
 					<li
 						id="li_2CBA87C63B454363A2D156EAA0010B20"><b>XAPooledDataSource</b>.
@@ -35,7 +36,6 @@
 						done. Connections are generated on the fly and cannot be
 						reused. </li>
 				</ul>
-			</p>
 			<p>The <codeph>jndi-name</codeph> attribute of the
 					<codeph>jndi-binding</codeph> element is the key binding
 				parameter. If the value of <codeph>jndi-name</codeph> is a

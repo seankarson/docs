@@ -27,7 +27,8 @@
 		</ul>
 		<section id="section_578DFE8DD92F4237A8571593EAC9C3B1">
 			<title>Structure of a Log Message</title>
-			<p>Every logged message contains: <ul id="ul_8D51EFC264114EC89F0A4744ACE8302A">
+			<p>Every logged message contains:</p>
+				<ul id="ul_8D51EFC264114EC89F0A4744ACE8302A">
 					<li id="li_04DE5F094CB24540B80EEEFFFAB895F8">The message header within square
 						brackets: <ol id="ol_4C95B4B607134F31B6295F8E9397EA49">
 							<li id="li_C6B027B4360B4278B86DFD8E85E99081">The message level </li>
@@ -41,7 +42,6 @@
 					<li id="li_76A779A0DDBB4B58AA6DC7DCD4C2A126">The message itself, which can be a
 						string and/or an exception with the exception stack trace </li>
 				</ul>
-			</p>
 			<codeblock>[config 2005/11/08 15:46:08.710 PST PushConsumer main nid=0x1] 
 Cache initialized using "file:/Samples/quickstart/xml/PushConsumer.xml".</codeblock>
 		</section>
@@ -54,7 +54,8 @@ Cache initialized using "file:/Samples/quickstart/xml/PushConsumer.xml".</codebl
 					keyref="product_name"/> creates the main log file when the application starts. </p>
 			<p>By default, the main log contains the entire log for the member session. If you
 				specify a <codeph>log-file-size-limit</codeph>, <keyword keyref="product_name"/>
-				splits the logging into these files: <ul id="ul_F0B11A5026AC4419AB879A0A983BAC49">
+				splits the logging into these files:</p>
+					<ul id="ul_F0B11A5026AC4419AB879A0A983BAC49">
 					<li id="li_5DC487D51234406CB24CB1DCE67335CA"><b>The main, current log</b>.
 						Holding current logging entries. Named with the string you specified in
 							<codeph>log-file</codeph>. </li>
@@ -65,8 +66,7 @@ Cache initialized using "file:/Samples/quickstart/xml/PushConsumer.xml".</codebl
 								<codeph>meta-</codeph> prefixed to the name</b>. Used to track of
 						startup, shutdown, child log management, and other logging management
 						operations </li>
-				</ul>
-			</p>
+					</ul>
 			<p>The current log is renamed, or rolled, to the next available child log when the
 				specified size limit is reached. </p>
 			<p>When your application connects with logging enabled, it creates the main log file
@@ -149,7 +149,8 @@ bash-2.05$</codeblock>The
 				having problems with your system, a first-level approach is to lower the log-level
 				(thus sending more of the detailed messages to the log file) and recreate the
 				problem. The additional log messages often help uncover the source. </p>
-			<p>These are the levels, in descending order, with sample output: <ul
+			<p>These are the levels, in descending order, with sample output: </p>
+				<ul
 					id="ul_E439F7B39FD4454C884C0CA38672A8CB">
 					<li id="li_870B8D8D36D24E5CB0B0F6C66E19B12D"><b>severe (highest level)</b>. This
 						level indicates a serious failure. In general, severe messages describe
@@ -274,7 +275,6 @@ udp-send-buffer-size="65535"</codeblock>
 							support. </note>
 					</li>
 				</ul>
-			</p>
 			<p><note><keyword keyref="product_name"/> no longer supports setting system properties
 					for VERBOSE logging. To enable VERBOSE logging, see <xref
 						href="configuring_log4j2.xml"/>

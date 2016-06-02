@@ -5,14 +5,13 @@
   <body>
     <section id="section_4BACD4EE33934083AC7046DF8B0A753A">
       <p>You can run some <codeph>gfsh</codeph> commands directly from your operating system's
-                prompt by preceding the command with <codeph>gfsh</codeph>. This can be useful for
-                Unix shell or Windows batch scripting. For example:  </p>
-            <codeblock>
+        prompt by preceding the command with <codeph>gfsh</codeph>. This can be useful for Unix
+        shell or Windows batch scripting. For example:
+        <codeblock>
 stymon@ubuntu:~/gemfire$ gfsh start locator --name=locator2 --port=10335
 </codeblock>
-            <p>If the command is successful, the output appears and the operating system prompt
-                reappears: </p>
-            <codeblock>
+        If the command is successful, the output appears and the operating system prompt reappears:
+        <codeblock>
 stymon@ubuntu:~/gemfire$ gfsh start locator --name=locator2 --port=10335
 ...............................
 Locator in /home/stymon/gemfire/locator2 on ubuntu.local[10335] as locator2 is currently online.
@@ -93,6 +92,7 @@ gfsh -e "connect" -e "list members"
     Connect to a running Locator using the default connection information and
     run the "list members" command.
 </codeblock>
+      </p>
       <p>To summarize, you can run the following gfsh commands directly from the operating system
         shell: </p>
       <ul id="ul_DDB27839CAEC4E9AAB3A83974596A77F">
@@ -115,8 +115,8 @@ gfsh -e "connect" -e "list members"
     </section>
     <section>
       <title>Running Multiple gfsh Commands on the OS Command Line</title>
-      <p>To run multiple commands directly on the command line:  </p>
-            <codeblock>
+      <p>To run multiple commands directly on the command line:
+        <codeblock>
 prompt&gt;gfsh -e "start locator --name=locator1" -e "start server --name=server1"
 
 prompt&gt;gfsh -e "start jconsole"
@@ -124,6 +124,7 @@ prompt&gt;gfsh -e "start jconsole"
 prompt&gt;gfsh -e "connect --locators=remotehost[10334]" -e "rebalance" -e "gc"
 	
 </codeblock>
+      </p>
     </section>
   </body>
 </topic>

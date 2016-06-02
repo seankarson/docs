@@ -11,7 +11,8 @@
 		<section id="section_83BA84BB08194FC58F2BCE149AA0F0EC">
 			<p>By default, delta propagation is enabled in your distributed system. </p>
 			<p>These are the main factors that can reduce the performance benefits of using delta
-				propagation: <ul id="ul_F729726FCE0E451887E511108B127418">
+				propagation:</p>
+				<ul id="ul_F729726FCE0E451887E511108B127418">
 					<li id="li_63C9C35C5F264FC6BF04ABB575F008E1">The added costs of deserializing
 						your objects to apply deltas. Applying a delta requires the entry value to
 						be deserialized. Once this is done, the object is stored back in the cache
@@ -43,7 +44,6 @@
 						costly than just removing the reference to the disk copy, as you would do
 						with a full value distribution into the cache. </li>
 				</ul>
-			</p>
 		</section>
 	</conbody>
 </concept>

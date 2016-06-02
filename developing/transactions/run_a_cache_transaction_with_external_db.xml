@@ -9,7 +9,8 @@
     <taskbody>
         <context>
             <p>There are a few things you should be careful about while working with <keyword
-                    keyref="product_name"/> cache transactions and external databases:<ul
+                keyref="product_name"/> cache transactions and external databases:</p>
+                <ul
                     id="ul_uyr_mqk_2l">
                     <li>When you set up the JDBC connection, make sure that auto-commit is disabled.
                         For example, in
@@ -30,7 +31,7 @@
                         it:<codeblock>max_prepared_transactions = 1 # 1 or more enables, zero (default) disables this feature.</codeblock>
                     </li>
                 </ul>Use the following procedure to write a <keyword keyref="product_name"/> cache
-                transaction that coordinates with an external database:</p>
+                transaction that coordinates with an external database:
         </context>
         <steps>
             <step>

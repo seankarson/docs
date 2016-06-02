@@ -9,7 +9,8 @@
 		<section id="section_C31BA8EEE6134F0EBE6761D70EF7DE41">
 			<title>Procedure</title>
 			<p> Use the following procedure to implement authentication in your <keyword
-					keyref="product_name"/> application: <ol
+				keyref="product_name"/> application: </p>
+				<ol
 					id="ol_5F8DECE10E674BFFA9E9F508415721F1">
 					<li id="li_59EE39C99DCA480C85FA9754574CA15F">Determine the method of
 						authentication, such as LDAP or PKCS, that you will use. It is assumed that
@@ -128,7 +129,6 @@ security-client-authenticator=myAuthPkg.myAuthenticatorImpl.create</codeblock>
 					<li id="li_8C0AF19AB3D04F4F893B9307894880D2">For all members, provide the list
 						of authenticated locators in the <codeph>gemfire.properties</codeph>. </li>
 				</ol>
-			</p>
 		</section>
 		<section id="section_0ECD014AA498429FA72B1DB8FB9C040B">
 			<title>Locators That Require Authentication</title>

@@ -5,7 +5,8 @@
 	<shortdesc>To use authorization for client/server systems, your client connections must be
 		authenticated by their servers. </shortdesc>
 	<conbody>
-		<p>To set up authorized access control for the cache: <ol
+		<p>To set up authorized access control for the cache: </p>
+			<ol
 				id="ol_CD06382905ED41EEA5348B5E7278AD01">
 				<li id="li_F1191E3775B34AD8A92CFA1DE0EC26E7">Determine the degree of control you
 					want over client access to the server cache </li>
@@ -61,7 +62,6 @@ security-client-accessor-pp=myAuthPkg.myAccessControl.create</codeblock>
 					</ol>
 				</li>
 			</ol>
-		</p>
 		<p>Your <codeph>authorizeOperation</codeph> method will be invoked before and/or after each
 			client operation, as configured. </p>
 	</conbody>

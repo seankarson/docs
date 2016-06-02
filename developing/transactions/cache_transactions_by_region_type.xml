@@ -10,7 +10,8 @@
         this may be a remote host to the one running the transaction application. Any transaction
         that includes one or more partitioned regions is run on the member storing the primary copy
         of the partitioned region data. Otherwise, the transaction host is the same one running the
-        application. <ul id="ul_yy5_jk1_wk">
+        application. </p>
+        <ul id="ul_yy5_jk1_wk">
           <li>
             <p>The client executing the transaction code is called the transaction initiator.</p>
           </li>
@@ -22,7 +23,8 @@
             <p>The member that hosts the data—and the transaction—is called the transaction
               host.</p>
           </li>
-        </ul> The transaction host may be the same member or different member from the transaction
+        </ul>
+      <p>The transaction host may be the same member or different member from the transaction
         initiator. In either case, when the transaction commits, data distribution is done from the
         transaction host in the same way.</p>
       <p>
@@ -39,14 +41,15 @@
       <p>In partitioned regions, transaction operations are done first on the primary data store
         then distributed to other members from there, regardless of which member initiates the cache
         operation. This is the same as is done for normal cache operations on partitioned regions. </p>
-      <p>In this figure, M1 runs two transactions. <ul id="ul_889FCAFEE4F9470EAAB472FF24A4FA52">
+      <p>In this figure, M1 runs two transactions.</p>
+        <ul id="ul_889FCAFEE4F9470EAAB472FF24A4FA52">
           <li id="li_DF9EBE26A1284703B61804A54D4200A7">The first transaction, T1, works on data
             whose primary buckets are stored in M1, so M1 is the transaction host. </li>
           <li id="li_AC8D7C1254BE469692700B22C40EF376">The second transaction, T2, works on data
             whose primary buckets are stored in M2, so M1 is the transaction delegate and M2 is the
             transaction host. </li>
-        </ul><i>Transaction on a Partitioned Region:</i>
-      </p>
+        </ul>
+      <p><i>Transaction on a Partitioned Region:</i></p>
       <p>
         <image placement="break" id="image_9BF680072A674BCF9F01958753F02952"
           href="../../images_svg/transactions_partitioned_1.svg" align="left"/>
@@ -56,7 +59,8 @@
         the data on M2 is updated and the transaction events are distributed throughout the system,
         exactly as if the transaction had originated on M2. </p>
       <p>The first region operation within the transaction determines the transaction host. All
-        other operations must also work with that as their transaction host: <ul
+        other operations must also work with that as their transaction host: </p>
+        <ul
           id="ul_BE4E509EF82A44889E7DDDA6124DFF2E">
           <li id="li_04A4349715BB4486A252AF8D162BFBF7">All partitioned region data managed inside
             the transaction must use the transaction host as their primary data store. In the
@@ -76,7 +80,6 @@
             distributed. Operations on regions with local scope are not allowed in transactions with
             partitioned regions. </li>
         </ul>
-      </p>
       <p>The next figure shows a transaction that operates on two partitioned regions and one
         replicated region. As with the single region example, all local event handling is done on
         the transaction host. </p>
@@ -105,7 +108,8 @@
           will run transactions. The <codeph>REPLICATE</codeph> region shortcuts use
             <codeph>distributed-ack</codeph> scope. </note>
         <p>The region’s scope affects how data is distributed during the commit phase. Transactions
-          are supported for these region scopes: <ul id="ul_3FEEBD3A9B1A4033A3D1B943250E904E">
+          are supported for these region scopes:</p>
+          <ul id="ul_3FEEBD3A9B1A4033A3D1B943250E904E">
             <li id="li_4CBDE8D31C7D4D56866841B993C15BD9"><codeph><b>distributed-ack</b></codeph>.
               Handles transactional conflicts both locally and between members. The
                 <codeph>distributed-ack</codeph> scope is designed to protect data consistency. This
@@ -129,7 +133,6 @@
               member. You can have conflict between two threads when their transactions change the
               same entry. </li>
           </ul>
-        </p>
         <p>Transactions on non-replicated regions (regions that use the old API with DataPolicy
           EMPTY, NORMAL and PRELOADED) are always transaction initiators, and the transaction data
           host is always a member with a replicated region. This is similar to the way transactions

@@ -35,7 +35,8 @@
 					<codeph>com.gemstone.gemfire.cache.execute</codeph> package. The adapter class
 				provides some default implementations for methods, which you can override. </p>
 			<p>Code the methods you need for the function. These steps do not have to be done in
-				this order. <ol id="ol_effbfb21-0d0f-445c-9696-0e7c8019828e">
+				this order. </p>
+				<ol id="ol_effbfb21-0d0f-445c-9696-0e7c8019828e">
 					<li id="li_66BD41CE304247179797CED74455C35A">Code <codeph>getId</codeph> to
 						return a unique name for your function. You can use this name to access the
 						function through the <codeph>FunctionService</codeph> API. </li>
@@ -127,7 +128,6 @@
 						</ol>
 					</li>
 				</ol>
-			</p>
 			<p>Example function code: </p>
 			<p>
 				<codeblock>package quickstart;
@@ -226,7 +226,8 @@ to be called using FunctionService.onRegion.");
 			<p>Your Java servers must register functions that are invoked by non-Java clients. You
 				may want to use registration in other cases to avoid the overhead of sending
 					<codeph>Function</codeph> instances between members. </p>
-			<p>Register your function using one of these methods: <ul
+			<p>Register your function using one of these methods: </p>
+				<ul
 					id="ul_31CA4EA177914D9AA168C21B4F9FC1A6">
 					<li id="li_5EFA0E9F7F724F4784163DF7AF669151">XML:
 						<codeblock>&lt;cache&gt;
@@ -245,7 +246,6 @@ FunctionService.registerFunction(myFun);</codeblock>
 							register it with a different identifier. </note>
 					</li>
 				</ul>
-			</p>
 		</section>
 		<section id="section_6A0F4C9FB77C477DA5D995705C8BDD5E">
 			<title>Run the Function</title>
@@ -273,7 +273,7 @@ FunctionService.registerFunction(myFun);</codeblock>
 					type="topic" format="dita" scope="local"/> for more <codeph>gfsh</codeph>
 				commands related to functions. </p>
 			<p>
-				<b>Running the Function via API Calls</b>
+				<b>Running the Function via API Calls</b></p>
 				<ol id="ol_e958138e-9c22-4316-b8b1-e369807b9832">
 					<li id="li_58D585B692134282B93BFBD2FE5746A2">Use one of the
 							<codeph>FunctionService</codeph>
@@ -313,7 +313,6 @@ FunctionService.registerFunction(myFun);</codeblock>
 								<codeph>getResult</codeph> method. </note>
 					</li>
 				</ol>
-			</p>
 			<p>Example of running the function - for executing members: </p>
 			<codeblock>MultiGetFunction function = new MultiGetFunction();
 FunctionService.registerFunction(function);

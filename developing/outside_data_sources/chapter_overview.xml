@@ -6,7 +6,8 @@
 		has application plug-ins to read data into the cache and write it out. </shortdesc>
 	<conbody>
 		<section id="section_100B707BB812430E8D9CFDE3BE4698D1">
-			<p>The application plug-ins: <ol id="ol_CCACA6992ABF469D81B2A5B7C22A9D8B">
+			<p>The application plug-ins: </p>
+				<ol id="ol_CCACA6992ABF469D81B2A5B7C22A9D8B">
 					<li id="li_FEE9CCD00C374C198CABF15F11CCDFB4">Load data on cache misses using an
 						implementation of a <codeph>com.gemstone.gemfire.cache.CacheLoader</codeph>.
 						The <codeph>CacheLoader.load</codeph> method is called when the
@@ -40,7 +41,6 @@
 						</ul>
 					</li>
 				</ol>
-			</p>
 			<p>In addition to using application plug-ins, you can also configure external JNDI
 				database sources in your cache.xml and use these data sources in transactions. See
 					<xref

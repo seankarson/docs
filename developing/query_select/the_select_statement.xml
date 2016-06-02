@@ -35,7 +35,8 @@ TYPE Position WHERE portfolio.status = 'active'</codeblock></p>
 				implements the <xref
 					href="/releases/latest/javadoc/com/gemstone/gemfire/cache/query/SelectResults.html"
 					scope="external" format="html">SelectResults</xref> interface. </p>
-			<p>The SelectResults returned from the SELECT statement is either: <ol
+			<p>The SelectResults returned from the SELECT statement is either: </p>
+				<ol
 					id="ol_85D66E6DE75C4A4E855F22B9DC1F3BC9">
 					<li id="li_7A143E20A00340C7B57D132757855526"> A collection of objects, returned
 						for these two cases: <ul id="ul_A2CFF45813CC4AE68F933629B7CDD085">
@@ -49,7 +50,6 @@ TYPE Position WHERE portfolio.status = 'active'</codeblock></p>
 					<li id="li_16FD1B8A0ABE41759ABA522A66DD2B8E">A collection of Structs that
 						contains the objects </li>
 				</ol>
-			</p>
 			<p>When a struct is returned, the name of each field in the struct is determined
 				following this order of preference: <ol id="ol_4F7613A052F0496AA31580FAF2F00BD4">
 					<li id="li_5C5F5BAC0B4B4F0AB509A2CD271657AF">If a field is specified explicitly

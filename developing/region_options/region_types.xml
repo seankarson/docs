@@ -13,7 +13,8 @@
 				contained in a single member. </p>
 			<p>Your choice of region type is governed in part by the type of application you are
 				running. In particular, you need to use specific region types for your servers and
-				clients for effective communication between the two tiers: <ul
+				clients for effective communication between the two tiers: </p>
+				<ul
 					id="ul_328ea15b-8d11-43f9-87ba-e1753f26c239">
 					<li id="li_5248B58F175548E1A5B025EE0BEAD1A8">Server regions are created inside a
 							<codeph>Cache</codeph> by servers and are accessed by clients that
@@ -42,7 +43,6 @@
 							href="../../reference/topics/region_shortcuts_reference.xml#reference_lt4_54c_lk"
 						/>.</p>
 				</note>
-			</p>
 		</section>
 		<section id="section_A3449B07598C47A881D9219574DE46C5">
 			<p>These are the primary configuration choices for each data region. </p>
@@ -132,7 +132,8 @@
 			<p>Partitioned regions group your data into buckets, each of which is stored on a subset
 				of all of the system members. Data location in the buckets does not affect the
 				logical view - all members see the same logical data set. </p>
-			<p>Use partitioning for: <ul id="ul_EEF600FD984346B285B8E82F5E47BD29">
+			<p>Use partitioning for: </p>
+				<ul id="ul_EEF600FD984346B285B8E82F5E47BD29">
 					<li id="li_FF7B924C7DB1458695E824AF02B92997"><b>Large data sets</b>. Store data
 						sets that are too large to fit into a single member, and all members will
 						see the same logical data set. Partitioned regions divide the data into
@@ -163,7 +164,6 @@
 						that has the region replicated, so the amount of data transmitted per write
 						increases with the number of members. </li>
 				</ul>
-			</p>
 			<p>In partitioned regions, you can colocate keys within buckets and across multiple
 				partitioned regions. You can also control which members store which data buckets.
 			</p>
@@ -173,7 +173,8 @@
 			<note>Replication is a good choice for small to medium size server regions. </note>
 			<p>Replicated regions provide the highest performance in terms of throughput and
 				latency. </p>
-			<p>Use replicated regions for: <ul id="ul_307615353A48423E85CBD2AFF4F05A5C">
+			<p>Use replicated regions for: </p>
+				<ul id="ul_307615353A48423E85CBD2AFF4F05A5C">
 					<li id="li_D8B8E58C75EA46F7B754F508F648D05A"><b>Small amounts of data required
 							by all members of the distributed system</b>. For example, currency rate
 						information and mortgage rates. </li>
@@ -187,14 +188,14 @@
 						All distributed regions, replicated and non-replicated, provide the fastest
 						distribution speeds. </li>
 				</ul>
-			</p>
 		</section>
 		<section id="section_2232BEC969F74CDB91B1BB74FEF67EE1">
 			<title>Distributed, Non-Replicated Regions</title>
 			<p>Distributed regions provide the same performance as replicated regions, but each
 				member only stores data it has expressed interest in, either by subscribing to
 				events from other members or by defining the data entries in its cache. </p>
-			<p>Use distributed, non-replicated regions for: <ul
+			<p>Use distributed, non-replicated regions for:</p>
+				<ul
 					id="ul_C23E4ECB092B48049DE3A3CB50AFBB73">
 					<li id="li_3A68FC2B4D044F8EBDF38F2AB9EE6C97"><b>Peer regions, but not server
 							regions or client regions</b>. Server regions must be either replicated
@@ -207,7 +208,6 @@
 						All distributed regions, replicated and non-replicated, provide the fastest
 						distribution speeds. </li>
 				</ul>
-			</p>
 		</section>
 		<section id="section_A8150BDBC74E4019B1942481877A4370">
 			<title>Local Regions</title>
@@ -216,14 +216,14 @@
 					regions are automatically defined as local, since all client distribution
 					activities go to and come from the server tier. </note>The local region has no
 				peer-to-peer distribution activity. </p>
-			<p>Use local regions for: <ul id="ul_9F2EE05E49214FEABD83D5806C681C27">
+			<p>Use local regions for: </p>
+				<ul id="ul_9F2EE05E49214FEABD83D5806C681C27">
 					<li id="li_7FC21C4DD7AF4866AAA2235698158060"><b>Client regions</b>. Distribution
 						is only between the client and server tier. </li>
 					<li id="li_CD4AD2D0597D475CB215BDB0ADD779AC"><b>Private data sets for the
 							defining member</b>. The local region is not visible to peer members.
 					</li>
 				</ul>
-			</p>
 		</section>
 	</conbody>
 </concept>

@@ -15,7 +15,8 @@
 					href="../../reference/topics/memory_requirements_for_cache_data.xml#calculating_memory_requirements"
 					type="concept" format="dita" scope="local"/>. </note>
 		</p>
-		<p>These are the transient statistics gathered for all but partitioned regions: <ul
+		<p>These are the transient statistics gathered for all but partitioned regions: </p>
+			<ul
 				id="ul_47DF1DCBACA34E3ABBFC788B242DEE12">
 				<li id="li_361B89FB8D0D461F976D8BCC383BC6A6"><b>Hit and miss counts</b>. For the
 					entry, the hit count is the number of times the cached entry was accessed
@@ -36,7 +37,6 @@
 					This statistic is used for time to live and idle timeout expiration activities.
 				</li>
 			</ul>
-		</p>
 		<p>The hit and miss counts collected in these statistics can be useful for fine-tuning your
 			system’s caches. If you have a region’s entry expiration enabled, for example, and see a
 			high ratio of misses to hits on the entries, you might choose to increase the expiration

@@ -24,44 +24,47 @@
 					<codeph>critical-off-heap-percentage</codeph>.</p>
 			<section>
 				<title>On-heap and Off-heap Objects</title>
-				<p>The following objects are always stored in the JVM heap:<ul id="ul_sgv_p5b_fv">
+				<p>The following objects are always stored in the JVM heap:</p>
+					<ul id="ul_sgv_p5b_fv">
 						<li>Region metadata</li>
 						<li>Entry metadata</li>
 						<li>Keys</li>
 						<li>Indexes</li>
 						<li>Subscription queue elements</li>
-					</ul></p>
-				<p>The following objects can be stored in off-heap memory:<ul id="ul_vvs_t5b_fv">
+					</ul>
+				<p>The following objects can be stored in off-heap memory:</p>
+					<ul id="ul_vvs_t5b_fv">
 						<li>Values - maximum value size is 2GB</li>
 						<li>Reference counts</li>
 						<li>List of free memory blocks</li>
 						<li>WAN queue elements</li>
-					</ul></p>
-				<note>Do not use functional range indexes with off-heap data, as they are not
-					supported. An attempt to do so generates an exception.</note>
+					</ul>
+				<p><note>Do not use functional range indexes with off-heap data, as they are not
+					supported. An attempt to do so generates an exception.</note></p>
 			</section>
 			<section>
 				<title>Off-heap Recommendations</title>
-		<p>Off-heap storage is best suited to data patterns where:<ul id="ul_dzc_sbg_z5">
-			<li>Stored values are relatively uniform in size</li>
-			<li>Stored values are mostly less than 128K in size</li>
-					<li>The usage patterns involve cycles of many creates followed by destroys or
+				<p>Off-heap storage is best suited to data patterns where:</p>
+					<ul id="ul_dzc_sbg_z5">
+						<li>Stored values are relatively uniform in size</li>
+						<li>Stored values are mostly less than 128K in size</li>
+						<li>The usage patterns involve cycles of many creates followed by destroys or
 						clear</li>
-					<li>The values do not need to be frequently deserialized</li>
+						<li>The values do not need to be frequently deserialized</li>
 						<li>Many of the values are long-lived reference data</li>
-		</ul></p>
+		</ul>
 				<p>Be aware that <keyword keyref="product_name"/> has to perform extra work to access the data
 					stored in off-heap memory since it is stored in serialized form. This extra work
 					may cause some use cases to run slower in an off-heap configuration, even though
 					they use less memory and avoid garbage collection overhead. However, even with
 					the extra deserialization, off-heap storage may give you the best performance.
-					Features that may increase overhead include<ul id="ul_oxv_4jp_cv">
+					Features that may increase overhead include</p>
+					<ul id="ul_oxv_4jp_cv">
 						<li>frequent updates</li>
 						<li>stored values of widely varying sizes</li>
 						<li>deltas</li>
 						<li>queries</li>
 					</ul>
-				</p>
 			</section>
 			<section>
 				<title>Implementation Details</title>
@@ -120,7 +123,7 @@
 		<section>
 			<title>Specifying Off-heap Memory</title>
 			<p>To use off-heap memory, specify the following options when setting up servers and
-				regions:
+				regions:</p>
 				<ul id="ul_dtl_nxh_1v">
 						<li> Start the JVM as described in <xref
 								href="heap_management.xml#section_590DA955523246ED980E4E351FF81F71"
@@ -142,7 +145,7 @@
 							Configure other region attributes uniformly for all members that host
 							data for the same region. . <p>Example:
 								<codeblock>gfsh&gt;create region --name=region1 --type=PARTITION_HEAP_LRU --off-heap=true</codeblock></p></li>
-				</ul></p>
+				</ul>
 		</section>
 		<section>
 				<title>gfsh Off-heap Support</title>

@@ -12,7 +12,8 @@
 			</p>
 			<p>The list of commands you see depends on whether you are connected to a <keyword
 					keyref="product_name"/> distributed system. If you are not connected, you see a
-				list of local commands that are available.  </p><codeblock>gfsh&gt;
+				list of local commands that are available.
+				<codeblock>gfsh&gt;
 
 alter disk-store              compact offline-disk-store
 connect                       debug
@@ -28,11 +29,13 @@ start pulse                   start server
 status locator                status server
 stop locator                  stop server
 version</codeblock>
+			</p>
 			<p><b>Use the hint command to get information on a particular topic.</b>
 			</p>
 			<p>The hint command displays a one-line description and associated commands for a
 				specified topic. For example, typing <b>hint data</b> returns a description of the
-				"data" topic and all the possible actions available for data:  </p><codeblock>gfsh&gt;hint data
+				"data" topic and all the possible actions available for data:
+				<codeblock>gfsh&gt;hint data
 User data as stored in regions of the GemFire distributed system.
 
 create index  : Create an index that can be used when executing queries.
@@ -47,10 +50,11 @@ query         : Run the specified OQL query as a single quoted string and displa
 rebalance     : Rebalance partitioned regions. The default is for all partitioned regions to be rebalanced.
 remove        : Remove an entry from a region. If using a region whose key class has been set, then specifying --key-class is unnecessary.
 </codeblock>
+			</p>
 			<p>Type <codeph>hint server</codeph> to view a description of servers in <keyword
 					keyref="product_name"/> and a list of commands available for managing and
-				monitoring them.  </p>
-			<codeblock>gfsh&gt;hint server
+				monitoring them.
+				<codeblock>gfsh&gt;hint server
 A server is GemFire cluster member which holds a GemFire cache. Depending on the topology used it can refer to either a system that responds to client requests or a system that is only a peer to other members.
 
 describe member : Display information about a member, including name, id, groups, regions, etc.
@@ -59,10 +63,10 @@ list members    : Display all or a subset of members.
 start server    : Start a GemFire Cache Server.
 status server   : Display the status of a GemFire Cache Server.
 stop server     : Stop a GemFire Cache Server.
-</codeblock><p><b>To
-					view a list of hint topics, type <codeph>hint</codeph>.</b>
+</codeblock>
 			</p>
-			<codeblock>gfsh&gt;hint
+			<p><b>To view a list of hint topics, type <codeph>hint</codeph>.</b>
+				<codeblock>gfsh&gt;hint
 Hints are available for the following topics. Use "hint &lt;topic-name&gt;" for a specific hint.
 Configuration
 Data
@@ -80,8 +84,9 @@ Manager
 Region
 Server
 Statistics
-</codeblock><p><b>Use
-					the <b>help</b> command to get information on a particular command.</b>
+</codeblock>
+			</p>
+			<p><b>Use the <b>help</b> command to get information on a particular command.</b>
 			</p>
 			<p>Depending on the command, typing <codeph>help <i>&lt;command-name&gt;</i></codeph>
 				displays usage information for that particular command or a list of commands related
@@ -90,8 +95,8 @@ Statistics
 				with short descriptions. The descriptions indicate whether the command is available,
 				depending on your connection status. In the following example, you are not currently
 				connected to a <keyword keyref="product_name"/> distributed system (via connection
-				to a JMX Manager node), so some start commands are unavailable.  </p>
-			<codeblock>
+				to a JMX Manager node), so some start commands are unavailable.
+				<codeblock>
 gfsh&gt;help start
 start gateway-receiver (Not Available)
     Start the Gateway Receiver on a member or members.
@@ -110,11 +115,12 @@ start pulse (Available)
     application.
 start server (Available)
     Start a GemFire Cache Server.
-</codeblock><p>In
-				the following example, typing <codeph>help export data</codeph> displays the command
-				name, availability (depending on your connection status), a description, its syntax,
-				and a list of all its required and optional parameters.  </p>
-			<codeblock>gfsh&gt;help export data
+</codeblock>
+			</p>
+			<p>In the following example, typing <codeph>help export data</codeph> displays the
+				command name, availability (depending on your connection status), a description, its
+				syntax, and a list of all its required and optional parameters.
+				<codeblock>gfsh&gt;help export data
 NAME
         export data
 IS AVAILABLE
@@ -135,8 +141,9 @@ The file must have an extension of ".gfd".
                 Name/Id of a member which hosts the region. 
 The data will be exported to the specified file on the host 
 where the member is running.
-                Required:true</codeblock><p
-				id="p_sb2_ttx_n4"><b>Use the Tab key to auto-complete a command or trigger possible
+                Required:true</codeblock>
+			</p>
+			<p id="p_sb2_ttx_n4"><b>Use the Tab key to auto-complete a command or trigger possible
 					completions.</b>
 			</p>Use the Tab key after entering a partial command to trigger auto-completion of the
 			command or a list of possible command completions. For example, hitting Tab after typing
@@ -175,18 +182,19 @@ start locator        start pulse          start server</codeblock>
 			</p>
 			<p>When entering long commands, you can break the command line up by using the \
 				character as a delimiter. For example:
-					</p><codeblock>gfsh&gt;create region --name=region1 \
+				<codeblock>gfsh&gt;create region --name=region1 \
 --type=REPLICATE_PERSISTENT \
 --cache-writer=com.gemstone.gemfire.examples.MyCacheWriter \
---group=Group1 --disk-store=DiskStore1</codeblock><p><b>Enclose
-					strings that contain spaces or commas with single or double
+--group=Group1 --disk-store=DiskStore1</codeblock>
+			</p><p><b>Enclose strings that contain spaces or commas with single or double
 				quotes</b></p><p>When you execute gfsh commands in the gfsh command shell, enclose
 				any strings that contain spaces or commas in single quotes. For
-				example:</p><codeblock>gfsh>start locator --name=<b>'locator 1'</b></codeblock><codeblock>start locator --name=locator1 --port=9009 --mcast-port=0\
- --J=<b>'-Dgemfire.remote-locators=10.117.33.214[9009],10.117.33.220[9009]'</b></codeblock><p>When
+				example:<codeblock>gfsh>start locator --name=<b>'locator 1'</b></codeblock><codeblock>start locator --name=locator1 --port=9009 --mcast-port=0\
+ --J=<b>'-Dgemfire.remote-locators=10.117.33.214[9009],10.117.33.220[9009]'</b></codeblock></p><p>When
 				you execute multiple gfsh commands in a single line from the operating system shell,
 				enclose the gfsh commands in double quotes. Within the double quotes, enclose any
 				strings that contain spaces or commas with single quotes. For
-			example:</p><codeblock>$ gfsh -e <b>"</b>start locator --name=<b>'</b>locator 1<b>'"</b> -e <b>"</b>start server --name=server1<b>"</b></codeblock></section>
+				example:<codeblock>$ gfsh -e <b>"</b>start locator --name=<b>'</b>locator 1<b>'"</b> -e <b>"</b>start server --name=server1<b>"</b></codeblock></p>
+		</section>
 	</conbody>
 </concept>

@@ -18,7 +18,8 @@
 			indexed data. See <xref
 				href="../query_additional/partitioned_region_key_or_field_value.xml#concept_3010014DFBC9479783B2B45982014454"
 				type="concept" format="dita" scope="local"/> for more details. </p>
-		<p> There are two issues to note with key indexes: <ul
+		<p> There are two issues to note with key indexes: </p>
+			<ul
 				id="ul_939B0E4351954EF8B3426D7EFC7C8F63">
 				<li id="li_3DE1D618385945B0B400AB67FE37C66C"> The key index is not sorted. Without
 					sorting, you can only do equality tests. Other comparisons are not possible. To
@@ -28,7 +29,6 @@
 					aware of the relationship between the region values and keys. For this, you must
 					create the key index. </li>
 			</ul>
-		</p>
 		<p>
 			<note>Using a key-index with an explicit type='range' in the cache.xml will lead to an
 				exception. Key indexes will not be used in 'range' queries. </note>

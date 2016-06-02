@@ -27,7 +27,8 @@
 		</section>
 		<section id="section_D819DE21928F4D658C132981307447E3">
 			<title>Member Weighting System</title>
-			<p> By default, individual members are assigned the following weights: <ul
+			<p> By default, individual members are assigned the following weights:</p>
+				<ul
 					id="ul_7BF245E57E3D4F2389E02256424D3ECE">
 					<li id="li_A108A5612A55415FB8B08F5B6B8B9C9F">Each member has a weight of 10
 						except the lead member. </li>
@@ -35,7 +36,6 @@
 						weight of 15. </li>
 					<li id="li_8E73E57819F145B5BC85EBFDCF59D248">Locators have a weight of 3. </li>
 				</ul>
-			</p>
 			<p>You can modify the default weights for specific members by defining the
 					<codeph>gemfire.member-weight</codeph> system property upon startup. </p>
 			<p>The weights of members prior to the view change are added together and compared to
@@ -53,7 +53,8 @@
 			<title>Sample Member Weight Calculations</title>
 			<p>This section provides some example calculations. </p>
 			<p><b>Example 1:</b> Distributed system with 12 members. 2 locators, 10 cache servers
-				(one cache server is designated as lead member.) View total weight equals 111. <ul
+				(one cache server is designated as lead member.) View total weight equals 111. </p>
+				<ul
 					id="ul_C8123D9F5F2045B49BE7B165D9572758">
 					<li id="li_867F265518C24207B0F03CECED2C91F1">4 cache servers become unreachable.
 						Total membership weight loss is 40 (36%). Since 36% is under the 51%
@@ -76,9 +77,9 @@
 						coordinator (a cache server since no locators remain) will initiate
 						shutdown. </li>
 				</ul>
-			</p>
 			<p><b>Example 2:</b> Distributed system with 4 members. 2 cache servers (1 cache server
-				is designated lead member), 2 locators. View total weight is 31. <ul
+				is designated lead member), 2 locators. View total weight is 31. </p>
+				<ul
 					id="ul_2948F5BC7B8A42139F02AE6450BFECC8">
 					<li id="li_2F3A68402EA54577A52A8E7732F00F30">Cache server designated as lead
 						member becomes unreachable. Membership weight loss equals 15 or 48%.
@@ -89,7 +90,6 @@
 						the membership coordinator, the other locator is elected coordinator and
 						then initiates shutdown. </li>
 				</ul>
-			</p>
 			<p>Even if network partitioning is not enabled, if quorum loss is detected due to
 				unresponsive processes, the locator will also log a severe level message to identify
 				the failed processes:

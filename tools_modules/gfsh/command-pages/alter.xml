@@ -18,7 +18,7 @@
 					<codeblock xml:space="preserve">alter disk-store --name=value --region=value --disk-dirs=value(,value)*
     [--compressor(=value)] [--concurrency-level=value]
     [--enable-statistics=value] [--initial-capacity=value] [--load-factor=value]
-    [--lru-algorthm=value] [--lru-action=value] [--lru-limit=value]
+    [--lru-algorithm=value] [--lru-action=value] [--lru-limit=value]
     [--off-heap(=value)] [--remove(=value)]</codeblock>
 				</p>
 				<p>The three required options, <codeph><parmname>--name</parmname></codeph>,
@@ -125,7 +125,7 @@
 								</row>
 								<row>
 									<entry colname="col1">
-										<parmname>--lru-algorthm</parmname>
+										<parmname>--lru-algorithm</parmname>
 									</entry>
 									<entry colname="col2">Least recently used eviction algorithm.
 										Valid types are:<ul id="ul_b4k_3pf_kl">
