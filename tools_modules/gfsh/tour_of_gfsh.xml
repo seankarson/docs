@@ -6,11 +6,11 @@
 		starting <codeph>gfsh</codeph>. </shortdesc>
 	<conbody>
 		<section id="section_C183031258CF493D9E334593729E156D"><p>Step 1: Create a scratch working
-				directory and change to that directory. For
-				example:<codeblock>$ mkdir gfsh_tutorial
-$ cd gfsh_tutorial</codeblock>
-			</p><p><b>Step 1: Start a gfsh prompt.</b>
-				<codeblock>:~/gfsh_tutorial$ gfsh
+				directory and change to that directory. For example:
+					</p><codeblock>$ mkdir gfsh_tutorial
+$ cd gfsh_tutorial</codeblock><p><b>Step 1:
+					Start a gfsh prompt.</b>
+			</p><codeblock>:~/gfsh_tutorial$ gfsh
     _________________________     __
    / _____/ ______/ ______/ /____/ /
   / /  __/ /___  /_____  / _____  / 
@@ -19,13 +19,14 @@ $ cd gfsh_tutorial</codeblock>
 
 Monitor and Manage GemFire
 gfsh>
-</codeblock>See
+</codeblock><p>See
 					<xref format="dita"
 					href="starting_gfsh.xml#concept_DB959734350B488BBFF91A120890FE61" scope="local"
 					type="concept"/> for details. </p><p><b>Step 2: Start up a locator.</b> Enter
-				the following command: <codeblock>gfsh&gt;start locator --name=locator1</codeblock>
-				The following output appears:
-				<codeblock>gfsh>start locator --name=locator1
+				the following command:
+				</p><codeblock>gfsh&gt;start locator --name=locator1</codeblock><p>The following
+				output appears:
+				</p><codeblock>gfsh>start locator --name=locator1
 Starting a GemFire Locator in /home/username/gfsh_tutorial/locator1...
 .................................
 Locator in /home/username/gfsh_tutorial/locator1 on ubuntu.local[10334] as locator1 is currently online.
@@ -40,8 +41,8 @@ Class-Path: /home/username/Pivotal_GemFire_810_b50582_Linux/lib/gemfire.jar:/hom
 Successfully connected to: [host=ubuntu.local, port=1099]
 
 Cluster configuration service is up and running.
-</codeblock>
-				In your file system, examine the folder location where you executed
+</codeblock><p>In
+				your file system, examine the folder location where you executed
 					<codeph>gfsh</codeph>. Notice that the <codeph>start locator</codeph> command
 				has automatically created a working directory (using the name of the locator), and
 				within that working directory, it has created a log file, a status file, and a .pid
@@ -50,65 +51,64 @@ Cluster configuration service is up and running.
 				started an embedded JMX Manager on port 1099 within the locator and has connected
 				you to that JMX Manager. </p><p><b>Step 3: Examine the existing gfsh connection.</b>
 			</p><p>In the current shell, type the following command:
-				<codeblock>gfsh&gt;describe connection</codeblock>If you are connected to the JMX
-				Manager started within the locator that you started in Step 2, the following output
-				appears:
-				<codeblock>gfsh>describe connection
+				</p><codeblock>gfsh&gt;describe connection</codeblock><p>If you are connected to the
+				JMX Manager started within the locator that you started in Step 2, the following
+				output appears:
+				</p><codeblock>gfsh>describe connection
 Connection Endpoints
 --------------------
 ubuntu.local[1099]
-</codeblock>
-				Notice that the JMX Manager is on 1099 whereas the locator was assigned the default
-				port of 10334. </p><p><b>Step 4: Connect to the same locator/JMX Manager from a
-					different terminal.</b>
+</codeblock><p>Notice
+				that the JMX Manager is on 1099 whereas the locator was assigned the default port of
+				10334. </p><p><b>Step 4: Connect to the same locator/JMX Manager from a different
+					terminal.</b>
 			</p><p>This step shows you how to connect to a locator/JMX Manager. Open a second
 				terminal window, and start a second <codeph>gfsh</codeph> prompt. Type the same
 				command as you did in Step 3 in the second prompt:
-				<codeblock>gfsh&gt;describe connection</codeblock>This time, notice that you are not
-				connected to a JMX Manager, and the following output appears:
-				<codeblock>gfsh&gt;describe connection
+				</p><codeblock>gfsh&gt;describe connection</codeblock><p>This time, notice that you
+				are not connected to a JMX Manager, and the following output appears:
+				</p><codeblock>gfsh&gt;describe connection
 Connection Endpoints
 --------------------
-Not connected</codeblock>Type
+Not connected</codeblock><p>Type
 				the following command in the second <codeph>gfsh</codeph> terminal:
-				<codeblock>gfsh&gt;connect</codeblock>The command will connect you to the currently
-				running local locator that you started in Step 2.
-				<codeblock>gfsh>connect
+				</p><codeblock>gfsh&gt;connect</codeblock><p>The command will connect you to the
+				currently running local locator that you started in Step 2.
+				</p><codeblock>gfsh>connect
 Connecting to Locator at [host=localhost, port=10334] ..
 Connecting to Manager at [host=ubuntu.local, port=1099] ..
 Successfully connected to: [host=ubuntu.local, port=1099]
-</codeblock>
-			</p><p>Note that if you had used a custom <codeph>--port</codeph> when starting your
-				locator, or you were connecting from the <codeph>gfsh</codeph> prompt on another
-				member, you would also need to specify <codeph>--locator=hostname[port]</codeph>
-				when connecting to the distributed system. For example (type
-					<codeph>disconnect</codeph> first if you want to try this next command):
-				<codeblock>gfsh&gt;connect --locator=localhost[10334]
+</codeblock><p>Note
+				that if you had used a custom <codeph>--port</codeph> when starting your locator, or
+				you were connecting from the <codeph>gfsh</codeph> prompt on another member, you
+				would also need to specify <codeph>--locator=hostname[port]</codeph> when connecting
+				to the distributed system. For example (type <codeph>disconnect</codeph> first if
+				you want to try this next command):
+				</p><codeblock>gfsh&gt;connect --locator=localhost[10334]
 Connecting to Locator at [host=localhost, port=10334] ..
 Connecting to Manager at [host=ubuntu.local, port=1099] ..
-Successfully connected to: [host=ubuntu.local, port=1099]</codeblock>Another
+Successfully connected to: [host=ubuntu.local, port=1099]</codeblock><p>Another
 				way to connect your <codeph>gfsh</codeph> prompt to the distributed system would be
 				to connect to directly to the JMX Manager running inside the locator. For example
 				(type <codeph>disconnect</codeph> first if you want to try this next command):
-				<codeblock>gfsh>connect --jmx-manager=localhost[1099]
+				</p><codeblock>gfsh>connect --jmx-manager=localhost[1099]
 Connecting to Manager at [host=localhost, port=1099] ..
 Successfully connected to: [host=localhost, port=1099]
-</codeblock>
-				In addition, you can connect to remote clusters over HTTP. See <xref
-					href="../../configuring/cluster_config/gfsh_remote.xml"
-					/>.</p><p><b>Step 5: Disconnect and close the second terminal window. </b>Type
-				the following commands to disconnect and exit the second <codeph>gfsh</codeph>
-				prompt:
-				<codeblock>gfsh>disconnect
+</codeblock><p>In
+				addition, you can connect to remote clusters over HTTP. See <xref
+					href="../../configuring/cluster_config/gfsh_remote.xml"/>.</p><p><b>Step 5:
+					Disconnect and close the second terminal window. </b>Type the following commands
+				to disconnect and exit the second <codeph>gfsh</codeph> prompt:
+				</p><codeblock>gfsh>disconnect
 Disconnecting from: localhost[1099]
 Disconnected from : localhost[1099]
-gfsh&gt;exit</codeblock>Close
+gfsh&gt;exit</codeblock><p>Close
 				the second terminal window. </p><p><b>Step 6: Start up a server.</b> Return to your
 				first terminal window, and start up a cache server that uses the locator you started
 				in Step 2. Type the following command:
-				<codeblock>gfsh>start server --name=server1 --locators=localhost[10334]</codeblock>
-			</p><p>If the server starts successfully, the following output appears:
-				<codeblock>gfsh>start server --name=server1 --locators=localhost[10334]
+				</p><codeblock>gfsh>start server --name=server1 --locators=localhost[10334]</codeblock><p>If
+				the server starts successfully, the following output appears:
+				</p><codeblock>gfsh>start server --name=server1 --locators=localhost[10334]
 Starting a GemFire Server in /home/username/gfsh_tutorial/server1...
 .............
 Server in /home/username/gfsh_tutorial/server1 on ubuntu.local[40404] as server1 is currently online.
@@ -119,8 +119,8 @@ Java Version: 1.7.0_72
 Log File: /home/username/gfsh_tutorial/server1/server1.log
 JVM Arguments: -Dgemfire.locators=localhost[10334] -Dgemfire.use-cluster-configuration=true -XX:OnOutOfMemoryError=kill -KILL %p -Dgemfire.launcher.registerSignalHandlers=true -Djava.awt.headless=true -Dsun.rmi.dgc.server.gcInterval=9223372036854775806
 Class-Path: /home/username/Pivotal_GemFire_810_b50582_Linux/lib/gemfire.jar:/home/username/Pivotal_GemFire_810_b50582_Linux/lib/server-dependencies.jar
-</codeblock>
-				In your file system, examine the folder location where you executed
+</codeblock><p>In
+				your file system, examine the folder location where you executed
 					<codeph>gfsh</codeph>. Notice that just like the <codeph>start locator</codeph>
 				command, the <codeph>start server</codeph> command has automatically created a
 				working directory (named after the server), and within that working directory, it
@@ -129,15 +129,15 @@ Class-Path: /home/username/Pivotal_GemFire_810_b50582_Linux/lib/gemfire.jar:/hom
 					members.</b> Use the <codeph>list members</codeph> command to view the current
 				members of the <keyword keyref="product_name_long"/> distributed system you have
 				just created.
-				<codeblock>gfsh>list members
+					</p><codeblock>gfsh>list members
   Name   | Id
 -------- | ---------------------------------------
 locator1 | ubuntu(locator1:5610:locator)&lt;v0>:34168
 server1  | ubuntu(server1:5931)&lt;v1>:35285
-</codeblock>
-			</p><p><b>Step 8: View member details by executing the <codeph>describe member</codeph>
+</codeblock><p><b>Step
+					8: View member details by executing the <codeph>describe member</codeph>
 					command.</b>
-				<codeblock>gfsh>describe member --name=server1
+			</p><codeblock>gfsh>describe member --name=server1
 Name        : server1
 Id          : ubuntu(server1:5931)&lt;v1>:35285
 Host        : ubuntu.local
@@ -156,12 +156,12 @@ Server Port              : 40404
 Running                  : true
 Client Connections       : 0
 
-</codeblock>Note
+</codeblock><p>Note
 				that no regions have been assigned to this member yet. </p><p><b>Step 9: Create your
 					first region.</b> Type the following command followed by the tab key:
-				<codeblock>gfsh&gt;create region --name=region1 --type=</codeblock>A list of
+				</p><codeblock>gfsh&gt;create region --name=region1 --type=</codeblock><p>A list of
 				possible region types appears, followed by the partial command you entered:
-				<codeblock>gfsh&gt;create region --name=region1 --type=
+				</p><codeblock>gfsh&gt;create region --name=region1 --type=
 
 PARTITION
 PARTITION_REDUNDANT
@@ -187,18 +187,18 @@ PARTITION_PROXY
 PARTITION_PROXY_REDUNDANT
 REPLICATE_PROXY
 
-gfsh&gt;create region --name=region1 --type=</codeblock>
-			</p><p>Complete the command with the type of region you want to create. For example,
-				create a local region:
-				<codeblock>gfsh&gt;create region --name=region1 --type=LOCAL
+gfsh&gt;create region --name=region1 --type=</codeblock><p>Complete
+				the command with the type of region you want to create. For example, create a local
+				region:
+				</p><codeblock>gfsh&gt;create region --name=region1 --type=LOCAL
 Member  | Status
 ------- | --------------------------------------
-server1 | Region "/region1" created on "server1"</codeblock>
-				Because only one server is in the distributed system at the moment, the command
-				creates the local region on server1. </p><p><b>Step 10: Start another server.</b>
-				This time specify a <codeph>--server-port</codeph> argument with a different server
-				port because you are starting a cache server process on the same host machine.
-				<codeblock>gfsh>start server --name=server2 --server-port=40405
+server1 | Region "/region1" created on "server1"</codeblock><p>Because
+				only one server is in the distributed system at the moment, the command creates the
+				local region on server1. </p><p><b>Step 10: Start another server.</b> This time
+				specify a <codeph>--server-port</codeph> argument with a different server port
+				because you are starting a cache server process on the same host machine.
+					</p><codeblock>gfsh>start server --name=server2 --server-port=40405
 Starting a GemFire Server in /home/username/gfsh_tutorial/server2...
 ................
 Server in /home/username/gfsh_tutorial/server2 on ubuntu.local[40405] as server2 is currently online.
@@ -209,8 +209,8 @@ Java Version: 1.7.0_72
 Log File: /home/username/gfsh_tutorial/server2/server2.log
 JVM Arguments: -Dgemfire.default.locators=192.168.129.145[10334] -Dgemfire.use-cluster-configuration=true -XX:OnOutOfMemoryError=kill -KILL %p -Dgemfire.launcher.registerSignalHandlers=true -Djava.awt.headless=true -Dsun.rmi.dgc.server.gcInterval=9223372036854775806
 Class-Path: /home/username/Pivotal_GemFire_810_b50582_Linux/lib/gemfire.jar:/home/username/Pivotal_GemFire_810_b50582_Linux/lib/server-dependencies.jar
-</codeblock>
-			</p><p><b>Step 11: Create a replicated region.</b>
+</codeblock><p><b>Step
+					11: Create a replicated region.</b>
 			</p>
 			<codeblock>gfsh&gt;create region --name=region2 --type=REPLICATE
 Member  | Status
@@ -218,28 +218,26 @@ Member  | Status
 server1 | Region "/region2" created on "server1"
 server2 | Region "/region2" created on "server2"</codeblock>
 			<p><b>Step 12: Create a partitioned region.</b>
-				<codeblock>gfsh&gt;create region --name=region3 --type=PARTITION
+			</p>
+			<codeblock>gfsh&gt;create region --name=region3 --type=PARTITION
 Member  | Status
 ------- | --------------------------------------
 server1 | Region "/region3" created on "server1"
-server2 | Region "/region3" created on "server2"</codeblock>
+server2 | Region "/region3" created on "server2"</codeblock><p><b>Step
+					13: Create a replicated, persistent region.</b>
 			</p>
-			<p><b>Step 13: Create a replicated, persistent region.</b>
-				<codeblock>gfsh&gt;create region --name=region4 --type=REPLICATE_PERSISTENT
+			<codeblock>gfsh&gt;create region --name=region4 --type=REPLICATE_PERSISTENT
 Member  | Status
 ------- | --------------------------------------
 server1 | Region "/region4" created on "server1"
-server2 | Region "/region4" created on "server2"</codeblock>
-			</p>
-			<p><b>Step 14: List regions. </b> A list of all the regions you just created displays.
-				<codeblock>gfsh&gt;list regions
+server2 | Region "/region4" created on "server2"</codeblock><p><b>Step
+					14: List regions. </b> A list of all the regions you just created displays.  </p><codeblock>gfsh&gt;list regions
 List of regions
 ---------------
 region1
 region2
 region3
 region4</codeblock>
-			</p>
 			<b>Step 15: View member details again by executing the <codeph>describe member</codeph>
 				command.</b>
 			<codeblock>gfsh>describe member --name=server1
@@ -292,31 +290,31 @@ Client Connections       : 0
 				("region1), the second server still lists region1 because it picked up its
 				configuration from the cluster configuration service.</p><p><b>Step 16: Put data in
 					a local region.</b> Enter the following put command:
-				<codeblock>gfsh&gt;put --key=('123') --value=('ABC') --region=region1
+					</p><codeblock>gfsh&gt;put --key=('123') --value=('ABC') --region=region1
 Result      : true
 Key Class   : java.lang.String
 Key         : ('123')
 Value Class : java.lang.String
-Old Value   : &lt;NULL&gt;</codeblock>
-			</p><p><b>Step 17: Put data in a replicated region.</b> Enter the following put command:
-				<codeblock>gfsh&gt;put --key=('123abc') --value=('Hello World!!') --region=region2
+Old Value   : &lt;NULL&gt;</codeblock><p><b>Step
+					17: Put data in a replicated region.</b> Enter the following put command:
+					</p><codeblock>gfsh&gt;put --key=('123abc') --value=('Hello World!!') --region=region2
 Result      : true
 Key Class   : java.lang.String
 Key         : ('123abc')
 Value Class : java.lang.String
-Old Value   : &lt;NULL&gt;</codeblock>
-			</p><p><b>Step 18: Retrieve data.</b> You can use <codeph>locate entry</codeph>,
+Old Value   : &lt;NULL&gt;</codeblock><p><b>Step
+					18: Retrieve data.</b> You can use <codeph>locate entry</codeph>,
 					<codeph>query</codeph> or <codeph>get</codeph> to return the data you just put
 				into the region. </p><p>For example, using the <codeph>get</codeph> command:
-				<codeblock>gfsh>get --key=('123') --region=region1
+				</p><codeblock>gfsh>get --key=('123') --region=region1
 Result      : true
 Key Class   : java.lang.String
 Key         : ('123')
 Value Class : java.lang.String
 Value       : ('ABC')
-</codeblock>
-				For example, using the <codeph>locate entry</codeph> command:
-				<codeblock>gfsh&gt;locate entry --key=('123abc') --region=region2
+</codeblock><p>For
+				example, using the <codeph>locate entry</codeph> command:
+				</p><codeblock>gfsh&gt;locate entry --key=('123abc') --region=region2
 Result          : true
 Key Class       : java.lang.String
 Key             : ('123abc')
@@ -327,11 +325,11 @@ MemberName | MemberId
 ---------- | -------------------------------
 server2    | ubuntu(server2:6092)&lt;v2>:17443
 server1    | ubuntu(server1:5931)&lt;v1>:35285
-</codeblock>Notice
+</codeblock><p>Notice
 				that because the entry was put into a replicated region the entry is located on both
 				distributed system members. </p><p>For example, using the <codeph>query</codeph>
 				command:
-				<codeblock>gfsh&gt;query --query='SELECT * FROM /region2'
+					</p><codeblock>gfsh&gt;query --query='SELECT * FROM /region2'
 
 Result     : true
 startCount : 0
@@ -342,9 +340,9 @@ Result
 -----------------
 ('Hello World!!')
 
-NEXT_STEP_NAME : END</codeblock>
-			</p><p><b>Step 19: Export your data.</b> To save region data, you can use the
-					<codeph>export data</codeph> command.</p><p>For example:
+NEXT_STEP_NAME : END</codeblock><p><b>Step
+					19: Export your data.</b> To save region data, you can use the <codeph>export
+					data</codeph> command.</p><p>For example:
 			</p><codeblock>gfsh&gt;export data --region=region1 --file=region1.gfd --member=server1</codeblock>
 			You can later use the <codeph>import data</codeph> command to import that data into the
 			same region on another member. </section>
