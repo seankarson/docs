@@ -30,7 +30,8 @@
 					applying region updates in order to detect and consistently resolve concurrent
 					and out-of-order updates. Conflict checking ensures that region data eventually
 					becomes consistent on all members that host the region. The conflict checking
-					behavior for replicated regions is summarized as follows: <ul
+					behavior for replicated regions is summarized as follows: </p>
+					<ul
 						id="ul_A9535087E12A49949B319E538E089403">
 						<li id="li_6FE8CF34CABF463E8086543BAD18A67C">If two members update the same
 							key at the same time, conflict checking ensures that all members
@@ -41,7 +42,6 @@
 							updates were applied), conflict checking ensures that the out-of-order
 							update is discarded and not applied to the cache. </li>
 					</ul>
-				</p>
 				<p><xref
 						href="#topic_C5B74CCDD909403C815639339AA03758"
 						type="topic" format="dita" scope="local"/> and <xref
@@ -151,7 +151,8 @@
 					system of three <keyword keyref="product_name"/> members. Assume that Members A,
 					B, and C have membership IDs of 1, 2, and 3, respectively. Each member currently
 					stores an entry, X, in their caches at version C2 (the entry was last updated by
-					member C): <ul id="ul_03309E4B02BB4C38B3DB7931117342C4">
+					member C): </p>
+					<ul id="ul_03309E4B02BB4C38B3DB7931117342C4">
 						<li id="li_2DA56AEA4FCA42B7887C9480EA37F0A4"><b>Step 1:</b> An application
 							updates entry X on <keyword keyref="product_name"/> member A at the same
 							time another application updates entry X on member C. Each member
@@ -192,7 +193,6 @@
 								id="image_gsv_k5b_pr"/>
 						</li>
 					</ul>
-				</p>
 			</section>
 		</body>
 	</topic>

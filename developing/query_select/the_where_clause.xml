@@ -237,14 +237,14 @@ select * from /exampleRegion p where p.eStatus.toString() = 'active'
 				is a collection, and <codeph>e1</codeph> is an object or a literal whose type is a
 				subtype or the same type as the elements of <codeph>e2</codeph>, then <codeph>e1 IN
 					e2</codeph> is an expression of type boolean. </p>
-			<p>The expression returns: <ul id="ul_2DB695F6FE364C9A93A162E84A9C0D8F">
+			<p>The expression returns: </p>
+				<ul id="ul_2DB695F6FE364C9A93A162E84A9C0D8F">
 					<li id="li_AA00FED209F44DC78886151B044089E1">TRUE if e1 is not UNDEFINED and is
 						contained in collection e2 </li>
 					<li id="li_BB2DA7F60AA448C5BFCF28D33BAF5953">FALSE if e1 is not UNDEFINED and is
 						not contained in collection e2 # </li>
 					<li id="li_D0901771813C4845999853656AEC6FC0">UNDEFINED if e1 is UNDEFINED </li>
 				</ul>
-			</p>
 			<p>For example, <codeph>2 IN SET(1, 2, 3)</codeph> is TRUE. </p>
 			<p>Another example is when the collection you are querying into is defined by a
 				subquery. This query looks for companies that have an active portfolio on file:
@@ -282,7 +282,8 @@ select * from /exampleRegion p where p.eStatus.toString() = 'active'
 				Float.compareTo and Double.compareTo. </p>
 			<p>In summary, the comparisons differ in the following ways from those performed by the
 				Java language numerical comparison operators (&lt;, &lt;=, ==, &gt;= &gt;) when
-				applied to primitive double [float] values: <ul
+				applied to primitive double [float] values: </p>
+				<ul
 					id="ul_AA92F98B143B4FE891C64AE08E59C335">
 					<li id="li_7755BA65223D4170805E8BFE00C21176">Double.NaN [Float.NaN] is
 						considered to be equal to itself and greater than all other double [float]
@@ -290,7 +291,6 @@ select * from /exampleRegion p where p.eStatus.toString() = 'active'
 					<li id="li_7465F1C562BA47D9A10BDD961C0CCD57">0.0d [0.0f] is considered by this
 						method to be greater than -0.0d [-0.0f]. </li>
 				</ul>
-			</p>
 			<p> Therefore, Double.NaN[Float.NaN] is considered to be larger than
 				Double.POSITIVE_INFINITY[Float.POSITIVE_INFINITY]. Here are some example queries and
 				what to expect. <table id="table_BB3B6E84B5FE4E28995246C82A89C0A5">

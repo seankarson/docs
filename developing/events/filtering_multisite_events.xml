@@ -8,7 +8,8 @@
 		is transmitted between <keyword keyref="product_name"/> sites. </shortdesc>
 	<body>
 		<p>You can implement and deploy two different types of filter for
-			multi-site events: <ul
+			multi-site events: </p>
+			<ul
 				id="ul_550709738F274B6E85316B892DE18DEF">
 				<li id="li_919DDFEF5F2446CE9C289157927018C2"><codeph>GatewayEventFilter</codeph>. A
 						<codeph>GatewayEventFilter</codeph> implementation determines whether a
@@ -47,7 +48,6 @@
 						so that the events can be applied in the local cluster. </p>
 				</li>
 			</ul>
-		</p>
 		<section
 			id="section_E20B4A8A98FD4EDAAA8C14B8059AA7F7">
 			<title>Configuring Multi-Site Event Filters</title>
@@ -56,7 +56,8 @@
 				are queued and distributed. You install a
 					<codeph>GatewayTransportFilter</codeph> implementation to
 				both a gateway sender and a gateway receiver to process the
-				stream of batched events that are distributed between two sites: <ul
+				stream of batched events that are distributed between two sites: </p>
+				<ul
 					id="ul_7E1869577DD24D1D9C714C2A474C539C">
 					<li
 						id="li_10F187A1DCC4446394E2C953E43A19C6"><b>XML example</b>
@@ -130,7 +131,6 @@ receiver.start();
 </codeblock>
 					</li>
 				</ul>
-			</p>
 		</section>
 	</body>
 </topic>

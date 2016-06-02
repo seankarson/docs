@@ -12,7 +12,8 @@
 				data stores. The number of buckets is fixed after region creation. </p>
 			<p>The partition attribute <codeph>total-num-buckets</codeph> sets the number for the
 				entire partitioned region across all participating members. Set it using one of the
-				following: <ul id="ul_38e5c582-c595-4b88-b4be-57e43bf77ecf">
+				following: </p>
+				<ul id="ul_38e5c582-c595-4b88-b4be-57e43bf77ecf">
 					<li id="li_4FA315CC0A05455099F9D779F2FA1AE2">XML:
 						<codeblock outputclass="language-xml">&lt;region name="PR1"&gt; 
   &lt;region-attributes refid="PARTITION"&gt; 
@@ -30,12 +31,12 @@ custRegion = rf.create("customer");</codeblock></li>
 							example:<codeblock>gfsh>create region --name="PR1" --type=PARTITION --total-num-buckets=7</codeblock></p>
 					</li>
 				</ul>
-			</p>
 		</section>
 		<section id="section_C956D9BA41C546F89D07DCFE901E539F">
 			<title>Calculate the Total Number of Buckets for a Partitioned Region</title>
 			<p>Follow these guidelines to calculate the total number of buckets for the partitioned
-				region: <ul id="ul_72C6333BD6AD40C3B93B4648DBB342A5">
+				region: </p>
+				<ul id="ul_72C6333BD6AD40C3B93B4648DBB342A5">
 					<li id="li_6C28895141F641768DB399676A75AD29">Use a prime number. This provides
 						the most even distribution. </li>
 					<li id="li_D8E7F80C0B6B4C6EBD09CE2E1758C522">Make it at least four times as
@@ -45,7 +46,6 @@ custRegion = rf.create("customer");</codeblock></li>
 						balancing and overhead, however. Managing a bucket introduces significant
 						overhead, especially with higher levels of redundancy. </li>
 				</ul>
-			</p>
 			<p>You are trying to avoid the situation where some members have significantly more data
 				entries than others. For example, compare the next two figures. This figure shows a
 				region with three data stores and seven buckets. If all the entries are accessed at

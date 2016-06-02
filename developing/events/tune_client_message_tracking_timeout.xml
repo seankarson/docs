@@ -22,7 +22,8 @@
 				memory that might be freed up for other things. </p>
 			<p>To minimize duplicates and reduce the size of the message tracking list, set your
 				client <codeph>subscription-message-tracking-timeout</codeph> higher than double the
-				sum of these times: <ul id="ul_2DB0700345D94F73AFD093FCEADA92EE">
+				sum of these times: </p>
+				<ul id="ul_2DB0700345D94F73AFD093FCEADA92EE">
 					<li id="li_44ED5D0E2FBA4A509D656DE0048BFCF9">The longest time your originating
 						threads might wait between operations </li>
 					<li id="li_4B0FA9973FBD42FC8C834124408AB705">For redundant servers add: <ul
@@ -39,7 +40,7 @@
 				this. This could result in your client processing duplicate event messages into its
 				cache for the associated threads. It is worth working to set the
 					<codeph>subscription-message-tracking-timeout</codeph> as low as you reasonably
-				can. </p>
+				can.
 			<p>
 				<codeblock>&lt;!-- Set the tracking timeout to 70 seconds --&gt;
 &lt;pool name="client" subscription-enabled="true" subscription-message-tracking-timeout="70000"&gt; 

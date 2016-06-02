@@ -35,7 +35,8 @@
 					<codeph>maximum-queue-memory</codeph> and <codeph>disk-store-name</codeph>
 				attributes apply to each instance of the queue. </note><p>In the example below the
 				gateway sender queue uses "diskStoreA" for persistence and overflow, and the queue
-				has a maximum queue memory of 100MB: <ul id="ul_7E1869577DD24D1D9C714C2A474C539C">
+				has a maximum queue memory of 100MB: </p>
+				<ul id="ul_7E1869577DD24D1D9C714C2A474C539C">
 					<li id="li_10F187A1DCC4446394E2C953E43A19C6">XML example:
 						<codeblock outputclass="language-xml">&lt;cache&gt;
   &lt;gateway-sender id="persistedsender1" parallel="false" 
@@ -62,11 +63,11 @@ sender.start();
 --maximum-queue-memory=100</codeblock>
 					</li>
 				</ul>
-			</p><p> If you were to configure 10 dispatcher threads for the serial gateway sender,
+			<p> If you were to configure 10 dispatcher threads for the serial gateway sender,
 				then the total maximum memory for the gateway sender queue would be 1000MB on each
 					<keyword keyref="product_name"/> member that hosted the sender, because <keyword
 					keyref="product_name"/> creates a separate copy of the queue per thread.. </p>
-			<p>The following example shows a similar configuration for an asynchronous event queue:
+			<p>The following example shows a similar configuration for an asynchronous event queue:</p>
 					<ul id="ul_AE4C2AA4D710479DA034C064831023AC">
 					<li id="li_E3E57AE7DF6448779DBCB149E98D8C61">XML example:
 						<codeblock outputclass="language-xml">&lt;cache&gt;
@@ -101,7 +102,6 @@ AsyncEventQueue persistentAsyncQueue = factory.create("customerWB", listener);</
 --listener-param=url#jdbc:db2:SAMPLE --listener-param=username#gfeadmin --listener-param=password#admin1</codeblock>
 					</li>
 				</ul>
-			</p>
 		</section>
 	</conbody>
 </concept>

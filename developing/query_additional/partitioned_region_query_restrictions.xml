@@ -10,7 +10,8 @@
 			<p>Partitioned region queries function the same as non-partitioned region queries,
 				except for the restrictions listed in this section. Partitioned region queries that
 				do not follow these guidelines generate an
-					<codeph>UnsupportedOperationException</codeph>. <ul
+				<codeph>UnsupportedOperationException</codeph>. </p>
+				<ul
 					id="ul_154C9F68988E40E097F5B2E3B4E8310F">
 					<li id="li_5AA92906A73D4887A12A8D0BA74DD535"> Join queries between partitioned
 						region and between partitioned regions and replicated regions are supported
@@ -65,7 +66,6 @@ SELECT DISTINCT *FROM /prRgn WHERE attribute &gt; 10</codeblock>
 						exists). After certain number of attempts, a QueryException is thrown if all
 						buckets (calculated at the startup of the query) cannot be queried.</li>
 				</ul>
-			</p>
 		</section>
 	</conbody>
 </concept>

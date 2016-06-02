@@ -21,7 +21,8 @@
       update, conflict checking is performed to ensure that all sites apply updates in the same way.
       This ensures that regions eventually reach a consistent state across all <keyword
         keyref="product_name"/> clusters. The default conflict checking behavior for WAN-replicated
-      regions is summarized as follows: <ul id="ul_253ADE6D68D440868F4F8583E235DBF9">
+      regions is summarized as follows: </p>
+      <ul id="ul_253ADE6D68D440868F4F8583E235DBF9">
         <li id="li_03FE9075F139497D8E5A83112EEAD9D9">If an update is received from the same <keyword
             keyref="product_name"/> cluster that last updated the region entry, then there is no
           conflict and the update is applied. </li>
@@ -30,7 +31,6 @@
           entry, then a potential conflict exists. A cluster applies the update only when the update
           has a timestamp that is later than the timestamp currently recorded in the cache. </li>
       </ul>
-    </p>
     <note>If you use the default conflict checking feature for WAN deployments, you must ensure that
       all <keyword keyref="product_name"/> members in all clusters synchronize their system clocks.
       For example, use a common NTP server for all <keyword keyref="product_name"/> members that

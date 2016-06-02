@@ -11,7 +11,8 @@
 					href="../../basic_config/book_intro.xml" format="dita"
 				/>. See also <codeph>com.gemstone.gemfire.cache.PartitionAttributes</codeph>. </note>
 			<p>A distributed region automatically sends entry value updates to remote caches and
-				receives updates from them. <ul id="ul_1D81390D8B064B188B341235A1B9B709">
+				receives updates from them. </p>
+				<ul id="ul_1D81390D8B064B188B341235A1B9B709">
 					<li id="li_E86CFB306B5B46339D420D2AFBE788D3">Distributed entry updates come from
 						the <codeph>Region</codeph>
 						<codeph>put</codeph> and <codeph>create</codeph> operations (the creation of
@@ -26,9 +27,9 @@
 						loader and cache writer application event handler plug-ins across the
 						distributed system. </li>
 				</ul>
-			</p>
 			<p>In a distributed region, new and updated entry values are automatically distributed
-				to remote caches that already have the entries defined. <ul
+				to remote caches that already have the entries defined.</p>
+				<ul
 					id="ul_DD4EE7A245E544079EFBA132E27A06C2">
 					<li id="li_FE1FD2C6346B4234BDC599843D6B83FF"><b>Step 1:</b> The application
 						updates or creates the entry. At this point, the entry in the M1 cache may
@@ -47,7 +48,6 @@
 							href="../../images_svg/distributed_how_3.svg"/>
 					</li>
 				</ul>
-			</p>
 		</section>
 	</conbody>
 </concept>

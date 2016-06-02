@@ -27,21 +27,21 @@
 			<p>The multi-site installation is designed for minimal impact on distributed system
 				performance, so only the farthest-reaching entry operations are distributed between
 				sites. </p>
-			<p>These operations are distributed: <ul id="ul_DC75782339D3488A9D9FF2B98F174CFC">
+			<p>These operations are distributed: </p>
+				<ul id="ul_DC75782339D3488A9D9FF2B98F174CFC">
 					<li id="li_F225A61F17DF400797A11DA88A29D431">entry create </li>
 					<li id="li_B32BD108DAD34BC1A30CD569F1B6B4B8">entry put </li>
 					<li id="li_3B531CE5372F42018EEB713A763C0A5F">entry distributed destroy,
 						providing the operation is not an expiration action </li>
 				</ul>
-			</p>
-			<p>These operations are not distributed: <ul id="ul_FD9333E370844759BA0F4F745886E5E8">
+			<p>These operations are not distributed: </p>
+				<ul id="ul_FD9333E370844759BA0F4F745886E5E8">
 					<li id="li_E54D442DB71646BABC2AA11C3EA52BDF">get </li>
 					<li id="li_6010372CF5E64C9C8B0D6D70329D0AEB">invalidate </li>
 					<li id="li_6C7FB97083364ED884FE5898A3BFC272">local destroy </li>
 					<li id="li_4ABF093BC7EA47BDAD6EA601CF4B0323">expiration actions of any kind </li>
 					<li id="li_58882AF2BFDC4221B8D69D6B5C8CFFE8">region operations </li>
 				</ul>
-			</p>
 		</section>
 		<section id="section_EE819CBF41274312BD5C3EA4A660475C">
 			<title>How a Gateway Sender Processes Its Queue</title>
@@ -71,7 +71,8 @@
 		</section>
 		<section id="section_EF240AB26CF242F99689222E9E1D2512">
 			<title>How a Gateway Sender Handles Batch Processing Failure</title>
-			<p>Exceptions can occur at different points during batch processing: <ul
+			<p>Exceptions can occur at different points during batch processing: </p>
+				<ul
 					id="ul_1E33D04E7D49455FAADDE01A87614909">
 					<li id="li_811EE546C997473793C2592C5BC28D3A">The gateway receiver could fail
 						with acknowledgment. If processing fails while the gateway receiver is
@@ -96,7 +97,6 @@
 						build up in the queue and possibly overflow to disk while waiting for the
 						connection. </li>
 				</ul>
-			</p>
 		</section>
 	</conbody>
 </concept>

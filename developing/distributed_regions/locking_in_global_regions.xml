@@ -40,7 +40,8 @@
 				for the entity and then using the instance to set the lock. Once you have the lock,
 				you hold it for your operations, then release it for someone else to use. You can
 				set limits on the time spent waiting to get a lock and the time spent holding it.
-				Both implicit and explicit locking operations are affected by the timeouts: <ul
+				Both implicit and explicit locking operations are affected by the timeouts: </p>
+				<ul
 					id="ul_e4f32f93-1d77-473d-901f-125032e84be7">
 					<li id="li_85BE78351C4345DAB0B65FBC8C660B3A">The lock timeout limits the wait to
 						get a lock. The cache attribute <codeph>lock-timeout</codeph> governs
@@ -63,7 +64,6 @@
 						</p><p>gfsh:<codeblock>gfsh>alter runtime --lock-lease=120</codeblock></p>
 					</li>
 				</ul>
-			</p>
 		</section>
 		<section id="section_031727F04D114B42944872360A386907">
 			<title>Optimize Locking Performance</title>
@@ -77,7 +77,8 @@
 				assigning lock grantor status to the member that acquires the most locks. This may
 				be the member that performs the most puts and thus requires the most implicit locks
 				or this may be the member that performs many explicit locks. </p>
-			<p>The lock grantor is assigned as follows: <ul id="ul_BD0A94D96FEE4563B379493D177C6D77">
+			<p>The lock grantor is assigned as follows: </p>
+				<ul id="ul_BD0A94D96FEE4563B379493D177C6D77">
 					<li id="li_102A221077BA44858D93418A59840D7E">Any member with the region defined
 						that requests lock grantor status is assigned it. Thus at any time, the most
 						recent member to make the request is the lock grantor. </li>
@@ -86,7 +87,6 @@
 						assigns a lock grantor from the members that have the region defined in
 						their caches. </li>
 				</ul>
-			</p>
 			<p>You can request lock grantor status: <ol id="ol_AC61BDC82B524E6C9151B4B29DA193BD">
 					<li id="li_0CCCD8A33ED0463A827EA73AE29D0D7B">At region creation through the
 							<codeph>is-lock-grantor</codeph> attribute. You can retrieve this
