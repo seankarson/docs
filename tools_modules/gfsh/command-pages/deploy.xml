@@ -9,53 +9,54 @@
 			Manager member to use this command. </p>
 		<p>
 			<b>Syntax:</b>
-			<codeblock>
-deploy [--group=value(,value)*] [--jar=value] [--dir=value]</codeblock>
-			<table id="table_062D2B423D3D474783C66A4260641783">
-				<title>Parameters</title>
-				<tgroup cols="2">
-					<colspec colnum="1" colname="col1" colwidth="1.00*"/>
-					<colspec colnum="2" colname="col2" colwidth="4.02*"/>
-					<thead>
-						<row>
-							<entry colname="col1">Name </entry>
-							<entry colname="col2">Description</entry>
-						</row>
-					</thead>
-					<tbody>
-						<row>
-							<entry colname="col1">
-								<parmname>--group</parmname>
-							</entry>
-							<entry colname="col2"> Group(s) to which the specified JARs will be
-								deployed. If this option is not specified, the deployment will occur
-								on all members. </entry>
-						</row>
-						<row>
-							<entry colname="col1">
-								<parmname>--jar</parmname>
-							</entry>
-							<entry colname="col2">Path of the JAR to deploy. </entry>
-						</row>
-						<row>
-							<entry colname="col1">
-								<parmname>--dir</parmname>
-							</entry>
-							<entry colname="col2"> Directory from which to deploy the JARs. </entry>
-						</row>
-					</tbody>
-				</tgroup>
-			</table>
 		</p>
+		<codeblock>
+deploy [--group=value(,value)*] [--jar=value] [--dir=value]</codeblock>
+		<table id="table_gfk_42h_2w">
+			<title>Parameters</title>
+			<tgroup cols="2">
+				<colspec colnum="1" colname="col1" colwidth="1.00*"/>
+				<colspec colnum="2" colname="col2" colwidth="4.02*"/>
+				<thead>
+					<row>
+						<entry colname="col1">Name </entry>
+						<entry colname="col2">Description</entry>
+					</row>
+				</thead>
+				<tbody>
+					<row>
+						<entry colname="col1">
+							<parmname>--group</parmname>
+						</entry>
+						<entry colname="col2"> Group(s) to which the specified JARs will be
+							deployed. If this option is not specified, the deployment will occur on
+							all members. </entry>
+					</row>
+					<row>
+						<entry colname="col1">
+							<parmname>--jar</parmname>
+						</entry>
+						<entry colname="col2">Path of the JAR to deploy. </entry>
+					</row>
+					<row>
+						<entry colname="col1">
+							<parmname>--dir</parmname>
+						</entry>
+						<entry colname="col2"> Directory from which to deploy the JARs. </entry>
+					</row>
+				</tbody>
+			</tgroup>
+		</table>
 		<p>
 			<b>Example Commands:</b>
-			<codeblock>deploy --jar=group1_functions.jar --group=Group1
+		</p>
+		<codeblock>deploy --jar=group1_functions.jar --group=Group1
 
 deploy --dir=libs/group1-libs --group=Group2</codeblock>
-		</p>
 		<p>
 			<b>Sample Output:</b>
-			<codeblock>
+		</p>
+		<codeblock>
 gfsh&gt; deploy --jar=group1_functions.jar --group=Group1
 
  Member   |     Deployed JAR     |                Deployed JAR Location            
@@ -77,6 +78,5 @@ datanode3 | group2_functions.jar    | /usr/local/gemfire/deploy/GF#group2_functi
 datanode3 | group2_dependencies.jar | /usr/local/gemfire/deploy/GF#group2_dependencies.jar#1 
 datanode4 | group2_functions.jar    | /usr/local/gemfire/deploy/GF#group2_functions.jar#1
 datanode4 | group2_dependencies.jar | /usr/local/gemfire/deploy/GF#group2_dependencies.jar#1</codeblock>
-		</p>
 	</conbody>
 </concept>

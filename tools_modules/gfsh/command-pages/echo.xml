@@ -15,42 +15,42 @@
 			environment variables. </p>
 		<p><b> Availability:</b> Online or offline. </p>
 		<p><b>Syntax:</b>
-			<codeblock>
-echo [--string=value]</codeblock>
-			<table id="table_9172A25D12684164B221A699F35F7487">
-				<title>Parameters</title>
-				<tgroup cols="2">
-					<colspec colnum="1" colname="col1" colwidth="1.00*"/>
-					<colspec colnum="2" colname="col2" colwidth="4.27*"/>
-					<thead>
-						<row>
-							<entry colname="col1">Name </entry>
-							<entry colname="col2">Description</entry>
-						</row>
-					</thead>
-					<tbody>
-						<row>
-							<entry colname="col1"><parmname>--string </parmname>
-							</entry>
-							<entry colname="col2"> String to be echoed. For example,
-									<codeph>SYS_USER variable is set to ${SYS_USER}</codeph>.
-							</entry>
-						</row>
-					</tbody>
-				</tgroup>
-			</table>
 		</p>
+		<codeblock>
+echo [--string=value]</codeblock>
+		<table id="table_uwf_sch_2w">
+			<title>Parameters</title>
+			<tgroup cols="2">
+				<colspec colnum="1" colname="col1" colwidth="1.00*"/>
+				<colspec colnum="2" colname="col2" colwidth="4.27*"/>
+				<thead>
+					<row>
+						<entry colname="col1">Name </entry>
+						<entry colname="col2">Description</entry>
+					</row>
+				</thead>
+				<tbody>
+					<row>
+						<entry colname="col1"><parmname>--string </parmname>
+						</entry>
+						<entry colname="col2"> String to be echoed. For example, <codeph>SYS_USER
+								variable is set to ${SYS_USER}</codeph>. </entry>
+					</row>
+				</tbody>
+			</tgroup>
+		</table>
 		<p><b>Example Commands:</b>
-			<codeblock>
+		</p>
+		<codeblock>
 echo --string="Hello World!"
 echo --string="Hello World! This is ${SYS_USER}"
 echo --string=${APP_FETCH_SIZE}
 
 //To see all the variable set in the shell:
 echo --string=$*</codeblock>
-		</p>
 		<p><b>Sample Output:</b>
-			<codeblock>gfsh&gt;echo --string=$*
+		</p>
+		<codeblock>gfsh&gt;echo --string=$*
            Property            | Value
 ------------------------------ | -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 APP_FETCH_SIZE                 | 1000
@@ -69,6 +69,5 @@ SYS_OS_LINE_SEPERATOR          |
 SYS_USER                       | stymon
 SYS_USER_HOME                  | /home/stymon
 </codeblock>
-		</p>
 	</conbody>
 </concept>

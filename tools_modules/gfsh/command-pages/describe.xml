@@ -14,41 +14,40 @@
 					JMX Manager member to use this command. </p>
 				<p>
 					<b>Syntax:</b>
-					<codeblock>describe client --clientID=value</codeblock>
-					<table id="table_ryr_jgz_ck">
-						<title>Parameters</title>
-						<tgroup cols="2">
-							<colspec colname="col1" colnum="1" colwidth="25%"/>
-							<colspec colname="col2" colnum="2" colwidth="*"/>
-							<thead>
-								<row>
-									<entry colname="col1">Name </entry>
-									<entry colname="col2">Description</entry>
-								</row>
-							</thead>
-							<tbody>
-								<row>
-									<entry colname="col1">
-										<parmname>--clientID</parmname>
-									</entry>
-									<entry colname="col2"><i>Required. </i> ID of the client. To
-										find a client ID, you can use the <cmdname>list
-											clients</cmdname> command to display a list of connected
-										clients and their IDs.</entry>
-								</row>
-							</tbody>
-						</tgroup>
-					</table>
 				</p>
+				<codeblock>describe client --clientID=value</codeblock>
+				<table id="table_pzd_qdh_2w">
+					<title>Parameters</title>
+					<tgroup cols="2">
+						<colspec colname="col1" colnum="1" colwidth="25%"/>
+						<colspec colname="col2" colnum="2" colwidth="*"/>
+						<thead>
+							<row>
+								<entry colname="col1">Name </entry>
+								<entry colname="col2">Description</entry>
+							</row>
+						</thead>
+						<tbody>
+							<row>
+								<entry colname="col1">
+									<parmname>--clientID</parmname>
+								</entry>
+								<entry colname="col2"><i>Required. </i> ID of the client. To find a
+									client ID, you can use the <cmdname>list clients</cmdname>
+									command to display a list of connected clients and their
+									IDs.</entry>
+							</row>
+						</tbody>
+					</tgroup>
+				</table>
 				<p>
-					<b>Example
-					Commands:</b><codeblock>describe client --clientID=172.16.196.144(4987:loner):58922:7b3398cf</codeblock>
+					<b>Example Commands:</b>
 				</p>
+				<codeblock>describe client --clientID=172.16.196.144(4987:loner):58922:7b3398cf</codeblock>
 				<p>
 					<b>Sample Output:</b>
 				</p>
-				<p>
-					<codeblock>gfsh>describe client --clientID=172.16.196.144(4987:loner):58922:7b3398cf
+				<codeblock>gfsh>describe client --clientID=172.16.196.144(4987:loner):58922:7b3398cf
 -------------------------------------------------------------------
 Primary Servers                : 172.16.196.144(server1:5764)&lt;v1>:15189
 Secondary Servers              : 172.16.196.144(server2:5891)&lt;v2>:39082
@@ -64,7 +63,6 @@ UP Time (seconds)              : 67
 Is Durable                     : No
 
 </codeblock>
-				</p>
 			</body>
 		</topic>
 		<topic id="topic_3C2C817D999C4E40AF788808B7B6AF99">
@@ -75,48 +73,49 @@ Is Durable                     : No
 					JMX Manager member to use this command. </p>
 				<p>
 					<b>Syntax:</b>
-					<codeblock>describe config --member=value [--hide-defaults(=value)?]</codeblock>
-					<table id="table_9B59FE829562430FA2143CD38DB514C6">
-						<title>Parameters</title>
-						<tgroup cols="3">
-							<colspec colname="col1" colnum="1" colwidth="1.00*"/>
-							<colspec colname="col2" colnum="2" colwidth="5.53*"/>
-							<colspec colname="newCol3" colnum="3" colwidth="1*"/>
-							<thead>
-								<row>
-									<entry colname="col1">Name </entry>
-									<entry colname="col2">Description</entry>
-									<entry colname="col3">Default Value</entry>
-								</row>
-							</thead>
-							<tbody>
-								<row>
-									<entry colname="col1">
-										<parmname>--member </parmname>
-									</entry>
-									<entry colname="col2">Name or ID of a member whose configuration
-										is to be shown. </entry>
-									<entry/>
-								</row>
-								<row>
-									<entry colname="col1">
-										<parmname>--hide-defaults</parmname>
-									</entry>
-									<entry colname="col2"> Whether to hide configuration information
-										for properties with the default value. </entry>
-									<entry>true</entry>
-								</row>
-							</tbody>
-						</tgroup>
-					</table>
 				</p>
+				<codeblock>describe config --member=value [--hide-defaults(=value)?]</codeblock>
+				<table id="table_ohx_tdh_2w">
+					<title>Parameters</title>
+					<tgroup cols="3">
+						<colspec colname="col1" colnum="1" colwidth="1.00*"/>
+						<colspec colname="col2" colnum="2" colwidth="5.53*"/>
+						<colspec colname="newCol3" colnum="3" colwidth="1*"/>
+						<thead>
+							<row>
+								<entry colname="col1">Name </entry>
+								<entry colname="col2">Description</entry>
+								<entry colname="col3">Default Value</entry>
+							</row>
+						</thead>
+						<tbody>
+							<row>
+								<entry colname="col1">
+									<parmname>--member </parmname>
+								</entry>
+								<entry colname="col2">Name or ID of a member whose configuration is
+									to be shown. </entry>
+								<entry/>
+							</row>
+							<row>
+								<entry colname="col1">
+									<parmname>--hide-defaults</parmname>
+								</entry>
+								<entry colname="col2"> Whether to hide configuration information for
+									properties with the default value. </entry>
+								<entry>true</entry>
+							</row>
+						</tbody>
+					</tgroup>
+				</table>
 				<p>
 					<b>Example Commands:</b>
 				</p>
 				<codeblock>describe config --member=Member1;</codeblock>
 				<p>
 					<b>Sample Output:</b>
-					<codeblock>gfsh&gt;describe config --member=server1
+				</p>
+				<codeblock>gfsh&gt;describe config --member=server1
 Configuration of member : "server1"
 
 
@@ -142,7 +141,6 @@ is-server        : true
 Cache-server attributes
  . bind-address         : localhost
 </codeblock>
-				</p>
 			</body>
 		</topic>
 		<topic id="topic_591DC6B781B641168E6173E69AC6D201">
@@ -153,19 +151,19 @@ Cache-server attributes
 					JMX Manager member to use this command. </p>
 				<p>
 					<b>Syntax:</b>
-					<codeblock>describe connection</codeblock>
 				</p>
+				<codeblock>describe connection</codeblock>
 				<p>
 					<b>Example Commands:</b>
 				</p>
 				<codeblock>describe connection</codeblock>
 				<p>
 					<b>Sample Output:</b>
-					<codeblock>gfsh&gt;describe connection
+				</p>
+				<codeblock>gfsh&gt;describe connection
 Connection Endpoints
 --------------------
 GemFireStymon[1099]</codeblock>
-				</p>
 			</body>
 		</topic>
 		<topic id="topic_C635B500BE6A4F1D9572D0BC98A224F2">
@@ -176,46 +174,47 @@ GemFireStymon[1099]</codeblock>
 					JMX Manager member to use this command. </p>
 				<p>
 					<b>Syntax:</b>
-					<codeblock>describe disk-store --member=value --name=value</codeblock>
-					<table id="table_DE9CEA96FBAF40918BC9C2126E93D742">
-						<title>Parameters</title>
-						<tgroup cols="2">
-							<colspec colnum="1" colname="col1" colwidth="1.00*"/>
-							<colspec colnum="2" colname="col2" colwidth="5.53*"/>
-							<thead>
-								<row>
-									<entry colname="col1">Name </entry>
-									<entry colname="col2">Description</entry>
-								</row>
-							</thead>
-							<tbody>
-								<row>
-									<entry colname="col1">
-										<parmname>--member</parmname>
-									</entry>
-									<entry colname="col2">
-										<i>Required.</i> Name/ID of the member with the disk store
-										to be described. </entry>
-								</row>
-								<row>
-									<entry colname="col1">
-										<parmname>--name </parmname>
-									</entry>
-									<entry colname="col2">
-										<i>Required</i>. Name of the disk store to be described.
-									</entry>
-								</row>
-							</tbody>
-						</tgroup>
-					</table>
 				</p>
+				<codeblock>describe disk-store --member=value --name=value</codeblock>
+				<table id="table_xs1_12h_2w">
+					<title>Parameters</title>
+					<tgroup cols="2">
+						<colspec colnum="1" colname="col1" colwidth="1.00*"/>
+						<colspec colnum="2" colname="col2" colwidth="5.53*"/>
+						<thead>
+							<row>
+								<entry colname="col1">Name </entry>
+								<entry colname="col2">Description</entry>
+							</row>
+						</thead>
+						<tbody>
+							<row>
+								<entry colname="col1">
+									<parmname>--member</parmname>
+								</entry>
+								<entry colname="col2">
+									<i>Required.</i> Name/ID of the member with the disk store to be
+									described. </entry>
+							</row>
+							<row>
+								<entry colname="col1">
+									<parmname>--name </parmname>
+								</entry>
+								<entry colname="col2">
+									<i>Required</i>. Name of the disk store to be described.
+								</entry>
+							</row>
+						</tbody>
+					</tgroup>
+				</table>
 				<p>
 					<b>Example Commands:</b>
 				</p>
 				<codeblock>describe disk-store --member=server1 --name=DiskStore1</codeblock>
 				<p>
 					<b>Sample Output:</b>
-					<codeblock>gfsh>describe disk-store --name=disk1 --member=server1
+				</p>
+				<codeblock>gfsh>describe disk-store --name=disk1 --member=server1
 Disk Store ID                      : a531bc7b-5188-4510-85d7-de7de30c6671
 Disk Store Name                    : disk1
 Member ID                          : ubuntu(server1:7467)&lt;v1>:35249
@@ -237,7 +236,6 @@ PDX Serialization Meta-Data Stored : No
 /home/stymon/server1/DiskStore1 | 2147483647
 	
 </codeblock>
-				</p>
 			</body>
 		</topic>
 		<topic id="topic_D62F3D42B1D84CF68F03D54D5122806A">
@@ -248,38 +246,39 @@ PDX Serialization Meta-Data Stored : No
 					JMX Manager member to use this command. </p>
 				<p>
 					<b>Syntax:</b>
-					<codeblock>describe member --name=value</codeblock>
-					<table id="table_3D7DADD849CC43219EB9F967294B7BA9">
-						<title>Parameters</title>
-						<tgroup cols="2">
-							<colspec colnum="1" colname="col1" colwidth="1.00*"/>
-							<colspec colnum="2" colname="col2" colwidth="2.32*"/>
-							<thead>
-								<row>
-									<entry colname="col1">Name </entry>
-									<entry colname="col2">Description</entry>
-								</row>
-							</thead>
-							<tbody>
-								<row>
-									<entry colname="col1">
-										<parmname>--name </parmname>
-									</entry>
-									<entry colname="col2">
-										<i>Required.</i> Display information about a member,
-										including name, ID, groups, regions, etc. </entry>
-								</row>
-							</tbody>
-						</tgroup>
-					</table>
 				</p>
+				<codeblock>describe member --name=value</codeblock>
+				<table id="table_psn_c2h_2w">
+					<title>Parameters</title>
+					<tgroup cols="2">
+						<colspec colnum="1" colname="col1" colwidth="1.00*"/>
+						<colspec colnum="2" colname="col2" colwidth="2.32*"/>
+						<thead>
+							<row>
+								<entry colname="col1">Name </entry>
+								<entry colname="col2">Description</entry>
+							</row>
+						</thead>
+						<tbody>
+							<row>
+								<entry colname="col1">
+									<parmname>--name </parmname>
+								</entry>
+								<entry colname="col2">
+									<i>Required.</i> Display information about a member, including
+									name, ID, groups, regions, etc. </entry>
+							</row>
+						</tbody>
+					</tgroup>
+				</table>
 				<p>
 					<b>Example Commands:</b>
 				</p>
 				<codeblock>describe member --name=server1</codeblock>
 				<p>
 					<b>Sample Output:</b>
-					<codeblock>gfsh&gt;describe member --name=server1
+				</p>
+				<codeblock>gfsh&gt;describe member --name=server1
 Name        : server1
 Id          : GemFireStymon(server1:240)&lt;v1&gt;:64871
 Host        : 192.168.129.129
@@ -301,7 +300,6 @@ Server Bind        : localhost
 Server Port        : 40404
 Running            : true
 Client Connections : 0</codeblock>
-				</p>
 			</body>
 		</topic>
 		<topic id="topic_kys_yvk_2l">
@@ -312,52 +310,52 @@ Client Connections : 0</codeblock>
 					JMX Manager member to use this command. </p>
 				<p>
 					<b>Syntax:</b>
-					<codeblock>describe offline-disk-store --name=value --disk-dirs=value(,value)* [--pdx=value] [--region=value]</codeblock>
-					<table id="table_vys_yvk_2l">
-						<title>Parameters</title>
-						<tgroup cols="2">
-							<colspec colname="col1" colnum="1" colwidth="1.00*"/>
-							<colspec colname="col2" colnum="2" colwidth="5.53*"/>
-							<thead>
-								<row>
-									<entry colname="col1">Name </entry>
-									<entry colname="col2">Description</entry>
-								</row>
-							</thead>
-							<tbody>
-								<row>
-									<entry colname="col1">
-										<parmname>--name</parmname>
-									</entry>
-									<entry colname="col2">
-										<i>Required.</i> Name of the disk store to be described.
-									</entry>
-								</row>
-								<row>
-									<entry colname="col1">
-										<parmname>--disk-dirs </parmname>
-									</entry>
-									<entry colname="col2"><i>Required.</i> Directory that contains
-										the disk store files.</entry>
-								</row>
-								<row>
-									<entry colname="col1">
-										<parmname>--pdx</parmname>
-									</entry>
-									<entry colname="col2">If set (or set to true), display all the
-										pdx types stored in the disk store.</entry>
-								</row>
-								<row>
-									<entry colname="col1">
-										<parmname>--region</parmname>
-									</entry>
-									<entry colname="col2">Name and path of the region in the disk
-										store to be described.</entry>
-								</row>
-							</tbody>
-						</tgroup>
-					</table>
 				</p>
+				<codeblock>describe offline-disk-store --name=value --disk-dirs=value(,value)* [--pdx=value] [--region=value]</codeblock>
+				<table id="table_rlg_f2h_2w">
+					<title>Parameters</title>
+					<tgroup cols="2">
+						<colspec colname="col1" colnum="1" colwidth="1.00*"/>
+						<colspec colname="col2" colnum="2" colwidth="5.53*"/>
+						<thead>
+							<row>
+								<entry colname="col1">Name </entry>
+								<entry colname="col2">Description</entry>
+							</row>
+						</thead>
+						<tbody>
+							<row>
+								<entry colname="col1">
+									<parmname>--name</parmname>
+								</entry>
+								<entry colname="col2">
+									<i>Required.</i> Name of the disk store to be described.
+								</entry>
+							</row>
+							<row>
+								<entry colname="col1">
+									<parmname>--disk-dirs </parmname>
+								</entry>
+								<entry colname="col2"><i>Required.</i> Directory that contains the
+									disk store files.</entry>
+							</row>
+							<row>
+								<entry colname="col1">
+									<parmname>--pdx</parmname>
+								</entry>
+								<entry colname="col2">If set (or set to true), display all the pdx
+									types stored in the disk store.</entry>
+							</row>
+							<row>
+								<entry colname="col1">
+									<parmname>--region</parmname>
+								</entry>
+								<entry colname="col2">Name and path of the region in the disk store
+									to be described.</entry>
+							</row>
+						</tbody>
+					</tgroup>
+				</table>
 				<p>
 					<b>Example Commands:</b>
 				</p>
@@ -365,8 +363,8 @@ Client Connections : 0</codeblock>
  --disk-dirs=/home/username/gemfire/mydiskStore1Dir
 
 describe offline-disk-store --name=DiskStore1 --disk-dirs=/DiskDir1  --pdx=true</codeblock>
-				<p><b>Sample
-					Output:</b><codeblock>gfsh>describe offline-disk-store --name=DiskStore1 --disk-dirs=/DiskDir1 --pdx=true
+				<p><b>Sample Output:</b></p>
+				<codeblock>gfsh>describe offline-disk-store --name=DiskStore1 --disk-dirs=/DiskDir1 --pdx=true
 Regions in the disk store:
   /PdxTypes: -lru=none -concurrencyLevel=16 -initialCapacity=16 -loadFactor=0.75 -compressor=none -statisticsEnabled=false
   /Region1: -lru=none -concurrencyLevel=16 -initialCapacity=16 -loadFactor=0.75 -compressor=none -statisticsEnabled=false
@@ -405,7 +403,7 @@ PDX Types:
     Object aDay;
     Date date;
 PDX Enums:
-  com.app.data.StockPdx$Day.Monday</codeblock></p>
+  com.app.data.StockPdx$Day.Monday</codeblock>
 			</body>
 		</topic>
 		<topic id="topic_DECF7D3D33F54071B6B8AD4EA7E3F90B">
@@ -416,37 +414,38 @@ PDX Enums:
 					JMX Manager member to use this command. </p>
 				<p>
 					<b>Syntax:</b>
-					<codeblock>describe region --name=value</codeblock>
-					<table id="table_0458DF0EF06B45CEA6E5CFDD2FD38862">
-						<title>Parameters</title>
-						<tgroup cols="2">
-							<colspec colnum="1" colname="col1" colwidth="1.00*"/>
-							<colspec colnum="2" colname="col2" colwidth="5.53*"/>
-							<thead>
-								<row>
-									<entry colname="col1">Name </entry>
-									<entry colname="col2">Description</entry>
-								</row>
-							</thead>
-							<tbody>
-								<row>
-									<entry colname="col1">
-										<parmname>--name </parmname>
-									</entry>
-									<entry colname="col2"><i>Required.</i> Name/Path of the region
-										to be described. </entry>
-								</row>
-							</tbody>
-						</tgroup>
-					</table>
 				</p>
+				<codeblock>describe region --name=value</codeblock>
+				<table id="table_wvt_32h_2w">
+					<title>Parameters</title>
+					<tgroup cols="2">
+						<colspec colnum="1" colname="col1" colwidth="1.00*"/>
+						<colspec colnum="2" colname="col2" colwidth="5.53*"/>
+						<thead>
+							<row>
+								<entry colname="col1">Name </entry>
+								<entry colname="col2">Description</entry>
+							</row>
+						</thead>
+						<tbody>
+							<row>
+								<entry colname="col1">
+									<parmname>--name </parmname>
+								</entry>
+								<entry colname="col2"><i>Required.</i> Name/Path of the region to be
+									described. </entry>
+							</row>
+						</tbody>
+					</tgroup>
+				</table>
 				<p>
 					<b>Example Commands:</b>
 				</p>
 				<codeblock>describe region --name=region1</codeblock>
 				<p>
 					<b>Sample Output:</b>
-					<codeblock>gfsh&gt;describe region --name=region1
+				</p>
+				<codeblock>gfsh&gt;describe region --name=region1
 ..........................................................
 Name            : region1
 Data Policy     : normal
@@ -460,7 +459,6 @@ Non-Default Attributes Shared By Hosting Members
 ------ | ----------- | ------
 Region | data-policy | NORMAL
        | size        | 0</codeblock>
-				</p>
 			</body>
 		</topic>
 	</topic>

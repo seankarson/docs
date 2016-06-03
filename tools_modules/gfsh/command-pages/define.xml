@@ -10,8 +10,8 @@
 			<b> Availability:</b> Online or offline. </p>
 		<p>
 			<b>Syntax:</b>
-			<codeblock>define index --name=value --expression=value --region=value [--type=value]</codeblock>
 		</p>
+		<codeblock>define index --name=value --expression=value --region=value [--type=value]</codeblock>
 		<table id="table_B6D7C12CE550464CB7D6B2159BD94A1E">
 			<title>Parameters</title>
 			<tgroup cols="3">
@@ -62,7 +62,8 @@
 		</table>
 		<p>
 			<b>Example Commands:</b>
-			<codeblock>gfsh> define index --name=myIndex1 --expression=exp1 --region=/exampleRegion 
+		</p>
+		<codeblock>gfsh> define index --name=myIndex1 --expression=exp1 --region=/exampleRegion 
 
 gfsh> define index --name=myIndex2 --expression=”c.exp2” --region="/exampleRegion e, e.collection1 c" 
 
@@ -72,15 +73,14 @@ gfsh> define index --name=myIndex3 --expression=exp3 --region=/exampleRegion --t
 
 gfsh> create defined indexes
  </codeblock>
-		</p>
 		<p>
 			<b>Sample Output:</b>
-			<codeblock>gfsh>define index --name=myIndex1 --expression=exp1 --region=/exampleRegion
+		</p>
+		<codeblock>gfsh>define index --name=myIndex1 --expression=exp1 --region=/exampleRegion
 Index successfully defined with following details
 Name       : myIndex1
 Expression : exp1
 RegionPath : /exampleRegion
 </codeblock>
-		</p>
 	</conbody>
 </concept>
