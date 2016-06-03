@@ -35,7 +35,8 @@
 						</ul>
 					</li>
 				</ol>
-			<p>This example stores attributes for later retrieval by a cache writer. <codeblock>// Attach a user attribute to a Region with database info for table portfolio
+			<p>This example stores attributes for later retrieval by a cache writer.</p>
+			<codeblock>// Attach a user attribute to a Region with database info for table portfolio
 Object myAttribute = "portfolio"; 
 final Region portfolios = 
       new RegionFactory().setCacheWriter(new PortfolioDBWriter()).create("Portfolios"); 
@@ -48,7 +49,6 @@ public class PortfolioDBWriter extends CacheWriterAdapter {
         . . .
   }
 }</codeblock>
-			</p>
 		</section>
 		<section id="section_A5CB456E4E96410584F8856EAFB5BB83">
 			<title>Limitations and Alternatives</title>

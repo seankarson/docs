@@ -36,13 +36,12 @@
 			region creation code, the region will be created in the cache. </result>
 		<example id="example_BF7F1A7807FA494490C93ED7554A8291">
 			<title>Examples</title>
-			<p>Creating a partitioned region using RegionFactory:
+			<p>Creating a partitioned region using RegionFactory:</p>
 				<codeblock>RegionFactory rf = 	
 	cache.createRegionFactory(RegionShortcut.PARTITION);
 rf.addCacheListener(new LoggingCacheListener());
 custRegion = rf.create("customer");</codeblock>
-			</p>
-			<p>Creating a modified partitioned region using RegionFactory:
+			<p>Creating a modified partitioned region using RegionFactory:</p>
 				<codeblock>PartitionAttributesFactory paf = new PartitionAttributesFactory&lt;CustomerId, String&gt;();
 paf.setPartitionResolver(new CustomerOrderResolver());
 
@@ -51,13 +50,11 @@ RegionFactory rf =
 rf.setPartitionAttributes(paf.create());
 rf.addCacheListener(new LoggingCacheListener());
 custRegion = rf.create("customer");</codeblock>
-			</p>
-			<p>Creating a client region with a pool specification using ClientRegionFactory:
+			<p>Creating a client region with a pool specification using ClientRegionFactory:</p>
 				<codeblock>ClientRegionFactory&lt;String,String&gt; cRegionFactory = 
 	cache.createClientRegionFactory(PROXY);
 Region&lt;String, String&gt; region = 
 	cRegionFactory.setPoolName("Pool3").create("DATA");</codeblock>
-			</p>
 		</example>
 	</taskbody>
 </task>

@@ -83,11 +83,9 @@ Region&lt;String, String&gt; region =
 							<li id="li_5A3D323EF7B4454AAE50B49012A89178">Call the mutator set
 								methods to modify attributes: </li>
 						</ol>
-						<p>
 							<codeblock>currRegion = cache.getRegion("root");
 AttributesMutator mutator = this.currRegion.getAttributesMutator();
 mutator.addCacheListener(new LoggingCacheListener()); </codeblock>
-						</p>
 					</li>
 					<li>By issuing the gfsh <cmdname>alter region</cmdname> command. See <xref
 							href="../../tools_modules/gfsh/command-pages/alter.xml#topic_E74ED23CB60342538B2175C326E7D758"

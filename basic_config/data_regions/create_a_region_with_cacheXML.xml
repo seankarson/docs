@@ -36,23 +36,19 @@
 				<codeph>cache.xml</codeph> file, the region will be created. </result>
 		<example id="example_EF879346AF63447FB56EECB03EA748A9">
 			<title>Examples</title>
-			<p>Partitioned Region Declaration
+			<p>Partitioned Region Declaration</p>
 				<codeblock>&lt;region name="myRegion" refid="PARTITION"/&gt;</codeblock>
-			</p>
-			<p>Partitioned Region Declaration with Backup to Disk
+			<p>Partitioned Region Declaration with Backup to Disk</p>
 				<codeblock>&lt;region name="myRegion" refid="PARTITION_PERSISTENT"/&gt;</codeblock>
-			</p>
-			<p>Partitioned Region Declaration with HA and Modified Storage Capacity in Host Member
+			<p>Partitioned Region Declaration with HA and Modified Storage Capacity in Host Member</p>
 				<codeblock>&lt;region name="myRegion" refid="PARTITION_REDUNDANT"&gt;
 	&lt;region-attributes&gt;
 	    &lt;partition-attributes local-max-memory="512" /&gt;
 	&lt;/region-attributes&gt;
 &lt;/region&gt;</codeblock>
-			</p>
-			<p>Replicated Region Declaration
+			<p>Replicated Region Declaration</p>
 				<codeblock>&lt;region name="myRegion" refid="REPLICATE"/&gt;</codeblock>
-			</p>
-			<p>Replicated Region Declaration with Event Listener and Expiration
+			<p>Replicated Region Declaration with Event Listener and Expiration</p>
 				<codeblock>&lt;region name="myRegion" refid="REPLICATE"&gt;
 	&lt;region-attributes statistics-enabled="true"&gt;
 		&lt;entry-time-to-live&gt;
@@ -63,7 +59,6 @@
         &lt;/cache-listener&gt;
     &lt;/region-attributes&gt;
 &lt;/region&gt;</codeblock>
-			</p>
 		</example>
 	</taskbody>
 </task>

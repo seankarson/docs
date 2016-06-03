@@ -66,19 +66,15 @@
 			</p>
 			<p>This example uses the <codeph>RegionFactory</codeph> API to create a region based on
 				the predefined <codeph>PARTITION</codeph> region shortcut: </p>
-			<p>
 				<codeblock>final Region diskPortfolios = 
 	new RegionFactory("PARTITION").create("Portfolios");</codeblock>
-			</p>
 			<p>This example retrieves an attributes template and passes it to the region creation
 				with a modified pool specification: </p>
-			<p>
 				<codeblock>ClientRegionFactory&lt;String,String&gt; regionFactory = 		
 	cache.createClientRegionFactory(PROXY);
 Region&lt;String, String&gt; region = regionFactory
 	.setPoolName("publisher")
 	.create("DATA");</codeblock>
-			</p>
 		</section>
 	</conbody>
 </concept>

@@ -122,7 +122,7 @@
 									the cluster, execute the following
 									command:<codeblock>gfsh>create region --name=Portfolios --type=REPLICATE</codeblock></li>
 								<li id="li_48788B910FF444E99389EA348CFDF890">Declaration in the
-										<codeph>cache.xml</codeph>: <p>
+										<codeph>cache.xml</codeph>:
 										<codeblock outputclass="language-xml">&lt;?xml version="1.0" encoding="UTF-8"?&gt;
 &lt;cache
     xmlns="<keyword keyref="xsd_namespace"/>"
@@ -135,15 +135,15 @@
 &lt;!-- Create a region named Portfolios --&gt;
   &lt;region name="Portfolios" id="REPLICATE"/&gt;
 &lt;/cache&gt;</codeblock>
-									</p><p>When the <codeph>cache.xml</codeph> is loaded at cache
+									<p>When the <codeph>cache.xml</codeph> is loaded at cache
 										creation, the system automatically creates any declared
 										regions. </p>
 								</li>
-								<li id="li_C9A591940D944FA19C305FC0DE03BBD4"><codeph>RegionFactory</codeph> API calls: <p>
+								<li id="li_C9A591940D944FA19C305FC0DE03BBD4"><codeph>RegionFactory</codeph> API calls:
 										<codeblock outputclass="language-java">Cache cache = CacheFactory.create();
 RegionFactory rf = cache.createRegionFactory(REPLICATE);
 Region pfloRegion = rf.create("Portfolios");</codeblock>
-									</p>
+									
 								</li>
 							</ul>
 						
@@ -174,7 +174,7 @@ Region pfloRegion = rf.create("Portfolios");</codeblock>
 				<ul id="ul_fpd_1zx_5m">
 					<li>
 						<ul id="ul_qgz_rzx_5m">
-							<li>Declaration in the <codeph>cache.xml</codeph>: <p>
+							<li>Declaration in the <codeph>cache.xml</codeph>:
 									<codeblock outputclass="language-java">&lt;?xml version="1.0"?&gt;
 &lt;cache
     xmlns="<keyword keyref="xsd_namespace"/>"
@@ -191,17 +191,16 @@ Region pfloRegion = rf.create("Portfolios");</codeblock>
       &lt;/region>
   &lt;/region>
 &lt;/cache&gt;</codeblock>
-								</p>
 								<p>When the <codeph>cache.xml</codeph> is loaded at cache creation,
 									the system automatically creates any declared regions and
 									subregions. </p>
 							</li>
-							<li><codeph>RegionFactory</codeph> API calls: <p>
+							<li><codeph>RegionFactory</codeph> API calls:
 									<codeblock outputclass="language-java">Cache cache = CacheFactory.create();
 RegionFactory rf = cache.createRegionFactory(REPLICATE);
 Region pfloRegion = rf.create("Portfolios");
 Region pvtSubregion = rf.createSubregion(pfloRegion, "Private");</codeblock>
-								</p></li>
+							</li>
 						</ul>
 					</li>
 				</ul>
@@ -233,34 +232,39 @@ Region pvtSubregion = rf.createSubregion(pfloRegion, "Private");</codeblock>
 			<p>An invalidate region operation removes all entry values for a region, while leaving the entry
 				keys intact. This operation can be invoked only through the API on a
 					<codeph>Region</codeph> instance. Event notification
-				occurs.<codeblock>// Invalidate the entire distributed region 
+				occurs.</p>
+				<codeblock>// Invalidate the entire distributed region 
 Region.invalidateRegion(); </codeblock>
-			</p>
 			<p>The API also offers a method to invalidate only the entries within the local cache.
 				This method may not be used on a replicated region, as doing so would invalidate the
 				replication
-				contract.<codeblock>// Invalidate the region within this member
-Region.localInvalidateRegion(); </codeblock></p>
+				contract.</p>
+				<codeblock>// Invalidate the region within this member
+Region.localInvalidateRegion(); </codeblock>
 		</section>
 		<section>
 			<title>Clear a Region</title>
 			<p>A clear region operation removes all entries from a region. This operation is not
 				available for partitioned regions. This operation can be invoked through the API on
 				a <codeph>Region</codeph>
-				instance:<codeblock>// Remove all entries for the region
-Region.clear(); </codeblock></p>
+				instance:</p>
+				<codeblock>// Remove all entries for the region
+Region.clear(); </codeblock>
 			<p>It can be invoked with the <codeph>gfsh</codeph>
-				command:<codeblock>gfsh>remove --region=Region1 --all </codeblock>Event notification
+				command:</p>
+				<codeblock>gfsh>remove --region=Region1 --all </codeblock><p>Event notification
 				occurs for a clear region operation.</p>
 		</section>
 		<section>
 			<title>Destroy a Region</title>
 			<p>A destroy region operation removes the entire region. This operation can be invoked
 				through the API on a <codeph>Region</codeph>
-				instance:<codeblock>// Remove the entire region
-Region.destroyRegion();</codeblock></p>
+				instance:</p>
+				<codeblock>// Remove the entire region
+Region.destroyRegion();</codeblock>
 			<p>A destroy region operation can be invoked with the <codeph>gfsh</codeph>
-				command:<codeblock>gfsh>destroy region --name=Region1</codeblock>Event notification
+				command:</p>
+				<codeblock>gfsh>destroy region --name=Region1</codeblock><p>Event notification
 				occurs for a destroy region operation.</p>
 			<p>A region can be destroyed by removing the region's specification from the
 					<codeph>cache.xml</codeph> file.</p>
@@ -296,8 +300,8 @@ Region.destroyRegion();</codeblock></p>
 		<section id="section_3C0A7E088FDB413297ED8C0CD606968D">
 			<title>Close a Region</title>
 			<p>Use this to stop local caching of persistent and partitioned regions without closing the
-				entire cache: <codeblock>Region.close();</codeblock>
-			</p>
+				entire cache: </p>
+				<codeblock>Region.close();</codeblock>
 			<p>The <codeph>Region.close</codeph> operation works like the
 					<codeph>Region.localDestroyRegion</codeph> operation with these significant
 				differences: </p>

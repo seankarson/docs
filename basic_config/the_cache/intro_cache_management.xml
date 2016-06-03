@@ -72,7 +72,7 @@
 				file is available in the product distribution at <filepath><keyword
 						keyref="xsd_path"/>/<keyword keyref="xsd_filename"/></filepath>.</p>
 			<p>You use one format for peer and server caches and another for client caches. </p>
-			<p><codeph>cache.xml</codeph> for Peer/Server:
+			<p><codeph>cache.xml</codeph> for Peer/Server:</p>
 				<codeblock>&lt;?xml version="1.0" encoding="UTF-8"?&gt;
 &lt;cache xmlns="<keyword keyref="xsd_namespace"/>"
     xmlns:xsi="<xref href="http://www.w3.org/2001/XMLSchema-instance" format="html" scope="external">http://www.w3.org/2001/XMLSchema-instance</xref>"
@@ -80,8 +80,7 @@
     version="<keyword keyref="xsd_version"/>”&gt;
 ...
 &lt;/cache&gt;</codeblock>
-			</p>
-			<p><codeph>cache.xml</codeph> for Client:
+			<p><codeph>cache.xml</codeph> for Client:</p>
 				<codeblock>&lt;?xml version="1.0" encoding="UTF-8"?&gt;
 &lt;client-cache
     xmlns="<keyword keyref="xsd_namespace"/>"
@@ -90,7 +89,6 @@
     version="<keyword keyref="xsd_version"></keyword>”&gt;
 ...
 &lt;/client-cache&gt;</codeblock>
-			</p>
 			<p>For more information on the <codeph>cache.xml</codeph> file, see <xref
 					href="../../reference/topics/chapter_overview_cache_xml.xml#cache_xml"/>. </p>
 		</section>

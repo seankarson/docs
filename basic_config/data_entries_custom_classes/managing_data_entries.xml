@@ -16,9 +16,10 @@
 		<section id="section_B095A4073EFB4A3C91AF7C03632EEBFB">
 			<title>Basic Create and Update</title>
 			<p>To create or update an entry in the cache, use <codeph>Region.put</codeph>. For
-					example:<codeblock outputclass="language-java">String name = ... 
+				example:</p>
+				<codeblock outputclass="language-java">String name = ... 
 String value = ...  
-this.currRegion.put(name,value); </codeblock><note>You
+this.currRegion.put(name,value); </codeblock><p><note>You
 					can also use the <codeph>gfsh <cmdname>put</cmdname></codeph> command to add
 					entries to a region, and the <cmdname>get</cmdname> command to retrieve entries
 					from a region. See <xref
@@ -50,7 +51,7 @@ this.currRegion.put(name,value); </codeblock><note>You
 			<p>The <codeph>putAll</codeph> method takes a <codeph>Map</codeph> of key-value pairs
 				and puts them into the cache and distributes them in a single operation. </p>
 			<p>
-				<b>Example:</b>
+				<b>Example:</b></p>
 				<codeblock outputclass="language-java">void putAll(String command) throws CacheException 
 { 
 // Get Entry keys and values into Strings key1, ... keyN and value1, ... valueN 
@@ -60,7 +61,6 @@ this.currRegion.put(name,value); </codeblock><note>You
   map.put(keyN, valueN));
   this.currRegion.putAll(map); 
 }</codeblock>
-			</p>
 			<p>The updates to the cache are done individually in the order in which they were placed
 				in the <codeph>Map</codeph>. For partitioned regions, multiple events are sent as a
 				single message to the primary buckets and then distributed to the secondary buckets.
@@ -169,7 +169,8 @@ region.put("stringBuf", s);</codeblock>
 				/> and <xref
 					href="../../tools_modules/gfsh/command-pages/put.xml"
 				/>.</p>
-			<p>For example:<codeblock outputclass="language-java">
+			<p>For example:</p>
+				<codeblock outputclass="language-java">
 get --key=('id':'133abg124') --region=region1
 
 // Retrieving when key type is a wrapper(primitive)/String
@@ -184,7 +185,7 @@ put --key=('id':'133abg125') --value=('firstname':'James','lastname':'Gosling')
 put --key=('133abg124') --value=('Hello World!!') --region=/region2
 
 put --key=('100F') --value=('2146547689879658564')  --region=/region1/region12 
---key-class=java.lang.Float --value-class=java.lang.Long</codeblock></p>
+--key-class=java.lang.Float --value-class=java.lang.Long</codeblock>
 		</section>
 	</conbody>
 </concept>
