@@ -48,7 +48,7 @@
 					</dlentry>
 				</dl>
 			</p>
-			<p>Grammar list:
+			<p>Grammar list:</p>
 				<codeblock>symbol ::= expression
 query_program ::= [ imports semicolon ] query [semicolon]
 imports ::= import { semicolon import }
@@ -123,8 +123,7 @@ letter ::= any unicode letter
 character ::= any unicode character except 0xFFFF
 name_character ::= letter | digit | underscore
 digit ::= any unicode digit </codeblock>
-			</p>
-			<p>The expressions in the following are all terminal characters:
+			<p>The expressions in the following are all terminal characters:</p>
 				<codeblock>dot ::= <b>.</b>
 left_paren ::= <b>(</b>
 right_paren ::= <b>)</b>
@@ -139,7 +138,6 @@ colon ::= <b>:</b>
 dash ::= <b>-</b>
 plus ::= <b>+</b>
             </codeblock>
-			</p>
 		</section>
 		<section id="section_B074373F2ED44DC7B98652E70ABC5D5D">
 			<title>Language Notes</title>
@@ -152,10 +150,9 @@ plus ::= <b>+</b>
 					<li id="li_6F3E2B62149F4DD5B98918AF7A438ECF">Comment blocks begin with /* and
 						end with */. </li>
 					<li id="li_C5D1D78CE2404E80A6A7192E586B33EB">String literals are delimited by
-						single-quotes. Embedded single-quotes are doubled. <p>Examples:
+						single-quotes. Embedded single-quotes are doubled. <p>Examples:</p>
 							<codeblock>'Hello' value = Hello
 'He said, ''Hello''' value = He said, 'Hello'</codeblock>
-						</p>
 					</li>
 					<li id="li_FA3F0601F90B4D8E946EDF73127675E9">Character literals begin with the
 						CHAR keyword followed by the character in single quotation marks. The

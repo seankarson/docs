@@ -51,10 +51,9 @@
 					settings as other members of the distributed system and the same
 						<codeph>gfsecurity.properties</codeph> settings if you are using a separate,
 					restricted access security settings file. <p>For example, to configure both
-						locators and a multicast port in <codeph>gemfire.properties:</codeph>
+						locators and a multicast port in <codeph>gemfire.properties:</codeph></p>
 						<codeblock>locators=host1[9001],host2[9003]
 mcast-port=0</codeblock>
-					</p>
 				</li>
 				<li id="li_9A89FB6EDCC647B183E46A005C56F22E">There is no cache configuration
 					specific to locators. </li>
@@ -220,19 +219,20 @@ class MyApplication implements Runnable {
 		<section id="section_F58F229D5C7048E9915E0EC470F9A923">
 			<title>Check Locator Status</title>
 			<p>If you are connected to the distributed system in <codeph>gfsh</codeph>, you can
-				check the status of a running Locator by providing the Locator name. For example:
+				check the status of a running Locator by providing the Locator name. For example:</p>
 				<codeblock>gfsh&gt;status locator --name=locator1</codeblock>
-			</p>
 			<p>If you are not connected to a distributed system, you can check the status of a local
 				Locator by providing the process ID, the Locator's hostname and port, or the
-				Locator's current working directory. For example:
-				<codeblock>gfsh&gt;status locator --pid=2986</codeblock>or
-				<codeblock>gfsh&gt;status locator --host=host1 --port=1035</codeblock>or
-				<codeblock>$ gfsh status locator --dir=&lt;<i>locator_working_directory</i>&gt;</codeblock>where
-					&lt;<i>locator_working_directory</i>&gt; corresponds to the local working
+				Locator's current working directory. For example:</p>
+				<codeblock>gfsh&gt;status locator --pid=2986</codeblock>
+			<p>or</p>
+				<codeblock>gfsh&gt;status locator --host=host1 --port=1035</codeblock>
+			<p>or</p>
+				<codeblock>$ gfsh status locator --dir=&lt;<i>locator_working_directory</i>&gt;</codeblock>
+			<p>where &lt;<i>locator_working_directory</i>&gt; corresponds to the local working
 				directory where the locator is running. </p>
 			<p>If successful, the command returns the following information (with the JVM arguments
-				that were provided at startup):
+				that were provided at startup):</p>
 				<codeblock>stymon@ubuntu:~$ gfsh status locator --dir=locator1
 Locator in /home/stymon/locator1 on ubuntu.local[10334] as locator1 is currently online.
 Process ID: 2359
@@ -246,19 +246,19 @@ Class-Path: /home/stymon/Pivotal_GemFire_800_b48319_Linux/lib/locator-dependenci
 
 Cluster configuration service is up and running.
 </codeblock>
-			</p>
 		</section>
 		<section id="section_0E4DDED6AB784B0CAFBAD538B227F487">
 			<title>Stop the Locator</title>
 			<p>If you are connected to the distributed system in <codeph>gfsh</codeph>, you can stop
-				a running locator by providing the locator name. For example:
+				a running locator by providing the locator name. For example:</p>
 				<codeblock>gfsh&gt;stop locator --name=locator1</codeblock>
-			</p>
 			<p>If you are not connected to a distributed system, you can stop a local locator by
 				specifying the locator's process ID or the locator's current working directory. For
-				example: <codeblock>gfsh&gt;stop locator --pid=2986</codeblock>or
-				<codeblock>gfsh&gt;stop locator --dir=&lt;locator_working_directory&gt;</codeblock>where
-					&lt;<i>locator_working_directory</i>&gt; corresponds to the local working
+				example:</p>
+			<codeblock>gfsh&gt;stop locator --pid=2986</codeblock>
+			<p>or</p>
+				<codeblock>gfsh&gt;stop locator --dir=&lt;locator_working_directory&gt;</codeblock>
+			<p>where &lt;<i>locator_working_directory</i>&gt; corresponds to the local working
 				directory where the locator is running. </p>
 		</section>
 		<section>
@@ -267,8 +267,9 @@ Cluster configuration service is up and running.
 				site when starting the locator.</p>
 			<p>To connect a new locator process to a remote locator in a WAN configuration, specify
 				the following at
-				startup:<codeblock>gfsh> start locator --name=locator1 --port=9009 --mcast-port=0 \
---J='-Dgemfire.remote-locators=10.117.33.214[9009],10.117.33.220[9009]'</codeblock></p>
+				startup:</p>
+			<codeblock>gfsh> start locator --name=locator1 --port=9009 --mcast-port=0 \
+--J='-Dgemfire.remote-locators=10.117.33.214[9009],10.117.33.220[9009]'</codeblock>
 		</section>
 	</conbody>
 </concept>

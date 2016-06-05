@@ -25,9 +25,8 @@
 				instance. If you closed the <codeph>RegionService</codeph> instances, event
 				processing would stop, but the server would continue to send events, and those
 				events would be lost. </p>
-			<p>Stop with:
+			<p>Stop with:</p>
 				<codeblock outputclass="language-java">clientCache.close(true);</codeblock>
-			</p>
 			<p>Start up again in this order: </p>
 				<ol id="ol_ryy_hwg_4r">
 					<li>Create <codeph>ClientCache</codeph> instance. </li>
@@ -206,14 +205,12 @@
 				you ran the query ad hoc, by calling <codeph>QueryService.newQuery.execute</codeph>
 				on the server cache, but with the key included. This example retrieves keys and
 				values from an initial result set: </p>
-			<p>
-				<codeblock>SelectResults cqResults = cq.executeWithInitialResults();
+			<codeblock>SelectResults cqResults = cq.executeWithInitialResults();
 for (Object o : cqResults.asList()) {
   Struct s = (Struct) o; // Struct with Key, value pair
   Portfolio p = (Portfolio) s.get("value"); // get value from the Struct
   String id = (String) s.get("key"); // get key from the Struct
 }</codeblock>
-			</p>
 			<p>If you are managing a data set from the CQ results, you can initialize the set by
 				iterating over the result set and then updating it from your listeners as events
 				arrive. For example, you might populate a new screen with initial results and then

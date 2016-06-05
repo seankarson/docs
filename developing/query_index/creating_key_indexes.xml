@@ -36,19 +36,17 @@
 		<section id="section_8F1B7893F6D44D9CB36679222927031C">
 			<title>Examples of Creating a Key Index</title>
 			<p>
-				<b>Using Java API:</b>
+				<b>Using Java API:</b></p>
 				<codeblock>QueryService qs = cache.getQueryService();
  qs.createKeyIndex("myKeyIndex", "id", "/exampleRegion");
  </codeblock>
-			</p>
 			<p>
-				<b>Using gfsh:</b>
+				<b>Using gfsh:</b></p>
 				<codeblock>
 gfsh&gt; create index --name=myKeyIndex --expression=id --region=/exampleRegion
 </codeblock>
-			</p>
 			<p>
-				<b>Using cache.xml:</b>
+				<b>Using cache.xml:</b></p>
 				<codeblock>&lt;region name=exampleRegion&gt;
  &lt;region-attributes . . . &gt;
  &lt;/region-attributes&gt;
@@ -56,8 +54,10 @@ gfsh&gt; create index --name=myKeyIndex --expression=id --region=/exampleRegion
  ...
 &lt;/region&gt;
 </codeblock>
+			<p>
 				<note>If you do not specify the type of index when defining indexes using cache.xml,
-					the type defaults to "range". </note>
+					the type defaults to "range".
+				</note>
 			</p>
 		</section>
 	</conbody>

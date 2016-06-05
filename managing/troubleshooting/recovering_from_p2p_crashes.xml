@@ -23,21 +23,15 @@
 			<p>To tell whether the regions are partitioned, distributed, or local, check the
 					<codeph>cache.xml</codeph> file. If the file contains a local scope setting, the
 				region has no connection to any other member: </p>
-			<p>
 				<codeblock>&lt;region-attributes scope="local"&gt;</codeblock>
-			</p>
 			<p>If the file contains any other scope setting, it is configuring a distributed region.
 				For example: </p>
-			<p>
 				<codeblock>&lt;region-attributes scope="distributed-no-ack"&gt;</codeblock>
-			</p>
 			<p>If the file includes either of the following lines, it is configuring a partitioned
 				region. </p>
-			<p>
 				<codeblock>&lt;partition-attributes... 
 &lt;region-attributes data-policy="partition"/&gt; 
 &lt;region-attributes data-policy="persistent-partition"/&gt;</codeblock>
-			</p>
 			<p>The reassigned clients continue operating smoothly, as in the failover case. A
 				successful rebalancing operation does not create any data loss. </p>
 			<p>If rebalancing fails, the client fails over to an active server with the normal
@@ -104,43 +98,34 @@
 			<p>The following alert [ALERT-1] (warning) is generated when redundancy for a
 				partitioned region drops: </p>
 			<p>Alert: </p>
-			<p>
 				<codeblock>[warning 2008/08/26 17:57:01.679 PDT dataStoregemfire5_jade1d_6424 
 &lt;PartitionedRegion Message Processor2&gt; tid=0x5c] Redundancy has dropped below 3 
 configured copies to 2 actual copies for /partitionedRegion</codeblock>
-			</p>
-			<p>
 				<codeblock>[warning 2008/08/26 18:13:09.059 PDT dataStoregemfire5_jade1d_6424 
 &lt;DM-MemberEventInvoker&gt; tid=0x1d5] Redundancy has dropped below 3 
 configured copies to 1 actual copy for /partitionedRegion</codeblock>
-			</p>
 			<p>The following alert [ALERT-2] (warning) is generated when, after creation of a
 				partitioned region bucket, the program is unable to find enough members to host the
 				configured redundant copies: </p>
 			<p>Alert: </p>
-			<p>
 				<codeblock>[warning 2008/08/27 17:39:28.876 PDT gemfire_2_4 &lt;RMI TCP Connection(67)-10.80.250.201&gt; 
 tid=0x1786] Unable to find sufficient members to host a bucket in the partitioned region. 
 Region name = /partitionedregion Current number of available data stores: 1 number 
 successfully allocated = 1 number needed = 2 Data stores available: 
 [pippin(21944):41927/42712] Data stores successfully allocated: 
 [pippin(21944):41927/42712] Consider starting another member</codeblock>
-			</p>
 			<p>The following alert [EXCEPTION-1] (warning) and exception is generated when, after
 				the creation of a partitioned region bucket, the program is unable to find any
 				members to host the primary copy: </p>
 			<p>Alert: </p>
-			<p>
 				<codeblock>[warning 2008/08/27 17:39:23.628 PDT gemfire_2_4 &lt;RMI TCP Connection(66)-10.80.250.201&gt; 
 tid=0x1888] Unable to find any members to host a bucket in the partitioned region. 
 Region name = /partitionedregion Current number of available data stores: 0 number 
 successfully allocated = 0 number needed = 2 Data stores available: 
 [] Data stores successfully allocated: [] Consider starting another member</codeblock>
-			</p>
 			<p>Exception: </p>
-			<p>
 				<codeblock>com.gemstone.gemfire.cache.PartitionedRegionStorageException: Unable to find any members to 
-					host a bucket in the partitioned region.</codeblock></p>
+					host a bucket in the partitioned region.</codeblock>
 				<ul id="ul_362D847224564959B1C24EDC7575BE36">
 					<li id="li_59CBEA772F624E8AA45BDB105C3014C3">Region name = /partitionedregion </li>
 					<li id="li_6D2326A96B794FB3A4DA6115EECBE09B">Current number of available data
@@ -203,23 +188,17 @@ successfully allocated = 0 number needed = 2 Data stores available:
 				<b>Synchronous Mode of Disk Writing</b>
 			</p>
 			<p>Alert 1: </p>
-			<p>
 				<codeblock>DiskAccessException has occured while writing to the disk for region &lt;Region_Name&gt;. 
 Attempt will be made to destroy the region locally.</codeblock>
-			</p>
 			<p>Alert 2: </p>
-			<p>
 				<codeblock>Encountered Exception in destroying the region locally</codeblock>
-			</p>
 			<p>Description: </p>
 			<p>These are error log-level alerts. Alert 2 is generated only if there was an error in
 				destroying the region. If Alert 2 is not generated, then the region was destroyed
 				successfully. The message indicating the successful destruction of a region is
 				logged at the information level. </p>
 			<p>Alert 3: </p>
-			<p>
 				<codeblock>Problem in stopping Cache Servers. Failover of clients is suspect</codeblock>
-			</p>
 			<p>Description: </p>
 			<p>This is an error log-level alert that is generated only if servers were supposed to
 				stop but encountered an exception that prevented them from stopping. </p>
@@ -230,22 +209,16 @@ Attempt will be made to destroy the region locally.</codeblock>
 				<b>Asynchronous Mode of Disk Writing</b>
 			</p>
 			<p>Alert 1: </p>
-			<p>
 				<codeblock>Problem in Asynch writer thread for region &lt;Region_name&gt;. It will terminate.</codeblock>
-			</p>
 			<p>Alert 2: </p>
-			<p>
 				<codeblock>Encountered Exception in destroying the region locally</codeblock>
-			</p>
 			<p>Description: </p>
 			<p>These are error log-level alerts. Alert 2 is generated only if there was an error in
 				destroying the region. If Alert 2 is not generated, then the region was destroyed
 				successfully. The message indicating the successful destruction of a region is
 				logged at the information level. </p>
 			<p>Alert 3: </p>
-			<p>
 				<codeblock>Problem in stopping Cache Servers. Failover of clients is suspect</codeblock>
-			</p>
 			<p>Description: </p>
 			<p>This is an error log-level alert that is generated only if servers were supposed to
 				stop but encountered an exception that prevented them from stopping. </p>

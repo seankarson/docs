@@ -41,12 +41,10 @@
 				cache for the associated threads. It is worth working to set the
 					<codeph>subscription-message-tracking-timeout</codeph> as low as you reasonably
 				can.
-			<p>
 				<codeblock>&lt;!-- Set the tracking timeout to 70 seconds --&gt;
 &lt;pool name="client" subscription-enabled="true" subscription-message-tracking-timeout="70000"&gt; 
     ...
 &lt;/pool&gt;</codeblock>
-			</p>
 		</section>
 	</conbody>
 </concept>

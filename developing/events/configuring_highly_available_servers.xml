@@ -8,7 +8,8 @@
 				with no interruption in service if the client's primary server crashes. </p>
 			<p>To configure high availability, set the <codeph>subscription-redundancy</codeph> in
 				the client's pool configuration. This setting indicates the number of secondary
-				servers to use. For example: <codeblock>&lt;!-- Run one secondary server --&gt;
+				servers to use. For example:</p>
+			<codeblock>&lt;!-- Run one secondary server --&gt;
 &lt;pool name="red1" subscription-enabled="true" subscription-redundancy="1"&gt; 
   &lt;locator host="nick" port="41111"/&gt; 
   &lt;locator host="nora" port="41111"/&gt; 
@@ -18,7 +19,6 @@
   &lt;locator host="nick" port="41111"/&gt; 
   &lt;locator host="nora" port="41111"/&gt; 
 &lt;/pool&gt; </codeblock>
-			</p>
 			<p>When redundancy is enabled, secondary servers maintain queue backups while the
 				primary server pushes events to the client. If the primary server fails, one of the
 				secondary servers steps in as primary to provide uninterrupted event messaging to

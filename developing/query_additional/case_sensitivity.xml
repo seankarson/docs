@@ -10,7 +10,9 @@
     <p>In terms of query string and region entry matching, if you want to perform a case-insensitive
       search on a particular field, you can use the Java String class <codeph>toUpperCase</codeph>
       and <codeph>toLowerCase</codeph> methods in your query. For
-      example:<codeblock>SELECT entry.value FROM /exampleRegion.entries entry WHERE entry.value.toUpperCase LIKE '%BAR%'</codeblock>or
-      <codeblock>SELECT * FROM /exampleRegion WHERE foo.toLowerCase LIKE '%bar%'</codeblock></p>
+      example:</p>
+    <codeblock>SELECT entry.value FROM /exampleRegion.entries entry WHERE entry.value.toUpperCase LIKE '%BAR%'</codeblock>
+    <p>or</p>
+      <codeblock>SELECT * FROM /exampleRegion WHERE foo.toLowerCase LIKE '%bar%'</codeblock>
   </conbody>
 </concept>

@@ -53,7 +53,10 @@ enable-time-statistics=true</codeblock>
 				<li id="li_3BFA3DE77F33472EA3BBB91E1C50893A">Enable transient region and entry
 					statistics gathering on the regions where you need it. Expiration requires
 					statistics. <p>gfsh
-						example:<codeblock>gfsh>create region --name=myRegion --type=REPLICATE --enable-statistics=true</codeblock></p><p>Example: </p><codeblock>&lt;region name="myRegion" refid="REPLICATE"&gt;
+						example:</p>
+					<codeblock>gfsh>create region --name=myRegion --type=REPLICATE --enable-statistics=true</codeblock>
+					<p>Example: </p>
+					<codeblock>&lt;region name="myRegion" refid="REPLICATE"&gt;
 	&lt;region-attributes statistics-enabled="true"&gt;
 	&lt;/region-attributes&gt;
 &lt;/region&gt;</codeblock>

@@ -15,7 +15,7 @@
 			<p>To query the application's local cache or to query other members, use
 					<codeph>com.gemstone.gemfire.cache.Cache.getQueryService</codeph>. </p>
 			<p>
-				<b>Sample Code</b>
+				<b>Sample Code</b></p>
 				<codeblock outputclass="language-java"> // Identify your query string.
  String queryString = "SELECT DISTINCT * FROM /exampleRegion";
  
@@ -34,14 +34,13 @@
  // Iterate through your ResultSet.
  Portfolio p = (Portfolio)results.iterator().next(); /* Region containing Portfolio object. */
 </codeblock>
-			</p>
 		</section>
 		<section id="section_BAD35A249F784095857CC6848F91F6A4">
 			<title>Querying a Server Cache from a Client</title>
 			<p> To perform a client to server query, use
 					<codeph>com.gemstone.gemfire.cache.client.Pool.getQueryService</codeph>. </p>
 			<p>
-				<b>Sample Code</b>
+				<b>Sample Code</b></p>
 				<codeblock outputclass="language-java">// Identify your query string.
  String queryString = "SELECT DISTINCT * FROM /exampleRegion";
  
@@ -60,7 +59,6 @@
  // Iterate through your ResultSet.
  Portfolio p = (Portfolio)results.iterator().next(); /* Region containing Portfolio object. */
 </codeblock>
-			</p>
 			<p>Refer to the following JavaDocs for specific APIs: </p>
 				<ul
 					id="ul_7A9785E5BC654DF0B8F9FD76BF5EA78D">

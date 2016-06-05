@@ -7,12 +7,8 @@
 	<conbody>
 		<p> The default setting is 59000 milliseconds. </p>
 		<p>This sets the handshake timeout to 75000 milliseconds for a Java application: </p>
-		<p>
 			<codeblock>-Dp2p.handshakeTimeoutMs=75000</codeblock>
-		</p>
 		<p>The properties are passed to the cache server on the <codeph>gfsh</codeph> command line: </p>
-		<p>
 			<codeblock>gfsh&gt;start server --name=<varname>server_name</varname> --J=-Dp2p.handshakeTimeoutMs=75000</codeblock>
-		</p>
 	</conbody>
 </concept>

@@ -45,22 +45,27 @@
 				statement. </p>
 			<p><b>Examples:</b></p>
 			<p>Query a region for all distinct values. Return a collection of unique entry values
-				from the region: <codeblock>SELECT DISTINCT * FROM /exampleRegion</codeblock></p>
+				from the region: </p>
+			<codeblock>SELECT DISTINCT * FROM /exampleRegion</codeblock>
 			<p>Query the top level region data using entrySet. Return the keys and positions of
-				Region.Entry objects whose mktValue attribute is greater than 25.00:
-				<codeblock>SELECT key, positions FROM /exampleRegion.entrySet, value.positions.values positions WHERE positions.mktValue &gt;= 25.00</codeblock></p>
+				Region.Entry objects whose mktValue attribute is greater than 25.00:</p>
+				<codeblock>SELECT key, positions FROM /exampleRegion.entrySet, value.positions.values positions WHERE positions.mktValue &gt;= 25.00</codeblock>
 			<p>Query the region for its entry values. Return a set of unique values from
 				Region.Entry objects that have the key equal to
-				1:<codeblock>SELECT DISTINCT entry.value FROM /exampleRegion.entries entry WHERE entry.key = '1'</codeblock></p>
+				1:</p>
+			<codeblock>SELECT DISTINCT entry.value FROM /exampleRegion.entries entry WHERE entry.key = '1'</codeblock>
 			<p>Query the region for its entry values. Return the set of all entry values in which
 				the <codeph>ID</codeph> field is greater than
-				1000:<codeblock>SELECT * FROM /exampleRegion.entries entry WHERE entry.value.ID &gt; 1000</codeblock></p>
+				1000:</p>
+			<codeblock>SELECT * FROM /exampleRegion.entries entry WHERE entry.value.ID &gt; 1000</codeblock>
 			<p>Query entry keys in the region. Return a set of entry keys in the region that have
 				the key equal to
-				'1':<codeblock>SELECT * FROM /exampleRegion.keySet key WHERE key = '1'</codeblock></p>
+				'1':</p>
+			<codeblock>SELECT * FROM /exampleRegion.keySet key WHERE key = '1'</codeblock>
 			<p>Query values in the region. Return a collection of entry values in the region that
 				have the status attribute value of
-				'active':<codeblock>SELECT * FROM /exampleRegion.values portfolio WHERE portfolio.status = 'active'</codeblock></p>
+				'active':</p>
+			<codeblock>SELECT * FROM /exampleRegion.values portfolio WHERE portfolio.status = 'active'</codeblock>
 		</section>
 		<section id="section_AB1734C16DC348479C00FD6829B933AA">
 			<title>Aliases and Synonyms</title>
@@ -69,12 +74,9 @@
 			<p> You can also use the <b>AS</b> keyword to provide a label for joined path
 				expressions. </p>
 			<p>
-				<b>Examples:</b>
+				<b>Examples:</b></p>
 				<codeblock>SELECT DISTINCT * FROM /exampleRegion <b>p</b> WHERE <b>p</b>.status = 'active'</codeblock>
-			</p>
-			<p>
 				<codeblock>SELECT * FROM /exampleRegion p, p.positions.values <b>AS</b> pos WHERE pos.secId != '1'</codeblock>
-			</p>
 		</section>
 		<section id="section_A5B42CCB7C924949954AEC2DAAD51134">
 			<title>Object Typing</title>
@@ -83,9 +85,8 @@
 				key-constraint and value-constraint), type can be explicitly specified in the query
 				string. </p>
 			<p>
-				<b>Example:</b>
+				<b>Example:</b></p>
 				<codeblock>SELECT DISTINCT * FROM /exampleRegion, positions.values positions <b>TYPE Position</b> WHERE positions.mktValue &gt;= 25.00</codeblock>
-			</p>
 		</section>
 	</conbody>
 </concept>

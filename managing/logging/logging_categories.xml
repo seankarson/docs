@@ -103,12 +103,13 @@ Cache initialized using "file:/Samples/quickstart/xml/PushConsumer.xml".</codebl
 				archives. If a log file with the specified name already exists at startup, the
 				distributed system automatically renames it before creating the current log file.
 				This is a typical directory listing after a few runs with
-					<codeph>log-file=system.log</codeph>:
+				<codeph>log-file=system.log</codeph>:</p>
 				<codeblock>bash-2.05$ ls -tlra system* 
 -rw-rw-r-- 1 jpearson users 11106 Nov 3 11:07 system-01-00.log 
 -rw-rw-r-- 1 jpearson users 11308 Nov 3 11:08 system-02-00.log 
 -rw-rw-r-- 1 jpearson users 11308 Nov 3 11:09 system.log 
-bash-2.05$</codeblock>The
+bash-2.05$</codeblock>
+			<p>The
 				first run created <codeph>system.log</codeph> with a timestamp of Nov 3 11:07. The
 				second run renamed that file to <codeph>system-01-00.log</codeph> and created a new
 					<codeph>system.log</codeph> with a timestamp of Nov 3 11:08. The third run
@@ -122,7 +123,7 @@ bash-2.05$</codeblock>The
 				paired up regardless of the state of the older files in the directory. Thus, if an
 				application is archiving statistics and logging to <codeph>system.log</codeph> and
 					<codeph>statArchive.gfs</codeph>, and it runs in a Unix directory with these
-				files:
+				files:</p>
 				<codeblock>bash-2.05$ ls -tlr stat* system* 
 -rw-rw-r-- 1 jpearson users 56143 Nov 3 11:07 statArchive-01-00.gfs 
 -rw-rw-r-- 1 jpearson users 56556 Nov 3 11:08 statArchive-02-00.gfs 
@@ -130,7 +131,7 @@ bash-2.05$</codeblock>The
 -rw-rw-r-- 1 jpearson users 11308 Nov 3 11:27 system-01-00.log 
 -rw-rw-r-- 1 jpearson users 59650 Nov 3 11:34 statArchive.gfs 
 -rw-rw-r-- 1 jpearson users 18178 Nov 3 11:34 system.log</codeblock>
-				the directory contents after the run look like this (changed files in <b>bold</b>):
+			<p>the directory contents after the run look like this (changed files in <b>bold</b>):</p>
 				<codeblock>bash-2.05$ ls -ltr stat* system* 
 -rw-rw-r-- 1 jpearson users 56143 Nov 3 11:07 statArchive-01-00.gfs 
 -rw-rw-r-- 1 jpearson users 56556 Nov 3 11:08 statArchive-02-00.gfs 
@@ -139,9 +140,12 @@ bash-2.05$</codeblock>The
 <b>-rw-rw-r-- 1 jpearson users 59650 Nov 3 11:34 statArchive-04-00.gfs 
 -rw-rw-r-- 1 jpearson users 18178 Nov 3 11:34 system-04-00.log 
 -rw-rw-r-- 1 jpearson users 55774 Nov 4 10:08 statArchive.gfs 
--rw-rw-r-- 1 jpearson users 17681 Nov 4 10:08 system.log</b></codeblock>The
+-rw-rw-r-- 1 jpearson users 17681 Nov 4 10:08 system.log</b>
+				</codeblock>
+			<p>The
 				statistics and the log file are renamed using the next integer that is available to
-				both, so the log file sequence jumps past the gap in this case. </p>
+				both, so the log file sequence jumps past the gap in this case.
+			</p>
 		</section>
 		<section id="section_02D8D53AC740490D842C6525FA7DB815">
 			<title>Log Level</title>
@@ -157,12 +161,11 @@ bash-2.05$</codeblock>The
 						events that are of considerable importance that will prevent normal program
 						execution. You will likely need to shut down or restart at least part of
 						your system to correct the situation. <p>This severe error was produced by
-							configuring a system member to connect to a non-existent locator:
+							configuring a system member to connect to a non-existent locator:</p>
 							<codeblock>[severe 2005/10/24 11:21:02.908 PDT nameFromGemfireProperties 
 DownHandler (FD_SOCK) nid=0xf] GossipClient.getInfo(): 
 exception connecting to host localhost:30303: 
 java.net.ConnectException: Connection refused</codeblock>
-						</p>
 					</li>
 					<li id="li_AD8D4F6905634CE294F000C698DA70BC"><b>error</b>. This level indicates
 						that something is wrong in your system. You should be able to continue
@@ -172,22 +175,21 @@ java.net.ConnectException: Connection refused</codeblock>
 							customer-implemented cache listener, <keyword keyref="product_name"/>
 							catches any <codeph>Throwable</codeph> thrown by the listener and logs
 							it as an error. The text shown here is followed by the output from the
-								<codeph>Throwable</codeph> itself.
+							<codeph>Throwable</codeph> itself.</p>
 							<codeblock>[error 2007/09/05 11:45:30.542 PDT gemfire1_newton_18222
 &lt;vm_2_thr_5_client1_newton_18222-0x472e&gt; nid=0x6d443bb0] 
 Exception occurred in CacheListener </codeblock>
-						</p>
 					</li>
 					<li id="li_0B49BA29F1334D5DB860041EF0F4A3DC"><b>warning</b>. This level
 						indicates a potential problem. In general, warning messages describe events
 						that are of interest to end users or system managers, or that indicate
 						potential problems in the program or system. <p>This message was obtained by
 							starting a client with a Pool configured with queueing enabled when
-							there was no server running to create the client’s queue:
+							there was no server running to create the client’s queue:</p>
 							<codeblock>[warning 2008/06/09 13:09:28.163 PDT &lt;queueTimer-client&gt; tid=0xe] 
 QueueManager - Could not create a queue. No queue servers available</codeblock>
-						</p>This message was obtained by trying to get an entry in a client region
-						while there was no server running to respond to the client request:
+						<p>This message was obtained by trying to get an entry in a client region
+							while there was no server running to respond to the client request:</p>
 						<codeblock>[warning 2008/06/09 13:12:31.833 PDT &lt;main&gt; tid=0x1] Unable to create a
 connection in the allowed time
 com.gemstone.gemfire.cache.client.NoAvailableServersException
@@ -202,32 +204,28 @@ com.gemstone.gemfire.internal.cache.LocalRegion.get(LocalRegion.java:1122
 						administrators. <p>This is a typical info message created at system member
 							startup. This indicates that no other
 								<codeph>DistributionManager</codeph>s are running in the distributed
-							system, which means no other system members are running:
+							system, which means no other system members are running:</p>
 							<codeblock>[info 2005/10/24 11:51:35.963 PDT CacheRunner main nid=0x1]
 DistributionManager straw(7368):41714 started on 224.0.0.250[10333] 
 with id straw(7368):41714 (along with 0 other DMs)</codeblock>
-						</p>
 						<p>When another system member joins the distributed system, these info
-							messages are output by the members that are already running:
+							messages are output by the members that are already running:</p>
 							<codeblock>[info 2005/10/24 11:52:03.934 PDT CacheRunner P2P message reader for
 straw(7369):41718 nid=0x21] Member straw(7369):41718 has joined the
 distributed cache.</codeblock>
-						</p>
 						<p>When another member leaves because of an interrupt or through normal
-							program termination:
+							program termination:</p>
 							<codeblock>[info 2005/10/24 11:52:05.128 PDT CacheRunner P2P message reader for
 straw(7369):41718 nid=0x21] Member straw(7369):41718 has left the
 distributed cache.</codeblock>
-						</p>
-						<p>And when another member is killed:
+						<p>And when another member is killed:</p>
 							<codeblock>[info 2005/10/24 13:08:41.389 PDT CacheRunner DM-Puller nid=0x1b] Member
 straw(7685):41993 has unexpectedly left the distributed cache.</codeblock>
-						</p>
 					</li>
 					<li id="li_ADDA4A6565214EE290975CB63D1C48AF"><b>config</b>. This is the default
 						setting for logging. This level provides static configuration messages that
 						are often used to debug problems associated with particular configurations.
-							<p>You can use this config message to verify your startup configuration:
+						<p>You can use this config message to verify your startup configuration:</p>
 							<codeblock>[config 2008/08/08 14:28:19.862 PDT CacheRunner &lt;main&gt; tid=0x1] Startup Configuration:
 ack-severe-alert-threshold="0"
 ack-wait-threshold="15"
@@ -255,7 +253,6 @@ tcp-port="0"
 udp-fragment-size="60000"
 udp-recv-buffer-size="1048576"
 udp-send-buffer-size="65535"</codeblock>
-						</p>
 					</li>
 					<li id="li_8BC7719DBC0F4D9F817647FAB708912A"><b>fine</b>. This level provides
 						tracing information that is generally of interest to developers. It is used

@@ -120,18 +120,17 @@
 							megabytes).<codeblock>gfsh>create disk-store --name=serverOverflow <b>--dir=c:\overflow_data#20480</b></codeblock></li>
 						<li id="li_49F155693ACC4E4E93F12FCE94B651FF">Optionally, you can configure
 							the store’s file compaction behavior. In conjunction with this, plan and
-							program for any manual compaction. <p>Example:
+							program for any manual compaction. <p>Example:</p>
 								<codeblock>gfsh>create disk-store --name=serverOverflow --dir=c:\overflow_data#20480 \
-<b>--compaction-threshold=40 --auto-compact=false --allow-force-compaction=true</b></codeblock></p>
+<b>--compaction-threshold=40 --auto-compact=false --allow-force-compaction=true</b></codeblock>
 						</li>
 						<li id="li_A45088825BEE4742B114474C3DA4D227">If needed, configure the
 							maximum size (in MB) of a single oplog. When the current files reach
 							this size, the system rolls forward to a new file. You get better
-							performance with relatively small maximum file sizes. <p>Example:
+							performance with relatively small maximum file sizes. <p>Example:</p>
 								<codeblock>gfsh>create disk-store --name=serverOverflow --dir=c:\overflow_data#20480 \
 --compaction-threshold=40 --auto-compact=false --allow-force-compaction=true \
 <b>--max-oplog-size=512</b></codeblock>
-							</p>
 						</li>
 						<li id="li_E6D6E0C9EE754A74BB12957C0A0E5BD8">If needed, modify queue
 							management parameters for asynchronous queueing to the disk store. You
@@ -142,33 +141,32 @@
 								<codeph>time-interval</codeph> (milliseconds) is reached, enqueued
 							data is flushed to disk. You can also synchronously flush unwritten data
 							to disk through the <codeph>DiskStore</codeph>
-							<codeph>flushToDisk</codeph> method. <p>Example:
+							<codeph>flushToDisk</codeph> method. <p>Example:</p>
 								<codeblock>gfsh>create disk-store --name=serverOverflow --dir=c:\overflow_data#20480 \
 --compaction-threshold=40 --auto-compact=false --allow-force-compaction=true \
 --max-oplog-size=512 <b>--queue-size=10000</b> <b>--time-interval=15</b></codeblock>
-							</p>
 						</li>
 						<li id="li_43B2133B68B74D7B8560AD397E6ADF79">If needed, modify the size
-							(specified in bytes) of the buffer used for writing to disk. <p>Example:
+							(specified in bytes) of the buffer used for writing to disk. <p>Example:</p>
 								<codeblock>gfsh>create disk-store --name=serverOverflow --dir=c:\overflow_data#20480 \
 --compaction-threshold=40 --auto-compact=false --allow-force-compaction=true \
 --max-oplog-size=512 --queue-size=10000 --time-interval=15 <b>--write-buffer-size=65536</b></codeblock>
-							</p>
 						</li>
 						<li>If needed, modify the <codeph>disk-usage-warning-percentage</codeph> and
 								<codeph>disk-usage-critical-percentage</codeph> thresholds that
 							determine the percentage (default: 90%) of disk usage that will trigger
 							a warning and the percentage (default: 99%) of disk usage that will
 							generate an error and shut down the member cache.
-								<p>Example:<codeblock>gfsh>create disk-store --name=serverOverflow --dir=c:\overflow_data#20480 \
+							<p>Example:</p>
+							<codeblock>gfsh>create disk-store --name=serverOverflow --dir=c:\overflow_data#20480 \
 --compaction-threshold=40 --auto-compact=false --allow-force-compaction=true \
 --max-oplog-size=512 --queue-size=10000 --time-interval=15 --write-buffer-size=65536 \
-<b>--disk-usage-warning-percentage=80</b> <b>--disk-usage-critical-percentage=98</b></codeblock></p>
+<b>--disk-usage-warning-percentage=80</b> <b>--disk-usage-critical-percentage=98</b></codeblock>
 						</li>
 					</ol>
 				</li>
 			</ol>
-			<p>The following is the complete disk store cache.xml configuration example:
+			<p>The following is the complete disk store cache.xml configuration example:</p>
 				<codeblock>&lt;disk-store name="serverOverflow" compaction-threshold="40" 
 	       auto-compact="false" allow-force-compaction="true"
    	    max-oplog-size="512" queue-size="10000"  
@@ -179,7 +177,7 @@
 		      &lt;disk-dir&gt;c:\overflow_data&lt;/disk-dir&gt;
 		      &lt;disk-dir dir-size="20480"&gt;d:\overflow_data&lt;/disk-dir&gt;
 	   &lt;/disk-dirs&gt;
-&lt;/disk-store&gt;</codeblock></p>
+&lt;/disk-store&gt;</codeblock>
 			<p>
 				<note>As an alternative to defining cache.xml on every server in the cluster-- if
 					you have the cluster configuration service enabled, when you create a disk store

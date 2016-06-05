@@ -86,7 +86,7 @@
 				serialization of BigInteger and BigDecimal types. </p>
 			<p> The following code sample illustrates a subclass of the
 					<codeph>ReflectionBasedAutoSerializer</codeph> that optimizes BigInteger and
-				BigDecimal autoserialization:
+				BigDecimal autoserialization:</p>
 				<codeblock>public static class BigAutoSerializer extends ReflectionBasedAutoSerializer {
    public BigAutoSerializer(Boolean checkPortability, string… patterns) {
     super(checkPortability, patterns);
@@ -156,7 +156,6 @@ public FieldType get FieldType(Field f, Class&lt;?&gt; clazz) {
   }
 
 </codeblock>
-			</p>
 		</section>
 	</conbody>
 </concept>

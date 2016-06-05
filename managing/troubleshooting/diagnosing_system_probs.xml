@@ -148,7 +148,6 @@
 		<section id="section_7BC1FF8CE0FC492CB49235FC4BC4060B">
 			<title>Locator does not start</title>
 			<p>Invocation of a locator with gfsh fails with an error like this: </p>
-			<p>
 				<codeblock>Starting a GemFire Locator in C:\devel\gfcache\locator\locator
 The Locator process terminated unexpectedly with exit status 1. Please refer to the log
         file in C:\devel\gfcache\locator\locator for full details.
@@ -169,7 +168,6 @@ at
 com.gemstone.gemfire.distributed.LocatorLauncher.start(LocatorLauncher.java:596)
 ...
 </codeblock>
-			</p>
 			<p>This indicates a mismatch somewhere in the address, port pairs used for locator
 				startup and configuration. The address you use for locator startup must match the
 				address you list for the locator in the <codeph>gemfire.properties</codeph> locators
@@ -301,18 +299,14 @@ com.gemstone.gemfire.distributed.LocatorLauncher.start(LocatorLauncher.java:596)
 		<section id="section_B0698527A4DF4D84877B1AF66291ABFD">
 			<title>Cache creation fails - must match schema definition root</title>
 			<p>System member startup fails with an error like one of these: </p>
-			<p>
 				<codeblock>Exception in thread "main" com.gemstone.gemfire.cache.CacheXmlException: 
 While reading Cache XML file:/C:/gemfire/client_cache.xml. 
 Error while parsing XML, caused by org.xml.sax.SAXParseException: 
 Document root element "client-cache", must match DOCTYPE root "cache".</codeblock>
-			</p>
-			<p>
 				<codeblock>Exception in thread "main" com.gemstone.gemfire.cache.CacheXmlException: 
 While reading Cache XML file:/C:/gemfire/cache.xml. 
 Error while parsing XML, caused by org.xml.sax.SAXParseException: 
 Document root element "cache", must match DOCTYPE root "client-cache".</codeblock>
-			</p>
 			<p><keyword keyref="product_name"/> declarative cache creation uses one of two root
 				element pairs: <codeph>cache</codeph> or <codeph>client-cache</codeph>. The name
 				must be the same in both places. </p>
@@ -417,13 +411,11 @@ Document root element "cache", must match DOCTYPE root "client-cache".</codebloc
 				the partitioned region will still be available but may have some buckets represented
 				only in offline disk stores. In this case, methods that access the bucket entries
 				return a PartitionOfflineException, similar to this: </p>
-			<p>
 				<codeblock>com.gemstone.gemfire.cache.persistence.PartitionOfflineException: 
 Region /__PR/_B__root_partitioned__region_7 has persistent data that is no 
 longer online stored at these locations: 
 [/10.80.10.64:/export/straw3/users/jpearson/bugfix_Apr10/testCL/hostB/backupDirectory 
 created at timestamp 1270834766733 version 0]</codeblock>
-			</p>
 			<p>Response: Bring the missing member online, if possible. This restores the buckets to
 				memory and you can work with them again. If the missing member cannot be brought
 				back online, or the disk stores for the member are corrupt, you may need to revoke
@@ -581,12 +573,8 @@ created at timestamp 1270834766733 version 0]</codeblock>
 				with a loader. PartitionedRegionStorageException often indicates data loss or
 				impending data loss. </p>
 			<p>The text string indicates the cause of the exception, as in these examples: </p>
-			<p>
 				<codeblock>Unable to allocate sufficient stores for a bucket in the partitioned region....</codeblock>
-			</p>
-			<p>
 				<codeblock>Ran out of retries attempting to allocate a bucket in the partitioned region....</codeblock>
-			</p>
 			<p>Response: </p>
 				<ul id="ul_DA8E859F385E45DAA3B90AD29D624138">
 					<li id="li_455FE460BFE84F3F8B29AAD2DC2550E9">Check the network for traffic
@@ -695,10 +683,8 @@ created at timestamp 1270834766733 version 0]</codeblock>
 				requests. When this happens, listeners receive RegionDestroyed notification with an
 				opcode of FORCED_DISCONNECT. The <keyword keyref="product_name"/> log file for the
 				member shows a ForcedDisconnectException with the message </p>
-			<p>
 				<codeblock>This member has been forced out of the distributed system because it did not respond 
 within member-timeout milliseconds</codeblock>
-			</p>
 			<p>Response: </p>
 			<p>To minimize the chances of this happening, you can increase the DistributedSystem
 				property member-timeout. Take care, however, as this setting also controls the
@@ -826,9 +812,7 @@ within member-timeout milliseconds</codeblock>
 			<title>Can’t get Windows performance data</title>
 			<p>Attempting to run performance measurements for <keyword keyref="product_name"/> on
 				Windows can produce this error message: </p>
-			<p>
 				<codeblock>Can't get Windows performance data. RegQueryValueEx returned 5</codeblock>
-			</p>
 			<p>This error can occur because incorrect information is returned when a Win32
 				application calls the ANSI version of RegQueryValueEx Win32 API with
 				HKEY_PERFORMANCE_DATA. This error is described in Microsoft KB article ID 226371 at
@@ -839,9 +823,7 @@ within member-timeout milliseconds</codeblock>
 				the proper registry key access permissions in the system registry. In particular,
 				make sure that Perflib in the following registry path is readable (KEY_READ access)
 				by the <keyword keyref="product_name"/> process: </p>
-			<p>
 				<codeblock>HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Perflib</codeblock>
-			</p>
 			<p>An example of reasonable security on the performance data would be to grant
 				administrators KEY_ALL_ACCESS access and interactive users KEY_READ access. This
 				particular configuration would prevent non-administrator remote users from querying
@@ -865,10 +847,9 @@ within member-timeout milliseconds</codeblock>
 			<p>
 				<msgblock>[10703552.860274] Clock: inserting leap second 23:59:60 UTC</msgblock>
 			</p>
-			<p>To fix this problem, issue the following commands on your affected Linux machines:
+			<p>To fix this problem, issue the following commands on your affected Linux machines:</p>
 				<codeblock>prompt&gt; /etc/init.d/ntp stop
 prompt&gt; date -s "$(date)"</codeblock>
-			</p>
 			<p>See the following web site for more information: </p>
 			<p>
 				<xref

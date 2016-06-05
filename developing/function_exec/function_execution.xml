@@ -129,7 +129,6 @@
 					</li>
 				</ol>
 			<p>Example function code: </p>
-			<p>
 				<codeblock>package quickstart;
 
 import java.io.Serializable;
@@ -173,7 +172,6 @@ to be called using FunctionService.onRegion.");
     return getClass().getName();
   }
 }</codeblock>
-			</p>
 		</section>
 		<section id="section_164E27B88EC642BA8D2359B18517B624">
 			<title>Register the Function Automatically by Deploying a JAR</title>
@@ -341,10 +339,9 @@ List result = (List)rc.getResult();</codeblock>
 				into a <codeph>ResultCollector</codeph> and returns the
 					<codeph>ResultCollector</codeph> object. The calling application can then
 				retrieve the results through the <codeph>ResultCollector</codeph>
-				<codeph>getResult</codeph> method. Example:
+				<codeph>getResult</codeph> method. Example:</p>
 				<codeblock>ResultCollector rc = execution.execute(function);
 List result = (List)rc.getResult();</codeblock>
-			</p>
 			<p><keyword keyref="product_name"/>’s default <codeph>ResultCollector</codeph> collects
 				all results into an <codeph>ArrayList</codeph>. Its <codeph>getResult</codeph>
 				methods block until all results are received. Then they return the full result set. </p>

@@ -23,7 +23,7 @@
 			important that the fields used by your <codeph>equals</codeph> and
 				<codeph>hashCode</codeph> implementations are the same fields that you mark as
 			identity fields. </p>
-		<p>The following is a code example of using <codeph>PdxInstanceFactory</codeph>:
+		<p>The following is a code example of using <codeph>PdxInstanceFactory</codeph>:</p>
 			<codeblock>
 PdxInstance pi = cache.createPdxInstanceFactory("com.company.DomainObject")
    .writeInt("id", 37)
@@ -32,7 +32,7 @@ PdxInstance pi = cache.createPdxInstanceFactory("com.company.DomainObject")
    .writeObject("favoriteDay", cache.createPdxEnum("com.company.Day", "FRIDAY", 5))
    .create();
 </codeblock>
-			For more information, see <codeph>PdxInstanceFactory</codeph> in the Java API
+		<p>For more information, see <codeph>PdxInstanceFactory</codeph> in the Java API
 			documentation. </p>
 		<section id="section_F4EC56197730427084FBF040820A6149">
 			<title>Enum Objects as PdxInstances</title>

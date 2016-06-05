@@ -22,19 +22,22 @@ gfsh> define index --name=myIndex3 --expression=exp3 --region=/exampleRegion --t
 gfsh> create defined indexes
  </codeblock>
     <p>If index creation fails, you may receive an error message in gfsh similar to the
-      following:<codeblock>gfsh&gt;create defined indexes
+      following:</p>
+    <codeblock>gfsh&gt;create defined indexes
 Exception : com.gemstone.gemfire.cache.query.RegionNotFoundException , 
 Message : Region ' /r3' not found: from  /r3Occurred on following members
-1. india(s1:17866)&lt;v1&gt;:27809</codeblock></p>
+1. india(s1:17866)&lt;v1&gt;:27809</codeblock>
     <p><b>Java API
-      example:</b><codeblock> Cache cache = new CacheFactory().create();
+      example:</b></p>
+    <codeblock> Cache cache = new CacheFactory().create();
     QueryService queryService = cache.getQueryService();
     queryService.defineIndex("name1", "indexExpr1", "regionPath1");
     queryService.defineIndex("name2", "indexExpr2", "regionPath2");
     queryService.defineHashIndex("name3", "indexExpr3", "regionPath2");
     queryService.defineKeyIndex("name4", "indexExpr4", "regionPath2");
     List&lt;Index> indexes = queryService.createDefinedIndexes();
-</codeblock>If
+</codeblock>
+    <p>If
       one or more index population fails, <keyword keyref="product_name"/> collect the Exceptions
       and continues to populate the rest of the indexes. The collected <codeph>Exceptions</codeph>
       are stored in a Map of index names and exceptions that can be accessed through
@@ -43,8 +46,10 @@ Message : Region ' /r3' not found: from  /r3Occurred on following members
       create a new set of indexes or if one or more of the index creations fail, you might want to
       clear the definitions stored by using <codeph>clear defined indexes</codeph>command. The
       defined indexes can be cleared by using the Java
-      API:<codeblock>queryService.clearDefinedIndexes();
-</codeblock>or
-      gfsh:<codeblock>gfsh> clear defined indexes</codeblock></p>
+      API:</p>
+    <codeblock>queryService.clearDefinedIndexes();
+</codeblock>
+    <p>or gfsh:</p>
+    <codeblock>gfsh> clear defined indexes</codeblock>
   </body>
 </topic>

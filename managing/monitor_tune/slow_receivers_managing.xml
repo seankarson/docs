@@ -6,8 +6,8 @@
 		deliver the message as long as the receiving member is still in the distributed system. </shortdesc>
 	<conbody>
 		<p> During the retry cycle, <keyword keyref="product_name"/> throws warnings that include
-			this string: <codeblock>will reattempt</codeblock>
-		</p>
+			this string: </p>
+		<codeblock>will reattempt</codeblock>
 		<p>The warnings are followed by an informational message when the delivery finally succeeds. </p>
 		<p>For distributed regions, the scope of a region determines whether distribution
 			acknowledgments and distributed synchronization are required. Partitioned regions ignore
@@ -164,15 +164,14 @@
 			notified with the afterRegionDestroyed notification. The RegionEvent passed with this
 			notification has a CACHE_CLOSED operation and a FORCED_DISCONNECT operation, as shown in
 			the FORCED_DISCONNECT example. </p>
-		<p>
 			<codeblock>public static final Operation FORCED_DISCONNECT 
 = new Operation("FORCED_DISCONNECT",
 		true, // isLocal
 		true, // isRegion
 		OP_TYPE_DESTROY,
 		OP_DETAILS_NONE
-		);</codeblock>
-		</p>
+		);
+			</codeblock>
 		<p>A cache closes due to being expelled from the distributed system by other members.
 			Typically, this happens when a member becomes unresponsive and does not respond to
 			heartbeat requests within the member-timeout period, or when ack-severe-alert-threshold

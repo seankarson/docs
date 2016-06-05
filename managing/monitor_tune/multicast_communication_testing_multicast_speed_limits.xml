@@ -24,9 +24,7 @@
 			<p>Run each test for ten minutes to make sure any potential problems have a chance to
 				develop. Use the following command lines to start the sender and receivers. </p>
 			<p><b>Sender</b>: </p>
-			<p>
 				<codeblock>iperf -c 224.0.166.111 -u -T 1 -t 100 -i 1 -b 1000000000</codeblock>
-			</p>
 			<p>where: </p>
 			<p>
 				<table id="table_0E8CAF5CF6E04634AADF98D9CFEE41B5">
@@ -92,9 +90,7 @@
 				</table>
 			</p>
 			<p><b>Receiver</b>: </p>
-			<p>
 				<codeblock>iperf -s -u -B 224.0.166.111 -i 1</codeblock>
-			</p>
 			<p>where: </p>
 			<p>
 				<table id="table_14B510A78B0341378D650B3C9BD8111C">
@@ -143,14 +139,12 @@
 			<p>In the receiver’s output, look at the Lost/Total Datagrams columns for the number and
 				percentage of lost packets out of the total sent. </p>
 			<p><b>Output From Iperf Testing</b>: </p>
-			<p>
 				<codeblock>[	ID] Interval	 Transfer	 Bandwidth	 Jitter	 Lost/Total Datagrams
 [	 3]	0.0- 1.0 sec	 129 KBytes	 1.0 Mbits/sec	0.778 ms	 61/	151 (40%)
 [	 3]	1.0- 2.0 sec	 128 KBytes	 1.0 Mbits/sec	0.236 ms	 0/	 89 (0%)
 [	 3]	2.0- 3.0 sec	 128 KBytes	 1.0 Mbits/sec	0.264 ms	 0/	 89 (0%)
 [	 3]	3.0- 4.0 sec	 128 KBytes	 1.0 Mbits/sec	0.248 ms	 0/	 89 (0%)
 [	 3]	0.0- 4.3 sec	 554 KBytes	 1.0 Mbits/sec	0.298 ms	 61/	447 (14%)</codeblock>
-			</p>
 			<p>Rerun the test at different bandwidths until you find the maximum useful multicast
 				rate. Start high, then gradually decrease the send rate until the test runs
 				consistently with no packet loss. For example, you might need to run five tests in a

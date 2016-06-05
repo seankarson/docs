@@ -42,13 +42,12 @@
 			id="section_58A3FFED5BBB4F92A79FBD50421DC3F3">
 			<title>Starting a Gemcached Server Using a gfsh Command</title>
 			<p>You can also start a Gemcached server with the gfsh command-line interface. Use the
-				following syntax:
+				following syntax:</p>
 				<codeblock>gfsh&gt;start server 
   --name=<userinput>&lt;server_name&gt;</userinput> 
   --server-port=<userinput>&lt;port_number&gt;</userinput> 
   --memcached-port=<userinput>&lt;port_number&gt;</userinput>
   --memcached-protocol=<userinput>BINARY|ASCII</userinput></codeblock>
-			</p>
 			<note>
 				<p>You can also set the memcached port number and protocol in the
 						<filepath>gemfire.properties</filepath> file. </p>

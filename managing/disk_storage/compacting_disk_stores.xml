@@ -92,12 +92,10 @@ gfsh&gt;compact disk-store --name=Disk1 --group=MemberGroup1,MemberGroup2</codeb
 					href="../../tools_modules/gfsh/command-pages/compact.xml#topic_9CCFCB2FA2154E16BD775439C8ABC8FB"
 					type="topic" format="dita" scope="local"
 					><?xm-replace_text compact offline-disk-store?></xref> command: </p>
-			<p>
 				<codeblock>gfsh&gt;compact offline-disk-store --name=Disk2 --disk-dirs=/Disks/Disk2
 
 gfsh&gt;compact offline-disk-store --name=Disk2 --disk-dirs=/Disks/Disk2 
 --max-oplog-size=512 -J=-Xmx1024m</codeblock>
-			</p>
 			<p>
 				<note>Do not perform offline compaction on the baseline directory of an incremental
 					backup. </note>
@@ -140,7 +138,7 @@ gfsh&gt;compact offline-disk-store --name=Disk2 --disk-dirs=/Disks/Disk2
 			<p>In this example offline compaction run listing, the disk store compaction had nothing
 				to do in the <codeph>*_3.*</codeph> files, so they were left alone. The
 					<codeph>*_4.*</codeph> files had garbage records, so the oplog from them was
-				compacted into the new <codeph>*_5.*</codeph> files.
+				compacted into the new <codeph>*_5.*</codeph> files.</p>
 				<codeblock>bash-2.05$ ls -ltra backupDirectory
 total 28
 -rw-rw-r--   1 user users          3 Apr  7 14:56 BACKUPds1_3.drf
@@ -176,7 +174,6 @@ drwxrwxr-x   3 user users       1024 Apr  7 15:02 ..
 -rw-rw-r--   1 user users       2788 Apr  7 15:08 BACKUPds1.if
 drwxrwxr-x   2 user users        512 Apr  7 15:09 .
 bash-2.05$</codeblock>
-			</p>
 		</section>
 	</conbody>
 </concept>

@@ -76,7 +76,8 @@
 			<p>Set your variables in Java system properties when you start your cache server or
 				application process. </p>
 			<p>Example cache.xml with variables and the gfsh <codeph>start server</codeph> command that sets
-				the variables: <codeblock outputclass="language-xml">&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+				the variables: </p>
+			<codeblock outputclass="language-xml">&lt;?xml version="1.0" encoding="UTF-8"?&gt;
 &lt;cache
     xmlns="<keyword keyref="xsd_namespace"/>"
     xmlns:xsi="<xref href="http://www.w3.org/2001/XMLSchema-instance" format="html" scope="external">http://www.w3.org/2001/XMLSchema-instance</xref>"
@@ -90,7 +91,6 @@
 				<codeblock>
 gfsh&gt;start server --name=server2 --cache-xml-file=cache.xml --J=-DPORT=30333 --J=-DMAXCNXS=77
 </codeblock>
-			</p>
 		</section>
 		<section id="section_2076DDF1F0464CF8894B42ABC32AE4CB">
 			<title>Configuration Quick Reference</title>

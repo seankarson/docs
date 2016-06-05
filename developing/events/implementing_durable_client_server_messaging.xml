@@ -57,7 +57,6 @@ CacheFactory cf = new CacheFactory(props);</codeblock>
 			<title>Configure Durable Subscriptions and Continuous Queries</title>
 			<p>The register interest and query creation methods all have an optional boolean
 				parameter for indicating durability. By default all are non-durable. </p>
-			<p>
 				<codeblock>// Durable registration
 // Define keySpecification, interestResultPolicy, durability 
 exampleRegion.registerInterest(keySpecification, interestResultPolicySpecification, true);
@@ -65,7 +64,6 @@ exampleRegion.registerInterest(keySpecification, interestResultPolicySpecificati
 // Durable CQ
 // Define cqName, queryString, cqAttributes, durability
 CqQuery myCq = queryService.newCq(cqName, queryString, cqAttributes, true);</codeblock>
-			</p>
 			<p>Save only critical messages while the client is disconnected by only indicating
 				durability for critical subscriptions and CQs. When the client is connected to its
 				servers, it receives messages for all keys and queries reqistered. When the client
@@ -85,9 +83,9 @@ CqQuery myCq = queryService.newCq(cqName, queryString, cqAttributes, true);</cod
 					<li id="li_25D30E5C54B44E578C8CF6A925E98EDC">Disconnect with a request to keep your queues
 						active by using <codeph>Pool.close</codeph> or
 							<codeph>ClientCache.close</codeph> with the boolean
-							<codeph>keepalive</codeph> parameter. <p>
+							<codeph>keepalive</codeph> parameter.
 							<codeblock>clientCache.close(true);</codeblock>
-						</p> To be retained during client down time, durable continuous queries
+						 To be retained during client down time, durable continuous queries
 						(CQs) must be executing at the time of disconnect. </li>
 					<li id="li_E76A7C1D669843438AB092925CF4E226">Program your durable client's
 						reconnection to: <ol id="ol_2021825BD7424BBF9073DC72360B6D8F">
@@ -97,7 +95,8 @@ CqQuery myCq = queryService.newCq(cqName, queryString, cqAttributes, true);</cod
 								decide whether to receive the remaining events or close the cache if
 								the number is too large. <p>For example, for a client with only the
 									default pool
-									created:<codeblock>int pendingEvents = cache.getDefaultPool().getPendingEventCount();
+									created:</p>
+								<codeblock>int pendingEvents = cache.getDefaultPool().getPendingEventCount();
 
 if (pendingEvents == -2) { // client connected for the first time  … // continue
 } 
@@ -106,9 +105,10 @@ else if (pendingEvents == -1) { // client reconnected but after the timeout peri
 } 
 else { // pendingEvents >= 0  
 … // decide to invoke readyForEvents() or ClientCache::close(false)/pool.destroy()
-}</codeblock>For
+}</codeblock><p>For
 									a client with multiple
-									pools:<codeblock>int pendingEvents = 0;
+									pools:</p>
+								<codeblock>int pendingEvents = 0;
 
 int pendingEvents1 = PoolManager.find(“pool1”).getPendingEventCount();
 
@@ -118,9 +118,9 @@ int pendingEvents2 = PoolManager.find(“pool2”).getPendingEventCount();
 
 pendingEvents += (pendingEvents2 &gt; 0) ? pendingEvents2 : 0;
 
-// process individual pool counts separately.</codeblock></p>
-								The <codeph>getPendingEventCount</codeph> API can return the
-								following possible values:<ul id="ul_nvy_xk1_hq">
+// process individual pool counts separately.</codeblock>
+								<p>The <codeph>getPendingEventCount</codeph> API can return the
+								following possible values:</p><ul id="ul_nvy_xk1_hq">
 									<li>A value representing a count of events pending at the
 										server. Note that this count is an approximate value based
 										on the time the durable client pool connected or reconnected
@@ -161,12 +161,10 @@ pendingEvents += (pendingEvents2 &gt; 0) ? pendingEvents2 : 0;
 								replay stored events. If the ready message is sent earlier, the
 								client may lose events. </li>
 						</ol>
-						<p>
 							<codeblock>ClientCache clientCache = ClientCacheFactory.create(); 
 // Here, create regions, listeners that are not defined in the cache.xml . . .
 // Here, run all register interest calls before doing anything else
 clientCache.readyForEvents(); </codeblock>
-						</p>
 					</li>
 					<li id="li_9DC06E9766AA4102BE594733D11D9FAD">When you program your durable
 						client <codeph>CacheListener</codeph>: <ol

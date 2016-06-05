@@ -12,7 +12,8 @@
       For example, you could use the method to move a popular product item to a
       new, empty member to reduce load on the source member.</p>
     <p>For
-      example:<codeblock>Object product = ...
+      example:</p>
+    <codeblock>Object product = ...
 Region r = ...
 DistributedSystem ds = ...
 String memberName = ...
@@ -32,7 +33,8 @@ source = sourceMembers.iterator().next();
 //Move the bucket to the new node. The bucket will
 //be moved when this method completes. It throws an exception
 //if there is a problem or invalid arguments.
-PartitionRegionHelper.moveBucketByKey(r, source, destination, product);</codeblock>See
+PartitionRegionHelper.moveBucketByKey(r, source, destination, product);</codeblock>
+    <p>See
       the Java API documentation for
         <codeph>com.gemstone.gemfire.cache.partition.PartitionRegionHelper.moveBucketByKey</codeph>
       for more details.</p>
@@ -40,8 +42,8 @@ PartitionRegionHelper.moveBucketByKey(r, source, destination, product);</codeblo
       (measured in bytes) from a source member to a destination member. For
       example, you could use this method to move a specified percentage of data
       from an overloaded member to another member to improve distribution. </p>
-    <p>For
-      example:<codeblock>Region r = ...
+    <p>For example:</p>
+      <codeblock>Region r = ...
 DistributedSystem ds = ...
 String sourceName = ...
 String destName = ...
@@ -51,7 +53,8 @@ DistributedMember source = ds.findDistributedMember(sourceName);
 DistributedMember destination = ds.findDistributedMember(destName);
 
 //Move up to 20% of the data from the source to the destination node.
-PartitionRegionHelper.moveData(r, source, destination, 20);</codeblock>See
+PartitionRegionHelper.moveData(r, source, destination, 20);</codeblock>
+    <p> See
       the Java API documentation for
         <codeph>com.gemstone.gemfire.cache.partition.PartitionRegionHelper.moveData</codeph>
       for more details.</p>

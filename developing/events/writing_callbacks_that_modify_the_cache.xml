@@ -35,7 +35,7 @@
 				like the <codeph>java.util.concurrent.Executor</codeph> interface. </p>
 			<p>This example shows a serial executor where the callback creates a
 					<codeph>Runnable</codeph> that can be pulled off a queue and run by another
-				object. This preserves the ordering of events.
+				object. This preserves the ordering of events.</p>
 				<codeblock>public void afterCreate(EntryEvent event) {
   final Region otherRegion = cache.getRegion("/otherRegion");
   final Object key = event.getKey();
@@ -55,7 +55,6 @@
     }
   });
   }</codeblock>
-			</p>
 			<p>For additional information on the <codeph>Executor</codeph>, see the
 					<codeph>SerialExecutor</codeph> example on the Oracle Java web site. </p>
 		</section>

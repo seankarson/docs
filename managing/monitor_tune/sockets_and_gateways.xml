@@ -57,8 +57,9 @@
 					receiver will be unaware of the condition. <p>The gateway sender's
 						socket-buffer-size attribute should match the gateway receiver’s
 						socket-buffer-size attribute for all gateway receivers that the sender
-						connects to, as in these example <codeph>cache.xml</codeph> snippets: </p><p>
-						<codeblock><b>Gateway Sender Socket Buffer Size <codeph>cache.xml</codeph> Configuration: </b>
+						connects to, as in these example <codeph>cache.xml</codeph> snippets:
+					</p>
+					<codeblock><b>Gateway Sender Socket Buffer Size <codeph>cache.xml</codeph> Configuration: </b>
 
 &lt;gateway-sender id="sender2" parallel="true"
  remote-distributed-system-id="2"
@@ -68,7 +69,7 @@
 <b>Gateway Receiver Socket Buffer Size <codeph>cache.xml</codeph> Configuration:</b>
 &lt;gateway-receiver start-port="1530" end-port="1551"
  socket-buffer-size="42000"/&gt;  </codeblock>
-					</p></li>
+					</li>
 			</ul>
 		<p>
 			<note> WAN deployments increase the messaging demands on a <keyword

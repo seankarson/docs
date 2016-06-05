@@ -710,10 +710,10 @@
 								If the list is empty, locators are not used. </p>
 							<p>For each locator, provide a host name and/or address (separated by
 								‘@’, if you use both), followed by a port number in brackets.
-								Examples: <codeblock>locators=address1[port1],address2[port2] </codeblock>
+								Examples: </p>
+							<codeblock>locators=address1[port1],address2[port2] </codeblock>
 								<codeblock>locators=hostName1@address1[port1],hostName2@address2[port2] </codeblock>
 								<codeblock>locators=hostName1[port1],hostName2[port2]</codeblock>
-							</p>
 							<p>
 								<note>On multi-homed hosts, this last notation will use the default
 									address. If you use bind addresses for your locators, explicitly
@@ -977,10 +977,11 @@ off-heap-memory-size=120g</codeblock></entry>
 							and remote locator(s) for the remote clusters to which you will connect.
 								<p>For each remote locator, provide a host name and/or address
 								(separated by ‘@’, if you use both), followed by a port number in
-								brackets. Examples: <codeblock>remote-locators=address1[port1],address2[port2] </codeblock>
+								brackets. Examples:</p>
+							<codeblock>remote-locators=address1[port1],address2[port2] </codeblock>
 								<codeblock>remote-locators=hostName1@address1[port1],hostName2@address2[port2] </codeblock>
 								<codeblock>remote-locators=hostName1[port1],hostName2[port2]</codeblock>
-							</p></entry>
+							</entry>
 						<entry><i>not set</i></entry>
 					</row>
 					<row>
@@ -1224,11 +1225,12 @@ off-heap-memory-size=120g</codeblock></entry>
 							current process when the member connects to the distributed system and
 							stops the locator when the member disconnects. <p>To use, specify the
 								locator with an optional address or host specification and a
-								required port number, in one of these formats: <codeblock>start-locator=address[port1] </codeblock>
+								required port number, in one of these formats:</p>
+							<codeblock>start-locator=address[port1] </codeblock>
 								<codeblock>start-locator=port1</codeblock>If you only specify the
 								port, the address assigned to the member is used for the locator.
-							</p>If not already there, this locator is automatically added to the
-							list of locators in this set of <codeph>gemfire properties</codeph>. </entry>
+							<p>If not already there, this locator is automatically added to the
+							list of locators in this set of <codeph>gemfire properties</codeph>.</p> </entry>
 						<entry id="entry_ocl_ygp_rr">
 							<i>not set</i>
 						</entry>

@@ -166,15 +166,14 @@
 			<p>You can specify any number of <codeph>disk-dir</codeph> subelements to the
 					<codeph>disk-dirs</codeph> element. The data is spread evenly among the active
 				disk files in the directories, keeping within any limits you set. </p>
-			<p>Example:
+			<p>Example:</p>
 				<codeblock>&lt;disk-dirs&gt;
 	&lt;disk-dir&gt;/host1/users/gf/memberA_DStore&lt;/disk-dir&gt;
 	&lt;disk-dir&gt;/host2/users/gf/memberA_DStore&lt;/disk-dir&gt; 
 	&lt;disk-dir dir-size="20480"&gt;/host3/users/gf/memberA_DStore&lt;/disk-dir&gt; 
 &lt;/disk-dirs&gt;</codeblock>
-			</p>
-			<note>The directories must exist when the disk store is created or the system throws an
-				exception. <keyword keyref="product_name"/> does not create directories. </note>
+			<p><note>The directories must exist when the disk store is created or the system throws an
+				exception. <keyword keyref="product_name"/> does not create directories. </note></p>
 			<p>Use different disk-dir specifications for different disk stores. You cannot use the
 				same directory for the same named disk store in two different members. </p>
 		</section>

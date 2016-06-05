@@ -18,22 +18,23 @@
 		<p>
 			<b>Examples:</b>
 		</p>
-		<p>The following example index creation calls DO NOT work for overflow regions.
+		<p>The following example index creation calls DO NOT work for overflow regions.</p>
 			<codeblock>// This index will not work on an overflow region because there are two iterators in the FROM clause.
 createIndex("secIdIndex", "b.secId","/portfolios pf, pf.positions.values b");
 
 // This index will not work on an overflow region because the FROM clause specifies the entrySet
 createIndex("indx1", "entries.value.getID", "/exampleRegion.entrySet() entries");
-</codeblock></p>
-		<p>The following example indexes will work for overflow regions.
+</codeblock>
+		<p>The following example indexes will work for overflow regions.</p>
 			<codeblock>createIndex("pkidIndex", "p.pkid", "/Portfolios p");
 
 createIndex("indx1", "ks.toString", "/portfolio.keySet() ks");
-</codeblock></p>
+</codeblock>
 		<p>The same working examples in
-			gfsh:<codeblock>gfsh> create index -name="pkidIndex" --expression="p.pkid" --region="/Portfolios p"
+			gfsh:</p>
+			<codeblock>gfsh> create index -name="pkidIndex" --expression="p.pkid" --region="/Portfolios p"
 
 gfsh> create index -name="indx1" --expression="ks.toString" --region="/portfolio.keySet() ks"
-</codeblock></p>
+</codeblock>
 	</conbody>
 </concept>

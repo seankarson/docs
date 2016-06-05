@@ -48,7 +48,7 @@
 											scope="local"
 											href="writing_callbacks_that_modify_the_cache.xml#writing_callbacks_that_modify_the_cache"
 											type="concept" format="dita"/>. </note>
-									<p> Example:
+									<p> Example:</p>
 										<codeblock>package myPackage;
 import com.gemstone.gemfire.cache.Declarable;
 import com.gemstone.gemfire.cache.EntryEvent;
@@ -67,7 +67,6 @@ public class MyCacheListener extends CacheListenerAdapter implements Declarable 
     ... process other event types                     
 }
                         </codeblock>
-									</p>
 								</li>
 							</ol>
 					</li>
@@ -117,7 +116,7 @@ public class MyCacheListener extends CacheListenerAdapter implements Declarable 
 		</section>
 		<section id="section_C62E9535C43B4BC5A7AA7B8B4125D1EB">
 			<title>Installing Multiple Listeners on a Region</title>
-			<p>XML:
+			<p>XML:</p>
 				<codeblock>&lt;region name="exampleRegion"&gt;
   &lt;region-attributes&gt;
     . . .
@@ -132,8 +131,7 @@ public class MyCacheListener extends CacheListenerAdapter implements Declarable 
     &lt;/cache-listener&gt;
   &lt;/region-attributes&gt;
 &lt;/region&gt;</codeblock>
-			</p>
-			<p>API:
+			<p>API:</p>
 				<codeblock>CacheListener listener1 = new myCacheListener1(); 
 CacheListener listener2 = new myCacheListener2(); 
 CacheListener listener3 = new myCacheListener3(); 
@@ -144,7 +142,6 @@ Region nr = cache.createRegionFactory()
   .setScope(Scope.DISTRIBUTED_NO_ACK)
   .create(name);
   </codeblock>
-			</p>
 		</section>
 	</conbody>
 </concept>

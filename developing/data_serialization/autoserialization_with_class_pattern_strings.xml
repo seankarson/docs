@@ -9,14 +9,12 @@
 		<p>The class pattern strings used to configured the
 				<codeph>ReflectionBasedAutoSerializer</codeph> are standard regular expressions. For
 			example, this expression would select all classes defined in the
-				<codeph>com.company.domain</codeph> package and its subpackages:
+			<codeph>com.company.domain</codeph> package and its subpackages:</p>
 			<codeblock>com\.company\.domain\..*</codeblock>
-		</p>
 		<p>You can augment the pattern strings with a special notation to define fields to exclude
 			from serialization and to define fields to mark as PDX identity fields. The full syntax
-			of the pattern string is:
+			of the pattern string is:</p>
 			<codeblock>&lt;class pattern&gt; [# (identity|exclude) = &lt;field pattern&gt;]... [, &lt;class pattern&gt;...]</codeblock>
-		</p>
 		<p>The following example pattern string sets these PDX serialization criteria:</p>
 			<ul
 				id="ul_F2392A36C81A4761B2F077D11C0D65A0">

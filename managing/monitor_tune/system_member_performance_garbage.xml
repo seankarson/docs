@@ -30,9 +30,7 @@
 			application processes. The second parameter causes it to run multiple, parallel threads
 			for the "young generation" garbage collection (that is, garbage collection performed on
 			the most recent objects in memory—where the greatest benefits are expected): </p>
-		<p>
 			<codeblock>-XX:+UseConcMarkSweepGC -XX:+UseParNewGC</codeblock>
-		</p>
 		<p>For applications, if you are using remote method invocation (RMI) Java APIs, you might
 			also be able to reduce latency by disabling explicit calls to the garbage collector. The
 			RMI internals automatically invoke garbage collection every sixty seconds to ensure that
@@ -41,9 +39,7 @@
 			explicit garbage collection disabled. You can try adding the following command-line
 			parameter to your application invocation and test to see if your garbage collector is
 			able to keep up with demand: </p>
-		<p>
 			<codeblock>-XX:+DisableExplicitGC</codeblock>
-		</p>
 		<p><b>Using Off-heap Memory</b></p>
 		<p>You can improve the performance of some applications by storing data values in off-heap
 			memory. Certain objects, such as keys, must remain in the JVM heap. See <xref

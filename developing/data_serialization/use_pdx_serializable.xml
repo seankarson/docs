@@ -51,7 +51,7 @@ public class PortfolioPdx implements PdxSerializable {
 								instance to another for the same class version. </li>
 							<li id="li_8FA1BF971E994A7E97389A25F2EA1651">For best performance, do
 								fixed width fields first and then variable length fields. <p>Example
-										<codeph>toData</codeph> code:
+									<codeph>toData</codeph> code:</p>
 									<codeblock>// PortfolioPdx fields
   private int id;
   private String pkid;
@@ -77,7 +77,6 @@ public class PortfolioPdx implements PdxSerializable {
     .writeStringArray("names", names)
     .writeByteArray("newVal", newVal)
   }</codeblock>
-								</p>
 							</li>
 						</ol>
 					</li>
@@ -91,7 +90,7 @@ public class PortfolioPdx implements PdxSerializable {
 							keyref="product_name"/> automatically provides
 							<codeph>PdxReader</codeph> to the <codeph>fromData</codeph> method for
 							<codeph>PdxSerializable</codeph> objects. <p>Example
-								<codeph>fromData</codeph> code:
+								<codeph>fromData</codeph> code:</p>
 							<codeblock>  
 public void fromData(PdxReader reader)
   {
@@ -108,7 +107,6 @@ public void fromData(PdxReader reader)
     arrayNull = reader.readByteArray("arrayNull");
     arrayZeroSize = reader.readByteArray("arrayZeroSize");
   }</codeblock>
-						</p>
 					</li>
 				</ol>
 			<p>

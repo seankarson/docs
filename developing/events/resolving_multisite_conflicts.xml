@@ -63,7 +63,7 @@
 								either disallow the update event (retaining the
 								existing region entry value) or provide an
 								alternate value. <p>
-									<b>Example:</b>
+									<b>Example:</b></p>
 									<codeblock> public void onEvent(TimestampedEntryEvent event, GatewayConflictHelper helper) {
     if (event.getOperation().isUpdate()) {
       ShoppingCart oldCart = (ShoppingCart)event.getOldValue();
@@ -72,6 +72,7 @@
       helper.changeEventValue(oldCart);
     }
   }</codeblock>
+								<p>
 									<note>In order to maintain consistency in
 										the region, your conflict resolver must
 										always resolve two events in the same

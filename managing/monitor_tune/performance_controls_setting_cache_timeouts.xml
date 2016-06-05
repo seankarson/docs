@@ -7,8 +7,9 @@
 		methods of the interface, <codeph>com.gemstone.gemfire.cache.Cache</codeph>. </shortdesc>
 	<conbody>
 		<p>To modify cache timeout properties, you can issue the following <codeph>gfsh alter
-				runtime</codeph> command. For example:
-			<codeblock>gfsh>alter runtime --search-timeout=150</codeblock>The
+			runtime</codeph> command. For example:</p>
+			<codeblock>gfsh>alter runtime --search-timeout=150</codeblock>
+		<p>The
 				<codeph>--search-timeout</codeph> parameter specifies how long a netSearch operation
 			can wait for data before timing out. The default is 5 minutes. You may want to change
 			this based on your knowledge of the network load or other factors. </p>

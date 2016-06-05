@@ -23,25 +23,24 @@
 							<codeblock>&lt;region-attributes refid="REPLICATE"&gt; 
 &lt;/region-attributes&gt;</codeblock><p>You
 							can also use gfsh to configure a region. For
-							example:<codeblock>gfsh>create region --name=regionA --type=REPLICATE</codeblock>See
+							example:</p>
+						<codeblock>gfsh>create region --name=regionA --type=REPLICATE</codeblock>See
 								<xref href="../region_options/region_types.xml#region_types"/>.
-						</p></li>
+						</li>
 					<li id="li_74052A59A95944FFA3C99B1C9097CF65">Choose the level of distribution
 						for your region. The region shortcuts in <codeph>RegionShortcut</codeph> for
 						distributed regions use <codeph>distributed-ack</codeph> scope. If you need
 						a different scope, set the <codeph>region-attributes</codeph>
 						<codeph>scope</codeph> to <codeph>distributed-no-ack</codeph> or
-							<codeph>global</codeph>. <p>Example:
+						<codeph>global</codeph>. <p>Example:</p>
 							<codeblock>&lt;region-attributes refid="REPLICATE" scope="distributed-no-ack"&gt; 
 &lt;/region-attributes&gt;</codeblock>
-						</p>
 					</li>
 					<li id="li_0BA988476DBD40DFA39696B6BB33BF1C">If you are using the
 							<codeph>distributed-ack</codeph> scope, optionally enable concurrency
-						checks for the region. <p>Example:
+						checks for the region. <p>Example:</p>
 							<codeblock>&lt;region-attributes refid="REPLICATE" scope="distributed-ack" concurrency-checks-enabled="true"&gt; 
 &lt;/region-attributes&gt;</codeblock>
-						</p>
 					</li>
 					<li id="li_A07D7755ECC94DB1B24AE511E8213CB6">If you are using
 							<codeph>global</codeph> scope, program any explicit locking you need in

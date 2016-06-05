@@ -129,18 +129,17 @@
 			to at least five times the size of the sending buffer. If you have a system with
 			producer and consumer members, where only two producer members ever run at once, the
 			receiving buffer sizes should be set at over two times the sending buffer sizes, as
-			shown in this example:
+			shown in this example:</p>
 			<codeblock>mcast-send-buffer-size=42000
 mcast-recv-buffer-size=90000
 udp-send-buffer-size=42000
 udp-recv-buffer-size=90000</codeblock>
-		</p>
 		<p>
 			<b>Operating System Limits</b>
 		</p>
 		<p>Your operating system sets limits on the buffer sizes it allows. If you request a size
 			larger than the allowed, you may get warnings or exceptions about the setting during
-			startup. These are two examples of the type of message you may see:
+			startup. These are two examples of the type of message you may see:</p>
 			<codeblock>[warning 2008/06/24 16:32:20.286 PDT CacheRunner &lt;main&gt; tid=0x1]
 requested multicast send buffer size of 9999999 but got 262144: see 
 system administration guide for how to adjust your OS 
@@ -148,7 +147,6 @@ system administration guide for how to adjust your OS
 Exception in thread "main" java.lang.IllegalArgumentException: Could not 
 set "socket-buffer-size" to "99262144" because its value can not be 
 greater than "20000000".</codeblock>
-		</p>
 		<p>If you think you are requesting more space for your buffer sizes than your system allows,
 			check with your system administrator about adjusting the operating system limits. </p>
 	</conbody>

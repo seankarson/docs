@@ -20,8 +20,9 @@
 			<p>With CQ, the client sends a query to the server side for execution and receives the
 				events that satisfy the criteria. For example, in a region storing stock market
 				trade orders, you can retrieve all orders over a certain price by running a CQ with
-				a query like this:
-				<codeblock>SELECT * FROM /tradeOrder t WHERE t.price &gt; 100.00</codeblock>When the
+				a query like this:</p>
+				<codeblock>SELECT * FROM /tradeOrder t WHERE t.price &gt; 100.00</codeblock>
+			<p>When the
 				CQ is running, the server sends the client all new events that affect the results of
 				the query. On the client side, listeners programmed by you receive and process
 				incoming events. For this example query on <codeph>/tradeOrder</codeph>, you might
@@ -157,11 +158,15 @@
 			<title>Region Type Restrictions for CQs</title>
 			<p>You can only create CQs on replicated or partitioned regions. If you attempt to create a CQ on
 				a non-replicated or non-partitioned region, you will receive the following error
-				message:<codeblock>The region &lt;region name&gt; specified in CQ creation is neither replicated nor partitioned; only replicated or partitioned regions are allowed in CQ creation.</codeblock>In
+				message:</p>
+			<codeblock>The region &lt;region name&gt; specified in CQ creation is neither replicated nor partitioned; only replicated or partitioned regions are allowed in CQ creation.</codeblock>
+			<p>In
 				addition, you cannot create a CQ on a replicated region with eviction setting of
 				local-destroy since this eviction setting changes the region's data policy. If you
 				attempt to create a CQ on this kind of region, you will receive the following error
-				message:<codeblock>CQ is not supported for replicated region: &lt;region name&gt; with eviction action: LOCAL_DESTROY</codeblock>See
+				message:</p>
+			<codeblock>CQ is not supported for replicated region: &lt;region name&gt; with eviction action: LOCAL_DESTROY</codeblock>
+			<p>See
 				also <xref href="../distributed_regions/managing_distributed_regions.xml"/> for
 				potential issues with setting local-destroy eviction on replicated regions. </p>
 		</section>

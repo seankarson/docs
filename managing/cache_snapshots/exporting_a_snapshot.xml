@@ -22,12 +22,13 @@
 			</p>
 			<p>When the export operation writes the snapshot filename, it replaces each forward
 				slash ('/') in the region path with a dash ('-'). </p>
-			<p><b>Using Java API:</b>
+			<p><b>Using Java API:</b></p>
 				<codeblock>
 File mySnapshotDir = ...
 Cache cache = ...
 
-cache.getSnapshotService().save(mySnapshotDir, SnapshotFormat.GEMFIRE);</codeblock>Optionally,
+cache.getSnapshotService().save(mySnapshotDir, SnapshotFormat.GEMFIRE);</codeblock>
+			<p>Optionally,
 				you can set a filter on the snapshot entries during the export. See <xref
 					href="filtering_snapshot_entries.xml#concept_7E1F89E70A25465EBEBA584FADFEF353"
 					type="concept" format="dita" scope="local"
@@ -37,25 +38,23 @@ cache.getSnapshotService().save(mySnapshotDir, SnapshotFormat.GEMFIRE);</codeblo
 		<section id="section_30C1BBB41C194825A46E49E5756369D6">
 			<title>Exporting a Region Snapshot</title>
 			<p>You can also export a specific region using the following API or gfsh command: </p>
-			<p><b>Java API:</b>
+			<p><b>Java API:</b></p>
 				<codeblock>
 File mySnapshot = ...
 Region&lt;String, MyObject&gt; region = ... 
 
 region.getSnapshotService().save(mySnapshot, SnapshotFormat.GEMFIRE);</codeblock>
-			</p>
-			<b>gfsh:</b>
+			<p><b>gfsh:</b></p>
 			<p>Open a gfsh prompt. After connecting to a <keyword keyref="product_name"/>
-				distributed system, at the prompt type:
+				distributed system, at the prompt type:</p>
 				<codeblock>gfsh&gt;export data --region=<i>Region</i> --file=<i>filename</i>.gfd 
 --member=<i>membername</i></codeblock>
-				where <i>Region</i> corresponds to the name of the region that you want to export,
+			<p>where <i>Region</i> corresponds to the name of the region that you want to export,
 					<i>filename</i> (must end in .gfd) corresponds to the name of the export file
 				and <i>membername</i> corresponds to a member where the region to export is hosted.
-				For example:
+				For example:</p>
 				<codeblock>gfsh&gt;export data --region=region1 --file=region1_2012_10_10.gfd 
 --member=server1</codeblock>
-			</p>
 			<p>The snapshot file will be written on the remote member at the location specified by
 				the <codeph>--file</codeph> argument. For example, in the example command above, the
 					<codeph>region1_2012_10_10.gfd</codeph> file will be written in the working

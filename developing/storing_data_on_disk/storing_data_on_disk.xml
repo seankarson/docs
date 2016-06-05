@@ -11,10 +11,9 @@
 						needed. See <xref
 							href="../../managing/disk_storage/using_disk_stores.xml#defining_disk_stores"
 							type="concept" format="dita" scope="local"/>. The cache disk store
-						defines where and how the data is written to disk. <p>
-							<codeblock>&lt;disk-store name="myPersistentStore" . . . &gt;
+						defines where and how the data is written to disk.
+						<codeblock>&lt;disk-store name="myPersistentStore" . . . &gt;
 &lt;disk-store name="myOverflowStore" . . . &gt;</codeblock>
-						</p>
 					</li>
 					<li id="li_9A3C2EB7C2DA46D9B85C1F6D9218B0CA">Specify the persistence and
 						overflow criteria for the region. If you are not using the default disk
@@ -25,7 +24,7 @@
 							<li id="li_6BFA07AC117D4585854BBE38ADFA33C4">For overflow, specify the
 								overflow criteria in the region's
 									<codeph>eviction-attributes</codeph> and name the disk store to
-								use. <p>Example:
+								use. <p>Example:</p>
 									<codeblock outputclass="language-xml">&lt;region name="overflowRegion" . . . &gt;
   &lt;region-attributes disk-store-name="myOverflowStore" disk-synchronous="true"&gt;
     &lt;eviction-attributes&gt;
@@ -34,20 +33,20 @@
       &lt;lru-memory-size maximum="100" action="overflow-to-disk"/&gt;
     &lt;/eviction-attributes&gt;
   &lt;/region-attributes&gt;
-&lt;/region&gt;</codeblock></p><p>gfsh:</p><p>You
+&lt;/region&gt;</codeblock>
+								<p>gfsh:</p><p>You
 									cannot configure <codeph>lru-memory-size</codeph> using gfsh.
 								</p>
 							</li>
 							<li id="li_06906B582C9E4C12BE817862EAF8FF09">For persistence, set the
 									<codeph>data-policy</codeph> to
 									<codeph>persistent-replicate</codeph> and name the disk store to
-								use. <p>Example:
+								use. <p>Example:</p>
 									<codeblock outputclass="language-xml">&lt;region name="partitioned_region" refid="PARTITION_PERSISTENT"&gt;
   &lt;region-attributes disk-store-name="myPersistentStore"&gt;
     . . . 
   &lt;/region-attributes&gt;
 &lt;/region&gt; </codeblock>
-								</p>
 							</li>
 						</ul>
 					</li>

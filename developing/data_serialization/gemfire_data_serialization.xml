@@ -30,11 +30,12 @@
 				<b>Example cache.xml:</b>
 			</p>
 			<p>The following provides an example of how to register an instantiator using
-				cache.xml.<codeblock>&lt;serialization-registration>
+				cache.xml.</p>
+			<codeblock>&lt;serialization-registration>
 &lt;instantiator id="30">
    &lt;class-name>com.package.MyClass&lt;/class-name>
 &lt;/instantiator>
-&lt;/serialization-registration></codeblock></p>
+&lt;/serialization-registration></codeblock>
 			<p>In addition to speeding standard object serialization, you can use the
 					<codeph>DataSerializable</codeph> interface to serialize any custom objects you
 				store in the cache. </p>

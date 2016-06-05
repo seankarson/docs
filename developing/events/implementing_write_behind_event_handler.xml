@@ -125,7 +125,7 @@
 				such as the name of the region where the event occurred, the type of region
 				operation, and the affected key and value. </p>
 			<p>The basic framework for implementing a write-behind event handler involves iterating
-				through the batch of events and writing each event to a database. For example:
+				through the batch of events and writing each event to a database. For example:</p>
 				<codeblock>class MyAsyncEventListener implements AsyncEventListener {
 	
   public void processEvents(List&lt;AsyncEvent&gt; events) {
@@ -139,7 +139,6 @@
 	  }
 	}
 }</codeblock>
-			</p>
 		</section>
 		<section id="section_AB80262CFB6D4867B52A5D6D880A5294">
 			<title>Processing AsyncEvents</title>
@@ -158,7 +157,7 @@
 					<codeph>getDeserializedValue</codeph> method will return a null value for
 				destroyed entries, you should use the <codeph>getKey</codeph> method to obtain
 				references to cache objects that have been destroyed. Here's an example of
-				processing AsyncEvents:
+				processing AsyncEvents:</p>
 				<codeblock>public boolean processEvents(@SuppressWarnings("rawtypes") List&lt;AsyncEvent&gt; list)   
  {  
      logger.log (Level.INFO, String.format("Size of List&lt;GatewayEvent&gt; = %s", list.size()));  
@@ -188,7 +187,6 @@
        }  
         
      }  </codeblock>
-			</p>
 		</section>
 		<section id="section_9286E8C6B3C54089888E1680B4F43692">
 			<title>Configuring an AsyncEventListener</title>
@@ -205,13 +203,14 @@
 						operation, persistence, batch size, and maximum memory size. See <xref
 							href="../../reference/topics/elements_ref.xml#topic_7B1CABCAD056499AA57AF3CFDBF8ABE3"
 							>WAN Configuration</xref> for more information. <p><b>gfsh
-								configuration</b><codeblock>gfsh>create async-event-queue --id=sampleQueue --persistent --disk-store=exampleStore --listener=com.myCompany.MyAsyncEventListener --listener-param=url#jdbc:db2:SAMPLE,username#gfeadmin,password#admin1</codeblock>The
-							parameters for this command uses the following
-							syntax:</p><codeblock>create async-event-queue --id=value --listener=value [--group=value] [--batch-size=value] 
-[--persistent(=value)?] [--disk-store=value] [--max-queue-memory=value] [--listener-param=value(,value)*]</codeblock><p>For
-							more information, see <xref
+								configuration</b></p>
+						<codeblock>gfsh>create async-event-queue --id=sampleQueue --persistent --disk-store=exampleStore --listener=com.myCompany.MyAsyncEventListener --listener-param=url#jdbc:db2:SAMPLE,username#gfeadmin,password#admin1</codeblock>
+						<p>The parameters for this command uses the following syntax:</p>
+						<codeblock>create async-event-queue --id=value --listener=value [--group=value] [--batch-size=value] 
+[--persistent(=value)?] [--disk-store=value] [--max-queue-memory=value] [--listener-param=value(,value)*]</codeblock>
+						<p>For more information, see <xref
 								href="../../tools_modules/gfsh/command-pages/create.xml#topic_ryz_pb1_dk"
-							/>.</p><p><b>cache.xml Configuration</b>
+						/>.</p><p><b>cache.xml Configuration</b></p>
 							<codeblock>&lt;cache&gt;
    &lt;async-event-queue id="sampleQueue" persistent="true"
     disk-store-name="exampleStore" parallel="false"&gt;
@@ -230,8 +229,7 @@
     &lt;/async-event-queue&gt;
 ...
 &lt;/cache&gt;</codeblock>
-						</p>
-						<p><b>Java Configuration</b>
+						<p><b>Java Configuration</b></p>
 							<codeblock>Cache cache = new CacheFactory().create();
 AsyncEventQueueFactory factory = cache.createAsyncEventQueueFactory();
 factory.setPersistent(true);
@@ -239,7 +237,6 @@ factory.setDiskStoreName("exampleStore");
 factory.setParallel(false);
 AsyncEventListener listener = new MyAsyncEventListener();
 AsyncEventQueue asyncQueue = factory.create("sampleQueue", listener);</codeblock>
-						</p>
 					</li>
 					<li id="li_08DEA6A2C2DD416291A3C14188685AF5">If you are using a parallel
 							<codeph>AsyncEventQueue</codeph>, the gfsh example above requires no
@@ -257,11 +254,13 @@ AsyncEventQueue asyncQueue = factory.create("sampleQueue", listener);</codeblock
 							that you want to use with the <codeph>AsyncEventListener</codeph>
 							implementation. </p>
 						<p><b>gfsh
-							Configuration</b><codeblock>gfsh>create region --name=Customer --async-event-queue-id=sampleQueue </codeblock>Note
+							Configuration</b></p>
+						<codeblock>gfsh>create region --name=Customer --async-event-queue-id=sampleQueue </codeblock>
+						<p>Note
 							that you can specify multiple queues on the command line in a
 							comma-delimited list.</p>
 						<p>
-							<b>cache.xml Configuration</b>
+							<b>cache.xml Configuration</b></p>
 							<codeblock>&lt;cache&gt;
 &lt;region name="Customer"&gt;
     &lt;region-attributes async-event-queue-ids="sampleQueue"&gt;
@@ -269,9 +268,8 @@ AsyncEventQueue asyncQueue = factory.create("sampleQueue", listener);</codeblock
   &lt;/region&gt;
 ...
 &lt;/cache&gt;</codeblock>
-						</p>
 						<p>
-							<b>Java Configuration</b>
+							<b>Java Configuration</b></p>
 							<codeblock>RegionFactory rf1 = cache.createRegionFactory();
 rf1.addAsyncEventQueue(sampleQueue);
 Region customer = rf1.create("Customer");
@@ -280,12 +278,10 @@ Region customer = rf1.create("Customer");
 RegionFactory rf2 = cache.createRegionFactory();
 rf2.addAsyncEventQueue(sampleQueue);
 Region order = rf2.create("Order");</codeblock>
-						</p>
 						<p>Using the Java API, you can also add and remove queues to regions that
-							have already been created:
+							have already been created:</p>
 							<codeblock>AttributesMutator mutator = order.getAttributesMutator();
 mutator.addAsyncEventQueueId("sampleQueue");		</codeblock>
-						</p>
 						<p>See the <xref
 								href="/releases/latest/javadoc/com/gemstone/gemfire/cache/AttributesMutator.html"
 								format="html" scope="external"><keyword keyref="product_name"/> API

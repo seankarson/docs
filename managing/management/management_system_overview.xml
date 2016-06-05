@@ -113,9 +113,8 @@
 				and management. </p>
 			<p>The entry point to <keyword keyref="product_name"/> management is through the
 				ManagementService interface. For example, to create an instance of the Management
-				Service:
+				Service:</p>
 				<codeblock>ManagementService service = ManagementService.getManagementService(cache);</codeblock>
-			</p>
 			<p>The resulting ManagementService instance is specific to the provided cache and its
 				distributed system. The implementation of getManagementService is a singleton for
 				now but may eventually support multiple cache instances. </p>

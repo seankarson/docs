@@ -4,7 +4,6 @@
   <title>Basic Suspend and Resume Transaction Example</title>
   <shortdesc>This example suspends and resumes a transaction. </shortdesc>
   <conbody>
-    <p>
       <codeblock> CacheTransactionManager txMgr = cache.getCacheTransactionManager();
 
     txMgr.begin();
@@ -17,6 +16,5 @@
     region.put("key2", "value");
     txMgr.commit();
 </codeblock>
-    </p>
   </conbody>
 </concept>

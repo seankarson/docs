@@ -148,9 +148,7 @@
         is in a region does not require the object form but uses the inline primitive data. </p>
       <p>The key inlining feature can be disabled by specifying the following <keyword
           keyref="product_name"/> property upon member startup: </p>
-      <p>
         <codeblock>-Dgemfire.DISABLE_INLINE_REGION_KEYS=true</codeblock>
-      </p>
     </body>
   </topic>
   <topic id="topic_ac4_mtz_j4">
@@ -274,8 +272,9 @@
             keyref="product_name"/> serialization, but it can end up producing many more serialized
           bytes. <p>To determine if you are using standard Java serialization, specify the
               <codeph>-DDataSerializer.DUMP_SERIALIZED=true</codeph> upon process execution. Then
-            check your log for messages of this form:
-            <codeblock>DataSerializer Serializing an instance of &lt;className></codeblock>Any
+            check your log for messages of this form:</p>
+          <codeblock>DataSerializer Serializing an instance of &lt;className></codeblock>
+          <p>Any
             classes list are being serialized with standard Java serialization. You can optimize
             your serialization by handling those classes in a <codeph>PdxSerializer</codeph> or a
               <codeph>DataSerializer</codeph> or changing the class to be

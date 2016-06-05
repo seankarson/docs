@@ -15,11 +15,10 @@
 			returned to the coordinator. Then the clauses are applied to the cumulative result set
 			to get the final result set, which is returned to the calling application. </p>
 		<p>
-			<b>Example:</b>
+			<b>Example:</b></p>
 			<codeblock>// This query works because p.status is part of projection list
 select distinct p.ID, p.status from /region p where p.ID &gt; 5 order by p.status
 // This query works providing status is part of the value indicated by *
 select distinct * from /region where ID &gt; 5 order by status </codeblock>
-		</p>
 	</conbody>
 </concept>

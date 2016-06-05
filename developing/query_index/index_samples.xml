@@ -5,7 +5,6 @@
 	<shortdesc><?xm-replace_text Short Description?>This topic provides code samples for creating
 		query indexes. </shortdesc>
 	<conbody>
-		<p>
 			<codeblock> // Key index samples. The field doesn't have to be present.
 createKeyIndex("pkidIndex","p.pkid1","/root/exampleRegion p");
  
@@ -44,8 +43,7 @@ createIndex("i", "p.positions['key1','key2',key3',key7']", "/exampleRegion p")
 createIndex("i", "p.positions[*]", "/exampleRegion p")
 
 </codeblock>
-		</p>
-		<p>The following are some sample queries on indexes.
+		<p>The following are some sample queries on indexes.</p>
 			<codeblock>SELECT * FROM (SELECT * FROM /R2 m) r2, (SELECT * FROM  /exampleRegion e WHERE e.pkid IN r2.sp) p
 
 SELECT * FROM (SELECT * FROM /R2 m WHERE m.ID IN SET (1, 5, 10)) r2, 
@@ -58,6 +56,5 @@ SELECT * FROM /exampleRegion p WHERE p.position3[1].portfolioId = 2
 
 SELECT DISTINCT positions.values.toArray[0], positions.values.toArray[0], status 
 FROM /exampleRegion</codeblock>
-		</p>
 	</conbody>
 </concept>

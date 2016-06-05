@@ -70,7 +70,7 @@ public class MyFunction extends FunctionAdapter {
         <li id="li_69C5F78AFA8F4B4A88ADC04542EE3AE5">Decide on the data you want to query. Based on
           this decision, you can use <codeph>PartitionResolver</codeph> to configure the
           organization of buckets to be queried in the Partitioned Region. <p> For example, let's
-            say that you have defined the PortfolioKey class:
+            say that you have defined the PortfolioKey class:</p>
             <codeblock>public class PortfolioKey implements DataSerializable {
   private int id;
   private long startValidTime;
@@ -83,14 +83,13 @@ public class MyFunction extends FunctionAdapter {
 ...
 }
 </codeblock>
-          </p>
           <p> You could use the <codeph>MyPartitionResolver</codeph> to store all keys with the same
             ID in the same bucket. This <codeph>PartitionResolver</codeph> has to be configured at
             the time of Partition Region creation either declaratively using xml OR using APIs. See
               <xref
               href="../partitioned_regions/managing_partitioned_regions.xml#configure_partitioned_regions"
               type="concept" format="dita" scope="local"
-              ><?xm-replace_text Configuring Partitioned Regions?></xref> for more information.
+                ><?xm-replace_text Configuring Partitioned Regions?></xref> for more information.</p>
             <codeblock>
 /** This resolver returns the value of the ID field in the key. With this resolver, 
  * all Portfolios using the same ID are colocated in the same bucket.
@@ -101,7 +100,6 @@ public class MyPartitionResolver implements PartitionResolver, Declarable {
    return operation.getKey().getId();
 }
 </codeblock>
-          </p>
         </li>
         <li id="li_B0772715B4364ECDB115715BBCBF8030"> Execute the function on a client or any other
           node by setting the filter in the function call.

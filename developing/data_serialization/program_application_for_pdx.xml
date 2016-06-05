@@ -88,7 +88,7 @@
 						cache, you can code only for that. In many cases, a
 							<codeph>PdxInstance</codeph> or a domain object may be returned from
 						your cache entry retrieval operation, so you should check the object type
-						and handle each possible type. <p>For example:
+						and handle each possible type. <p>For example:</p>
 							<codeblock>// put/get code with serialized read behavior
 // put is done as normal
 myRegion.put(myKey, myPdxSerializableObject);
@@ -117,7 +117,6 @@ else if (myObject instanceof DomainClass) {
   ...  
 }
 ...</codeblock>
-						</p>
 						<p>
 							<note>Due to a limitation with PDX, if your PDX-enabled cache contains
 								TreeSet domain objects, you should implement a Comparator that can

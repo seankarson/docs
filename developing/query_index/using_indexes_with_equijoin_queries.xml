@@ -43,14 +43,15 @@ WHERE inv.investorID = ord.investorID </codeblock>Create
 					queries in a query with an equi-join condition, create additional indexes for
 					the single-region conditions only if you are able to create at least one such
 					index for each region in the query. Any indexing on a subset of the regions in
-					the query will degrade performance. <p>For this example query:
+					the query will degrade performance. <p>For this example query:</p>
 						<codeblock>SELECT DISTINCT *
 FROM /investors inv, /securities sc, inv.heldSecurities inv_hs
     WHERE sc.status = "active"
     AND inv.name = "xyz"
     AND inv.age &gt; 75
-    AND inv_hs.secName = sc.secName</codeblock>Create
-						the indexes for the equi-join condition: <table
+    AND inv_hs.secName = sc.secName</codeblock>
+					<p>Create
+						the indexes for the equi-join condition:</p> <table
 							id="table_D7F719DB523A476094D91ED05039E3C9">
 							<tgroup cols="2">
 								<colspec colname="1" colnum="1" colwidth="*"/>
@@ -72,7 +73,8 @@ FROM /investors inv, /securities sc, inv.heldSecurities inv_hs
 									</row>
 								</tbody>
 							</tgroup>
-						</table>Then, if you create any more indexes, create one on
+						</table>
+					<p>Then, if you create any more indexes, create one on
 							<codeph>sc.status</codeph> and one on <codeph>inv.age</codeph> or
 							<codeph>inv.name</codeph> or both. </p>
 				</li>

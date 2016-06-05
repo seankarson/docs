@@ -56,13 +56,12 @@ System.out.println("Transfered " + results.getTotalBucketTransferBytes()+ "bytes
 					</li>
 				</ul>
 			<p>You can also just simulate a rebalance through the API, to see if it's worth it to
-				run:
+				run:</p>
 				<codeblock>ResourceManager manager = cache.getResourceManager(); 
 RebalanceOperation op = manager.createRebalanceFactory().simulate(); 
 RebalanceResults results = op.getResults(); 
 System.out.println("Rebalance would transfer " + results.getTotalBucketTransferBytes() +" bytes "); 
 System.out.println(" and create " + results.getTotalBucketCreatesCompleted() + " buckets.\n");</codeblock>
-			</p>
 		</section>
 		<section id="section_1592413D533D454D9E5ACFCDC4685DD1">
 			<title>How Partitioned Region Rebalancing Works</title>
@@ -123,8 +122,8 @@ System.out.println(" and create " + results.getTotalBucketCreatesCompleted() + "
 		<section id="section_495FEE48ED60433BADB7D36C73279C89">
 			<title>How to Simulate Region Rebalancing</title>
 			<p>You can simulate the rebalance operation before moving any actual data around by
-				executing the <codeph>rebalance</codeph> command with the following option:
-				<codeblock>gfsh&gt;rebalance --simulate</codeblock></p>
+				executing the <codeph>rebalance</codeph> command with the following option:</p>
+				<codeblock>gfsh&gt;rebalance --simulate</codeblock>
 			<p>
 				<note>If you are using <codeph>heap_lru</codeph> for data eviction, you may notice a
 					difference between your simulated results and your actual rebalancing results.

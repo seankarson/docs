@@ -14,22 +14,20 @@
 					<li id="li_005970FB420A4DDBBBEC59A49EE0CC9F">Memory consumption as a percentage
 						of the application heap (not available for server subscription queues) </li>
 				</ul>
-			<p>Configuration of region overflow:
+			<p>Configuration of region overflow:</p>
 				<codeblock>&lt;!-- Overflow when the region goes over 10000 entries --&gt;
 &lt;region-attributes&gt;
   &lt;eviction-attributes&gt;
     &lt;lru-entry-count maximum="10000" action="overflow-to-disk"/&gt;
   &lt;/eviction-attributes&gt;
 &lt;/region-attributes&gt;</codeblock>
-			</p>
-			<p>Configuration of server's client subscription queue overflow:
+			<p>Configuration of server's client subscription queue overflow:</p>
 				<codeblock>&lt;!-- Overflow the server's subscription queues when the queues reach 1 Mb of memory --&gt;
 &lt;cache&gt; 
   &lt;cache-server&gt; 
     &lt;client-subscription eviction-policy="mem" capacity="1"/&gt; 
   &lt;/cache-server&gt; 
 &lt;/cache&gt;</codeblock>
-			</p>
 		</section>
 	</conbody>
 </concept>

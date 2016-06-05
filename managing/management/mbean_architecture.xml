@@ -24,13 +24,14 @@
 		<section id="section_AD13594ADA814194897488CF96BCC479">
 			<title>MBean Proxy Naming Conventions</title>
 			<p>Each <keyword keyref="product_name"/> MBean follows a particular naming convention
-				for easier grouping. For example:
+				for easier grouping. For example:</p>
 				<codeblock>GemFire:type=Member,service=LockService,name=&lt;dlsName&gt;,memberName=&lt;memberName&gt;</codeblock>
+			<p>
 				At the JMX Manager node, this MBean will be registered with GemFire/&lt;memberId&gt;
 				as domain. </p>
 			<p>The following are some sample MBean names: </p>
-			<p>MemberMBean: <codeblock>GemFire:type=Member,member=&lt;Node1&gt;</codeblock>
-			</p>
+			<p>MemberMBean:</p>
+			<codeblock>GemFire:type=Member,member=&lt;Node1&gt;</codeblock>
 		</section>
 		<section id="section_8F9D375A185E476FB50E7D6E30BE2FC7">
 			<title>Use of MXBeans</title>

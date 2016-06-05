@@ -110,9 +110,9 @@ where</codeblock>
 			</table>
 			<p>To access any method, attribute, or named object that has the same name as a query
 				language reserved word, enclose the name within double quotation marks. </p>
-			<p>Examples: <codeblock>SELECT DISTINCT "type" FROM /portfolios WHERE status = 'active'</codeblock>
-				<codeblock>SELECT DISTINCT * FROM /region1 WHERE emps."select"() &lt; 100000 </codeblock>
-			</p>
+			<p>Examples:</p>
+			<codeblock>SELECT DISTINCT "type" FROM /portfolios WHERE status = 'active'</codeblock>
+			<codeblock>SELECT DISTINCT * FROM /region1 WHERE emps."select"() &lt; 100000 </codeblock>
 		</section>
 	</conbody>
 </concept>

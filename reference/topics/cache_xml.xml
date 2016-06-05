@@ -87,7 +87,7 @@
 				</tgroup>
 			</table>
 			<p>
-				<b>Example:</b>
+				<b>Example:</b></p>
 				<codeblock outputclass="language-xml">&lt;cache&gt;
   &lt;cache-server port="40404" /&gt;
   &lt;region name="root"&gt;
@@ -106,7 +106,6 @@
 &lt;/cache&gt;
 
 </codeblock>
-			</p>
 		</body>
 	</topic>
 	<topic id="cache-transaction-manager">
@@ -1310,11 +1309,10 @@
 								<p><b>API:</b>
 									<codeph>setConcurrencyLevel</codeph>
 								</p>
-								<p><b>Example: </b>
+								<p><b>Example: </b></p>
 									<codeblock outputclass="language-xml">&lt;region-attributes 
   concurrency-level="10"&gt;
 &lt;/region-attributes&gt;</codeblock>
-								</p>
 							</entry>
 							<entry colname="col3">16 (threads) </entry>
 						</row>
@@ -1398,17 +1396,19 @@
 									<b>API: </b>
 									<codeph>setDataPolicy</codeph>
 								</p>
-								<p><b>Example</b>:
+								<p><b>Example</b>:</p>
 									<codeblock outputclass="language-xml">&lt;region-attributes 
   data-policy="replicate"&gt; 
-&lt;/region-attributes&gt;</codeblock>This
+&lt;/region-attributes&gt;</codeblock>
+								<p>This
 									is similar to using a region shortcut
 									with<codeph>refid</codeph>, however when you use the REPLICATE
 									region shortcut, it automatically sets the region's scope to
-										<codeph>distributed-ack</codeph>.
+									<codeph>distributed-ack</codeph>.</p>
 									<codeblock outputclass="language-xml">&lt;region-attributes 
   refid="REPLICATE"&gt; 
 &lt;/region-attributes&gt;</codeblock>
+								<p>
 									If you use <codeph>data-policy</codeph>, you must set the scope
 									explicitly. </p>
 							</entry>
@@ -1440,11 +1440,10 @@
 									<codeph>setEnableAsyncConflation</codeph>
 								</p>
 								<p>
-									<b>Example:</b>
+									<b>Example:</b></p>
 									<codeblock outputclass="language-xml">&lt;region-attributes 
   enable-async-conflation="false"&gt;
 &lt;/region-attributes&gt;</codeblock>
-								</p>
 							</entry>
 							<entry colname="col3">true </entry>
 						</row>
@@ -1473,11 +1472,10 @@
 									<codeph>setEnableSubscriptionConflation</codeph>
 								</p>
 								<p>
-									<b>Example:</b>
+									<b>Example:</b></p>
 									<codeblock outputclass="language-xml">&lt;region-attributes 
  enable-subscription-conflation="true"&gt;
  &lt;/region-attributes&gt;</codeblock>
-								</p>
 							</entry>
 							<entry colname="col3">false </entry>
 						</row>
@@ -1492,11 +1490,10 @@
 									<codeph>addGatewaySenderId</codeph>
 								</p>
 								<p>
-									<b>Example:</b>
+									<b>Example:</b></p>
 									<codeblock outputclass="language-xml">&lt;region-attributes 
   gateway-sender-ids="nwsender,swsender"&gt;
 &lt;/region-attributes&gt;</codeblock>
-								</p>
 							</entry>
 							<entry colname="col3">not set </entry>
 						</row>
@@ -1538,11 +1535,10 @@
 									<codeph>setId</codeph>
 								</p>
 								<p>
-									<b>Example:</b>
+									<b>Example:</b></p>
 									<codeblock outputclass="language-xml">&lt;region-attributes 
   id="persistent-replicated"&gt;
 &lt;/region-attributes&gt;</codeblock>
-								</p>
 							</entry>
 							<entry colname="col3">not set </entry>
 						</row>
@@ -1560,11 +1556,10 @@
 									<codeph>setIgnoreJTA</codeph>
 								</p>
 								<p>
-									<b>Example:</b>
+									<b>Example:</b></p>
 									<codeblock outputclass="language-xml">&lt;region-attributes 
   ignore-jta="true"&gt;
 &lt;/region-attributes&gt;</codeblock>
-								</p>
 							</entry>
 							<entry colname="col3">false </entry>
 						</row>
@@ -1583,11 +1578,10 @@
 									<codeph>setIndexMaintenanceSynchronous</codeph>
 								</p>
 								<p>
-									<b>Example:</b>
+									<b>Example:</b></p>
 									<codeblock outputclass="language-xml">&lt;region-attributes 
   index-update-type="asynchronous"&gt;
 &lt;/region-attributes&gt;</codeblock>
-								</p>
 							</entry>
 							<entry colname="col3">synchronous updates </entry>
 						</row>
@@ -1603,11 +1597,10 @@
 									<codeph>setInitialCapacity</codeph>
 								</p>
 								<p>
-									<b>Example:</b>
+									<b>Example:</b></p>
 									<codeblock outputclass="language-xml">&lt;region-attributes 
   initial-capacity="20"&gt;
 &lt;/region-attributes&gt;</codeblock>
-								</p>
 							</entry>
 							<entry colname="col3">16 </entry>
 						</row>
@@ -1629,11 +1622,10 @@
 									<codeph>setLockGrantor</codeph>
 								</p>
 								<p>
-									<b>Example:</b>
+									<b>Example:</b></p>
 									<codeblock outputclass="language-xml">&lt;region-attributes 
   is-lock-grantor="true"&gt;
 &lt;/region-attributes&gt;</codeblock>
-								</p>
 							</entry>
 							<entry colname="col3">false </entry>
 						</row>
@@ -1654,11 +1646,10 @@
 									<codeph>setLoadFactor</codeph>
 								</p>
 								<p>
-									<b>Example:</b>
+									<b>Example:</b></p>
 									<codeblock outputclass="language-xml">&lt;region-attributes 
   load-factor="0.85"&gt;
 &lt;/region-attributes&gt;</codeblock>
-								</p>
 							</entry>
 							<entry colname="col3">.75 </entry>
 						</row>
@@ -1680,11 +1671,10 @@
 									<codeph>setMulticastEnabled</codeph>
 								</p>
 								<p>
-									<b>Example:</b>
+									<b>Example:</b></p>
 									<codeblock outputclass="language-xml">&lt;region-attributes 
   multicast-enabled="true"&gt;
 &lt;/region-attributes&gt;</codeblock>
-								</p>
 							</entry>
 							<entry colname="col3">false </entry>
 						</row>
@@ -1705,7 +1695,7 @@
 								</p>
 								<p>This declaration creates the region as a client region with a
 									server pool named DatabasePool. This pool-name specification is
-									required, as there are multiple pools in the client cache:
+									required, as there are multiple pools in the client cache:</p>
 									<codeblock outputclass="language-xml">&lt;client-cache&gt;
 	&lt;pool name="DatabasePool" 
    subscription-enabled="true"&gt;
@@ -1721,11 +1711,10 @@
           pool-name="DatabasePool"&gt; 
 		&lt;/region-attributes&gt;
 		...</codeblock>
-								</p>
 								<p>This declaration creates the region as a client region assigned
 									the single pool that is defined for the client cache. Here the
 									pool-name specification is implied to be the only pool that
-									exists in the cache:
+									exists in the cache:</p>
 									<codeblock outputclass="language-xml">&lt;client-cache&gt;
 	&lt;pool 
    name="publisher" 
@@ -1737,7 +1726,6 @@
    refid="CACHING_PROXY"&gt;
 	&lt;/region&gt;
 &lt;/client-cache&gt;</codeblock>
-								</p>
 							</entry>
 							<entry colname="col3">not set </entry>
 						</row>
@@ -1759,11 +1747,10 @@
 									<codeph>setDiskStoreName</codeph>
 								</p>
 								<p>
-									<b>Example:</b>
+									<b>Example:</b></p>
 									<codeblock outputclass="language-xml">&lt;region-attributes 
   disk-store-name="myStoreA" &gt;
 &lt;/region-attributes&gt;</codeblock>
-								</p>
 							</entry>
 							<entry colname="col3">null </entry>
 						</row>
@@ -1777,12 +1764,11 @@
 									<codeph>setDiskSynchronous</codeph>
 								</p>
 								<p>
-									<b>Example:</b>
+									<b>Example:</b></p>
 									<codeblock outputclass="language-xml">&lt;region-attributes 
   disk-store-name="myStoreA" 
   disk-synchronous="true"&gt;
 &lt;/region-attributes&gt;</codeblock>
-								</p>
 							</entry>
 							<entry colname="col3">true </entry>
 						</row>
@@ -1796,14 +1782,13 @@
 									<codeph>setRefId</codeph>
 								</p>
 								<p>
-									<b>Example:</b>
+									<b>Example:</b></p>
 									<codeblock outputclass="language-xml">&lt;region-attributes 
   refid="persistent-replicated"&gt;
   &lt;!-- Override any stored 
     attribute settings that you 
     need to ... --&gt;
 &lt;/region-attributes&gt;</codeblock>
-								</p>
 							</entry>
 							<entry colname="col3">not set </entry>
 						</row>
@@ -1859,11 +1844,10 @@
 									<codeph>setScope</codeph>
 								</p>
 								<p>
-									<b>Example:</b>
+									<b>Example:</b></p>
 									<codeblock outputclass="language-xml">&lt;region-attributes 
   scope="distributed-ack"&gt;
 &lt;/region-attributes&gt;</codeblock>
-								</p>
 							</entry>
 							<entry colname="col3">distributed-no-ack </entry>
 						</row>
@@ -1883,11 +1867,10 @@
 									<codeph>Region.Entry.getStatistics</codeph> methods. <p><b>API:
 										</b><codeph>setStatisticsEnabled</codeph>
 								</p>
-								<p><b>Example:</b>
+								<p><b>Example:</b></p>
 									<codeblock outputclass="language-xml">&lt;region-attributes 
   statistics-enabled="true"&gt;
 &lt;/region-attributes&gt;</codeblock>
-								</p>
 							</entry>
 							<entry colname="col3">false </entry>
 						</row>
@@ -1904,11 +1887,10 @@
 									<codeph>setCloningEnabled</codeph>
 								</p>
 								<p>
-									<b>Example: </b>
+									<b>Example: </b></p>
 									<codeblock outputclass="language-xml">&lt;region-attributes 
   cloning-enabled="true"&gt;
 &lt;/region-attributes&gt;</codeblock>
-								</p>
 							</entry>
 							<entry colname="col3">false </entry>
 						</row>
@@ -2789,13 +2771,12 @@
 				<codeph>com.gemstone.gemfire.cache.RegionFactory.setCacheLoader</codeph>
 			</p>
 			<p>
-				<b>Example:</b>
+				<b>Example:</b></p>
 				<codeblock outputclass="language-xml">&lt;region-attributes&gt;
   &lt;cache-loader&gt;
     &lt;class-name&gt;quickstart.SimpleCacheLoader&lt;/class-name&gt;
   &lt;/cache-loader&gt;
 &lt;/region-attributes&gt;</codeblock>
-			</p>
 		</body>
 	</topic>
 	<topic id="topic_h53_pnw_bm">
@@ -2811,13 +2792,12 @@
 				<codeph>com.gemstone.gemfire.cache.RegionFactory.setCacheWriter</codeph>
 			</p>
 			<p>
-				<b>Example:</b>
+				<b>Example:</b></p>
 				<codeblock outputclass="language-xml">&lt;region-attributes&gt;
   &lt;cache-writer&gt;
     &lt;class-name&gt;quickstart.SimpleCacheWriter&lt;/class-name&gt;
   &lt;/cache-writer&gt;
 &lt;/region-attributes&gt;</codeblock>
-			</p>
 		</body>
 	</topic>
 	<topic id="cache-listener">
@@ -3900,7 +3880,7 @@
 			<p>The following transaction writer configuration example specifies a Java class named
 					<codeph>com.company.data.MyTransactionWritet</codeph>. The class is initialized
 				with a parameter named <codeph>URL</codeph> whose value is
-					<codeph>jdbc:cloudscape:rmi:MyData</codeph>.
+				<codeph>jdbc:cloudscape:rmi:MyData</codeph>.</p>
 				<codeblock outputclass="language-xml">&lt;transaction-writer&gt;
        &lt;class-name&gt;com.company.data.MyTransactionWriter&lt;/class-name&gt;
        &lt;parameter name="URL"&gt;
@@ -3908,7 +3888,6 @@
        &lt;/parameter&gt;
 &lt;/transaction-writer&gt;
 </codeblock>
-			</p>
 		</body>
 	</topic>
 	<topic id="declarable">

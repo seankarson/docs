@@ -222,8 +222,9 @@
         regions. You can enable the use of transactions on persistent regions by setting the
         property <codeph>gemfire.ALLOW_PERSISTENT_TRANSACTIONS</codeph> to true. This may also be
         accomplished at server startup using
-        gfsh:<codeblock>gfsh start server --name=server1 --dir=server1_dir \
---J=-Dgemfire.ALLOW_PERSISTENT_TRANSACTIONS=true \</codeblock></p>
+        gfsh:</p>
+      <codeblock>gfsh start server --name=server1 --dir=server1_dir \
+--J=-Dgemfire.ALLOW_PERSISTENT_TRANSACTIONS=true \</codeblock>
       <p>Since <keyword keyref="product_name"/> does not provide atomic disk persistence guarantees,
         the default behavior is to disallow disk-persistent regions from participating in
         transactions. However, when choosing to enable transactions on persistent regions, consider

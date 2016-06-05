@@ -104,8 +104,7 @@
 		<section id="section_07001480D33745139C3707EDF8166D86">
 			<title>Start the Server</title>
 			<p>The startup syntax for <keyword keyref="product_name"/> servers in <codeph>gfsh</codeph>
-				is:<codeblock conref="../../tools_modules/gfsh/command-pages/start.xml#topic_3764EE2DB18B4AE4A625E0354471738A/start-server-syntax"/>
-			</p>
+				is:</p><codeblock conref="../../tools_modules/gfsh/command-pages/start.xml#topic_3764EE2DB18B4AE4A625E0354471738A/start-server-syntax"/>
 			<p>
 				<note>When both <codeph>--max-heap</codeph> and <codeph>--initial-heap</codeph> are specified
 					during server startup, additional GC parameters are specified internally by
@@ -118,31 +117,30 @@
 			</p>
 			<p>The following <codeph>gfsh start server</codeph> start sequences specify a
 					<filepath>cache.xml</filepath> file for cache configuration, and use different
-				incoming client connection ports:
+				incoming client connection ports:</p>
 				<codeblock>gfsh&gt;start server --name=server1 --mcast-port=10338 \
 --cache-xml-file=../ServerConfigs/cache.xml --server-port=40404
 
 gfsh&gt;start server --name=server2 --mcast-port=10338 \
 --cache-xml-file=../ServerConfigs/cache.xml --server-port=40405
 </codeblock>
-			</p>
 			<p>Here is a portion of a <codeph>gemfire.properties</codeph> file that sets the location of
-					a<codeph>cache.xml</codeph> file for the server and sets the mcast-port:
+				a<codeph>cache.xml</codeph> file for the server and sets the mcast-port:</p>
 				<codeblock>mcast-port=10338 
-cache-xml-file=D:\gfeserver\cacheCS.xml</codeblock>To
-				start the server using this <codeph>gemfire.properties</codeph> file, enter:
+cache-xml-file=D:\gfeserver\cacheCS.xml</codeblock>
+			<p>To
+				start the server using this <codeph>gemfire.properties</codeph> file, enter:</p>
 				<codeblock>gfsh&gt;start server --name=server1 \
 --properties-file=D:\gfeserver\gemfire.properties</codeblock>
-			</p>
-			<p>To start a server with an embedded JMX Manager, you can enter the following command:
+			<p>To start a server with an embedded JMX Manager, you can enter the following command:</p>
 				<codeblock>gfsh&gt;start server --name=server2 \
 --J=-Dgemfire.jmx-manager=true --J=-Dgemfire.jmx-manager-start=true
 </codeblock>
-			</p>
 			<p>To start a server and provide JVM configuration settings, you can issue a command
 				like the
-				following:<codeblock>gfsh>start server --name=server3 \
---J=-Xms80m,-Xmx80m --J=-XX:+UseConcMarkSweepGC,-XX:CMSInitiatingOccupancyFraction=65</codeblock></p>
+				following:</p>
+			<codeblock>gfsh>start server --name=server3 \
+--J=-Xms80m,-Xmx80m --J=-XX:+UseConcMarkSweepGC,-XX:CMSInitiatingOccupancyFraction=65</codeblock>
 		</section>
 		<section>
 			<title>Start the Server Programmatically</title>
@@ -152,7 +150,8 @@ cache-xml-file=D:\gfeserver\cacheCS.xml</codeblock>To
 				the <codeph>start()</codeph> method to start the server service. The other methods
 				in the <codeph>ServerLauncher</codeph> class provide status information about the
 				server and allow you to stop the
-				server.<codeblock>import com.gemstone.gemfire.distributed.ServerLauncher;
+				server.</p>
+			<codeblock>import com.gemstone.gemfire.distributed.ServerLauncher;
 
  public class MyEmbeddedServer {
 
@@ -170,22 +169,23 @@ cache-xml-file=D:\gfeserver\cacheCS.xml</codeblock>To
         }
     }
 </codeblock>
-			</p>
 		</section>
 		<section id="section_F58F229D5C7048E9915E0EC470F9A923">
 			<title>Check Server Status</title>
 			<p>If you are connected to the distributed system in <codeph>gfsh</codeph>, you can
 				check the status of a running cache server by providing the server name. For
-				example: <codeblock>gfsh&gt;status server --name=server1</codeblock>
-			</p>
+				example:</p>
+			<codeblock>gfsh&gt;status server --name=server1</codeblock>
 			<p>If you are not connected to a distributed system, you can check the status of a local cache
 				server by providing the process ID or the server's current working directory. For
-				example: <codeblock>gfsh&gt;status server --pid=2484</codeblock>or
-				<codeblock>% gfsh status server --dir=&lt;server_working_directory&gt;</codeblock>where
-					&lt;<i>server_working_directory</i>&gt; corresponds to the local working
+				example:</p>
+			<codeblock>gfsh&gt;status server --pid=2484</codeblock>
+			<p>or</p>
+				<codeblock>% gfsh status server --dir=&lt;server_working_directory&gt;</codeblock>
+			<p>where &lt;<i>server_working_directory</i>&gt; corresponds to the local working
 				directory where the cache server is running. </p>
 			<p>If successful, the command returns the following information (with the JVM arguments that were
-				provided at startup):
+				provided at startup):</p>
 				<codeblock>% gfsh status server --dir=server4
 Server in /home/stymon/server4 on ubuntu.local[40404] as server4 is currently online.
 Process ID: 3324
@@ -195,19 +195,18 @@ Java Version: 1.7.0_65
 Log File: /home/stymon/server4/server4.log
 JVM Arguments: 
 ...</codeblock>
-			</p>
 		</section>
 		<section id="section_0E4DDED6AB784B0CAFBAD538B227F487">
 			<title>Stop Server</title>
 			<p>If you are connected to the distributed system in <codeph>gfsh</codeph>, you can stop
-				a running cache server by providing the server name. For example:
+				a running cache server by providing the server name. For example:</p>
 				<codeblock>gfsh&gt;stop server --name=server1</codeblock>
-			</p>
 			<p>If you are not connected to a distributed system, you can stop a local cache server
-				by specify the server's current working directory or the process ID. For example:
-				<codeblock>gfsh&gt;stop server --pid=2484</codeblock> or
-				<codeblock>gfsh&gt;stop server --dir=&lt;server_working_directory&gt;</codeblock>where
-					&lt;<i>server_working_directory</i>&gt; corresponds to the local working
+				by specify the server's current working directory or the process ID. For example:</p>
+				<codeblock>gfsh&gt;stop server --pid=2484</codeblock>
+			<p> or</p>
+				<codeblock>gfsh&gt;stop server --dir=&lt;server_working_directory&gt;</codeblock>
+			<p>where &lt;<i>server_working_directory</i>&gt; corresponds to the local working
 				directory where the cache server is running. </p>
 			<p>You can also use the <codeph>gfsh</codeph>
 				<codeph>shutdown</codeph> command to shut down all cache servers in an orderly

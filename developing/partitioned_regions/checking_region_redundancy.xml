@@ -9,9 +9,10 @@
     <p>You can verify partitioned region redundancy by making sure that the
         <codeph>numBucketsWithoutRedundancy</codeph> statistic is <b>zero</b> for all your
       partitioned regions. To check this statistic, use the following <codeph>gfsh</codeph>
-      command:<codeblock>gfsh>show metrics --categories=partition --region=<varname>region_name</varname></codeblock></p>
-    <p>For
-      example:<codeblock>gfsh>show metrics --categories=partition --region=posts
+      command:</p>
+    <codeblock>gfsh>show metrics --categories=partition --region=<varname>region_name</varname></codeblock>
+    <p>For example:</p>
+    <codeblock>gfsh>show metrics --categories=partition --region=posts
 
 Cluster-wide Region Metrics
 --------- | --------------------------- | -----
@@ -26,7 +27,7 @@ partition | putLocalRate                | 0
           | maxBucketSize               | 0
           | totalBucketSize             | 1
           | averageBucketSize           | 1
-      </codeblock></p>
+      </codeblock>
     <p>If you have <codeph>start-recovery-delay=-1</codeph> configured for your partitioned region,
       you will need to perform a rebalance on your region after you restart any members in your
       cluster in order to recover redundancy.</p>

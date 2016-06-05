@@ -12,11 +12,11 @@
       <p>As many entry operations return a reference to the cache entry, copy-on-read avoids
         problems within a  transaction setting. To enable global copy-on-read for all reads, modify
         the <filepath>cache.xml</filepath> file or use the corresponding Java API call.</p>
-      <p>Using cache.xml:
-        <codeblock>&lt;cache lock-lease="120" lock-timeout="60" search-timeout="300" <b>copy-on-read="true"</b>></codeblock></p>
-      <p>API:
+      <p>Using cache.xml:</p>
+        <codeblock>&lt;cache lock-lease="120" lock-timeout="60" search-timeout="300" <b>copy-on-read="true"</b>></codeblock>
+      <p>API:</p>
         <codeblock>Cache c = CacheFactory.getInstance(system);
- c.setCopyOnRead(true);</codeblock>The
+ c.setCopyOnRead(true);</codeblock><p>The
         copy-on-read attribute and the operations affected by the attribute setting are discussed in
         detail in <xref
           href="../../basic_config/data_entries_custom_classes/managing_data_entries.xml"/>.</p>
@@ -28,13 +28,14 @@
       <p>If <codeph>copy-on-read</codeph> is <i>not</i> globally set, and the cache uses replicated
         regions, explicitly make copies of the cache objects that are to be modified within a
         transaction. The <codeph>CopyHelper.copy</codeph> method makes
-        copies:<codeblock>CacheTransactionManager cTxMgr = cache.getCacheTransactionManager();
+        copies:</p>
+      <codeblock>CacheTransactionManager cTxMgr = cache.getCacheTransactionManager();
 cTxMgr.begin(); 
 Object o = (StringBuffer) r.get("stringBuf");
 StringBuffer s = (StringBuffer) CopyHelper.copy(o);
 s.append("Changes unseen before commit. Read Committed."); 
 r.put("stringBuf", s); 
-cTxMgr.commit();</codeblock></p>
+cTxMgr.commit();</codeblock>
     </conbody>
   </concept>
   <concept id="concept_ihn_zmt_vk">
@@ -272,7 +273,8 @@ cTxMgr.commit();</codeblock></p>
             This attribute does not install a different transaction manager.</note>
         </p>
         <p>Using
-          cache.xml:<codeblock>&lt;cache search-timeout="60">
+          cache.xml:</p>
+        <codeblock>&lt;cache search-timeout="60">
            &lt;cache-transaction-manager>
              &lt;transaction-listener>
                &lt;class-name>com.company.data.MyTransactionListener&lt;/class-name>
@@ -285,10 +287,11 @@ cTxMgr.commit();</codeblock></p>
              &lt;/transaction-listener> 
           &lt;/cache-transaction-manager>
                . . . 
-        &lt;/cache></codeblock></p>
+        &lt;/cache></codeblock>
         <p>Using the Java
-          API:<codeblock>CacheTransactionManager manager = cache.getCacheTransactionManager(); 
-manager.addListener(new LoggingTransactionListener());</codeblock></p>
+          API:</p>
+        <codeblock>CacheTransactionManager manager = cache.getCacheTransactionManager(); 
+manager.addListener(new LoggingTransactionListener());</codeblock>
       </section>
     </conbody>
   </concept>

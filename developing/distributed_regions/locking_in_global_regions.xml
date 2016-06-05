@@ -49,19 +49,20 @@
 						your calls to the instance of
 							<codeph>java.util.concurrent.locks.Lock</codeph> returned from the
 							<codeph>Region</codeph> API. You can wait a specific amount of time,
-						return immediately either with or without the lock, or wait indefinitely. <p>
+						return immediately either with or without the lock, or wait indefinitely. 
 							<codeblock outputclass="language-xml">&lt;cache lock-timeout="60"&gt; 
 &lt;/cache&gt;</codeblock>
-						</p><p>gfsh:<codeblock>gfsh>alter runtime --lock-timeout=60 </codeblock>
-						</p></li>
+						<p>gfsh:</p>
+							<codeblock>gfsh>alter runtime --lock-timeout=60 </codeblock>
+					</li>
 					<li id="li_593EC0166E3042EE8600198AA6721EF6">The lock lease limits how long a
 						lock can be held before it is automatically released. A timed lock allows
 						the application to recover when a member fails to release an obtained lock
 						within the lease time. For all locking, this timeout is set with the cache
-						attribute <codeph>lock-lease</codeph>. <p>
-							<codeblock outputclass="language-xml">&lt;cache lock-lease="120"&gt; 
-&lt;/cache&gt;</codeblock>
-						</p><p>gfsh:<codeblock>gfsh>alter runtime --lock-lease=120</codeblock></p>
+						attribute <codeph>lock-lease</codeph>.
+						<codeblock outputclass="language-xml">&lt;cache lock-lease="120"&gt; &lt;/cache&gt;</codeblock>
+						<p>gfsh:</p>
+						<codeblock>gfsh>alter runtime --lock-lease=120</codeblock>
 					</li>
 				</ul>
 		</section>
@@ -108,7 +109,7 @@
 			<p>These two examples show entry locking and unlocking. Note how the entry’s
 					<codeph>Lock</codeph> object is obtained and then its lock method invoked to
 				actually set the lock. The example program stores the entry lock information in a
-				hash table for future reference.
+				hash table for future reference.</p>
 				<codeblock outputclass="language-java">/* Lock a data entry */ 
 HashMap lockedItemsMap = new HashMap(); 
 ...
@@ -120,7 +121,6 @@ HashMap lockedItemsMap = new HashMap();
     lockedItemsMap.put(name, lock); 
   } 
   ...</codeblock>
-			</p>
 			<codeblock outputclass="language-java">/* Unlock a data entry */ 
   String entryKey = ... 
   if (lockedItemsMap.containsKey(entryKey)) 

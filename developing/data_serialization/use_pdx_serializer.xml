@@ -36,7 +36,7 @@
 							cache-wide serializer and make it implement
 								<codeph>PdxSerializer</codeph>. If you want to declare your new
 							class in the <codeph>cache.xml</codeph> file, have it also implement
-								<codeph>Declarable</codeph>. <p>Example:
+							<codeph>Declarable</codeph>. <p>Example:</p>
 								<codeblock outputclass="language-java">import com.gemstone.gemfire.cache.Declarable;
 import com.gemstone.gemfire.pdx.PdxReader;
 import com.gemstone.gemfire.pdx.PdxSerializer;
@@ -45,13 +45,12 @@ import com.gemstone.gemfire.pdx.PdxWriter;
 public class ExamplePdxSerializer implements PdxSerializer, Declarable {
 ...
 </codeblock>
-							</p>
 						</li>
 						<li id="li_EE0DDC897BDF4268A0EDA607A806EF23">In your cache pdx
 							configuration, register the serializer class in the cache's
 								<codeph>&lt;pdx&gt;</codeph>
 							<codeph>&lt;pdx-serializer&gt;</codeph>
-							<codeph>&lt;class-name&gt;</codeph> attribute. <p>Example:
+							<codeph>&lt;class-name&gt;</codeph> attribute. <p>Example:</p>
 								<codeblock outputclass="language-xml">// Configuration setting PDX serializer for the cache
 &lt;cache&gt;
   &lt;pdx&gt;
@@ -61,13 +60,11 @@ public class ExamplePdxSerializer implements PdxSerializer, Declarable {
   &lt;/pdx&gt; 
   ...
 &lt;/cache&gt;</codeblock>
-								Or use the <codeph>CacheFactory.setPdxSerializer </codeph> API. </p>
-							<p>
+							<p>Or use the <codeph>CacheFactory.setPdxSerializer </codeph> API. </p>
 								<codeblock outputclass="language-java">
 Cache c = new CacheFactory
    .setPdxSerializer(new ExamplePdxSerializer())
    .create();</codeblock>
-							</p>
 						</li>
 					</ol><note>You cannot specify a custom <codeph>pdx-serializer</codeph> class
 						using gfsh, however the <cmdname>configure pdx</cmdname> command
@@ -108,7 +105,7 @@ Cache c = new CacheFactory
 							<codeph>writeObject</codeph>, <codeph>writeObjectArray</codeph>, and
 								<codeph>writeField</codeph> methods. </li>
 					</ol>
-					<p>Example <codeph>toData</codeph> code:
+					<p>Example <codeph>toData</codeph> code:</p>
 						<codeblock outputclass="language-java">public boolean toData(Object o, PdxWriter writer)
   {
     if(!(o instanceof PortfolioPdx)) {
@@ -130,7 +127,6 @@ Cache c = new CacheFactory
     return true;
   }
 </codeblock>
-					</p>
 					<ol id="ol_7C84B288BD16459F99F88162FE6925C9">
 						<li id="li_A31789487D1D481F87A1626BD4893CE2">Program
 								<codeph>PdxSerializer.fromData</codeph> to create an instance of

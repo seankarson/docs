@@ -23,7 +23,7 @@
 								spawn separate threads for them. Do not make direct calls to
 									<codeph>Region</codeph> methods from your load method
 								implementation as it could cause the cache loader to block, hurting
-								the performance of the distributed system. <p>Example:
+								the performance of the distributed system. <p>Example:</p>
 									<codeblock outputclass="language-java">public class SimpleCacheLoader implements CacheLoader, Declarable {
     public Object load(LoaderHelper helper) {
         String key = (String) helper.getKey();
@@ -34,7 +34,6 @@
     public void close() { // do nothing }
     public void init(Properties props) { // do nothing }
 }</codeblock>
-								</p>
 							</li>
 						</ol>
 					</li>

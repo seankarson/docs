@@ -127,9 +127,9 @@ gfsh validate offline-disk-store --name=ds1 --disk-dirs=/home/dsmith/dir1</codeb
 			<p>An incremental backup contains items that have changed since a previous backup was
 				made.</p>
 			<p>To do an incremental backup, specify the backup directory that the incremental backup
-				will be based upon with the <codeph>--baseline-dir</codeph> argument. For example:
+				will be based upon with the <codeph>--baseline-dir</codeph> argument. For example:</p>
 				<codeblock>gfsh&gt;backup disk-store --dir=/export/fileServerDirectory/gemfireBackupLocation
---baseline-dir=/export/fileServerDirectory/gemfireBackupLocation/2012-10-01-12-30</codeblock></p>
+--baseline-dir=/export/fileServerDirectory/gemfireBackupLocation/2012-10-01-12-30</codeblock>
 			<p>The output will appear the same as the  output for a full online backup.</p>
 			<p>Any online member that fails to complete its incremental backup will leave a file
 				named <codeph>INCOMPLETE_BACKUP</codeph> in its highest level backup directory. The
@@ -189,7 +189,6 @@ gfsh validate offline-disk-store --name=ds1 --disk-dirs=/home/dsmith/dir1</codeb
 		</section>
 		<section id="section_22809A237A344015B40C962B704D8F34">
 			<title>Disk Store Backup Directory Structure and Contents</title>
-			<p>
 				<codeblock>$ cd thebackupdir
 $ ls -R
 ./2012-10-18-13-44-53:
@@ -211,7 +210,6 @@ dir0
 BACKUPDEFAULT_1.crf BACKUPDEFAULT_1.drf BACKUPDEFAULT.if
 
 ./2012-10-18-13-44-53/dasmith_e6410_server1_8623_v1_33892/user:</codeblock>
-			</p>
 		</section>
 		<section id="section_6F998080AF7640D1A9E951D155A75E3A">
 			<title>Offline Members: Manual Catch-Up to an Online Backup</title>

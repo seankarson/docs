@@ -36,9 +36,12 @@
         <stentry>
           <p>Specify the parameter @type and @value for each bind parameter. For
             example, to provide values to the following
-            query:<codeblock>SELECT o FROM /orders o WHERE o.quantity &gt; $1 AND o.totalprice &gt; $2</codeblock>You
+            query:</p>
+          <codeblock>SELECT o FROM /orders o WHERE o.quantity &gt; $1 AND o.totalprice &gt; $2</codeblock>
+          <p>You
             could pass in the following JSON in the request body as the bind
-            parameters:<codeblock>
+            parameters:</p>
+          <codeblock>
 [
         {
              "@type":  "int ",
@@ -48,7 +51,7 @@
             "@type":  "double ",
              "@value": 110.00
         }
-]</codeblock></p>
+]</codeblock>
         </stentry>
       </strow>
     </simpletable>

@@ -17,10 +17,12 @@
 				offline data stores, even when other data stores for the region are online, because
 				their offline status may be causing <codeph>PartitionOfflineExceptions</codeph> in
 				cache operations or preventing the system from satisfying redundancy. </p>
-			<p>Example: <codeblock>gfsh&gt;show missing-disk-stores
+			<p>Example: </p>
+			<codeblock>gfsh&gt;show missing-disk-stores
           Disk Store ID             |   Host    |               Directory                                           
 ------------------------------------ | --------- | -------------------------------------
 60399215-532b-406f-b81f-9b5bd8d1b55a | excalibur | /usr/local/gemfire/deploy/disk_store1</codeblock>
+			<p>
 				<note> You need to be connected to JMX Manager in <codeph>gfsh</codeph> to run this
 					command. </note>
 			</p>
@@ -62,11 +64,9 @@
 			<p>Use gfsh show missing-disk-stores to properly identify the disk store you need to
 				revoke. The revoke command takes the disk store ID as input, as listed by that
 				command. </p>
-			<p>Example:
+			<p>Example:</p>
 				<codeblock>gfsh&gt;revoke missing-disk-store --id=60399215-532b-406f-b81f-9b5bd8d1b55a
 Missing disk store successfully revoked</codeblock>
-			</p>
-			<p> </p>
 		</section>
 	</conbody>
 </concept>

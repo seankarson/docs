@@ -18,15 +18,14 @@
 				store is automatically updated to match. So you do not need to modify your disk
 				store to keep your cache configuration and disk store synchronized, but you will
 				save startup time and memory if you do. </p>
-			<p>For example, to change the initial capacity of the disk store:
+			<p>For example, to change the initial capacity of the disk store:</p>
 				<codeblock>gfsh&gt;alter disk-store --name=myDiskStoreName --region=partitioned_region 
 --disk-dirs=/firstDiskStoreDir,/secondDiskStoreDir,/thirdDiskStoreDir 
 --initialCapacity=20</codeblock>
-			</p>
 			<p>To list all modifiable settings and their current values for a region, run the command with no
-				actions specified:
+				actions specified:</p>
 				<codeblock>gfsh&gt;alter disk-store --name=myDiskStoreName --region=partitioned_region
---disk-dirs=/firstDiskStoreDir,/secondDiskStoreDir,/thirdDiskStoreDir  </codeblock></p>
+--disk-dirs=/firstDiskStoreDir,/secondDiskStoreDir,/thirdDiskStoreDir  </codeblock>
 		</section>
 		<section id="section_0CA17ED106394686A1A5B30601758DA6">
 			<title>Take a Region Out of Your Cache Configuration and Disk Store</title>

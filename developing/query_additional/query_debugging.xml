@@ -6,22 +6,22 @@
 		level by adding the <codeph>&lt;trace&gt;</codeph> keyword before the query string that you
 		want to debug.</shortdesc>
 	<conbody>
-		<p>Here is an example: <codeblock>&lt;trace&gt; select * from /exampleRegion</codeblock>You
-			can also write: <codeblock>&lt;TRACE&gt; select * from /exampleRegion</codeblock>
-		</p>
+		<p>Here is an example:</p>
+		<codeblock>&lt;trace&gt; select * from /exampleRegion</codeblock>
+		<p>You
+			can also write:</p>
+		<codeblock>&lt;TRACE&gt; select * from /exampleRegion</codeblock>
 		<p> When the query is executed, <keyword keyref="product_name"/> will log a message in
 				<codeph>$GEMFIRE_DIR/system.log</codeph> with the following information:
 			<msgblock>[info 2011/08/29 11:24:35.472 PDT CqServer &lt;main&gt; tid=0x1] Query Executed in 9.619656 ms; rowCount = 99; indexesUsed(0) "select *  from /exampleRegion" </msgblock>
 		</p>
 		<p>If you want to enable debugging for all queries, you can enable query execution logging
-			by setting a System property on the command line during start-up:
+			by setting a System property on the command line during start-up:</p>
 			<codeblock>gfsh&gt;start server --name=<varname>server_name</varname> -–J=-Dgemfire.Query.VERBOSE=true</codeblock>
-		</p>
-		<p>Or you can set the property programmatically:
+		<p>Or you can set the property programmatically:</p>
 			<codeblock>System.setProperty("gemfire.Query.VERBOSE","true");</codeblock>
-		</p>
 		<p> As an example, let us say you have an EmployeeRegion that that contains Employee objects
-			as values and the objects have public fields in them like ID and status.
+			as values and the objects have public fields in them like ID and status.</p>
 			<codeblock>
 Employee.java
 Class Employee {
@@ -31,7 +31,7 @@ Class Employee {
  - - - - - -
 }
 </codeblock>
-			In addition, you have created the following indexes for the region:
+		<p>In addition, you have created the following indexes for the region:</p>
 			<codeblock>&lt;index name="sampleIndex-1"&gt;
 &lt;functional from-clause="/test " expression="ID"/&gt;
 &lt;/index&gt;
@@ -39,7 +39,6 @@ Class Employee {
 &lt;functional from-clause="/test " expression="status"/&gt;
 &lt;/index&gt;
 </codeblock>
-		</p>
 		<p> After you have set <codeph>gemfire.Query.VERBOSE</codeph> to "true", you could see the
 			following debug messages in the logs after running queries on the EmployeeRegion or its
 			indexes: </p>

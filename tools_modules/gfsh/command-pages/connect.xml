@@ -16,12 +16,12 @@
 			<p><b> Availability:</b> Offline. You will receive a notification "Already connected to:
 				host[port]" if you are already connected. </p>
 			<p>
-				<b>Syntax: </b>
+				<b>Syntax: </b></p>
 				<codeblock>connect [--locator=value] [--jmx-manager=value] [--use-http(=value)?] [--url=value]
     [--user=value][--password=value] [--key-store=value] [--key-store-password=value] 
     [--trust-store=value] [--trust-store-password=value] [--ciphers=value] [--protocols=value]
     [--security-properties-file=value] [--use-ssl(=value)?]
-</codeblock></p>
+</codeblock>
 				<table id="table_B25D38C67FA047EB8F00A521573F1375">
 					<title>Parameters</title>
 					<tgroup cols="3">
@@ -184,32 +184,28 @@
 				<b>Example Commands:</b>
 			</p>
 			<p>If you do not specify a locator or jmx-manager, <codeph>gfsh</codeph> connects to the
-				locator on the localhost at the default port. <codeblock>gfsh&gt;connect</codeblock>
-			</p>
+				locator on the localhost at the default port.</p>
+			<codeblock>gfsh&gt;connect</codeblock>
 			<p>
-				<b>Sample Output: </b>
+				<b>Sample Output: </b></p>
 				<codeblock>
 gfsh&gt;connect
 Connecting to Locator at [host=localhost, port=10334] ..
 Connecting to Manager at [host=GemFireStymon, port=1099] ..
 Successfully connected to: [host=GemFireStymon, port=1099]</codeblock>
-			</p>
 			<p>
-				<b>Example of connecting to a remote locator over HTTP:</b>
+				<b>Example of connecting to a remote locator over HTTP:</b></p>
 				<codeblock>gfsh>connect --use-http=true --url="http://myLocatorHost.com:8080/gemfire/v1"
 Successfully connected to: GemFire Manager's HTTP service @ http://myLocatorHost.com:8080/gemfire/v1</codeblock>
-			</p>
 			<p>
 				<b>Error Messages:</b>
 			</p>
-			<p>
 				<codeblock>
 "Locator could not find a JMX Manager";
 "jmx password must be specified.";
 "Could not connect to : {0}. {1}";
 "Could not find a GemFire jmx-manager service running at {0}.";
 "Could not connect to GemFire Locator service at {0}."</codeblock>
-			</p>
 		</section>
 	</conbody>
 </concept>

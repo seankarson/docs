@@ -150,18 +150,15 @@
 			<title>Offline Disk Store Operations</title>
 			<p>For offline operations, <codeph>gfsh</codeph> runs the command against the specified
 				disk store and its specified directories. You must specify all directories for the
-				disk store. For example:
+				disk store. For example:</p>
 				<codeblock>gfsh&gt;compact offline-disk-store --name=mydiskstore --disk-dirs=MyDirs </codeblock>
-			</p>
 			<p>Offline operations will not run on online disk stores. The tool locks the disk store
 				while it is running, so the member cannot start in the middle of an operation. </p>
 			<p>If you try to run an offline command for an online disk store, you get a message like
 				this: </p>
-			<p>
 				<codeblock>gfsh&gt;compact offline-disk-store --name=DEFAULT --disk-dirs=s1
 This disk store is in use by another process. "compact disk-store" can 
 be used to compact a disk store that is currently in use.</codeblock>
-			</p>
 		</section>
 	</conbody>
 </concept>

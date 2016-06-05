@@ -9,7 +9,8 @@
       <p>All <keyword keyref="product_name"/> REST interface classes and required JAR files are
         distributed as a WAR file with the <keyword keyref="product_name"/> product distribution.
         You can locate the file in the following
-        location:<codeblock>$GEMFIRE/tools/Extensions/gemfire-api.war</codeblock></p>
+        location:</p>
+      <codeblock>$GEMFIRE/tools/Extensions/gemfire-api.war</codeblock>
       <p dir="ltr">To enable the developer REST API service in <keyword keyref="product_name_long"
         />, set the <codeph>start-dev-rest-api</codeph>
         <keyword keyref="product_name"/> property to <codeph>true</codeph> when starting a data node
@@ -120,9 +121,11 @@
           <p>Any server that hosts data, even a server acting as a JMX manager, can start the
             developer REST API service. For example, to start the service on a server that is also a
             JMX manager, you would
-            run:<codeblock>gfsh>start server --name=server1  <b>--J=-Dgemfire.start-dev-rest-api=true</b> \
+            run:</p>
+          <codeblock>gfsh>start server --name=server1  <b>--J=-Dgemfire.start-dev-rest-api=true</b> \
 --J=-Dgemfire.http-service-port=8080 --J=-Dgemfire.http-service-bind-address=localhost \
-<b>--J=-Dgemfire.jmx-manager=true --J=-Dgemfire.jmx-manager-start=true</b></codeblock>Note
+<b>--J=-Dgemfire.jmx-manager=true --J=-Dgemfire.jmx-manager-start=true</b></codeblock>
+          <p>Note
             that when started as a JMX Manager, the server will also host the Pulse web application
             in the same HTTP service.</p>
         </info>
@@ -205,7 +208,8 @@ FrameworkServlet 'gemfire-api': initialization started</codeblock>
     <postreq>
       <p>You can then verify that the developer REST API service has been started programmatically
         by visiting the following
-        URL:<codeblock>http://localhost:8080/gemfire-api/docs/index.html</codeblock></p>
+        URL:</p>
+      <codeblock>http://localhost:8080/gemfire-api/docs/index.html</codeblock>
     </postreq>
 
   </taskbody>

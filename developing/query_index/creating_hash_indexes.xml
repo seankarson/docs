@@ -46,23 +46,20 @@
 		<section id="section_CA2476E015D14DE7B522377C931A8492">
 			<title>Examples of Creating a Hash Index</title>
 			<p>
-				<b>Using the Java API:</b>
+				<b>Using the Java API:</b></p>
 				<codeblock>QueryService qs = cache.getQueryService();
  qs.createHashIndex("myHashIndex", "mktValue", "/exampleRegion");</codeblock>
-			</p>
 			<p>
-				<b>Using gfsh:</b>
+				<b>Using gfsh:</b></p>
 				<codeblock>gfsh&gt; create index --name=myHashIndex --expression=mktValue --region=/exampleRegion</codeblock>
-			</p>
 			<p>
-				<b>Using cache.xml:</b>
+				<b>Using cache.xml:</b></p>
 				<codeblock>&lt;region name=exampleRegion&gt;
  &lt;region-attributes . . . &gt;
  &lt;/region-attributes&gt;
  &lt;index name="myHashIndex" from-clause="/exampleRegion p" expression="p.mktValue" type="hash"/&gt;
  ...
 &lt;/region&gt;</codeblock>
-			</p>
 		</section>
 	</conbody>
 </concept>

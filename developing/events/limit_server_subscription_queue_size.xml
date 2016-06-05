@@ -53,15 +53,16 @@
 								maximum number of event messages allowed in any single subscription
 								queue before incoming messages are blocked. You can only limit the
 								message count, not the size allocated for messages. Examples:
-									<p>XML:
+								<p>XML:</p>
 									<codeblock>&lt;!-- Set the maximum message count to 50000 entries --&gt;
   &lt;cache-server port="41414" maximum-message-count="50000" /&gt;</codeblock>
-								</p>
-								<p>API: <codeblock>Cache cache = ...; 
+								<p>API:</p>
+								<codeblock>Cache cache = ...; 
 CacheServer cacheServer = cache.addCacheServer(); 
 cacheServer.setPort(41414); 
 cacheServer.setMaximumMessageCount(50000); 
 cacheServer.start(); </codeblock>
+								<p>
 									<note>With this setting, one slow client can slow the server and
 										all of its other clients because this blocks the threads
 										that write to the queues. All operations that add messages

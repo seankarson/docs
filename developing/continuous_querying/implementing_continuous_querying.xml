@@ -78,7 +78,7 @@
                         update a display screen with current data from the server. The listener gets
                         the <codeph>queryOperation</codeph> and entry key and value from the
                         <codeph>CqEvent</codeph> and then updates the screen according to the
-                        type of <codeph>queryOperation</codeph>.
+                        type of <codeph>queryOperation</codeph>.</p>
                         <codeblock>// CqListener class 
 public class TradeEventListener implements CqListener 
 { 
@@ -111,7 +111,6 @@ public class TradeEventListener implements CqListener
     // close the output screen for the trades . . . 
   } 
 }</codeblock>
-                    </p>
                 </info>
                 <stepresult>When you install the listener and run the query, your listener will
                     handle all of the CQ results. </stepresult>

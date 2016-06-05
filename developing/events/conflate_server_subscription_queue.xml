@@ -6,15 +6,14 @@
 		<section id="section_1791DFB89502480EB57F81D16AC0EBAC">
 			<p>Conflating the server subscription queue can save space in the server and time in
 				message processing. </p>
-			<p>Enable conflation at the server level in the server region configuration:
+			<p>Enable conflation at the server level in the server region configuration:</p>
 				<codeblock>&lt;region ... &gt;
   &lt;region-attributes enable-subscription-conflation="true" /&gt; 
 &lt;/region&gt;</codeblock>
-			</p>
 			<p>Override the server setting as needed, on a per-client basis, in the client’s
-					<codeph>gemfire.properties</codeph>:
+				<codeph>gemfire.properties</codeph>:</p>
 				<codeblock>conflate-events=false</codeblock>Valid <codeph>conflate-events</codeph>
-				settings are: </p>
+				settings are:
 				<ul id="ul_AC1A01FB6F5743CDA7A08789190AF93A">
 					<li id="li_79825CAD6D1E4A2D9857174B098CDDC5"><codeph>server</codeph>, which uses
 						the server settings </li>

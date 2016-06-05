@@ -13,7 +13,8 @@
     <p>To specify your own <codeph>log4j2.xml</codeph> configuration file (or anything else
       supported by Log4j 2 such as .json or .yaml), use the following flag when starting up your JVM
       or <keyword keyref="product_name"/> member:</p>
-    <p><codeblock>-Dlog4j.configurationFile=&lt;location-of-your-file&gt;</codeblock>If the Java
+    <codeblock>-Dlog4j.configurationFile=&lt;location-of-your-file&gt;</codeblock>
+    <p>If the Java
       system property <codeph>log4j.configurationFile</codeph> is specified, then <keyword
         keyref="product_name"/> will not use the <codeph>log4j2-default.xml</codeph> included in
         <keyword keyref="product_jar"/>. However, <keyword keyref="product_name"/> will still create
