@@ -8,7 +8,6 @@
 		<section id="section_D6FB0D69CC454B53B9CF1E656A44465C">
 			<p>Use the partition attribute <codeph>startup-recovery-delay</codeph> to specify member
 				join redundancy recovery. </p>
-			<p>
 				<table frame="all" id="table_145C870E2E794E41B0F9030DDEB10FBB">
 					<tgroup cols="2" align="left">
 						<colspec colname="topic_link" colnum="1" colsep="1" rowsep="1"/>
@@ -39,7 +38,6 @@
 						</tbody>
 					</tgroup>
 				</table>
-			</p>
 			<p>Setting this to a value higher than the default of 0 allows multiple new members to
 				join before redundancy recovery kicks in. With the multiple members present during
 				recovery, the system will spread redundancy recovery among them. With no delay, if

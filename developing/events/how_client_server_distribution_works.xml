@@ -38,7 +38,6 @@
 				if one is defined, then to the server through the client pool, and then finally to
 				the client cache itself. A cache writer, either on the client or server side, may
 				abort the operation. </p>
-			<p>
 				<table id="table_f10288cf-b0b2-4555-92d3-cd0e120b3640">
 					<tgroup cols="2">
 						<colspec colname="1" colnum="1" colwidth="*"/>
@@ -66,7 +65,6 @@
 						</tbody>
 					</tgroup>
 				</table>
-			</p>
 			<p>
 				<note>Invalidations on the client side are not forwarded to the server. </note>
 			</p>
@@ -84,7 +82,6 @@
 				<image placement="break" id="image_7FD1450B9D58429F860400801EDFDCAE"
 					href="../../images_svg/server_client_event_dist.svg"/>
 			</p>
-			<p>
 				<table id="table_0737376f-b96d-4517-aae9-b9555b6e6d4c">
 					<tgroup cols="2">
 						<colspec colname="1" colnum="1" colwidth="*"/>
@@ -116,7 +113,6 @@
 						</tbody>
 					</tgroup>
 				</table>
-			</p>
 			<p>Server-side distributed operations are all operations that originate as a distributed
 				operation in the server or one of its peers. Region invalidation in the server is
 				not forwarded to the client. </p>

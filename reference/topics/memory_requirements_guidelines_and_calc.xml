@@ -287,7 +287,8 @@
           before you calling <codeph>writeObject</codeph>. </li>
       </ul>
       <p>If you do want to estimate memory usage for PDX serialized data, the following table
-        provides estimated sizes for various types when using PDX serialization: <table
+        provides estimated sizes for various types when using PDX serialization:</p>
+      <table
           id="table_pjn_hfr_gn">
           <tgroup cols="2">
             <thead>
@@ -336,7 +337,8 @@
               </row>
             </tbody>
           </tgroup>
-        </table>A note of caution-- if the domain object contains many domain objects as member
+        </table>
+      <p>A note of caution-- if the domain object contains many domain objects as member
         fields, then the memory overhead of PDX serialization can be considerably more than other
         types of serialization.</p>
     </body>
@@ -381,7 +383,8 @@
           <codeph>max-connections</codeph> property to limit the number of client threads and thus
           both thread overhead and socket overhead. </note>
       </p>
-      <p>The following table lists the memory requirements based on connections. <table
+      <p>The following table lists the memory requirements based on connections.</p>
+      <table
           id="table_E5B6F85F9F644A93A779A6CF211022E7">
           <tgroup cols="2">
             <colspec colnum="1" colname="col1" colwidth="1.2*"/>
@@ -468,7 +471,6 @@
             </tbody>
           </tgroup>
         </table>
-      </p>
     </body>
   </topic>
   <topic id="topic_eww_rvz_j4">

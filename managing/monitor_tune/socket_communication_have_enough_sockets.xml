@@ -96,7 +96,6 @@
 				<li id="li_1F298A3C2606436A9B9D560A9AAFA501">T is the number of threads in a member
 					that own their own sockets and do not share. </li>
 			</ul>
-			<p>
 				<table id="table_F005106194CD4466B1E18764CDB41509">
 					<tgroup cols="2">
 						<colspec colnum="1" colname="col1" colwidth="*"/>
@@ -152,7 +151,6 @@
 						</tbody>
 					</tgroup>
 				</table>
-			</p>
 			<p> </p>
 			<p>
 				<note>The threads servicing client requests add to the total count of thread-owned
@@ -190,7 +188,6 @@
 				subscriptions are used, the server creates an additional connection to each client
 				that enables subscriptions. </p>
 			<p>In this table, M is the total number of members in the distributed system. </p>
-			<p>
 				<table id="table_A87107792C7647C6B536ECBE7B8206A7">
 					<tgroup cols="2">
 						<colspec colnum="1" colname="col1" colwidth="*"/>
@@ -236,7 +233,6 @@
 						</tbody>
 					</tgroup>
 				</table>
-			</p>
 			<p>With client/server installations, the number of client connections to any single
 				server is undetermined, but <keyword keyref="product_name"/>’s server load balancing and conditioning keeps
 				the connections fairly evenly distributed among servers. </p>
@@ -247,7 +243,7 @@
 			<title>Client Socket Requirements per Client</title>Client connection requirements are
 			compounded by how many pools they use. The use varies according to runtime client
 			connection needs, but will usually have maximum and minimum settings. Look for the
-			&lt;pool&gt; element in the <codeph>cache.xml</codeph> for the configuration properties. <p>
+			&lt;pool&gt; element in the <codeph>cache.xml</codeph> for the configuration properties.
 				<table id="table_F47219652BF844A5A91F63B2968D0FBD">
 					<tgroup cols="2">
 						<colspec colnum="1" colname="col1" colwidth="*"/>
@@ -279,7 +275,6 @@
 						</tbody>
 					</tgroup>
 				</table>
-			</p>
 			<p>If your client acts as a peer in its own distributed system, it has the additional
 				socket requirements as noted in the Peer-to-Peer section of this topic. </p>
 		</section>

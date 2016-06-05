@@ -13,7 +13,8 @@
 				properties to enable or disable SSL, to identify SSL ciphers and protocols, and to
 				provide the location and credentials for key and trust stores. For example, the
 				following properties configure the basic SSL settings for peer-to-peer connections
-				between <keyword keyref="product_name"/> members in a cluster:<table frame="all"
+				between <keyword keyref="product_name"/> members in a cluster:</p>
+			<table frame="all"
 					id="table_dtb_bjr_n4">
 					<tgroup cols="2">
 						<colspec colname="c1" colnum="1" colwidth="1.0*"/>
@@ -76,7 +77,7 @@
 							</row>
 						</tbody>
 					</tgroup>
-				</table></p>
+				</table>
 			<p>If you configure the above peer-to-peer SSL properties, then by default <keyword
 					keyref="product_name"/> uses the same SSL property values for all stream-socket
 				communication. This includes communication between cache servers and clients and

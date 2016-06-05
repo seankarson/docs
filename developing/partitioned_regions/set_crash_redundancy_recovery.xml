@@ -8,7 +8,6 @@
 		<section id="section_86CF741758E54DA29519E9CDDF1BC393">
 			<p>Use the partition attribute <codeph>recovery-delay</codeph> to specify member crash
 				redundancy recovery. </p>
-			<p>
 				<table frame="all" id="table_F881A19A459C4590B15540CB81238050">
 					<tgroup cols="2">
 						<colspec colname="topic_link" colnum="1" align="left" colsep="1" rowsep="1"/>
@@ -33,7 +32,6 @@
 						</tbody>
 					</tgroup>
 				</table>
-			</p>
 			<p>By default, redundancy is not recovered after a member crashes. If you expect to
 				quickly restart most crashed members, combining this default setting with member
 				join redundancy recovery can help you avoid unnecessary data shuffling while members

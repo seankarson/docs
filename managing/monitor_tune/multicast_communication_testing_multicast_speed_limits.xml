@@ -26,7 +26,6 @@
 			<p><b>Sender</b>: </p>
 				<codeblock>iperf -c 224.0.166.111 -u -T 1 -t 100 -i 1 -b 1000000000</codeblock>
 			<p>where: </p>
-			<p>
 				<table id="table_0E8CAF5CF6E04634AADF98D9CFEE41B5">
 					<tgroup cols="2">
 						<colspec colnum="1" colname="col1" colwidth="*"/>
@@ -55,7 +54,6 @@
 						</tbody>
 					</tgroup>
 				</table>
-			</p>
 			<p> </p>
 			<p>
 				<note>Do not set the -T parameter above 1 without consulting your network
@@ -63,7 +61,6 @@
 					with production applications or continue out onto the internet. </note>
 			</p>
 			<p> </p>
-			<p>
 				<table id="table_3">
 					<tgroup cols="2">
 						<colspec colnum="1" colname="col1" colwidth="*"/>
@@ -88,11 +85,9 @@
 						</tbody>
 					</tgroup>
 				</table>
-			</p>
 			<p><b>Receiver</b>: </p>
 				<codeblock>iperf -s -u -B 224.0.166.111 -i 1</codeblock>
 			<p>where: </p>
-			<p>
 				<table id="table_14B510A78B0341378D650B3C9BD8111C">
 					<tgroup cols="2">
 						<colspec colnum="1" colname="col1" colwidth="*"/>
@@ -130,7 +125,6 @@
 						</tbody>
 					</tgroup>
 				</table>
-			</p>
 			<p> </p>
 			<p>
 				<note>If your <keyword keyref="product_name"/> distributed system runs across several subnets, start a

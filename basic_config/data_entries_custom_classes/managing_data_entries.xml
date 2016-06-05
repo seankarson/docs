@@ -101,7 +101,7 @@ this.currRegion.put(name,value); </codeblock><p><note>You
 						in-place, but negatively impacts performance and memory consumption when
 						copying is not needed. <p>These entry access methods return an entry
 							reference if <codeph>copy-on-read</codeph> is false and a copy of the
-							entry if <codeph>copy-on-read</codeph> is true: </p><p>
+							entry if <codeph>copy-on-read</codeph> is true: </p>
 							<table id="table_0A468474D80C4FA98E875C28915F4AB4">
 								<tgroup cols="3">
 									<colspec colname="1" colnum="1" colwidth="*"/>
@@ -137,7 +137,6 @@ this.currRegion.put(name,value); </codeblock><p><note>You
 									</tbody>
 								</tgroup>
 							</table>
-						</p>
 					</li>
 					<li id="li_418252892B9241C1AF048E712450AE92">Create a copy of the returned
 						object and work with that. For objects that are cloneable or serializable,

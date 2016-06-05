@@ -26,7 +26,6 @@
 				resource. Because the transaction’s data scope is the cache, these statistics are
 				collected on a per-cache basis. </p>
 			<p>The primary statistics are: </p>
-			<p>
 				<table id="table_1698ABA974A9419B8AE4860C01BC8AFE">
 					<tgroup cols="2">
 						<colspec colname="1" colnum="1" colwidth="*"/>
@@ -486,7 +485,6 @@
 						</tbody>
 					</tgroup>
 				</table>
-			</p>
 		</body>
 	</topic>
 	<topic id="section_EF5C2C59BFC74FFB8607F9571AB9A471">
@@ -494,7 +492,6 @@
 		<body>
 			<p>Statistics used for cache servers and for gateway receivers are recorded in
 				CacheServerStats in a cache server. The primary statistics are: </p>
-			<p>
 				<table id="table_61FF78F858D74ECBB1244D4B678AC0D2">
 					<tgroup cols="2">
 						<colspec colname="1" colnum="1" colwidth="*"/>
@@ -1066,7 +1063,6 @@
 						</tbody>
 					</tgroup>
 				</table>
-			</p>
 		</body>
 	</topic>
 	<topic id="section_B08C0783BBF9489E8BB48B4AEC597C62">
@@ -1075,7 +1071,6 @@
 			<p>Statistics in a client that pertain to server-to-client data pushed from the server
 				over a queue to the client (they are the client side of the server’s
 					<codeph>CacheClientNotifierStatistics</codeph>) : </p>
-			<p>
 				<table id="table_5298856BF72E4091BE222CB32C828114">
 					<tgroup cols="2">
 						<colspec colname="1" colnum="1" colwidth="*"/>
@@ -1110,7 +1105,6 @@
 						</tbody>
 					</tgroup>
 				</table>
-			</p>
 		</body>
 	</topic>
 	<topic id="section_04B7D7387E584712B7710B5ED1E876BB">
@@ -1118,7 +1112,6 @@
 		<body>
 			<p>These statistics are in a client and they describe all the messages sent from the
 				client to a specific server. The primary statistics are: </p>
-			<p>
 				<table id="table_EA530FCA5A7843B6BF4498F9E7907E29">
 					<tgroup cols="2">
 						<colspec colname="1" colnum="1" colwidth="*"/>
@@ -2360,7 +2353,6 @@
 						</tbody>
 					</tgroup>
 				</table>
-			</p>
 		</body>
 	</topic>
 	<topic id="section_6C247F61DB834C079A16BE92789D4692">
@@ -2368,7 +2360,6 @@
 		<body>
 			<p>These statistics are in a client and they describe one of the client’s connection
 				pools. The primary statistics are: </p>
-			<p>
 				<table id="table_0330392DC2E24F64894616A57E0070CE">
 					<tgroup cols="2">
 						<colspec colname="1" colnum="1" colwidth="*"/>
@@ -2509,7 +2500,6 @@
 						</tbody>
 					</tgroup>
 				</table>
-			</p>
 		</body>
 	</topic>
 <!--   new table starts here -->
@@ -2517,7 +2507,6 @@
 		<title>Continuous Querying (CQStatistics)</title>
 		<body>
 			<p>These statistics are for continuous querying information. The statistics are: </p>
-			<p>
 				<table id="table_DF7B9921C2B0440A95AE6B0D042490F9">
 					<tgroup cols="2">
 						<colspec colname="1" colnum="1" colwidth="*"/>
@@ -2781,7 +2770,6 @@
 						</tbody>
 					</tgroup>
 				</table>
-			</p>
 		</body>
 	</topic>
 <!--   new table ends here -->
@@ -2790,7 +2778,6 @@
 		<body>
 			<p>These statistics are for delta propagation between members. The primary statistics
 				are: </p>
-			<p>
 				<table id="table_9768796345CA4DF6947D7DD548928CFE">
 					<tgroup cols="2">
 						<colspec colname="1" colnum="1" colwidth="*"/>
@@ -2995,7 +2982,6 @@
 						</tbody>
 					</tgroup>
 				</table>
-			</p>
 		</body>
 	</topic>
 	<topic id="section_6C2BECC63A83456190B029DEDB8F4BE3">
@@ -3003,7 +2989,6 @@
 		<body>
 			<p>These statistics pertain to the disk usage for a region’s disk directory. The primary
 				statistics are: </p>
-			<p>
 				<table id="table_5A7A88EA731B4B758FBBEF4555CCE3EE">
 					<tgroup cols="2">
 						<colspec colname="1" colnum="1" colwidth="*"/>
@@ -3058,7 +3043,6 @@
 						</tbody>
 					</tgroup>
 				</table>
-			</p>
 		</body>
 	</topic>
 	<topic id="section_983BFC6D53C74829A04A91C39E06315F">
@@ -3066,7 +3050,6 @@
 		<body>
 			<p>Statistics regarding operations performed on a disk region for persistence/overflow.
 				The primary statistics are: </p>
-			<p>
 				<table id="table_9441FF30E5F04589810885A299194F6C">
 					<tgroup cols="2">
 						<colspec colname="1" colnum="1" colwidth="1.02*"/>
@@ -3209,7 +3192,6 @@
 						</tbody>
 					</tgroup>
 				</table>
-			</p>
 		</body>
 	</topic>
 	<topic id="section_ACB4161F10D64BC0B15871D003FF6FDF">
@@ -3218,7 +3200,8 @@
 			<p>Statistics on the <keyword keyref="product_name"/> distribution layer. These
 				statistcs can be used to tell how much message traffic exists between this member
 				and other distributed system members. </p>
-			<p>The primary statistics are: <table id="table_42800D6681D0416B82744AB70CF05DDE">
+			<p>The primary statistics are:</p>
+			<table id="table_42800D6681D0416B82744AB70CF05DDE">
 					<tgroup cols="2">
 						<colspec colname="1" colnum="1" colwidth="*"/>
 						<colspec colname="2" colnum="2" colwidth="*"/>
@@ -4518,12 +4501,10 @@
 						</tbody>
 					</tgroup>
 				</table>
-			</p>
 			<section>
 				<title>Distribution Statistics Related to Slow Receivers</title>
 				<p>The distribution statistics provide statistics pertaining to slow receivers. The
 					primary statistics are: </p>
-				<p>
 					<table id="table_4F99325D5EC3441CB39D802A742BD80C">
 						<tgroup cols="2">
 							<colspec colname="1" colnum="1" colwidth="*"/>
@@ -4587,7 +4568,6 @@
 							</tbody>
 						</tgroup>
 					</table>
-				</p>
 			</section>
 		</body>
 	</topic>
@@ -4595,7 +4575,6 @@
 		<title>Distributed Lock Services (DLockStats)</title>
 		<body>
 			<p>These statistics are for distributed lock services. The primary statistics are: </p>
-			<p>
 				<table id="table_EC59A9C5359C4729B431B49ECE381EDF">
 					<tgroup cols="2">
 						<colspec colname="1" colnum="1" colwidth="*"/>
@@ -5050,7 +5029,6 @@
 						</tbody>
 					</tgroup>
 				</table>
-			</p>
 		</body>
 	</topic>
 	<topic id="section_5E211DDB0E8640689AD0A4659511E17A">
@@ -5058,7 +5036,6 @@
 		<body>
 			<p>These are the statistics for each execution of the function. The primary statistics
 				are: </p>
-			<p>
 				<table id="table_63B4CC0BD8174DAA97E53A0708B6A14B">
 					<tgroup cols="2">
 						<colspec colname="1" colnum="1" colwidth="*"/>
@@ -5136,7 +5113,6 @@
 						</tbody>
 					</tgroup>
 				</table>
-			</p>
 		</body>
 	</topic>
 	<topic id="section_C4199A541B1F4B82B6178C416C0FAE4B">
@@ -5144,7 +5120,6 @@
 		<body>
 			<p>These statistics are for outgoing gateway queue and its connection. The primary
 				statistics are: </p>
-			<p>
 				<table id="table_83F17708AC6C4EA5A4EC6B5318029CD1">
 					<tgroup cols="2">
 						<colspec colname="1" colnum="1" colwidth="*"/>
@@ -5275,7 +5250,6 @@
 						</tbody>
 					</tgroup>
 				</table>
-			</p>
 		</body>
 	</topic>
 	<topic id="section_86A61860024B480592DAC67FFB882538">
@@ -5284,7 +5258,6 @@
 			<section>
 				<title>Query-Independent Statistics on Indexes</title>
 			</section>
-			<p>
 				<table id="table_A251D656FAFB4F04981C076979E4FDF4">
 					<tgroup cols="2">
 						<colspec colnum="1" colname="col1" colwidth="*"/>
@@ -5335,10 +5308,8 @@
 						</tbody>
 					</tgroup>
 				</table>
-			</p>
 			<section>
 				<title>Query-Dependent Statistics on Indexes</title>
-				<p>
 					<table id="table_AACAEF3AF18347FE8A64828C1C8DD7D3">
 						<tgroup cols="2">
 							<colspec colnum="1" colname="col1" colwidth="*"/>
@@ -5376,7 +5347,6 @@
 							</tbody>
 						</tgroup>
 					</table>
-				</p>
 			</section>
 		</body>
 	</topic>
@@ -5390,7 +5360,6 @@
 			<p>Statistics related to the <keyword keyref="product_name"/>'s resource manager. Use
 				these to help analyze and tune your JVM memory settings and the <keyword
 					keyref="product_name"/> resource manager settings. The primary statistics are: </p>
-			<p>
 				<table id="table_873AC6888ADA422BB2AC357E446C6FF4">
 					<tgroup cols="2">
 						<colspec colname="1" colnum="1" colwidth="*"/>
@@ -5453,13 +5422,11 @@
 						</tbody>
 					</tgroup>
 				</table>
-			</p>
 			<section>
 				<title>JVM Java Runtime (VMStats)</title>
 				<p>Show the JVM’s Java usage and can be used to detect possible problems with memory
 					consumption. These statistics are recorded from java.lang.Runtime under VMStats.
 					The primary statistics are: </p>
-				<p>
 					<table id="table_2F4FB846ECBA4A289D7865FBFC73DE97">
 						<tgroup cols="2">
 							<colspec colname="1" colnum="1" colwidth="*"/>
@@ -5570,13 +5537,11 @@
 							</tbody>
 						</tgroup>
 					</table>
-				</p>
 			</section>
 			<section>
 				<title>JVM Garbage Collection (VMGCStats)</title>
 				<p>These statistics show how much time used by different JVM garbage collection. The primary
 					statistics are: </p>
-				<p>
 					<table id="table_2FF1BC6828D4481C8B54B7C8A73D3777">
 						<tgroup cols="2">
 							<colspec colname="1" colnum="1" colwidth="*"/>
@@ -5605,13 +5570,11 @@
 							</tbody>
 						</tgroup>
 					</table>
-				</p>
 			</section>
 			<section>
 				<title>JVM Garbage Collector Memory Pools (VMMemoryPoolStats)</title>
 				<p>These statistics describe memory usage in different garbage collector memory
 					pools. The primary statistics are: </p>
-				<p>
 					<table id="table_0C8FD581DF054DBC97328E6FA89B7FDD">
 						<tgroup cols="2">
 							<colspec colname="1" colnum="1" colwidth="*"/>
@@ -5690,12 +5653,10 @@
 							</tbody>
 						</tgroup>
 					</table>
-				</p>
 			</section>
 			<section>
 				<title>JVM Heap Memory Usage (VMMemoryUsageStats)</title>
 				<p>Show details on how the Java heap memory is being used. The primary statistics are: </p>
-				<p>
 					<table id="table_64B16AE6136247D3BD64FC4333E38350">
 						<tgroup cols="2">
 							<colspec colname="1" colnum="1" colwidth="*"/>
@@ -5738,7 +5699,6 @@
 							</tbody>
 						</tgroup>
 					</table>
-				</p>
 			</section>
 		</body>
 	</topic>
@@ -5747,7 +5707,6 @@
 		<body>
 			<p>These statistics are on the <keyword keyref="product_name"/> locator. The primary
 				statistics are: </p>
-			<p>
 				<table id="table_B0203C75DA4B4187A1A0EEA10F9D3360">
 					<tgroup cols="2">
 						<colspec colname="1" colnum="1" colwidth="*"/>
@@ -5816,7 +5775,6 @@
 						</tbody>
 					</tgroup>
 				</table>
-			</p>
 		</body>
 	</topic>
 	<topic id="topic_ohc_tjk_w5">
@@ -5913,7 +5871,6 @@
 					without the use of the <keyword keyref="product_name"/> native library. These
 					are the equivalent of <codeph>SolarisProcessStats</codeph> when we're running on
 					Linux. The primary statistics are: </p>
-				<p>
 					<table id="table_F9740BD6AD8648548E1978EAD4FA123A">
 						<tgroup cols="2">
 							<colspec colname="1" colnum="1" colwidth="*"/>
@@ -5941,7 +5898,6 @@
 							</tbody>
 						</tgroup>
 					</table>
-				</p>
 			</section>
 			<section>
 				<title>Linux Operating System (LinuxSystemStats)</title>
@@ -5949,7 +5905,6 @@
 					determine total cpu, memory, and disk usage on the machine. Operating system
 					statistics are not available in pure Java mode. These are the equivalent of
 					SolarisSystemStats when running on Linux. The primary statistics are: </p>
-				<p>
 					<table id="table_8F976577F9454C79BAB88520ABBCA0C1">
 						<tgroup cols="2">
 							<colspec colname="1" colnum="1" colwidth="*"/>
@@ -6199,7 +6154,6 @@
 							</tbody>
 						</tgroup>
 					</table>
-				</p>
 			</section>
 		</body>
 	</topic>
@@ -6214,7 +6168,6 @@
 				Operations can originate locally or in a request from a remote member.
 					<note>Unsuccessful operations are not counted in these statistics. </note> The
 				primary statistics are: </p>
-			<p>
 				<table id="table_6085B0B4FBEB4DE99BB6B47E9753FAA5">
 					<tgroup cols="2">
 						<colspec colname="1" colnum="1" colwidth="*"/>
@@ -6452,14 +6405,12 @@
 						</tbody>
 					</tgroup>
 				</table>
-			</p>
 			<section>
 				<title>Partitioned Region Statistics on Partition Messages</title>
 			</section>
 			<p>
 				<note>Unsuccessful operations and local operations—those that originated in this
 					member—are not counted in these statistics. </note>The primary statistics are: </p>
-			<p>
 				<table id="table_57D74E101F364700B557F0D55C79A002">
 					<tgroup cols="2">
 						<colspec colname="1" colnum="1" colwidth="*"/>
@@ -6510,13 +6461,11 @@
 						</tbody>
 					</tgroup>
 				</table>
-			</p>
 			<section>
 				<title>Partitioned Region Statistics on Data Entry Caching</title>
 			</section>
 			<p>These statistics track the pattern of data entry distribution among the buckets in
 				this member. The primary statistics are: </p>
-			<p>
 				<table id="table_3E9DA9AF1B3D4F63ACD60F86A19CB7A0">
 					<tgroup cols="2">
 						<colspec colname="1" colnum="1" colwidth="*"/>
@@ -6609,13 +6558,11 @@
 						</tbody>
 					</tgroup>
 				</table>
-			</p>
 			<section>
 				<title>Partitioned Region Statistics on Redundancy</title>
 			</section>
 			<p>These statistics track status on partitioned region data copies. The primary
 				statistics are: </p>
-			<p>
 				<table id="table_E9EA768BBF464507BC61C2DFD04A70D8">
 					<tgroup cols="2">
 						<colspec colname="1" colnum="1" colwidth="*"/>
@@ -6681,7 +6628,6 @@
 						</tbody>
 					</tgroup>
 				</table>
-			</p>
 		</body>
 	</topic>
 	<topic id="section_374FBD92A3B74F6FA08AA23047929B4F">
@@ -6689,7 +6635,6 @@
 		<body>
 			<p>The entry-count least recently used (LRU) eviction mechanism records these
 				LRUStatistics. The primary statistics are: </p>
-			<p>
 				<table id="table_9FEAF31501D74A35A969146296CCB9E2">
 					<tgroup cols="2">
 						<colspec colname="1" colnum="1" colwidth="*"/>
@@ -6748,7 +6693,6 @@
 						</tbody>
 					</tgroup>
 				</table>
-			</p>
 		</body>
 	</topic>
 	<topic id="section_3D2AA2BCE5B6485699A7B6ADD1C49FF7">
@@ -6756,7 +6700,6 @@
 		<body>
 			<p>The least recently used (LRU) mechanism that keeps the size of a region under a given
 				set point records these MemLRUStatistics. The primary statistics are: </p>
-			<p>
 				<table id="table_67734052E400444BB423B069705BABF1">
 					<tgroup cols="2">
 						<colspec colname="1" colnum="1" colwidth="*"/>
@@ -6815,14 +6758,12 @@
 						</tbody>
 					</tgroup>
 				</table>
-			</p>
 		</body>
 	</topic>
 	<topic id="section_5362EF9AECBC48D69475697109ABEDFA">
 		<title>Server Notifications for All Clients (CacheClientNotifierStatistics)</title>
 		<body>
 			<p>Statistics regarding cache server operations sent to all clients. </p>
-			<p>
 				<table id="table_9B6763962FA34F049342B5749452987A">
 					<tgroup cols="2">
 						<colspec colname="1" colnum="1" colwidth="*"/>
@@ -6897,7 +6838,6 @@
 						</tbody>
 					</tgroup>
 				</table>
-			</p>
 		</body>
 	</topic>
 	<topic id="section_E03865F509E543D9B8F9462B3DA6255E">
@@ -6905,7 +6845,6 @@
 		<body>
 			<p>Statistics regarding cache server operations and cache server client notifications
 				sent to a single client. </p>
-			<p>
 				<table id="table_B5D1D75213484735925B68670C756E87">
 					<tgroup cols="2">
 						<colspec colname="1" colnum="1" colwidth="*"/>
@@ -6985,7 +6924,6 @@
 						</tbody>
 					</tgroup>
 				</table>
-			</p>
 		</body>
 	</topic>
 	<topic id="section_3AB1C0AA55014163A2BBF68E13D25E3A">
@@ -6995,7 +6933,6 @@
 				to be sent to the client. The statistics are gathered for each client subscription
 				queue and are incremental for the lifetime of the queue. The event messages are
 				referred to as events in these statistics. The primary statistics are: </p>
-			<p>
 				<table id="table_D2A9D027A13247FD843E0789D1945C54">
 					<tgroup cols="2">
 						<colspec colname="1" colnum="1" colwidth="*"/>
@@ -7079,7 +7016,6 @@
 						</tbody>
 					</tgroup>
 				</table>
-			</p>
 		</body>
 	</topic>
 	<topic id="section_55F3AF6413474317902845EE4996CC21">
@@ -7087,7 +7023,6 @@
 		<body>
 			<p>These statistics show how much time is spent collecting statistics. The primary
 				statistics are: </p>
-			<p>
 				<table id="table_73A13571828B4EE5871AC66F7D1B82CD">
 					<tgroup cols="2">
 						<colspec colname="1" colnum="1" colwidth="*"/>
@@ -7114,7 +7049,6 @@
 						</tbody>
 					</tgroup>
 				</table>
-			</p>
 		</body>
 	</topic>
 </dita>

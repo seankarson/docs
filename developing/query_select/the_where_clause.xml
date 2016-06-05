@@ -298,7 +298,8 @@ select * from /exampleRegion p where p.eStatus.toString() = 'active'
 				</ul>
 			<p> Therefore, Double.NaN[Float.NaN] is considered to be larger than
 				Double.POSITIVE_INFINITY[Float.POSITIVE_INFINITY]. Here are some example queries and
-				what to expect. <table id="table_BB3B6E84B5FE4E28995246C82A89C0A5">
+				what to expect.</p>
+			<table id="table_BB3B6E84B5FE4E28995246C82A89C0A5">
 					<tgroup cols="3">
 						<colspec colnum="1" colname="col1" colwidth="4.55*"/>
 						<colspec colnum="2" colname="col2" colwidth="1.47*"/>
@@ -365,7 +366,6 @@ select * from /exampleRegion p where p.eStatus.toString() = 'active'
 						</tbody>
 					</tgroup>
 				</table>
-			</p>
 			<p>If you combine values when defining the following query in your code, when the query
 				is executed the value itself is considered UNDEFINED when parsed and will not be
 				returned in the result set. </p>

@@ -120,7 +120,6 @@
 			<p>Region operations do not translate to specific query operations and query operations
 				do not specifically describe region events. Instead, the query operation describes
 				how the region event affects the query results. </p>
-			<p>
 				<table id="table_F12FE3ECDDC24B1AB16DD5756A5C745B" frame="all">
 					<tgroup cols="3" colsep="1" rowsep="1">
 						<colspec colname="1" colnum="1" colwidth="*"/>
@@ -147,7 +146,6 @@
 						</tbody>
 					</tgroup>
 				</table>
-			</p>
 			<p>You can use the query operation to decide what to do with the
 					<codeph>CqEvent</codeph> in your listeners. For example, a
 					<codeph>CqListener</codeph> that displays query results on screen might stop
