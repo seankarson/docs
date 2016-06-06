@@ -80,52 +80,50 @@ security-client-auth-init=myAuthPkg.myAuthInitImpl.create</codeblock>
 									<codeph>AuthInitialize</codeph> implementation. </li>
 						</ol>
 					</li>
-					<li id="li_73CE792453D44E59816DA29C654C3495">For authorizing members, program
-						and configure the credentials authorization plug-in: <ol
-							id="ol_796CF06C67B94C8A8C118BC318FCC704">
-							<li id="li_14810975F47B4F22BBF9CB9ECC626ADC">Implement the <keyword
-									keyref="product_name"/>
-								<codeph>com.gemstone.gemfire.security.Authenticator</codeph>
-								interface: <ol id="ol_6A51E84A38974516B4AFBAE6C380CA71">
-									<li id="li_62C63A333BAC4248BA1161B4A3FA271D">Program a public
-										static, zero-argument method to return an instance of the
-										class. </li>
-									<li id="li_49F62BEB2C0D44A0A0F61E9664BE6552">Program the
-											<codeph>authenticate</codeph> method to authenticate the
-										credentials and return a
-											<codeph>java.security.Principal</codeph> object. </li>
-								</ol>
-							</li>
-							<li id="li_3F0E20BCB19C45389E3588239EEF1356">For peers and locators set
-								the <codeph>gemfire.properties</codeph> (or
-									<codeph>gfsecurity.properties</codeph> file if you are creating
-								a special restricted access file for security configuration)
-									<codeph>security-peer-authenticator</codeph> to the fully
-								qualified name of the method that returns an instance of the
-									<codeph>Authenticator</codeph> class. Example:
-								<codeblock>//Peer auth example where myAuthenticatorImpl.create 
+					<li id="li_73CE792453D44E59816DA29C654C3495">Program and configure the credentials
+					authentication plug-in: <ol id="ol_796CF06C67B94C8A8C118BC318FCC704">
+						<li id="li_14810975F47B4F22BBF9CB9ECC626ADC">Implement the <keyword
+								keyref="product_name"/>
+							<codeph>com.gemstone.gemfire.security.Authenticator</codeph> interface:
+								<ol id="ol_6A51E84A38974516B4AFBAE6C380CA71">
+								<li id="li_62C63A333BAC4248BA1161B4A3FA271D">Program a public
+									static, zero-argument method to return an instance of the class. </li>
+								<li id="li_49F62BEB2C0D44A0A0F61E9664BE6552">Program the
+										<codeph>authenticate</codeph> method to authenticate the
+									credentials and return a
+										<codeph>java.security.Principal</codeph> object. </li>
+							</ol>
+						</li>
+						<li id="li_3F0E20BCB19C45389E3588239EEF1356">For peers and locators set the
+								<codeph>gemfire.properties</codeph> (or
+								<codeph>gfsecurity.properties</codeph> file if you are creating a
+							special restricted access file for security configuration)
+								<codeph>security-peer-authenticator</codeph> to the fully qualified
+							name of the method that returns an instance of the
+								<codeph>Authenticator</codeph> class. Example:
+							<codeblock>//Peer auth example where myAuthenticatorImpl.create 
 //returns the instance of Authenticator
 security-peer-authenticator=myAuthPkg.myAuthenticatorImpl.create</codeblock>
-							</li>
-							<li id="li_1D914E2476B14B6E99DC58ED7D82B187">For servers, set the
-									<codeph>gemfire.properties</codeph> (or
-									<codeph>gfsecurity.properties</codeph> file if you are creating
-								a special restricted access file for security
-									configuration)<codeph>security-client-authenticator</codeph> to
-								the fully qualified name of the method that returns an instance of
-								the Authenticator class. Example:
-								<codeblock>//Client auth example where myAuthenticatorImpl.create 
+						</li>
+						<li id="li_1D914E2476B14B6E99DC58ED7D82B187">For servers, set the
+								<codeph>gemfire.properties</codeph> (or
+								<codeph>gfsecurity.properties</codeph> file if you are creating a
+							special restricted access file for security
+								configuration)<codeph>security-client-authenticator</codeph> to the
+							fully qualified name of the method that returns an instance of the
+							Authenticator class. Example:
+							<codeblock>//Client auth example where myAuthenticatorImpl.create 
 //returns the instance of Authenticator
 security-client-authenticator=myAuthPkg.myAuthenticatorImpl.create</codeblock>
-							</li>
-							<li id="li_71AC6C0827024DA0957F17F2F561956E">For all members, set any
-								additional <codeph>gemfire.properties</codeph> (or
-									<codeph>gfsecurity.properties</codeph> file if you are creating
-								a special restricted access file for security
-									configuration)<codeph>security-*</codeph> properties required by
-								your <codeph>Authenticator</codeph> implementation. </li>
-						</ol>
-					</li>
+						</li>
+						<li id="li_71AC6C0827024DA0957F17F2F561956E">For all members, set any
+							additional <codeph>gemfire.properties</codeph> (or
+								<codeph>gfsecurity.properties</codeph> file if you are creating a
+							special restricted access file for security
+								configuration)<codeph>security-*</codeph> properties required by
+							your <codeph>Authenticator</codeph> implementation. </li>
+					</ol>
+				</li>
 					<li id="li_8C0AF19AB3D04F4F893B9307894880D2">For all members, provide the list
 						of authenticated locators in the <codeph>gemfire.properties</codeph>. </li>
 				</ol>

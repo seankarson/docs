@@ -2,22 +2,14 @@
 <!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "http://docs.oasis-open.org/dita/v1.1/OS/dtd/concept.dtd">
 <concept id="implementing_security">
 	<title>Security Implementation Overview</title>
-	<shortdesc><keyword keyref="product_name_long"/> can authenticate peer system members and
-		clients. It can also authorize cache operations on a server from clients. </shortdesc>
+	<shortdesc><keyword keyref="product_name_long"/> can authenticate peer system members and various
+		types of clients. It can also authorize cache operations from clients. </shortdesc>
 	<conbody>
 		<section id="section_79F6CF928E764CA294D466D0CB2E5FAC">
 			<p>You can use <keyword keyref="product_name"/> security for secure communication, to
-				authorize system membership, and to authorize specific activities in the cache: </p>
+				authenticate system membership, and to authorize specific activities in the cache: </p>
 				<ol
 					id="ol_D9C162BA03224833839227EF0940EE1C">
-					<li id="li_A9B61790816F4E9C988457D65C6C75B1">Use locators for peer discovery
-						within the distributed systems and for client discovery of servers. See
-							<xref scope="local"
-							href="../../topologies_and_comm/p2p_configuration/setting_up_a_p2p_system.xml"
-							type="concept" format="dita"/>
-							 and <xref
-							href="../../topologies_and_comm/cs_configuration/setting_up_a_client_server_system.xml#setting_up_a_client_server_system"
-							type="task" format="dita" scope="local"/>. </li>
 					<li id="li_B4E2B877FE8C4EC0B5B31060BD4C2960">Use consistent security settings
 						between similar processes in a single distributed system. For example,
 						configure all servers in a system with the same client authentication

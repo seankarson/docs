@@ -2,34 +2,53 @@
 <!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "http://docs.oasis-open.org/dita/v1.1/OS/dtd/concept.dtd">
 <concept id="how_authorization_works">
 	<title>How Authorization Works</title>
-	<shortdesc>The security framework establishes trust between members during authentication. In a
-		client/server system, you can use this trust to grant or withhold a client's cache access
-		and modification requests. </shortdesc>
+	<shortdesc>The security framework establishes the identity of members during authentication.
+		Authorization uses this identity to grant or withhold cache access and modification
+		requests. </shortdesc>
 	<conbody>
-		<p>Access rights can be checked before the client operation is performed and before results
-			of the operation are sent back to the client. Access control is done according to your
-			configurations and programmatic plug-ins. </p>
+		<p>Authorization checks access rights prior to performing an operation or prior to returning the
+			results. Access control is done according to configuration and programmatic plug-ins. </p>
 		<image href="../../images/security-4.gif" id="image_254428E85E8B47F9B558DA4C5DC02B93"
 			placement="break"/>
-		<p>The principal, which you associate with the client when it is authenticated, is used by
-			the authorization plug-in to allow or disallow each operation. <keyword
-				keyref="product_name"/> security invokes this callback with the principal and the
-			requested operation, and permits or bars the operation depending on the result of the
-			callback. The callback also has access to the operation data, such as the key and value
-			for a <codeph>put</codeph>, which you can use to determine authorization. In addition,
+		<p>The principal returned from authentication is sent with an operation and used by the
+			authorization plug-in to look up the access rights of the principal; the plugin
+			authorizes the operation when the principal has the necessary access rights for the
+			operation. The callback also has access to the operation data, such as the key and value
+			for a <codeph>put</codeph>, which it can use to determine authorization. In addition,
 			you can program the callback to change some of the operation data, such as the value for
 			a <codeph>put</codeph> or the operation result. </p>
-		<p>All client operations sent to the server can be authorized. The operations checked by the
-			server are listed in
-				<codeph>com.gemstone.gemfire.cache.operations.OperationContext.OperationCode</codeph>. </p>
-		<note>
-			<p><codeph>Region</codeph> query shortcut methods are all sent to the server as
-				<codeph>query</codeph> operations.
-			</p>
-		</note>
-		<p>All client operations that return a result (like <codeph>get</codeph> and
-				<codeph>query</codeph>) and all notifications can also be authorized in the
-			post-operation phase where the callback can peek and even modify the result being sent
-			out. </p>
+		<p>All operations can go through authorization. The permissions used for access control are
+			defined by a tuple that specifies a role, operation code, and sometimes a specific
+			region that the operation targets. The role is a noun, to describe the entity's role
+			within the system. The operation code is a verb, to describe the action desired.</p>
+		<p>A role is defined in <codeph>OperationContext.Resource</codeph>, a nested class within
+				<codeph>com.gemstone.gemfire.cache.operations.OperationContext</codeph>. It defines
+			these roles: </p>
+		<ul id="ul_nqk_qnf_gw">
+			<li><codeph>DATA</codeph>  roles are used exclusively for operations on regions and
+				client-server operations. Example permissions with a <codeph>DATA</codeph> role are
+					<codeph>get</codeph> and <codeph>put</codeph> operations, whether invoked from
+					<codeph>gfsh</codeph> or through the API.</li>
+			<li><codeph>CLUSTER</codeph> roles are used for administrative tasks on a distributed
+				system. Example permissions with a <codeph>DATA</codeph> role are the
+					<codeph>gfsh</codeph> (when connected) <codeph>shutdown</codeph> command, the
+				similar <codeph>DistributedSystemMXBean.shutdownAllMembers</codeph> method, or the
+					<codeph>gfsh list</codeph> commands.</li>
+		</ul>
+		<p>An operation is defined in <codeph>OperationContext.OperationCode</codeph>, a nested
+			class within <codeph>com.gemstone.gemfire.cache.operations.OperationContext</codeph>. It
+			defines these operations: </p>
+		<ul id="ul_brf_qyf_gw">
+			<li>The <codeph>READ</codeph> operation code is for operations that read information
+				only; they do not change the state of any part of the system.</li>
+			<li>The <codeph>WRITE</codeph> operation code is for operations that change data within
+				a region, such as a <codeph>put</codeph> operation.</li>
+			<li>The <codeph>MANAGE</codeph> operation code is for operations that can change the
+				state of the distributed system, such as <codeph>gfsh rebalance</codeph> or
+					<codeph>gfsh pause</codeph>.</li>
+		</ul>
+		<p>All client operations that return a result, such as <codeph>get</codeph>, and all notifications
+			can also be authorized in the post-operation phase.  The callback can peek at and even
+			modify the returned result. </p>
 	</conbody>
 </concept>
