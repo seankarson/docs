@@ -39,16 +39,15 @@
 						type of connection is required. Process level connections represent the
 						overall client process and are the default way a client accesses the server
 						cache. </li>
-					<li id="li_498FB587DF974FB3BF5A716708342928"><b>User level</b>. Each client
-						user/pool pair creates a connection to one server and then sticks with it
-						for operations. If the server is unable to respond to a request, the pool
-						selects a new one for the user. This type of connection is created
-							<i>from</i> the process level connection. These connections represent
-						individual users established within the client process. These connections
-						are generally used by application servers or web servers that act as clients
-						to <keyword keyref="product_name"/> servers. A single application or web
-						server process can service a large number of users, each with their own
-						unique identification and with varied access permissions. </li>
+					<li id="li_498FB587DF974FB3BF5A716708342928"><b>User level</b>. Each client user/pool pair
+					creates a connection to one server and then sticks with it for operations. If
+					the server is unable to respond to a request, the pool selects a new server for
+					the user. This type of connection is created <i>from</i> the process level
+					connection. These connections represent individual users established within the
+					client process. These connections are generally used by application servers or
+					web servers that act as clients to <keyword keyref="product_name"/> servers. A
+					single application or web server process can service a large number of users,
+					each with their own unique identification and with varied access permissions. </li>
 				</ol>
 			<p>By default, the server pools in clients use process level authentication. You can
 				enable user level authentication by setting the pool’s multiuser-authentication

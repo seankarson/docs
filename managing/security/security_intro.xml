@@ -2,17 +2,16 @@
 <!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
 <concept id="concept_65874F58A47C4D10B29248BBF0635BFC">
 	<title><keyword keyref="product_name_long"/> Security Features</title>
-	<shortdesc><keyword keyref="product_name_long"/> includes a range of built-in authentication and
-		authorization features. It also accommodates security infrastructure plug-ins. </shortdesc>
+	<shortdesc><keyword keyref="product_name_long"/> includes both built-in and plug-in authentication
+		and authorization features.</shortdesc>
 	<conbody>
-		<p><keyword keyref="product_name"/> provides member authentication and cache access
-			authorization with these features: </p>
+		<p><keyword keyref="product_name"/> provides authentication and authorization with these features: </p>
 			<ul id="ul_A71B8C94D58C4C8AA7723F71C4F2724D">
-				<li id="li_C7688EB36F38468294E591560C603E18"><b>Flexible plug-in framework</b>.
-					Plug-in mechanism for authentication of clients and servers and authorization of
-					cache operations from clients. Any security infrastructure can be plugged into
-					the system as long as the plug-ins implement the required <keyword
-						keyref="product_name"/> interfaces. </li>
+				<li id="li_C7688EB36F38468294E591560C603E18"><b>Flexible plug-in framework</b>. Plug-in
+				mechanism to authenticate and to authorize the cache operations of clients, servers,
+				peers, <codeph>gfsh</codeph> commands, JMX clients, and Pulse.  Any security
+				infrastructure can be plugged into the system, as long as the plug-ins implement the
+				required interfaces. </li>
 				<li id="li_D74F2188622E4113B4B12715FA818D94"><b>Cache server authentication</b>.
 					Allows peer cache servers into the distributed system if their credentials are
 					authenticated by the locator to which they connect. </li>
@@ -34,8 +33,6 @@
 					complete on the server, a post authorization callback occurs, that can filter or
 					modify results sent to the client. However, the results cannot be modified while
 					using function execution. </li>
-				<li id="li_476B4FF9CC164B379A697AC426DC9EDB"><b>Sample implementations</b>.
-					Authentication and authorization sample implementations. </li>
 			</ul>
 	</conbody>
 </concept>
