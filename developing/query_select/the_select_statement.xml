@@ -76,11 +76,9 @@ TYPE Position WHERE portfolio.status = 'active'</codeblock>
 				that in the current version of <keyword keyref="product_name"/> you are no longer
 				required to use the DISTINCT keyword in your SELECT statement.</p>
 			<codeblock>SELECT DISTINCT * FROM /exampleRegion</codeblock>
-			<p>
 				<note>If you are using DISTINCT queries, you must implement the equals and hashCode
 					methods for the objects that you query.
 				</note>
-			</p>
 		</section>
 		<section id="section_25D7055B33EC47B19B1B70264B39212F">
 			<title>LIMIT</title>
@@ -100,11 +98,9 @@ TYPE Position WHERE portfolio.status = 'active'</codeblock>
 			<p>The
 			following query sorts the results in descending order:</p>
 			<codeblock>SELECT DISTINCT * FROM /exampleRegion WHERE ID &lt; 101 ORDER BY ID desc</codeblock>
-			<p>
 				<note>If you are using ORDER BY queries, you must implement the equals and hashCode
 					methods for the objects that you query.
 				</note>
-			</p>
 		</section>
 		<section id="section_69DCAD624E9640028BC86FD67649DEB2">
 			<title>Preset Query Functions</title>

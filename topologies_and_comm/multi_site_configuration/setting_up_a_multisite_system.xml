@@ -218,11 +218,9 @@ sender.start();
 					gfsh:<codeblock>gfsh> start gateway-sender --id=sender2</codeblock>
 				</li>
 			</ol>
-			<p>
 				<note>The gateway sender configuration for a specific sender <codeph>id</codeph> must be
 					identical on each <keyword keyref="product_name"/> member that hosts the gateway
 					sender. </note>
-			</p>
 		</section>
 		<section id="section_E1DEDD0743D54831AFFBCCDC750F8879">
 			<title>Create Data Regions for Multi-site Communication</title>
@@ -282,9 +280,7 @@ custRegion = rf.create("customer");</codeblock><note>When
 					<keyword keyref="product_name"/> throws an exception. See <xref
 					href="setting_up_a_multisite_system.xml#setting_up_a_multisite_system/section_E1DEDD0743D54831AFFBCCDC750F8879"
 					type="section" format="dita" scope="local"/>.</p>
-			<p>
 				<note>You can only host one gateway receiver per member.</note>
-			</p>
 			<p>A gateway receiver configuration specifies a range of possible port numbers on which to
 				listen. The <keyword keyref="product_name"/> server picks an unused port number from
 				the specified range to use for the receiver process. You can use this functionality

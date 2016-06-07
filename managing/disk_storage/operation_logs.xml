@@ -18,12 +18,11 @@
 				it and creates a new log with the next sequence number. This is called <i>oplog
 					rolling</i>. You can also request an oplog rolling through the API call
 					<codeph>DiskStore.forceRoll</codeph>. You may want to do this immediately before
-				compacting your disk stores, so the latest oplog is available for compaction.
-					<note>Log compaction can change the names of the disk store files. File number
+				compacting your disk stores, so the latest oplog is available for compaction.</p>
+			<note>Log compaction can change the names of the disk store files. File number
 					sequencing is usually altered, with some existing logs removed or replaced by
 					newer logs with higher numbering. <keyword keyref="product_name"/> always starts
 					a new log at a number higher than any existing number. </note>
-			</p>
 			<p>This example listing shows the logs in a system with only one disk directory
 				specified for the store. The first log (<codeph>BACKUPCacheOverflow_1.crf</codeph>
 				and <codeph>BACKUPCacheOverflow_1.drf</codeph>) has been closed and the system is

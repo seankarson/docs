@@ -181,11 +181,9 @@
 					system property when starting the server member in <codeph>gfsh</codeph>. If the
 					Java system property is set to -1, then the gateway sender process will wait
 					until all events are dispatched from the queue before stopping.</p>
-				<p>
 					<note>Use extreme caution when stopping parallel gateway senders by using the
 							<codeph>GatewaySender.stop()</codeph> API or <codeph>gfsh stop
 							gateway-sender</codeph> command. </note>
-				</p>
 				<p>The API and gfsh command stops the parallel gateway sender in one member, which
 					causes data loss because events to buckets in that member will be dropped by the
 					stopped sender. The partitioned region does not failover in this scenario since

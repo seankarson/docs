@@ -139,9 +139,7 @@ SELECT DISTINCT * FROM /exampleRegion p WHERE p.position1.getSecId() = '1'
 				it behaves like 'starts with'. You can also place a wildcard (either '%' or '_') at
 				any other position in the comparison string. You can escape the wildcard characters
 				to represent the characters themselves. </p>
-			<p>
 				<note>The '*' wildcard is not supported in OQL LIKE predicates.</note>
-			</p>
 			<p>You can also use the LIKE predicate when an index is present.</p>
 			<p><b>Examples:</b></p>
 			<p>Query the region. Return all objects where status equals

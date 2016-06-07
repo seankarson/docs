@@ -30,12 +30,10 @@
           <codeph>--use-cluster-configuration</codeph> set to true will pick up these configuration
         files.</li>
     </ol>
-    <p>
       <note>If you make any manual modifications to the cluster.xml or cluster.properties (or
         group_name.xml or group_name.properties) files, you must stop the locator and then restart
         the locator using the <codeph>--load-cluster-configuration-from-dir</codeph> parameter.
         Direct file modifications are not picked up iby the cluster configuration service without a
         locator restart.</note>
-    </p>
   </conbody>
 </concept>

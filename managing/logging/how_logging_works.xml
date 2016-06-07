@@ -14,13 +14,11 @@
 			Core backend to run two custom Log4j 2 Appenders: <b>AlertAppender</b> and
 				<b>LogWriterAppender</b>. </p>
 		<p><keyword keyref="product_name"/> has been tested with Log4j 2.1.</p>
-		<p>
 			<note>For this reason, <keyword keyref="product_name"/> now always requires the
 				following JARs to be in the classpath: <codeph>log4j-api-2.1.jar</codeph>,
 					<codeph>log4j-core-2.1.jar</codeph>. Both of these JARs are distributed in the
 					<codeph>$GEMFIRE/lib</codeph> directory and included in the appropriate
 					<codeph>*-dependencies.jar</codeph> convenience libraries.</note>
-		</p>
 		<p><b>AlertAppender</b> is the component that generates <keyword keyref="product_name"/>
 			alerts that are then managed by the JMX Management and Monitoring system. See <xref
 				href="../management/notification_federation_and_alerts.xml#topic_212EE5A2ABAB4E8E8EF71807C9ECEF1A"

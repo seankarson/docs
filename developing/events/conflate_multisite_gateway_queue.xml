@@ -17,7 +17,6 @@
 	</prolog>
 	<conbody>
 		<section id="section_294AD2E2328E4D6B8D6A73966F7B3B14">
-			<p>
 				<note>Do not use conflation if your receiving applications depend on the specific
 					ordering of entry modifications, or if they need to be notified of every change
 					to an entry. </note>Conflation is most useful when a single entry is updated
@@ -25,7 +24,7 @@
 				than the value of each update). When an update is added to a queue that has
 				conflation enabled, if there is already an update message in the queue for the entry
 				key, then the existing message assumes the value of the new update and the new
-				update is dropped, as shown here for key A. </p>
+				update is dropped, as shown here for key A. 
 			<p>
 				<image href="../../images/MultiSite-4.gif" id="image_27219DAAB6D643348641389DBAEA1E94"
 					placement="break"/>

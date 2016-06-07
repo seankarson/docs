@@ -11,10 +11,8 @@
      <codeph><i>path_to_product</i>/lib</codeph> directory. When starting a server or locator
    process using <codeph>gfsh</codeph>, the required application JAR files are automatically loaded
    into the process's CLASSPATH for you.</p>
-  <p>
    <note>To embed <keyword keyref="product_name"/> in your application, add
       <codeph><i>path_to_product</i>/lib/geode-dependencies.jar</codeph> to your CLASSPATH.</note>
-  </p>
   <p>The following table lists the dependency JAR files associated with various <keyword
    keyref="product_name"/> processes:</p>
   <table frame="all" id="table_slb_p4s_l4">
@@ -98,13 +96,11 @@
     cache:</p>
    <codeblock>java -cp "<i>path_to_product</i>/lib/geode-dependencies.jar:/path/to/your/applications/classes.jar"
 <b>com.mycompany.package.ApplicationWithEmbeddedCache</b></codeblock>
-   <p>
     <note>Another method for updating the CLASSPATH of a server process with your own applications
      is to use the <codeph>gfsh deploy</codeph> command. Deploying application JAR files will
      automatically update the CLASSPATH of all members that are targeted for deployment. See <xref
       href="../configuring/cluster_config/deploying_application_jars.xml#concept_4436C021FB934EC4A330D27BD026602C"
      /> for more details.</note>
-   </p>
   </section>
  </conbody>
 </concept>

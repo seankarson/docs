@@ -10,13 +10,11 @@
 			<p><keyword keyref="product_name"/> clients are processes that send most or all of their
 				data requests and updates to a <keyword keyref="product_name"/> server system.
 				Clients run as standalone processes, without peers of their own. </p>
-			<p>
 				<note><keyword keyref="product_name"/> automatically configures the distributed
 					system for your <codeph>ClientCache</codeph> as standalone, which means the
 					client has no peers. Do not try to set the <codeph>gemfire.properties</codeph>
 					<codeph>mcast-port</codeph> or <codeph>locators</codeph> for a client
 					application or the system will throw an exception. </note>
-			</p>
 			<ol id="ol_2A5E8F0BC4944C5F8A02D410D340E602">
 				<li id="li_8918816ED61A4A328EF9AE2B4418ECA8">Create your client cache: <ol
 						id="ol_31BABBFDA92140558F264C1F85610BD1">

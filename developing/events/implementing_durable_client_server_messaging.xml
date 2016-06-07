@@ -69,10 +69,8 @@ CqQuery myCq = queryService.newCq(cqName, queryString, cqAttributes, true);</cod
 				servers, it receives messages for all keys and queries reqistered. When the client
 				is disconnected, non-durable interest registrations and CQs are discontinued but all
 				messages already in the queue for them remain there. </p>
-			<p>
 				<note> For a single durable client ID, you must maintain the same durability of your
 					registrations and queries between client runs. </note>
-			</p>
 		</section>
 		<section id="section_0FBD23CC79784E588135FE93306EC0A4">
 			<title>Program the Client to Manage Durable Messaging</title>

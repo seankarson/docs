@@ -10,10 +10,8 @@
 			<p><b>Before Restarting a Region with a Disk Store, Consider the State of the Entire
 					Region</b>
 			</p>
-			<p>
 				<note>If you revoke a member’s disk store, do not restart that member with its disk
 					stores—in isolation—at a later time. </note>
-			</p>
 			<p><keyword keyref="product_name"/> stores information about your persisted data and
 				prevents you from starting a member with a revoked disk store in the running system.
 				But <keyword keyref="product_name"/> cannot stop you from starting a revoked member

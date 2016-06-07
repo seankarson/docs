@@ -10,13 +10,11 @@
 		host which data buckets. </shortdesc>
 	<conbody>
 		<section id="section_CF05CE974C9C4AF78430DA55601D2158">
-			<p>
 				<note>If you are colocating data between regions and custom partitioning the data
 					in the regions, all colocated regions must use the same custom partitioning
 					mechanism. See <xref format="dita"
 						href="colocating_partitioned_region_data.xml#colocating_partitioned_region_data"
 					/>. </note>
-			</p>
 		</section>
 		<section id="section_1D7043815DF24308ABE4C78BFDFEE686">
 			<p>For standard partitioning, use
@@ -71,8 +69,10 @@
 						<codeph>getRoutingObject</codeph> method to return the routing object for
 					each entry, based on how you want to group the entries. Give the same routing
 					object to entries you want to group together. <keyword keyref="product_name"/>
-					will place the entries in the same bucket. <p><note>Only fields on the key should be used when creating the routing object. 
-						Do not use the value or additional metadata for this purpose.</note></p><p>For example, here is an
+					will place the entries in the same bucket.
+					<note>Only fields on the key should be used when creating the routing object. 
+						Do not use the value or additional metadata for this purpose.</note>
+					<p>For example, here is an
 						implementation on a region key object that groups the entries by month and
 						year: </p>
 					<codeblock outputclass="language-java">Public class TradeKey implements PartitionResolver 

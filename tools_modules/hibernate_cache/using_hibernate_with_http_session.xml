@@ -44,7 +44,6 @@
 						type="concept" format="dita" scope="local"/> for instructions on how to
 					modify the default Hibernate Cache configuration. </li>
 			</ol>
-		<p>
 			<note>Using the Hibernate Cache Module with the HTTP Session Management Module creates a
 				single <keyword keyref="product_name"/> cache in your application server. This cache
 				will be shared by all applications deployed on the application server. Therefore, if
@@ -54,6 +53,5 @@
 				this is not the desired behavior, then include gemfire.jar in the application war
 				file. A <keyword keyref="product_name"/> cache will be created in the application's
 				class loader. </note>
-		</p>
 	</conbody>
 </concept>

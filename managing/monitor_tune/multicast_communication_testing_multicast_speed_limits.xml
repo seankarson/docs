@@ -55,11 +55,9 @@
 					</tgroup>
 				</table>
 			<p> </p>
-			<p>
 				<note>Do not set the -T parameter above 1 without consulting your network
 					administrator. If this number is too high then the iperf traffic could interfere
 					with production applications or continue out onto the internet. </note>
-			</p>
 			<p> </p>
 				<table id="table_3">
 					<tgroup cols="2">
@@ -126,10 +124,8 @@
 					</tgroup>
 				</table>
 			<p> </p>
-			<p>
 				<note>If your <keyword keyref="product_name"/> distributed system runs across several subnets, start a
 					receiver on each subnet. </note>
-			</p>
 			<p>In the receiver’s output, look at the Lost/Total Datagrams columns for the number and
 				percentage of lost packets out of the total sent. </p>
 			<p><b>Output From Iperf Testing</b>: </p>

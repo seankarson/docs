@@ -17,11 +17,9 @@
         using either <codeph>gfsh</codeph> or the ServerLauncher API. Setting this property to true
         on a data node will start up an embedded Jetty server and deploy the REST developer API WAR
         file.</p>
-      <p dir="ltr">
         <note>The REST API service for application development can only be started on servers; you
           cannot use locators to host the developer <keyword keyref="product_name"/> REST API
           services. </note>
-      </p>
       <p dir="ltr">You can have multiple REST enabled data nodes in a single distributed system.
         Each data node should have a separate host name and unique end point. To ensure that the
         data node is reachable on a machine with multiple NIC addresses, you can use

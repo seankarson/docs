@@ -19,14 +19,15 @@
 				example:</p>
 				<codeblock outputclass="language-java">String name = ... 
 String value = ...  
-this.currRegion.put(name,value); </codeblock><p><note>You
+this.currRegion.put(name,value); </codeblock>
+			<note>You
 					can also use the <codeph>gfsh <cmdname>put</cmdname></codeph> command to add
 					entries to a region, and the <cmdname>get</cmdname> command to retrieve entries
 					from a region. See <xref
 						href="../../tools_modules/gfsh/command-pages/get.xml"
 					/> and <xref format="dita"
 						href="../../tools_modules/gfsh/command-pages/put.xml"
-						scope="local" type="concept"/> for more information. </note></p>
+						scope="local" type="concept"/> for more information. </note>
 			<p>If you want only to create the entry (with a null value and with method failure if
 				the entry already exists), use <codeph>Region.create</codeph> instead. </p>
 		</section>
@@ -63,11 +64,10 @@ this.currRegion.put(name,value); </codeblock><p><note>You
 }</codeblock>
 			<p>The updates to the cache are done individually in the order in which they were placed
 				in the <codeph>Map</codeph>. For partitioned regions, multiple events are sent as a
-				single message to the primary buckets and then distributed to the secondary buckets.
-					<note>The processing of maps with very many entries and/or very large data may
+				single message to the primary buckets and then distributed to the secondary buckets.</p>
+			<note>The processing of maps with very many entries and/or very large data may
 					affect system performance and cause cache update timeouts, especially if the
 					region uses overflow or persistence to disk. </note>
-			</p>
 			<p>The <codeph>removeAll</codeph> method takes a collection of keys and removes all of
 				the entries for the specified keys from this region. This call performs the
 				equivalent of calling<codeph>destroy(Object)</codeph> on this region once for each
@@ -80,12 +80,12 @@ this.currRegion.put(name,value); </codeblock><p><note>You
 			<title>Safe Entry Modification </title>
 			<p>When you get an entry value from the cache, by default, the retrieval methods return
 				a direct reference to the cached object. This provides the value as quickly as
-				possible, but also opens the cache to direct, in-place changes. <note>Do not
+				possible, but also opens the cache to direct, in-place changes. </p>
+			<note>Do not
 					directly modify cached values. Modifying a value in place bypasses the <keyword keyref="product_name"/>
 					distribution framework, including cache writers and listeners, expiration
 					activities, and transaction management, and can produce undesired results.
 				</note>
-			</p>
 			<p>Always change your entries using copies of the retrieved objects—never directly
 				modify the returned objects. You can do this in one of two ways: </p>
 				<ol
