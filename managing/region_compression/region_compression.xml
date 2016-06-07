@@ -146,11 +146,9 @@
         stateless, there only needs to be a single instance in any JVM; however, multiple instances
         may be used without issue. The single, default instance of the SnappyCompressor may be
         retrieved with the <codeph>SnappyCompressor.getDefaultInstance()</codeph> static method.</p>
-      <p>
         <note> The Snappy codec included with <keyword keyref="product_name"/> cannot be used with
           Solaris deployments. Snappy is only supported on Linux, Windows, and OSX deployments of
             <keyword keyref="product_name"/> .</note>
-      </p>
       <p>This example provides a custom Compressor
         implementation:</p>
       <codeblock outputclass="language-java">package com.mybiz.myproduct.compression;

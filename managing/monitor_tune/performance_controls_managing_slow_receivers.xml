@@ -14,12 +14,10 @@
 				><?xm-replace_text Slow Receivers with TCP/IP?></xref>. </p>
 		<p>Slowing is more likely to occur when applications run many threads, send large messages
 			(due to large entry values), or have a mix of region configurations. </p>
-		<p>
 			<note>If you are experiencing slow performance and are sending large objects (multiple
 				megabytes), before implementing these slow receiver options make sure your socket
 				buffer sizes are large enough for the objects you distribute. The socket buffer size
 				is set using gemfire.socket-buffer-size. </note>
-		</p>
 		<p>By default, distribution between system members is performed synchronously. With
 			synchronous communication, when one member is slow to receive, it can cause its producer
 			members to slow down as well. This can lead to general performance problems in the
@@ -70,9 +68,7 @@
 		<p>Some conflation may not occur because entry updates are sent to the consumer before they
 			can be conflated. For this example, assume no messages are sent while the update for Key
 			A is added. </p>
-		<p>
 			<note>This method of conflation behaves the same as server-to-client conflation. </note>
-		</p>
 		<p>You can enable queue conflation on a region-by-region basis. You should always enable it
 			unless it is incompatible with your application needs. Conflation reduces the amount of
 			data queued and distributed. </p>

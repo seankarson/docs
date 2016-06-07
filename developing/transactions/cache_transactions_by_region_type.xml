@@ -27,12 +27,10 @@
       <p>The transaction host may be the same member or different member from the transaction
         initiator. In either case, when the transaction commits, data distribution is done from the
         transaction host in the same way.</p>
-      <p>
         <note>If you have consistency checking enabled in your region, the transaction will generate
           all necessary version information for the region update when the transaction commits. See
             <xref href="working_with_transactions.xml#transactions_and_consistency"/> for more
           details.</note>
-      </p>
     </body>
   </topic>
   <concept id="concept_ysk_xj1_wk">
@@ -137,14 +135,12 @@
           EMPTY, NORMAL and PRELOADED) are always transaction initiators, and the transaction data
           host is always a member with a replicated region. This is similar to the way transactions
           using the PARTITION_PROXY shortcut are forwarded to members with primary bucket. </p>
-        <p>
           <note>When you have transactions operating on EMPTY, NORMAL or PARTITION regions, make
             sure that the <keyword keyref="product_name"/> property
               <codeph>conserve-sockets</codeph> is set to false to avoid distributed deadlocks. An
             empty region is a region created with the API
               <codeph>RegionShortcut.REPLICATE_PROXY</codeph> or a region with that uses the old API
             of <codeph>DataPolicy</codeph> set to <codeph>EMPTY</codeph>. </note>
-        </p>
       </section>
       <section>
         <title>Conflicting Transactions in Distributed-Ack Regions</title>

@@ -96,10 +96,8 @@ gfsh&gt;compact disk-store --name=Disk1 --group=MemberGroup1,MemberGroup2</codeb
 
 gfsh&gt;compact offline-disk-store --name=Disk2 --disk-dirs=/Disks/Disk2 
 --max-oplog-size=512 -J=-Xmx1024m</codeblock>
-			<p>
 				<note>Do not perform offline compaction on the baseline directory of an incremental
 					backup. </note>
-			</p>
 			<p>You must provide all of the directories in the disk store. If no oplog max size is
 				specified, <keyword keyref="product_name"/> uses the system default. </p>
 			<p>Offline compaction can take a lot of memory. If you get a

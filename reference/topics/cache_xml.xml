@@ -169,8 +169,9 @@
 				factory for this cache. You can use this element to dynamically create regions in
 				your application code. Use the <apiname>createDynamicRegion()</apiname> method of
 				the <apiname>com.gemstone.gemfire.cache.DynamicRegionFactory</apiname> class in your
-				Java code to dynamically create regions. <note>You can not use this element to
-					dynamically create <i>partitioned</i> regions. </note></p>
+				Java code to dynamically create regions.</p>
+			<note>You can not use this element to
+					dynamically create <i>partitioned</i> regions. </note>
 			<p>Pivotal Inc. recommends that you use functions to dynamically create regions. See
 					<xref href="../../developing/region_options/dynamic_region_creation.xml"/>.</p>
 			<p> The optional <codeph>&lt;disk-dir></codeph> sub-element specifies the directory to
@@ -913,9 +914,9 @@
 		<shortdesc> </shortdesc>
 		<body>
 			<p>Addresses and ports of the locators to connect to. You can define multiple locators
-				for the pool. <note>Provide a locator list or <codeph>server</codeph> list, but not
+				for the pool.</p>
+			<note>Provide a locator list or <codeph>server</codeph> list, but not
 					both. </note>
-			</p>
 			<p>
 				<b>API: </b>
 				<codeph>com.gemstone.gemfire.distributed.LocatorLauncher</codeph>
@@ -961,9 +962,9 @@
 		<title>&lt;server&gt;</title>
 		<shortdesc/>
 		<body>
-			<p>Addresses and ports of the servers to connect to. <note>Provide a server list or
+			<p>Addresses and ports of the servers to connect to.</p>
+			<note>Provide a server list or
 						<codeph>locator</codeph> list, but not both. </note>
-			</p>
 			<p>
 				<b>Default: </b>
 			</p>
@@ -1321,7 +1322,8 @@
 							<entry>
 								<p> Specifies how the local cache handles data for a region. This
 									setting controls behavior such as local data storage and region
-									initialization. <note>Configure the most common options using
+									initialization.</p>
+								<note>Configure the most common options using
 										the region shortcuts, <codeph>RegionShortcut</codeph> and
 											<codeph>ClientRegionShortcut</codeph>. The default
 											<codeph>data-policy</codeph> of <codeph>normal</codeph>
@@ -1330,7 +1332,6 @@
 										the settings with the string <codeph>PROXY</codeph>. You can
 										use an empty region for event delivery to and from the local
 										cache without the memory overhead of data storage. </note>
-								</p>
 								<p>You can specify the following data policies: </p>
 								<p>
 									<simpletable frame="none"
@@ -1427,14 +1428,14 @@
 									peer-to-peer communication between distributed regions using
 									TCP/IP. This attribute does not apply to client/server
 									communication or to communication using the UDP unicast or IP
-									multicast protocols. <note>To use this attribute, the
+									multicast protocols.</p>
+								<note>To use this attribute, the
 											<codeph>multicast-enabled</codeph> region attribute
 											<codeph>disable-tcp</codeph> in
 											<codeph>gemfire.properties</codeph> must be false (the
 										default for both). In addition, asynchronous queues must be
 										enabled for slow consumers, specified with the
 											<codeph>async</codeph>* gemfire properties. </note>
-								</p>
 								<p>
 									<b>API: </b>
 									<codeph>setEnableAsyncConflation</codeph>
@@ -1463,10 +1464,10 @@
 							<entry>
 								<p> Boolean for server regions that specifies whether the server can
 									conflate its messages to the client. A true value enables
-									conflation. <note>The client can override this setting with the
+									conflation.</p>
+								<note>The client can override this setting with the
 											<codeph>conflate-events</codeph> property in its
 											<codeph>gemfire.properties</codeph>. </note>
-								</p>
 								<p>
 									<b>API: </b>
 									<codeph>setEnableSubscriptionConflation</codeph>
@@ -1636,11 +1637,11 @@
 									initial parameters on the underlying
 										<codeph>java.util.ConcurrentHashMap</codeph> used for
 									storing region entries. This must be a floating point number
-									between 0 and 1, inclusive. <note>Before you set this attribute,
+									between 0 and 1, inclusive. </p>
+								<note>Before you set this attribute,
 										read the discussion of initial capacity and load factor,
 										then see the Java API documentation for
 											<codeph>java.util.ConcurrentHashMap</codeph>. </note>
-								</p>
 								<p>
 									<b>API: </b>
 									<codeph>setLoadFactor</codeph>
@@ -1800,7 +1801,8 @@
 									the region and entry are defined. Scope also determines whether
 									to allow remote invocation of some of the region’s event
 									handlers, and wether to use region entry versions to provide
-									consistent updates across replicated regions. <note>You can
+									consistent updates across replicated regions.</p>
+								<note>You can
 										configure the most common of these options with <keyword
 											keyref="product_name"/>’s region shortccuts in
 											<codeph>RegionShortcut</codeph> and
@@ -1810,7 +1812,6 @@
 											<codeph>global</codeph> scope. The region shortcuts that
 										specify <codeph>REPLICATE</codeph> have
 											<codeph>distributed-ack</codeph> scope. </note>
-								</p>
 								<p>Set one of the following scope values: </p>
 								<p>
 									<simpletable frame="none"
@@ -1901,7 +1902,8 @@
 									or out-of-order updates to distributed regions. See <xref
 										format="dita"
 										href="../../developing/distributed_regions/region_entry_versions.xml#topic_CF2798D3E12647F182C2CEC4A46E2045"
-										scope="local" type="topic"/>. <note>Applications that use a
+										scope="local" type="topic"/>. </p>
+								<note>Applications that use a
 											<codeph>client-cache</codeph> may want to disable
 										concurrency checking in order to see all events for a
 										region. <keyword keyref="product_name"/> server members can
@@ -1910,7 +1912,6 @@
 										ensures that the client sees all events, but it does not
 										prevent the client cache from becoming out-of-sync with the
 										server cache. </note>
-								</p>
 								<p>
 									<b>API:</b>
 									<codeph>setConcurrencyChecksEnabled</codeph>
@@ -1958,13 +1959,13 @@
 				entries are all of the same class. If key-constraint is not used, the region’s keys
 				can be of any class. This attribute, along with value-constraint, is useful for
 				querying and indexing because it provides object type information to the query
-				engine. <note>Set the constraint in every cache where you create or update the
+				engine. </p>
+			<note>Set the constraint in every cache where you create or update the
 					region entries. For client/server installations, match constraints between
 					client and server and between distributed systems. The constraint is only
 					checked in the cache that does the entry <codeph>put</codeph> or
 						<codeph>create</codeph> operation. To avoid deserializing the object, the
 					constraint is not checked when the entry is distributed to other caches. </note>
-			</p>
 			<p><b>Default: </b> not set </p>
 			<p>
 				<b>API: </b>
@@ -1989,13 +1990,13 @@
 				fully-qualified class name. If value constraint isn’t used, the region’s value can
 				be of any class. This attribute, along with <codeph>key-constraint</codeph>, is
 				useful for querying and indexing because it provides object type information to the
-				query engine. <note>Set the constraint in every cache where you create or update the
+				query engine. </p>
+			<note>Set the constraint in every cache where you create or update the
 					region entries. For client/server installations, match constraints between
 					client and server and between distributed systems. The constraint is only
 					checked in the cache that does the entry <codeph>put</codeph> or
 						<codeph>create</codeph> operation. To avoid deserializing the object, the
 					constraint is not checked when the entry is distributed to other caches. </note>
-			</p>
 			<p><b>Default: </b> not set </p>
 			<p>
 				<b>API: </b>
@@ -2174,10 +2175,10 @@
 		<shortdesc> </shortdesc>
 		<body>
 			<p>Expiration setting that specifies how long the region can remain in the cache without
-				anyone accessing it. <note>To ensure reliable read behavior across the partitioned
+				anyone accessing it. </p>
+			<note>To ensure reliable read behavior across the partitioned
 					region, use <codeph>region-time-to-live</codeph> for region expiration instead
 					of this setting. </note>
-			</p>
 			<p><b>Default: </b>not set - no expiration of this type </p>
 			<p>
 				<b>API: </b>
@@ -2253,11 +2254,10 @@
 			<p>Expiration setting that specifies how long the region’s entries can remain in the
 				cache without anyone accessing them. See <xref format="dita"
 					href="#expiration-attributes" scope="local" type="topic"
-					><?xm-replace_text Element ID :expiration-attributes?></xref> for details.
+					><?xm-replace_text Element ID :expiration-attributes?></xref> for details.</p>
 					<note>To ensure reliable read behavior across the partitioned region, use
 						<codeph>entry-time-to-live</codeph> for entry expiration instead of this
 					setting. </note>
-			</p>
 			<p>
 				<b>API: </b>
 				<codeph>com.gemstone.gemfire.cache.RegionFactory.setEntryIdleTimeout</codeph>
@@ -2294,11 +2294,10 @@
 		<shortdesc> </shortdesc>
 		<body>
 			<p>Defines the region as partitioned and controls partitioning behavior. This is set
-				during the region creation in the first data store for the partitioned region.
-					<note>With the exception of <codeph>local-max-memory</codeph>, all members
+				during the region creation in the first data store for the partitioned region.</p>
+			<note>With the exception of <codeph>local-max-memory</codeph>, all members
 					defining a partitioned region must use the same partition attribute settings.
 				</note>
-			</p>
 			<p>
 				<b>API: </b>
 				<codeph>com.gemstone.gemfire.cache.RegionFactory.setPartitionAttributes</codeph>
@@ -2690,11 +2689,9 @@
 			<p>Specifies subscriber requirements and behavior for the region. There is one
 				subscription attribute, <codeph>interest-policy</codeph>, that defines which
 				distributed entry events are delivered to the local region. </p>
-			<p>
 				<note>The interest policy determines which events are delivered, but the
 						<codeph>data-policy</codeph> determines how the events are applied to the
 					cache. </note>
-			</p>
 			<p>
 				<b>API: </b>
 				<codeph>com.gemstone.gemfire.cache.RegionFactory.setSubscriptionAttributes</codeph>

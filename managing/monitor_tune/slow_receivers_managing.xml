@@ -34,11 +34,9 @@
 			regions have distributed-no-ack scope, the mechanism is unlikely to kick in at all. When
 			slow receipt handling does kick in, however, it affects all distribution between the
 			producer and that consumer, regardless of scope. </p>
-		<p>
 			<note>These slow receiver options are disabled in systems using SSL. See <xref
 					href="../security/ssl_overview.xml" type="concept" format="dita"
 					scope="local"><?xm-replace_text SSL?></xref>. </note>
-		</p>
 		<p>Each consumer member determines how its own slow behavior is to be handled by its
 			producers. The settings are specified as distributed system connection properties. This
 			section describes the settings and lists the associated properties. </p>
@@ -176,9 +174,7 @@
 			Typically, this happens when a member becomes unresponsive and does not respond to
 			heartbeat requests within the member-timeout period, or when ack-severe-alert-threshold
 			has expired without a response from the member. </p>
-		<p>
 			<note>This is marked as a region operation. </note>
-		</p>
 		<p>Other members see the normal membership notifications for the departing member. For
 			instance, RegionMembershipListeners receive the afterRemoteRegionCrashed notification,
 			and SystemMembershipListeners receive the memberCrashed notification. </p>

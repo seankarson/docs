@@ -16,12 +16,10 @@
 				<codeph>PdxSerializer</codeph> needs to own the
 				<codeph>ReflectionBasedAutoSerializer</codeph> and delegate to it. A Cache can only
 			have a single <codeph>PdxSerializer</codeph> instance. </p>
-		<p>
 			<note>The <codeph>PdxSerializer</codeph>
 				<codeph>toData</codeph> and <codeph>fromData</codeph> methods differ from those for
 					<codeph>PdxSerializable</codeph>. They have different parameters and results.
 			</note>
-		</p>
 		<p> </p>
 		<p>
 			<b>Procedure</b></p>

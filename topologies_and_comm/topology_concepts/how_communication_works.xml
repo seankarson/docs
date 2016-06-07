@@ -28,7 +28,6 @@
 				increases, however, the relatively small overhead of UDP makes it the better choice.
 				TCP adds new threads and sockets to every member, causing more overhead as the
 				system grows.</p>
-			<p>
 				<note>Even when <keyword keyref="product_name"/> is configured to use UDP for
 					messaging, <keyword keyref="product_name"/> uses a TCP connection when
 					attempting to detect failed members. See <xref
@@ -37,7 +36,6 @@
 					alive purposes; it is only used to detect failed members. See <xref
 						href="../../managing/monitor_tune/socket_tcp_keepalive.xml#topic_jvc_pw3_34"
 					/> for TCP keep alive configuration.</note>
-			</p>
 		</section>
 		<section id="section_E2D56EE03B54435BA9F04B8550F00534">
 			<title>UDP Unicast and Multicast</title>

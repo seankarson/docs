@@ -20,8 +20,10 @@
 				recommended. IPv6 connections tend to take longer to form and the communication
 				tends to be slower. Not all machines support IPv6 addressing. To use IPv6, all
 				machines in your distributed system must support it or you will have connectivity
-				problems. <note>Do not mix IPv4 and IPv6 addresses. Use one or the other, across the
-					board. </note>IPv4 is the default version. </p>
+				problems.</p>
+			<note>Do not mix IPv4 and IPv6 addresses. Use one or the other, across the
+					board. </note>
+			<p>IPv4 is the default version. </p>
 			<p>To use IPv6, set the Java property, <codeph>java.net.preferIPv6Addresses</codeph>, to
 					<codeph>true</codeph>. </p>
 			<p>These examples show the formats to use to specify addresses in <keyword keyref="product_name"

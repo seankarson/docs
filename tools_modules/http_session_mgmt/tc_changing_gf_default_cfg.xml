@@ -21,12 +21,11 @@
 					clients have local caching turned on and when the local cache needs to evict
 					data, it will evict least-recently-used (LRU) data first. </li>
 			</ul>
-			<p><note>On the application server side, the default inactive interval for session
+			<note>On the application server side, the default inactive interval for session
 				expiration is set to 30 minutes. To change this value, refer to <xref
 					href="tc_additional_info.xml#tc_additional_info/section_C7C4365EA2D84636AE1586F187007EC4"
 					type="section" format="dita" scope="local"
 					><?xm-replace_text Session Expiration?></xref>. </note>
-		</p>
 		<p> To change this default configuration, use the <codeph>--interactive</codeph> command line
 			argument when creating the tc Server instance. Choose the appropriate command for the
 			chosen topology and platform.</p>
@@ -51,13 +50,11 @@ In Windows, for a client/server topology:
 		<p>After responding to approximately 20 prompts, you should see the following line: </p>
 		<codeblock>Instance created.
 </codeblock>
-		<p>
 			<note>You cannot override region attributes on the cache server when using the HTTP
 				Session Management Module. You must place all region attribute definitions in the
 				region attributes template that you customize in tc Server. See <xref scope="local"
 					href="tc_changing_gf_default_cfg.xml#tc_changing_gf_default_cfg/section_38D803A7E8474188898963F456188543"
 					type="section" format="dita"/> for more information. </note>
-		</p>
 		<p>For information on setting up your instance for the most common types of configurations,
 			refer to the sections below. For more information about each interactive prompt, refer
 			to <xref format="dita" href="interactive_mode_ref.xml" scope="local">Interactive Mode

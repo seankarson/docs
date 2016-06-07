@@ -80,11 +80,10 @@
 							asynchronous messaging lasts until this process catches up, departs, or
 							some specified limit is reached, such as async-queue-timeout or
 							async-max-queue-size. <p>To enable asynchronous messaging, the value
-								must be set above zero. Valid values are in the range 0...60000.
+								must be set above zero. Valid values are in the range 0...60000.</p>
 									<note>This setting controls only peer-to-peer communication and
 									does not apply to client/server or multi-site communication.
 								</note>
-							</p>
 						</entry>
 						<entry id="entry_lyk_ddp_rr">0 </entry>
 					</row>
@@ -93,10 +92,10 @@
 						<entry id="entry_ex5_ddp_rr">Affects non-conflated asynchronous queues for members that
 							publish to this member. This is the maximum size the queue can reach (in
 							megabytes) before the publisher asks this member to leave the
-							distributed system. <p>Valid values are in the range 0..1024. <note>This
+							distributed system. <p>Valid values are in the range 0..1024.</p>
+							<note>This
 									setting controls only peer-to-peer communication and does not
 									apply to client/server or multi-site communication. </note>
-							</p>
 						</entry>
 						<entry id="entry_kbz_ddp_rr">8 </entry>
 					</row>
@@ -714,22 +713,18 @@
 							<codeblock>locators=address1[port1],address2[port2] </codeblock>
 								<codeblock>locators=hostName1@address1[port1],hostName2@address2[port2] </codeblock>
 								<codeblock>locators=hostName1[port1],hostName2[port2]</codeblock>
-							<p>
 								<note>On multi-homed hosts, this last notation will use the default
 									address. If you use bind addresses for your locators, explicitly
 									specify the addresses in the locators list—do not use just the
 									hostname. </note>
-							</p>
 							<p>If you have values specified for the <codeph>locators</codeph>
 								property, the <codeph>mcast-port</codeph> property defaults to
 								0.</p>
-							<p>
 								<note>If you specify invalid DNS hostnames in this property, any
 									locators or servers started with <codeph>gfsh</codeph> will not
 									produce log files. Make sure you provide valid DNS hostnames
 									before starting the locator or server with
 									<codeph>gfsh</codeph>.</note>
-							</p>
 						</entry>
 						<entry id="entry_wzx_lfp_rr">
 							<i>not set</i>
@@ -822,10 +817,9 @@
 							for unicast and multicast no-ack UDP messaging. Compound property made
 							up of three settings separated by commas: byteAllowance,
 							rechargeThreshold, and rechargeBlockMs. <p>Valid values range from these
-								minimums: 10000,0.1,500 to these maximums: no_maximum ,0.5,60000.
+								minimums: 10000,0.1,500 to these maximums: no_maximum ,0.5,60000.</p>
 									<note>This setting controls only peer-to-peer communication,
 									generally between distributed regions. </note>
-							</p>
 						</entry>
 						<entry id="entry_lsg_5fp_rr">1048576,0.25, 5000 </entry>
 					</row>
@@ -839,10 +833,8 @@
 								separate between systems that use unique addresses but the same port
 								number. </note>
 							<p>Valid values are in the range 0..65535. </p>
-							<p>
 								<note>This setting controls only peer-to-peer communication and does not apply to
 									client/server or multi-site communication. </note>
-							</p>
 							<p>If you have values specified for the <codeph>locators</codeph>
 								property, the <codeph>mcast-port</codeph> property defaults to 0.
 							</p>
@@ -865,10 +857,10 @@
 					<row>
 						<entry id="entry_qbm_vfp_rr">mcast-send-buffer-size </entry>
 						<entry id="entry_hmp_vfp_rr">The size of the socket buffer used for outgoing
-							multicast transmissions. <p>Valid values are in the range 2048.. OS_maximum. <note>This
+							multicast transmissions. <p>Valid values are in the range 2048.. OS_maximum.</p>
+							<note>This
 									setting controls only peer-to-peer communication and does not
 									apply to client/server or multi-site communication. </note>
-							</p>
 						</entry>
 						<entry id="entry_hbt_vfp_rr">65535 </entry>
 					</row>
