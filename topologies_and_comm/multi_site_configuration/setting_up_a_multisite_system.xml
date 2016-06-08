@@ -121,13 +121,13 @@ remote-locators=&lt;remote-locator-addr1&gt;[&lt;port1&gt;],&lt;remote-locator-a
 						</ul>
 				</li>
 				<li>Configure each gateway sender on a <keyword keyref="product_name"/> member using
-					gfsh, <filepath>cache.xml</filepath> or Java API: <ul id="ul_r1r_ryy_dw">
+					gfsh, <codeph>cache.xml</codeph> or Java API: <ul id="ul_r1r_ryy_dw">
 						<li><b>gfsh configuration
 							command</b><codeblock>gfsh>create gateway-sender --id="sender2" --parallel=true --remote-distributed-system-id="2"
 
 gfsh>create gateway-sender --id="sender3" --parallel=true --remote-distributed-system-id="3"</codeblock></li>
 						<li><b>cache.xml configuration</b>
-							<p>These example <filepath>cache.xml</filepath> entries configure two
+							<p>These example <codeph>cache.xml</codeph> entries configure two
 								parallel gateway senders to distribute region events to two remote
 									<keyword keyref="product_name"/> clusters (clusters "2" and
 								"3"):
@@ -356,7 +356,7 @@ receiver.start();
 						batches of events could arrive from remote sites before the regions for
 						those events have been created. If this occurs, the local site will throw
 						exceptions because the receiving region does not exist yet. If you define
-						regions in <filepath>cache.xml</filepath>, the correct startup order is
+						regions in <codeph>cache.xml</codeph>, the correct startup order is
 						handled automatically.
 						</p>
 					</note>

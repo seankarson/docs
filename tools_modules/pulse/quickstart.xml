@@ -83,13 +83,13 @@ gfsh&gt; start locator --name=loc1</codeblock>
 						<keyword keyref="product_name"/> JMX Manager nodes. Setting this property to
 					zero disables the embedded Web server for hosting the Pulse application. </li>
 				<li>
-					<p>Create a <filepath>pulse.properties</filepath> file somewhere in the
+					<p>Create a <codeph>pulse.properties</codeph> file somewhere in the
 						classpath of your Web application server. For example, if you are hosting
-						Pulse on Tomcat, create the <filepath>pulse.properties</filepath> file in
-						the <filepath>$TOMCAT_SERVER/lib</filepath> directory. </p>
+						Pulse on Tomcat, create the <codeph>pulse.properties</codeph> file in
+						the <codeph>$TOMCAT_SERVER/lib</codeph> directory. </p>
 				</li>
 				<li>Define the following configuration properties in the
-						<filepath>pulse.properties</filepath> file: <table id="table_hzt_hhg_2w">
+						<codeph>pulse.properties</codeph> file: <table id="table_hzt_hhg_2w">
 						<tgroup cols="2">
 							<colspec colnum="1" colname="col1" colwidth="*"/>
 							<colspec colnum="2" colname="col2" colwidth="*"/>
@@ -191,10 +191,10 @@ pulse.jmxUserPassword=pulsepass</codeblock>
 						href="quickstart.xml#topic_AC9FFAA6FB044279BAED7A3E099E07AC" type="topic"
 						format="dita" scope="local"/>. </li>
 				<li>Deploy the Pulse Web application to your application server. <keyword
-						keyref="product_name"/> installs the <filepath>pulse.war</filepath> file in
-					the <filepath>tools/Pulse</filepath> subdirectory of your <keyword
+						keyref="product_name"/> installs the <codeph>pulse.war</codeph> file in
+					the <codeph>tools/Pulse</codeph> subdirectory of your <keyword
 						keyref="product_name"/> installation directory. Depending on your
-					application server, you may need to copy the <filepath>pulse.war</filepath> file
+					application server, you may need to copy the <codeph>pulse.war</codeph> file
 					to a deployment directory or use a configuration tool to deploy the file. </li>
 				<li>
 					<p>Access the Pulse application using the address, port, and application URL
@@ -237,7 +237,7 @@ pulse.jmxUserPassword=pulsepass</codeblock>
 					configure JMX authentication on the <keyword keyref="product_name"/> manager
 					node, then the Pulse Web application must authenticate itself with the manager
 					node when it starts. Specify the credentials of a valid JMX user account in the
-						<filepath>pulse.properties</filepath> file, as described in <xref
+						<codeph>pulse.properties</codeph> file, as described in <xref
 						href="quickstart.xml#topic_795C97B46B9843528961A094EE520782" type="topic"
 						format="dita" scope="local"/>. </p>
 				<note>
@@ -252,9 +252,9 @@ pulse.jmxUserPassword=pulsepass</codeblock>
 				<title>Authenticating Pulse Users</title>
 				<p>Pulse implements user authentication using the Spring security framework. The
 					authentication configuration is specified in the
-						<filepath>spring-security.xml</filepath> file, which is stored in the
-						<filepath>WEB-INF</filepath> directory of Pulse WAR file. The
-						<filepath>spring-security.xml</filepath> file contains bean definitions for
+						<codeph>spring-security.xml</codeph> file, which is stored in the
+						<codeph>WEB-INF</codeph> directory of Pulse WAR file. The
+						<codeph>spring-security.xml</codeph> file contains bean definitions for
 					role-based resource access, authentication profiles, and authentication
 					handlers. The file also contains a default authentication manager bean
 					definition.</p>
@@ -305,7 +305,7 @@ pulse.jmxUserPassword=pulsepass</codeblock>
 					<li>Ensure that the new directory you created is available on the Java
 						CLASSPATH:<codeblock>$ export CLASSPATH=$CLASSPATH:/opt/pulse-config</codeblock></li>
 					<li>Create a new text file named
-							<filepath>pulse-authentication-custom.xml</filepath> in the new
+							<codeph>pulse-authentication-custom.xml</codeph> in the new
 						directory:<codeblock>$ touch /opt/pulse-config/pulse-authentication-custom.xml</codeblock></li>
 					<li>Use a text editor to add the bean definitions for the authentication
 						managers and providers that you want to use. The following listings show the
@@ -332,9 +332,9 @@ pulse.jmxUserPassword=pulsepass</codeblock>
   &lt;/authentication-manager>
 &lt;/beans:beans></codeblock><p>With
 							file-based authentication mechanism, you define the names and passwords
-							for valid Pulse users in a <filepath>pulse-users.properties</filepath>
+							for valid Pulse users in a <codeph>pulse-users.properties</codeph>
 							file, which must be available in the classpath of the Pulse application.
-							Each line in the <filepath>pulse-users.properties</filepath> file
+							Each line in the <codeph>pulse-users.properties</codeph> file
 							defines the username, password, and access level for a Pulse user with
 							the format:
 							</p><codeblock><i>username</i>=<i>password</i>,<i>role</i>,{enabled | disabled}</codeblock><p>The
@@ -366,7 +366,7 @@ pulse.jmxUserPassword=pulsepass</codeblock>
 						and location are up to you-- just make sure you use the same name when
 						specifying the CLASSPATH for the <keyword keyref="product_name"/> JMX
 						Manager process.</li>
-					<li>Create a file named <filepath>pulse-authentication-custom.xml</filepath>
+					<li>Create a file named <codeph>pulse-authentication-custom.xml</codeph>
 						with contents similar to the following and place it under the directory you
 						created in step 1. For
 						example:<codeblock>&lt;beans:beans xmlns="http://www.springframework.org/schema/security"
@@ -420,7 +420,7 @@ set "CLASSPATH=C:\pulse-config"</codeblock>or
 						Unix/Linux:<codeblock>CATALINA_OPTS=-Dspring.profiles.active=pulse.authentication.custom
 export CATALINA_OPTS
 CLASSPATH=$CLASSPATH:/opt/pulse-config</codeblock></li>
-					<li>Create a file named <filepath>pulse-authentication-custom.xml</filepath>
+					<li>Create a file named <codeph>pulse-authentication-custom.xml</codeph>
 						with contents similar to the following and place it under the directory you
 						created in step 1. For
 						example:<codeblock>&lt;beans:beans xmlns="http://www.springframework.org/schema/security"
@@ -457,8 +457,8 @@ CLASSPATH=$CLASSPATH:/opt/pulse-config</codeblock></li>
 				<p>In embedded mode, the <keyword keyref="product_name"/> uses an embedded Jetty
 					server to host the Pulse Web application. To make the embedded server use HTTPS,
 					you must configure the following <keyword keyref="product_name"/> configuration
-					parameters in <filepath>gemfire.properties</filepath> or
-						<filepath>gfsecurity-properties</filepath>:</p>
+					parameters in <codeph>gemfire.properties</codeph> or
+						<codeph>gfsecurity-properties</codeph>:</p>
 				<ul id="ul_hl4_rqq_kq">
 					<li>http-service-ssl-enabled</li>
 					<li>http-service-ssl-require-authentication</li>

@@ -11,7 +11,7 @@
     <conbody>
       <p>As many entry operations return a reference to the cache entry, copy-on-read avoids
         problems within a  transaction setting. To enable global copy-on-read for all reads, modify
-        the <filepath>cache.xml</filepath> file or use the corresponding Java API call.</p>
+        the <codeph>cache.xml</codeph> file or use the corresponding Java API call.</p>
       <p>Using cache.xml:</p>
         <codeblock>&lt;cache lock-lease="120" lock-timeout="60" search-timeout="300" <b>copy-on-read="true"</b>></codeblock>
       <p>API:</p>
@@ -114,7 +114,7 @@ cTxMgr.commit();</codeblock>
                 <li>Choose an instance of the region to drive region-wide expiration. Use a
                   replicated region, if there is one.</li>
                 <li>Configure distributed expiration only in that region instance. The expiration
-                  action must be either invalidate or destroy. In a <filepath>cache.xml</filepath>
+                  action must be either invalidate or destroy. In a <codeph>cache.xml</codeph>
                   file declaration, use a line similar to
                   this:<codeblock>&lt;expiration-attributes timeout="300" <b>action="destroy"</b> /></codeblock></li>
                 <li>Run the transactions from the member in which expiration is configured.</li>

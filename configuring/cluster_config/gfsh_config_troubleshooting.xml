@@ -3,7 +3,7 @@
 <concept id="concept_ylt_2cb_y4">
   <title>Cluster Configuration Files and Troubleshooting</title>
   <shortdesc>When you use the cluster configuration service in <keyword keyref="product_name"/>, you
-    can examine the generated configuration files in the <filepath>cluster_config</filepath>
+    can examine the generated configuration files in the <codeph>cluster_config</codeph>
     directory on the locator. gfsh saves configuration files at the cluster-level and at the
     individual group-level.</shortdesc>
   <conbody>
@@ -13,16 +13,16 @@
       <plentry>
         <pt>Cluster-level configuration</pt>
         <pd>For configurations that apply to all members of a cluster, the locator creates a
-            <filepath>cluster</filepath> subdirectory within the <filepath>cluster_config</filepath>
+            <codeph>cluster</codeph> subdirectory within the <codeph>cluster_config</codeph>
           directory (or in the cluster configuration directory when starting up the locator with the
               <codeph>--cluster-config-dir=<i>value</i></codeph> parameter) specified All servers
           receive this configuration when they are started using gfsh. This directory contains:<ul
             id="ul_nm3_tp5_dl">
-            <li><filepath>cluster.xml</filepath> -- A <keyword keyref="product_name"/>
-              <filepath>cache.xml</filepath> file containing configuration common to all
+            <li><codeph>cluster.xml</codeph> -- A <keyword keyref="product_name"/>
+              <codeph>cache.xml</codeph> file containing configuration common to all
               members</li>
-            <li><filepath>cluster.properties</filepath> -- a <keyword keyref="product_name"/>
-              <filepath> gemfire.properties</filepath> file containing properties common to all
+            <li><codeph>cluster.properties</codeph> -- a <keyword keyref="product_name"/>
+              <codeph> gemfire.properties</codeph> file containing properties common to all
               members</li>
             <li>Jar files that are intended for deployment to all members</li>
           </ul></pd>
@@ -37,13 +37,13 @@
           start a server that specifies one or more group names, the server receives both the
           cluster-level configurations and the configurations from all groups specified. This
           subdirectory contains:<ul id="ul_kbc_bs5_dl">
-            <li><filepath><varname>&lt;group-name></varname>.xml</filepath> -- A <keyword
+            <li><codeph><varname>&lt;group-name></varname>.xml</codeph> -- A <keyword
                 keyref="product_name_long"/>
-              <filepath>cache.xml</filepath> file containing configurations common to all members of
+              <codeph>cache.xml</codeph> file containing configurations common to all members of
               the group</li>
-            <li><filepath><varname>&lt;group-name></varname>.properties</filepath> -- a <keyword
+            <li><codeph><varname>&lt;group-name></varname>.properties</codeph> -- a <keyword
                 keyref="product_name_long"/>
-              <filepath>gemfire.properties</filepath> file containing properties common to all
+              <codeph>gemfire.properties</codeph> file containing properties common to all
               members of the group</li>
             <li>Jar files that are intended for deployment to all members of the group</li>
           </ul>
@@ -54,7 +54,7 @@
       <image href="../../images_svg/cluster-group-config.svg" id="image_bs1_mcb_y4"/>
     </fig>
     <p>You can export a zip file that contains all artifacts of a cluster configuration. The zip
-      file contains all of the files in the <filepath>cluster_config</filepath> (or otherwise
+      file contains all of the files in the <codeph>cluster_config</codeph> (or otherwise
       specified) subdirectory of a locator. You can import this configuration to a new cluster. See
         <xref href="export-import.xml#concept_wft_dkq_34"/>. </p>
     <section>
