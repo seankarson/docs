@@ -29,8 +29,11 @@
 					aware of the relationship between the region values and keys. For this, you must
 					create the key index. </li>
 			</ul>
-			<note>Using a key-index with an explicit type='range' in the cache.xml will lead to an
-				exception. Key indexes will not be used in 'range' queries. </note>
+			<note>
+				<p>Using a key-index with an explicit type='range' in the cache.xml will lead to an
+				exception. Key indexes will not be used in 'range' queries.
+				</p>
+			</note>
 		<section id="section_8F1B7893F6D44D9CB36679222927031C">
 			<title>Examples of Creating a Key Index</title>
 			<p>
@@ -52,8 +55,10 @@ gfsh&gt; create index --name=myKeyIndex --expression=id --region=/exampleRegion
  ...
 &lt;/region&gt;
 </codeblock>
-				<note>If you do not specify the type of index when defining indexes using cache.xml,
+				<note>
+					<p>If you do not specify the type of index when defining indexes using cache.xml,
 					the type defaults to "range".
+					</p>
 				</note>
 		</section>
 	</conbody>

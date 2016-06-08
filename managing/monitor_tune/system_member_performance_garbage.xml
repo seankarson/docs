@@ -13,12 +13,18 @@
 				<li>Reduce the amount of data exposed to garbage collection by storing values in
 					off-heap memory.</li>
 			</ul>
-			<note>Garbage collection tuning options depend on the JVM you are using. Suggestions
+			<note>
+				<p>Garbage collection tuning options depend on the JVM you are using. Suggestions
 				given here apply to the Sun HotSpot JVM. If you use a different JVM, check with your
-				vendor to see if these or comparable options are available to you. </note>
-			<note>Modifications to garbage collection sometimes produce unexpected results. Always
+				vendor to see if these or comparable options are available to you. 
+				</p>
+			</note>
+			<note>
+				<p>Modifications to garbage collection sometimes produce unexpected results. Always
 				test your system before and after making changes to verify that the system’s
-				performance has improved. </note>
+				performance has improved.
+				</p>
+			</note>
 		<p><b>Optimizing Garbage Collection</b></p>
 		<p>The two options suggested here are likely to expedite garbage collecting activities by
 			introducing parallelism and by focusing on the data that is most likely to be ready for

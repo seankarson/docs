@@ -27,10 +27,13 @@
       <p>The transaction host may be the same member or different member from the transaction
         initiator. In either case, when the transaction commits, data distribution is done from the
         transaction host in the same way.</p>
-        <note>If you have consistency checking enabled in your region, the transaction will generate
+        <note>
+          <p>If you have consistency checking enabled in your region, the transaction will generate
           all necessary version information for the region update when the transaction commits. See
             <xref href="working_with_transactions.xml#transactions_and_consistency"/> for more
-          details.</note>
+          details.
+          </p>
+        </note>
     </body>
   </topic>
   <concept id="concept_ysk_xj1_wk">
@@ -102,9 +105,12 @@
         <p>For replicated regions, the transaction and its operations are applied to the local
           member and the resulting transaction state is distributed to other members according to
           the attributes of each region. </p>
-        <note>If possible, use <codeph>distributed-ack</codeph> scope for your regions where you
+        <note>
+          <p>If possible, use <codeph>distributed-ack</codeph> scope for your regions where you
           will run transactions. The <codeph>REPLICATE</codeph> region shortcuts use
-            <codeph>distributed-ack</codeph> scope. </note>
+            <codeph>distributed-ack</codeph> scope. 
+          </p>
+        </note>
         <p>The region’s scope affects how data is distributed during the commit phase. Transactions
           are supported for these region scopes:</p>
           <ul id="ul_3FEEBD3A9B1A4033A3D1B943250E904E">
@@ -135,12 +141,15 @@
           EMPTY, NORMAL and PRELOADED) are always transaction initiators, and the transaction data
           host is always a member with a replicated region. This is similar to the way transactions
           using the PARTITION_PROXY shortcut are forwarded to members with primary bucket. </p>
-          <note>When you have transactions operating on EMPTY, NORMAL or PARTITION regions, make
+          <note>
+            <p>When you have transactions operating on EMPTY, NORMAL or PARTITION regions, make
             sure that the <keyword keyref="product_name"/> property
               <codeph>conserve-sockets</codeph> is set to false to avoid distributed deadlocks. An
             empty region is a region created with the API
               <codeph>RegionShortcut.REPLICATE_PROXY</codeph> or a region with that uses the old API
-            of <codeph>DataPolicy</codeph> set to <codeph>EMPTY</codeph>. </note>
+            of <codeph>DataPolicy</codeph> set to <codeph>EMPTY</codeph>.
+            </p>
+          </note>
       </section>
       <section>
         <title>Conflicting Transactions in Distributed-Ack Regions</title>

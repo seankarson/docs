@@ -31,7 +31,8 @@
 						be regions that are not accessed by clients. Peer regions can have any
 						region type. Peer region configuration uses the
 							<codeph>RegionShortcut</codeph> enum settings. </li>
-				</ul><note>
+				</ul>
+			<note>
 					<p>When you configure a server or peer region using <codeph>gfsh</codeph> or
 						with the <filepath>cache.xml</filepath> file, you can use <i>region
 							shortcuts</i> to define the basic configuration of your region. A region
@@ -41,7 +42,8 @@
 						For more information and a complete reference of these region shortcuts, see
 							<xref
 							href="../../reference/topics/region_shortcuts_reference.xml#reference_lt4_54c_lk"
-						/>.</p>
+						/>.
+					</p>
 				</note>
 		</section>
 		<section id="section_A3449B07598C47A881D9219574DE46C5">
@@ -127,8 +129,11 @@
 			<title>Partitioned Regions</title>
 			<p>Partitioning is a good choice for very large server regions. Partitioned regions are
 				ideal for data sets in the hundreds of gigabytes and beyond. </p>
-			<note>Partitioned regions generally require more JDBC connections than other region
-				types because each member that hosts data must have a connection. </note>
+			<note>
+				<p>Partitioned regions generally require more JDBC connections than other region
+				types because each member that hosts data must have a connection.
+				</p>
+			</note>
 			<p>Partitioned regions group your data into buckets, each of which is stored on a subset
 				of all of the system members. Data location in the buckets does not affect the
 				logical view - all members see the same logical data set. </p>
@@ -170,7 +175,10 @@
 		</section>
 		<section id="section_iwt_dnj_bm">
 			<title>Replicated Regions</title>
-			<note>Replication is a good choice for small to medium size server regions. </note>
+			<note>
+				<p>Replication is a good choice for small to medium size server regions. 
+				</p>
+			</note>
 			<p>Replicated regions provide the highest performance in terms of throughput and
 				latency. </p>
 			<p>Use replicated regions for: </p>
@@ -211,10 +219,14 @@
 		</section>
 		<section id="section_A8150BDBC74E4019B1942481877A4370">
 			<title>Local Regions</title>
-				<note>When created using the <codeph>ClientRegionShortcut</codeph> settings, client
+				<note>
+					<p>When created using the <codeph>ClientRegionShortcut</codeph> settings, client
 					regions are automatically defined as local, since all client distribution
-					activities go to and come from the server tier. </note>The local region has no
-				peer-to-peer distribution activity. 
+					activities go to and come from the server tier. 
+					</p>
+				</note>
+			<p>The local region has no
+				peer-to-peer distribution activity. </p>
 			<p>Use local regions for: </p>
 				<ul id="ul_9F2EE05E49214FEABD83D5806C681C27">
 					<li id="li_7FC21C4DD7AF4866AAA2235698158060"><b>Client regions</b>. Distribution

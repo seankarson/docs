@@ -15,14 +15,18 @@
 				multi-homed hosts, one network card is used by default. You can use bind addresses
 				to configure your <keyword keyref="product_name"/> members to use non-default
 				network cards on a multi-homed host. </p>
-			<note>When you specify a non-default card address for a process, all processes that
+			<note>
+				<p>When you specify a non-default card address for a process, all processes that
 				connect to it need to use the same address in their connection settings. For
 				example, if you use bind addresses for your server locators, you must use the same
-				addresses to configure the server pools in your clients. <p>Use IPv4 or IPv6 numeric
+				addresses to configure the server pools in your clients.
+				</p>
+				<p>Use IPv4 or IPv6 numeric
 					address specifications for your bind address settings. For information on these
 					specifications, see <xref href="IPv4_and_IPv6.xml" type="concept"
 						format="dita" scope="local"/>. Do not use host names for your address
-					specifications. Host names resolve to default machine addresses. </p>
+					specifications. Host names resolve to default machine addresses.
+				</p>
 			</note>
 		</section>
 		<section id="section_63589355AB684F739145E9185806D023">
@@ -31,10 +35,13 @@
 				its own address or types use the same address. If no setting is found for a specific
 				communication type, <keyword keyref="product_name"/> uses the host machine's default
 				address. </p>
-			<note>Bind addresses set through the APIs, like <codeph>CacheServer</codeph> and
+			<note>
+				<p>Bind addresses set through the APIs, like <codeph>CacheServer</codeph> and
 					<codeph>DistributedSystem</codeph>, take precedence over the settings discussed
 				here. If your settings are not working, check to make sure there are no bind address
-				settings being done through API calls. </note>
+				settings being done through API calls.
+				</p>
+			</note>
 			<p>This table lists the settings used for peer and server communication, ordered by
 				precedence. For example, for server communication, <keyword keyref="product_name"/>
 				searches first for the cache-server bind address, then the <codeph>gfsh start

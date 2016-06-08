@@ -59,8 +59,11 @@ key=5782ED83A3D9F101BBF8D851CE4E798E</codeblock>
 			<codeblock>gfsh> start server --name=server1 --cache-xml-file=../conf/cache-server.xml 
               <b>--log-level=fine</b></codeblock>
 			<p>This will add fine-level logging to the <codeph>server.log</codeph> file. </p>
-				<note>This will help debug <keyword keyref="product_name"/> server issues, but it
-					adds a lot of logging to the file. </note>
+				<note>
+					<p>This will help debug <keyword keyref="product_name"/> server issues, but it
+					adds a lot of logging to the file. 
+					</p>
+				</note>
 		</section>
 		<section id="section_D36A81360D904450B8BE7334897C5685">
 			<title>Add Debug Logging to gemfire_modules.log </title>
@@ -79,8 +82,11 @@ statistic-sampling-enabled="${geode-cs.statistic.sampling.enabled}"/&gt;
 			<p>This will add fine-level logging to the file defined by the
 					<codeph>${geode-cs.log.file}</codeph> property. The default log file name is
 					<codeph>gemfire_modules.log</codeph>. </p>
-				<note>This will help debug <keyword keyref="product_name"/> client issues, but it
-					adds a lot of logging to the file. </note>
+				<note>
+					<p>This will help debug <keyword keyref="product_name"/> client issues, but it
+					adds a lot of logging to the file. 
+					</p>
+				</note>
 		</section>
 	</conbody>
 </concept>

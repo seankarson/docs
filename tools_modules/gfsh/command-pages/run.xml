@@ -6,8 +6,11 @@
 	<conbody>
 		<p> Commands that normally prompt for additional input will instead use default values. </p>
 		<p><b> Availability:</b> Online or offline.</p>
-		<note>Some commands specified in the file
-				require online status. </note>
+		<note>
+			<p>Some commands specified in the file
+				require online status. 
+			</p>
+		</note>
 		<p><b>Syntax:</b>
 		</p>
 		<codeblock>run --file=value [--quiet(=value)?] [--continue-on-error(=value)?]</codeblock>
@@ -37,10 +40,14 @@
 					<row>
 						<entry colname="col1"><parmname>--quiet</parmname>
 						</entry>
-						<entry colname="col2"> Specifies whether to show command output. <note>All
+						<entry colname="col2"> Specifies whether to show command output.
+							<note>
+								<p>All
 								commands in a script are run non-interactively when the
 									<cmdname>run</cmdname> command is used. This option does not
-								change that functionality. </note>
+								change that functionality.
+								</p>
+							</note>
 						</entry>
 						<entry>false</entry>
 					</row>

@@ -12,10 +12,13 @@
 			with all other operations. The server that receives the request determines the data
 			location and contacts the host, which might be a different server. So more multiple-hop
 			requests are made to the server system. </p>
-		<note>Single hop is used for the following operations: <codeph>put</codeph>,
+		<note>
+			<p>Single hop is used for the following operations: <codeph>put</codeph>,
 				<codeph>get</codeph>, <codeph>destroy</codeph>, <codeph>putAll</codeph>,
 				<codeph>getAll</codeph>, <codeph>removeAll</codeph> and <codeph>onRegion</codeph>
-			function execution. </note>
+			function execution. 
+			</p>
+		</note>
 		<p>Even with single hop access enabled, you will occasionally see some multiple-hop
 			behavior. To perform single-hop data access, clients automatically get metadata from the
 			servers about where the entry buckets are hosted. The metadata is maintained lazily. It

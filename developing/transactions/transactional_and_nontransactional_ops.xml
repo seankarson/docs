@@ -56,7 +56,10 @@
 	<concept id="entry_operations">
 		<title>Entry Operations</title>
 		<conbody>
-			<note>Transactional entry operations can be rolled back. </note>
+			<note>
+				<p>Transactional entry operations can be rolled back. 
+				</p>
+			</note>
 			<table id="table_wbg_bt2_l5">
 				<tgroup cols="4">
 					<colspec colname="1" colnum="1" colwidth="1.62*"/>
@@ -155,8 +158,11 @@
 			<p>Some transactional write operations also do a read before they write, and these can
 				complete a transactional read even when the write fails. The following table of
 				entry operations notes the conditions under which this can happen. </p>
-			<note>These operations can add a snapshot of an entry to the transaction’s view even
-				when the write operation does not succeed. </note>
+			<note>
+				<p>These operations can add a snapshot of an entry to the transaction’s view even
+				when the write operation does not succeed.
+				</p>
+			</note>
 			<table id="table_qfg_bt2_l5">
 				<tgroup cols="4">
 					<colspec colname="1" colnum="1" colwidth="1.00*"/>

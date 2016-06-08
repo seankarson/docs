@@ -21,11 +21,15 @@
 				<li id="li_90F94136F914430A85E5202FC3FE3510">Include
 					gemfire-modules-&lt;version&gt;.jar in your application .war file. This is
 					typically done by putting the .jar file under the <codeph>WEB-INF/lib</codeph>
-					directory. <note>Even though both modules include a
+					directory.
+					<note>
+						<p>Even though both modules include a
 						gemfire-modules-&lt;version&gt;.jar file in their distribution, you only
 						need to put one gemfire-modules-&lt;version&gt;.jar file in your .war file.
 						It does not matter which one you use. You can even be using different
-						versions of the HTTP Session Management and Hibernate Cache modules. </note>
+						versions of the HTTP Session Management and Hibernate Cache modules.
+						</p>
+					</note>
 				</li>
 				<li id="li_A1D9257855C447E8AD048929C8260AF5">Make sure that gemfire.jar is not
 					included in your application .war file. </li>
@@ -44,7 +48,8 @@
 						type="concept" format="dita" scope="local"/> for instructions on how to
 					modify the default Hibernate Cache configuration. </li>
 			</ol>
-			<note>Using the Hibernate Cache Module with the HTTP Session Management Module creates a
+			<note>
+				<p>Using the Hibernate Cache Module with the HTTP Session Management Module creates a
 				single <keyword keyref="product_name"/> cache in your application server. This cache
 				will be shared by all applications deployed on the application server. Therefore, if
 				two applications use the same entity objects (specified by fully qualified class
@@ -52,6 +57,8 @@
 				entities will end up in the single <keyword keyref="product_name"/> cache region. If
 				this is not the desired behavior, then include gemfire.jar in the application war
 				file. A <keyword keyref="product_name"/> cache will be created in the application's
-				class loader. </note>
+				class loader.
+				</p>
+			</note>
 	</conbody>
 </concept>

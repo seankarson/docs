@@ -49,14 +49,16 @@
 						href="../../tools_modules/gfsh/command-pages/export.xml#topic_C7C69306F93743459E65D46537F4A1EE"
 						type="topic" format="dita" scope="local"/> for details. </cmd>
 				<info>
-					<note>The cluster configuration service, which is enabled by default,
+					<note>
+						<p>The cluster configuration service, which is enabled by default,
 						automatically saves the configuration on the locators in the distributed
 						system. After you use the gfsh create region command, any new servers that
 						you start that attach to the same locator receive the same configuration.
 						You can also create alternate configurations within a distributed system by
 						specifying a group when creating the region and starting servers. See <xref
-							href="../../configuring/cluster_config/gfsh_persist.xml"
-						/>.</note>
+							href="../../configuring/cluster_config/gfsh_persist.xml" />.
+						</p>
+					</note>
 				</info>
 			</step>
 		</steps>

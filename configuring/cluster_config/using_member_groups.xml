@@ -31,11 +31,14 @@
 			</ul>
 		<p>You define group names in the <codeph>groups</codeph> property of your member's
 				<codeph>gemfire.properties</codeph> file or upon member startup in gfsh. </p>
-			<note>Any roles defined in the currently existing <codeph>roles</codeph> property will
+			<note>
+				<p>Any roles defined in the currently existing <codeph>roles</codeph> property will
 				now be considered a group. If you wish to add membership roles to your distributed
 				system, you should add them as member groups in the <codeph>groups</codeph>
 				property. The <codeph>roles</codeph> property has been deprecated in favor of using
-				the <codeph>groups</codeph> property. </note>
+				the <codeph>groups</codeph> property. 
+				</p>
+			</note>
 		<p>To add a member to a group, add the name of a member group to the
 				<codeph>gemfire.properties</codeph> file of the member prior to startup or you can
 			start up a member in <codeph>gfsh</codeph> and pass in the <codeph>--group</codeph>

@@ -69,8 +69,11 @@ CqQuery myCq = queryService.newCq(cqName, queryString, cqAttributes, true);</cod
 				servers, it receives messages for all keys and queries reqistered. When the client
 				is disconnected, non-durable interest registrations and CQs are discontinued but all
 				messages already in the queue for them remain there. </p>
-				<note> For a single durable client ID, you must maintain the same durability of your
-					registrations and queries between client runs. </note>
+				<note>
+					<p>For a single durable client ID, you must maintain the same durability of your
+					registrations and queries between client runs.
+					</p>
+				</note>
 		</section>
 		<section id="section_0FBD23CC79784E588135FE93306EC0A4">
 			<title>Program the Client to Manage Durable Messaging</title>
@@ -140,7 +143,9 @@ pendingEvents += (pendingEvents2 &gt; 0) ? pendingEvents2 : 0;
 								and any cache listeners, and create and execute any durable
 								continuous queries. </li>
 							<li id="li_4071FF39FE9C43FD98C780B982544BB0">Run all interest
-								registration calls. <note>Registering interest with
+								registration calls.
+								<note>
+									<p>Registering interest with
 										<codeph>InterestResultPolicy.KEYS_VALUES</codeph>
 									initializes the client cache with the <i>current</i> values of
 									specified keys. If concurrency checking is enabled for the
@@ -152,7 +157,9 @@ pendingEvents += (pendingEvents2 &gt; 0) ? pendingEvents2 : 0;
 									reconnecting. Or, disable concurrency checking for the region in
 									the client cache. See <xref
 										href="../distributed_regions/region_entry_versions.xml#topic_CF2798D3E12647F182C2CEC4A46E2045"
-										type="topic" format="dita" scope="local"/>. </note>
+										type="topic" format="dita" scope="local"/>.
+									</p>
+								</note>
 							</li>
 							<li id="li_CA153397A92C4B1284BA5DEE87D5DF94">Call
 									<codeph>ClientCache.readyForEvents</codeph> so the server will

@@ -22,9 +22,13 @@
 										<codeph>init</codeph> method to store all properties
 									required by the
 										<codeph>AccessControl.authorizeOperation</codeph> method at
-									the time the client makes its connection to the server. <note>Do
+									the time the client makes its connection to the server.
+									<note>
+										<p>Do
 										as much work here as you can to save time on the individual
-											<codeph>authorizeOperation</codeph> calls. </note>
+											<codeph>authorizeOperation</codeph> calls. 
+										</p>
+									</note>
 								</li>
 								<li id="li_E300D88CF0C847129EA980C647D0A2C2">Program the <codeph>authorizeOperation</codeph>
 									method to perform whatever pre- and post-operation authorization

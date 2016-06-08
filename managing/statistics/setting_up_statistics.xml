@@ -25,9 +25,13 @@
 						<li id="li_60A1DB117DC6475E9334FD7E8D23B4EE">Enable statistics gathering for
 							the distributed system. This is required for all other statistics
 							activities: <codeblock>statistic-sampling-enabled=true</codeblock>
-							<note>Statistics sampling at the default sample rate (1000 milliseconds)
+							<note>
+								<p>Statistics sampling at the default sample rate (1000 milliseconds)
 								does not impact system performance and is recommended in production
-								environments for troubleshooting.</note></li>
+								environments for troubleshooting.
+								</p>
+							</note>
+						</li>
 						<li id="li_9E5CA36C16C84CC082DE241C4C51CEFC">Change the statistics sample
 							rate as needed. Example:
 							<codeblock>statistic-sampling-enabled=true
@@ -46,8 +50,12 @@ archive-disk-space-limit=1000</codeblock>
 							sampling and archival. Example: <codeblock>statistic-sampling-enabled=true
 statistic-archive-file=myStatisticsArchiveFile.gfs
 enable-time-statistics=true</codeblock>
-							<note>Time-based statistics can impact system performance and is not
-								recommended for production environments.</note></li>
+							<note>
+								<p>Time-based statistics can impact system performance and is not
+								recommended for production environments.
+								</p>
+							</note>
+						</li>
 					</ol>
 				</li>
 				<li id="li_3BFA3DE77F33472EA3BBB91E1C50893A">Enable transient region and entry
@@ -60,10 +68,12 @@ enable-time-statistics=true</codeblock>
 	&lt;region-attributes statistics-enabled="true"&gt;
 	&lt;/region-attributes&gt;
 &lt;/region&gt;</codeblock>
-					<note>Region and entry statistics are not archived and can only be accessed
+					<note>
+						<p>Region and entry statistics are not archived and can only be accessed
 						through the API. As needed, retrieve region and entry statistics through the
 							<codeph>getStatistics</codeph> methods of the <codeph>Region</codeph>
 						and <codeph>Region.Entry</codeph> objects. Example:
+						</p>
 						<codeblock>out.println("Current Region:\n\t" + this.currRegion.getName());
 RegionAttributes attrs = this.currRegion.getAttributes();
 if (attrs.getStatisticsEnabled()) {
@@ -72,7 +82,8 @@ if (attrs.getStatisticsEnabled()) {
 		"\n\tMissCount is " + stats.getMissCount() +
 		"\n\tLastAccessedTime is " + stats.getLastAccessedTime() +
 		"\n\tLastModifiedTime is " + stats.getLastModifiedTime());
-}</codeblock>
+}
+						</codeblock>
 					</note>
 				</li>
 				<li id="li_F7DDE6F7549C43F2A42C6E314CB14E13">Create and manage any custom statistics
@@ -128,11 +139,13 @@ this.samplerStats.incLong(this.sampleTimeId, nanosSpentWorking / 1000000);</code
 							File</b>. If the value of the <codeph>--archive-file-size-limit</codeph>
 						is greater than zero, a new archive is started when the size of the current
 						archive exceeds the limit. Only one archive can be active at a time.
-							<note>If you modify the value of
+							<note>
+								<p>If you modify the value of
 								<codeph>--archive-file-size-limit</codeph> while the distributed
 							system is running, the new value does not take effect until the current
 							archive becomes inactive (that is, when a new archive is started).
-						</note>
+								</p>
+							</note>
 					</li>
 					<li id="li_E5AAE59BB1234FD0829BFACB25925A67"><b>Maximum Size of All Archive
 							Files</b>. The <codeph>--archive-disk-space-limit</codeph> parameter
@@ -145,10 +158,14 @@ this.samplerStats.incLong(this.sampleTimeId, nanosSpentWorking / 1000000);</code
 						size is less than the limit. If <codeph>--archive-disk-space-limit</codeph>
 						is less than or equal to <codeph>--archive-file-size-limit</codeph>, when
 						the active archive is made inactive due to its size, it is immediately
-						deleted. <note>If you modify the value of
+						deleted.
+						<note>
+							<p>If you modify the value of
 								<codeph>--archive-disk-space-limit</codeph> while the distributed
 							system is running, the new value does not take effect until the current
-							archive becomes inactive. </note>
+							archive becomes inactive.
+							</p>
+						</note>
 					</li>
 				</ul>
 		</section>
