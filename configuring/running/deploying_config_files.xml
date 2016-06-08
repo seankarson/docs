@@ -7,13 +7,18 @@
 		in jar files. You determine how you want to deploy your configuration files and set them up
 		accordingly. </shortdesc>
 	<conbody>
-		<note>If you use the cluster configuration service to create and manage your <keyword
+		<note>
+			<p>If you use the cluster configuration service to create and manage your <keyword
 				keyref="product_name_long"/> cluster configuration, the procedures described in this
 			section are not needed because <keyword keyref="product_name"/> automatically manages
 			the distribution of the configuration files and jar files to members of the cluster. See
-				<xref href="../cluster_config/gfsh_persist.xml"/>.<p>You can use
+				<xref href="../cluster_config/gfsh_persist.xml"/>.
+			</p>
+			<p>You can use
 				the procedures described in this section to distribute configurations that are
 				member-specific, or for situations where you do not want to use the cluster
-				configuration service. </p></note>
+				configuration service.
+			</p>
+		</note>
 	</conbody>
 </concept>

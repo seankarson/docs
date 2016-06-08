@@ -77,7 +77,8 @@ pc13(2266)&lt;v22&gt;:4522 | OK     | GatewayReceiver is stopped on member pc13(
 			<shortdesc>Stop a gateway sender with a given id on a specified member or members of a
 				specified member group. </shortdesc>
 			<body>
-					<note class="- topic/note " type="caution">Use caution with the <codeph>stop
+					<note class="- topic/note " type="caution">
+						<p>Use caution with the <codeph>stop
 							gateway-sender</codeph> command (or equivalent
 							<codeph>GatewaySender.stop()</codeph> API) on parallel gateway senders.
 						Instead of stopping an individual parallel gateway sender on a member,
@@ -86,7 +87,9 @@ pc13(2266)&lt;v22&gt;:4522 | OK     | GatewayReceiver is stopped on member pc13(
 						this command on an individual parallel gateway sender can occur in event
 						loss. See <xref
 							href="../../../topologies_and_comm/topology_concepts/multisite_overview.xml#topic_9AA37B43642D4DE19072CA3367C849BA/section_aqm_2js_bq"
-						/> for more details.</note>
+						/> for more details.
+						</p>
+					</note>
 				<p><b> Availability:</b> Online. You must be connected in <codeph>gfsh</codeph> to a
 					JMX Manager member to use this command. </p>
 				<p>

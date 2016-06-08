@@ -256,26 +256,35 @@ udp-send-buffer-size="65535"</codeblock>
 					</li>
 					<li id="li_8BC7719DBC0F4D9F817647FAB708912A"><b>fine</b>. This level provides
 						tracing information that is generally of interest to developers. It is used
-						for the lowest volume, most important, tracing messages. <note>Generally,
+						for the lowest volume, most important, tracing messages.
+						<note>
+							<p>Generally,
 							you should only use this level if instructed to do so by technical
 							support. At this logging level, you will see a lot of noise that might
 							not indicate a problem in your application. This level creates very
 							verbose logs that may require significantly more disk space than the
-							higher levels. </note>
+							higher levels.
+							</p>
+						</note>
 						<codeblock>[fine 2011/06/21 11:27:24.689 PDT &lt;locatoragent_ds_w1-gst-dev04_2104&gt; tid=0xe] SSL Configuration:
     ssl-enabled = false</codeblock>
 					</li>
 					<li id="li_35AD9025D0F24252BB8EFC436C7AF9C9"><b>finer, finest, and all</b>.
 						These levels exist for internal use only. They produce a large amount of
 						data and so consume large amounts of disk space and system resources.
-							<note>Do not use these settings unless asked to do so by technical
-							support. </note>
+							<note>
+								<p>Do not use these settings unless asked to do so by technical
+							support.
+								</p>
+							</note>
 					</li>
 				</ul>
-			<note><keyword keyref="product_name"/> no longer supports setting system properties
+			<note>
+				<p><keyword keyref="product_name"/> no longer supports setting system properties
 					for VERBOSE logging. To enable VERBOSE logging, see <xref
 						href="configuring_log4j2.xml"/>
-				</note>
+				</p>
+			</note>
 		</section>
 	</conbody>
 </concept>

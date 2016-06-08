@@ -1263,11 +1263,14 @@ server2 | Region "/myRregion" created on "server2"</codeblock>
 					shortcut has local state that is kept in sync with all other peer regions
 					configured with a REPLICATE data policy. The region destroys entries when it
 					detects that the JVM is running low on memory. </p>
-					<note>Normally, you cannot have a <codeph>local-destroy</codeph> eviction policy
+					<note>
+						<p>Normally, you cannot have a <codeph>local-destroy</codeph> eviction policy
 						on replicated regions. However, the REPLICATE_HEAP_LRU region is not the
 						same as other replicated regions. This region is preloaded and remains in
 						synch by registering interest in the keys of its peer's replicated
-						regions.</note>
+						regions.
+						</p>
+					</note>
 				<p>For more information, see: </p>	
 					<ul id="ul_qps_by5_mk">
 						<li id="li_10C77CD8883E49E39404535FADBA6EAB"><xref

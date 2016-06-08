@@ -19,13 +19,16 @@
 						using the default HTTP port 7070 for the Pulse application: </p>
 					<codeblock>gfsh
 gfsh&gt; start locator --name=loc1</codeblock>
-					<note><keyword keyref="product_name"/> locators become JMX Manager nodes by
+					<note>
+						<p><keyword keyref="product_name"/> locators become JMX Manager nodes by
 						default. To start a non-locator member as a JMX Manager node, include the
 							<codeph>--J=-Dgemfire.jmx-manager=true</codeph> option. To specify a
 						non-default port number for the HTTP service that hosts the Pulse
 						application, include the
 								<codeph>--J=-Dgemfire.http-service-port=<i>port_number</i></codeph>
-						option when starting the JMX Manager node. </note>
+						option when starting the JMX Manager node.
+						</p>
+					</note>
 					<p>When the JMX Manager node boots, it starts an embedded Jetty instance and
 						deploys the Pulse Web application at the specified or default HTTP port or
 						7070 by default. </p>
@@ -56,11 +59,14 @@ gfsh&gt; start locator --name=loc1</codeblock>
 					system. See <xref href="quickstart.xml#topic_F0ECE9E8179541CCA3D6C5F4FBA84404"
 						type="topic" format="dita" scope="local"/>. </li>
 			</ol>
-			<note>When running in embedded mode, the Pulse application connects only to the JMX Manager
+			<note>
+				<p>When running in embedded mode, the Pulse application connects only to the JMX Manager
 				running in the locator or member that hosts Pulse. This enables you to monitor all
 				members of that distributed system. You can also view (but not monitor) connected
 				WAN clusters, and can view gateway senders and receivers that are configured in the
-				local cluster. </note>
+				local cluster. 
+				</p>
+			</note>
 		</body>
 	</topic>
 	<topic id="topic_795C97B46B9843528961A094EE520782">
@@ -144,9 +150,13 @@ gfsh&gt; start locator --name=loc1</codeblock>
 									<entry colname="col2">If you configured authentication for the
 											<keyword keyref="product_name"/> JMX Manager node,
 										specify a valid JMX user name that the Pulse application
-										will use to authenticate to the JMX Manager. <note>The JMX
+										will use to authenticate to the JMX Manager.
+										<note>
+											<p>The JMX
 											account that Pulse uses must have both read and write
-											privileges. </note>
+											privileges.
+											</p>
+										</note>
 										<p>See <xref scope="local"
 												href="../../managing/management/jmx_manager_operations.xml#topic_263072624B8D4CDBAD18B82E07AA44B6"
 												type="topic" format="dita"/> for information about
@@ -230,10 +240,13 @@ pulse.jmxUserPassword=pulsepass</codeblock>
 						<filepath>pulse.properties</filepath> file, as described in <xref
 						href="quickstart.xml#topic_795C97B46B9843528961A094EE520782" type="topic"
 						format="dita" scope="local"/>. </p>
-				<note>The credentials that you specify must have both read and write privileges in
+				<note>
+					<p>The credentials that you specify must have both read and write privileges in
 					the JMX Manager node. See <xref scope="local"
 						href="../../managing/management/jmx_manager_operations.xml#topic_263072624B8D4CDBAD18B82E07AA44B6"
-						type="topic" format="dita"/>. </note>
+						type="topic" format="dita"/>.
+					</p>
+				</note>
 			</section>
 			<section id="section_E3703ED899354839BE51278D3AE79062">
 				<title>Authenticating Pulse Users</title>
@@ -277,10 +290,13 @@ pulse.jmxUserPassword=pulsepass</codeblock>
 					in-memory User Details Service, using a custom authentication configuration
 					enables you to define your own user credentials rather than using the default
 					"admin" account. </p>
-				<note><keyword keyref="product_name"/> also supports using an LDAP provider for
+				<note>
+					<p><keyword keyref="product_name"/> also supports using an LDAP provider for
 					Pulse authentication. See <xref
 						href="#topic_AC9FFAA6FB044279BAED7A3E099E07AC/section_kjx_ylq_kq"
-						format="dita"/></note>
+						format="dita"/>
+					</p>
+				</note>
 				<p>To configure and use a custom authentication configuration:</p>
 				<ol id="ol_tj3_53z_dw">
 					<li>Create a directory in which you will store the custom authentication
@@ -507,7 +523,8 @@ CLASSPATH=$CLASSPATH:/opt/pulse-config</codeblock></li>
 						href="../../images/pulse_cluster_view.png" placement="break" width="6.5in"
 						align="left"/>
 				</p>
-				<p>Use these basic controls while in Cluster view: <ol
+				<p>Use these basic controls while in Cluster view:</p>
+				<ol
 						id="ol_C0F76CB7C8904F63BC3A2F1AF91681E3">
 						<li>Click Members or Data to display information about <keyword
 								keyref="product_name"/> members or data regions in the distributed
@@ -546,7 +563,6 @@ CLASSPATH=$CLASSPATH:/opt/pulse-config</codeblock></li>
 							severity tabs to filter the message display by the level of severity.
 						</li>
 					</ol>
-				</p>
 				<p>
 					<b>Cluster View Screen Components</b>
 				</p>
@@ -904,7 +920,8 @@ CLASSPATH=$CLASSPATH:/opt/pulse-config</codeblock></li>
 						href="../../images/pulse_data_view.png" placement="break" width="6.5in"
 						align="left"/>
 				</p>	
-				<p>Use these basic controls while in Region View: <ol
+				<p>Use these basic controls while in Region View:</p>
+					<ol
 						id="ol_1462167D70BA40C09F15659AE29EFA73">
 						<li id="li_4E4F2E748A8644728C41E242686CA255">Click the display icons to
 							display all members that host the region using block view or table view.
@@ -924,7 +941,6 @@ CLASSPATH=$CLASSPATH:/opt/pulse-config</codeblock></li>
 								format="dita" outputclass="noPageCitation"/> to go to those
 							screens.</li>
 					</ol>
-				</p>
 				<p>
 					<b>Region View Screen Components</b>
 				</p>

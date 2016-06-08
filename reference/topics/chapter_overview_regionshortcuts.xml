@@ -30,8 +30,11 @@
       <p>To configure a region using the gfsh command-line tool, specify the shortcut name with the
         <cmdname>--type</cmdname> argument. For example:</p>
         <codeblock>gfsh&gt;create region --name=myRegion --type=PARTITION_REDUNDANT</codeblock>
-      <note>If you change the cache.xml file that defines a region, you must restart the member
-        before the changes take effect. </note>
+      <note>
+        <p>If you change the cache.xml file that defines a region, you must restart the member
+        before the changes take effect.
+        </p>
+      </note>
       <p>For more information about configuring regions, see <xref
           href="../../basic_config/data_regions/managing_data_regions.xml#data_regions"/>. </p>
       <p>For more information about using the various types of <keyword keyref="product_name"/> regions and when to use them, see

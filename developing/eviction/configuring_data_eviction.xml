@@ -56,12 +56,15 @@
 							href="../../basic_config/data_entries_custom_classes/using_custom_classes.xml"
 							type="concept" format="dita" scope="local"/>. </li>
 				</ol>
-			<note>You can also configure Regions using the gfsh command-line interface, however, you
+			<note>
+				<p>You can also configure Regions using the gfsh command-line interface, however, you
 				cannot configure <codeph>eviction-attributes</codeph> using gfsh. See <xref
 					href="../../tools_modules/gfsh/quick_ref_commands_by_area.xml#topic_EF03119A40EE492984F3B6248596E1DD"
 				/> and <xref
 					href="../../tools_modules/gfsh/quick_ref_commands_by_area.xml#topic_1ACC91B493EE446E89EC7DBFBBAE00EA"
-				/>.</note>
+				/>.
+				</p>
+			</note>
 			<p>Examples: </p>
 			<codeblock outputclass="language-xml">// Create an LRU memory eviction controller with max bytes of 1000 MB
 // Use a custom class for measuring the size of each object in the region 

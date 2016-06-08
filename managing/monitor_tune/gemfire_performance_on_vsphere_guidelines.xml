@@ -47,8 +47,11 @@
 					</ul>
 				</li>
 			</ul>
-			<note>Settings may vary slightly depending on your hardware make and model. Use the
-				settings above or equivalents as needed. </note>
+			<note>
+				<p>Settings may vary slightly depending on your hardware make and model. Use the
+				settings above or equivalents as needed. 
+				</p>
+			</note>
 		</body>
 	</topic>
 	<topic id="topic_7A5F1EAD7A6C4E21BB1FF7CF3B625BC5">
@@ -64,14 +67,18 @@
 						command: <codeblock>esxcli network nic list</codeblock>You can verify that
 						your settings have taken effect by issuing the command:
 						<codeblock>ethtool -C vmnicX</codeblock> If you restart the ESXi host, the
-						above configuration must be reapplied. <note>Disabling interrupt coalescing
+						above configuration must be reapplied.
+						<note>
+							<p>Disabling interrupt coalescing
 							can reduce latency in virtual machines; however, it can impact
 							performance and cause higher CPU utilization. It can also defeat the
 							benefits of Large Receive Offloads (LRO) because some physical NICs
 							(such as Intel 10GbE NICs) automatically disable LRO when interrupt
 							coalescing is disabled. See <xref href="http://kb.vmware.com/kb/1027511"
 								scope="external" format="html"
-								>http://kb.vmware.com/kb/1027511</xref> for more details. </note>
+								>http://kb.vmware.com/kb/1027511</xref> for more details.
+							</p>
+						</note>
 					</li>
 					<li id="li_D213367EE0C34FA2A3DE01BAD8B2D630"><b>Virtual NIC:</b> Use the
 						following guidelines when configuring your virtual NICs: <ul

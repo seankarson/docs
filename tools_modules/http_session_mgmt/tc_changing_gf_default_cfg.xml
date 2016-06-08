@@ -21,11 +21,14 @@
 					clients have local caching turned on and when the local cache needs to evict
 					data, it will evict least-recently-used (LRU) data first. </li>
 			</ul>
-			<note>On the application server side, the default inactive interval for session
+			<note>
+				<p>On the application server side, the default inactive interval for session
 				expiration is set to 30 minutes. To change this value, refer to <xref
 					href="tc_additional_info.xml#tc_additional_info/section_C7C4365EA2D84636AE1586F187007EC4"
 					type="section" format="dita" scope="local"
-					><?xm-replace_text Session Expiration?></xref>. </note>
+					><?xm-replace_text Session Expiration?></xref>. 
+				</p>
+			</note>
 		<p> To change this default configuration, use the <codeph>--interactive</codeph> command line
 			argument when creating the tc Server instance. Choose the appropriate command for the
 			chosen topology and platform.</p>

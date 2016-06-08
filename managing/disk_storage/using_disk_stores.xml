@@ -6,14 +6,17 @@
 		by setting the <codeph>disk-store-name</codeph> attribute in your region and queue
 		configurations. </shortdesc>
 	<conbody>
-			<note>Besides the disk stores you specify, <keyword keyref="product_name_long"/> has a
+			<note>
+				<p>Besides the disk stores you specify, <keyword keyref="product_name_long"/> has a
 				default disk store that it uses when disk use is configured with no disk store name
 				specified. By default, this disk store is saved to the application’s working
 				directory. You can change its behavior, as indicated in <xref
 					href="using_disk_stores.xml#defining_disk_stores/section_37BC5A4D84B34DB49E489DD4141A4884"
 					type="section" format="dita" scope="local"/> and <xref
 					href="using_the_default_disk_store.xml#using_the_default_disk_store"
-					type="concept" format="dita" scope="local"/>. </note>
+					type="concept" format="dita" scope="local"/>.
+				</p>
+			</note>
 			<ul id="ul_3AA2F87DCB404E528C9E5C73EE9FD3D4">
 				<li id="li_02C6746343A143159C49F728263512A2">
 					<xref
@@ -177,12 +180,15 @@
 		      &lt;disk-dir dir-size="20480"&gt;d:\overflow_data&lt;/disk-dir&gt;
 	   &lt;/disk-dirs&gt;
 &lt;/disk-store&gt;</codeblock>
-				<note>As an alternative to defining cache.xml on every server in the cluster-- if
+				<note>
+					<p>As an alternative to defining cache.xml on every server in the cluster-- if
 					you have the cluster configuration service enabled, when you create a disk store
 					in <codeph>gfsh</codeph>, you can share the disk store's configuration with the
 					rest of cluster. See <xref
 						href="../../configuring/cluster_config/gfsh_persist.xml"
-					/>.</note>
+					/>.
+					</p>
+				</note>
 		</section>
 		<section>
 			<title>Modifying Disk Stores</title>

@@ -24,13 +24,17 @@
 						and
 							<codeph>com.gemstone.gemfire.cache.Region.getRegionDistributedLock</codeph>
 						return instances of <codeph>java.util.concurrent.locks.Lock</codeph> for a
-						region and a specified key. <note>You must use the <codeph>Region</codeph>
+						region and a specified key.
+						<note>
+							<p>You must use the <codeph>Region</codeph>
 							API to lock regions and region entries. Do not use the
 								<codeph>DistributedLockService</codeph> in the
 								<codeph>com.gemstone.gemfire.distributed</codeph> package. That
 							service is available only for locking in arbitrary distributed
 							applications. It is not compatible with the <codeph>Region</codeph>
-							locking methods. </note>
+							locking methods.
+							</p>
+						</note>
 					</li>
 				</ol>
 		</section>
@@ -93,9 +97,13 @@
 					<li id="li_0CCCD8A33ED0463A827EA73AE29D0D7B">At region creation through the
 							<codeph>is-lock-grantor</codeph> attribute. You can retrieve this
 						attribute through the region method, <codeph>getAttributes</codeph>, to see
-						whether you requested to be lock grantor for the region. <note>The
+						whether you requested to be lock grantor for the region. 
+						<note>
+							<p>The
 								<codeph>is-lock-grantor</codeph> attribute does not change after
-							region creation. </note>
+							region creation. 
+							</p>
+						</note>
 					</li>
 					<li id="li_92E9ADA6E6B648D18B0D3352E04CF891">After region creation through the
 						region <codeph>becomeLockGrantor</codeph> method. Changing lock grantors

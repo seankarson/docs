@@ -150,12 +150,16 @@
 										<codeph>EntryEvent</codeph>
 								</entry>
 								<entry>Tracks the outcome of transactions and changes to data
-									entries in the transaction. <note>Multiple transactions on the
+									entries in the transaction.
+									<note>
+										<p>Multiple transactions on the
 										same cache can cause concurrent invocation of
 											<codeph>TransactionListener</codeph> methods, so
 										implement methods that do the appropriate synchronizing of
 										the multiple threads for thread-safe operation.
-									</note>Extends <codeph>CacheCallback</codeph> interface.
+										</p>
+									</note>
+									Extends <codeph>CacheCallback</codeph> interface.
 									Installed in cache using transaction manager. Works with
 									region-level listeners if needed. </entry>
 							</row>

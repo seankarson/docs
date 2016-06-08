@@ -75,11 +75,15 @@
 								to the function. Use the <codeph>RegionFunctionContext</codeph>
 								<codeph>isPossibleDuplicate</codeph> to determine whether the call
 								may be a high-availability re-execution. This boolean is set to true
-								on execution failure and is false otherwise. <note>The
+								on execution failure and is false otherwise. 
+								<note>
+									<p>The
 										<codeph>isPossibleDuplicate</codeph> boolean can be set
 									following a failure from another member’s execution of the
 									function, so it only indicates that the execution might be a
-									repeat run in the current member. </note>
+									repeat run in the current member. 
+									</p>
+								</note>
 							</li>
 							<li id="li_DCA9A2BF2E1B4DA397DC1F3582E77F16">Use the function context to
 								get information about the execution and the data: <ul
@@ -108,12 +112,16 @@
 										For single regions, use
 											<codeph>getLocalDataForContext</codeph>. For colocated
 										regions, use
-											<codeph>getLocalColocatedRegions</codeph>.<note>When you
+											<codeph>getLocalColocatedRegions</codeph>.
+										<note>
+											<p>When you
 											use
 												<codeph>PartitionRegionHelper.getLocalDataForContext</codeph>,
 												<codeph>putIfAbsent</codeph> may not return expected
 											results if you are working on local data set instead of
-											the region.</note>
+											the region.
+											</p>
+										</note>
 									</li>
 								</ul>
 							</li>
@@ -240,9 +248,12 @@ to be called using FunctionService.onRegion.");
 					</li>
 					<li id="li_3B761E54F1E04CEB8C15E1C500DD54C0">Java: <codeblock>myFunction myFun = new myFunction();
 FunctionService.registerFunction(myFun);</codeblock>
-						<note>Modifying a function instance after registration has no effect on the
+						<note>
+							<p>Modifying a function instance after registration has no effect on the
 							registered function. If you want to execute a new function, you must
-							register it with a different identifier. </note>
+							register it with a different identifier. 
+							</p>
+						</note>
 					</li>
 				</ul>
 		</section>
@@ -307,8 +318,12 @@ FunctionService.registerFunction(myFun);</codeblock>
 					<li id="li_CDFB63F1600441B28C899487307695ED">If the function returns results,
 						call <codeph>getResult</codeph> from the results collector returned from
 							<codeph>execute</codeph> and code your application to do whatever it
-						needs to do with the results. <note>For high availability, you must call the
-								<codeph>getResult</codeph> method. </note>
+						needs to do with the results.
+						<note>
+							<p>For high availability, you must call the
+								<codeph>getResult</codeph> method.
+							</p>
+						</note>
 					</li>
 				</ol>
 			<p>Example of running the function - for executing members: </p>

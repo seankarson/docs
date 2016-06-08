@@ -8,8 +8,11 @@
 			allows to move between pages. If limit is not set in the query, then a default limit of
 			1000 (derived from GFSH environment variable APP_FETCH_SIZE) will be applied. Page size
 			is derived from GFSH environment variable APP_COLLECTION_LIMIT (default value=20). </p>
-			<note>This command should not be executed from <codeph>gfsh</codeph> if the objects
-				being queried contain cyclic references. </note>
+			<note>
+				<p>This command should not be executed from <codeph>gfsh</codeph> if the objects
+				being queried contain cyclic references.
+				</p>
+			</note>
 		<p><b> Availability:</b> Online. You must be connected in <codeph>gfsh</codeph> to a JMX
 			Manager member to use this command. </p>
 		<p><b>Syntax:</b>

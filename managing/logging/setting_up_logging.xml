@@ -27,13 +27,16 @@ log-level=config
 log-file=
 log-file-size-limit=0
 log-disk-space-limit=0</codeblock>
-						<note>You can also specify logging parameters when you start up members
+						<note>
+							<p>You can also specify logging parameters when you start up members
 							(either locators or servers) using the <codeph>gfsh</codeph>
 							command-line utility. In addition, you can modify log file properties
 							and log-level settings while a member is already running by using the
 								<xref
 								href="../../tools_modules/gfsh/command-pages/alter.xml#topic_7E6B7E1B972D4F418CB45354D1089C2B"
-								type="topic" format="dita" scope="local"/> command. </note>
+								type="topic" format="dita" scope="local"/> command. 
+							</p>
+						</note>
 						<ol id="ol_E500EBEF363246A7855DE97D002A5121">
 							<li id="li_06B41BC1477D4575B23EEB7B8AEBC496">Set
 									<codeph>log-level</codeph>. Options are <codeph>severe</codeph>
@@ -44,10 +47,14 @@ log-disk-space-limit=0</codeblock>
 									<codeph>warning</codeph> would log <codeph>warning</codeph>,
 									<codeph>error</codeph>, and <codeph>severe</codeph> messages.
 								For general troubleshooting, we recommend setting the log level at
-									<codeph>config</codeph> or higher. <note>The
+									<codeph>config</codeph> or higher. 
+								<note>
+									<p>The
 										<codeph>fine</codeph> setting can fill up disk too quickly
 									and impact system performance. Use <codeph>fine</codeph> only if
-									asked to do so by Pivotal technical support. </note>
+									asked to do so by Pivotal technical support. 
+									</p>
+								</note>
 							</li>
 							<li id="li_5D548D8A108B40B88ED5C10F893AAE1A">Specify the log file name
 								in <codeph>log-file</codeph>. This can be relative or absolute. If
@@ -78,9 +85,13 @@ log-disk-space-limit=0</codeblock>
 										or embedded locator, the locator logs will be part of the
 										member’s log file. </li>
 								</ul> For the easiest logs examination and troubleshooting, send
-								your logs to files instead of standard out. <note>Make sure each
+								your logs to files instead of standard out.
+								<note>
+									<p>Make sure each
 									member logs to its own files. This makes the logs easier to
-									decipher. </note>
+									decipher.
+									</p>
+								</note>
 							</li>
 							<li id="li_C6FE572C73894C8CB2FEC64BA9C331AE">Set the maximum size of a
 								single log file in <codeph>log-file-size-limit</codeph>. If not set,

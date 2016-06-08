@@ -31,10 +31,13 @@
           entry, then a potential conflict exists. A cluster applies the update only when the update
           has a timestamp that is later than the timestamp currently recorded in the cache. </li>
       </ul>
-    <note>If you use the default conflict checking feature for WAN deployments, you must ensure that
+    <note>
+      <p>If you use the default conflict checking feature for WAN deployments, you must ensure that
       all <keyword keyref="product_name"/> members in all clusters synchronize their system clocks.
       For example, use a common NTP server for all <keyword keyref="product_name"/> members that
-      participate in a WAN deployment. </note>
+      participate in a WAN deployment.
+      </p>
+    </note>
     <p>As an alternative to the default conflict checking behavior for WAN deployments, you can
       develop and deploy a custom conflict resolver for handling region events that are distributed
       over a WAN. Using a custom resolver enables you to handle conflicts using criteria other than,
