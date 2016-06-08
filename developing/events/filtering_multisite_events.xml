@@ -16,7 +16,7 @@
 					region event is placed in a gateway sender queue and/or whether an event in a
 					gateway queue is distributed to a remote site. You can optionally add one or
 					more <codeph>GatewayEventFilter</codeph> implementations to a gateway sender,
-					etiher in the <filepath>cache.xml</filepath> configuration file or using the
+					etiher in the <codeph>cache.xml</codeph> configuration file or using the
 					Java API. <p><keyword keyref="product_name"/> makes a synchronous call to the
 						filter's <codeph>beforeEnqueue</codeph> method before it places a region
 						event in the gateway sender queue. The filter returns a boolean value that

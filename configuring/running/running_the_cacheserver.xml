@@ -53,8 +53,8 @@
 						configuration from the cluster configuration service, assuming the  locator
 						is running the cluster configuration service. If you specify a group when
 						starting the server, the server also receives configurations that apply to a
-						group. The shared configuration consists of <filepath>cache.xml</filepath>
-						files, <filepath>gemfire.properties</filepath> files, and deployed jar
+						group. The shared configuration consists of <codeph>cache.xml</codeph>
+						files, <codeph>gemfire.properties</codeph> files, and deployed jar
 						files. You can disable use of the cluster configuration service by
 						specifying <codeph>--use-cluster-configuration=false</codeph> when starting
 						the server using <codeph>gfsh</codeph>. <p>See <xref
@@ -117,7 +117,7 @@
 					</p>
 				</note>
 			<p>The following <codeph>gfsh start server</codeph> start sequences specify a
-					<filepath>cache.xml</filepath> file for cache configuration, and use different
+					<codeph>cache.xml</codeph> file for cache configuration, and use different
 				incoming client connection ports:</p>
 				<codeblock>gfsh&gt;start server --name=server1 --mcast-port=10338 \
 --cache-xml-file=../ServerConfigs/cache.xml --server-port=40404

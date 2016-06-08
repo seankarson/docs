@@ -9,12 +9,12 @@
       <p>Region shortcuts are groupings of pre-configured attributes that define the characteristics
         of a region. You can use a region shortcut as a starting point when configuring regions and
         you can add additional configurations to customize your application. To reference a region
-        shortcut in a  <keyword keyref="product_name"/> <filepath>cache.xml</filepath> file, use the <cmdname>refid</cmdname>
+        shortcut in a  <keyword keyref="product_name"/> <codeph>cache.xml</codeph> file, use the <cmdname>refid</cmdname>
         attribute of the <cmdname>&lt;region&gt;</cmdname> element. For example:</p>
         <codeblock>&lt;region name="myRegion" refid="PARTITION_REDUNDANT"/&gt;</codeblock>
       <p>You can
         override the default values and add additional configurations within a
-          <cmdname>&lt;region-attributes&gt;</cmdname> element of the <filepath>cache.xml</filepath>
+          <cmdname>&lt;region-attributes&gt;</cmdname> element of the <codeph>cache.xml</codeph>
         file. For example, the following configuration overrides the
           <parmname>local-max-memory</parmname> setting and adds the
         <parmname>recovery-delay</parmname> attribute:</p>

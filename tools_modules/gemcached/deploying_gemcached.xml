@@ -33,7 +33,7 @@
 					<codeph>RegionShortcut.PARTITION</codeph> region named
 					<codeph>gemcached</codeph> where data used by memcached clients is stored. You
 				can alter these defaults by configuring the region using the
-					<filepath>cache.xml</filepath> or <filepath>gemfire.properties</filepath> files.
+					<codeph>cache.xml</codeph> or <codeph>gemfire.properties</codeph> files.
 				See <xref
 					href="../../basic_config/config_concepts/chapter_overview.xml"
 					type="concept"
@@ -53,16 +53,16 @@
   --memcached-protocol=<userinput>BINARY|ASCII</userinput></codeblock>
 			<note>
 				<p>You can also set the memcached port number and protocol in the
-						<filepath>gemfire.properties</filepath> file. </p>
-				<p> If the <filepath>memcached-port</filepath> property is not specified, the
+						<codeph>gemfire.properties</codeph> file. </p>
+				<p> If the <codeph>memcached-port</codeph> property is not specified, the
 					embedded Gemcached server is not started. </p>
 			</note>
 		</section>
 		<section
 			id="section_E5587FE56A21424FBAEE8CF61DF34219">
-			<title>Configuring a Gemcached Server with the <filepath>gemfire.properties</filepath>
+			<title>Configuring a Gemcached Server with the <codeph>gemfire.properties</codeph>
 				File</title>
-			<p>You can set the following properties in the <filepath>gemfire.properties</filepath>
+			<p>You can set the following properties in the <codeph>gemfire.properties</codeph>
 				file that are used when starting Gemcached servers: </p>
 			<table
 				id="table_3F586259E06E42C4BD82AD661B3AFEA4">
