@@ -51,12 +51,15 @@
 			<p>These dependency JAR files are packaged in your <keyword keyref="product_name_long"/>
 				installation in the <codeph>$GEMFIRE/lib</codeph> (or on Windows, the
 					<codeph>%GEMFIRE%\lib</codeph>) directory. </p>
-				<note>The <codeph>gfsh</codeph> command-line utility also searches for
+				<note>
+					<p>The <codeph>gfsh</codeph> command-line utility also searches for
 						<codeph>tools.jar</codeph> (included with JDK) and adds it to gfsh's
 					CLASSPATH. If you do not have a JDK installed, gfsh uses file-based
 					communication instead for the <codeph>status</codeph> and <codeph>stop</codeph>
 					commands. If using a JRE instead of JDK, gfsh must have read-write permissions
-					in the working directory of the server and locator processes.</note>
+					in the working directory of the server and locator processes.
+					</p>
+				</note>
 		</section>
 		<section id="section_02EEF9A519094EAD9D6B5C8E896EBA27">
 			<title>Machine Hostname</title>

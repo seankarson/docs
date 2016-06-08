@@ -20,8 +20,10 @@
         gfsh command while connected to a <keyword keyref="product_name"/> cluster. For example: </p>
       <codeblock>export cluster-configuration --zip-file-name=myClusterConfig.zip --dir=/home/username/configs</codeblock>
       <p>See <xref href="../../tools_modules/gfsh/command-pages/export.xml#topic_mdv_jgz_ck"/>.</p>
-      <note>gfsh only saves cluster configuration values for configurations specified using gfsh.
+      <note>
+        <p>gfsh only saves cluster configuration values for configurations specified using gfsh.
         Configurations created by the management API are not saved with the cluster configurations.
+        </p>
       </note>
     </section>
     <section>
@@ -32,8 +34,11 @@
           <codeph>import cluster-configuration</codeph> gfsh command. For example:</p>
       <codeblock>import cluster-configuration --zip-file-name=/home/username/configs/myClusterConfig.zip</codeblock>
       <p>See <xref href="../../tools_modules/gfsh/command-pages/import.xml#topic_vnv_grz_ck"/>.</p>
-      <note>You cannot import a cluster configuration to a cluster where cache servers are already
-        running. </note>
+      <note>
+        <p>You cannot import a cluster configuration to a cluster where cache servers are already
+        running. 
+        </p>
+      </note>
     </section>
   </conbody>
 </concept>

@@ -11,8 +11,14 @@
 				<li id="li_8129E53938184B28AB781166A38B3F3B">Create an index for each side of the
 					equi-join condition. The query engine can quickly evaluate the query's equi-join
 					condition by iterating over the keys of the left-side and right-side indexes for
-					an equality match. <note>Equi-join queries require regular indexes. Key indexes
-						are not applied to equi-join queries. </note>For this query:
+					an equality match. 
+					<note>
+						<p>Equi-join queries require regular indexes. Key indexes
+						are not applied to equi-join queries. 
+						</p>
+					</note>
+					<p>For this query:
+					</p>
 					<codeblock>SELECT DISTINCT inv.name, ord.orderID, ord.status 
 FROM /investors inv, /orders ord 
 WHERE inv.investorID = ord.investorID </codeblock>Create

@@ -10,12 +10,15 @@
 		data from the regions. </shortdesc>
 	<conbody>
 		<section id="section_131EC040055E48A6B35E981B5C845A65">
-			<note>If you are colocating data between regions and custom partitioning the data in
+			<note>
+				<p>If you are colocating data between regions and custom partitioning the data in
 				the regions, all colocated regions must use partitioning mechanisms that return the
 				same routing object. The most common approach, though not the only one, is for all
 				colocated regions to use the same custom PartitionResolver. See <xref
 					href="using_custom_partition_resolvers.xml" type="concept" format="dita"
-					scope="local"/>. </note>
+					scope="local"/>. 
+				</p>
+			</note>
 			<p>Data colocation between partitioned regions generally improves the performance of
 				data-intensive operations. You can reduce network hops for iterative operations on
 				related data sets. Compute-heavy applications that are data-intensive can

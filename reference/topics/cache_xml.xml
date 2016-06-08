@@ -3,7 +3,7 @@
 <dita>
 	<topic id="cache_xml_cache">
 		<title>&lt;cache&gt; Element Reference</title>
-		<shortdesc>This section documents the <filepath>cache.xml</filepath> sub-elements used for
+		<shortdesc>This section documents the <codeph>cache.xml</codeph> sub-elements used for
 				<keyword keyref="product_name"/> server configuration. All elements are sub-elements
 			of the <codeph>&lt;cache&gt;</codeph> element. </shortdesc>
 		<body>
@@ -170,8 +170,11 @@
 				your application code. Use the <apiname>createDynamicRegion()</apiname> method of
 				the <apiname>com.gemstone.gemfire.cache.DynamicRegionFactory</apiname> class in your
 				Java code to dynamically create regions.</p>
-			<note>You can not use this element to
-					dynamically create <i>partitioned</i> regions. </note>
+			<note>
+				<p>You can not use this element to
+					dynamically create <i>partitioned</i> regions.
+				</p>
+			</note>
 			<p>Pivotal Inc. recommends that you use functions to dynamically create regions. See
 					<xref href="../../developing/region_options/dynamic_region_creation.xml"/>.</p>
 			<p> The optional <codeph>&lt;disk-dir></codeph> sub-element specifies the directory to
@@ -517,7 +520,11 @@
 							<entry id="entry_kyz_shj_54">max-connections </entry>
 							<entry>Maximum number of client connections for the server. When the
 								maximum is reached, the server refuses additional client
-								connections. <note>Set this at least as high as max-threads. </note>
+								connections.
+								<note>
+									<p>Set this at least as high as max-threads.
+									</p>
+								</note>
 							</entry>
 							<entry colname="col3">800 </entry>
 						</row>
@@ -526,16 +533,23 @@
 							<entry>Maximum number of threads allowed in this server to service
 								client connections. When the limit is reached, server threads begin
 								servicing multiple connections. A zero setting causes the server to
-								use a thread for every client connection. <note>Set this no higher
-									than max-connections. </note>
+								use a thread for every client connection.
+								<note>
+									<p>Set this no higher
+									than max-connections.
+									</p>
+								</note>
 							</entry>
 							<entry colname="col3">0 </entry>
 						</row>
 						<row>
 							<entry>maximum-message-count </entry>
 							<entry>Maximum number of messages allowed in a subscription queue. When
-								the queue reaches this limit, messages block. <note>Used only if
+								the queue reaches this limit, messages block. 
+								<note>
+									<p>Used only if
 										<codeph>client-subscription</codeph> is not configured.
+									</p>
 								</note>
 							</entry>
 							<entry colname="col3">230000 </entry>
@@ -543,9 +557,13 @@
 						<row>
 							<entry>maximum-time-between-pings </entry>
 							<entry>Maximum time, in milliseconds, the server allows to pass between
-								messages or pings indicating a client is healthy. <note>A setting of
+								messages or pings indicating a client is healthy.
+								<note>
+									<p>A setting of
 									0 or a negative number turns off client health monitoring. Be
-									careful not to do this accidentally. </note>
+									careful not to do this accidentally. 
+									</p>
+								</note>
 							</entry>
 							<entry colname="col3">60000 <p> (1 minute) </p>
 							</entry>
@@ -556,9 +574,13 @@
 								expiration time, in seconds, for non-durable messages in the
 								secondary server’s client subscription queue. The system removes
 								non-durable messages that have been in the queue beyond this time.
-								If set to 0 (zero), the messages are never removed. <note>Set this
+								If set to 0 (zero), the messages are never removed. 
+								<note>
+									<p>Set this
 									high enough to avoid removing messages that are still valid, to
-									aovid losing messages during server failover. </note>
+									aovid losing messages during server failover. 
+									</p>
+								</note>
 							</entry>
 							<entry colname="col3">180 <p>(3 minutes) </p>
 							</entry>
@@ -751,10 +773,13 @@
 								available or the <codeph>free-connection-timeout</codeph> is
 								reached. If set to -1, there is no maximum. The setting must
 								indicate a cap greater than <codeph>min-connections</codeph>.
-									<note>If you need to use this to cap your pool connections, you
+									<note>
+										<p>If you need to use this to cap your pool connections, you
 									should disable the pool attribute
 										<codeph>pr-single-hop-enabled</codeph>. Leaving single hop
-									enabled can increase thrashing and lower performance. </note>
+									enabled can increase thrashing and lower performance.
+										</p>
+									</note>
 							</entry>
 							<entry colname="col3">-1 </entry>
 						</row>
@@ -782,8 +807,12 @@
 						<row>
 							<entry>name </entry>
 							<entry>Name of this pool. Used in the client region pool-name to assign
-								this pool to a region in the client cache. <note>This is a required
-									property with no default setting. </note>
+								this pool to a region in the client cache.
+								<note>
+									<p>This is a required
+									property with no default setting. 
+									</p>
+								</note>
 							</entry>
 							<entry colname="col3">none </entry>
 						</row>
@@ -791,9 +820,13 @@
 							<entry>ping-interval </entry>
 							<entry>How often to communicate with the server to show the client is
 								alive, set in milliseconds. Pings are only sent when the
-								ping-interval elapses between normal client messages. <note>Set this
+								ping-interval elapses between normal client messages.
+								<note>
+									<p>Set this
 									lower than the server’s
-										<codeph>maximum-time-between-pings</codeph>. </note>
+										<codeph>maximum-time-between-pings</codeph>. 
+									</p>
+								</note>
 							</entry>
 							<entry colname="col3">10000 </entry>
 						</row>
@@ -828,8 +861,11 @@
 						<row>
 							<entry>server-group </entry>
 							<entry>Logical named server group to use from the pool. A null value
-								uses the global server group to which all servers belong. <note>This
+								uses the global server group to which all servers belong.
+								<note>
+									<p>This
 									is only used when the <codeph>locator</codeph> list is defined.
+									</p>
 								</note>
 							</entry>
 							<entry colname="col3">null </entry>
@@ -849,8 +885,11 @@
 						<row>
 							<entry>subscription-ack-interval </entry>
 							<entry>Time, in milliseconds, between messages to the primary server to
-								acknowledge event receipt. <note>Used only when
+								acknowledge event receipt. 
+								<note>
+									<p>Used only when
 										<codeph>subscription-redundancy</codeph> is not ‘0’ (zero).
+									</p>
 								</note>
 							</entry>
 							<entry colname="col3">100</entry>
@@ -915,8 +954,11 @@
 		<body>
 			<p>Addresses and ports of the locators to connect to. You can define multiple locators
 				for the pool.</p>
-			<note>Provide a locator list or <codeph>server</codeph> list, but not
-					both. </note>
+			<note>
+				<p>Provide a locator list or <codeph>server</codeph> list, but not
+					both.
+				</p>
+			</note>
 			<p>
 				<b>API: </b>
 				<codeph>com.gemstone.gemfire.distributed.LocatorLauncher</codeph>
@@ -963,8 +1005,11 @@
 		<shortdesc/>
 		<body>
 			<p>Addresses and ports of the servers to connect to.</p>
-			<note>Provide a server list or
-						<codeph>locator</codeph> list, but not both. </note>
+			<note>
+				<p>Provide a server list or
+						<codeph>locator</codeph> list, but not both.
+				</p>
+			</note>
 			<p>
 				<b>Default: </b>
 			</p>
@@ -1304,9 +1349,13 @@
 								resources and reduce thread contention. This sets an initial
 								parameter on the underlying
 									<codeph>java.util.ConcurrentHashMap</codeph> used for storing
-								region entries. <note> Before you modify this, read the concurrency
+								region entries. 
+								<note>
+									<p>Before you modify this, read the concurrency
 									level description, then see the Java API documentation for
-										<codeph>java.util.ConcurrentHashMap</codeph>. </note>
+										<codeph>java.util.ConcurrentHashMap</codeph>.
+									</p>
+								</note>
 								<p><b>API:</b>
 									<codeph>setConcurrencyLevel</codeph>
 								</p>
@@ -1323,7 +1372,8 @@
 								<p> Specifies how the local cache handles data for a region. This
 									setting controls behavior such as local data storage and region
 									initialization.</p>
-								<note>Configure the most common options using
+								<note>
+									<p>Configure the most common options using
 										the region shortcuts, <codeph>RegionShortcut</codeph> and
 											<codeph>ClientRegionShortcut</codeph>. The default
 											<codeph>data-policy</codeph> of <codeph>normal</codeph>
@@ -1331,7 +1381,9 @@
 										local storage. In the region shortcuts, empty corresponds to
 										the settings with the string <codeph>PROXY</codeph>. You can
 										use an empty region for event delivery to and from the local
-										cache without the memory overhead of data storage. </note>
+										cache without the memory overhead of data storage. 
+									</p>
+								</note>
 								<p>You can specify the following data policies: </p>
 								<p>
 									<simpletable frame="none"
@@ -1429,13 +1481,16 @@
 									TCP/IP. This attribute does not apply to client/server
 									communication or to communication using the UDP unicast or IP
 									multicast protocols.</p>
-								<note>To use this attribute, the
+								<note>
+									<p>To use this attribute, the
 											<codeph>multicast-enabled</codeph> region attribute
 											<codeph>disable-tcp</codeph> in
 											<codeph>gemfire.properties</codeph> must be false (the
 										default for both). In addition, asynchronous queues must be
 										enabled for slow consumers, specified with the
-											<codeph>async</codeph>* gemfire properties. </note>
+											<codeph>async</codeph>* gemfire properties.
+									</p>
+								</note>
 								<p>
 									<b>API: </b>
 									<codeph>setEnableAsyncConflation</codeph>
@@ -1465,9 +1520,12 @@
 								<p> Boolean for server regions that specifies whether the server can
 									conflate its messages to the client. A true value enables
 									conflation.</p>
-								<note>The client can override this setting with the
+								<note>
+									<p>The client can override this setting with the
 											<codeph>conflate-events</codeph> property in its
-											<codeph>gemfire.properties</codeph>. </note>
+											<codeph>gemfire.properties</codeph>.
+									</p>
+								</note>
 								<p>
 									<b>API: </b>
 									<codeph>setEnableSubscriptionConflation</codeph>
@@ -1638,10 +1696,13 @@
 										<codeph>java.util.ConcurrentHashMap</codeph> used for
 									storing region entries. This must be a floating point number
 									between 0 and 1, inclusive. </p>
-								<note>Before you set this attribute,
+								<note>
+									<p>Before you set this attribute,
 										read the discussion of initial capacity and load factor,
 										then see the Java API documentation for
-											<codeph>java.util.ConcurrentHashMap</codeph>. </note>
+											<codeph>java.util.ConcurrentHashMap</codeph>. 
+									</p>
+								</note>
 								<p>
 									<b>API: </b>
 									<codeph>setLoadFactor</codeph>
@@ -1802,16 +1863,22 @@
 									to allow remote invocation of some of the region’s event
 									handlers, and wether to use region entry versions to provide
 									consistent updates across replicated regions.</p>
-								<note>You can
+								<note>
+									<p>You can
 										configure the most common of these options with <keyword
 											keyref="product_name"/>’s region shortccuts in
 											<codeph>RegionShortcut</codeph> and
-											<codeph>ClientRegionShortcut</codeph>. </note>
-									<note>Server regions that are not partitioned must be replicated
+											<codeph>ClientRegionShortcut</codeph>.
+									</p>
+								</note>
+									<note>
+										<p>Server regions that are not partitioned must be replicated
 										with <codeph>distributed-ack</codeph> or
 											<codeph>global</codeph> scope. The region shortcuts that
 										specify <codeph>REPLICATE</codeph> have
-											<codeph>distributed-ack</codeph> scope. </note>
+											<codeph>distributed-ack</codeph> scope.
+										</p>
+									</note>
 								<p>Set one of the following scope values: </p>
 								<p>
 									<simpletable frame="none"
@@ -1903,7 +1970,8 @@
 										format="dita"
 										href="../../developing/distributed_regions/region_entry_versions.xml#topic_CF2798D3E12647F182C2CEC4A46E2045"
 										scope="local" type="topic"/>. </p>
-								<note>Applications that use a
+								<note>
+									<p>Applications that use a
 											<codeph>client-cache</codeph> may want to disable
 										concurrency checking in order to see all events for a
 										region. <keyword keyref="product_name"/> server members can
@@ -1911,7 +1979,9 @@
 										will pass all events to the client cache. This configuration
 										ensures that the client sees all events, but it does not
 										prevent the client cache from becoming out-of-sync with the
-										server cache. </note>
+										server cache. 
+									</p>
+								</note>
 								<p>
 									<b>API:</b>
 									<codeph>setConcurrencyChecksEnabled</codeph>
@@ -1960,12 +2030,15 @@
 				can be of any class. This attribute, along with value-constraint, is useful for
 				querying and indexing because it provides object type information to the query
 				engine. </p>
-			<note>Set the constraint in every cache where you create or update the
+			<note>
+				<p>Set the constraint in every cache where you create or update the
 					region entries. For client/server installations, match constraints between
 					client and server and between distributed systems. The constraint is only
 					checked in the cache that does the entry <codeph>put</codeph> or
 						<codeph>create</codeph> operation. To avoid deserializing the object, the
-					constraint is not checked when the entry is distributed to other caches. </note>
+					constraint is not checked when the entry is distributed to other caches.
+				</p>
+			</note>
 			<p><b>Default: </b> not set </p>
 			<p>
 				<b>API: </b>
@@ -1991,12 +2064,15 @@
 				be of any class. This attribute, along with <codeph>key-constraint</codeph>, is
 				useful for querying and indexing because it provides object type information to the
 				query engine. </p>
-			<note>Set the constraint in every cache where you create or update the
+			<note>
+				<p>Set the constraint in every cache where you create or update the
 					region entries. For client/server installations, match constraints between
 					client and server and between distributed systems. The constraint is only
 					checked in the cache that does the entry <codeph>put</codeph> or
 						<codeph>create</codeph> operation. To avoid deserializing the object, the
-					constraint is not checked when the entry is distributed to other caches. </note>
+					constraint is not checked when the entry is distributed to other caches. 
+				</p>
+			</note>
 			<p><b>Default: </b> not set </p>
 			<p>
 				<b>API: </b>
@@ -2176,9 +2252,12 @@
 		<body>
 			<p>Expiration setting that specifies how long the region can remain in the cache without
 				anyone accessing it. </p>
-			<note>To ensure reliable read behavior across the partitioned
+			<note>
+				<p>To ensure reliable read behavior across the partitioned
 					region, use <codeph>region-time-to-live</codeph> for region expiration instead
-					of this setting. </note>
+					of this setting. 
+				</p>
+			</note>
 			<p><b>Default: </b>not set - no expiration of this type </p>
 			<p>
 				<b>API: </b>
@@ -2255,9 +2334,12 @@
 				cache without anyone accessing them. See <xref format="dita"
 					href="#expiration-attributes" scope="local" type="topic"
 					><?xm-replace_text Element ID :expiration-attributes?></xref> for details.</p>
-					<note>To ensure reliable read behavior across the partitioned region, use
+					<note>
+						<p>To ensure reliable read behavior across the partitioned region, use
 						<codeph>entry-time-to-live</codeph> for entry expiration instead of this
-					setting. </note>
+					setting.
+						</p>
+					</note>
 			<p>
 				<b>API: </b>
 				<codeph>com.gemstone.gemfire.cache.RegionFactory.setEntryIdleTimeout</codeph>
@@ -2295,9 +2377,11 @@
 		<body>
 			<p>Defines the region as partitioned and controls partitioning behavior. This is set
 				during the region creation in the first data store for the partitioned region.</p>
-			<note>With the exception of <codeph>local-max-memory</codeph>, all members
+			<note>
+				<p>With the exception of <codeph>local-max-memory</codeph>, all members
 					defining a partitioned region must use the same partition attribute settings.
-				</note>
+				</p>	
+			</note>
 			<p>
 				<b>API: </b>
 				<codeph>com.gemstone.gemfire.cache.RegionFactory.setPartitionAttributes</codeph>
@@ -2689,9 +2773,12 @@
 			<p>Specifies subscriber requirements and behavior for the region. There is one
 				subscription attribute, <codeph>interest-policy</codeph>, that defines which
 				distributed entry events are delivered to the local region. </p>
-				<note>The interest policy determines which events are delivered, but the
+				<note>
+					<p>The interest policy determines which events are delivered, but the
 						<codeph>data-policy</codeph> determines how the events are applied to the
-					cache. </note>
+					cache. 
+					</p>
+				</note>
 			<p>
 				<b>API: </b>
 				<codeph>com.gemstone.gemfire.cache.RegionFactory.setSubscriptionAttributes</codeph>
@@ -3116,12 +3203,16 @@
 						</row>
 						<row>
 							<entry>connection-url </entry>
-							<entry>URL for connecting to the datasource. <note>If you are connecting
+							<entry>URL for connecting to the datasource. 
+								<note>
+									<p>If you are connecting
 									to a JCA data source driver that implements XA transactions
 									(where the jndi-binding type is <b>XAPooledDataSource</b>), do
 									not use this attribute. Instead, define configuration properties
 									for your database. See <xref href="#config-property"
-										format="dita"/> for an example.</note></entry>
+										format="dita"/> for an example.
+									</p>
+								</note></entry>
 							<entry colname="col3"/>
 						</row>
 						<row>

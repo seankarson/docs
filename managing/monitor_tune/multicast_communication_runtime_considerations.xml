@@ -35,10 +35,12 @@
 		<p>You can adjust the transmission buffer size by resetting the mcast-send-buffer-size
 			parameter in the <codeph>gemfire.properties</codeph> file: </p>
 			<codeblock>mcast-send-buffer-size=45000</codeblock>
-			<note>The maximum buffer size is constrained only by the limits of your system. <p>If
+			<note>
+				<p>The maximum buffer size is constrained only by the limits of your system. If
 					you are not seeing problems that could be related to lack of memory then do not
 					change the default, since it provides greater protection in case of network
-					problems. </p>
+					problems.
+				</p>
 			</note>
 	</conbody>
 </concept>

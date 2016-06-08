@@ -31,10 +31,14 @@
 						disk store that is not the <keyword keyref="product_name"/> default disk
 						store, set the <codeph>&lt;pdx&gt;</codeph> attribute
 							<codeph>disk-store-name</codeph> to the name of your non-default disk
-						store. <note>If you are using PDX serialized objects as region entry keys
+						store.
+						<note>
+							<p>If you are using PDX serialized objects as region entry keys
 							and you are using persistent regions, then you must configure your PDX
 							disk store to be a different one than the disk store used by the
-							persistent regions. </note>
+							persistent regions.
+							</p>
+						</note>
 					</li>
 					<li>(Optional) If you later want to rename the PDX types that are persisted to
 						disk, you can do so on your offline disk-stores by executing the <codeph>pdx

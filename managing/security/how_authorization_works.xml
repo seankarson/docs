@@ -22,8 +22,11 @@
 		<p>All client operations sent to the server can be authorized. The operations checked by the
 			server are listed in
 				<codeph>com.gemstone.gemfire.cache.operations.OperationContext.OperationCode</codeph>. </p>
-		<note><codeph>Region</codeph> query shortcut methods are all sent to the server as
-				<codeph>query</codeph> operations. </note>
+		<note>
+			<p><codeph>Region</codeph> query shortcut methods are all sent to the server as
+				<codeph>query</codeph> operations.
+			</p>
+		</note>
 		<p>All client operations that return a result (like <codeph>get</codeph> and
 				<codeph>query</codeph>) and all notifications can also be authorized in the
 			post-operation phase where the callback can peek and even modify the result being sent

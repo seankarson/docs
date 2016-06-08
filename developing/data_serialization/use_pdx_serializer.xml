@@ -16,9 +16,11 @@
 				<codeph>PdxSerializer</codeph> needs to own the
 				<codeph>ReflectionBasedAutoSerializer</codeph> and delegate to it. A Cache can only
 			have a single <codeph>PdxSerializer</codeph> instance. </p>
-			<note>The <codeph>PdxSerializer</codeph>
+			<note>
+				<p>The <codeph>PdxSerializer</codeph>
 				<codeph>toData</codeph> and <codeph>fromData</codeph> methods differ from those for
 					<codeph>PdxSerializable</codeph>. They have different parameters and results.
+				</p>
 			</note>
 		<p> </p>
 		<p>
@@ -64,13 +66,17 @@ Cache c = new CacheFactory
    .setPdxSerializer(new ExamplePdxSerializer())
    .create();</codeblock>
 						</li>
-					</ol><note>You cannot specify a custom <codeph>pdx-serializer</codeph> class
+					</ol>
+					<note>
+						<p>You cannot specify a custom <codeph>pdx-serializer</codeph> class
 						using gfsh, however the <cmdname>configure pdx</cmdname> command
 						automatically configures the
 							<apiname>com.gemstone.gemfire.pdx.ReflectionBasedAutoSerializer</apiname>
 						class. See <xref
 							href="../../tools_modules/gfsh/command-pages/configure.xml#topic_jdkdiqbgphqh"
-						/>.</note>
+						/>.
+						</p>
+					</note>
 				</li>
 				<li id="li_DE4C113670904EF0959410240C020940">Program
 						<codeph>PdxSerializer.toData</codeph> to recognize, cast, and handle your

@@ -17,9 +17,12 @@
 		<section id="section_9286E8C6B3C54089888E1680B4F43692">
 			<p>For each type of handler, <keyword keyref="product_name"/> provides a convenience class with empty stubs for
 				the interface callback methods. </p>
-			<note>Write-behind cache listeners are created by extending the
+			<note>
+				<p>Write-behind cache listeners are created by extending the
 					<codeph>AsyncEventListener</codeph> interface, and they are configured with an
-					<codeph>AsyncEventQueue</codeph> that you assign to one or more regions. </note>
+					<codeph>AsyncEventQueue</codeph> that you assign to one or more regions.
+				</p>
+			</note>
 			<p>
 				<b>Procedure</b></p>
 				<ol id="ol_9016EDE9E0B64AA4AA0182935A90660B">
@@ -40,14 +43,18 @@
 										<codeph>com.gemstone.gemfire.cache.Declarable</codeph>
 									interface as well. </li>
 								<li id="li_3C2CAC8BFF59485B9E39E17BA95B1611">Implement the handler's
-									callback methods as needed by your application. <note>Improperly
+									callback methods as needed by your application. 
+									<note>
+										<p>Improperly
 										programmed event handlers can block your distributed system.
 										Cache events are synchronous. To modify your cache or
 										perform distributed operations based on events, avoid
 										blocking your system by following the guidelines in <xref
 											scope="local"
 											href="writing_callbacks_that_modify_the_cache.xml#writing_callbacks_that_modify_the_cache"
-											type="concept" format="dita"/>. </note>
+											type="concept" format="dita"/>. 
+										</p>
+									</note>
 									<p> Example:</p>
 										<codeblock>package myPackage;
 import com.gemstone.gemfire.cache.Declarable;

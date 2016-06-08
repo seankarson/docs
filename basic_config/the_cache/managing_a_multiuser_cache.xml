@@ -62,9 +62,12 @@ RegionService regionService2 =
 			<p>Once each region is created, you can perform operations on it through the
 					<codeph>ClientCache</codeph> instance or the <codeph>RegionService</codeph>
 				instances, but not both. </p>
-			<note>You can use the <codeph>ClientCache</codeph> to create a region that uses a pool
+			<note>
+				<p>You can use the <codeph>ClientCache</codeph> to create a region that uses a pool
 				configured for multi-user authentication, then access and do work on the region
-				using your <codeph>RegionService</codeph> instances. </note>
+				using your <codeph>RegionService</codeph> instances.
+				</p>
+			</note>
 			<p>To use <codeph>RegionService</codeph>, regions must be configured as
 					<codeph>EMPTY</codeph>. Depending on your data access requirements, this
 				configuration might affect performance, because the client goes to the server for

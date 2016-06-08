@@ -19,9 +19,9 @@
           <codeph>cluster_config/cluster</codeph> directory.</li>
       <li>Rename the configuration files as follows:<ul
           id="ul_wdg_hjb_y4">
-          <li>Rename <filepath>cache.xml</filepath> to <filepath>cluster.xml</filepath></li>
-          <li>Rename <filepath>gemfire.properties</filepath> to
-              <filepath>cluster.properties</filepath></li>
+          <li>Rename <codeph>cache.xml</codeph> to <codeph>cluster.xml</codeph></li>
+          <li>Rename <codeph>gemfire.properties</codeph> to
+              <codeph>cluster.properties</codeph></li>
         </ul></li>
       <li>Start the locator in gfsh as
         follows:<codeblock>gfsh>start locator --name=&lt;locator_name> --enable-cluster-configuration=true --load-cluster-configuration-from-dir=true</codeblock>After
@@ -30,10 +30,13 @@
           <codeph>--use-cluster-configuration</codeph> set to true will pick up these configuration
         files.</li>
     </ol>
-      <note>If you make any manual modifications to the cluster.xml or cluster.properties (or
+      <note>
+        <p>If you make any manual modifications to the cluster.xml or cluster.properties (or
         group_name.xml or group_name.properties) files, you must stop the locator and then restart
         the locator using the <codeph>--load-cluster-configuration-from-dir</codeph> parameter.
         Direct file modifications are not picked up iby the cluster configuration service without a
-        locator restart.</note>
+        locator restart.
+        </p>
+      </note>
   </conbody>
 </concept>

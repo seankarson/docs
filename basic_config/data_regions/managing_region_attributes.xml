@@ -56,9 +56,12 @@ Region&lt;String, String&gt; region =
 			<title>Modify Region Attributes </title>
 			<p>You can modify a region’s event handlers and expiration and eviction attributes after
 				the region is created. </p>
-			<note>Do not modify attributes for existing regions unless
+			<note>
+				<p>Do not modify attributes for existing regions unless
 					absolutely necessary. Creating the attributes you need at region creation is
-					more efficient. </note>
+					more efficient. 
+				</p>
+			</note>
 			<p>Modify attributes in one of these ways:</p>
 				<ul id="ul_DAF86055FF714E61939969125150D087">
 					<li id="li_119B3FEAB1614C1EBE30DE51331AC0C7">By loading a

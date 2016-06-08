@@ -10,11 +10,14 @@
 			<p><keyword keyref="product_name"/> clients are processes that send most or all of their
 				data requests and updates to a <keyword keyref="product_name"/> server system.
 				Clients run as standalone processes, without peers of their own. </p>
-				<note><keyword keyref="product_name"/> automatically configures the distributed
+				<note>
+					<p><keyword keyref="product_name"/> automatically configures the distributed
 					system for your <codeph>ClientCache</codeph> as standalone, which means the
 					client has no peers. Do not try to set the <codeph>gemfire.properties</codeph>
 					<codeph>mcast-port</codeph> or <codeph>locators</codeph> for a client
-					application or the system will throw an exception. </note>
+					application or the system will throw an exception.
+					</p>
+				</note>
 			<ol id="ol_2A5E8F0BC4944C5F8A02D410D340E602">
 				<li id="li_8918816ED61A4A328EF9AE2B4418ECA8">Create your client cache: <ol
 						id="ol_31BABBFDA92140558F264C1F85610BD1">
@@ -32,7 +35,8 @@
 	&lt;/pool&gt;
 	&lt;region name="exampleRegion" refid="PROXY"/&gt;
 &lt;/client-cache&gt;</codeblock>
-							<note>Applications that use a <codeph>client-cache</codeph> may want to
+							<note>
+								<p>Applications that use a <codeph>client-cache</codeph> may want to
 								set <codeph>concurrency-checks-enabled</codeph> to false for a
 								region in order to see all events for that region. <keyword
 									keyref="product_name"/> server members can continue using
@@ -41,7 +45,9 @@
 								events, but it does not prevent the client cache region from
 								becoming out-of-sync with the server cache. See <xref
 									href="../../developing/distributed_regions/region_entry_versions.xml#topic_CF2798D3E12647F182C2CEC4A46E2045"
-									type="topic" format="dita" scope="local"/>. </note>
+									type="topic" format="dita" scope="local"/>. 
+								</p>
+							</note>
 						</li>
 						<li id="li_09CA2B56A1FA4390BC59132EC15438AF">If you use multiple server
 							pools, configure the pool name explicitly for each client region.

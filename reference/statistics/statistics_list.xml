@@ -6166,7 +6166,10 @@
 			</p>
 			<p>These statistics track the standard region operations executed in the member.
 				Operations can originate locally or in a request from a remote member.</p>
-			<note>Unsuccessful operations are not counted in these statistics. </note>
+			<note>
+				<p>Unsuccessful operations are not counted in these statistics. 
+				</p>
+			</note>
 			<p>The
 				primary statistics are: </p>
 				<table id="table_6085B0B4FBEB4DE99BB6B47E9753FAA5">
@@ -6409,8 +6412,11 @@
 			<section>
 				<title>Partitioned Region Statistics on Partition Messages</title>
 			</section>
-				<note>Unsuccessful operations and local operations—those that originated in this
-					member—are not counted in these statistics. </note>
+				<note>
+					<p>Unsuccessful operations and local operations—those that originated in this
+					member—are not counted in these statistics. 
+					</p>
+				</note>
 			<p>The primary statistics are:</p> 
 				<table id="table_57D74E101F364700B557F0D55C79A002">
 					<tgroup cols="2">
@@ -6585,9 +6591,13 @@
 									This value may drop when a data store is lost or rise when a
 									data store is added. This value may drop temporarily during
 									partitioned region creation or destruction and then rise again.
-										<note>If this value remains low, then partitioned region
+										<note>
+											<p>If this value remains low, then partitioned region
 										data is at risk and may be lost if another data store is
-										lost. </note>A healthy partitioned region will maintain a
+										lost.
+											</p>
+										</note>
+									A healthy partitioned region will maintain a
 									value equal to configuredRedundantCopies. The user should add
 									one or more data stores if the value remains low.
 									High-availability may result in a brief fluctuation, but it
@@ -6614,9 +6624,14 @@
 									This value may rise above zero when a data store is lost and
 									return to zero when one or more data stores are added. This
 									value may rise temporarily during partitioned region creation or
-									destruction and then return to zero. <note>If this value remains
+									destruction and then return to zero. 
+									<note>
+										<p>If this value remains
 										above zero, then partitioned region data is at risk and may
-										be lost if another data store is lost. </note>This value
+										be lost if another data store is lost. 
+										</p>
+									</note>
+									This value
 									will be above zero whenever actualRedundantCopies is less than
 									configuredRedundantCopies. A healthy partitioned region will
 									maintain a value of zero. The user should add one or more

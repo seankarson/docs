@@ -21,14 +21,17 @@
 				leftmost member within the view to act as the coordinator, if the coordinator is the
 				suspect member.</p>
 			<p>Failure detection processing is also initiated on a member if the
-					<filepath>gemfire.properties</filepath>
+					<codeph>gemfire.properties</codeph>
 				<codeph>ack-wait-threshold</codeph> elapses before receiving a response to a
 				message, if a TCP/IP connection cannot be made to the member for peer-to-peer (P2P)
 				messaging, and if no other traffic is detected from the member. </p>
-			<note>The TCP connection ping is not used for connection keep alive purposes; it is only
+			<note>
+				<p>The TCP connection ping is not used for connection keep alive purposes; it is only
 				used to detect failed members. See <xref
 					href="../../managing/monitor_tune/socket_tcp_keepalive.xml#topic_jvc_pw3_34"/>
-				for TCP keep alive configuration.</note>
+				for TCP keep alive configuration.
+				</p>
+			</note>
 			<p> If a new membership view is sent out that includes one or more failed members, the
 				coordinator will log new quorum weight calculations. At any point, if quorum loss is
 				detected due to unresponsive processes, the coordinator will also log a severe level

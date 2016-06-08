@@ -30,10 +30,15 @@
 				queues with persistent regions is not supported.</p><p>When you enable persistence
 				for a queue, the <codeph>maximum-queue-memory</codeph> attribute determines how much
 				memory the queue can consume before it overflows to disk. By default, this value is
-				set to 100MB. </p><note>If you configure a parallel queue and/or you configure
+				set to 100MB. </p>
+			<note>
+				<p>If you configure a parallel queue and/or you configure
 				multiple dispatcher threads for a queue, the values that are defined in the
 					<codeph>maximum-queue-memory</codeph> and <codeph>disk-store-name</codeph>
-				attributes apply to each instance of the queue. </note><p>In the example below the
+				attributes apply to each instance of the queue. 
+				</p>
+			</note>
+			<p>In the example below the
 				gateway sender queue uses "diskStoreA" for persistence and overflow, and the queue
 				has a maximum queue memory of 100MB: </p>
 				<ul id="ul_7E1869577DD24D1D9C714C2A474C539C">

@@ -950,6 +950,8 @@
 								<p
 									id="p_idr_jc1_nk">
 									<parmname>Eviction Attributes</parmname>
+								</p>
+								<p>
 									<simpletable
 										frame="none"
 										id="simpletable_czl_hws_mk">
@@ -965,7 +967,8 @@
 										<stentry>eviction-action:</stentry>
 										<stentry>
 										<userinput>local-destroy</userinput>
-											<note>Normally,
+											<note>
+												<p>Normally,
 										you cannot have a
 										<codeph>local-destroy</codeph> eviction
 										policy on replicated regions. However,
@@ -973,7 +976,9 @@
 										same as other replicated regions. This
 										region is preloaded and remains in synch
 										by registering interest in the keys of
-										its peer's replicated regions.</note>
+										its peer's replicated regions.
+												</p>
+											</note>
 										</stentry>
 										</strow>
 									</simpletable>
@@ -989,7 +994,7 @@
 										</stentry>
 										</strow>
 									</simpletable>
-								</p>								
+								</p>
 							</entry>
 						</row>
 						<row>

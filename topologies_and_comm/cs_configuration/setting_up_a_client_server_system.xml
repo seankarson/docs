@@ -74,7 +74,9 @@
 						<cmd>Configure your server regions as partitioned or replicated, to provide
 							a coherent cache view of server data to all clients. </cmd>
 						<info>
-							<note>If you do not configure your server regions as partitioned or
+							<note>
+								<p>
+									If you do not configure your server regions as partitioned or
 								replicated, you can get unexpected results with calls that check
 								server region contents, such as <codeph>keySetOnServer</codeph> and
 									<codeph>containsKeyOnServer</codeph>. You might get only partial
@@ -82,7 +84,9 @@
 								consecutive calls. These results occur because the servers report
 								only on their local cache content and, without partitioned or
 								replicated regions, they might not have a complete view of the data
-								in their local caches. </note>
+								in their local caches.
+								</p>
+							</note>
 						</info>
 					</substep>
 					<substep id="substep_658B8AA9E90E46AEBC2D092C92DAE252">

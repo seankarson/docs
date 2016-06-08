@@ -43,9 +43,12 @@
 				During the transaction, cache operations are done through <keyword
 					keyref="product_name"/> as usual as described in <xref
 					href="cache_transactions.xml#topic_e15_mr3_5k"/>. </p>
-				<note>See the Sun documentation for more information on topics such as JTA,
+				<note>
+					<p>See the Sun documentation for more information on topics such as JTA,
 						<codeph>javax.transaction</codeph>, committing and rolling back global
-					transactions, and the related exceptions. </note>
+					transactions, and the related exceptions. 
+					</p>
+				</note>
 		</body>
 	</topic>
 	<concept id="concept_cp1_zx1_wk">
@@ -104,7 +107,7 @@
 				</step>
 				<step id="step_149E900FC9D0410394E47C3DB4A6E197">
 					<cmd>Configure <keyword keyref="product_name"/> for any necessary transactional behavior in the
-							<filepath>cache.xml</filepath> file. For example, enable
+							<codeph>cache.xml</codeph> file. For example, enable
 							<codeph>copy-on-read</codeph> and specify a transaction listener, as
 						needed. See <xref href="working_with_transactions.xml#concept_vx2_gs4_5k"/>
 						and <xref href="working_with_transactions.xml#concept_ocw_vf1_wk"/> for
@@ -189,7 +192,7 @@
 							</info>
 						</substep>
 						<substep>
-							<cmd>Create a folder named <filepath>META-INF</filepath>, and place the container-specific
+							<cmd>Create a folder named <codeph>META-INF</codeph>, and place the container-specific
 								XML file inside the directory. For example, the folder structure
 								would look like this:</cmd>
 							<info>
@@ -197,7 +200,7 @@
 							</info>
 						</substep>
 						<substep>
-							<cmd>Navigate to the directory above the <filepath>META-INF</filepath> folder and execute the
+							<cmd>Navigate to the directory above the <codeph>META-INF</codeph> folder and execute the
 								following command:</cmd>
 							<info>
 								<codeblock>$ jar -uf &lt;GEMFIRE_INSTALL_DIR>/lib/gemfire-jca.rar META-INF/weblogic-ra.xml</codeblock>
@@ -307,7 +310,7 @@ GFConnection gemfireConn = (GFConnection)cf.getConnection();</codeblock>
 			</context>
 			<steps id="steps_b32_135_1l">
 				<step id="step_C4BC4E1FFE7F45ACADE90ACD246FD56F">
-					<cmd>Configure the external data sources in the <filepath>cache.xml</filepath> file. See <xref
+					<cmd>Configure the external data sources in the <codeph>cache.xml</codeph> file. See <xref
 							href="configuring_db_connections_using_JNDI.xml#topic_A5E3A67C808D48C08E1F0DC167C5C494"
 						/> for examples. </cmd>
 				</step>
@@ -323,7 +326,7 @@ GFConnection gemfireConn = (GFConnection)cf.getConnection();</codeblock>
 					</cmd>
 				</step>
 				<step id="step_9238FE92E6AF4476B568134033CA62F5">
-					<cmd>Make sure that JTA transactions are not disabled in the <filepath>cache.xml</filepath>
+					<cmd>Make sure that JTA transactions are not disabled in the <codeph>cache.xml</codeph>
 						file or the application code. </cmd>
 				</step>
 				<step id="step_118A17B4BD904A34A14FFFFE7B6E3721">
