@@ -244,10 +244,15 @@ AsyncEventQueue asyncQueue = factory.create("sampleQueue", listener);</codeblock
 						API to configure your <codeph>AsyncEventQueue</codeph>, repeat the above
 						configuration in each <keyword keyref="product_name"/> member that will host
 						the region. Use the same ID and configuration settings for each queue
-						configuration. <note>You can ensure other members use the sample
+						configuration.
+						<note>
+							<p>You can ensure other members use the sample
 							configuration by using the cluster configuration service available in
 							gfsh. See <xref href="../../configuring/cluster_config/gfsh_persist.xml"
-							/>.</note></li>
+							/>.
+							</p>
+						</note>
+					</li>
 					<li id="li_9094768B70D140D5A031B3125710FF52">
 						<p>On each <keyword keyref="product_name"/> member that hosts the
 								<codeph>AsyncEventQueue</codeph>, assign the queue to each region
@@ -288,10 +293,15 @@ mutator.addAsyncEventQueueId("sampleQueue");		</codeblock>
 								documentation</xref> for more information. </p>
 					</li>
 					<li id="li_CB05E4746BCA4EEB9BD3AC87925F32F8">Optionally configure persistence
-						and conflation for the queue. <note>You must configure your AsyncEventQueue
+						and conflation for the queue.
+						<note>
+							<p>You must configure your AsyncEventQueue
 							to be persistent if you are using persistent data regions. Using a
 							non-persistent queue with a persistent region is not
-						supported.</note></li>
+						supported.
+							</p>
+						</note>
+					</li>
 					<li>Optionally configure multiple dispatcher threads and the ordering policy for
 						the queue using the instructions in <xref
 							href="configuring_gateway_concurrency_levels.xml" type="concept"

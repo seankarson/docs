@@ -200,12 +200,13 @@ Running on: /10.118.33.250, 8 cpu(s), x86_64 Mac OS X 10.11.4</codeblock>
 			<p>For client-server topologies, the local client cache must be empty. Ensure that the
 				filter property <codeph>gemfire.cache.enable_local_cache=false</codeph> is set. This
 				effectively sets the local client cache to be a <b>PROXY</b> cache. </p>
-			<p>
-				<note>Non-sticky sessions affect performance because sessions need to be re-created
+				<note>
+					<p>Non-sticky sessions affect performance because sessions need to be re-created
 					every time a request hits a different server. This may not be noticeable when
 					the session attributes are small, but may become more evident as the session
-					attributes increase in size and/or number. </note>
-			</p>
+					attributes increase in size and/or number.
+					</p>
+				</note>
 		</section>
 	</conbody>
 </concept>

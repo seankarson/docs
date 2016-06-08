@@ -62,8 +62,8 @@ CacheServer cacheServer = cache.addCacheServer();
 cacheServer.setPort(41414); 
 cacheServer.setMaximumMessageCount(50000); 
 cacheServer.start(); </codeblock>
-								<p>
-									<note>With this setting, one slow client can slow the server and
+									<note>
+										<p>With this setting, one slow client can slow the server and
 										all of its other clients because this blocks the threads
 										that write to the queues. All operations that add messages
 										to the queue block until the queue size drops to an
@@ -73,8 +73,9 @@ cacheServer.start(); </codeblock>
 										blocked until their event messages can be added to the
 										queue. If you are using this option and see stalling on your
 										server region operations, your queue capacity might be too
-										low for your application behavior. </note>
-								</p>
+										low for your application behavior.
+										</p>
+									</note>
 							</li>
 						</ul>
 					</li>

@@ -16,11 +16,12 @@
 				types. See <xref
 					href="extending_the_autoserializer.xml#concept_9E020566EE794A81A48A90BA798EC279"
 					type="concept" format="dita" scope="local"/> for details. </p>
-			<p>
-				<note>Your custom PDX autoserializable classes cannot use the
+				<note>
+					<p>Your custom PDX autoserializable classes cannot use the
 						<codeph>com.gemstone</codeph> package. If they do, the classes will be
-					ignored by the PDX auto serializer. </note>
-			</p>
+					ignored by the PDX auto serializer.
+					</p>
+				</note>
 		</section>
 		<section id="section_C69046B44729454F8CD464B0289EFDD8">
 			<p>
@@ -141,14 +142,15 @@ Cache c = new CacheFactory()
 			<p>For each domain class you provide, all fields are considered for serialization except
 				those defined as <codeph>static</codeph> or <codeph>transient</codeph> and those you
 				explicitly exclude using the class pattern strings. </p>
-			<p>
-				<note>The <codeph>ReflectionBasedAutoSerializer</codeph> traverses the given domain
+				<note>
+					<p>The <codeph>ReflectionBasedAutoSerializer</codeph> traverses the given domain
 					object's class hierarchy to retrieve all fields to be considered for
 					serialization. So if <codeph>DomainObjectB</codeph> inherits from
 						<codeph>DomainObjectA</codeph>, you only need to register
 						<codeph>DomainObjectB</codeph> to have all of <codeph>DomainObjectB</codeph>
-					serialized. </note>
-			</p>
+					serialized.
+					</p>
+				</note>
 		</section>
 	</conbody>
 </concept>

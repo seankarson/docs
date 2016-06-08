@@ -9,7 +9,10 @@
    when you add a new gateway receiver node at a remote site, execute this command so that the new
    gateway receiver can pick up connections from the specified gateway sender. Invoking this command
    redistributes a sender's connections more evenly among all the gateway receivers.</p>
-  <note>This command has no effect on ping connections. </note>
+  <note>
+   <p>This command has no effect on ping connections. 
+   </p>
+  </note>
   <p><b>Availability:</b> Online. You must be connected in <codeph>gfsh</codeph> to a JMX Manager
    member to use this command. </p>
   <p><b>Syntax:</b>

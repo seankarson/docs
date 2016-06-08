@@ -22,15 +22,16 @@
 				</ol>
 			<p>For efficiency, when starting multiple members, trigger the rebalance a single time,
 				after you have added all members. </p>
-			<p>
-				<note> If you have transactions running in your system, be careful in planning your
+				<note>
+					<p>If you have transactions running in your system, be careful in planning your
 					rebalancing operations. Rebalancing may move data between members, which could
 					cause a running transaction to fail with a TransactionDataRebalancedException.
 					Fixed custom partitioning prevents rebalancing altogether. All other data
 					partitioning strategies allow rebalancing and can result in this exception
 					unless you run your transactions and your rebalancing operations at different
-					times. </note>
-			</p>
+					times. 
+					</p>
+				</note>
 			<p>Kick off a rebalance using one of the following: </p>
 				<ul
 					id="ul_24D520AEB104495FB2B1F23404EB02E7">
@@ -124,13 +125,14 @@ System.out.println(" and create " + results.getTotalBucketCreatesCompleted() + "
 			<p>You can simulate the rebalance operation before moving any actual data around by
 				executing the <codeph>rebalance</codeph> command with the following option:</p>
 				<codeblock>gfsh&gt;rebalance --simulate</codeblock>
-			<p>
-				<note>If you are using <codeph>heap_lru</codeph> for data eviction, you may notice a
+				<note>
+					<p>If you are using <codeph>heap_lru</codeph> for data eviction, you may notice a
 					difference between your simulated results and your actual rebalancing results.
 					This discrepancy can be due to the VM starting to evict entries after you
 					execute the simulation. Then when you perform an actual rebalance operation, the
-					operation will make different decisions based on the newer heap size. </note>
-			</p>
+					operation will make different decisions based on the newer heap size. 
+					</p>
+				</note>
 			<p> </p>
 		</section>
 	</conbody>

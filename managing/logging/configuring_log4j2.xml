@@ -6,7 +6,7 @@
     gemfire.properties file. This topic is intended for advanced users who need increased control
     over logging due to integration with third-party libraries. </shortdesc>
   <conbody>
-    <p>The default <filepath>log4j2.xml</filepath> that <keyword keyref="product_name"/> uses is
+    <p>The default <codeph>log4j2.xml</codeph> that <keyword keyref="product_name"/> uses is
       stored in <keyword keyref="product_jar"/> as <codeph>log4j2-default.xml</codeph>. The contents
       of the configuration can be viewed in the product distribution in the following location:
         <codeph>$GEMFIRE/defaultConfigs/log4j2.xml</codeph>. </p>
@@ -48,10 +48,13 @@
           scope="external">http://logging.apache.org/log4j/2.x/download.html</xref>. Download the
         appropriate bridge, adapter, or binding JARs to ensure that <keyword keyref="product_name"/>
         logging is integrated with every logging API used in various third-party libraries or in
-        your own applications.<note><keyword keyref="product_name_long"/> has been tested with Log4j
+        your own applications.</p>
+      <note>
+        <p><keyword keyref="product_name_long"/> has been tested with Log4j
           2.1. As newer versions of Log4j 2 come out, you can find 2.1 under Previous Releases on
-          that page. </note>
-      </p>
+          that page. 
+        </p>
+      </note>
     </section>
     <section>
       <title>Customizing Your Own log4j2.xml File</title>
@@ -65,7 +68,7 @@
           can have significant performance impact. This setting instructs Log4j 2 to monitor the
           log4j2.xml config file at runtime and automatically reload and reconfigure if the file
           changes. </li>
-        <li><keyword keyref="product_name"/>'s default <filepath>log4j2.xml</filepath> specifies
+        <li><keyword keyref="product_name"/>'s default <codeph>log4j2.xml</codeph> specifies
           status="FATAL" because Log4j 2's StatusLogger generates warnings to standard out at ERROR
           level anytime <keyword keyref="product_name"/> stops its AlertAppender or
           LogWriterAppender. <keyword keyref="product_name"/> uses a lot of concurrent threads that
@@ -85,7 +88,7 @@
           enabled simply by enabling DEBUG or TRACE. However, even more log statements can be
           further enabled by using MarkerFilter to accept GEMFIRE_VERBOSE. The default <keyword
             keyref="product_name"/>
-          <filepath>log4j2.xml</filepath> disables GEMFIRE_VERBOSE with this line:
+          <codeph>log4j2.xml</codeph> disables GEMFIRE_VERBOSE with this line:
           <codeblock>&lt;MarkerFilter marker="GEMFIRE_VERBOSE" onMatch="DENY" onMismatch="NEUTRAL"/> </codeblock>You
           can enable the GEMFIRE_VERBOSE log statements by changing <codeph>onMatch="DENY"</codeph>
           to <codeph>onMatch="ACCEPT"</codeph>. Typically, it's more useful to simply enable DEBUG

@@ -11,7 +11,7 @@
     <conbody>
       <p>As many entry operations return a reference to the cache entry, copy-on-read avoids
         problems within a  transaction setting. To enable global copy-on-read for all reads, modify
-        the <filepath>cache.xml</filepath> file or use the corresponding Java API call.</p>
+        the <codeph>cache.xml</codeph> file or use the corresponding Java API call.</p>
       <p>Using cache.xml:</p>
         <codeblock>&lt;cache lock-lease="120" lock-timeout="60" search-timeout="300" <b>copy-on-read="true"</b>></codeblock>
       <p>API:</p>
@@ -114,7 +114,7 @@ cTxMgr.commit();</codeblock>
                 <li>Choose an instance of the region to drive region-wide expiration. Use a
                   replicated region, if there is one.</li>
                 <li>Configure distributed expiration only in that region instance. The expiration
-                  action must be either invalidate or destroy. In a <filepath>cache.xml</filepath>
+                  action must be either invalidate or destroy. In a <codeph>cache.xml</codeph>
                   file declaration, use a line similar to
                   this:<codeblock>&lt;expiration-attributes timeout="300" <b>action="destroy"</b> /></codeblock></li>
                 <li>Run the transactions from the member in which expiration is configured.</li>
@@ -221,8 +221,12 @@ cTxMgr.commit();</codeblock>
         JTA global transactions when <keyword keyref="product_name"/> is running as a peer data
         store with your external data stores. Transaction writers and listeners are typically used
         when <keyword keyref="product_name"/> is acting as a front end cache to your backend
-          database.<note>You can also use transaction plug-in event handlers when running JTA global
-          transactions. </note></p>
+          database.</p>
+      <note>
+        <p>You can also use transaction plug-in event handlers when running JTA global
+          transactions.
+        </p>
+      </note>
       <section>
         <title>TransactionWriter</title>
         <p>When you commit a transaction, if a transaction writer is installed in the cache where
@@ -268,10 +272,11 @@ cTxMgr.commit();</codeblock>
             <codeph>transaction-listener</codeph> there. The only parameter to this
             <codeph>transaction-listener</codeph> is <codeph>URL</codeph>, which must be a string,
           as shown in the following cache.xml example.</p>
-        <p>
-          <note>The <codeph>cache-transaction-manager</codeph> allows listeners to be established.
-            This attribute does not install a different transaction manager.</note>
-        </p>
+          <note>
+            <p>The <codeph>cache-transaction-manager</codeph> allows listeners to be established.
+            This attribute does not install a different transaction manager.
+            </p>
+          </note>
         <p>Using
           cache.xml:</p>
         <codeblock>&lt;cache search-timeout="60">

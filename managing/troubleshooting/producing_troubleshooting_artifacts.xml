@@ -31,11 +31,12 @@
 			likely cause. When you diagnose a problem, create a log file for each member of all the
 			distributed systems involved. If you are running a client/server architecture, create
 			log files for the clients. </p>
-		<p>
-			<note>You must run a time synchronization service on all hosts for troubleshooting.
+			<note>
+				<p>You must run a time synchronization service on all hosts for troubleshooting.
 				Synchronized time stamps ensure that log messages on different hosts can be merged
-				to accurately reproduce a chronological history of a distributed run. </note>
-		</p>
+				to accurately reproduce a chronological history of a distributed run.
+				</p>
+			</note>
 		<p>For each process, complete these steps: </p>
 			<ol id="ol_D36655ABBE484FF7ABEBA078B0B53D94">
 				<li id="li_AB1E0E68E42F4423AB9508D703A7A9D8">Make sure the host’s clock is
@@ -47,16 +48,26 @@
 				<li id="li_3F0F358655F04151BB1D6645F7D7D706">Keep the log level at
 						<codeph>config</codeph> to avoid filling up the disk while including
 					configuration information. Add this line to <codeph>gemfire.properties</codeph>:
-						<codeblock>log-level=config</codeblock><note>Running with the log level at
+						<codeblock>log-level=config</codeblock>
+					<note>
+						<p>Running with the log level at
 							<codeph>fine</codeph> can impact system performance and fill up your
-						disk. </note></li>
+						disk. 
+						</p>
+					</note>
+				</li>
 				<li>Enable statistics gathering for the distributed system either by modifying
 						<codeph>gemfire.properties</codeph>:<codeblock>statistic-sampling-enabled=true
 statistic-archive-file=StatisticsArchiveFile.gfs</codeblock>
 					or by using the <codeph>gfsh alter rutime</codeph>
-						command:<codeblock>alter runtime --group=myMemberGroup --enable-statistics=true --statistic-archive-file=StatisticsArchiveFile.gfs</codeblock><note>Collecting
+						command:<codeblock>alter runtime --group=myMemberGroup --enable-statistics=true --statistic-archive-file=StatisticsArchiveFile.gfs</codeblock>
+					<note>
+						<p>Collecting
 						statistics at the default sample rate frequency of 1000 milliseconds does
-						not incur performance overhead. </note></li>
+						not incur performance overhead.
+						</p>
+					</note>
+				</li>
 				<li id="li_A1F5F8EC8D5C4F3183E2997E1B5804F9">Run the application again. </li>
 				<li id="li_01F683C8C68D462783F940004E168222">Examine the log files. To get the
 					clearest picture, merge the files. To find all the errors in the log file,

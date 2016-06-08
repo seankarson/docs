@@ -4,20 +4,24 @@
 	<title>Executing gfsh Commands through the Management API</title>
 	<shortdesc>You can also use management APIs to execute gfsh commands programmatically. </shortdesc>
 	<conbody>
-		<p>
-			<note>If you start the JMX Manager programmatically and wish to enable command
+			<note>
+				<p>If you start the JMX Manager programmatically and wish to enable command
 				processing, you must also add the absolute path of
 					<codeph>gfsh-dependencies.jar</codeph> (located in <codeph>$GEMFIRE/lib</codeph>
 				of your <keyword keyref="product_name"/> installation) to the CLASSPATH of your
 				application. Do not copy this library to your CLASSPATH because this library refers
 				to other dependencies in <codeph>$GEMFIRE/lib</codeph> by a relative path. The
 				following code samples demonstrate how to process and execute <codeph>gfsh</codeph>
-				commands using the Java API. </note>
-		</p>
-		<p/>
-		<p>First, retrieve a CommandService instance.<note>The CommandService API is currently only
+				commands using the Java API. 
+				</p>
+			</note>
+		<p>First, retrieve a CommandService instance.</p>
+		<note>
+			<p>The CommandService API is currently only
 				available on JMX Manager
-				nodes.</note></p>
+				nodes.
+			</p>
+		</note>
 		<codeblock outputclass="language-java"> 
 // Get existing CommandService instance or create new if it doesn't exist
 commandService = CommandService.createLocalCommandService(cache);

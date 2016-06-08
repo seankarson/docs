@@ -15,14 +15,20 @@
 					<codeph>gemfire.properties</codeph> file, but you may need to provide properties
 				through other means, for example, to pass in security properties for username and
 				password that you have received from keyboard input. </p>
-			<note>Check with your <keyword keyref="product_name"/> system administrator before
+			<note>
+				<p>Check with your <keyword keyref="product_name"/> system administrator before
 				changing properties through the API, including the
 					<codeph>gemfire.properties</codeph> and <codeph>gfsecurity.properties</codeph>
 				settings. The system administrator may need to set properties at the command line or
 				in configuration files. Any change made through the API overrides those other
-				settings. </note>
-			<note>The product <codeph>defaultConfigs</codeph> directory has a sample
-					<codeph>gemfire.properties</codeph> file with all default settings. </note>
+				settings. 
+				</p>
+			</note>
+			<note>
+				<p>The product <codeph>defaultConfigs</codeph> directory has a sample
+					<codeph>gemfire.properties</codeph> file with all default settings. 
+				</p>
+			</note>
 			<p>Set distributed system properties by any combination of the following. The system
 				looks for the settings in the order listed:</p>
 				<ol

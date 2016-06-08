@@ -118,7 +118,10 @@
 					region events to place them into a distinct queue. This provides a level of
 					scalability for distributed regions that is similar to that provided for
 					partitioned regions. </p>
-				<note>Replicated regions cannot use a parallel gateway sender. </note>
+				<note>
+					<p>Replicated regions cannot use a parallel gateway sender. 
+					</p>
+				</note>
 				<p>Although parallel gateway senders provide the best throughput for WAN distribution, they
 					provide less control for ordering events. With a parallel gateway sender, you
 					cannot preserve event ordering for the region as a whole because multiple
@@ -181,11 +184,12 @@
 					system property when starting the server member in <codeph>gfsh</codeph>. If the
 					Java system property is set to -1, then the gateway sender process will wait
 					until all events are dispatched from the queue before stopping.</p>
-				<p>
-					<note>Use extreme caution when stopping parallel gateway senders by using the
+					<note>
+						<p>Use extreme caution when stopping parallel gateway senders by using the
 							<codeph>GatewaySender.stop()</codeph> API or <codeph>gfsh stop
-							gateway-sender</codeph> command. </note>
-				</p>
+							gateway-sender</codeph> command.
+						</p>
+					</note>
 				<p>The API and gfsh command stops the parallel gateway sender in one member, which
 					causes data loss because events to buckets in that member will be dropped by the
 					stopped sender. The partitioned region does not failover in this scenario since

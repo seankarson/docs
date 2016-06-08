@@ -14,16 +14,17 @@
 				to see each other. The typical cause of this problem is a failure in the network.
 				When a partitioned system is detected, <keyword keyref="product_name_long"/> only
 				one side of the system keeps running and the other side automatically shuts down. </p>
-			<p>
-				<note>The network partitioning detection feature is only enabled when
+				<note>
+					<p>The network partitioning detection feature is only enabled when
 						<codeph>enable-network-partition-detection</codeph> is set to true in
-						<filepath>gemfire.properties</filepath>. By default, this property is set to
+						<codeph>gemfire.properties</codeph>. By default, this property is set to
 					false. See <xref
 						href="handling_network_partitioning.xml#handling_network_partitioning"
 						type="concept" format="dita" scope="local"/> for details. Quorum weight
 					calculations are always performed and logged regardless of this configuration
-					setting. </note>
-			</p>
+					setting.
+					</p>
+				</note>
 			<p>The overall process for detecting a network partition is as follows: </p>
 			<ol id="ol_7C171480785D4371BA8B7990E4A2E696">
 				<li id="li_41DC31ADA0F748F4B7D6DA5328949A9D">The distributed system starts up. When you start up

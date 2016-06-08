@@ -44,10 +44,14 @@
 						<codeph>scope</codeph>. The region configurations provided in the region
 						shortcut settings use <codeph>DISTRIBUTED_ACK</codeph> scope. This setting
 						prevents operations from performed throughout the distributed system before
-						a network partition is detected. <note>GemFire issues an alert if it detects
+						a network partition is detected.
+						<note>
+							<p>GemFire issues an alert if it detects
 							distributed-no-ack regions when network partition detection is enabled:
+							</p>
 							<codeblock>Region {0} is being created with scope {1} but enable-network-partition-detection is enabled in the distributed system. 
-This can lead to cache inconsistencies if there is a network failure.</codeblock>
+This can lead to cache inconsistencies if there is a network failure.
+							</codeblock>
 						</note>
 					</li>
 					<li id="li_413E2A707E874315B675816B75DDE198">These other configuration

@@ -24,14 +24,17 @@
 		<section
 			id="section_E20B4A8A98FD4EDAAA8C14B8059AA7F7">
 			<title>Implementing a GatewayConflictResolver</title>
-			<note>A <codeph>GatewayConflictResolver</codeph> implementation is
+			<note>
+				<p>A <codeph>GatewayConflictResolver</codeph> implementation is
 				called only for update events that could cause a conflict in the
 				region. This corresponds to update events that have a different
 				distributed system ID than the distributed system that last
 				updated the region entry. If the same distributed system ID
 				makes consecutive updates to a region entry, no conflict is
 				possible, and the <codeph>GatewayConflictResolver</codeph> is
-				not called. </note>
+				not called. 
+				</p>
+			</note>
 			<p>
 				<b>Procedure</b></p>
 				<ol
@@ -72,13 +75,14 @@
       helper.changeEventValue(oldCart);
     }
   }</codeblock>
-								<p>
-									<note>In order to maintain consistency in
+									<note>
+										<p>In order to maintain consistency in
 										the region, your conflict resolver must
 										always resolve two events in the same
 										way regardless of which event it
-										receives first. </note>
-								</p>
+										receives first.
+										</p>
+									</note>
 							</li>
 						</ol>
 					</li>

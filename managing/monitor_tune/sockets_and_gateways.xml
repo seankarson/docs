@@ -69,12 +69,13 @@
  socket-buffer-size="42000"/&gt;  </codeblock>
 					</li>
 			</ul>
-		<p>
-			<note> WAN deployments increase the messaging demands on a <keyword
+			<note>
+				<p>WAN deployments increase the messaging demands on a <keyword
 					keyref="product_name"/> system. To avoid hangs related to WAN messaging, always
 				set <codeph>conserve-sockets=false</codeph> for GemFire members that participate in
-				a WAN deployment. </note>
-		</p>
+				a WAN deployment.
+				</p>
+			</note>
 		<section id="section_4A7C60D4471A4339884AA5AAC97B4DAA">
 			<title>Multi-site (WAN) Socket Requirements </title>
 			<p>Each gateway sender and gateway receiver uses a socket to distribute events or to
