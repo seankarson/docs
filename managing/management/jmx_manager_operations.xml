@@ -15,9 +15,12 @@
 				node to become a JMX Manager node passively; if gfsh cannot locate a JMX Manager
 				when connecting to the distributed system, the server node will be started as a JMX
 				Manager node. </p>
-			<note>The default property setting for all locators is
+			<note>
+				<p>The default property setting for all locators is
 					<codeph>gemfire.jmx-manager=true</codeph>. For other members, the default
-				property setting is <codeph>gemfire.jmx-manager=false</codeph>. </note>
+				property setting is <codeph>gemfire.jmx-manager=false</codeph>. 
+				</p>
+			</note>
 			<p>To force a server to become a JMX Manager node whenever it is started, set the
 					<keyword keyref="product_name"/> properties
 					<codeph>jmx-manager-start=true</codeph> and <codeph>jmx-manager=true</codeph> in
@@ -100,13 +103,17 @@ Cluster configuration service is up and running.
 				MemberMXBean isManager() method. </p>
 			<p>Using the Java API, any managed node that has been configured with
 					<codeph>jmx-manager=true</codeph> can also be turned into a JMX Manager Node by
-				invoking the ManagementService startManager() method. <note>If you start the JMX
+				invoking the ManagementService startManager() method.</p>
+			<note>
+				<p>If you start the JMX
 					Manager programmatically and wish to enable command processing, you must also
 					add the absolute path of <codeph>gfsh-dependencies.jar</codeph> (located in
 						<codeph>$GEMFIRE/lib</codeph> of your <keyword keyref="product_name"/>
 					installation) to the CLASSPATH of your application. Do not copy this library to
 					your CLASSPATH because this library refers to other dependencies in
-						<codeph>$GEMFIRE/lib</codeph> by a relative path. </note></p>
+						<codeph>$GEMFIRE/lib</codeph> by a relative path.
+				</p>
+			</note>
 		</body>
 	</topic>
 	<topic id="topic_263072624B8D4CDBAD18B82E07AA44B6">

@@ -10,7 +10,8 @@
 			 specifications</keyword></keywords></metadata>
   </prolog> 
   <conbody> 
-  	<note><keyword keyref="product_name"/>
+  	<note>
+  		<p><keyword keyref="product_name"/>
 		applications can use the API to pass 
 		<codeph>java.lang.System properties</codeph> to the distributed system
 		connection. This changes file specifications made at the command line and in
@@ -21,7 +22,8 @@
 		<codeph>gemfire.properties</codeph> 
 		<codeph>log-level</codeph> is set to 
 		<codeph>config</codeph> or lower. 
-	 </note> 
+  		</p>
+  	</note> 
 	 <p>This invocation of the application, 
 		<codeph>testApplication.TestApp1</codeph>, provides non-default
 		specifications for both the 
@@ -39,9 +41,11 @@ testApplication.TestApp1 </codeblock>
 		<codeph>cache.xml</codeph> file inside the 
 		<codeph>gemfire.properties</codeph> file. 
 	 </p> 
-	 <note>Specifications in 
+	 <note>
+	 	<p>Specifications in 
 		<codeph>gemfire.properties</codeph> files cannot use environment
 		variables. 
+	 	</p>
 	 </note> 
 	 <p>Example 
 		<codeph>gemfire.properties</codeph> file with non-default 

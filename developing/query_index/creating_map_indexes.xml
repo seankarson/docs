@@ -30,11 +30,12 @@ gfsh>create index --name="IndexName" --expression="p.positions[*]" --region="/po
       field keys you wish to index or query. For example: <codeph>[*]</codeph>,
         <codeph>['keyX1','keyX2’]</codeph>. Note that using <codeph>p.pos.get('keyX1')</codeph> will
       not create or query the map index. </p>
-    <p>
-      <note>You can still query against Map or HashMap fields without querying against a map index.
+      <note>
+        <p>You can still query against Map or HashMap fields without querying against a map index.
         For example, you can always create a regular range query on a single key in any Map or
         HashMap field. However, note that subsequent query lookups will be limited to a single
-        key.</note>
-    </p>
+        key.
+        </p>
+      </note>
   </body>
 </topic>

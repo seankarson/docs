@@ -30,12 +30,14 @@ mcast-port=&lt;port&gt;</codeblock>
 						</li>
 						<li>In <codeph>cache.xml</codeph>, enable multicast for each region that
 							needs multicast messaging: <codeblock>&lt;region-attributes multicast-enabled="true"/&gt; </codeblock>
-							<note>Improperly configured multicast can affect production systems. If
+							<note>
+								<p>Improperly configured multicast can affect production systems. If
 								you intend to use multicast on a shared network, work with your
 								network administrator and system administrator from the planning
 								stage of the project. In addition, you may need to address
 								interrelated setup and tuning issues at the <keyword
 									keyref="product_name"/>, operating system, and network level.
+								</p>
 							</note>
 						</li>
 					</ol>

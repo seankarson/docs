@@ -28,16 +28,17 @@
 				increases, however, the relatively small overhead of UDP makes it the better choice.
 				TCP adds new threads and sockets to every member, causing more overhead as the
 				system grows.</p>
-			<p>
-				<note>Even when <keyword keyref="product_name"/> is configured to use UDP for
+				<note>
+					<p>Even when <keyword keyref="product_name"/> is configured to use UDP for
 					messaging, <keyword keyref="product_name"/> uses a TCP connection when
 					attempting to detect failed members. See <xref
 						href="../../managing/network_partitioning/failure_detection.xml#concept_CFD13177F78C456095622151D6EE10EB"
 					/> for more details. In addition, the TCP connection's ping is not used for keep
 					alive purposes; it is only used to detect failed members. See <xref
 						href="../../managing/monitor_tune/socket_tcp_keepalive.xml#topic_jvc_pw3_34"
-					/> for TCP keep alive configuration.</note>
-			</p>
+					/> for TCP keep alive configuration.
+					</p>
+				</note>
 		</section>
 		<section id="section_E2D56EE03B54435BA9F04B8550F00534">
 			<title>UDP Unicast and Multicast</title>
@@ -64,10 +65,13 @@
 					<codeph>membership-port-range</codeph> in the
 					<codeph>gemfire.properties</codeph> file. Example:  </p>
 			<codeblock>membership-port-range=1024-60000</codeblock>
-			<note> In addition to UDP port configuration, the <codeph>membership-port-range</codeph>
+			<note>
+				<p>In addition to UDP port configuration, the <codeph>membership-port-range</codeph>
 				property defines the TCP port used for failure detection. See the <xref
 					href="../../reference/book_intro.xml#reference"/> for a description of the
-					<keyword keyref="product_name"/> property.</note>
+					<keyword keyref="product_name"/> property.
+				</p>
+			</note>
 		</section>
 		<section id="section_15F9EEDD65374F3E9D26C5A960D9D9D3">
 			<title>UDP Multicast</title>

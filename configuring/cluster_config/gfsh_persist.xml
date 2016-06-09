@@ -36,9 +36,12 @@
       <p>The standalone locators distribute configuration to all locators in a cluster. Every
         locator in the cluster with <codeph>--enable-cluster-configuration</codeph> set to true
         keeps a record of all cluster-level and group-level configuration settings. </p>
-      <note>The default behavior for gfsh is to create and save cluster configurations. You can
+      <note>
+        <p>The default behavior for gfsh is to create and save cluster configurations. You can
         disable the cluster configuration service by using the
-          <codeph>--enable-cluster-configuration=false</codeph> option when starting locators. </note>
+          <codeph>--enable-cluster-configuration=false</codeph> option when starting locators. 
+        </p>
+      </note>
       <p>Subsequently, any servers that you start with gfsh that have
           <codeph>--use-cluster-configuration</codeph> set to <codeph>true</codeph> will pick up the
         cluster configuration from the locator as well as any appropriate group-level configurations
@@ -135,11 +138,14 @@
             <li><codeph>compressor</codeph></li>
             <li><codeph>serializer</codeph></li>
             <li><codeph>instantiantor</codeph></li>
-            <li><codeph>pdx-serializer</codeph><p>
-                <note>The <cmdname>configure pdx</cmdname> command always specifies the
+            <li><codeph>pdx-serializer</codeph>
+                <note>
+                  <p>The <cmdname>configure pdx</cmdname> command always specifies the
                     <apiname>com.gemstone.gemfire.pdx.ReflectionBasedAutoSerializer</apiname> class.
-                  You cannot specify a custom PDX serializer in gfsh. </note>
-              </p></li>
+                  You cannot specify a custom PDX serializer in gfsh. 
+                  </p>
+                </note>
+            </li>
             <li><codeph>custom-expiry</codeph></li>
             <li><codeph>initializer</codeph></li>
             <li><codeph>declarable</codeph></li>

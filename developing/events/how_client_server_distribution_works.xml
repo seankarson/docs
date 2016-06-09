@@ -65,9 +65,10 @@
 						</tbody>
 					</tgroup>
 				</table>
-			<p>
-				<note>Invalidations on the client side are not forwarded to the server. </note>
-			</p>
+				<note>
+					<p>Invalidations on the client side are not forwarded to the server. 
+					</p>
+				</note>
 		</section>
 		<section id="section_A16562611E094C88B12BC149D5EEEEBA">
 			<title>Server-to-Client Event Distribution</title>
@@ -116,10 +117,11 @@
 			<p>Server-side distributed operations are all operations that originate as a distributed
 				operation in the server or one of its peers. Region invalidation in the server is
 				not forwarded to the client. </p>
-			<p>
-				<note>To maintain a unified set of data in your servers, do not do local entry
-					invalidation in your server regions. </note>
-			</p>
+				<note>
+					<p>To maintain a unified set of data in your servers, do not do local entry
+					invalidation in your server regions.
+					</p>
+				</note>
 		</section>
 		<section id="section_34613292788D4FA4AB730045FB9A405A">
 			<title>Server-to-Client Message Tracking</title>
@@ -242,8 +244,9 @@
 						the time the primary fails, the failover is invisible to the client. The
 						secondary server resumes queueing activities as soon as the primary loss is
 						detected. The secondary might resend a few events, which are discarded
-						automatically by the client message tracking activities. <p>
-							<note>There is a very small potential for message loss during HA server
+						automatically by the client message tracking activities.
+							<note>
+								<p>There is a very small potential for message loss during HA server
 								failover. The risk is not present for failover to secondaries that
 								have fully initialized their subscription queue data. The risk is
 								extremely low in healthy systems that use at least two secondary
@@ -251,16 +254,18 @@
 								fail and where secondaries do not have time to initialize their
 								subscription queue data before becoming primaries. To minimize the
 								risk, the failover logic chooses the longest-lived secondary as the
-								new primary. </note>
-						</p>
-						<p>
-							<note>Redundancy management is handled by the client, so when a durable
+								new primary. 
+								</p>
+							</note>
+							<note>
+								<p>Redundancy management is handled by the client, so when a durable
 								client is disconnected from the server, client event redundancy is
 								not maintained. Even if the servers fail one at a time, so that
 								running clients have time to fail over and pick new secondary
 								servers, an offline durable client cannot fail over. As a result,
-								the client loses its queued messages. </note>
-						</p>
+								the client loses its queued messages. 
+								</p>
+							</note>
 					</li>
 				</ul>
 		</section>

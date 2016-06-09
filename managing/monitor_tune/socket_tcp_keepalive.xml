@@ -11,11 +11,12 @@
       This operating system-level setting allows the socket to send verification checks (ACK
       requests) to remote systems in order to determine whether or not to keep the socket connection
       alive. </p>
-    <p>
-      <note>The time intervals for sending the first ACK KeepAlive request, the subsequent ACK
+      <note>
+        <p>The time intervals for sending the first ACK KeepAlive request, the subsequent ACK
         requests and the number of requests to send before closing the socket is configured on the
-        operating system level.</note>
-    </p>
+        operating system level.
+        </p>
+      </note>
     <p>By default, this system property is set to true.</p>
   </body>
 </topic>

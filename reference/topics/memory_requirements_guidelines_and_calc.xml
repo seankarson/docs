@@ -107,11 +107,12 @@
         this deserialization. If such operations are performed, then that value will be stored in
         object form (with the additional serialized wrapper) and the serialized form becomes
         garbage. </p>
-      <p>
-        <note>An exception to this is if the serialized from is encoded with PDX, then setting
+        <note>
+          <p>An exception to this is if the serialized from is encoded with PDX, then setting
             <codeph>read-serialized</codeph> to true will keep the serialized form in the
-          cache.</note>
-      </p>
+          cache.
+          </p>
+        </note>
       <p>See <xref href="#topic_psn_5tz_j4" format="dita"/> for additional information on how to
         calculate memory usage requirements for storing serialized objects. </p>
     </body>
@@ -170,9 +171,13 @@
           </thead>
           <tbody>
             <row>
-              <entry colname="col1">For each region <note>Memory consumption for object headers and
+              <entry colname="col1">For each region 
+                <note>
+                  <p>Memory consumption for object headers and
                   object references can vary for 64-bit JVMs, different JVM implementations, and
-                  different JDK versions. </note>
+                  different JDK versions. 
+                  </p>
+                </note>
               </entry>
               <entry colname="col2">add 64 bytes per entry </entry>
             </row>
@@ -375,14 +380,15 @@
         simultaneously connecting to a large set of peers with a partitioned region with conserve
         sockets set to false can cause a huge amount of memory to be consumed by socket. Set
         conserve-sockets to true in these instances. </p>
-      <p>
-        <note> There is also JVM overhead for the thread stack for each client connection being
+        <note>
+          <p>There is also JVM overhead for the thread stack for each client connection being
           processed, set at 256KB or 512KB for most JVMs . On some JVMs you can reduce it to 128KB.
           You can use the <keyword keyref="product_name"/>
           <codeph>max-threads</codeph> property or the <keyword keyref="product_name"/>
           <codeph>max-connections</codeph> property to limit the number of client threads and thus
-          both thread overhead and socket overhead. </note>
-      </p>
+          both thread overhead and socket overhead.
+          </p>
+        </note>
       <p>The following table lists the memory requirements based on connections.</p>
       <table
           id="table_E5B6F85F9F644A93A779A6CF211022E7">
@@ -425,8 +431,11 @@
                   to false and it is a Server (this is cumulative with the above) </entry>
                 <entry colname="col2">
                   <p> =&lt; max-threads * 2 * number of peers </p>
-                  <note> it is = 2* current number of clients connected * number of peers. Each
-                    connection spawns a thread. </note>
+                  <note>
+                    <p>it is = 2* current number of clients connected * number of peers. Each
+                    connection spawns a thread.
+                    </p>
+                  </note>
                 </entry>
               </row>
               <row>

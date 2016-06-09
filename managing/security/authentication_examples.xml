@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "http://docs.oasis-open.org/dita/v1.1/OS/dtd/concept.dtd">
+<concept id="authentication_examples">
+	<title>Authentication Examples</title>
+	<shortdesc>This topic discusses the concepts and configurations for sample LDAP and PKCS
+		implementations. Descriptions of their interfaces, classes and methods are available in the
+		online API documentation. </shortdesc>
+	<conbody>
+		<p>The security implementation of every installation is unique, so these examples cannot be
+			used as is. These examples intend to provide a starting point. Modify them to handle the
+			implementation-specific needs of your system.</p>
+		<section id="section_33A13D8566284AB999B5263844F61133">
+			<title>Using an LDAP Server for Client and Peer Authentication</title>
+			<p>The LDAP sample code is within the Geode source tree in the
+					<codeph>geode-core/src/test/java/com/gemstone/gemfire/security/templates/</codeph>
+				directory. The implementation is in files
+				<codeph>UserPasswordAuthInit.java</codeph>,
+					<codeph>LdapUserAuthenticator.java</codeph>, and
+					<codeph>UsernamePrincipal.java</codeph>. </p>
+			<p>In the example, a client or joining peer submits its credentials to a server or
+				locator, which in turn submits the credentials to the LDAP server. To be
+				authenticated, the credentials must match one of the valid entries in the LDAP
+				server. If the submitted credentials result in a connection to the LDAP server, then
+				the connection is authenticated. If the connection to the LDAP server fails, an
+				AuthenticationFailedException is sent back and the client or peer connection fails. </p>
+			<p>These are the <codeph>gemfire.properties</codeph> file (or
+					<codeph>gfsecurity.properties</codeph> file if you are creating a special
+				restricted access file for security configuration) settings for client, and for all
+				peers in the server system, including the servers and locators. </p>
+			<ul id="ul_iph_hxy_dw">
+				<li>Client:
+					<codeblock>security-client-auth-init=com.gemstone.gemfire.security.templates.UserPasswordAuthInit.create 
+security-username="username" 
+security-password="password"</codeblock>
+				</li>
+				<li>Server system members:
+					<codeblock>security-peer-auth-init=com.gemstone.gemfire.security.templates.UserPasswordAuthInit.create 
+security-peer-authenticator=com.gemstone.gemfire.security.templates.LdapUserAuthenticator.create
+security-ldap-server="name of ldap server"
+security-ldap-basedn="ou=www, dc=xxx, dc=yyy, dc=zzz" </codeblock>
+				</li>
+			</ul>
+			<p>LDAP authentication and authorization requires the LDAP server to have entries for
+				each member that is authenticated by the system. The server also requires
+				information to authorize or reject operations by authenticated clients when the
+				authorization callback is invoked. </p>
+			<p>During the client authentication process, a server searches for a specific entry in
+				the LDAP server. The uid and password parameters submitted by the client are used to
+				search the entries in the LDAP server. The LDAP authenticator is initialized with an
+				LDAP base DN, which is the top level for the LDAP directory tree. The authenticator
+				is also provided with the LDAP server name. The LDAP authenticator can be
+				initialized to make a secure connection by setting the security-ldap-usessl property
+				to true. </p>
+			<p>The sample <codeph>LdapUserAuthenticator</codeph> class implements the
+					<codeph>Authenticator</codeph> interface, which verifies the credentials
+				provided in the properties as specified in member ID and returns the principal
+				associated with the client. The <codeph>init</codeph> method for
+					<codeph>LdapUserAuthenticator</codeph> gets the LDAP server name from the
+					<codeph>security-ldap-server</codeph> property in the
+					<codeph>gemfire.properties</codeph>. It also gets the LDAP server base DN name
+				from the <codeph>security-ldap-basedn</codeph> property, and SSL usage information
+				from the <codeph>security-ldap-usessl</codeph> property. </p>
+		</section>
+		<section id="section_6CF27B7574224218A4BA372EB6664732">
+			<title>Using PKCS for Encrypted Client Authentication</title>
+			<p>The PKCS sample code is within the Geode source tree in the
+					<codeph>geode-core/src/test/java/com/gemstone/gemfire/security/templates/</codeph>
+				directory. The implementation is in files <codeph>PKCSAuthInit.java</codeph>,
+					<codeph>PKCSAuthenticator.java</codeph>, and
+				<codeph>PKCSPrincipal.java</codeph>. </p>
+			<p>With this sample, clients send encrypted authentication credentials to a GemFire
+				cache server when they attempt to connect to the server. The credentials are the
+				alias name and digital signature created using the private key retrieved from the
+				provided keystore. The server uses a corresponding public key to decrypt the
+				credentials. If decryption is successful, the client is authenticated and it
+				connects to the server. An unsuccessful decryption generates an
+					<codeph>AuthenticationFailedException</codeph> that is sent to the client, and
+				the client connection to the server is closed. </p>
+			<p>These are the <codeph>gemfire.properties</codeph> file (or
+					<codeph>gfsecurity.properties</codeph> file if you are creating a special
+				restricted access file for security configuration) settings for client and
+				server.</p>
+			<ul id="ul_y4f_jxy_dw">
+				<li>Client:
+					<codeblock>security-client-auth-init=com.gemstone.gemfire.security.templates.PKCSAuthInit.create
+security-keystorepath="keystore path"
+security-alias="alias"
+security-keystorepass="keystore password" </codeblock>
+				</li>
+				<li>Server:
+					<codeblock>security-client-authenticator=com.gemstone.gemfire.security.templates.PKCSAuthenticator.create
+security-publickey-filepath="path and name of public key file"
+security-publickey-pass="password of public key file store on the server"</codeblock>
+				</li>
+			</ul>
+			<p>The authenticator gets the path to the truststore from the
+					<codeph>security-publickey-filepath</codeph> property in the
+					<codeph>gemfire.properties</codeph> (or <codeph>gfsecurity.properties</codeph>
+				file if you are creating a special restricted access file for security
+				configuration). </p>
+			<p>When the client requires authentication, <codeph>PKCSAuthInit</codeph> gets the alias
+				retrieved from the <codeph>security-alias</codeph> property, and the keystore path
+				from the <codeph>security-keystorepath</codeph> property. PKCSAuthInit also gets the
+				password for the keystore file from the <codeph>security-keystorepass</codeph>
+				property so the keystore can be opened. </p>
+			<p>You can generate keys for encryption using the Java <codeph>keytool</codeph> utility, which is
+				a key and certificate management utility located in the <codeph>jre/bin</codeph>
+				directory of your Java JDK or JRE installation. The <codeph>keytool</codeph> utility
+				manages a keystore, or database, of private keys and their associated X.509
+				certificate chains for authenticating the corresponding public keys. Certificates
+				from trusted entities are also managed using <codeph>keytool</codeph>. See the
+				Security Tools section at <xref
+					href="http://download.oracle.com/javase/8/docs/technotes/tools" format="html"
+					scope="external"
+					><?xm-replace_text http://download.oracle.com/javase/6/docs/technotes/tools?></xref>
+				for more information about using <codeph>keytool</codeph>. The public keys from the
+				client keystores should be provided in the public keystore that is referenced by the
+					<codeph>security-publickey-filepath</codeph> property. </p>
+			<p>These are the steps to provide the keys, with example utility invocations:  </p>
+			<ol id="ol_jft_ttz_dw">
+				<li>Generate a public and private key pair for the client:
+					<codeblock>keytool -genkeypair \
+-dname "cn=<i>Your Name</i>, ou=GemFire, o=GemStone, c=US" \
+-storetype PKCS12 \
+-keyalg RSA \
+-keysize 2048 \
+-alias gemfire \
+-keystore gemfire.keystore \
+-storepass <i>your_password</i>
+-validity 180</codeblock>
+					This step creates a keystore called <codeph>gemfire.keystore</codeph> in the
+					local directory and adds a public/private key pair to it. </li>
+				<li>Export the self-signed certificate:
+					<codeblock>keytool -exportcert \
+-storetype PKCS12 \
+-keyalg RSA
+-keysize 2048 
+-alias gemfire \
+-keystore gemfire.keystore \
+-storepass <i>your_password</i>
+-rfc \
+-file gemfire.cer</codeblock>
+					After successfully exporting the certificate, you should see the following
+					message:
+					<codeblock>Certificate stored in file &lt;gemfire.cer&gt;</codeblock>The above
+					commands exports the certificate file to the current local directory. </li>
+				<li>Import the signed certificate to the truststore:
+					<codeblock>keytool -importcert \
+-alias gemfire \
+-file gemfire.cer \
+-keystore certificatetruststore</codeblock>
+					You will be prompted to enter your keystore password. After you have
+					authenticated, the certificate appears. After you respond to the prompt "Trust
+					this certificate?", the certificate is imported into the certificatetruststore
+					keystore, creating it if necessary. </li>
+			</ol>
+			<p>Multiple certificates can be imported to the same truststore. The alias name used to
+				generate the key pair and the alias name used to import the certificate to the
+				truststore can be different, but the PKCS sample implementation assumes that both
+				are the same. The credentials authenticator reads the truststore file and loads all
+				the public keys from the truststore, along with the alias names. </p>
+		</section>
+	</conbody>
+</concept>

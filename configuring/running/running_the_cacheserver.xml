@@ -53,8 +53,8 @@
 						configuration from the cluster configuration service, assuming the  locator
 						is running the cluster configuration service. If you specify a group when
 						starting the server, the server also receives configurations that apply to a
-						group. The shared configuration consists of <filepath>cache.xml</filepath>
-						files, <filepath>gemfire.properties</filepath> files, and deployed jar
+						group. The shared configuration consists of <codeph>cache.xml</codeph>
+						files, <codeph>gemfire.properties</codeph> files, and deployed jar
 						files. You can disable use of the cluster configuration service by
 						specifying <codeph>--use-cluster-configuration=false</codeph> when starting
 						the server using <codeph>gfsh</codeph>. <p>See <xref
@@ -104,19 +104,22 @@
 		<section id="section_07001480D33745139C3707EDF8166D86">
 			<title>Start the Server</title>
 			<p>The startup syntax for <keyword keyref="product_name"/> servers in <codeph>gfsh</codeph>
-				is:</p><codeblock conref="../../tools_modules/gfsh/command-pages/start.xml#topic_3764EE2DB18B4AE4A625E0354471738A/start-server-syntax"/>
-			<p>
-				<note>When both <codeph>--max-heap</codeph> and <codeph>--initial-heap</codeph> are specified
+				is:
+			</p>
+			<codeblock conref="../../tools_modules/gfsh/command-pages/start.xml#topic_3764EE2DB18B4AE4A625E0354471738A/start-server-syntax"/>
+				<note>
+					<p>When both <codeph>--max-heap</codeph> and <codeph>--initial-heap</codeph> are specified
 					during server startup, additional GC parameters are specified internally by
 						<keyword keyref="product_name"/>'s Resource Manager. If you do not want the
 					additional default GC properties set by the Resource Manager, then use the
 						<codeph>-Xms</codeph> &amp; <codeph>-Xmx</codeph> JVM options. See <xref
 						scope="local"
 						href="../../managing/heap_use/heap_management.xml#configuring_resource_manager"
-						type="concept" format="dita"/> for more information. </note>
-			</p>
+						type="concept" format="dita"/> for more information.
+					</p>
+				</note>
 			<p>The following <codeph>gfsh start server</codeph> start sequences specify a
-					<filepath>cache.xml</filepath> file for cache configuration, and use different
+					<codeph>cache.xml</codeph> file for cache configuration, and use different
 				incoming client connection ports:</p>
 				<codeblock>gfsh&gt;start server --name=server1 --mcast-port=10338 \
 --cache-xml-file=../ServerConfigs/cache.xml --server-port=40404

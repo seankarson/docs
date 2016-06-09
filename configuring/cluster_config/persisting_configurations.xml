@@ -155,8 +155,8 @@ server3 | Region "/region2" created on "server3"
             <step>
                 <cmd>Deploy jar files. Use the gfsh <cmdname>deploy</cmdname> command to deploy
                     application jar files to all members or to a specified group of members. The
-                    following example deploys the <filepath>mail.jar</filepath> and
-                        <filepath>mx4j.jar</filepath> files from the Pivotal GemFire distribution.
+                    following example deploys the <codeph>mail.jar</codeph> and
+                        <codeph>mx4j.jar</codeph> files from the Pivotal GemFire distribution.
                     (Note: This is only an example, you do not need to deploy these files to use the
                     Cluster Configuration Service. Alternately, you can use any two jar files for
                     this demonstration.)</cmd>
@@ -177,8 +177,8 @@ server2 | mx4j.jar     | /Users/username/my_gemfire/server2/vf.gf#mx4j.jar#1
 server3 | mx4j.jar     | /Users/username/my_gemfire/server3/vf.gf#mx4j.jar#1
 </codeblock>
                 </info>
-                <stepresult>Note that the <filepath>mail.jar</filepath> file was deployed only to
-                    the members of <codeph>group1</codeph> and the <filepath>mx4j.jar</filepath> was
+                <stepresult>Note that the <codeph>mail.jar</codeph> file was deployed only to
+                    the members of <codeph>group1</codeph> and the <codeph>mx4j.jar</codeph> was
                     deployed to all members.</stepresult>
             </step>
             <step>
@@ -186,7 +186,7 @@ server3 | mx4j.jar     | /Users/username/my_gemfire/server3/vf.gf#mx4j.jar#1
                 <info>You can use the gfsh <cmdname>export cluster-configuration</cmdname> command
                     to create a zip file that contains the cluster's persisted configuration. The
                     zip file contains a copy of the contents of the
-                        <filepath>cluster_config</filepath> directory. For
+                        <codeph>cluster_config</codeph> directory. For
                     example:<codeblock>gfsh>export cluster-configuration --zip-file-name=myClusterConfig.zip --dir=/Users/username</codeblock></info>
                 <stepresult><keyword keyref="product_name_long"/> writes the cluster configuration
                     to the specified zip file.
@@ -217,7 +217,7 @@ Exiting...</codeblock>
                 </info>
             </step>
             <step>
-                <cmd>Create a new working directory (for example: <filepath>new_gemfire</filepath>)
+                <cmd>Create a new working directory (for example: <codeph>new_gemfire</codeph>)
                     and switch to the new directory. </cmd>
             </step>
             <step>
@@ -259,8 +259,8 @@ Cluster configuration service is up and running.
 Cluster configuration successfully imported
 </codeblock>
                 </info>
-                <stepresult>Note that the <filepath>locator2</filepath> directory now contains a
-                        <filepath>cluster_config</filepath> subdirectory.</stepresult>
+                <stepresult>Note that the <codeph>locator2</codeph> directory now contains a
+                        <codeph>cluster_config</codeph> subdirectory.</stepresult>
             </step>
             <step>
                 <cmd>Start a server that does not reference a group:</cmd>

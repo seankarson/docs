@@ -68,10 +68,11 @@ compact disk-store --name=Disk1 --group=MemberGroup1,MemberGroup2</codeblock>
 				<p>See <xref format="dita"
 						href="../../../managing/disk_storage/compacting_disk_stores.xml#compacting_disk_stores"
 						scope="local" type="concept"/> for more information. </p>
-				<p>
-					<note> Do not perform offline compaction on the baseline directory of an
-						incremental backup. </note>
-				</p>
+					<note>
+						<p>Do not perform offline compaction on the baseline directory of an
+						incremental backup.
+						</p>
+					</note>
 				<p><b> Availability:</b> Online or offline. </p>
 				<p><b>Syntax:</b></p>
 					<codeblock>compact offline-disk-store --name=value --disk-dirs=value(,value)* 

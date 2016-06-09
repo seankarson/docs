@@ -41,10 +41,11 @@
 				<image placement="break" href="../../images_svg/locator_discovery.svg"
 					id="image_dm3_y3x_15"/>
 			</p>
-			<p>
-				<note>Multiple locators ensure the most stable start up and availability for your distributed
-					system. </note>
-			</p>
+				<note>
+					<p>Multiple locators ensure the most stable start up and availability for your distributed
+					system.
+					</p>
+				</note>
 		</section>
 		<section id="section_E26DFAFE9E994C0C9A489E325E345816">
 			<title>Standalone Member</title>
@@ -63,8 +64,11 @@
 				their capacity to service new client connections can vary. The locators continuously
 				monitor server availability and server load information, providing clients with
 				connection information for the server with the least load at any time. </p>
-			<note>For performance and cache coherency, clients must run as standalone members or in
-				different distributed systems than their servers. </note>
+			<note>
+				<p>For performance and cache coherency, clients must run as standalone members or in
+				different distributed systems than their servers. 
+				</p>
+			</note>
 			<p>You do not need to run any special processes to use locators for server discovery.
 				The locators that provide peer discovery in the server system also provide server
 				discovery for clients to the server system. This is the standard configuration. </p>

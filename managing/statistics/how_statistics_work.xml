@@ -12,12 +12,16 @@
 				statistics.</p>
 			<p>When Java applications and servers join a distributed system, they can be configured
 				via the cluster configuration service to enable statistics sampling and whether to
-				archive the statistics that are gathered. <note><keyword keyref="product_name"/>
+				archive the statistics that are gathered. </p>
+			<note>
+				<p><keyword keyref="product_name"/>
 					statistics use the Java <codeph>System.nanoTimer</codeph> for nanosecond timing.
 					This method provides nanosecond precision, but not necessarily nanosecond
 					accuracy. For more information, see the online Java documentation for
 						<codeph>System.nanoTimer</codeph> for the JRE you are using with <keyword
-						keyref="product_name"/> . </note></p>
+						keyref="product_name"/>.
+				</p>
+			</note>
 			<p>Statistics sampling provides valuable information for ongoing system tuning and
 				troubleshooting. Sampling statistics (not including time-based statistics) at the
 				default sample rate does not impact overall distributed system performance. We

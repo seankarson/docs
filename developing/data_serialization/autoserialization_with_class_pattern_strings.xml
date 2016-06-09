@@ -28,14 +28,20 @@
 			</ul>
 			<codeblock>com.company.DomainObject.*#identity=id.*#exclude=creationDate, 
 com.company.special.Patient#identity=ssn</codeblock>
-		<note>There is no association between the <codeph>identity</codeph> and
+		<note>
+			<p>There is no association between the <codeph>identity</codeph> and
 				<codeph>exclude</codeph> options, so the pattern above could also be expressed as:
+			</p>
 			<codeblock>com.company.DomainObject.*#identity=id.*, com.company.DomainObject.*#exclude=creationDate, 
-com.company.special.Patient#identity=ssn</codeblock>
+com.company.special.Patient#identity=ssn
+			</codeblock>
 		</note>
-		<note>The order of the patterns is not relevant. All defined class patterns are used when
+		<note>
+			<p>The order of the patterns is not relevant. All defined class patterns are used when
 			determining whether a field should be considered as an identity field or should be
-			excluded. </note>
+			excluded.
+			</p>
+		</note>
 		<p>Examples:</p>
 			<ul id="ul_6206892EB2B540DE899D48CD7FA3D64A">
 				<li id="li_525BB2D5D74F45B1BA72689FDCB97BFA">This XML uses the example pattern shown

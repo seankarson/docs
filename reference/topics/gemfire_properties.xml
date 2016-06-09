@@ -22,9 +22,12 @@
 			Unicode escape sequences. See <xref
 				href="non-ascii_strings_in_config_files.xml"
 				type="concept" format="dita" scope="local"/> for more details. </p>
-		<note>Unless otherwise indicated, these settings only affect activities within this distributed
+		<note>
+			<p>Unless otherwise indicated, these settings only affect activities within this distributed
 			system - not activities between clients and servers or between a gateway sender and
-			gateway receiver in a multi-site installation. </note>
+			gateway receiver in a multi-site installation.
+			</p>
+		</note>
 		<table id="table_4F6DA593C76A447F851B5FE382C169DE">
 			<tgroup cols="3">
 				<colspec colname="1" colnum="1" colwidth="1.02*"/>
@@ -80,11 +83,12 @@
 							asynchronous messaging lasts until this process catches up, departs, or
 							some specified limit is reached, such as async-queue-timeout or
 							async-max-queue-size. <p>To enable asynchronous messaging, the value
-								must be set above zero. Valid values are in the range 0...60000.
-									<note>This setting controls only peer-to-peer communication and
+								must be set above zero. Valid values are in the range 0...60000.</p>
+									<note>
+										<p>This setting controls only peer-to-peer communication and
 									does not apply to client/server or multi-site communication.
-								</note>
-							</p>
+										</p>
+									</note>
 						</entry>
 						<entry id="entry_lyk_ddp_rr">0 </entry>
 					</row>
@@ -93,10 +97,13 @@
 						<entry id="entry_ex5_ddp_rr">Affects non-conflated asynchronous queues for members that
 							publish to this member. This is the maximum size the queue can reach (in
 							megabytes) before the publisher asks this member to leave the
-							distributed system. <p>Valid values are in the range 0..1024. <note>This
+							distributed system. <p>Valid values are in the range 0..1024.</p>
+							<note>
+								<p>This
 									setting controls only peer-to-peer communication and does not
-									apply to client/server or multi-site communication. </note>
-							</p>
+									apply to client/server or multi-site communication.
+								</p>
+							</note>
 						</entry>
 						<entry id="entry_kbz_ddp_rr">8 </entry>
 					</row>
@@ -105,9 +112,13 @@
 						<entry id="entry_cj3_fdp_rr">Affects asynchronous queues for members that publish to this
 							member. This is the maximum milliseconds the publisher should wait with
 							no distribution to this member before it asks this member to leave the
-							distributed system. Used for handling slow receivers. <note>This setting
+							distributed system. Used for handling slow receivers.
+							<note>
+								<p>This setting
 								controls only peer-to-peer communication and does not apply to
-								client/server or multi-site communication. </note>
+								client/server or multi-site communication.
+								</p>
+							</note>
 						</entry>
 						<entry id="entry_z4l_fdp_rr">60000 </entry>
 					</row>
@@ -191,8 +202,13 @@
 							http-service- prefix with this property to use a different keystore for
 							the respective SSL connection type. See <xref
 								href="../../managing/security/implementing_ssl.xml"
-								/>.<note>javax.net.ssl.keyStore is deprecated. Use
-									<codeph>cluster-ssl-keystore</codeph> instead.</note></entry>
+								/>.
+							<note>
+								<p>javax.net.ssl.keyStore is deprecated. Use
+									<codeph>cluster-ssl-keystore</codeph> instead.
+								</p>
+							</note>
+						</entry>
 						<entry colname="3" id="entry_jbp_pdp_rr">
 							<i>not set</i>
 						</entry>
@@ -204,8 +220,13 @@
 						<entry id="entry_sq4_tdp_rr">Properties that identify the passwords for the
 							keystores used with SSL connections. See <xref
 								href="../../managing/security/implementing_ssl.xml"
-								/>.<note>javax.net.ssl.keyStorePassword is deprecated. Use
-								cluster-ssl-keystore-password instead.</note></entry>
+								/>.
+							<note>
+								<p>javax.net.ssl.keyStorePassword is deprecated. Use
+								cluster-ssl-keystore-password instead.
+								</p>
+							</note>
+						</entry>
 						<entry colname="3" id="entry_k4s_tdp_rr">
 							<i>not set</i>
 						</entry>
@@ -217,8 +238,13 @@
 						<entry id="entry_n5d_5dp_rr">System properties that identify the types of
 							keystores used with SSL connections. See <xref
 								href="../../managing/security/implementing_ssl.xml"
-								/>.<note>javax.net.ssl.keyStoreType is deprecated. Use
-								cluster-ssl-keystore-type instead.</note></entry>
+								/>.
+							<note>
+								<p>javax.net.ssl.keyStoreType is deprecated. Use
+								cluster-ssl-keystore-type instead.
+								</p>
+							</note>
+						</entry>
 						<entry colname="3" id="entry_df3_5dp_rr">
 							<i>not set</i>
 						</entry>
@@ -267,8 +293,13 @@
 							http-service- prefix with this property to use a different truststore
 							for the respective SSL connection type. See <xref
 								href="../../managing/security/implementing_ssl.xml"
-								/>.<note>javax.net.ssl.trustStore is deprecated. Use
-									<codeph>cluster-ssl-truststore</codeph> instead.</note></entry>
+								/>.
+							<note>
+								<p>javax.net.ssl.trustStore is deprecated. Use
+									<codeph>cluster-ssl-truststore</codeph> instead.
+								</p>
+							</note>
+						</entry>
 						<entry colname="3" id="entry_ikw_f2p_rr">
 							<i>not set</i>
 						</entry>
@@ -714,22 +745,24 @@
 							<codeblock>locators=address1[port1],address2[port2] </codeblock>
 								<codeblock>locators=hostName1@address1[port1],hostName2@address2[port2] </codeblock>
 								<codeblock>locators=hostName1[port1],hostName2[port2]</codeblock>
-							<p>
-								<note>On multi-homed hosts, this last notation will use the default
+								<note>
+									<p>On multi-homed hosts, this last notation will use the default
 									address. If you use bind addresses for your locators, explicitly
 									specify the addresses in the locators list—do not use just the
-									hostname. </note>
-							</p>
+									hostname. 
+									</p>
+								</note>
 							<p>If you have values specified for the <codeph>locators</codeph>
 								property, the <codeph>mcast-port</codeph> property defaults to
 								0.</p>
-							<p>
-								<note>If you specify invalid DNS hostnames in this property, any
+								<note>
+									<p>If you specify invalid DNS hostnames in this property, any
 									locators or servers started with <codeph>gfsh</codeph> will not
 									produce log files. Make sure you provide valid DNS hostnames
 									before starting the locator or server with
-									<codeph>gfsh</codeph>.</note>
-							</p>
+									<codeph>gfsh</codeph>.
+									</p>
+								</note>
 						</entry>
 						<entry id="entry_wzx_lfp_rr">
 							<i>not set</i>
@@ -805,11 +838,14 @@
 									>http://www.iana.org/assignments/multicast-addresses</xref>).
 								Consult the IANA chart when selecting another multicast address to
 								use with <keyword keyref="product_name"/>. </p>
-							<note>This setting controls only peer-to-peer communication and does not
+							<note>
+								<p>This setting controls only peer-to-peer communication and does not
 								apply to client/server or multi-site communication. If multicast is
 								enabled, distributed regions use it for most communication.
 								Partitioned regions only use multicast for a few purposes, and
-								mainly use either TCP or UDP unicast. </note>
+								mainly use either TCP or UDP unicast. 
+								</p>
+							</note>
 						</entry>
 						<entry id="entry_ubp_tfp_rr">
 							<p>239.192.81.1 for IPv4 (the default IP version) </p>
@@ -822,10 +858,12 @@
 							for unicast and multicast no-ack UDP messaging. Compound property made
 							up of three settings separated by commas: byteAllowance,
 							rechargeThreshold, and rechargeBlockMs. <p>Valid values range from these
-								minimums: 10000,0.1,500 to these maximums: no_maximum ,0.5,60000.
-									<note>This setting controls only peer-to-peer communication,
-									generally between distributed regions. </note>
-							</p>
+								minimums: 10000,0.1,500 to these maximums: no_maximum ,0.5,60000.</p>
+									<note>
+										<p>This setting controls only peer-to-peer communication,
+									generally between distributed regions.
+										</p>
+									</note>
 						</entry>
 						<entry id="entry_lsg_5fp_rr">1048576,0.25, 5000 </entry>
 					</row>
@@ -833,16 +871,21 @@
 						<entry id="entry_dkn_5fp_rr">mcast-port </entry>
 						<entry id="entry_ylr_5fp_rr">Port used, along with the mcast-address, for multicast
 							communication with other members of the distributed system. If zero,
-							multicast is disabled. <note>Select different multicast addresses and
+							multicast is disabled. 
+							<note>
+								<p>Select different multicast addresses and
 								ports for different distributed systems. Do not just use different
 								addresses. Some operating systems may not keep communication
 								separate between systems that use unique addresses but the same port
-								number. </note>
+								number. 
+								</p>
+							</note>
 							<p>Valid values are in the range 0..65535. </p>
-							<p>
-								<note>This setting controls only peer-to-peer communication and does not apply to
-									client/server or multi-site communication. </note>
-							</p>
+								<note>
+									<p>This setting controls only peer-to-peer communication and does not apply to
+									client/server or multi-site communication.
+									</p>
+								</note>
 							<p>If you have values specified for the <codeph>locators</codeph>
 								property, the <codeph>mcast-port</codeph> property defaults to 0.
 							</p>
@@ -854,21 +897,30 @@
 						<entry id="entry_jp2_vfp_rr">Size of the socket buffer used for incoming multicast
 							transmissions. You should set this high if there will be high volumes of
 							messages. <p>Valid values are in the range 2048.. OS_maximum. </p>
-							<note>The default setting is higher than the default OS maximum buffer
+							<note>
+								<p>The default setting is higher than the default OS maximum buffer
 								size on Unix, which should be increased to at least 1 megabyte to
-								provide high-volume messaging on Unix systems. </note>
-							<note>This setting controls only peer-to-peer communication and does not
-								apply to client/server or multi-site communication. </note>
+								provide high-volume messaging on Unix systems. 
+								</p>
+							</note>
+							<note>
+								<p>This setting controls only peer-to-peer communication and does not
+								apply to client/server or multi-site communication.
+								</p>
+							</note>
 						</entry>
 						<entry id="entry_hl3_vfp_rr">1048576 </entry>
 					</row>
 					<row>
 						<entry id="entry_qbm_vfp_rr">mcast-send-buffer-size </entry>
 						<entry id="entry_hmp_vfp_rr">The size of the socket buffer used for outgoing
-							multicast transmissions. <p>Valid values are in the range 2048.. OS_maximum. <note>This
+							multicast transmissions. <p>Valid values are in the range 2048.. OS_maximum.</p>
+							<note>
+								<p>This
 									setting controls only peer-to-peer communication and does not
-									apply to client/server or multi-site communication. </note>
-							</p>
+									apply to client/server or multi-site communication. 
+								</p>
+							</note>
 						</entry>
 						<entry id="entry_hbt_vfp_rr">65535 </entry>
 					</row>
@@ -876,9 +928,13 @@
 						<entry id="entry_qd1_wfp_rr">mcast-ttl </entry>
 						<entry id="entry_cd2_wfp_rr">How far multicast messaging goes in your network. Lower settings
 							may improve system performance. A setting of 0 constrains multicast
-							messaging to the machine. <note>This setting controls only peer-to-peer
+							messaging to the machine. 
+							<note>
+								<p>This setting controls only peer-to-peer
 								communication and does not apply to client/server or multi-site
-								communication. </note>
+								communication.
+								</p>
+							</note>
 						</entry>
 						<entry id="entry_p23_wfp_rr">32 </entry>
 					</row>
@@ -998,7 +1054,9 @@ off-heap-memory-size=120g</codeblock></entry>
 						<entry id="entry_pf5_hgp_rr">security-* </entry>
 						<entry id="entry_exy_hgp_rr">Used for authentication. Any custom properties
 							needed by your <codeph>AuthInitialize</codeph> or
-								<codeph>Authenticator</codeph> callbacks. <note>Any security-related
+								<codeph>Authenticator</codeph> callbacks.
+							<note>
+								<p>Any security-related
 								(properties that begin with <codeph>security-*</codeph>)
 								configuration properties that are normally configured in
 									<codeph>gemfire.properties</codeph> can be moved to a separate
@@ -1006,7 +1064,9 @@ off-heap-memory-size=120g</codeblock></entry>
 								configuration settings in a separate file allows you to restrict
 								access to security configuration data. This way, you can still allow
 								read or write access for your <codeph>gemfire.properties</codeph>
-								file. </note>
+								file.
+								</p>
+							</note>
 						</entry>
 						<entry id="entry_oqc_3gp_rr">
 							<i>not set</i>
@@ -1260,8 +1320,11 @@ off-heap-memory-size=120g</codeblock></entry>
 								statistics at the default sample rate does not impact system
 								performance. We recommend enabling statistics sampling in production
 								environments. </p>
-							<note>This setting does not apply to partitioned regions, where
-								statistics are always enabled. </note>
+							<note>
+								<p>This setting does not apply to partitioned regions, where
+								statistics are always enabled. 
+								</p>
+							</note>
 						</entry>
 						<entry id="entry_jyx_zgp_rr">false </entry>
 					</row>

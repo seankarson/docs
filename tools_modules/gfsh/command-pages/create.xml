@@ -537,11 +537,12 @@ server1 | GatewayReceiver created on member "server1" and will listen on the por
 				<p>See <xref
 						href="../../../topologies_and_comm/topology_concepts/multisite_overview.xml#topic_9AA37B43642D4DE19072CA3367C849BA"
 					/>. </p>
-				<p>
-					<note>The gateway sender configuration for a specific sender <codeph>id</codeph>
+					<note>
+						<p>The gateway sender configuration for a specific sender <codeph>id</codeph>
 						must be identical on each <keyword keyref="product_name"/> member that hosts
-						the gateway sender. </note>
-				</p>
+						the gateway sender. 
+						</p>
+					</note>
 				<p><b> Availability:</b> Online. You must be connected in <codeph>gfsh</codeph> to a
 					JMX Manager member to use this command. </p>
 				<p>

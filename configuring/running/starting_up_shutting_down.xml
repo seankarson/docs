@@ -54,10 +54,13 @@
 						process that cannot connect to a locator upon startup will throw an
 						exception.</li>
 				</ul>
-			<note>You can optionally override the default timeout period for shutting down individual
+			<note>
+				<p>You can optionally override the default timeout period for shutting down individual
 				processes. This override setting must be specified during member startup. See <xref
 					href="#starting_up_shutting_down/section_mnx_4cp_cv" format="dita">Shutting Down
-					the System</xref> for details. </note>
+					the System</xref> for details.
+				</p>
+			</note>
 		</section>
 		<section id="section_2F8ABBFCE641463C8A8721841407993D">
 			<title>Starting Up After Losing Data on Disk </title>
@@ -76,11 +79,11 @@ Disk Store ID             |   Host    |               Directory
 60399215-532b-406f-b81f-9b5bd8d1b55a | excalibur | /usr/local/gemfire/deploy/disk_store1 
 
 gfsh&gt;revoke missing-disk-store --id=60399215-532b-406f-b81f-9b5bd8d1b55a</codeblock>
-			<p>
-				<note>This gfsh commands require that you are connected to the distributed system
-					via a JMX Manager node. </note>
-			</p>
-			<p> </p>
+				<note>
+					<p>This gfsh commands require that you are connected to the distributed system
+					via a JMX Manager node. 
+					</p>
+				</note>
 		</section>
 		<section id="section_mnx_4cp_cv">
 			<title>Shutting Down the System</title>

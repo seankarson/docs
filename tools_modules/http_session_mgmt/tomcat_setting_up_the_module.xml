@@ -61,9 +61,12 @@ $PWD/$TC_VER/bin/tomcat-juli.jar</codeblock><p>start
 				Tomcat instance. Refer to your application server documentation for starting the
 				application server. Once started, <keyword keyref="product_name"/> will
 				automatically launch within the application server process. </p>
-			<note><keyword keyref="product_name"/> session state management provides its own
+			<note>
+				<p><keyword keyref="product_name"/> session state management provides its own
 				clustering functionality. If you are using <keyword keyref="product_name"/>, you
-				should NOT turn on Tomcat clustering as well. </note>
+				should NOT turn on Tomcat clustering as well.
+				</p>
+			</note>
 		</section>
 		<section id="section_3E186713737E4D5383E23B41CDFED59B">
 			<title>Verifying that <keyword keyref="product_name"/> Started</title>

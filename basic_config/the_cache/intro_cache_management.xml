@@ -69,8 +69,8 @@
 			<title>The Cache XML</title>
 			<p>Your <codeph>cache.xml</codeph> must be formatted according to the product XML schema
 				definition <codeph><keyword keyref="xsd_filename"/></codeph>. The schema definition
-				file is available in the product distribution at <filepath><keyword
-						keyref="xsd_path"/>/<keyword keyref="xsd_filename"/></filepath>.</p>
+				file is available in the product distribution at <codeph><keyword
+						keyref="xsd_path"/>/<keyword keyref="xsd_filename"/></codeph>.</p>
 			<p>You use one format for peer and server caches and another for client caches. </p>
 			<p><codeph>cache.xml</codeph> for Peer/Server:</p>
 				<codeblock>&lt;?xml version="1.0" encoding="UTF-8"?&gt;
@@ -106,8 +106,8 @@
 				you can use a combination of file configuration and API configuration. </p>
 			<p>The XML examples may not include the full <codeph>cache.xml</codeph> file listing. All of your
 				declarative cache configuration must conform to the cache XSD in the product
-				installation <filepath><keyword keyref="xsd_path"/>/<keyword keyref="xsd_filename"
-					/></filepath>. </p>
+				installation <codeph><keyword keyref="xsd_path"/>/<keyword keyref="xsd_filename"
+					/></codeph>. </p>
 			<p>For all of your <keyword keyref="product_name"/> applications: </p>
 				<ol id="ol_BECC562B09A84C3CBABB720C92C00166">
 					<li id="li_D3C43DBB6D6544FC96DA319CB858AD9E">Create your <codeph>Cache</codeph>,

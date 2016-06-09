@@ -46,10 +46,13 @@
 properties.setProperty("security-username", username);
 properties.setProperty("security-password", password);
 Cache cache = new CacheFactory(properties).create();</codeblock>
-										<note>Properties passed to a cache creation method override
+										<note>
+											<p>Properties passed to a cache creation method override
 											any settings in either the
 												<codeph>gemfire.properties</codeph> file or
-												<codeph>gfsecuirty.properties</codeph>. </note>
+												<codeph>gfsecuirty.properties</codeph>. 
+											</p>
+										</note>
 									</li>
 								</ul>
 							</li>

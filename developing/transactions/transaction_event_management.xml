@@ -40,10 +40,14 @@ put (A, valY)</codeblock>
 								<codeph>CacheEvent</codeph> list, calling all locally installed
 							listeners for each operation listed. </li>
 						<li id="li_E66C3AA97A664504B67800E5519430C4">Distributes the <codeph>TransactionEvent</codeph>
-							to all interested caches. <note>For <keyword keyref="product_name"/> and
+							to all interested caches.
+							<note>
+								<p>For <keyword keyref="product_name"/> and
 								global JTA transactions, the <codeph>EntryEvent</codeph> object
 								contains the <keyword keyref="product_name"/> transaction ID. JTA
-								transaction events do not contain the JTA transaction ID. </note>
+								transaction events do not contain the JTA transaction ID.
+								</p>
+							</note>
 						</li>
 					</ul>
 				</li>

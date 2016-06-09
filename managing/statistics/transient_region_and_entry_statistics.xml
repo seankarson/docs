@@ -8,13 +8,19 @@
 		<p><keyword keyref="product_name"/> gathers these statistics when the
 				<codeph>--enable-statistics</codeph> parameter of the <codeph>create region</codeph>
 			command of <codeph>gfsh</codeph> is set to true or in cache.xml the region attribute
-				<codeph>statistics-enabled</codeph> is set to true.<note>Unlike other <keyword
+				<codeph>statistics-enabled</codeph> is set to true.</p>
+		<note>
+			<p>Unlike other <keyword
 					keyref="product_name"/> statistics, these region and entry statistics are not
-				archived and cannot be charted. </note>
-			<note>Enabling these statistics requires extra memory per entry. See <xref
-					href="../../reference/topics/memory_requirements_for_cache_data.xml#calculating_memory_requirements"
-					type="concept" format="dita" scope="local"/>. </note>
-		</p>
+				archived and cannot be charted.
+			</p>
+		</note>
+		<note>
+			<p>Enabling these statistics requires extra memory per entry. See <xref
+				href="../../reference/topics/memory_requirements_for_cache_data.xml#calculating_memory_requirements"
+				type="concept" format="dita" scope="local"/>. 
+			</p>
+		</note>
 		<p>These are the transient statistics gathered for all but partitioned regions: </p>
 			<ul
 				id="ul_47DF1DCBACA34E3ABBFC788B242DEE12">
