@@ -66,7 +66,7 @@
 				resources include a <keyword keyref="product_name"/> cache and a database. </p>
 			<fig id="fig_2789F3F79DB34841B5306D84E8BAF1D7">
 				<image id="image_C2935E48415349659FC39BF5C7E75579"
-					href="../../images_svg/transactions_jta_app_server.svg"/>
+					href="../../images/transactions_jta_app_server.png"/>
 			</fig>
 			<p>An externally coordinated JTA global transaction is run in the following manner: </p>
 				<ol
@@ -159,7 +159,7 @@
 					keyref="product_name"/>) participates as a local transaction resource. If the
 				non-XAResource fails, then the transaction manager can rollback the XAResources. </p>
 			<p>
-				<image href="../../images_svg/transactions_jca_adapter.svg" id="image_opb_sgb_wk"/>
+				<image href="../../images/transactions_jca_adapter.png" id="image_opb_sgb_wk"/>
 			</p>
 		</conbody>
 	</concept>
@@ -274,7 +274,7 @@ GFConnection gemfireConn = (GFConnection)cf.getConnection();</codeblock>
 				after recovering a crashed member. </p>
 			<p>
 				<image id="image_C8D94070E55F4BCC8B5FF3D5BEBA99ED"
-					href="../../images_svg/transactions_jta.svg"/>
+					href="../../images/transactions_jta.png"/>
 			</p>
 			<p>The <keyword keyref="product_name"/> JTA transaction manager is initialized when the
 					<keyword keyref="product_name"/> cache is initialized. Until then, JTA is not

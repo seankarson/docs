@@ -71,25 +71,25 @@
         <li>When you start a locator using gfsh, you should see the following
             message:<codeblock>Cluster configuration service is up and running.</codeblock><p>If you
             do not see this message, there may be a problem with the cluster configuration service.
-            Use the <cmdname>status cluster-configuration-service</cmdname> command to check the
+            Use the <codeph>status cluster-configuration-service</codeph> command to check the
               status of the cluster configuration.</p>
             <ul id="ul_p4v_2hp_y4">
               <li>If the command returns <systemoutput>RUNNING</systemoutput>, the cluster
                 configuration is running normally.</li>
               <li>If the command returns <systemoutput>WAITING</systemoutput>, run the
-                  <cmdname>status locator</cmdname> command. The output of this command returns the
+                  <codeph>status locator</codeph> command. The output of this command returns the
                 cause of the <systemoutput>WAITING</systemoutput> status. </li>
             </ul></li>
         <li>If a server start fails with the following exception:
             <codeph>ClusterConfigurationNotAvailableException</codeph>, the cluster configuration
           service may not be in the <systemoutput>RUNNING</systemoutput> state. Because the server
           requests the cluster configuration from the locator, which is not available, the
-            <cmdname>start server</cmdname> command fails.</li>
+            <codeph>start server</codeph> command fails.</li>
         <li>You can determine what configurations a server received from a locator by examining the
           server's log file. See <xref
             href="../../managing/logging/logging.xml#concept_30DB86B12B454E168B80BB5A71268865"
           />.</li>
-        <li>If a <cmdname>start server</cmdname> command specifies a cache.xml file that conflicts
+        <li>If a <codeph>start server</codeph> command specifies a cache.xml file that conflicts
           with the existing cluster configuration, the server startup may fail.</li>
         <li>If a gfsh command fails because the cluster configuration cannot be saved, the following
           message

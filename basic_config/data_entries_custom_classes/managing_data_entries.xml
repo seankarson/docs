@@ -25,8 +25,8 @@ String value = ...
 this.currRegion.put(name,value); </codeblock>
 			<note>
 				<p>You
-					can also use the <codeph>gfsh <cmdname>put</cmdname></codeph> command to add
-					entries to a region, and the <cmdname>get</cmdname> command to retrieve entries
+					can also use the <codeph>gfsh <codeph>put</codeph></codeph> command to add
+					entries to a region, and the <codeph>get</codeph> command to retrieve entries
 					from a region. See <xref
 						href="../../tools_modules/gfsh/command-pages/get.xml"
 					/> and <xref format="dita"
@@ -173,7 +173,7 @@ region.put("stringBuf", s);</codeblock>
 		</section>
 		<section>
 			<title>Using gfsh to get and put </title>
-			<p>You can use the gfsh <cmdname>get</cmdname> and <cmdname>put</cmdname> commands to
+			<p>You can use the gfsh <codeph>get</codeph> and <codeph>put</codeph> commands to
 				manage data. See <xref
 					href="../../tools_modules/gfsh/command-pages/get.xml"
 				/> and <xref

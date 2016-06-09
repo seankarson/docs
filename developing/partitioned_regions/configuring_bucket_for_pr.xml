@@ -27,7 +27,7 @@
 rf.setPartitionAttributes(new PartitionAttributesFactory().setTotalNumBuckets(7).create());
 custRegion = rf.create("customer");</codeblock></li>
 					<li>gfsh:<p>Use the <parmname>--total-num-buckets</parmname> parameter of the
-								<cmdname>create region</cmdname> command. For
+								<codeph>create region</codeph> command. For
 						example:</p>
 						<codeblock>gfsh>create region --name="PR1" --type=PARTITION --total-num-buckets=7</codeblock>
 					</li>

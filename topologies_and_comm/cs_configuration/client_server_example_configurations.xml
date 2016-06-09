@@ -26,7 +26,7 @@ locators=localhost[41111]</codeblock>
 			<p>Once the locator and server are started, the locator tracks the server as a peer in
 				its distributed system and as a server listening for client connections at port
 				40404.</p>
-			<p>You can also configure a cache server using the <cmdname>gfsh</cmdname> command-line utility.
+			<p>You can also configure a cache server using the <codeph>gfsh</codeph> command-line utility.
 				For example: </p>
 			<codeblock>gfsh>start server --name=server1 --server-port=40404</codeblock>
 			<p>See <codeph>start server</codeph>.</p>
