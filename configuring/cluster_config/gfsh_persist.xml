@@ -72,42 +72,42 @@
       <p>The following gfsh commands cause the configuration to be written to all locators in the
         cluster (the locators write the configuration to disk):</p>
       <ul id="ul_x3s_5g5_j4">
-        <li><cmdname>configure pdx</cmdname>*</li>
+        <li><codeph>configure pdx</codeph>*</li>
         <li>
-          <cmdname>create region</cmdname>
+          <codeph>create region</codeph>
         </li>
         <li>
-          <cmdname>alter region</cmdname>
+          <codeph>alter region</codeph>
         </li>
         <li>
-          <cmdname>alter runtime</cmdname>
+          <codeph>alter runtime</codeph>
         </li>
         <li>
-          <cmdname>destroy region</cmdname>
+          <codeph>destroy region</codeph>
         </li>
         <li>
-          <cmdname>create index</cmdname>
+          <codeph>create index</codeph>
         </li>
         <li>
-          <cmdname>destroy index</cmdname>
+          <codeph>destroy index</codeph>
         </li>
         <li>
-          <cmdname>create disk-store</cmdname>
+          <codeph>create disk-store</codeph>
         </li>
         <li>
-          <cmdname>destroy disk-store</cmdname>
+          <codeph>destroy disk-store</codeph>
         </li>
         <li>
-          <cmdname>create async-event-queue</cmdname>
+          <codeph>create async-event-queue</codeph>
         </li>
         <li>
-          <cmdname>deploy jar</cmdname>
+          <codeph>deploy jar</codeph>
         </li>
         <li>
-          <cmdname>undeploy jar</cmdname>
+          <codeph>undeploy jar</codeph>
         </li>
       </ul>
-      <p><b>*</b> Note that the <cmdname>configure pdx</cmdname> command must be executed
+      <p><b>*</b> Note that the <codeph>configure pdx</codeph> command must be executed
           <i>before</i> starting your data members. This command does not affect any currently
         running members in the system. Data members (with cluster configuration enabled) that are
         started after running this command will pick up the new PDX configuration.</p>
@@ -115,10 +115,10 @@
         configuration is saved by locators:</p>
       <ul id="ul_jrn_x13_mr">
         <li>
-          <cmdname>create gateway-sender</cmdname>
+          <codeph>create gateway-sender</codeph>
         </li>
         <li>
-          <cmdname>create gateway-receiver</cmdname>
+          <codeph>create gateway-receiver</codeph>
         </li>
       </ul>
     </section>
@@ -140,7 +140,7 @@
             <li><codeph>instantiantor</codeph></li>
             <li><codeph>pdx-serializer</codeph>
                 <note>
-                  <p>The <cmdname>configure pdx</cmdname> command always specifies the
+                  <p>The <codeph>configure pdx</codeph> command always specifies the
                     <apiname>com.gemstone.gemfire.pdx.ReflectionBasedAutoSerializer</apiname> class.
                   You cannot specify a custom PDX serializer in gfsh. 
                   </p>

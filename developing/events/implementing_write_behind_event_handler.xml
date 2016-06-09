@@ -79,7 +79,7 @@
 							<codeph>AsyncEventListener</codeph> to implement a write-behind cache
 						listener, your code should check for the possibility that an existing
 						database connection may have been closed due to an earlier exception. For
-						example, check for <cmdname>Connection.isClosed()</cmdname> in a catch block
+						example, check for <codeph>Connection.isClosed()</codeph> in a catch block
 						and re-create the connection as needed before performing further operations. </li>
 					<li id="li_AA87F5FD4E044A15875A6F862686EBE1">Use a serial <codeph>AsyncEventQueue</codeph> if
 						you need to preserve the order of region events within a thread when
