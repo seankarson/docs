@@ -2,46 +2,37 @@
 <!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "http://docs.oasis-open.org/dita/v1.1/OS/dtd/concept.dtd">
 <concept id="implementing_authorization">
 	<title>Implementing Authorized Access Control for the Cache</title>
-	<shortdesc>To use authorization for client/server systems, your client connections must be
-		authenticated by their servers. </shortdesc>
+	<shortdesc>Implementing authorization includes writing callbacks and setting properties. </shortdesc>
 	<conbody>
-		<p>To set up authorized access control for the cache: </p>
+		<p>To set up authorized access control: </p>
 			<ol
 				id="ol_CD06382905ED41EEA5348B5E7278AD01">
-				<li id="li_F1191E3775B34AD8A92CFA1DE0EC26E7">Determine the degree of control you
-					want over client access to the server cache </li>
+				<li id="li_F1191E3775B34AD8A92CFA1DE0EC26E7">Determine the permissions to be granted. </li>
 				<li id="li_C0DD2FDC741241288C205A0CE2B907BC">Program and configure the authorization
 					plug-in: <ol id="ol_5C7A314DE03A4D4E963534827C9238E2">
-						<li id="li_2CD1CEF7378E41BFBF7D942A61BB8D7D">Create an implementation of the
-								<keyword keyref="product_name"/>
-							<codeph>com.gemstone.gemfire.security.AccessControl</codeph> interface
-								<ol id="ol_06C1E729CF52410299733EC95850C294">
-								<li id="li_C31A38BCFA7B4A6D8D7109085619AB6F">Program a public static
-									method to return an instance of the class. </li>
-								<li id="li_036311E8D2FE49FC90A655ECF6DF6794">Program the
-										<codeph>init</codeph> method to store all properties
-									required by the
-										<codeph>AccessControl.authorizeOperation</codeph> method at
-									the time the client makes its connection to the server.
-									<note>
-										<p>Do
-										as much work here as you can to save time on the individual
-											<codeph>authorizeOperation</codeph> calls. 
-										</p>
-									</note>
-								</li>
-								<li id="li_E300D88CF0C847129EA980C647D0A2C2">Program the <codeph>authorizeOperation</codeph>
-									method to perform whatever pre- and post-operation authorization
-									activities your application requires. The
-										<codeph>OperationContext</codeph> has the
-										<codeph>OperationCode</codeph> and a boolean indicating
-									whether the call is pre-operation or post-operation. For all but
-									function calls, you can filter the post-operation results to
-									remove any data you do not want your clients to receive.
-									Function calls can be allowed or disallowed only in their
-									entirety. </li>
-							</ol>
-						</li>
+						<li id="li_2CD1CEF7378E41BFBF7D942A61BB8D7D">Create an implementation of the <keyword
+							keyref="product_name"/>
+						<codeph>com.gemstone.gemfire.security.AccessControl</codeph> interface.<ol
+							id="ol_06C1E729CF52410299733EC95850C294">
+							<li id="li_C31A38BCFA7B4A6D8D7109085619AB6F">Program a public static
+								method to return an instance of the class. </li>
+							<li id="li_036311E8D2FE49FC90A655ECF6DF6794">Program the
+									<codeph>init</codeph> method to store all properties required by
+								the <codeph>AccessControl.authorizeOperation</codeph> method at
+								connection time. Do as much work in the <codeph>init</codeph> method
+								as you can to save time on the individual
+									<codeph>authorizeOperation</codeph> calls. </li>
+							<li id="li_E300D88CF0C847129EA980C647D0A2C2">Program the
+									<codeph>authorizeOperation</codeph> method to perform whatever
+								checks and pre- and post-operation authorization activities your
+								application requires. <codeph>OperationContext</codeph> includes an
+									<codeph>isPostOperation</codeph> method to determine whether the
+								call is pre-operation or post-operation. For all but function calls,
+								you can filter the post-operation data results to remove any data
+								you do not want your clients to receive. Function calls can be
+								allowed or disallowed only in their entirety. </li>
+						</ol>
+					</li>
 						<li id="li_A96900BFA2E74A77BB94E79FB6D7E8FB">Set the
 								<codeph>gemfire.properties</codeph> uniformly on all servers to
 							implement the plug-in: <ul id="ul_07F485DB594445AAACB931E7402E496D">
@@ -65,6 +56,8 @@ security-client-accessor-pp=myAuthPkg.myAccessControl.create</codeblock>
 						</li>
 					</ol>
 				</li>
+			<li> As required by the implemented <codeph>authorizeOperation</codeph> method, specify the
+				permissions.</li>
 			</ol>
 		<p>Your <codeph>authorizeOperation</codeph> method will be invoked before and/or after each
 			client operation, as configured. </p>
