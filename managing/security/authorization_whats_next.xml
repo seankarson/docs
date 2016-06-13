@@ -7,28 +7,26 @@
 	<conbody>
 		<section id="section_9C1C676CDC474310AD9D31F1E897C022">
 			<title>Performance</title>
-			<p>For each new connection request from the client, the system authenticates the
-				connection, and instantiates the callback for authorization of data requests and
-				data updates coming in on that connection. Program to cache as much information as
-				you can in the <codeph>AccessControl.init</codeph> method phase for quick
-				authorization of each operation on the connection. Then you can use the cached
-				information in <codeph>AccessControl.authorizeOperation</codeph>, which is called
-				for every client operation. </p>
+			<p>For each new connection request from the client, the system authenticates the connection, and
+				instantiates the callback for authorization of data requests and data updates coming
+				in on that connection. Implement as much caching of information as you can in the
+					<codeph>AccessControl.init</codeph> method phase to reduce the amount of code in
+				the authorization of each operation on the connection.</p>
 			<p>The efficiency of the <codeph>authorizeOperation</codeph> method directly affects the
 				overall throughput of the <keyword keyref="product_name"/> cache. </p>
 		</section>
 		<section id="section_96657E491DDD47569C4E375B0355E1A3">
 			<title>Programming </title>
-			<p>Authorization in the post-operation phase occurs after the operation is complete and
-				before the results are sent to the client. If the operations are not using
+			<p>Authorization in the post-operation phase occurs after the operation is complete and before
+				the results are sent to the client. If the operations are not using
 					<codeph>FunctionService</codeph>, the callback can modify the results of certain
 				operations, such as <codeph>query</codeph>, <codeph>get</codeph> and
 					<codeph>keySet</codeph>. For example, a post-operation callback for a query
 				operation can filter out sensitive data or data that the client should not receive.
 				For all operations, the callback can completely disallow the operation. However, if
 				the operations are using <codeph>FunctionService</codeph>, the callback cannot
-				modify the results of the operations, but can only completely allow or disallow the
-				operation. </p>
+				modify the results of the operations, but can only allow or disallow the operation
+				as a whole. </p>
 			<p>With querying, regions used in the query are obtained in the initial parsing phase.
 				The region list is then passed to the post-operation callback unparsed. In addition,
 				this callback is invoked for updates that are sent by the server to the client on
