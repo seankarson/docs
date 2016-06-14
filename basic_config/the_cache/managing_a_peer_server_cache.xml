@@ -36,7 +36,7 @@ gfsh>create region --name=ordersRegion --type=PARTITION</codeblock></li>
 								<codeblock outputclass="language-xml">&lt;?xml version="1.0" encoding="UTF-8"?&gt;
 &lt;cache
     xmlns="<keyword keyref="xsd_namespace"/>"
-    xmlns:xsi="<xref href="http://www.w3.org/2001/XMLSchema-instance" format="html" scope="external">http://www.w3.org/2001/XMLSchema-instance</xref>"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="<keyword keyref="xsd_namespace"/> <keyword keyref="xsd_namespace"/>/<keyword keyref="xsd_filename"/>"
     version="<keyword keyref="xsd_version"/>”&gt;
 	// NOTE: Use this &lt;cache-server&gt; element only for server processes 

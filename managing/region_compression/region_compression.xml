@@ -97,7 +97,7 @@
         cache.xml:</p>
       <codeblock outputclass="language-xml">&lt;?xml version="1.0" encoding= "UTF-8"?&gt;
 &lt;cache xmlns="<keyword keyref="xsd_namespace"/>"
-    xmlns:xsi="<xref href="http://www.w3.org/2001/XMLSchema-instance" format="html" scope="external">http://www.w3.org/2001/XMLSchema-instance</xref>"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="<keyword keyref="xsd_namespace"/> <keyword keyref="xsd_namespace"/>/<keyword keyref="xsd_filename"/>"
     version="<keyword keyref="xsd_version"/>” lock-lease="120"  lock-timeout= "60" search-timeout= "300"  is-server= "true"  copy-on-read= "false" &gt; 
    &lt;region name="compressedRegion" &gt; 

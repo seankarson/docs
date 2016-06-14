@@ -197,8 +197,8 @@
 						<p>The <keyword keyref="product_name"/> API equivalent to setting this
 							parameter: </p>
 						<codeblock>// Create factory
-<xref format="html" href="http://www.gemstone.com/docs/current/product/docs/japi/com/gemstone/gemfire/cache/AttributesFactory.html" scope="external">AttributesFactory</xref> factory = ...; 
-&lt;or&gt; <xref format="html" href="http://www.gemstone.com/docs/current/product/docs/japi/com/gemstone/gemfire/cache/RegionFactory.html" scope="external">RegionFactory</xref> factory = ...;
+AttributesFactory factory = ...; 
+&lt;or&gt; RegionFactory factory = ...;
 // Add cache listener
 factory.addCacheListener(new DebugCacheListener());</codeblock>
 					</pd>
@@ -213,9 +213,9 @@ factory.addCacheListener(new DebugCacheListener());</codeblock>
 						<p>The <keyword keyref="product_name"/> API equivalent to setting this
 							parameter: </p>
 						<codeblock>// For peer-to-peer members: 
-Cache.<xref format="html" href="http://www.gemstone.com/docs/current/product/docs/japi/com/gemstone/gemfire/cache/Cache.html#createRegionFactory(com.gemstone.gemfire.cache.RegionShortcut)" scope="external">createRegionFactory</xref>(REPLICATE_PROXY) 
+Cache.createRegionFactory(REPLICATE_PROXY) 
 // For client members: 
-ClientCache.<xref format="html" href="http://www.gemstone.com/docs/current/product/docs/japi/com/gemstone/gemfire/cache/client/ClientCache.html#createClientRegionFactory(com.gemstone.gemfire.cache.client.ClientRegionShortcut)" scope="external">createClientRegionFactory</xref>(CACHING_PROXY_HEAP_LRU)</codeblock>
+ClientCache.createClientRegionFactory(CACHING_PROXY_HEAP_LRU)</codeblock>
 					</pd>
 				</plentry>
 				<plentry>
@@ -232,7 +232,7 @@ ClientCache.<xref format="html" href="http://www.gemstone.com/docs/current/produ
 						<p>The <keyword keyref="product_name"/> API equivalent to setting this
 							parameter: </p>
 						<codeblock>// Creates a region factory for the specified region shortcut 
-Cache.<xref format="html" href="http://www.gemstone.com/docs/current/product/docs/japi/com/gemstone/gemfire/cache/Cache.html#createRegionFactory(com.gemstone.gemfire.cache.RegionShortcut)" scope="external">createRegionFactory</xref>(regionAttributesId); </codeblock>
+Cache.createRegionFactory(regionAttributesId); </codeblock>
 					</pd>
 				</plentry>
 				<plentry>
@@ -243,7 +243,7 @@ Cache.<xref format="html" href="http://www.gemstone.com/docs/current/product/doc
 						<p>The <keyword keyref="product_name"/> API equivalent to setting this
 							parameter: </p>
 						<codeblock>// Creates a region with the specified name 
-RegionFactory.<xref format="html" href="http://www.gemstone.com/docs/current/product/docs/japi/com/gemstone/gemfire/cache/RegionFactory.html#create(java.lang.String)" scope="external">create</xref>(regionName); </codeblock>
+RegionFactory.create(regionName); </codeblock>
 					</pd>
 				</plentry>
 				<plentry>

@@ -96,7 +96,7 @@
 					<codeblock>&lt;?xml version="1.0" encoding="UTF-8"?&gt;
 &lt;cache
     xmlns="<keyword keyref="xsd_namespace"/>"
-    xmlns:xsi="<xref href="http://www.w3.org/2001/XMLSchema-instance" format="html" scope="external">http://www.w3.org/2001/XMLSchema-instance</xref>"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="<keyword keyref="xsd_namespace"/> <keyword keyref="xsd_namespace"/>/<keyword keyref="xsd_filename"/>"
     version="<keyword keyref="xsd_version"/>"
     lock-lease="120" lock-timeout="60" search-timeout="300"&gt; 
@@ -239,7 +239,7 @@ load-factor="0.75" concurrency-level="16" statistics-enabled="true"&gt;
 					instead of an <codeph>xa-datasource-class</codeph>. </p>
 					<codeblock>&lt;?xml version="1.0"?&gt;
 &lt;cache xmlns="<keyword keyref="xsd_namespace"/>"
-    xmlns:xsi="<xref href="http://www.w3.org/2001/XMLSchema-instance" format="html" scope="external">http://www.w3.org/2001/XMLSchema-instance</xref>"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="<keyword keyref="xsd_namespace"/> <keyword keyref="xsd_namespace"/>/<keyword keyref="xsd_filename"/>"
     version="<keyword keyref="xsd_version"/>"
     lock-lease="120" 
@@ -305,7 +305,7 @@ load-factor="0.75" concurrency-level="16" statistics-enabled="true"&gt;
 						scope="local"><?xm-replace_text Encrypting Passwords for Use in cache.xml?></xref>. </p>
 					<codeblock>&lt;?xml version="1.0"?&gt;
 &lt;cache xmlns="<keyword keyref="xsd_namespace"/>"
-    xmlns:xsi="<xref href="http://www.w3.org/2001/XMLSchema-instance" format="html" scope="external">http://www.w3.org/2001/XMLSchema-instance</xref>"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="<keyword keyref="xsd_namespace"/> <keyword keyref="xsd_namespace"/>/<keyword keyref="xsd_filename"/>"
     version="<keyword keyref="xsd_version"/>"
     lock-lease="120"
@@ -366,7 +366,7 @@ initial-capacity="16" load-factor="0.75" concurrency-level="16" statistics-enabl
 					earlier examples. </p>
 					<codeblock>&lt;?xml version="1.0"?&gt;
 &lt;cache xmlns="<keyword keyref="xsd_namespace"/>"
-    xmlns:xsi="<xref href="http://www.w3.org/2001/XMLSchema-instance" format="html" scope="external">http://www.w3.org/2001/XMLSchema-instance</xref>"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="<keyword keyref="xsd_namespace"/> <keyword keyref="xsd_namespace"/>/<keyword keyref="xsd_filename"/>"
     version="<keyword keyref="xsd_version"/>"
     lock-lease="120" 

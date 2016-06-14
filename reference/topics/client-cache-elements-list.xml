@@ -5,24 +5,24 @@
    <shortdesc>This section shows the hierarchy of <codeph>&lt;client-cache&gt;</codeph> element
       sub-elements that you use to configure <keyword keyref="product_name"/> caches and clients. </shortdesc>
    <body>
-      <p>For details, click on one of the elements. </p>
-      <codeblock><xref href="client-cache.xml" type="topic" format="dita" scope="local">&lt;client-cache&gt;</xref>
-  <xref href="client-cache.xml#cc-cache-transaction-manager"/>
+      <p>For details, see <xref href="client-cache.xml" type="topic" format="dita" scope="local">&lt;client-cache&gt; Element Reference.</xref></p>
+      <codeblock>&lt;client-cache&gt;
+   &lt;cache-transaction-manager&gt;
       &lt;transaction-listener&gt;
       &lt;transaction-writer&gt;
-  <xref href="client-cache.xml#cc-pool"/>
+   &lt;pool&gt;
       &lt;locator&gt;
       &lt;server&gt;
-   <xref href="client-cache.xml#cc-disk-store"/>
+   &lt;disk-store&gt;
       &lt;disk-dirs&gt;
          &lt;disk-dir&gt;
-   <xref href="client-cache.xml#cc-pdx"/>
+   &lt;pdx&gt;
       &lt;pdx-serializer&gt;
-          &lt;class-name&gt;
-          &lt;parameter&gt;
-             &lt;string>
-             &lt;declarable&gt;
-   <xref href="client-cache.xml#cc-r-region-attributes"/>
+         &lt;class-name&gt;
+         &lt;parameter&gt;
+            &lt;string>
+            &lt;declarable&gt;
+   &lt;region-attributes&gt;
       &lt;key-constraint&gt; 
       &lt;value-constraint&gt;
       &lt;region-time-to-live&gt;
@@ -54,39 +54,39 @@
                   &lt;string&gt;
                   &lt;declarable&gt;
       &lt;cache-loader&gt; 
-          &lt;class-name&gt;
+         &lt;class-name&gt;
             &lt;parameter&gt;
                &lt;string&gt;
                &lt;declarable&gt;
       &lt;cache-writer&gt; 
-          &lt;class-name&gt;
+         &lt;class-name&gt;
             &lt;parameter&gt;
                &lt;string&gt;
                &lt;declarable&gt;
       &lt;cache-listener&gt; 
-          &lt;class-name&gt;
+         &lt;class-name&gt;
             &lt;parameter&gt;
                &lt;string&gt;
                &lt;declarable&gt;
       &lt;eviction-attributes&gt;
          &lt;lru-entry-count&gt;
          &lt;lru-heap-percentage&gt;
-             &lt;class-name&gt;
+            &lt;class-name&gt;
                &lt;parameter&gt;
                   &lt;string&gt;
                   &lt;declarable&gt;
          &lt;lru-memory-size&gt;
-             &lt;class-name&gt;
+            &lt;class-name&gt;
                &lt;parameter&gt;
                   &lt;string&gt;
                   &lt;declarable&gt;
-   <xref href="client-cache.xml#cc-jndi-bindings"/>
+   &lt;jndi-bindings&gt;
       &lt;jndi-binding&gt;
          &lt;config-property&gt;
             &lt;config-property-name&gt;
             &lt;config-property-type&gt;
             &lt;config-property-value&gt;
-   <xref href="client-cache.xml#cc-ra-region"/>
+   &lt;region&gt;
       &lt;region-attributes&gt;
       &lt;index&gt;   
          &lt;entry&gt;
@@ -97,23 +97,24 @@
             &lt;string&gt;
             &lt;declarable&gt;
       &lt;region&gt; 
-   <xref href="client-cache.xml#cc-function-service"/>
+   &lt;function-service&gt;
       &lt;function&gt;
          &lt;class-name&gt;
          &lt;parameter&gt;
             &lt;string&gt;
             &lt;declarable&gt;
-   <xref href="client-cache.xml#cc-resource-manager"/>
-   <xref href="client-cache.xml#cc-serialization-registration"/>
+   &lt;resource-manager&gt;
+   &lt;serialization-registration>
       &lt;serializer&gt;
          &lt;class-name&gt;
       &lt;instantiator&gt;
          &lt;class-name&gt;  
-   <xref href="client-cache.xml#cc-initializer"/>
+   &lt;initializer&gt;
       &lt;class-name&gt;
       &lt;parameter&gt;
          &lt;string&gt;
          &lt;declarable&gt;
-&lt;/client-cache&gt;</codeblock>
+&lt;/client-cache&gt;
+      </codeblock>
    </body>
 </topic>
