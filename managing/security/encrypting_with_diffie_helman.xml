@@ -18,19 +18,21 @@
 			<title>Enable Server Authentication of Client with Diffie-Hellman</title>
 			<p>Set this in property in the client’s <codeph>gemfire.properties</codeph> (or
 					<codeph>gfsecurity.properties</codeph> file if you are creating a special
-				restricted access file for security configuration): <ul
+				restricted access file for security configuration): </p>
+				<ul
 					id="ul_E6F65BBA50E44F68A3BDF3BAECD4EF5F">
 					<li id="li_49EC04FF606C4F8EB2C841BE3C1751E5"
 								><codeph><b>security-client-dhalgo</b></codeph>. Name of a valid
 						symmetric key cipher supported by the JDK, possibly followed by a key size
 						specification. </li>
 				</ul> This causes the server to authenticate the client using the Diffie-Hellman
-				algorithm. </p>
+				algorithm.
 		</section>
 		<section id="section_D07F68BE8D3140E99244895F4AF2CC80">
 			<title>Enable Client Authentication of Server</title>
 			<p>This requires server authentication of client with Diffie-Hellman to be enabled. To
-				have your client authenticate its servers, in addition to being authenticated: <ol
+				have your client authenticate its servers, in addition to being authenticated: </p>
+				<ol
 					id="ol_B421AA97572F4930AF7208FE8F754A43">
 					<li id="li_36A16CA9C78E48F08CA6D5973416508B">In server
 							<codeph>gemfire.properties</codeph> (or
@@ -64,7 +66,6 @@
 						</ol>
 					</li>
 				</ol>
-			</p>
 		</section>
 		<section id="section_5FB4437072AC4B4E93210BEA60B67A27">
 			<title>Set the Key Size for AES and Blowfish Encryption Keys</title>
@@ -76,7 +77,8 @@
 				avoid server-side replay attacks. </p>
 			<p>For the AES and Blowfish algorithms, you can specify the key size for the
 					<codeph>security-client-dhalgo</codeph> property by adding a colon and the size
-				after the algorithm specification, like this: <codeblock>security-client-dhalgo=AES:192</codeblock>
+				after the algorithm specification, like this:</p>
+			<codeblock>security-client-dhalgo=AES:192</codeblock>
 				<ul id="ul_E0C347EB752C44E598FA295539C1EA85">
 					<li id="li_2931C5DDE2734B0E895F50120675DE03">For AES, valid key size settings
 						are: <ul id="ul_72F85C93B7D74ABE8DC255C75A1E3FFB">
@@ -88,7 +90,6 @@
 					<li id="li_4154301A36314D6691D2130306694FA7">For Blowfish, set the key size
 						between 128 and 448 bits, inclusive. </li>
 				</ul>
-			</p>
 		</section>
 	</conbody>
 </concept>

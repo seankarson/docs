@@ -28,7 +28,6 @@
 			second element. </p>
 		<section id="section_7F5A800E2DA643F2B30162EF45DBA390">
 			<title>Sample Code</title>
-			<p>
 				<codeblock>// specify the query string
 String queryString = "SELECT DISTINCT * FROM /exampleRegion p WHERE p.id = $1 and p.status = $2";
 
@@ -46,7 +45,6 @@ SelectResults results = (SelectResults) query.execute(params);
 // use the results of the query; this example only looks at the size 
  int size = results.size();
 </codeblock>
-			</p>
 		</section>
 		<section id="section_90B4A0010CDA481581B650AE6D9EBA34">
 			<title>Using Query Bind Parameters in the Path Expression</title>
@@ -55,9 +53,8 @@ SelectResults results = (SelectResults) query.execute(params);
 				parameter's referenced value must be bound to a collection. </p>
 			<p>For example, the following query can be used on any collection by passing in the
 				collection as a query parameter value. In this query you could pass in a Region
-				Object for $1, but not the String name of a region.
+				Object for $1, but not the String name of a region.</p>
 				<codeblock>SELECT DISTINCT * FROM $1 p WHERE p.status = $2</codeblock>
-			</p>
 		</section>
 	</conbody>
 </concept>

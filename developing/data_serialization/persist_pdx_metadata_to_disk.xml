@@ -7,7 +7,7 @@
 	<conbody>
 		<section id="section_7F357A8E56B54BFB9A5778C0F89E034E">
 			<p>
-				<b>Prerequisites</b>
+				<b>Prerequisites</b></p>
 				<ul id="ul_C8E6B9B7BE8745FA9A579A5251451C94">
 					<li id="li_93C2D3F5BACB4BCCA907BB00B3B74B31">Understand generally how to
 						configure the <keyword keyref="product_name"/> cache. See <xref
@@ -19,9 +19,8 @@
 							href="../../managing/disk_storage/chapter_overview.xml"
 							scope="local" type="concept"/>. </li>
 				</ul>
-			</p>
 			<p>
-				<b>Procedure</b>
+				<b>Procedure</b></p>
 				<ol id="ol_b6d69a56-78de-4f9e-88de-5d8c6b1b0ddd">
 					<li id="li_29376F34C6C1410AA1878A6303E19D4E">Set the <codeph>&lt;pdx&gt;</codeph> attribute
 							<codeph>persistent</codeph> to true in your cache configuration. This is
@@ -32,10 +31,14 @@
 						disk store that is not the <keyword keyref="product_name"/> default disk
 						store, set the <codeph>&lt;pdx&gt;</codeph> attribute
 							<codeph>disk-store-name</codeph> to the name of your non-default disk
-						store. <note>If you are using PDX serialized objects as region entry keys
+						store.
+						<note>
+							<p>If you are using PDX serialized objects as region entry keys
 							and you are using persistent regions, then you must configure your PDX
 							disk store to be a different one than the disk store used by the
-							persistent regions. </note>
+							persistent regions.
+							</p>
+						</note>
 					</li>
 					<li>(Optional) If you later want to rename the PDX types that are persisted to
 						disk, you can do so on your offline disk-stores by executing the <codeph>pdx
@@ -43,10 +46,9 @@
 							href="../../tools_modules/gfsh/command-pages/pdx.xml"
 						/>.</li>
 				</ol>
-			</p>
 			<p><b>Example cache.xml:</b></p>
 			<p>This example <codeph>cache.xml</codeph> enables PDX persistence and sets a
-				non-default disk store in a server cache configuration:
+				non-default disk store in a server cache configuration:</p>
 				<codeblock>
   &lt;pdx read-serialized="true" 
        persistent="true" disk-store-name="SerializationDiskStore"&gt;
@@ -56,7 +58,6 @@
   &lt;/pdx&gt;
   &lt;region ...
 </codeblock>
-			</p>
 		</section>
 	</conbody>
 </concept>

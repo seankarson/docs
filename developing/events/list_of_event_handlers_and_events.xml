@@ -11,7 +11,6 @@
 			<p>Use either cache handlers or membership handlers in any single application. Do not
 				use both. The event handlers in this table are cache handlers unless otherwise
 				noted. </p>
-			<p>
 				<table id="table_0A6E2D95837246E1AD1B0DD5A9AAD95F">
 					<tgroup cols="3">
 						<colspec colname="1" colnum="1" colwidth="*"/>
@@ -151,12 +150,16 @@
 										<codeph>EntryEvent</codeph>
 								</entry>
 								<entry>Tracks the outcome of transactions and changes to data
-									entries in the transaction. <note>Multiple transactions on the
+									entries in the transaction.
+									<note>
+										<p>Multiple transactions on the
 										same cache can cause concurrent invocation of
 											<codeph>TransactionListener</codeph> methods, so
 										implement methods that do the appropriate synchronizing of
 										the multiple threads for thread-safe operation.
-									</note>Extends <codeph>CacheCallback</codeph> interface.
+										</p>
+									</note>
+									Extends <codeph>CacheCallback</codeph> interface.
 									Installed in cache using transaction manager. Works with
 									region-level listeners if needed. </entry>
 							</row>
@@ -185,7 +188,6 @@
 						</tbody>
 					</tgroup>
 				</table>
-			</p>
 		</section>
 		<section id="section_48C81FE4C1934DBBB287925A6F7A473D">
 			<title>Events</title>

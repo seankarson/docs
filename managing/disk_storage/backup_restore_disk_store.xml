@@ -46,13 +46,15 @@
 				passing commands to the running system members; therefore, the members need to be
 				online for this operation to succeed. Each member with persistent data creates a
 				backup of its own configuration and disk stores. The backup does not block any
-				activities within the distributed system, but it does use resources. <note>Do not
+				activities within the distributed system, but it does use resources. </p>
+			<note>
+				<p>Do not
 					try to create backup files from a running system by using your operating
 					system's file copy commands. This would create incomplete and unusable copies.
-				</note>
-			</p>
+				</p>	
+			</note>
 			<p>
-				<b>Preparing to Make a Backup</b>
+				<b>Preparing to Make a Backup</b></p>
 				<ul id="ul_s5w_wsz_pt">
 					<li>Consider compacting your disk store before making a backup. If
 						auto-compaction is turned off, you may want to do a manual compaction to
@@ -82,7 +84,8 @@
 							a backup is made, a new subdirectory is created within the specified
 							directory, and that new subdirectory's name represents the date and
 							time. </p>
-						<p>You can use one of two locations for the backup: <ul id="ul_qmg_3tz_pt">
+						<p>You can use one of two locations for the backup: </p>
+							<ul id="ul_qmg_3tz_pt">
 								<li>a single physical location, such as a network file server, for
 									example:
 									<codeblock>/export/fileServerDirectory/gemfireBackupLocation</codeblock>
@@ -91,14 +94,13 @@
 									for example: <codeblock>./gemfireBackupLocation</codeblock>
 								</li>
 							</ul>
-						</p></li>
+						</li>
 					<li>Make sure all members with persistent data are running in the system, because offline
 						members cannot back up their disk stores. Output from the backup command
 						will not identify members hosting replicated regions that are offline.</li>
 				</ul>
-			</p>
 			<p>
-				<b>How to Do a Full Online Backup</b>
+				<b>How to Do a Full Online Backup</b></p>
 				<ol id="ol_870E3FACA7FC4DCE9D517FE542847CFC">
 					<li id="li_5DD5496960ED444C92D3AA7C17E06057">If auto-compaction is disabled, and
 						manual compaction is needed:
@@ -121,16 +123,15 @@
 						<codeblock>cd 2010-04-10-11-35/straw_14871_53406_34322/diskstores/ds1
 gfsh validate offline-disk-store --name=ds1 --disk-dirs=/home/dsmith/dir1</codeblock></li>
 				</ol>
-			</p>
 			<p>
 				<b>How to Do an Incremental Backup</b>
 			</p>
 			<p>An incremental backup contains items that have changed since a previous backup was
 				made.</p>
 			<p>To do an incremental backup, specify the backup directory that the incremental backup
-				will be based upon with the <codeph>--baseline-dir</codeph> argument. For example:
+				will be based upon with the <codeph>--baseline-dir</codeph> argument. For example:</p>
 				<codeblock>gfsh&gt;backup disk-store --dir=/export/fileServerDirectory/gemfireBackupLocation
---baseline-dir=/export/fileServerDirectory/gemfireBackupLocation/2012-10-01-12-30</codeblock></p>
+--baseline-dir=/export/fileServerDirectory/gemfireBackupLocation/2012-10-01-12-30</codeblock>
 			<p>The output will appear the same as the  output for a full online backup.</p>
 			<p>Any online member that fails to complete its incremental backup will leave a file
 				named <codeph>INCOMPLETE_BACKUP</codeph> in its highest level backup directory. The
@@ -140,7 +141,8 @@ gfsh validate offline-disk-store --name=ds1 --disk-dirs=/home/dsmith/dir1</codeb
 		</section>
 		<section id="section_C08E52E65DAD4CD5AE076BBDCF1DB340">
 			<title>What a Full Online Backup Saves</title>
-			<p>For each member with persistent data, a full backup includes the following: <ul
+			<p>For each member with persistent data, a full backup includes the following:</p>
+				<ul
 					id="ul_E08684424FA84732AA61C7C981288D26">
 					<li id="li_089BCC632AD1420183B346A3B6A28682">Disk store files for all members
 						containing persistent region data. </li>
@@ -173,7 +175,6 @@ gfsh validate offline-disk-store --name=ds1 --disk-dirs=/home/dsmith/dir1</codeb
 						do a restore. The script copies files back to their original locations.
 					</li>
 				</ul>
-			</p>
 		</section>
 		<section id="section_59E23EEA4AB24374A45B99A8B44FD49B">
 			<title>What an Incremental Online Backup Saves</title>
@@ -190,7 +191,6 @@ gfsh validate offline-disk-store --name=ds1 --disk-dirs=/home/dsmith/dir1</codeb
 		</section>
 		<section id="section_22809A237A344015B40C962B704D8F34">
 			<title>Disk Store Backup Directory Structure and Contents</title>
-			<p>
 				<codeblock>$ cd thebackupdir
 $ ls -R
 ./2012-10-18-13-44-53:
@@ -212,10 +212,9 @@ dir0
 BACKUPDEFAULT_1.crf BACKUPDEFAULT_1.drf BACKUPDEFAULT.if
 
 ./2012-10-18-13-44-53/dasmith_e6410_server1_8623_v1_33892/user:</codeblock>
-			</p>
 		</section>
 		<section id="section_6F998080AF7640D1A9E951D155A75E3A">
-			<title>Offline Members: Manual Catch-Up to an Online Backup</title>
+			<title>Offline Members—Manual Catch-Up to an Online Backup</title>
 			<p>If you must have a member offline during an online backup, you can manually back up
 				its disk stores. Bring this member’s files into the online backup framework
 				manually, and create a restore script by hand starting with a copy of another
@@ -232,7 +231,8 @@ BACKUPDEFAULT_1.crf BACKUPDEFAULT_1.drf BACKUPDEFAULT.if
 		<section id="section_D08DC489B9D947DE97B8F96261E4A977">
 			<title>Restore Using a Backup Made While the System Was Online</title>
 			<p>The <codeph>restore.sh</codeph> or <codeph>restore.bat</codeph> script copies files
-				back to their original locations. <ol id="ol_AAE417692C3745FEA7E8D83F2A88D135">
+				back to their original locations. </p>
+				<ol id="ol_AAE417692C3745FEA7E8D83F2A88D135">
 					<li id="li_79408F8EEFC342DE82CEB5D53093438F">Restore your disk stores while
 						cache members are offline and the system is down. </li>
 					<li id="li_8FA1C0BCCE2748F4ACDA8CA1B9346863">Look at each of the restore scripts
@@ -242,8 +242,8 @@ BACKUPDEFAULT_1.crf BACKUPDEFAULT_1.drf BACKUPDEFAULT.if
 					<li id="li_8B059003024241F1B2293C4A43372F59">Run each restore script on the host
 						where the backup originated. </li>
 				</ol>
-			</p>
-			<p>The restore copies these files back to their original location: <ul
+			<p>The restore copies these files back to their original location:</p>
+				<ul
 					id="ul_FDE0B5475EB3404C840C8A22AAD746AC">
 					<li id="li_9EF35C6DF88547BB81D4474D3DEB8EF6">Disk store files for all stores
 						containing persistent region data. </li>
@@ -251,7 +251,6 @@ BACKUPDEFAULT_1.crf BACKUPDEFAULT_1.drf BACKUPDEFAULT.if
 						configured to be backed up in the <codeph>cache.xml</codeph>
 						<codeph>&lt;backup&gt;</codeph> elements. </li>
 				</ul>
-			</p>
 		</section>
 	</conbody>
 </concept>

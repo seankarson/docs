@@ -5,26 +5,26 @@
 	<conbody>
 		<section id="section_38D803A7E8474188898963F456188543">
 			<title>Overriding Region Attributes</title>
-			<p>When using the HTTP Session Management Module, you cannot override region attributes
-				directly on the cache server. You must place all region attribute definitions in the
-				region attributes template that you customize within the application server. For
-				example, to specify a different name for the region's disk store, you could add the
-				new disk-store-name specification to the region attributes template and then
-				reference the template on the cache server.
-				<codeblock>&lt;region-attributes id="MY_SESSIONS" refid="PARTITION_REDUNDANT_PERSISTENT_OVERFLOW" 
+			<p>When using the HTTP Session Management Module, you cannot override region attributes directly
+				on the cache server. You must place all region attribute definitions in the region
+				attributes template that you customize within the application server. For example,
+				to specify a different name for the region's disk store, you could add the new
+				disk-store-name specification to the region attributes template and then reference
+				the template on the cache server. </p>
+			<codeblock>&lt;region-attributes id="MY_SESSIONS" refid="PARTITION_REDUNDANT_PERSISTENT_OVERFLOW" 
 <b>disk-store-name="mystore"</b>&gt;
   ...
 &lt;/region-attributes&gt;
-</codeblock>Then
-				on the cache server side, reference the modified region attributes template to allow
-				the region to use the disk-store-name attribute:
-				<codeblock>&lt;region name="gemfire_modules_sessions" refid="MY_SESSIONS"/&gt;</codeblock>
-				Next, you must specify the region attributes ID as a value for the
+</codeblock>
+			<p>Then on the cache server side, reference the modified region attributes template to
+				allow the region to use the disk-store-name attribute:  </p>
+			<codeblock>&lt;region name="gemfire_modules_sessions" refid="MY_SESSIONS"/&gt;</codeblock>
+			<p>Next, you must specify the region attributes ID as a value for the
 					<codeph>region_attributes_id</codeph> parameter in web.xml. For example, if you
 				want to enable the <codeph>region-attributes</codeph> in the above example for a
 				specific Web application, you would configure the Web application's web.xml in the
-				following manner:
-				<codeblock>&lt;filter&gt;
+				following manner:  </p>
+			<codeblock>&lt;filter&gt;
   ...
     &lt;init-param&gt;
         &lt;param-name&gt;gemfire.cache.region_attributes_id&lt;/param-name&gt;
@@ -32,7 +32,6 @@
     &lt;/init-param&gt;
   ...
 &lt;/filter&gt;</codeblock>
-			</p>
 		</section>
 	</conbody>
 </concept>

@@ -8,12 +8,14 @@
 	<conbody>
 		<p>For a supplementary character, you need two escape sequences, one for each of the two
 			UTF-16 code units. The XXXX denotes the 4 hexadecimal digits for the value of the UTF-16
-			code unit. For example, a properties file might have the following entries:
+			code unit. For example, a properties file might have the following entries:</p>
 			<codeblock>
 s1=hello there
-s2=\u3053\u3093\u306b\u3061\u306f</codeblock>For example, in
-				<codeph>gemfire.properties</codeph>, you might write:
-			<codeblock>log-file=my\u00df.log</codeblock> to indicate the desired propery definition
+s2=\u3053\u3093\u306b\u3061\u306f</codeblock>
+		<p>For example, in
+			<codeph>gemfire.properties</codeph>, you might write:</p>
+			<codeblock>log-file=my\u00df.log</codeblock>
+		<p>to indicate the desired propery definition
 			of <codeph>log-file=myß.log</codeph>. </p>
 		<p> If you have edited and saved the file in a non-ASCII encoding, you can convert it to
 			ASCII with the <codeph>native2ascii</codeph> tool included in your Oracle Java

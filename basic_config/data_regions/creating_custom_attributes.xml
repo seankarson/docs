@@ -9,8 +9,12 @@
 		<section id="section_A8752F55C157480FAF435738D6244503">
 			<p>You can define custom user attributes so you can associate data with the region or
 				entry and retrieve it later. Unlike the other configuration settings, these
-				attributes are used only by your application. <note>User attributes are not
-					distributed. </note>
+				attributes are used only by your application. </p>
+			<note>
+				<p>User attributes are not
+					distributed. 
+				</p>
+			</note>
 				<ol id="ol_99913881A85F498694EE8D42F42D4A4C">
 					<li id="li_CCD40EF72C704869972AFB23B65943A0">Create a Java
 							<codeph>Object</codeph> with your attribute definitions. </li>
@@ -35,8 +39,8 @@
 						</ul>
 					</li>
 				</ol>
-			</p>
-			<p>This example stores attributes for later retrieval by a cache writer. <codeblock>// Attach a user attribute to a Region with database info for table portfolio
+			<p>This example stores attributes for later retrieval by a cache writer.</p>
+			<codeblock>// Attach a user attribute to a Region with database info for table portfolio
 Object myAttribute = "portfolio"; 
 final Region portfolios = 
       new RegionFactory().setCacheWriter(new PortfolioDBWriter()).create("Portfolios"); 
@@ -49,7 +53,6 @@ public class PortfolioDBWriter extends CacheWriterAdapter {
         . . .
   }
 }</codeblock>
-			</p>
 		</section>
 		<section id="section_A5CB456E4E96410584F8856EAFB5BB83">
 			<title>Limitations and Alternatives</title>

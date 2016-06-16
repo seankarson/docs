@@ -6,7 +6,8 @@
 		local region. Local regions receive only local cache events. </shortdesc>
 	<conbody>
 		<section id="section_7D5B1F0C0EF24E58BB3C335CB4EA9A3C">
-			<p>Peer distribution is done according to the region's configuration. <ul
+			<p>Peer distribution is done according to the region's configuration. </p>
+				<ul
 					id="ul_8536BAC8E16A4219BAB6F4417C9D925A">
 					<li id="li_3C68F56DD37F472BAB99BF3767E88D95">Replicated regions always receive
 						all events from peers and require no further configuration. Replicated
@@ -38,11 +39,14 @@
 						so if you can, run listeners in every member that hosts the partitioned
 						region data and use the <codeph>cache-content</codeph> interest policy.
 					</li>
-				</ul><note>You can also configure Regions using the gfsh command-line interface. See
+				</ul>
+			<note>
+				<p>You can also configure Regions using the gfsh command-line interface. See
 						<xref
 						href="../../tools_modules/gfsh/quick_ref_commands_by_area.xml#topic_EF03119A40EE492984F3B6248596E1DD"
-					/>.</note>
-			</p>
+					/>.
+				</p>
+			</note>
 		</section>
 	</conbody>
 </concept>

@@ -8,7 +8,8 @@
 		<section id="section_04FDCC6C2130496F8B33B9DF5CDED362">
 			<p> </p>
 			<p>With redundancy, if one member fails, operations continue on the partitioned region
-				with no interruption of service: <ul id="ul_7A221AE2AAD84FFF8F9C1B30F1460AD4">
+				with no interruption of service: </p>
+				<ul id="ul_7A221AE2AAD84FFF8F9C1B30F1460AD4">
 					<li id="li_060C08293ACC4CB9BE161FC61E7B9244">If the member hosting the primary
 						copy is lost, <keyword keyref="product_name"/> makes a secondary copy the
 						primary. This might cause a temporary loss of redundancy, but not a loss of
@@ -18,8 +19,12 @@
 						redundancy by assigning another member as secondary and copying the data to
 						it. </li>
 				</ul>
-				<note>You can still lose cached data when you are using redundancy if enough members
-					go down in a short enough time span. </note>You can configure how the system
+				<note>
+					<p>You can still lose cached data when you are using redundancy if enough members
+					go down in a short enough time span. 
+					</p>
+				</note>
+			<p>You can configure how the system
 				works to recover redundancy when it is not satisfied. You can configure recovery to
 				take place immediately or, if you want to give replacement members a chance to start
 				up, you can configure a wait period. Redundancy recovery is also automatically
@@ -42,7 +47,8 @@
 				change this behavior, so <keyword keyref="product_name"/> only places copies on
 				separate machines. </p>
 			<p> You can also control which members store your primary and secondary data copies.
-					<keyword keyref="product_name"/> provides two options: <ul
+				<keyword keyref="product_name"/> provides two options: </p>
+				<ul
 					id="ul_3C415128F5B34D688097F7752CB9C650">
 					<li id="li_6DB269998B794F49A266990E7AB24096"><b>Fixed custom partitioning</b>.
 						This option is set for the region. Fixed partitioning gives you absolute
@@ -64,7 +70,6 @@
 							keyref="product_name"/> will not place two copies of the data in the
 						same zone, so make sure you have enough zones. </li>
 				</ul>
-			</p>
 		</section>
 		<section id="section_87A2429B6277497184926E08E64B81C6">
 			<title>Running Processes in Virtual Machines</title>
@@ -81,7 +86,8 @@
 			<title>Reads and Writes in Highly-Available Partitioned Regions</title>
 			<p><keyword keyref="product_name"/> treats reads and writes differently in
 				highly-available partitioned regions than in other regions because the data is
-				available in multiple members: <ul id="ul_92f08af3-9cb5-49dc-a6af-13cc5741bbfb">
+				available in multiple members: </p>
+				<ul id="ul_92f08af3-9cb5-49dc-a6af-13cc5741bbfb">
 					<li id="li_5D4674FB72D645599074E26655DB4EFE">Write operations (like
 							<codeph>put</codeph> and <codeph>create</codeph>) go to the primary for
 						the data keys and then are distributed synchronously to the redundant
@@ -92,7 +98,6 @@
 						holding a copy of the data, with the local cache favored, so a read
 						intensive system can scale much better and handle higher loads. </li>
 				</ul>
-			</p>
 			<p>In this figure, M1 is reading W, Y, and Z. It gets W directly from its local copy.
 				Since it doesn't have a local copy of Y or Z, it goes to a cache that does, picking
 				the source cache at random. </p>

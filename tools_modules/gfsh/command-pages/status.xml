@@ -17,17 +17,16 @@
 					JMX Manager member to use this command. </p>
 				<p>
 					<b>Syntax:</b>
-					<codeblock>status cluster-config-service</codeblock>
 				</p>
+				<codeblock>status cluster-config-service</codeblock>
 				<p>
 					<b>Example Commands:</b>
-					<codeblock>status cluster-config-service</codeblock>
 				</p>
+				<codeblock>status cluster-config-service</codeblock>
 				<p>
 					<b>Sample Output:</b>
 				</p>
-				<p>
-					<codeblock>gfsh>status cluster-config-service
+				<codeblock>gfsh>status cluster-config-service
 Status of shared configuration on locators
 
   Name   | Status
@@ -35,7 +34,6 @@ Status of shared configuration on locators
 locator8 | RUNNING
 
 </codeblock>
-				</p>
 			</body>
 		</topic>
 		<topic id="topic_B0F45DC2D5F64FB1A2F738206BC6539E">
@@ -46,45 +44,46 @@ locator8 | RUNNING
 					JMX Manager member to use this command. </p>
 				<p>
 					<b>Syntax:</b>
-					<codeblock>status gateway-receiver [--group=value(,value)*] [--member=value]</codeblock>
-					<table id="table_1531BF356623411C97FBD1F9B58C9608">
-						<title>Parameters</title>
-						<tgroup cols="2">
-							<colspec colnum="1" colname="col1" colwidth="1.00*"/>
-							<colspec colnum="2" colname="col2" colwidth="4.10*"/>
-							<thead>
-								<row>
-									<entry colname="col1">Name </entry>
-									<entry colname="col2">Description</entry>
-								</row>
-							</thead>
-							<tbody>
-								<row>
-									<entry colname="col1">
-										<parmname>--group</parmname>
-									</entry>
-									<entry colname="col2">Group(s) of Gateway Receivers for which to
-										display status. </entry>
-								</row>
-								<row>
-									<entry colname="col1">
-										<parmname>--member</parmname>
-									</entry>
-									<entry colname="col2">Name or ID of the Gateway Receiver for
-										which to display status. </entry>
-								</row>
-							</tbody>
-						</tgroup>
-					</table>
 				</p>
+				<codeblock>status gateway-receiver [--group=value(,value)*] [--member=value]</codeblock>
+				<table id="table_mb3_p3f_2w">
+					<title>Parameters</title>
+					<tgroup cols="2">
+						<colspec colnum="1" colname="col1" colwidth="1.00*"/>
+						<colspec colnum="2" colname="col2" colwidth="4.10*"/>
+						<thead>
+							<row>
+								<entry colname="col1">Name </entry>
+								<entry colname="col2">Description</entry>
+							</row>
+						</thead>
+						<tbody>
+							<row>
+								<entry colname="col1">
+									<parmname>--group</parmname>
+								</entry>
+								<entry colname="col2">Group(s) of Gateway Receivers for which to
+									display status. </entry>
+							</row>
+							<row>
+								<entry colname="col1">
+									<parmname>--member</parmname>
+								</entry>
+								<entry colname="col2">Name or ID of the Gateway Receiver for which
+									to display status. </entry>
+							</row>
+						</tbody>
+					</tgroup>
+				</table>
 				<p>
 					<b>Example Commands:</b>
-					<codeblock>status gateway-receiver --group=LN-Group1
-status gateway-receiver --member=server1</codeblock>
 				</p>
+				<codeblock>status gateway-receiver --group=LN-Group1
+status gateway-receiver --member=server1</codeblock>
 				<p>
 					<b>Sample Output:</b>
-					<codeblock>gfsh&gt;status gateway-receiver
+				</p>
+				<codeblock>gfsh&gt;status gateway-receiver
 Member               | Port  | Status
 ---------------------| ------| -------
 pc13(8151)&lt;v2&gt;:26518 | 26837 | Running
@@ -109,7 +108,6 @@ pc13(8151)&lt;v2&gt;:19450   | 27815 | Running
 pc13(8175)&lt;v4&gt;:14139   | 27066 | Running
 pc13(8164)&lt;v3&gt;:45150   | 29897 | Running
 </codeblock>
-				</p>
 			</body>
 		</topic>
 		<topic id="topic_6F539877F0564F05AF264A9E704EC842">
@@ -120,53 +118,54 @@ pc13(8164)&lt;v3&gt;:45150   | 29897 | Running
 					JMX Manager member to use this command. </p>
 				<p>
 					<b>Syntax:</b>
-					<codeblock>status gateway-sender --id=value [--group=value(,value)*] 
-[--member=value]</codeblock>
-					<table id="table_56A17986B3104210A5DC7A7F0A59BE95">
-						<title>Parameters</title>
-						<tgroup cols="2">
-							<colspec colnum="1" colname="col1" colwidth="1.00*"/>
-							<colspec colnum="2" colname="col2" colwidth="2.74*"/>
-							<thead>
-								<row>
-									<entry colname="col1">Name </entry>
-									<entry colname="col2">Description</entry>
-								</row>
-							</thead>
-							<tbody>
-								<row>
-									<entry colname="col1">
-										<parmname> --id </parmname>
-									</entry>
-									<entry colname="col2"><i>Required.</i> ID of the Gateway Sender.
-									</entry>
-								</row>
-								<row>
-									<entry colname="col1">
-										<parmname>--group </parmname>
-									</entry>
-									<entry colname="col2">Group(s) of Gateway Senders for which to
-										display status. Comma separated list for multiple member
-										groups. </entry>
-								</row>
-								<row>
-									<entry colname="col1">
-										<parmname> --member </parmname>
-									</entry>
-									<entry colname="col2">Name/ID of the Gateway Sender for which to
-										display status. </entry>
-								</row>
-							</tbody>
-						</tgroup>
-					</table>
 				</p>
+				<codeblock>status gateway-sender --id=value [--group=value(,value)*] 
+[--member=value]</codeblock>
+				<table id="table_xc2_s3f_2w">
+					<title>Parameters</title>
+					<tgroup cols="2">
+						<colspec colnum="1" colname="col1" colwidth="1.00*"/>
+						<colspec colnum="2" colname="col2" colwidth="2.74*"/>
+						<thead>
+							<row>
+								<entry colname="col1">Name </entry>
+								<entry colname="col2">Description</entry>
+							</row>
+						</thead>
+						<tbody>
+							<row>
+								<entry colname="col1">
+									<parmname> --id </parmname>
+								</entry>
+								<entry colname="col2"><i>Required.</i> ID of the Gateway Sender.
+								</entry>
+							</row>
+							<row>
+								<entry colname="col1">
+									<parmname>--group </parmname>
+								</entry>
+								<entry colname="col2">Group(s) of Gateway Senders for which to
+									display status. Comma separated list for multiple member groups.
+								</entry>
+							</row>
+							<row>
+								<entry colname="col1">
+									<parmname> --member </parmname>
+								</entry>
+								<entry colname="col2">Name/ID of the Gateway Sender for which to
+									display status. </entry>
+							</row>
+						</tbody>
+					</tgroup>
+				</table>
 				<p>
 					<b>Example Commands:</b>
-					<codeblock>status gateway-receiver receiver1-LN --group=LN-Group1;</codeblock>
 				</p>
+				<codeblock>status gateway-receiver receiver1-LN --group=LN-Group1;</codeblock>
 				<p>
 					<b>Sample Output:</b>
-					<codeblock>gfsh&gt;status gateway-sender --id=ln_Serial
+				</p>
+				<codeblock>gfsh&gt;status gateway-sender --id=ln_Serial
 Member                 |  Type  | Runtime Policy | Status
 -----------------------| -------| -------------- | -----------
  pc13(8175)&lt;v4&gt;:21449  | Serial | Secondary      | Not Running
@@ -198,96 +197,94 @@ Member                 | Error
 ---------------------- | ------------------------------
  pc13(8186)&lt;v5&gt;:45840  | GatewaySender is not available
 </codeblock>
-				</p>
 			</body>
 		</topic>
 		<topic id="topic_E96D0EFA513C4CD79B833FCCDD69C832">
 			<title>status locator</title>
 			<shortdesc>Displays the status of the specified locator.</shortdesc>
 			<body>
-				<p> The status will be one of the following: <ul
-						id="ul_A4D81F82B07F45D5A58E5914DED9846E">
-						<li id="li_79FA1EDDB4A444C2ADDCCD535582C26F">started </li>
-						<li id="li_4D1E64320044444BAB1B1C22C6E01220">online </li>
-						<li id="li_63D67964674943D386EC9BC1B1F698B3">offline </li>
-						<li id="li_3C28631BE99946C5BE21ABC6429AA6F5">not responding </li>
-					</ul>
-				</p>
+				<p> The status will be one of the following:  </p>
+				<ul id="ul_ar2_v3f_2w">
+					<li>started </li>
+					<li>online </li>
+					<li>offline </li>
+					<li>not responding </li>
+				</ul>
 				<p><b> Availability:</b> Online or offline. If you want to obtain the status of a
 					locator while you are offline, use the <codeph>--dir</codeph> or the
 						<codeph>--pid</codeph> parameter. </p>
 				<p>
 					<b>Syntax:</b>
-					<codeblock>status locator [--name=value] [--host=value] [--port=value] 
-[--pid=value] [--dir=value]</codeblock>
-					<table id="table_617483BD5D9941C087DCF9F153797DAD">
-						<title>Parameters</title>
-						<tgroup cols="3">
-							<colspec colname="col1" colnum="1" colwidth="1.00*"/>
-							<colspec colname="col2" colnum="2" colwidth="6.69*"/>
-							<colspec colname="newCol3" colnum="3" colwidth="1*"/>
-							<thead>
-								<row>
-									<entry colname="col1">Name </entry>
-									<entry colname="col2">Description</entry>
-									<entry>Default Value</entry>
-								</row>
-							</thead>
-							<tbody>
-								<row>
-									<entry colname="col1">
-										<parmname>--name</parmname>
-									</entry>
-									<entry colname="col2">Name/ID of the locator for which to
-										display status. You must be connected to the JMX Manager to
-										use this option. Can be used to obtain status of remote
-										locators. See <xref
-											href="../../../configuring/cluster_config/gfsh_remote.xml"
-										/>.</entry>
-									<entry/>
-								</row>
-								<row>
-									<entry colname="col1">
-										<parmname>--host</parmname>
-									</entry>
-									<entry colname="col2">Hostname or IP address on which the
-										Locator is running. </entry>
-									<entry/>
-								</row>
-								<row>
-									<entry colname="col1">
-										<parmname>--port</parmname>
-									</entry>
-									<entry colname="col2">Port on which the locator is listening. </entry>
-									<entry>10334</entry>
-								</row>
-								<row>
-									<entry colname="col1">
-										<parmname>--pid</parmname>
-									</entry>
-									<entry colname="col2">Process ID (PID) of the running locator. </entry>
-									<entry/>
-								</row>
-								<row>
-									<entry colname="col1">
-										<parmname>--dir</parmname>
-									</entry>
-									<entry colname="col2">Directory in which the locator was
-										started. </entry>
-									<entry>current directory</entry>
-								</row>
-							</tbody>
-						</tgroup>
-					</table>
 				</p>
+				<codeblock>status locator [--name=value] [--host=value] [--port=value] 
+[--pid=value] [--dir=value]</codeblock>
+				<table id="table_s44_w3f_2w">
+					<title>Parameters</title>
+					<tgroup cols="3">
+						<colspec colname="col1" colnum="1" colwidth="1.00*"/>
+						<colspec colname="col2" colnum="2" colwidth="6.69*"/>
+						<colspec colname="newCol3" colnum="3" colwidth="1*"/>
+						<thead>
+							<row>
+								<entry colname="col1">Name </entry>
+								<entry colname="col2">Description</entry>
+								<entry>Default Value</entry>
+							</row>
+						</thead>
+						<tbody>
+							<row>
+								<entry colname="col1">
+									<parmname>--name</parmname>
+								</entry>
+								<entry colname="col2">Name/ID of the locator for which to display
+									status. You must be connected to the JMX Manager to use this
+									option. Can be used to obtain status of remote locators. See
+										<xref
+										href="../../../configuring/cluster_config/gfsh_remote.xml"
+									/>.</entry>
+								<entry/>
+							</row>
+							<row>
+								<entry colname="col1">
+									<parmname>--host</parmname>
+								</entry>
+								<entry colname="col2">Hostname or IP address on which the Locator is
+									running. </entry>
+								<entry/>
+							</row>
+							<row>
+								<entry colname="col1">
+									<parmname>--port</parmname>
+								</entry>
+								<entry colname="col2">Port on which the locator is listening. </entry>
+								<entry>10334</entry>
+							</row>
+							<row>
+								<entry colname="col1">
+									<parmname>--pid</parmname>
+								</entry>
+								<entry colname="col2">Process ID (PID) of the running locator. </entry>
+								<entry/>
+							</row>
+							<row>
+								<entry colname="col1">
+									<parmname>--dir</parmname>
+								</entry>
+								<entry colname="col2">Directory in which the locator was started. </entry>
+								<entry>current directory</entry>
+							</row>
+						</tbody>
+					</tgroup>
+				</table>
 				<p>
 					<b>Example Commands:</b>
-					<codeblock>status locator
-status locator --name=locator1</codeblock>
 				</p>
+				<codeblock>status locator
+status locator --name=locator1</codeblock>
 				<p>
 					<b>Sample Output:</b>
-					<codeblock>gfsh>status locator --name=locator1
+				</p>
+				<codeblock>gfsh>status locator --name=locator1
 Locator in /home/stymon/gemfire/locator1 on ubuntu.local[10334] as locator1 is currently online.
 Process ID: 2401
 Uptime: 12 minutes 3 seconds
@@ -300,7 +297,6 @@ Class-Path: /home/stymon/Pivotal_GemFire_800_b48319_Linux/lib/locator-dependenci
 
 Cluster configuration service is up and running.
 </codeblock>
-				</p>
 			</body>
 		</topic>
 		<topic id="topic_E5DB49044978404D9D6B1971BF5D400D">
@@ -313,61 +309,62 @@ Cluster configuration service is up and running.
 						<codeph>--pid</codeph> parameter. </p>
 				<p>
 					<b>Syntax:</b>
-					<codeblock>status server [--name=value] [--pid=value] [--dir=value]</codeblock>
-					<table id="table_F845BD795DA24966B16DEB5FFEC6B74A">
-						<title>Parameters</title>
-						<tgroup cols="3">
-							<colspec colname="col1" colnum="1" colwidth="1.00*"/>
-							<colspec colname="col2" colnum="2" colwidth="6.69*"/>
-							<colspec colname="newCol3" colnum="3" colwidth="1*"/>
-							<thead>
-								<row>
-									<entry colname="col1">Name </entry>
-									<entry colname="col2">Description</entry>
-									<entry colname="col3">Default Value</entry>
-								</row>
-							</thead>
-							<tbody>
-								<row>
-									<entry colname="col1">
-										<parmname>--name</parmname>
-									</entry>
-									<entry colname="col2">Name or ID of the Cache Server for which
-										to display status. You must be connected to the JMX Manager
-										to use this option. Can be used to obtain status of remote
-										servers. See <xref
-											href="../../../configuring/cluster_config/gfsh_remote.xml"
-										/>.</entry>
-									<entry/>
-								</row>
-								<row>
-									<entry colname="col1">
-										<parmname>--pid</parmname>
-									</entry>
-									<entry colname="col2"> Process ID (PID) of the running <keyword
-											keyref="product_name"/> Cache Server. </entry>
-									<entry/>
-								</row>
-								<row>
-									<entry colname="col1">
-										<parmname>--dir </parmname>
-									</entry>
-									<entry colname="col2"> Directory in which the <keyword
-											keyref="product_name"/> Cache Server was started. </entry>
-									<entry>current directory</entry>
-								</row>
-							</tbody>
-						</tgroup>
-					</table>
 				</p>
+				<codeblock>status server [--name=value] [--pid=value] [--dir=value]</codeblock>
+				<table id="table_zvn_z3f_2w">
+					<title>Parameters</title>
+					<tgroup cols="3">
+						<colspec colname="col1" colnum="1" colwidth="1.00*"/>
+						<colspec colname="col2" colnum="2" colwidth="6.69*"/>
+						<colspec colname="newCol3" colnum="3" colwidth="1*"/>
+						<thead>
+							<row>
+								<entry colname="col1">Name </entry>
+								<entry colname="col2">Description</entry>
+								<entry colname="col3">Default Value</entry>
+							</row>
+						</thead>
+						<tbody>
+							<row>
+								<entry colname="col1">
+									<parmname>--name</parmname>
+								</entry>
+								<entry colname="col2">Name or ID of the Cache Server for which to
+									display status. You must be connected to the JMX Manager to use
+									this option. Can be used to obtain status of remote servers. See
+										<xref
+										href="../../../configuring/cluster_config/gfsh_remote.xml"
+									/>.</entry>
+								<entry/>
+							</row>
+							<row>
+								<entry colname="col1">
+									<parmname>--pid</parmname>
+								</entry>
+								<entry colname="col2"> Process ID (PID) of the running <keyword
+										keyref="product_name"/> Cache Server. </entry>
+								<entry/>
+							</row>
+							<row>
+								<entry colname="col1">
+									<parmname>--dir </parmname>
+								</entry>
+								<entry colname="col2"> Directory in which the <keyword
+										keyref="product_name"/> Cache Server was started. </entry>
+								<entry>current directory</entry>
+							</row>
+						</tbody>
+					</tgroup>
+				</table>
 				<p>
 					<b>Example Commands:</b>
-					<codeblock>status server
-status server --name=server1</codeblock>
 				</p>
+				<codeblock>status server
+status server --name=server1</codeblock>
 				<p>
 					<b>Sample Output:</b>
-					<codeblock>gfsh>status server --name=server1
+				</p>
+				<codeblock>gfsh>status server --name=server1
 Server in /home/stymon/gemfire/server1 on ubuntu.local[40404] as server1 is currently online.
 Process ID: 2726
 Uptime: 1 minute 3 seconds
@@ -379,7 +376,6 @@ JVM Arguments: -Dgemfire.default.locators=192.168.129.145[10334] -Dgemfire.use-c
 -Dsun.rmi.dgc.server.gcInterval=9223372036854775806
 Class-Path: /home/stymon/Pivotal_GemFire_800_b48319_Linux/lib/server-dependencies.jar:/usr/local/java/lib/tools.jar
 </codeblock>
-				</p>
 			</body>
 		</topic>
 	</topic>

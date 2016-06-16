@@ -7,13 +7,13 @@
 			<p>Between the begin operation and the commit or rollback operation are a series of ordinary
 					<keyword keyref="product_name"/> operations. When they are launched from within
 				a transaction, the <keyword keyref="product_name"/> operations can be classified
-				into two types: <ul id="ul_486A6C20B8D248E2B115EDD13ED9A8F7">
+				into two types:</p>
+				<ul id="ul_486A6C20B8D248E2B115EDD13ED9A8F7">
 					<li id="li_5C1D807DEBBF466BA0A6C0E283077CA1">Transactional operations affect the transactional
 						view </li>
 					<li id="li_55991C73672A42E0B29F0DC38A4D182C">Non-transactional operations do not affect the
 						transactional view </li>
 				</ul>
-			</p>
 			<p>An operation that acts directly on the cache does not usually act on the
 				transactional view. </p>
 		</body>
@@ -56,7 +56,10 @@
 	<concept id="entry_operations">
 		<title>Entry Operations</title>
 		<conbody>
-			<note>Transactional entry operations can be rolled back. </note>
+			<note>
+				<p>Transactional entry operations can be rolled back. 
+				</p>
+			</note>
 			<table id="table_wbg_bt2_l5">
 				<tgroup cols="4">
 					<colspec colname="1" colnum="1" colwidth="1.62*"/>
@@ -155,8 +158,11 @@
 			<p>Some transactional write operations also do a read before they write, and these can
 				complete a transactional read even when the write fails. The following table of
 				entry operations notes the conditions under which this can happen. </p>
-			<note>These operations can add a snapshot of an entry to the transaction’s view even
-				when the write operation does not succeed. </note>
+			<note>
+				<p>These operations can add a snapshot of an entry to the transaction’s view even
+				when the write operation does not succeed.
+				</p>
+			</note>
 			<table id="table_qfg_bt2_l5">
 				<tgroup cols="4">
 					<colspec colname="1" colnum="1" colwidth="1.00*"/>
@@ -319,14 +325,14 @@
 			<p>Any operation that has no effect in a non-transactional context remains a no-op in a
 				transactional context. For example, if you do two <codeph>localInvalidate</codeph>
 				operations in a row on the same region, the second <codeph>localInvalidate</codeph>
-				is a no-op. No-op operations do not: <ul id="ul_39605818F46F4B018463D42940162FB1">
+				is a no-op. No-op operations do not: </p>
+				<ul id="ul_39605818F46F4B018463D42940162FB1">
 					<li id="li_D9E3956E3B06455FBCC0AB779786CC08">Cause a listener invocation </li>
 					<li id="li_BBD62F4E2F8D4C75B088EA6427BF66BA">Cause a distribution message to be
 						sent to other members </li>
 					<li id="li_D78E0D12C7E24B13A815B9F3CAAE2525">Cause a change to an entry </li>
 					<li id="li_E24AE80C9BB6467084D992575FE4E9EC">Cause any conflict </li>
 				</ul>
-			</p>
 			<p>A no-op can do a transactional read. </p>
 		</conbody>
 	</concept>

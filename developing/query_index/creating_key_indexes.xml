@@ -18,7 +18,8 @@
 			indexed data. See <xref
 				href="../query_additional/partitioned_region_key_or_field_value.xml#concept_3010014DFBC9479783B2B45982014454"
 				type="concept" format="dita" scope="local"/> for more details. </p>
-		<p> There are two issues to note with key indexes: <ul
+		<p> There are two issues to note with key indexes: </p>
+			<ul
 				id="ul_939B0E4351954EF8B3426D7EFC7C8F63">
 				<li id="li_3DE1D618385945B0B400AB67FE37C66C"> The key index is not sorted. Without
 					sorting, you can only do equality tests. Other comparisons are not possible. To
@@ -28,27 +29,25 @@
 					aware of the relationship between the region values and keys. For this, you must
 					create the key index. </li>
 			</ul>
-		</p>
-		<p>
-			<note>Using a key-index with an explicit type='range' in the cache.xml will lead to an
-				exception. Key indexes will not be used in 'range' queries. </note>
-		</p>
+			<note>
+				<p>Using a key-index with an explicit type='range' in the cache.xml will lead to an
+				exception. Key indexes will not be used in 'range' queries.
+				</p>
+			</note>
 		<section id="section_8F1B7893F6D44D9CB36679222927031C">
 			<title>Examples of Creating a Key Index</title>
 			<p>
-				<b>Using Java API:</b>
+				<b>Using Java API:</b></p>
 				<codeblock>QueryService qs = cache.getQueryService();
  qs.createKeyIndex("myKeyIndex", "id", "/exampleRegion");
  </codeblock>
-			</p>
 			<p>
-				<b>Using gfsh:</b>
+				<b>Using gfsh:</b></p>
 				<codeblock>
 gfsh&gt; create index --name=myKeyIndex --expression=id --region=/exampleRegion
 </codeblock>
-			</p>
 			<p>
-				<b>Using cache.xml:</b>
+				<b>Using cache.xml:</b></p>
 				<codeblock>&lt;region name=exampleRegion&gt;
  &lt;region-attributes . . . &gt;
  &lt;/region-attributes&gt;
@@ -56,9 +55,11 @@ gfsh&gt; create index --name=myKeyIndex --expression=id --region=/exampleRegion
  ...
 &lt;/region&gt;
 </codeblock>
-				<note>If you do not specify the type of index when defining indexes using cache.xml,
-					the type defaults to "range". </note>
-			</p>
+				<note>
+					<p>If you do not specify the type of index when defining indexes using cache.xml,
+					the type defaults to "range".
+					</p>
+				</note>
 		</section>
 	</conbody>
 </concept>

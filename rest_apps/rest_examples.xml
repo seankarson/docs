@@ -6,12 +6,13 @@
     <shortdesc>This section provides examples that illustrate how multiple clients, both REST and
       native, can access the same <keyword keyref="product_name"/> region data.</shortdesc>
     <body>
-      <p>
-        <note>You must set PDX read-serialized to true when starting the cache server to achieve
+        <note>
+          <p>You must set PDX read-serialized to true when starting the cache server to achieve
           interoperability between different clients. See <xref
             href="setup_config.xml#topic_e21_qc5_m4"/> for instructions on starting up REST-enabled
-          cache servers.</note>
-      </p>
+          cache servers.
+          </p>
+        </note>
       <p>The following examples demonstrate the following:</p>
       <ol id="ol_eth_2wp_p4">
         <li>A Java REST client creates a Person object on key 1. This client references the
@@ -23,16 +24,20 @@
             <li>Gender class</li>
           </ol></li>
         <li>A Ruby REST client also gets data for key 1 and updates it.</li>
-        <li>A Python REST Client demonstrates the creation and modification of objects.<note> An
+        <li>A Python REST Client demonstrates the creation and modification of objects.
+          <note>
+            <p>An
             additional Python REST client reference application is available here: <xref
               href="https://github.com/gemfire/py-gemfire-rest" format="html" scope="external"
-              >https://github.com/gemfire/py-gemfire-rest</xref>.</note></li>
+              >https://github.com/gemfire/py-gemfire-rest</xref>.
+            </p>
+          </note></li>
       </ol>
       <p>The following Java examples assume a project directory structure similar to the
         following:</p>
       <image href="../images/rest_example_java_packages.png" id="image_rvd_ydd_3r"/>
       <example>
-        <title>#1: REST Java Client (RestClientApp.java)</title>
+        <title>#1. REST Java Client (RestClientApp.java)</title>
         <codeblock outputclass="language-java">package com.gemstone.gemfire.restclient;
 
  import org.springframework.http.HttpHeaders;
@@ -96,7 +101,7 @@
 </codeblock>
       </example>
       <example>
-        <title>#1a: <keyword keyref="product_name"/> Cache Java Client (MyJavaClient.java)</title>
+        <title>#1a. <keyword keyref="product_name"/> Cache Java Client (MyJavaClient.java)</title>
         <codeblock outputclass="language-java">package com.gemstone.gemfire.javaclient;
 
  import java.util.Calendar;
@@ -191,7 +196,7 @@
 </codeblock>
       </example>
       <example>
-        <title>#1b: REST Client Utilities (RestClientUtils.java)</title>
+        <title>#1b. REST Client Utilities (RestClientUtils.java)</title>
         <codeblock outputclass="language-java">package com.gemstone.gemfire.util;
 
 
@@ -263,7 +268,7 @@
 }</codeblock>
       </example>
       <example>
-        <title>#1c: Date and Time Utilities (DateTimeUtils.java)</title>
+        <title>#1c. Date and Time Utilities (DateTimeUtils.java)</title>
         <codeblock outputclass="language-java">package com.gemstone.gemfire.util;
 
 
@@ -298,7 +303,7 @@
 </codeblock>
       </example>
       <example>
-        <title>#1d: Person Class (Person.java)</title>
+        <title>#1d. Person Class (Person.java)</title>
         <codeblock outputclass="language-java">package com.gemstone.gemfire.domain;
 
 
@@ -467,7 +472,7 @@
 </codeblock>
       </example>
       <example>
-        <title>#1e: Gender Class (Gender.java)</title>
+        <title>#1e. Gender Class (Gender.java)</title>
         <codeblock outputclass="language-java">package com.gemstone.gemfire.domain;
 
 /**
@@ -480,7 +485,7 @@
 }</codeblock>
       </example>
       <example>
-        <title>#2: Ruby REST Client (restClient.rb)</title>
+        <title>#2. Ruby REST Client (restClient.rb)</title>
         <codeblock outputclass="language-ruby">#!/usr/bin/ruby -w
 
 puts "Hello, Ruby!";
@@ -595,7 +600,7 @@ JSON sent to Server for Person with ID 1...
  {"@type":"com.gemstone.gemfire.web.rest.domain.Person","id":1,"firstName":"Jack","middleName":"H","lastName":"Handy","birthDate":"04/12/1983","gender":"MALE"}</codeblock>
       </example>
       <example>
-        <title>#3: Python REST Client (restClient.py)</title>
+        <title>#3. Python REST Client (restClient.py)</title>
         <p>This example uses Python 3 and shows the creation and modification of objects. It uses
           one external library called <codeph>requests</codeph>, which is nearly ubiquitous and
           avoids having to use HTTP code. </p>

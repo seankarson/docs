@@ -7,7 +7,8 @@
 		automatically with pre-configured settings. You can change these <keyword
 			keyref="product_name"/> settings. </shortdesc>
 	<conbody>
-		<p> Here are the default <keyword keyref="product_name"/> settings: <ul
+		<p> Here are the default <keyword keyref="product_name"/> settings: </p>
+			<ul
 				id="ul_5F0C1E4883C7487C91637C8F46D5785C">
 				<li id="li_1FFCE93C376B4731B623D34859714C42"><keyword keyref="product_name"/> peer-to-peer
 					members use locators for discovery. </li>
@@ -20,12 +21,14 @@
 					clients have local caching turned on and when the local cache needs to evict
 					data, it will evict least-recently-used (LRU) data first. </li>
 			</ul>
-			<note>On the application server side, the default inactive interval for session
+			<note>
+				<p>On the application server side, the default inactive interval for session
 				expiration is set to 30 minutes. To change this value, refer to <xref
 					href="tc_additional_info.xml#tc_additional_info/section_C7C4365EA2D84636AE1586F187007EC4"
 					type="section" format="dita" scope="local"
-					><?xm-replace_text Session Expiration?></xref>. </note>
-		</p>
+					><?xm-replace_text Session Expiration?></xref>. 
+				</p>
+			</note>
 		<p> To change this default configuration, use the <codeph>--interactive</codeph> command line
 			argument when creating the tc Server instance. Choose the appropriate command for the
 			chosen topology and platform.</p>
@@ -50,13 +53,11 @@ In Windows, for a client/server topology:
 		<p>After responding to approximately 20 prompts, you should see the following line: </p>
 		<codeblock>Instance created.
 </codeblock>
-		<p>
 			<note>You cannot override region attributes on the cache server when using the HTTP
 				Session Management Module. You must place all region attribute definitions in the
 				region attributes template that you customize in tc Server. See <xref scope="local"
 					href="tc_changing_gf_default_cfg.xml#tc_changing_gf_default_cfg/section_38D803A7E8474188898963F456188543"
 					type="section" format="dita"/> for more information. </note>
-		</p>
 		<p>For information on setting up your instance for the most common types of configurations,
 			refer to the sections below. For more information about each interactive prompt, refer
 			to <xref format="dita" href="interactive_mode_ref.xml" scope="local">Interactive Mode
@@ -72,21 +73,20 @@ The format is a comma-separated list of host[port]. Default 'localhost[10334]': 
 		</section>
 		<section id="section_38D803A7E8474188898963F456188543">
 			<title>Overriding Region Attributes</title>
-			<p>When using the HTTP Session Management Module, you cannot override region attributes
-				directly on the cache server. You must place all region attribute definitions in the
-				region attributes template that you customize within tc Server. For example, to
-				specify a different name for the region's disk store, you could add the new
-				disk-store-name specification to the region attributes template and then reference
-				the template on the cache server.
-				<codeblock>&lt;region-attributes id="MY_SESSIONS" refid="PARTITION_REDUNDANT_PERSISTENT_OVERFLOW" 
+			<p>When using the HTTP Session Management Module, you cannot override region attributes directly
+				on the cache server. You must place all region attribute definitions in the region
+				attributes template that you customize within tc Server. For example, to specify a
+				different name for the region's disk store, you could add the new disk-store-name
+				specification to the region attributes template and then reference the template on
+				the cache server. </p>
+			<codeblock>&lt;region-attributes id="MY_SESSIONS" refid="PARTITION_REDUNDANT_PERSISTENT_OVERFLOW" 
 <b>disk-store-name="mystore"</b>&gt;
   ...
 &lt;/region-attributes&gt;
-</codeblock>Then
-				on the cache server side, reference the modified region attributes template to allow
-				the region to use the disk-store-name attribute:
-				<codeblock>&lt;region name="gemfire_modules_sessions" refid="MY_SESSIONS"/&gt;</codeblock>
-			</p>
+</codeblock>
+			<p>Then on the cache server side, reference the modified region attributes template to
+				allow the region to use the disk-store-name attribute:  </p>
+			<codeblock>&lt;region name="gemfire_modules_sessions" refid="MY_SESSIONS"/&gt;</codeblock>
 		</section>
 	</conbody>
 </concept>

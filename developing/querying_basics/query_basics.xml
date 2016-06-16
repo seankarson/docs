@@ -15,16 +15,17 @@
 				have significant differences. For example, while OQL does not offer all of the
 				capabilities of SQL like aggregates, OQL does allow you to execute queries on
 				complex object graphs, query object attributes and invoke object methods. </p>
-			<p>The syntax of a typical <keyword keyref="product_name"/> OQL query is:
+			<p>The syntax of a typical <keyword keyref="product_name"/> OQL query is:</p>
 				<codeblock>[IMPORT package]
 SELECT [DISTINCT] projectionList
 FROM collection1, [collection2, …]
 [WHERE clause]
 [ORDER BY order_criteria [desc]]
-</codeblock>Therefore,
+</codeblock>
+			<p>Therefore,
 				a simple <keyword keyref="product_name"/> OQL query resembles the following:
-				<codeblock>SELECT DISTINCT * FROM /exampleRegion WHERE status = ‘active’</codeblock>
 			</p>
+				<codeblock>SELECT DISTINCT * FROM /exampleRegion WHERE status = ‘active’</codeblock>
 			<p> An important characteristic of <keyword keyref="product_name"/> querying to note is
 				that by default, <keyword keyref="product_name"/> queries on the values of a region
 				and not on keys. To obtain keys from a region, you must use the keySet path

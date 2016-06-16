@@ -13,63 +13,63 @@
 					JMX Manager member to use this command. </p>
 				<p>
 					<b>Syntax:</b>
-					<codeblock>
+				</p>
+				<codeblock>
 export config [--member=value(,value)*] [--group=value(,value)*] 
 [--dir=value] </codeblock>
-					<table id="table_5B8DE9124FE44AD1A04D45A0A11EB848">
-						<title>Parameters</title>
-						<tgroup cols="2">
-							<colspec colnum="1" colname="col1" colwidth="1.00*"/>
-							<colspec colnum="2" colname="col2" colwidth="5.03*"/>
-							<thead>
-								<row>
-									<entry colname="col1">Name </entry>
-									<entry colname="col2">Description</entry>
-								</row>
-							</thead>
-							<tbody>
-								<row>
-									<entry colname="col1">
-										<parmname>--member</parmname>
-									</entry>
-									<entry colname="col2"> Name/Id of the member(s) whose
-										configuration will be exported. </entry>
-								</row>
-								<row>
-									<entry colname="col1">
-										<parmname>--group</parmname>
-									</entry>
-									<entry colname="col2">Group(s) of members whose configuration
-										will be exported. </entry>
-								</row>
-								<row>
-									<entry colname="col1">
-										<parmname>--dir</parmname>
-									</entry>
-									<entry colname="col2"> Directory to which the exported
-										configuration files will be written. </entry>
-								</row>
-							</tbody>
-						</tgroup>
-					</table>
-				</p>
+				<table id="table_u5w_2bh_2w">
+					<title>Parameters</title>
+					<tgroup cols="2">
+						<colspec colnum="1" colname="col1" colwidth="1.00*"/>
+						<colspec colnum="2" colname="col2" colwidth="5.03*"/>
+						<thead>
+							<row>
+								<entry colname="col1">Name </entry>
+								<entry colname="col2">Description</entry>
+							</row>
+						</thead>
+						<tbody>
+							<row>
+								<entry colname="col1">
+									<parmname>--member</parmname>
+								</entry>
+								<entry colname="col2"> Name/Id of the member(s) whose configuration
+									will be exported. </entry>
+							</row>
+							<row>
+								<entry colname="col1">
+									<parmname>--group</parmname>
+								</entry>
+								<entry colname="col2">Group(s) of members whose configuration will
+									be exported. </entry>
+							</row>
+							<row>
+								<entry colname="col1">
+									<parmname>--dir</parmname>
+								</entry>
+								<entry colname="col2"> Directory to which the exported configuration
+									files will be written. </entry>
+							</row>
+						</tbody>
+					</tgroup>
+				</table>
 				<p>
 					<b>Example Commands:</b>
-					<codeblock>export config
-export config --member=member1</codeblock>
 				</p>
+				<codeblock>export config
+export config --member=member1</codeblock>
 				<p>
 					<b>Sample Output:</b>
-					<codeblock>gfsh&gt;export config --member=member1
+				</p>
+				<codeblock>gfsh&gt;export config --member=member1
 Downloading Cache XML file: c:\PivotalGemFire70\Latest\.\member1-cache.xml
 Downloading properties file: c:\PivotalGemFire70\Latest\.\member1-gf.properties</codeblock>
-				</p>
 			</body>
 		</topic>
 		<topic id="topic_mdv_jgz_ck">
 			<title>export cluster-configuration </title>
 			<shortdesc> Exports a cluster configuration zip file that contains the
-					<filepath>cache.xml</filepath> files, <filepath>gemfire.properties</filepath>
+					<codeph>cache.xml</codeph> files, <codeph>gemfire.properties</codeph>
 				files, and application jar files needed to configure and operate a <keyword
 					keyref="product_name"/> distributed system. </shortdesc>
 			<body>
@@ -80,53 +80,51 @@ Downloading properties file: c:\PivotalGemFire70\Latest\.\member1-gf.properties<
 					/>. </p>
 				<p>
 					<b>Syntax:</b>
-					<codeblock>export cluster-configuration --zip-file-name=value [--dir=value]
-</codeblock>
-					<table id="table_xdv_jgz_ck">
-						<title>Parameters</title>
-						<tgroup cols="3">
-							<colspec colname="col1" colnum="1" colwidth="25%"/>
-							<colspec colname="col2" colnum="2" colwidth="*"/>
-							<colspec colname="newCol3" colnum="3" colwidth="1*"/>
-							<thead>
-								<row>
-									<entry colname="col1">Name </entry>
-									<entry colname="col2">Description</entry>
-									<entry colname="col3">Default Value</entry>
-								</row>
-							</thead>
-							<tbody>
-								<row>
-									<entry colname="col1">
-										<parmname>--zip-file-name</parmname>
-									</entry>
-									<entry colname="col2"><i>Required.</i> File name of the zip file
-										to contain the exported cluster configuration. </entry>
-									<entry/>
-								</row>
-								<row>
-									<entry colname="col1">
-										<parmname>--dir</parmname>
-									</entry>
-									<entry colname="col2"> Directory where the cluster configuration
-										zip files is saved. </entry>
-									<entry>Locator directory</entry>
-								</row>
-							</tbody>
-						</tgroup>
-					</table>
 				</p>
+				<codeblock>export cluster-configuration --zip-file-name=value [--dir=value]
+</codeblock>
+				<table id="table_qyw_hbh_2w">
+					<title>Parameters</title>
+					<tgroup cols="3">
+						<colspec colname="col1" colnum="1" colwidth="25%"/>
+						<colspec colname="col2" colnum="2" colwidth="*"/>
+						<colspec colname="newCol3" colnum="3" colwidth="1*"/>
+						<thead>
+							<row>
+								<entry colname="col1">Name </entry>
+								<entry colname="col2">Description</entry>
+								<entry colname="col3">Default Value</entry>
+							</row>
+						</thead>
+						<tbody>
+							<row>
+								<entry colname="col1">
+									<parmname>--zip-file-name</parmname>
+								</entry>
+								<entry colname="col2"><i>Required.</i> File name of the zip file to
+									contain the exported cluster configuration. </entry>
+								<entry/>
+							</row>
+							<row>
+								<entry colname="col1">
+									<parmname>--dir</parmname>
+								</entry>
+								<entry colname="col2"> Directory where the cluster configuration zip
+									files is saved. </entry>
+								<entry>Locator directory</entry>
+							</row>
+						</tbody>
+					</tgroup>
+				</table>
 				<p>
 					<b>Example Commands:</b>
-					<codeblock>gfsh>export cluster-configuration --zip-file-name=/home/username/gemfire80/myClusterConfig.zip</codeblock>
 				</p>
+				<codeblock>gfsh>export cluster-configuration --zip-file-name=/home/username/gemfire80/myClusterConfig.zip</codeblock>
 				<p>
 					<b>Sample Output:</b>
 				</p>
-				<p>
-					<codeblock>gfsh>export cluster-configuration --zip-file-name=mySharedConfig.zip
+				<codeblock>gfsh>export cluster-configuration --zip-file-name=mySharedConfig.zip
 Downloading cluster configuration : /home/username/gemfire80/myClusterConfig.zip</codeblock>
-				</p>
 			</body>
 		</topic>
 		<topic id="topic_263B70069BFC4A7185F86B3272011734">
@@ -137,59 +135,59 @@ Downloading cluster configuration : /home/username/gemfire80/myClusterConfig.zip
 					JMX Manager member to use this command. </p>
 				<p>
 					<b>Syntax:</b>
-					<codeblock>
-export data --region=value --file=value --member=value </codeblock>
-					<table id="table_4DB8933F5FFF4D29A34DFE7BC6ADC1F1">
-						<title>Parameters</title>
-						<tgroup cols="2">
-							<colspec colnum="1" colname="col1" colwidth="1.00*"/>
-							<colspec colnum="2" colname="col2" colwidth="5.03*"/>
-							<thead>
-								<row>
-									<entry colname="col1">Name </entry>
-									<entry colname="col2">Description</entry>
-								</row>
-							</thead>
-							<tbody>
-								<row>
-									<entry colname="col1">
-										<parmname>--region</parmname>
-									</entry>
-									<entry colname="col2"><i>Required.</i> Region from which data is
-										to be exported. </entry>
-								</row>
-								<row>
-									<entry colname="col1">
-										<parmname>--file</parmname>
-									</entry>
-									<entry colname="col2"><i>Required.</i> File to which the
-										exported data is to be written. The file must have an
-										extension of <codeph>.gfd</codeph>. </entry>
-								</row>
-								<row>
-									<entry colname="col1">
-										<parmname>--member</parmname>
-									</entry>
-									<entry colname="col2"><i>Required.</i> Name/Id of a member that
-										hosts the region. The data will be exported to the specified
-										file on the host where the member is running. </entry>
-								</row>
-							</tbody>
-						</tgroup>
-					</table>
 				</p>
+				<codeblock>
+export data --region=value --file=value --member=value </codeblock>
+				<table id="table_lds_lbh_2w">
+					<title>Parameters</title>
+					<tgroup cols="2">
+						<colspec colnum="1" colname="col1" colwidth="1.00*"/>
+						<colspec colnum="2" colname="col2" colwidth="5.03*"/>
+						<thead>
+							<row>
+								<entry colname="col1">Name </entry>
+								<entry colname="col2">Description</entry>
+							</row>
+						</thead>
+						<tbody>
+							<row>
+								<entry colname="col1">
+									<parmname>--region</parmname>
+								</entry>
+								<entry colname="col2"><i>Required.</i> Region from which data is to
+									be exported. </entry>
+							</row>
+							<row>
+								<entry colname="col1">
+									<parmname>--file</parmname>
+								</entry>
+								<entry colname="col2"><i>Required.</i> File to which the exported
+									data is to be written. The file must have an extension of
+										<codeph>.gfd</codeph>. </entry>
+							</row>
+							<row>
+								<entry colname="col1">
+									<parmname>--member</parmname>
+								</entry>
+								<entry colname="col2"><i>Required.</i> Name/Id of a member that
+									hosts the region. The data will be exported to the specified
+									file on the host where the member is running. </entry>
+							</row>
+						</tbody>
+					</tgroup>
+				</table>
 				<p>
 					<b>Example Commands:</b>
-					<codeblock>export data --region=region2 --file=region2_20121001.gfd --member=server2
- </codeblock>
 				</p>
+				<codeblock>export data --region=region2 --file=region2_20121001.gfd --member=server2
+ </codeblock>
 				<p>
 					<b>Sample Output:</b>
-					<codeblock> gfsh&gt;export data --region=region2 --file=region2_20121001.gfd --member=server1
+				</p>
+				<codeblock> gfsh&gt;export data --region=region2 --file=region2_20121001.gfd --member=server1
 Data succesfully exported from region : region2 to file : C:\PivotalGemFire70\
 Latest\server1\region2_20121001.gfd on host : 192.168.129.129
  </codeblock>
-				</p>
 			</body>
 		</topic>
 		<topic id="topic_B80978CC659244AE91E2B8CE56EBDFE3">
@@ -202,108 +200,107 @@ Latest\server1\region2_20121001.gfd on host : 192.168.129.129
 					JMX Manager member to use this command. </p>
 				<p>
 					<b>Syntax:</b>
-					<codeblock>export logs --dir=value [--group=value(,value)*] [--member=value] [--log
+				</p>
+				<codeblock>export logs --dir=value [--group=value(,value)*] [--member=value] [--log
 -level=value] [--only-log-level=value] [--merge-log=value] [--start-time=value]
 [--end-time=value]</codeblock>
-					<table id="table_650C56C2348E45C9BC6D155F36C2766C">
-						<title>Parameters</title>
-						<tgroup cols="3">
-							<colspec colname="col1" colnum="1" colwidth="1.00*"/>
-							<colspec colname="col2" colnum="2" colwidth="5.03*"/>
-							<colspec colname="newCol3" colnum="3" colwidth="1*"/>
-							<thead>
-								<row>
-									<entry colname="col1">Name </entry>
-									<entry colname="col2">Description</entry>
-									<entry colname="col3">Default Value</entry>
-								</row>
-							</thead>
-							<tbody>
-								<row>
-									<entry colname="col1">
-										<parmname>--dir</parmname>
-									</entry>
-									<entry colname="col2"><i>Required.</i> Directory to which log
-										files will be written. </entry>
-									<entry/>
-								</row>
-								<row>
-									<entry colname="col1">
-										<parmname>--group</parmname>
-									</entry>
-									<entry colname="col2">Group of members whose log files will be
-										exported. </entry>
-									<entry/>
-								</row>
-								<row>
-									<entry colname="col1">
-										<parmname>--member</parmname>
-									</entry>
-									<entry colname="col2"> Name/ID of the member whose log files
-										will be exported. </entry>
-									<entry/>
-								</row>
-								<row>
-									<entry colname="col1">
-										<parmname>--log-level</parmname>
-									</entry>
-									<entry colname="col2"> Minimum level of log entries to export.
-										Valid values are: <codeph>none</codeph>,
-											<codeph>error</codeph>, <codeph>info</codeph>,
-											<codeph>config</codeph>, <codeph>fine</codeph>,
-											<codeph>finer</codeph> and <codeph>finest</codeph>. </entry>
-									<entry>
-										<codeph>info</codeph>
-									</entry>
-								</row>
-								<row>
-									<entry colname="col1">
-										<parmname>--only-log-level</parmname>
-									</entry>
-									<entry colname="col2"> Whether to only include those entries
-										that exactly match the <parmname>--log-level</parmname>
-										specified. </entry>
-									<entry>false</entry>
-								</row>
-								<row>
-									<entry colname="col1">
-										<parmname>--merge-log</parmname>
-									</entry>
-									<entry colname="col2"> Whether to merge logs after exporting to
-										the target directory. </entry>
-									<entry>false</entry>
-								</row>
-								<row>
-									<entry colname="col1">
-										<parmname>--start-time</parmname>
-									</entry>
-									<entry colname="col2"> Log entries that occurred after this time
-										will be exported. Format: yyyy/MM/dd/HH/mm/ss/SSS/z OR
-										yyyy/MM/dd </entry>
-									<entry>no limit</entry>
-								</row>
-								<row>
-									<entry colname="col1">
-										<parmname>--end-time</parmname>
-									</entry>
-									<entry colname="col2"> Log entries that occurred before this
-										time will be exported. Format: yyyy/MM/dd/HH/mm/ss/SSS/z OR
-										yyyy/MM/dd </entry>
-									<entry>no limit</entry>
-								</row>
-							</tbody>
-						</tgroup>
-					</table>
-				</p>
+				<table id="table_xw5_4bh_2w">
+					<title>Parameters</title>
+					<tgroup cols="3">
+						<colspec colname="col1" colnum="1" colwidth="1.00*"/>
+						<colspec colname="col2" colnum="2" colwidth="5.03*"/>
+						<colspec colname="newCol3" colnum="3" colwidth="1*"/>
+						<thead>
+							<row>
+								<entry colname="col1">Name </entry>
+								<entry colname="col2">Description</entry>
+								<entry colname="col3">Default Value</entry>
+							</row>
+						</thead>
+						<tbody>
+							<row>
+								<entry colname="col1">
+									<parmname>--dir</parmname>
+								</entry>
+								<entry colname="col2"><i>Required.</i> Directory to which log files
+									will be written. </entry>
+								<entry/>
+							</row>
+							<row>
+								<entry colname="col1">
+									<parmname>--group</parmname>
+								</entry>
+								<entry colname="col2">Group of members whose log files will be
+									exported. </entry>
+								<entry/>
+							</row>
+							<row>
+								<entry colname="col1">
+									<parmname>--member</parmname>
+								</entry>
+								<entry colname="col2"> Name/ID of the member whose log files will be
+									exported. </entry>
+								<entry/>
+							</row>
+							<row>
+								<entry colname="col1">
+									<parmname>--log-level</parmname>
+								</entry>
+								<entry colname="col2"> Minimum level of log entries to export. Valid
+									values are: <codeph>none</codeph>, <codeph>error</codeph>,
+										<codeph>info</codeph>, <codeph>config</codeph>,
+										<codeph>fine</codeph>, <codeph>finer</codeph> and
+										<codeph>finest</codeph>. </entry>
+								<entry>
+									<codeph>info</codeph>
+								</entry>
+							</row>
+							<row>
+								<entry colname="col1">
+									<parmname>--only-log-level</parmname>
+								</entry>
+								<entry colname="col2"> Whether to only include those entries that
+									exactly match the <parmname>--log-level</parmname> specified. </entry>
+								<entry>false</entry>
+							</row>
+							<row>
+								<entry colname="col1">
+									<parmname>--merge-log</parmname>
+								</entry>
+								<entry colname="col2"> Whether to merge logs after exporting to the
+									target directory. </entry>
+								<entry>false</entry>
+							</row>
+							<row>
+								<entry colname="col1">
+									<parmname>--start-time</parmname>
+								</entry>
+								<entry colname="col2"> Log entries that occurred after this time
+									will be exported. Format: yyyy/MM/dd/HH/mm/ss/SSS/z OR
+									yyyy/MM/dd </entry>
+								<entry>no limit</entry>
+							</row>
+							<row>
+								<entry colname="col1">
+									<parmname>--end-time</parmname>
+								</entry>
+								<entry colname="col2"> Log entries that occurred before this time
+									will be exported. Format: yyyy/MM/dd/HH/mm/ss/SSS/z OR
+									yyyy/MM/dd </entry>
+								<entry>no limit</entry>
+							</row>
+						</tbody>
+					</tgroup>
+				</table>
 				<p>
 					<b>Example Commands:</b>
-					<codeblock>export logs --dir=data/logs</codeblock>
 				</p>
+				<codeblock>export logs --dir=data/logs</codeblock>
 				<p>
 					<b>Sample Output:</b>
-					<codeblock>gfsh&gt;export logs --dir=data/logs
-Successfully exported to directory data/logs</codeblock>
 				</p>
+				<codeblock>gfsh&gt;export logs --dir=data/logs
+Successfully exported to directory data/logs</codeblock>
 			</body>
 		</topic>
 		<topic id="topic_sjg_bvt_gq">
@@ -312,48 +309,49 @@ Successfully exported to directory data/logs</codeblock>
 				files.</shortdesc>
 			<body>
 				<p><b> Availability:</b> Online or offline. </p>
-				<p><b>Syntax:</b><codeblock>export offline-disk-store --name=value --disk-dirs=value(,value)* --dir=value</codeblock><table
-						id="table_qyt_bxt_gq">
-						<title>Parameters</title>
-						<tgroup cols="2">
-							<colspec colname="col1" colnum="1" colwidth="1.00*"/>
-							<colspec colname="col2" colnum="2" colwidth="5.03*"/>
-							<thead>
-								<row>
-									<entry colname="col1">Name </entry>
-									<entry colname="col2">Description</entry>
-								</row>
-							</thead>
-							<tbody>
-								<row>
-									<entry colname="col1">
-										<parmname>--name</parmname>
-									</entry>
-									<entry colname="col2"><i>Required.</i> Name of the disk store to
-										be exported. </entry>
-								</row>
-								<row>
-									<entry colname="col1">
-										<parmname>--disk-dirs</parmname>
-									</entry>
-									<entry colname="col2">Directories which contain the disk store
-										files.</entry>
-								</row>
-								<row>
-									<entry colname="col1">
-										<parmname>--dir</parmname>
-									</entry>
-									<entry colname="col2">Directory to export the snapshot files to.
-									</entry>
-								</row>
-							</tbody>
-						</tgroup>
-					</table></p>
+				<p><b>Syntax:</b></p>
+				<codeblock>export offline-disk-store --name=value --disk-dirs=value(,value)* --dir=value</codeblock>
+				<table id="table_gzr_rbh_2w">
+					<title>Parameters</title>
+					<tgroup cols="2">
+						<colspec colname="col1" colnum="1" colwidth="1.00*"/>
+						<colspec colname="col2" colnum="2" colwidth="5.03*"/>
+						<thead>
+							<row>
+								<entry colname="col1">Name </entry>
+								<entry colname="col2">Description</entry>
+							</row>
+						</thead>
+						<tbody>
+							<row>
+								<entry colname="col1">
+									<parmname>--name</parmname>
+								</entry>
+								<entry colname="col2"><i>Required.</i> Name of the disk store to be
+									exported. </entry>
+							</row>
+							<row>
+								<entry colname="col1">
+									<parmname>--disk-dirs</parmname>
+								</entry>
+								<entry colname="col2">Directories which contain the disk store
+									files.</entry>
+							</row>
+							<row>
+								<entry colname="col1">
+									<parmname>--dir</parmname>
+								</entry>
+								<entry colname="col2">Directory to export the snapshot files to.
+								</entry>
+							</row>
+						</tbody>
+					</tgroup>
+				</table>
 				<p>
 					<b>Example Commands:</b>
-					<codeblock> export offline-disk-store --name= DiskStore1 \
---disk-dirs=/home/username/gemfire/mydiskStore1Dir --dir=/home/username/gemfire/export </codeblock>
 				</p>
+				<codeblock> export offline-disk-store --name= DiskStore1 \
+--disk-dirs=/home/username/gemfire/mydiskStore1Dir --dir=/home/username/gemfire/export </codeblock>
 			</body>
 		</topic>
 		<topic id="topic_195D27B8B2B64A4E84CF2256636D54BD">
@@ -364,54 +362,54 @@ Successfully exported to directory data/logs</codeblock>
 					JMX Manager member to use this command. </p>
 				<p>
 					<b>Syntax:</b>
-					<codeblock>export stack-traces --file=value [--member=value] [--group=value]</codeblock>
-					<table id="table_090EFCAF81BD4EB793B9050977E8D09A">
-						<title>Parameters</title>
-						<tgroup cols="2">
-							<colspec colname="col1" colnum="1" colwidth="1.00*"/>
-							<colspec colname="col2" colnum="2" colwidth="5.03*"/>
-							<thead>
-								<row>
-									<entry colname="col1">Name </entry>
-									<entry colname="col2">Description</entry>
-								</row>
-							</thead>
-							<tbody>
-								<row>
-									<entry colname="col1">
-										<parmname>--file</parmname>
-									</entry>
-									<entry colname="col2"><i>Required.</i> Filename to which the
-										stack-traces will be written. </entry>
-								</row>
-								<row>
-									<entry colname="col1">
-										<parmname>--member</parmname>
-									</entry>
-									<entry colname="col2"> Name or ID of the member whose log files
-										will be exported. </entry>
-								</row>
-								<row>
-									<entry colname="col1">
-										<parmname>--group</parmname>
-									</entry>
-									<entry colname="col2">Group of members whose log files will be
-										exported. </entry>
-								</row>
-							</tbody>
-						</tgroup>
-					</table>
 				</p>
+				<codeblock>export stack-traces --file=value [--member=value] [--group=value]</codeblock>
+				<table id="table_cjr_wbh_2w">
+					<title>Parameters</title>
+					<tgroup cols="2">
+						<colspec colname="col1" colnum="1" colwidth="1.00*"/>
+						<colspec colname="col2" colnum="2" colwidth="5.03*"/>
+						<thead>
+							<row>
+								<entry colname="col1">Name </entry>
+								<entry colname="col2">Description</entry>
+							</row>
+						</thead>
+						<tbody>
+							<row>
+								<entry colname="col1">
+									<parmname>--file</parmname>
+								</entry>
+								<entry colname="col2"><i>Required.</i> Filename to which the
+									stack-traces will be written. </entry>
+							</row>
+							<row>
+								<entry colname="col1">
+									<parmname>--member</parmname>
+								</entry>
+								<entry colname="col2"> Name or ID of the member whose log files will
+									be exported. </entry>
+							</row>
+							<row>
+								<entry colname="col1">
+									<parmname>--group</parmname>
+								</entry>
+								<entry colname="col2">Group of members whose log files will be
+									exported. </entry>
+							</row>
+						</tbody>
+					</tgroup>
+				</table>
 				<p>
 					<b>Example Commands:</b>
-					<codeblock>export stack-traces --file=stack.txt</codeblock>
 				</p>
+				<codeblock>export stack-traces --file=stack.txt</codeblock>
 				<p>
 					<b>Sample Output:</b>
-					<codeblock>gfsh&gt;export stack-traces --file=stack.txt
+				</p>
+				<codeblock>gfsh&gt;export stack-traces --file=stack.txt
 stack-trace(s) exported to file: C:\PivotalGemFire70\Latest\locator1\stack.txt
 On host : GemFireStymon</codeblock>
-				</p>
 			</body>
 		</topic>
 	</topic>

@@ -11,14 +11,16 @@
 				finely filter the data, for example), then creating redundant indexes for these
 				joins will negatively impact performance. Create indexes only on one equi-join
 				condition for each region pair. </p>
-			<p>In this example query:
+			<p>In this example query:</p>
 				<codeblock>SELECT DISTINCT * 
 FROM /investors inv, /securities sc, /orders or, 
 inv.ordersPlaced inv_op, or.securities or_sec 
     WHERE inv_op.orderID = or.orderID 
-    AND or_sec.secID = sc.secID</codeblock>All
+    AND or_sec.secID = sc.secID</codeblock>
+			<p>All
 				conditions are required to join the regions, so you would create four indexes, two
-				for each equi-join condition: <table id="table_B8ED579FC3E24A1697988FDF3CF8434E">
+				for each equi-join condition:</p>
+			<table id="table_B8ED579FC3E24A1697988FDF3CF8434E">
 					<tgroup cols="2">
 						<colspec colname="1" colnum="1" colwidth="50*"/>
 						<colspec colname="2" colnum="2" colwidth="50*"/>
@@ -62,17 +64,18 @@ inv.ordersPlaced inv_op, or.securities or_sec
 						</tbody>
 					</tgroup>
 				</table>
-			</p>
-			<p>Adding another condition to the example:
+			<p>Adding another condition to the example:</p>
 				<codeblock>SELECT DISTINCT * 
 FROM /investors inv, /securities sc, /orders or, 
 inv.ordersPlaced inv_op, or.securities or_sec<b>, sc.investors sc_invs</b> 
     WHERE inv_op.orderID = or.orderID 
     AND or_sec.secID = sc.secID
-                <b>AND inv.investorID = sc_invs.investorID</b></codeblock>You
+                <b>AND inv.investorID = sc_invs.investorID</b></codeblock>
+			<p>You
 				would still only want to use four indexes in all, as that's all you need to join all
 				of the regions. You would need to choose the most performant two of the following
-				three index pairs: <table id="table_D2F44D61842143ACB53196225EB8547B">
+				three index pairs:</p>
+			<table id="table_D2F44D61842143ACB53196225EB8547B">
 					<tgroup cols="2">
 						<colspec colname="1" colnum="1" colwidth="50*"/>
 						<colspec colname="2" colnum="2" colwidth="50*"/>
@@ -137,7 +140,8 @@ inv.ordersPlaced inv_op, or.securities or_sec<b>, sc.investors sc_invs</b>
 							</row>
 						</tbody>
 					</tgroup>
-				</table>The most performant set is that which narrows the data to the smallest
+				</table>
+			<p>The most performant set is that which narrows the data to the smallest
 				result set possible. Examine your data and experiment with the three index pairs to
 				see which provides the best performance. </p>
 		</section>

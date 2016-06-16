@@ -9,7 +9,7 @@
 			<title>Provider-Specific Configuration File</title>
 			<p>This example uses a keystore created by the Java <codeph>keytool</codeph> application
 				to provide the proper credentials to the provider. To create the keystore, we ran
-				the following:
+				the following:</p>
 				<codeblock>keytool -genkey \ 
 -alias self \ 
 -dname "CN=trusted" \ 
@@ -17,7 +17,8 @@
 -keypass password \ 
 -keystore ./trusted.keystore \ 
 -storepass password \ 
--storetype JKS </codeblock>This
+-storetype JKS </codeblock>
+			<p>This
 				creates a <codeph>./trusted.keystore</codeph> file to be used later. </p>
 		</section>
 		<section id="section_4D54B2E9045C4E34AE6DFFBECDED9271">
@@ -36,7 +37,7 @@ jmx-manager-ssl-enabled=false</codeblock>
 			<p> You can specify the provider-specific settings in
 					<codeph>gfsecurity.properties</codeph> file, which can then be secured by
 				restricting access to this file. The following example configures the default JSSE
-				provider settings included with the JDK.
+				provider settings included with the JDK.</p>
 				<codeblock>cluster-ssl-keystore-type=jks
 cluster-ssl-keystore=/path/to/trusted.keystore
 cluster-ssl-keystore-password=password
@@ -45,7 +46,6 @@ cluster-ssl-truststore-password=
 security-username=xxxx
 security-userPassword=yyyy 
 </codeblock>
-			</p>
 			<p>Note that individual provider settings can also be overriden for client/server, JMX,
 				or HTTP connections by setting the appropriate property here. See <xref
 					href="implementing_ssl.xml"/>.</p>
@@ -56,12 +56,11 @@ security-userPassword=yyyy
 				provider-specific configuration settings. After properly configuring
 					<codeph>gemfire.properties</codeph> and <codeph>gfsecurity.properties</codeph>,
 				start the locator and provide the location of the properties files. If any of the
-				password fields are left empty, you will be prompted to enter a password.
+				password fields are left empty, you will be prompted to enter a password.</p>
 				<codeblock>
 gfsh&gt;start locator --name=my_locator --port=12345 \
 --properties-file=/path/to/your/gemfire.properties \
 --security-properties-file=/path/to/your/gfsecurity.properties</codeblock>
-			</p>
 		</section>
 		<section id="section_8FCC32091E97422BA45AA76C82D8294D">
 			<title>Other Member Startup</title>
@@ -69,11 +68,10 @@ gfsh&gt;start locator --name=my_locator --port=12345 \
 				the appropriate <codeph>gemfire.properties</codeph> file and
 					<codeph>gfsecurity.properties</codeph> files placed in the current working
 				directory. You can also pass in the location of both files as system properties on
-				the command line. For example:
+				the command line. For example:</p>
 				<codeblock>gfsh&gt;start server --name=my_server \
 --properties-file=/path/to/your/gemfire.properties \
 --security-properties-file=/path/to/your/gfsecurity.properties</codeblock>
-			</p>
 		</section>
 	</conbody>
 </concept>

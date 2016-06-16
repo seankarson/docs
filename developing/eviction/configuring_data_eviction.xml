@@ -11,7 +11,8 @@
 				used is the <keyword keyref="product_name"/> resource manager, configured in conjunction with the JVM's
 				garbage collector for optimum performance. </p>
 			<p>Configure data eviction as follows. You do not need to perform these steps in the
-				sequence shown. <ol id="ol_A9A5C01DAA124CA692216FF7FBFCCA0D">
+				sequence shown. </p>
+				<ol id="ol_A9A5C01DAA124CA692216FF7FBFCCA0D">
 					<li id="li_4E6B7B372993493F99586888AB673E40">Decide whether to evict based on:
 							<ul id="ul_17CCFB6473114D9BBDE6A1AF02C32E1D">
 							<li id="li_9280A9EFD65C4E0CBEF68207FB4F1CE3">Entry count (useful if your
@@ -55,13 +56,15 @@
 							href="../../basic_config/data_entries_custom_classes/using_custom_classes.xml"
 							type="concept" format="dita" scope="local"/>. </li>
 				</ol>
-			</p>
-			<note>You can also configure Regions using the gfsh command-line interface, however, you
+			<note>
+				<p>You can also configure Regions using the gfsh command-line interface, however, you
 				cannot configure <codeph>eviction-attributes</codeph> using gfsh. See <xref
 					href="../../tools_modules/gfsh/quick_ref_commands_by_area.xml#topic_EF03119A40EE492984F3B6248596E1DD"
 				/> and <xref
 					href="../../tools_modules/gfsh/quick_ref_commands_by_area.xml#topic_1ACC91B493EE446E89EC7DBFBBAE00EA"
-				/>.</note>
+				/>.
+				</p>
+			</note>
 			<p>Examples: </p>
 			<codeblock outputclass="language-xml">// Create an LRU memory eviction controller with max bytes of 1000 MB
 // Use a custom class for measuring the size of each object in the region 

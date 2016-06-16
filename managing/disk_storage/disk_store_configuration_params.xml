@@ -121,7 +121,6 @@
 					</tbody>
 				</tgroup>
 			</table>
-			<p>
 				<table id="table_1E730FBC84CA4B889A204017CE6B4B43" frame="all">
 					<tgroup cols="3" align="left">
 						<colspec colname="1" colnum="1" colwidth="*"/>
@@ -146,13 +145,13 @@
 						</tbody>
 					</tgroup>
 				</table>
-			</p>
 		</section>
 		<section id="section_366001C72D674AF69B2CED91BFA73A9B">
 			<title>disk-dirs Element</title>
 			<p>The <codeph>&lt;disk-dirs&gt;</codeph> element defines the host system directories to
 				use for the disk store. It contains one or more single
-					<codeph>&lt;disk-dir&gt;</codeph> elements with the following contents: <ul
+				<codeph>&lt;disk-dir&gt;</codeph> elements with the following contents: </p>
+				<ul
 					id="ul_901E14A85C5B4B93BBDD05BB8ADC1C75">
 					<li id="li_3C6793DBC4624A6A8880682299369B4E">The directory specification,
 						provided as the text of the <codeph>disk-dir</codeph> element. </li>
@@ -162,19 +161,20 @@
 						there is no limit. The space used is calculated as the combined sizes of all
 						oplog files. </li>
 				</ul>
-			</p>
 			<p>You can specify any number of <codeph>disk-dir</codeph> subelements to the
 					<codeph>disk-dirs</codeph> element. The data is spread evenly among the active
 				disk files in the directories, keeping within any limits you set. </p>
-			<p>Example:
+			<p>Example:</p>
 				<codeblock>&lt;disk-dirs&gt;
 	&lt;disk-dir&gt;/host1/users/gf/memberA_DStore&lt;/disk-dir&gt;
 	&lt;disk-dir&gt;/host2/users/gf/memberA_DStore&lt;/disk-dir&gt; 
 	&lt;disk-dir dir-size="20480"&gt;/host3/users/gf/memberA_DStore&lt;/disk-dir&gt; 
 &lt;/disk-dirs&gt;</codeblock>
-			</p>
-			<note>The directories must exist when the disk store is created or the system throws an
-				exception. <keyword keyref="product_name"/> does not create directories. </note>
+			<note>
+				<p>The directories must exist when the disk store is created or the system throws an
+				exception. <keyword keyref="product_name"/> does not create directories.
+				</p>
+			</note>
 			<p>Use different disk-dir specifications for different disk stores. You cannot use the
 				same directory for the same named disk store in two different members. </p>
 		</section>

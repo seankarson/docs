@@ -72,10 +72,12 @@
         members and import the data.</p>
       <p dir="ltr">To extract data from the persistent files, use the <codeph>gfsh export
           offline-disk-store</codeph>
-        command.<codeblock>gfsh> export offline-disk-store --name=MyDiskStore --disk-dirs=./mydir --dir=./outputdir</codeblock></p>
+        command.</p>
+      <codeblock>gfsh> export offline-disk-store --name=MyDiskStore --disk-dirs=./mydir --dir=./outputdir</codeblock>
       <p dir="ltr">This will produce a set of snapshot files. Those snapshot files can be imported
         into a running system
-        using:<codeblock>gfsh> import data --region=/myregion --file=./outputdir/snapshot-snapshotTest-test0.gfd --member=server1</codeblock></p>
+        using:</p>
+      <codeblock>gfsh> import data --region=/myregion --file=./outputdir/snapshot-snapshotTest-test0.gfd --member=server1</codeblock>
     </section>
   </body>
 </topic>

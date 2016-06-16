@@ -148,7 +148,6 @@
 		<section id="section_7BC1FF8CE0FC492CB49235FC4BC4060B">
 			<title>Locator does not start</title>
 			<p>Invocation of a locator with gfsh fails with an error like this: </p>
-			<p>
 				<codeblock>Starting a GemFire Locator in C:\devel\gfcache\locator\locator
 The Locator process terminated unexpectedly with exit status 1. Please refer to the log
         file in C:\devel\gfcache\locator\locator for full details.
@@ -169,14 +168,14 @@ at
 com.gemstone.gemfire.distributed.LocatorLauncher.start(LocatorLauncher.java:596)
 ...
 </codeblock>
-			</p>
 			<p>This indicates a mismatch somewhere in the address, port pairs used for locator
 				startup and configuration. The address you use for locator startup must match the
 				address you list for the locator in the <codeph>gemfire.properties</codeph> locators
 				specification. Every member of the locator’s distributed system, including the
 				locator itself, must have the complete locators specification in the
 					<codeph>gemfire.properties</codeph>. </p>
-			<p>Response: <ul id="ul_33B602C8F563414B92866F19E5E53DB2">
+			<p>Response: </p>
+				<ul id="ul_33B602C8F563414B92866F19E5E53DB2">
 					<li id="li_C2422FAABB474E33ABC55B3A013A6078">Check that your locators
 						specification includes the address you are using to start your locator. </li>
 					<li id="li_F2DB718413874579AFAE38F9798F9BA8">If you use a bind address, you must
@@ -190,13 +189,13 @@ com.gemstone.gemfire.distributed.LocatorLauncher.start(LocatorLauncher.java:596)
 							><?xm-replace_text Java applications on 64-bit platforms hang or use 100% CPU?></xref>
 						for more information. </li>
 				</ul>
-			</p>
 		</section>
 		<section id="section_D51F5FA86ABA43C699B593D890BC3E28">
 			<title>Application or cache server process does not start</title>
 			<p>If the process tries to start and then silently disappears, on Windows this indicates
 				a memory problem. </p>
-			<p>Response: <ul id="ul_E8C2F8E6F9464560862CF8B7AB016205">
+			<p>Response: </p>
+				<ul id="ul_E8C2F8E6F9464560862CF8B7AB016205">
 					<li id="li_1B34D014EAE74474892589C8A3EB6A44">On a Windows host, decrease the
 						maximum JVM heap size. This property is specified on the
 							<codeph>gfsh</codeph> command line:
@@ -208,11 +207,11 @@ com.gemstone.gemfire.distributed.LocatorLauncher.start(LocatorLauncher.java:596)
 					<li id="li_AAD98591B44D48EDA3E7F4E37C587906">If this doesn’t work, try
 						rebooting. </li>
 				</ul>
-			</p>
 		</section>
 		<section id="section_53D97CED679443F28E20E8B08C699056">
 			<title>Application or cache server does not join the distributed system</title>
-			<p>Response: Check these possible causes. <ul id="ul_0DFAB59504B64FEB97B8F513CF3D3DB2">
+			<p>Response: Check these possible causes. </p>
+				<ul id="ul_0DFAB59504B64FEB97B8F513CF3D3DB2">
 					<li id="li_C1838398808F476899C2A52A568AD5B6">Network problem—the most common
 						cause. First, try to ping the other hosts. </li>
 					<li id="li_9C91A6047A9A48B19CBD30A44D8BDD0D">Firewall problems. If members of
@@ -253,11 +252,11 @@ com.gemstone.gemfire.distributed.LocatorLauncher.start(LocatorLauncher.java:596)
 							keyref="product_name"/> . A version mismatch can cause the process to
 						hang or crash. Check the software version with the gemfire version command. </li>
 				</ul>
-			</p>
 		</section>
 		<section id="section_D607C96A6CBE42FD880F1463A20A8BEF">
 			<title>Member process seems to hang</title>
-			<p>Response: <ul id="ul_80767E765BF84BA488C9FA8777ADF8AC">
+			<p>Response: </p>
+				<ul id="ul_80767E765BF84BA488C9FA8777ADF8AC">
 					<li id="li_674154D94A5B4C4AAF21325F953D859D"><b>During initialization</b>—For
 						persistent regions, the member may be waiting for another member with more
 						recent data to start and load from its disk stores. See <xref
@@ -275,14 +274,14 @@ com.gemstone.gemfire.distributed.LocatorLauncher.start(LocatorLauncher.java:596)
 						optional distributed system configurations, a process can be required to
 						wait for a response from other processes before it proceeds. </li>
 				</ul>
-			</p>
 		</section>
 		<section id="section_E3B4A6DB81AB4C659C6093D2D61EFD71">
 			<title>Member process does not read settings from the
 					<codeph>gemfire.properties</codeph> file</title>
 			<p>Either the process can’t find the configuration file or, if it is an application, it
 				may be doing programmatic configuration. </p>
-			<p>Response: <ul id="ul_914C29B4E7AC463092DD62F398A5DBE8">
+			<p>Response: </p>
+				<ul id="ul_914C29B4E7AC463092DD62F398A5DBE8">
 					<li id="li_249306A681F6422AAC0CA6A620C4087C">Check that the
 							<codeph>gemfire.properties</codeph> file is in the right directory. </li>
 					<li id="li_C4A18FF54FAC4072A87DDE29D7A5EB4F">Make sure the process is not
@@ -296,39 +295,34 @@ com.gemstone.gemfire.distributed.LocatorLauncher.start(LocatorLauncher.java:596)
 							<codeph>gemfire.properties</codeph> file. See your application’s
 						customer support group for configuration changes. </li>
 				</ul>
-			</p>
 		</section>
 		<section id="section_B0698527A4DF4D84877B1AF66291ABFD">
 			<title>Cache creation fails - must match schema definition root</title>
 			<p>System member startup fails with an error like one of these: </p>
-			<p>
 				<codeblock>Exception in thread "main" com.gemstone.gemfire.cache.CacheXmlException: 
 While reading Cache XML file:/C:/gemfire/client_cache.xml. 
 Error while parsing XML, caused by org.xml.sax.SAXParseException: 
 Document root element "client-cache", must match DOCTYPE root "cache".</codeblock>
-			</p>
-			<p>
 				<codeblock>Exception in thread "main" com.gemstone.gemfire.cache.CacheXmlException: 
 While reading Cache XML file:/C:/gemfire/cache.xml. 
 Error while parsing XML, caused by org.xml.sax.SAXParseException: 
 Document root element "cache", must match DOCTYPE root "client-cache".</codeblock>
-			</p>
 			<p><keyword keyref="product_name"/> declarative cache creation uses one of two root
 				element pairs: <codeph>cache</codeph> or <codeph>client-cache</codeph>. The name
 				must be the same in both places. </p>
-			<p>Response: <ul id="ul_12E815D1B6634DCDA0F30440517D3E49">
+			<p>Response:</p>
+				<ul id="ul_12E815D1B6634DCDA0F30440517D3E49">
 					<li id="li_7D411F6ED5B94F498985927B9F45BBD3">Modify your
 							<codeph>cache.xml</codeph> file so it has the proper XML namespace and
 						schema definition. </li>
 				</ul>
-			</p>
 			<p>
 				<b>For peers and servers:</b>
 			</p>
 			<codeblock>&lt;?xml version="1.0" encoding="UTF-8"?&gt;
 &lt;cache
     xmlns="<keyword keyref="xsd_namespace"/>"
-    xmlns:xsi="<xref href="http://www.w3.org/2001/XMLSchema-instance" format="html" scope="external">http://www.w3.org/2001/XMLSchema-instance</xref>"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="<keyword keyref="xsd_namespace"/> <keyword keyref="xsd_namespace"/>/<keyword keyref="xsd_filename"/>"
     version="<keyword keyref="xsd_version"/>”&gt;
 ...
@@ -339,7 +333,7 @@ Document root element "cache", must match DOCTYPE root "client-cache".</codebloc
 			<codeblock outputclass="language-xml">&lt;?xml version="1.0" encoding="UTF-8"?&gt;
 &lt;client-cache
     xmlns="<keyword keyref="xsd_namespace"/>"
-    xmlns:xsi="<xref href="http://www.w3.org/2001/XMLSchema-instance" format="html" scope="external">http://www.w3.org/2001/XMLSchema-instance</xref>"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="<keyword keyref="xsd_namespace"/> <keyword keyref="xsd_namespace"/>/<keyword keyref="xsd_filename"/>"
     version="<keyword keyref="xsd_version"/>"&gt;
 ...
@@ -352,7 +346,8 @@ Document root element "cache", must match DOCTYPE root "client-cache".</codebloc
 				initialization. </p>
 			<p>Response: </p>
 			<p>If your application should start with a full cache but it comes up empty, check these
-				possible causes: <ul id="ul_99b24bf1-b542-4140-bb09-693292100882">
+				possible causes:</p>
+				<ul id="ul_99b24bf1-b542-4140-bb09-693292100882">
 					<li id="li_A84BAF14781B4EB79EDDE245669D47FD"><b>No regions</b>—If the cache has
 						no regions, the process isn’t reading the cache configuration file. Check
 						that the name and location of the cache configuration file match those
@@ -370,7 +365,6 @@ Document root element "cache", must match DOCTYPE root "client-cache".</codebloc
 						distributed system, regions without data may indicate an implementation
 						design error.</li>
 				</ul>
-			</p>
 		</section>
 		<section id="section_6B4E2AD4ECBB4C08B8F1DB5E07AFE7F6">
 			<title>Unexpected results for keySetOnServer and containsKeyOnServer</title>
@@ -390,21 +384,21 @@ Document root element "cache", must match DOCTYPE root "client-cache".</codebloc
 			<p>The following server region configurations give inconsistent results. These
 				configurations allow different data on different servers. There is no additional
 				messaging on the servers, so no union of keys across servers or checking other
-				servers for the key in question. <ul id="ul_8E10E71B2DAE4614A732842EDD774EDD">
+				servers for the key in question.</p>
+				<ul id="ul_8E10E71B2DAE4614A732842EDD774EDD">
 					<li id="li_3DDE5C42AB75450A9136BAD52575FD7E">Normal </li>
 					<li id="li_C65D7649B24A4816AC3F30F810731B8F">Mix (replicated, normal, empty) for
 						a single distributed region. Inconsistent results depending on which server
 						the client sends the request to </li>
 				</ul>
-			</p>
-			<p>These configurations provide consistent results: <ul
+			<p>These configurations provide consistent results:</p>
+				<ul
 					id="ul_F818D79A7B474D16B637A095864800A7">
 					<li id="li_C489523FC23B4E39ADA1461DCDC40C38">Partitioned server region </li>
 					<li id="li_BDD53053414B471D96DCDA31A5A3FC8F">Replicated server region </li>
 					<li id="li_37BE657F7B0C43D7B84EF380D2E30F4C">Empty server region: keySetOnServer
 						returns the empty set and containsKeyOnServer returns false </li>
 				</ul>
-			</p>
 			<p>Response: Use a partitioned or replicate data-policy for your server regions. This is
 				the only way to provide a consistent view to clients of your server data set. See
 					<xref
@@ -417,13 +411,11 @@ Document root element "cache", must match DOCTYPE root "client-cache".</codebloc
 				the partitioned region will still be available but may have some buckets represented
 				only in offline disk stores. In this case, methods that access the bucket entries
 				return a PartitionOfflineException, similar to this: </p>
-			<p>
 				<codeblock>com.gemstone.gemfire.cache.persistence.PartitionOfflineException: 
 Region /__PR/_B__root_partitioned__region_7 has persistent data that is no 
 longer online stored at these locations: 
 [/10.80.10.64:/export/straw3/users/jpearson/bugfix_Apr10/testCL/hostB/backupDirectory 
 created at timestamp 1270834766733 version 0]</codeblock>
-			</p>
 			<p>Response: Bring the missing member online, if possible. This restores the buckets to
 				memory and you can work with them again. If the missing member cannot be brought
 				back online, or the disk stores for the member are corrupt, you may need to revoke
@@ -435,7 +427,8 @@ created at timestamp 1270834766733 version 0]</codeblock>
 		</section>
 		<section id="section_A3BB709B754949C6981C431F1F8023D6">
 			<title>Entries are not being evicted or expired as expected</title>
-			<p>Check these possible causes. <ul id="ul_709B87F7966448D98C2E6FFE076BD23E">
+			<p>Check these possible causes.</p>
+				<ul id="ul_709B87F7966448D98C2E6FFE076BD23E">
 					<li id="li_963CAEDF1BA94780865069CCF9D9DBBE">Transactions—Entries that are old
 						enough for eviction may remain in the cache if they are involved in a
 						transaction. Further, transactions never time out, so if a transaction
@@ -454,13 +447,13 @@ created at timestamp 1270834766733 version 0]</codeblock>
 							href="../../developing/expiration/chapter_overview.xml"
 							format="dita"><?xm-replace_text Expiration?></xref>. </li>
 				</ul>
-			</p>
 		</section>
 		<section id="section_346C62F16B19491E83B59B0A51D9E2B6">
 			<title>Cannot find the log file</title>
 			<p>Operating without a log file can be a normal condition, so the process does not log a
 				warning. </p>
-			<p>Response: <ul id="ul_FFCE754666CE4EC4AA746154EA151FCE">
+			<p>Response: </p>
+				<ul id="ul_FFCE754666CE4EC4AA746154EA151FCE">
 					<li id="li_91C5569EC80749C6869A21C37ADEAC7B">Check whether the log-file
 						attribute is configured in <codeph>gemfire.properties</codeph>. If not,
 						logging defaults to standard output, and on Windows it may not be visible at
@@ -473,7 +466,6 @@ created at timestamp 1270834766733 version 0]</codeblock>
 							><?xm-replace_text Member process does not read settings from the      gemfire.properties file?></xref>.
 					</li>
 				</ul>
-			</p>
 		</section>
 		<section id="section_3CFAA7BA258B43A795AEAB09F9DD9AAB">
 			<title>OutOfMemoryError</title>
@@ -482,7 +474,8 @@ created at timestamp 1270834766733 version 0]</codeblock>
 			<p>Response: </p>
 			<p>The process may be hitting its virtual address space limits. The virtual address
 				space has to be large enough to accommodate the heap, code, data, and dynamic link
-				libraries (DLLs). <ul id="ul_5E909E05B153497DBABC508D0F9CC31B">
+				libraries (DLLs). </p>
+				<ul id="ul_5E909E05B153497DBABC508D0F9CC31B">
 					<li id="li_120B0CFBB5824E09960CE929A2128027">If your application is out of
 						memory frequently, you may want to profile it to determine the cause. </li>
 					<li id="li_01C0699B91A34B6F8A751131E1B6E524">If you suspect your heap size is
@@ -503,7 +496,6 @@ created at timestamp 1270834766733 version 0]</codeblock>
 					<li id="li_66C81AEF38744B0FB534239A88C41BBA">You can also control memory use by
 						setting entry limits for the regions. </li>
 				</ul>
-			</p>
 			<table frame="all" id="table_438761BCCDEF4C2F8E800A146DEA7942">
 				<tgroup cols="1">
 					<colspec colname="topic_link" colnum="1"/>
@@ -561,7 +553,8 @@ created at timestamp 1270834766733 version 0]</codeblock>
 					<keyword keyref="product_name"/> fails after many attempts to complete a
 				distributed operation. This exception indicates that no data store member can be
 				found to perform a destroy, invalidate, or get operation. </p>
-			<p>Response: <ul id="ul_65E85BDE85824210B207CD313C295BEF">
+			<p>Response:</p>
+				<ul id="ul_65E85BDE85824210B207CD313C295BEF">
 					<li id="li_043E0DD48B7B4A2F8FE4522DB5BF7080">Check the network for traffic
 						congestion or a broken connection to a member. </li>
 					<li id="li_88960FE8606441F6AB95B8287F806714">Look at the overall installation
@@ -571,7 +564,6 @@ created at timestamp 1270834766733 version 0]</codeblock>
 						PartitionedRegionDistributionException, you should evaluate whether you need
 						to start more members. </li>
 				</ul>
-			</p>
 		</section>
 		<section id="section_7DE15A6C99974821B6CA418BC2AF98F1">
 			<title>PartitionedRegionStorageException</title>
@@ -581,13 +573,10 @@ created at timestamp 1270834766733 version 0]</codeblock>
 				with a loader. PartitionedRegionStorageException often indicates data loss or
 				impending data loss. </p>
 			<p>The text string indicates the cause of the exception, as in these examples: </p>
-			<p>
 				<codeblock>Unable to allocate sufficient stores for a bucket in the partitioned region....</codeblock>
-			</p>
-			<p>
 				<codeblock>Ran out of retries attempting to allocate a bucket in the partitioned region....</codeblock>
-			</p>
-			<p>Response: <ul id="ul_DA8E859F385E45DAA3B90AD29D624138">
+			<p>Response: </p>
+				<ul id="ul_DA8E859F385E45DAA3B90AD29D624138">
 					<li id="li_455FE460BFE84F3F8B29AAD2DC2550E9">Check the network for traffic
 						congestion or a broken connection to a member. </li>
 					<li id="li_F522923D61EF45C98BEB853D80046F70">Look at the overall installation
@@ -597,7 +586,6 @@ created at timestamp 1270834766733 version 0]</codeblock>
 						PartitionedRegionStorageException, you should evaluate whether you need to
 						start more members. </li>
 				</ul>
-			</p>
 		</section>
 		<section id="section_AFA1D06BC3AA44A4AB0593FD1EF0B0B7">
 			<title>Application crashes without producing an exception</title>
@@ -665,14 +653,14 @@ created at timestamp 1270834766733 version 0]</codeblock>
 				alert to signal that something might be wrong with the system member that hasn’t
 				responded. The alert is logged in the sender’s log as a warning. </p>
 			<p>A timeout alert can be considered normal. </p>
-			<p>Response: <ul id="ul_16277AEBD62F4DE9895436493DA7297F">
+			<p>Response:</p>
+				<ul id="ul_16277AEBD62F4DE9895436493DA7297F">
 					<li id="li_E0B8EB01D1334A2CA1B56054B8F37376">If you’re seeing a lot of timeouts
 						and you haven’t seen them before, check whether your network is flooded. </li>
 					<li id="li_0378F32F3D09405D85376B8048ADD982">If you see these alerts constantly
 						during normal operation, consider raising the ack-wait-threshold above the
 						default 15 seconds. </li>
 				</ul>
-			</p>
 		</section>
 		<section id="section_66D11C8E84F941B58800EDB52194B087">
 			<title>Member produces SocketTimeoutException</title>
@@ -695,10 +683,8 @@ created at timestamp 1270834766733 version 0]</codeblock>
 				requests. When this happens, listeners receive RegionDestroyed notification with an
 				opcode of FORCED_DISCONNECT. The <keyword keyref="product_name"/> log file for the
 				member shows a ForcedDisconnectException with the message </p>
-			<p>
 				<codeblock>This member has been forced out of the distributed system because it did not respond 
 within member-timeout milliseconds</codeblock>
-			</p>
 			<p>Response: </p>
 			<p>To minimize the chances of this happening, you can increase the DistributedSystem
 				property member-timeout. Take care, however, as this setting also controls the
@@ -709,7 +695,8 @@ within member-timeout milliseconds</codeblock>
 			<title>Members cannot see each other</title>
 			<p>Suspect a network problem or a problem in the configuration of transport for memory
 				and discovery. </p>
-			<p>Response: <ul id="ul_2ACAA07701614362BC44664AAA7E18DE">
+			<p>Response:</p>
+				<ul id="ul_2ACAA07701614362BC44664AAA7E18DE">
 					<li id="li_97D9B36B0F24473A81A6D096BE1E27D5">Check your network monitoring tools
 						to see whether the network is down or flooded. </li>
 					<li id="li_2DD4858435F44F0B95D14D57DA8BA4E5">If you are using multi-homed hosts, make sure a
@@ -720,13 +707,13 @@ within member-timeout milliseconds</codeblock>
 					<li id="li_56CC57760306415DBFE1F1A8D1B6094E">Check that all the applications and cache servers
 						are using the same locator address. </li>
 				</ul>
-			</p>
 		</section>
 		<section id="section_E31AFADE4A3A45C7A6EABB67697CFF33">
 			<title>One part of the distributed system cannot see another part</title>
 			<p>This situation can leave your caches in an inconsistent state. In networking circles,
 				this kind of network outage is called the "split brain problem." </p>
-			<p>Response: <ul id="ul_17FB5B6D337A40EFBFE82B05A407A87D">
+			<p>Response: </p>
+				<ul id="ul_17FB5B6D337A40EFBFE82B05A407A87D">
 					<li id="li_E8538CAD087C46BA903FC02F571A66F0">Restart all the processes to ensure
 						data consistency. </li>
 					<li id="li_9856435CAE1E41CA912B14223680220C">Going forward, set up network
@@ -734,7 +721,6 @@ within member-timeout milliseconds</codeblock>
 					<li id="li_DBB892C1AB324EEF8ACFBB5CF30B6D0B">Enable network partition detection.
 					</li>
 				</ul>
-			</p>
 			<table frame="all" id="table_50738BDD953448D7A79E8AF88E2A0794">
 				<tgroup cols="1">
 					<colspec colname="topic_link" colnum="1"/>
@@ -759,7 +745,8 @@ within member-timeout milliseconds</codeblock>
 			<title>Data distribution has stopped, although member processes are running</title>
 			<p>Suspect a problem with the network, the locator, or the multicast configuration,
 				depending on the transport your distributed system is using. </p>
-			<p>Response: <ul id="ul_8D37B278FEF44069B752C7F92706465A">
+			<p>Response: </p>
+				<ul id="ul_8D37B278FEF44069B752C7F92706465A">
 					<li id="li_962017DB591B430DBB9DD65E1FD5E4CB">Check the health of your system
 						members. Search the logs for this string:
 						<codeblock>Uncaught exception</codeblock>An uncaught exception means a
@@ -799,7 +786,6 @@ within member-timeout milliseconds</codeblock>
 					<li id="li_900DC282FC41445D9AB013BC70342F22">Create a watchdog daemon or service
 						on each locator host to restart the locator process when it stops </li>
 				</ul>
-			</p>
 		</section>
 		<section id="section_7A6113ED20044B8C868483AABC45216E">
 			<title>Distributed-ack operations take a very long time to complete</title>
@@ -826,9 +812,7 @@ within member-timeout milliseconds</codeblock>
 			<title>Can’t get Windows performance data</title>
 			<p>Attempting to run performance measurements for <keyword keyref="product_name"/> on
 				Windows can produce this error message: </p>
-			<p>
 				<codeblock>Can't get Windows performance data. RegQueryValueEx returned 5</codeblock>
-			</p>
 			<p>This error can occur because incorrect information is returned when a Win32
 				application calls the ANSI version of RegQueryValueEx Win32 API with
 				HKEY_PERFORMANCE_DATA. This error is described in Microsoft KB article ID 226371 at
@@ -839,9 +823,7 @@ within member-timeout milliseconds</codeblock>
 				the proper registry key access permissions in the system registry. In particular,
 				make sure that Perflib in the following registry path is readable (KEY_READ access)
 				by the <keyword keyref="product_name"/> process: </p>
-			<p>
 				<codeblock>HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Perflib</codeblock>
-			</p>
 			<p>An example of reasonable security on the performance data would be to grant
 				administrators KEY_ALL_ACCESS access and interactive users KEY_READ access. This
 				particular configuration would prevent non-administrator remote users from querying
@@ -865,10 +847,9 @@ within member-timeout milliseconds</codeblock>
 			<p>
 				<msgblock>[10703552.860274] Clock: inserting leap second 23:59:60 UTC</msgblock>
 			</p>
-			<p>To fix this problem, issue the following commands on your affected Linux machines:
+			<p>To fix this problem, issue the following commands on your affected Linux machines:</p>
 				<codeblock>prompt&gt; /etc/init.d/ntp stop
 prompt&gt; date -s "$(date)"</codeblock>
-			</p>
 			<p>See the following web site for more information: </p>
 			<p>
 				<xref

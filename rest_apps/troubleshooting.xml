@@ -13,9 +13,12 @@
     <conbody>
       <p>Use the <codeph>/gemfire-api/v1/ping</codeph> endpoint to check REST API server
         availability: </p>
-      <p>For example:<codeblock>curl -i http://localhost:7070/gemfire-api/v1/ping </codeblock></p>
-      <p>Example success response:<codeblock>
-<b>200 OK</b></codeblock>If the server is not
+      <p>For example:</p>
+      <codeblock>curl -i http://localhost:7070/gemfire-api/v1/ping </codeblock>
+      <p>Example success response:</p>
+      <codeblock>
+<b>200 OK</b></codeblock>
+      <p>If the server is not
         available, your client will receive an HTTP error code and message.</p>
     </conbody>
   </concept>

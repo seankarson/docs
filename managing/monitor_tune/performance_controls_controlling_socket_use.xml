@@ -31,13 +31,15 @@
 			operations. For distributed regions, the put operation, and destroy and invalidate for
 			regions and entries, can all be optimized with conserve-sockets set to false. For
 			partitioned regions, setting conserve-sockets to false can improve general throughput. </p>
-		<p>
-			<note>When you have transactions operating on EMPTY, NORMAL or PARTITION regions, make
+		<note>
+			<p>When you have transactions operating on EMPTY, NORMAL or PARTITION regions, make
 				sure that <codeph>conserve-sockets</codeph> is set to false to avoid distributed
-				deadlocks. </note>
-		</p>
+				deadlocks. 
+			</p>
+		</note>
 		<p>You can override the <codeph>conserve-sockets</codeph> setting for individual threads. These
-			methods are in <codeph>com.gemstone.gemfire.distributed.DistributedSystem</codeph>: <ul
+			methods are in <codeph>com.gemstone.gemfire.distributed.DistributedSystem</codeph>: </p>	
+			<ul
 				id="ul_7010F64589704376B00718BD934CA2F4">
 				<li
 					id="li_B913A1EB0AF544679C7CFC059D15DCD5"><codeph>setThreadsSocketPolicy</codeph>.
@@ -52,7 +54,6 @@
 					this method to avoid holding the sockets until the socket-lease-time has
 					expired. </li>
 			</ul>
-		</p>
 		<p>A typical implementation might set conserve-sockets to true at the application level and
 			then override the setting for the specific application threads that perform the bulk of
 			the distributed operations. The example below shows an implementation of the two API

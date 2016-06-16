@@ -7,29 +7,28 @@
 	<conbody>
 		<section id="section_556E0D3D72624AD9B27C636BA628ADC0">
 			<title>Examples of Standard Client/Server Configuration</title>
-			<p>Generally, locators and servers use the same distributed system properties file,
-				which lists locators as the discovery mechanism for peer members and for connecting
-				clients. For example:
-				<codeblock>mcast-port=0
-locators=localhost[41111]</codeblock>On the machine where
-				you wish to run the locator (in this example, 'localhost'), you can start the
-				locator from a gfsh prompt:
-				<codeblock>gfsh&gt;start locator --name=<varname>locator_name</varname> --port=41111</codeblock>Or
-				directly from a command line:
-				<codeblock>prompt# gfsh start locator --name=<varname>locator_name</varname> --port=41111 </codeblock>Specify
-				a name for the locator that you wish to start on the localhost. </p>
-			<p>The server’s <codeph>cache.xml</codeph> declares a <codeph>cache-server</codeph>
-				element, which identifies the JVM as a server in the distributed system.
-				<codeblock>&lt;cache&gt; 
+			<p>Generally, locators and servers use the same distributed system properties file, which lists
+				locators as the discovery mechanism for peer members and for connecting clients. For
+				example: </p>
+			<codeblock>mcast-port=0
+locators=localhost[41111]</codeblock>
+			<p>On the machine where you wish to run the locator (in this example, 'localhost'), you
+				can start the locator from a gfsh prompt: </p>
+			<codeblock>gfsh&gt;start locator --name=<varname>locator_name</varname> --port=41111</codeblock>
+			<p>Or directly from a command line: </p>
+			<codeblock>prompt# gfsh start locator --name=<varname>locator_name</varname> --port=41111 </codeblock>
+			<p>Specify a name for the locator that you wish to start on the localhost. </p>
+			<p>The server’s <codeph>cache.xml</codeph> declares a <codeph>cache-server</codeph> element,
+				which identifies the JVM as a server in the distributed system.  </p>
+			<codeblock>&lt;cache&gt; 
   &lt;cache-server port="40404" ... /&gt; 
   &lt;region . . . </codeblock>
-			</p>
 			<p>Once the locator and server are started, the locator tracks the server as a peer in
 				its distributed system and as a server listening for client connections at port
 				40404.</p>
-			<p>You can also configure a cache server using the <cmdname>gfsh</cmdname> command-line
-				utility. For example:
-				<codeblock>gfsh>start server --name=server1 --server-port=40404</codeblock></p>
+			<p>You can also configure a cache server using the <codeph>gfsh</codeph> command-line utility.
+				For example: </p>
+			<codeblock>gfsh>start server --name=server1 --server-port=40404</codeblock>
 			<p>See <codeph>start server</codeph>.</p>
 			<p>The client’s <codeph>cache.xml</codeph>
 				<codeph>&lt;client-cache&gt;</codeph> declaration automatically configures it as a
@@ -42,27 +41,25 @@ locators=localhost[41111]</codeblock>On the machine where
 					the client region shortcut configuration, <codeph>CACHING_PROXY</codeph>. This
 					configures it as a client region that stores data in the client cache. </li>
 			</ul>
-			<p>There is only one pool defined for the client, so the pool is automatically assigned
-				to all client regions.
-				<codeblock outputclass="language-xml">&lt;client-cache&gt;
+			<p>There is only one pool defined for the client, so the pool is automatically assigned to all
+				client regions.  </p>
+			<codeblock outputclass="language-xml">&lt;client-cache&gt;
 	&lt;pool name="publisher" subscription-enabled="true"&gt;
 	   &lt;locator host="localhost" port="41111"/&gt;
 	&lt;/pool&gt;
 	&lt;region name="cs_region" refid="CACHING_PROXY"&gt;
 	&lt;/region&gt;
 &lt;/client-cache&gt; </codeblock>
-			</p>
 			<p>With this, the client is configured to go to the locator for the server connection
 				location. Then any cache miss or put in the client region is automatically forwarded
 				to the server. </p>
 		</section>
 		<example>
-			<title><b>Example: Standalone Publisher Client, Client Pool, and Region</b>
+			<title><b>Example—Standalone Publisher Client, Client Pool, and Region</b>
 			</title>
 			<p>The following API example walks through the creation of a standalone publisher client
 				and the client pool and region. </p>
-			<p>
-				<codeblock outputclass="language-java">public static ClientCacheFactory connectStandalone(String name) {
+			<codeblock outputclass="language-java">public static ClientCacheFactory connectStandalone(String name) {
 	return new ClientCacheFactory()
 		.set("log-file", name + ".log")
 		.set("statistic-archive-file", name + ".gfs")
@@ -82,16 +79,14 @@ private static void runPublisher() {
 
     cache.close();
 } </codeblock>
-			</p>
 		</example>
 		<example>
 			<title>
-				<b>Example: Standalone Subscriber Client </b>
+				<b>Example—Standalone Subscriber Client </b>
 			</title>
 			<p>This API example creates a standalone subscriber client using the same
 					<codeph>connectStandalone</codeph> method as the previous example. </p>
-			<p>
-				<codeblock outputclass="language-java">private static void runSubscriber() throws InterruptedException {
+			<codeblock outputclass="language-java">private static void runSubscriber() throws InterruptedException {
 	ClientCacheFactory ccf = connectStandalone("subscriber");
 	ccf.setPoolSubscriptionEnabled(true);
 	ClientCache cache = ccf.create();
@@ -111,7 +106,6 @@ private static void runPublisher() {
 
     cache.close();
 } </codeblock>
-			</p>
 		</example>
 		<section id="section_A7759DCB9BFE47448B8E8D72DDCDE058">
 			<title>Example of a Static Server List in Client/Server Configuration </title>
@@ -127,17 +121,14 @@ private static void runPublisher() {
 			<p>The client's server specification must match the addresses where the servers are
 				listening. In the server cache configuration file, here are the pertinent
 				settings.</p>
-			<p>
-				<codeblock>&lt;cache&gt;
+			<codeblock>&lt;cache&gt;
     &lt;cache-server port=<b>"40404"</b> ... /&gt; 
       &lt;region . . .</codeblock>
-			</p>
 			<p>The client's <codeph>cache.xml</codeph> file declares a connection pool with the
 				server explicitly listed and names the pool in the attributes for the client region.
 				This XML file uses a region attributes template to initialize the region attributes
 				configuration. </p>
-			<p>
-				<codeblock>&lt;client-cache&gt;
+			<codeblock>&lt;client-cache&gt;
 	&lt;pool name="publisher" subscription-enabled="true"&gt;
 		&lt;server host="localhost" port=<b>"40404"</b>/&gt;
 	&lt;/pool&gt;
@@ -145,7 +136,6 @@ private static void runPublisher() {
 	&lt;/region&gt;
 &lt;/client-cache&gt;
 </codeblock>
-			</p>
 		</section>
 	</conbody>
 </concept>

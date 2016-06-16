@@ -10,15 +10,17 @@
 			<p><b>Before Restarting a Region with a Disk Store, Consider the State of the Entire
 					Region</b>
 			</p>
-			<p>
-				<note>If you revoke a member’s disk store, do not restart that member with its disk
-					stores—in isolation—at a later time. </note>
-			</p>
+				<note>
+					<p>If you revoke a member’s disk store, do not restart that member with its disk
+					stores—in isolation—at a later time.
+					</p>
+				</note>
 			<p><keyword keyref="product_name"/> stores information about your persisted data and
 				prevents you from starting a member with a revoked disk store in the running system.
 				But <keyword keyref="product_name"/> cannot stop you from starting a revoked member
 				in isolation, and running with its revoked data. This is an unlikely situation, but
-				it is possible to do: <ol id="ol_18E53E2D32C54A74A6A70807EB57B67A">
+				it is possible to do: </p>
+				<ol id="ol_18E53E2D32C54A74A6A70807EB57B67A">
 					<li id="li_6E470518D8AF4CE693CAE20A96D9E74E">Members A and B are running, both
 						storing Region data to disk. </li>
 					<li id="li_2E1B75604CA74EBF9D59B67FC0C4CF35">Member A goes down. </li>
@@ -41,7 +43,6 @@
 						will recognize the incompatible state and report an exception, but by this
 						point, you have good data in both files, with no way to combine them. </li>
 				</ol>
-			</p>
 			<p><b>Understand Cache Transactions</b>
 			</p>
 			<p>Understanding the operation of <keyword keyref="product_name"/> transactions can help you minimize situations

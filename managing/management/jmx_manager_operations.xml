@@ -15,9 +15,12 @@
 				node to become a JMX Manager node passively; if gfsh cannot locate a JMX Manager
 				when connecting to the distributed system, the server node will be started as a JMX
 				Manager node. </p>
-			<note>The default property setting for all locators is
+			<note>
+				<p>The default property setting for all locators is
 					<codeph>gemfire.jmx-manager=true</codeph>. For other members, the default
-				property setting is <codeph>gemfire.jmx-manager=false</codeph>. </note>
+				property setting is <codeph>gemfire.jmx-manager=false</codeph>. 
+				</p>
+			</note>
 			<p>To force a server to become a JMX Manager node whenever it is started, set the
 					<keyword keyref="product_name"/> properties
 					<codeph>jmx-manager-start=true</codeph> and <codeph>jmx-manager=true</codeph> in
@@ -27,9 +30,10 @@
 					--J=-Dgemfire.jmx-manager-start=true and --J=-Dgemfire.jmx-manager=true</codeph>
 				as arguments to either the <codeph>start server</codeph> or <codeph>start
 					locator</codeph> command. </p>
-			<p>For example, to start a server as a JMX Manager on the gfsh command line:
+			<p>For example, to start a server as a JMX Manager on the gfsh command line:</p>
 				<codeblock>gfsh&gt;start server --name=&lt;<varname>server-name</varname>&gt; --J=-Dgemfire.jmx-manager=true \
---J=-Dgemfire.jmx-manager-start=true</codeblock>By
+--J=-Dgemfire.jmx-manager-start=true</codeblock>
+			<p>By
 				default, any locator can become a JMX Manager when started. When you start up a
 				locator, if no other JMX Manager is detected in the distributed system, the locator
 				starts one automatically. If you start a second locator, it will detect the current
@@ -52,7 +56,7 @@
 			<p>The following is an example of starting a new locator that also starts an embedded
 				JMX Manager (after detecting that another JMX Manager does not exist). In addition,
 					<codeph>gfsh</codeph> also automatically connects you to the new JMX Manager.
-				For example:
+				For example:</p>
 				<codeblock>gfsh>start locator --name=locator1
 Starting a GemFire Locator in /home/stymon/test2/locator1...
 ............................................
@@ -70,7 +74,8 @@ Successfully connected to: [host=ubuntu.local, port=1099]
 
 Cluster configuration service is up and running.
 </codeblock>
-				Or you can enter the command directly in your terminal:
+			<p>
+				Or you can enter the command directly in your terminal:</p>
 				<codeblock>stymon@ubuntu:~$ gfsh start locator --name=locator1
 ....................................
 Locator in /home/stymon/locator1 on ubuntu.local[10334] as locator1 is currently online.
@@ -86,7 +91,8 @@ Class-Path: /home/stymon/Pivotal_GemFire_800_b48319_Linux/lib/locator-dependenci
 Successfully connected to: [host=ubuntu.local, port=1099]
 
 Cluster configuration service is up and running.
-</codeblock>Locators
+</codeblock>
+			<p>Locators
 				also keep track of all nodes that can become a JMX Manager. </p>
 			<p>Immediately after creating its cache, the JMX Manager node begins federating the
 				MBeans from other members. After the JMX Manager node is ready, the JMX Manager node
@@ -97,13 +103,17 @@ Cluster configuration service is up and running.
 				MemberMXBean isManager() method. </p>
 			<p>Using the Java API, any managed node that has been configured with
 					<codeph>jmx-manager=true</codeph> can also be turned into a JMX Manager Node by
-				invoking the ManagementService startManager() method. <note>If you start the JMX
+				invoking the ManagementService startManager() method.</p>
+			<note>
+				<p>If you start the JMX
 					Manager programmatically and wish to enable command processing, you must also
 					add the absolute path of <codeph>gfsh-dependencies.jar</codeph> (located in
 						<codeph>$GEMFIRE/lib</codeph> of your <keyword keyref="product_name"/>
 					installation) to the CLASSPATH of your application. Do not copy this library to
 					your CLASSPATH because this library refers to other dependencies in
-						<codeph>$GEMFIRE/lib</codeph> by a relative path. </note></p>
+						<codeph>$GEMFIRE/lib</codeph> by a relative path.
+				</p>
+			</note>
 		</body>
 	</topic>
 	<topic id="topic_263072624B8D4CDBAD18B82E07AA44B6">
@@ -265,7 +275,7 @@ Cluster configuration service is up and running.
 		<body>
 			<p>To stop a JMX Manager using gfsh, simply shut down the locator or server hosting the
 				JMX Manager. </p>
-			<p>For a locator:
+			<p>For a locator:</p>
 				<codeblock>gfsh>stop locator --dir=locator1
 Stopping Locator running in /home/stymon/test2/locator1 on ubuntu.local[10334] as locator1...
 Process ID: 2081
@@ -273,7 +283,8 @@ Log File: /home/stymon/test2/locator1/locator1.log
 ....
 No longer connected to ubuntu.local[1099].
 </codeblock>
-				For a server:
+			<p>
+				For a server:</p>
 				<codeblock>gfsh&gt;stop server --dir=server1
 Stopping Cache Server running in /home/stymon/test2/server1 ubuntu.local[40404] as server1...
 Process ID: 1156
@@ -281,7 +292,8 @@ Log File: /home/stymon/test2/server1/server1.log
 ....
 
 
-No longer connected to ubuntu.local[1099].</codeblock>Notice
+No longer connected to ubuntu.local[1099].</codeblock>
+			<p>Notice
 				that <codeph>gfsh</codeph> has automatically disconnected you from the stopped JMX
 				Manager. </p>
 			<p>To stop a JMX manager using the management API, use the ManagementService

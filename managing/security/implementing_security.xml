@@ -7,7 +7,8 @@
 	<conbody>
 		<section id="section_79F6CF928E764CA294D466D0CB2E5FAC">
 			<p>You can use <keyword keyref="product_name"/> security for secure communication, to
-				authorize system membership, and to authorize specific activities in the cache: <ol
+				authorize system membership, and to authorize specific activities in the cache: </p>
+				<ol
 					id="ol_D9C162BA03224833839227EF0940EE1C">
 					<li id="li_A9B61790816F4E9C988457D65C6C75B1">Use locators for peer discovery
 						within the distributed systems and for client discovery of servers. See
@@ -32,7 +33,6 @@
 						implement that. You can configure SSL separately for peer-to-peer,
 						client/server, JMX, and HTTP connections.</li>
 				</ol>
-			</p>
 		</section>
 		<section id="section_1B8A856DB52449C6BF2AEB7C0D9515B5">
 			<title>Where to Place Security Configuration Settings</title>
@@ -44,18 +44,16 @@
 				data. This way, you can still allow read or write access for your
 					<codeph>gemfire.properties</codeph> file. </p>
 			<p>Upon startup, <keyword keyref="product_name"/> processes will look for the
-					<codeph>gfsecurity.properties</codeph> file in the following locations in order:
-					<ul id="ul_DE1034684DFE4860BAD35AF07237187E">
+				<codeph>gfsecurity.properties</codeph> file in the following locations in order:</p>
+				<ul id="ul_DE1034684DFE4860BAD35AF07237187E">
 					<li id="li_7ADFA0E09CE546DF8CBB56ACEF289B7A">current working directory </li>
 					<li id="li_31B73A57ECC14ED8A48EE4F5B696C772">user's home directory </li>
 					<li id="li_1BA79E250FD644BBA07D52B739AF25AE">classpath </li>
 				</ul>
-			</p>
 			<p>If any password-related security properties are listed in the file but have a blank
 				value, the process will prompt the user to enter a password upon startup. </p>
 		</section>
 		<section id="section_155ED414321E4D4ABBD7ED3508E7BD62">
-			<p>
 				<table frame="all" id="table_0B9FD304A38A4605A6FE6B4AC0083FA5">
 					<tgroup cols="1">
 						<colspec colname="topic_link" colnum="1"/>
@@ -73,7 +71,6 @@
 						</tbody>
 					</tgroup>
 				</table>
-			</p>
 			<p> </p>
 		</section>
 	</conbody>

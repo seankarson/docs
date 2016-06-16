@@ -16,8 +16,8 @@
 				attributes, with identifying names. Create custom named region attributes by setting
 				the attributes and storing them with a unique identifier in the region attribute
 					<codeph>id</codeph>. Retrieve named attributes by providing the shortcut enum
-				value or the name you assigned in the <codeph>id</codeph> to the region creation:
-					<ul id="ul_E67BE1FBAB734DDDA11B4EFEB573632F">
+				value or the name you assigned in the <codeph>id</codeph> to the region creation:</p>
+				<ul id="ul_E67BE1FBAB734DDDA11B4EFEB573632F">
 					<li id="li_CD638D0EB9B146908028C747E7017A85">In the API, use the identifier in
 						the region factory creation </li>
 					<li id="li_AC28CB80FA764A6AB1DCE713811A9AC5">In the <codeph>cache.xml</codeph>,
@@ -26,14 +26,14 @@
 						<codeph>refid</codeph> setting. The <codeph>refid</codeph> is available in
 						both elements for convenience </li>
 				</ul>
-			</p>
 		</section>
 		<section id="section_8FCBCC4BDCDE4A85A27E5B9B70603F63">
 			<title>Examples </title>
 			<p>
 				<b>Example #1</b>
 			</p>
-			<p>This example shows partitioned region creation in the <codeph>cache.xml</codeph>: <ul
+			<p>This example shows partitioned region creation in the <codeph>cache.xml</codeph>:</p>
+				<ul
 					id="ul_633FC86B78F44D27B27EC15504CE9492">
 					<li id="li_37B9F8AD3BCF47EC8657342F7EA94E93">The first
 							<codeph>region-attributes</codeph> declaration starts with the
@@ -61,25 +61,20 @@
 &lt;/region&gt;</codeblock>
 					</li>
 				</ul>
-			</p>
 			<p>
 				<b>Example #2</b>
 			</p>
 			<p>This example uses the <codeph>RegionFactory</codeph> API to create a region based on
 				the predefined <codeph>PARTITION</codeph> region shortcut: </p>
-			<p>
 				<codeblock>final Region diskPortfolios = 
 	new RegionFactory("PARTITION").create("Portfolios");</codeblock>
-			</p>
 			<p>This example retrieves an attributes template and passes it to the region creation
 				with a modified pool specification: </p>
-			<p>
 				<codeblock>ClientRegionFactory&lt;String,String&gt; regionFactory = 		
 	cache.createClientRegionFactory(PROXY);
 Region&lt;String, String&gt; region = regionFactory
 	.setPoolName("publisher")
 	.create("DATA");</codeblock>
-			</p>
 		</section>
 	</conbody>
 </concept>

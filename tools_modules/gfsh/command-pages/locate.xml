@@ -11,68 +11,67 @@
 			<p><b> Availability:</b> Online. You must be connected in <codeph>gfsh</codeph> to a JMX
 				Manager member to use this command. </p>
 			<p><b>Syntax:</b>
-				<codeblock>locate entry --key=value --region=value [--key-class=value] 
+			</p>
+			<codeblock>locate entry --key=value --region=value [--key-class=value] 
 [--value-class=value] [--recursive=value]</codeblock>
-				<table id="table_0C8A817328574B6BAF76204CAA1D3A57">
-					<title>Parameters</title>
-					<tgroup cols="3">
-						<colspec colname="col1" colnum="1" colwidth="1.00*"/>
-						<colspec colname="col2" colnum="2" colwidth="3.74*"/>
-						<colspec colname="newCol3" colnum="3" colwidth="1*"/>
-						<thead>
-							<row>
-								<entry colname="col1">Name </entry>
-								<entry colname="col2">Description</entry>
-								<entry colname="col3">Default Value</entry>
-							</row>
-						</thead>
-						<tbody>
-							<row>
-								<entry colname="col1"><parmname>--key</parmname>
-								</entry>
-								<entry colname="col2"><i>Required.</i> String or JSON text from
-									which to create a key. Examples include:
-									"<codeph>James</codeph>", "<codeph>100L</codeph>" and
-										"<codeph>('id': 'l34s')</codeph>".</entry>
-								<entry/>
-							</row>
-							<row>
-								<entry colname="col1"><parmname>--region</parmname>
-								</entry>
-								<entry colname="col2"><i>Required.</i> Region in which to locate
-									values. </entry>
-								<entry/>
-							</row>
-							<row>
-								<entry colname="col1"><parmname>--key-class</parmname>
-								</entry>
-								<entry colname="col2"> Fully qualified class name of the key's type. </entry>
-								<entry><codeph>java.lang.String</codeph></entry>
-							</row>
-							<row>
-								<entry colname="col1"><parmname>--value-class</parmname>
-								</entry>
-								<entry colname="col2"> Fully qualified class name of the value's
-									type. </entry>
-								<entry><codeph>java.lang.String</codeph></entry>
-							</row>
-							<row>
-								<entry colname="col1"><parmname>--recursive</parmname>
-								</entry>
-								<entry colname="col2">Whether to traverse regions and subregions
-									recursively. </entry>
-								<entry>false</entry>
-							</row>
-						</tbody>
-					</tgroup>
-				</table>
-			</p>
+			<table id="table_dk3_pdg_2w">
+				<title>Parameters</title>
+				<tgroup cols="3">
+					<colspec colname="col1" colnum="1" colwidth="1.00*"/>
+					<colspec colname="col2" colnum="2" colwidth="3.74*"/>
+					<colspec colname="newCol3" colnum="3" colwidth="1*"/>
+					<thead>
+						<row>
+							<entry colname="col1">Name </entry>
+							<entry colname="col2">Description</entry>
+							<entry colname="col3">Default Value</entry>
+						</row>
+					</thead>
+					<tbody>
+						<row>
+							<entry colname="col1"><parmname>--key</parmname>
+							</entry>
+							<entry colname="col2"><i>Required.</i> String or JSON text from which to
+								create a key. Examples include: "<codeph>James</codeph>",
+									"<codeph>100L</codeph>" and "<codeph>('id':
+								'l34s')</codeph>".</entry>
+							<entry/>
+						</row>
+						<row>
+							<entry colname="col1"><parmname>--region</parmname>
+							</entry>
+							<entry colname="col2"><i>Required.</i> Region in which to locate values. </entry>
+							<entry/>
+						</row>
+						<row>
+							<entry colname="col1"><parmname>--key-class</parmname>
+							</entry>
+							<entry colname="col2"> Fully qualified class name of the key's type. </entry>
+							<entry><codeph>java.lang.String</codeph></entry>
+						</row>
+						<row>
+							<entry colname="col1"><parmname>--value-class</parmname>
+							</entry>
+							<entry colname="col2"> Fully qualified class name of the value's type. </entry>
+							<entry><codeph>java.lang.String</codeph></entry>
+						</row>
+						<row>
+							<entry colname="col1"><parmname>--recursive</parmname>
+							</entry>
+							<entry colname="col2">Whether to traverse regions and subregions
+								recursively. </entry>
+							<entry>false</entry>
+						</row>
+					</tbody>
+				</tgroup>
+			</table>
 			<p><b>Example Commands:</b>
-				<codeblock>locate entry --key=('id':'133abg124') --region=/region1 
---key-class=data.ProfileKey --recursive=true;</codeblock>
 			</p>
+			<codeblock>locate entry --key=('id':'133abg124') --region=/region1 
+--key-class=data.ProfileKey --recursive=true;</codeblock>
 			<p><b>Sample Output:</b>
-				<codeblock>gfsh&gt;locate entry --key=('123abc') --region=region2
+			</p>
+			<codeblock>gfsh&gt;locate entry --key=('123abc') --region=region2
 Result          : true
 Key Class       : java.lang.String
 Key             : ('123abc')
@@ -83,7 +82,6 @@ MemberName | MemberId
 ---------- | -------------------------------------
 server1    | GemFireStymon(server1:3692)&lt;v1&gt;:13487
 server2    | GemFireStymon(server2:2340)&lt;v2&gt;:11613</codeblock>
-			</p>
 		</section>
 	</conbody>
 </concept>

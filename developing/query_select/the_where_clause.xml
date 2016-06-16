@@ -7,17 +7,15 @@
 			<p>Each FROM clause expression must resolve to a collection of objects. The collection
 				is then available for iteration in the query expressions that follow in the WHERE
 				clause. </p>
-			<p> For example:
+			<p> For example:</p>
 				<codeblock>SELECT DISTINCT * FROM /exampleRegion p <b>WHERE p.status = 'active'</b></codeblock>
-			</p>
 			<p>The entry value collection is iterated by the WHERE clause, comparing the status field to the
 				string 'active'. When a match is found, the value object of the entry is added to
 				the return set. </p>
 			<p> In the next example query, the collection specified in the first FROM clause expression is
 				used by the rest of the SELECT statement, including the second FROM clause
-				expression.
+				expression.</p>
 				<codeblock>SELECT DISTINCT * FROM /exampleRegion, positions.values p WHERE p.qty &gt; 1000.00</codeblock>
-			</p>
 		</section>
 		<section id="section_99CA3FA508B740DCBAB4F01F8F9B1390">
 			<title>Implementing equals and hashCode Methods</title>
@@ -29,28 +27,31 @@
 			<p> If you have implemented <codeph>equals</codeph> and <codeph>hashCode</codeph>
 				methods in your custom objects, you must provide detailed implementations of these
 				methods so that queries execute properly against the objects. For example, assume
-				that you have defined a custom object (CustomObject) with the following variables:
+				that you have defined a custom object (CustomObject) with the following variables:</p>
 				<codeblock>int ID
-int otherValue</codeblock> Let's put two CustomObjects (we'll call
+int otherValue</codeblock>
+			<p>Let's put two CustomObjects (we'll call
 				them CustomObjectA and CustomObjectB) into the cache: </p>
-			<p>CustomObjectA: <codeblock>ID=1
+			<p>CustomObjectA: </p>
+			<codeblock>ID=1
 otherValue=1</codeblock>
-			</p>
-			<p>CustomObjectB: <codeblock>ID=1
+			<p>CustomObjectB:</p>
+			<codeblock>ID=1
 otherValue=2</codeblock>
-			</p>
 			<p>If you have implemented the equals method to simply match on the ID field (ID == ID),
 				queries will produce unpredictable results. </p>
-			<p>The following query:
+			<p>The following query:</p>
 				<codeblock>SELECT * FROM /CustomObjects c 
 WHERE c.ID &gt; 1 AND c.ID &lt; 3 
-AND c.otherValue &gt; 0 AND c.otherValue &lt; 3</codeblock>returns
+AND c.otherValue &gt; 0 AND c.otherValue &lt; 3</codeblock>
+			<p>returns
 				two objects, however the objects will be two of either CustomObjectA or
-				CustomObjectB. </p>
-			<p>Alternately, the following query:
+				CustomObjectB.</p>
+			<p>Alternately, the following query:</p>
 				<codeblock>SELECT * FROM /CustomObjects c 
 WHERE c.ID &gt; 1 AND c.ID &lt; 3 
-AND c.otherValue &gt; 1 AND c.otherValue &lt; 3</codeblock>returns
+AND c.otherValue &gt; 1 AND c.otherValue &lt; 3</codeblock>
+			<p>returns
 				either 0 results or 2 results of CustomObjectB, depending on which entry is
 				evaluated last. </p>
 			<p>To avoid unpredictable querying behavior, implement detailed versions of the
@@ -72,11 +73,13 @@ AND c.otherValue &gt; 1 AND c.otherValue &lt; 3</codeblock>returns
 				field values by calling the getField method thus avoiding deserialization. </p>
 			<p>To use PdxInstances in querying, ensure that PDX serialization reads are enabled in
 				your server's cache. In gfsh, execute the following command before starting up your
-				data members:<codeblock>gfsh>configure pdx --read-serialized=true</codeblock>See
+				data members:</p>
+			<codeblock>gfsh>configure pdx --read-serialized=true</codeblock>
+			<p>See
 					<xref
 					href="../../tools_modules/gfsh/command-pages/configure.xml#topic_jdkdiqbgphqh"/>
 				for more information.</p>
-			<p>In cache.xml, set the following:
+			<p>In cache.xml, set the following:</p>
 				<codeblock>// Cache configuration setting PDX read behavior 
 &lt;cache&gt;
   &lt;pdx read-serialized="true"&gt;
@@ -84,7 +87,6 @@ AND c.otherValue &gt; 1 AND c.otherValue &lt; 3</codeblock>returns
   &lt;/pdx&gt;
 &lt;/cache&gt;
 </codeblock>
-			</p>
 		</section>
 		<section id="section_75A114F9FEBF40A586621CAA1780DBD3">
 			<title>Attribute Visibility</title>
@@ -94,12 +96,11 @@ AND c.otherValue &gt; 1 AND c.otherValue &lt; 3</codeblock>returns
 				that is in scope is valid. Therefore, at the beginning of a query, all locally
 				cached regions and their attributes are in scope. </p>
 			<p>For attribute Position.secId which is public and has getter method "getSecId()", the
-				query can be written as the following:
+				query can be written as the following:</p>
 				<codeblock>SELECT DISTINCT * FROM /exampleRegion p WHERE p.position1.secId = '1'
 SELECT DISTINCT * FROM /exampleRegion p WHERE p.position1.SecId = '1'
 SELECT DISTINCT * FROM /exampleRegion p WHERE p.position1.getSecId() = '1'
 </codeblock>
-			</p>
 			<p>The query engine tries to evaluate the value using the public field value. If a
 				public field value is not found, it makes a get call using field name (note that the
 				first character is uppercase.) </p>
@@ -109,9 +110,8 @@ SELECT DISTINCT * FROM /exampleRegion p WHERE p.position1.getSecId() = '1'
 			<p>If collections in the FROM clause are not related to each other, the WHERE clause can
 				be used to join them. </p>
 			<p>The statement below returns all portfolios from the /exampleRegion and
-				/exampleRegion2 regions that have the same status.
+				/exampleRegion2 regions that have the same status.</p>
 				<codeblock>SELECT * FROM /exampleRegion portfolio1, /exampleRegion2 portfolio2 WHERE portfolio1.status = portfolio2.status</codeblock>
-			</p>
 			<p> To create indexes for region joins you create single-region indexes for both sides
 				of the join condition. These are used during query execution for the join condition.
 				Partitioned regions do not support region joins. For more information on indexes,
@@ -119,15 +119,18 @@ SELECT DISTINCT * FROM /exampleRegion p WHERE p.position1.getSecId() = '1'
 					scope="local"/>. </p>
 			<p><b>Examples:</b></p>
 			<p>Query two regions. Return the ID and status for portfolios that have the same
-				status.<codeblock>SELECT portfolio1.ID, portfolio2.status FROM /exampleRegion portfolio1, /exampleRegion2 portfolio2 WHERE portfolio1.status = portfolio2.status</codeblock></p>
+				status.</p>
+			<codeblock>SELECT portfolio1.ID, portfolio2.status FROM /exampleRegion portfolio1, /exampleRegion2 portfolio2 WHERE portfolio1.status = portfolio2.status</codeblock>
 			<p>Query two regions, iterating over all <codeph>positions</codeph> within each portfolio. Return
 				all 4-tuples consisting of the value from each of the two regions and the value
 				portion of the <codeph>positions</codeph> map from both regions in which the
 					<codeph>secId</codeph> field of positions
-				match.<codeblock>SELECT * FROM /exampleRegion portfolio1, portfolio1.positions.values positions1, /exampleRegion2 portfolio2, portfolio2.positions.values positions2 WHERE positions1.secId = positions2.secId</codeblock></p>
+				match.</p>
+			<codeblock>SELECT * FROM /exampleRegion portfolio1, portfolio1.positions.values positions1, /exampleRegion2 portfolio2, portfolio2.positions.values positions2 WHERE positions1.secId = positions2.secId</codeblock>
 			<p>Same query as the previous example, with the additional constraint that matches will have a
 					<codeph>ID</codeph> of
-				1.<codeblock>SELECT * FROM /exampleRegion portfolio1, portfolio1.positions.values positions1, /exampleRegion2 portfolio2, portfolio2.positions.values positions2 WHERE portfolio1.ID = 1 AND positions1.secId = positions2.secId</codeblock></p>
+				1.</p>
+			<codeblock>SELECT * FROM /exampleRegion portfolio1, portfolio1.positions.values positions1, /exampleRegion2 portfolio2, portfolio2.positions.values positions2 WHERE portfolio1.ID = 1 AND positions1.secId = positions2.secId</codeblock>
 		</section>
 		<section id="section_D91E0B06FFF6431490CC0BFA369425AD">
 			<title>LIKE</title>
@@ -136,31 +139,35 @@ SELECT DISTINCT * FROM /exampleRegion p WHERE p.position1.getSecId() = '1'
 				it behaves like 'starts with'. You can also place a wildcard (either '%' or '_') at
 				any other position in the comparison string. You can escape the wildcard characters
 				to represent the characters themselves. </p>
-			<p>
-				<note>The '*' wildcard is not supported in OQL LIKE predicates.</note>
-			</p>
+				<note>
+					<p>The '*' wildcard is not supported in OQL LIKE predicates.
+					</p>
+				</note>
 			<p>You can also use the LIKE predicate when an index is present.</p>
 			<p><b>Examples:</b></p>
 			<p>Query the region. Return all objects where status equals
-				'active':<codeblock>SELECT * FROM /exampleRegion p WHERE p.status LIKE 'active'</codeblock></p>
+				'active':</p>
+			<codeblock>SELECT * FROM /exampleRegion p WHERE p.status LIKE 'active'</codeblock>
 			<p>Query the region using a wild card for comparison. Returns all objects where status
 				begins with
-				'activ':<codeblock>SELECT * FROM /exampleRegion p WHERE p.status LIKE 'activ%'</codeblock></p>
+				'activ':</p>
+			<codeblock>SELECT * FROM /exampleRegion p WHERE p.status LIKE 'activ%'</codeblock>
 		</section>
 		<section>
 			<title>Case Insensitive Fields</title>
 			<p>You can use the Java String class methods <codeph>toUpperCase</codeph> and
 					<codeph>toLowerCase</codeph> to transform fields where you want to perform a
 				case-insensitive search. For
-				example:<codeblock>SELECT entry.value FROM /exampleRegion.entries entry WHERE entry.value.toUpperCase LIKE '%BAR%'</codeblock>or
-				<codeblock>SELECT * FROM /exampleRegion WHERE foo.toLowerCase LIKE '%bar%'</codeblock></p>
+				example:</p>
+			<codeblock>SELECT entry.value FROM /exampleRegion.entries entry WHERE entry.value.toUpperCase LIKE '%BAR%'</codeblock>
+			<p>or</p>
+				<codeblock>SELECT * FROM /exampleRegion WHERE foo.toLowerCase LIKE '%bar%'</codeblock>
 		</section>
 		<section id="section_D2F8D17B52B04895B672E2FCD675A676">
 			<title>Method Invocations</title>
 			<p> To use a method in a query, use the attribute name that maps to the public method
-				you want to invoke.
+				you want to invoke.</p>
 				<codeblock>SELECT DISTINCT * FROM /exampleRegion p WHERE p.positions.size &gt;= 2 - maps to positions.size()</codeblock>
-			</p>
 			<p>Methods declared to return void evaluate to null when invoked through the query
 				processor. </p>
 			<p> You cannot invoke a static method. See <xref
@@ -173,18 +180,16 @@ SELECT DISTINCT * FROM /exampleRegion p WHERE p.position1.getSecId() = '1'
 				the method name in the query string as an attribute. For example, emps.isEmpty is
 				equivalent to emps.isEmpty(). </p>
 			<p>In the following example, the query invokes isEmpty on positions, and returns the set
-				of all portfolios with no positions:
+				of all portfolios with no positions:</p>
 				<codeblock>SELECT DISTINCT * FROM /exampleRegion p WHERE p.positions.isEmpty</codeblock>
-			</p>
 			<p>
 				<b>Methods with parameters</b>
 			</p>
 			<p>To invoke methods with parameters, include the method name in the query string as an
 				attribute and provide method arguments between parentheses. </p>
 			<p>This example passes the argument "Bo" to the public method, and returns all names
-				that begin with "Bo".
+				that begin with "Bo".</p>
 				<codeblock>SELECT DISTINCT * FROM /exampleRegion p WHERE p.name.startsWith('Bo')</codeblock>
-			</p>
 			<p>For overloaded methods, the query processor decides which method to call by matching
 				the runtime argument types with the parameter types required by the method. If only
 				one method's signature matches the parameters provided, it is invoked. The query
@@ -208,11 +213,10 @@ SELECT DISTINCT * FROM /exampleRegion p WHERE p.position1.getSecId() = '1'
 			<p>To write a query based on the value of an Enum object field, you must use the
 					<codeph>toString</codeph> method of the enum object or use a query bind
 				parameter. </p>
-			<p>For example, the following query is NOT valid:
+			<p>For example, the following query is NOT valid:</p>
 				<codeblock>//INVALID QUERY
 select distinct * from /QueryRegion0 where aDay = Day.Wednesday
 </codeblock>
-			</p>
 			<p> The reason it is invalid is that the call to <codeph>Day.Wednesday</codeph> involves
 				a static class and method invocation which is not supported. </p>
 			<p> Enum types can be queried by using toString method of the enum object or by using
@@ -221,12 +225,14 @@ select distinct * from /QueryRegion0 where aDay = Day.Wednesday
 				value is 'active'. </p>
 			<p><b>Examples:</b></p>
 			<p>Query enum type using the toString
-				method:<codeblock>// eStatus is an enum with values 'active' and 'inactive'
+				method:</p>
+			<codeblock>// eStatus is an enum with values 'active' and 'inactive'
 select * from /exampleRegion p where p.eStatus.toString() = 'active'
-</codeblock></p>
+</codeblock>
 			<p>Query enum type using a bind parameter. The value of the desired Enum field (
 				Day.Wednesday) is passed as an execution
-				parameter:<codeblock>select distinct * from /QueryRegion0 where aDay = $1</codeblock></p>
+				parameter:</p>
+			<codeblock>select distinct * from /QueryRegion0 where aDay = $1</codeblock>
 		</section>
 		<section id="section_AC12146509F141378E493078540950C7">
 			<title>IN and SET</title>
@@ -237,20 +243,19 @@ select * from /exampleRegion p where p.eStatus.toString() = 'active'
 				is a collection, and <codeph>e1</codeph> is an object or a literal whose type is a
 				subtype or the same type as the elements of <codeph>e2</codeph>, then <codeph>e1 IN
 					e2</codeph> is an expression of type boolean. </p>
-			<p>The expression returns: <ul id="ul_2DB695F6FE364C9A93A162E84A9C0D8F">
+			<p>The expression returns: </p>
+				<ul id="ul_2DB695F6FE364C9A93A162E84A9C0D8F">
 					<li id="li_AA00FED209F44DC78886151B044089E1">TRUE if e1 is not UNDEFINED and is
 						contained in collection e2 </li>
 					<li id="li_BB2DA7F60AA448C5BFCF28D33BAF5953">FALSE if e1 is not UNDEFINED and is
 						not contained in collection e2 # </li>
 					<li id="li_D0901771813C4845999853656AEC6FC0">UNDEFINED if e1 is UNDEFINED </li>
 				</ul>
-			</p>
 			<p>For example, <codeph>2 IN SET(1, 2, 3)</codeph> is TRUE. </p>
 			<p>Another example is when the collection you are querying into is defined by a
-				subquery. This query looks for companies that have an active portfolio on file:
+				subquery. This query looks for companies that have an active portfolio on file:</p>
 				<codeblock>SELECT name, address FROM /company 
   WHERE id IN (SELECT id FROM /portfolios WHERE status = 'active')</codeblock>
-			</p>
 			<p>The interior SELECT statement returns a collection of ids for all /portfolios entries
 				whose status is active. The exterior SELECT iterates over /company, comparing each
 				entry’s id with this collection. For each entry, if the IN expression returns TRUE,
@@ -259,21 +264,22 @@ select * from /exampleRegion p where p.eStatus.toString() = 'active'
 				<b>Comparing Set Values</b>
 			</p>
 			<p>The following is an example of a set value type comparison where sp is of type Set: </p>
-			<p>
-				<codeblock>SELECT * FROM /exampleRegion WHERE sp = set('20','21','22')</codeblock>In
+				<codeblock>SELECT * FROM /exampleRegion WHERE sp = set('20','21','22')</codeblock>
+			<p>In
 				this case, if sp only contains '20' and '21', then the query will evalute to false.
 				The query compares the two sets and looks for the presence of all elements in both
-				sets. </p>
-			<p>For other collections types like list, the query can be written as follows:
-				<codeblock>SELECT * FROM /exampleRegion WHERE sp.containsAll(set('20','21','22))</codeblock>where
+				sets.</p>
+			<p>For other collections types like list, the query can be written as follows:</p>
+				<codeblock>SELECT * FROM /exampleRegion WHERE sp.containsAll(set('20','21','22))</codeblock>
+			<p>where
 				sp is of type List. </p>
-			<p>In order to use it for Set value, the query can be written as:
-				<codeblock>SELECT * FROM /exampleRegion WHERE sp IN SET (set('20','21','22'),set('10',11','12'))</codeblock>where
+			<p>In order to use it for Set value, the query can be written as:</p>
+				<codeblock>SELECT * FROM /exampleRegion WHERE sp IN SET (set('20','21','22'),set('10',11','12'))</codeblock>
+			<p>where
 				a set value is searched in collection of set values. </p>
 			<p>One problem is that you cannot create indexes on Set or List types (collection types)
 				that are not comparable. To workaround this, you can create an index on a custom
 				collection type that implements Comparable. </p>
-			<p> </p>
 		</section>
 		<section id="section_E7206D045BEC4F67A8D2B793922BF213">
 			<title>Double.NaN and Float.NaN Comparisons</title>
@@ -282,7 +288,8 @@ select * from /exampleRegion p where p.eStatus.toString() = 'active'
 				Float.compareTo and Double.compareTo. </p>
 			<p>In summary, the comparisons differ in the following ways from those performed by the
 				Java language numerical comparison operators (&lt;, &lt;=, ==, &gt;= &gt;) when
-				applied to primitive double [float] values: <ul
+				applied to primitive double [float] values: </p>
+				<ul
 					id="ul_AA92F98B143B4FE891C64AE08E59C335">
 					<li id="li_7755BA65223D4170805E8BFE00C21176">Double.NaN [Float.NaN] is
 						considered to be equal to itself and greater than all other double [float]
@@ -290,10 +297,10 @@ select * from /exampleRegion p where p.eStatus.toString() = 'active'
 					<li id="li_7465F1C562BA47D9A10BDD961C0CCD57">0.0d [0.0f] is considered by this
 						method to be greater than -0.0d [-0.0f]. </li>
 				</ul>
-			</p>
 			<p> Therefore, Double.NaN[Float.NaN] is considered to be larger than
 				Double.POSITIVE_INFINITY[Float.POSITIVE_INFINITY]. Here are some example queries and
-				what to expect. <table id="table_BB3B6E84B5FE4E28995246C82A89C0A5">
+				what to expect.</p>
+			<table id="table_BB3B6E84B5FE4E28995246C82A89C0A5">
 					<tgroup cols="3">
 						<colspec colnum="1" colname="col1" colwidth="4.55*"/>
 						<colspec colnum="2" colname="col2" colwidth="1.47*"/>
@@ -360,21 +367,16 @@ select * from /exampleRegion p where p.eStatus.toString() = 'active'
 						</tbody>
 					</tgroup>
 				</table>
-			</p>
 			<p>If you combine values when defining the following query in your code, when the query
 				is executed the value itself is considered UNDEFINED when parsed and will not be
 				returned in the result set. </p>
-			<p>
 				<codeblock>String query = "SELECT * FROM /positions p WHERE p.value =" + Float.NaN</codeblock>
-			</p>
 			<p>Executing this query, the value itself is considered UNDEFINED when parsed and will
 				not be returned in the result set. </p>
 			<p>To retrieve NaN values without having another field already stored as NaN, you can
 				define the following query in your code: </p>
-			<p>
 				<codeblock>String query = "SELECT * FROM /positions p WHERE p.value &gt; " + Float.MAX_VALUE;
 		</codeblock>
-			</p>
 		</section>
 	</conbody>
 </concept>

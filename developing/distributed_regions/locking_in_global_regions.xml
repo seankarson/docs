@@ -9,7 +9,8 @@
 	<conbody>
 		<section id="section_065B3A57CCCA4F17821D170A312B6675">
 			<p>In regions with global scope, locking helps ensure cache consistency. </p>
-			<p>Locking of regions and entries is done in two ways: <ol
+			<p>Locking of regions and entries is done in two ways:</p>
+				<ol
 					id="ol_1D73468BE38E423F92049460873FE66C">
 					<li id="li_80312BB8A8304FE1AA971A924CA933B6"><b>Implicit</b>. <keyword
 							keyref="product_name"/> automatically locks global regions and their
@@ -23,16 +24,19 @@
 						and
 							<codeph>com.gemstone.gemfire.cache.Region.getRegionDistributedLock</codeph>
 						return instances of <codeph>java.util.concurrent.locks.Lock</codeph> for a
-						region and a specified key. <note>You must use the <codeph>Region</codeph>
+						region and a specified key.
+						<note>
+							<p>You must use the <codeph>Region</codeph>
 							API to lock regions and region entries. Do not use the
 								<codeph>DistributedLockService</codeph> in the
 								<codeph>com.gemstone.gemfire.distributed</codeph> package. That
 							service is available only for locking in arbitrary distributed
 							applications. It is not compatible with the <codeph>Region</codeph>
-							locking methods. </note>
+							locking methods.
+							</p>
+						</note>
 					</li>
 				</ol>
-			</p>
 		</section>
 		<section id="section_5B47F9C5C27A4B789A3498AC553BB1FB">
 			<title>Lock Timeouts</title>
@@ -40,7 +44,8 @@
 				for the entity and then using the instance to set the lock. Once you have the lock,
 				you hold it for your operations, then release it for someone else to use. You can
 				set limits on the time spent waiting to get a lock and the time spent holding it.
-				Both implicit and explicit locking operations are affected by the timeouts: <ul
+				Both implicit and explicit locking operations are affected by the timeouts: </p>
+				<ul
 					id="ul_e4f32f93-1d77-473d-901f-125032e84be7">
 					<li id="li_85BE78351C4345DAB0B65FBC8C660B3A">The lock timeout limits the wait to
 						get a lock. The cache attribute <codeph>lock-timeout</codeph> governs
@@ -48,22 +53,22 @@
 						your calls to the instance of
 							<codeph>java.util.concurrent.locks.Lock</codeph> returned from the
 							<codeph>Region</codeph> API. You can wait a specific amount of time,
-						return immediately either with or without the lock, or wait indefinitely. <p>
+						return immediately either with or without the lock, or wait indefinitely. 
 							<codeblock outputclass="language-xml">&lt;cache lock-timeout="60"&gt; 
 &lt;/cache&gt;</codeblock>
-						</p><p>gfsh:<codeblock>gfsh>alter runtime --lock-timeout=60 </codeblock>
-						</p></li>
+						<p>gfsh:</p>
+							<codeblock>gfsh>alter runtime --lock-timeout=60 </codeblock>
+					</li>
 					<li id="li_593EC0166E3042EE8600198AA6721EF6">The lock lease limits how long a
 						lock can be held before it is automatically released. A timed lock allows
 						the application to recover when a member fails to release an obtained lock
 						within the lease time. For all locking, this timeout is set with the cache
-						attribute <codeph>lock-lease</codeph>. <p>
-							<codeblock outputclass="language-xml">&lt;cache lock-lease="120"&gt; 
-&lt;/cache&gt;</codeblock>
-						</p><p>gfsh:<codeblock>gfsh>alter runtime --lock-lease=120</codeblock></p>
+						attribute <codeph>lock-lease</codeph>.
+						<codeblock outputclass="language-xml">&lt;cache lock-lease="120"&gt; &lt;/cache&gt;</codeblock>
+						<p>gfsh:</p>
+						<codeblock>gfsh>alter runtime --lock-lease=120</codeblock>
 					</li>
 				</ul>
-			</p>
 		</section>
 		<section id="section_031727F04D114B42944872360A386907">
 			<title>Optimize Locking Performance</title>
@@ -77,7 +82,8 @@
 				assigning lock grantor status to the member that acquires the most locks. This may
 				be the member that performs the most puts and thus requires the most implicit locks
 				or this may be the member that performs many explicit locks. </p>
-			<p>The lock grantor is assigned as follows: <ul id="ul_BD0A94D96FEE4563B379493D177C6D77">
+			<p>The lock grantor is assigned as follows: </p>
+				<ul id="ul_BD0A94D96FEE4563B379493D177C6D77">
 					<li id="li_102A221077BA44858D93418A59840D7E">Any member with the region defined
 						that requests lock grantor status is assigned it. Thus at any time, the most
 						recent member to make the request is the lock grantor. </li>
@@ -86,14 +92,18 @@
 						assigns a lock grantor from the members that have the region defined in
 						their caches. </li>
 				</ul>
-			</p>
-			<p>You can request lock grantor status: <ol id="ol_AC61BDC82B524E6C9151B4B29DA193BD">
+			<p>You can request lock grantor status:</p>
+				<ol id="ol_AC61BDC82B524E6C9151B4B29DA193BD">
 					<li id="li_0CCCD8A33ED0463A827EA73AE29D0D7B">At region creation through the
 							<codeph>is-lock-grantor</codeph> attribute. You can retrieve this
 						attribute through the region method, <codeph>getAttributes</codeph>, to see
-						whether you requested to be lock grantor for the region. <note>The
+						whether you requested to be lock grantor for the region. 
+						<note>
+							<p>The
 								<codeph>is-lock-grantor</codeph> attribute does not change after
-							region creation. </note>
+							region creation. 
+							</p>
+						</note>
 					</li>
 					<li id="li_92E9ADA6E6B648D18B0D3352E04CF891">After region creation through the
 						region <codeph>becomeLockGrantor</codeph> method. Changing lock grantors
@@ -101,14 +111,13 @@
 						operations. In particular, be careful to avoid creating a situation where
 						you have members vying for lock grantor status. </li>
 				</ol>
-			</p>
 		</section>
 		<section id="section_34661E38DFF9420B89C1A2B25F232D53">
 			<title>Examples</title>
 			<p>These two examples show entry locking and unlocking. Note how the entry’s
 					<codeph>Lock</codeph> object is obtained and then its lock method invoked to
 				actually set the lock. The example program stores the entry lock information in a
-				hash table for future reference.
+				hash table for future reference.</p>
 				<codeblock outputclass="language-java">/* Lock a data entry */ 
 HashMap lockedItemsMap = new HashMap(); 
 ...
@@ -120,7 +129,6 @@ HashMap lockedItemsMap = new HashMap();
     lockedItemsMap.put(name, lock); 
   } 
   ...</codeblock>
-			</p>
 			<codeblock outputclass="language-java">/* Unlock a data entry */ 
   String entryKey = ... 
   if (lockedItemsMap.containsKey(entryKey)) 

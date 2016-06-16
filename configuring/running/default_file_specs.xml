@@ -16,12 +16,11 @@
 		its directory or jar file. The system properties are standard file
 		specifications that can have absolute or relative pathnames and filenames. 
 	 </p> 
-	 <p> 
-		<note>If you do not specify an absolute file path and name, the search
+		<note>
+			<p>If you do not specify an absolute file path and name, the search
 		  examines all search locations for the file. 
+			</p>
 		</note> 
-	 </p> 
-	 <p> 
 	 <table id="table_010684479E7E4BBFB59E31650B697FC8"> 
 		<tgroup cols="3"> 
 		  <colspec colname="1" colnum="1" colwidth="*"/> 
@@ -76,12 +75,12 @@
 		  </tbody> 
 		</tgroup> 
 	 </table> 
-	 </p> 
+
 	 <p> 
 	 </p> 
 	 <p>Examples of valid 
-		<codeph>gemfirePropertyFile</codeph> specifications: 
-	 <ul id="ul_E2F19DC107A346FDA044D6B16D004FBB"> 
+	 	<codeph>gemfirePropertyFile</codeph> specifications:</p>
+  		<ul id="ul_E2F19DC107A346FDA044D6B16D004FBB"> 
 		<li id="li_4263F6C847D84F56AFBC8886B3E4AA2B"> 
 		  <codeph>/zippy/users/jpearson/gemfiretest/gemfire.properties</codeph> 
 		</li> 
@@ -94,14 +93,13 @@
 		<li id="li_3781070D6881409BB4A3128B4992AB9F"> 
 		  <codeph>test1/gfprops</codeph> 
 		</li> 
-	 </ul> 
-	 </p> 
+	 </ul>
 	 <p>For the 
 	 	<codeph>test1/gfprops</codeph> specification, if you launch your <keyword keyref="product_name"/>
 		system member from 
 	 	<codeph>/testDir</codeph> in a Unix file system, <keyword keyref="product_name"/>
 		looks for the file in this order until it finds the file or exhausts all
-		locations: 
+		locations:</p> 
 	 <ol id="ol_0344A30CC9E34CD28D9A98F8E2498F34"> 
 		<li id="li_5CC4E0B318A44522B09B2DD63EBF57E0"> 
 		  <codeph>/testDir/test1/gfprops</codeph> 
@@ -114,7 +112,6 @@
 		  <codeph>CLASSPATH</codeph> for 
 		  <codeph>test1/gfprops</codeph> 
 		</li> 
-	 </ol> 
-	 </p> 
+	 </ol>
   </conbody> 
 </concept> 

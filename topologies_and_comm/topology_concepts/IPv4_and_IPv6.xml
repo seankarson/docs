@@ -20,20 +20,23 @@
 				recommended. IPv6 connections tend to take longer to form and the communication
 				tends to be slower. Not all machines support IPv6 addressing. To use IPv6, all
 				machines in your distributed system must support it or you will have connectivity
-				problems. <note>Do not mix IPv4 and IPv6 addresses. Use one or the other, across the
-					board. </note>IPv4 is the default version. </p>
+				problems.</p>
+			<note>
+				<p>Do not mix IPv4 and IPv6 addresses. Use one or the other, across the
+					board.
+				</p>
+			</note>
+			<p>IPv4 is the default version. </p>
 			<p>To use IPv6, set the Java property, <codeph>java.net.preferIPv6Addresses</codeph>, to
 					<codeph>true</codeph>. </p>
-			<p>These examples show the formats to use to specify addresses in <keyword
-					keyref="product_name"/> . <ul id="ul_16FA416CD13746DFBE206A8C526D1827">
-					<li id="li_06908B805696409196B3FC0E1108FD3A">IPv4:
-						<codeblock>239.192.81.2</codeblock>
-					</li>
-					<li id="li_B3D52E277851450C90ED5DB08DD2782B">IPv6:
-						<codeblock>2001:db8:85a3:0:0:8a2e:370:7334 </codeblock>
-					</li>
-				</ul>
-			</p>
+			<p>These examples show the formats to use to specify addresses in <keyword keyref="product_name"
+				/> . </p>
+			<ul id="ul_djq_pxy_dw">
+				<li>IPv4: <codeblock>239.192.81.2</codeblock>
+				</li>
+				<li>IPv6: <codeblock>2001:db8:85a3:0:0:8a2e:370:7334 </codeblock>
+				</li>
+			</ul>
 		</section>
 	</conbody>
 </concept>

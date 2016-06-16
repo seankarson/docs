@@ -10,25 +10,26 @@
 			<p> For members running on the same machine, you can have them log to their own files by
 				starting them in different working directories and using the same, relative
 					<codeph>log-file</codeph> specification. For example, you could set this in
-					<codeph>&lt;commonDirectoryPath&gt;/gemfire.properties</codeph>:
-				<codeblock>log-file=./log/member.log</codeblock>then start each member in a
-				different directory with this command, which points to the common properties file:
-				<codeblock>java -DgemfirePropertyFile=&lt;commonDirectoryPath&gt;/gemfire.properties</codeblock>This
-				way, each member has its own log files under its own working directory. </p>
+				<codeph>&lt;commonDirectoryPath&gt;/gemfire.properties</codeph>:</p>
+				<codeblock>log-file=./log/member.log</codeblock>
+			<p>then start each member in a
+				different directory with this command, which points to the common properties file:</p>
+			<codeblock>java -DgemfirePropertyFile=&lt;commonDirectoryPath&gt;/gemfire.properties</codeblock>
+			<p>This
+				way, each member has its own log files under its own working directory.</p>
 		</section>
 		<section id="section_5502E3248A424E978B13B1142360F445">
 			<title>Searching the Log Files</title>
 			<p>For the clearest picture, merge the log files, with the <codeph>gfsh export
-					logs</codeph> command:
+				logs</codeph> command:</p>
 				<codeblock>gfsh> export logs --dir=myDir --dir=myDir --merge-log=true</codeblock>
-			</p>
-			<p>Search for lines that begin with these strings: <ul
+			<p>Search for lines that begin with these strings: </p>
+				<ul
 					id="ul_C839BC67136C45C5B77676F38D5F3705">
 					<li id="li_CC451B99BBB6491CB6D1A2D90CB601E6">[warning </li>
 					<li id="li_B53BE06B12914ECC8485AFEAC14CA6BE">[error </li>
 					<li id="li_3010816E1E804264B3779BE431BAC9FF">[severe </li>
 				</ul>
-			</p>
 		</section>
 		<section id="section_32F26033A2134525BCC10F3A6C6FAD7B">
 			<title>Creating Your Own Log Messages</title>

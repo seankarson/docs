@@ -15,16 +15,23 @@
 					<codeph>gemfire.properties</codeph> file, but you may need to provide properties
 				through other means, for example, to pass in security properties for username and
 				password that you have received from keyboard input. </p>
-			<note>Check with your <keyword keyref="product_name"/> system administrator before
+			<note>
+				<p>Check with your <keyword keyref="product_name"/> system administrator before
 				changing properties through the API, including the
 					<codeph>gemfire.properties</codeph> and <codeph>gfsecurity.properties</codeph>
 				settings. The system administrator may need to set properties at the command line or
 				in configuration files. Any change made through the API overrides those other
-				settings. </note>
-			<note>The product <codeph>defaultConfigs</codeph> directory has a sample
-					<codeph>gemfire.properties</codeph> file with all default settings. </note>
+				settings. 
+				</p>
+			</note>
+			<note>
+				<p>The product <codeph>defaultConfigs</codeph> directory has a sample
+					<codeph>gemfire.properties</codeph> file with all default settings. 
+				</p>
+			</note>
 			<p>Set distributed system properties by any combination of the following. The system
-				looks for the settings in the order listed: <ol
+				looks for the settings in the order listed:</p>
+				<ol
 					id="ol_1BCB689B584F450CB26CE644373FB39C">
 					<li id="li_BCEDCF69DFE6465BA67039B9CC85116D"><codeph>java.lang.System</codeph>
 						property setting. Usually set at the command line. For applications, set
@@ -32,7 +39,7 @@
 							properties in the format <codeph>gemfire.property-name</codeph>, where
 								<codeph>property-name</codeph> matches the name in the
 								<codeph>gemfire.properties</codeph> file. To set the gemfire
-							property file name, use <codeph>gemfirePropertyFile</codeph> by itself
+							property file name, use <codeph>gemfirePropertyFile</codeph> by itself</p>
 								<ul id="ul_4C0799FA808D489699072C4BB3E7DC0C">
 								<li id="li_BCCAAC36BB5A4800A6F8C6B1E7D1998E">In the API, set the
 										<codeph>System</codeph> properties before the cache creation
@@ -49,13 +56,13 @@ Cache cache = new CacheFactory().create();</codeblock>
 									<codeblock>java -DgemfirePropertyFile=gfTest -Dgemfire.mcast-port=10999 test.Program</codeblock>
 								</li>
 							</ul>
-						</p>
 					</li>
 					<li id="li_D46AA5D5171E4B07BAB497FE685922B9">Entry in a
 							<codeph>Properties</codeph> object. <p>Naming: Specify these properties
 							using the names in the <codeph>gemfire.properties</codeph> file. To set
 							the gemfire property file name, use
-							<codeph>gemfirePropertyFile</codeph>. <ul
+								<codeph>gemfirePropertyFile</codeph>.</p>
+							<ul
 								id="ul_AE06E9A10FB544DC9DE09F4173AB9490">
 								<li id="li_B5B301A8FF954417A8E5C0DB169480B8">In the API, create a
 										<codeph>Properties</codeph> object and pass it to the cache
@@ -75,7 +82,6 @@ ClientCache userCache =
 										type="concept" format="dita" scope="local"/> for more
 									information on running cache servers. </li>
 							</ul>
-						</p>
 					</li>
 					<li id="li_862F33E7428E46F4B2AEC8E08E6DFC5F">Entry in a
 							<codeph>gemfire.properties</codeph> file. See <xref
@@ -90,7 +96,6 @@ disable-tcp=false</codeblock>
 							<codeph>com.gemstone.gemfire.distributed.DistributedSystem</codeph>.
 					</li>
 				</ol>
-			</p>
 		</section>
 	</conbody>
 </concept>

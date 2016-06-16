@@ -6,7 +6,8 @@
     using.</shortdesc>
   <conbody>
     <p>The most common region configurations for use with transactions are distributed replicated
-      and partitioned:<ul id="ul_efh_qlt_vk">
+      and partitioned:</p>
+      <ul id="ul_efh_qlt_vk">
         <li>Replicated regions are better suited for running transactions on small to mid-size data
           sets. To ensure all or nothing behavior, at commit time, distributed transactions use the
           global reservation system of the <keyword keyref="product_name"/> distributed lock
@@ -17,6 +18,5 @@
           better than distributed transactions. There are no global locks, so partitioned
           transactions are extremely scalable as well.</li>
       </ul>
-    </p>
   </conbody>
 </concept>

@@ -21,7 +21,7 @@
       client using the <apiname>onServer()</apiname> method of the
         <apiname>FunctionService</apiname> class. This function call initiates region creation by
       putting an entry into the region attributes metadata region. The entry key is the region name
-      and the value is the set of region attributes used to create the region.
+      and the value is the set of region attributes used to create the region.</p>
       <codeblock outputclass="language-java"><b>#CreateRegionFunction.java
 </b>
 import com.gemstone.gemfire.cache.Cache;
@@ -121,12 +121,12 @@ public class CreateRegionFunction implements Function, Declarable {
   }
 }
 
-</codeblock></p>
+</codeblock>
     <p>The <apiname>CreateRegionCacheListener</apiname> class is a cache listener that implements
       two methods, <apiname>afterCreate()</apiname> and <apiname>afterRegionCreate()</apiname>. The
         <apiname>afterCreate()</apiname> method creates the region. The
         <apiname>afterRegionCreate()</apiname> method causes each new server to create all the
-      regions defined in the metadata region.
+      regions defined in the metadata region.</p>
       <codeblock outputclass="language-java"><b>#CreateRegionCacheListener.java</b>
 
 import com.gemstone.gemfire.cache.Cache;
@@ -184,6 +184,6 @@ public class CreateRegionCacheListener
   public void init(Properties p) {
   }
 }
-</codeblock></p>
+</codeblock>
   </conbody>
 </concept>

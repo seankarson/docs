@@ -24,44 +24,50 @@
 					<codeph>critical-off-heap-percentage</codeph>.</p>
 			<section>
 				<title>On-heap and Off-heap Objects</title>
-				<p>The following objects are always stored in the JVM heap:<ul id="ul_sgv_p5b_fv">
+				<p>The following objects are always stored in the JVM heap:</p>
+					<ul id="ul_sgv_p5b_fv">
 						<li>Region metadata</li>
 						<li>Entry metadata</li>
 						<li>Keys</li>
 						<li>Indexes</li>
 						<li>Subscription queue elements</li>
-					</ul></p>
-				<p>The following objects can be stored in off-heap memory:<ul id="ul_vvs_t5b_fv">
+					</ul>
+				<p>The following objects can be stored in off-heap memory:</p>
+					<ul id="ul_vvs_t5b_fv">
 						<li>Values - maximum value size is 2GB</li>
 						<li>Reference counts</li>
 						<li>List of free memory blocks</li>
 						<li>WAN queue elements</li>
-					</ul></p>
-				<note>Do not use functional range indexes with off-heap data, as they are not
-					supported. An attempt to do so generates an exception.</note>
+					</ul>
+				<note>
+					<p>Do not use functional range indexes with off-heap data, as they are not
+					supported. An attempt to do so generates an exception.
+					</p>
+				</note>
 			</section>
 			<section>
 				<title>Off-heap Recommendations</title>
-		<p>Off-heap storage is best suited to data patterns where:<ul id="ul_dzc_sbg_z5">
-			<li>Stored values are relatively uniform in size</li>
-			<li>Stored values are mostly less than 128K in size</li>
-					<li>The usage patterns involve cycles of many creates followed by destroys or
+				<p>Off-heap storage is best suited to data patterns where:</p>
+					<ul id="ul_dzc_sbg_z5">
+						<li>Stored values are relatively uniform in size</li>
+						<li>Stored values are mostly less than 128K in size</li>
+						<li>The usage patterns involve cycles of many creates followed by destroys or
 						clear</li>
-					<li>The values do not need to be frequently deserialized</li>
+						<li>The values do not need to be frequently deserialized</li>
 						<li>Many of the values are long-lived reference data</li>
-		</ul></p>
+		</ul>
 				<p>Be aware that <keyword keyref="product_name"/> has to perform extra work to access the data
 					stored in off-heap memory since it is stored in serialized form. This extra work
 					may cause some use cases to run slower in an off-heap configuration, even though
 					they use less memory and avoid garbage collection overhead. However, even with
 					the extra deserialization, off-heap storage may give you the best performance.
-					Features that may increase overhead include<ul id="ul_oxv_4jp_cv">
+					Features that may increase overhead include</p>
+					<ul id="ul_oxv_4jp_cv">
 						<li>frequent updates</li>
 						<li>stored values of widely varying sizes</li>
 						<li>deltas</li>
 						<li>queries</li>
 					</ul>
-				</p>
 			</section>
 			<section>
 				<title>Implementation Details</title>
@@ -85,7 +91,8 @@
 					manager refuses additions to the cache until the off-heap memory manager has
 					freed an adequate amount of memory.</p>
 				<p>The resource manager has two threshold settings, each expressed as a percentage
-					of the total off-heap memory. Both are disabled by default. <ol
+					of the total off-heap memory. Both are disabled by default. </p>
+					<ol
 						id="ol_AC9431F3040B4C5499FE2F1FC2A8EFF5">
 						<li id="li_2C361A1F3D9549ABA34B3770894599F0"><b>Eviction Threshold</b>. The percentage of
 							off-heap memory at which eviction should begin. Evictions continue until
@@ -114,13 +121,13 @@
 								regardless of LRU eviction policy, though it can be set to zero to
 								disable its effect.</p>
 						</li>
-					</ol></p>
+					</ol>
 			</section>
 		
 		<section>
 			<title>Specifying Off-heap Memory</title>
 			<p>To use off-heap memory, specify the following options when setting up servers and
-				regions:
+				regions:</p>
 				<ul id="ul_dtl_nxh_1v">
 						<li> Start the JVM as described in <xref
 								href="heap_management.xml#section_590DA955523246ED980E4E351FF81F71"
@@ -133,16 +140,17 @@
 								megabytes (m) or gigabytes (g). If you plan to use the resource
 								manager, specify critical threshold, eviction threshold, or (in most
 								cases) both. </p>
-							<p>Example:
+							<p>Example:</p>
 								<codeblock>gfsh> start server --name=server1 -–initial-heap=10G -–max-heap=10G -–off-heap-memory-size=200G \
--–lock-memory=true -–critical-off-heap-percentage=90 -–eviction-off-heap-percentage=80</codeblock></p>
+-–lock-memory=true -–critical-off-heap-percentage=90 -–eviction-off-heap-percentage=80</codeblock>
 						</li>
 					<li>Mark regions whose entry values should be stored off-heap by setting the
 								<codeph>off-heap</codeph> region attribute to <codeph>true</codeph>
 							Configure other region attributes uniformly for all members that host
-							data for the same region. . <p>Example:
-								<codeblock>gfsh&gt;create region --name=region1 --type=PARTITION_HEAP_LRU --off-heap=true</codeblock></p></li>
-				</ul></p>
+							data for the same region. . <p>Example:</p>
+								<codeblock>gfsh&gt;create region --name=region1 --type=PARTITION_HEAP_LRU --off-heap=true</codeblock>
+					</li>
+				</ul>
 		</section>
 		<section>
 				<title>gfsh Off-heap Support</title>
@@ -240,13 +248,14 @@ off-heap-memory-size=120g</codeblock>
 					</dlentry>
 				</dl>
 				<p>For
-					example:<codeblock>&lt;cache>
+					example:</p>
+			<codeblock>&lt;cache>
 ...
    &lt;resource-manager 
       critical-off-heap-percentage="99.9" 
       eviction-off-heap=-percentage="85"/>
 ...
-&lt;/cache></codeblock></p>
+&lt;/cache></codeblock>
 		</section>
 			<section id="section_o4s_tg5_gv">
 				<title>Tuning Off-heap Memory Usage</title>
@@ -261,11 +270,13 @@ off-heap-memory-size=120g</codeblock>
 					parameter to a number larger than <codeph><i>maxOptStoredValSize</i>/8</codeph>,
 					where <i>maxOptStoredValSize</i> is expressed in KB (1024 bytes). So, the
 					default values correspond
-					to:<codeblock>128 KB / 8 = (128 * 1024) / 8 = 131,072 / 8 = 16,384
+					to:</p>
+				<codeblock>128 KB / 8 = (128 * 1024) / 8 = 131,072 / 8 = 16,384
 -Dgemfire.OFF_HEAP_FREE_LIST_COUNT=16384</codeblock>
-					To optimize for a maximum optimized stored value size that is twice the default,
+				<p>To optimize for a maximum optimized stored value size that is twice the default,
 					or 256 KB, the free list count should be
-					doubled:<codeblock>-Dgemfire.OFF_HEAP_FREE_LIST_COUNT=32768</codeblock></p>
+					doubled:</p>
+				<codeblock>-Dgemfire.OFF_HEAP_FREE_LIST_COUNT=32768</codeblock>
 				<p>During the tuning process, you can toggle the <codeph>off-heap</codeph> region
 					attribute on and off, leaving other off-heap settings and parameters in place,
 					in order to compare your application's on-heap and off-heap performance.</p>

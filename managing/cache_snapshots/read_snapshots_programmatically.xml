@@ -7,7 +7,6 @@
   <conbody>
     <p>The following is an example of a snapshot reader that processes entries from a previously
       generated snapshot file. </p>
-    <p>
       <codeblock>File mySnapshot = ...
 SnapshotIterator&lt;String, MyObject&gt; iter = SnapshotReader.read(mySnapshot);
 try {
@@ -22,7 +21,5 @@ try {
 } finally {
   iter.close();
 }</codeblock>
-    </p>
-    <p> </p>
   </conbody>
 </concept>

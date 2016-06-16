@@ -18,13 +18,14 @@
 						the running members in the system. This command persists
 						the pdx configuration in the locator with cluster
 						configuration service. </p>
-					<p>
-						<note>This command should be issued before starting any
-							data members.</note>
-					</p>
+						<note>
+							<p>This command should be issued before starting any
+							data members.
+							</p>
+						</note>
 					<p><b> Availability:</b> Online. </p>
 					<p>
-						<b>Syntax: </b>
+						<b>Syntax: </b></p>
 						<codeblock>configure pdx [--read-serialized=value] [--ignore-unread-fields=value]
     [--disk-store=value] [--auto-serializable-classes=value(,value)*]
     [--portable-auto-serializable-classes=value(,value)*
@@ -140,15 +141,12 @@
 								</tbody>
 							</tgroup>
 						</table>
-					</p>
 					<p>
 						<b>Example Commands:</b>
 					</p>
-					<p>
 						<codeblock>gfsh&gt;configure pdx --read-serialized=true</codeblock>
-					</p>
 					<p>
-						<b>Sample Output: </b>
+						<b>Sample Output: </b></p>
 						<codeblock>
 gfsh>configure pdx --read-serialized=true
 persistent = false
@@ -160,15 +158,12 @@ persistent = true
 disk-store = /home/username/server4/DEFAULT.drf
 read-serialized = false
 ignore-unread-fields = false</codeblock>
-					</p>
 					<p>
 						<b>Error Messages:</b>
 					</p>
-					<p>
 						<codeblock>
 "Failed to persist the configuration changes due to this command, Revert the command to maintain consistency.
 Please use "status cluster-config-service" to determing whether Cluster configuration service is RUNNING."</codeblock>
-					</p>
 				</section>
 			</body>
 		</topic>

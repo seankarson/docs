@@ -8,7 +8,7 @@
 	<conbody>
 		<section id="section_7F357A8E56B54BFB9A5778C0F89E034E">
 			<p>
-				<b>Procedure</b>
+				<b>Procedure</b></p>
 				<ol id="ol_b6d69a56-78de-4f9e-88de-5d8c6b1b0ddd">
 					<li id="li_40290E41A9C24F1692ECF60269ECA426">In your domain class, implement
 							<codeph>PdxSerializable</codeph>, importing the required
@@ -51,7 +51,7 @@ public class PortfolioPdx implements PdxSerializable {
 								instance to another for the same class version. </li>
 							<li id="li_8FA1BF971E994A7E97389A25F2EA1651">For best performance, do
 								fixed width fields first and then variable length fields. <p>Example
-										<codeph>toData</codeph> code:
+									<codeph>toData</codeph> code:</p>
 									<codeblock>// PortfolioPdx fields
   private int id;
   private String pkid;
@@ -77,7 +77,6 @@ public class PortfolioPdx implements PdxSerializable {
     .writeStringArray("names", names)
     .writeByteArray("newVal", newVal)
   }</codeblock>
-								</p>
 							</li>
 						</ol>
 					</li>
@@ -91,7 +90,7 @@ public class PortfolioPdx implements PdxSerializable {
 							keyref="product_name"/> automatically provides
 							<codeph>PdxReader</codeph> to the <codeph>fromData</codeph> method for
 							<codeph>PdxSerializable</codeph> objects. <p>Example
-								<codeph>fromData</codeph> code:
+								<codeph>fromData</codeph> code:</p>
 							<codeblock>  
 public void fromData(PdxReader reader)
   {
@@ -108,12 +107,10 @@ public void fromData(PdxReader reader)
     arrayNull = reader.readByteArray("arrayNull");
     arrayZeroSize = reader.readByteArray("arrayZeroSize");
   }</codeblock>
-						</p>
 					</li>
 				</ol>
-			</p>
 			<p>
-				<b>What to do next</b>
+				<b>What to do next</b></p>
 				<ul id="ul_75699E52FF74480ABD72CFB9F10CDE47">
 					<li id="li_055ABD507D7440DDAB53AB6EB024EBC2">As needed, configure and program
 						your <keyword keyref="product_name"/> applications to use
@@ -121,7 +118,6 @@ public void fromData(PdxReader reader)
 							<xref href="program_application_for_pdx.xml"
 							type="concept" format="dita" scope="local"/>. </li>
 				</ul>
-			</p>
 		</section>
 	</conbody>
 </concept>

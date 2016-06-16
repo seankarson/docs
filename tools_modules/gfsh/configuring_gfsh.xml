@@ -51,14 +51,15 @@
 			<p>These dependency JAR files are packaged in your <keyword keyref="product_name_long"/>
 				installation in the <codeph>$GEMFIRE/lib</codeph> (or on Windows, the
 					<codeph>%GEMFIRE%\lib</codeph>) directory. </p>
-			<p>
-				<note>The <codeph>gfsh</codeph> command-line utility also searches for
+				<note>
+					<p>The <codeph>gfsh</codeph> command-line utility also searches for
 						<codeph>tools.jar</codeph> (included with JDK) and adds it to gfsh's
 					CLASSPATH. If you do not have a JDK installed, gfsh uses file-based
 					communication instead for the <codeph>status</codeph> and <codeph>stop</codeph>
 					commands. If using a JRE instead of JDK, gfsh must have read-write permissions
-					in the working directory of the server and locator processes.</note>
-			</p>
+					in the working directory of the server and locator processes.
+					</p>
+				</note>
 		</section>
 		<section id="section_02EEF9A519094EAD9D6B5C8E896EBA27">
 			<title>Machine Hostname</title>
@@ -108,12 +109,11 @@
 				><?xm-replace_text Useful gfsh Shell Variables?></xref> for more information. </section>
 		<section id="section_BE7FB8B355E748FA8BEFE75B2C3CB86E">
 			<title>Configuring gfsh Session Logging</title>
-			<p>By default, <codeph>gfsh</codeph> session logging is disabled. To enable gfsh
-				logging, you must set the Java system property
-						<codeph>-Dgfsh.log-level=<i>desired_log_level</i>
+			<p>By default, <codeph>gfsh</codeph> session logging is disabled. To enable gfsh logging, you
+				must set the Java system property <codeph>-Dgfsh.log-level=<i>desired_log_level</i>
 				</codeph>where <i>desired_log _level</i> is one of the following values: severe,
-				warning, info, config, fine, finer, finest. For example, in
-				Linux:<codeblock>export JAVA_ARGS=-Dgfsh.log-level=info</codeblock></p>
+				warning, info, config, fine, finer, finest. For example, in Linux:</p>
+			<codeblock>export JAVA_ARGS=-Dgfsh.log-level=info</codeblock>
 			<p>Then, start <codeph>gfsh</codeph>. </p>
 			<p>gfsh produces a log file named <b>gfsh-<i>%u</i>_<i>%g</i>.log</b>. This log file
 				records the events of an individual gfsh session. It includes environment
@@ -129,12 +129,12 @@
 					>http://docs.oracle.com/javase/7/docs/api/java/util/logging/FileHandler.html</xref>
 				for a description of how the variables are used in naming the log file. The default
 				name of the generated gfsh log file cannot be changed.</p>
-			<p>By default, the log file is written to the current working directory where you have
-				executed the <codeph>gfsh</codeph> or <codeph>gfsh.bat</codeph> script. To modify
-				the directory location where log files are written, use the
-					<codeph>gfsh.log-dir</codeph> Java system property. For
-				example:<codeblock>export JAVA_ARGS="-Dgfsh.log-level=info -Dgfsh.log-dir=/machinename/logs"</codeblock>Then,
-				start <codeph>gfsh</codeph>.</p>
+			<p>By default, the log file is written to the current working directory where you have executed
+				the <codeph>gfsh</codeph> or <codeph>gfsh.bat</codeph> script. To modify the
+				directory location where log files are written, use the
+					<codeph>gfsh.log-dir</codeph> Java system property. For example:</p>
+			<codeblock>export JAVA_ARGS="-Dgfsh.log-level=info -Dgfsh.log-dir=/machinename/logs"</codeblock>
+			<p>Then, start <codeph>gfsh</codeph>.</p>
 			<p>In addition, <codeph>gfsh</codeph> records a history of commands in the
 					<codeph>${SYS_USER_HOME}/.gemfire/.gfsh.history</codeph> file, which you can use
 				to create scripts or review past commands. </p>
@@ -142,7 +142,8 @@
 		<section>
 			<title>Member Log Files</title>
 			<p>gfsh writes several log files for any members that are started via gfsh. Useful
-				member log files include: <ul id="ul_C2AC6DD6488D46B1BBF5F43BADDC0195">
+				member log files include: </p>
+				<ul id="ul_C2AC6DD6488D46B1BBF5F43BADDC0195">
 					<li id="li_5E1BED21C6E34D558AAFC09DC2EB9038"><b>&lt;locator_name&gt;.log</b>.
 						Details a locator's configuration (including all gemfire.properties) and all
 						activity that occurs on the locator after startup. This log file is written
@@ -166,7 +167,6 @@
 						of this server. This file is written to the same location as the server log
 						file. </li>
 				</ul>
-			</p>
 		</section>
 		<section id="section_jcs_ltx_n4">
 			<title>Tab Completion </title>

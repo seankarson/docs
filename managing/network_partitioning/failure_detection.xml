@@ -21,14 +21,17 @@
 				leftmost member within the view to act as the coordinator, if the coordinator is the
 				suspect member.</p>
 			<p>Failure detection processing is also initiated on a member if the
-					<filepath>gemfire.properties</filepath>
+					<codeph>gemfire.properties</codeph>
 				<codeph>ack-wait-threshold</codeph> elapses before receiving a response to a
 				message, if a TCP/IP connection cannot be made to the member for peer-to-peer (P2P)
 				messaging, and if no other traffic is detected from the member. </p>
-			<note>The TCP connection ping is not used for connection keep alive purposes; it is only
+			<note>
+				<p>The TCP connection ping is not used for connection keep alive purposes; it is only
 				used to detect failed members. See <xref
 					href="../../managing/monitor_tune/socket_tcp_keepalive.xml#topic_jvc_pw3_34"/>
-				for TCP keep alive configuration.</note>
+				for TCP keep alive configuration.
+				</p>
+			</note>
 			<p> If a new membership view is sent out that includes one or more failed members, the
 				coordinator will log new quorum weight calculations. At any point, if quorum loss is
 				detected due to unresponsive processes, the coordinator will also log a severe level
@@ -39,14 +42,14 @@
 		</section>
 		<section id="section_1170FBBD6B7A483AB2C2A837F1B8876D">
 			<title>Membership Views</title>
-			<p>The following is a sample membership view:
+			<p>The following is a sample membership view:</p>
 				<codeblock>[info 2012/01/06 11:44:08.164 PST bridgegemfire1 &lt;UDP Incoming Message Handler&gt; tid=0x1f] 
 Membership: received new view  [ent(5767)&lt;v0&gt;:8700|16] [ent(5767)&lt;v0&gt;:8700/44876, 
 ent(5829)&lt;v1&gt;:48034/55334, ent(5875)&lt;v2&gt;:4738/54595, ent(5822)&lt;v5&gt;:49380/39564, 
 ent(8788)&lt;v7&gt;:24136/53525]
 </codeblock>
-			</p>
-			<p>The components of the membership view are as follows: <ul
+			<p>The components of the membership view are as follows: </p>
+				<ul
 					id="ul_3C12E714584948F2ADEA3B63133D3DF4">
 					<li id="li_E9AAC2351C224D818202173E04EC4E47">The first part of the view
 							(<codeph>[ent(5767)&lt;v0&gt;:8700|16]</codeph> in the example above)
@@ -81,7 +84,6 @@ ent(8788)&lt;v7&gt;:24136/53525]
 					<li id="li_C5CB0158A33E42F1AEBC939181906696">Each member watches the member to its right for
 						failure detection purposes. </li>
 				</ul>
-			</p>
 		</section>
 	</conbody>
 </concept>

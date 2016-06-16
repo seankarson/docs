@@ -23,7 +23,8 @@
 		</section>
 		<section id="section_B6C55A610F4243ED8F1986E8A98858CF">
 			<title>Expiration Types</title>
-			<p><keyword keyref="product_name_long"/> uses the following expiration types: <ul
+			<p><keyword keyref="product_name_long"/> uses the following expiration types:</p>
+				<ul
 					id="ul_9F412E9BF3D542DA8E5A661DE28CBDCD">
 					<li id="li_3159333E1BC147FA80F801C9B92CBB77"><b>Time to live (TTL)</b>. The
 						amount of time, in seconds, the object may remain in the cache after the
@@ -42,18 +43,17 @@
 							<codeph>region-idle-time</codeph> and <codeph>entry-idle-time</codeph>.
 					</li>
 				</ul>
-			</p>
 		</section>
 		<section id="section_BA995343EF584104B9853CFE4CAD88AD">
 			<title>Expiration Actions</title>
-			<p><keyword keyref="product_name_long"/> uses the following expiration actions: <ul
+			<p><keyword keyref="product_name_long"/> uses the following expiration actions:</p>
+				<ul
 					id="ul_FEA5FBEEF6174493AC9F6E86CBD6511C">
 					<li id="li_BEF5AC4E8E6A42FBA576738BAFA08D71">destroy </li>
 					<li id="li_DD5CEB322DB04E02A1D5C143D8D574FF">local destroy </li>
 					<li id="li_6F5992CBF589449E8E849B5141D60CA3">invalidate (default) </li>
 					<li id="li_217D5BC0931B46799EC69EDBC8347BD3">local invalidate </li>
 				</ul>
-			</p>
 		</section>
 		<section id="section_AB4AB9E57D434159AA6E9B402E5E599D">
 			<title>Partitioned Regions and Entry Expiration </title>
@@ -63,7 +63,8 @@
 					<codeph>entry-time-to-live</codeph> for entry expiration in partitioned regions
 				instead of <codeph>entry-idle-time</codeph>. </p>
 			<p>Expiration in partitioned regions is executed in the primary copy, based on the
-				primary’s last accessed and last updated statistics. <ul
+				primary’s last accessed and last updated statistics.</p>
+				<ul
 					id="ul_853bc11c-1e34-4fc3-96ab-c7c64f6c1446">
 					<li id="li_7F99498C6E5D4C71B92084E8895D096B">Entry updates are always done in
 						the primary copy, resetting the primary copy’s last updated and last
@@ -73,7 +74,6 @@
 						copies. This provides the best performance at the cost of possibly not
 						updating the primary copy’s statistic for last accessed time. </li>
 				</ul>
-			</p>
 			<p>When the primary expires entries, it does not request last accessed statistics from
 				the secondaries, as the performance hit would be too great. It expires entries based
 				solely on the last time the entries were accessed in the primary copy. </p>

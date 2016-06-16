@@ -24,16 +24,19 @@
 		<section
 			id="section_E20B4A8A98FD4EDAAA8C14B8059AA7F7">
 			<title>Implementing a GatewayConflictResolver</title>
-			<note>A <codeph>GatewayConflictResolver</codeph> implementation is
+			<note>
+				<p>A <codeph>GatewayConflictResolver</codeph> implementation is
 				called only for update events that could cause a conflict in the
 				region. This corresponds to update events that have a different
 				distributed system ID than the distributed system that last
 				updated the region entry. If the same distributed system ID
 				makes consecutive updates to a region entry, no conflict is
 				possible, and the <codeph>GatewayConflictResolver</codeph> is
-				not called. </note>
+				not called. 
+				</p>
+			</note>
 			<p>
-				<b>Procedure</b>
+				<b>Procedure</b></p>
 				<ol
 					id="ol_9016EDE9E0B64AA4AA0182935A90660B">
 					<li
@@ -63,7 +66,7 @@
 								either disallow the update event (retaining the
 								existing region entry value) or provide an
 								alternate value. <p>
-									<b>Example:</b>
+									<b>Example:</b></p>
 									<codeblock> public void onEvent(TimestampedEntryEvent event, GatewayConflictHelper helper) {
     if (event.getOperation().isUpdate()) {
       ShoppingCart oldCart = (ShoppingCart)event.getOldValue();
@@ -72,12 +75,14 @@
       helper.changeEventValue(oldCart);
     }
   }</codeblock>
-									<note>In order to maintain consistency in
+									<note>
+										<p>In order to maintain consistency in
 										the region, your conflict resolver must
 										always resolve two events in the same
 										way regardless of which event it
-										receives first. </note>
-								</p>
+										receives first.
+										</p>
+									</note>
 							</li>
 						</ol>
 					</li>
@@ -102,7 +107,6 @@ cache.setGatewayConflictResolver(new MyConflictResolver);
 </codeblock>
 					</li>
 				</ol>
-			</p>
 		</section>
 	</body>
 </topic>

@@ -3,7 +3,7 @@
 <dita>
 	<topic id="cc-client-cache">
 		<title>&lt;client-cache&gt; Element Reference</title>
-		<shortdesc>This section documents all <filepath>cache.xml</filepath> elements that you use
+		<shortdesc>This section documents all <codeph>cache.xml</codeph> elements that you use
 			to configure <keyword keyref="product_name"/> clients. All elements are sub-elements of
 			the <codeph>&lt;client-cache&gt;</codeph> element. </shortdesc>
 		<body>
@@ -38,7 +38,7 @@
 				</tgroup>
 			</table>
 			<p>
-				<b>Example:</b>
+				<b>Example:</b></p>
 				<codeblock outputclass="language-xml">&lt;client-cache&gt;
   &lt;pool 
     name="client" 
@@ -56,7 +56,6 @@
     &lt;/region&gt;
   &lt;/region&gt;
 &lt;/client-cache&gt;</codeblock>
-			</p>
 		</body>
 	</topic>
 	<topic id="cc-cache-transaction-manager" conref="cache_xml.xml#cache-transaction-manager">

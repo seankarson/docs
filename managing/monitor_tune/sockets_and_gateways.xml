@@ -7,7 +7,6 @@
 	<conbody>
 		<p>This table lists the settings for gateway relationships and protocols, and tells where to
 			set them. </p>
-		<p>
 			<table id="table_36E8EA4BDB3E47EA89EDB46149E632CD">
 				<tgroup cols="3">
 					<colspec colnum="1" colname="col1" colwidth="*"/>
@@ -43,13 +42,11 @@
 					</tbody>
 				</tgroup>
 			</table>
-		</p>
 		<p>
 			<b>TCP/IP Buffer Sizes</b>
 		</p>
 		<p>If possible, your TCP/IP buffer size settings should match across your GemFire
 			installation. At a minimum, follow the guidelines listed here. </p>
-		<p>
 			<ul id="ul_9FD9276320D747968BA88B43075AF8BA">
 				<li><b>Multisite (WAN)</b>. In a multi-site installation using gateways, if the link
 					between sites is not tuned for optimum throughput, it could cause messages to
@@ -58,8 +55,9 @@
 					receiver will be unaware of the condition. <p>The gateway sender's
 						socket-buffer-size attribute should match the gateway receiver’s
 						socket-buffer-size attribute for all gateway receivers that the sender
-						connects to, as in these example <codeph>cache.xml</codeph> snippets: </p><p>
-						<codeblock><b>Gateway Sender Socket Buffer Size <codeph>cache.xml</codeph> Configuration: </b>
+						connects to, as in these example <codeph>cache.xml</codeph> snippets:
+					</p>
+					<codeblock><b>Gateway Sender Socket Buffer Size <codeph>cache.xml</codeph> Configuration: </b>
 
 &lt;gateway-sender id="sender2" parallel="true"
  remote-distributed-system-id="2"
@@ -69,19 +67,20 @@
 <b>Gateway Receiver Socket Buffer Size <codeph>cache.xml</codeph> Configuration:</b>
 &lt;gateway-receiver start-port="1530" end-port="1551"
  socket-buffer-size="42000"/&gt;  </codeblock>
-					</p></li>
+					</li>
 			</ul>
-		</p>
-		<p>
-			<note> WAN deployments increase the messaging demands on a <keyword
+			<note>
+				<p>WAN deployments increase the messaging demands on a <keyword
 					keyref="product_name"/> system. To avoid hangs related to WAN messaging, always
 				set <codeph>conserve-sockets=false</codeph> for GemFire members that participate in
-				a WAN deployment. </note>
-		</p>
+				a WAN deployment.
+				</p>
+			</note>
 		<section id="section_4A7C60D4471A4339884AA5AAC97B4DAA">
 			<title>Multi-site (WAN) Socket Requirements </title>
 			<p>Each gateway sender and gateway receiver uses a socket to distribute events or to
-				listen for incoming connections from remote sites. <table
+				listen for incoming connections from remote sites.</p>
+			<table
 					id="table_53F5D044D20541AFA052F7D82A34712A">
 					<tgroup cols="2">
 						<colspec colnum="1" colname="col1" colwidth="*"/>
@@ -123,7 +122,6 @@
 						</tbody>
 					</tgroup>
 				</table>
-			</p>
 			<p>Servers are peers in their own distributed system and have the additional socket
 				requirements as noted in the Peer-to-Peer section above. </p>
 		</section>

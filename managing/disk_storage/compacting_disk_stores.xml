@@ -38,7 +38,8 @@
 				surpasses a configured percentage of the total file. A record is garbage when its
 				operation is superseded by a more recent operation for the same object. During
 				compaction, the non-garbage records are added to the current log along with new
-				cache operations. Online compaction does not block current system operations. <ul
+				cache operations. Online compaction does not block current system operations.</p>
+				<ul
 					id="ul_DC1F95BD89C841F39EDEA8F96E4BB77B">
 					<li id="li_A58CD62D447D48A5832E780527CF7540"><b>Automatic compaction</b>. When
 							<codeph>auto-compact</codeph> is true, <keyword keyref="product_name"/>
@@ -73,15 +74,17 @@
 										Examples: <codeblock>gfsh&gt;compact disk-store --name=Disk1
 
 gfsh&gt;compact disk-store --name=Disk1 --group=MemberGroup1,MemberGroup2</codeblock>
-										<note> You need to be connected to a JMX Manager in
-												<codeph>gfsh</codeph> to run this command. </note>
+										<note>
+											<p>You need to be connected to a JMX Manager in
+												<codeph>gfsh</codeph> to run this command. 
+											</p>
+										</note>
 									</li>
 								</ul>
 							</li>
 						</ul>
 					</li>
 				</ul>
-			</p>
 		</section>
 		<section id="section_25BDB098E9584EAA9BC6582597544726">
 			<title>Run Offline Compaction</title>
@@ -92,16 +95,15 @@ gfsh&gt;compact disk-store --name=Disk1 --group=MemberGroup1,MemberGroup2</codeb
 					href="../../tools_modules/gfsh/command-pages/compact.xml#topic_9CCFCB2FA2154E16BD775439C8ABC8FB"
 					type="topic" format="dita" scope="local"
 					><?xm-replace_text compact offline-disk-store?></xref> command: </p>
-			<p>
 				<codeblock>gfsh&gt;compact offline-disk-store --name=Disk2 --disk-dirs=/Disks/Disk2
 
 gfsh&gt;compact offline-disk-store --name=Disk2 --disk-dirs=/Disks/Disk2 
 --max-oplog-size=512 -J=-Xmx1024m</codeblock>
-			</p>
-			<p>
-				<note>Do not perform offline compaction on the baseline directory of an incremental
-					backup. </note>
-			</p>
+				<note>
+					<p>Do not perform offline compaction on the baseline directory of an incremental
+					backup.
+					</p>
+				</note>
 			<p>You must provide all of the directories in the disk store. If no oplog max size is
 				specified, <keyword keyref="product_name"/> uses the system default. </p>
 			<p>Offline compaction can take a lot of memory. If you get a
@@ -125,7 +127,8 @@ gfsh&gt;compact offline-disk-store --name=Disk2 --disk-dirs=/Disks/Disk2
 		<section id="section_A9EE86F662EE4D46A327C336E901A0F2">
 			<title>Directory Size Limits</title>
 			<p>Reaching directory size limits during has different results depending on whether you
-				are running an automatic or manual compaction: <ul
+				are running an automatic or manual compaction: </p>
+				<ul
 					id="ul_2458B7E568AE4778B5660BF7E5637CB0">
 					<li id="li_207983DED512409E84DE9A9388A665E7">For automatic compaction, the
 						system logs a warning, but does not stop. </li>
@@ -133,14 +136,13 @@ gfsh&gt;compact offline-disk-store --name=Disk2 --disk-dirs=/Disks/Disk2
 						operation stops and returns a <codeph>DiskAccessException</codeph> to the
 						calling process, reporting that the system has run out of disk space. </li>
 				</ul>
-			</p>
 		</section>
 		<section id="section_7A311038408440D49097B8FA4E2BCED9">
 			<title>Example Compaction Run</title>
 			<p>In this example offline compaction run listing, the disk store compaction had nothing
 				to do in the <codeph>*_3.*</codeph> files, so they were left alone. The
 					<codeph>*_4.*</codeph> files had garbage records, so the oplog from them was
-				compacted into the new <codeph>*_5.*</codeph> files.
+				compacted into the new <codeph>*_5.*</codeph> files.</p>
 				<codeblock>bash-2.05$ ls -ltra backupDirectory
 total 28
 -rw-rw-r--   1 user users          3 Apr  7 14:56 BACKUPds1_3.drf
@@ -176,7 +178,6 @@ drwxrwxr-x   3 user users       1024 Apr  7 15:02 ..
 -rw-rw-r--   1 user users       2788 Apr  7 15:08 BACKUPds1.if
 drwxrwxr-x   2 user users        512 Apr  7 15:09 .
 bash-2.05$</codeblock>
-			</p>
 		</section>
 	</conbody>
 </concept>

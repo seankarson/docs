@@ -25,23 +25,21 @@
 				instance. If you closed the <codeph>RegionService</codeph> instances, event
 				processing would stop, but the server would continue to send events, and those
 				events would be lost. </p>
-			<p>Stop with:
+			<p>Stop with:</p>
 				<codeblock outputclass="language-java">clientCache.close(true);</codeblock>
-			</p>
-			<p>Start up again in this order: <ol id="ol_ryy_hwg_4r">
+			<p>Start up again in this order: </p>
+				<ol id="ol_ryy_hwg_4r">
 					<li>Create <codeph>ClientCache</codeph> instance. </li>
 					<li>Create all <codeph>RegionService</codeph> instances. Initialize CQ
 						listeners. </li>
 					<li>Call <codeph>ClientCache</codeph> instance <codeph>readyForEvents</codeph>
 						method. </li>
 				</ol>
-			</p>
 		</section>
 		<section id="section_35F929682CD24478AF0B2249C5065A27">
 			<title>States of a CQ</title>
 			<p>A CQ has three possible states, which are maintained on the server. You can check
 				them from the client through <codeph>CqQuery.getState</codeph>. </p>
-			<p>
 				<table id="table_42DDDF9FA2534D4CBBEE51D47E09CBFF">
 					<tgroup cols="4">
 						<colspec colname="1" colnum="1" colwidth="1.0*"/>
@@ -88,13 +86,11 @@
 						</tbody>
 					</tgroup>
 				</table>
-			</p>
 		</section>
 		<section id="section_4E308A70BCE44031BB1F37B95B4D06E6">
 			<title>CQ Management Options </title>
 			<p>You manage your CQs from the client side. All calls are executed only for the calling
 				client's CQs. </p>
-			<p>
 				<table id="table_E400DFA8B3E34163AA81EA1D7D9DECE9">
 					<tgroup cols="3">
 						<colspec colname="1" colnum="1" colwidth="*"/>
@@ -178,12 +174,12 @@
 						</tbody>
 					</tgroup>
 				</table>
-			</p>
 		</section>
 		<section id="section_B274DA982AE6441288323A1D11B58786">
 			<title>Managing CQs and Durable Clients Using gfsh</title>
 			<p>Using the <codeph>gfsh</codeph> command-line utility, you can perform the following
-				actions: <ul id="ul_953C8243F41949F786BE8F70A7CCB398">
+				actions:</p>
+				<ul id="ul_953C8243F41949F786BE8F70A7CCB398">
 					<li id="li_B6C9A05373E14376A59974EA8AA83FF4">Close durable clients and durable
 						client CQs. See <xref
 							href="../../tools_modules/gfsh/command-pages/close.xml#topic_27555B1929D7487D9158096BC065D372"
@@ -196,7 +192,6 @@
 							href="../../tools_modules/gfsh/command-pages/show.xml#topic_395C96B500AD430CBF3D3C8886A4CD2E"
 							type="topic" format="dita" scope="local"/>. </li>
 				</ul>
-			</p>
 		</section>
 		<section id="section_345E9C144EB544FBA61FC9C83BF1C1ED">
 			<title id="cq_initial_result_set">Retrieving an Initial Result Set of a CQ</title>
@@ -206,14 +201,12 @@
 				you ran the query ad hoc, by calling <codeph>QueryService.newQuery.execute</codeph>
 				on the server cache, but with the key included. This example retrieves keys and
 				values from an initial result set: </p>
-			<p>
-				<codeblock>SelectResults cqResults = cq.executeWithInitialResults();
+			<codeblock>SelectResults cqResults = cq.executeWithInitialResults();
 for (Object o : cqResults.asList()) {
   Struct s = (Struct) o; // Struct with Key, value pair
   Portfolio p = (Portfolio) s.get("value"); // get value from the Struct
   String id = (String) s.get("key"); // get key from the Struct
 }</codeblock>
-			</p>
 			<p>If you are managing a data set from the CQ results, you can initialize the set by
 				iterating over the result set and then updating it from your listeners as events
 				arrive. For example, you might populate a new screen with initial results and then

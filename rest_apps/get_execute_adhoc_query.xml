@@ -23,11 +23,16 @@
         </sthead>
         <strow>
           <stentry>q</stentry>
-          <stentry><b>Required.</b> OQL query statement. <note>Since the query
+          <stentry><b>Required.</b> OQL query statement.
+            <note>
+              <p>Since the query
               string is passed in the URL, the OQL must be URL-encoded. Some
               HTTP clients such as Web browsers will automatically encode URLs;
               however, if you are not using one of those clients, you will need
-              to URL encode the query string yourself.</note></stentry>
+              to URL encode the query string yourself.
+              </p>
+            </note>
+          </stentry>
           <stentry>
             <codeph>SELECT o FROM /orders o WHERE o.quantity > 2 AND
               o.totalprice > 110.00</codeph>

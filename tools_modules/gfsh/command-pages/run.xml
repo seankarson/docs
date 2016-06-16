@@ -5,67 +5,75 @@
 	<shortdesc> Execute a set of GFSH commands. </shortdesc>
 	<conbody>
 		<p> Commands that normally prompt for additional input will instead use default values. </p>
-		<p><b> Availability:</b> Online or offline. <note>Some commands specified in the file
-				require online status. </note>
-		</p>
+		<p><b> Availability:</b> Online or offline.</p>
+		<note>
+			<p>Some commands specified in the file
+				require online status. 
+			</p>
+		</note>
 		<p><b>Syntax:</b>
-			<codeblock>run --file=value [--quiet(=value)?] [--continue-on-error(=value)?]</codeblock>
-			<table id="table_0B89B41D0A29444EB6376C1703C7EC9D">
-				<title>Parameters</title>
-				<tgroup cols="3">
-					<colspec colname="col1" colnum="1" colwidth="1.00*"/>
-					<colspec colname="col2" colnum="2" colwidth="3.82*"/>
-					<colspec colname="newCol3" colnum="3" colwidth="1*"/>
-					<thead>
-						<row>
-							<entry colname="col1">Name </entry>
-							<entry colname="col2">Description</entry>
-							<entry colname="col3">Default Value</entry>
-						</row>
-					</thead>
-					<tbody>
-						<row>
-							<entry colname="col1"><parmname>--file</parmname>
-							</entry>
-							<entry colname="col2">
-								<i>Required.</i> Path of the file scripted with commands that
-									<codeph>gfsh</codeph> recognizes. Path should be relative or
-								absolute. </entry>
-							<entry/>
-						</row>
-						<row>
-							<entry colname="col1"><parmname>--quiet</parmname>
-							</entry>
-							<entry colname="col2"> Specifies whether to show command output.
-									<note>All commands in a script are run non-interactively when
-									the <cmdname>run</cmdname> command is used. This option does not
-									change that functionality. </note>
-							</entry>
-							<entry>false</entry>
-						</row>
-						<row>
-							<entry colname="col1"><parmname>--continue-on-error</parmname>
-							</entry>
-							<entry colname="col2">Specifies whether further execution of the script
-								should continue if there is an error while executing one of the
-								commands fails. </entry>
-							<entry>false</entry>
-						</row>
-					</tbody>
-				</tgroup>
-			</table>
 		</p>
+		<codeblock>run --file=value [--quiet(=value)?] [--continue-on-error(=value)?]</codeblock>
+		<table id="table_zyc_clf_2w">
+			<title>Parameters</title>
+			<tgroup cols="3">
+				<colspec colname="col1" colnum="1" colwidth="1.00*"/>
+				<colspec colname="col2" colnum="2" colwidth="3.82*"/>
+				<colspec colname="newCol3" colnum="3" colwidth="1*"/>
+				<thead>
+					<row>
+						<entry colname="col1">Name </entry>
+						<entry colname="col2">Description</entry>
+						<entry colname="col3">Default Value</entry>
+					</row>
+				</thead>
+				<tbody>
+					<row>
+						<entry colname="col1"><parmname>--file</parmname>
+						</entry>
+						<entry colname="col2">
+							<i>Required.</i> Path of the file scripted with commands that
+								<codeph>gfsh</codeph> recognizes. Path should be relative or
+							absolute. </entry>
+						<entry/>
+					</row>
+					<row>
+						<entry colname="col1"><parmname>--quiet</parmname>
+						</entry>
+						<entry colname="col2"> Specifies whether to show command output.
+							<note>
+								<p>All
+								commands in a script are run non-interactively when the
+									<codeph>run</codeph> command is used. This option does not
+								change that functionality.
+								</p>
+							</note>
+						</entry>
+						<entry>false</entry>
+					</row>
+					<row>
+						<entry colname="col1"><parmname>--continue-on-error</parmname>
+						</entry>
+						<entry colname="col2">Specifies whether further execution of the script
+							should continue if there is an error while executing one of the commands
+							fails. </entry>
+						<entry>false</entry>
+					</row>
+				</tbody>
+			</tgroup>
+		</table>
 		<p><b>Example Commands:</b>
-			<codeblock>
+		</p>
+		<codeblock>
 run --file=create-regions.gfsh --quiet=true
 
 (2) From command line:
 prompt&gt; /home/user1/gemfire70/bin/gfsh run ./create-regions.gfsh --quiet=true
 prompt&gt; /home/user1/gemfire70/bin/gfsh run ./create-regions.gfsh 
 --continue-on-error=true</codeblock>
-		</p>
 		<p><b>Sample Output:</b>
-			<codeblock>
+		</p>
+		<codeblock>
 gfsh&gt;run --file=create-regions.gfsh
 1. Executing - create region --name=region4 --type=REPLICATE
 
@@ -77,6 +85,5 @@ server1 | Region "/region4" created on "server1"
 2. Executing - create region --name=region1/subregion1 --type=LOCAL
 
 Parent region for "region1/subregion1" doesn't exist. </codeblock>
-		</p>
 	</conbody>
 </concept>

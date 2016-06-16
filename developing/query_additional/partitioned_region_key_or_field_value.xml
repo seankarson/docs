@@ -8,7 +8,8 @@
       creating a key index and then executing the query using the <codeph>FunctionService</codeph>
       with the key or field value used as filter. </p>
     <p>The following is an example how to optimize a query that will be run on data partitioned by
-      region key value. In the following example, data is partitioned by the "orderId" field. <ol
+      region key value. In the following example, data is partitioned by the "orderId" field. </p>
+      <ol
         id="ol_62ED93A7FDAA498F9632203E75FA5C19">
         <li id="li_87D7CFCC60304BD0A27B5900D9374A40">Create a key index on the orderId field. See
             <xref
@@ -70,6 +71,5 @@ public class TestFunctionQuery {
 </codeblock>
         </li>
       </ol>
-    </p>
   </conbody>
 </concept>

@@ -5,16 +5,15 @@
 	<shortdesc>Plan persistence and overflow for your data regions and configure them accordingly. </shortdesc>
 	<conbody>
 		<section id="section_E253562A46114CF0A4E47048D8143999">
-			<p>Use the following steps to configure your data regions for persistence and overflow:
+			<p>Use the following steps to configure your data regions for persistence and overflow:</p>
 					<ol id="ol_1B3181C76D83494D9DCC639D41A9B23D">
 					<li id="li_D704D39CA3324B938CAF6F950DE82D06">Configure your disk stores as
 						needed. See <xref
 							href="../../managing/disk_storage/using_disk_stores.xml#defining_disk_stores"
 							type="concept" format="dita" scope="local"/>. The cache disk store
-						defines where and how the data is written to disk. <p>
-							<codeblock>&lt;disk-store name="myPersistentStore" . . . &gt;
+						defines where and how the data is written to disk.
+						<codeblock>&lt;disk-store name="myPersistentStore" . . . &gt;
 &lt;disk-store name="myOverflowStore" . . . &gt;</codeblock>
-						</p>
 					</li>
 					<li id="li_9A3C2EB7C2DA46D9B85C1F6D9218B0CA">Specify the persistence and
 						overflow criteria for the region. If you are not using the default disk
@@ -25,7 +24,7 @@
 							<li id="li_6BFA07AC117D4585854BBE38ADFA33C4">For overflow, specify the
 								overflow criteria in the region's
 									<codeph>eviction-attributes</codeph> and name the disk store to
-								use. <p>Example:
+								use. <p>Example:</p>
 									<codeblock outputclass="language-xml">&lt;region name="overflowRegion" . . . &gt;
   &lt;region-attributes disk-store-name="myOverflowStore" disk-synchronous="true"&gt;
     &lt;eviction-attributes&gt;
@@ -34,33 +33,35 @@
       &lt;lru-memory-size maximum="100" action="overflow-to-disk"/&gt;
     &lt;/eviction-attributes&gt;
   &lt;/region-attributes&gt;
-&lt;/region&gt;</codeblock></p><p>gfsh:</p><p>You
+&lt;/region&gt;</codeblock>
+								<p>gfsh:</p><p>You
 									cannot configure <codeph>lru-memory-size</codeph> using gfsh.
 								</p>
 							</li>
 							<li id="li_06906B582C9E4C12BE817862EAF8FF09">For persistence, set the
 									<codeph>data-policy</codeph> to
 									<codeph>persistent-replicate</codeph> and name the disk store to
-								use. <p>Example:
+								use. <p>Example:</p>
 									<codeblock outputclass="language-xml">&lt;region name="partitioned_region" refid="PARTITION_PERSISTENT"&gt;
   &lt;region-attributes disk-store-name="myPersistentStore"&gt;
     . . . 
   &lt;/region-attributes&gt;
 &lt;/region&gt; </codeblock>
-								</p>
 							</li>
 						</ul>
 					</li>
 				</ol>
-			</p>
 			<p>When you start your members, overflow and persistence will be done automatically,
 				with the disk stores and disk write behaviors. </p>
-			<note>You can also configure Regions and Disk Stores using the gfsh command-line
+			<note>
+				<p>You can also configure Regions and Disk Stores using the gfsh command-line
 				interface. See <xref
 					href="../../tools_modules/gfsh/quick_ref_commands_by_area.xml#topic_EF03119A40EE492984F3B6248596E1DD"
 				/> and <xref
 					href="../../tools_modules/gfsh/quick_ref_commands_by_area.xml#topic_1ACC91B493EE446E89EC7DBFBBAE00EA"
-				/>.</note>
+				/>.
+				</p>
+			</note>
 		</section>
 		<section id="section_0D825566F508444C98DFE57527962FED">
 			<table frame="all" id="table_DA4FBC5E1FEF4FEA83E1DBB9C9F5917A">

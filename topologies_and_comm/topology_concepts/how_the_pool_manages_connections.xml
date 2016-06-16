@@ -22,7 +22,7 @@
 			</ul>
 			<p>
 				<image placement="break" id="image_95B89D7587A94611826DB4FEF56AC4FE"
-					href="../../images_svg/cs_connection_pool.svg"/>
+					href="../../images_svg/cs_connection_pool.svg"/></p>
 				<ul id="ul_59be2958-761a-4eef-8d6c-f127ef0b209d">
 					<li id="li_E81F10278E0B4B488E124455E7C74559"><b>Subscription connections</b>.
 						The subscription connection is used to stream cache events from the server
@@ -36,12 +36,12 @@
 						</p>
 					</li>
 				</ul>
-			</p>
 		</section>
 		<section id="section_9EB09CBF19034C3A92FEFDBC28A6BBCC">
 			<title>How the Pool Chooses a Server Connection</title>
 			<p>The pool gets server connection information from the server locators or, alternately,
-				from the static server list. <ul id="ul_7d76014f-9fc1-4c26-bded-c3aacb41cec1">
+				from the static server list.</p>
+				<ul id="ul_7d76014f-9fc1-4c26-bded-c3aacb41cec1">
 					<li id="li_9BDD1C45C89A4C8BA61122493D7DFCCD"><b>Server Locators</b>. Server
 						locators maintain information about which servers are available and which
 						has the least load. New connections are sent to the least loaded servers.
@@ -55,13 +55,13 @@
 						list. There is no load balancing or dynamic server discovery with the static
 						server list. </li>
 				</ul>
-			</p>
 		</section>
 		<section id="section_8BE1FD1D602048978C4DE870134EC648">
 			<title>How the Pool Connects to a Server</title>
 			<p>When a pool needs a new connection, it goes through these steps until either it
 				successfully establishes a connection, it has exhausted all available servers, or
-				the <codeph>free-connection-timeout</codeph> is reached. <ol
+				the <codeph>free-connection-timeout</codeph> is reached. </p>
+				<ol
 					id="ol_375B19ADAE4F435CB7098F4978CF72CA">
 					<li id="li_BAC8A6811DDE4226948761E299C3514C">Requests server connection
 						information from the locator or retrieves the next server from the static
@@ -69,7 +69,6 @@
 					<li id="li_7D9ACFCC446448FA88ADB22774E844E2">Sends a connection request to the
 						server. </li>
 				</ol>
-			</p>
 			<p>If the pool fails to connect while creating a subscription connection or provisioning
 				the pool to reach the <codeph>min-connections</codeph> setting, it logs a fine level
 				message and retries after the time indicated by <codeph>ping-interval</codeph>. </p>
@@ -86,7 +85,8 @@
 				servers and disconnecting from unhealthy or dead servers with little or no impact on
 				your client threads. Static server lists require more close attention as the client
 				pool is only able to connect to servers at the locations specified in the list. </p>
-			<p>The pool adds a new pool connection when one of the following happens: <ul
+			<p>The pool adds a new pool connection when one of the following happens: </p>
+				<ul
 					id="ul_3cb758e2-8198-4e74-b83a-9f7d8cff3344">
 					<li id="li_C75C2A862F6845C6BFFDDC7EFC397CB9">The number of open connections is
 						less than the <codeph>Pool</codeph>’s <codeph>min-connections</codeph>
@@ -97,8 +97,8 @@
 						setting. If the max-connections setting has been reached, the thread blocks
 						until a connection becomes available. </li>
 				</ul>
-			</p>
-			<p>The pool closes a pool connection when one of the following occurs: <ul
+			<p>The pool closes a pool connection when one of the following occurs: </p>
+				<ul
 					id="ul_9326bb5e-cdd8-4d51-bce6-489fc00b08cb">
 					<li id="li_B46497152F7F420E80959993BFAE5D92">The client receives a connectivity
 						exception from the server. </li>
@@ -111,7 +111,6 @@
 						doesn’t send any requests over the connection for the
 							<codeph>idle-timeout</codeph> period. </li>
 				</ul>
-			</p>
 			<p>When it closes a connection that a thread is using, the pool switches the thread to
 				another server connection, opening a new one if needed. </p>
 		</section>

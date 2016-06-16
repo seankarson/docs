@@ -30,7 +30,8 @@
 					applying region updates in order to detect and consistently resolve concurrent
 					and out-of-order updates. Conflict checking ensures that region data eventually
 					becomes consistent on all members that host the region. The conflict checking
-					behavior for replicated regions is summarized as follows: <ul
+					behavior for replicated regions is summarized as follows: </p>
+					<ul
 						id="ul_A9535087E12A49949B319E538E089403">
 						<li id="li_6FE8CF34CABF463E8086543BAD18A67C">If two members update the same
 							key at the same time, conflict checking ensures that all members
@@ -41,7 +42,6 @@
 							updates were applied), conflict checking ensures that the out-of-order
 							update is discarded and not applied to the cache. </li>
 					</ul>
-				</p>
 				<p><xref
 						href="#topic_C5B74CCDD909403C815639339AA03758"
 						type="topic" format="dita" scope="local"/> and <xref
@@ -84,10 +84,13 @@
 				region from becoming out-of-sync with the server cache. </p>
 			<p>See <xref href="../../reference/topics/cache_xml.xml#region-attributes" type="topic"
 				/>. </p>
-			<note>Regions that do not enable consistency checking remain subject to race conditions.
+			<note>
+				<p>Regions that do not enable consistency checking remain subject to race conditions.
 				Concurrent updates may result in one or more members having different values for the
 				same key. Network latency can result in older updates being applied to a key after
-				more recent updates have occurred. </note>
+				more recent updates have occurred.
+				</p>
+			</note>
 		</body>
 	</topic>
 	<topic id="topic_0BDACA590B2C4974AC9C450397FE70B2">
@@ -135,7 +138,8 @@
 					update, a <keyword keyref="product_name"/> member always applies (or keeps) the
 					region entry that has the highest membership ID; the region entry having the
 					lower membership ID is discarded. </p>
-				<note>When a <keyword keyref="product_name"/> member discards an update message
+				<note>
+					<p>When a <keyword keyref="product_name"/> member discards an update message
 					(either for an out-of-order update or when resolving a concurrent update), it
 					does not pass the discarded event to an event listener for the region. You can
 					track the number of discarded updates for each member using the
@@ -146,12 +150,15 @@
 					each member receives the update. For this reason, the
 						<codeph>conflatedEvents</codeph> statistic differs for each <keyword
 						keyref="product_name"/> member. The example below describes this behavior in
-					more detail. </note>
+					more detail.
+					</p>
+				</note>
 				<p>The following example shows how a concurrent update is handled in a distributed
 					system of three <keyword keyref="product_name"/> members. Assume that Members A,
 					B, and C have membership IDs of 1, 2, and 3, respectively. Each member currently
 					stores an entry, X, in their caches at version C2 (the entry was last updated by
-					member C): <ul id="ul_03309E4B02BB4C38B3DB7931117342C4">
+					member C): </p>
+					<ul id="ul_03309E4B02BB4C38B3DB7931117342C4">
 						<li id="li_2DA56AEA4FCA42B7887C9480EA37F0A4"><b>Step 1:</b> An application
 							updates entry X on <keyword keyref="product_name"/> member A at the same
 							time another application updates entry X on member C. Each member
@@ -192,7 +199,6 @@
 								id="image_gsv_k5b_pr"/>
 						</li>
 					</ul>
-				</p>
 			</section>
 		</body>
 	</topic>
@@ -215,9 +221,12 @@
 				any type have timed out in the local <keyword keyref="product_name"/> member. You
 				can optionally set the <codeph>gemfire.tombstone-gc-threshold</codeph> property to a
 				value smaller than 100000 to perform garbage collection more frequently. </p>
-			<note>To avoid out-of-memory errors, a <keyword keyref="product_name"/> member also
+			<note>
+				<p>To avoid out-of-memory errors, a <keyword keyref="product_name"/> member also
 				initiates garbage collection for tombstones when the amount of free memory drops
-				below 30 percent of total memory. </note>
+				below 30 percent of total memory.
+				</p>
+			</note>
 			<p>You can monitor the total number of tombstones in a cache using the
 					<codeph>tombstoneCount</codeph> statistic in <codeph>CachePerfStats</codeph>.
 				The <codeph>tombstoneGCCount</codeph> statistic records the total number of

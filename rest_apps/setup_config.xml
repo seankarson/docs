@@ -9,18 +9,20 @@
       <p>All <keyword keyref="product_name"/> REST interface classes and required JAR files are
         distributed as a WAR file with the <keyword keyref="product_name"/> product distribution.
         You can locate the file in the following
-        location:<codeblock>$GEMFIRE/tools/Extensions/gemfire-api.war</codeblock></p>
+        location:</p>
+      <codeblock>$GEMFIRE/tools/Extensions/gemfire-api.war</codeblock>
       <p dir="ltr">To enable the developer REST API service in <keyword keyref="product_name_long"
         />, set the <codeph>start-dev-rest-api</codeph>
         <keyword keyref="product_name"/> property to <codeph>true</codeph> when starting a data node
         using either <codeph>gfsh</codeph> or the ServerLauncher API. Setting this property to true
         on a data node will start up an embedded Jetty server and deploy the REST developer API WAR
         file.</p>
-      <p dir="ltr">
-        <note>The REST API service for application development can only be started on servers; you
+        <note>
+          <p>The REST API service for application development can only be started on servers; you
           cannot use locators to host the developer <keyword keyref="product_name"/> REST API
-          services. </note>
-      </p>
+          services. 
+          </p>
+        </note>
       <p dir="ltr">You can have multiple REST enabled data nodes in a single distributed system.
         Each data node should have a separate host name and unique end point. To ensure that the
         data node is reachable on a machine with multiple NIC addresses, you can use
@@ -28,7 +30,7 @@
         well as the other embedded web services such as Pulse.)</p>
       <p>You can also configure the Developer REST API service to run over HTTPS by configuring the
         following <keyword keyref="product_name"/> properties in
-          <filepath>gemfire.properties</filepath> or <filepath>gfsecurity.properties</filepath> or
+          <codeph>gemfire.properties</codeph> or <codeph>gfsecurity.properties</codeph> or
         on server startup:</p>
       <ul id="ul_hl4_rqq_kq">
         <li>http-service-ssl-enabled</li>
@@ -57,14 +59,14 @@
       <step>
         <cmd>Configure PDX for your cluster. You must configure PDX if either or both of the
           following conditions apply: </cmd>
-        <info><p>
+        <info>
             <ul id="ul_shp_4qx_dp">
               <li>Application peer member caches will access REST-accessible Regions (resources)
                 with the <codeph>Region.get(key)</codeph>.</li>
               <li>Your deployment has persistent regions that must be available as resources to the
                 REST API. </li>
             </ul>
-          </p> To configure PDX in your cluster, perform the following steps:</info>
+          <p>To configure PDX in your cluster, perform the following steps:</p></info>
         <substeps id="substeps_pgr_x5p_y4">
           <substep>
             <cmd>Start up a locator running the <xref
@@ -80,9 +82,12 @@
               command:</cmd>
             <info>
               <codeblock>gfsh>configure pdx --read-serialized=true</codeblock>
-              <note>You do not need to configure <codeph>--read-serialized=true</codeph> if no
+              <note>
+                <p>You do not need to configure <codeph>--read-serialized=true</codeph> if no
                 application peer member caches are accessing the REST-accessible regions (resources)
-                in your deployment.</note>
+                in your deployment.
+                </p>
+              </note>
             </info>
           </substep>
           <substep>
@@ -120,9 +125,11 @@
           <p>Any server that hosts data, even a server acting as a JMX manager, can start the
             developer REST API service. For example, to start the service on a server that is also a
             JMX manager, you would
-            run:<codeblock>gfsh>start server --name=server1  <b>--J=-Dgemfire.start-dev-rest-api=true</b> \
+            run:</p>
+          <codeblock>gfsh>start server --name=server1  <b>--J=-Dgemfire.start-dev-rest-api=true</b> \
 --J=-Dgemfire.http-service-port=8080 --J=-Dgemfire.http-service-bind-address=localhost \
-<b>--J=-Dgemfire.jmx-manager=true --J=-Dgemfire.jmx-manager-start=true</b></codeblock>Note
+<b>--J=-Dgemfire.jmx-manager=true --J=-Dgemfire.jmx-manager-start=true</b></codeblock>
+          <p>Note
             that when started as a JMX Manager, the server will also host the Pulse web application
             in the same HTTP service.</p>
         </info>
@@ -205,7 +212,8 @@ FrameworkServlet 'gemfire-api': initialization started</codeblock>
     <postreq>
       <p>You can then verify that the developer REST API service has been started programmatically
         by visiting the following
-        URL:<codeblock>http://localhost:8080/gemfire-api/docs/index.html</codeblock></p>
+        URL:</p>
+      <codeblock>http://localhost:8080/gemfire-api/docs/index.html</codeblock>
     </postreq>
 
   </taskbody>

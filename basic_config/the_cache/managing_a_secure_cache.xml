@@ -13,7 +13,8 @@
 					href="managing_a_peer_server_cache.xml#creating_and_closing_a_peer_cache"
 					type="concept" format="dita" scope="local"/> and <xref
 					href="managing_a_client_cache.xml#managing_a_client_cache" type="concept"
-					format="dita" scope="local"/>. <ol id="ol_577DD2E9BA9E4B979817C9A92F57D8F6">
+					format="dita" scope="local"/>.</p>
+				<ol id="ol_577DD2E9BA9E4B979817C9A92F57D8F6">
 					<li id="li_F9D793192DF54134869976C54FA65B99">To create your cache: <ol
 							id="ol_39F3B7AAC467483EBCB2570C63F813AA">
 							<li id="li_8DD8F2BBB10E4D4890FA6192FBE7AFE3">Add any necessary security
@@ -45,10 +46,13 @@
 properties.setProperty("security-username", username);
 properties.setProperty("security-password", password);
 Cache cache = new CacheFactory(properties).create();</codeblock>
-										<note>Properties passed to a cache creation method override
+										<note>
+											<p>Properties passed to a cache creation method override
 											any settings in either the
 												<codeph>gemfire.properties</codeph> file or
-												<codeph>gfsecuirty.properties</codeph>. </note>
+												<codeph>gfsecuirty.properties</codeph>. 
+											</p>
+										</note>
 									</li>
 								</ul>
 							</li>
@@ -61,7 +65,6 @@ Cache cache = new CacheFactory(properties).create();</codeblock>
 						<codeblock>cache.close();</codeblock>
 					</li>
 				</ol>
-			</p>
 		</section>
 	</conbody>
 </concept>

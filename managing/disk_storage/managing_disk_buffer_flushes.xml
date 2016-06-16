@@ -38,13 +38,9 @@
 				device. See the Java documentation for <codeph>java.IO.RandomAccessFile</codeph>. </p>
 			<p>To modify the setting for a <keyword keyref="product_name"/> application, add this to
 				the java command line when you start the member: </p>
-			<p>
 				<codeblock>-Dgemfire.syncWrites=true</codeblock>
-			</p>
 			<p>To modify the setting for a cache server, use this syntax: </p>
-			<p>
 				<codeblock>gfsh&gt;start server --name=... --J=-Dgemfire.syncWrites=true</codeblock>
-			</p>
 		</section>
 	</conbody>
 </concept>

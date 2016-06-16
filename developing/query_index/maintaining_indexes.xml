@@ -26,16 +26,15 @@
 			<p>See <xref format="html" scope="external"
 				href="/releases/latest/javadoc/com/gemstone/gemfire/cache/RegionFactory.html"
 					>RegionFactory.setIndexMaintenanceSynchronous</xref>. </p>
-			<p>This declarative index creation sets the maintenance mode to asynchronous:
+			<p>This declarative index creation sets the maintenance mode to asynchronous:</p>
 				<codeblock>&lt;region-attributes index-update-type="asynchronous"&gt; 
 &lt;/region-attributes&gt;</codeblock>
-			</p>
 		</section>
 		<section id="section_68308B5597CF4A9EAA8EC0BD83A233E6">
 			<title>Internal Index Structure and Storage</title>
 			<p>Indexes are stored either as compact or non-compact data structures based on the
 				indexed expression (even if the index key type is the same.) For example, consider
-				the following Passenger object:
+				the following Passenger object:</p>
 				<codeblock>Passenger {
    String name,
    Date travelDate,
@@ -46,7 +45,8 @@ Flight {
    int flightId,
    String origin,
    String dest,
-}</codeblock>An
+}</codeblock>
+			<p>An
 				index on the Passenger name field will have different memory space requirements in
 				the cache than the Flight origin field even though they are both String field types.
 				The internal data structure selected by <keyword keyref="product_name"/> for index
@@ -61,7 +61,8 @@ Flight {
 				of doing extra work at index maintenance. This index does not support the storage of
 				projection attributes. </p>
 			<p>Currently compact indexes are only selected only supports the creation of an index on
-				a region path. In addition, the following conditions must be met: <ul
+				a region path. In addition, the following conditions must be met: </p>
+				<ul
 					id="ul_37D123AACC734AF8A678AD8FD75F4350">
 					<li id="li_9082C2BCE3384DFB9122DC0D660D0048"> Index maintenance is synchronous. </li>
 					<li id="li_0046B67E7D364542BB9BD0BAA1B7D152"> The indexed expression is a path
@@ -71,7 +72,6 @@ Flight {
 						region entry and it is directly on the region values (not supported with
 						keys, entries). </li>
 				</ul>
-			</p>
 			<p>
 				<b>Non-Compact Index</b>
 			</p>

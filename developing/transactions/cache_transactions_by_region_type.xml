@@ -10,7 +10,8 @@
         this may be a remote host to the one running the transaction application. Any transaction
         that includes one or more partitioned regions is run on the member storing the primary copy
         of the partitioned region data. Otherwise, the transaction host is the same one running the
-        application. <ul id="ul_yy5_jk1_wk">
+        application. </p>
+        <ul id="ul_yy5_jk1_wk">
           <li>
             <p>The client executing the transaction code is called the transaction initiator.</p>
           </li>
@@ -22,15 +23,17 @@
             <p>The member that hosts the data—and the transaction—is called the transaction
               host.</p>
           </li>
-        </ul> The transaction host may be the same member or different member from the transaction
+        </ul>
+      <p>The transaction host may be the same member or different member from the transaction
         initiator. In either case, when the transaction commits, data distribution is done from the
         transaction host in the same way.</p>
-      <p>
-        <note>If you have consistency checking enabled in your region, the transaction will generate
+        <note>
+          <p>If you have consistency checking enabled in your region, the transaction will generate
           all necessary version information for the region update when the transaction commits. See
             <xref href="working_with_transactions.xml#transactions_and_consistency"/> for more
-          details.</note>
-      </p>
+          details.
+          </p>
+        </note>
     </body>
   </topic>
   <concept id="concept_ysk_xj1_wk">
@@ -39,14 +42,15 @@
       <p>In partitioned regions, transaction operations are done first on the primary data store
         then distributed to other members from there, regardless of which member initiates the cache
         operation. This is the same as is done for normal cache operations on partitioned regions. </p>
-      <p>In this figure, M1 runs two transactions. <ul id="ul_889FCAFEE4F9470EAAB472FF24A4FA52">
+      <p>In this figure, M1 runs two transactions.</p>
+        <ul id="ul_889FCAFEE4F9470EAAB472FF24A4FA52">
           <li id="li_DF9EBE26A1284703B61804A54D4200A7">The first transaction, T1, works on data
             whose primary buckets are stored in M1, so M1 is the transaction host. </li>
           <li id="li_AC8D7C1254BE469692700B22C40EF376">The second transaction, T2, works on data
             whose primary buckets are stored in M2, so M1 is the transaction delegate and M2 is the
             transaction host. </li>
-        </ul><i>Transaction on a Partitioned Region:</i>
-      </p>
+        </ul>
+      <p><i>Transaction on a Partitioned Region:</i></p>
       <p>
         <image placement="break" id="image_9BF680072A674BCF9F01958753F02952"
           href="../../images_svg/transactions_partitioned_1.svg" align="left"/>
@@ -56,7 +60,8 @@
         the data on M2 is updated and the transaction events are distributed throughout the system,
         exactly as if the transaction had originated on M2. </p>
       <p>The first region operation within the transaction determines the transaction host. All
-        other operations must also work with that as their transaction host: <ul
+        other operations must also work with that as their transaction host: </p>
+        <ul
           id="ul_BE4E509EF82A44889E7DDDA6124DFF2E">
           <li id="li_04A4349715BB4486A252AF8D162BFBF7">All partitioned region data managed inside
             the transaction must use the transaction host as their primary data store. In the
@@ -76,7 +81,6 @@
             distributed. Operations on regions with local scope are not allowed in transactions with
             partitioned regions. </li>
         </ul>
-      </p>
       <p>The next figure shows a transaction that operates on two partitioned regions and one
         replicated region. As with the single region example, all local event handling is done on
         the transaction host. </p>
@@ -101,11 +105,15 @@
         <p>For replicated regions, the transaction and its operations are applied to the local
           member and the resulting transaction state is distributed to other members according to
           the attributes of each region. </p>
-        <note>If possible, use <codeph>distributed-ack</codeph> scope for your regions where you
+        <note>
+          <p>If possible, use <codeph>distributed-ack</codeph> scope for your regions where you
           will run transactions. The <codeph>REPLICATE</codeph> region shortcuts use
-            <codeph>distributed-ack</codeph> scope. </note>
+            <codeph>distributed-ack</codeph> scope. 
+          </p>
+        </note>
         <p>The region’s scope affects how data is distributed during the commit phase. Transactions
-          are supported for these region scopes: <ul id="ul_3FEEBD3A9B1A4033A3D1B943250E904E">
+          are supported for these region scopes:</p>
+          <ul id="ul_3FEEBD3A9B1A4033A3D1B943250E904E">
             <li id="li_4CBDE8D31C7D4D56866841B993C15BD9"><codeph><b>distributed-ack</b></codeph>.
               Handles transactional conflicts both locally and between members. The
                 <codeph>distributed-ack</codeph> scope is designed to protect data consistency. This
@@ -129,19 +137,19 @@
               member. You can have conflict between two threads when their transactions change the
               same entry. </li>
           </ul>
-        </p>
         <p>Transactions on non-replicated regions (regions that use the old API with DataPolicy
           EMPTY, NORMAL and PRELOADED) are always transaction initiators, and the transaction data
           host is always a member with a replicated region. This is similar to the way transactions
           using the PARTITION_PROXY shortcut are forwarded to members with primary bucket. </p>
-        <p>
-          <note>When you have transactions operating on EMPTY, NORMAL or PARTITION regions, make
+          <note>
+            <p>When you have transactions operating on EMPTY, NORMAL or PARTITION regions, make
             sure that the <keyword keyref="product_name"/> property
               <codeph>conserve-sockets</codeph> is set to false to avoid distributed deadlocks. An
             empty region is a region created with the API
               <codeph>RegionShortcut.REPLICATE_PROXY</codeph> or a region with that uses the old API
-            of <codeph>DataPolicy</codeph> set to <codeph>EMPTY</codeph>. </note>
-        </p>
+            of <codeph>DataPolicy</codeph> set to <codeph>EMPTY</codeph>.
+            </p>
+          </note>
       </section>
       <section>
         <title>Conflicting Transactions in Distributed-Ack Regions</title>
@@ -150,27 +158,30 @@
           until the changes are made in the remote caches and M1 receives the acknowledgement that
           verifies that the tasks are complete. </p>
         <p><b>Step 1:</b> Before commit, Transactions T1 and T2 each change the same entry in Region
-          B within their local cache. T1 also makes a change to Region A.<fig id="fig_jhg_vzj_54">
+          B within their local cache. T1 also makes a change to Region A.</p>
+          <fig id="fig_jhg_vzj_54">
             <image href="../../images_svg/transactions_replicate_1.svg" id="image_cj1_zzj_54"/>
-          </fig></p>
+          </fig>
         <p><b>Step 2:</b> Conflict detected and eliminated. The distributed system recognizes the
           potential conflict from Transactions T1 and T2 using the same entry. T1 started to commit
-          first, so it is allowed to continue. T2's commit fails with a conflict.<fig
+          first, so it is allowed to continue. T2's commit fails with a conflict.</p><fig
             id="fig_bz1_b1k_54">
             <image href="../../images_svg/transactions_replicate_2.svg" id="image_sbh_21k_54"/>
-          </fig></p>
+          </fig>
         <p><b>Step 3:</b> Changes are in transit. T1 commits and its changes are merged into the
           local cache. The commit does not complete until <keyword keyref="product_name"/>
-          distributes the changes to the remote regions and acknowledgment is received.<fig
+          distributes the changes to the remote regions and acknowledgment is received.</p>
+          <fig
             id="fig_jyt_j1k_54">
             <image href="../../images_svg/transactions_replicate_3.svg" id="image_qgl_k1k_54"/>
-          </fig></p>
+          </fig>
         <p><b>Step 4:</b> After commit. Region A in M2 and Region B in M3 reflect the changes from
           transaction T1 and M1 has received acknowledgment. Results may not be identical in
-          different members if their region attributes (such as expiration) are different.<fig
+          different members if their region attributes (such as expiration) are different.</p>
+          <fig
             id="fig_sgr_p1k_54">
             <image href="../../images_svg/transactions_replicate_4.svg" id="image_mkm_q1k_54"/>
-          </fig></p>
+          </fig>
       </section>
       <section>
         <title>Conflicting Transactions in Distributed-No-Ack Regions</title>
@@ -179,21 +190,24 @@
           conflicting changes cross paths and leave the data in an inconsistent state. </p>
         <p><b>Step 1:</b> As in the previous example, Transactions T1 and T2 each change the same
           entry in Region B within their local cache. T1 also makes a change to Region A. Neither
-          commit fails, and the data becomes inconsistent.<fig id="fig_d5y_51k_54">
+          commit fails, and the data becomes inconsistent.</p>
+          <fig id="fig_d5y_51k_54">
             <image href="../../images_svg/transactions_replicate_1.svg" id="image_jn2_cbk_54"/>
-          </fig></p>
+          </fig>
         <p><b>Step 2:</b> Changes are in transit. Transactions T1 and T2 commit and merge their
           changes into the local cache. <keyword keyref="product_name"/> then distributes changes to
-          the remote regions.<fig id="fig_z3q_2bk_54">
+          the remote regions.</p>
+          <fig id="fig_z3q_2bk_54">
             <image href="../../images_svg/transactions_replicate_no_ack_1.svg" id="image_fk1_hbk_54"
             />
-          </fig></p>
+          </fig>
         <p><b>Step 3:</b> Distribution is complete. The non-conflicting changes in Region A have
           been distributed to M2 as expected. For Region B however, T1 and T2 have traded changes,
-          which is not the intended result.<fig id="fig_vl4_mbk_54">
+          which is not the intended result.</p>
+          <fig id="fig_vl4_mbk_54">
             <image href="../../images_svg/transactions_replicate_no_ack_2.svg" id="image_ijc_4bk_54"
             />
-          </fig></p>
+          </fig>
       </section>
       <section id="section_760DE9F2226B46AD8A025F562CEA4D40">
         <title>Conflicting Transactions with Local Scope</title>
@@ -213,8 +227,9 @@
         regions. You can enable the use of transactions on persistent regions by setting the
         property <codeph>gemfire.ALLOW_PERSISTENT_TRANSACTIONS</codeph> to true. This may also be
         accomplished at server startup using
-        gfsh:<codeblock>gfsh start server --name=server1 --dir=server1_dir \
---J=-Dgemfire.ALLOW_PERSISTENT_TRANSACTIONS=true \</codeblock></p>
+        gfsh:</p>
+      <codeblock>gfsh start server --name=server1 --dir=server1_dir \
+--J=-Dgemfire.ALLOW_PERSISTENT_TRANSACTIONS=true \</codeblock>
       <p>Since <keyword keyref="product_name"/> does not provide atomic disk persistence guarantees,
         the default behavior is to disallow disk-persistent regions from participating in
         transactions. However, when choosing to enable transactions on persistent regions, consider

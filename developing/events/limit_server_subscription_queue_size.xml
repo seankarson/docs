@@ -5,7 +5,8 @@
 	<conbody>
 		<section id="section_1791DFB89502480EB57F81D16AC0EBAC">
 			<p>These are options for limiting the amount of server memory the subscription queues
-				consume. <ul id="ul_A968819F6AA14C2B814C9515B0D7AF33">
+				consume. </p>
+				<ul id="ul_A968819F6AA14C2B814C9515B0D7AF33">
 					<li id="li_663F0115B78847349C30DF674FFAAAEA">Optional: Conflate the subscription queue
 						messages. </li>
 					<li id="li_A066A217A3544DBAAED60415C3BA7319">Optional: Increase the frequency of
@@ -52,16 +53,17 @@
 								maximum number of event messages allowed in any single subscription
 								queue before incoming messages are blocked. You can only limit the
 								message count, not the size allocated for messages. Examples:
-									<p>XML:
+								<p>XML:</p>
 									<codeblock>&lt;!-- Set the maximum message count to 50000 entries --&gt;
   &lt;cache-server port="41414" maximum-message-count="50000" /&gt;</codeblock>
-								</p>
-								<p>API: <codeblock>Cache cache = ...; 
+								<p>API:</p>
+								<codeblock>Cache cache = ...; 
 CacheServer cacheServer = cache.addCacheServer(); 
 cacheServer.setPort(41414); 
 cacheServer.setMaximumMessageCount(50000); 
 cacheServer.start(); </codeblock>
-									<note>With this setting, one slow client can slow the server and
+									<note>
+										<p>With this setting, one slow client can slow the server and
 										all of its other clients because this blocks the threads
 										that write to the queues. All operations that add messages
 										to the queue block until the queue size drops to an
@@ -71,13 +73,13 @@ cacheServer.start(); </codeblock>
 										blocked until their event messages can be added to the
 										queue. If you are using this option and see stalling on your
 										server region operations, your queue capacity might be too
-										low for your application behavior. </note>
-								</p>
+										low for your application behavior.
+										</p>
+									</note>
 							</li>
 						</ul>
 					</li>
 				</ul>
-			</p>
 		</section>
 	</conbody>
 </concept>

@@ -13,7 +13,7 @@
           scope="local" type="concept"/> for more information on incremental backup. </p>
       <p><b> Availability:</b> Online. You must be connected in <codeph>gfsh</codeph> to a JMX
         Manager member to use this command. </p>
-      <p><b>Syntax:</b>
+      <p><b>Syntax:</b></p>
         <codeblock>backup disk-store --dir=value [--baseline-dir=value]
 </codeblock>
         <table id="table_2277A2CE8F6E4731B45FEFA2B1366DB6">
@@ -48,15 +48,12 @@
             </tbody>
           </tgroup>
         </table>
-      </p>
-      <p><b>Example Commands:</b>
+      <p><b>Example Commands:</b></p>
         <codeblock>backup disk-store --dir=data/backups
 
 backup disk-store --dir=data/backup/disk-store --baselineDir=data/backups/2012-09-24-17-08-50</codeblock>
-      </p>
       <p><b>Sample Output:</b>
       </p>
-      <p>
         <codeblock>gfsh&gt;backup disk-store --dir=data/backups
 The following disk stores were backed up successfully
 
@@ -65,7 +62,6 @@ Member  |                 UUID                 |              Directory         
 server2 | a6bb11f0-0baa-45c9-b23e-64876d02a586 | c:\PivotalGemFire70\Latest\server2\. | 192.168.129.129
 server1 | 8dc365bd-c086-4af4-99d0-86b0b521aa04 | c:\PivotalGemFire70\Latest\server1\. | 192.168.129.129
 </codeblock>
-      </p>
     </body>
   </topic>
 </dita>

@@ -11,7 +11,7 @@
 			 JAR</keyword></keywords></metadata>
   </prolog> 
   <conbody> 
-	 <p><b>Procedure</b> 
+  	<p><b>Procedure</b></p> 
 	 <ol id="ol_53b58635-7aa9-4c46-a2c8-de7b792b5f46"> 
 		<li id="li_76E87FDCCB8F452D9F6270405C2A4FC7">Jar the files. 
 		</li> 
@@ -32,19 +32,18 @@
 		  configuration file is loaded from the jar file. 
 		</li> 
 	 </ol> 
-	 </p> 
 	 <p><b>Example of Deploying a Configuration JAR</b> 
 	 </p> 
-	 <p>The following example deploys the cache configuration file, 
-		<codeph>myCache.xml</codeph>, in 
-		<codeph>my.jar</codeph>. The following displays the contents of 
-		<codeph>my.jar</codeph>. 
-		<codeblock>% jar -tf my.jar 
+	 <p>The following example deploys the cache configuration file, <codeph>myCache.xml</codeph>, in
+				<codeph>my.jar</codeph>. The following displays the contents of
+	 	<codeph>my.jar</codeph>:</p>
+			<codeblock>% jar -tf my.jar 
 META-INF 
 META-INF/MANIFEST.MF 
 myConfig/ 
-myConfig/myCache.xml</codeblock> In this example, you would perform the following steps to deploy
-		the configuration jar file: 
+myConfig/myCache.xml</codeblock>
+  	<p>In this example, you would perform the following steps to deploy
+		the configuration jar file:</p>
 		<ol id="ol_959e6d33-f221-462a-83c6-204adf68f046"> 
 		  <li id="li_4DA35CB8C067469DB29CB752A600DF5D">Set the system property, 
 			 <codeph>gemfire.cache-xml-file</codeph>, to 
@@ -61,7 +60,6 @@ myConfig/myCache.xml</codeblock> In this example, you would perform the followin
 			 location of the file 
 		  </li> 
 		</ol> 
-	 </p> 
 	 <p>When you start your application, the configuration file is loaded from
 		the jar file. 
 	 </p> 

@@ -8,7 +8,7 @@
       <title>Declaring and Loading an Event Handler with Parameters</title>
       <p>This declares an event handler for a region in the <codeph>cache.xml</codeph>. The handler
         is a cache listener designed to communicate changes to a DB2 database. The declaration
-        includes the listener’s parameters, which are the database path, username, and password.
+        includes the listener’s parameters, which are the database path, username, and password.</p>
         <codeblock>&lt;region name="exampleRegion"&gt; 
   &lt;region-attributes&gt; 
   . . . 
@@ -26,13 +26,12 @@
     &lt;/cache-listener&gt; 
   &lt;/region-attributes&gt; 
   &lt;/region&gt;</codeblock>
-      </p>
       <p>This code listing shows part of the implementation of the <codeph>JDBCListener</codeph>
         declared in the <codeph>cache.xml</codeph>. This listener implements the
           <codeph>Declarable</codeph> interface. When an entry is created in the cache, this
         listener’s <codeph>afterCreate</codeph> callback method is triggered to update the database.
         Here the listener’s properties, provided in the <codeph>cache.xml</codeph>, are passed into
-        the <codeph>Declarable.init</codeph> method and used to create a database connection.
+        the <codeph>Declarable.init</codeph> method and used to create a database connection.</p>
         <codeblock>. . .
 public class JDBCListener
 extends CacheListenerAdapter
@@ -53,28 +52,25 @@ implements Declarable {
     this._password = props.getProperty("password");
   }
 }</codeblock>
-      </p>
     </section>
     <section id="section_2B4275C1AE744794AAD22530E5ECA8CC">
       <title>Installing an Event Handler Through the API </title>
       <p>This listing defines a cache listener using the <codeph>RegionFactory</codeph> 
-        method <codeph>addCacheListener</codeph>.
+        method <codeph>addCacheListener</codeph>.</p>
         <codeblock>Region newReg = cache.createRegionFactory()
           .addCacheListener(new SimpleCacheListener())
           .create(name);
  </codeblock>
-      </p>
       <p>You can create a cache writer similarly, using the <codeph>RegionFactory</codeph>
-        method <codeph>setCacheWriter</codeph>, like this:
+        method <codeph>setCacheWriter</codeph>, like this:</p>
         <codeblock>Region newReg = cache.createRegionFactory()
           .setCacheWriter(new SimpleCacheWriter())
           .create(name);
  </codeblock>
-      </p>
     </section>
     <section id="section_C62E9535C43B4BC5A7AA7B8B4125D1EB">
       <title>Installing Multiple Listeners on a Region</title>
-      <p>XML:
+      <p>XML:</p>
         <codeblock>&lt;region name="exampleRegion"&gt;
   &lt;region-attributes&gt;
     . . .
@@ -89,8 +85,7 @@ implements Declarable {
     &lt;/cache-listener&gt;
   &lt;/region-attributes&gt;
 &lt;/region&gt;</codeblock>
-      </p>
-      <p>API:
+      <p>API:</p>
         <codeblock>
 CacheListener listener1 = new myCacheListener1(); 
 CacheListener listener2 = new myCacheListener2(); 
@@ -102,11 +97,9 @@ Region nr = cache.createRegionFactory()
   .setScope(Scope.DISTRIBUTED_NO_ACK)
   .create(name);
 </codeblock>
-      </p>
     </section>
     <section id="section_3AF3D7C9927F491F8BACDB72834E42AA">
       <title>Installing a Write-Behind Cache Listener</title>
-      <p>
         <codeblock>//AsyncEventQueue with listener that performs WBCL work
 &lt;cache&gt;
    &lt;async-event-queue id="sampleQueue" persistent="true"
@@ -133,7 +126,6 @@ Region nr = cache.createRegionFactory()
 &lt;/cache&gt;
 
 </codeblock>
-      </p>
     </section>
   </conbody>
 </concept>

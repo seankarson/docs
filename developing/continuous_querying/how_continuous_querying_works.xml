@@ -20,8 +20,9 @@
 			<p>With CQ, the client sends a query to the server side for execution and receives the
 				events that satisfy the criteria. For example, in a region storing stock market
 				trade orders, you can retrieve all orders over a certain price by running a CQ with
-				a query like this:
-				<codeblock>SELECT * FROM /tradeOrder t WHERE t.price &gt; 100.00</codeblock>When the
+				a query like this:</p>
+				<codeblock>SELECT * FROM /tradeOrder t WHERE t.price &gt; 100.00</codeblock>
+			<p>When the
 				CQ is running, the server sends the client all new events that affect the results of
 				the query. On the client side, listeners programmed by you receive and process
 				incoming events. For this example query on <codeph>/tradeOrder</codeph>, you might
@@ -52,7 +53,8 @@
 				by the client, the <codeph>CqEvent</codeph> is passed to the
 					<codeph>onEvent</codeph> method of all <codeph>CqListener</codeph>s defined for
 				the CQ. </p>
-			<p>Here is the typical CQ data flow for entries updated in the server cache: <ol
+			<p>Here is the typical CQ data flow for entries updated in the server cache: </p>
+				<ol
 					id="ol_806F719D2EBF42AE86C84509B15A1F50">
 					<li id="li_5815225F93EA4D538E77F5DFF41C9F20">Entry events come to the server's
 						cache from the server or its peers, distribution from remote sites, or
@@ -63,8 +65,8 @@
 						satisfies a CQ query, a CQ event is sent to the CQ's listeners on the client
 						side. Each listener for the CQ gets the event. </li>
 				</ol>
-			</p>
-			<p>In the following figure: <ul id="ul_93261E8039304D5D840779BF19815ECA">
+			<p>In the following figure: </p>
+				<ul id="ul_93261E8039304D5D840779BF19815ECA">
 					<li id="li_7B344202AAC84E2C9A4369FDB13B5341">Both the new and old prices for
 						entry X satisfy the CQ query, so that event is sent indicating an update to
 						the query results. </li>
@@ -75,7 +77,6 @@
 					<li id="li_8C380CCD235748F4A5866E65A65A2FCC">The price for the newly created
 						entry Z does not satisfy the query, so no event is sent. </li>
 				</ul>
-			</p>
 			<p>
 				<image href="../../images/ContinuousQuerying-3.gif" id="image_2F21A3820906449FAABE7ACC9654A564"
 					placement="break"/>
@@ -88,7 +89,8 @@
 				data in your regions. If you need to persist information from CQ events, program
 				your listener to store the information where it makes the most sense for your
 				application. </p>
-			<p>The <codeph>CqEvent</codeph> object contains this information: <ul
+			<p>The <codeph>CqEvent</codeph> object contains this information:</p>
+				<ul
 					id="ul_86204F971C464F1EB994C731C56D3D3D">
 					<li id="li_37FB1BDB286F4834BA8D06F6FA913018">Entry key and new value. </li>
 					<li id="li_ADBE9D64F29F4C44BD3387B6EE2914B7">Base operation that triggered the
@@ -115,11 +117,9 @@
 						</ul>
 					</li>
 				</ul>
-			</p>
 			<p>Region operations do not translate to specific query operations and query operations
 				do not specifically describe region events. Instead, the query operation describes
 				how the region event affects the query results. </p>
-			<p>
 				<table id="table_F12FE3ECDDC24B1AB16DD5756A5C745B" frame="all">
 					<tgroup cols="3" colsep="1" rowsep="1">
 						<colspec colname="1" colnum="1" colwidth="*"/>
@@ -146,7 +146,6 @@
 						</tbody>
 					</tgroup>
 				</table>
-			</p>
 			<p>You can use the query operation to decide what to do with the
 					<codeph>CqEvent</codeph> in your listeners. For example, a
 					<codeph>CqListener</codeph> that displays query results on screen might stop
@@ -157,11 +156,15 @@
 			<title>Region Type Restrictions for CQs</title>
 			<p>You can only create CQs on replicated or partitioned regions. If you attempt to create a CQ on
 				a non-replicated or non-partitioned region, you will receive the following error
-				message:<codeblock>The region &lt;region name&gt; specified in CQ creation is neither replicated nor partitioned; only replicated or partitioned regions are allowed in CQ creation.</codeblock>In
+				message:</p>
+			<codeblock>The region &lt;region name&gt; specified in CQ creation is neither replicated nor partitioned; only replicated or partitioned regions are allowed in CQ creation.</codeblock>
+			<p>In
 				addition, you cannot create a CQ on a replicated region with eviction setting of
 				local-destroy since this eviction setting changes the region's data policy. If you
 				attempt to create a CQ on this kind of region, you will receive the following error
-				message:<codeblock>CQ is not supported for replicated region: &lt;region name&gt; with eviction action: LOCAL_DESTROY</codeblock>See
+				message:</p>
+			<codeblock>CQ is not supported for replicated region: &lt;region name&gt; with eviction action: LOCAL_DESTROY</codeblock>
+			<p>See
 				also <xref href="../distributed_regions/managing_distributed_regions.xml"/> for
 				potential issues with setting local-destroy eviction on replicated regions. </p>
 		</section>

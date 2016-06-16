@@ -67,7 +67,8 @@
   <topic id="topic_kjx_brz_j4">
     <title>Calculating Application Object Overhead</title>
     <body>
-      <p>To compute the memory overhead of a Java object, perform the following steps:<ol
+      <p>To compute the memory overhead of a Java object, perform the following steps:</p>
+        <ol
           id="ol_g4d_w4q_34">
           <li><b>Determine the object header size.</b> Each Java object has an object header. For a
             32-bit JVM, it is 8 bytes. For a 64-bit JVM with a heap less than or equal to 32GB, it
@@ -83,7 +84,7 @@
             than 32GB. For all other JVMs, use 4 bytes.</li>
           <li><b>Add up the numbers from Step 1 and 2 and round it up to the next multiple of 8.</b>
             The result is the memory overhead of that Java object.</li>
-        </ol></p>
+        </ol>
       <p><b>Java arrays.</b> To compute the memory overhead of a Java array, you would add the
         object header (since the array is an object) and a primitive int field that contains its
         size. Treat each element of the array as if it was an instance field. For example, a byte
@@ -106,11 +107,12 @@
         this deserialization. If such operations are performed, then that value will be stored in
         object form (with the additional serialized wrapper) and the serialized form becomes
         garbage. </p>
-      <p>
-        <note>An exception to this is if the serialized from is encoded with PDX, then setting
+        <note>
+          <p>An exception to this is if the serialized from is encoded with PDX, then setting
             <codeph>read-serialized</codeph> to true will keep the serialized form in the
-          cache.</note>
-      </p>
+          cache.
+          </p>
+        </note>
       <p>See <xref href="#topic_psn_5tz_j4" format="dita"/> for additional information on how to
         calculate memory usage requirements for storing serialized objects. </p>
     </body>
@@ -147,9 +149,7 @@
         is in a region does not require the object form but uses the inline primitive data. </p>
       <p>The key inlining feature can be disabled by specifying the following <keyword
           keyref="product_name"/> property upon member startup: </p>
-      <p>
         <codeblock>-Dgemfire.DISABLE_INLINE_REGION_KEYS=true</codeblock>
-      </p>
     </body>
   </topic>
   <topic id="topic_ac4_mtz_j4">
@@ -171,9 +171,13 @@
           </thead>
           <tbody>
             <row>
-              <entry colname="col1">For each region <note>Memory consumption for object headers and
+              <entry colname="col1">For each region 
+                <note>
+                  <p>Memory consumption for object headers and
                   object references can vary for 64-bit JVMs, different JVM implementations, and
-                  different JDK versions. </note>
+                  different JDK versions. 
+                  </p>
+                </note>
               </entry>
               <entry colname="col2">add 64 bytes per entry </entry>
             </row>
@@ -218,7 +222,8 @@
       </table>
       <p>For indexes used in querying, the overhead varies greatly depending on the type of data you
         are storing and the type of index you create. You can roughly estimate the overhead for some
-        types of indexes as follows: <ul id="ul_29DD7F53D938413DB2274C7D43223E72">
+        types of indexes as follows: </p>
+        <ul id="ul_29DD7F53D938413DB2274C7D43223E72">
           <li id="li_B2B86845C6554578A8F9F15B213D94D8">If the index has a single value per region
             entry for the indexed expression, the index introduces at most 243 bytes per region
             entry. An example of this type of index is: <codeph>fromClause="/portfolios",
@@ -230,7 +235,6 @@
             the index introduces at most 236 C + 75 bytes per region entry, where C is the average
             number of values per region entry for the expression. </li>
         </ul>
-      </p>
     </body>
   </topic>
   <topic id="topic_i1m_stz_j4">
@@ -273,8 +277,9 @@
             keyref="product_name"/> serialization, but it can end up producing many more serialized
           bytes. <p>To determine if you are using standard Java serialization, specify the
               <codeph>-DDataSerializer.DUMP_SERIALIZED=true</codeph> upon process execution. Then
-            check your log for messages of this form:
-            <codeblock>DataSerializer Serializing an instance of &lt;className></codeblock>Any
+            check your log for messages of this form:</p>
+          <codeblock>DataSerializer Serializing an instance of &lt;className></codeblock>
+          <p>Any
             classes list are being serialized with standard Java serialization. You can optimize
             your serialization by handling those classes in a <codeph>PdxSerializer</codeph> or a
               <codeph>DataSerializer</codeph> or changing the class to be
@@ -287,7 +292,8 @@
           before you calling <codeph>writeObject</codeph>. </li>
       </ul>
       <p>If you do want to estimate memory usage for PDX serialized data, the following table
-        provides estimated sizes for various types when using PDX serialization: <table
+        provides estimated sizes for various types when using PDX serialization:</p>
+      <table
           id="table_pjn_hfr_gn">
           <tgroup cols="2">
             <thead>
@@ -336,7 +342,8 @@
               </row>
             </tbody>
           </tgroup>
-        </table>A note of caution-- if the domain object contains many domain objects as member
+        </table>
+      <p>A note of caution-- if the domain object contains many domain objects as member
         fields, then the memory overhead of PDX serialization can be considerably more than other
         types of serialization.</p>
     </body>
@@ -373,15 +380,17 @@
         simultaneously connecting to a large set of peers with a partitioned region with conserve
         sockets set to false can cause a huge amount of memory to be consumed by socket. Set
         conserve-sockets to true in these instances. </p>
-      <p>
-        <note> There is also JVM overhead for the thread stack for each client connection being
+        <note>
+          <p>There is also JVM overhead for the thread stack for each client connection being
           processed, set at 256KB or 512KB for most JVMs . On some JVMs you can reduce it to 128KB.
           You can use the <keyword keyref="product_name"/>
           <codeph>max-threads</codeph> property or the <keyword keyref="product_name"/>
           <codeph>max-connections</codeph> property to limit the number of client threads and thus
-          both thread overhead and socket overhead. </note>
-      </p>
-      <p>The following table lists the memory requirements based on connections. <table
+          both thread overhead and socket overhead.
+          </p>
+        </note>
+      <p>The following table lists the memory requirements based on connections.</p>
+      <table
           id="table_E5B6F85F9F644A93A779A6CF211022E7">
           <tgroup cols="2">
             <colspec colnum="1" colname="col1" colwidth="1.2*"/>
@@ -422,8 +431,11 @@
                   to false and it is a Server (this is cumulative with the above) </entry>
                 <entry colname="col2">
                   <p> =&lt; max-threads * 2 * number of peers </p>
-                  <note> it is = 2* current number of clients connected * number of peers. Each
-                    connection spawns a thread. </note>
+                  <note>
+                    <p>it is = 2* current number of clients connected * number of peers. Each
+                    connection spawns a thread.
+                    </p>
+                  </note>
                 </entry>
               </row>
               <row>
@@ -468,7 +480,6 @@
             </tbody>
           </tgroup>
         </table>
-      </p>
     </body>
   </topic>
   <topic id="topic_eww_rvz_j4">

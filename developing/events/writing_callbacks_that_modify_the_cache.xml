@@ -11,7 +11,8 @@
 			<p>Do not perform distributed operations of any kind directly from your event handler.
 					<keyword keyref="product_name"/> is a highly distributed system and many
 				operations that may seem local invoke distributed operations. </p>
-			<p>These are common distributed operations that can get you into trouble: <ul
+			<p>These are common distributed operations that can get you into trouble: </p>
+				<ul
 					id="ul_E3B41D3231DB4CFCB9873485DEA0B92D">
 					<li id="li_DDE87E9BE39541B0ACB342E501D8779C">Calling <codeph>Region</codeph>
 						methods, on the event's region or any other region. </li>
@@ -23,7 +24,6 @@
 							<keyword keyref="product_name"/>
 						<codeph>FunctionService</codeph>. </li>
 				</ul>
-			</p>
 			<p>To be on the safe side, do not make any calls to the <keyword keyref="product_name"/>
 				API directly from your event handler. Make all <keyword keyref="product_name"/> API
 				calls from within a separate thread or executor. </p>
@@ -35,7 +35,7 @@
 				like the <codeph>java.util.concurrent.Executor</codeph> interface. </p>
 			<p>This example shows a serial executor where the callback creates a
 					<codeph>Runnable</codeph> that can be pulled off a queue and run by another
-				object. This preserves the ordering of events.
+				object. This preserves the ordering of events.</p>
 				<codeblock>public void afterCreate(EntryEvent event) {
   final Region otherRegion = cache.getRegion("/otherRegion");
   final Object key = event.getKey();
@@ -55,7 +55,6 @@
     }
   });
   }</codeblock>
-			</p>
 			<p>For additional information on the <codeph>Executor</codeph>, see the
 					<codeph>SerialExecutor</codeph> example on the Oracle Java web site. </p>
 		</section>

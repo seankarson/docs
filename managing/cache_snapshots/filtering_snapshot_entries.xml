@@ -8,7 +8,7 @@
     <p>For example, use filters to limit the export of data to a certain date range. If you set up a
       filter on the import or export of a cache, the filter is applied to every single region in the
       cache. </p>
-    <p>The following example filters snapshot data by even numbered keys.
+    <p>The following example filters snapshot data by even numbered keys.</p>
       <codeblock>File mySnapshot = ...
 Region&lt;Integer, MyObject&gt; region = ...
 
@@ -24,6 +24,5 @@ SnapshotOptions&lt;Integer, MyObject&gt; options = rss.createOptions().setFilter
 
 // only save cache entries with an even key
 snapsrv.save(mySnapshot, SnapshotFormat.GEMFIRE, options);</codeblock>
-    </p>
   </conbody>
 </concept>

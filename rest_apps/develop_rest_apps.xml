@@ -30,9 +30,11 @@
         <p>The main resource endpoint to the <keyword keyref="product_name"/> API is <xref
             href="get_regions.xml#topic_itv_mg5_m4">GET /gemfire-api/v1</xref>. Use this endpoint to
           discover which regions are available in your cluster.</p>
-        <p>Example call:<codeblock>curl -i http://localhost:7070/gemfire-api/v1</codeblock></p>
+        <p>Example call:</p>
+        <codeblock>curl -i http://localhost:7070/gemfire-api/v1</codeblock>
         <p>Example
-          response:<codeblock>Accept: application/json
+          response:</p>
+        <codeblock>Accept: application/json
 Response Payload: application/json
 
 200 OK
@@ -75,8 +77,10 @@ Date: Sat, 18 Jan 2014 20:05:47 GMT
         }
     ]
 }
-</codeblock>Each
-          region listed in the response includes the following region attributes:<ul
+</codeblock>
+        <p>Each
+          region listed in the response includes the following region attributes:</p>
+          <ul
             id="ul_gyt_typ_p4">
             <li><b>name</b>. Name of the region.</li>
             <li><b>type</b>. Type of region. For example, REPLICATE, PARTITION, or EMPTY. See <xref
@@ -86,12 +90,13 @@ Date: Sat, 18 Jan 2014 20:05:47 GMT
               Otherwise, null.</li>
             <li><b>value-constraint</b>. If defined, the fully qualified class name of the value's
               type. Otherwise, null.</li>
-          </ul></p>
+          </ul>
         <p>If no resources (regions) are available in the cluster, the call returns a 404 NOT FOUND
           error.</p>
       </section>
       <section><title>Reading Region Data</title><p>You can read data from a region by using any of
-          the following REST-enabled mechanisms:<ul id="ul_x3q_31q_p4">
+        the following REST-enabled mechanisms:</p>
+          <ul id="ul_x3q_31q_p4">
             <li dir="ltr"><b id="docs-internal-guid-cb157eff-ee8a-4a16-1334-b9afbbe9a9f7">GET
                 /gemfire-api/v1/{region}?limit=ALL</b> - Read all entries in a region</li>
             <li dir="ltr"><b>GET /gemfire-api/v1/{region}?limit=<i>N</i></b> - Read a limited number
@@ -99,43 +104,60 @@ Date: Sat, 18 Jan 2014 20:05:47 GMT
             <li dir="ltr"><b>GET /gemfire-api/v1/{region}/keys</b> - List all keys in a region </li>
             <li dir="ltr"><b>GET /gemfire-api/v1/{region}/{keys}</b> - Read data for specific key or
               keys in a region</li>
-          </ul></p><p><b>Reading Entries</b></p><p>To read entries in a region, use the following
+          </ul>
+        <p><b>Reading Entries</b></p><p>To read entries in a region, use the following
           REST
-          endpoint:<codeblock>GET /gemfire-api/v1/{region}?[limit={&lt;number&gt;|ALL}]</codeblock>For
-          example:<codeblock>http://localhost:7070/gemfire-api/v1/items</codeblock></p><p>To read
+          endpoint:</p>
+        <codeblock>GET /gemfire-api/v1/{region}?[limit={&lt;number&gt;|ALL}]</codeblock>
+        <p>For
+        example:</p>
+        <codeblock>http://localhost:7070/gemfire-api/v1/items</codeblock>
+        <p>To read
           all entries in the region, specify
-          instead:<codeblock>http://localhost:7070/gemfire-api/v1/items?limit=ALL</codeblock></p><p>To
+          instead:</p>
+        <codeblock>http://localhost:7070/gemfire-api/v1/items?limit=ALL</codeblock>
+        <p>To
           read 80 entries from the region,
-          specify:<codeblock>http://localhost:7070/gemfire-api/v1/items?limit=80</codeblock></p><p
+          specify:</p>
+        <codeblock>http://localhost:7070/gemfire-api/v1/items?limit=80</codeblock>
+        <p
           dir="ltr">Setting the limit parameter is optional. If you do not specify a limit, the
           request will return 50 results by default. The returned order of the results is not
           guaranteed; however, the response values (JSON) are specified in the same order as the
           list of comma-separated keys returned in the "Content-location" header.</p><p><b>Reading
             Keys</b></p>To list all keys in a region, use the following
           endpoint:<codeblock>/gemfire-api/v1/{region}/keys</codeblock><p>For
-          example:<codeblock>http://localhost:7070/gemfire-api/v1/items/keys</codeblock></p><p>You
+            example:</p>
+        <codeblock>http://localhost:7070/gemfire-api/v1/items/keys</codeblock>
+        <p>You
           can use the returned key to perform additional operations on the keys such as read, update
           or delete their values.</p></section>
       <p>
         <b>Reading Entries By Key</b>
       </p>
       <p>To obtain data for a specific key or set of keys, use the following
-        endpoints:<codeblock>GET /gemfire-api/v1/{region}/{key1}</codeblock>or
-        <codeblock>GET /gemfire-api/v1/{region}/{key1},{key2},...,{keyN}</codeblock>where you
+        endpoints:</p>
+      <codeblock>GET /gemfire-api/v1/{region}/{key1}</codeblock>
+      <p>or</p>
+        <codeblock>GET /gemfire-api/v1/{region}/{key1},{key2},...,{keyN}</codeblock>
+      <p>where you
         specify keys in a comma-delimited list.</p>
       <p>For
-        example:<codeblock>http://localhost:7070/gemfire-api/v1/items/1
+        example:</p>
+      <codeblock>http://localhost:7070/gemfire-api/v1/items/1
 
-http://localhost:7070/gemfire-api/v1/items/1,3,5</codeblock></p>
+http://localhost:7070/gemfire-api/v1/items/1,3,5</codeblock>
       <p dir="ltr">If one or more of the keys you provide in the list of keys is missing from the
         region, you will receive a 400 BAD STATUS error response. </p>
       <p dir="ltr">If you are providing multiple keys, you can also use the
           <codeph>?ignoreMissingKey=true</codeph> parameter to prevent 400 errors . Any non-existing
         keys will instead return a null response. For
-        example:<codeblock>http://localhost:7070/gemfire-api/v1/items/1,3,5?ignoreMissingKey=true</codeblock></p>
+        example:</p>
+      <codeblock>http://localhost:7070/gemfire-api/v1/items/1,3,5?ignoreMissingKey=true</codeblock>
       <section>
         <title>Adding or Modifying Region Data</title>
-        <p>To add data to a region, you have several options:<ul id="ul_wty_ccq_p4">
+        <p>To add data to a region, you have several options:</p>
+          <ul id="ul_wty_ccq_p4">
             <li dir="ltr">Create new a brand new entry (both key and value) in a region</li>
             <li dir="ltr">Update or insert a value for a key (if the key does not exist, it will be
               created)</li>
@@ -144,19 +166,27 @@ http://localhost:7070/gemfire-api/v1/items/1,3,5</codeblock></p>
             <li dir="ltr">Compare existing value for a key before replacing value</li>
             <li dir="ltr">Update or insert multiple values in the region for a set of provided
               keys</li>
-          </ul></p>
+          </ul>
         <p>
           <b>Adding entries</b>
         </p>
         <p>To add a new key and value to a region, you can use the following
-          endpoint:<codeblock>POST /gemfire-api/v1/{region}?key=&lt;key></codeblock>This endpoint
+          endpoint:</p>
+        <codeblock>POST /gemfire-api/v1/{region}?key=&lt;key></codeblock>
+        <p>This endpoint
           only puts the entry into the region <b>if the specified key does not already exist</b>. If
-          the key already exists, the request will fail with a 409 CONFLICT error.<note>If you do
+          the key already exists, the request will fail with a 409 CONFLICT error.</p>
+        <note>
+          <p>If you do
             not specify a key for this request, a String representation of a numerical key will be
-            generated automatically for you. </note></p>
+            generated automatically for you.
+          </p>
+        </note>
         <p dir="ltr">Specify the value for the new entry in the request body. For
-          example:<codeblock>http://localhost:7070/gemfire-api/v1/orders?key=2
-</codeblock><codeblock>Request Payload: application/json
+          example:</p>
+        <codeblock>http://localhost:7070/gemfire-api/v1/orders?key=2
+</codeblock>
+        <codeblock>Request Payload: application/json
 POST /gemfire-api/v1/orders?key=2
 
 Accept: application/json
@@ -188,15 +218,19 @@ Content-Type: application/json
              "totalPrice": 400
         }
     ]
-}</codeblock>Note
+}</codeblock>
+        <p>Note
           that in the example above, <codeph>@type</codeph> is used to declare the value-constraint
           for the new entry. This declaration is required to provide interoperability between Java
           cache clients and REST clients.</p>
         <p dir="ltr">Alternately, you can also use the following endpoint to create a new
-          entry:<codeblock>PUT /gemfire/v1/{region}/{key}</codeblock></p>
+          entry:</p>
+        <codeblock>PUT /gemfire/v1/{region}/{key}</codeblock>
         <p dir="ltr">This endpoint will add the entry if the key does not exist. If the key already
           exists, the operation will update the
-          entry.<codeblock>http://localhost:7070/gemfire-api/v1/orders/2</codeblock><codeblock>Request Payload: application/json
+          entry.</p>
+        <codeblock>http://localhost:7070/gemfire-api/v1/orders/2</codeblock>
+        <codeblock>Request Payload: application/json
 PUT /gemfire-api/v1/orders/2
 Request Payload: application/json
 Content-Type: application/json
@@ -222,24 +256,27 @@ Accept: application/json
         }
     ]
 }
-</codeblock></p>
+</codeblock>
         <p>
           <b>Modifying existing entries</b>
         </p>
         <p dir="ltr"><keyword keyref="product_name"/> provides three different options for this type
           of operation. To update a value for the key, you can
-          use:<codeblock>PUT /gemfire/v1/{region}/{key}
+          use:</p>
+        <codeblock>PUT /gemfire/v1/{region}/{key}
 PUT /gemfire/v1{region}/{key}?op=REPLACE
-PUT /gemfire/v1{region}/{key}?op=CAS</codeblock></p>
+PUT /gemfire/v1{region}/{key}?op=CAS</codeblock>
         <p dir="ltr">If you do not specify a parameter to the PUT operation, the request which will
           add or update the entry regardless of whether the key already exists in the region. See
-          the example above.<codeblock>http://localhost:7070/gemfire-api/v1/orders/2</codeblock></p>
+          the example above.</p>
+        <codeblock>http://localhost:7070/gemfire-api/v1/orders/2</codeblock>
         <p>If you specify the op=REPLACE parameter, the request which will explicitly perform a
           Cache replace operation and will verify that the key exists before replacing the value. If
           the key does not exist in the specified region, you will receive a 404 NOT FOUND error.
           This operation is idempotent, meaning multiple identical requests will have the same
           effect as the initial
-          request.<codeblock>http://localhost:7070/gemfire-api/v1/orders/2?op=REPLACE</codeblock></p>
+          request.</p>
+        <codeblock>http://localhost:7070/gemfire-api/v1/orders/2?op=REPLACE</codeblock>
         <p>If you specify the op=CAS parameter, the value will only be replaced with the
             <codeph>@new</codeph> value only if the specified <codeph>@old</codeph> value matches
           the current value of the key in the region. If the <codeph>@old</codeph> value does not
@@ -248,7 +285,9 @@ PUT /gemfire/v1{region}/{key}?op=CAS</codeblock></p>
           endpoint to get an updated copy of the value. This operation is not idempotent and
           multiple identical requests will not have the same effect as the initial request. You can
           use this type of REST call to achieve a similar effect as optimistic
-          locking.<codeblock>http://localhost:7070/gemfire-api/v1/orders/2?op=REPLACE</codeblock><codeblock>Request Payload: application/json
+          locking.</p>
+        <codeblock>http://localhost:7070/gemfire-api/v1/orders/2?op=REPLACE</codeblock>
+        <codeblock>Request Payload: application/json
 
 PUT /gemfire-api/v1/orders/2?op=CAS
 
@@ -297,35 +336,43 @@ Content-Type: application/json
         ],
          "totalPrice": 149.95
     }
-}</codeblock></p>
+}</codeblock>
         <p>
           <b>Adding or updating multiple values for a set of keys</b>
         </p>
         <p dir="ltr">To update multiple values for keys,
-          use:<codeblock>PUT /gemfire-api/v1/{region}/{key1},{key2},...,{keyN}</codeblock></p>
+          use:</p>
+        <codeblock>PUT /gemfire-api/v1/{region}/{key1},{key2},...,{keyN}</codeblock>
         <p dir="ltr">This REST call will update any keys that already exist and insert values for
           any keys that do not exist in the region.</p>
       </section>
       <section>
         <title>Deleting Region Data</title>
-        <p>There are three options for deleting data in a region using REST APIs:<ul
+        <p>There are three options for deleting data in a region using REST APIs:</p>
+          <ul
             id="ul_rvg_j2q_p4">
             <li dir="ltr">Delete all the data in the region</li>
             <li dir="ltr">Delete the data associated with a particular key</li>
             <li dir="ltr">Delete the data associated with a set of keys</li>
-          </ul></p>
+          </ul>
         <p>
           <b>Deleting all data</b>
         </p>
         <p>To delete all data in the region, use the following
-          endpoint:<codeblock>DELETE /gemfire-api/v1/{region}</codeblock>For
-          example:<codeblock>http://localhost:7070/gemfire-api/v1/items</codeblock>Note that this
+          endpoint:</p>
+        <codeblock>DELETE /gemfire-api/v1/{region}</codeblock>
+        <p>For
+          example:</p>
+        <codeblock>http://localhost:7070/gemfire-api/v1/items</codeblock>
+        <p>Note that this
           does not delete the region itself, but instead all the entries in the region.</p>
         <p>
           <b>Deleting data based on key</b>
         </p>
-        <p>Use:<codeblock>DELETE /gemfire-api/v1/{region}/{key}</codeblock>or
-          <codeblock>DELETE /gemfire-api/v1/{region}/{key}{key1},{key2},...{keyN}</codeblock></p>
+        <p>Use:</p>
+        <codeblock>DELETE /gemfire-api/v1/{region}/{key}</codeblock>
+        <p>or</p>
+          <codeblock>DELETE /gemfire-api/v1/{region}/{key}{key1},{key2},...{keyN}</codeblock>
         <p dir="ltr">If any of the supplied keys are not found in the region, the request will fail
           and return a 404 NOT FOUND ERROR.</p>
       </section>
@@ -341,19 +388,24 @@ Content-Type: application/json
       <section>
         <title>Listing Queries</title>
         <p>To find out which predefined and named queries are available in your deployment, use the
-          following endpoint: <codeblock>GET /gemfire-api/v1/queries</codeblock>All queries that
+          following endpoint:</p>
+        <codeblock>GET /gemfire-api/v1/queries</codeblock>
+        <p>All queries that
           have been predefined and assigned IDs in <keyword keyref="product_name"/> are listed.</p>
       </section>
       <section id="section_t4h_wtp_y4">
         <title>Creating a New Query</title>
         <p dir="ltr">To create a query, use the following
-          endpoint:<codeblock>POST /gemfire-api/v1/queries?id=&lt;queryId&gt;&amp;q=&lt;OQL-statement&gt;</codeblock></p>
+          endpoint:</p>
+        <codeblock>POST /gemfire-api/v1/queries?id=&lt;queryId&gt;&amp;q=&lt;OQL-statement&gt;</codeblock>
         <p dir="ltr">Here are some
-          examples:<codeblock>http://localhost:7070/gemfire-api/v1/queries?id=selectOffers&amp;q="SELECT DISTINCT c FROM /customers c, /orders o WHERE o.totalprice &lt; $1 AND c.customerId = o.customerId"</codeblock></p>
-        <p>
-          <note>The query must be provided as a URL parameter. You cannot specify OQL in the request
-            body at this time.</note>
-        </p>
+          examples:</p>
+        <codeblock>http://localhost:7070/gemfire-api/v1/queries?id=selectOffers&amp;q="SELECT DISTINCT c FROM /customers c, /orders o WHERE o.totalprice &lt; $1 AND c.customerId = o.customerId"</codeblock>
+          <note>
+            <p>The query must be provided as a URL parameter. You cannot specify OQL in the request
+            body at this time.
+            </p>
+          </note>
         <p dir="ltr">You can specify query bind parameters ($1) in your predefined queries and then
           pass in values at runtime.</p>
         <p>To update this query at a later time, use the <xref
@@ -363,11 +415,14 @@ Content-Type: application/json
       <section id="section_b1p_wtp_y4">
         <title>Executing a Prepared Query</title>
         <p dir="ltr">To run a prepared query,
-          use:<codeblock>POST /gemfire-api/v1/queries/{queryId}</codeblock></p>
+          use:</p>
+        <codeblock>POST /gemfire-api/v1/queries/{queryId}</codeblock>
         <p dir="ltr">Specify the queryId in the URL. All query argument must be passed in the
           request body. For
-          example:<codeblock>http://localhost:7070/gemfire-api/v1/queries/selectOrders
-</codeblock><codeblock>Request Payload: OQL bind parameter values HTTP message body of media type application/json
+          example:</p>
+        <codeblock>http://localhost:7070/gemfire-api/v1/queries/selectOrders
+</codeblock>
+        <codeblock>Request Payload: OQL bind parameter values HTTP message body of media type application/json
 POST /gemfire-api/v1/queries/selectOrders
 Accept: application/json
 Content-Type: application/json
@@ -423,9 +478,10 @@ Content-Type: application/json
     {...},
     {...}
 }
-</codeblock>Another
+</codeblock>
+        <p>Another
           example:</p>
-        <p dir="ltr">
+        <p dir="ltr"></p>
           <codeblock>http://localhost:7070/gemfire-api/v1/queries/selectOrders
 </codeblock>
           <codeblock>Request Payload: OQL bind parameter values HTTP message body of media type application/json
@@ -454,14 +510,15 @@ Content-Type: application/json
         "type-class": "com.gemstone.gemfire.web.rest.domain.Customer"
     }
 ]</codeblock>
-        </p>
       </section>
       <section id="section_oj1_b5p_y4">
         <title>Modifying a Prepared Query</title>
         <p>To modify an existing prepared query, use the following
-          endpoint:<codeblock>PUT /gemfire-api/v1/queries/{queryId}</codeblock></p>
+          endpoint:</p>
+        <codeblock>PUT /gemfire-api/v1/queries/{queryId}</codeblock>
         <p dir="ltr">Here are some
-          examples:<codeblock>http://localhost:7070/gemfire-api/v1/queries/selectOffers&amp;q="SELECT DISTINCT c FROM /customers c, /orders o WHERE o.totalprice &lt; $1 AND c.customerId = o.customerId"</codeblock></p>
+          examples:</p>
+        <codeblock>http://localhost:7070/gemfire-api/v1/queries/selectOffers&amp;q="SELECT DISTINCT c FROM /customers c, /orders o WHERE o.totalprice &lt; $1 AND c.customerId = o.customerId"</codeblock>
         <p dir="ltr">You can specify query bind parameters ($1) in your predefined queries, and then
           pass in values at runtime.</p>
         <p>A PUT operation will only succeed if the specified queryId already exists (for example,
@@ -472,15 +529,19 @@ Content-Type: application/json
       <section id="section_igg_b5p_y4">
         <title>Deleting a Prepared Query</title>
         <p>To delete an existing prepared query, use the following
-          endpoint:<codeblock>DELETE /gemfire-api/v1/queries/{queryId}</codeblock></p>
+          endpoint:</p>
+        <codeblock>DELETE /gemfire-api/v1/queries/{queryId}</codeblock>
       </section>
       <section id="section_wbk_b5p_y4">
         <title>Executing an Ad-Hoc Query</title>
         <p>To run an unnamed query, use the following
-          endpoint:<codeblock>GET /gemfire-api/v1/queries/adhoc?q=&lt;OQL-statement></codeblock>Provide
+          endpoint:</p>
+        <codeblock>GET /gemfire-api/v1/queries/adhoc?q=&lt;OQL-statement></codeblock>
+        <p>Provide
           the OQL query string directly in the URL enclosed in single quotes.</p>
         <p>For
-          example:<codeblock>http://localhost:7070/gemfire-api/v1/queries/adhoc?q="SELECT * FROM /customers"</codeblock></p>
+          example:</p>
+        <codeblock>http://localhost:7070/gemfire-api/v1/queries/adhoc?q="SELECT * FROM /customers"</codeblock>
       </section>
     </body>
   </topic>
@@ -504,7 +565,8 @@ Content-Type: application/json
         <title>Listing Functions</title>
         <p dir="ltr">To list all functions that are currently registered and deployed in the
             <keyword keyref="product_name"/> cluster, use the following
-          endpoint:<codeblock>GET /gemfire-api/v1/functions</codeblock></p>
+          endpoint:</p>
+        <codeblock>GET /gemfire-api/v1/functions</codeblock>
         <p dir="ltr">The list of returned functions includes the functionId, which you can use to
           execute the function as described in the next section.</p>
       </section>
@@ -512,13 +574,16 @@ Content-Type: application/json
         <title>Executing Functions</title>
         <p dir="ltr">To execute a function on a <keyword keyref="product_name"/> cluster, use the
           following
-          endpoint:<codeblock>POST /gemfire-api/v1/functions/{functionId}?[&amp;onRegion=regionname|&amp;onMembers=member1,member2,...,memberN|&amp;onGroups=group1,group2,...,groupN]</codeblock></p>
+          endpoint:</p>
+        <codeblock>POST /gemfire-api/v1/functions/{functionId}?[&amp;onRegion=regionname|&amp;onMembers=member1,member2,...,memberN|&amp;onGroups=group1,group2,...,groupN]</codeblock>
         <p dir="ltr">You have the option to target a specific region and members or member groups
           when executing your function. If you do not specify these parameters, the function will
           execute on all members that are hosting data in the entire cluster by default. Function
           arguments are passed in the request body.</p>
         <p dir="ltr">For
-          example:<codeblock>http://localhost:7070/gemfire-api/v1/functions/AddFreeItemToOrders</codeblock><codeblock>Request Payload: application/json
+          example:</p>
+        <codeblock>http://localhost:7070/gemfire-api/v1/functions/AddFreeItemToOrders</codeblock>
+        <codeblock>Request Payload: application/json
 POST /gemfire-api/v1/functions/AddFreeItemToOrders
 Accept: application/json
 Content-Type: application/json
@@ -537,7 +602,7 @@ Content-Type: application/json
         "totalprice": "10.00"
      }
 ]
-</codeblock></p>
+</codeblock>
         <p>In the above example, the <codeph>Item</codeph> domain object must be in the CLASSPATH of
           all members receiving the function. If the object is not defined, the function will fail
           with an <codeph>Internal Server</codeph> error. Look for

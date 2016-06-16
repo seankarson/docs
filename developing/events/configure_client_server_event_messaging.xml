@@ -13,20 +13,24 @@
 			<p>Before you begin, set up your client/server installation and configure and program
 				your basic event messaging. </p>
 			<p>Servers receive updates for all entry events in their client's client regions. </p>
-			<p>To receive entry events in the client from the server: <ol
+			<p>To receive entry events in the client from the server: </p>
+				<ol
 					id="ol_45F1BFD68F2546C2AC2A3607672F85F1">
 					<li id="li_4C4D794ABE8F466FB9EBEBCF48389A08">Set the client pool
 							<codeph>subscription-enabled</codeph> to true. See <xref
 							href="../../reference/topics/client-cache.xml#cc-pool"/>. </li>
 					<li id="li_75B14BE02AF04526BF5C2DE3C6E31B30">Program the client to register
-						interest in the entries you need. <p>
-							<note>This must be done through the API. </note>
+						interest in the entries you need.
+					<note>
+						<p>This must be done through the API.
 						</p>
+					</note>
 						<p>Register interest in all keys, a key list, individual keys, or by
 							comparing key strings to regular expressions. By default, no entries are
 							registered to receive updates. Specify whether the server is to send
 							values with entry update events. Interest registration is only available
-							through the API. <ol id="ol_2efd510d-cbf5-4d9b-879f-912a1b0b147c">
+							through the API. </p>
+							<ol id="ol_2efd510d-cbf5-4d9b-879f-912a1b0b147c">
 								<li id="li_6880FE72C05241C69B4316DB13A44E5F">Get an instance of the
 									region where you want to register interest. </li>
 								<li id="li_AA91FDCE9CE740F2A81668EF66BBF4B9">Use the regions's
@@ -77,9 +81,8 @@ region1.registerInterestRegex("[a-zA-Z]+_[0-9]+"); </codeblock>
 									events because the pools might use different servers to process
 									and deliver the event messages. </li>
 							</ol>
-						</p></li>
+						</li>
 				</ol>
-			</p>
 		</section>
 	</conbody>
 </concept>

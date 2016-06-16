@@ -6,7 +6,8 @@
   <shortdesc>The location where you can run your transaction depends on where you are storing your
     data. </shortdesc>
   <conbody>
-    <p>Transactions must operate on a data set that is hosted entirely by one member. <ul
+    <p>Transactions must operate on a data set that is hosted entirely by one member.</p>
+      <ul
         id="ul_ws2_bc1_wk">
         <li>For replicated or other distributed regions, the transaction uses only the data set in
           the member where the transaction is run.</li>
@@ -16,7 +17,7 @@
         <li>For transactions run on partitioned and distributed region mixes, you must colocate the
           partitioned region data and make sure the distributed region data is available in any
           member hosting the partitioned region data.</li>
-      </ul></p>
+      </ul>
     <p>For transactions involving partitioned regions, any member with the regions defined can
       orchestrate the transactional operations, regardless of whether that member hosts data for the
       regions. If the transactional data resides on a remote member, the transaction is carried out

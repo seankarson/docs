@@ -11,12 +11,12 @@
     <conbody>
       <p>As many entry operations return a reference to the cache entry, copy-on-read avoids
         problems within a  transaction setting. To enable global copy-on-read for all reads, modify
-        the <filepath>cache.xml</filepath> file or use the corresponding Java API call.</p>
-      <p>Using cache.xml:
-        <codeblock>&lt;cache lock-lease="120" lock-timeout="60" search-timeout="300" <b>copy-on-read="true"</b>></codeblock></p>
-      <p>API:
+        the <codeph>cache.xml</codeph> file or use the corresponding Java API call.</p>
+      <p>Using cache.xml:</p>
+        <codeblock>&lt;cache lock-lease="120" lock-timeout="60" search-timeout="300" <b>copy-on-read="true"</b>></codeblock>
+      <p>API:</p>
         <codeblock>Cache c = CacheFactory.getInstance(system);
- c.setCopyOnRead(true);</codeblock>The
+ c.setCopyOnRead(true);</codeblock><p>The
         copy-on-read attribute and the operations affected by the attribute setting are discussed in
         detail in <xref
           href="../../basic_config/data_entries_custom_classes/managing_data_entries.xml"/>.</p>
@@ -28,13 +28,14 @@
       <p>If <codeph>copy-on-read</codeph> is <i>not</i> globally set, and the cache uses replicated
         regions, explicitly make copies of the cache objects that are to be modified within a
         transaction. The <codeph>CopyHelper.copy</codeph> method makes
-        copies:<codeblock>CacheTransactionManager cTxMgr = cache.getCacheTransactionManager();
+        copies:</p>
+      <codeblock>CacheTransactionManager cTxMgr = cache.getCacheTransactionManager();
 cTxMgr.begin(); 
 Object o = (StringBuffer) r.get("stringBuf");
 StringBuffer s = (StringBuffer) CopyHelper.copy(o);
 s.append("Changes unseen before commit. Read Committed."); 
 r.put("stringBuf", s); 
-cTxMgr.commit();</codeblock></p>
+cTxMgr.commit();</codeblock>
     </conbody>
   </concept>
   <concept id="concept_ihn_zmt_vk">
@@ -94,7 +95,8 @@ cTxMgr.commit();</codeblock></p>
         <title>Configure Expiration</title>
         <p>Local expiration actions do not cause write conflicts, but distributed expiration can
           cause conflicts and prevent transactions from committing in the members receiving the
-          distributed operation. <ul id="ul_ayp_gyz_vk">
+          distributed operation.</p>
+          <ul id="ul_ayp_gyz_vk">
             <li>When you are using transactions on local, preloaded or empty regions, make
               expiration local if possible. For every instance of that region, configure an
               expiration action of local invalidate or local destroy. In a cache.xml declaration,
@@ -112,12 +114,12 @@ cTxMgr.commit();</codeblock></p>
                 <li>Choose an instance of the region to drive region-wide expiration. Use a
                   replicated region, if there is one.</li>
                 <li>Configure distributed expiration only in that region instance. The expiration
-                  action must be either invalidate or destroy. In a <filepath>cache.xml</filepath>
+                  action must be either invalidate or destroy. In a <codeph>cache.xml</codeph>
                   file declaration, use a line similar to
                   this:<codeblock>&lt;expiration-attributes timeout="300" <b>action="destroy"</b> /></codeblock></li>
                 <li>Run the transactions from the member in which expiration is configured.</li>
               </ul></li>
-          </ul></p>
+          </ul>
       </section>
     </conbody>
   </concept>
@@ -190,7 +192,8 @@ cTxMgr.commit();</codeblock></p>
           keyref="product_name"/> transaction ID, so the cache listener can associate each event, as
         it occurs, with a particular transaction. The transaction ID of an
           <codeph>EntryEvent</codeph> that is not part of a transaction is null to distinguish it
-        from a transaction ID. <ul id="ul_13E121CD255D4C7692787F5DCAF075A5">
+        from a transaction ID. </p>
+        <ul id="ul_13E121CD255D4C7692787F5DCAF075A5">
           <li id="li_46F1FD8534274841B0EDEE90C83E8D45"><codeph>CacheLoader</codeph>. When a cache
             loader is called by a transaction operation, values loaded by the cache loader may cause
             a write conflict when the transaction commits. </li>
@@ -202,23 +205,28 @@ cTxMgr.commit();</codeblock></p>
           <li id="li_8B057E2FA8174DAFADFE9DB32BA00E2F"><codeph>CacheListener</codeph>. The cache
             listener callbacks - local and remote - are triggered after the transaction commits. The
             system sends the conflated transaction events, in the order they were stored. </li>
-        </ul>For more information on writing cache event handlers, see <xref
-          href="../events/implementing_cache_event_handlers.xml"/>.</p>
+        </ul>
+      <p>For more information on writing cache event handlers, see <xref
+        href="../events/implementing_cache_event_handlers.xml"/>.</p>
     </conbody>
   </concept>
   <concept id="concept_ocw_vf1_wk">
     <title>Configuring Transaction Plug-In Event Handlers</title>
     <conbody>
-      <p><keyword keyref="product_name"/> has two types of transaction plug-ins-- Transaction
-        Writers and Transaction Listeners. You can optionally install one transaction writer and one
-        or more transaction listeners per cache. </p>
+      <p><keyword keyref="product_name"/> has two types of transaction plug-ins: Transaction Writers
+        and Transaction Listeners. You can optionally install one transaction writer and one or more
+        transaction listeners per cache. </p>
       <p>Like JTA global transactions, you can use transaction plug-in event handlers to coordinate
         <keyword keyref="product_name"/> cache transaction activity with an external data store. However, you typically use
         JTA global transactions when <keyword keyref="product_name"/> is running as a peer data
         store with your external data stores. Transaction writers and listeners are typically used
         when <keyword keyref="product_name"/> is acting as a front end cache to your backend
-          database.<note>You can also use transaction plug-in event handlers when running JTA global
-          transactions. </note></p>
+          database.</p>
+      <note>
+        <p>You can also use transaction plug-in event handlers when running JTA global
+          transactions.
+        </p>
+      </note>
       <section>
         <title>TransactionWriter</title>
         <p>When you commit a transaction, if a transaction writer is installed in the cache where
@@ -264,12 +272,14 @@ cTxMgr.commit();</codeblock></p>
             <codeph>transaction-listener</codeph> there. The only parameter to this
             <codeph>transaction-listener</codeph> is <codeph>URL</codeph>, which must be a string,
           as shown in the following cache.xml example.</p>
-        <p>
-          <note>The <codeph>cache-transaction-manager</codeph> allows listeners to be established.
-            This attribute does not install a different transaction manager.</note>
-        </p>
+          <note>
+            <p>The <codeph>cache-transaction-manager</codeph> allows listeners to be established.
+            This attribute does not install a different transaction manager.
+            </p>
+          </note>
         <p>Using
-          cache.xml:<codeblock>&lt;cache search-timeout="60">
+          cache.xml:</p>
+        <codeblock>&lt;cache search-timeout="60">
            &lt;cache-transaction-manager>
              &lt;transaction-listener>
                &lt;class-name>com.company.data.MyTransactionListener&lt;/class-name>
@@ -282,10 +292,11 @@ cTxMgr.commit();</codeblock></p>
              &lt;/transaction-listener> 
           &lt;/cache-transaction-manager>
                . . . 
-        &lt;/cache></codeblock></p>
+        &lt;/cache></codeblock>
         <p>Using the Java
-          API:<codeblock>CacheTransactionManager manager = cache.getCacheTransactionManager(); 
-manager.addListener(new LoggingTransactionListener());</codeblock></p>
+          API:</p>
+        <codeblock>CacheTransactionManager manager = cache.getCacheTransactionManager(); 
+manager.addListener(new LoggingTransactionListener());</codeblock>
       </section>
     </conbody>
   </concept>

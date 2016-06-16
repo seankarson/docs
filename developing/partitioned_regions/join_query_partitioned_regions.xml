@@ -13,13 +13,13 @@
 				href="../query_additional/partitioned_region_query_restrictions.xml#concept_5353476380D44CC1A7F586E5AE1CE7E8"
 				type="concept" format="dita" scope="local"/> for more information on partitioned
 			region query limitations. </p>
-		<p> For example, let's say your equi-join query is the following:
+		<p> For example, let's say your equi-join query is the following:</p>
 			<codeblock>SELECT DISTINCT * FROM /QueryRegion1 r1,
 /QueryRegion2 r2 WHERE r1.ID = r2.ID</codeblock>
-			In this example QueryRegion2 is colocated with QueryRegion1, and both regions have same
+		<p>In this example QueryRegion2 is colocated with QueryRegion1, and both regions have same
 			type of data objects. </p>
 		<p> </p>
-		<p> On the server side:
+		<p> On the server side:</p>
 			<codeblock>
  Function prQueryFunction1 = new QueryFunction();
  FunctionService.registerFunction(prQueryFunction1);
@@ -46,10 +46,10 @@
 } 
 	 
 </codeblock>
-			On the server side, <codeph>Query.execute()</codeph> operates on the local data of the
+		<p>	On the server side, <codeph>Query.execute()</codeph> operates on the local data of the
 			partitioned region. </p>
 		<p> </p>
-		<p> On the client side:
+		<p> On the client side:</p>
 			<codeblock> 
 Function function = new QueryFunction();
 String queryString = "SELECT DISTINCT * FROM /QueryRegion1 r1,
@@ -71,7 +71,6 @@ if (resultList.size() != 0) {
    }
 }
 </codeblock>
-		</p>
 		<p> On the client side, note that you can specify a bucket filter while invoking
 			FunctionService.onRegion(). In this case, the query engine relies on FunctionService to
 			direct the query to specific nodes. </p>

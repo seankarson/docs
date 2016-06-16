@@ -12,47 +12,45 @@
 				<p><b> Availability:</b> Online. You must be connected in <codeph>gfsh</codeph> to a
 					JMX Manager member to use this command. </p>
 				<p><b>Syntax:</b>
-					<codeblock>destroy disk-store --name=value [--group=value(,value)*]</codeblock>
-					<table id="table_igr_l2z_ck">
-						<title>Parameters</title>
-						<tgroup cols="2">
-							<colspec colname="col1" colnum="1" colwidth="25%"/>
-							<colspec colname="col2" colnum="2" colwidth="*"/>
-							<thead>
-								<row>
-									<entry colname="col1">Name </entry>
-									<entry colname="col2">Description</entry>
-								</row>
-							</thead>
-							<tbody>
-								<row>
-									<entry colname="col1"><parmname>--name</parmname>
-									</entry>
-									<entry colname="col2"><i>Required.</i> Name of the disk store to
-										be deleted.</entry>
-								</row>
-								<row>
-									<entry colname="col1"><parmname>--group</parmname></entry>
-									<entry colname="col2"> Group(s) of members on which the disk
-										store will be destroyed. If no group is specified, the disk
-										store is destroyed on all members.</entry>
-								</row>
-							</tbody>
-						</tgroup>
-					</table>
 				</p>
+				<codeblock>destroy disk-store --name=value [--group=value(,value)*]</codeblock>
+				<table id="table_ypc_1dh_2w">
+					<title>Parameters</title>
+					<tgroup cols="2">
+						<colspec colname="col1" colnum="1" colwidth="25%"/>
+						<colspec colname="col2" colnum="2" colwidth="*"/>
+						<thead>
+							<row>
+								<entry colname="col1">Name </entry>
+								<entry colname="col2">Description</entry>
+							</row>
+						</thead>
+						<tbody>
+							<row>
+								<entry colname="col1"><parmname>--name</parmname>
+								</entry>
+								<entry colname="col2"><i>Required.</i> Name of the disk store to be
+									deleted.</entry>
+							</row>
+							<row>
+								<entry colname="col1"><parmname>--group</parmname></entry>
+								<entry colname="col2"> Group(s) of members on which the disk store
+									will be destroyed. If no group is specified, the disk store is
+									destroyed on all members.</entry>
+							</row>
+						</tbody>
+					</tgroup>
+				</table>
 				<p><b>Example Commands:</b>
-					<codeblock>destroy disk-store --name=store1</codeblock>
 				</p>
+				<codeblock>destroy disk-store --name=store1</codeblock>
 				<p><b>Sample Output:</b>
 				</p>
-				<p>
-					<codeblock>gfsh>destroy disk-store --name=store1
+				<codeblock>gfsh>destroy disk-store --name=store1
 Member  | Result
 ------- | -------
 server1 | Success
 </codeblock>
-				</p>
 			</body>
 		</topic>
 		<topic id="topic_E48C2DF809054C12A162026D8A2139BB">
@@ -63,48 +61,48 @@ server1 | Success
 				<p><b> Availability:</b> Online. You must be connected in <codeph>gfsh</codeph> to a
 					JMX Manager member to use this command. </p>
 				<p><b>Syntax:</b>
-					<codeblock>destroy function --id=value [--group=value] [--member=value]</codeblock>
-					<table id="table_063CC371444D4963B0C58DAD814544F6">
-						<title>Parameters</title>
-						<tgroup cols="2">
-							<colspec colname="col1" colnum="1" colwidth="1.00*"/>
-							<colspec colname="col2" colnum="2" colwidth="2.82*"/>
-							<thead>
-								<row>
-									<entry colname="col1">Name </entry>
-									<entry colname="col2">Description</entry>
-								</row>
-							</thead>
-							<tbody>
-								<row>
-									<entry colname="col1"><parmname>--id</parmname>
-									</entry>
-									<entry colname="col2"><i>Required.</i> Unique function
-										identifier. Use the <codeph>list functions</codeph> command
-										to obtain the ID. </entry>
-								</row>
-								<row>
-									<entry colname="col1"><parmname>--groups</parmname>
-									</entry>
-									<entry colname="col2"> One or more groups of members from which
-										this function will be unregistered. </entry>
-								</row>
-								<row>
-									<entry colname="col1"><parmname>--member</parmname>
-									</entry>
-									<entry colname="col2"> Name or ID of the member from which this
-										function will be unregistered. </entry>
-								</row>
-							</tbody>
-						</tgroup>
-					</table>
 				</p>
+				<codeblock>destroy function --id=value [--group=value] [--member=value]</codeblock>
+				<table id="table_rq1_ddh_2w">
+					<title>Parameters</title>
+					<tgroup cols="2">
+						<colspec colname="col1" colnum="1" colwidth="1.00*"/>
+						<colspec colname="col2" colnum="2" colwidth="2.82*"/>
+						<thead>
+							<row>
+								<entry colname="col1">Name </entry>
+								<entry colname="col2">Description</entry>
+							</row>
+						</thead>
+						<tbody>
+							<row>
+								<entry colname="col1"><parmname>--id</parmname>
+								</entry>
+								<entry colname="col2"><i>Required.</i> Unique function identifier.
+									Use the <codeph>list functions</codeph> command to obtain the
+									ID. </entry>
+							</row>
+							<row>
+								<entry colname="col1"><parmname>--groups</parmname>
+								</entry>
+								<entry colname="col2"> One or more groups of members from which this
+									function will be unregistered. </entry>
+							</row>
+							<row>
+								<entry colname="col1"><parmname>--member</parmname>
+								</entry>
+								<entry colname="col2"> Name or ID of the member from which this
+									function will be unregistered. </entry>
+							</row>
+						</tbody>
+					</tgroup>
+				</table>
 				<p><b>Example Commands:</b>
-					<codeblock>
+				</p>
+				<codeblock>
 (1) destroy function --id=InterestCalculations
 (2) destroy function --id=InterestCalculations --member=server1
 (3) destroy function --id=InterestCalculations --group=Group1</codeblock>
-				</p>
 			</body>
 		</topic>
 		<topic id="topic_D00219CCD6F64C1582A0802AC5CDF3F3">
@@ -114,56 +112,59 @@ server1 | Success
 				<p><b> Availability:</b> Online. You must be connected in <codeph>gfsh</codeph> to a
 					JMX Manager member to use this command. </p>
 				<p><b>Syntax:</b>
-					<codeblock>
+				</p>
+				<codeblock>
 destroy index [--name=value] [--region=value] [--member=value] 
 [--group=value]</codeblock>
-					<note>You must specify at least one of the parameter options. If you enter
-							<codeph>destroy index</codeph> without any parameters, the command will
-						ask you to specify at least one option. </note>
-					<table id="table_E8A7AFC021754076B9F42964625D1746">
-						<title>Parameters</title>
-						<tgroup cols="2">
-							<colspec colname="col1" colnum="1" colwidth="1.00*"/>
-							<colspec colname="col2" colnum="2" colwidth="2.82*"/>
-							<thead>
-								<row>
-									<entry colname="col1">Name </entry>
-									<entry colname="col2">Description</entry>
-								</row>
-							</thead>
-							<tbody>
-								<row>
-									<entry colname="col1"><parmname>--name</parmname>
-									</entry>
-									<entry colname="col2">Name for the index to be removed. </entry>
-								</row>
-								<row>
-									<entry colname="col1"><parmname>--member</parmname>
-									</entry>
-									<entry colname="col2"> Id of the member on which index is to be
-										created. </entry>
-								</row>
-								<row>
-									<entry colname="col1"><parmname>--region</parmname>
-									</entry>
-									<entry colname="col2">Name of the region , from where an index
-										or all indexes are to be destroyed. </entry>
-								</row>
-								<row>
-									<entry colname="col1"><parmname>--group</parmname>
-									</entry>
-									<entry colname="col2">The index will be created on all the
-										members in this member group. </entry>
-								</row>
-							</tbody>
-						</tgroup>
-					</table>
-				</p>
+				<note>
+					<p>You must specify at least one of the parameter options. If you enter
+						<codeph>destroy index</codeph> without any parameters, the command will ask
+					you to specify at least one option. 
+					</p>
+				</note>
+				<table id="table_n24_fdh_2w">
+					<title>Parameters</title>
+					<tgroup cols="2">
+						<colspec colname="col1" colnum="1" colwidth="1.00*"/>
+						<colspec colname="col2" colnum="2" colwidth="2.82*"/>
+						<thead>
+							<row>
+								<entry colname="col1">Name </entry>
+								<entry colname="col2">Description</entry>
+							</row>
+						</thead>
+						<tbody>
+							<row>
+								<entry colname="col1"><parmname>--name</parmname>
+								</entry>
+								<entry colname="col2">Name for the index to be removed. </entry>
+							</row>
+							<row>
+								<entry colname="col1"><parmname>--member</parmname>
+								</entry>
+								<entry colname="col2"> Id of the member on which index is to be
+									created. </entry>
+							</row>
+							<row>
+								<entry colname="col1"><parmname>--region</parmname>
+								</entry>
+								<entry colname="col2">Name of the region , from where an index or
+									all indexes are to be destroyed. </entry>
+							</row>
+							<row>
+								<entry colname="col1"><parmname>--group</parmname>
+								</entry>
+								<entry colname="col2">The index will be created on all the members
+									in this member group. </entry>
+							</row>
+						</tbody>
+					</tgroup>
+				</table>
 				<p><b>Example Commands:</b>
-					<codeblock>
+				</p>
+				<codeblock>
 destroy index --member=server2
 destroy index --name=MyKeyIndex</codeblock>
-				</p>
 			</body>
 		</topic>
 		<topic id="topic_BEDACECF4599407794ACBC0E56B30F65">
@@ -173,40 +174,40 @@ destroy index --name=MyKeyIndex</codeblock>
 				<p><b> Availability:</b> Online. You must be connected in <codeph>gfsh</codeph> to a
 					JMX Manager member to use this command. </p>
 				<p><b>Syntax:</b>
-					<codeblock>
-destroy region --name=value</codeblock>
-					<table id="table_3D69093C87914639B448DC73B82B6B1E">
-						<title>Parameters</title>
-						<tgroup cols="2">
-							<colspec colname="col1" colnum="1" colwidth="1.00*"/>
-							<colspec colname="col2" colnum="2" colwidth="2.82*"/>
-							<thead>
-								<row>
-									<entry colname="col1">Name </entry>
-									<entry colname="col2">Description</entry>
-								</row>
-							</thead>
-							<tbody>
-								<row>
-									<entry colname="col1"><parmname>--name</parmname>
-									</entry>
-									<entry colname="col2">
-										<i>Required.</i> Name and path of the region to be removed.
-									</entry>
-								</row>
-							</tbody>
-						</tgroup>
-					</table>
 				</p>
+				<codeblock>
+destroy region --name=value</codeblock>
+				<table id="table_yb5_3dh_2w">
+					<title>Parameters</title>
+					<tgroup cols="2">
+						<colspec colname="col1" colnum="1" colwidth="1.00*"/>
+						<colspec colname="col2" colnum="2" colwidth="2.82*"/>
+						<thead>
+							<row>
+								<entry colname="col1">Name </entry>
+								<entry colname="col2">Description</entry>
+							</row>
+						</thead>
+						<tbody>
+							<row>
+								<entry colname="col1"><parmname>--name</parmname>
+								</entry>
+								<entry colname="col2">
+									<i>Required.</i> Name and path of the region to be removed.
+								</entry>
+							</row>
+						</tbody>
+					</tgroup>
+				</table>
 				<p><b>Example Commands:</b>
-					<codeblock>
+				</p>
+				<codeblock>
 destroy region --name=region4
 destroy region --name=/region1/subregion1</codeblock>
-				</p>
 				<p><b>Sample Output:</b>
-					<codeblock>gfsh&gt;destroy region --name=region1
-"region1"  destroyed successfully.</codeblock>
 				</p>
+				<codeblock>gfsh&gt;destroy region --name=region1
+"region1"  destroyed successfully.</codeblock>
 			</body>
 		</topic>
 	</topic>

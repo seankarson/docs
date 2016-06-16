@@ -8,7 +8,6 @@
 		<section id="section_86CF741758E54DA29519E9CDDF1BC393">
 			<p>Use the partition attribute <codeph>recovery-delay</codeph> to specify member crash
 				redundancy recovery. </p>
-			<p>
 				<table frame="all" id="table_F881A19A459C4590B15540CB81238050">
 					<tgroup cols="2">
 						<colspec colname="topic_link" colnum="1" align="left" colsep="1" rowsep="1"/>
@@ -33,13 +32,13 @@
 						</tbody>
 					</tgroup>
 				</table>
-			</p>
 			<p>By default, redundancy is not recovered after a member crashes. If you expect to
 				quickly restart most crashed members, combining this default setting with member
 				join redundancy recovery can help you avoid unnecessary data shuffling while members
 				are down. By waiting for lost members to rejoin, redundancy recovery is done using
 				the newly started members and partitioning is better balanced with less processing. </p>
-			<p>Set crash redundancy recovery using one of the following: <ul
+			<p>Set crash redundancy recovery using one of the following: </p>
+				<ul
 					id="ul_92FB86BE6CDD4DB9B0B4DAF73F9BC8B1">
 					<li id="li_B818E272E2E246A0BB548873DEC480A2">XML:
 						<codeblock outputclass="language-xml">// Give a crashed member 10 seconds to restart 
@@ -55,7 +54,6 @@
 					</li>
 					<li>gfsh:<codeblock outputclass="language-bourne">gfsh>create region --name="PR1" type=PARTITION --recovery-delay=10000</codeblock></li>
 				</ul>
-			</p>
 		</section>
 	</conbody>
 </concept>

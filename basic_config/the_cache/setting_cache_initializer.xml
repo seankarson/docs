@@ -17,7 +17,7 @@
 			callback class is loaded, its <codeph>init</codeph> method is called, and any parameters
 			defined in the <codeph>&lt;initializer&gt;</codeph> element are passed as properties. </p>
 		<p>The following is an example specification. </p>
-		<p>In cache.xml:
+		<p>In cache.xml:</p>
 			<codeblock outputclass="language-xml">
 &lt;initializer&gt;
    &lt;class-name&gt;MyInitializer&lt;/class-name&gt;
@@ -25,8 +25,7 @@
          &lt;string&gt;2&lt;/string&gt;
       &lt;/parameter&gt;
 &lt;/initializer&gt;</codeblock>
-		</p>
-		<p>Here's the corresponding class definition:
+		<p>Here's the corresponding class definition:</p>
 			<codeblock outputclass="language-java"> 
 import com.gemstone.gemfire.cache.Declarable;
 
@@ -35,8 +34,8 @@ public class MyInitializer implements Declarable {
       System.out.println(properties.getProperty("members"));
    }
 }</codeblock>
-		</p>
-		<p>The following are some additional real-world usage scenarios: <ol
+		<p>The following are some additional real-world usage scenarios: </p>
+			<ol
 				id="ol_4AA0655EC6EC4D0FA0FA77B48AA2D6EF">
 				<li id="li_4C9B6D6CAE38483C8B35B035B5ECBAFC">Start a SystemMembershipListener
 					<codeblock>
@@ -52,7 +51,6 @@ public class MyInitializer implements Declarable {
 &lt;/initializer&gt;</codeblock>
 				</li>
 			</ol>
-		</p>
 		<p>Any singleton or timer task or thread can be instantiated and started using the
 			initializer element. </p>
 	</conbody>

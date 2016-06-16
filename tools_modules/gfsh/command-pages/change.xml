@@ -7,7 +7,7 @@
     <body>
       <p><b> Availability:</b> Online. You must be connected in <codeph>gfsh</codeph> to a JMX
         Manager member to use this command. </p>
-      <p><b>Syntax:</b>
+      <p><b>Syntax:</b></p>
         <codeblock>change loglevel --loglevel=value [--members=value(nullvalue)*] [--groups=value(nullvalue)*]
 </codeblock>
         <table id="table_2277A2CE8F6E4731B45FEFA2B1366DB6">
@@ -57,11 +57,9 @@
             </tbody>
           </tgroup>
         </table>
-      </p>
-      <p><b>Example Commands:</b>
+      <p><b>Example Commands:</b></p>
         <codeblock>gfsh>change loglevel --loglevel=severe --members=server1</codeblock>
-      </p>
-      <p><b>Sample Output:</b>
+      <p><b>Sample Output:</b></p>
         <codeblock>gfsh>change loglevel --loglevel=severe --members=server1
 
 Summary
@@ -69,7 +67,7 @@ Summary
                 Member                 | Changed log-level
 -------------------------------------- | -----------------
 172.16.196.144(server1:3060)&lt;v1>:24653 | true
-</codeblock></p>
+</codeblock>
     </body>
   </topic>
 </dita>

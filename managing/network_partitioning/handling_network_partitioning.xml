@@ -6,7 +6,8 @@
 	<conbody>
 		<section id="section_EAF1957B6446491A938DEFB06481740F">
 			<p>The system uses a combination of member coordinators and system members, designated
-				as lead members, to detect and resolve network partitioning problems. <ol
+				as lead members, to detect and resolve network partitioning problems. </p>
+				<ol
 					id="ol_4D41D7E7ABD64FBA96A1C1075E1D0B7C">
 					<li id="li_0CBFE55931764F89A7DD9EB50F2EED54">Network partition detection works in all
 						environments. Using multiple locators mitigates the effect of network
@@ -43,10 +44,14 @@
 						<codeph>scope</codeph>. The region configurations provided in the region
 						shortcut settings use <codeph>DISTRIBUTED_ACK</codeph> scope. This setting
 						prevents operations from performed throughout the distributed system before
-						a network partition is detected. <note>GemFire issues an alert if it detects
+						a network partition is detected.
+						<note>
+							<p>GemFire issues an alert if it detects
 							distributed-no-ack regions when network partition detection is enabled:
+							</p>
 							<codeblock>Region {0} is being created with scope {1} but enable-network-partition-detection is enabled in the distributed system. 
-This can lead to cache inconsistencies if there is a network failure.</codeblock>
+This can lead to cache inconsistencies if there is a network failure.
+							</codeblock>
 						</note>
 					</li>
 					<li id="li_413E2A707E874315B675816B75DDE198">These other configuration
@@ -86,7 +91,6 @@ This can lead to cache inconsistencies if there is a network failure.</codeblock
 						</ul>
 					</li>
 				</ol>
-			</p>
 		</section>
 	</conbody>
 </concept>

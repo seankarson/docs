@@ -96,7 +96,6 @@
 				<li id="li_1F298A3C2606436A9B9D560A9AAFA501">T is the number of threads in a member
 					that own their own sockets and do not share. </li>
 			</ul>
-			<p>
 				<table id="table_F005106194CD4466B1E18764CDB41509">
 					<tgroup cols="2">
 						<colspec colnum="1" colname="col1" colwidth="*"/>
@@ -152,13 +151,12 @@
 						</tbody>
 					</tgroup>
 				</table>
-			</p>
-			<p> </p>
-			<p>
-				<note>The threads servicing client requests add to the total count of thread-owned
+				<note>
+					<p>The threads servicing client requests add to the total count of thread-owned
 					sockets both for this member connecting to its peers and for peers that connect
-					to this member. </note>
-			</p>
+					to this member. 
+					</p>
+				</note>
 		</section>
 		<section id="section_0497E07414CC4E0B968B4F3A7AFD3690">
 			<title>Server Socket Requirements Per Server</title>
@@ -173,7 +171,8 @@
 				&lt;cache-server&gt; element of the <codeph>cache.xml</codeph>. These settings limit
 				the number of connections the server accepts and the maximum number of threads that
 				can service client requests. Both of these limit the server's overall connection
-				requirements: <ul id="ul_221730C6A6664DAA97C1670841884D0A">
+				requirements: </p>
+				<ul id="ul_221730C6A6664DAA97C1670841884D0A">
 					<li id="li_88A240F6413F4C2BBBBD2A16BE99B0BE">When the connection limit is
 						reached, the server refuses additional connections. This limits the number
 						of connections the server uses for clients. </li>
@@ -185,12 +184,10 @@
 						peers. The max-threads setting puts a cap on the number of this type of peer
 						connection that your server needs. </li>
 				</ul>
-			</p>
 			<p>The server uses one socket for each incoming client pool connection. If client
 				subscriptions are used, the server creates an additional connection to each client
 				that enables subscriptions. </p>
 			<p>In this table, M is the total number of members in the distributed system. </p>
-			<p>
 				<table id="table_A87107792C7647C6B536ECBE7B8206A7">
 					<tgroup cols="2">
 						<colspec colnum="1" colname="col1" colwidth="*"/>
@@ -236,7 +233,6 @@
 						</tbody>
 					</tgroup>
 				</table>
-			</p>
 			<p>With client/server installations, the number of client connections to any single
 				server is undetermined, but <keyword keyref="product_name"/>’s server load balancing and conditioning keeps
 				the connections fairly evenly distributed among servers. </p>
@@ -247,7 +243,7 @@
 			<title>Client Socket Requirements per Client</title>Client connection requirements are
 			compounded by how many pools they use. The use varies according to runtime client
 			connection needs, but will usually have maximum and minimum settings. Look for the
-			&lt;pool&gt; element in the <codeph>cache.xml</codeph> for the configuration properties. <p>
+			&lt;pool&gt; element in the <codeph>cache.xml</codeph> for the configuration properties.
 				<table id="table_F47219652BF844A5A91F63B2968D0FBD">
 					<tgroup cols="2">
 						<colspec colnum="1" colname="col1" colwidth="*"/>
@@ -279,7 +275,6 @@
 						</tbody>
 					</tgroup>
 				</table>
-			</p>
 			<p>If your client acts as a peer in its own distributed system, it has the additional
 				socket requirements as noted in the Peer-to-Peer section of this topic. </p>
 		</section>

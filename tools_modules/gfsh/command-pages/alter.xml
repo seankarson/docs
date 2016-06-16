@@ -14,20 +14,18 @@
 					stored in the disk-store to match the configuration you will use at restart. </p>
 				<p><b> Availability:</b> Offline.</p>
 				<p>
-					<b>Syntax: </b>
+					<b>Syntax: </b></p>
 					<codeblock xml:space="preserve">alter disk-store --name=value --region=value --disk-dirs=value(,value)*
     [--compressor(=value)] [--concurrency-level=value]
     [--enable-statistics=value] [--initial-capacity=value] [--load-factor=value]
-    [--lru-algorthm=value] [--lru-action=value] [--lru-limit=value]
+    [--lru-algorithm=value] [--lru-action=value] [--lru-limit=value]
     [--off-heap(=value)] [--remove(=value)]</codeblock>
-				</p>
 				<p>The three required options, <codeph><parmname>--name</parmname></codeph>,
 							<codeph><parmname>--region</parmname></codeph>, and
 							<codeph><parmname>--disk-dirs</parmname></codeph>, identify the disk
 					store and region to be altered. If no additional options are specified,
 						<codeph>gfsh</codeph> displays the current configuration without making any
 					changes.</p>
-				<p>
 					<table id="table_DFA153D464C84D95B394023A0AAFB88B">
 						<tgroup cols="2">
 							<colspec colname="col1" colnum="1" colwidth="1.00*"/>
@@ -125,7 +123,7 @@
 								</row>
 								<row>
 									<entry colname="col1">
-										<parmname>--lru-algorthm</parmname>
+										<parmname>--lru-algorithm</parmname>
 									</entry>
 									<entry colname="col2">Least recently used eviction algorithm.
 										Valid types are:<ul id="ul_b4k_3pf_kl">
@@ -164,13 +162,11 @@
 							</tbody>
 						</tgroup>
 					</table>
-				</p>
 				<p>
-					<b>Example Commands:</b>
+					<b>Example Commands:</b></p>
 					<codeblock>
 alter disk-store --name=DiskStore1 --region=region1 --disk-dirs=/Disks/DiskStore1 --off-heap
 alter disk-store --name=DiskStore1 --region=region1 --disk-dirs=/Disks/DiskStore1 --remove</codeblock>
-				</p>
 			</body>
 		</topic>
 		<topic id="topic_E74ED23CB60342538B2175C326E7D758">
@@ -180,7 +176,7 @@ alter disk-store --name=DiskStore1 --region=region1 --disk-dirs=/Disks/DiskStore
 				<p><b> Availability:</b> Online. You must be connected in <parmname>gfsh</parmname>
 					to a JMX Manager member to use this command. </p>
 				<p>
-					<b>Syntax:</b>
+					<b>Syntax:</b></p>
 					<codeblock id="codeblock_jrn_fk1_3l" outputclass="">alter region --name=value [--group=value(,value)*]
     [--entry-idle-time-expiration(=value)?]
     [--entry-idle-time-expiration-action(=value)?]
@@ -237,9 +233,7 @@ alter disk-store --name=DiskStore1 --region=region1 --disk-dirs=/Disks/DiskStore
 										each member for the region. For distributed regions, a cache
 										loader may be invoked remotely from other members that have
 										the region defined.</entry>
-									<entry>
-										<codeph>__DEFAULT__</codeph>
-									</entry>
+									<entry> </entry>
 								</row>
 								<row>
 									<entry colname="col1">
@@ -250,9 +244,7 @@ alter disk-store --name=DiskStore1 --region=region1 --disk-dirs=/Disks/DiskStore
 										changes to the region and its entries. The plug-in may
 										cancel the event. At most, one cache writer can be defined
 										in each member for the region</entry>
-									<entry>
-										<codeph>__DEFAULT__</codeph>
-									</entry>
+									<entry> </entry>
 								</row>
 								<row>
 									<entry colname="col1">
@@ -283,7 +275,7 @@ alter disk-store --name=DiskStore1 --region=region1 --disk-dirs=/Disks/DiskStore
 									<entry
 										conref="../../../reference/topics/cache_xml.xml#expiration-attributes/expiration-attributes_action"/>
 									<entry>
-										<codeph>__DEFAULT__</codeph>
+										<codeph>invalidate</codeph>
 									</entry>
 								</row>
 								<row>
@@ -302,7 +294,7 @@ alter disk-store --name=DiskStore1 --region=region1 --disk-dirs=/Disks/DiskStore
 									<entry
 										conref="../../../reference/topics/cache_xml.xml#expiration-attributes/expiration-attributes_action"/>
 									<entry>
-										<codeph>__DEFAULT__</codeph>
+										<codeph>invalidate</codeph>
 									</entry>
 								</row>
 								<row>
@@ -355,7 +347,7 @@ alter disk-store --name=DiskStore1 --region=region1 --disk-dirs=/Disks/DiskStore
 									<entry
 										conref="../../../reference/topics/cache_xml.xml#expiration-attributes/expiration-attributes_action"/>
 									<entry>
-										<codeph>__DEFAULT__</codeph>
+										<codeph>invalidate</codeph>
 									</entry>
 								</row>
 								<row>
@@ -373,27 +365,23 @@ alter disk-store --name=DiskStore1 --region=region1 --disk-dirs=/Disks/DiskStore
 									<entry
 										conref="../../../reference/topics/cache_xml.xml#expiration-attributes/expiration-attributes_action"/>
 									<entry>
-										<codeph>__DEFAULT__</codeph>
+										<codeph>invalidate</codeph>
 									</entry>
 								</row>
 							</tbody>
 						</tgroup>
 					</table>
-				</p>
 				<p>
-					<b>Example Commands:</b>
+					<b>Example Commands:</b></p>
 					<codeblock outputclass="">alter region --name=region1 --eviction-max=5000 [-group=all]</codeblock>
-				</p>
 				<p>
 					<b>Sample Output:</b>
 				</p>
-				<p>
 					<codeblock>gfsh>alter region --name=customer --eviction-max=5000
 Member  | Status
 ------- | ----------------------------------
 server1 | Region "/customer" altered on "server1"
 </codeblock>
-				</p>
 			</body>
 		</topic>
 		<topic id="topic_7E6B7E1B972D4F418CB45354D1089C2B">
@@ -407,7 +395,7 @@ server1 | Region "/customer" altered on "server1"
 				<p><b> Availability:</b> Online. You must be connected in <codeph>gfsh</codeph> to a
 					JMX Manager member to use this command. </p>
 				<p>
-					<b>Syntax:</b>
+					<b>Syntax:</b></p>
 					<codeblock>alter runtime [--member=value] [--group=value] [--archive-disk-space-limit=value]
     [--archive-file-size-limit=value] [--log-disk-space-limit=value]
     [--log-file-size-limit=value] [--log-level=value]
@@ -609,17 +597,14 @@ server1 | Region "/customer" altered on "server1"
 							</tbody>
 						</tgroup>
 					</table>
-				</p>
 				<p>
-					<b>Example Commands:</b>
+					<b>Example Commands:</b></p>
 					<codeblock>alter runtime --member=server1 --log-level=finest --enable-statistics=true</codeblock>
-				</p>
 				<p>
-					<b>Sample Output:</b>
+					<b>Sample Output:</b></p>
 					<codeblock>gfsh&gt;alter runtime --member=server1 --log-level=finest --enable-statistics=true
 Runtime configuration altered successfully for the following member(s)
 192.168.129.129(server1:240)&lt;v1&gt;:64871</codeblock>
-				</p>
 			</body>
 		</topic>
 	</topic>

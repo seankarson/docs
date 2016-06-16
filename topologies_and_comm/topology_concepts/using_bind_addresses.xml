@@ -15,14 +15,18 @@
 				multi-homed hosts, one network card is used by default. You can use bind addresses
 				to configure your <keyword keyref="product_name"/> members to use non-default
 				network cards on a multi-homed host. </p>
-			<note>When you specify a non-default card address for a process, all processes that
+			<note>
+				<p>When you specify a non-default card address for a process, all processes that
 				connect to it need to use the same address in their connection settings. For
 				example, if you use bind addresses for your server locators, you must use the same
-				addresses to configure the server pools in your clients. <p>Use IPv4 or IPv6 numeric
+				addresses to configure the server pools in your clients.
+				</p>
+				<p>Use IPv4 or IPv6 numeric
 					address specifications for your bind address settings. For information on these
 					specifications, see <xref href="IPv4_and_IPv6.xml" type="concept"
 						format="dita" scope="local"/>. Do not use host names for your address
-					specifications. Host names resolve to default machine addresses. </p>
+					specifications. Host names resolve to default machine addresses.
+				</p>
 			</note>
 		</section>
 		<section id="section_63589355AB684F739145E9185806D023">
@@ -31,10 +35,13 @@
 				its own address or types use the same address. If no setting is found for a specific
 				communication type, <keyword keyref="product_name"/> uses the host machine's default
 				address. </p>
-			<note>Bind addresses set through the APIs, like <codeph>CacheServer</codeph> and
+			<note>
+				<p>Bind addresses set through the APIs, like <codeph>CacheServer</codeph> and
 					<codeph>DistributedSystem</codeph>, take precedence over the settings discussed
 				here. If your settings are not working, check to make sure there are no bind address
-				settings being done through API calls. </note>
+				settings being done through API calls.
+				</p>
+			</note>
 			<p>This table lists the settings used for peer and server communication, ordered by
 				precedence. For example, for server communication, <keyword keyref="product_name"/>
 				searches first for the cache-server bind address, then the <codeph>gfsh start
@@ -95,9 +102,10 @@
 			</table>
 			<p>For example, a member started with these configurations in its
 					<codeph>gemfire.properties</codeph> and <codeph>cache.xml</codeph> files will
-				use two separate addresses for peer and server communication: <codeblock>// gemfire.properties setting for peer communication
+				use two separate addresses for peer and server communication:  </p>
+			<codeblock>// gemfire.properties setting for peer communication
 bind-address=194.124.0.104</codeblock>
-				<codeblock>//cache.xml settings 
+			<codeblock>//cache.xml settings 
 &lt;cache&gt;
 
 // Server communication
@@ -105,7 +113,6 @@ bind-address=194.124.0.104</codeblock>
 
   &lt;region ...
 </codeblock>
-			</p>
 		</section>
 		<section>
 			<title>Gateway Receiver Communication</title>
@@ -183,9 +190,10 @@ bind-address=194.124.0.104</codeblock>
 			</table>
 			<p>For example, a member started with these configurations in its
 					<codeph>gemfire.properties</codeph> and <codeph>cache.xml</codeph> files will
-				use three separate addresses for peer, server, and gateway receiver communication: <codeblock>// gemfire.properties setting for peer communication
+				use three separate addresses for peer, server, and gateway receiver communication:   </p>
+			<codeblock>// gemfire.properties setting for peer communication
 bind-address=194.124.0.104</codeblock>
-				<codeblock>//cache.xml settings 
+			<codeblock>//cache.xml settings 
 &lt;cache&gt;
 // Gateway receiver configuration
   &lt;gateway-receiver start-port="1530" end-port="1551" bind-address="194.124.0.105"/&gt;
@@ -195,36 +203,30 @@ bind-address=194.124.0.104</codeblock>
 
   &lt;region ...
 </codeblock>
-			</p>
 		</section>
 		<section id="section_B58645AD8C504AF6822315BB94BA2E0B">
 			<title>Locator Communication</title>
-			<p>Set the locator bind address using one of these methods: <ul
-					id="ul_DB8FD7964E654B3297C2CF7A2A0E6C87">
-					<li id="li_AC4BB4598F5D42CE8FF3D35AF20AE102">On the gfsh command line, specify
-						the bind address when you start the locator, the same as you specify any
-						other address:
-						<codeblock>gfsh&gt;start locator --name=my_locator --bind-address=<i>ip-address-to-bind</i> --port=<i>portNumber</i></codeblock>
-					</li>
-					<li id="li_0D8F2C08E11D48C187F6C9C3C67B6A9F">Inside a <keyword
-							keyref="product_name"/> application, take one of the following actions:
-							<ul id="ul_F0A26343D2BF4694B5C7BE624845166D">
-							<li id="li_796574B4D65949D3B1185E4D2DAD3392">Automatically start a
-								co-located locator using the gemfire property
-									<codeph>start-locator</codeph>, and specifying the bind address
-								for it in that property setting. </li>
-							<li id="li_46CAF7820C3545D6993CBA8764B6A67B">Use
-									<codeph>com.gemstone.gemfire.distributed.LocatorLauncher</codeph>
-								API to start the locator inside your code. Use the
-									<codeph>LocatorLauncher.Builder</codeph> class to construct an
-								instance of the <codeph>LocatorLauncher</codeph>, use the
-									<codeph>setBindAddress</codeph> method to specify the IP address
-								to use and then use the start() method to start a Locator service
-								embedded in your Java application process. </li>
-						</ul>
-					</li>
-				</ul>
-			</p>
+			<p>Set the locator bind address using one of these methods:  </p>
+			<ul id="ul_lt4_m5z_dw">
+				<li>On the gfsh command line, specify the bind address when you start the locator,
+					the same as you specify any other address:
+					<codeblock>gfsh&gt;start locator --name=my_locator --bind-address=<i>ip-address-to-bind</i> --port=<i>portNumber</i></codeblock>
+				</li>
+				<li>Inside a <keyword keyref="product_name"/> application, take one of the following
+					actions: <ul id="ul_mt4_m5z_dw">
+						<li>Automatically start a co-located locator using the gemfire property
+								<codeph>start-locator</codeph>, and specifying the bind address for
+							it in that property setting. </li>
+						<li>Use <codeph>com.gemstone.gemfire.distributed.LocatorLauncher</codeph>
+							API to start the locator inside your code. Use the
+								<codeph>LocatorLauncher.Builder</codeph> class to construct an
+							instance of the <codeph>LocatorLauncher</codeph>, use the
+								<codeph>setBindAddress</codeph> method to specify the IP address to
+							use and then use the start() method to start a Locator service embedded
+							in your Java application process. </li>
+					</ul>
+				</li>
+			</ul>
 			<p>If your locator uses a bind address, make sure every process that accesses the
 				locator has the address as well. For peer-to-peer access to the locator, use the
 				locator's bind address and the locator's port in your

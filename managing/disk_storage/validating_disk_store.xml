@@ -7,7 +7,8 @@
 			<p>The <codeph>validate offline-disk-store</codeph> command verifies the health of your
 				offline disk store and gives you information about the regions in it, the total
 				entries, and the number of records that would be removed if you compacted the store. </p>
-			<p>Use this command at these times: <ul id="ul_DFEC5A89F6B44FB6A0C12AFDE06B8F34">
+			<p>Use this command at these times: </p>
+				<ul id="ul_DFEC5A89F6B44FB6A0C12AFDE06B8F34">
 					<li id="li_D7E23C580BAD4F7DB91B114F0E678D6B">Before compacting an offline disk
 						store to help decide whether it’s worth doing. </li>
 					<li id="li_1BA3913AA71E456E93C273B43E4C42D4">Before restoring or modifying a
@@ -15,12 +16,9 @@
 					<li id="li_78C242B454634234BFC3B419E3524427">Any time you want to be sure the
 						disk store is in good shape. </li>
 				</ul>
-			</p>
-			<p>Example:
+			<p>Example:</p>
 				<codeblock>gfsh&gt;validate offline-disk-store --name=ds1 --disk-dirs=hostB/bupDirectory
 </codeblock>
-			</p>
-			<p> </p>
 		</section>
 	</conbody>
 </concept>

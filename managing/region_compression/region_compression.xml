@@ -36,12 +36,14 @@
         <li><b>Use compression when JVM memory usage is too high.</b> Compression allows you to
           store more region data in-memory and to reduce the number of expensive garbage collection
           cycles that prevent JVMs from running out of memory when memory usage is high.<p>To
-            determine if JVM memory usage is high, examine the the following statistics:<ul
+            determine if JVM memory usage is high, examine the the following statistics:</p>
+            <ul
               id="ul_r15_vrk_g4">
               <li>vmStats>freeMemory</li>
               <li>vmStats->maxMemory</li>
               <li>ConcurrentMarkSweep->collectionTime</li>
-            </ul></p><p>If the amount of free memory regularly drops below 20% - 25% or the duration
+            </ul>
+          <p>If the amount of free memory regularly drops below 20% - 25% or the duration
             of the garbage collection cycles is generally on the high side, then the regions hosted
             on that JVM are good candidates for having compression enabled.</p></li>
         <li><b>Consider the types and lengths of the fields in the region's entries.</b> Since
@@ -92,9 +94,10 @@
     <shortdesc>This topic describes how to enable compression on your region.</shortdesc>
     <body>
       <p>To enable compression on your region, set the following region attribute in your
-        cache.xml:<codeblock outputclass="language-xml">&lt;?xml version="1.0" encoding= "UTF-8"?&gt;
+        cache.xml:</p>
+      <codeblock outputclass="language-xml">&lt;?xml version="1.0" encoding= "UTF-8"?&gt;
 &lt;cache xmlns="<keyword keyref="xsd_namespace"/>"
-    xmlns:xsi="<xref href="http://www.w3.org/2001/XMLSchema-instance" format="html" scope="external">http://www.w3.org/2001/XMLSchema-instance</xref>"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="<keyword keyref="xsd_namespace"/> <keyword keyref="xsd_namespace"/>/<keyword keyref="xsd_filename"/>"
     version="<keyword keyref="xsd_version"/>” lock-lease="120"  lock-timeout= "60" search-timeout= "300"  is-server= "true"  copy-on-read= "false" &gt; 
    &lt;region name="compressedRegion" &gt; 
@@ -105,7 +108,8 @@
         ...
       &lt;/region-attributes>
    &lt;/region&gt; 
-&lt;/cache&gt;</codeblock>In
+&lt;/cache&gt;</codeblock>
+      <p>In
         the Compressor element, specify the class-name for your compressor implementation. This
         example specifies the Snappy compressor, which is bundled with <keyword
           keyref="product_name"/> . You can also specify a custom compressor. See <xref
@@ -113,18 +117,22 @@
       <p>Compression can be enabled during region creation using gfsh or programmatically as
         well.</p>
       <p>Using
-        gfsh:<codeblock outputclass="language-bourne">gfsh>create-region --name=”CompressedRegion” --compressor=”com.gemstone.gemfire.compression.SnappyCompressor”;</codeblock></p>
-      <p>API:<codeblock outputclass="language-java">regionFactory.setCompressor(new SnappyCompressor());
-</codeblock>or
+        gfsh:</p>
+      <codeblock outputclass="language-bourne">gfsh>create-region --name=”CompressedRegion” --compressor=”com.gemstone.gemfire.compression.SnappyCompressor”;</codeblock>
+      <p>API:</p>
+      <codeblock outputclass="language-java">regionFactory.setCompressor(new SnappyCompressor());
+</codeblock>
+      <p>or</p>
         <codeblock>regionFactory.setCompressor(SnappyCompressor.getDefaultInstance());
-</codeblock></p>
+</codeblock>
       <section>
         <title>How to Check Whether Compression is Enabled</title>
       </section>
       <p>You can also check whether a region has compression enabled by querying which codec is
         being used. A null codec indicates that no compression is enabled for the
-        region.<codeblock>Region myRegion = cache.getRegion("myRegion");
- Compressor compressor = myRegion.getAttributes().getCompressor();</codeblock></p>
+        region.</p>
+      <codeblock>Region myRegion = cache.getRegion("myRegion");
+ Compressor compressor = myRegion.getAttributes().getCompressor();</codeblock>
     </body>
   </topic>
   <topic id="topic_hqf_syj_g4">
@@ -138,13 +146,15 @@
         stateless, there only needs to be a single instance in any JVM; however, multiple instances
         may be used without issue. The single, default instance of the SnappyCompressor may be
         retrieved with the <codeph>SnappyCompressor.getDefaultInstance()</codeph> static method.</p>
-      <p>
-        <note> The Snappy codec included with <keyword keyref="product_name"/> cannot be used with
+        <note>
+          <p>The Snappy codec included with <keyword keyref="product_name"/> cannot be used with
           Solaris deployments. Snappy is only supported on Linux, Windows, and OSX deployments of
-            <keyword keyref="product_name"/> .</note>
-      </p>
+            <keyword keyref="product_name"/>.
+          </p>
+        </note>
       <p>This example provides a custom Compressor
-        implementation:<codeblock outputclass="language-java">package com.mybiz.myproduct.compression;
+        implementation:</p>
+      <codeblock outputclass="language-java">package com.mybiz.myproduct.compression;
 
 import com.gemstone.gemfire.compression.Compressor;
 
@@ -160,22 +170,28 @@ public class LZWCompressor implements Compressor {
   public byte[] decompress(byte[] input) {
          return lzwCodec.decompress(input);
   }
-}</codeblock>To
+}</codeblock>
+      <p>To
         use the new custom compressor on a region:</p>
       <ol id="ol_s4f_dzz_j4">
         <li>Make sure that the new compressor package is available in the classpath of all JVMs that
           will host the region.</li>
         <li>Configure the custom compressor for the region using any of the following
-            mechanisms:<p>Using gfsh:</p><p>
+            mechanisms:<p>Using gfsh:</p>
+          
             <codeblock>gfsh>create-region --name=”CompressedRegion” \
 --compressor=”com.mybiz.myproduct.compression.LZWCompressor”</codeblock>
-          </p><p>Using API:</p><p>For
-            example:<codeblock>regionFactory.setCompressor(new LZWCompressor());</codeblock></p><p>cache.xml:<codeblock outputclass="language-xml">
+          <p>Using API:</p><p>For
+            example:</p>
+          <codeblock>regionFactory.setCompressor(new LZWCompressor());</codeblock>
+          <p>cache.xml:</p>
+          <codeblock outputclass="language-xml">
 &lt;region-attributes>
  &lt;Compressor>
      &lt;class-name>com.mybiz.myproduct.compression.LZWCompressor&lt;/class-name>
   &lt;/Compressor>
-&lt;/region-attributes></codeblock></p></li>
+&lt;/region-attributes></codeblock>
+        </li>
       </ol>
       <section>
         <title>Changing the Compressor for an Already Compressed Region</title>

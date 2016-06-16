@@ -5,11 +5,12 @@
 	<shortdesc>To set up the HTTP Module for tc Server, start a tc Server instance with the
 		appropriate tc Server template based on your preferred topology. </shortdesc>
 	<conbody>
-		<p>
-			<note> In the procedures that follow, you may be required to log in as root or use sudo
+			<note> 
+				<p>In the procedures that follow, you may be required to log in as root or use sudo
 				to run the commands in Unix, especially if you installed Pivotal tc Server from RPM
-				using yum. </note>
-		</p>
+				using yum. 
+				</p>
+			</note>
 		<section id="section_564B0D4008E343D7AF2791A1271B1F8E"><title>Setup and Start</title><p>Edit the
 				configuration in the appropriate file for the topology to set the locator host and
 				port. For peer-to-peer topology, edit
@@ -47,7 +48,7 @@ In Windows, for a client/server topology, with a pinned tc Server instance:
   $ tcruntime-instance.bat create  --version 6.0.32.A.RELEASE ^
   my_instance_name --template geode-cs</codeblock><p>To
 				run, first start the locator, which will listen on its default of port number
-				10334:<codeblock>$ gfsh start locator --name=locator1</codeblock></p>With a similar
+				10334:</p><codeblock>$ gfsh start locator --name=locator1</codeblock>With a similar
 			environment to this example that is for a client/server set
 				up,<codeblock>TC_VER=tomcat-8.0.30.C.RELEASE
 INSTANCE=geode-cs
@@ -58,8 +59,8 @@ $PWD/$TC_VER/lib/catalina.jar:\
 $PWD/$TC_VER/lib/tomcat-util.jar:\
 $PWD/$TC_VER/bin/tomcat-juli.jar</codeblock><p>start
 				the server using
-				<codeph>gfsh</codeph>:<codeblock>$ gfsh start server --name=server1 --locators=localhost[10334] \
-        --server-port=0 --classpath=$CLASSPATH</codeblock></p></section>
+			<codeph>gfsh</codeph>:</p><codeblock>$ gfsh start server --name=server1 --locators=localhost[10334] \
+        --server-port=0 --classpath=$CLASSPATH</codeblock></section>
 		<section id="section_B6AA6C00DBBD44E68649BDB793578694"><title>Starting the Application
 				Server</title><p>Once you've created a tc Server instance, you are ready to start
 				the instance.
@@ -72,12 +73,16 @@ In Windows:
 				to the <xref format="html" href="http://www.vmware.com/products/vfabric-tcserver"
 					scope="external">tc Server</xref> documentation for more information. Once
 				started, <keyword keyref="product_name"/> will automatically launch within the
-				application server process. </p><note><keyword keyref="product_name"/> session state
+				application server process. </p>
+			<note>
+				<p><keyword keyref="product_name"/> session state
 				management provides its own clustering functionality. If you are using <keyword
 					keyref="product_name"/>, you should NOT turn on Tomcat clustering as well.
-				</note><p>To verify that the system is running, check the log file for a message
+				</p>
+			</note>
+			<p>To verify that the system is running, check the log file for a message
 				similar
-				to:<codeblock>Mar 29, 2016 8:38:31 AM com.gemstone.gemfire.modules.session.bootstrap.AbstractCache
+			to:</p><codeblock>Mar 29, 2016 8:38:31 AM com.gemstone.gemfire.modules.session.bootstrap.AbstractCache
 lifecycleEvent
 INFO: Initializing GemFire Modules
 Modules version: 1.0.0-incubating.M2-SNAPSHOT
@@ -86,7 +91,7 @@ javac 1.8.0_66
 Native version: native code unavailable
 Source revision: c36591b73243c7ee3a0186710338453d12efe364
 Source repository: develop
-Running on: /10.118.33.250, 8 cpu(s), x86_64 Mac OS X 10.11.4</codeblock></p>Information
+Running on: /10.118.33.250, 8 cpu(s), x86_64 Mac OS X 10.11.4</codeblock>Information
 			is also logged within the <keyword keyref="product_name"/> log file, which by default is
 			named <codeph>gemfire_modules.log</codeph>. </section>
 		<section id="section_B2396FB0879248DBA85ADFDBBEFA987E">
@@ -99,7 +104,8 @@ Running on: /10.118.33.250, 8 cpu(s), x86_64 Mac OS X 10.11.4</codeblock></p>Inf
 				<b>Peer-to-Peer</b>
 			</p>
 			<p>For peer-to-peer topologies, apply the following settings to enable non-sticky
-				sessions to work correctly: <ul id="ul_krx_uum_kj">
+				sessions to work correctly: </p>
+				<ul id="ul_krx_uum_kj">
 					<li id="li_A04FBC410C814A8DB14243272E8F0CED">Java system property
 							<codeph>gemfire.loadClassOnEveryDeserialization=true</codeph>. Set this
 						property by editing the <codeph>bin/setenv.sh</codeph> file. </li>
@@ -107,19 +113,19 @@ Running on: /10.118.33.250, 8 cpu(s), x86_64 Mac OS X 10.11.4</codeblock></p>Inf
 							><codeph>prefer.deserialized.form=false</codeph>. Set this property in
 							<codeph>conf/catalina.properties</codeph>. </li>
 				</ul>
-			</p>
 			<p>
 				<b>Client-server</b>
 			</p>
 			<p>For client-server topologies, only the Java system property
 					<codeph>gemfire.loadClassOnEveryDeserialization=true</codeph> must be set, in
 				the <codeph>bin/setenv.sh file</codeph>. </p>
-			<p>
-				<note>Non-sticky sessions cause a performance impact because sessions need to be
+				<note>
+					<p>Non-sticky sessions cause a performance impact because sessions need to be
 					re-created every time a request hits a different server. This may not be
 					noticeable when the session attributes are small, but may become more evident as
-					the session attributes increase in size and/or number. </note>
-			</p>
+					the session attributes increase in size and/or number.
+					</p>
+				</note>
 		</section>
 	</conbody>
 </concept>

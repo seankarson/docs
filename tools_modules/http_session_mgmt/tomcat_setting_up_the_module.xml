@@ -20,12 +20,11 @@
 				on the version of Tomcat you are using, add one of the following lines to
 					<codeph>$CATALINA_HOME$/conf/context.xml</codeph> within the
 					<codeph>&lt;Context&gt;</codeph> tag: </p><p>For Tomcat 6.0:
-				<codeblock>&lt;Manager className="com.gemstone.gemfire.modules.session.catalina.
-                         Tomcat6DeltaSessionManager"/&gt; </codeblock>
-			</p><p>For Tomcat 7.0 and above:
-				<codeblock>&lt;Manager className="com.gemstone.gemfire.modules.session.catalina.
-                         Tomcat7DeltaSessionManager"/&gt; </codeblock>
-			</p></section>
+				</p><codeblock>&lt;Manager className="com.gemstone.gemfire.modules.session.catalina.
+                         Tomcat6DeltaSessionManager"/&gt; </codeblock><p>For
+				Tomcat 7.0 and above:
+			</p><codeblock>&lt;Manager className="com.gemstone.gemfire.modules.session.catalina.
+                         Tomcat7DeltaSessionManager"/&gt; </codeblock></section>
 		<section id="section_B0CEBE93564540DBA165E0F7A10FDC0B"><title>Client/Server Setup</title><image
 				id="image_aqn_jjf_sv" href="../../images_svg/http_module_cs_with_locator.svg"/><p>To
 				run <keyword keyref="product_name"/> in a client/server configuration, the
@@ -37,13 +36,13 @@
 				on the version of Tomcat you are using, add one of the following lines to
 					<codeph>$CATALINA_HOME$/conf/context.xml</codeph> within the
 					<codeph>&lt;Context&gt;</codeph> tag: </p><p>For Tomcat 6.0:
-				<codeblock>&lt;Manager className="com.gemstone.gemfire.modules.session.catalina.
-                         Tomcat6DeltaSessionManager"/&gt; </codeblock>
-			</p><p>For Tomcat 7.0 and above:
-				<codeblock>&lt;Manager className="com.gemstone.gemfire.modules.session.catalina.
-                         Tomcat7DeltaSessionManager"/&gt; </codeblock>
-			</p><p>The application server operates as a <keyword keyref="product_name"/> client in
-				this configuration. With a similar environment to this example that is for a
+				</p><codeblock>&lt;Manager className="com.gemstone.gemfire.modules.session.catalina.
+                         Tomcat6DeltaSessionManager"/&gt; </codeblock><p>For
+				Tomcat 7.0 and above:
+				</p><codeblock>&lt;Manager className="com.gemstone.gemfire.modules.session.catalina.
+                         Tomcat7DeltaSessionManager"/&gt; </codeblock><p>The
+				application server operates as a <keyword keyref="product_name"/> client in this
+				configuration. With a similar environment to this example that is for a
 				client/server set
 				up,</p><codeblock>TC_VER=tomcat-8.0.30.C.RELEASE
 INSTANCE=geode-cs
@@ -62,9 +61,12 @@ $PWD/$TC_VER/bin/tomcat-juli.jar</codeblock><p>start
 				Tomcat instance. Refer to your application server documentation for starting the
 				application server. Once started, <keyword keyref="product_name"/> will
 				automatically launch within the application server process. </p>
-			<note><keyword keyref="product_name"/> session state management provides its own
+			<note>
+				<p><keyword keyref="product_name"/> session state management provides its own
 				clustering functionality. If you are using <keyword keyref="product_name"/>, you
-				should NOT turn on Tomcat clustering as well. </note>
+				should NOT turn on Tomcat clustering as well.
+				</p>
+			</note>
 		</section>
 		<section id="section_3E186713737E4D5383E23B41CDFED59B">
 			<title>Verifying that <keyword keyref="product_name"/> Started</title>

@@ -8,15 +8,13 @@
     <p>In cases where one index is hinted in a query, the query engine filters off the hinted index
       (if possible) and then iterates and filters from the resulting values. </p>
     <p>
-      <b>Example:</b>
+      <b>Example:</b></p>
       <codeblock><b>&lt;HINT 'IDIndex'></b> SELECT * FROM /Portfolios p WHERE p.ID > 10 AND p.owner = 'XYZ'
 </codeblock>
-    </p>
     <p>If multiple indexes are added as hints, then the query engine will try to use as many indexes
       as possible while giving a preference for the hinted indexes.</p>
     <p>
-      <b>Example:</b>
+      <b>Example:</b></p>
       <codeblock><b>&lt;HINT 'IDIndex', 'OwnerIndex'></b> SELECT * FROM /Portfolios p WHERE p.ID > 10 AND p.owner = 'XYZ' AND p.value &lt; 100</codeblock>
-    </p>
   </body>
 </topic>

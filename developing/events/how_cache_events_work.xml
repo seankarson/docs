@@ -12,7 +12,8 @@
 		</section>
 		<section id="section_CACE500A00214CD88CE232D22899263B">
 			<title>Events in a Partitioned Region</title>
-			<p>A distributed operation follows this sequence in a partitioned region: <ol
+			<p>A distributed operation follows this sequence in a partitioned region: </p>
+				<ol
 					id="ol_200B166D4D77429C8019EC4D43BC10F8">
 					<li id="li_F8B563D476C649B199229D0BC3E61143">Apply the operation to the cache
 						with the primary data entry, if appropriate. </li>
@@ -23,8 +24,7 @@
 					<li id="li_860958B559AF4EA889E8A206C1BA0C96">Invoke the listener in the cache
 						with the primary data entry. </li>
 				</ol>
-			</p>
-			<p>In the following figure: <ol id="ol_F3047AB0624540BB8E3F83054158C6E8">
+			<p>In the following figure: </p><ol id="ol_F3047AB0624540BB8E3F83054158C6E8">
 					<li id="li_259230F5ED5E476C9016FCBA5A36A672">An API call in member M1 creates an
 						entry. </li>
 					<li id="li_4BCCCFA3E2BF4FE786CDA790F65D404C">The partitioned region creates the
@@ -51,11 +51,11 @@
 						succeeds and invokes the cache listener on M2. </li>
 				</ol><image href="../../images/Events-2.gif"
 					id="image_E5E187C14A774144B85FA7B636239DBE" placement="break"/>
-			</p>
 		</section>
 		<section id="section_FACF58272C824907BA020B1727427D7A">
 			<title>Events in a Distributed Region</title>
-			<p>A distributed operation follows this sequence in a distributed region: <ol
+			<p>A distributed operation follows this sequence in a distributed region: </p>
+				<ol
 					id="ol_ABECB42D2B7D476EA7A2AA616589937A">
 					<li id="li_1FDB09025A884BCDBCEC355A2C012218">Apply the operation to the local
 						cache, if appropriate. </li>
@@ -65,8 +65,8 @@
 						distribution carries out its own operation in response, which invokes any
 						local listeners. </li>
 				</ol>
-			</p>
-			<p>In the following figure: <ol id="ol_040C2656D3664B0EACF38297A40FB43F">
+			<p>In the following figure: </p>
+				<ol id="ol_040C2656D3664B0EACF38297A40FB43F">
 					<li id="li_4093962FDDAF448C9E4DDA47074D749B">An entry is created through a
 						direct API call on member M1. </li>
 					<li id="li_C67DC8AD0BF043768A05D4F73C269FEC">The create invokes the cache
@@ -83,7 +83,6 @@
 						creates an entry. </li>
 				</ol><image href="../../images/Events-3.gif"
 					id="image_A24D6182B2A840D1843EBD4686966EEF" placement="break"/>
-			</p>
 		</section>
 		<section id="section_B4DCA51DDF7F44699E7355277172BEF0">
 			<title>Managing Events in Multi-threaded Applications</title>

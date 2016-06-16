@@ -66,19 +66,22 @@
                         each event handler you need. In addition to your main CQ listeners, you
                         might have listeners that you use for all CQs to track statistics or other
                         general information. </p>
-                    <note>Be especially careful if you choose to update your cache from your
+                    <note>
+                        <p>Be especially careful if you choose to update your cache from your
                         <codeph>CqListener</codeph>. If your listener updates the region that is
                         queried in its own CQ and that region has a <codeph>Pool</codeph> named, the
                         update will be forwarded to the server. If the update on the server
                         satisfies the same CQ, it may be returned to the same listener that did the
                         update, which could put your application into an infinite loop. This same
                         scenario could be played out with multiple regions and multiple CQs, if the
-                        listeners are programmed to update each other's regions. </note>
+                        listeners are programmed to update each other's regions. 
+                        </p>
+                    </note>
                     <p>This example outlines a <codeph>CqListener</codeph> that might be used to
                         update a display screen with current data from the server. The listener gets
                         the <codeph>queryOperation</codeph> and entry key and value from the
                         <codeph>CqEvent</codeph> and then updates the screen according to the
-                        type of <codeph>queryOperation</codeph>.
+                        type of <codeph>queryOperation</codeph>.</p>
                         <codeblock>// CqListener class 
 public class TradeEventListener implements CqListener 
 { 
@@ -111,7 +114,6 @@ public class TradeEventListener implements CqListener
     // close the output screen for the trades . . . 
   } 
 }</codeblock>
-                    </p>
                 </info>
                 <stepresult>When you install the listener and run the query, your listener will
                     handle all of the CQ results. </stepresult>
@@ -241,15 +243,14 @@ priceTracker.close();</codeblock>
         </example>
         <postreq id="postreq_BFAC200CFEEE4F48AEB32BD970820500">
             <p id="p_92235E98CE8F4941B19ECC641B632D75">With continuous queries, you can optionally
-                implement: <ul id="ul_1D613019081B49CAAD9658FE7A2D57C5">
+                implement:</p>
+                <ul id="ul_1D613019081B49CAAD9658FE7A2D57C5">
                     <li id="li_C3B24605DAAB4DE69BD9F21F5D94654C">Highly available CQs by configuring
                         your servers for high availability. </li>
                     <li id="li_8C28F952ABD548C7AF32E77D193FAAC9">Durable CQs by configuring your
                         clients for durable messaging and indicating which CQs are durable at
                         creation. </li>
                 </ul>
-            </p>
-            <p>
                 <table frame="all" id="table_713A82A94B4544B3A86D9193F1015E3C">
                     <tgroup cols="1">
                         <colspec colname="topic_link" colnum="1"/>
@@ -275,7 +276,6 @@ priceTracker.close();</codeblock>
                         </tbody>
                     </tgroup>
                 </table>
-            </p>
             <p> </p>
         </postreq>
     </taskbody>

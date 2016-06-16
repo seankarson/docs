@@ -13,7 +13,8 @@
 				and reuse a connection as long as necessary and then free it for
 				another thread to use. </p>
 			<p>The following are a list of <codeph>DataSource</codeph>
-				connection types used in JTA transactions. <ul
+				connection types used in JTA transactions. </p>
+				<ul
 					id="ul_A47A3B05CDF14A1C86FA2F7388B2A708">
 					<li
 						id="li_2CBA87C63B454363A2D156EAA0010B20"><b>XAPooledDataSource</b>.
@@ -35,7 +36,6 @@
 						done. Connections are generated on the fly and cannot be
 						reused. </li>
 				</ul>
-			</p>
 			<p>The <codeph>jndi-name</codeph> attribute of the
 					<codeph>jndi-binding</codeph> element is the key binding
 				parameter. If the value of <codeph>jndi-name</codeph> is a
@@ -50,10 +50,10 @@
 					format="html"><?xm-replace_text http://docs.oracle.com/javase/6/docs/api/javax/sql/DataSource.html?></xref>
 			</p>
 			<p><keyword keyref="product_name"/> supports JDBC 2.0 and 3.0. </p>
-			<p>
-				<note>Include any data source JAR files in your CLASSPATH.
+				<note>
+					<p>Include any data source JAR files in your CLASSPATH.
+					</p>
 				</note>
-			</p>
 		</body>
 	</topic>
 	<topic
@@ -93,11 +93,10 @@
 						<codeph>config-property</codeph> tag, as shown in this
 					example. You can add as many
 						<codeph>config-property</codeph> tags as required. </p>
-				<p>
 					<codeblock>&lt;?xml version="1.0" encoding="UTF-8"?&gt;
 &lt;cache
     xmlns="<keyword keyref="xsd_namespace"/>"
-    xmlns:xsi="<xref href="http://www.w3.org/2001/XMLSchema-instance" format="html" scope="external">http://www.w3.org/2001/XMLSchema-instance</xref>"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="<keyword keyref="xsd_namespace"/> <keyword keyref="xsd_namespace"/>/<keyword keyref="xsd_filename"/>"
     version="<keyword keyref="xsd_version"/>"
     lock-lease="120" lock-timeout="60" search-timeout="300"&gt; 
@@ -137,7 +136,6 @@ load-factor="0.75" concurrency-level="16" statistics-enabled="true"&gt;
    &lt;/jndi-bindings&gt;
 &lt;/cache&gt;
 </codeblock>
-				</p>
 			</example>
 			<example>
 				<title>JNDI Binding Configuration Properties for Different
@@ -146,7 +144,7 @@ load-factor="0.75" concurrency-level="16" statistics-enabled="true"&gt;
 					different databases. Consult your vendor database's
 					documentation for additional details.</p>
 				<p>
-					<b>MySQL</b>
+					<b>MySQL</b></p>
 					<codeblock>...
 &lt;jndi-bindings>
    &lt;jndi-binding type="XAPooledDataSource" 
@@ -162,9 +160,8 @@ load-factor="0.75" concurrency-level="16" statistics-enabled="true"&gt;
     ...
 &lt;/jndi-bindings>
 </codeblock>
-				</p>
 				<p>
-					<b>PostgreSQL</b>
+					<b>PostgreSQL</b></p>
 					<codeblock>...
 &lt;jndi-bindings>
    &lt;jndi-binding type="XAPooledDataSource" 
@@ -184,9 +181,8 @@ load-factor="0.75" concurrency-level="16" statistics-enabled="true"&gt;
    &lt;/jndi-binding>
     ...
 &lt;/jndi-bindings></codeblock>
-				</p>
 				<p>
-					<b>Oracle</b>
+					<b>Oracle</b></p>
 					<codeblock>
 ...
 &lt;jndi-bindings>
@@ -202,9 +198,8 @@ load-factor="0.75" concurrency-level="16" statistics-enabled="true"&gt;
     &lt;/jndi-binding>
     ...
 &lt;/jndi-bindings></codeblock>
-				</p>
 				<p>
-					<b>Microsoft SQL Server</b>
+					<b>Microsoft SQL Server</b></p>
 					<codeblock>
 ...
 &lt;jndi-bindings>
@@ -230,7 +225,6 @@ load-factor="0.75" concurrency-level="16" statistics-enabled="true"&gt;
     &lt;/jndi-binding>
     ...
 &lt;/jndi-bindings></codeblock>
-				</p>
 			</example>
 
 			<example
@@ -243,10 +237,9 @@ load-factor="0.75" concurrency-level="16" statistics-enabled="true"&gt;
 					the type is <codeph>ManagedDataSource</codeph>, and you
 					specify a <codeph>managed-conn-factory-class</codeph>
 					instead of an <codeph>xa-datasource-class</codeph>. </p>
-				<p>
 					<codeblock>&lt;?xml version="1.0"?&gt;
 &lt;cache xmlns="<keyword keyref="xsd_namespace"/>"
-    xmlns:xsi="<xref href="http://www.w3.org/2001/XMLSchema-instance" format="html" scope="external">http://www.w3.org/2001/XMLSchema-instance</xref>"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="<keyword keyref="xsd_namespace"/> <keyword keyref="xsd_namespace"/>/<keyword keyref="xsd_filename"/>"
     version="<keyword keyref="xsd_version"/>"
     lock-lease="120" 
@@ -288,7 +281,6 @@ load-factor="0.75" concurrency-level="16" statistics-enabled="true"&gt;
    &lt;/jndi-bindings&gt;
  &lt;/cache&gt;
  </codeblock>
-				</p>
 			</example>
 			<example
 				id="example_5B663EE2E56D405A88A218002D643039">
@@ -311,10 +303,9 @@ load-factor="0.75" concurrency-level="16" statistics-enabled="true"&gt;
 						type="topic"
 						format="dita"
 						scope="local"><?xm-replace_text Encrypting Passwords for Use in cache.xml?></xref>. </p>
-				<p>
 					<codeblock>&lt;?xml version="1.0"?&gt;
 &lt;cache xmlns="<keyword keyref="xsd_namespace"/>"
-    xmlns:xsi="<xref href="http://www.w3.org/2001/XMLSchema-instance" format="html" scope="external">http://www.w3.org/2001/XMLSchema-instance</xref>"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="<keyword keyref="xsd_namespace"/> <keyword keyref="xsd_namespace"/>/<keyword keyref="xsd_filename"/>"
     version="<keyword keyref="xsd_version"/>"
     lock-lease="120"
@@ -357,7 +348,6 @@ initial-capacity="16" load-factor="0.75" concurrency-level="16" statistics-enabl
    &lt;/jndi-bindings&gt;
 &lt;/cache&gt;
       </codeblock>
-				</p>
 			</example>
 			<example
 				id="example_CC69728A200B4B82AFDB2CB0AD1070B4">
@@ -374,10 +364,9 @@ initial-capacity="16" load-factor="0.75" concurrency-level="16" statistics-enabl
 					vendor-specific property settings. If you need them, add
 						<codeph>config-property</codeph> tags as shown in the
 					earlier examples. </p>
-				<p>
 					<codeblock>&lt;?xml version="1.0"?&gt;
 &lt;cache xmlns="<keyword keyref="xsd_namespace"/>"
-    xmlns:xsi="<xref href="http://www.w3.org/2001/XMLSchema-instance" format="html" scope="external">http://www.w3.org/2001/XMLSchema-instance</xref>"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="<keyword keyref="xsd_namespace"/> <keyword keyref="xsd_namespace"/>/<keyword keyref="xsd_filename"/>"
     version="<keyword keyref="xsd_version"/>"
     lock-lease="120" 
@@ -401,7 +390,6 @@ load-factor="0.75" concurrency-level="16" statistics-enabled="true"&gt;
    &lt;/jndi-bindings&gt;
 &lt;/cache&gt;
 </codeblock>
-				</p>
 			</example>
 		</body>
 	</topic>

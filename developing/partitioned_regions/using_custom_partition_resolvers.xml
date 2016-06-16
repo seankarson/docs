@@ -10,13 +10,14 @@
 		host which data buckets. </shortdesc>
 	<conbody>
 		<section id="section_CF05CE974C9C4AF78430DA55601D2158">
-			<p>
-				<note>If you are colocating data between regions and custom partitioning the data
+				<note>
+					<p>If you are colocating data between regions and custom partitioning the data
 					in the regions, all colocated regions must use the same custom partitioning
 					mechanism. See <xref format="dita"
 						href="colocating_partitioned_region_data.xml#colocating_partitioned_region_data"
-					/>. </note>
-			</p>
+					/>.
+					</p>
+				</note>
 		</section>
 		<section id="section_1D7043815DF24308ABE4C78BFDFEE686">
 			<p>For standard partitioning, use
@@ -26,7 +27,7 @@
 		</section>
 		<section id="section_5A8D752F02834146A37D9430F1CA32DA">
 			<p>
-				<b>Prerequisites </b>
+				<b>Prerequisites </b></p>
 				<ul id="ul_AB0B6A80DFF1409980DE9C77815DDCE1">
 					<li id="li_8029CB1B357B459AB31FAF1DA2740351">Create partitioned regions. See
 							<xref format="dita"
@@ -43,7 +44,6 @@
 							href="colocating_partitioned_region_data.xml#colocating_partitioned_region_data"
 						/>. </li>
 				</ul>
-			</p>
 			<p><b>Procedure</b>
 			</p>
 			<ol id="ol_12997A3970664C54A326C973CFB67836">
@@ -72,8 +72,13 @@
 						<codeph>getRoutingObject</codeph> method to return the routing object for
 					each entry, based on how you want to group the entries. Give the same routing
 					object to entries you want to group together. <keyword keyref="product_name"/>
-					will place the entries in the same bucket. <p><note>Only fields on the key should be used when creating the routing object. 
-						Do not use the value or additional metadata for this purpose.</note></p><p>For example, here is an
+					will place the entries in the same bucket.
+					<note>
+						<p>Only fields on the key should be used when creating the routing object. 
+						Do not use the value or additional metadata for this purpose.
+						</p>
+					</note>
+					<p>For example, here is an
 						implementation on a region key object that groups the entries by month and
 						year: </p>
 					<codeblock outputclass="language-java">Public class TradeKey implements PartitionResolver 
@@ -110,9 +115,12 @@
 							match the number of redundant copies you have defined for the region.
 							See <xref format="dita"
 								href="configuring_ha_for_pr.xml"/>.
-								<note>Buckets for a partition are hosted only by the members that
+								<note>
+									<p>Buckets for a partition are hosted only by the members that
 								have defined the partition name in their
-									<codeph>FixedPartitionAttributes</codeph>. </note>
+									<codeph>FixedPartitionAttributes</codeph>. 
+									</p>
+								</note>
 							<p>These examples set the partition attributes for a member to be the
 								primary host for the "Q1" partition data and a secondary host for
 								"Q3" partition data. </p><ul id="ul_a5y_w5c_np">
@@ -156,10 +164,16 @@ Region r = c.createRegionFactory()
 								<keyword keyref="product_name"/> uses
 								<codeph>getPartitionName</codeph> and
 								<codeph>getRoutingObject</codeph> to determine where an entry is
-							placed. <note> To group entries, assign every entry in the group the
-								same routing object and the same partition name. </note>This example
+							placed. 
+							<note>
+								<p>To group entries, assign every entry in the group the
+								same routing object and the same partition name. 
+								</p>
+							</note>
+							<p>This example
 							places the data based on date, with a different partition name for each
 							quarter-year and a different routing object for each month.
+							</p>
 							<codeblock outputclass="language-java">/**
  * Returns one of four different partition names
  * (Q1, Q2, Q3, Q4) depending on the entry's date

@@ -5,167 +5,163 @@
    <shortdesc>This section shows the hierarchy of <codeph>&lt;cache&gt;</codeph> element
       sub-elements that you use to configure <keyword keyref="product_name"/> caches and servers. </shortdesc>
    <body>
-      <p>For details, click on one of the elements.
+      <p>For details, see <xref format="dita" href="cache_xml.xml#cache_xml_cache" scope="local" type="topic">&lt;cache&gt; Element Reference</xref>.</p>
          <codeblock>
-<xref format="dita" href="cache_xml.xml#cache_xml_cache" scope="local" type="topic">&lt;cache&gt;</xref>
-   <xref format="dita" href="cache_xml.xml#cache-transaction-manager" scope="local" type="topic">&lt;cache-transaction-manager&gt;</xref>
-        <xref format="dita" href="cache_xml.xml#transaction-listener" scope="local" type="topic">&lt;transaction-listener&gt;</xref>
-        <xref format="dita" href="cache_xml.xml#transaction-writer" scope="local" type="topic">&lt;transaction-writer.</xref>
-  <xref format="dita" href="gfe_cache_xml.xml#gateway-hub" scope="local" type="topic">&lt;gateway-hub&gt; </xref>
-        &lt;gateway&gt;
-           &lt;gateway-endpoint&gt;
-           &lt;gateway-listener&gt;
-           &lt;gateway-queue&gt;
-   <xref format="dita" href="gfe_cache_xml.xml#gateway-sender" scope="local" type="topic"/>
-      <xref format="dita" href="gfe_cache_xml.xml#gateway-event-filter" scope="local" type="topic">&lt;gateway-event-filter&gt;</xref>
-      <xref format="dita" href="gfe_cache_xml.xml#gateway-transport-filter" scope="local" type="topic">&lt;gateway-transport-filter&gt;</xref>
-   <xref format="dita" href="gfe_cache_xml.xml#gateway-receiver" scope="local" type="topic"/>
-      <xref format="dita" href="gfe_cache_xml.xml#gateway-receiver_gateway-transport-filter" scope="local" type="topic">&lt;gateway-transport-filter&gt;</xref>
-   <xref format="dita" href="gfe_cache_xml.xml#gateway-conflict-resolver" scope="local" type="topic">&lt;gateway-conflict-resolver&gt;</xref>
-     <xref format="dita" href="cache_xml.xml#async-event-queue" scope="local" type="topic">&lt;async-event-queue&gt;</xref>
-      <xref format="dita" href="cache_xml.xml#async-event-listener" scope="local" type="topic">&lt;async-event-listener&gt;</xref>
+&lt;cache&gt;
+   &lt;cache-transaction-manager&gt;
+      &lt;transaction-listeners&gt;
+      &lt;transaction-writer&gt;
+   &lt;gateway-hub&gt;
+      &lt;gateway&gt;
+         &lt;gateway-endpoint&gt;
+         &lt;gateway-listener&gt;
+         &lt;gateway-queue&gt;
+   &lt;gateway-sender&gt;
+      &lt;gateway-event-filter&gt;
+      &lt;gateway-transport-filter&gt;
+   &lt;gateway-receiver&gt;
+      &lt;gateway-transport-filter&gt;
+   &lt;gateway-conflict-resolver&gt;
+      &lt;async-event-queue&gt;
+      &lt;async-event-listener&gt;
          &lt;class-name&gt;
          &lt;parameter&gt;
             &lt;string&gt;
             &lt;declarable&gt;
-   <xref format="dita" href="cache_xml.xml#cache-server" scope="local" type="topic"/>
-      <xref format="dita" href="cache_xml.xml#group" scope="local" type="topic">&lt;group&gt;</xref>
-      <xref format="dita" href="cache_xml.xml#client-subscription" scope="local" type="topic">&lt;client-subscription&gt;</xref>
-      <xref format="dita" href="cache_xml.xml#custom-load-probe" scope="local" type="topic">&lt;custom-load-probe&gt;</xref>
+   &lt;cache-server&gt;
+      &lt;group&gt;
+      &lt;client-subscription&gt;
+      &lt;custom-load-probe&gt;
           &lt;class-name&gt;
           &lt;parameter&gt;
              &lt;string&gt;
              &lt;declarable&gt;
-   <xref format="dita" href="cache_xml.xml#pool" scope="local" type="topic">&lt;pool&gt;</xref>
-      <xref format="dita" href="cache_xml.xml#locator" scope="local" type="topic">&lt;locator&gt;</xref>
-      <xref format="dita" href="cache_xml.xml#server" scope="local" type="topic">&lt;server&gt;</xref>
-   <xref format="dita" href="cache_xml.xml#disk-store" scope="local" type="topic">&lt;disk-store&gt;</xref>
-      <xref format="dita" href="cache_xml.xml#disk-dirs" scope="local" type="topic">&lt;disk-dirs&gt;</xref>
-         <xref format="dita" href="cache_xml.xml#disk-dir" scope="local" type="topic">&lt;disk-dir&gt;</xref>
-   <xref format="dita" href="cache_xml.xml#pdx" scope="local" type="topic">&lt;pdx&gt;</xref>
-      <xref href="cache_xml.xml#pdx-serializer_24898989679"/>
-          &lt;class-name&gt;
-          &lt;parameter&gt;
-             &lt;string&gt;
-             &lt;declarable&gt;
-   <xref format="dita" href="cache_xml.xml#region-attributes" scope="local" type="topic"/>
-      <xref format="dita" href="cache_xml.xml#key-constraint" scope="local" type="topic">&lt;key-constraint&gt;</xref> 
-      <xref format="dita" href="cache_xml.xml#value-constraint" scope="local" type="topic">&lt;value-constraint&gt;</xref>
-      <xref format="dita" href="cache_xml.xml#region-time-to-live" scope="local" type="topic">&lt;region-time-to-live&gt;</xref>
-         <xref format="dita" href="cache_xml.xml#expiration-attributes" scope="local" type="topic">&lt;expiration-attributes&gt;</xref>
-            <xref format="dita" href="cache_xml.xml#custom-expiry" scope="local" type="topic">&lt;custom-expiry&gt;</xref>
-               &lt;class-name&gt;
-               &lt;parameter&gt;
-                  &lt;string&gt;
-                  &lt;declarable&gt;
-      <xref format="dita" href="cache_xml.xml#region-idle-time" scope="local" type="topic">&lt;region-idle-time&gt;</xref> 
-         <xref format="dita" href="cache_xml.xml#region-idle-time_expiration-attributes" scope="local" type="topic">&lt;expiration-attributes&gt;</xref>
+   &lt;pool&gt;
+      &lt;locator&gt;
+      &lt;server&gt;
+   &lt;disk-store&gt;
+      &lt;disk-dirs&gt;
+         &lt;disk-dir&gt;
+   &lt;pdx&gt;
+      &lt;pdx-serializer&gt;
+         &lt;class-name&gt;
+         &lt;parameter&gt;
+            &lt;string&gt;
+            &lt;declarable&gt;
+   &lt;region-attributes&gt;
+      &lt;key-constraint&gt;
+      &lt;value-constraint&gt;
+      &lt;region-time-to-live&gt;
+         &lt;expiration-attributes&gt;
             &lt;custom-expiry&gt;
                &lt;class-name&gt;
                &lt;parameter&gt;
                   &lt;string&gt;
                   &lt;declarable&gt;
-      <xref format="dita" href="cache_xml.xml#entry-time-to-live" scope="local" type="topic">&lt;entry-time-to-live&gt;</xref> 
-         <xref format="dita" href="cache_xml.xml#entry-time-to-live_expiration-attributes" scope="local" type="topic">&lt;expiration-attributes&gt;</xref>
+      &lt;region-idle-time&gt;
+         &lt;expiration-attributes&gt;
             &lt;custom-expiry&gt;
                &lt;class-name&gt;
                &lt;parameter&gt;
                   &lt;string&gt;
                   &lt;declarable&gt;
-      <xref format="dita" href="cache_xml.xml#entry-idle-time" scope="local" type="topic">&lt;entry-idle-time&gt;</xref>
-         <xref format="dita" href="cache_xml.xml#entry-idle-time_expiration-attributes" scope="local" type="topic">&lt;expiration-attributes&gt;</xref>
+      &lt;entry-time-to-live&gt;
+         &lt;expiration-attributes&gt;
+            &lt;custom-expiry&gt;
+               &lt;class-name&gt;
+               &lt;parameter&gt;
+                  &lt;string&gt;
+                  &lt;declarable&gt;
+      &lt;entry-idle-time&gt;
+         &lt;expiration-attributes&gt;
             &lt;custom-expiry&gt;
                &lt;class-name&gt;
                &lt;parameter&gt;
                   &lt;string&gt;
                   &lt;declarable&gt;    
-      <xref format="dita" href="cache_xml.xml#partition-attributes" scope="local" type="topic">&lt;partition-attributes&gt;</xref>
-         <xref format="dita" href="cache_xml.xml#partition-resolver" scope="local" type="topic">&lt;partition-resolver&gt;</xref>
-             &lt;class-name&gt;
+      &lt;partition-attributes&gt;
+         &lt;partition-resolver&gt;
+            &lt;class-name&gt;
                &lt;parameter&gt;
                   &lt;string&gt;
                   &lt;declarable&gt;
-         <xref format="dita" href="cache_xml.xml#partition-listener" scope="local" type="topic">&lt;partition-listener&gt;</xref>
-             &lt;class-name&gt;
+         &lt;partition-listener&gt;
+            &lt;class-name&gt;
                &lt;parameter&gt;
                   &lt;string&gt;
                   &lt;declarable&gt;
-         <xref format="dita" href="cache_xml.xml#fixed-partition-attributes" scope="local" type="topic">&lt;fixed-partition=attributes&gt;</xref>
-      <xref format="dita" href="cache_xml.xml#membership-attributes" scope="local" type="topic">&lt;membership-attributes&gt;</xref> 
-         <xref format="dita" href="cache_xml.xml#required-role" scope="local" type="topic">&lt;required-role&gt;</xref>
-      <xref format="dita" href="cache_xml.xml#subscription-attributes" scope="local" type="topic">&lt;subscription-attributes&gt;</xref>
-        <xref format="dita" href="gfe_cache_xml.xml#id_o1f_l2q_rr" scope="local" type="topic">&lt;cache-loader&gt;</xref> 
-           &lt;class-name&gt;
+         &lt;fixed-partition=attributes&gt;
+      &lt;membership-attributes&gt;
+         &lt;required-role&gt;
+      &lt;subscription-attributes&gt;
+         &lt;cache-loader&gt;
+            &lt;class-name&gt;
             &lt;parameter&gt;
                &lt;string&gt;
                &lt;declarable&gt;
-         <xref format="dita" href="gfe_cache_xml.xml#id_j31_m2q_rr" scope="local" type="topic">&lt;cache-writer&gt;</xref>
+         &lt;cache-writer&gt;
             &lt;class-name&gt;
             &lt;parameter&gt;
                &lt;string&gt;
                &lt;declarable&gt;          
-         <xref format="dita" href="cache_xml.xml#cache-listener" scope="local" type="topic">&lt;cache-listener&gt;</xref> 
-          &lt;class-name&gt;
-            &lt;parameter&gt;
-               &lt;string&gt;
-               &lt;declarable&gt;
-       <xref href="cache_xml.xml#topic_pcd_t25_44"/>        
+         &lt;cache-listener&gt;
             &lt;class-name&gt;
             &lt;parameter&gt;
                &lt;string&gt;
                &lt;declarable&gt;
-       <xref format="dita" href="cache_xml.xml#eviction-attributes" scope="local" type="topic">&lt;eviction-attributes&gt;</xref>
-         <xref format="dita" href="cache_xml.xml#lru-entry-count" scope="local" type="topic">&lt;lru-entry-count&gt;</xref>
-         <xref format="dita" href="cache_xml.xml#lru-heap-percentage" scope="local" type="topic">&lt;lru-heap-percentage&gt;</xref>
-             &lt;class-name&gt;
-               &lt;parameter&gt;
-                  &lt;string&gt;
-                  &lt;declarable&gt;
-         <xref format="dita" href="cache_xml.xml#lru-memory-size" scope="local" type="topic">&lt;lru-memory-size&gt;</xref>
-             &lt;class-name&gt;
-               &lt;parameter&gt;
-                  &lt;string&gt;
-                  &lt;declarable&gt;
-   <xref format="dita" href="cache_xml.xml#jndi-bindings" scope="local" type="topic">&lt;jndi-bindings&gt;</xref>
-      <xref format="dita" href="cache_xml.xml#jndi-bindings" scope="local" type="topic">&lt;jndi-binding&gt;</xref>
-         <xref format="dita" href="cache_xml.xml#config-property" scope="local" type="topic">&lt;config-property&gt;</xref>
-            <xref format="dita" href="cache_xml.xml#config-property-name" scope="local" type="topic">&lt;config-property-name&gt;</xref>
-            <xref format="dita" href="cache_xml.xml#config-property-type" scope="local" type="topic">&lt;config-property-type&gt;</xref>
-            <xref format="dita" href="cache_xml.xml#config-property-value" scope="local" type="topic">&lt;config-property-value&gt;</xref>
-   <xref format="dita" href="cache_xml.xml#region" scope="local" type="topic"/>
-      <xref format="dita" href="cache_xml.xml#region-attributes" scope="local" type="topic">&lt;region-attributes&gt;</xref>
-      <xref format="dita" href="cache_xml.xml#index" scope="local" type="topic">&lt;index&gt;</xref> 
-      <xref format="dita" href="cache_xml.xml#entry" scope="local" type="topic">&lt;entry&gt;</xref>
-         <xref format="dita" href="cache_xml.xml#key" scope="local" type="topic">&lt;key&gt;</xref>
-            &lt;string&gt;
-            &lt;declarable&gt;
-         <xref format="dita" href="cache_xml.xml#value" scope="local" type="topic">&lt;value&gt;</xref>
-            &lt;string&gt;
-            &lt;declarable&gt;
-   &lt;vm-root-region&gt;
-   <xref format="dita" href="cache_xml.xml#function-service" scope="local" type="topic">&lt;function-service&gt;</xref>
-      <xref format="dita" href="cache_xml.xml#function" scope="local" type="topic">&lt;function&gt;</xref>
+      &lt;compressor&gt;        
          &lt;class-name&gt;
          &lt;parameter&gt;
             &lt;string&gt;
             &lt;declarable&gt;
-   <xref format="dita" href="cache_xml.xml#resource-manager" scope="local" type="topic">&lt;resource-manager&gt;</xref>
-   <xref format="dita" href="cache_xml.xml#serialization-registration" scope="local" type="topic">&lt;serialization-registration&gt;</xref>
-      <xref format="dita" href="cache_xml.xml#serializer" scope="local" type="topic">&lt;serializer&gt;</xref>
+      &lt;eviction-attributes&gt;
+         &lt;lru-entry-count&gt;
+         &lt;lru-heap-percentage&gt;
+            &lt;class-name&gt;
+               &lt;parameter&gt;
+                  &lt;string&gt;
+                  &lt;declarable&gt;
+         &lt;lru-memory-size&gt;
+            &lt;class-name&gt;
+               &lt;parameter&gt;
+                  &lt;string&gt;
+                  &lt;declarable&gt;
+   &lt;jndi-bindings&gt;
+      &lt;jndi-binding&gt;
+         &lt;config-property&gt;
+            &lt;config-property-name&gt;
+            &lt;config-property-type&gt;
+            &lt;config-property-value&gt;
+   &lt;region&gt;
+      &lt;region-attributes&gt;
+      &lt;index&gt;&gt;
+      &lt;entry&gt;
+         &lt;key&gt;
+            &lt;string&gt;
+            &lt;declarable&gt;
+         &lt;value&gt;
+            &lt;string&gt;
+            &lt;declarable&gt;
+   &lt;vm-root-region&gt;
+   &lt;function-service&gt;
+      &lt;function&gt;
          &lt;class-name&gt;
-      <xref format="dita" href="cache_xml.xml#instantiator" scope="local" type="topic">&lt;instantiator&gt;</xref>
+         &lt;parameter&gt;
+            &lt;string&gt;
+            &lt;declarable&gt;
+   &lt;resource-manager&gt;
+   &lt;serialization-registration&gt;
+      &lt;serializer&gt;
+         &lt;class-name&gt;
+            &lt;instantiator&gt;
          &lt;class-name>
-   <xref format="dita" href="cache_xml.xml#backup" scope="local" type="topic">&lt;backup></xref>
-   <xref format="dita" href="cache_xml.xml#initializer" scope="local" type="topic">&lt;initializer></xref>
+            &lt;backup&gt;
+   &lt;initializer>&lt;initializer&gt;
       &lt;class-name&gt;
       &lt;parameter&gt;
          &lt;string&gt;
          &lt;declarable&gt;
 &lt;/cache&gt;
-
-
-
    </codeblock>
-      </p>
    </body>
 </topic>

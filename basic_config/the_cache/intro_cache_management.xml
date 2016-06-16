@@ -10,7 +10,7 @@
 				called <i>data entries</i>. The cache also provides features like transactions, data
 				querying, disk storage management, and logging. See the Javadocs for
 					<codeph>com.gemstone.gemfire.cache.Cache</codeph>.</p>
-			<p>You generally configure caches using the <cmdname>gfsh</cmdname> command-line utility
+			<p>You generally configure caches using the <codeph>gfsh</codeph> command-line utility
 				or a combination of XML declarations and API calls. <keyword keyref="product_name"/>
 				loads and processes your XML declarations when you first create the cache.</p>
 			<p><keyword keyref="product_name"/> has one cache type for managing server and peer
@@ -23,7 +23,6 @@
 			<title>The Caching APIs</title>
 			<p><keyword keyref="product_name"/>'s caching APIs provide specialized behavior for
 				different system member types and security settings. </p>
-			<p>
 				<ul id="ul_2E1EDB45DE894E249707050FDEE4A580">
 					<li id="li_AC706DC3305243A092D2C419562C5CD4"
 								><b><codeph>com.gemstone.gemfire.cache.RegionService</codeph></b>.
@@ -65,34 +64,31 @@
 						and client tiers, and RegionService creation for secure access by multiple
 						users within the client. </li>
 				</ul>
-			</p>
 		</section>
 		<section id="section_6486BDAF06EC4B91A548872066F3EC8C">
 			<title>The Cache XML</title>
 			<p>Your <codeph>cache.xml</codeph> must be formatted according to the product XML schema
 				definition <codeph><keyword keyref="xsd_filename"/></codeph>. The schema definition
-				file is available in the product distribution at <filepath><keyword
-						keyref="xsd_path"/>/<keyword keyref="xsd_filename"/></filepath>.</p>
+				file is available in the product distribution at <codeph><keyword
+						keyref="xsd_path"/>/<keyword keyref="xsd_filename"/></codeph>.</p>
 			<p>You use one format for peer and server caches and another for client caches. </p>
-			<p><codeph>cache.xml</codeph> for Peer/Server:
+			<p><codeph>cache.xml</codeph> for Peer/Server:</p>
 				<codeblock>&lt;?xml version="1.0" encoding="UTF-8"?&gt;
 &lt;cache xmlns="<keyword keyref="xsd_namespace"/>"
-    xmlns:xsi="<xref href="http://www.w3.org/2001/XMLSchema-instance" format="html" scope="external">http://www.w3.org/2001/XMLSchema-instance</xref>"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="<keyword keyref="xsd_namespace"/> <keyword keyref="xsd_namespace"/>/<keyword keyref="xsd_filename"/>"
     version="<keyword keyref="xsd_version"/>”&gt;
 ...
 &lt;/cache&gt;</codeblock>
-			</p>
-			<p><codeph>cache.xml</codeph> for Client:
+			<p><codeph>cache.xml</codeph> for Client:</p>
 				<codeblock>&lt;?xml version="1.0" encoding="UTF-8"?&gt;
 &lt;client-cache
     xmlns="<keyword keyref="xsd_namespace"/>"
-    xmlns:xsi="<xref href="http://www.w3.org/2001/XMLSchema-instance" format="html" scope="external">http://www.w3.org/2001/XMLSchema-instance</xref>"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="<keyword keyref="xsd_namespace"/> <keyword keyref="xsd_namespace"/>/<keyword keyref="xsd_filename"/>"
     version="<keyword keyref="xsd_version"></keyword>”&gt;
 ...
 &lt;/client-cache&gt;</codeblock>
-			</p>
 			<p>For more information on the <codeph>cache.xml</codeph> file, see <xref
 					href="../../reference/topics/chapter_overview_cache_xml.xml#cache_xml"/>. </p>
 		</section>
@@ -110,10 +106,9 @@
 				you can use a combination of file configuration and API configuration. </p>
 			<p>The XML examples may not include the full <codeph>cache.xml</codeph> file listing. All of your
 				declarative cache configuration must conform to the cache XSD in the product
-				installation <filepath><keyword keyref="xsd_path"/>/<keyword keyref="xsd_filename"
-					/></filepath>. </p>
+				installation <codeph><keyword keyref="xsd_path"/>/<keyword keyref="xsd_filename"
+					/></codeph>. </p>
 			<p>For all of your <keyword keyref="product_name"/> applications: </p>
-			<p>
 				<ol id="ol_BECC562B09A84C3CBABB720C92C00166">
 					<li id="li_D3C43DBB6D6544FC96DA319CB858AD9E">Create your <codeph>Cache</codeph>,
 						for peer/server applications, or <codeph>ClientCache</codeph>, for client
@@ -124,7 +119,6 @@
 						This frees up resources and disconnects your application from the
 						distributed system in an orderly manner. </li>
 				</ol>
-			</p>
 			<p>Follow the instructions in the subtopics under <xref
 					href="chapter_overview.xml#the_cache" type="concept" format="dita" scope="local"
 				/> to customize your cache creation and closure for your application needs. You may

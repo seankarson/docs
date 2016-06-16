@@ -17,26 +17,33 @@
 	</prolog>
 	<conbody>
 		<section id="section_294AD2E2328E4D6B8D6A73966F7B3B14">
-			<p>
-				<note>Do not use conflation if your receiving applications depend on the specific
-					ordering of entry modifications, or if they need to be notified of every change
-					to an entry. </note>Conflation is most useful when a single entry is updated
+			<note>
+				<p>Do not use conflation if your receiving applications depend on the specific
+				ordering of entry modifications, or if they need to be notified of every change
+				to an entry.
+				</p>
+			</note>
+			<p>Conflation is most useful when a single entry is updated
 				frequently, but other sites only need to know the current value of the entry (rather
 				than the value of each update). When an update is added to a queue that has
 				conflation enabled, if there is already an update message in the queue for the entry
 				key, then the existing message assumes the value of the new update and the new
-				update is dropped, as shown here for key A. </p>
+				update is dropped, as shown here for key A. 
+			</p>
 			<p>
 				<image href="../../images/MultiSite-4.gif" id="image_27219DAAB6D643348641389DBAEA1E94"
 					placement="break"/>
 			</p>
-			<note>This method of conflation is different from the one used for server-to-client
+			<note>
+				<p>This method of conflation is different from the one used for server-to-client
 				subscription queue conflation and peer-to-peer distribution within a distributed
-				system. </note>
+				system.
+				</p>
+			</note>
 		</section>
 		<section id="section_207FA6BF0F734F9A91EAACB136F8D6B5">
-			<title>Examples: Configuring Conflation for a Gateway Sender Queue</title>
-			<p>To enable conflation for a gateway sender queue, use one of the following mechanisms:
+			<title>Examples—Configuring Conflation for a Gateway Sender Queue</title>
+			<p>To enable conflation for a gateway sender queue, use one of the following mechanisms:</p>
 					<ul id="ul_1D24F5A045A14338BF74A3543D61682F">
 					<li id="li_E3C9DF3A23D247159131355CAD0204E2"><b>cache.xml configuration</b>
 						<codeblock outputclass="language-xml">&lt;cache&gt;
@@ -68,9 +75,9 @@ sender.start();
    --enable-batch-conflation=true</codeblock>
 					</li>
 				</ul>
-			</p>
 			<p>The following examples show how to configure conflation for an asynchronous event
-				queue: <ul id="ul_A2468E49D1B847DA8A86B970A6C91D30">
+				queue: </p>
+				<ul id="ul_A2468E49D1B847DA8A86B970A6C91D30">
 					<li id="li_52409A3DE9E04BB6AF4BD678108AE85B"><b>cache.xml configuration</b>
 						<codeblock outputclass="language-xml">&lt;cache&gt;
    &lt;async-event-queue id="sampleQueue" persistent="true"
@@ -111,7 +118,6 @@ AsyncEventQueue sampleQueue = factory.create("customerWB", listener);</codeblock
 --listener-param=username#gfeadmin 
 --listener-param=password#admin1</codeblock></li>
 				</ul>
-			</p>
 		</section>
 	</conbody>
 </concept>

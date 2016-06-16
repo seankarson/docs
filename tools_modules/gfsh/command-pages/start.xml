@@ -15,46 +15,47 @@
 					JMX Manager member to use this command. </p>
 				<p>
 					<b>Syntax:</b>
-					<codeblock>start gateway-receiver [--group=value(,value)*] [--member=value]
-</codeblock>
-					<table id="table_88CAC662C76A41E5BBD959B4A5CF132F">
-						<title>Parameters</title>
-						<tgroup cols="2">
-							<colspec colnum="1" colname="col1" colwidth="1.00*"/>
-							<colspec colnum="2" colname="col2" colwidth="3.24*"/>
-							<thead>
-								<row>
-									<entry colname="col1">Name </entry>
-									<entry colname="col2">Description</entry>
-								</row>
-							</thead>
-							<tbody>
-								<row>
-									<entry colname="col1">
-										<parmname>--member</parmname>
-									</entry>
-									<entry colname="col2">Name or ID of the member on which to start
-										the Gateway Receiver. </entry>
-								</row>
-								<row>
-									<entry colname="col1">
-										<parmname>--group</parmname>
-									</entry>
-									<entry colname="col2"> Group(s) of members on which to start the
-										Gateway Receiver. </entry>
-								</row>
-							</tbody>
-						</tgroup>
-					</table>
 				</p>
+				<codeblock>start gateway-receiver [--group=value(,value)*] [--member=value]
+</codeblock>
+				<table id="table_eyh_3vg_2w">
+					<title>Parameters</title>
+					<tgroup cols="2">
+						<colspec colnum="1" colname="col1" colwidth="1.00*"/>
+						<colspec colnum="2" colname="col2" colwidth="3.24*"/>
+						<thead>
+							<row>
+								<entry colname="col1">Name </entry>
+								<entry colname="col2">Description</entry>
+							</row>
+						</thead>
+						<tbody>
+							<row>
+								<entry colname="col1">
+									<parmname>--member</parmname>
+								</entry>
+								<entry colname="col2">Name or ID of the member on which to start the
+									Gateway Receiver. </entry>
+							</row>
+							<row>
+								<entry colname="col1">
+									<parmname>--group</parmname>
+								</entry>
+								<entry colname="col2"> Group(s) of members on which to start the
+									Gateway Receiver. </entry>
+							</row>
+						</tbody>
+					</tgroup>
+				</table>
 				<p>
 					<b>Example Commands:</b>
-					<codeblock>start gateway-receiver
-start gateway-receiver --member=member1</codeblock>
 				</p>
+				<codeblock>start gateway-receiver
+start gateway-receiver --member=member1</codeblock>
 				<p>
 					<b>Sample Output:</b>
-					<codeblock>gfsh&gt;start gateway-receiver
+				</p>
+				<codeblock>gfsh&gt;start gateway-receiver
       Member                | Result | Message
 --------------------------- | -------| -----------------------------------------------------------------------
 pc13(2266)&lt;v6&gt;:56852        | OK     | GatewayReceiver is started on member pc13(2266)&lt;v6&gt;:56852
@@ -72,7 +73,6 @@ pc13(2275)&lt;v23&gt;:27484| OK     | GatewayReceiver is started on member pc13(
 pc13(2293)&lt;v24&gt;:55810| OK     | GatewayReceiver is started on member pc13(2293)&lt;v24&gt;:55810
 pc13(2266)&lt;v22&gt;:4522 | OK     | GatewayReceiver is started on member pc13(2266)&lt;v22&gt;:4522
 </codeblock>
-				</p>
 			</body>
 		</topic>
 		<topic id="topic_AB8BA3F42B9645A8BE9BD97CE2F839A8">
@@ -86,53 +86,54 @@ pc13(2266)&lt;v22&gt;:4522 | OK     | GatewayReceiver is started on member pc13(
 					JMX Manager member to use this command. </p>
 				<p>
 					<b>Syntax:</b>
-					<codeblock>start gateway-sender --id=value [--group=value(,value)*] [--member=value]</codeblock>
-					<table id="table_CFE835F0AC164319B577365037CEEF5B">
-						<title>Parameters</title>
-						<tgroup cols="2">
-							<colspec colnum="1" colname="col1" colwidth="1.00*"/>
-							<colspec colnum="2" colname="col2" colwidth="3.24*"/>
-							<thead>
-								<row>
-									<entry colname="col1">Name </entry>
-									<entry colname="col2">Description</entry>
-								</row>
-							</thead>
-							<tbody>
-								<row>
-									<entry colname="col1">
-										<parmname>--id</parmname>
-									</entry>
-									<entry colname="col2"><i>Required. </i>ID of the GatewaySender.
-									</entry>
-								</row>
-								<row>
-									<entry colname="col1">
-										<parmname>--group</parmname>
-									</entry>
-									<entry colname="col2"> Group(s) of members on which to start the
-										Gateway Sender. </entry>
-								</row>
-								<row>
-									<entry colname="col1">
-										<parmname>--member</parmname>
-									</entry>
-									<entry colname="col2">Member used to start the Gateway Sender
-									</entry>
-								</row>
-							</tbody>
-						</tgroup>
-					</table>
 				</p>
+				<codeblock>start gateway-sender --id=value [--group=value(,value)*] [--member=value]</codeblock>
+				<table id="table_gxc_lvg_2w">
+					<title>Parameters</title>
+					<tgroup cols="2">
+						<colspec colnum="1" colname="col1" colwidth="1.00*"/>
+						<colspec colnum="2" colname="col2" colwidth="3.24*"/>
+						<thead>
+							<row>
+								<entry colname="col1">Name </entry>
+								<entry colname="col2">Description</entry>
+							</row>
+						</thead>
+						<tbody>
+							<row>
+								<entry colname="col1">
+									<parmname>--id</parmname>
+								</entry>
+								<entry colname="col2"><i>Required. </i>ID of the GatewaySender.
+								</entry>
+							</row>
+							<row>
+								<entry colname="col1">
+									<parmname>--group</parmname>
+								</entry>
+								<entry colname="col2"> Group(s) of members on which to start the
+									Gateway Sender. </entry>
+							</row>
+							<row>
+								<entry colname="col1">
+									<parmname>--member</parmname>
+								</entry>
+								<entry colname="col2">Member used to start the Gateway Sender
+								</entry>
+							</row>
+						</tbody>
+					</tgroup>
+				</table>
 				<p>
 					<b>Example Commands:</b>
-					<codeblock>start gateway-sender --id=sender1-NY
+				</p>
+				<codeblock>start gateway-sender --id=sender1-NY
 start gateway-sender --id=sender1-NY --member=server1
 start gateway-sender --id=sender1-NY --group=MemberGroup1,MemberGroup2</codeblock>
-				</p>
 				<p>
 					<b>Sample Output:</b>
-					<codeblock>gfsh&gt;start gateway-sender --id=ln
+				</p>
+				<codeblock>gfsh&gt;start gateway-sender --id=ln
  Member                       |  Result |                   Message
 ------------------------------| ------- | -------------------------------------------------------------------------
 pc13(30614)&lt;v6&gt;:63670         | OK      | GatewaySender ln is started on member pc13(30614)&lt;v6&gt;:63670
@@ -149,7 +150,6 @@ pc13(30614)&lt;v18&gt;:15201 | OK    | GatewaySender ln is started on member pc1
 pc13(30621)&lt;v19&gt;:61437 | OK    | GatewaySender ln is started on member pc13(30621)&lt;v19&gt;:61437
 pc13(30633)&lt;v20&gt;:22567 | OK    | GatewaySender ln is started on member pc13(30633)&lt;v20&gt;:22567
 </codeblock>
-				</p>
 			</body>
 		</topic>
 		<topic id="topic_D00507416F3944DFAB48D2FA2B9E4A31">
@@ -169,96 +169,98 @@ pc13(30633)&lt;v20&gt;:22567 | OK    | GatewaySender ln is started on member pc1
 				<p><b> Availability:</b> Online or offline. </p>
 				<p>
 					<b>Syntax:</b>
-					<codeblock>start jconsole [--interval=&lt;seconds&gt;] [--notile] [--version] 
-[--J&lt;jconsole JVM options&gt;]</codeblock>
-					<table id="table_27F929B9337640FAADD06B54A6194743">
-						<title>Parameters</title>
-						<tgroup cols="3">
-							<colspec colname="col1" colnum="1" colwidth="1*"/>
-							<colspec colname="col2" colnum="2" colwidth="3.43*"/>
-							<colspec colname="newCol3" colnum="3" colwidth="3*"/>
-							<thead>
-								<row>
-									<entry colname="col1">Name </entry>
-									<entry colname="col2">Description</entry>
-									<entry>Default Value</entry>
-								</row>
-							</thead>
-							<tbody>
-								<row>
-									<entry colname="col1">
-										<parmname>--interval</parmname>
-									</entry>
-									<entry colname="col2">Set the update interval to n seconds
-										(default is 4 seconds). (Equivalent to JConsole's
-											<codeph>-interval=n</codeph>) </entry>
-									<entry>4</entry>
-								</row>
-								<row>
-									<entry colname="col1">
-										<parmname>--notile</parmname>
-									</entry>
-									<entry colname="col2">Whether to initially tile windows for two
-										or more connections. This parameter is passed as
-											<codeph>-notile</codeph> to JConsole. </entry>
-									<entry>false</entry>
-								</row>
-								<row>
-									<entry colname="col1">
-										<parmname>--pluginpath</parmname>
-									</entry>
-									<entry colname="col2">"Directories or JAR files which are
-										searched for JConsole plugins. The path should contain a
-										provider-configuration file named:<codeph>\n" + "
-											META-INF/services/com.sun.tools.jconsole.JConsolePlugin\n"</codeph>
-										+ "containing one line for each plugin specifying the fully
-										qualified class name of the class implementing the
-											<codeph>com.sun.tools.jconsole.JConsolePlugin</codeph>
-										class." </entry>
-									<entry/>
-								</row>
-								<row>
-									<entry colname="col1">
-										<parmname>--version</parmname>
-									</entry>
-									<entry colname="col2">Display the JConsole version information.
-										This parameter is passed as <codeph>-version</codeph> to
-										JConsole. </entry>
-									<entry>false</entry>
-								</row>
-								<row>
-									<entry colname="col1">
-										<parmname>--J</parmname>
-									</entry>
-									<entry colname="col2">Arguments passed to the JVM on which
-										JConsole runs </entry>
-									<entry/>
-								</row>
-							</tbody>
-						</tgroup>
-					</table>
 				</p>
+				<codeblock>start jconsole [--interval=&lt;seconds&gt;] [--notile] [--version] 
+[--J&lt;jconsole JVM options&gt;]</codeblock>
+				<table id="table_uck_4vg_2w">
+					<title>Parameters</title>
+					<tgroup cols="3">
+						<colspec colname="col1" colnum="1" colwidth="1*"/>
+						<colspec colname="col2" colnum="2" colwidth="3.43*"/>
+						<colspec colname="newCol3" colnum="3" colwidth="3*"/>
+						<thead>
+							<row>
+								<entry colname="col1">Name </entry>
+								<entry colname="col2">Description</entry>
+								<entry>Default Value</entry>
+							</row>
+						</thead>
+						<tbody>
+							<row>
+								<entry colname="col1">
+									<parmname>--interval</parmname>
+								</entry>
+								<entry colname="col2">Set the update interval to n seconds (default
+									is 4 seconds). (Equivalent to JConsole's
+										<codeph>-interval=n</codeph>) </entry>
+								<entry>4</entry>
+							</row>
+							<row>
+								<entry colname="col1">
+									<parmname>--notile</parmname>
+								</entry>
+								<entry colname="col2">Whether to initially tile windows for two or
+									more connections. This parameter is passed as
+										<codeph>-notile</codeph> to JConsole. </entry>
+								<entry>false</entry>
+							</row>
+							<row>
+								<entry colname="col1">
+									<parmname>--pluginpath</parmname>
+								</entry>
+								<entry colname="col2">"Directories or JAR files which are searched
+									for JConsole plugins. The path should contain a
+									provider-configuration file named:<codeph>\n" + "
+										META-INF/services/com.sun.tools.jconsole.JConsolePlugin\n"</codeph>
+									+ "containing one line for each plugin specifying the fully
+									qualified class name of the class implementing the
+										<codeph>com.sun.tools.jconsole.JConsolePlugin</codeph>
+									class." </entry>
+								<entry/>
+							</row>
+							<row>
+								<entry colname="col1">
+									<parmname>--version</parmname>
+								</entry>
+								<entry colname="col2">Display the JConsole version information. This
+									parameter is passed as <codeph>-version</codeph> to JConsole. </entry>
+								<entry>false</entry>
+							</row>
+							<row>
+								<entry colname="col1">
+									<parmname>--J</parmname>
+								</entry>
+								<entry colname="col2">Arguments passed to the JVM on which JConsole
+									runs </entry>
+								<entry/>
+							</row>
+						</tbody>
+					</tgroup>
+				</table>
 				<p>
 					<b>Example Commands:</b>
-					<codeblock>gfsh./&gt; start jconsole --interval=8 --notile;
+				</p>
+				<codeblock>gfsh./&gt; start jconsole --interval=8 --notile;
 Running JDK JConsole
 
 gfsh./&gt; start jconsole --version;
 JConsole version "1.6.0_31-b04-415"
 Java(TM) SE Runtime Environment (build 1.6.0_31-b04-415-11M3646)
 Java HotSpot(TM) 64-Bit Server VM (build 20.6-b01-415, mixed mode)</codeblock>
-				</p>
 				<p><b>Sample Output:</b>
-					<codeblock>gfsh&gt;start jconsole
-Running JDK JConsole</codeblock> The JConsole
-					application appears and auto-connects to a JMX Manager node if one is available: </p>
+				</p>
+				<codeblock>gfsh&gt;start jconsole
+Running JDK JConsole</codeblock>
+				<p>The JConsole application appears and auto-connects to a JMX Manager node if one
+					is available: </p>
 				<p>
 					<image id="image_AAB6A784AD4B4BD1B5155AC796C22F82"
 						href="../../../images/JConsole.png" align="center" placement="break"/>
 				</p>
 				<p>
 					<b>Error Messages:</b>
-					<codeblock>An error occurred while launching JConsole = %1$s
+				</p>
+				<codeblock>An error occurred while launching JConsole = %1$s
 
 Connecting by the <keyword keyref="product_name"/> member's name or ID is not currently supported.
 Please specify the member as '&lt;hostname|IP&gt;[PORT].
@@ -269,7 +271,6 @@ or the JDK bin directory is in the system PATH.
 
 JConsole could not be found.\nPlease ensure that JAVA_HOME is set to the 
 JDK installation or the JDK bin directory is in the system PATH.</codeblock>
-				</p>
 			</body>
 		</topic>
 		<topic id="topic_5B5BF8BEE905463D8B7762B89E2D65E7">
@@ -280,37 +281,36 @@ JDK installation or the JDK bin directory is in the system PATH.</codeblock>
 				<p><b>Availability:</b> Online or offline. </p>
 				<p>
 					<b>Syntax:</b>
-					<codeblock>start jvisualvm [--J=value(,value)*]
-</codeblock>
-					<table id="table_1AC69D1883EF45C699C588AA140008DA">
-						<title>Parameters</title>
-						<tgroup cols="2">
-							<colspec colnum="1" colname="col1" colwidth="1.00*"/>
-							<colspec colnum="2" colname="col2" colwidth="3.38*"/>
-							<thead>
-								<row>
-									<entry colname="col1">Name </entry>
-									<entry colname="col2">Description</entry>
-								</row>
-							</thead>
-							<tbody>
-								<row>
-									<entry colname="col1">
-										<parmname>--J</parmname>
-									</entry>
-									<entry colname="col2">VM-option passed to the spawned
-										CacheServer VM. For example:
-											<codeph>-J-Dfoo.bar=true</codeph> for setting foo.bar to
-										'true'. </entry>
-								</row>
-							</tbody>
-						</tgroup>
-					</table>
 				</p>
+				<codeblock>start jvisualvm [--J=value(,value)*]
+</codeblock>
+				<table id="table_ssp_svg_2w">
+					<title>Parameters</title>
+					<tgroup cols="2">
+						<colspec colnum="1" colname="col1" colwidth="1.00*"/>
+						<colspec colnum="2" colname="col2" colwidth="3.38*"/>
+						<thead>
+							<row>
+								<entry colname="col1">Name </entry>
+								<entry colname="col2">Description</entry>
+							</row>
+						</thead>
+						<tbody>
+							<row>
+								<entry colname="col1">
+									<parmname>--J</parmname>
+								</entry>
+								<entry colname="col2">VM-option passed to the spawned CacheServer
+									VM. For example: <codeph>-J-Dfoo.bar=true</codeph> for setting
+									foo.bar to 'true'. </entry>
+							</row>
+						</tbody>
+					</tgroup>
+				</table>
 				<p>
 					<b>Example Commands:</b>
-					<codeblock>start jvisualvm</codeblock>
 				</p>
+				<codeblock>start jvisualvm</codeblock>
 				<p>
 					<b>Sample Output:</b>
 					<fig id="fig_8E2DCE5250A24153AACDFDDFBE6748E4">
@@ -348,248 +348,245 @@ JDK installation or the JDK bin directory is in the system PATH.</codeblock>
 				<p><b> Availability:</b> Online or offline. </p>
 				<p>
 					<b>Syntax:</b>
-					<codeblock>start locator --name=value [--bind-address=value] [--force(=value)] [--group=value] [--hostname-for-clients=value]
+				</p>
+				<codeblock>start locator --name=value [--bind-address=value] [--force(=value)] [--group=value] [--hostname-for-clients=value]
  [--locators=value] [--log-level=value] [--mcast-address=value] [--mcast-port=value] [--port=value] [--dir=value] 
  [--properties-file=value] [--security-properties-file=value] [--initial-heap=value] [--max-heap=value] 
  [--connect(=value)] [--enable-cluster-configuration(=value)] [--load-from-cluster-configuration-dir(=value)]
  [--cluster-config-dir=value] [--J=value(,value)*] 
 </codeblock>
-					<table id="table_D7D1EC149B39483B816583F3D4A775E7">
-						<title>Parameters</title>
-						<tgroup cols="3">
-							<colspec colname="col1" colnum="1" colwidth="1.00*"/>
-							<colspec colname="col2" colnum="2" colwidth="3.38*"/>
-							<colspec colname="newCol3" colnum="3" colwidth="1*"/>
-							<thead>
-								<row>
-									<entry colname="col1">Name </entry>
-									<entry colname="col2">Description</entry>
-									<entry colname="col3">Default Value</entry>
-								</row>
-							</thead>
-							<tbody>
-								<row>
-									<entry colname="col1">
-										<parmname>--name</parmname>
-									</entry>
-									<entry colname="col2"><i>Required.</i> Name to be used for this
-											<keyword keyref="product_name"/><keyword
-											keyref="product_name"/> locator service. </entry>
-									<entry/>
-								</row>
-								<row>
-									<entry colname="col1">
-										<parmname>--bind-address</parmname>
-									</entry>
-									<entry colname="col2">IP address on which the locator will be
-										bound. </entry>
-									<entry>bound to all addresses</entry>
-								</row>
-								<row>
-									<entry colname="col1">
-										<parmname>--force</parmname>
-									</entry>
-									<entry colname="col2">Whether to allow the PID file from a
-										previous locator run to be overwritten. </entry>
-									<entry>false</entry>
-								</row>
-								<row>
-									<entry colname="col1">
-										<parmname>--group</parmname>
-									</entry>
-									<entry colname="col2">Group(s) the locator will be a part of. </entry>
-									<entry/>
-								</row>
-								<row>
-									<entry colname="col1">
-										<parmname>--hostname-for-clients</parmname>
-									</entry>
-									<entry colname="col2">Hostname or IP address that will be sent
-										to clients so they can connect to this locator.</entry>
-									<entry>uses the bind-address to which the locator is bound).
-									</entry>
-								</row>
-								<row>
-									<entry colname="col1">
-										<parmname>--locators</parmname>
-									</entry>
-									<entry colname="col2">List of locators used by this locator to
-										join the appropriate <keyword keyref="product_name"
-											/><keyword keyref="product_name"/> cluster. </entry>
-									<entry/>
-								</row>
-								<row>
-									<entry colname="col1">
-										<parmname>--log-level</parmname>
-									</entry>
-									<entry colname="col2">Level of output logged to the locator log
-										file. Possible values for log-level include: finest, finer,
-										fine, config, info, warning, severe, none. </entry>
-									<entry/>
-								</row>
-								<row>
-									<entry colname="col1">
-										<parmname>--mcast-address </parmname>
-									</entry>
-									<entry colname="col2">IP address or hostname used to bind the
-										UPD socket for multi-cast networking so the locator can
-										locate other members in the <keyword keyref="product_name"
-											/><keyword keyref="product_name"/> cluster. If
-										mcast-port is zero, then mcast-address is ignored. </entry>
-									<entry/>
-								</row>
-								<row>
-									<entry colname="col1">
-										<parmname>--mcast-port</parmname>
-									</entry>
-									<entry colname="col2">Port used for multi-cast networking so the
-										locator can locate other members of the <keyword
-											keyref="product_name"/> cluster. A zero value disables
-										mcast. </entry>
-									<entry/>
-								</row>
-								<row>
-									<entry colname="col1">
-										<parmname>--port</parmname>
-									</entry>
-									<entry colname="col2">Port the locator will listen on. </entry>
-									<entry>10334</entry>
-								</row>
-								<row>
-									<entry colname="col1">
-										<parmname>--dir</parmname>
-									</entry>
-									<entry colname="col2">Directory in which the Locator will be
-										started and run. </entry>
-									<entry>
-										<filepath>./&lt;locator-member-name&gt;</filepath>
-									</entry>
-								</row>
-								<row>
-									<entry colname="col1">
-										<parmname>--properties-file</parmname>
-									</entry>
-									<entry colname="col2">Specify the
-											<codeph>gemfire.properties</codeph> file for configuring
-										the locator's distributed system. The file's path should be
-										absolute or relative to gfsh's working directory. </entry>
-									<entry/>
-								</row>
-								<row>
-									<entry colname="col1">
-										<parmname>--security-properties-file</parmname>
-									</entry>
-									<entry colname="col2">The
-											<filepath>gfsecurity.properties</filepath> file for
-										configuring the Locator's security configuration in the
-										distributed system. The file's path can be absolute or
-										relative to gfsh's working directory. </entry>
-									<entry/>
-								</row>
-								<row>
-									<entry colname="col1">
-										<parmname>--initial-heap</parmname>
-									</entry>
-									<entry colname="col2">Size has the same format as the
-											<codeph>-Xmx</codeph>/<codeph>-Xms</codeph> JVM options.
-											<note> If you use the <codeph>-J-Xms</codeph> and
-												<codeph>-J-Xmx</codeph> JVM properties instead of
-												<codeph>-initial-heap</codeph> and
-												<codeph>-max-heap</codeph>, then <keyword
-												keyref="product_name"/><keyword
-												keyref="product_name"/> does not use default JVM
-											resource management properties. If you use the JVM
-											properties, you must then specify all properties
-											manually for eviction, garbage collection, heap
-											percentage, and so forth. </note>
-									</entry>
-									<entry/>
-								</row>
-								<row>
-									<entry colname="col1">
-										<parmname>--max-heap</parmname>
-									</entry>
-									<entry colname="col2">Size has the same format as the
-											<codeph>-Xmx</codeph>/<codeph>-Xms</codeph> JVM options
-											<note> If you use the <codeph>-J-Xms</codeph> and
-												<codeph>-J-Xmx</codeph> JVM properties instead of
-												<codeph>-initial-heap</codeph> and
-												<codeph>-max-heap</codeph>, then <keyword
-												keyref="product_name"/><keyword
-												keyref="product_name"/> does not use default JVM
-											resource management properties. If you use the JVM
-											properties, you must then specify all properties
-											manually for eviction, garbage collection, heap
-											percentage, and so forth. </note>
-									</entry>
-									<entry/>
-								</row>
-								<row>
-									<entry colname="col1">
-										<parmname>--connect</parmname>
-									</entry>
-									<entry colname="col2">When connect is set to false, gfsh does
-										not automatically connect to the locator which is started
-										using this command. </entry>
-									<entry>true</entry>
-								</row>
-								<row>
-									<entry colname="col1">
-										<parmname>--enable-cluster-configuration</parmname>
-									</entry>
-									<entry colname="col2">Enables cluster configuration behavior where locators maintain
-										configurations for all members of a distributed system. See
-											<xref
-											href="../../../configuring/cluster_config/gfsh_persist.xml"
-										/>.</entry>
-									<entry>true</entry>
-								</row>
-								<row>
-									<entry colname="col1">
-										<parmname>--load-from-cluster-configuration-dir</parmname>
-									</entry>
-									<entry colname="col2">Loads the cluster configuration from the
-											<filepath>shared-config</filepath> directory. (When set
-										to false, the configuration is loaded from the disk store of
-										the internal, persistent region used by the locator to
-										persist the configuration.)</entry>
-									<entry>false</entry>
-								</row>
-								<row>
-									<entry colname="col1"
-										><parmname>--cluster-config-dir</parmname></entry>
-									<entry colname="col2">Directory used by the cluster
-										configuration service to store the cluster configuration on
-										the filesystem</entry>
-									<entry>cluster-config</entry>
-								</row>
-								<row>
-									<entry colname="col1">
-										<parmname>--J </parmname>
-									</entry>
-									<entry colname="col2">Argument passed to the JVM on which the
-										Locator will run. For example, specifying
-											<codeph>--J=-Dfoo.bar=true</codeph> sets property
-										"foo.bar" to "true".<note><p>If the argument you are passing
-												contains spaces or commas, enclose the option in
-												single quotes. For
-												example:<codeblock>start locator --name=locator1 --port=9009 --mcast-port=0\
+				<table id="table_hly_vvg_2w">
+					<title>Parameters</title>
+					<tgroup cols="3">
+						<colspec colname="col1" colnum="1" colwidth="1.00*"/>
+						<colspec colname="col2" colnum="2" colwidth="3.38*"/>
+						<colspec colname="newCol3" colnum="3" colwidth="1*"/>
+						<thead>
+							<row>
+								<entry colname="col1">Name </entry>
+								<entry colname="col2">Description</entry>
+								<entry colname="col3">Default Value</entry>
+							</row>
+						</thead>
+						<tbody>
+							<row>
+								<entry colname="col1">
+									<parmname>--name</parmname>
+								</entry>
+								<entry colname="col2"><i>Required.</i> Name to be used for this
+										<keyword keyref="product_name"/><keyword
+										keyref="product_name"/> locator service. </entry>
+								<entry/>
+							</row>
+							<row>
+								<entry colname="col1">
+									<parmname>--bind-address</parmname>
+								</entry>
+								<entry colname="col2">IP address on which the locator will be bound. </entry>
+								<entry>bound to all addresses</entry>
+							</row>
+							<row>
+								<entry colname="col1">
+									<parmname>--force</parmname>
+								</entry>
+								<entry colname="col2">Whether to allow the PID file from a previous
+									locator run to be overwritten. </entry>
+								<entry>false</entry>
+							</row>
+							<row>
+								<entry colname="col1">
+									<parmname>--group</parmname>
+								</entry>
+								<entry colname="col2">Group(s) the locator will be a part of. </entry>
+								<entry/>
+							</row>
+							<row>
+								<entry colname="col1">
+									<parmname>--hostname-for-clients</parmname>
+								</entry>
+								<entry colname="col2">Hostname or IP address that will be sent to
+									clients so they can connect to this locator.</entry>
+								<entry>uses the bind-address to which the locator is bound).
+								</entry>
+							</row>
+							<row>
+								<entry colname="col1">
+									<parmname>--locators</parmname>
+								</entry>
+								<entry colname="col2">List of locators used by this locator to join
+									the appropriate <keyword keyref="product_name"/><keyword
+										keyref="product_name"/> cluster. </entry>
+								<entry/>
+							</row>
+							<row>
+								<entry colname="col1">
+									<parmname>--log-level</parmname>
+								</entry>
+								<entry colname="col2">Level of output logged to the locator log
+									file. Possible values for log-level include: finest, finer,
+									fine, config, info, warning, severe, none. </entry>
+								<entry/>
+							</row>
+							<row>
+								<entry colname="col1">
+									<parmname>--mcast-address </parmname>
+								</entry>
+								<entry colname="col2">IP address or hostname used to bind the UPD
+									socket for multi-cast networking so the locator can locate other
+									members in the <keyword keyref="product_name"/><keyword
+										keyref="product_name"/> cluster. If mcast-port is zero, then
+									mcast-address is ignored. </entry>
+								<entry/>
+							</row>
+							<row>
+								<entry colname="col1">
+									<parmname>--mcast-port</parmname>
+								</entry>
+								<entry colname="col2">Port used for multi-cast networking so the
+									locator can locate other members of the <keyword
+										keyref="product_name"/> cluster. A zero value disables
+									mcast. </entry>
+								<entry/>
+							</row>
+							<row>
+								<entry colname="col1">
+									<parmname>--port</parmname>
+								</entry>
+								<entry colname="col2">Port the locator will listen on. </entry>
+								<entry>10334</entry>
+							</row>
+							<row>
+								<entry colname="col1">
+									<parmname>--dir</parmname>
+								</entry>
+								<entry colname="col2">Directory in which the Locator will be started
+									and run. </entry>
+								<entry>
+									<filepath>./&lt;locator-member-name&gt;</filepath>
+								</entry>
+							</row>
+							<row>
+								<entry colname="col1">
+									<parmname>--properties-file</parmname>
+								</entry>
+								<entry colname="col2">Specify the
+										<codeph>gemfire.properties</codeph> file for configuring the
+									locator's distributed system. The file's path should be absolute
+									or relative to gfsh's working directory. </entry>
+								<entry/>
+							</row>
+							<row>
+								<entry colname="col1">
+									<parmname>--security-properties-file</parmname>
+								</entry>
+								<entry colname="col2">The <filepath>gfsecurity.properties</filepath>
+									file for configuring the Locator's security configuration in the
+									distributed system. The file's path can be absolute or relative
+									to gfsh's working directory. </entry>
+								<entry/>
+							</row>
+							<row>
+								<entry colname="col1">
+									<parmname>--initial-heap</parmname>
+								</entry>
+								<entry colname="col2">Size has the same format as the
+										<codeph>-Xmx</codeph>/<codeph>-Xms</codeph> JVM options.
+										<note> If you use the <codeph>-J-Xms</codeph> and
+											<codeph>-J-Xmx</codeph> JVM properties instead of
+											<codeph>-initial-heap</codeph> and
+											<codeph>-max-heap</codeph>, then <keyword
+											keyref="product_name"/><keyword keyref="product_name"/>
+										does not use default JVM resource management properties. If
+										you use the JVM properties, you must then specify all
+										properties manually for eviction, garbage collection, heap
+										percentage, and so forth. </note>
+								</entry>
+								<entry/>
+							</row>
+							<row>
+								<entry colname="col1">
+									<parmname>--max-heap</parmname>
+								</entry>
+								<entry colname="col2">Size has the same format as the
+										<codeph>-Xmx</codeph>/<codeph>-Xms</codeph> JVM options
+										<note> If you use the <codeph>-J-Xms</codeph> and
+											<codeph>-J-Xmx</codeph> JVM properties instead of
+											<codeph>-initial-heap</codeph> and
+											<codeph>-max-heap</codeph>, then <keyword
+											keyref="product_name"/><keyword keyref="product_name"/>
+										does not use default JVM resource management properties. If
+										you use the JVM properties, you must then specify all
+										properties manually for eviction, garbage collection, heap
+										percentage, and so forth. </note>
+								</entry>
+								<entry/>
+							</row>
+							<row>
+								<entry colname="col1">
+									<parmname>--connect</parmname>
+								</entry>
+								<entry colname="col2">When connect is set to false, gfsh does not
+									automatically connect to the locator which is started using this
+									command. </entry>
+								<entry>true</entry>
+							</row>
+							<row>
+								<entry colname="col1">
+									<parmname>--enable-cluster-configuration</parmname>
+								</entry>
+								<entry colname="col2">Enables cluster configuration behavior where
+									locators maintain configurations for all members of a
+									distributed system. See <xref
+										href="../../../configuring/cluster_config/gfsh_persist.xml"
+									/>.</entry>
+								<entry>true</entry>
+							</row>
+							<row>
+								<entry colname="col1">
+									<parmname>--load-from-cluster-configuration-dir</parmname>
+								</entry>
+								<entry colname="col2">Loads the cluster configuration from the
+										<filepath>shared-config</filepath> directory. (When set to
+									false, the configuration is loaded from the disk store of the
+									internal, persistent region used by the locator to persist the
+									configuration.)</entry>
+								<entry>false</entry>
+							</row>
+							<row>
+								<entry colname="col1"
+									><parmname>--cluster-config-dir</parmname></entry>
+								<entry colname="col2">Directory used by the cluster configuration
+									service to store the cluster configuration on the
+									filesystem</entry>
+								<entry>cluster-config</entry>
+							</row>
+							<row>
+								<entry colname="col1">
+									<parmname>--J </parmname>
+								</entry>
+								<entry colname="col2">Argument passed to the JVM on which the
+									Locator will run. For example, specifying
+										<codeph>--J=-Dfoo.bar=true</codeph> sets property "foo.bar"
+									to "true".<note>
+										<p>If the argument you are passing contains spaces or
+											commas, enclose the option in single quotes. For
+											example:<codeblock>start locator --name=locator1 --port=9009 --mcast-port=0\
 --J=<b>'-Dgemfire.remote-locators=10.116.34.222[9009],10.116.35.225[9009]'</b></codeblock></p>
-										</note>
-									</entry>
-									<entry>none</entry>
-								</row>
-							</tbody>
-						</tgroup>
-					</table>
-				</p>
+									</note>
+								</entry>
+								<entry>none</entry>
+							</row>
+						</tbody>
+					</tgroup>
+				</table>
 				<p>
 					<b>Example Commands:</b>
-					<codeblock>start locator --name=locator1</codeblock>
 				</p>
+				<codeblock>start locator --name=locator1</codeblock>
 				<p>
 					<b>Sample Output:</b>
-					<codeblock>
+				</p>
+				<codeblock>
 gfsh>start locator --name=locator3
 Starting a GemFire Locator in /home/stymon/locator3...
 ................................
@@ -608,7 +605,6 @@ Class-Path: /home/stymon/Pivotal_GemFire_800_b48258_Linux/lib/locator-dependenci
 
 Cluster configuration service is up and running.
 </codeblock>
-				</p>
 			</body>
 		</topic>
 		<topic id="topic_E906BA7D9E7F4C5890FEFA7ECD40DD77">
@@ -624,8 +620,8 @@ Cluster configuration service is up and running.
 				<p><b> Availability:</b> Online or offline. </p>
 				<p>
 					<b>Syntax:</b>
-					<codeblock>start pulse [--url=value]</codeblock>
 				</p>
+				<codeblock>start pulse [--url=value]</codeblock>
 				<table id="table_cv3_w54_k4eee">
 					<title>Parameters</title>
 					<tgroup cols="3">
@@ -654,9 +650,9 @@ Cluster configuration service is up and running.
 				</table>
 				<p>
 					<b>Example Commands:</b>
-					<codeblock>start pulse
-start pulse --url=http://gemfire.mycompany.com:7070/pulse</codeblock>
 				</p>
+				<codeblock>start pulse
+start pulse --url=http://gemfire.mycompany.com:7070/pulse</codeblock>
 				<p><b>Sample Output:</b> See <xref format="dita"
 						href="../../pulse/chapter_overview.xml"
 						scope="local" type="concept"/> for examples of Pulse. </p>
@@ -680,7 +676,8 @@ start pulse --url=http://gemfire.mycompany.com:7070/pulse</codeblock>
 				<p><b> Availability:</b> Online or offline. </p>
 				<p>
 					<b>Syntax:</b>
-					<codeblock id="start-server-syntax">start server --name=value [--assign-buckets(=value)] [--bind-address=value]
+				</p>
+				<codeblock id="start-server-syntax">start server --name=value [--assign-buckets(=value)] [--bind-address=value]
     [--cache-xml-file=value] [--classpath=value] [--disable-default-server(=value)]
     [--disable-exit-when-out-of-memory(=value)] [--enable-time-statistics(=value)]
     [--force(=value)] [--properties-file=value] [--security-properties-file=value]
@@ -696,472 +693,458 @@ start pulse --url=http://gemfire.mycompany.com:7070/pulse</codeblock>
     [--message-time-to-live=value] [--max-message-count=value] [--max-threads=value]
     [--socket-buffer-size=value] [--lock-memory=value] [--off-heap-memory-size=value] 
 </codeblock>
-					<table id="table_A93F709669E142E185F079706F987C9A">
-						<title>Parameters</title>
-						<tgroup cols="3">
-							<colspec colname="col1" colnum="1" colwidth="*"/>
-							<colspec colname="col2" colnum="2" colwidth="*"/>
-							<colspec colname="newCol3" colnum="3" colwidth="1*"/>
-							<thead>
-								<row>
-									<entry colname="col1">Name </entry>
-									<entry colname="col2">Description</entry>
-									<entry colname="col3">Default Value</entry>
-								</row>
-							</thead>
-							<tbody>
-								<row>
-									<entry colname="col1">
-										<parmname>--name</parmname>
-									</entry>
-									<entry colname="col2"><i>Required.</i> Member name for this
-											<keyword keyref="product_name"/> Cache Server service. </entry>
-									<entry/>
-								</row>
-								<row>
-									<entry colname="col1">
-										<parmname>--assign-buckets</parmname>
-									</entry>
-									<entry colname="col2">Whether to assign buckets to the
-										partitioned regions of the cache on server start. </entry>
-									<entry>false</entry>
-								</row>
-								<row>
-									<entry colname="col1">
-										<parmname>--bind-address</parmname>
-									</entry>
-									<entry colname="col2">The IP address on which the Server will be
-										bound. </entry>
-									<entry>binds to all addresses</entry>
-								</row>
-								<row>
-									<entry colname="col1">
-										<parmname>--cache-xml-file</parmname>
-									</entry>
-									<entry colname="col2"> Specifies the name of the XML file or
-										resource to initialize the cache with when it is created. </entry>
-									<entry/>
-								</row>
-								<row>
-									<entry colname="col1">
-										<parmname>--classpath</parmname>
-									</entry>
-									<entry colname="col2">Location of user classes required by the
-										Cache Server. This path is appended to the current
-										CLASSPATH. </entry>
-									<entry/>
-								</row>
-								<row>
-									<entry colname="col1">
-										<parmname>--disable-default-server</parmname>
-									</entry>
-									<entry colname="col2">Whether the cache server will be started
-										by default. If the parameter is specified without a value,
-										the value is set to true. If set to true, the cache server
-										acts as a peer. </entry>
-									<entry>false</entry>
-								</row>
-								<row>
-									<entry colname="col1">
-										<parmname>--disable-exit-when-out-of-memory</parmname>
-									</entry>
-									<entry colname="col2">Prevents the JVM from exiting when an
-										OutOfMemoryError occurs. </entry>
-									<entry>false</entry>
-								</row>
-								<row>
-									<entry colname="col1">
-										<parmname>--enable-time-statistics</parmname>
-									</entry>
-									<entry colname="col2">Causes additional time-based statistics to
-										be gathered for <keyword keyref="product_name"/> operations. </entry>
-									<entry>true</entry>
-								</row>
-								<row>
-									<entry colname="col1">
-										<parmname>--properties-file</parmname>
-									</entry>
-									<entry colname="col2">The
-											<filepath>gemfire.properties</filepath> file for
-										configuring the Cache Server's distributed system. The
-										file's path can be absolute or relative to the gfsh working
-										directory. </entry>
-									<entry/>
-								</row>
-								<row>
-									<entry colname="col1">
-										<parmname>--security-properties-file</parmname>
-									</entry>
-									<entry colname="col2">The
-											<filepath>gfsecurity.properties</filepath> file for
-										configuring the Server's security configuration in the
-										distributed system. The file's path can be absolute or
-										relative to gfsh directory. </entry>
-									<entry/>
-								</row>
-								<row>
-									<entry colname="col1">
-										<parmname>--group</parmname>
-									</entry>
-									<entry colname="col2">Group(s) the Cache Server will be a part
-										of. </entry>
-									<entry/>
-								</row>
-								<row>
-									<entry colname="col1">
-										<parmname>--force</parmname>
-									</entry>
-									<entry colname="col2">Whether to allow the PID file from a
-										previous Cache Server run to be overwritten. </entry>
-									<entry>false</entry>
-								</row>
-								<row>
-									<entry colname="col1">
-										<parmname>--locators </parmname>
-									</entry>
-									<entry colname="col2">Sets the list of locators used by the
-										Cache Server to join the appropriate <keyword
-											keyref="product_name"/> cluster. </entry>
-									<entry/>
-								</row>
-								<row>
-									<entry colname="col1"
-										><parmname>--locator-wait-time</parmname></entry>
-									<entry colname="col2">Sets the number of seconds the server will
-										wait for a locator to become available during startup before
-										giving up.</entry>
-									<entry>0</entry>
-								</row>
-								<row>
-									<entry colname="col1">
-										<parmname>--log-level</parmname>
-									</entry>
-									<entry colname="col2">Sets the level of output logged to the
-										Cache Server log file. Possible values for log-level
-										include: finest, finer, fine, config, info, warning, severe,
-										none. </entry>
-									<entry/>
-								</row>
-								<row>
-									<entry colname="col1">
-										<parmname>--mcast-address</parmname>
-									</entry>
-									<entry colname="col2"> The IP address or hostname used to bind
-										the UDP socket for multi-cast networking so the Cache Server
-										can locate other members in the <keyword
-											keyref="product_name"/> cluster. If mcast-port is zero,
-										then mcast-address is ignored. </entry>
-									<entry/>
-								</row>
-								<row>
-									<entry colname="col1">
-										<parmname>--mcast-port</parmname>
-									</entry>
-									<entry colname="col2"> Sets the port used for multi-cast
-										networking so the Cache Server can locate other members of
-										the <keyword keyref="product_name"/> cluster. A zero value
-										disables mcast. </entry>
-									<entry/>
-								</row>
-								<row>
-									<entry colname="col1">
-										<parmname>--memcached-port</parmname>
-									</entry>
-									<entry colname="col2">If specified and is non-zero, sets the
-										port number for an embedded Gemcached server and starts the
-										Gemcached server. </entry>
-									<entry/>
-								</row>
-								<row>
-									<entry colname="col1">
-										<parmname>--memcached-protocol</parmname>
-									</entry>
-									<entry colname="col2">Sets the protocol used by an embedded
-										Gemcached server. Valid values are <codeph>BINARY</codeph>
-										and <codeph>ASCII.</codeph> If you omit this property, the
-										ASCII protocol is used. </entry>
-									<entry/>
-								</row>
-								<row>
-									<entry colname="col1">
-										<parmname>--server-bind-address</parmname>
-									</entry>
-									<entry colname="col2">IP address on which the Server will be
-										bound. </entry>
-									<entry>binds to all addresses</entry>
-								</row>
-								<row>
-									<entry colname="col1">
-										<parmname>--server-port</parmname>
-									</entry>
-									<entry colname="col2">Port the Server will listen on for client
-										connections. </entry>
-									<entry>40404</entry>
-								</row>
-								<row>
-									<entry colname="col1">
-										<parmname>--spring-xml-location</parmname>
-									</entry>
-									<entry colname="col2">Specifies the location of a Spring XML
-										configuration file(s) for bootstrapping and configuring a
-											<keyword keyref="product_name"/> Server. This
-										configuration file can exist on the CLASSPATH (default) or
-										any location supported by Spring's Resource(Loader) location
-										specifiers (for example, classpath:, file:, etc).
-										ResourceLoader is described in the <xref
-											href="http://docs.spring.io/spring/docs/4.0.9.RELEASE/spring-framework-reference/htmlsingle/#resources-resourceloader"
-											format="html">Spring documentation</xref>.</entry>
-									<entry/>
-								</row>
-								<row>
-									<entry colname="col1">
-										<parmname>--rebalance</parmname>
-									</entry>
-									<entry colname="col2">Whether to initiate rebalancing across the
-											<keyword keyref="product_name"/> cluster.</entry>
-									<entry>false</entry>
-								</row>
-								<row>
-									<entry colname="col1">
-										<parmname>--dir</parmname>
-									</entry>
-									<entry colname="col2">Specify the directory in which the server
-										will run in. This directory is written to the location where
-										you started <codeph>gfsh</codeph>. </entry>
-									<entry>If not specified, the directory is named after the
-										server.</entry>
-								</row>
-								<row>
-									<entry colname="col1">
-										<parmname>--statistic-archive-file </parmname>
-									</entry>
-									<entry colname="col2"> The file that statistic samples are
-										written to. An empty string (default) disables statistic
-										archival. </entry>
-									<entry/>
-								</row>
-								<row>
-									<entry colname="col1">
-										<parmname>--initial-heap</parmname>
-									</entry>
-									<entry colname="col2">Initial size of the heap in the same
-										format as the JVM -Xms parameter. <note> If you use the
-												<codeph>--J=-Xms</codeph> and
-												<codeph>--J=-Xmx</codeph> JVM properties instead of
-												<codeph>--initial-heap</codeph> and
-												<codeph>--max-heap</codeph>, then <keyword
-												keyref="product_name"/> does not use default JVM
-											resource management properties. If you use the JVM
-											properties, you must then specify all properties
-											manually for eviction, garbage collection, heap
-											percentage, and so forth. </note>
-									</entry>
-									<entry/>
-								</row>
-								<row>
-									<entry colname="col1">
-										<parmname>--max-heap</parmname>
-									</entry>
-									<entry colname="col2"> Maximum size of the heap in the same
-										format as the JVM -Xmx parameter. <note> If you use the
-												<codeph>--J=-Xms</codeph> and
-												<codeph>--J=-Xmx</codeph> JVM properties instead of
-												<codeph>--initial-heap</codeph> and
-												<codeph>--max-heap</codeph>, then <keyword
-												keyref="product_name"/> does not use default JVM
-											resource management properties. If you use the JVM
-											properties, you must then specify all properties
-											manually for eviction, garbage collection, heap
-											percentage, and so forth. </note>
-									</entry>
-									<entry/>
-								</row>
-								<row>
-									<entry colname="col1">
-										<parmname>--J</parmname>
-									</entry>
-									<entry colname="col2"> Argument passed to the JVM on which the
-										Cache Server will run. For example,
-											<codeph>--J=-Dfoo.bar=true</codeph> will set the
-										property "foo.bar" to "true". <p>If the argument you are
-											passing contains spaces or commas, enclose the option in
-											single quotes.</p></entry>
-									<entry/>
-								</row>
-								<row>
-									<entry colname="col1">
-										<parmname>--use-cluster-configuration</parmname>
-									</entry>
-									<entry colname="col2">Specifies whether the server requests a
-										cluster configuration from the locator. See <xref
-											href="../../../configuring/cluster_config/gfsh_persist.xml"
-										/>.</entry>
-									<entry>true</entry>
-								</row>
-								<row>
-									<entry colname="col1">
-										<parmname>--critical-heap-percentage</parmname>
-									</entry>
-									<entry colname="col2">Set the percentage of heap at or above which the cache is considered
-										in danger of becoming inoperable due to garbage collection
-										pauses or out of memory exceptions. Past the threshold,
-										operations that require heap space will throw a
-											<codeph>LowMemoryException</codeph>. This feature
-										requires additional VM flags to perform properly; you must
-										set <codeph>--initial-heap</codeph> and
-											<codeph>--max-heap</codeph> or the corresponding JVM
-										properties to use this threshold. You must also set
-											<codeph>--max-heap</codeph> and
-											<codeph>--initial-heap</codeph> to the same
-										value.</entry>
-									<entry>0 (no critical heap threshold enforced)</entry>
-								</row>
-								<row>
-									<entry><parmname>--critical-off-heap-percentage</parmname></entry>
-									<entry>The percentage of off-heap memory used at or above which the cache is considered in
-										danger of becoming inoperable due to out of memory
-										exceptions. Past the threshold, operations that require heap
-										space will throw a
+				<table id="table_at5_bwg_2w">
+					<title>Parameters</title>
+					<tgroup cols="3">
+						<colspec colname="col1" colnum="1" colwidth="*"/>
+						<colspec colname="col2" colnum="2" colwidth="*"/>
+						<colspec colname="newCol3" colnum="3" colwidth="1*"/>
+						<thead>
+							<row>
+								<entry colname="col1">Name </entry>
+								<entry colname="col2">Description</entry>
+								<entry colname="col3">Default Value</entry>
+							</row>
+						</thead>
+						<tbody>
+							<row>
+								<entry colname="col1">
+									<parmname>--name</parmname>
+								</entry>
+								<entry colname="col2"><i>Required.</i> Member name for this <keyword
+										keyref="product_name"/> Cache Server service. </entry>
+								<entry/>
+							</row>
+							<row>
+								<entry colname="col1">
+									<parmname>--assign-buckets</parmname>
+								</entry>
+								<entry colname="col2">Whether to assign buckets to the partitioned
+									regions of the cache on server start. </entry>
+								<entry>false</entry>
+							</row>
+							<row>
+								<entry colname="col1">
+									<parmname>--bind-address</parmname>
+								</entry>
+								<entry colname="col2">The IP address on which the Server will be
+									bound. </entry>
+								<entry>binds to all addresses</entry>
+							</row>
+							<row>
+								<entry colname="col1">
+									<parmname>--cache-xml-file</parmname>
+								</entry>
+								<entry colname="col2"> Specifies the name of the XML file or
+									resource to initialize the cache with when it is created. </entry>
+								<entry/>
+							</row>
+							<row>
+								<entry colname="col1">
+									<parmname>--classpath</parmname>
+								</entry>
+								<entry colname="col2">Location of user classes required by the Cache
+									Server. This path is appended to the current CLASSPATH. </entry>
+								<entry/>
+							</row>
+							<row>
+								<entry colname="col1">
+									<parmname>--disable-default-server</parmname>
+								</entry>
+								<entry colname="col2">Whether the cache server will be started by
+									default. If the parameter is specified without a value, the
+									value is set to true. If set to true, the cache server acts as a
+									peer. </entry>
+								<entry>false</entry>
+							</row>
+							<row>
+								<entry colname="col1">
+									<parmname>--disable-exit-when-out-of-memory</parmname>
+								</entry>
+								<entry colname="col2">Prevents the JVM from exiting when an
+									OutOfMemoryError occurs. </entry>
+								<entry>false</entry>
+							</row>
+							<row>
+								<entry colname="col1">
+									<parmname>--enable-time-statistics</parmname>
+								</entry>
+								<entry colname="col2">Causes additional time-based statistics to be
+									gathered for <keyword keyref="product_name"/> operations. </entry>
+								<entry>true</entry>
+							</row>
+							<row>
+								<entry colname="col1">
+									<parmname>--properties-file</parmname>
+								</entry>
+								<entry colname="col2">The <filepath>gemfire.properties</filepath>
+									file for configuring the Cache Server's distributed system. The
+									file's path can be absolute or relative to the gfsh working
+									directory. </entry>
+								<entry/>
+							</row>
+							<row>
+								<entry colname="col1">
+									<parmname>--security-properties-file</parmname>
+								</entry>
+								<entry colname="col2">The <filepath>gfsecurity.properties</filepath>
+									file for configuring the Server's security configuration in the
+									distributed system. The file's path can be absolute or relative
+									to gfsh directory. </entry>
+								<entry/>
+							</row>
+							<row>
+								<entry colname="col1">
+									<parmname>--group</parmname>
+								</entry>
+								<entry colname="col2">Group(s) the Cache Server will be a part of. </entry>
+								<entry/>
+							</row>
+							<row>
+								<entry colname="col1">
+									<parmname>--force</parmname>
+								</entry>
+								<entry colname="col2">Whether to allow the PID file from a previous
+									Cache Server run to be overwritten. </entry>
+								<entry>false</entry>
+							</row>
+							<row>
+								<entry colname="col1">
+									<parmname>--locators </parmname>
+								</entry>
+								<entry colname="col2">Sets the list of locators used by the Cache
+									Server to join the appropriate <keyword keyref="product_name"/>
+									cluster. </entry>
+								<entry/>
+							</row>
+							<row>
+								<entry colname="col1"
+									><parmname>--locator-wait-time</parmname></entry>
+								<entry colname="col2">Sets the number of seconds the server will
+									wait for a locator to become available during startup before
+									giving up.</entry>
+								<entry>0</entry>
+							</row>
+							<row>
+								<entry colname="col1">
+									<parmname>--log-level</parmname>
+								</entry>
+								<entry colname="col2">Sets the level of output logged to the Cache
+									Server log file. Possible values for log-level include: finest,
+									finer, fine, config, info, warning, severe, none. </entry>
+								<entry/>
+							</row>
+							<row>
+								<entry colname="col1">
+									<parmname>--mcast-address</parmname>
+								</entry>
+								<entry colname="col2"> The IP address or hostname used to bind the
+									UDP socket for multi-cast networking so the Cache Server can
+									locate other members in the <keyword keyref="product_name"/>
+									cluster. If mcast-port is zero, then mcast-address is ignored. </entry>
+								<entry/>
+							</row>
+							<row>
+								<entry colname="col1">
+									<parmname>--mcast-port</parmname>
+								</entry>
+								<entry colname="col2"> Sets the port used for multi-cast networking
+									so the Cache Server can locate other members of the <keyword
+										keyref="product_name"/> cluster. A zero value disables
+									mcast. </entry>
+								<entry/>
+							</row>
+							<row>
+								<entry colname="col1">
+									<parmname>--memcached-port</parmname>
+								</entry>
+								<entry colname="col2">If specified and is non-zero, sets the port
+									number for an embedded Gemcached server and starts the Gemcached
+									server. </entry>
+								<entry/>
+							</row>
+							<row>
+								<entry colname="col1">
+									<parmname>--memcached-protocol</parmname>
+								</entry>
+								<entry colname="col2">Sets the protocol used by an embedded
+									Gemcached server. Valid values are <codeph>BINARY</codeph> and
+										<codeph>ASCII.</codeph> If you omit this property, the ASCII
+									protocol is used. </entry>
+								<entry/>
+							</row>
+							<row>
+								<entry colname="col1">
+									<parmname>--server-bind-address</parmname>
+								</entry>
+								<entry colname="col2">IP address on which the Server will be bound. </entry>
+								<entry>binds to all addresses</entry>
+							</row>
+							<row>
+								<entry colname="col1">
+									<parmname>--server-port</parmname>
+								</entry>
+								<entry colname="col2">Port the Server will listen on for client
+									connections. </entry>
+								<entry>40404</entry>
+							</row>
+							<row>
+								<entry colname="col1">
+									<parmname>--spring-xml-location</parmname>
+								</entry>
+								<entry colname="col2">Specifies the location of a Spring XML
+									configuration file(s) for bootstrapping and configuring a
+										<keyword keyref="product_name"/> Server. This configuration
+									file can exist on the CLASSPATH (default) or any location
+									supported by Spring's Resource(Loader) location specifiers (for
+									example, classpath:, file:, etc). ResourceLoader is described in
+									the <xref
+										href="http://docs.spring.io/spring/docs/4.0.9.RELEASE/spring-framework-reference/htmlsingle/#resources-resourceloader"
+										format="html">Spring documentation</xref>.</entry>
+								<entry/>
+							</row>
+							<row>
+								<entry colname="col1">
+									<parmname>--rebalance</parmname>
+								</entry>
+								<entry colname="col2">Whether to initiate rebalancing across the
+										<keyword keyref="product_name"/> cluster.</entry>
+								<entry>false</entry>
+							</row>
+							<row>
+								<entry colname="col1">
+									<parmname>--dir</parmname>
+								</entry>
+								<entry colname="col2">Specify the directory in which the server will
+									run in. This directory is written to the location where you
+									started <codeph>gfsh</codeph>. </entry>
+								<entry>If not specified, the directory is named after the
+									server.</entry>
+							</row>
+							<row>
+								<entry colname="col1">
+									<parmname>--statistic-archive-file </parmname>
+								</entry>
+								<entry colname="col2"> The file that statistic samples are written
+									to. An empty string (default) disables statistic archival. </entry>
+								<entry/>
+							</row>
+							<row>
+								<entry colname="col1">
+									<parmname>--initial-heap</parmname>
+								</entry>
+								<entry colname="col2">Initial size of the heap in the same format as
+									the JVM -Xms parameter. <note> If you use the
+											<codeph>--J=-Xms</codeph> and <codeph>--J=-Xmx</codeph>
+										JVM properties instead of <codeph>--initial-heap</codeph>
+										and <codeph>--max-heap</codeph>, then <keyword
+											keyref="product_name"/> does not use default JVM
+										resource management properties. If you use the JVM
+										properties, you must then specify all properties manually
+										for eviction, garbage collection, heap percentage, and so
+										forth. </note>
+								</entry>
+								<entry/>
+							</row>
+							<row>
+								<entry colname="col1">
+									<parmname>--max-heap</parmname>
+								</entry>
+								<entry colname="col2"> Maximum size of the heap in the same format
+									as the JVM -Xmx parameter. <note> If you use the
+											<codeph>--J=-Xms</codeph> and <codeph>--J=-Xmx</codeph>
+										JVM properties instead of <codeph>--initial-heap</codeph>
+										and <codeph>--max-heap</codeph>, then <keyword
+											keyref="product_name"/> does not use default JVM
+										resource management properties. If you use the JVM
+										properties, you must then specify all properties manually
+										for eviction, garbage collection, heap percentage, and so
+										forth. </note>
+								</entry>
+								<entry/>
+							</row>
+							<row>
+								<entry colname="col1">
+									<parmname>--J</parmname>
+								</entry>
+								<entry colname="col2"> Argument passed to the JVM on which the Cache
+									Server will run. For example,
+										<codeph>--J=-Dfoo.bar=true</codeph> will set the property
+									"foo.bar" to "true". <p>If the argument you are passing contains
+										spaces or commas, enclose the option in single
+									quotes.</p></entry>
+								<entry/>
+							</row>
+							<row>
+								<entry colname="col1">
+									<parmname>--use-cluster-configuration</parmname>
+								</entry>
+								<entry colname="col2">Specifies whether the server requests a
+									cluster configuration from the locator. See <xref
+										href="../../../configuring/cluster_config/gfsh_persist.xml"
+									/>.</entry>
+								<entry>true</entry>
+							</row>
+							<row>
+								<entry colname="col1">
+									<parmname>--critical-heap-percentage</parmname>
+								</entry>
+								<entry colname="col2">Set the percentage of heap at or above which
+									the cache is considered in danger of becoming inoperable due to
+									garbage collection pauses or out of memory exceptions. Past the
+									threshold, operations that require heap space will throw a
+										<codeph>LowMemoryException</codeph>. This feature requires
+									additional VM flags to perform properly; you must set
+										<codeph>--initial-heap</codeph> and
+										<codeph>--max-heap</codeph> or the corresponding JVM
+									properties to use this threshold. You must also set
+										<codeph>--max-heap</codeph> and
+										<codeph>--initial-heap</codeph> to the same value.</entry>
+								<entry>0 (no critical heap threshold enforced)</entry>
+							</row>
+							<row>
+								<entry><parmname>--critical-off-heap-percentage</parmname></entry>
+								<entry>The percentage of off-heap memory used at or above which the
+									cache is considered in danger of becoming inoperable due to out
+									of memory exceptions. Past the threshold, operations that
+									require heap space will throw a
 										<codeph>LowMemoryException</codeph>.</entry>
-									<entry>0 (no critical off-heap threshold enforced)</entry>
-								</row>
-								<row>
-									<entry colname="col1">
-										<parmname>--eviction-heap-percentage</parmname>
-									</entry>
-									<entry colname="col2">Set the percentage of heap at or above which the eviction should
-										begin on Regions configured for HeapLRU eviction. Changing
-										this value may cause eviction to begin immediately. Only one
-										change to this attribute or critical heap percentage will be
-										allowed at any given time and its effect will be fully
-										realized before the next change is allowed. This feature
-										requires additional VM flags to perform properly; you must
-										set <codeph>--initial-heap</codeph> and
-											<codeph>--max-heap</codeph> or the corresponding JVM
-										properties to use this threshold. You must also set
-											<codeph>--max-heap</codeph> and
-											<codeph>--initial-heap</codeph> to the same
-										value.</entry>
-									<entry>
-										<ul id="ul_fpl_qv5_2v">
-											<li>0, if no region is configured with heap eviction </li>
-											<li>If <codeph>critical-heap-percentage</codeph> is set
-												to a non-zero value, 5% less than that value. </li>
-											<li>80%, if <codeph>critical-heap-percentage</codeph> is
-												not configured. </li>
-										</ul>
-									</entry>
-								</row>
-								<row>
-									<entry><parmname>--eviction-off-heap-percentage</parmname></entry>
-									<entry>The percentage of off-heap memory used at or above which
-										the eviction should begin on regions configured for off-heap
-										and HeapLRU eviction. Changing this value may cause eviction
-										to begin immediately. Only one change to this attribute or
-										critical off-heap percentage will be allowed at any given
-										time, and its effect will be fully realized before the next
-										change is allowed.</entry>
-									<entry>
-										<ul id="ul_j1d_dbh_2v">
-											<li>0, if no region is configured with heap eviction </li>
-											<li>If <codeph>critical-off-heap-percentage</codeph> is
-												set to a non-zero value, 5% less than that value. </li>
-											<li>80%, if
-												<codeph>critical-off-heap-percentage</codeph> is
-												not configured. </li>
-										</ul>
-									</entry>
-								</row>
-								<row>
-									<entry colname="col1">
-										<parmname>--hostname-for-clients</parmname>
-									</entry>
-									<entry colname="col2">Sets the ip address or host name that this
-										cache server is to listen on for client connections. Setting
-										a specific hostname-for-clients causes server locators to
-										use this value when telling clients how to connect to this
-										cache server. This is useful in the case where the cache
-										server may refer to itself with one hostname, but the
-										clients need to use a different hostname to find the cache
-										server. The value "" causes the bind-address to be given to
-										clients. A null value will be treated the same as the
-										default "". </entry>
-									<entry/>
-								</row>
-								<row>
-									<entry colname="col1">
-										<parmname>--max-connections</parmname>
-									</entry>
-									<entry colname="col2">Sets the maxium number of client
-										connections allowed. When the maximum is reached the cache
-										server will stop accepting connections</entry>
-									<entry/>
-								</row>
-								<row>
-									<entry colname="col1">
-										<parmname>--message-time-to-live</parmname>
-									</entry>
-									<entry colname="col2">Sets the time (in seconds ) after which a
-										message in the client queue will expire.</entry>
-									<entry/>
-								</row>
-								<row>
-									<entry colname="col1">
-										<parmname>--max-message-count</parmname>
-									</entry>
-									<entry colname="col2">Sets maximum number of messages that can
-										be enqueued in a client-queue.</entry>
-									<entry/>
-								</row>
-								<row>
-									<entry colname="col1">
-										<parmname>--max-threads</parmname>
-									</entry>
-									<entry colname="col2">Sets the maxium number of threads allowed
-										in this cache server to service client requests. The default
-										of 0 causes the cache server to dedicate a thread for every
-										client connection.</entry>
-									<entry/>
-								</row>
-								<row>
-									<entry colname="col1">
-										<parmname>--socket-buffer-size</parmname>
-									</entry>
-									<entry colname="col2">Sets the buffer size in bytes of the
-										socket connection for this CacheServer. The default is 32768
-										bytes.</entry>
-									<entry/>
-								</row>
-								<row>
-									<entry><parmname>--lock-memory</parmname></entry>
-									<entry>(Linux only) When true, the member's heap and off-heap memory are locked in RAM, preventing
-										them from being paged to disk. You must increase the related <codeph>ulimit</codeph> operating
-										system resource to allow the OS to lock memory chunks of sufficient size.</entry>
-									<entry>false</entry>
-								</row>
-								<row>
-									<entry><parmname>--off-heap-memory-size</parmname></entry>
-									<entry>The integer quantity of off-heap memory to be used for
-										storing region values. Specified in Gigabytes with a 'g' suffix, or
-										Megabytes with an 'm' suffix. For example, allocate a 2 Gigabyte
-										off-heap space with
-											<codeph>--off-heap-memory-size=2g</codeph>. The default
-										value of 0 does not use any off-heap memory.</entry>
-									<entry>0</entry>
-								</row>
-							</tbody>
-						</tgroup>
-					</table>
-				</p>
+								<entry>0 (no critical off-heap threshold enforced)</entry>
+							</row>
+							<row>
+								<entry colname="col1">
+									<parmname>--eviction-heap-percentage</parmname>
+								</entry>
+								<entry colname="col2">Set the percentage of heap at or above which
+									the eviction should begin on Regions configured for HeapLRU
+									eviction. Changing this value may cause eviction to begin
+									immediately. Only one change to this attribute or critical heap
+									percentage will be allowed at any given time and its effect will
+									be fully realized before the next change is allowed. This
+									feature requires additional VM flags to perform properly; you
+									must set <codeph>--initial-heap</codeph> and
+										<codeph>--max-heap</codeph> or the corresponding JVM
+									properties to use this threshold. You must also set
+										<codeph>--max-heap</codeph> and
+										<codeph>--initial-heap</codeph> to the same value.</entry>
+								<entry>
+									<ul id="ul_bt5_bwg_2w">
+										<li>0, if no region is configured with heap eviction </li>
+										<li>If <codeph>critical-heap-percentage</codeph> is set to a
+											non-zero value, 5% less than that value. </li>
+										<li>80%, if <codeph>critical-heap-percentage</codeph> is not
+											configured. </li>
+									</ul>
+								</entry>
+							</row>
+							<row>
+								<entry><parmname>--eviction-off-heap-percentage</parmname></entry>
+								<entry>The percentage of off-heap memory used at or above which the
+									eviction should begin on regions configured for off-heap and
+									HeapLRU eviction. Changing this value may cause eviction to
+									begin immediately. Only one change to this attribute or critical
+									off-heap percentage will be allowed at any given time, and its
+									effect will be fully realized before the next change is
+									allowed.</entry>
+								<entry>
+									<ul id="ul_ct5_bwg_2w">
+										<li>0, if no region is configured with heap eviction </li>
+										<li>If <codeph>critical-off-heap-percentage</codeph> is set
+											to a non-zero value, 5% less than that value. </li>
+										<li>80%, if <codeph>critical-off-heap-percentage</codeph> is
+											not configured. </li>
+									</ul>
+								</entry>
+							</row>
+							<row>
+								<entry colname="col1">
+									<parmname>--hostname-for-clients</parmname>
+								</entry>
+								<entry colname="col2">Sets the ip address or host name that this
+									cache server is to listen on for client connections. Setting a
+									specific hostname-for-clients causes server locators to use this
+									value when telling clients how to connect to this cache server.
+									This is useful in the case where the cache server may refer to
+									itself with one hostname, but the clients need to use a
+									different hostname to find the cache server. The value "" causes
+									the bind-address to be given to clients. A null value will be
+									treated the same as the default "". </entry>
+								<entry/>
+							</row>
+							<row>
+								<entry colname="col1">
+									<parmname>--max-connections</parmname>
+								</entry>
+								<entry colname="col2">Sets the maxium number of client connections
+									allowed. When the maximum is reached the cache server will stop
+									accepting connections</entry>
+								<entry/>
+							</row>
+							<row>
+								<entry colname="col1">
+									<parmname>--message-time-to-live</parmname>
+								</entry>
+								<entry colname="col2">Sets the time (in seconds ) after which a
+									message in the client queue will expire.</entry>
+								<entry/>
+							</row>
+							<row>
+								<entry colname="col1">
+									<parmname>--max-message-count</parmname>
+								</entry>
+								<entry colname="col2">Sets maximum number of messages that can be
+									enqueued in a client-queue.</entry>
+								<entry/>
+							</row>
+							<row>
+								<entry colname="col1">
+									<parmname>--max-threads</parmname>
+								</entry>
+								<entry colname="col2">Sets the maxium number of threads allowed in
+									this cache server to service client requests. The default of 0
+									causes the cache server to dedicate a thread for every client
+									connection.</entry>
+								<entry/>
+							</row>
+							<row>
+								<entry colname="col1">
+									<parmname>--socket-buffer-size</parmname>
+								</entry>
+								<entry colname="col2">Sets the buffer size in bytes of the socket
+									connection for this CacheServer. The default is 32768
+									bytes.</entry>
+								<entry/>
+							</row>
+							<row>
+								<entry><parmname>--lock-memory</parmname></entry>
+								<entry>(Linux only) When true, the member's heap and off-heap memory
+									are locked in RAM, preventing them from being paged to disk. You
+									must increase the related <codeph>ulimit</codeph> operating
+									system resource to allow the OS to lock memory chunks of
+									sufficient size.</entry>
+								<entry>false</entry>
+							</row>
+							<row>
+								<entry><parmname>--off-heap-memory-size</parmname></entry>
+								<entry>The integer quantity of off-heap memory to be used for
+									storing region values. Specified in Gigabytes with a 'g' suffix,
+									or Megabytes with an 'm' suffix. For example, allocate a 2
+									Gigabyte off-heap space with
+										<codeph>--off-heap-memory-size=2g</codeph>. The default
+									value of 0 does not use any off-heap memory.</entry>
+								<entry>0</entry>
+							</row>
+						</tbody>
+					</tgroup>
+				</table>
 				<section id="section_A50120613D3C4A848463236C4EFF18C7">
 					<title>Examples</title>
-					<p>
-						<codeblock>gfsh&gt;start server --name=server1
+					<codeblock>gfsh&gt;start server --name=server1
 gfsh&gt;start server --name=server2 --server-port=40405</codeblock>
-					</p>
 					<p>
 						<b>Sample Output:</b>
-						<codeblock>gfsh>start server --name=server1 --server-port=40406
+					</p>
+					<codeblock>gfsh>start server --name=server1 --server-port=40406
 Starting a GemFire Server in /home/stymon/server1...
 ....................................................
 Server in /home/stymon/server1 on ubuntu.local[40406] as server1 is currently online.
@@ -1175,7 +1158,6 @@ JVM Arguments: -Dgemfire.default.locators=192.168.129.145[40402] -Dgemfire.use-c
 -Dsun.rmi.dgc.server.gcInterval=9223372036854775806
 Class-Path: /home/stymon/Pivotal_GemFire_800_b48258_Linux/lib/server-dependencies.jar:/usr/local/java/lib/tools.jar
 </codeblock>
-					</p>
 				</section>
 			</body>
 		</topic>

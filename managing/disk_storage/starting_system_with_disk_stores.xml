@@ -16,7 +16,7 @@
 				so it can also block region creation.</p>
 			<p>With a log level of info or below, the system provides messaging about the wait.
 				Here, the disk store for server2 has the most recent data for the region, and
-				server1 is waiting for server2.
+				server1 is waiting for server2.</p>
 				<codeblock>Region /people has potentially stale data. 
 It is waiting for another member to recover the latest data.
 My persistent id:
@@ -33,16 +33,16 @@ Members with potentially new data:
 ]
 Use the "gfsh show missing-disk-stores" command to see all disk stores 
 that are being waited on by other members.</codeblock>
-			</p>
 			<p>When the most recent data is available, the system updates the region, logs a
-				message, and continues the startup.
+				message, and continues the startup.</p>
 				<codeblock>[info 2010/04/09 10:52:13.010 PDT CacheRunner &lt;main&gt; tid=0x1]    
-   Done waiting for the remote data to be available.</codeblock></p>
+   Done waiting for the remote data to be available.</codeblock>
 			<p>If the member's disk store has data for a region that is never created, the data
 				remains in the disk store.</p>
 			<p>Each member’s persistent regions load and go online as quickly as possible, not
 				waiting unnecessarily for other members to complete. For performance reasons, these
-				actions occur asynchronously: <ul id="ul_btw_4rr_pv">
+				actions occur asynchronously: </p>
+				<ul id="ul_btw_4rr_pv">
 					<li>Once at least one copy of each and every bucket is recovered from disk, the
 						region is available. Secondary buckets will load asynchronously. </li>
 					<li> Entry keys are loaded from the key file in the disk store before
@@ -51,11 +51,11 @@ that are being waited on by other members.</codeblock>
 						value is requested before it has loaded, the value will immediately be
 						fetched from the disk store. </li>
 				</ul>
-			</p>
 		</section>
 		<section id="section_D0A7403707B847749A22BF9221A2C823">
 			<title>Start Up Procedure</title>
-			<p>To start a system with disk stores: <ol id="ol_872ca5d8-8d37-4566-b5a7-4d98be2d29c6">
+			<p>To start a system with disk stores: </p>
+				<ol id="ol_872ca5d8-8d37-4566-b5a7-4d98be2d29c6">
 					<li id="li_6BD1656398CD493F8B27445F75C4A982"><b>Start all members with persisted data first and
 							at the same time</b>. Exactly how you do this depends on your members.
 						Make sure to start members that host colocated regions, as well as
@@ -67,7 +67,7 @@ that are being waited on by other members.</codeblock>
 							the non-persistent replicate members to make sure the data is recovered
 							from disk. </p><p>This is an example bash script for starting members in
 							parallel. The script waits for the startup to finish. It exits with an
-							error status if one of the jobs fails.
+							error status if one of the jobs fails.</p>
 							<codeblock>#!/bin/bash
 ssh servera "cd /my/directory; gfsh start server --name=servera &amp;
 ssh serverb "cd /my/directory; gfsh start server --name=serverb &amp;
@@ -81,7 +81,6 @@ JOB_STATUS=$?;
 test $STATUS -eq 0 &amp;&amp; STATUS=$JOB_STATUS;
 done
 exit $STATUS;</codeblock>
-						</p>
 					</li>
 					<li id="li_A8707DF00C7446D3864028598A14406E"><b>Respond to blocked members</b>.
 						When a member blocks waiting for more recent data from another member, the
@@ -115,7 +114,6 @@ exit $STATUS;</codeblock>
 						</ul>
 					</li>
 				</ol>
-			</p>
 		</section>
 		<section id="section_5E32F488EB5D4E74AAB6BF394E4329D6">
 			<title>Example Startup to Illustrate Ordering</title>
@@ -123,7 +121,8 @@ exit $STATUS;</codeblock>
 				region after a shutdown. Assume that Member A (MA) exits first, leaving persisted
 				data on disk for RegionP. Member B (MB) continues to run operations on RegionP,
 				which update its disk store and leave the disk store for MA in a stale condition. MB
-				exits, leaving the most up-to-date data on disk for RegionP.<ul
+				exits, leaving the most up-to-date data on disk for RegionP.</p>
+				<ul
 					id="ul_7502260991C946B1804B009742795721">
 					<li id="li_7EE18F6D39CF4D9184A194F274CDD268">Restart order 1 <ol
 							id="ol_BEE64732FB554FFD89460953C6561347">
@@ -149,7 +148,6 @@ exit $STATUS;</codeblock>
 						</ol>
 					</li>
 				</ul>
-			</p>
 		</section>
 		<section>
 			<title>Shutdown</title>
@@ -167,9 +165,11 @@ exit $STATUS;</codeblock>
 			<p>The best way to shut down a system is to invoke the <codeph>gfsh shutdown</codeph>
 				command with all members running. All online data stores will be synchronized before
 				shutting down, so all hold the most recent data copy. To shut down all members other
-				than locators:<codeblock>gfsh>shutdown</codeblock></p>
+				than locators:</p>
+			<codeblock>gfsh>shutdown</codeblock>
 			<p>To shut down all members, including
-				locators:<codeblock>gfsh>shutdown --include-locators=true</codeblock></p>
+				locators:</p>
+			<codeblock>gfsh>shutdown --include-locators=true</codeblock>
 		</section>
 	</conbody>
 </concept>

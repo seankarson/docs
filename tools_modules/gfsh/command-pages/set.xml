@@ -6,56 +6,52 @@
 	<conbody>
 		<section id="section_66C36B0123F54A52AE3815E5D31F8239">
 			<p> Set GFSH variables that can be used by commands. </p>
-			<p>You can use the <codeph><xref format="dita"
-						href="echo.xml" scope="local"
+			<p>You can use the <codeph><xref format="dita" href="echo.xml" scope="local"
 						type="concept">echo</xref></codeph> command to view the value of a variable.
 				For example, to see a list of all environment variables and their current values,
-				use the following command: <codeblock>gfsh&gt;echo --string=$*</codeblock>See <xref
-					format="dita"
+				use the following command: </p><codeblock>gfsh&gt;echo --string=$*</codeblock><p>See
+					<xref format="dita"
 					href="../useful_gfsh_shell_variables.xml#concept_731ECA5E40E943CBA5C1198A0745D8EE"
 					scope="local" type="concept"/> for a description of preset environment
 				variables. </p>
 			<p><b> Availability:</b> Online or offline. </p>
 			<p><b>Syntax:</b>
-				<codeblock>set variable --name=value --value=value</codeblock>
-				<table id="table_E7E208CBDBF7468AA85F8BA4762C4F48">
-					<title>Parameters</title>
-					<tgroup cols="2">
-						<colspec colname="col1" colnum="1" colwidth="1.00*"/>
-						<colspec colname="col2" colnum="2" colwidth="4.31*"/>
-						<thead>
-							<row>
-								<entry colname="col1">Name </entry>
-								<entry colname="col2">Description</entry>
-							</row>
-						</thead>
-						<tbody>
-							<row>
-								<entry colname="col1"><parmname>--name</parmname>
-								</entry>
-								<entry colname="col2">
-									<i>Required.</i> Name for the variable. Name must only be
-									composed of letters, numbers and the "_" character and may not
-									start with a number. </entry>
-							</row>
-							<row>
-								<entry colname="col1"><parmname>--value</parmname>
-								</entry>
-								<entry colname="col2">
-									<i>Required.</i> Value that the variable will be set to.
-								</entry>
-							</row>
-						</tbody>
-					</tgroup>
-				</table>
-			</p>
+			</p><codeblock>set variable --name=value --value=value</codeblock><table
+				id="table_ec2_jkf_2w">
+				<title>Parameters</title>
+				<tgroup cols="2">
+					<colspec colname="col1" colnum="1" colwidth="1.00*"/>
+					<colspec colname="col2" colnum="2" colwidth="4.31*"/>
+					<thead>
+						<row>
+							<entry colname="col1">Name </entry>
+							<entry colname="col2">Description</entry>
+						</row>
+					</thead>
+					<tbody>
+						<row>
+							<entry colname="col1"><parmname>--name</parmname>
+							</entry>
+							<entry colname="col2">
+								<i>Required.</i> Name for the variable. Name must only be composed
+								of letters, numbers and the "_" character and may not start with a
+								number. </entry>
+						</row>
+						<row>
+							<entry colname="col1"><parmname>--value</parmname>
+							</entry>
+							<entry colname="col2">
+								<i>Required.</i> Value that the variable will be set to. </entry>
+						</row>
+					</tbody>
+				</tgroup>
+			</table>
 			<p><b>Example Commands:</b>
-				<codeblock>
+			</p><codeblock>
 set variable --name=APP_COLLECTION_LIMIT --value=10
 set variable --name=FOO --value="foo"
 set variable --name=BAR --value="bar"
 </codeblock>
-			</p>
 			<b>Sample Output:</b>
 			<codeblock>gfsh&gt;set variable --name=APP_COLLECTION_LIMIT --value=10
 Value for variable APP_COLLECTION_LIMIT is now: 10.

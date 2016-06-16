@@ -8,7 +8,8 @@
 			<p>The JMX Manager node includes all local beans listed under <xref scope="local"
 					href="list_of_mbeans_full.xml#topic_48194A5BDF3F40F68E95A114DD702413"
 					type="topic" format="dita"/> and the following beans that are available only on
-				the JMX Manager node: <ul id="ul_E472A1F1E6124AB380611229B6F51614">
+				the JMX Manager node: </p>
+				<ul id="ul_E472A1F1E6124AB380611229B6F51614">
 					<li id="li_6053CEBB25F34A948C0916AFCED40840"><xref scope="local"
 							href="list_of_mbeans_full.xml#topic_14E3721DD0CF47D7AD8C742DFBE9FB9C/section_7B878B450B994514BDFE96571F0D3827"
 							type="section" format="dita"/>
@@ -26,7 +27,6 @@
 							type="section" format="dita"/>
 					</li>
 				</ul>
-			</p>
 			<section id="section_7B878B450B994514BDFE96571F0D3827">
 				<title>ManagerMXBean</title>
 				<p>Represents the <keyword keyref="product_name"/> Management layer for the hosting
@@ -36,13 +36,13 @@
 					potential managers (<codeph>jmx-manager=true</codeph> and
 						<codeph>jmx-manager-start=false</codeph>), this MBean is created when a
 					Locator requests it. </p>
-				<p>
-					<note>You must configure the node to allow it to become a JMX Manager. See <xref
+					<note>
+						<p>You must configure the node to allow it to become a JMX Manager. See <xref
 							scope="local"
 							href="jmx_manager_operations.xml#topic_263072624B8D4CDBAD18B82E07AA44B6"
-							type="topic" format="dita"/> for configuration information. </note>
-				</p>
-				<p>
+							type="topic" format="dita"/> for configuration information. 
+						</p>
+					</note>
 					<table id="table_A606D083BECD4716A2A39DE2F3A0A9F5">
 						<tgroup cols="2">
 							<colspec colnum="1" colname="col1" colwidth="1.00*"/>
@@ -74,7 +74,6 @@
 							</tbody>
 						</tgroup>
 					</table>
-				</p>
 				<p>See the <codeph>com.gemstone.gemfire.management.ManagerMXBean</codeph> JavaDocs
 					for information on available MBean methods and attributes. </p>
 			</section>
@@ -93,7 +92,6 @@
 				<p>This MBean also provides some MBean model navigation APIS. These APIs should be
 					used to navigate through all the MBeans exposed by a <keyword
 						keyref="product_name"/> System. </p>
-				<p>
 					<table id="table_55FE7F0564114CB4A38E0EDF5C8A88CD">
 						<tgroup cols="2">
 							<colspec colnum="1" colname="col1" colwidth="1.00*"/>
@@ -124,7 +122,6 @@
 							</tbody>
 						</tgroup>
 					</table>
-				</p>
 				<p>See the <codeph>com.gemstone.gemfire.management.DistributedSystemMXBean</codeph>
 					JavaDocs for information on available MBean methods and attributes. </p>
 			</section>
@@ -220,7 +217,8 @@
 		<title>Managed Node MBeans</title>
 		<shortdesc>This section describes the MBeans that are available on all managed nodes. </shortdesc>
 		<body>
-			<p> MBeans that are available on all managed nodes include: <ul
+			<p> MBeans that are available on all managed nodes include: </p>
+				<ul
 					id="ul_7398DA4A16544BC68BCB885B0DE029F5">
 					<li id="li_D87962F779EA4683BCE872C66944E2D6"><xref scope="local"
 							href="list_of_mbeans_full.xml#topic_48194A5BDF3F40F68E95A114DD702413/section_796A989549304BF7A536A33A913322A4"
@@ -251,7 +249,6 @@
 							type="section" format="dita"/>
 					</li>
 				</ul>
-			</p>
 			<p>JMX Manager nodes will have managed node MBeans for themselves since they are also
 				manageable entities in the distributed system. </p>
 			<section id="section_796A989549304BF7A536A33A913322A4">
@@ -266,7 +263,6 @@
 				<p>See <xref href="list_of_mbean_notifications.xml#reference_czt_hq2_vj"
 						type="reference" format="dita" scope="local"/> for a list of notifications
 					emitted by this MBean. </p>
-				<p>
 					<table id="table_1D03CB1FCD814B38A6E20704D5E72C15">
 						<tgroup cols="2">
 							<colspec colnum="1" colname="col1" colwidth="1.00*"/>
@@ -298,7 +294,6 @@
 							</tbody>
 						</tgroup>
 					</table>
-				</p>
 				<p>See the <codeph>com.gemstone.gemfire.management.MemberMXBean</codeph> JavaDocs
 					for information on available MBean methods and attributes. </p>
 			</section>
@@ -310,7 +305,6 @@
 						href="list_of_mbean_notifications.xml#cacheservermxbean_notifications"
 						type="reference" format="dita" scope="local"/> for a list of notifications
 					emitted by this MBean. </p>
-				<p>
 					<table id="table_35F0D7308AFE457E9931469231EA36BA">
 						<tgroup cols="2">
 							<colspec colnum="1" colname="col1" colwidth="1.00*"/>
@@ -342,14 +336,12 @@
 							</tbody>
 						</tgroup>
 					</table>
-				</p>
 				<p>See the <codeph>com.gemstone.gemfire.management.CacheServerMXBean</codeph>
 					JavaDocs for information on available MBean methods and attributes. </p>
 			</section>
 			<section id="section_577A666924E54352AF69294DC8DEFEBF">
 				<title>RegionMXBean</title>
 				<p> Member's local view of region. </p>
-				<p>
 					<table id="table_DD11C8368365421E8FDAA48C648A9B77">
 						<tgroup cols="2">
 							<colspec colnum="1" colname="col1" colwidth="1.00*"/>
@@ -381,7 +373,6 @@
 							</tbody>
 						</tgroup>
 					</table>
-				</p>
 				<p>See the <codeph>com.gemstone.gemfire.management.RegionMXBean</codeph> JavaDocs
 					for information on available MBean methods and attributes. </p>
 			</section>
@@ -389,7 +380,6 @@
 				<title>LockServiceMXBean</title>
 				<p>Represents a named instance of a LockService . Any number of LockServices can be
 					created in a member. </p>
-				<p>
 					<table id="table_2CCAAAF14CAB4301ADF9DAFFC061EB3E">
 						<tgroup cols="2">
 							<colspec colnum="1" colname="col1" colwidth="1.00*"/>
@@ -421,7 +411,6 @@
 							</tbody>
 						</tgroup>
 					</table>
-				</p>
 				<p>See the <codeph>com.gemstone.gemfire.management.LockServiceMXBean</codeph>
 					JavaDocs for information on available MBean methods and attributes. </p>
 			</section>
@@ -429,7 +418,6 @@
 				<title>DiskStoreMXBean</title>
 				<p> Represents a DiskStore object which provides disk storage for one or more
 					regions </p>
-				<p>
 					<table id="table_C317AE757F5A4EAB8F378F336E9F4BEC">
 						<tgroup cols="2">
 							<colspec colnum="1" colname="col1" colwidth="1.00*"/>
@@ -461,7 +449,6 @@
 							</tbody>
 						</tgroup>
 					</table>
-				</p>
 				<p>See the <codeph>com.gemstone.gemfire.management.DiskStoreMXBean</codeph> JavaDocs
 					for information on available MBean methods and attributes. </p>
 			</section>
@@ -469,7 +456,6 @@
 				<title>AsyncEventQueueMXBean</title>
 				<p> An AsyncEventQueueMXBean provides access to an AsyncEventQueue, which represent
 					the channel over which events are delivered to the AsyncEventListener. </p>
-				<p>
 					<table id="table_46F0961647BB420FA47AEF4236CF4437">
 						<tgroup cols="2">
 							<colspec colnum="1" colname="col1" colwidth="1.00*"/>
@@ -501,14 +487,12 @@
 							</tbody>
 						</tgroup>
 					</table>
-				</p>
 				<p>See the <codeph>com.gemstone.gemfire.management.AsyncEventQueueMXBean</codeph>
 					JavaDocs for information on available MBean methods and attributes. </p>
 			</section>
 			<section id="section_BB83107990D346F39271ACCC14CB84A0">
 				<title>LocatorMXBean</title>
 				<p> A LocatorMXBean represents a locator . </p>
-				<p>
 					<table id="table_AAF3217277304CE497B5AD1E43A8E833">
 						<tgroup cols="2">
 							<colspec colnum="1" colname="col1" colwidth="1.00*"/>
@@ -540,7 +524,6 @@
 							</tbody>
 						</tgroup>
 					</table>
-				</p>
 				<p>See the <codeph>com.gemstone.gemfire.management.LocatorMXBean</codeph> JavaDocs
 					for information on available MBean methods and attributes. </p>
 			</section>

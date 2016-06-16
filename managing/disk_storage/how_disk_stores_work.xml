@@ -5,7 +5,8 @@
 	<shortdesc>Overflow and persistence use disk stores individually or together to store data. </shortdesc>
 	<conbody>
 		<section id="section_1A93EFBE3E514918833592C17CFC4C40">
-			<p>Disk storage is available for these items: <ul id="ul_1888717500314F6682ADBADC27EAFEF6">
+			<p>Disk storage is available for these items:</p>
+				<ul id="ul_1888717500314F6682ADBADC27EAFEF6">
 					<li id="li_AB1DCF110A3C4AC89293472E658C7EA2"><b>Regions</b>. Persist and/or
 						overflow data from regions. </li>
 					<li id="li_6D8F271E533649C5B63D718F9D6FC243"><b>Server’s client subscription
@@ -16,7 +17,6 @@
 						Persist metadata about objects you serialize using <keyword
 							keyref="product_name"/> PDX serialization. </li>
 				</ul>
-			</p>
 			<p>Each member has its own set of disk stores, and they are completely separate from the disk
 				stores of any other member. For each disk store, define where and how the data is
 				stored to disk. You can store data from multiple regions and queues in a single disk
@@ -31,7 +31,7 @@
 		</section>
 		<section id="section_433EEEA1560D40DD9842200181EB1D0A">
 			<title>What <keyword keyref="product_name"/> Writes to the Disk Store </title>
-			<p>This list describes the items that <keyword keyref="product_name"/> comprise the disk store:
+			<p>This list describes the items that <keyword keyref="product_name"/> comprise the disk store:</p>
 					<ul id="ul_45A4713610114CC5BBB9D722EF1FE83C">
 					<li id="li_FCA43E7782B6424E95C1BEEC676D4E00">The members that host the store,
 						and information on their status, such as which members are online and which
@@ -44,7 +44,6 @@
 						keys and operations, a region can be recreated when a member is restarted.
 					</li>
 				</ul>
-			</p>
 			<p><keyword keyref="product_name"/> does not write indexes to disk. </p>
 		</section>
 		<section id="section_C1A047CD5518499D94A0E9A0328F6DB8">
@@ -54,7 +53,8 @@
 				change the file names. </p>
 			<p>Disk store access and management differs according to whether the member is online or offline. </p>
 			<p>While a member is running, its disk stores are online. When the member exits and is not
-				running, its disk stores are offline.<ul id="ul_A53D87A420384BEFA71F566690FC9B89">
+				running, its disk stores are offline.</p>
+				<ul id="ul_A53D87A420384BEFA71F566690FC9B89">
 					<li id="li_8C4877ABA6CB43A08461785C45ADB0FA">Online, a disk store is owned and
 						managed by its member process. To run operations on an online disk store,
 						use API calls in the member process, or use the <codeph>gfsh</codeph>
@@ -71,7 +71,6 @@
 						access an entry that is stored on disk by an offline member results in a
 							<codeph>PartitionOfflineException</codeph>. </li>
 				</ul>
-			</p>
 		</section>
 	</conbody>
 </concept>

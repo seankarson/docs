@@ -97,7 +97,8 @@
 							commit, instead of after each cache operation, and the cache listeners
 							receive conflated transaction events. Cache writers and loaders are
 							called as usual, at the time of the operation. </p>
-						<p>Follow these additional guidelines when writing cache event handler callbacks: <ul
+						<p>Follow these additional guidelines when writing cache event handler callbacks:</p>
+							<ul
 								id="ul_uwx_lv3_5k">
 								<li id="li_C140791F29BF41EA975FF723E721774D">Make sure cache
 									callbacks are transactionally aware, because a transactional
@@ -107,12 +108,12 @@
 									Two events for the same key are conflated by removing the
 									existing event and queuing the new event. </li>
 							</ul>
-						</p>
 						<p>See <xref href="working_with_transactions.xml#concept_ysx_nf1_wk"/> for
 							more information. </p>
 						<p>Transaction event handlers are available. Transaction event handlers are cache-wide. You
 							can install one transaction writer and any number of transaction
-							listeners. Follow these guidelines: <ul id="ul_cvd_gw3_5k">
+							listeners. Follow these guidelines:</p>
+							<ul id="ul_cvd_gw3_5k">
 								<li id="li_146AAB2438194C1BA2E1AC0FFE2B1E10">Implement with
 									synchronization for thread safety. Listener and writer handlers
 									may be invoked at the same time by different threads for
@@ -121,7 +122,6 @@
 									callback implementations lightweight, and avoid doing anything
 									that might cause the  callbacks to block. </li>
 							</ul>
-						</p>
 						<p>See <xref href="working_with_transactions.xml#concept_ocw_vf1_wk"/> for
 							more information. </p>
 					</info>
@@ -139,7 +139,8 @@ try {
 } catch (CommitConflictException conflict) {
 	// ... do necessary work for a transaction that failed on commit
 }</codeblock>
-						<p>Follow these guidelines when writing the transaction: <ul id="ul_qgz_4bj_5k">
+						<p>Follow these guidelines when writing the transaction: </p>
+							<ul id="ul_qgz_4bj_5k">
 								<li id="li_094E07EDBD474F33B893C4696383F446">Start each transaction
 									with a begin operation. </li>
 								<li id="li_F5C54C26369B4947BA3EA22B124E4935">Consider whether you
@@ -166,7 +167,6 @@ try {
 									uncommitted or unrolled back state. Transactions do not time
 									out, so they will remain for the life of the application. </li>
 							</ul>
-						</p>
 					</info>
 				</step>
 				<step id="step_0252DAAFC7E044268EA8E499E2AF948D">
@@ -180,7 +180,7 @@ try {
 							another process accessing data used in the transaction might get some
 							data in the pre-transaction state and some in the post-transaction
 							state. </p>
-						<p>For example, suppose key 1 and 2 are modified within a transaction, such that both values
+						<p>For example, suppose keys 1 and 2 are modified within a transaction, such that both values
 							change from A to B. In another thread, it is possible to read key 1 with
 							value B and key 2 with value A, after the commit begins, but before the
 							commit completes. This is possible due to the nature of <keyword

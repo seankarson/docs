@@ -5,7 +5,8 @@
 	<shortdesc>Program a data loader and configure your region to use it. </shortdesc>
 	<conbody>
 		<section id="section_88076AF5EC184FE88AAF4C806A0CA9DF">
-			<p>To use a data loader in your region: <ol id="ol_5B0520F2ADED415DBE605ADF9D1CB11E">
+			<p>To use a data loader in your region: </p>
+				<ol id="ol_5B0520F2ADED415DBE605ADF9D1CB11E">
 					<li id="li_3A85FE6AC53A44C29D2AFAC44763C7C1">Program your loader: <ol
 							id="ol_3BD9361806B549D39BAC5E45A1468E99">
 							<li id="li_E0C63653222B4BEDA6A06F3CD261E43E">Implement
@@ -22,7 +23,7 @@
 								spawn separate threads for them. Do not make direct calls to
 									<codeph>Region</codeph> methods from your load method
 								implementation as it could cause the cache loader to block, hurting
-								the performance of the distributed system. <p>Example:
+								the performance of the distributed system. <p>Example:</p>
 									<codeblock outputclass="language-java">public class SimpleCacheLoader implements CacheLoader, Declarable {
     public Object load(LoaderHelper helper) {
         String key = (String) helper.getKey();
@@ -33,7 +34,6 @@
     public void close() { // do nothing }
     public void init(Properties props) { // do nothing }
 }</codeblock>
-								</p>
 							</li>
 						</ol>
 					</li>
@@ -74,12 +74,15 @@ quotes = rf.create("NASDAQ Quotes");</codeblock>
 							</li>
 						</ul>
 					</li>
-				</ol><note>You can also configure Regions using the gfsh command-line interface,
+				</ol>
+			<note>
+				<p>You can also configure Regions using the gfsh command-line interface,
 					however you cannot configure a <codeph>cache-loader</codeph> using gfsh. See
 						<xref
 						href="../../tools_modules/gfsh/quick_ref_commands_by_area.xml#topic_EF03119A40EE492984F3B6248596E1DD"
-					/>.</note>
-			</p>
+					/>.
+				</p>
+			</note>
 		</section>
 	</conbody>
 </concept>

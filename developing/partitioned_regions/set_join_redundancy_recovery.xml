@@ -8,7 +8,6 @@
 		<section id="section_D6FB0D69CC454B53B9CF1E656A44465C">
 			<p>Use the partition attribute <codeph>startup-recovery-delay</codeph> to specify member
 				join redundancy recovery. </p>
-			<p>
 				<table frame="all" id="table_145C870E2E794E41B0F9030DDEB10FBB">
 					<tgroup cols="2" align="left">
 						<colspec colname="topic_link" colnum="1" colsep="1" rowsep="1"/>
@@ -39,21 +38,27 @@
 						</tbody>
 					</tgroup>
 				</table>
-			</p>
 			<p>Setting this to a value higher than the default of 0 allows multiple new members to
 				join before redundancy recovery kicks in. With the multiple members present during
 				recovery, the system will spread redundancy recovery among them. With no delay, if
 				multiple members are started in close succession, the system may choose only the
 				first member started for most or all of the redundancy recovery. </p>
-			<note>Satisfying redundancy is not the same as adding capacity. If redundancy is
-				satisfied, new members do not take buckets until you invoke a rebalance. </note>
-			<note>With parallel recovery introduced in version 8.2, redundancy may be recovered more
+			<note>
+				<p>Satisfying redundancy is not the same as adding capacity. If redundancy is
+				satisfied, new members do not take buckets until you invoke a rebalance.
+				</p>
+			</note>
+			<note>
+				<p>With parallel recovery introduced in version 8.2, redundancy may be recovered more
 				quickly than in previous versions . For this reason, it is even more important to
 				configure <codeph>startup-recovery-delay</codeph> to an appropriate value if you
 				intend to restart multiple members at once. Set
 					<codeph>startup-recovery-delay</codeph> to a value that ensures all members are
-				up and available <i>before</i> redundancy recovery kicks in.</note>
-			<p>Set join redundancy recovery using one of the following: <ul
+				up and available <i>before</i> redundancy recovery kicks in.
+				</p>
+			</note>
+			<p>Set join redundancy recovery using one of the following: </p>
+				<ul
 					id="ul_99946990FBF64302AC438A99274235E2">
 					<li id="li_402B014E5B3D4D0A8480CBB97BB18466">XML:
 						<codeblock otherprops="" outputclass="language-xml">// Wait 5 seconds after a new member joins before  
@@ -69,7 +74,6 @@
 					</li>
 					<li>gfsh:<codeblock outputclass="language-bourne">gfsh>create region --name="PR1" --type=PARTITION --startup-recovery-delay=5000</codeblock></li>
 				</ul>
-			</p>
 		</section>
 	</conbody>
 </concept>

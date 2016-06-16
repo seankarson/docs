@@ -10,14 +10,14 @@
       cache loaders, cache writers, and cache listeners that need to perform non-transactional
       operations on a region, such as caching a result set. It is set per region, so some regions
       can participate in JTA transactions, while others avoid participating in them. This example
-      sets the <codeph>ignore-jta</codeph> region attribute in the <filepath>cache.xml</filepath>
+      sets the <codeph>ignore-jta</codeph> region attribute in the <codeph>cache.xml</codeph>
       file. </p>
-    <p>cache.xml
-      :<codeblock>&lt;region name="bridge_region">
+    <p>cache.xml:</p>
+    <codeblock>&lt;region name="bridge_region">
    &lt;region-attributes scope="local" ignore-jta="true" statistics-enabled="true"/> 
        &lt;cache-writer> . . . &lt;/cache-writer>
     &lt;/region-attributes> 
-&lt;/region></codeblock></p>
+&lt;/region></codeblock>
     <p>API: </p>
     <p>Using the API, you can turn off JTA transactions using <codeph>RegionFactory</codeph> and its
       method <codeph>setIgnoreJTA(boolean)</codeph>. The current setting for a region can be fetched

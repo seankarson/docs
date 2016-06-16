@@ -16,74 +16,51 @@
 					this command. </p>
 				<p>
 					<b>Syntax:</b>
-					<codeblock> import data --region=value --file=value --member=value</codeblock>
-					<table
-						id="table_68283D0DB13847C68D83111738CC3F62">
-						<title>Parameters</title>
-						<tgroup
-							cols="2">
-							<colspec
-								colnum="1"
-								colname="col1"
-								colwidth="1.00*"/>
-							<colspec
-								colnum="2"
-								colname="col2"
-								colwidth="3.55*"/>
-							<thead>
-								<row>
-									<entry
-										colname="col1">Name </entry>
-									<entry
-										colname="col2">Description</entry>
-
-								</row>
-							</thead>
-							<tbody>
-								<row>
-									<entry
-										colname="col1">
-										<parmname>--region</parmname>
-									</entry>
-									<entry
-										colname="col2"><i>Required.</i> Region
-										into which data will be imported.
-									</entry>
-								</row>
-								<row>
-									<entry
-										colname="col1">
-										<parmname>--file </parmname>
-									</entry>
-									<entry
-										colname="col2"><i>Required.</i> File
-										from which the imported data will be
-										read. The file must have an extension of
-										".gfd" and must be on the file system of
-										the member (or accessible to that member
-										via NFS) that is being targeted for the
-										import. </entry>
-								</row>
-								<row>
-									<entry
-										colname="col1">
-										<parmname>--member</parmname>
-									</entry>
-									<entry
-										colname="col2"><i>Required.</i> Name/Id
-										of a member which hosts the region. The
-										data will be imported from the specified
-										file on the host where the member is
-										running. </entry>
-								</row>
-							</tbody>
-						</tgroup>
-					</table>
 				</p>
+				<codeblock> import data --region=value --file=value --member=value</codeblock>
+				<table id="table_lzg_3fg_2w">
+					<title>Parameters</title>
+					<tgroup cols="2">
+						<colspec colnum="1" colname="col1" colwidth="1.00*"/>
+						<colspec colnum="2" colname="col2" colwidth="3.55*"/>
+						<thead>
+							<row>
+								<entry colname="col1">Name </entry>
+								<entry colname="col2">Description</entry>
+							</row>
+						</thead>
+						<tbody>
+							<row>
+								<entry colname="col1">
+									<parmname>--region</parmname>
+								</entry>
+								<entry colname="col2"><i>Required.</i> Region into which data will
+									be imported. </entry>
+							</row>
+							<row>
+								<entry colname="col1">
+									<parmname>--file </parmname>
+								</entry>
+								<entry colname="col2"><i>Required.</i> File from which the imported
+									data will be read. The file must have an extension of ".gfd" and
+									must be on the file system of the member (or accessible to that
+									member via NFS) that is being targeted for the import. </entry>
+							</row>
+							<row>
+								<entry colname="col1">
+									<parmname>--member</parmname>
+								</entry>
+								<entry colname="col2"><i>Required.</i> Name/Id of a member which
+									hosts the region. The data will be imported from the specified
+									file on the host where the member is running. </entry>
+							</row>
+						</tbody>
+					</tgroup>
+				</table>
 				<p>
 					<b>Example Commands:</b>
-					<codeblock>import data --region=region2 --file=/mnt5/region2_20121001.gfd --member=server1</codeblock>
 				</p>
+				<codeblock>import data --region=region2 --file=/mnt5/region2_20121001.gfd --member=server1</codeblock>
 			</body>
 		</topic>
 		<topic
@@ -96,62 +73,50 @@
 				<p><b> Availability:</b> Online. You must be connected in
 						<codeph>gfsh</codeph> to a JMX Manager member to use
 					this command. </p>
-				<note>Shutdown all data members (servers) before importing a
-					shared configuration. </note>
+				<note>
+					<p>Shutdown all data members (servers) before importing a
+					shared configuration. 
+					</p>
+				</note>
 				<p>
 					<b>Syntax:</b>
-					<codeblock>import cluster-configuration --zip-file-name=value
-</codeblock>
-					<table
-						id="table_q4v_grz_ck">
-						<title>Parameters</title>
-						<tgroup
-							cols="2">
-							<colspec
-								colname="col1"
-								colnum="1"
-								colwidth="25%"/>
-							<colspec
-								colname="col2"
-								colnum="2"
-								colwidth="*"/>
-							<thead>
-								<row>
-									<entry
-										colname="col1">Name </entry>
-									<entry
-										colname="col2">Description</entry>
-								</row>
-							</thead>
-							<tbody>
-								<row>
-									<entry
-										colname="col1">
-										<parmname>--zip-file-name</parmname>
-									</entry>
-									<entry
-										colname="col2"><i>Required.</i> Name of
-										the zip file containing the cluster
-										configuration artifacts to be imported.
-									</entry>
-								</row>
-							</tbody>
-						</tgroup>
-					</table>
 				</p>
+				<codeblock>import cluster-configuration --zip-file-name=value
+</codeblock>
+				<table id="table_w1m_kfg_2w">
+					<title>Parameters</title>
+					<tgroup cols="2">
+						<colspec colname="col1" colnum="1" colwidth="25%"/>
+						<colspec colname="col2" colnum="2" colwidth="*"/>
+						<thead>
+							<row>
+								<entry colname="col1">Name </entry>
+								<entry colname="col2">Description</entry>
+							</row>
+						</thead>
+						<tbody>
+							<row>
+								<entry colname="col1">
+									<parmname>--zip-file-name</parmname>
+								</entry>
+								<entry colname="col2"><i>Required.</i> Name of the zip file
+									containing the cluster configuration artifacts to be imported.
+								</entry>
+							</row>
+						</tbody>
+					</tgroup>
+				</table>
 				<p>
 					<b>Example Commands:</b>
-					<codeblock>gfsh>import cluster-configuration --zip-file-name=/home/username/myClusterConfig.zip
-</codeblock>
 				</p>
+				<codeblock>gfsh>import cluster-configuration --zip-file-name=/home/username/myClusterConfig.zip
+</codeblock>
 				<p>
 					<b>Sample Output:</b>
 				</p>
-				<p>
-					<codeblock>gfsh>import cluster-configuration --zip-file-name=/home/username/myClusterConfig.zip
+				<codeblock>gfsh>import cluster-configuration --zip-file-name=/home/username/myClusterConfig.zip
 Cluster configuration successfully imported
 </codeblock>
-				</p>
 			</body>
 		</topic>
 	</topic>

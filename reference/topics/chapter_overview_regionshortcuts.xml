@@ -9,14 +9,15 @@
       <p>Region shortcuts are groupings of pre-configured attributes that define the characteristics
         of a region. You can use a region shortcut as a starting point when configuring regions and
         you can add additional configurations to customize your application. To reference a region
-        shortcut in a  <keyword keyref="product_name"/> <filepath>cache.xml</filepath> file, use the <cmdname>refid</cmdname>
-        attribute of the <cmdname>&lt;region&gt;</cmdname> element. For example:
-        <codeblock>&lt;region name="myRegion" refid="PARTITION_REDUNDANT"/&gt;</codeblock> You can
+        shortcut in a  <keyword keyref="product_name"/> <codeph>cache.xml</codeph> file, use the <codeph>refid</codeph>
+        attribute of the <codeph>&lt;region&gt;</codeph> element. For example:</p>
+        <codeblock>&lt;region name="myRegion" refid="PARTITION_REDUNDANT"/&gt;</codeblock>
+      <p>You can
         override the default values and add additional configurations within a
-          <cmdname>&lt;region-attributes&gt;</cmdname> element of the <filepath>cache.xml</filepath>
+          <codeph>&lt;region-attributes&gt;</codeph> element of the <codeph>cache.xml</codeph>
         file. For example, the following configuration overrides the
           <parmname>local-max-memory</parmname> setting and adds the
-          <parmname>recovery-delay</parmname> attribute:
+        <parmname>recovery-delay</parmname> attribute:</p>
         <codeblock>&lt;region name="myRegion" refid="PARTITION_REDUNDANT"&gt;
 	&lt;region-attributes&gt;
 	    &lt;partition-attributes 
@@ -24,15 +25,16 @@
            recovery-delay=-1/&gt;
 	&lt;/region-attributes&gt;
 &lt;/region&gt;</codeblock>
-      </p>
       <p>You can also create your own, named region shortcuts for common custom configurations. See
           <xref href="../../basic_config/data_regions/region_shortcuts.xml"/>. </p>
       <p>To configure a region using the gfsh command-line tool, specify the shortcut name with the
-          <cmdname>--type</cmdname> argument. For example:
+        <codeph>--type</codeph> argument. For example:</p>
         <codeblock>gfsh&gt;create region --name=myRegion --type=PARTITION_REDUNDANT</codeblock>
-      </p>
-      <note>If you change the cache.xml file that defines a region, you must restart the member
-        before the changes take effect. </note>
+      <note>
+        <p>If you change the cache.xml file that defines a region, you must restart the member
+        before the changes take effect.
+        </p>
+      </note>
       <p>For more information about configuring regions, see <xref
           href="../../basic_config/data_regions/managing_data_regions.xml#data_regions"/>. </p>
       <p>For more information about using the various types of <keyword keyref="product_name"/> regions and when to use them, see
