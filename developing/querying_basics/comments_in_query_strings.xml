@@ -4,16 +4,9 @@
   <title>Comments in Query Strings</title>
   <shortdesc><?xm-replace_text Short Description?>
   </shortdesc>
-  <prolog>
-    <metadata>
-      <keywords>
-        <keyword>OQL query comments</keyword>
-      </keywords>
-    </metadata>
-  </prolog>
   <conbody>
-    <p>Comment lines being with -- (double dash). Comment blocks begin with /* and end with */. For
-      example:</p>
+    <p>Comment lines being with <codeph>--</codeph> (double dash). Comment blocks begin with
+        <codeph>/*</codeph> and end with <codeph>*/</codeph>. For example:</p>
       <codeblock>SELECT * --my comment 
 FROM /exampleRegion /* here is
 a comment */ WHERE status = ‘active’

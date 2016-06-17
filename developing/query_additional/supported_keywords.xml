@@ -4,15 +4,6 @@
 	<title>Supported Keywords</title>
 	<shortdesc><?xm-replace_text Short Description?>
 	</shortdesc>
-	<prolog>
-		<metadata>
-			<keywords>
-				<keyword> query keywords</keyword>
-				<keyword> query language</keyword>
-				<keyword> query language reference</keyword>
-			</keywords>
-		</metadata>
-	</prolog>
 	<refbody>
 		<properties id="properties_459A2BD90B3C446FA08B9AAD5FDDA50C">
 			<prophead>
@@ -122,11 +113,11 @@
 			</property>
 			<property>
 				<proptype>LIKE</proptype>
-				<propvalue>LIKE can be used to mean 'equals to', or if you terminate the string with
-					a wildcard character ('%'), it behaves like 'starts with'. Note that the
+				<propvalue>LIKE can be used to mean 'equals to', or if you terminate the string with a wildcard
+					character (<codeph>%</codeph>), it behaves like 'starts with'. Note that the
 					wildcard can only be used at the end of the comparison string. You can escape
-					the wildcard character to represent the % character. You can also use the LIKE
-					predicate if an index is present.</propvalue>
+					the wildcard character to represent the <codeph>%</codeph> character. You can
+					also use the LIKE predicate if an index is present.</propvalue>
 				<propdesc>See <xref
 						href="../query_select/the_where_clause.xml#the_where_clause/section_D91E0B06FFF6431490CC0BFA369425AD"
 						type="section" format="dita" scope="local"/></propdesc>
