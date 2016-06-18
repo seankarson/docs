@@ -52,7 +52,7 @@
 				partitioning detection is enabled, the partition that contains sufficient quorum (>
 				51% based on member weight) will continue to operate, while the other partition with
 				insufficient quorum will shut down. See <xref
-					href="../network_partitioning/chapter_overview.xml#network_partitioning"/> for a
+					href="../network_partitioning/chapter_overview.xml"/> for a
 				detailed explanation on how this detection system operates.</p>
 			<p>In addition, members that have been disconnected either via network partition or due
 				to unresponsiveness will automatically try to reconnect to the distributed system
@@ -76,7 +76,7 @@
 				<li id="li_E68880BF05524D52A5FB1EF0053AD770">Restart them in the usual order. </li>
 			</ol>
 			<p>The members recreate the data as they return to active work. For details, see <xref
-					href="recovering_from_app_crashes.xml#rec_app_crash" type="concept"
+					href="recovering_from_app_crashes.xml" type="concept"
 					format="dita" scope="local"
 					><?xm-replace_text Recovering from Application and Cache Server Crashes?></xref>.
 			</p>
@@ -114,7 +114,7 @@
 				you are using persistent regions. </p>
 			<p>For information on how to recover from
 					<codeph>ConflictingPersistentDataException</codeph> errors should they occur,
-				see <xref href="recovering_conflicting_data_exceptions.xml#topic_ghw_z2m_jq"/>.</p>
+				see <xref href="recovering_conflicting_data_exceptions.xml"/>.</p>
 		</section>
 		<section id="section_18AEEB6CC8004C3388CCB01F988B0422">
 			<title>Effect of Network Failure on Client/Server Installations</title>
