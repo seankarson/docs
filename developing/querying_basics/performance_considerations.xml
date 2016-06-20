@@ -9,13 +9,13 @@
 			<ul id="ul_30CF4188749A411B98124E006F200927">
 				<li id="li_0E29FD1020B3496B8AABED2B4019D36B">Improve query performance whenever
 					possible by creating indexes. See <xref
-						href="../query_index/indexing_guidelines.xml"
+						href="../query_index/indexing_guidelines.xml#indexing_guidelines"
 						type="concept" format="dita" scope="local"/> for some scenarios for using
 					indexes. </li>
 				<li id="li_BFC412DF35D94F72BBFC9DD9A07A83EF">Use bind parameters for frequently used
 					queries. When you use a bind parameter, the query is compiled once. This
 					improves the subsequent performance of the query when it is re-run. See <xref
-						href="../query_additional/using_query_bind_parameters.xml"
+						href="../query_additional/using_query_bind_parameters.xml#concept_173E775FE46B47DF9D7D1E40680D34DF"
 						type="concept" format="dita" scope="local"/> for more details. </li>
 				<li id="li_354ACFA96A324C85A313071B3E32C5F2">When querying partitioned regions,
 					execute the query using the FunctionService. This function allows you to target

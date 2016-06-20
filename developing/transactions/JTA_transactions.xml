@@ -90,7 +90,7 @@
 						applied to the cache and distributed to other members. </li>
 				</ol>
 			<p>You can disable JTA in any region that should not participate in JTA transactions.
-				See <xref href="turning_off_jta.xml"
+				See <xref href="turning_off_jta.xml#concept_nw2_5gs_xk"
 					><?xm-replace_text Turning Off JTA Transactions ?></xref>. </p>
 		</conbody>
 	</concept>
@@ -115,7 +115,7 @@
 				</step>
 				<step id="step_FE6FEFBB03E841A78F82AEA2A4B7F2A2">
 					<cmd>Make sure that JTA transactions are enabled for the regions that will participate in the
-						transaction. See <xref href="turning_off_jta.xml"/> for
+						transaction. See <xref href="turning_off_jta.xml#concept_nw2_5gs_xk"/> for
 						details. </cmd>
 				</step>
 				<step id="step_868A61844ABB437EB41327875B9A2369">
@@ -259,7 +259,7 @@ GFConnection gemfireConn = (GFConnection)cf.getConnection();</codeblock>
 				</step>
 			</steps>
 			<example>
-				<p>See <xref href="jca_adapter_example.xml"/> for an example of
+				<p>See <xref href="jca_adapter_example.xml#concept_swv_z2p_wk"/> for an example of
 					how to set up a transaction using the JCA Resource Adapter.</p>
 			</example>
 		</taskbody>
@@ -373,7 +373,7 @@ GFConnection gemfireConn = (GFConnection)cf.getConnection();</codeblock>
 				</step>
 			</steps>
 			<example id="example_BD14DF4B30704108BF7D017B67371AB8">See <xref
-					href="transaction_jta_gemfire_example.xml" type="concept"
+					href="transaction_jta_gemfire_example.xml#concept_ffg_sj5_1l" type="concept"
 					format="dita" scope="local"/>. </example>
 		</taskbody>
 	</task>

@@ -23,7 +23,7 @@
 						regions that are co-located and where the co-located columns are indicated
 						in the WHERE clause of the query. In the case of multi-column partitioning,
 						there should also be an AND clause in the WHERE specification. See <xref
-							href="../partitioned_regions/colocating_partitioned_region_data.xml"
+							href="../partitioned_regions/colocating_partitioned_region_data.xml#colocating_partitioned_region_data"
 							type="concept" format="dita" scope="local"/> for more information on
 						partitioned region co-location. </li>
 					<li id="li_57505A702BA241A0A23CDB1E6AE260EC">Equi-join queries are allowed
@@ -33,7 +33,7 @@
 						and another region (partitioned or not), you need to use the
 							<codeph>query.execute</codeph> method and supply it with a function
 						execution context. See <xref
-							href="../partitioned_regions/join_query_partitioned_regions.xml"
+							href="../partitioned_regions/join_query_partitioned_regions.xml#concept_B930D276F49541F282A2CFE639F107DD"
 							type="concept" format="dita" scope="local"/> for an example. </li>
 					<li id="li_8C17B72E3C97422FAB35A7B193BB90E1">The query must be just a SELECT
 						expression (as opposed to arbitrary OQL expressions), preceded by zero or

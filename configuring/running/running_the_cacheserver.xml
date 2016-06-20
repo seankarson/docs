@@ -39,7 +39,7 @@
 						must specify <codeph>$GEMFIRE/lib/server-dependencies.jar</codeph> inside
 						your command to launch the process. For more information on CLASSPATH
 						settings in <keyword keyref="product_name"/>, see <xref
-							href="../../getting_started/setup_gemfire_classpath.xml"
+							href="../../getting_started/setup_gemfire_classpath.xml#concept_ivh_glr_l4"
 						/>.</li>
 					<li id="li_01CE20B4D7B24580A31FD64CFB9DBE01">Servers are configured like any
 						other <keyword keyref="product_name"/> process, with
@@ -85,7 +85,7 @@
 					<li>By default, a server process that has been shutdown and disconnected due to
 						a network partition event or member unresponsiveness will restart itself and
 						automatically try to reconnect to the existing distributed system. See <xref
-							href="../../managing/autoreconnect/member-reconnect.xml"
+							href="../../managing/autoreconnect/member-reconnect.xml#concept_22EE6DDE677F4E8CAF5786E17B4183A9"
 						/> for more details.</li>
 					<li>You can pass JVM parameters to the server's JVM by using the
 								<codeph>--J=-D<i>property.name</i>=<i>value</i></codeph> upon server
