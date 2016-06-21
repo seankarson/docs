@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept id="how-functions-execute">
+  <title id="title_D8F01D0B77A04E899ECEA7DF50E4AE90">How Functions Execute</title>
+
+  <conbody id="conbody_E42EEBE82B60481BA70B5E581D5FD5D1">
+    <ol id="ol_CD03DCB70CBF4C26BAAFF0D913692CAA">
+      <li id="li_62CBDE129A7A4B189360617E7468E950">The calling client application runs the <codeph>execute</codeph>
+      method on the <codeph>Function Execution</codeph> object. The object
+      must be already registered on the servers.</li>
+
+      <li id="li_449C6F76780B45F3B82BF448BA187A4D">The execution is sent to all servers where it needs to run. The
+      locations are determined by the <codeph>FunctionService on*</codeph>
+      method calls, region configuration, and any filters. </li>
+
+      <li id="li_E1008A7BFCBB4B678AA248695972E269">If the function has results, the result is returned to the
+      <codeph>execute</codeph> method call in a
+      <codeph>ResultCollector</codeph> object.</li>
+
+      <li id="li_4934042E897C4597AF81F7FFF0B1991B">The client collects results using the result collector
+      <codeph>getResult</codeph>.</li>
+    </ol>
+
+    <section><title id="title_A2A477C4010F413EA1755A21FDFAFBC2">Highly Available Functions</title><p id="p_556A80A47E004D9EA65F48CA61785976">Generally, if there
+    is a failure in function execution, the error is returned to the calling
+    application. You can code for high availability for onRegion functions
+    that return a result, so the function is automatically retried. For
+    information on setting this up on the server side, see the GemFire
+    <i>User’s Guide</i>. To use a highly available function, the client must
+    call the results collector <codeph>getResult</codeph> method. When there
+    is a failure—execution error or member crash while executing, for
+    example—the system:</p><ol id="ol_3A5B9A2CBD674C3CB537B010D3C88674">
+        <li id="li_800E898DBB164B9AA55DEE207116085B">Waits for all calls to return</li>
+
+        <li id="li_CD1AFFAA0B974495A957141C4D516F7F">Sets a boolean indicating a reexecution is being done</li>
+
+        <li id="li_5399EA11CD08422897C8E53963DBC07B">Calls the result collector’s clearResults method</li>
+
+        <li id="li_1D0A125200AC42E9BB9D001D2EC4540E">Executes the function</li>
+      </ol><p>The system retries the execution up to the number specified in
+    the server pool’s <codeph>retryAttempts</codeph> setting. If the function
+    continues to fail, the final exception is returned to the
+    <codeph>getResult</codeph> method. </p></section>
+
+    <section id="section_CD9A1A997259413EAB4E2A31E773EF3D"><title id="title_707DBFBF98124BBAA3DACD8FDE2F3038">Data-Independent Function Execution</title><p id="p_3354A5D9A1C1439BA513DECCE34542D8">This shows
+    the sequence of events for a data-independent function executed against
+    all available servers:</p><fig id="fig_542AF21D578C4203B0E412B79AAFCB2B">
+        <title id="title_9803214FFD5546E78EB954E613AE2B7D">Data-Independent Function Invoked from a Client</title>
+
+        <image alt="Data-Independent Function Invoked on All Servers" href="../common/images/data-indep-func-from-client.gif" placement="break" id="image_E0558B648AC0408AA8EBA1B20BBDA6E8"/>
+      </fig></section>
+
+    <section id="section_2B8EF74570294EDA9468303E6ABF1589"><title>Data-Dependent Function Execution</title><p id="p_5A5E74A4BEBA4EE19BD0D83952C41299">This shows a
+    data-dependent function run by a client. The specified region is connected
+    to the server system, so the function automatically goes there to run
+    against all servers holding data for the region.</p><fig id="fig_AB2806066EBD4A9A818C1CB96969AAD7">
+        <title id="title_6B4F92E09C1C4155B17F771A542E5F5A">Data-Dependent Function Invoked From a Client</title>
+
+        <image alt="Data-Dependent Function Invoked from a Client" href="../common/images/data-dep-func-from-client.gif" placement="break" id="image_2FC4D817034841748BA05E2805D0BC21"/>
+      </fig><p id="p_3580458821F44D84B7E437BB66CD43BD">This shows the same data-dependent function with the added
+    specification of a set of keys on which to run. Servers that don't hold
+    any of the keys are left out of the function execution.</p><fig id="fig_BAD8AB0EC37C4EC1AC78FB47D071AACC">
+        <title id="title_816DAA49EF654EA1992C15C265C26F18">Data-Dependent Function with Filter Invoked from a
+        Client</title>
+
+        <image alt="Data-Dependent Function with Filter Invoked From a Client" href="../common/images/data-dep-func-with-filter.gif" placement="break"/>
+      </fig><p id="p_5DD9CBCDBB0845C78F8AC25FC9763C32">This scenario demonstrates the steps in a call to a highly
+    available function. The call fails the first time on one of the
+    participating servers and is successfully run a second time on all
+    servers.</p><fig id="fig_8178E71A5AD747C794A336C86BE313B8">
+        <title id="title_EE6AAD6FB3514344959B678C28FB2C6C">Highly Available Data Dependent Function with Failure on First
+        Executions</title>
+
+        <image alt="Highly Available Data Dependent Function with Failure on First Execution" href="../common/images/ha-data-dep-func.gif" placement="break" id="image_79E33270ADD147F780E5E20A03D9F3C6"/>
+      </fig></section>
+  </conbody>
+</concept>

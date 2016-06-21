@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "http://docs.oasis-open.org/dita/v1.1/OS/dtd/concept.dtd">
+<concept
+	id="cache-server-config">
+	<title>Cache Server Configuration</title>
+	<shortdesc>You configure the cache server in two files: <codeph>gemfire.properties</codeph> for
+		server system-level configuration and <codeph>cache.xml</codeph> for cache-level
+		configuration. </shortdesc>
+	<conbody>
+		<p> The configuration of the caches is part of the application development process. See <xref
+				scope="local"
+				href="../cache-init-file/chapter-overview.xml#chapter-overview"
+				type="concept"
+				format="dita">Cache Initialization File</xref>. (The cache-level configuration file
+			is generally referred to as <codeph>cache.xml</codeph>, but you can use any name.) </p>
+		<section
+			id="section_FED30097F6C246DE843EBD8B5292D86C">
+			<title>Configuration File Locations</title>
+			<p>For the GemFire cache server, the <codeph>gemfire.properties</codeph> file is usually stored
+				in the current working directory. For more information, see the <i>User's Guide</i>. </p>
+			<p>For the <codeph>cache.xml</codeph> cache configuration file, a native client looks
+				for the path specified by the <codeph>cache-xml-file</codeph> attribute in
+					<codeph>gfcpp.properties</codeph> (see <xref
+					scope="local"
+					href="attributes-gfcpp.xml#attributes-gfcpp"
+					type="concept"
+					format="dita">Attributes in gfcpp.properties</xref>). If the
+					<codeph>cache.xml</codeph> is not found, the process starts with an unconfigured
+				cache. </p>
+		</section>
+		<section
+			id="section_F47DE4D858B04244956B91360AD8967E">
+			<title>Modifying Attributes Outside the gemfire.properties File</title>
+			<p>In addition to the <codeph>gemfire.properties file</codeph>, you can pass attributes to the
+				cache server on the gfsh command line. These override any settings found in the
+					<codeph>gemfire.properties</codeph> file when starting the cache server. </p>
+			<p>For more information, see <i>Configuring a Cluster </i> in the <i>User's Guide</i>. </p>
+		</section>
+	</conbody>
+</concept>

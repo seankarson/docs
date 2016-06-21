@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept
+	id="security">
+	<title
+		id="title_9717E51087B346988389138843E158C4">Encrypt Credentials with Diffe-Hellman</title>
+	<shortdesc>For secure transmission of sensitive credentials like passwords, encrypt credentials
+		using the Diffie-Hellman key exchange algorithm. With Diffie-Hellman enabled, you can have
+		your client authenticate its servers. </shortdesc>
+	<conbody
+		id="conbody_D74C4342289846619E028149A8920946">
+		<section
+			id="section_1BB8F13C7ACB44668FF337F59A3BA5AE">
+			<title>Enabling Diffe-Hellman</title>
+			<p>
+				
+Set the <codeph>security-client-dhalgo</codeph> system property in
+				the <codeph>gfcpp.properties</codeph> file to the password for the public key file
+				store on the client (the name of a valid symmetric key cipher supported by the JDK).
+					
+			</p>
+			<p>Valid <codeph>security-client-dhalgo</codeph> property values are
+					<codeph>DESede</codeph>, <codeph>AES</codeph>, and <codeph>Blowfish</codeph>,
+				which enable the Diffie-Hellman algorithm with the specified cipher to encrypt the
+				credentials. </p>
+			<p>For the <codeph>AES</codeph> and <codeph>Blowfish</codeph> algorithms, optionally
+				specify the key size for the <codeph>security-client-dhalgo</codeph> property. Valid
+				key size settings for the <codeph>AES</codeph> algorithm are
+					<codeph>AES:128</codeph>, <codeph>AES:192</codeph>, and
+				<codeph>AES:256</codeph>. The colon separates the algorithm name and the key size.
+				For the <codeph>Blowfish</codeph> algorithm, key sizes from 128 to 448 bits are
+				supported. For example:</p>
+				<codeblock>security-client-dhalgo=Blowfish:128</codeblock>
+			<p>For <codeph>AES</codeph> algorithms, you may need Java Cryptography Extension (JCE)
+				Unlimited Strength Jurisdiction Policy Files from Sun or equivalent for your JDK. </p>
+			<p
+				id="p_73C402816B974E4B9D904000F996DD2E">
+				
+Adding settings for Diffie-Hellman on clients also enables challenge
+				response from server to client in addition to encryption of credentials using the
+				exchanged key to avoid replay attacks from clients to servers. Clients can also
+				enable authentication of servers, with challenge-response from client to server to
+				avoid server-side replay attacks. </p>
+		</section>
+		<section
+			id="section_F881653044EC4AB5BE88F673890F2A40">
+			<title>Client Authentication of Server</title>
+			<p>With Diffie-Hellman enabled, you can have your client authenticate its servers. </p>
+			<ol
+				id="ol_C07B2C97ED4942198D2C69CC8619B0AA">
+				<li
+					id="li_F6109E270B8D4AA4B0D51DD852FF3FBC">
+					
+
+					<p
+						id="p_215060DA14754312AFE5B75CE8A1E74B">Generate a <codeph>.pem</codeph>
+						file for each pkcs12 keystore: </p>
+					<ol
+						id="ol_AF4A92E46DF14113B8A86867F49C0288">
+						<li
+							id="li_55F740CCE11340CAB7B242040EF513C8">Enter this command from a
+							pkcs12 file or a pkcs keystore: <fig
+								id="fig_3CAFDE3CB29348A19AF3BE3591AFA2F7">
+								<codeblock>user@host: ~&gt; openssl pkcs12 -nokeys -in &lt;keystore/pkcs12 file&gt; -out &lt;outputfilename.pem &gt;</codeblock>
+							</fig>
+						</li>
+						<li id="li_20D64914C0794F3FA6FE29AC5B1E82C7">Concatenate the generated .pem files into a
+							single .pem file. You will use this file name in the next step. </li>
+					</ol>
+				</li>
+				<li
+					id="li_42CD155D5353451F862CD23907408B4B">
+					<p
+						id="p_557EE2BB3D484A8C955C4C3BD6B1D71E"> In the
+							<codeph>gfcpp.properties</codeph> file: </p>
+					<ol
+						id="ol_E88B8682493C4643B919CCDC5C420FA5">
+						<li id="li_280C26B9A06F49BCB5E22C67278AD3E0">Set <codeph>security-client-kspath</codeph> to
+							the file name of the <codeph>.pem</codeph> file password for the public
+							key file store on the client. </li>
+						<li
+							id="li_940B32BF038E49D9BD59E6631DD3A6DC">Set
+								<codeph>security-client-kspasswd</codeph> to the password for the
+							public key file store on the client. </li>
+					</ol>
+				</li>
+			</ol>
+		</section>
+	</conbody>
+</concept>

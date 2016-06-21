@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN"
+"concept.dtd">
+<concept id="security">
+  <title id="title_9717E51087B346988389138843E158C4">Requirements and Caveats
+  for RegionService</title>
+
+  <shortdesc>For each region, you can perform operations through the Cache
+  instance or the <codeph>RegionService</codeph> instances, but not
+  both.</shortdesc>
+
+  <conbody id="conbody_D74C4342289846619E028149A8920946">
+    <p><i>You can use the Cache to create a region that uses a pool configured
+    for multi-user authentication, then access and do work on the region using
+    your RegionService instances.</i></p>
+
+    <p>To use <codeph>RegionService</codeph>:</p>
+
+    <ul id="ul_4C44839A94CD43629B907434D387B493">
+      <li id="li_9AB4E96831034F05B7B49BFFDB15F1D6">Regions must be configured
+      as EMPTY. Depending on your data access requirements, this configuration
+      might affect performance, because the client goes to the server for
+      every get.</li>
+
+      <li id="li_4547143741934ADC9173B9E6CE1C3AE2">If you are running durable
+      CQs through the region services, stop and start the offline event
+      storage for the client as a whole. The server manages one queue for the
+      entire client process, so you need to request the stop and start of
+      durable client queue (CQ) event messaging for the cache as a whole,
+      through the ClientCache instance. If you closed the
+      <codeph>RegionService</codeph> instances, event processing would stop,
+      but the events from the server would continue, and would be lost.
+      <p>Stop with: </p><p><codeph>cachePtr-&gt;close(true);</codeph>
+      </p><p>Start up again in this order: </p><p>a. Create the cache.
+      </p><p>b. Create all region service instances. Initialize CQ listeners.
+      </p><p>c. Call the cache <codeph>readyForEvents</codeph> method.
+      </p></li>
+    </ul>
+  </conbody>
+</concept>

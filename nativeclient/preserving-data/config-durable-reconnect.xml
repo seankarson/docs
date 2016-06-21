@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE topic PUBLIC "-//OASIS//DTD DITA Topic//EN" "topic.dtd">
+<topic
+  id="topic_vfl_qrr_3q">
+  <title>Configuring Durable Client Reconnection</title>
+  <shortdesc>You can configure the durable native client to obtain an approximate count of pending
+    events upon durable client reconnection. Based on the returned number, you can determine whether
+    to proceed and receive the pending events or to close the cache. </shortdesc>
+  <body>
+    <p>Use the <codeph>getPendingEventCount</codeph> (C++ API) and the
+        <codeph>PendingEventCount</codeph> (C# .NET API) property to detect whether the previously
+      registered subscription queue is available upon durable client reconnection and the count of
+      pending events in the queue. Based on the returned results, you can then decide whether to
+      receive the remaining events or close the cache if the number is too large.</p>
+    <p>For example, for a client with only the default pool created:</p>
+    <codeblock>Pool pool = PoolManager.Find("PoolName");
+int pendingEvents = pool.PendingEventCount;
+if (pendingEvents == -2) { // client connected for the first time  … // continue
+} else if (pendingEvents == -1) { // client reconnected but after the timeout period
+  … // handle possible data loss
+} else { // pendingEvents &gt;= 0
+  … // decide to invoke readyForEvents() or Cache.close(false)/Pool.destroy()
+}</codeblock>
+    <p>For a client with multiple
+      pools:</p>
+    <codeblock>int pendingEvents = 0;
+int pendingEvents1 = PoolManager.Find(“pool1”).PendingEventCount;
+pendingEvents += (pendingEvents1 &gt; 0) ? pendingEvents1 : 0;
+int pendingEvents2 = PoolManager.Find(“pool2”).PendingEventCount;
+pendingEvents += (pendingEvents2 &gt; 0) ? pendingEvents2 : 0;
+// process individual pool counts separately.</codeblock><p>The
+        <codeph>getPendingEventCount</codeph> method and PendingEventCount property can return the
+      following possible values:</p>
+      <ul
+        id="ul_nvy_xk1_hq">
+        <li>A value representing a count of events pending at the server. Note that this count is an
+          approximate value based on the time the durable client pool connected or reconnected to
+          the server. Any number of invocations will return the same value.</li>
+        <li>A zero value if there are no events pending at server for this client pool</li>
+        <li>A negative value indicates that no queue is available at the server for the client pool. 
+           <ul
+            id="ul_lp3_fl1_hq">
+            <li>A value of -1 indicates that the client pool has reconnected to the server after its
+            durable-client-timeout period has elapsed. The pool's subscription queue has been
+            removed possibly causing data loss.</li>
+            <li>A value of -2 indicates that this client pool has connected to server for the first
+              time.</li>
+          </ul></li>
+      </ul>
+  </body>
+</topic>

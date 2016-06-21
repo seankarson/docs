@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN"
+"concept.dtd">
+<concept id="discovering-locators-dynamically">
+  <title>Discovering Locators Dynamically</title>
+
+  <conbody>
+    <p>Like servers, locators can be discovered dynamically. A background
+    thread periodically queries the locator for any other locators joining the
+    distributed system. In order to balance load across all the locators,
+    locators are shuffled before pushing in the list. </p>
+
+    <p>However, If locator A (to which the client is connected) goes down
+    before it could discover locator B, the locator B is never discovered even
+    though it is alive and client receives a
+    <codeph>NoLocatorsAvailable</codeph> exception. </p>
+
+    <p>Thread Local Connection—As the name suggests, one connection is
+    attached to every application thread that is <codeph>local</codeph> to the
+    respective thread. </p>
+
+    <p>In this case, to perform any cache operation the client is not required
+    to obtain a connection from pool. Instead the thread local connection of
+    the client is used. </p>
+
+    <p>A thread local connection can be released by invoking the
+    <codeph>Pool::releaseThreadLocalConnection()</codeph> method. The released
+    connection is returned to the pool. If the number of threads is larger
+    than the number of <codeph>max-connections</codeph>, the client throws an
+    <codeph>AllConnectionsInUseException</codeph> after the
+    <codeph>free-connection-timeout</codeph> lapses, unless the
+    <codeph>Pool::releaseThreadLocalConnection()</codeph> method is used
+    judiciously. </p>
+
+    <p>If a connection expires or the server goes down on which the connection
+    was established, a thread local connection is immediately replaced with a
+    good connection obtained from the pool.</p>
+  </conbody>
+</concept>

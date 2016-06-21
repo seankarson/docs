@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "http://docs.oasis-open.org/dita/v1.1/OS/dtd/concept.dtd">
+<concept
+	id="invalidating-cached-entries">
+	<title>Invalidating or Destroying Cached Entries</title>
+	<conbody>
+		<section
+			id="section_9244FABA5204452A8D25D1184310B7EE">
+			<p>Invalidating an entry sets the entry's value to <codeph>NULL</codeph>. Destroying it
+				removes the entry from the region altogether. These operations can be carried out in
+				the local cache in the following ways: </p>
+			<ul
+				id="ul_83601BB246924DDA807A3EA099CEC09D">
+				<li
+					id="li_02A8291990EA460485B47459AC9905B7">Through direct API calls from the
+					client. </li>
+				<li
+					id="li_14409EEFA5E04F219A9E3792768A9A7D">Through expiration activities based on
+					the entry's statistics and the region's attribute settings. </li>
+			</ul>
+				<note>
+					<p>A user-defined cache writer is called before an operation is completed, and
+					can abort an entry destroy operation.
+					</p>
+				</note>
+			<p>
+				
+Whether carried out explicitly or through expiration
+				activities, invalidation and destruction cause event notification: The
+					<codeph>CacheEvent</codeph> object has an <codeph>isExpiration</codeph> flag
+				that is set to true for events resulting from expiration activities, and set to
+					<codeph>false</codeph> for all other events. </p>
+		</section>
+	</conbody>
+</concept>

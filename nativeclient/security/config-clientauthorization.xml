@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept
+	id="security">
+	<title
+		id="title_9717E51087B346988389138843E158C4">Configuring Client Authorization</title>
+	<shortdesc>You can configure authorization on a per-client basis for various cache operations such
+		as create, get, put, query invalidations, interest registration, and region destroys. On the
+		server side, the <codeph>securityclient-accessor</codeph> system property in the server’s
+			<codeph>gemfire.properties</codeph> file specifies the authorization callback. </shortdesc>
+	<conbody>
+		<p>
+			
+For example: </p>
+		<p>
+			<codeph>security-client-accessor=templates.security.XmlAuthorization.create</codeph>
+
+		</p>
+		<p>In this system property setting, <codeph>XmlAuthorization</codeph> is the callback class that
+			implements the <codeph>AccessControl</codeph> interface. The
+				<codeph>XmlAuthorization</codeph> sample implementation provided with <keyword
+				keyref="product_name"/> expects an XML file that defines authorization privileges
+			for the clients. For details of this sample implementation and the
+				<codeph>AccessControl</codeph> interface, see the <xref
+				href="../../managing/security/authorization_example.xml#authorization_example"
+				type="concept" format="dita" scope="local"
+				><?xm-replace_text Authorization Example?></xref>. </p>
+	</conbody>
+</concept>

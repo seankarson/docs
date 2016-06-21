@@ -1,0 +1,71 @@
+<?xml version="1.0"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<!-- Created with XMetaL (http://www.xmetal.com) -->
+<concept id="concept_BCBB75CA11334D4F9B8ACDF2A54EE54C"> 
+  <title>Creating a Region</title> 
+  <shortdesc>To create a region, first create a 
+	 <codeph>RegionFactory</codeph> using the 
+	 <codeph>RegionShortcut</codeph> that most closely fits your region
+	 configuration. From that, create your region, customizing the settings as
+	 region attributes as needed.
+  </shortdesc> 
+  <conbody>
+	 <p>Creating a region using the native client API only creates a proxy
+		client side region. A corresponding region with the same name and path must
+		also exist on the servers that have been configured for client connections and
+		upon which the client will perform its operations.
+	 </p>
+	 <example id="example_0B7004B8E5B745C3877CCE68D0061A6A">
+		<title>Creating a CACHING_PROXY Region</title>
+		<p>This example creates a region using a CACHING_PROXY RegionShortcut
+		  with no further modifications:
+		  <codeblock>RegionFactory regionFactory =
+cache.CreateRegionFactory(RegionShortcut.CACHING_PROXY);
+ 
+IRegion&lt;string, string&gt; region = regionFactory
+.Create&lt;string, string&gt;("exampleRegion");</codeblock>
+		</p>
+	 </example>
+	 <example id="example_D42CE1B1446B468787E0ABC92DBA90C1">
+		<title>Creating a CACHING_PROXY Region with LRU</title>
+		<p>This example creates a region based on the CACHING_PROXY
+		  RegionShortcut with two additional region attributes settings. For information
+		  on the settings, see Region Attributes Descriptions.
+		  <codeblock>RegionFactory regionFactory =
+cache.CreateRegionFactory(RegionShortcut.CACHING_PROXY);
+// Create the example Region programmatically.
+IRegion&lt;string, string&gt; region = regionFactory
+.SetLruEntriesLimit(20000)
+.SetInitialCapacity(20000)
+.Create&lt;string, string&gt;("exampleRegion");</codeblock>
+		</p>
+	 </example>
+	 <example id="example_45FA6FE81F7A4F808AD051705D96BE75">
+		<title>Creating a CACHING_PROXY Region with Overflow That Uses the
+		  Berkeley DB</title>
+		<p>This example configures an overflow region that uses the Berkeley DB
+		  for storing data to disk and retrieving it from disk:
+		  <codeblock>Properties bdbProperties = Properties.Create();
+bdbProperties.Insert("PersistenceDirectory", "BDB");
+bdbProperties.Insert("EnvironmentDirectory", "BDBEnv");
+bdbProperties.Insert("CacheSizeGb", "1");
+bdbProperties.Insert("CacheSizeMb", "10");
+bdbProperties.Insert("PageSize", "65536");
+bdbProperties.Insert("MaxFileSize", "512000");
+ 
+RegionFactory regionFactory =
+cache.CreateRegionFactory(RegionShortcut.CACHING_PROXY);
+// Create the example Region programmatically.
+IRegion&lt;string, string&gt; region = regionFactory
+.SetLruEntriesLimit(20000)
+.SetInitialCapacity(20000)
+.SetDiskPolicy(DiskPolicyType.Overflows)
+.SetPersistenceManager("BDBImpl", "createBDBInstance", bdbProperties)
+.Create&lt;string, string&gt;("exampleRegion");
+</codeblock>
+		</p>
+		<p>See Berkeley DB Persistence Manager.
+		</p>
+	 </example>
+  </conbody> 
+</concept>

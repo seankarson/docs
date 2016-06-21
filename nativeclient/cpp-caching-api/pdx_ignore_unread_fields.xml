@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept
+	id="concept_ACD2C07B591B494DA433231A5823BE9E">
+	<title>Configuring PDX to Ignore Unread Fields During Deserialization</title>
+
+	<shortdesc>Use the <codeph>setPdxIgnoreUnreadFields</codeph> API to control whether PDX ignores
+		fields that were unread during deserialization. </shortdesc>
+	<conbody>
+		<p>The default is to preserve unread fields by including their data during serialization.
+			However, if you configure the cache to ignore unread fields then their data will be lost
+			during serialization. </p>
+		<p>You should only set this attribute to <codeph>true</codeph> if you know this member will only
+			be reading cache data. In this use case you do not need to pay the cost of preserving
+			unread fields since you will never reserialize the PDX data. </p>
+		<p>For example:</p>
+			<codeblock>CacheFactoryPtr cfPtr = CacheFactory::createCacheFactory(PropertiesObj);
+cfPtr-&gt;setPdxReadSerialized(tue);
+cfPtr-&gt;setPdxIgnoreUnreadFields(false);
+cachePtr = cfPtr-&gt;create();
+</codeblock>
+	</conbody>
+</concept>

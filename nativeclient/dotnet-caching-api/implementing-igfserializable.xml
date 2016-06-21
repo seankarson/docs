@@ -1,0 +1,143 @@
+<?xml version="1.0"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept
+   id="concept_D24675B728AF4638B923FD4BEC7A19F7">
+   <title>Implement the IGFSerializable Interface</title>
+   <shortdesc>To store your own data types in the cache, you implement the <keyword
+         keyref="product_name"/>
+      <codeph>IGFSerializable</codeph> interface. </shortdesc>
+   <conbody>
+      <p>Examples follow the procedure. </p>
+      <p>
+         <b>Procedure</b>
+      </p>
+         <ol
+            id="ol_4B3688F9CB9D47B3BCF93732E84F8655">
+            <li
+               id="li_0B82AF6D91B44A0FAF137FEA56A14FA5">
+               <p>Implement the <codeph>ToData</codeph> function that serializes
+                  your data:</p>
+                  <codeblock>void ToData(DataOutput output)</codeblock>
+               <p>The <codeph>ToData</codeph> function is responsible for
+                  copying all of the data fields for the object to the object
+                  stream. The <codeph>DataOutput</codeph> class represents the
+                  output stream and provides methods for writing the primitives
+                  in a network byte order. For more about this, see the online
+                  API documentation for <codeph>DataOutput.</codeph>
+               </p>
+            </li>
+            <li
+               id="li_FB132CBE738E420DBCE8DC34BDD46DC9">
+               <p>Implement the <codeph>FromData</codeph> function that consumes
+                  a data input stream and repopulates the data fields for the
+                  object:</p>
+                  <codeblock>void fromData (DataInput&amp; input)</codeblock>
+               <p>The <codeph>DataInput</codeph> class represents the input
+                  stream and provides methods for reading input elements. The
+                     <codeph>FromData</codeph> function must read the elements
+                  of the input stream in the same order that they were written
+                  by <codeph>ToData</codeph>. For more about this, see the
+                  online API documentation for <codeph>DataInput</codeph>. </p>
+            </li>
+            <li
+               id="li_323907F0AA034F2A804E366C3A122FF8">
+               <p>Implement the <codeph>ClassId</codeph> function to return an
+                  integer which is unique for your class (in the set of all of
+                  your user-defined classes). </p>
+            </li>
+         </ol>
+      <example
+         id="example_2FCE26519ABB4C2BAFB347438AA7F5E3">
+         <title>Simple BankAccount Class</title>
+         <p>This example shows a simple class, <codeph>BankAccount</codeph>,
+            that encapsulates two <codeph>ints</codeph>:
+            <codeph>customerId</codeph> and <codeph>accountId</codeph>:</p>
+            <codeblock>public class BankAccount
+{
+   private int m_customerId;
+   private int m_accountId;
+   public int Customer
+   {
+      get
+      {
+         return m_customerId;
+      }
+   }
+   public int Account
+   {
+      get
+      {
+         return m_accountId;
+      }
+   }
+   public BankAccount(int customer, int account)
+   {
+      m_customerId = customer;
+      m_accountId = account;
+   }
+}</codeblock>
+      </example>
+      <example
+         id="example_27C84639C2EE49969710BD6848DA7E64">
+         <title>Implementing a Serializable Class</title>
+         <p>To make <codeph>BankAccount</codeph> serializable, you implement the
+               <codeph>IGFSerializable</codeph> interface as shown in this
+            example:</p>
+            <codeblock>public class BankAccount : IGFSerializable
+   {
+   private int m_customerId;
+   private int m_accountId;
+   public int Customer
+   {
+      get
+      {
+         return m_customerId;
+      }
+   }
+   public int Account
+   {
+      get
+      {
+         return m_accountId;
+      }
+   }
+   public BankAccount(int customer, int account)
+   {
+      m_customerId = customer;
+      m_accountId = account;
+   }
+   // Our TypeFactoryMethod
+   public static IGFSerializable CreateInstance()
+   {
+      return new BankAccount(0, 0);
+   }
+   #region IGFSerializable Members
+   public void ToData(DataOutput output)
+   {
+      output.WriteInt32(m_customerId);
+      output.WriteInt32(m_accountId);
+   }
+   public IGFSerializable FromData(DataInput input)
+   {
+      m_customerId = input.ReadInt32();
+      m_accountId = input.ReadInt32();
+      return this;
+   }
+   public UInt32 ClassId
+   {
+      get
+      {
+         return 11;
+      }
+   }
+   public UInt32 ObjectSize
+   {
+      get
+      {
+         return (UInt32)(sizeof(Int32) + sizeof(Int32));
+      }
+   }
+}</codeblock>
+      </example>
+   </conbody>
+</concept>

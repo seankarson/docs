@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept id="product-examples">
+  <title id="title_7881D9081EB94D7EA2257E28D84C9E38">Product Examples</title>
+
+  <conbody id="conbody_E454BD44F1C54502A9A3F6B001E881F1">
+    <p id="p_439B272E4F8F4B1FAEBBA52ADFC0F6C6">The product examples demonstrate the capabilities of the GemFire native
+    client, and provide source code so you can examine how each example is
+    designed. Both C++ and C# examples are available to see how the native
+    client performs as either a C++ or C# client. Each example has a
+    <codeph>README.HTML</codeph> that provides setup and operating
+    instructions.</p>
+
+    <p>The examples are packaged as platform-specific .zip files and are part
+    of the native client product download listed on the VMware vFabric GemFire
+    download page.</p>
+
+    <note id="note_42A2923A73AB4C24A0CF343D4080EEBD">The C# examples have a <codeph>.config</codeph> file that should not
+    be modified or deleted. The file provides references to support files for
+    running the example.</note>
+
+    <section id="section_3037E8BDDF924EBCAD858853737D5768"><title id="title_2C1F82360CB24EB6BC14900983396395">Configuring Output</title><p>You can control the output of
+    the product examples through an optional system-level configuration file.
+    Follow these steps:</p><ol id="ol_5528A28942654C728A0311B0CF4EAF40">
+        <li id="li_FD631C82F63444FEB84BBD07944129EE">If it is not present, copy
+        <varname>productDir</varname><codeph>/defaultSystem/gfcpp.properties</codeph>
+        to the example directory.</li>
+
+        <li id="li_2E52BEBB91F2474CA0964A35F2CE2985"><p>To decrease the volume of messages, open the copy of
+        <codeph>gfcpp.properties</codeph> in the example directory, uncomment
+        the <codeph>log-level</codeph> line, then change its setting to error:
+        </p><codeblock id="codeblock_FFB1DF856FB047C7B1C8D831F0443FF9">log-level=error</codeblock></li>
+
+        <li id="li_E0DEC1C64CF14681834703DF81B36370"><p id="p_6E92ACB25D664258924C0004A9815571">To send the messages to a log file instead of
+        <varname>stdout</varname>, uncomment the <codeph>log-file</codeph>
+        line and specify a name for the log file:</p><codeblock>log-file=gemfire_cpp.log</codeblock></li>
+      </ol></section>
+  </conbody>
+</concept>

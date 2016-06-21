@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept
+	id="security">
+	<title
+		id="title_9717E51087B346988389138843E158C4">Process and Multiuser Authentication</title>
+	<shortdesc> Client connections can be authenticated at two levels, process and multiuser. </shortdesc>
+	<conbody
+		id="conbody_D74C4342289846619E028149A8920946">
+		<ul
+			id="ul_6C06551081394C089F9F8993BCC00E3E">
+			<li
+				id="li_FBCB9492EC3747C7BE9C0ED738374729"><b>Process</b>. Each pool creates a
+				configured minimum number of connections across the server group. The pool accesses
+				the least-loaded server for each cache operation. <p>Process-level connections
+					represent the overall client process and are the standard way a client accesses
+					the server cache. </p>
+			</li>
+			<li id="li_BE75E88CA9A24E8E9DA0AD41333F8AE9"><b>Multi-user</b>. Each user/pool pair creates a
+				connection to one server and then sticks with it for operations. If the server is
+				unable to respond to a request, the pool selects a new one for the user.
+					<p>Typically, application servers or web servers that act as clients to <keyword
+						keyref="product_name"/> servers make multi-user connections. Multi-user
+					allows a single application or web server process to service a large number of
+					users with varied access permissions. </p>
+			</li>
+		</ul>
+		<p>By default, server pools use process-level authentication. Enable multi-user
+			authentication by setting a pool's <codeph>multi-user-secure-mode-enabled</codeph>
+			attribute to <codeph>true</codeph>. 
+
+
+
+		</p>
+		<image
+			href="../common/images/security-client-connections.gif"
+			id="image_85B98E185AD84C59AC22974A63080559"/>
+		<p>
+			Credentials can be
+			sent in encrypted form using the Diffie-Hellman key exchange algorithm. See <xref
+				scope="local"
+				href="overviewencryptcred.xml#security"
+				type="concept"
+				format="dita"><?xm-replace_text Encrypt Credentials with   Diffe-Hellman?></xref>
+			for more information. </p>
+	</conbody>
+</concept>

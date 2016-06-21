@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept
+	id="security">
+	<title
+		id="title_9717E51087B346988389138843E158C4">Step 2: Compile ACE SSL or use precompiled ACE
+		SSL DLLs provided by Pivotal</title>
+	<shortdesc> To build the ACE SSL, follow the steps that apply to your build environment. Or, use
+		the precompiled ACE SSL DLLs provided in the native client distribution. </shortdesc>
+	<conbody
+		id="conbody_D74C4342289846619E028149A8920946">
+		<p>If you choose to compile the ACE SSL DLLs yourself, use the following procedures and make
+			sure you provide the correct definition for LD_LIBRARY_PATH or PATH in <xref
+				href="4configenvvariables.xml#security"/>. Otherwise, use the
+				<codeph>ACE_SSL.dll</codeph> and <codeph>ACE.6.1.0.dll</codeph> files included with
+			the native client under the <codeph>&lt;<i>product_dir</i>>/ssl_libs</codeph>
+			directory.</p>
+		<section
+			id="section_5436436566DC4C72A2EEB432AA40DE97D438FD1E7">
+			<title>Unix</title>
+			<ol
+				id="ol_423452352C07B2C97ED4942198D2C69CC8619B0AA">
+				<li
+					id="li_5325325EEAC615AF74F474396751AABE7915AC2">Download ACE SSL:<xref
+						href="http://www.cs.wustl.edu/~schmidt/ACE-install.html"
+						scope="external"
+						format="html">http://www.cs.wustl.edu/~schmidt/ACE-install.html</xref>. </li>
+				<li
+					id="li_75474574F6109E270B8D4AA4B0D51DD852FF3FBC">Make sure the <codeph>OpenSSL
+						header</codeph> file directory is in your compiler's include path, and that
+					the correct version of OpenSSL libraries are in your library link/load path,
+						<codeph>LD_LIBRARY_PATH</codeph>. </li>
+				<li
+					id="li_643643642CD155D5353451F862CD23907408B4B">If you installed OpenSSL into a
+					set of directories unknown by the compiler, set the <codeph>SSL_ROOT</codeph>
+					environment variable to point to the top level directory of your OpenSSL
+					distribution—the parent directory to OpenSSL's include and lib directories. </li>
+				<li
+					id="li_6EE0972D983B4DF78B7E7469CA278D77">Build ACE as described in the
+					documentation provided on the page linked above. When building ACE, add
+						<codeph>ssl=1</codeph> to your make command line invocation, or add it to
+					your <codeph>platform_macros.GNU</codeph> file. </li>
+				<li
+					id="li_5C5D76C798FB4C8BBC0A0B012300B9EF">Set the <codeph>ACE_ROOT</codeph>
+					environment variable. </li>
+				<li
+					id="li_B86A55254C634C6D8DB1E514EAA0B1D1">Build the <codeph>ACE_SSL</codeph>
+					library in the <codeph>$ACE_ROOT/ace/SSL</codeph> directory. </li>
+			</ol>
+		</section>
+		<section
+			id="section_6DC4C72A2EEB432AA40DE97D438FD1E7">
+			<title>Microsoft Visual Studio</title>
+			<ol
+				id="ol_C07B2C97ED4942198D2C69CC8619B0AA">
+				<li
+					id="li_5BEA8F02CF234989849B7767C6520A76">Download ACE SSL:<xref
+						href="http://www.cs.wustl.edu/~schmidt/ACE-install.html"
+						scope="external"
+						format="html">http://www.cs.wustl.edu/~schmidt/ACE-install.html</xref>. </li>
+				<li
+					id="li_F6109E270B8D4AA4B0D51DD852FF3FBC">Set the <codeph>SSL_ROOT</codeph>
+					environment variable to the location of the directory containing the
+						<codeph>OpenSSL inc32</codeph> and <codeph>out32dll</codeph> directories.
+					Make sure the directories contain the correct version of OpenSSL. </li>
+				<li
+					id="li_42CD155D5353451F862CD23907408B4B">Add <codeblock>ssl=1</codeblock> to
+					your <codeph>MPC
+						$ACE_ROOT/bin/MakeProjectCreator/config/default.features</codeph> or
+						<codeph>$ACE_ROOT/local.features</codeph> file, and re-run MPC to add
+					support for building the ACE_SSL library to your MSVC++ workspaces and projects. </li>
+				<li
+					id="li_6DA4BFF4D3BA4E40BDBA15916BD6F503">Open the <codeph>ACE.sln</codeph>
+					solution, and refer to the ACE build and installation instructions provided in
+					the link above for details on creating a <codeph>config.h</codeph> configuration
+					header for this platform. </li>
+				<li
+					id="li_A1C5EB41E4844FC9BFE4A164DCBEDF73">Add the following to
+						<codeph>config.h</codeph> in the ACE compile:
+					<codeblock>#define ACE_HAS_VERSIONED_NAMESPACE 1
+#include "ace/config-win32.h"</codeblock>
+				</li>
+				<li
+					id="li_828E93DDAA234483B224F6F20F490CF2">Once the <codeph>config.h file</codeph>
+					has been created, build the ACE_SSL project. </li>
+			</ol>
+		</section>
+	</conbody>
+</concept>

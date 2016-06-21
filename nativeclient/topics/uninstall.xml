@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN"
+"concept.dtd">
+<concept id="uninstall">
+  <title>Uninstalling the Native Client</title>
+
+  <shortdesc>The native client can be uninstalled in different ways, depending
+  on your operating system.</shortdesc>
+
+  <conbody>
+    <section><title>Linux and Solaris</title>On Linux and Solaris, the native
+    client can be uninstalled by deleting the
+    <codeph>NativeClient_<varname>xxxx</varname></codeph> product directory
+    and all of its subdirectories.</section>
+
+    <section id="section_196B18FE0EC6475096B95C07FA6A18B1"><title
+    id="title_7BFA5EEADB2148AD84536DE704AE43B9">Windows</title><p
+    id="p_8CBF7365DB184B3C96105BA80DF79EF9">The native client can be
+    uninstalled on Windows using either the MSI installer graphical interface,
+    its command-line interface, or through the Windows Control Panel.</p><p
+    id="p_CB6FE1845BF44FE3ACABF11576CF0611"><b>Using the MSI Installer
+    Graphical Interface</b></p><ol id="ol_869AE3FCDC53449E95A5D73A7FF8DA3E">
+        <li id="li_93E38D8F682B4907BE90F6C04A97D516">Double-click the MSI
+        file, then click Next in the Setup Wizard screen.</li>
+
+        <li id="li_BE72EF9236724819875663AC3DDA8B3C">In the following screen,
+        click the Remove button.</li>
+
+        <li id="li_CC80277D0C1E4610884FE711C60F122D">In the next screen, click
+        the Remove button and then click Finish.</li>
+      </ol><p id="p_57E25EE7D2DB4C0DBF20ABB2DF5AC9D7"><b>Using the MSI
+    Installer Command-Line</b></p><p
+    id="p_055E984969AB4702B637ED70267EBBC9">This is the MSI command-line
+    syntax for a quiet uninstall:</p><codeblock>msiexec /q /i NativeClient_<varname>xxxx</varname>.msi DEFAULT_INSTALLDIR=<varname>&lt;path&gt;</varname></codeblock><p>The
+    following table lists common <cmdname>msiexec</cmdname> command-line
+    options for use with
+    <codeph>NativeClient_<varname>xxxx</varname>.msi</codeph> , along with an
+    explanation of their usage. For a list of all command-line options, enter
+    <codeph>msiexec/?</codeph>.</p><p>As described in <xref
+    href="install.xml#title_B3415577173A4600AF6911305D22A7FF"
+    scope="peer">Installing on Windows Using the MSI Command-Line</xref>, the
+    <codeph>/x</codeph> option uninstalls the product.</p><p><b>Using the
+    Control Panel</b></p><ol>
+        <li>From the Control Panel, open Add or Remove Programs.</li>
+
+        <li>Select <i>GemFire Native Client x.x.x.x</i>.</li>
+
+        <li>Click the Remove button.</li>
+      </ol></section>
+  </conbody>
+</concept>

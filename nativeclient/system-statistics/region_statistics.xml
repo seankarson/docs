@@ -1,0 +1,246 @@
+<?xml version="1.0"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept
+	id="concept_7AA863080074439286F4F51048BC2159">
+	<title>Region Statistics</title>
+	<shortdesc>These methods help you to get the statistics of a region. </shortdesc>
+	<conbody>
+		<section
+			id="section_8A343C8D6425469DA314D9A96E543A24">
+			
+			
+			<table
+				id="table_66F1BDFD3584432AB9B3429FE3BC312C">
+				<tgroup
+					cols="2">
+					<colspec
+						colnum="1"
+						colname="col1"
+						colwidth="1.00*"/>
+					<colspec
+						colnum="2"
+						colname="col2"
+						colwidth="2.06*"/>
+					<tbody>
+						<row>
+							<entry
+								colname="col1">
+								<codeph>creates</codeph>
+							</entry>
+							<entry
+								colname="col2">Total number of cache creates for this region.
+							</entry>
+						</row>
+						<row>
+							<entry
+								colname="col1">
+								<codeph>puts</codeph>
+							</entry>
+							<entry
+								colname="col2">Total number of cache put operations for this region.
+							</entry>
+						</row>
+						<row>
+							<entry
+								colname="col1">
+								<codeph>putTime</codeph>
+							</entry>
+							<entry
+								colname="col2">Total time spent doing put operations for this
+								region. </entry>
+						</row>
+						<row>
+							<entry
+								colname="col1">
+								<codeph>putAll</codeph>
+							</entry>
+							<entry
+								colname="col2">Total number of cache putAlls for this region.
+							</entry>
+						</row>
+						<row>
+							<entry
+								colname="col1">
+								<codeph>putAllTime</codeph>
+							</entry>
+							<entry
+								colname="col2">Total time spent doing putAll operations for this
+								region. </entry>
+						</row>
+						<row>
+							<entry
+								colname="col1">
+								<codeph>gets</codeph>
+							</entry>
+							<entry
+								colname="col2">Total number of cache gets for this region. </entry>
+						</row>
+						<row>
+							<entry
+								colname="col1">
+								<codeph>getTime</codeph>
+							</entry>
+							<entry
+								colname="col2">
+								<p>Total time spent doing get operations for this region. </p>
+							</entry>
+						</row>
+						<row>
+							<entry
+								colname="col1">
+								<codeph>getAll</codeph>
+							</entry>
+							<entry
+								colname="col2">Total number of cache getAlls for this region.
+							</entry>
+						</row>
+						<row>
+							<entry
+								colname="col1">
+								<codeph>getAllTime</codeph>
+							</entry>
+							<entry
+								colname="col2">Total time spent doing getAll operations for this
+								region. </entry>
+						</row>
+						<row>
+							<entry
+								colname="col1">
+								<codeph>hits</codeph>
+							</entry>
+							<entry
+								colname="col2">Total number of cache hits for this region. </entry>
+						</row>
+						<row>
+							<entry
+								colname="col1">
+								<codeph>misses</codeph>
+							</entry>
+							<entry
+								colname="col2">Total number of cache misses for this region.
+							</entry>
+						</row>
+						<row>
+							<entry
+								colname="col1">
+								<codeph>entries</codeph>
+							</entry>
+							<entry
+								colname="col2">Current number of cache entries for this region.
+							</entry>
+						</row>
+						<row>
+							<entry
+								colname="col1">
+								<codeph>destroys</codeph>
+							</entry>
+							<entry
+								colname="col2">Total number of cache destroys for this region.
+							</entry>
+						</row>
+						<row>
+							<entry
+								colname="col1">
+								<codeph>clears</codeph>
+							</entry>
+							<entry
+								colname="col2">Total number of cache clears for this region.
+							</entry>
+						</row>
+						<row>
+							<entry
+								colname="col1">
+								<codeph>overflows</codeph>
+							</entry>
+							<entry
+								colname="col2">Total number of cache overflows to disk for this
+								region. </entry>
+						</row>
+						<row>
+							<entry
+								colname="col1">
+								<codeph>retrieves</codeph>
+							</entry>
+							<entry
+								colname="col2">Total number of cache entries fetched from disk into
+								the cache region. </entry>
+						</row>
+						<row>
+							<entry
+								colname="col1">
+								<codeph>nonSingleHopCount</codeph>
+							</entry>
+							<entry
+								colname="col2">Total number of times client request required
+								multiple hops. </entry>
+						</row>
+						<row>
+							<entry
+								colname="col1">
+								<codeph>metaDataRefreshCount</codeph>
+							</entry>
+							<entry
+								colname="col2">Total number of times metadata was refreshed due to
+								the observation of multiple hops. </entry>
+						</row>
+						<row>
+							<entry
+								colname="col1">
+								<codeph>cacheLoaderCallCompleted</codeph>
+							</entry>
+							<entry
+								colname="col2">Total number of times a load has completed for this
+								region. </entry>
+						</row>
+						<row>
+							<entry
+								colname="col1">
+								<codeph>cacheLoaderCallTime</codeph>
+								
+
+							</entry>
+							<entry
+								colname="col2">Total time spent invoking the loaders for this
+								region. </entry>
+						</row>
+						<row>
+							<entry
+								colname="col1">
+								<codeph>CacheWriterCallsCompleted</codeph>
+							</entry>
+							<entry
+								colname="col2">Total number of times a cache writer call has
+								completed for this region. </entry>
+						</row>
+						<row>
+							<entry
+								colname="col1">
+								<codeph>CacheWriterCallTime</codeph>
+							</entry>
+							<entry
+								colname="col2">Total time spent doing cache writer calls. </entry>
+						</row>
+						<row>
+							<entry
+								colname="col1">
+								<codeph>CacheListenerCallsCompleted</codeph>
+							</entry>
+							<entry
+								colname="col2">Total number of times a cache listener call has
+								completed for this region. </entry>
+						</row>
+						<row>
+							<entry
+								colname="col1">
+								<codeph>CacheListenerCallTime</codeph>
+							</entry>
+							<entry
+								colname="col2">Total time spent doing cache listener calls for this
+								region. </entry>
+						</row>
+					</tbody>
+				</tgroup>
+			</table>
+		</section>
+	</conbody>
+</concept>

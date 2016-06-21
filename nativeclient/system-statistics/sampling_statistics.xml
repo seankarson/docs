@@ -1,0 +1,51 @@
+<?xml version="1.0"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept
+	id="concept_960F28BFC16549B6830ABFFADAF8D5EE">
+	<title>Sampling Statistics</title>
+	<shortdesc>When applications and cache servers join a distributed system, they indicate whether
+		to enable statistics sampling and whether to archive the statistics that are gathered. </shortdesc>
+	<conbody>
+		<p>
+			The following
+			statistics are related to the statistic sampler.</p>
+		<table
+				id="table_C033E426E01B499EB109515969F98366">
+				<tgroup
+					cols="2"><colspec
+						colnum="1"
+						colname="col1"
+						colwidth="1.00*"/><colspec
+						colnum="2"
+						colname="col2"
+						colwidth="2.22*"/>
+					<tbody>
+						<row>
+							<entry
+								colname="col1"><codeph>sampleCount</codeph>
+							</entry>
+							<entry
+								colname="col2">Total number of samples taken by this sampler.
+							</entry>
+						</row>
+						<row>
+							<entry
+								colname="col1"><codeph>sampleTime</codeph>
+							</entry>
+							<entry
+								colname="col2">Total amount of time spent taking samples. </entry>
+						</row>
+						<row>
+							<entry
+								colname="col1"><codeph>StatSampler</codeph>
+							</entry>
+							<entry
+								colname="col2">Statistics on the statistic sampler. </entry>
+						</row>
+					</tbody>
+				</tgroup>
+			</table>
+		<p> For more information about configuring statistics, see <xref
+				href="../setting-properties/attributes-gfcpp.xml#attributes-gfcpp"/>. </p>
+	</conbody>
+</concept>

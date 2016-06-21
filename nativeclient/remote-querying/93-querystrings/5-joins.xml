@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept
+	id="security">
+	<title
+		id="title_9717E51087B346988389138843E158C4">Joins</title>
+	<shortdesc>If collections in the <codeph>FROM</codeph> clause are not related to each other, you
+		can use the <codeph>WHERE</codeph> clause to join them. </shortdesc>
+	<conbody>
+		<p>The statement below returns all the persons from the <codeph>/Persons</codeph> region
+			with the same name as a flower in the <codeph>/Flowers</codeph> region. </p>
+		<codeblock>SELECT DISTINCT p FROM /Persons p, /Flowers f WHERE p.name = f.name</codeblock>
+		<p>Indexes are supported for region joins. To create indexes for region joins, you create
+			single-region indexes for both sides of the join condition. These are used during query
+			execution for the join condition. </p>
+	</conbody>
+</concept>

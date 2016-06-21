@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept
+	id="security">
+	<title
+		id="title_9717E51087B346988389138843E158C4">Implementing a Continuous Query</title>
+	<shortdesc>You can specify CQs for any client region. </shortdesc>
+	<conbody
+		id="conbody_D74C4342289846619E028149A8920946">
+		<p>Here are the high-level steps for implementing a continuous query, with links to more detailed
+			information in this chapter. </p>
+		<ol
+			id="ol_C07B2C97ED4942198D2C69CC8619B0AA">
+			<li
+				id="li_F6109E270B8D4AA4B0D51DD852FF3FBC"> Make sure your system is configured
+				properly to run CQs. See <xref
+					href="2-config-for-continuous-querying.xml#security"
+					type="concept"
+					format="dita"
+					scope="local">Configuring for Continuous Querying</xref>. </li>
+			<li
+				id="li_42CD155D5353451F862CD23907408B4B">Decide what data to track on the server and
+				write your queries. Use your criteria for tracking data changes to write your CQ
+				queries. See <xref
+					href="5a-writing-cq.xml#security"
+					type="concept"
+					format="dita"
+					scope="local">Writing the Continuous Query</xref>. </li>
+			<li
+				id="li_A0DDFA0E9F5D493EBA169F6F9ED29181">Determine how to handle the CQ events on
+				the client and write your listeners. <p> Each CQ can have any number of listeners.
+					In addition to your core CQ listeners, you might have listeners that you use for
+					all CQs to track statistics or other general information. See <xref
+						href="5b-writing-cq-listener.xml#security"
+						type="concept"
+						format="dita"
+						scope="local">Writing the CQ Listener</xref>. </p>
+			</li>
+			<li
+				id="li_5FBFC762FCFA481FA2982BC19DFFDB41">Write the client code to put the queries
+				and their listeners into named CQ queries and execute the queries. Make sure you
+				close the queries if your client no longer needs them and when the client exits. See <xref
+					href="5e-running-cq-code.xml#security"
+					type="concept"
+					format="dita"
+					scope="local"> Running the Continuous Query Code</xref>. </li>
+			<li
+				id="li_E98AD99E017F428DA8270E3D78AA2960">Write any code you need for monitoring and
+				managing your CQ query. See <xref
+					scope="local"
+					href="6-managing-cqs.xml#security"
+					type="concept"
+					format="dita"> Managing Continous Queries</xref>. </li>
+			<li
+				id="li_EADD00BC2EE646C3B008700C8223BCBE">Run your code, monitor and tune as needed.
+			</li>
+		</ol>
+	</conbody>
+</concept>

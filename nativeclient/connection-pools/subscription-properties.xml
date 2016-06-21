@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept
+	id="subscription-properties">
+	<title>Subscription Properties</title>
+	<shortdesc>Each connection pool has a single subscription connection that can be to any server
+		that matches the requirements of the connection pool. </shortdesc>
+	<conbody>
+		<p>When a client registers interest for a region, if the connection pool does not already
+			have a subscription channel, the connection pool sends a message to the server locator,
+			and the server locator chooses servers to host the queue and return those server names
+			to the client. The client then contacts the chosen servers and asks them to create the
+			queue. </p>
+		<p>The client maintains at least one connection with each server hosting a queue. If the
+			server does not detect any connections from a non-durable client, it drops the client
+			queue and closes all artifacts for the client. For information about durable client
+			subscriptions, see <xref
+				href="../preserving-data/durable-client-messaging.xml#concept_F88B659FB4324F599924F3F2933452B4"
+				type="concept"
+				format="dita"
+				scope="local">Durable Client Messaging</xref>. </p>
+		<section
+			id="section_294BD33FBDC6454FAD9C5118829EBBA4">
+			<title>Requesting a Subscription Region Queue</title>
+			<p>The client-to-server locator request is a short lived TCP request. The client sends a
+				message with: </p>
+				<ul
+					id="ul_FB17074E2A644B348E7E4A57CAF59947">
+					<li
+						id="li_6BC48DC8477E4622BE14EA0F6BE9EDA0">The client ID. </li>
+					<li
+						id="li_1A2F8F17EE30479E90AA7ABCA0B1CE06">(Optional) target server group. </li>
+					<li
+						id="li_1C77F0DD667F4D588198E0F16DEBF09A">Number of redundant copies. </li>
+					<li
+						id="li_94DC2B68E6E4494C81E6F60742AA1B69">Servers to exclude from the
+						results. This list is used if the client cannot connect to a server and
+						needs to request a new one. </li>
+				</ul>
+			<p>The server locator responds with a list of servers. The client is responsible for
+				contacting the primary and secondaries and asking them to host the queue. </p>
+			<p>For durable subscriptions, the server locator must be able to locate the servers that
+				host the queues for the durable client. When a durable client sends a request, the
+				server locator queries all the available servers to see if they are hosting the
+				subscription region queue for the durable client. If the server is located, the
+				client is connected to the server hosting the subscription region queue. </p>
+		</section>
+	</conbody>
+</concept>

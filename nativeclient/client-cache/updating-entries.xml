@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "http://docs.oasis-open.org/dita/v1.1/OS/dtd/concept.dtd">
+<concept
+	id="updating-entries">
+	<title>Updating Entries</title>
+	<conbody>
+		<section
+			id="section_720D480EDB8D4578BCAB5A368D6D5512">
+			<p>A cached entry can be updated using these methods: </p>
+			<ul
+				id="ul_43950A98227C4488B7D2A1D5EE97DBB0">
+				<li
+					id="li_1BD6BC0E31704034A52973AC296B80FD">Explicitly, when a client invokes a
+						<codeph>put</codeph> operation on an existing entry. </li>
+				<li id="li_AB6DDC45B2844732928B4DFC230D6454">Implicitly, when a <codeph>get</codeph> is
+					performed on an entry that has an invalid value in the cache. An entry can
+					become invalid through an explicit API call, through an automated expiration
+					action, or by being created with a value of null. </li>
+				<li
+					id="li_871D1B9F66B3439F8AD6710FD4190292">Automatically, when a new entry value
+					is distributed from another cache. </li>
+			</ul>
+			<p>Similar to entry creation, all of these operations can be aborted by a cache writer. </p>
+			<p>The <codeph>get</codeph> function returns a direct reference to the entry value
+				object. A change made using that reference is called an in-place change because it
+				directly modifies the contents of the value in the local cache. For details on safe
+				cache access, see <xref
+					href="managing-lifetime-cached-object.xml#managing-lifetime-cached-object"
+					type="concept"
+					format="dita"
+					scope="local"><?xm-replace_text Managing the Lifetime of a Cached Object?></xref>.
+			</p>
+		</section>
+	</conbody>
+</concept>

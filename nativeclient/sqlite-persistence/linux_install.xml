@@ -1,0 +1,83 @@
+<?xml version="1.0"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<!-- Created with XMetaL (http://www.xmetal.com) -->
+<concept
+	id="concept_CC9BD47B46DE4281BBB789FABE6ABEA9">
+	<title>Linux Installation</title>
+	<shortdesc>This topic describes how to install the SQLite Persistence Manager on Linux for use with
+		the <keyword keyref="product_name"/> native client. </shortdesc>
+	<conbody>
+		<p>The <i><codeph>productDir</codeph></i> directory refers to the path to the native client
+			product directory. </p>
+		<p>The following libraries must be present in the runtime linking path: </p>
+			<ul
+				id="ul_2B81049601B9439EAC75373CA8D065D5">
+				<li
+					id="li_42EEEC9ADB6A46269229D29B302B2F3C"><codeph>libSqLiteImpl.so</codeph> is
+					provided in <codeph><i>productDir</i>/lib</codeph>, so it is already present in
+					the runtime linking path. </li>
+				<li
+					id="li_C2FAA9573AB74E6F91516D56DDBC996D">
+					<codeph>libsqlite3.so</codeph> is the SQLite Library. You need to create this
+					library and make available in the runtime linking path, or copied to
+							<codeph><i>productDir</i>/lib</codeph>, as described below. </li>
+			</ul>
+		<p>The <keyword keyref="product_name"/> Native Client has been tested with SQLite version
+			3.7.14.1. </p>
+		<section
+			id="section_FAB703D706D54311963399A714D466F9">
+			<title>Downloading, Building and Installing the Library</title>
+			<p>You create the SQLite database library by downloading the latest .zip file and compiling the
+				source code. </p>
+				<ol
+					id="ol_23AAD5FD63CB40D19A6C067C28DD7B1E">
+					<li
+						id="li_0293ADBCC1BF489EB101C47495DF9850">Download the source code
+								<codeph>sqlite-autoconf-<varname>NNNNNNN</varname>.tar.gz</codeph>
+						file (where <varname>NNNNNNN</varname> corresponds to the version) for
+						SQLite version 3.7.14.1 or later from <xref
+							href="http://www.sqlite.org/download.html"
+							scope="external"
+							format="html">http://www.sqlite.org/download.html</xref>. </li>
+					<li
+						id="li_ACAFC9E5599C40FE829465BBFEA40BA7">Extract the source code from the
+						.tar.gz file. For example:
+						<codeblock>tar -xvf sqlite-autoconf-3071401.tar.gz</codeblock>
+					</li>
+					<li
+						id="li_4D6C2A5186E54437A8215F6ADD896C5F">Change directories to the extracted
+						source files, and follow the install instructions located in the "INSTALL"
+						file. <ol
+							id="ol_1F986FACD9EA47EC94B98AB6678816BA">
+							<li
+								id="li_8867F14F3C8E4A62BD7C023B341FFF5A">Run the
+									<codeph>configure</codeph> command for 32-bit or 64-bit with the
+								following options, all entered on a single command line. Change
+									the<codeph> --prefix</codeph> directory specification to the
+								location where you want the libraries: <ul
+									id="ul_FC3E3842F8F14A9CA7A960EF9A5A1903">
+									<li
+										id="li_B13E12E08C944B13B6B9F749B9993654"><b>32-bit:</b>
+										<codeblock>CFLAGS="-m32" ./configure --prefix=/<i>desired_binary_location</i>/sqlite-binaries</codeblock>
+									</li>
+									<li
+										id="li_84C494A0E27944A5B983B7FD5533AE40"><b>64-bit:</b>
+										<codeblock>./configure --prefix=/<i>desired_binary_location</i>/sqlite-binaries </codeblock>
+									</li>
+								</ul>
+							</li>
+							<li
+								id="li_F38407E6A692494E86B2335F9E131D96">Run <codeph>gmake
+									install</codeph> as described in the build instructions. The
+								libraries will be available in the <codeph>sqlite-binaries</codeph>
+								directory that you specified. </li>
+						</ol>
+					</li>
+					<li
+						id="li_8D7499C945934064B183B459E9B6EF86">Copy
+								<codeph>/<i>desired_binary_location</i>/sqlite-binaries/lib/libsqlite3.so</codeph>
+						file to <codeph><i>productDir</i>/lib</codeph>. </li>
+				</ol>
+		</section>
+	</conbody>
+</concept>

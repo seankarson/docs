@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept id="how-native-client-xacts-work">
+	<title>How Native Client Transactions Work</title>
+	<shortdesc>The syntax for writing client transactions is the same as with server or peer
+		transactions, but when a client performs a transaction, the transaction is delegated to a
+		server that brokers the transaction. </shortdesc>
+	<conbody>
+		<section id="section_C804F1FE5BDF49CEA037AA589BBF284E">
+			<title>Role of Server Delegates in Transactions</title>
+			<p>The <keyword keyref="product_name"/> native client can run transactions on the Java cache
+				server, using a server delegate to actually run the transaction code. </p>
+			<p> For information on transaction requirements and activities on the server side, see <xref
+					href="../../developing/transactions/chapter_overview.xml" type="concept"
+					format="dita" scope="local"><?xm-replace_text Transactions?></xref>. </p>
+			<note>
+				<p>The client cache blocks until the transaction is successfully committed. However,
+				the client cache block is removed if the transaction is suspended. 
+				</p>
+			</note>
+			<p>Depending on where the data resides, the server transaction delegate may or not be
+				the same member that hosts the transaction. This is the same as for transactions run
+				by the servers, but for server-run transactions, there is no delegate. There is just
+				the member that is directly running its own transaction code. </p>
+			<p>In this figure, the application code on the client makes changes to data entries Y
+				and Z within a transaction. The server delegate that performs the transaction, M1,
+				does not host the primary copy of the data being modified. The transaction takes
+				place on server M2, where the data resides. </p>
+			<fig id="fig_7E408D84E18C452683077528756E31C3">
+				<title>Transaction Run From a Client</title>
+				<image href="../common/images/xact-run-from-client.gif"
+					id="image_E9ED33166A994014942ABAD9E6F61755"/>
+				<p>To maintain cache consistency, the local client cache is not accessible during a
+					transaction as it may reflect information inconsistent with the transaction in
+					progress. When the transaction completes, the local cache is accessible again. </p>
+				<p>In addition to the failure conditions common to all transactions, client
+					transactions can also fail if the transaction delegate fails. If the delegate
+					performing the transaction fails, the transaction code throws a
+						<codeph>TransactionException</codeph>. </p>
+			</fig>
+		</section>
+		<section id="section_434BA87403C1449FADC3E7796E30F3C7">
+			<title id="title_F003B7990E9D4B0E8425948829A2E97D">Native Client Transaction
+				APIs</title>
+			<p>The <keyword keyref="product_name"/> API for distributed transactions has the familiar
+				relational database methods, <codeph>begin</codeph>, <codeph>commit</codeph>, and
+					<codeph>rollback</codeph>. There are also APIs available to suspend and resume
+				transactions. </p>
+			<p>The .NET classes for executing transactions are: </p>
+			<p>
+				<b>GemStone::GemFire::Cache::Generic</b>
+			</p>
+				<ul id="ul_0FF122D7208544268CBE39E2FC7CFE19">
+					<li id="li_49ADF09E8F764CCDBFF888EF48EA82B3">CacheTransactionManager </li>
+					<li id="li_5B92F78BC493422C96CF7DF485AFEFF4">TransactionId </li>
+				</ul>
+		</section>
+	</conbody>
+</concept>

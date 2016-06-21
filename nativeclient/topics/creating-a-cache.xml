@@ -1,0 +1,46 @@
+<?xml version="1.0"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<!-- Created with XMetaL (http://www.xmetal.com) -->
+<concept id="concept_ED99AFD78BBC4554BE65038A1C0F279F"> 
+  <title>Creating a Cache</title> 
+  <shortdesc>You create a cache using the GemFire 
+	 <codeph>CacheFactory.Create</codeph> call. Cache creation initializes the
+	 distributed system and creates the cache using your 
+	 <filepath>gfcpp.properties</filepath> and 
+	 <filepath>cache.xml</filepath> file settings and any additional properties
+	 you provide to the call. 
+  </shortdesc> 
+  <conbody> 
+	 <p>See See Setting System and Cache Properties. and See Cache
+		Initialization File. 
+	 </p> 
+	 <example id="example_83A26ED124044FCBA45E88A9EEDDFDA1"> 
+		<title>Connecting and Creating the Cache</title> 
+		<p>In this example, the application connects to the distributed system
+		  and creates the cache using the available configuration files. 
+		</p> 
+		<p>The application becomes a distributed system member in the cache
+		  Create call. 
+		</p> 
+		<codeblock>CacheFactory cacheFactory = CacheFactory.CreateCacheFactory();
+Cache cache = cacheFactory.Create();</codeblock> 
+	 </example> 
+	 <example id="example_DEDA9B5B329D4712BEB6EB6C4773610F"> 
+		<title>Providing Properties to the Cache Creation</title> 
+		<p>A cache can also be created by referencing a 
+		  <filepath>cache.xml</filepath> file, as shown in the following example.
+		  You can use the Properties object to change any of the 
+		  <filepath>gfcpp.properties</filepath> settings. 
+		  <codeblock>Properties prop = Properties.Create();
+prop.Insert("cache-xml-file", "cache.xml");
+CacheFactory cacheFactory = CacheFactory.CreateCacheFactory(prop);
+Cache cache = cacheFactory.Create();</codeblock> 
+		</p> 
+		<p>For systems with security enabled, the credentials for a joining
+		  member are authenticated when the cache is created and the system connection is
+		  made. See Security for more information about secure connections to a
+		  distributed system. 
+		</p> 
+	 </example> 
+  </conbody> 
+</concept> 

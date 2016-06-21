@@ -1,0 +1,61 @@
+<?xml version="1.0"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept
+	id="concept_E150AA780F34402A9202D85635A80849">
+	<title>Delta Statistics</title>
+	<shortdesc>Delta statistics provide information about updates to data. </shortdesc>
+	<conbody>
+		<table
+			id="table_45870887A73A4E308010FE6AED66853D">
+			<tgroup
+				cols="2">
+				<colspec
+					colnum="1"
+					colname="col1"
+					colwidth="*"/>
+				<colspec
+					colnum="2"
+					colname="col2"
+					colwidth="*"/>
+				<tbody>
+					<row>
+						<entry
+							colname="col1">
+							<codeph>deltaMessageFailures</codeph>
+						</entry>
+						<entry
+							colname="col2">Total number of messages containing delta (received from
+							server) but could not be processed after reception. </entry>
+					</row>
+					<row>
+						<entry
+							colname="col1">
+							<codeph>deltaPuts</codeph>
+						</entry>
+						<entry
+							colname="col2">Total number of puts containing delta that have been sent
+							from client to server. </entry>
+					</row>
+					<row>
+						<entry
+							colname="col1">
+							<codeph>processedDeltaMessages</codeph>
+						</entry>
+						<entry
+							colname="col2">Total number of messages containing delta received from
+							server and processed after reception. </entry>
+					</row>
+					<row>
+						<entry
+							colname="col1">
+							<codeph>processedDeltaMessagesTime</codeph>
+						</entry>
+						<entry
+							colname="col2">Total time spent applying delta (received from server) on
+							existing values at client. </entry>
+					</row>
+				</tbody>
+			</tgroup>
+		</table>
+	</conbody>
+</concept>

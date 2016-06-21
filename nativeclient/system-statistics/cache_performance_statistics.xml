@@ -1,0 +1,161 @@
+<?xml version="1.0"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept
+	id="concept_E8158040A9D54E02BA63B8B2263B00D3">
+	<title>Cache Performance Statistics</title>
+	<shortdesc>Use cache performance statistics to determine the type and number of cache operations
+		being performed and how much time they consume. </shortdesc>
+	<conbody>
+		<p>These statistics are available if the member creates a cache.</p> 
+			<table
+				id="table_45A4B1476D974260B08B0B998348E989">
+				<tgroup
+					cols="2"><colspec
+						colnum="1"
+						colname="col1"
+						colwidth="*"/><colspec
+						colnum="2"
+						colname="col2"
+						colwidth="*"/>
+					<tbody>
+						<row>
+							<entry
+								colname="col1"><codeph>creates</codeph>
+							</entry>
+							<entry
+								colname="col2">Total number of cache creates. </entry>
+						</row>
+						<row>
+							<entry
+								colname="col1"><codeph>puts</codeph>
+							</entry>
+							<entry
+								colname="col2">Total number of cache puts. </entry>
+						</row>
+						<row>
+							<entry
+								colname="col1"><codeph>gets</codeph>
+							</entry>
+							<entry
+								colname="col2">Total number of cache gets. </entry>
+						</row>
+						<row>
+							<entry
+								colname="col1"><codeph>entries</codeph>
+							</entry>
+							<entry
+								colname="col2">Current number of cache entries. </entry>
+						</row>
+						<row>
+							<entry
+								colname="col1"><codeph>hits</codeph>
+							</entry>
+							<entry
+								colname="col2">Total number of cache hits. </entry>
+						</row>
+						<row>
+							<entry
+								colname="col1"><codeph>misses</codeph>
+							</entry>
+							<entry
+								colname="col2">Total number of cache misses. </entry>
+						</row>
+						<row>
+							<entry
+								colname="col1"><codeph>destroys</codeph>
+							</entry>
+							<entry
+								colname="col2">Total number of cache destroys. </entry>
+						</row>
+						<row>
+							<entry
+								colname="col1"><codeph>overflows</codeph>
+							</entry>
+							<entry
+								colname="col2">Total number of cache overflows to persistence
+								backup. </entry>
+						</row>
+						<row>
+							<entry
+								colname="col1"><codeph>cacheListenerCallsCompleted</codeph>
+							</entry>
+							<entry
+								colname="col2">Total number of times a cache listener call has
+								completed. </entry>
+						</row>
+						<row>
+							<entry
+								colname="col1">
+								<codeph>pdxInstanceDeserializations</codeph>
+							</entry>
+							<entry
+								colname="col2"> Total number of times getObject has been called on a
+								PdxInstance. </entry>
+						</row>
+						<row>
+							<entry
+								colname="col1"><codeph>pdxInstanceDeserializationTime</codeph>
+							</entry>
+							<entry
+								colname="col2"> Total amount of time, in nanoseconds, spent
+								deserializing PdxInstances by calling getObject. </entry>
+						</row>
+						<row>
+							<entry
+								colname="col1"><codeph>pdxInstanceCreations</codeph>
+							</entry>
+							<entry
+								colname="col2"> Total number of times a deserialization created a
+								PdxInstance. </entry>
+						</row>
+						<row>
+							<entry
+								colname="col1"><codeph>pdxSerializations</codeph>
+							</entry>
+							<entry
+								colname="col2"> Total number of PDX serializations. </entry>
+						</row>
+						<row>
+							<entry
+								colname="col1"><codeph>pdxSerializedBytes</codeph>
+							</entry>
+							<entry
+								colname="col2"> Total number of bytes produced by PDX serialization.
+							</entry>
+						</row>
+						<row>
+							<entry
+								colname="col1"><codeph>pdxDeserializations</codeph>
+							</entry>
+							<entry
+								colname="col2">Total number of PDX deserializations. </entry>
+						</row>
+						<row>
+							<entry
+								colname="col1"><codeph>pdxDeserializedBytes</codeph>
+							</entry>
+							<entry
+								colname="col2"> Total number of bytes read by PDX deserialization.
+							</entry>
+						</row>
+						<row>
+							<entry
+								colname="col1"><codeph>tombstoneCount</codeph>
+							</entry>
+							<entry
+								colname="col2">Total number of tombstone entries created for
+								performing concurrency checks. </entry>
+						</row>
+						<row>
+							<entry
+								colname="col1"><codeph>nonReplicatedTombstoneSize</codeph>
+							</entry>
+							<entry
+								colname="col2">Approximate total size (in bytes) of tombstones
+								present in the client cache. </entry>
+						</row>
+					</tbody>
+				</tgroup>
+			</table>
+	</conbody>
+</concept>

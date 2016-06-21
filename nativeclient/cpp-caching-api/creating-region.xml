@@ -1,0 +1,44 @@
+<?xml version="1.0"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept
+	id="concept_BD7AEE69D43841D9BCC9ABD040E01C60">
+	<title>Creating a Proxy Client-Side Region</title>
+	<shortdesc>This section provides code examples for creating and customizing proxy client-side
+		regions. </shortdesc>
+	<conbody>
+			<note>
+				<p>Creating a region through the native client API only creates a proxy client-side
+				region. A corresponding region with the same name and path should also exist on the
+				servers that have been configured for client connections and upon which the client
+				will perform its operations.
+				</p>
+			</note>
+		<p>To create a region, you create a <codeph>RegionFactory</codeph> using the
+				<codeph>RegionShortcut</codeph> that most closely fits your region configuration.
+			From that, create your region, customizing the settings as region attributes as needed. </p>
+		<example
+			id="example_A7117698EFEF4716A5DE899342419946">
+			<title>Creating a CACHING_PROXY Region</title>
+			<p>This example creates a region using a CACHING_PROXY <codeph>RegionShortcut</codeph>
+				with no further modifications:</p>
+				<codeblock>RegionFactoryPtr regionFactory = 
+            cachePtr-&gt;createRegionFactory(CACHING_PROXY);
+regionPtr = regionFactory -&gt;create("exampleRegion");</codeblock>
+		</example>
+		<example
+			id="example_137D4B0920CD45B488C1E6DB01906F0B">
+			<title>Creating a CACHING_PROXY Region with LRU</title>
+			<p>This example creates a region based on the CACHING_PROXY RegionShortcut with two
+				additional region attributes settings. For information on the settings, see <xref
+					href="../client-cache/region-attributes-desc.xml#region-attributes-desc"
+					type="concept"
+					format="dita"
+					scope="local">Region Attributes Descriptions</xref>.</p>
+				<codeblock>RegionFactoryPtr regionFactory = 
+              cachePtr-&gt;createRegionFactory(CACHING_PROXY);
+regionPtr = regionFactory-&gt;setLruEntriesLimit( 20000 )
+              -&gt;setInitialCapacity( 20000 )
+              -&gt;create("exampleRegion");</codeblock>
+		</example>
+	</conbody>
+</concept>

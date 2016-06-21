@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept
+	id="uninstall">
+	<title>Uninstalling the Native Client</title>
+	<shortdesc>How you uninstall the native client depends on your operating system. </shortdesc>
+	<prolog>
+		<metadata>
+			<keywords>
+				<keyword>gemfire native client uninstall</keyword>
+				<keyword>gemfire native client uninstallation</keyword>
+			</keywords>
+		</metadata>
+	</prolog>
+	<conbody>
+		<section
+			id="section_D82AE460FF1D4D26896DBC21BFEAEF75">
+			<title>Uninstall on Linux and Solaris</title>
+			<p>On Linux and Solaris, delete the
+						<codeph>NativeClient_Linux_<i>architecture</i>_<varname>xxxx</varname>_b<i>NNNN</i></codeph>
+				product directory or the
+						<codeph>NativeClient_Solaris_<i>architecture</i>_<varname>xxxx</varname>_b<i>NNNN</i></codeph>
+				product directory and all of its subdirectories. </p>
+		</section>
+		<section
+			id="section_196B18FE0EC6475096B95C07FA6A18B1"><title
+				id="title_7BFA5EEADB2148AD84536DE704AE43B9">Uninstall on Windows</title><p
+				id="p_8CBF7365DB184B3C96105BA80DF79EF9">Use the MSI installer graphical interface,
+				its command-line interface, or the Windows Control Panel. </p><p
+				id="p_CB6FE1845BF44FE3ACABF11576CF0611">
+				<b>Uninstall from MSI Installer Graphical Interface</b>
+			</p><ol
+				id="ol_869AE3FCDC53449E95A5D73A7FF8DA3E">
+				<li
+					id="li_93E38D8F682B4907BE90F6C04A97D516">Double-click the MSI file, then click
+					Next in the Setup Wizard screen. </li>
+				<li
+					id="li_BE72EF9236724819875663AC3DDA8B3C">In the following screen, click the
+					Remove button. </li>
+				<li
+					id="li_CC80277D0C1E4610884FE711C60F122D">In the next screen, click the Remove
+					button and then click Finish. </li>
+			</ol>
+			<p
+				id="p_57E25EE7D2DB4C0DBF20ABB2DF5AC9D7">
+				<b>Uninstall from MSI Installer Command-Line</b>
+			</p><p
+				id="p_055E984969AB4702B637ED70267EBBC9">This is the MSI command-line syntax for a
+				quiet uninstall: </p><codeblock>msiexec /q /x <codeph>Pivotal_GemFire_NativeClient_<varname>architecture</varname>_<varname>xxxx</varname>_b<i>NNNN</i>.msi</codeph>
+ DEFAULT_INSTALLDIR=<varname>&lt;path&gt;</varname></codeblock>
+			<xref
+				href="install-windows.xml#install-windows/tbl-msi-options"
+				type="table"
+				format="dita"
+				scope="local"><?xm-replace_text MSI Command-Line Options?></xref> lists common
+				<codeph>msiexec</codeph> command-line options for use with
+					<codeph>Pivotal_GemFire_NativeClient_<varname>architecture</varname>_<varname>xxxx</varname>_b<i>NNNN</i>.msi</codeph>,
+			along with an explanation of their usage. For a list of all command-line options, enter
+				<codeph>msiexec/?</codeph>. <p>The <codeph>/x</codeph> option uninstalls the
+				product. </p><p>
+				<b>Uninstall from the Control Panel</b>
+			</p><ol
+				id="ol_7CA87609B7E7431A9921B6C8E6B1B7DD">
+				<li
+					id="li_5172D2D5CBF14476910F6F2D124B4FDC">From the Control Panel, open Add or
+					Remove Programs. </li>
+				<li
+					id="li_D821FFE61643440EB99941459FC56E6D">Select <b>Pivotal GemFire Native Client
+							[<i>32bit or 64bit</i>] [<i>x.x.x.x</i>]</b> (with the values
+					appropriate for your installation.) </li>
+				<li
+					id="li_E2444E13020A4EC19ECCF49E2D47F9CE">Click the Remove button. </li>
+			</ol>
+		</section>
+	</conbody>
+</concept>

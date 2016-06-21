@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "http://docs.oasis-open.org/dita/v1.1/OS/dtd/concept.dtd">
+<concept
+	id="client-to-server-connection">
+	<title>Client-to-Server Connection Process</title>
+	<shortdesc>It is important to understand the sequence of events that occur when the native client
+		connects with a <keyword keyref="product_name"/> cache server. </shortdesc>
+	<conbody>
+		<section
+			id="section_C1E805D842FD44B984041C2ED1D4C2EF">
+			
+
+
+
+			<ol
+				id="ol_09809A6B391F4AA69BF377539E810575">
+				<li
+					id="li_B8802F53232D479382B7E9CF02B97FE6">A native client region is configured in
+						<codeph>cache.xml</codeph> or programmatically with a set of server
+					connection endpoints. Server endpoints identify each cache server by specifying
+					the server's name and port number. <p>Client threads obtain, use, and release a
+						connection to a connection pool that maintains new connections. The number
+						of connections that a client can establish is governed by the pool's
+							<codeph>min-connections</codeph> and <codeph>max-connections</codeph>
+						settings, either using client XML configuration or programmatically through
+						the <codeph>CacheFactory::setMinConnections()</codeph> and
+							<codeph>CacheFactory::setMaxConnections()</codeph> APIs. The defaults
+						for <codeph>min-connections</codeph> is 1 and
+							<codeph>max-connections</codeph> is -1 meaning the connection count can
+						grow to accommodate the number of active threads performing region
+						operations. </p>
+					<p>This example shows how to use <codeph>cache.xml</codeph> to configure a
+						native client region with endpoints set to two cache servers: </p>
+					<codeblock>&lt;pool name="examplePool" subscription-enabled="true" &gt;
+    &lt;server host="java_servername1" port="java_port1" /&gt;
+    &lt;server host="java_servername2" port="java_port2" /&gt;
+&lt;/pool&gt;
+&lt;region name="NativeClientRegion" refid="CACHING_PROXY"&gt;
+    &lt;region-attributes pool-name="examplePool"/&gt;
+&lt;/region&gt;</codeblock>
+					<p>TCP connections on the native client are specified at the cache level, or by
+						overriding endpoints for specific regions. The connections are created as
+						the regions are created. In addition, connections can also get created for
+						querying without having any created regions. In this case, when endpoints
+						are defined at the cache level no regions are yet created and a query is
+						fired. </p>
+					<p>You can configure client-server connections in two ways. Use either the
+						region/cache endpoints or the Pool API. For more information about the pool
+						API, see <xref
+							scope="local"
+							href="../connection-pools/connection-pools.xml#using-connection-pools"
+							type="concept"
+							format="dita">Using Connection Pools</xref>. </p>
+				</li>
+				<li
+					id="li_9F62F18680814AD491F4EA048913C64A">The client announces to the server
+					which entries it wishes to have updated by programmatically registering interest
+					in those entries. See <xref
+						scope="local"
+						href="registering-interest-for-entries.xml#registering-interest-for-entries"
+						type="concept"
+						format="dita">Registering Interest for Entries</xref> for more information. </li>
+				<li
+					id="li_021071AD10FD40269C4BD45B1F025FE2">The client <codeph>cache.xml</codeph>
+					file should have the following parameters configured so the client can update
+					the server and the client can receive updates from the server: <ul
+						id="ul_D471651E62D64154BDFB06165381CBFB">
+						<li
+							id="li_EF4CDA762CCE40B6BC2ECB95FDA5DF16">Caching enabled in the client
+							region, by using the <codeph>CACHING_PROXY RegionShortcut</codeph>
+							setting in the region attribute <codeph>refid</codeph>. A listener could
+							also be defined so event notification occurs. You can use both, but at
+							least one of the two methods must be used by the client to receive event
+							notifications. </li>
+						<li
+							id="li_C3B932BCD8704E49B75A030AF2D1D0B7">Set
+								<codeph>subscription-enabled</codeph> to <codeph>true</codeph> so
+							the client receives update notifications from the server for entries to
+							which it has registered interest. </li>
+					</ul>
+				</li>
+				<li
+					id="li_586BB8FCE1624DCD9783F22558A7494E">A native client application calls the
+					C++ or .NET API to connect to a cache server. </li>
+				<li
+					id="li_BC08B2DB754A482F98D07E98BEA4DE81">The client and the cache server
+					exchange a handshake over a configured endpoint to create a connection. </li>
+				<li
+					id="li_757FC3E7A0A94A9788EC46E4F9B8E5D0">Any <codeph>create</codeph>,
+						<codeph>put</codeph>, <codeph>invalidate</codeph>, and
+						<codeph>destroy</codeph> events sent to the server are propagated across the
+					distributed cache so the client can receive the events. </li>
+			</ol>
+				<note>
+					<p>You may be able to improve system performance by making adjustments to the cache server. </p>
+				</note>
+				<i/>
+		</section>
+	</conbody>
+</concept>

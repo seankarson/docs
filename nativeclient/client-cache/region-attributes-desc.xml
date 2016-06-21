@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "http://docs.oasis-open.org/dita/v1.1/OS/dtd/concept.dtd">
+<concept
+	id="region-attributes-desc">
+	<title>Mutable and Immutable Region Attributes </title>
+	<conbody>
+		<p>Attributes that are immutable (fixed) after region creation govern storage location, data
+			distribution, statistics, application plug-ins, and the configuration and management of
+			the region's data hashmap. </p>
+		<p>This table lists the immutable attributes and their default settings. </p>
+		<table
+			id="table_B1CC036A7929449A8CD06E56678A6CB2">
+			<title>Immutable Region Attributes</title>
+			<tgroup
+				cols="2">
+				<colspec
+					colnum="1"/>
+				<colspec
+					colnum="2"/>
+				<thead>
+					<row>
+						<entry>Immutable Region Attribute </entry>
+						<entry>Default Setting </entry>
+					</row>
+				</thead>
+				<tbody>
+					<row>
+						<entry>See <xref
+								href="caching-enabled.xml#caching-enabled"
+								type="concept"
+								format="dita"
+								scope="local"><?xm-replace_text CachingEnabled?></xref>
+						</entry>
+						<entry>true </entry>
+					</row>
+					<row>
+						<entry>See <xref
+								scope="local"
+								href="initial-capacity.xml#initial-capacity"
+								type="concept"
+								format="dita">InitialCapacity</xref>
+						</entry>
+						<entry>16 (entries) </entry>
+					</row>
+					<row>
+						<entry>See <xref
+								scope="local"
+								href="load-factor.xml#load-factor"
+								type="concept"
+								format="dita">LoadFactor</xref>
+						</entry>
+						<entry>0.75 </entry>
+					</row>
+					<row>
+						<entry>See <xref
+								scope="local"
+								href="concurrency-level.xml#concurrency-level"
+								type="concept"
+								format="dita">ConcurrencyLevel</xref>
+						</entry>
+						<entry>16 </entry>
+					</row>
+					<row>
+						<entry>See <xref
+								scope="local"
+								href="disk-policy.xml#disk-policy"
+								type="concept"
+								format="dita">DiskPolicy</xref>
+						</entry>
+						<entry> </entry>
+					</row>
+					<row>
+						<entry>See <xref
+								scope="local"
+								href="persistence-manager.xml#persistence-manager"
+								type="concept"
+								format="dita">PersistenceManager</xref>
+						</entry>
+						<entry>NULL </entry>
+					</row>
+					<row>
+						<entry>PartitionResolver. See <xref
+								href="application-plugins.xml#application-plugins"
+								type="concept"
+								format="dita"
+								scope="local"><?xm-replace_text Specifying Application Plug-In Attributes?></xref>. </entry>
+						<entry> </entry>
+					</row>
+				</tbody>
+			</tgroup>
+		</table>
+		<p>Mutable region attributes identify expiration and cache listener, cache writer and cache
+			loader actions that are run from the defining client. The next table lists the mutable
+			attributes that generally can be modified after region creation by using the
+				<codeph>AttributesMutator</codeph> for the region. 
+
+			
+
+		</p>
+		<table
+			id="table_98120276A645432A840F991C18039621">
+			<title>Mutable Region Attributes</title>
+			<tgroup
+				cols="2">
+				<colspec
+					colnum="1"/>
+				<colspec
+					colnum="2"/>
+				<thead>
+					<row>
+						<entry>Mutable Region Attribute </entry>
+						<entry>Default Setting </entry>
+					</row>
+				</thead>
+				<tbody>
+					<row>
+						<entry>Expiration attributes. See <xref
+								href="expiration-attributes.xml#expiration-attributes"
+								type="concept"
+								format="dita"
+								scope="local"><?xm-replace_text Specifying Expiration Attributes?></xref>. </entry>
+						<entry>no expiration </entry>
+					</row>
+					<row>
+						<entry>See <xref
+								href="lru-entries-limit.xml#concept_75D723D60E044FF9AE97C939699AB10A"
+								type="concept"
+								format="dita"
+								scope="local"><?xm-replace_text LruEntriesLimit?></xref>. </entry>
+						<entry>0 (no limit) </entry>
+					</row>
+					<row>
+						<entry>CacheLoader. See <xref
+								href="application-plugins.xml#application-plugins"
+								type="concept"
+								format="dita"
+								scope="local"><?xm-replace_text Specifying Application Plug-In Attributes?></xref>. </entry>
+						<entry> </entry>
+					</row>
+					<row>
+						<entry>CacheWriter. See <xref
+								href="application-plugins.xml#application-plugins"
+								type="concept"
+								format="dita"
+								scope="local"><?xm-replace_text Specifying Application Plug-In Attributes?></xref>. </entry>
+						<entry> </entry>
+					</row>
+					<row>
+						<entry>CacheListener. See <xref
+								href="application-plugins.xml#application-plugins"
+								type="concept"
+								format="dita"
+								scope="local"><?xm-replace_text Specifying Application Plug-In Attributes?></xref>. </entry>
+						<entry> </entry>
+					</row>
+				</tbody>
+			</tgroup>
+		</table>
+		<p>See <xref href="application-plugins.xml#application-plugins" type="concept" format="dita"
+				scope="local"><?xm-replace_text Specifying Application Plug-In Attributes?></xref>
+			for information about using <codeph>AttributesMutator</codeph> with cache listeners,
+			cache loaders, and cache writers. </p>
+		<p>The remainder of this section examines these attributes in detail. Throughout the descriptions,
+				<codeph>cache.xml</codeph> file snippets show how each attribute can be set
+			declaratively. </p>
+	</conbody>
+</concept>

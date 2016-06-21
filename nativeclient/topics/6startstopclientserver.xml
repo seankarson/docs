@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN"
+"concept.dtd">
+<concept id="security">
+  <title id="title_9717E51087B346988389138843E158C4">Step 6: Start and stop
+  the client and server</title>
+
+  <conbody id="conbody_D74C4342289846619E028149A8920946">
+    <p>Specifically, ensure that:</p>
+
+    <ul id="ol_C07B2C97ED4942198D2C69CC8619B0AA">
+      <li id="li_F6109E270B8D4AA4B0D51DD852FF3FBC"><p
+      id="p_215060DA14754312AFE5B75CE8A1E74B">OpenSSL and ACE_SSL DLLs are
+      built and their locations are in the right environment variables for
+      your system: PATH for Windows, and LD_LIBRARY_PATH for Unix.</p></li>
+
+      <li id="li_42CD155D5353451F862CD23907408B4B">You have generated the keys
+      and keystores.</li>
+
+      <li>You have set the system properties.</li>
+    </ul>
+
+    <p>For details on stopping and starting locators and cache servers with
+    SSL, see the <!--BEVLINK-->GemFire User’s Guide.</p>
+
+    <p>Example locator start command:</p>
+
+    <codeblock>gemfire start-locator -port=12345 -dir=. -Djavax.net.ssl.keyStore=
+gemfire.jks -Djavax.net.ssl.keyStorePassword=gemfire
+-Djavax.net.ssl.trustStore=gemfire.jks
+-Djavax.net.ssl.trustStorePassword=gemfire</codeblock>
+
+    <p>Example locator stop command:</p>
+
+    <codeblock>gemfire stop-locator -port=12345 -dir=. -Djavax.net.ssl.keyStore=
+gemfire.jks -Djavax.net.ssl.keyStorePassword=gemfire
+-Djavax.net.ssl.trustStore=gemfire.jks
+-Djavax.net.ssl.trustStorePassword=gemfire</codeblock>
+
+    <p>Example server start command:</p>
+
+    <codeblock>cacheserver start -J-Xmx1024m -J-Xms128m locators=host:12345
+cache-xml-file=server.xml -dir=. mcast-port=0 log-level=fine ssl-enabled=
+true ssl-require-authentication=true ssl-ciphers=SSL_RSA_WITH_NULL_SHA
+-J-Djavax.net.ssl.keyStore=gemfire.jks
+-J-Djavax.net.ssl.keyStorePassword=gemfire -J-Djavax.net.ssl.trustStore=
+gemfire.jks -J-Djavax.net.ssl.trustStorePassword=gemfire
+security-log-level=fine</codeblock>
+
+    <p>Example server stop command:</p>
+
+    <codeblock>cacheserver stop -dir=.</codeblock>
+  </conbody>
+</concept>

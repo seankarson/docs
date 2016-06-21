@@ -1,0 +1,147 @@
+<?xml version="1.0"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<!-- Created with XMetaL (http://www.xmetal.com) -->
+<concept id="concept_26D4E6C6BC6F4AB8884E33119999656D"> 
+  <title>Adding an Entry to the Cache</title> 
+  <shortdesc>A native client region can be populated with cache entries using
+	 the 
+	 <i>Region::put</i> or the 
+	 <i>Region::create</i> API functions. The put function places a new value
+	 into a region entry with the specified key, while the create function creates a
+	 new entry in the region. Both functions provide a user-defined parameter object
+	 to any cache writer invoked in the process, and new values for both functions
+	 are propagated to a connected cache server. 
+  </shortdesc> 
+  <conbody> 
+	 <example id="example_D3C7D105673747B0B69C953A528037E3"> 
+		<title>Using the API to Put Entries Into the Cache</title> 
+		<p> When the put function adds an entry, the previous value is
+		  overwritten if there is already an entry associated with the specified key in
+		  the region. In the next example, the program uses the API to put 100 entries
+		  into the cache by iteratively creating keys and values, both of which are
+		  integers. 
+		  <codeblock>for ( int32_t i=0; i &lt; 100; i++ ) {
+regionPtr-&gt;put( i, CacheableInt32::create(i) );
+}</codeblock> 
+		</p> 
+	 </example> 
+	 <section id="section_748916759F0246619CD27E7456DCA365"> 
+		<title>Bulk Put Operations Using putAll</title> 
+		<p>You can batch up multiple key/value pairs into a hashmap and put them
+		  into the cache with a single operation using the 
+		  <codeph>Region::putAll</codeph> API function ( 
+		  <codeph>Region.PutAll</codeph> for .NET) . Each entry is processed for
+		  interest registration on the server, so each entry requires its own unique
+		  event ID. Updates and creates can be mixed in a 
+		  <codeph>putAll</codeph> operation, so those events need to be addressed
+		  on the cache server for appropriate cache listener invocation on distributed
+		  system members. Map entries retain their original order when they are processed
+		  at the server. 
+		</p> 
+		<p>The following table lists the client and cache server statistics for 
+		  <codeph>putAll</codeph>. 
+		<table id="table_4693B08B5B4D44118DC399C8826C9750"> 
+		<title>PutAll Statistics for Cache Server and Client</title> 
+		<tgroup cols="3"><colspec colnum="1" colname="col1"
+		  colwidth="*"/><colspec colnum="2" colname="col2" colwidth="*"/><colspec
+		  colnum="3" colname="col3" colwidth="*"/><thead> 
+			 <row> 
+				<entry colname="col1">Statistic Type 
+				</entry> 
+				<entry colname="col2">Chart Name 
+				</entry> 
+				<entry colname="col3">Description 
+				</entry> 
+			 </row></thead> 
+		  <tbody> 
+			 <row> 
+				<entry colname="col1"><codeph>CachePerfStats</codeph> 
+				</entry> 
+				<entry colname="col2"><codeph>Putalls</codeph> 
+				</entry> 
+				<entry colname="col3">Total number of times a map is added or
+				  replaced in the cache as a result of a local operation. Also reports the number
+				  of 
+				  <codeph>putAll</codeph> operations. 
+				</entry> 
+			 </row> 
+			 <row> 
+				<entry colname="col1"><codeph>CacheperfStats</codeph> 
+				</entry> 
+				<entry colname="col2"><codeph>putallTime</codeph> 
+				</entry> 
+				<entry colname="col3">Total time to replace a map in the cache as a
+				  result of a local operation. 
+				</entry> 
+			 </row> 
+			 <row> 
+				<entry colname="col1"><codeph>CacheServerStats</codeph> 
+				</entry> 
+				<entry colname="col2"><codeph>putAllRequests</codeph> 
+				</entry> 
+				<entry colname="col3">Number of 
+				  <codeph>putAll</codeph> requests. 
+				</entry> 
+			 </row> 
+			 <row> 
+				<entry colname="col1"><codeph>CacheServerStats</codeph> 
+				</entry> 
+				<entry colname="col2"><codeph>putAllResponses</codeph> 
+				</entry> 
+				<entry colname="col3">Number of 
+				  <codeph>putAll</codeph> responses written to the cache client. 
+				</entry> 
+			 </row> 
+			 <row> 
+				<entry colname="col1"><codeph>CacheServerStats</codeph> 
+				</entry> 
+				<entry colname="col2"><codeph>processPutAllTime</codeph> 
+				</entry> 
+				<entry colname="col3">Total time to process a cache client 
+				  <codeph>putAll</codeph> request, including the time to put all
+				  objects into the cache. 
+				</entry> 
+			 </row> 
+			 <row> 
+				<entry colname="col1"><codeph>CacheServerStats</codeph> 
+				</entry> 
+				<entry colname="col2"><codeph>readPutAllRequestTime</codeph> 
+				</entry> 
+				<entry colname="col3">Total time to read 
+				  <codeph>putAll</codeph> requests. 
+				</entry> 
+			 </row> 
+			 <row> 
+				<entry colname="col1"><codeph>CacheServerStats</codeph> 
+				</entry> 
+				<entry colname="col2"><codeph>writePutAllResponseTime</codeph> 
+				</entry> 
+				<entry colname="col3">Total time to write 
+				  <codeph>putAll</codeph> responses. 
+				</entry> 
+			 </row> 
+			 <row> 
+				<entry colname="col1"><codeph>CacheClientStats</codeph> 
+				</entry> 
+				<entry colname="col2"><codeph>putAll</codeph> 
+				</entry> 
+				<entry colname="col3">Number of 
+				  <codeph>putAll</codeph> requests sent to the cache server. 
+				</entry> 
+			 </row> 
+			 <row> 
+				<entry colname="col1"><codeph>CacheClientStats</codeph> 
+				</entry> 
+				<entry colname="col2"><codeph>sendPutAllTime</codeph> 
+				</entry> 
+				<entry colname="col3">Total time for 
+				  <codeph>sendPutAll</codeph> . 
+				</entry> 
+			 </row> 
+		  </tbody> 
+		</tgroup> 
+		</table> 
+		</p> 
+	 </section> 
+  </conbody> 
+</concept>

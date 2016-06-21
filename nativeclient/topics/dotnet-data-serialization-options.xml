@@ -1,0 +1,117 @@
+<?xml version="1.0"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<!-- Created with XMetaL (http://www.xmetal.com) -->
+<concept id="concept_6DC3DD288F6C4190AEA07DEDE76DD867"> 
+  <title>Data Serialization Options</title> 
+  <shortdesc>Built-in .NET types are serialized automatically into the cache
+	 and can be retrieved by Java servers and other GemFire clients.
+  </shortdesc> 
+  <conbody>
+	 <p>For domain objects that are not simple types, you have three GemFire
+		serialization options. The options give good performance and flexibility for
+		data storage, transfers, and language types. The GemFire options can also
+		improve performance in serializing and deserializing built-in types.
+	 </p>
+	 <p>Your first and simplest option is to use perform automatic serialization
+		by registering the GemFire .NET PDX reflection-based autoserializer in your
+		application. When you have this registered, GemFire uses it for all domain
+		objects that are not custom serialized.
+	 </p>
+	 <p>You can also custom serialize your objects by implementing one of the
+		GemFire .NET interfaces, 
+		<codeph>GemStone::GemFire::Cache::Generic::IPdxSerializable</codeph> or 
+		<codeph>GemStone::GemFire::Cache::IGFSerializable</codeph>.
+	 </p>
+	 <p>You also have the option of using default .NET serialization, but you
+		cannot use it unless you also use helper classes. The helper classes you must
+		use are 
+		<codeph>CacheableObject</codeph> and 
+		<codeph>CacheableObjectXml</codeph>.
+	 </p>
+	 <p>GemFire .NET PDX serialization has more bytes in overhead than GemFire
+		.NET Data serialization, but using PDX serialization helps you avoid the
+		performance costs of deserialization when performing queries. Applications can
+		use 
+		<codeph>PdxInstances</codeph> in functions to avoid the deserialization
+		of entire objects.
+	 </p>
+	 <table id="table_D61A94C4BFBE4712835F632F30BB488E">
+	 <title>Serialization Options: Comparison of Features</title>
+	 <tgroup cols="3"><colspec colnum="1" colname="col1" colwidth="*"/><colspec
+		colnum="2" colname="col2" colwidth="*"/><colspec colname="col3" colnum="3"
+		colwidth="1.50*"/><thead>
+		  <row>
+			 <entry colname="col1">Capability
+			 </entry>
+			 <entry colname="col2">IGFSerializable
+			 </entry>
+			 <entry colname="col3">IPdxSerializable and PDX reflection-based
+				autoserializer
+			 </entry>
+		  </row></thead>
+		<tbody>
+		  <row>
+			 <entry colname="col1">
+				<p>Handles multiple versions of domain objects*
+				</p>
+			 </entry>
+			 <entry colname="col2">
+			 </entry>
+			 <entry colname="col3">X
+			 </entry>
+		  </row>
+		  <row>
+			 <entry colname="col1">
+				<p>Provides single field access on servers of serialized data,
+				  without full deserialization. Supported also for OQL queries.
+				</p>
+			 </entry>
+			 <entry colname="col2">
+			 </entry>
+			 <entry colname="col3">X
+			 </entry>
+		  </row>
+		  <row>
+			 <entry colname="col1">
+				<p>Automatically ported to other languages by GemFire - no need to
+				  program Java-side implementation
+				</p>
+			 </entry>
+			 <entry colname="col2">
+			 </entry>
+			 <entry colname="col3">X
+			 </entry>
+		  </row>
+		  <row>
+			 <entry colname="col1">
+				<p>Works with GemFire delta propagation
+				</p>
+			 </entry>
+			 <entry colname="col2">X
+			 </entry>
+			 <entry colname="col3">X (See explanation below.)
+			 </entry>
+		  </row>
+		</tbody>
+	 </tgroup>
+	 </table>
+	 <p>*You can mix domain object versions where the differences between
+		versions are the addition and removal of object fields.
+	 </p>
+	 <p>By default, you can use GemFire delta propagation with PDX
+		serialization. However, delta propagation will not work if you have set the
+		GemFire property read-serialized to "true". In terms of deserialization, to
+		apply a change delta propagation requires a domain class instance and the 
+		<codeph>fromDelta</codeph> method. If you have set read-serialized to
+		true, you will receive an 
+		<codeph>IPdxInstance</codeph> instead of a domain class instance and 
+		<codeph>IPdxInstance</codeph> does not have the 
+		<codeph>fromDelta</codeph> method required for delta propagation. You
+		will also require the Java domain class on the server similar to the you would
+		need the .NET PDX Delta domain class.
+	 </p>
+	 <p>For detailed information on the interfaces, see the online API
+		documentation.
+	 </p>
+  </conbody> 
+</concept>

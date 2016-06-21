@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN"
+"concept.dtd">
+<concept id="security">
+  <title id="title_9717E51087B346988389138843E158C4">Creating Multiple Secure
+  User Connections with RegionService</title>
+
+  <shortdesc>To create multiple, secure connections to your servers from a
+  single client, so the client can service different user types, you create an
+  authenticated <codeph>RegionService</codeph> for each user.</shortdesc>
+
+  <conbody id="conbody_D74C4342289846619E028149A8920946">
+    <p>The most common use case is a GemFire client embedded in an application
+    server that supports data requests from a large number of users. Each user
+    may be authorized to access a subset of data on the servers. For example,
+    customer users may only be allowed to see and update their own orders and
+    shipments.</p>
+
+    <p>The authenticated users all access the same Cache through instances of
+    the <codeph>RegionService</codeph> interface. <!--BEVLINK-->See
+    RegionService on page 51.</p>
+
+    <p>To implement multiple user connections in your client cache, create
+    your Cache as usual, with these additions:</p>
+
+    <ol id="ol_C07B2C97ED4942198D2C69CC8619B0AA">
+      <li id="li_F6109E270B8D4AA4B0D51DD852FF3FBC"><p
+      id="p_215060DA14754312AFE5B75CE8A1E74B">Configure your client’s server
+      pool for multiple secure user authentication. Example: <codeblock>&lt;pool name="serverPool" multiuser-authentication="true"&gt;
+&lt;locator host="host1" port="44444"/&gt;
+&lt;/pool&gt;</codeblock></p><p>This enables access through the pool for the
+      <codeph>RegionService</codeph> instances and disables it for the Cache
+      instance. </p></li>
+
+      <li id="li_42CD155D5353451F862CD23907408B4B"><p>After you create your
+      cache, for each user, call your Cache instance
+      <codeph>createAuthenticatedView</codeph> method, providing the user’s
+      particular credentials. These are create method calls for two users:
+      <codeblock id="codeblock_86236E9ED77642F887E8F1CB0ADCF6E1">PropertiesPtr credentials1 = Properties::create();
+credentials1-&gt;insert("security-username", "root1");
+credentials1-&gt;insert("security-password", "root1");
+RegionServicePtr userCache1 =
+cachePtr-&gt;createAuthenticatedView( credentials1 );
+
+PropertiesPtr credentials2 = Properties::create();
+credentials2-&gt;insert("security-username", "root2");
+credentials2-&gt;insert("security-password", "root2");
+RegionServicePtr userCache2 =
+cachePtr-&gt;createAuthenticatedView( credentials2 );</codeblock></p><p>For
+      each user, do all of your caching and region work through the assigned
+      region service pointer. Use the region service to get your regions, and
+      the query service, if you need that, and then do your work with them.
+      Access to the server cache will be governed by the server’s configured
+      authorization rules for each individual user. </p></li>
+
+      <li id="li_A0DDFA0E9F5D493EBA169F6F9ED29181">To close your cache, close
+      the Cache instance.</li>
+    </ol>
+  </conbody>
+</concept>

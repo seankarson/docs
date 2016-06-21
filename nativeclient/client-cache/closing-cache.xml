@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "http://docs.oasis-open.org/dita/v1.1/OS/dtd/concept.dtd">
+<concept
+	id="closing-cache">
+	<title>Closing the Cache</title>
+	<shortdesc>Use the <codeph>Cache::close</codeph> function to release system resources when you
+		finish using the cache. </shortdesc>
+	<conbody>
+		<p>After the cache is closed, any further method calls on the cache or any region object result in
+			a <codeph>CacheClosedException</codeph> . </p>
+		<p>If the cache is in a durable client, you need to use the <codeph>keepalive</codeph>
+			version of the close method. See <xref
+				scope="local"
+				href="../preserving-data/disconnecting-from-server.xml#concept_3A9AC62F96FA44DBBB5CCBFD3EA19B56"
+				type="concept"
+				format="dita">Disconnecting From the Server</xref>. </p>
+	</conbody>
+</concept>

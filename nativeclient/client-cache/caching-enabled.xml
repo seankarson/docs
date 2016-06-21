@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "http://docs.oasis-open.org/dita/v1.1/OS/dtd/concept.dtd">
+<concept
+	id="caching-enabled">
+	<title>CachingEnabled</title>
+	<conbody>
+		<p>This attribute determines whether data is cached in this region. For example, you might
+			choose to configure the distributed system as a simple messaging service where clients
+			run without a cache. </p>
+			<note>
+				<p>You can configure the most common of these options with the predefined region attributes. See
+					<xref scope="local" href="region-shortcuts.xml#region-shortcuts" type="concept"
+					format="dita">RegionShortcuts</xref> and the Javadocs for
+					<codeph>RegionShortcut</codeph>. </p>
+			</note>
+		<p>If <codeph>CachingEnabled</codeph> is false (no caching), an
+				<codeph>IllegalStateException</codeph> is thrown if any of these attributes are set: </p>
+		<ul
+			id="ul_B54CB38AD11F4F678FAC99224F2C93D5">
+			<li
+				id="li_251ED65B822D4CE3AACFAD11746E9CEF"><xref
+					scope="local"
+					href="initial-capacity.xml#initial-capacity"
+					type="concept"
+					format="dita">InitialCapacity</xref>
+			</li>
+			<li
+				id="li_C07686925CE74A54AF693E599F7D78C4"><codeph>EntryTimeToLive</codeph> under <xref
+					href="expiration-attributes.xml#expiration-attributes"
+					type="concept"
+					format="dita"
+					scope="local"><?xm-replace_text Specifying Expiration Attributes?></xref>
+			</li>
+			<li
+				id="li_B6D2F0EAFEB7442C80C2163C94CBF54C"><codeph>EntryIdleTimeout</codeph> under <xref
+					href="expiration-attributes.xml#expiration-attributes"
+					type="concept"
+					format="dita"
+					scope="local"><?xm-replace_text Specifying Expiration Attributes?></xref>
+			</li>
+			<li
+				id="li_CE554868415C4E6DBE70538800E9A138"><xref
+					scope="local"
+					href="load-factor.xml#load-factor"
+					type="concept"
+					format="dita">LoadFactor</xref>
+			</li>
+			<li
+				id="li_DC46FC69AFF74FB39F191DFBBD887402"><xref
+					scope="local"
+					href="concurrency-level.xml#concurrency-level"
+					type="concept"
+					format="dita">ConcurrencyLevel</xref>
+			</li>
+			<li
+				id="li_F4641326AF7548CD9C0F1944E1769BD0"><xref
+					href="lru-entries-limit.xml#concept_75D723D60E044FF9AE97C939699AB10A"
+					type="concept"
+					format="dita"
+					scope="local"><?xm-replace_text LruEntriesLimit?></xref>
+			</li>
+			<li
+				id="li_7027E620735C4F02BA390187EF36C0E3"><xref
+					scope="local"
+					href="disk-policy.xml#disk-policy"
+					type="concept"
+					format="dita">DiskPolicy</xref>
+			</li>
+		</ul>
+		<p>The following declaration enables caching for the region: </p>
+		<codeblock>&lt;region-attributes caching-enabled="true"&gt; 
+&lt;/region-attributes&gt;</codeblock>
+	</conbody>
+</concept>

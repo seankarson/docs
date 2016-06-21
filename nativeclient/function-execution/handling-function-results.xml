@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept
+	id="handling-function-results">
+	<title
+		id="title_E393BE345F3F496FA85A21C6539462F1">Programming to Get Function Results</title>
+	<shortdesc><keyword keyref="product_name"/> provides a default result collector. If you need
+		special results handling, code a custom <codeph>ResultsCollector</codeph> implementation to
+		replace the provided default. Use the <codeph>Execution::withCollector</codeph> method to
+		define your custom collector. </shortdesc>
+	<conbody
+		id="conbody_38EFD46F331B435596A3FAE7784475D4">
+		<note>
+			<p>This section applies only to functions that return results. 
+			</p>
+		</note>
+		<p
+			id="p_4AA514BF2CC941B58D9162589B871315">To program your client to get the results from a
+			function, use the result collector returned from the function execution, like this:</p>
+			<codeblock id="codeblock_4D48131E20D34866B540DE6388184357">ResultCollectorPtr rc = FunctionService::onRegion(region)
+                    -&gt;withArgs(args)
+                    -&gt;withFilter(keySet)
+                    -&gt;withCollector(new MyCustomResultCollector())
+                    .execute(Function);
+CacheableVectorPtr functionResult = rc.getResult(); </codeblock>
+		<p id="p_4A0AE05263DD4F1E82324F335E269068">The <codeph>getResult</codeph> methods of the <keyword
+				keyref="product_name"/> default result collector block until all results are
+			received, then return the full result set. </p>
+		<p
+			id="p_6B6E242453A845258B270CF6E882125E">You can handle the results in a custom manner if
+			you wish. To do this:</p>
+			<ol
+				id="ol_BFFD0DA6F1C04B8AA057C3EAF50983CC">
+				<li
+					id="li_EA8BFC5720CB44A38D840E0BAB6E070C">
+					<p id="p_6F466EE8CB014E68A39142A369EBD077">Write a class that extends
+						<codeph>ResultCollector</codeph> and code the methods to handle the results
+					as you need. The methods are of two types: one handles data and information from
+						<keyword keyref="product_name"/> and populates the results set, while the
+					other returns the compiled results to the calling application: </p>
+					<ol
+						id="ol_25776DFBE8B843D1971C572B441CC91C">
+						<li id="li_56046E5193AD4D3293C5A250731E9DE3"><codeph>addResult</codeph> is called by <keyword
+							keyref="product_name"/> when results arrive from the
+							<codeph>Function</codeph> methods. Use <codeph>addResult</codeph> to add
+						a single result to the ResultCollector. </li>
+						<li id="li_F4C84A9918E246DDA22294129B968465"><codeph>endResults</codeph> is called by <keyword
+							keyref="product_name"/> to signal the end of all results from the
+						function execution. </li>
+						<li
+							id="li_743A69A372714523B103BF5A9704D018"><codeph>getResult</codeph> is
+							available to your executing application (the one that calls
+								<codeph>Execution.execute</codeph>) to retrieve the results. This
+							may block until all results are available. </li>
+						<li id="li_2D6F02371FEE4675ADB355D294677499"><codeph>clearResults</codeph> is called by
+							<keyword keyref="product_name"/> to clear partial results from the
+						results collector. This is used only for highly available
+							<codeph>onRegion</codeph> functions where the calling application waits
+						for the results. If the call fails, before <keyword keyref="product_name"/>
+						retries the execution, it calls <codeph>clearResults</codeph> to ready the
+						instance for a clean set of results. </li>
+					</ol>
+				</li>
+				<li
+					id="li_AE3E9CBCDC644356902562EB88D3E431">Use the <codeph>Execution</codeph>
+					object in your executing member to call <codeph>withCollector</codeph>, passing
+					your custom collector, as shown in the example above. </li>
+			</ol>
+	</conbody>
+</concept>

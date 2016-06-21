@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN"
+"concept.dtd">
+<concept id="security">
+  <title id="title_9717E51087B346988389138843E158C4">Step 2: Compile or
+  request the precompiled ACE SSL DLL from VMware</title>
+
+  <shortdesc>To download the ACE SSL for build, see<!--BEVLINK-->
+  http://www.cs.wustl.edu/~schmidt/ACE-install.html. To build the ACE SSL,
+  follow the steps below that apply to your build environment. Alternately,
+  you can obtain the precompiled ACE SSL DLL from VMware. Contact your VMware
+  support representative to obtain the libraries.</shortdesc>
+
+  <conbody id="conbody_D74C4342289846619E028149A8920946">
+    <section
+    id="section_6DC4C72A2EEB432AA40DE97D438FD1E7"><title>Unix</title><ol
+        id="ol_C07B2C97ED4942198D2C69CC8619B0AA">
+        <li id="li_F6109E270B8D4AA4B0D51DD852FF3FBC"><p
+        id="p_215060DA14754312AFE5B75CE8A1E74B">Make sure the <codeph>OpenSSL
+        header</codeph> file directory is in your compiler's include path, and
+        that OpenSSL libraries are in your library link/load path,
+        <codeph>LD_LIBRARY_PATH</codeph>.</p></li>
+
+        <li id="li_42CD155D5353451F862CD23907408B4B">If you installed OpenSSL
+        into a set of directories unknown by the compiler, set the
+        <codeph>SSL_ROOT</codeph> environment variable to point to the top
+        level directory of your OpenSSL distribution—the parent directory to
+        OpenSSL's include and lib directories.</li>
+
+        <li>Build ACE as described above. When building ACE, add
+        <codeph>ssl=1</codeph> to your make command line invocation, or add it
+        to your <codeph>platform_macros.GNU</codeph> file.</li>
+
+        <li>Set the <codeph>ACE_ROOT</codeph> environment variable.</li>
+
+        <li>Build the <codeph>ACE_SSL</codeph> library in the
+        <codeph>$ACE_ROOT/ace/SSL</codeph> directory.</li>
+      </ol></section>
+
+    <section id="section_6DC4C72A2EEB432AA40DE97D438FD1E7"><title>Microsoft
+    Visual Studio</title><ol id="ol_C07B2C97ED4942198D2C69CC8619B0AA">
+        <li id="li_F6109E270B8D4AA4B0D51DD852FF3FBC"><p
+        id="p_215060DA14754312AFE5B75CE8A1E74B">Set the
+        <codeph>SSL_ROOT</codeph> environment variable to the location of the
+        directory containing the <codeph>OpenSSL inc32</codeph> and
+        <codeph>out32dll</codeph> directories.</p></li>
+
+        <li id="li_42CD155D5353451F862CD23907408B4B">Add <codeblock>ssl=1</codeblock>
+        to your <codeph>MPC
+        $ACE_ROOT/bin/MakeProjectCreator/config/default.features</codeph> or
+        <codeph>$ACE_ROOT/local.features</codeph> file, and re-run MPC to add
+        support for building the ACE_SSL library to your MSVC++ workspaces and
+        projects.</li>
+
+        <li>Open the <codeph>ACE.sln</codeph> solution, and refer to the ACE
+        build and installation instructions above for details on creating a
+        <codeph>config.h</codeph> configuration header for this platform.</li>
+
+        <li>Add the following to <codeph>config.h</codeph> in the ACE compile:
+        <codeblock>#define ACE_HAS_VERSIONED_NAMESPACE 1
+#include "ace/config-win32.h"</codeblock></li>
+
+        <li>Once the <codeph>config.h file</codeph> has been created, build
+        the ACE_SSL project.</li>
+      </ol></section>
+  </conbody>
+</concept>

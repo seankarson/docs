@@ -1,0 +1,144 @@
+<?xml version="1.0"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept
+	id="concept_656AA32A0EE64DD69A24F978C4961947">
+	<title>Serialize Using the GemFire IPdxSerializable Interface</title>
+	<shortdesc>Use this procedure to program your domain object for PDX
+		serialization using the <codeph>IPdxSerializable</codeph> Interface.
+		When you write objects using PDX serialization, they are distributed to
+		the server tier in PDX serialized form. When you run queries against the
+		objects on the servers, only the fields you specify are deserialized. </shortdesc>
+	<conbody>
+		<p>
+			
+
+
+			<b>Procedure</b>
+		</p>
+			<ol
+				id="ol_329C67AC192C45118DCF66E658425534">
+				<li
+					id="li_C6133ECC24AC4E0FACBA323BEAE4C702">In your domain
+					class, implement
+						<codeph>GemStone::GemFire::Cache::Generic::IPdxSerializable</codeph>.
+					Example:
+					<codeblock>using GemStone.GemFire.Cache.Generic;
+       ...
+       public class PortfolioPdx : IPdxSerializable</codeblock>
+				</li>
+				<li
+					id="li_43B0CA2A39594A9BB20BF97523931A98">If your domain
+					class does not have a zero-arg constructor, create one for
+					it. <p>If you also use PDX serialization in Java for the
+						object, serialize the object in the same way for each
+						language. Serialize the same fields in the same order
+						and mark the same identify fields. </p>
+				</li>
+				<li
+					id="li_97CC663CAA40471D951C3E77E60C8851">Program the
+						<codeph>IPdxSerializable ToData</codeph> function to
+					serialize your object as required by your application. <ol
+						id="ol_1342D3B19D264456A8676AFEC82D8DDB">
+						<li
+							id="li_B65D9ECAC8DA47CBBDECCD87CA8B5C88">Write your
+							domain class's standard. NET data fields using the
+								<codeph>IPdxWriter</codeph> write methods.
+							GemFire automatically provides
+								<codeph>IPdxWriter</codeph> to the
+								<codeph>ToData</codeph> function for
+								<codeph>IPdxSerializable</codeph> objects. </li>
+						<li
+							id="li_ED03E5138B01453C84B1404A64D8EBD3">Call the
+								<codeph>ToData markIdentifyField</codeph>
+							function for each field GemFire should use to
+							identify your object. This is used to compare
+							objects for operations like
+								<codeph>DISTINCT</codeph> queries. The
+								<codeph>markIdentifyField</codeph> call must
+							come after the associated field write methods.
+							<p>Example:</p>
+								<codeblock>// object fields
+private int m_id;
+private string m_pkid;
+private PositionPdx m_position1;
+private PositionPdx m_position2;
+private Hashtable m_positions;
+private string m_type;
+private string m_status;
+private string[] m_names;
+private byte[] m_newVal;
+private DateTime m_creationDate;
+private byte[] m_arrayZeroSize;
+private byte[] m_arrayNull;
+// ToData
+public void ToData(IPdxWriter writer)
+{
+   writer.WriteInt("id", m_id)
+   //identity field
+      .MarkIdentityField("id")
+      .WriteString("pkid", m_pkid)
+      .WriteObject("position1", m_position1)
+      .WriteObject("position2", m_position2)
+.WriteObject("positions", m_positions)
+.WriteString("type", m_type)
+.WriteString("status", m_status)
+.WriteStringArray("names", m_names)
+.WriteByteArray("newVal", m_newVal)
+.WriteDate("creationDate", m_creationDate)
+.WriteByteArray("arrayNull", m_arrayNull)
+.WriteByteArray("arrayZeroSize", m_arrayZeroSize);
+}</codeblock>
+						</li>
+					</ol>
+				</li>
+				<li
+					id="li_0181C0534B5E4BC48F0B264FB5ADA20A">Program
+						<codeph>IPdxSerializable FromData</codeph> to read your
+					data fields from the serialized form into the object's
+					fields using the <codeph>IPdxReader</codeph> read methods.
+					GemFire automatically provides <codeph>IPdxReader</codeph>
+					to the <codeph>FromData</codeph> function for
+						<codeph>IPdxSerializable</codeph> objects. <p>Use the
+						same names as you did in <codeph>ToData</codeph> and
+						call the read operations in the same order as you called
+						the write operations in your <codeph>ToData</codeph>
+						implementation. </p>
+					<p>Example:</p>
+						<codeblock>public void FromData(IPdxReader reader)
+   {
+      m_id = reader.ReadInt("id");
+ 
+      bool isIdentity = reader.IsIdentityField("id");
+ 
+      if (isIdentity == false)
+         throw new IllegalStateException("Portfolio id is identity field");
+ 
+      bool isId = reader.HasField("id");
+ 
+      if (isId == false)
+         throw new IllegalStateException("Portfolio id field not found");
+ 
+      bool isNotId = reader.HasField("ID");
+ 
+      if (isNotId == true)
+         throw new IllegalStateException("Portfolio isNotId field found");
+ 
+      m_pkid = reader.ReadString("pkid");
+      m_position1 = (PositionPdx)reader.ReadObject("position1");
+      m_position2 = (PositionPdx)reader.ReadObject("position2");
+      m_positions = (Hashtable)reader.ReadObject("positions");
+      m_type = reader.ReadString("type");
+      m_status = reader.ReadString("status");
+      m_names = reader.ReadStringArray("names");
+      m_newVal = reader.ReadByteArray("newVal");
+      m_creationDate = reader.ReadDate("creationDate");
+      m_arrayNull = reader.ReadByteArray("arrayNull");
+      m_arrayZeroSize = reader.ReadByteArray("arrayZeroSize");
+}</codeblock>
+				</li>
+				<li
+					id="li_B83D01FDAE444E11A24615FA57EF1796">Optionally, program
+					your domain object's equals and hashcode methods. </li>
+			</ol>
+	</conbody>
+</concept>

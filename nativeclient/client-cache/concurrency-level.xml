@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "http://docs.oasis-open.org/dita/v1.1/OS/dtd/concept.dtd">
+<concept
+	id="concurrency-level">
+	<title>ConcurrencyLevel</title>
+	<conbody>
+		<section
+			id="section_20FB0B9EEE9442BAAD87E3C488610866">
+			<p>This attribute estimates the maximum number of application threads that concurrently
+				access a region entry at one time. This attribute helps optimize the use of system
+				resources and reduce thread contention. </p>
+			<p>The following declaration sets the region's <codeph>ConcurrencyLevel</codeph> to
+					<codeph>16</codeph>: </p>
+			<codeblock>&lt;region-attributes concurrency-level="16"&gt;
+&lt;/region-attributes&gt;</codeblock>
+				<note>
+					<p>When <codeph>CachingEnabled</codeph> is <codeph>false</codeph>, do not set the
+						<codeph>ConcurrencyLevel</codeph> attribute. An
+						<codeph>IllegalStateException</codeph> is thrown if the attribute is set.
+					</p>
+				</note>
+		</section>
+	</conbody>
+</concept>

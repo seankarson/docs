@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "http://docs.oasis-open.org/dita/v1.1/OS/dtd/concept.dtd">
+<concept
+	id="registering-interest-for-entries">
+	<title>Registering Interest for Entries</title>
+	<shortdesc>For native client regions, you can programmatically register interest in entry keys
+		stored on a cache server region. A client region receives update notifications from the
+		cache server for the keys of interest. </shortdesc>
+	<conbody>
+		<p>
+			
+You can register
+			interest for specific entry keys or for all keys. Regular expressions can be used to
+			register interest for keys whose strings match the expression. You can also unregister
+			interest for specific keys, groups of keys based on regular expressions, or for all
+			keys. </p>
+			<note>Interest registration and unregistration are symmetrical operations. Consequently, you
+			cannot register interest in all keys and then unregister interest in a specific set of
+			keys. Also, if you first register interest in specific keys with
+				<codeph>registerKeys</codeph>, then call <codeph>registerAllKeys</codeph>, you must
+			call <codeph>unregisterAllKeys</codeph> before specifying interest in specific keys
+			again. </note>
+		<ul
+			id="ul_EAF61F621C5B4A4293CD5E0AF04FCEC5">
+			<li
+				id="li_1C6B1DBD79224DB4B9AFED6BB2C8C81A">
+				<xref
+					href="registering-interest-for-entries.xml#registering-interest-for-entries/section_C9A3D7F193B24ACD83B2D67813E596A0"
+					type="section"
+					format="dita"
+					scope="local"><?xm-replace_text Client API for Registering Interest?></xref>
+			</li>
+			<li
+				id="li_0ED5D4C606824C2996E4D90A0126029E">
+				<xref
+					href="registering-interest-for-entries.xml#registering-interest-for-entries/section_C1A3F89EE73448D7AFF2076F41848F55"
+					type="section"
+					format="dita"
+					scope="local"><?xm-replace_text Setting Up Client Notification?></xref>
+			</li>
+			<li
+				id="li_C806719B5DF14329926A7FFCE9359429">
+				<xref
+					href="registering-interest-for-entries.xml#registering-interest-for-entries/section_8772147940754C2D9688C789EB2F2AA6"
+					type="section"
+					format="dita"
+					scope="local"><?xm-replace_text Registering Interest for Specific Keys?></xref>
+			</li>
+			<li
+				id="li_ECB4B382AA764B898473BA2001465387">
+				<xref
+					href="registering-interest-for-entries.xml#registering-interest-for-entries/section_EA4525CCDC474DD495410E948EAF566C"
+					type="section"
+					format="dita"
+					scope="local"><?xm-replace_text Registering Interest for All Keys?></xref>
+			</li>
+			<li
+				id="li_87FD3F5A5B1D457B9B73779A79912D5B">
+				<xref
+					href="registering-interest-for-entries.xml#registering-interest-for-entries/section_BD50B80FCE9F429C8F6A9FEA818D5A91"
+					type="section"
+					format="dita"
+					scope="local"><?xm-replace_text Registering Interest Using Regular Expressions?></xref>
+			</li>
+			<li
+				id="li_745270ABE72A4D9B87729B2B27ADD5C7">
+				<xref
+					href="registering-interest-for-entries.xml#registering-interest-for-entries/section_2D71A423B185493489129AAC30DC6733"
+					type="section"
+					format="dita"
+					scope="local"><?xm-replace_text Register Interest Scenario?></xref>
+			</li>
+		</ul>
+		<section
+			id="section_C9A3D7F193B24ACD83B2D67813E596A0">
+			<title>Client API for Registering Interest</title>
+			<p>You register client interest through the C++ or NET API. The C++ API provides the
+					<codeph>registerKeys</codeph>, <codeph>registerAllKeys</codeph>, and
+					<codeph>registerRegex</codeph> methods, with corresponding unregistration
+				accomplished using the <codeph>unregisterKeys</codeph>,
+					<codeph>unregisterAllKeys</codeph>, and <codeph>unregisterRegex</codeph>
+				methods. The .NET API provides the <codeph>RegisterKeys</codeph>,
+					<codeph>RegisterAllKeys</codeph>, and <codeph>RegisterRegex</codeph> methods,
+				with corresponding unregistration accomplished using the
+					<codeph>UnregisterKeys</codeph>, <codeph>UnregisterAllKeys</codeph>, and
+					<codeph>UnregisterRegex</codeph> methods. </p>
+			<p>The <codeph>registerKeys</codeph>, <codeph>registerRegex</codeph> and
+					<codeph>registerAllKeys</codeph> methods have the option to populate the cache
+				with the registration results from the server. The <codeph>registerRegex</codeph>
+				and <codeph>registerAllKeys</codeph> methods can also optionally return the current
+				list of keys registered on the server. </p>
+		</section>
+		<section
+			id="section_C1A3F89EE73448D7AFF2076F41848F55">
+			<title>Setting Up Client Notification</title>
+			<p>In addition to the programmatic function calls, to register interest for a server
+				region and receive updated entries you need to configure the region with the
+					<codeph>PROXY</codeph> or <codeph>CACHING_PROXY RegionShortcut</codeph> setting.
+					The
+				region's pool should have <codeph>subscription-enabled=true</codeph> set either in
+				the client XML or programmatically via a
+					<codeph>CacheFactory::setSubscriptionEnabled(true)</codeph> API call. Otherwise,
+				when you register interest, you will get an
+					<codeph>UnsupportedOperationException</codeph>. 
+
+			</p>
+			<codeblock>&lt;region name = "listenerWriterLoader" refid="CACHING_PROXY"&gt;
+   ... </codeblock>
+			<p>Both native clients and Java clients that have subscriptions enabled track and drop
+				(ignore) any duplicate notifications received. To reduce resource usage, a client
+				expires tracked sources for which new notifications have not been received for a
+				configurable amount of time. </p>
+			<p>
+				<b>Notification Sequence</b>
+			</p>
+			<p>Notifications invoke <codeph>CacheListeners</codeph> of cacheless clients in all
+				cases for keys that have been registered on the server. Similarly, invalidates
+				received from the server invoke <codeph>CacheListeners</codeph> of cacheless
+				clients. </p>
+			<p>If you register to receive notifications, listener callbacks are invoked irrespective
+				of whether the key is in the client cache when a <codeph>destroy</codeph> or
+					<codeph>invalidate</codeph> event is received. </p>
+		</section>
+		<section
+			id="section_8772147940754C2D9688C789EB2F2AA6">
+			<title>Registering Interest for Specific Keys</title>
+			<p>You register and unregister interest for specific keys through the
+					<codeph>registerKeys</codeph> and <codeph>unregisterKeys</codeph> functions. You
+				register interest in a key or set of keys by specifying the key name using the
+				programmatic syntax shown in the following example:</p>
+				<codeblock>keys0.push_back(keyPtr1);
+keys1.push_back(keyPtr3);
+regPtr0-&gt;registerKeys(keys0);
+regPtr1-&gt;registerKeys(keys1); </codeblock>
+			<p>The programmatic code snippet in the next example shows how to unregister interest in
+				specific keys:</p>
+				<codeblock>regPtr0-&gt;unregisterKeys(keys0);
+regPtr1-&gt;unregisterKeys(keys1);</codeblock>
+		</section>
+		<section
+			id="section_EA4525CCDC474DD495410E948EAF566C">
+			<title>Registering Interest for All Keys</title>
+			<p>If the client registers interest in all keys, the server provides notifications for
+				all updates to all keys in the region. The next example shows how to register
+				interest in all keys:</p>
+				<codeblock>regPtr0-&gt;registerAllKeys();
+regPtr1-&gt;registerAllKeys();</codeblock>
+			<p>The following example shows a code sample for unregistering interest in all keys.</p>
+				<codeblock>regPtr0-&gt;unregisterAllKeys();
+regPtr1-&gt;unregisterAllKeys();</codeblock>
+		</section>
+		<section
+			id="section_BD50B80FCE9F429C8F6A9FEA818D5A91">
+			<title>Registering Interest Using Regular Expressions</title>
+			<p>The <codeph>registerRegex</codeph> function registers interest in a regular
+				expression pattern. The server automatically sends the client changes for entries
+				whose keys match the specified pattern. </p>
+			<p>
+				<i>Keys must be strings in order to register interest using regular expressions.</i>
+			</p>
+			<p>The following example shows interest registration for all keys whose first four
+				characters are <codeph>Key-</codeph>, followed by any string of characters. The
+				characters <codeph>.*</codeph> represent a wildcard that matches any string.</p>
+				<codeblock>regPtr1-&gt;registerRegex("Key-.*");</codeblock>
+			<p>To unregister interest using regular expressions, you use the
+					<codeph>unregisterRegex</codeph> function. The next example shows how to
+				unregister interest in all keys whose first four characters are
+					<codeph>Key-</codeph>, followed by any string (represented by the
+				<codeph>.*</codeph> wildcard).</p>
+				<codeblock>regPtr1-&gt;unregisterRegex("Key-.*");</codeblock>
+		</section>
+		<section
+			id="section_2D71A423B185493489129AAC30DC6733">
+			<title>Register Interest Scenario</title>
+			<p>In this register interest scenario, a cache listener is used with a cacheless region that has
+					<codeph>subscription-enabled</codeph> set to <codeph>true</codeph>. The client
+				region is configured with caching disabled; client notification is enabled; and a
+				cache listener is established. The client has not registered interest in any keys. </p>
+			
+
+			<p>When a value changes in another client, it sends the event to the server. The server
+				will not send the event to the cacheless client, even though
+					<codeph>client-notification</codeph> is set to <codeph>true</codeph>. </p>
+			<p>To activate the cache listener so the cacheless region receives updates, the client
+				should explicitly register interest in some or all keys by using one of the API
+				calls for registering interest. This way, the client receives all events for the
+				keys to which it has registered interest. This applies to Java-based clients as well
+				as native clients.</p>
+		</section>
+	</conbody>
+</concept>

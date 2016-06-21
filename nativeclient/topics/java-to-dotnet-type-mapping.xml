@@ -1,0 +1,328 @@
+<?xml version="1.0"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<!-- Created with XMetaL (http://www.xmetal.com) -->
+<concept id="concept_24D0AAC71FF1483AB47A7772DA018966"> 
+  <title>Java to .NET Type Mapping Table</title> 
+  <shortdesc>The following table provides a mapping between Java and .NET
+	 types.
+  </shortdesc> 
+  <conbody>
+	 <table id="table_F85EC7AA1E1140E9888B753E812E65E4">
+	 <title>Java types and.NET types</title>
+	 <tgroup cols="2"><colspec colnum="1" colname="col1" colwidth="*"/><colspec
+		colnum="2" colname="col2" colwidth="*"/><thead>
+		  <row>
+			 <entry colname="col1">Java Type
+			 </entry>
+			 <entry colname="col2">.NET Type
+			 </entry>
+		  </row></thead>
+		<tbody>
+		  <row>
+			 <entry colname="col1">
+				<p>instances of 
+				  <codeph>PdxSerializable</codeph>
+				</p>
+			 </entry>
+			 <entry colname="col2">
+				<p>.NET class of same name
+				</p>
+			 </entry>
+		  </row>
+		  <row>
+			 <entry colname="col1">
+				<p>instances of 
+				  <codeph>PdxInstance</codeph>
+				</p>
+			 </entry>
+			 <entry colname="col2">
+				<p>.NET class of same name
+				</p>
+			 </entry>
+		  </row>
+		  <row>
+			 <entry colname="col1">
+				<p>instances serialized by a 
+				  <codeph>PdxSerializer</codeph>
+				</p>
+			 </entry>
+			 <entry colname="col2">
+				<p>.NET class of same name
+				</p>
+			 </entry>
+		  </row>
+		  <row>
+			 <entry colname="col1">
+				<p><codeph>java.lang.Byte
+				</codeph></p>
+			 </entry>
+			 <entry colname="col2">
+				<p><codeph>System.SByte
+				</codeph></p>
+			 </entry>
+		  </row>
+		  <row>
+			 <entry colname="col1">
+				<p><codeph>java.lang.Boolean
+				</codeph></p>
+			 </entry>
+			 <entry colname="col2">
+				<p><codeph>System.Boolean
+				</codeph></p>
+			 </entry>
+		  </row>
+		  <row>
+			 <entry colname="col1">
+				<p><codeph>java.lang.Character
+				</codeph></p>
+			 </entry>
+			 <entry colname="col2">
+				<p><codeph>System.Char
+				</codeph></p>
+			 </entry>
+		  </row>
+		  <row>
+			 <entry colname="col1">
+				<p><codeph>java.lang.Short
+				</codeph></p>
+			 </entry>
+			 <entry colname="col2">
+				<p><codeph>System.Int16
+				</codeph></p>
+			 </entry>
+		  </row>
+		  <row>
+			 <entry colname="col1">
+				<p><codeph>java.lang.Integer
+				</codeph></p>
+			 </entry>
+			 <entry colname="col2">
+				<p><codeph>System.Int32
+				</codeph></p>
+			 </entry>
+		  </row>
+		  <row>
+			 <entry colname="col1">
+				<p><codeph>java.lang.Long
+				</codeph></p>
+			 </entry>
+			 <entry colname="col2">
+				<p><codeph>System.Int64
+				</codeph></p>
+			 </entry>
+		  </row>
+		  <row>
+			 <entry colname="col1">
+				<p><codeph>java.lang.Float
+				</codeph></p>
+			 </entry>
+			 <entry colname="col2">
+				<p><codeph>System.Float
+				</codeph></p>
+			 </entry>
+		  </row>
+		  <row>
+			 <entry colname="col1">
+				<p><codeph>java.lang.Double
+				</codeph></p>
+			 </entry>
+			 <entry colname="col2">
+				<p><codeph>System.Double
+				</codeph></p>
+			 </entry>
+		  </row>
+		  <row>
+			 <entry colname="col1">
+				<p><codeph>java.lang.String
+				</codeph></p>
+			 </entry>
+			 <entry colname="col2">
+				<p><codeph>System.String
+				</codeph></p>
+			 </entry>
+		  </row>
+		  <row>
+			 <entry colname="col1">
+				<p><codeph>java.util.Date
+				</codeph></p>
+			 </entry>
+			 <entry colname="col2">
+				<p><codeph>System.DateTime
+				</codeph></p>
+			 </entry>
+		  </row>
+		  <row>
+			 <entry colname="col1">
+				<p><codeph>byte[]
+				</codeph></p>
+			 </entry>
+			 <entry colname="col2">
+				<p><codeph>System.Byte[]
+				</codeph></p>
+			 </entry>
+		  </row>
+		  <row>
+			 <entry colname="col1">
+				<p><codeph>boolean[]
+				</codeph></p>
+			 </entry>
+			 <entry colname="col2">
+				<p><codeph>System.Boolean[]
+				</codeph></p>
+			 </entry>
+		  </row>
+		  <row>
+			 <entry colname="col1">
+				<p><codeph>char[]
+				</codeph></p>
+			 </entry>
+			 <entry colname="col2">
+				<p><codeph>System.Char[]
+				</codeph></p>
+			 </entry>
+		  </row>
+		  <row>
+			 <entry colname="col1">
+				<p><codeph>short[]
+				</codeph></p>
+			 </entry>
+			 <entry colname="col2">
+				<p><codeph>System.Int16[]
+				</codeph></p>
+			 </entry>
+		  </row>
+		  <row>
+			 <entry colname="col1">
+				<p><codeph>int[]
+				</codeph></p>
+			 </entry>
+			 <entry colname="col2">
+				<p><codeph>System.Int32[]
+				</codeph></p>
+			 </entry>
+		  </row>
+		  <row>
+			 <entry colname="col1">
+				<p><codeph>long[]
+				</codeph></p>
+			 </entry>
+			 <entry colname="col2">
+				<p><codeph>System.Int64[]
+				</codeph></p>
+			 </entry>
+		  </row>
+		  <row>
+			 <entry colname="col1">
+				<p><codeph>float[]
+				</codeph></p>
+			 </entry>
+			 <entry colname="col2">
+				<p><codeph>System.Float[]
+				</codeph></p>
+			 </entry>
+		  </row>
+		  <row>
+			 <entry colname="col1">
+				<p><codeph>double[]
+				</codeph></p>
+			 </entry>
+			 <entry colname="col2">
+				<p><codeph>System.Double[]
+				</codeph></p>
+			 </entry>
+		  </row>
+		  <row>
+			 <entry colname="col1">
+				<p><codeph>String[]
+				</codeph></p>
+			 </entry>
+			 <entry colname="col2">
+				<p><codeph>System.String[]
+				</codeph></p>
+			 </entry>
+		  </row>
+		  <row>
+			 <entry colname="col1">
+				<p><codeph>byte[][]
+				</codeph></p>
+			 </entry>
+			 <entry colname="col2">
+				<p><codeph>System.Byte[][]
+				</codeph></p>
+			 </entry>
+		  </row>
+		  <row>
+			 <entry colname="col1">
+				<p><codeph>Object[]
+				</codeph></p>
+			 </entry>
+			 <entry colname="col2">
+				<p><codeph>system.Collections.Generic.List&lt;Object&gt;
+				</codeph></p>
+			 </entry>
+		  </row>
+		  <row>
+			 <entry colname="col1">
+				<p><codeph>java.util.HashMap
+				</codeph></p>
+			 </entry>
+			 <entry colname="col2">
+				<p><codeph>System.Collections.Generics.IDictionary&lt;Object, Object&gt;
+				</codeph></p>
+			 </entry>
+		  </row>
+		  <row>
+			 <entry colname="col1">
+				<p><codeph>java.util.Hashtable
+				</codeph></p>
+			 </entry>
+			 <entry colname="col2">
+				<p><codeph>System.Collections.Hashtable
+				</codeph></p>
+			 </entry>
+		  </row>
+		  <row>
+			 <entry colname="col1">
+				<p><codeph>java.util.ArrayList
+				</codeph></p>
+			 </entry>
+			 <entry colname="col2">
+				<p><codeph>System.Collections.Generic.IList&lt;Object&gt;
+				</codeph></p>
+			 </entry>
+		  </row>
+		  <row>
+			 <entry colname="col1">
+				<p><codeph>java.util.Vector
+				</codeph></p>
+			 </entry>
+			 <entry colname="col2">
+				<p><codeph>Collections.ArrayList
+				</codeph></p>
+			 </entry>
+		  </row>
+		  <row>
+			 <entry colname="col1">
+				<p><codeph>java.util.HashSet
+				</codeph></p>
+			 </entry>
+			 <entry colname="col2">
+				<p><codeph>CacheableHashSet
+				</codeph></p>
+			 </entry>
+		  </row>
+		  <row>
+			 <entry colname="col1">
+				<p><codeph>java.util.LinkedHashSet
+				</codeph></p>
+			 </entry>
+			 <entry colname="col2">
+				<p><codeph>CacheableLinkedHashSet
+				</codeph></p>
+			 </entry>
+		  </row>
+		</tbody>
+	 </tgroup>
+	 </table>
+  </conbody> 
+</concept>

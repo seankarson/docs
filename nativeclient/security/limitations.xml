@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept
+  id="security">
+  <title
+    id="title_9717E51087B346988389138843E158C4">Limitations</title>
+  <shortdesc>Currently the native client only supports the NULL cipher with mutual authentication
+    for SSL socket communications. </shortdesc>
+  <conbody
+    id="conbody_D74C4342289846619E028149A8920946">
+    <p>The keys and keystores need to be in the JKS (Java KeyStore) format for the <keyword
+        keyref="product_name"/> server and in the clear PEM format for the native client. </p>
+  </conbody>
+</concept>

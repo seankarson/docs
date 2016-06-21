@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE bookmap PUBLIC "-//OASIS//DTD DITA BookMap//EN" "bookmap.dtd">
+<!-- Created with XMetaL (http://www.xmetal.com) -->
+<bookmap
+	id="cache_system_properties">
+	<booktitle>
+		<mainbooktitle>Setting System and Cache Properties</mainbooktitle>
+	</booktitle>
+	<bookmeta>
+		<bookid>
+			<bookpartno><?xm-replace_text Book Part Number?></bookpartno>
+			<isbn><?xm-replace_text ISBN Number?>
+			</isbn>
+		</bookid>
+		<bookrights>
+			<copyrfirst>
+				<year><?xm-replace_text First Year?></year>
+			</copyrfirst>
+			<copyrlast>
+				<year><?xm-replace_text Last Year?></year>
+			</copyrlast>
+			<bookowner>
+				<person><?xm-replace_text Copyright owner?>
+				</person>
+			</bookowner>
+		</bookrights>
+	</bookmeta>
+	<part
+		format="dita"
+		href="chapter-overview.xml"
+		navtitle="Setting System Properties"
+		scope="local"
+		type="concept">
+		<topicref
+			format="dita"
+			href="config-overview.xml"
+			navtitle="Configuring the Native Client and Cache Server"
+			scope="local"
+			type="concept">
+			<topicref
+				format="dita"
+				href="native-client-config.xml"
+				navtitle="Native Client Configuration"
+				scope="local"
+				type="concept"/>
+			<topicref
+				format="dita"
+				href="cache-server-config.xml"
+				navtitle="Cache Server Configuration"
+				scope="local"
+				type="concept"/>
+			<topicref
+				format="dita"
+				href="attribute-def-priority.xml"
+				navtitle="Attribute Definition Priority"
+				scope="local"
+				type="concept"/>
+			<topicref
+				format="dita"
+				href="../gfcpp.properties/gfcpp.properties_search_path.xml"
+				navtitle="Search Path for Multiple gfcpp.properties Files"
+				scope="local"
+				type="concept"/>
+			<topicref
+				format="dita"
+				href="../gfcpp.properties/overriding_gfcpp.properties.xml"
+				navtitle="Overriding gfcpp.properties Settings"
+				scope="local"
+				type="concept"/>
+			<topicref
+				format="dita"
+				href="define-programmatically.xml"
+				navtitle="Defining Properties Programmatically"
+				scope="local"
+				type="concept"/>
+		</topicref>
+		<topicref
+			format="dita"
+			href="attributes-gfcpp.xml"
+			navtitle="Attributes in gfcpp.properties"
+			scope="local"
+			type="concept"/>
+		<topicref
+			format="dita"
+			href="../gfcpp.properties/chapter_overview.xml"
+			navtitle="gfcpp.properties Example File"
+			scope="local"
+			type="concept">
+			<topicref
+				format="dita"
+				href="../gfcpp.properties/default_sample_file.xml"
+				navtitle="Using the Default Sample File"
+				scope="local"
+				type="concept"/>
+		</topicref>
+	</part>
+</bookmap>

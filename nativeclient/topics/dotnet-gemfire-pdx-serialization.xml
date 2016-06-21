@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<!-- Created with XMetaL (http://www.xmetal.com) -->
+<concept id="concept_DD8B036622C8455C84433C5FD3F7AEB9"> 
+  <title>Serialize Using GemFire Pdx Serialization</title> 
+  <shortdesc>GemFire's Portable Data eXchange (PDX) is a cross-language data
+	 format that can help reduce the cost of distributing and serializing your
+	 objects. PDX stores data in named fields that you can access individually, to
+	 avoid the cost of deserializing the entire data object. PDX also allows you to
+	 mix versions of objects where you have added or removed fields.
+  </shortdesc> 
+  <conbody>
+	 <note>PDX does not work with C++ clients. If you have C++ clients that may
+		receive events for a region, you cannot use PDX serialization on the region's
+		entries.
+	 </note>
+	 <p>You have two options for GemFire PDX serialization. You can program your
+		domain objects using the 
+		<codeph>IPdxSerializable</codeph> interface or you can use GemFire’s
+		reflection-based autoserializer.
+	 </p>
+  </conbody> 
+</concept>

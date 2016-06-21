@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept
+	id="concept_9C1AD6DD34C84E73B36F1B4766765B15">
+	<title>Search Path for Multiple gfcpp.properties Files</title>
+	<shortdesc>The native client and cache server processes first look for their properties file in
+		the <codeph><i>productDir</i>/defaultSystem</codeph> directory, then in the working
+		directory. </shortdesc>
+	<conbody>
+		<p>Any properties set in the working directory override settings in the
+				<codeph>defaultSystem/gfcpp.properties</codeph> file. </p>
+		<p>If you are running multiple processes on one machine, you can configure the
+				<codeph>gfcpp.properties</codeph> file in the <codeph>defaultSystem</codeph>
+			directory as a shared file that all processes can find. If a few processes need a
+			slightly different configuration, you can put individual
+				<codeph>gfcpp.properties</codeph> files in their home directories to override
+			specific properties. </p>
+	</conbody>
+</concept>

@@ -1,0 +1,366 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "http://docs.oasis-open.org/dita/v1.1/OS/dtd/concept.dtd">
+<concept id="application-plugins">
+	<title>Specifying Application Plug-In Attributes</title>
+	<conbody>
+		<section id="section_E81DB00AE0784BA2819DB3683C257647">
+			<p>The plug-in attributes allow you to customize client region behavior for loading,
+				updating, deleting, and overflowing region data and for accessing data in server
+				partitioned regions. All client plug-ins are available through the C++ and .NET API. </p>
+			<p>Application plug-ins for cache regions in clients can be declared either
+				programmatically or in the <codeph>cache.xml</codeph> file. </p>
+				<ul id="ul_40056701DC004746972B5598BFD86BDC">
+					<li id="li_AE6EFF5254C84019A303AE12F5E019B0"><xref
+							href="application-plugins.xml#application-plugins/fig_630074710E134805A96B50AA5373866F"
+							type="fig" format="dita" scope="local"
+							><?xm-replace_text Where Application Plug-Ins Run?></xref>
+					</li>
+					<li id="li_AA78A85FF2C64B34982C296BAE2BC85D"><xref
+							href="application-plugins.xml#application-plugins/section_8FEB62EEC7A042E0A85E0FEDC9F71597"
+							type="section" format="dita" scope="local"
+							><?xm-replace_text Overview of Application Plug-ins?></xref>
+					</li>
+					<li id="li_B1DC73D57BBC4EA99395ED3BC67C7291"><xref
+							href="application-plugins.xml#application-plugins/section_FD3057C0416840BAB76850E115F48B5C"
+							type="section" format="dita" scope="local"
+							><?xm-replace_text CacheLoader?></xref>
+					</li>
+					<li id="li_BB472241CAAE499282EEF3112B03F2E6"><xref
+							href="application-plugins.xml#application-plugins/section_1754F575011742A59149FD280CEA0F16"
+							type="section" format="dita" scope="local"
+							><?xm-replace_text CacheWriter?></xref>
+					</li>
+					<li id="li_3D76CB00D038408BBE34DA872AB03571"><xref
+							href="application-plugins.xml#application-plugins/section_3F43B898CD254076B4DD777E9B4CC8F0"
+							type="section" format="dita" scope="local"
+							><?xm-replace_text CacheListener?></xref>
+					</li>
+					<li id="li_775DBADB5E794ED3BCED8ED9F4B4FE9C"><xref
+							href="application-plugins.xml#application-plugins/section_348E00A84F274D4B9DBA9ECFEB2F012E"
+							type="section" format="dita" scope="local"
+							><?xm-replace_text PartitionResolver?></xref>
+					</li>
+					<li id="li_B7C963118B694134BC9720132E592A45"><xref
+							href="application-plugins.xml#application-plugins/section_4EC30A57C37E4DDF83990A264D2C0284"
+							type="section" format="dita" scope="local"
+							><?xm-replace_text Using AttributesMutator to Modify a Plug-In?></xref>
+					</li>
+					<li id="li_4AF47F2AD5784694B471AB3C1D080DE1"><xref
+							href="application-plugins.xml#application-plugins/section_428DCC57B6344603AA19DCAFCE483A10"
+							type="section" format="dita" scope="local"
+							><?xm-replace_text Considerations for Implementing Callbacks?></xref>
+					</li>
+				</ul>
+			<fig id="fig_630074710E134805A96B50AA5373866F">
+				<title>Where Application Plug-Ins Run</title>
+				<image placement="break" href="../common/images/client-cache-plugins-run.gif"
+					id="image_23F82DD7DCD543239F3A75F112282C46">
+					<alt>Where Application Plug-Ins Run </alt>
+				</image>
+			</fig>
+		</section>
+		<section id="section_8FEB62EEC7A042E0A85E0FEDC9F71597">
+			<title>Overview of Application Plug-ins</title>
+			<p>
+				
+
+The API provides the framework for application plug-ins with
+				callback functions for the appropriate events. Your classes and functions can
+				customize these for your application's needs. When creating a region, specify these
+				as part of the region's attributes settings. For regions already in the cache, you
+				can specify new <codeph>CacheLoader</codeph>, <codeph>CacheWriter</codeph>, and
+					<codeph>CacheListener</codeph> using the region's
+					<codeph>AttributesMutator</codeph>. The <codeph>PartitionResolver</codeph> is
+				not mutable.</p>
+				<ul id="ul_1B4332AE13714ACAA072D95D6F57F9D6">
+					<li id="li_ABAE17AFF7204931BD2E0405DDC8F534"><codeph>CacheLoader</codeph>: A
+						data loader called when an entry get operation fails to find a value for a
+						given key. A cache loader is generally used to retrieve data from an outside
+						source such as a database, but it may perform any operation defined by the
+						user. Loaders are invoked as part of the distributed loading activities for
+						entry retrieval, described in <xref scope="local"
+							href="accessing-entries.xml#accessing-entries/section_AD6AFD842C144C128FA1C7F0B9283372"
+							type="section" format="dita">Entry Retrieval</xref>. </li>
+					<li id="li_202E9C52242B47238B2238D27EC0E708"><codeph>CacheWriter</codeph>: A
+						synchronous event listener that receives callbacks before region events
+						occur and has the ability to abort the operations. Writers are generally
+						used to keep a back-end data source synchronized with the cache. </li>
+					<li id="li_05742B5DDD804EF798C18C15C3047935"><codeph>CacheListener</codeph>: An
+						asynchronous event listener for region events in the local cache. </li>
+					<li id="li_575D29A2C97942919E12E1F6305A5B2B"><codeph>PartitionResolver</codeph>:
+						Used for single-hop access to partitioned region entries on the server side.
+						This resolver implementation must match that of the
+							<codeph>PartitionResolver</codeph> on the server side. </li>
+				</ul>
+			<p> The following XML declaration specifies a cache loader for a region when the region
+				is created.</p>
+				<codeblock>&lt;region-attributes&gt;
+    &lt;cache-loader library-name="appl-lib"
+        library-function-name ="createCacheLoader"&gt;
+    &lt;/cache-loader&gt;
+&lt;/region-attributes&gt;</codeblock>
+			<p>The rest of this section gives more detailed descriptions of these application
+				plug-ins, followed by special considerations for plug-ins in distributed regions and
+				some guidelines for writing callbacks. </p>
+		</section>
+		<section id="section_FD3057C0416840BAB76850E115F48B5C">
+			<title>CacheLoader</title>
+			<p>A cache loader is an application plug-in used to load data into the region. When an
+				entry is requested that is unavailable in the region, a cache loader may be called
+				upon to load it. Generally, you use a cache loader to retrieve the data from a
+				database or another source outside the distributed system, but it may perform any
+				operation defined by the user. </p>
+			<p>The <codeph>CacheLoader</codeph> interface provides one function,
+					<codeph>load</codeph>, for customizing region entry loading. A distributed
+				region may have cache loaders defined in any or all caches where the region is
+				defined. When loading an entry value, a locally defined cache loader is always used
+				before a remote loader. In distributed regions, loaders are available for remote
+				entry retrieval. </p>
+		</section>
+		<section id="section_1754F575011742A59149FD280CEA0F16">
+			<title>CacheWriter</title>
+			<p>A cache writer is an application plug-in that synchronously handles changes to a
+				region's contents. It is generally used to keep back-end data sources synchronized
+				with a cache region. A cache writer has callback functions to handle region
+				destruction and entry creation, update, and destruction. These functions are all
+				called before the modification has taken place 
+
+ and can abort the operation. </p>
+			<p>You can also use cache writers to store data that you want to make persistent. </p>
+		</section>
+		<section id="section_3F43B898CD254076B4DD777E9B4CC8F0">
+			<title>CacheListener</title>
+			<p>A cache listener is an application plug-in that asynchronously handles changes to a
+				region's contents. A cache listener has callback functions to handle region
+				destruction and invalidation, along with entry creation, update, invalidation, and
+				destruction. These functions are called asynchronously 
+after the modification has taken place. </p>
+			<p>This declarative XML example establishes a cache listener when a region is created: </p>
+			<codeblock>&lt;region name="region11"&gt;
+    &lt;region-attributes&gt;
+        &lt;cache-listener library-name="appl-lib"
+            library-function-name ="createCacheListener" /&gt;
+    &lt;/region-attributes&gt;
+&lt;/region&gt;</codeblock>
+			<p>Unlike cache loaders and cache writers, cache listeners only receive events for
+				entries to which the client has performed operations or registered interest. </p>
+			<p>When the listener is attached to a region with caching disabled, the old value is
+				always <codeph>NULL</codeph>. </p>
+				<note>
+					<p>Do not perform region operations inside the cache listener. Once you have
+					configured a cache listener, the event supplies the new entry values to the
+					application. Performing a get with a key from the <codeph>EntryEvent</codeph>
+					can result in distributed deadlock. For more about this, see the online API
+					documentation for <codeph>EntryEvent</codeph>.
+					</p>
+				</note>
+			<p>When a region disconnects from a cache listener, you can implement the
+					<codeph>afterRegionDisconnected</codeph> callback event. This callback event is
+				only be invoked when using the <codeph>pool</codeph> API and
+					<codeph>subscription</codeph> is enabled on the pool. For example: </p>
+			<codeblock>class DisconnectCacheListener : public CacheListener
+{
+    void afterRegionDisconnected( const RegionPtr&amp; region )
+    {
+        printf("After Region Disconnected event received");
+    }
+};</codeblock>
+		</section>
+		<section id="section_348E00A84F274D4B9DBA9ECFEB2F012E">
+			<title>PartitionResolver</title>
+			<p>This section pertains to data access in server regions that have custom partitioning.
+				Custom partitioning uses a Java <codeph>PartitionResolver</codeph> to colocate like
+				data in the same buckets. For the client, you can use a
+					<codeph>PartitionResolver</codeph> that matches the server's implementation to
+				access data in a single hop. With single-hop data access, the client pool maintains
+				information on where a partitioned region's data is hosted. When accessing a single
+				entry, the client directly contacts the server that hosts the key--in a single hop. </p>
+				<note>
+					<p>Single hop is used for the following operations: <codeph>put</codeph>,
+						<codeph>get</codeph>, <codeph>destroy</codeph>, <codeph>putAll</codeph>,
+						<codeph>getAll</codeph>, <codeph>removeAll</codeph> and
+						<codeph>onRegion</codeph> function execution.
+					</p>
+				</note>
+			<p>
+				<b>Implementing Single-Hop on a Partitioned Region</b>
+			</p>
+			<ol id="ol_D2F7474C2A264AA19765354BB6BD2308">
+				<li id="li_E2B42312CEA54B7B9A66268210AB66FF">Make sure the pool attribute,
+						<codeph>pr-single-hop-enabled</codeph>, is set to <codeph>true</codeph> or
+					not set. It is <codeph>true</codeph> by default. </li>
+				<li id="li_C7CA33ADC2174913891D5905EC31F2B5">If the server uses a custom
+						<codeph>PartitionResolver</codeph> install an implementation of
+						<codeph>PartitionResolver</codeph> in the client region that returns, entry
+					for entry, the same value as the server's Java
+						<codeph>PartitionResolver</codeph> implementation. The server uses the
+					resolver to colocate like data within a partitioned region. <p>If the server
+						does not use a custom resolver, the default resolvers in client and server
+						match, so single hop will work there by default. </p>
+				</li>
+			</ol>
+			<p>Disable single hop behavior for a region by setting its pool attribute
+					<codeph>pr-single-hop-enabled</codeph> to <codeph>false</codeph>. </p>
+			<p>See <xref href="../../reference/topics/client-cache.xml"/> for information on setting
+					<codeph>pr-single-hop-enabled</codeph>. </p>
+			<p>See <xref href="../../developing/partitioned_regions/chapter_overview.xml"/> for more
+				information, including colocating like data within a partitioned region and how to
+				get the best performance with PR single hop. </p>
+			<p>
+				<b>Implementing a PartitionResolver</b>
+			</p>
+			<p>See <xref
+					href="../../developing/partitioned_regions/overview_custom_partitioning_and_data_colocation.xml"
+				/> for information on custom-partitioning the server partitioned regions. </p>
+			<ol id="ol_9190261117C8472AB4921C497BB1C063">
+				<li id="li_274BA82925834490AE44039418C80D57">Implement
+						<codeph>PartitionResolver</codeph> in the same place that you did in the
+					server--custom class, key, or cache callback argument. </li>
+				<li id="li_CAAEE651575A42258F70E63AB5AEB82A">Program the resolver's functions the
+					same way you programmed them in the Java implementation. Your implementation
+					must match the server's. <p>Example of programming the
+							<codeph>PartitionResolver</codeph> in C++:</p>
+						<codeblock>class TradeKeyResolver : public PartitionResolver
+{
+private:
+    string m_tradeID;
+    int m_month;
+    int m_year;
+public:
+    TradeKeyResolver() { }
+    TradeKeyResolver(int month, int year) {
+        m_month = month;
+        m_year = year;
+    }
+
+    ~TradeKeyResolver() { }
+
+    static PartitionResolverPtr createTradeKeyResolver() {
+        PartitionResolverPtr tradeKeyResolver( new TradeKeyResolver());
+    return tradeKeyResolver;
+    }
+    const char* getName() {
+        return "TradeKey";
+    }
+    CacheableKeyPtr getRoutingObject(const EntryEvent&amp; opDetails) {
+        return CacheableKey::create(m_month + m_year);
+    }
+};</codeblock>
+					<p>Example of programming the <codeph>PartitionResolver</codeph> in C#:</p>
+						<codeblock>using System;
+using System.Threading;
+// Use the GemFire namespace
+using GemStone.GemFire.Cache;
+class TradeKeyResolver : IPartitionResolver
+{
+    private int m_month = 0;
+    private int m_year = 0;
+
+    public static TradeKeyResolver CreateTradeKeyResolver()
+    {
+        return new TradeKeyResolver();
+    }
+
+    public virtual ICacheableKey GetRoutingObject(EntryEvent entry)
+    {
+        return new CacheableInt32(m_month + m_year);
+    }
+
+    public virtual String GetName()
+    {
+        return "TradeKeyResolver";
+    }
+}</codeblock>
+				</li>
+				<li id="li_6287BDE015FF455EB2CBE3E27465F3E9">Install the resolver in the region. Use
+					one of these methods: <p>XML partition resolver declaration:</p>
+						<codeblock>&lt;region name="trades" refid="CACHING_PROXY"&gt;
+    &lt;region-attributes&gt;
+        &lt;partition-resolver library-name="appl-lib" library-function-name=
+        "createTradeKeyResolver"/&gt;
+    &lt;/region-attributes&gt;
+&lt;/region&gt;
+&lt;pool free-connection-timeout="12345" idle-timeout="5555"
+        load-conditioning-interval="23456" max-connections="7"
+        min-connections="3" name="test_pool_1" ping-interval="12345"
+        read-timeout="23456" retry-attempts="3" server-group="ServerGroup1"
+        socket-buffer-size="32768" statistic-interval="10123"
+        subscription-ack-interval="567" subscription-enabled="true"
+        subscription-message-tracking-timeout="900123"
+        subscription-redundancy="0" thread-local-connections="5"
+        pr-single-hop-enabled="true" &gt;
+    &lt;locator host="localhost" port="34756"/&gt;
+&lt;/pool&gt;</codeblock>
+					<p>Programmatic partition resolver installation:</p>
+						<codeblock>void setPartitionResolver()
+{
+    CachePtr cachePtr = CacheFactory::createCacheFactory()-&gt;create();
+    PartitionResolverPtr resolver( new TradeKeyResolver());
+    RegionFactoryPtr regionFactory =
+        cachePtr-&gt;createRegionFactory(PROXY)
+        -&gt;setClientNotificationEnabled(true)
+        -&gt;setPartitionResolver(resolver);
+    RegionPtr regionPtr = regionFactory-&gt;create( "Trades" );
+}</codeblock>
+				</li>
+			</ol>
+			<p>Your implementation of <codeph>PartitionResolver</codeph> must match that of the
+				server side. </p>
+		</section>
+		<section id="section_4EC30A57C37E4DDF83990A264D2C0284">
+			<title>Using AttributesMutator to Modify a Plug-In</title>
+			<p>A cache listener, cache loader or cache writer can be added to or removed from a
+				region after the region is created by retrieving and running the
+					<codeph>Region</codeph> object's <codeph>AttributesMutator</codeph>. Mutable
+				attributes define operations that are run from the client itself. </p>
+			<p>This example shows how to use <codeph>AttributesMutator</codeph> to dynamically add a
+				cache listener to an existing region.</p>
+				<codeblock>void setListener(RegionPtr&amp; region)
+{
+    CacheListenerPtr regionListener = new TestCacheListener();
+    AttributesMutatorPtr regionAttributesMutator =
+        region-&gt;getAttributesMutator();
+ 
+    // Change cache listener for region.
+    regionAttributesMutator-&gt;setCacheListener(regionListener);
+}</codeblock>
+			<p>The plug-ins can also be implemented using a dynamically linked library. The class is
+				not available to the application code in this case, so a <codeph>factory</codeph>
+				method is required by the <codeph>set</codeph> function along with the name of the
+				library. </p>
+			<p>This example shows how to use <codeph>AttributesMutator</codeph> along with the
+					<codeph>setCacheListener</codeph> function to obtain a new cache listener object
+				using the <codeph>factory</codeph> function provided by the library. Next, the
+				listener is set for the region.</p>
+				<codeblock>void setListenerUsingFactory(RegionPtr&amp; region)
+{
+    AttributesMutatorPtr regionAttributesMutator =
+    region-&gt;getAttributesMutator();
+
+    // Change cache listener for region.
+    regionAttributesMutator-&gt;setCacheListener("Library", "createTestCacheListener");
+}</codeblock>
+			<p>To use <codeph>AttributesMutator</codeph> to remove a plug-in from a region, set the
+				plug-in's value to <codeph>NULLPTR</codeph>, as shown in the following example.</p>
+				<codeblock>void removeListener(RegionPtr&amp; region)
+{
+    CacheListenerPtr nullListener = NULLPTR;
+    AttributesMutatorPtr regionAttributesMutator =
+        region-&gt;getAttributesMutator();
+
+    // Change cache listener for region to NULLPTR
+    regionAttributesMutator-&gt;setCacheListener(nullListener);
+}</codeblock>
+		</section>
+		<section id="section_428DCC57B6344603AA19DCAFCE483A10">
+			<title>Considerations for Implementing Callbacks</title>
+			<p>Keep your callback implementations lightweight and prevent situations that might
+				cause them to hang. For example, do not perform distribution operations or
+				disconnects inside events. </p>
+			<p>Your code should handle any exceptions that it generates. If not, <keyword
+					keyref="product_name"/> handles them as well as possible. Because C++ has no
+				standard for exceptions, in many cases <keyword keyref="product_name"/> can only
+				print an <codeph>unknown error</codeph> message. </p>
+		</section>
+	</conbody>
+</concept>

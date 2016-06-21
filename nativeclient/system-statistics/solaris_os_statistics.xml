@@ -1,0 +1,88 @@
+<?xml version="1.0"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<!-- Created with XMetaL (http://www.xmetal.com) -->
+<concept
+	id="concept_E35D55175A894E95978D0EF75DBBF086">
+	<title>Solaris Process Statistics</title>
+	<shortdesc>Use these methods to get information about a Solaris operating system process that is
+		using a GemFire system </shortdesc>
+	<conbody>
+		<table
+			id="table_AF6C776C860F41148CD27DEE669F4F25">
+			<tgroup
+				cols="2">
+				<colspec
+					colnum="1"
+					colname="col1"
+					colwidth="*"/>
+				<colspec
+					colnum="2"
+					colname="col2"
+					colwidth="*"/>
+				<tbody>
+					<row>
+						<entry
+							colname="col1">
+							<codeph>imageSize</codeph>
+						</entry>
+						<entry
+							colname="col2">Size of the process image in megabytes. </entry>
+					</row>
+					<row>
+						<entry
+							colname="col1">
+							<codeph>rssSize</codeph>
+						</entry>
+						<entry
+							colname="col2">Size of the process resident set in megabytes. </entry>
+					</row>
+					<row>
+						<entry
+							colname="col1">
+							<codeph>userTime</codeph>
+						</entry>
+						<entry
+							colname="col2">Operating system statistic for the process CPU usage in
+							user time. </entry>
+					</row>
+					<row>
+						<entry
+							colname="col1">
+							<codeph>systemTime</codeph>
+						</entry>
+						<entry
+							colname="col2">Operating system statistic for the process CPU usage in
+							system time. </entry>
+					</row>
+					<row>
+						<entry
+							colname="col1">
+							<codeph>processCpuUsage</codeph>
+						</entry>
+						<entry
+							colname="col2">Operating system statistic for the CPU usage of this
+							process. </entry>
+					</row>
+					<row>
+						<entry
+							colname="col1">
+							<codeph>hostCpuUsage</codeph>
+						</entry>
+						<entry
+							colname="col2">Operating system statistic for the host CPU usage.
+						</entry>
+					</row>
+					<row>
+						<entry
+							colname="col1">
+							<codeph>threads</codeph>
+						</entry>
+						<entry
+							colname="col2">Number of threads currently active in this process.
+						</entry>
+					</row>
+				</tbody>
+			</tgroup>
+		</table>
+	</conbody>
+</concept>

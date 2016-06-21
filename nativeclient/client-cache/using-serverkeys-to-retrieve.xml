@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "http://docs.oasis-open.org/dita/v1.1/OS/dtd/concept.dtd">
+<concept
+	id="using-serverkeys-to-retrieve">
+	<title>Using serverKeys to Retrieve a Set of Region Keys</title>
+	<conbody>
+		<section
+			id="section_8D2276A2D70E4F80998D26BB74F9681C">
+			<p>You can retrieve the set of keys defined in the cache server
+				process that are associated with the client region by using the
+					<codeph>Region::serverKeys</codeph> API function. If the
+				server region is defined as a replicate, the keys returned
+				consist of the entire set of keys for the region. </p>
+			<p>The following example shows how the client can programmatically
+				call <codeph>serverKeys</codeph>. </p>
+			<codeblock>VectorOfCacheableKey keysVec;
+region-&gt;serverKeys( keysVec );
+size_t vlen = keysVec.size();
+bool foundKey1 = false;
+bool foundKey2 = false;
+for( size_t i = 0; i &lt; vlen; i++ ) {
+    CacheableStringPtr strPtr = dynCast&lt;CacheableStringPtr&gt; keysVec.at( i );
+    std::string veckey = strPtr-&gt;asChar();
+    if ( veckey == "skey1" ) {
+        printf( "found skey1" );
+        foundKey1 = true;
+    }
+    if ( veckey == "skey2" ) {
+        printf( "found skey2" );
+        foundKey2 = true;
+    }
+}</codeblock>
+			<p>An <codeph>UnsupportedOperationException</codeph> occurs if the
+				client region is not a native client region. A
+					<codeph>MessageException</codeph> occurs if the message
+				received from the server could not be handled, which can occur
+				if an unregistered <codeph>typeId</codeph> is received in the
+				reply. </p>
+		</section>
+	</conbody>
+</concept>

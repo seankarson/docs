@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<!-- Created with XMetaL (http://www.xmetal.com) -->
+<concept id="concept_768082CDB5E549C0BBFCAF0DC47775A1"> 
+  <title> Initial Operation</title> 
+  <shortdesc>The initial startup of a durable client is similar to the startup
+	 of any other client, except that it specifically calls the 
+	 <codeph>Cache.readyForEvents</codeph> method when all regions and listeners
+	 on the client are ready to process messages from the server. 
+  </shortdesc> 
+  <conbody>
+	 <p>See 
+		<xref href="7-Preserving_Data.htm#82882">Sending the Cache Ready Message
+		  to the Server</xref>.
+	 </p>
+  </conbody> 
+</concept>

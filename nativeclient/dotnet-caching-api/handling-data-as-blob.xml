@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<!-- Created with XMetaL (http://www.xmetal.com) -->
+<concept id="concept_C4788A1FB6B44C42B00897EFB89B520D"> 
+  <title>Handling Data as a Blob or an Object Graph</title> 
+  <conbody> 
+	 <p>If you have data that is best handled as a blob, such as structs that do
+		not contain pointers, use a 
+		<codeph>Byte[]</codeph> or, if you need something more complex than 
+		<codeph>Byte[]</codeph>, implement a custom type using either 
+		<codeph>IPdxSerializable</codeph> or 
+		<codeph>IGFSerializable.</codeph> 
+	 </p>
+	 <p>If you have a graph of objects in which each node can be serializable,
+		the parent node calls 
+		<codeph>DataOutput.WriteObject</codeph> to delegate the serialization
+		responsibility to its child nodes. Similarly, your application calls 
+		<codeph>DataInput.ReadObject</codeph> to deserialize the object graph.
+	 </p>
+	 <p>For more information, see the online API documentation for 
+		<codeph>DataOutput</codeph> and 
+		<codeph>DataInput.</codeph> 
+	 </p> 
+  </conbody> 
+</concept> 

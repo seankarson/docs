@@ -1,0 +1,190 @@
+<?xml version="1.0"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept
+	id="concept_AB12290E89CA4724AC9F51EFF7B8B8EA">
+	<title>About the Native Client C++ API</title>
+	<shortdesc>The native client C++ API allows C++ and .NET developers to programmatically create,
+		populate, and manage a <keyword keyref="product_name"/> distributed system. The C++ library
+		is thread-safe, except where specified otherwise in the online API documentation. </shortdesc>
+	<conbody>
+		<p>This chapter gives a general overview of the classes in the <codeph>gemfire</codeph>,
+				<codeph>gemfire_statistics</codeph>, and <codeph>gemfire_admin</codeph> namespaces.
+			For complete and current information on the classes listed here, see the online C++ API
+			documentation. </p>
+		<section
+			id="section_14B45E09CA014951AD38D0E051DF8727">
+			<title>Cache Classes</title>
+			<p>The native client C++ API has the following cache classes: </p>
+			<ul
+				id="ul_1B2EB8130D1244278E560793FDC5467A">
+				<li
+					id="li_631B8126B9454085A81F282432697768"><b>CacheFactory</b>. Use this class to
+					create and configure a <codeph>Cache</codeph> instance. If
+						<codeph>cache.xml</codeph> is specified, the cache is created based on
+					the declarations loaded from that file. </li>
+				<li
+					id="li_AAF697D4A886451DAE89254DCA6FD7E5"><b>Cache</b>. Entry point to the client
+					caching API. The cache is created by calling the <codeph>create</codeph>
+					function of the factory class, <codeph>CacheFactory</codeph>. Regions are
+					configured and obtained using the <codeph>Cache::createRegionFactory()</codeph>
+					API. </li>
+			</ul>
+		</section>
+		<section
+			id="section_9F27929D85CC4EBFB29925974776C985">
+			<title>Region Classes</title>
+			<p>The native client C++ API has the following region classes: </p>
+			<ul
+				id="ul_76F3695C69DC43A69E4E45832D0F443E">
+				<li
+					id="li_D3198F2DEF94446E938389FB19AD0DC0"><b>Region</b>. Provides functions for
+					managing regions and cached data. Use these functions to perform the following
+					actions: <ul
+						id="ul_D384B17440C4486EBA8AD6995C15027D">
+						<li
+							id="li_606732F1DD6647A49B9A54C3E924E2E4">Retrieve information about the
+							region, such as its parent region and region attribute objects. </li>
+						<li
+							id="li_051172A7DE8A4959A3A06CF91D969C77">Invalidate or destroy the
+							region. </li>
+						<li
+							id="li_2C4980E34D44407E8B4114A6FFBAAF6B">Create, update, invalidate and
+							destroy region entries. </li>
+						<li
+							id="li_A4D8499D1FBA4ED3A4A249F86FDBE45D">Retrieve region entry keys,
+							entry values, and RegionEntry objects, either individually or as entire
+							sets. </li>
+						<li
+							id="li_B6AB036A84F54A7E88DAF078B6974060">Retrieve the statistics object
+							associated with the region. </li>
+						<li
+							id="li_F73446AEA4564635BCB679F4CF3A1B30">Set and get user-defined
+							attributes. </li>
+					</ul>
+				</li>
+				<li
+					id="li_E67E79199E4048F09EBB073B85D05F64"><b>RegionEntry</b>. Contains the key
+					and value for the entry, and provides all non-distributed entry operations. This
+					object's operations are not distributed and do not affect statistics. </li>
+			</ul>
+		</section>
+		<section
+			id="section_CEC4E57E76E84D099D0F55F49F3B64DA">
+			<title>Region Attribute Classes</title>
+			<p>The native client C++ API has the following region attribute classes: </p>
+			<ul
+				id="ul_913D25873BE748A697BF527084886413">
+				<li
+					id="li_1CA0BA9B0FD04830BD2B8AAF8D181260"><b>RegionAttributes</b>. Holds all
+					attribute values for a region and provides functions for retrieving all
+					attribute settings. This class can be modified by the
+						<codeph>AttributesMutator</codeph> class after region creation. </li>
+				<li
+					id="li_B5971D33D217499C9CD9EA7DAE2309AB"><b>AttributesMutator </b>. Allows
+					modification of an existing region’s attributes for application plug-ins and
+					expiration actions. Each region has an <codeph>AttributesMutator</codeph>
+					instance. </li>
+			</ul>
+		</section>
+		<section
+			id="section_658D04298E13459382D48544AF36A2FA">
+			<title>Application Plug-In Classes</title>
+			<p>The native client C++ API has the following application plug-in classes:  </p>
+			<ul
+				id="ul_700944D7977E438D9BAC1EFB30DAA8DD">
+				<li
+					id="li_AB2362F4790340D19817F8B100858527"><b>CacheLoader</b>. Loads data into a
+					region on a cache miss. </li>
+				<li
+					id="li_BD16B1C66A684A69A27D1344CC461D6B"><b>CacheWriter</b>. Synchronously
+					handles region and entry events before the events occur. Entry events are
+						<codeph>create</codeph>, <codeph>update</codeph>,
+						<codeph>invalidate</codeph>, and <codeph>destroy</codeph>. Region events are
+					invalidate and destroy. This class has the ability to abort events. </li>
+				<li
+					id="li_E148638AE0904C88B4F4B74F4D7EE2F3"><b>CacheListener</b>. Handles region
+					and entry events after they occur. Entry events are <codeph>create</codeph>,
+						<codeph>update</codeph>, <codeph>invalidate</codeph>, and
+						<codeph>destroy</codeph>. Region events are invalidate and destroy. </li>
+			</ul>
+		</section>
+		<section
+			id="section_B3479F5739B048C0BD3EDA89BE0266E0">
+			<title>Event Handling Classes</title>
+			<p>The native client C++ API has the following event handling classes:  </p>
+			<ul
+				id="ul_F709EF3AE65540B3ABC4FEE870A4F2F6">
+				<li
+					id="li_E550D201CF614333810D71C3D0747FFB"><b>RegionEvent</b>. Provides
+					information about the event, such as what region the event originated in,
+					whether the event originated in a cache remote to the event handler, and whether
+					the event resulted from a distributed operation. </li>
+				<li
+					id="li_E782E87D6BB147B884FC3DB29025CF3B"><b>EntryEvent</b>. Provides all
+					available information for the <codeph>RegionEvent</codeph>, and provides
+					entry-specific information such as the old and new entry values and whether the
+					event resulted from a <codeph>load</codeph> operation. </li>
+			</ul>
+		</section>
+		<section
+			id="section_42764C6327944514AE4A26684D7EBCB0">
+			<title>Statistics API</title>
+			<p>The <codeph>StatisticsType</codeph> API represents a blueprint for the same type of
+					<codeph>Statistics</codeph>. The <codeph>StatisticsType</codeph> API is a
+				collection of <codeph>StatisticDescriptor</codeph>. Internally, each
+					<codeph>StatisticDescriptor</codeph> describes data of each individual
+				statistic. <codeph>StatisticsFactory</codeph> provides functionality for creating
+					<codeph>StatisticDescriptor</codeph>, <codeph>StatisticsType</codeph>, and
+					<codeph>Statistics</codeph>.  </p>
+			<ul
+				id="ul_184C1FE3D0C1483F96D242E6F77486EE">
+				<li
+					id="li_2604D94894B64DE39315CA304D97BAFE"><b>CacheStatistics</b> --This class
+					defines common statistics functions. <codeph>Region</codeph> and
+						<codeph>RegionEntry</codeph> both have functions that return a
+						<codeph>CacheStatistics</codeph> object for accessing and resetting their
+					statistics counts. </li>
+				<li
+					id="li_53C65E4F03974BD99E491B7CACD6762F"><b>StatisticDescriptor</b>. An instance
+					of this class describes a statistic whose value is updated by an application and
+					may be archived by the native client. Each statistic has a type of either
+						<codeph>int</codeph>, <codeph>long</codeph>, or <codeph>double</codeph>, and
+					either a gauge or a counter. The value of a gauge can increase and decrease, and
+					the value of a counter strictly increases. Create an instance of
+						<codeph>StatisticDescriptor</codeph> by calling one of these
+						<codeph>StatisticsFactory</codeph> functions:
+						<codeph>createDoubleCounter</codeph>, <codeph>createDoubleGauge</codeph>,
+						<codeph>createIntCounter</codeph>, <codeph>createIntGauge ]</codeph>,
+						<codeph>createLongCounter</codeph>, <codeph>createLongGauge</codeph>. </li>
+				<li
+					id="li_1025F684FB7546E2B868EBF876F364E0"><b>StatisticsType</b>. An instance of
+					this class describes a logical collection of
+						<codeph>StatisticDescriptors</codeph>. These descriptions are used to create
+					an instance of <codeph>Statistics</codeph>. Create an instance 
+
+
+of <codeph>StatisticsType</codeph> by calling
+						<codeph>StatisticsFactory::createType</codeph>. </li>
+				<li
+					id="li_591C413B04344F27A780958F8088A019"><b>Statistics</b>. An instance of this
+					class represents concrete <codeph>Statistics</codeph> of the associated
+						<codeph>StatisticsType</codeph>. This class stores data related to all
+					individual statistic objects. Create an instance by calling
+						<codeph>StatisticsFactory::createStatistics</codeph>. This class has
+					functions to get, set, and increment statistic values. </li>
+				<li
+					id="li_07B2232CC83F41AE8806B2E4AFBA6671"><b>StatisticsFactory</b>. This class
+					provides functions for creating instances of
+						<codeph>StatisticDescriptor</codeph>, <codeph>StatisticsType</codeph>, and
+						<codeph>Statistics objects</codeph>. This is a singleton class, and you
+					acquire its instance by using
+						<codeph>StatisticsFactory::getExistingInstance</codeph>. </li>
+			</ul>
+			<p>To create new statistics, see <xref
+					href="creating-new-statistics.xml#concept_664156CBD79C44C4B200DA2D64180A65"
+					type="concept"
+					format="dita"
+					scope="local">Creating New Statistics</xref>. </p>
+		</section>
+	</conbody>
+</concept>

@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept id="security"> 
+  <title id="title_9717E51087B346988389138843E158C4">Client Authentication of
+	 Server</title> 
+  <shortdesc>With Diffie-Hellman enabled, you can have your client authenticate
+	 its servers.
+  </shortdesc> 
+  <conbody id="conbody_D74C4342289846619E028149A8920946"> 
+	 <ol id="ol_C07B2C97ED4942198D2C69CC8619B0AA"> 
+		<li id="li_F6109E270B8D4AA4B0D51DD852FF3FBC">
+		  <draft-comment>BT Do you do any of the steps in earlier authentication
+			 sections first? If so indicate that.
+		  </draft-comment>
+		  <p id="p_215060DA14754312AFE5B75CE8A1E74B">Generate a 
+			 <codeph>.pem</codeph> file for each pkcs12 keystore: 
+		  </p>
+		  <ol id="ol_AF4A92E46DF14113B8A86867F49C0288"> 
+			 <li id="li_55F740CCE11340CAB7B242040EF513C8">Enter this command from
+				a pkcs12 file or a pkcs keystore: 
+				<fig id="fig_3CAFDE3CB29348A19AF3BE3591AFA2F7"> 
+				  <codeblock>user@host: ~&gt; openssl pkcs12 -nokeys -in &lt;keystore/pkcs12 file&gt; -out &lt;outputfilename.pem &gt;</codeblock> 
+				</fig>
+			 </li> 
+			 <li id="li_20D64914C0794F3FA6FE29AC5B1E82C7">Concatenate the
+				generated .pem files into a single .pem file. You will use its name in the next
+				step.
+			 </li> 
+		  </ol>
+		</li> 
+		<li id="li_42CD155D5353451F862CD23907408B4B">
+		  <p id="p_557EE2BB3D484A8C955C4C3BD6B1D71E"> In the 
+			 <codeph>gfcpp.properties</codeph> file:
+		  </p>
+		  <ol id="ol_E88B8682493C4643B919CCDC5C420FA5"> 
+			 <li id="li_280C26B9A06F49BCB5E22C67278AD3E0">Set 
+				<codeph>security-client-kspath</codeph> to the name of the 
+				<codeph>.pem</codeph> file password for the public key file store
+				on the client.
+			 </li> 
+			 <li id="li_940B32BF038E49D9BD59E6631DD3A6DC">Set 
+				<codeph>security-client-kspasswd</codeph> to the password for the
+				public key file store on the client.
+			 </li> 
+		  </ol>
+		</li> 
+	 </ol> 
+  </conbody>
+</concept>

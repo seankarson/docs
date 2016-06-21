@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "http://docs.oasis-open.org/dita/v1.1/OS/dtd/concept.dtd">
+<concept
+	id="native-client-cache">
+	<title>About the Native Client Cache</title>
+	<shortdesc> The cache consists of data regions, each of which can contain any number of entries.
+		Region entries hold the cached data. Every entry has a key that uniquely identifies it
+		within the region and a value where the data object is stored. </shortdesc>
+	<conbody>
+		<p>The <codeph>Cache</codeph> instance allows your process to set general parameters for
+			communication between a cache and other caches in the distributed system, and to create
+			and access any region in the cache.  </p>
+		<p>Regions are created from the <codeph>Cache</codeph> instance. Regions provide the entry
+			point to the interfaces for instances of <codeph>Region</codeph> and
+				<codeph>RegionEntry</codeph>. </p>
+		<section
+			id="section_A0F2E9EF30324736BD0D5F92FE3D1BD7">
+			<title>Main Features and Functionality</title>
+			<p>The native client cache provides the following features and functionality. </p>
+				<ul
+					id="ul_FA842BB96AC74EE9A7570211E19B3321">
+					<li
+						id="li_9CDBA311954343A9A979E58839D93D6E">Local and distributed data caching
+						for fast access. </li>
+					<li
+						id="li_3A3CF959641042A79E0B21EACD867155">Data distribution between
+						applications on the same or different platforms. </li>
+					<li
+						id="li_B6A983F14ABD491695E00B8F1318071D">Local and remote data loading
+						through application plug-ins. </li>
+					<li
+						id="li_6C148629184D4F2898503783952B37C6">Application plug-ins for
+						synchronous and asynchronous handling of data events. </li>
+					<li
+						id="li_36EA4A1775A0429097888845C067998B">Automated and application-specific
+						data eviction for freeing up space in the cache, including optional overflow
+						to disk. </li>
+					<li
+						id="li_05D4300CAAE44AAE8F52A187C3BCCD28">System message logging, and
+						statistics gathering and archiving. </li>
+				</ul>
+			<p>For more information specific to your client programming language, see the online API
+				documentation and <xref
+					scope="local"
+					href="../cpp-caching-api/cpp-caching-api.xml#concept_CEC658A999414AC3A494578C214BF64E"
+					type="concept"
+					format="dita">Pivotal GemFire Native Client C++ API</xref> and <xref
+					scope="local"
+					href="../dotnet-caching-api/dotnet-caching-api.xml#concept_FC6776DCE6ED48B887A6137761104AA4"
+					type="concept"
+					format="dita">Pivotal GemFire Native Client .NET Caching API</xref>. </p>
+		</section>
+	</conbody>
+</concept>

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "http://docs.oasis-open.org/dita/v1.1/OS/dtd/concept.dtd">
+<concept
+	id="attribute-def-priority">
+	<title>Attribute Definition Priority</title>
+	<shortdesc>You can specify attributes in different ways, which can cause conflicting
+		definitions. Applications can be configured programmatically, and that has priority over
+		other settings. </shortdesc>
+	<conbody>
+		<p> Check your application documentation to see whether this applies in your case. </p>
+		<ul
+			id="ul_8C326511074D4EE68D82771BC5F67394">
+			<li
+				id="li_2922067A53B84FAFBF40F5833379A227">Programmatic configuration </li>
+			<li
+				id="li_5A8A7C71144949E78CEFAEEA33EFAE36">Properties set at the command line </li>
+			<li
+				id="li_A77FAA92C1FF4A05B6F031968DF9C556"><codeph><varname>currentWorkingDirectory</varname>/gfcpp.properties</codeph>
+				file </li>
+			<li
+				id="li_8AB66E36D61449AE99A1AFA24E409E10"><codeph><varname>productDir</varname>/defaultSystem/gfcpp.properties</codeph>
+				file </li>
+			<li id="li_B63D73B2CA6D4788886F549C607F8E6C"><keyword keyref="product_name"/> defaults </li>
+		</ul>
+		<p>In case an attribute is defined in more than one place, the first source in this list is
+			used: </p>
+		<p>The <codeph>gfcpp.properties</codeph> files and programmatic configuration are optional.  If
+			they are not present, no warnings or errors occur. For details on programmatic
+			configuration through the <codeph>Properties</codeph> object, see <xref
+				scope="local"
+				href="define-programmatically.xml#define-programmatically"
+				type="concept"
+				format="dita">Defining Properties Programmatically</xref>. </p>
+		<p>For information on the GemFire cache server configuration, see the <i>User's Guide</i>. </p>
+	</conbody>
+</concept>

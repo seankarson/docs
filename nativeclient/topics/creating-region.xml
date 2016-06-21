@@ -1,0 +1,66 @@
+<?xml version="1.0"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<!-- Created with XMetaL (http://www.xmetal.com) -->
+<concept id="concept_BD7AEE69D43841D9BCC9ABD040E01C60"> 
+  <title>Creating a Region</title> 
+  <shortdesc>To create a region, first create a 
+	 <i>RegionFactory</i> using the 
+	 <i>RegionShortcut</i> that most closely fits your region configuration.
+	 From that, create your region, customizing the settings as region attributes as
+	 needed. 
+  </shortdesc> 
+  <conbody> 
+	 <p>Creating a region using the native client API only creates a proxy
+		client side region. A corresponding region with the same name and path should
+		also exist on the servers that have been configured for client connections and
+		upon which the client will perform its operations. 
+	 </p> 
+	 <example id="example_A7117698EFEF4716A5DE899342419946">
+		<title>Creating a CACHING_PROXY Region</title>
+		<p>This example creates a region using a CACHING_PROXY 
+		  <i>RegionShortcut</i> with no further modifications: 
+		  <codeblock>RegionFactoryPtr regionFactory = 
+cachePtr-&gt;createRegionFactory(CACHING_PROXY);
+regionPtr = regionFactory -&gt;create("exampleRegion");</codeblock> 
+		</p>
+	 </example>
+	 <example id="example_137D4B0920CD45B488C1E6DB01906F0B">
+		<title>Creating a CACHING_PROXY Region with LRU</title>
+		<p>This example creates a region based on the CACHING_PROXY
+		  RegionShortcut with two additional region attributes settings. For information
+		  on the settings, see XREF Region Attributes Descriptions. 
+		  <codeblock>RegionFactoryPtr regionFactory = 
+cachePtr-&gt;createRegionFactory(CACHING_PROXY);
+regionPtr = regionFactory-&gt;setLruEntriesLimit( 20000 )
+-&gt;setInitialCapacity( 20000 )
+-&gt;create("exampleRegion");</codeblock> 
+		</p>
+	 </example>
+	 <example id="example_C7C3635779CB44F5A9DB20526BD89368">
+		<title>Creating a CACHING_PROXY Region with OverflowThat Uses the
+		  Berkeley DB</title>
+		<p>This example configures an overflow region that uses the Berkeley DB
+		  for storing data to disk and retrieving it from disk: 
+		  <codeblock>RegionFactoryPtr regionFactory = 
+cachePtr-&gt;createRegionFactory(CACHING_PROXY);
+ 
+PropertiesPtr bdbProperties = Properties::create();
+bdbProperties-&gt;insert("PersistenceDirectory", "BDB");
+bdbProperties-&gt;insert("EnvironmentDirectory", "BDBEnv");
+// To set the size, specify either the CacheSideGb or the CacheSizeMb 
+bdbProperties-&gt;insert("CacheSizeGb", "1");
+bdbProperties-&gt;insert("PageSize", "65536");
+bdbProperties-&gt;insert("MaxFileSize","512000");
+ 
+RegionPtr regionPtr = regionFactory
+-&gt;setLruEntriesLimit( 20000 )
+-&gt;setInitialCapacity( 20000 )
+-&gt;setDiskPolicy( DiskPolicyType::OVERFLOWS )
+-&gt;setPersistenceManager("BDBImpl","createBDBInstance",bdbProperties)
+-&gt;create("exampleRegion");</codeblock> 
+		</p> 
+		<p>See XREF Berkeley DB Persistence Manager. 
+		</p>
+	 </example>
+  </conbody> 
+</concept> 

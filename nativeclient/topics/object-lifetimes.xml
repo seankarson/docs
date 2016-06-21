@@ -1,0 +1,85 @@
+<?xml version="1.0"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<!-- Created with XMetaL (http://www.xmetal.com) -->
+<concept id="concept_04BBDF112163440AA93BDD7047C44482"> 
+  <title>Object Lifetimes</title> 
+  <shortdesc>The .NET API provides a managed set of assemblies for the C++ API.
+	 The underlying C++ API employs reference counting using smart pointers for most
+	 classes. This means that all API operations with those objects return a
+	 reference to the underlying object and not a copy. Consequently, the underlying
+	 object will not be freed as long as the .NET application holds a reference to
+	 an object. In other words, the underlying object will stay in memory until the
+	 .NET object is garbage-collected. As long as a reference to an object is alive,
+	 the artifacts it maintains will also be alive. For example, as long as a 
+	 <codeph>Region</codeph> object is not garbage-collected, then the
+	 destructor of the C++ native persistence manager (if any) for the region is not
+	 invoked. 
+  </shortdesc> 
+  <conbody> 
+	 <p>In the C++ API, the references to an object are reduced when the object
+		goes out of scope for stack allocation, or is deleted explicitly for heap
+		allocation. The object is destroyed when its reference count reaches zero. In
+		the .NET API, the references are reduced when the object is garbage-collected
+		or is explicitly disposed with the .NET 
+		<codeph>using</codeph> statement. 
+	 </p> 
+	 <p>Since a reference to the objects is returned, any change to the object
+		also immediately changes the object as stored internally. For instance, if an
+		object is put into the cache using 
+		<codeph>Region.Put</codeph> , then a reference of the object is stored in
+		the internal structures. If you modify the object, the internal object also
+		changes. However, it is not distributed to other members of the distributed
+		system until another 
+		<codeph>Region.Put</codeph> is done. 
+	 </p> 
+	 <p>To find out if a class if reference counted, look at the online API
+		documentation for the class. If the class is wrapped by 
+		<codeph>UMWrap</codeph> or 
+		<codeph>SBWrap</codeph>, the class is reference counted. 
+	 </p> 
+	 <p>These are examples of classes that are reference counted: 
+	 <ul id="ul_7B9D8E9D49704B13A1EA6F8D7F25DA2C"> 
+		<li id="li_B56E313E9F5D460B83E6CB8589EAFD3F"><codeph>Cache</codeph> 
+		</li> 
+		<li
+		 id="li_FC9F95ED1E21494280FCB64A3E3E7B68"><codeph>CacheStatistics</codeph> 
+		</li> 
+		<li
+		 id="li_ADFAF9E3918446C78F2D7BF9525D601E"><codeph>DistributedSystem</codeph> 
+		</li> 
+		<li id="li_D28E6B5EDFFD41328E4ECFFE9C9724AB"><codeph>Properties</codeph> 
+		</li> 
+		<li
+		 id="li_841282D3797946BF891EBDBF0B8247E1"><codeph>RegionAttributes</codeph> 
+		</li> 
+		<li
+		 id="li_50AA8FF06D304C4E8DF0426CD6B7524D"><codeph>AttributesMutator</codeph> 
+		</li> 
+		<li id="li_B56862D169B042BB8CA5F7BB41AE8FA4"><codeph>RegionEntry</codeph>
+		  
+		</li> 
+		<li id="li_C2417EC54BCD4354BE0AA2664E36A39F"><codeph>Region</codeph> 
+		</li> 
+		<li id="li_5311772B79D54040B7CEDAF1E55A8EDB"><codeph>EntryEvent</codeph> 
+		</li> 
+		<li id="li_7E8AD872C584402CAB220F90B58D319A"><codeph>RegionEvent</codeph>
+		  
+		</li> 
+	 </ul> 
+	 </p> 
+	 <p>These are examples of classes that are not reference counted: 
+	 <ul id="ul_BC74FF499A0744F1A13F673D107FAF9B"> 
+		<li
+		 id="li_817BFA49A0864E4CAD0CB034165229DB"><codeph>AttributesFactory</codeph> 
+		</li> 
+		<li id="li_B5734E7FFD034F1BB3266C909AEBD5C6"><codeph>DataInput</codeph> 
+		</li> 
+		<li id="li_759767EE66784C839CB19CC1FE8F2235"><codeph>DataOutput</codeph> 
+		</li> 
+		<li
+		 id="li_FC09110B9A584364A1F22E304D7E3304"><codeph>SystemProperties</codeph> 
+		</li> 
+	 </ul> 
+	 </p> 
+  </conbody> 
+</concept> 

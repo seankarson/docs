@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN"
+"concept.dtd">
+<concept id="security">
+  <title id="title_9717E51087B346988389138843E158C4">Authentication by the
+  Cache Server</title>
+
+  <shortdesc>When the cache server receives the client credentials during the
+  handshake operation, the server authenticates the client using the callback
+  configured in the <codeph>security-client-authenticator</codeph> system
+  property. The handshake succeeds or fails depending on the results of the
+  authentication process.</shortdesc>
+
+  <conbody id="conbody_D74C4342289846619E028149A8920946">
+    <p>For example, this is how the security-client-authenticator property
+    could be configured in the <codeph>gfcpp.properties</codeph> file:</p>
+
+    <p><codeph>security-client-authenticator=templates.security.PKCSAuthenticator.create</codeph></p>
+
+    <p>In the previous configuration sample,
+    <codeph>PKCSAuthenticator</codeph> is the callback class implementing the
+    <codeph>Authenticator interface</codeph> and <codeph>create</codeph> is
+    its factory method.</p>
+
+    <p>The following example shows an implementation of the static
+    <codeph>create</codeph> method:</p>
+
+    <fig id="fig_F7BBA12DA07343A79896E40D2187B0CE">
+      <title>Implementing the Static create Method</title>
+
+      <codeblock id="codeblock_E8BA26FFF5AB4038AFB9AC1FA64B4694">public static Authenticator create() {
+  return new PKCSAuthenticator();
+}</codeblock>
+    </fig>
+  </conbody>
+</concept>

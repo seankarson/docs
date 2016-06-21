@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<!-- Created with XMetaL (http://www.xmetal.com) -->
+<concept id="concept_C4788A1FB6B44C42B00897EFB89B520D"> 
+  <title>Handling Data as a Blob</title> 
+  <shortdesc>If you have data that is best handled as a blob, such as structs
+	 that do not contain pointers, use a 
+	 <codeph>Byte[]</codeph> or, if you need something more complex than 
+	 <codeph>Byte[]</codeph>, implement a custom type using either 
+	 <codeph>IPdxSerializable</codeph> or 
+	 <codeph>IGFSerializable.</codeph>
+  </shortdesc> 
+  <conbody>
+  </conbody> 
+</concept>

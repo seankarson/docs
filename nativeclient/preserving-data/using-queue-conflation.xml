@@ -1,0 +1,43 @@
+<?xml version="1.0"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept
+	id="concept_AEFA04AF9ABD42C0A37ED31806596D24">
+	<title>Enabling Queue Conflation to Improve Update Performance</title>
+	<shortdesc> Conflation of entry update messages can reduce the number of update messages a native
+		client receives,  thereby increasing performance. The native client receives only the most
+		recent update for a particular entry key. </shortdesc>
+	<conbody>
+		<p>Conflation is enabled for a cache server region, so all clients receiving updates for a
+			particular region benefit from the conflation. To enable conflation, set the cache
+			server’s <codeph>enable-subscription-conflation</codeph> region attribute to
+				<codeph>true</codeph>. This region attribute is <codeph>false</codeph> by default. </p>
+		<p> The queue managment code conflates entry updates as part of the enqueue operation. If the
+			previous enqueued item for that key is also an <codeph>update</codeph> operation, the
+			queue management code removes that previously enqueued update, leaving only the latest
+			update to be sent when event distribution occurs. For high availability,  conflation
+			also occurs for any secondary queues. </p>
+		<p> Only entry <codeph>update</codeph> messages in a cache server region with
+				<codeph>distributed-no-ack</codeph> scope are conflated. Region operations and entry
+			operations other than updates are not conflated. </p>
+		<p> For more information, see <xref
+				href="../../developing/events/conflate_server_subscription_queue.xml"/>. </p>
+		<section
+			id="section_BE506A32A8E44073B197B03AC5232C01">
+			<title>Overriding Queue Conflation Per-Client</title>
+			<p>Override conflation on a per-client basis by setting the conflate-events property in the
+				native client’s <codeph>gfcpp.properties</codeph> file. </p>
+			<p>Valid settings are:</p>
+				<ul
+					id="ul_0D518989C24047768358A4DC04952392">
+					<li
+						id="li_8768B191B99944A4B56C981A99458C3A"><codeph>server</codeph>. Uses the
+						server settings. </li>
+					<li
+						id="li_654E1DE7814C44B5889B624BEC88C1DA"><codeph>true</codeph>. Conflates
+						everything sent to the client. </li>
+					<li id="li_31E43C020F4F4BA6BDCEDFB28E249895"><codeph>false</codeph>. Does not conflate anything
+						sent to the client. </li>
+				</ul>
+		</section>
+	</conbody>
+</concept>

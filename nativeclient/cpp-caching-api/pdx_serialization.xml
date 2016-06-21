@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept
+	id="concept_A9AA51CF75A94C7E85D00CECFF1811D1">
+	<title>Serializing Data with PDX Serialization</title>
+	<shortdesc>PDX is a cross-language data format that can reduce the cost of distributing and
+		serializing your objects. PDX stores data in named fields that you can access individually
+		to avoid the cost of deserializing the entire data object. When you use PDX serialization
+		with the native client C++ API, you can register a PdxSerializer for the entire cache,
+		implement PDX serialization for each domain object or use automatic PDX serialization by
+		running the <codeph>pdxautoserializer</codeph> tool. </shortdesc>
+	<conbody>
+		<p>You can also set the object preference of the cache to the PdxInstance type, which allows
+			you to access fields of a PDX object without deserializing the entire object. </p>
+		<p>When using the native client C++ API, you can opt to use PDX autoserialization. The <keyword
+				keyref="product_name"/> native client provides a command line tool called
+				<codeph>pdxautoserializer</codeph> that will automatically generate C++ code that
+			will PDX serialize the class you want to serialize. </p>
+	</conbody>
+</concept>

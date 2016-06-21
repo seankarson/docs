@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN"
+"concept.dtd">
+<concept id="security">
+  <title id="title_9717E51087B346988389138843E158C4">Step 4: Configure
+  environment variables</title>
+
+  <shortdesc>The GemFire server requires keys and keystores in the Java Key
+  Store (JKS) format while the native client requires them in the clear PEM
+  format. Because of this, you need to be able to generate private/public
+  keypairs in either format and convert between the two.</shortdesc>
+
+  <conbody id="conbody_D74C4342289846619E028149A8920946">
+    <p>This section lists the commands for configuring your system environment
+    to build and run OpenSSL. Follow the environment setup that applies to
+    your operating system. For all references to the NativeClient_xxxx
+    directory, replace the xxxx with the actual four-digit product number.</p>
+
+    <section><title>Bourne and Korn shells (sh, ksh, bash)</title><codeblock>% OPENSSL=<i>&lt;parent folder for OpenSSL binaries</i>&gt;; export OPENSSL
+% GFCPP=<i>&lt;path to installation, typically C:\NativeClient_xxxx</i>&gt;; export GFCPP
+% LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$GFCPP/lib:$OPENSSL/lib
+% export LD_LIBRARY_PATH
+% CLASSPATH=$GEMFIRE/lib/gfSecurityImpl.jar:$CLASSPATH</codeblock></section>
+
+    <section><title>Windows</title><codeblock>&gt; set GFCPP=<i>&lt;path to installation, typically C:\NativeClient_xxxx&gt;</i>
+&gt; set OPENSSL=<i>&lt;path to installed OpenSSL, typically C:\OpenSSL&gt;</i>
+&gt; set PATH=<i>&lt;path to Java JDK or JRE&gt;</i>\bin;%GFCPP%\bin;%OPENSSL%\bin;%PATH%
+&gt; set CLASSPATH=<i>&lt;path to GemFire installation&gt;</i>\lib\gfSecurityImpl.jar;%CLASSPATH%</codeblock></section>
+  </conbody>
+</concept>

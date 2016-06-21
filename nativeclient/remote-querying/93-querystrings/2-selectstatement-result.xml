@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept id="security"> 
+  <title id="title_9717E51087B346988389138843E158C4">SELECT Statement
+	 Result</title> 
+  <shortdesc>The result of a 
+	 <codeph>SELECT</codeph> statement is either 
+	 <codeph>UNDEFINED</codeph> or is a collection that implements the 
+	 <codeph>SelectResults</codeph> interface. 
+  </shortdesc> 
+  <prolog><metadata><keywords></keywords></metadata>
+  </prolog> 
+  <conbody> 
+	 <p>For details, see the online native client API documentation provided in
+		the 
+		<codeph>docs</codeph> directory.
+	 </p>
+	 <p>Because a 
+		<codeph>SELECT</codeph> statement returns a result, it can be composed
+		with other expressions like the following example: 
+	 </p> 
+	 <codeblock>(SELECT DISTINCT * FROM /portfolios WHERE status = 'active').iterator</codeblock> 
+	 <section id="section_C6129B2506A34806BC3D0382075FF5C7">Query results are
+		discussed further in 
+		<xref href="7-select-statement-query-results.xml#security" type="concept"
+		 format="dita" scope="local"> SELECT Statement Query Results</xref>. 
+	 </section> 
+  </conbody>
+</concept>

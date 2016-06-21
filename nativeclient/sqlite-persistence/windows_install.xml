@@ -1,0 +1,94 @@
+<?xml version="1.0"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept
+	id="concept_E097592856274EFABE81426FF7312294">
+	<title>Windows Installation</title>
+	<shortdesc>This topic describes how to install the SQLite Persistence Manager on Windows for use
+		with the <keyword keyref="product_name"/> native client. </shortdesc>
+	<conbody>
+		<p>The <keyword keyref="product_name"/> Native Client has been tested with SQLite version
+			3.7.14.1. </p>
+		<p>The <codeph><i>productDir</i></codeph> directory refers to the native client product
+			directory path. </p>
+		<p>The following libraries are required. The <codeph><i>productDir</i>\bin</codeph> directory
+			containing these libraries must be present in the Windows <codeph>PATH</codeph>
+			environment variable, and that directory is added to <codeph>PATH</codeph> during the
+				<keyword keyref="product_name"/> product installation. </p>
+			<ul
+				id="ul_41556B19890C4167B425662781C95E9A">
+				<li id="li_7D6C6A89CF5344E181BE6DB9B719352F">The <codeph>sqliteimpl.dll</codeph> and
+					<codeph>GemStone.GemFire.Plugins.SQLite.dll</codeph> files are provided in
+						<codeph><i>productDir</i>\bin</codeph>. </li>
+				<li
+					id="li_6AD7F47BF23A4B3E8D2F8ED934D4B386">For .NET C# native client application
+					development, you need to obtain the <codeph>System.Data.SQLite.dll</codeph>
+					SQLite library, as described below. The library can be copied to
+							<codeph><i>productDir</i>\bin</codeph>. </li>
+				<li
+					id="li_C2FAA9573AB74E6F91516D56DDBC996D"> For C++ native client application
+					development, you need the <codeph>SqLite3.dll</codeph> SQLite Library. You
+					create this library and make it available in the runtime linking path, or copied
+					to <codeph><i>productDir</i>\bin</codeph>, as described below. </li>
+			</ul>
+		<section
+			id="section_270FDD34D5D1460DAF0FD2DD4E8FB31A">
+			<title>Downloading Pre-built System.Data.SQLite.dll Binaries</title>
+			<p> If you are writing native client applications using the .NET caching API, obtain the SQLite
+				library (version 3.12.2 or later) for Windows as follows:</p>
+				<ol
+					id="ol_82B211EE0E424C7F88029791A2A24B0D">
+					<li
+						id="li_2DFD1CE678124F288B2E9ED585D7AF85">Access the System.Data.SQLite
+						Download Page at the following URL: <xref
+							href="http://system.data.sqlite.org/index.html/doc/trunk/www/downloads.wiki"
+							scope="external"
+							format="html">http://system.data.sqlite.org/index.html/doc/trunk/www/downloads.wiki</xref>. </li>
+					<li
+						id="li_EF9A5B5DA165486BBAE290D95C4F8A0C">Download the appropriate setup file
+						for your .NET Framework installation and hardware architecture. <ul
+							id="ul_BD2A2BE1DB83483D81BB0E32C8B36E54">
+							<li id="li_9C8210A0DED5486FB216B4CA4C96D5E9">For 64-bit Windows, under <b>Precompiled
+								Binaries for 64-bit Windows (.NET Framework 4.5.1)</b> download
+								<codeph>sqlite-netFx451-binary-bundle-x64-2013-1.0.101.0.zip</codeph>. </li>
+						</ul>
+					</li>
+					<li
+						id="li_352060172D6343ECB697A2BC1F1C376D">Execute the setup .exe file, and
+						follow the prompts in the installation wizard. Accept all default
+						installation options. </li>
+					<li id="li_A68C877157F04FEAB4086A00C6BE1727">Copy the <codeph>C:\Program
+						Files\System.Data.SQLite\2010\bin\System.Data.SQLite.dll</codeph> file to
+					your <keyword keyref="product_name"/> Native Client distribution at
+							<codeph><i>productDir</i>\bin</codeph>. </li>
+				</ol>
+		</section>
+		<section
+			id="section_FAB703D706D54311963399A714D466F9">
+			<title>Downloading, Building, and Installing the Library</title>
+			<p> If you are writing native client applications using the C++ caching API, you need to build
+				the SQLite solution for your Windows platform architecture. </p>
+				<ol
+					id="ol_2F9A0BF8F9A14F038F376B9DDB786F6D">
+					<li id="li_B764AF9241F84BCD898E89066B3ED616">Download the source code
+							<codeph>sqlite-autoconf-<varname>NNNNNNN</varname>.tar.gz</codeph> file
+					(where <varname>NNNNNNN</varname> corresponds to the version) for SQLite version
+					3.12.2 or later from <xref href="http://www.sqlite.org/download.html"
+						scope="external" format="html">http://www.sqlite.org/download.html</xref>. </li>
+					<li
+						id="li_ACAFC9E5599C40FE829465BBFEA40BA7">Extract the source code from the
+						.tar.gz file. You may need to use CygWin or a Windows-compatible tar
+						extraction tool. </li>
+					<li id="li_EB4B81E3B79D4D33B496A1F823A4DE95">Using Visual Studio, build the version-specific
+					SqLite solution either as a release or debug build: <ul
+						id="ul_DF7DA2ADC7E04433A37BEDD619C381C5">
+						<li id="li_6A156CDCACA84A06B9C7585A3E24607E">If you are using 64-bit
+							Windows, use the x64 configuration. </li>
+					</ul>
+				</li>
+					<li id="li_B13C4D23EB46425FB4AC467EE636AA73">From the built files, copy the
+						<codeph>SqLite3.dll</codeph> file to your <keyword keyref="product_name"/>
+					Native Client distribution at <codeph><i>productDir</i>\bin</codeph>. </li>
+				</ol>
+		</section>
+	</conbody>
+</concept>

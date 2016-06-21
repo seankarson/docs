@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "http://docs.oasis-open.org/dita/v1.1/OS/dtd/concept.dtd">
+<concept
+	id="declarative-region-creation">
+	<title>Declarative Region Creation</title>
+	<shortdesc>Declarative region creation involves placing the region's XML
+		declaration, with the appropriate attribute settings, in the
+			<codeph>cache.xml</codeph> file that is loaded at cache creation. </shortdesc>
+	<conbody>
+		<note>
+			<p>Before creating a region, specify region attributes. See <xref
+				href="region-attributes.xml#region-attributes"
+				type="concept"
+				format="dita"
+				scope="local"><?xm-replace_text Region Attributes?></xref>.
+			</p>
+		</note>
+		<p> Regions are placed inside the cache declaration in
+			<codeph>region</codeph> elements. For example:</p>
+			<codeblock>
+&lt;cache&gt;
+  &lt;pool name="examplePool" subscription-enabled="true" &gt;
+    &lt;server host="localhost" port="40404" /&gt;
+  &lt;/pool&gt;
+  &lt;region name="A" refid="PROXY"&gt;
+    &lt;region-attributes pool-name="examplePool"/&gt;
+  &lt;/region&gt;
+  &lt;region name="A1"&gt;
+    &lt;region-attributes refid="PROXY" pool-name="examplePool"/&gt;
+  &lt;/region&gt;
+  &lt;region name="A2" refid="CACHING_PROXY"&gt;
+    &lt;region-attributes pool-name="examplePool"&gt;
+      &lt;region-time-to-live&gt;
+        &lt;expiration-attributes timeout="120" action="invalidate"/&gt;
+      &lt;/region-time-to-live&gt;
+    &lt;/region-attributes&gt;
+  &lt;/region&gt;
+&lt;/cache&gt;
+	</codeblock>
+		<p>The <codeph>cache.xml</codeph> file contents must conform to the DTD
+			provided in the <codeph>productDir/dtd/gfcpp-cache8000.dtd</codeph>
+			file. For details, see <xref
+				scope="local"
+				href="../cache-init-file/chapter-overview.xml#chapter-overview"
+				type="concept"
+				format="dita">Cache Initialization File</xref>. </p>
+		<note>For more information on how to create a region, see <xref
+				href="../cpp-caching-api/cpp-caching-api.xml#concept_CEC658A999414AC3A494578C214BF64E"
+				type="concept" format="dita" scope="local"
+				><?xm-replace_text vFabric GemFire Native Client C++ API?></xref>, <xref
+				href="../dotnet-caching-api/dotnet-caching-api.xml#concept_FC6776DCE6ED48B887A6137761104AA4"
+				type="concept" format="dita" scope="local"
+				><?xm-replace_text vFabric GemFire Native Client C# .NET API?></xref>, and the
+			native client API reference. </note>
+	</conbody>
+</concept>

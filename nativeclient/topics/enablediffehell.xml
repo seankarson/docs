@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN"
+"concept.dtd">
+<concept id="security">
+  <title id="title_9717E51087B346988389138843E158C4">Enabling
+  Diffe-Hellman</title>
+
+  <shortdesc>To encrypt credentials, set
+  <codeph>security-client-dhalgo</codeph> in the
+  <codeph>gfcpp.properties</codeph> file to the password for the public key
+  file store on the client.</shortdesc>
+
+  <conbody id="conbody_D74C4342289846619E028149A8920946">
+    <p id="p_73C402816B974E4B9D904000F996DD2E">Example:</p>
+
+    <p
+    id="p_73C402816B974E4B9D904000F996DD2E"><codeph>security-client-dhalgo=Blowfish:128
+    </codeph></p>
+
+    <p id="p_73C402816B974E4B9D904000F996DD2E">This causes the server to
+    authenticate the client using the Diffie-Hellman algorithm.</p>
+  </conbody>
+</concept>

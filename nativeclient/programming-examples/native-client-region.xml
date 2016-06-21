@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN"
+"concept.dtd">
+<concept
+  id="native-client-region">
+  <title>Declaring a Native Client Region</title>
+  <shortdesc>The following example shows how to declare a native client region
+    in a <codeph>cache.xml</codeph> file.</shortdesc>
+
+  <conbody>
+
+    <fig>
+      <title>Declaring a Native Client Region Using cache.xml</title>
+
+      <codeblock>&lt;cache&gt;
+  &lt;region name = "root1" &gt;
+    &lt;region-attributes refid="CACHING_PROXY" pool-name="poolName1"/&gt;
+  &lt;/region&gt;
+  &lt;region name = "root2" &gt;
+    &lt;region-attributes refid="PROXY" pool-name="poolName2"/&gt;
+  &lt;/region&gt;
+  &lt;pool name="poolName1" subscription-enabled="true"&gt;
+    &lt;server host="localhost" port="40404" /&gt;
+  &lt;/pool&gt;
+  &lt;pool name="poolName2" subscription-enabled="true"&gt;
+    &lt;server host="localhost" port="40404" /&gt;
+  &lt;/pool&gt;
+&lt;/cache&gt;</codeblock>
+    </fig>
+
+    <ul>
+      <li>The pool defines a list of cache servers that the native client region
+        can communicate with. </li>
+
+      <li>The <varname>CACHING_PROXY</varname> setting causes the client region
+        to cache data and to communicate with the servers. The
+          <varname>PROXY</varname> setting causes the client region to
+        communicate with the servers, but cache no data.</li>
+
+      <li>The region <varname>subscription-enabled</varname> property, if
+          <codeph>true</codeph> , indicates that the client should receive data
+        updates when server data changes. </li>
+
+      <li>Native clients do not specify cache loaders or writers, which are
+        provided by the server.</li>
+    </ul>
+  </conbody>
+</concept>

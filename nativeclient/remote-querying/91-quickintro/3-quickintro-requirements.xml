@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept id="security">
+	<title id="title_9717E51087B346988389138843E158C4">Remote Querying Requirements</title>
+	<shortdesc>Note the particular requirements for using region endpoints; setting server region
+		data policy and scope; implementing equals and hashcode methods; and setting object type
+		constraints. </shortdesc>
+	<conbody id="conbody_D74C4342289846619E028149A8920946">
+		<section id="section_AB5CC1F7CA1949FEA8A35687BC486F10">
+			<title>Using Region Endpoints</title>
+			<p>When you are using region endpoints, at least one region must exist on the native
+				client before a query can be executed through the client. All objects in the region
+				belong to the same class hierarchy (homogenous types). </p>
+		</section>
+		<section id="section_A619799378B14214AF922D819907FF38">
+			<title>Setting Server Region Data Policy and Scope</title>
+			<p>Native client remote querying only accesses the data that is available in the remote
+				cache server region, so no local cache loading operations are performed. Depending
+				on the cache server region's scope and data-policy attribute settings, this could
+				mean that your queries and indexes only see a part of the data available for the
+				server region in the distributed cache. </p>
+			<p> To ensure a complete data set for your queries and indexes, your cache server region
+				must use one of the REPLICATE region shortcut settings in the region attribute refid
+				or it must explicitly have its data policy set to replicate or persistent-replicate
+				. </p>
+			<p> For a cache server region, setting its data policy to replicate or
+					<codeph>persistent-replicate</codeph> ensures that it reflects the state of the
+				entire distributed region. Without replication, some server cache entries may not be
+				available. </p>
+			<p> Depending on your use of the server cache, the non-global distributed scopes
+					<codeph>distributed-ack</codeph> and <codeph>distributed-no-ack </codeph>may
+				encounter race conditions during entry distribution that cause the data set to be
+				out of sync with the distributed region. The global scope guarantees data
+				consistency across the distributed system, but at the cost of reduced performance. </p>
+			<p>The following table summarizes the effects of cache server region scope and data policy
+				settings on the data available to your querying and indexing operations. For more
+				information, see the <xref
+					href="../../../developing/distributed_regions/chapter_overview.xml"
+					type="concept" format="dita" scope="local"
+					><?xm-replace_text Distributed and Replicated Regions?></xref>. </p>
+				<table id="table_92A6A66523764199A19BCD66BA189921">
+					<title>Effects of Cache Server Region Scope and Data Policy on the Data
+						Available for Querying</title>
+					<tgroup cols="3">
+						<colspec colname="col01" colnum="1" colwidth="2.39*"/>
+						<colspec colname="col1" colnum="2" colwidth="1.00*"/>
+						<colspec colname="col3" colnum="3" colwidth="2.56*"/>
+						<tbody>
+							<row>
+								<entry>
+									<b>Region Scope</b>
+								</entry>
+								<entry>
+									<b>Not replicated</b>
+								</entry>
+								<entry colname="col3">
+									<b>Replicated</b>
+								</entry>
+							</row>
+							<row>
+								<entry colname="col01">
+									<codeph>distributeded-ack or distributed-no-ack</codeph>
+								</entry>
+								<entry colname="col1">N/A </entry>
+								<entry colname="col3">FULL data set (if no race conditions).
+								</entry>
+							</row>
+							<row>
+								<entry colname="col01">
+									<codeph>global</codeph>
+								</entry>
+								<entry colname="col1">N/A </entry>
+								<entry colname="col3">FULL data set. </entry>
+							</row>
+						</tbody>
+					</tgroup>
+				</table>
+		</section>
+		<section id="section_18C174BB0B2A4F23B9A78F872FA220C4">
+			<title>Implementing the equals and haschcode Methods</title>
+			<p>The <codeph>Portfolio</codeph> and <codeph>Position</codeph> query objects for the
+				cache server must have the <codeph>equals</codeph> and <codeph>hashCode</codeph>
+				methods implemented, and those methods must provide the properties and behavior
+				mentioned in the online documentation for <codeph>Object.equals</codeph> and
+					<codeph>Object.hashCode</codeph>. Inconsistent query results can occur if these
+				methods are absent. </p>
+			<p>See the <codeph>Object</codeph> class description in the Java API documentation for more
+				information about the equals and hashCode methods. </p>
+		</section>
+		<section id="section_407A315F22014CD8A0BC622454789888">
+			<title>Setting Object Type Constraints</title>
+			<p>Performing queries on cache server regions containing heterogeneous objects, which
+				are objects of different data types, may produce undesirable results. Queries should
+				be performed only on regions that contain homogeneous objects of the same object
+				type, although subtypes are allowed. </p>
+			<p>So your queries will address homogeneous data types, you need to be aware of the
+				values that the client adds to the server. You can set the
+					<codeph>key-constraint</codeph> and value-constraint region attributes to
+				restrict region entry keys and values to a specific object type. However, because
+				objects put from the client remain in serialized form in the server cache and do not
+				get deserialized until a query is executed, it is still possible to put
+				heterogeneous objects from the client. </p>
+			<p> See <xref scope="local" href="../93-querystrings/3d-specify-object-types.xml#security"
+					type="concept" format="dita"> Specifying the object types of FROM clause
+					collections</xref> for more information on associating object types with
+				queries. </p>
+		</section>
+	</conbody>
+</concept>

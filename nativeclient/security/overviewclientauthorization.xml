@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept
+	id="security">
+	<title
+		id="title_9717E51087B346988389138843E158C4">Client Authorization</title>
+	<shortdesc>Using a provided callback that implements the <codeph>AccessControl</codeph> interface,
+		you can configure each server to authorize some or all cache operations. </shortdesc>
+	<conbody>
+		<p>The callback can also modify or even disallow the data being provided by the client in
+			the operation, such as a put or a <codeph>putAll</codeph> operation. The callback can
+			also register itself as a post-processing filter that is passed operation results like
+				<codeph>get</codeph>, <codeph>getAll</codeph>, and <codeph>query</codeph>. </p>
+	</conbody>
+</concept>

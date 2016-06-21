@@ -1,0 +1,351 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept
+	id="configuring-pools">
+	<title>Pool Configuration Example and Settings </title>
+	<shortdesc>Connection pools require standard client/server distributed system and cache
+		configuration settings. You must also configure settings for the locator, server, and pool
+		elements. </shortdesc>
+	<conbody>
+			<ul
+				id="ul_3FBD12D76C654C9D9B5E57A58F918ACE">
+				<li
+					id="li_5C5DF3C5816C43F7B4721710D4C000B7">Locator. Host and port where a server
+					locator is listening. </li>
+				<li
+					id="li_BD6D5B801D76445F93A1010665ECBA57">Server. Host and port where a server is
+					listening. </li>
+				<li
+					id="li_5B87C21DA40D42669FA354C35E7B3E7F">Pool. Client/server connection pool.
+				</li>
+			</ul>
+		<p>The example shows a declarative pool configuration. Following the example is a table that
+			describes the attributes that can be configured. </p>
+		<example
+			id="example_C3460991732741D3BD53C9E03A962B0F">
+			<title>Example—Declarative Pool Configuration</title>
+			<p>This example shows a declarative pool configuration.</p>
+			<note>
+				<p>You create an instance of
+				<codeph>PoolFactory</codeph> through <codeph>PoolManager</codeph>.
+				</p>
+			</note>
+				<codeblock>&lt;pool free-connection-timeout="12345" idle-timeout="5555"
+      load-conditioning-interval="23456"
+      max-connections="7" min-connections="3"
+      name="test_pool_1" ping-interval="12345"
+      read-timeout="23456" retry-attempts="3" server-group="ServerGroup1"
+      socket-buffer-size="32768" statistic-interval="10123"
+      subscription-ack-interval="567" subscription-enabled="true"
+      subscription-message-tracking-timeout="900123"
+      subscription-redundancy="0" thread-local-connections="true"&gt;
+   &lt;locator host="localhost" port="34756"/&gt;
+&lt;/pool&gt;</codeblock>
+		</example>
+		<section
+			id="section_E7AA69F3BB6C4FEA8094E2BC5278A349">
+			<title>Pool Attributes</title>
+			<table
+				id="table_8997E5C60A9F4A0094BBD7B0F4FF4838">
+				<tgroup
+					cols="3">
+					<thead>
+						<row>
+							<entry>Attribute Name </entry>
+							<entry>Description </entry>
+							<entry>Default </entry>
+						</row>
+					</thead>
+					<tbody>
+						<row>
+							<entry>
+								<codeph>free-connection-timeout</codeph>
+							</entry>
+							<entry>
+								<p>Number of milliseconds (ms) that the client waits for a free
+									connection if <codeph> max-connections</codeph> limit is
+									configured and all connections are in use. </p>
+							</entry>
+							<entry>
+								<p>10000 ms </p>
+							</entry>
+						</row>
+						<row>
+							<entry>
+								<p>
+									<codeph>idle-timeout</codeph>
+								</p>
+							</entry>
+							<entry>
+								<p>Number of milliseconds to wait for a connection to become idle
+									for load balancing </p>
+							</entry>
+							<entry>
+								<p>5000 ms </p>
+							</entry>
+						</row>
+						<row>
+							<entry>
+								<codeph>load-conditioning-interval</codeph>
+							</entry>
+							<entry>
+								<p>Interval in which the pool checks to see if a connection to a
+									specific server should be moved to a different server to improve
+									the load balance. </p>
+							</entry>
+							<entry>
+								<p>300000 ms (5 minutes) </p>
+							</entry>
+						</row>
+						<row>
+							<entry>
+								<codeph>max-connections</codeph>
+							</entry>
+							<entry>
+								<p>Maximum number of connections that the pool can create. If all
+									connections are in use, an operation requiring a client-to
+									server-connection is blocked until a connection is available or
+									the <codeph> free-connection-timeout</codeph> is reached. If set
+									to -1, there is no maximum. The setting must indicate a cap
+									greater than <codeph> min-connections</codeph>. </p>
+								<note>
+									<p>If you use this setting to cap your pool connections, disable
+									the pool attribute <codeph> pr-single-hop-enabled</codeph>.
+									Leaving single hop enabled can increase thrashing and lower
+									performance.
+									</p>
+								</note>
+							</entry>
+							<entry>
+								<p>-1 </p>
+							</entry>
+						</row>
+						<row>
+							<entry>
+								<p>
+									<codeph>min-connections</codeph>
+								</p>
+							</entry>
+							<entry>
+								<p>Number of connections that must be created initially. </p>
+							</entry>
+							<entry>
+								<p>5 </p>
+							</entry>
+						</row>
+						<row>
+							<entry>
+								<p>
+									<codeph>name</codeph>
+								</p>
+							</entry>
+							<entry>
+								<p>Pool name. </p>
+							</entry>
+							<entry>
+								<p/>
+							</entry>
+						</row>
+						<row>
+							<entry>
+								<p>
+									<codeph>ping-interval</codeph>
+								</p>
+							</entry>
+							<entry>
+								<p>Interval between pinging the server to show the client is alive,
+									set in milliseconds. Pings are only sent when the
+										<codeph>ping-interval</codeph> elapses between normal client
+									messages. This must be set lower than the server’s
+										<codeph>maximum-time-between-pings</codeph>. </p>
+							</entry>
+							<entry>
+								<p>10000 ms </p>
+							</entry>
+						</row>
+						<row>
+							<entry>
+								<p>
+									<codeph>pr-single-hop-enabled</codeph>
+								</p>
+							</entry>
+							<entry>
+								<p>Setting used for single-hop access to partitioned region data in
+									the servers for some data operations. See <xref
+										href="../client-cache/application-plugins.xml#application-plugins/section_348E00A84F274D4B9DBA9ECFEB2F012E"
+										type="section"
+										format="dita"
+										scope="local">PartitionResolver</xref>. See note in
+										<codeph>thread-local-connections</codeph> below. </p>
+							</entry>
+							<entry>
+								<p>True </p>
+							</entry>
+						</row>
+						<row>
+							<entry>
+								<p>
+									<codeph>read-timeout</codeph>
+								</p>
+							</entry>
+							<entry>
+								<p>Number of milliseconds to wait for a response from a server
+									before the connection times out. </p>
+							</entry>
+							<entry>
+								<p>10000 </p>
+							</entry>
+						</row>
+						<row>
+							<entry>
+								<p>
+									<codeph>retry-attempts</codeph>
+								</p>
+							</entry>
+							<entry>
+								<p>Number of times to retry an operation after a time-out or
+									exception for high availability. If set to -1, the pool tries
+									every available server once until it succeeds or has tried all
+									servers. </p>
+							</entry>
+							<entry>
+								<p>-1 </p>
+							</entry>
+						</row>
+						<row>
+							<entry>
+								<p>
+									<codeph>server-group</codeph>
+								</p>
+							</entry>
+							<entry>
+								<p>Server group from which to select connections. If not specified,
+									the global group of all connected servers is used. </p>
+							</entry>
+							<entry>
+								<p>empty </p>
+							</entry>
+						</row>
+						<row>
+							<entry>
+								<p>
+									<codeph>socket-buffer-size</codeph>
+								</p>
+							</entry>
+							<entry>
+								<p>Size of the socket buffer, in bytes, on each connection
+									established. </p>
+							</entry>
+							<entry>
+								<p>32768 </p>
+							</entry>
+						</row>
+						<row>
+							<entry>
+								<p>
+									<codeph>statistic-interval</codeph>
+								</p>
+							</entry>
+							<entry>
+								<p>Default frequency, in milliseconds, with which the client
+									statistics are sent to the server. A value of
+										<codeph>-1</codeph> indicates that the statistics are not
+									sent to the server. </p>
+							</entry>
+							<entry>
+								<p>-1 </p>
+							</entry>
+						</row>
+						<row>
+							<entry>
+								<p>
+									<codeph>subscription-ack-interval</codeph>
+								</p>
+							</entry>
+							<entry>
+								<p>Number of milliseconds to wait before sending an acknowledgment
+									to the server about events received from the subscriptions. </p>
+							</entry>
+							<entry>
+								<p>100</p>
+							</entry>
+						</row>
+						<row>
+							<entry>
+								<p>
+									<codeph>subscription-enabled</codeph>
+								</p>
+							</entry>
+							<entry>
+								<p>Whether to establish a server to client subscription. </p>
+							</entry>
+							<entry>
+								<p>False </p>
+							</entry>
+						</row>
+						<row>
+							<entry>
+								<p>
+									<codeph>subscription-message-tracking-timeout</codeph>
+								</p>
+							</entry>
+							<entry>
+								<p>Number of milliseconds for which messages sent from a server to a
+									client are tracked. The tracking is done to minimize duplicate
+									events. </p>
+							</entry>
+							<entry>
+								<p>90000 </p>
+							</entry>
+						</row>
+						<row>
+							<entry>
+								<p>
+									<codeph>subscription-redundancy</codeph>
+								</p>
+							</entry>
+							<entry>
+								<p>Redundancy for servers that contain subscriptions established by
+									the client. A value of <codeph>-1</codeph> causes all available
+									servers in the specified group to be made redundant. </p>
+							</entry>
+							<entry>
+								<p>0 </p>
+							</entry>
+						</row>
+						<row>
+							<entry>
+								<p>
+									<codeph>thread-local-connections</codeph>
+								</p>
+							</entry>
+							<entry>
+								<p>Whether the connections must have affinity to the thread that
+									last used them. </p>
+								<note>
+									<p>To set this to <codeph>true</codeph>, also set
+										<codeph>pr-single-hop-enabled</codeph> to
+										<codeph>false</codeph>. A <codeph>true</codeph> value in
+										<codeph>pr-single-hop-enabled</codeph> automatically assigns
+									a <codeph>false</codeph> value to
+										<codeph>thread-local-connections</codeph>... 
+									</p>
+								</note>
+							</entry>
+							<entry>
+								<p>False </p>
+							</entry>
+						</row>
+						<row>
+							<entry><codeph>update-locator-list-interval</codeph></entry>
+							<entry>An integer number of milliseconds defining the interval between
+								locator list updates. If the value is less than or equal to 0, the
+								update will be disabled.</entry>
+							<entry>5000</entry>
+						</row>
+					</tbody>
+				</tgroup>
+			</table>
+		</section>
+	</conbody>
+</concept>

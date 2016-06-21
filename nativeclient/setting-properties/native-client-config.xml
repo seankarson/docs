@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "http://docs.oasis-open.org/dita/v1.1/OS/dtd/concept.dtd">
+<concept
+	id="native-client-config">
+	<title>Native Client Configuration</title>
+	<shortdesc>You configure the native client in two files: <codeph>gfcpp.properties</codeph> for
+		native client system-level configuration and <codeph>cache.xml</codeph> for cache-level
+		configuration. </shortdesc>
+	<conbody>
+		<p>The configuration of the caches is part of the application development process. See <xref
+				scope="local"
+				href="../cache-init-file/chapter-overview.xml#chapter-overview"
+				type="concept"
+				format="dita">Cache Initialization File</xref>. (The cache-level configuration file
+			is generally referred to as <codeph>cache.xml</codeph>, but you can use any name.) </p>
+		<ul
+			id="ul_8C6B75C2A80546E4901E480DD4397664">
+			<li
+				id="li_4BB2A12A3E0D42508A460AB700BB8101"><xref
+					href="native-client-config.xml#native-client-config/section_67D24B8F8C6C46CDA3474E6E42963D04"
+					type="section"
+					format="dita"
+					scope="local"><?xm-replace_text About gfcpp.properties Configuration File?></xref>
+			</li>
+			<li
+				id="li_C61574024458497D85FC605402F72D5E"><xref
+					href="native-client-config.xml#native-client-config/section_88780874FD6C4BBD9B1B993758A985BB"
+					type="section"
+					format="dita"
+					scope="local"><?xm-replace_text Configuration File Locations?></xref>
+			</li>
+			<li
+				id="li_AF83898BE8DE425098701BB325F5DF48"><xref
+					href="native-client-config.xml#native-client-config/section_6EBE269F15A1497BB4ABBF659F978DA1"
+					type="section"
+					format="dita"
+					scope="local"><?xm-replace_text Configuring the Native Client?></xref>
+			</li>
+			<li
+				id="li_E75A139232EE40A888DBA7EDFD5CAD0E"><xref
+					href="native-client-config.xml#native-client-config/section_7F09E85DD0144972AAA7028D81780129"
+					type="section"
+					format="dita"
+					scope="local"><?xm-replace_text Running a Native Client Out of the Box?></xref>
+			</li>
+		</ul>
+		<section
+			id="section_67D24B8F8C6C46CDA3474E6E42963D04">
+			<title>About gfcpp.properties Configuration File</title>
+			<p>The <codeph>gfcpp.properties</codeph> file provides local settings required to
+				connect a client to a distributed system, along with settings for licensing,
+				logging, and statistics. See <xref
+					scope="local"
+					href="attributes-gfcpp.xml#attributes-gfcpp"
+					type="concept"
+					format="dita">Attributes in gfcpp.properties</xref>. </p>
+			<p>The application software may include a set of <codeph>gfcpp.properties</codeph>
+				files. You set any attributes needed for the application design in these files, then
+				you can add any attributes needed for the local site. </p>
+			<p>If you do not have <codeph>gfcpp.properties</codeph> files, use any text editor to
+				create them. See <xref
+					scope="local"
+					href="../gfcpp.properties/chapter_overview.xml#concept_41DADD6F4E41495A89CCBB8A790ED9DF"
+					type="concept"
+					format="dita">gfcpp.properties Example File</xref> for a sample of the file
+				format and contents. </p>
+		</section>
+		<section
+			id="section_88780874FD6C4BBD9B1B993758A985BB">
+			<title>Configuration File Locations</title>
+			<p>A native client looks for <codeph>gfcpp.properties</codeph> first in the working
+				directory where the process runs, then in
+					<codeph><varname>productDir</varname>/defaultSystem</codeph>. Use the
+					<codeph>defaultSystem</codeph> directory to group configuration files or to
+				share them among processes for more convenient administration. If
+					<codeph>gfcpp.properties</codeph> is not found, the process starts up with the
+				default settings. </p>
+			<p>For the <codeph>cache.xml</codeph> cache configuration file, a native client looks
+				for the path specified by the <codeph>cache-xml-file</codeph> attribute in
+					<codeph>gfcpp.properties</codeph> (see <xref
+					scope="local"
+					href="attributes-gfcpp.xml#attributes-gfcpp"
+					type="concept"
+					format="dita">Attributes in gfcpp.properties</xref>). If the
+					<codeph>cache.xml</codeph> is not found, the process starts with an unconfigured
+				cache. </p>
+		</section>
+		<section
+			id="section_6EBE269F15A1497BB4ABBF659F978DA1">
+			<title>Configuring System Properties for the Native Client</title>
+			<p> The typical configuration procedure for a native client includes the high-level steps listed
+				below. The rest of this chapter provides the details. </p>
+			<ol
+				id="ol_462B41E426754EF29C9CF2E769739F93">
+				<li
+					id="li_C8C71AE6749C4A9089B0D84EE67A29A5">Place the
+						<codeph>gfcpp.properties</codeph> file for the application in the working
+					directory or in <codeph>productDir/defaultSystem</codeph>. Use the configuration
+					file that came with the application software if there is one, or create your
+					own. See <xref
+						scope="local"
+						href="../gfcpp.properties/chapter_overview.xml#concept_41DADD6F4E41495A89CCBB8A790ED9DF"
+						type="concept"
+						format="dita">gfcpp.properties Example File</xref> for a sample of the file
+					format and contents. </li>
+				<li
+					id="li_C162BB6761914903A5AB5C31FA074D4F">Place the <codeph>cache.xml</codeph>
+					file for the application in the desired location and specify its path in the
+						<codeph>gfcpp.properties</codeph> file. </li>
+				<li
+					id="li_C9126C5726B94B2CAFCCEE2E18FEE957">Add other attributes to the
+						<codeph>gfcpp.properties</codeph> file as needed for the local system
+					architecture. See <xref
+						scope="local"
+						href="attributes-gfcpp.xml#attributes-gfcpp"
+						type="concept"
+						format="dita">Attributes in gfcpp.properties</xref> for the configurable
+					attributes, and <xref
+						scope="local"
+						href="../gfcpp.properties/chapter_overview.xml#concept_41DADD6F4E41495A89CCBB8A790ED9DF"
+						type="concept"
+						format="dita">gfcpp.properties Example File</xref> for a sample of the file
+					format. </li>
+			</ol>
+		</section>
+		<section
+			id="section_7F09E85DD0144972AAA7028D81780129">
+			<title>Running a Native Client Out of the Box</title>
+			<p>If you start a native client without any configurations, it uses any attributes set
+				programmatically plus any hard-coded defaults (listed in <xref
+					scope="local"
+					href="attributes-gfcpp.xml#attributes-gfcpp"
+					type="concept"
+					format="dita">Attributes in gfcpp.properties</xref>). Running with the defaults
+				is a convenient way to learn the operation of the distributed system and to test
+				which attributes need to be reconfigured for your environment. </p>
+		</section>
+	</conbody>
+</concept>

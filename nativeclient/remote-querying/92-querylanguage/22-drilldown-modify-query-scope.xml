@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept
+	id="security">
+	<title
+		id="title_9717E51087B346988389138843E158C4">Modifying Query Scope </title>
+	<shortdesc>The query engine resolves names and path expressions according to the name space that
+		is currently in scope in the query. This is not the region scope attribute, but the scope of
+		the query statement. </shortdesc>
+	<conbody>
+		<p>The initial name space for any query is composed of the region paths of the cache on the
+			cache server and the attributes of those paths. New name spaces are brought into scope
+			based on the <codeph>FROM</codeph> clause in the <codeph>SELECT</codeph> statement. For
+			example, in this query the <codeph>FROM</codeph> expression evaluates to the collection
+			of entry values in <codeph>/portfolios</codeph>. This 
+is added to the initial scope of the query and status is
+resolved within the new scope.</p>
+			<codeblock>SELECT DISTINCT *
+FROM /portfolios
+WHERE status = 'active'</codeblock>
+		<p>Each <codeph>FROM</codeph> clause expression must resolve to a collection of objects
+			available for iteration in the query expressions that follow. In the example above,
+				<codeph>/portfolios</codeph> resolves to the Collection of entry values in the
+			region. The entry value collection is iterated by the <codeph>WHERE</codeph> clause,
+			comparing the status field to the string active. When a match is found, the value object
+			is added to the return set. </p>
+		<p>In the following query, the collection specified in the first FROM clause expression is used by
+			the second FROM clause expression and by the projections of the SELECT statement. </p>
+		<codeblock>IMPORT cacheRunner.Position;
+SELECT DISTINCT "type"
+FROM /portfolios, positions.values posnVal TYPE Position
+WHERE posnVal.qty &gt; 1000.00</codeblock>
+		<note>
+			<p>You cannot change the order of the expressions in this FROM clause. The second
+			expression depends on the scope created by the first expression.
+			</p>
+		</note>
+	</conbody>
+</concept>

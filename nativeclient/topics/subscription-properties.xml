@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN"
+"concept.dtd">
+<concept id="subscription-properties">
+  <title>Subscription Properties</title>
+
+  <conbody>
+    <p>Each connection pool has a single subscription connection which could
+    be to any server which matches the requirements of the connection pool.
+    When a client registers interest for a region, if the connection pool does
+    not already have a subscription channel, the connection pool sends a
+    message to the server locator and the server locator chooses servers to
+    host the queue and return those server names to the client. The client
+    then contacts the chosen servers and asks them to create the queue. The
+    client maintains at least one connection with each server hosting a queue
+    - if the server does not detect any connections from a non-durable client,
+    it drops the client queue and closes all artifacts for the client. For
+    information about durable client subscriptions, see <xref
+    href="???">Durable Client Messaging</xref>.</p>
+
+    <section><title>Requesting a Subscription Region Queue</title><p>The
+    client to server locator request is a short lived TCP request. The client
+    sends a message with:</p><ul>
+        <li>The client ID</li>
+
+        <li>(Optional) target server group</li>
+
+        <li>Number of redundant copies</li>
+
+        <li>Servers to exclude from the results. This is used if the client
+        was unable to connect to a server and needs to request a new one.</li>
+      </ul><p>The server locator responds with a list of servers. The client
+    is responsible for contacting the primary and secondaries and asking them
+    to host the queue.</p><p>For durable subscriptions, the server locator
+    must be able to locate the servers that host the queues for the durable
+    client. When a durable client sends a request, the server locator queries
+    all the available servers to see if they are hosting the subscription
+    region queue for the durable client. If the server is located, the client
+    is connected to the server hosting the subscription region
+    queue.</p></section>
+  </conbody>
+</concept>

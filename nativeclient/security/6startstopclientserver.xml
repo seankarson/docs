@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept id="security">
+	<title id="title_9717E51087B346988389138843E158C4">Step 5. Start and stop the client and
+		server</title>
+	<shortdesc>Before you start and stop the client and server, make sure you configure the native
+		client with the SSL properties as described and with the servers or locators specified as
+		usual. </shortdesc>
+	<conbody id="conbody_D74C4342289846619E028149A8920946">
+		<p>Specifically, ensure that: </p>
+		<ul id="ol_C07B2C97ED4942198D2C69CC8619B0AA">
+			<li id="li_F6109E270B8D4AA4B0D51DD852FF3FBC">OpenSSL and ACE_SSL <codeph>DLL</codeph>s
+				locations are in the right environment variables for your system:
+					<codeph>PATH</codeph> for Windows, and <codeph>LD_LIBRARY_PATH</codeph> for
+				Unix. </li>
+			<li id="li_42CD155D5353451F862CD23907408B4B">You have generated the keys and keystores. </li>
+			<li id="li_328D33ECCEF143DCA7D8F1F6D4BEF6D1">You have set the system properties. </li>
+		</ul>
+		<p>For details on stopping and starting locators and cache servers with SSL, see <xref
+				href="../../configuring/running/starting_up_shutting_down.xml" type="concept"
+				format="dita" scope="local"
+				><?xm-replace_text Starting Up and Shutting Down Your System?></xref>. </p>
+		<p>
+			<b>Example locator start command</b>
+		</p>
+		<p>Ensure that all required SSL properties are configured in your server's
+			<codeph>gfsecurity.properties</codeph> file. Then start your locator as follows:</p>
+			<codeblock>gfsh&gt;start locator --name=my_locator --port=12345 --dir=. \
+--security-properties-file=/path/to/your/gfsecurity.properties</codeblock>
+		<p>
+			<b>Example locator stop command</b></p>
+			<codeblock>gfsh&gt;stop locator --port=12345 \
+--security-properties-file=/path/to/your/gfsecurity.properties</codeblock>
+		<p>
+			<b>Example server start command</b>
+		</p>
+		<p>Again, ensure that all required SSL properties are configured in
+			<codeph>gfsecurity.properties</codeph>. Then start the server with:</p>
+			<codeblock>gfsh&gt;start server --name=my_server --locators=hostname[12345] \
+--cache-xml-file=server.xml --log-level=fine \
+--security-properties-file=/path/to/your/gfsecurity.properties</codeblock>
+		<p>
+			<b>Example server stop command</b></p>
+			<codeblock>gfsh&gt;stop server --name=my_server</codeblock>
+	</conbody>
+</concept>

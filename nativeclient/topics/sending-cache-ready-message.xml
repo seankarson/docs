@@ -1,0 +1,26 @@
+<?xml version="1.0"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<!-- Created with XMetaL (http://www.xmetal.com) -->
+<concept id="concept_C28D015FA85B4EE4B2F8D2DA5FCAFBFF"> 
+  <title>Sending the Cache Ready Message to the Server</title> 
+  <shortdesc>After a durable client connects and initializes its cache,
+	 regions, cache listeners, and any interest registration, it needs to invoke 
+	 <codeph>readyForEvents</codeph> to indicate to the servers that the client
+	 is ready to receive any messages accumulated for it.
+  </shortdesc> 
+  <conbody>
+	 <example id="example_49AC25AA6C5F422E98417F87DDEA6402">
+		<title>Durable Client Cache Ready Notification (C++)</title>
+		<p>The following example shows how to call 
+		  <codeph>readyForEvents.</codeph>
+		  <codeblock>//Send ready for event message to server(only for durable clients).
+//Server will send queued events to client after receiving this.
+cachePtr-&gt;readyForEvents();</codeblock>
+		</p>
+		<p>To keep the client from losing events, do not call this method until
+		  all regions and listeners are created. For more information, see Reconnection
+		  on page 158.
+		</p>
+	 </example>
+  </conbody> 
+</concept>

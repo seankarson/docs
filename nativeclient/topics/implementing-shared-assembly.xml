@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<!-- Created with XMetaL (http://www.xmetal.com) -->
+<concept id="concept_93104040C42A4FFA80D45C93760940C9"> 
+  <title>Implementing the Shared Assembly</title> 
+  <shortdesc>Follow these steps to install the shared assembly into the Global
+	 Assembly Cache (GAC).
+  </shortdesc> 
+  <conbody>
+	 <ol id="ol_BD222681FE644ADB8BC8E1EA80F0FAE3">
+		<li id="li_D0990736813D454C96735F42349D6408">Go to the 
+		  <filepath>NativeClient_xxxx</filepath> directory.
+		  <codeblock>cd %GFCPP%</codeblock>
+		</li>
+		<li id="li_9C494A6BD1FC48A6A179A0503868971A">Run the GAC utility to
+		  install 
+		  <filepath>GemStone.GemFire.Cache.dll</filepath> into the GAC.
+		  <codeblock>gacutil.exe /if GemStone.GemFire.Cache.dll</codeblock>
+		</li>
+	 </ol>
+	 <p>When you are ready to uninstall, use the 
+		<codeph>/u</codeph> switch. More information on the GAC utility can be
+		found at 
+		<xref format="html" href="http://www.msdn.com"
+		 scope="external">http://www.msdn.com</xref>, or by using 
+		<codeph>gacutil.exe /?</codeph>.
+	 </p>
+  </conbody> 
+</concept>

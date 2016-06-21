@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE bookmap PUBLIC "-//OASIS//DTD DITA BookMap//EN" "bookmap.dtd">
+<!-- Created with XMetaL (http://www.xmetal.com) -->
+<bookmap
+	id="delta-propagation">
+	<booktitle>
+		<mainbooktitle>Delta Propagation</mainbooktitle>
+	</booktitle>
+	<bookmeta>
+		<bookid>
+			<bookpartno><?xm-replace_text Book Part Number?></bookpartno>
+			<isbn><?xm-replace_text ISBN Number?>
+			</isbn>
+		</bookid>
+		<bookrights>
+			<copyrfirst>
+				<year><?xm-replace_text First Year?></year>
+			</copyrfirst>
+			<copyrlast>
+				<year><?xm-replace_text Last Year?></year>
+			</copyrlast>
+			<bookowner>
+				<person><?xm-replace_text Copyright owner?>
+				</person>
+			</bookowner>
+		</bookrights>
+	</bookmeta>
+	<part
+		format="dita"
+		href="delta-propagation.xml"
+		navtitle="Delta Propagation"
+		scope="local"
+		type="concept">
+		<topicref
+			format="dita"
+			href="how-delta-propagation-works.xml"
+			navtitle="How Delta Propagation Works"
+			scope="local"
+			type="concept"/>
+		<topicref
+			format="dita"
+			href="delta-propagation-api.xml"
+			navtitle="Delta Propagation API"
+			scope="local"
+			type="concept"/>
+		<topicref
+			format="dita"
+			href="delta-propagation-properties.xml"
+			navtitle="Cloning"
+			scope="local"
+			type="concept"/>
+		<topicref
+			format="dita"
+			href="implementing-delta-propagation.xml"
+			navtitle="Implementing Delta Propagation"
+			scope="local"
+			type="concept"/>
+		<topicref
+			format="dita"
+			href="performance.xml"
+			navtitle="Exceptions and Limitations"
+			scope="local"
+			type="concept"/>
+		<topicref
+			format="dita"
+			href="delta-propagation-examples.xml"
+			navtitle="Examples of Delta Propagation"
+			scope="local"
+			type="concept"/>
+	</part>
+</bookmap>

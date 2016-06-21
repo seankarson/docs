@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept id="solutions-use-cases">
+  <title id="title_3280779AE8684835BAC16A2740FDF35E">Solutions and Use Cases</title>
+
+  <conbody id="conbody_514D355FA2B04D7480C873C7A1F9A730">
+    <p id="p_72930104504F4B8092F8C79858652CE6">The function execution service provides solutions for the following
+    application use cases:</p>
+
+    <ul id="ul_D172DCBCBA4043B1BDE4A4FAC1A1A441">
+      <li id="li_C3E6C74013544EFC901F1FB378627AAD">An application intending to execute a server-side transaction or
+      carry out data updates using the GemFire distributed locking
+      service.</li>
+
+      <li id="li_5529D2F314554253A0FF989AB460889F">An application wanting to initialize some of its components once on
+      each server, which might be used later by executed functions.</li>
+
+      <li id="li_D4BD12E6E12F484CBA428A76B69975D0">Initialization and startup of a third-party service, such as a
+      messaging service.</li>
+
+      <li>Any arbitrary aggregation operation that requires iteration over
+      local data sets that can be done more efficiently through a single call
+      to the cache server.</li>
+
+      <li id="li_9979C4DB1966432EB2652EE8208BD787">Any kind of external resource provisioning that can be done by
+      executing a function on a server.</li>
+    </ul>
+  </conbody>
+</concept>

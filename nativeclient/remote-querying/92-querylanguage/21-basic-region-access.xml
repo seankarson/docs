@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept
+	id="security">
+	<title
+		id="title_9717E51087B346988389138843E158C4">Basic Region Access</title>
+	<shortdesc>In the context of a query, you specify the name of a region by its full path, starting
+		with a forward slash (/ ). </shortdesc>
+	<conbody>
+		<section
+			id="section_789E081192A74B00B0E726EDC1C574C4">
+			<title>Object Attributes</title>
+			<p>You can access the Region object's public fields and methods from a region path, referred to
+				as the region's attributes. Using this method, <codeph>/portfolios.name</codeph>
+				returns "<codeph>portfolios</codeph>" and <codeph>/portfolios.name.length</codeph>
+				returns <codeph>10</codeph> . An attribute is mapped to a Java class member in three
+				possible ways with the following priority until a match is found. If the attribute
+				is named x, then:</p>
+				<codeblock>public method getX()
+public method x()
+public field x</codeblock>
+				<note>
+					<p>The term <i>attribute</i> in this context is not the same as a region
+					attribute.
+					</p>
+				</note>
+		</section>
+		<section
+			id="section_D64CB943612640D6B899023E5D997DB2">
+			<title>Region Data</title>
+			<p>You can also access entry keys and entry data through the region: </p>
+			<ul
+				id="ul_06C3E206476C4F058C285391E904E815">
+				<li
+					id="li_969CE66CCAF247878DFFCDBD34FB5FF1"><codeph>/portfolios.keySet</codeph>
+					returns the <codeph>Set</codeph> of entry keys in the region </li>
+				<li
+					id="li_67CD4DD03533441FADC071AB4788AD55"><codeph>/portfolios.entrySet</codeph>
+					returns the <codeph>Set</codeph> of <codeph>Region.Entry</codeph> objects </li>
+				<li
+					id="li_2AD537775B1A4D959107D2FE5248C785"><codeph>/portfolios.values</codeph>
+					returns the Collection of entry values </li>
+				<li
+					id="li_A3E7B828992F44AE8BC4515E47718992"><codeph>/portfolios</codeph> return the
+					Collection of entry values
+					<note>
+						<p>These collections are immutable. Invoking
+						modifier methods on them, such as <codeph>add</codeph> and
+							<codeph>remove</codeph>, result in an
+							<codeph>UnsupportedOperationException</codeph>.
+						</p>
+					</note>
+				</li>
+			</ul>
+			<p>For the last two bullets, the FROM clause <codeph>/portfolios.values</codeph> and
+					<codeph>/portfolios</codeph> return the same thing. </p>
+		</section>
+	</conbody>
+</concept>

@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<!-- Created with XMetaL (http://www.xmetal.com) -->
+<concept id="concept_EA6C54664D9640D682655BB4517EFD64"> 
+  <title>Handling Object Graphs</title> 
+  <shortdesc>If you have a graph of objects in which each node can be
+	 serializable, the parent node calls 
+	 <codeph>DataOutput.WriteObject</codeph> to delegate the serialization
+	 responsibility to its child nodes. Similarly, your application calls 
+	 <codeph>DataInput.ReadObject</codeph> to deserialize the object graph.
+  </shortdesc> 
+  <conbody>
+	 <p>For more information, see the online API documentation for 
+		<codeph>DataOutput</codeph> and 
+		<codeph>DataInput.</codeph>
+	 </p>
+  </conbody> 
+</concept>

@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept id="security"> 
+  <title id="title_9717E51087B346988389138843E158C4">State and Life Cycle of a
+	 Continuous Query</title> 
+  <shortdesc> A CQ has three possible states that can be accessed from the
+	 client by calling 
+	 <codeph>CqQuery.getState</codeph>
+  </shortdesc> 
+  <conbody id="conbody_D74C4342289846619E028149A8920946"> 
+	 <ul id="ul_F090F281B74A4BBB9EAE8BBB2ECF564D"> 
+		<li id="li_E641403D1AE34CE596AABDC8312668D1"><codeph>STOPPED</codeph>
+		  --The CQ has been created but not yet executed, or it has been explicitly
+		  stopped from executing. The stopped CQ uses system resources. The CQ can be
+		  started or restarted by calling the execute method on 
+		  <codeph>CqQuery</codeph>. 
+		</li> 
+		<li id="li_46CE8ECC26FF4DF18DDFAAF879589E1D"> 
+		  <codeph>RUNNING</codeph> --The CQ is being executed on the server for
+		  all events in the region referenced by the query. Results are sent to all
+		  client listeners associated with the 
+		  <codeph>CqQuery</codeph>. 
+		</li> 
+		<li id="li_2A68FD4E182040B5A7EB8CEBD30D9C64"> 
+		  <codeph>CLOSED</codeph> --The CQ is closed and is not using system
+		  resources. Invoking an execute or stop method on closed 
+		  <codeph>CqQuery</codeph> throws an exception. 
+		</li> 
+	 </ul> 
+	 <p>A CQ life cycle usually flows like this: 
+	 </p> 
+	 <ol id="ol_C07B2C97ED4942198D2C69CC8619B0AA"> 
+		<li id="li_F6109E270B8D4AA4B0D51DD852FF3FBC">The client creates the CQ.
+		  This sets up everything for running the query and provides the client with a 
+		  <codeph>CqQuery</codeph> object, but does not execute the CQ. At this
+		  point, the query is in a 
+		  <codeph>STOPPED 
+		  </codeph>state, ready to be closed or run. 
+		</li> 
+		<li id="li_42CD155D5353451F862CD23907408B4B">The client runs the CQ with
+		  an API call to one of the 
+		  <codeph>CqQuery execute*</codeph> methods. This puts the query into a 
+		  <codeph>RUNNING</codeph> state on the client and on the server. 
+		</li> 
+		<li id="li_A0DDFA0E9F5D493EBA169F6F9ED29181">The CQ is closed by a client
+		  call to 
+		  <codeph>CqQuery.close</codeph>. This de-allocates all resources in use
+		  for the CQ on the client and server. At this point, the cycle could begin again
+		  with the creation of a new 
+		  <codeph>CqQuery</codeph> instance. 
+		</li> 
+	 </ol> 
+  </conbody>
+</concept>

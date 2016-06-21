@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept id="security">
+	<title id="title_9717E51087B346988389138843E158C4">WHERE Clause</title>
+	<shortdesc>The optional WHERE clause defines the search criteria for the selection, filtering
+		the set of elements specified by the FROM clause. </shortdesc>
+	<conbody>
+		<p>Without a WHERE clause, the SELECT projection list receives the entire collection or set
+			of collections as specified in the FROM clause. </p>
+		<p>The query processor searches the collection for elements that match the conditions specified in
+			the WHERE clause conditions. If there is an index on an expression matched by the WHERE
+			clause, then the query processor may use the index to optimize the search and avoid
+			iterating over the entire collection. For more information on indexes, see <xref
+				href="../../../developing/query_additional/advanced_querying.xml" type="concept"
+				format="dita" scope="local">Advanced Querying</xref>. </p>
+		<p> A WHERE clause expression is a boolean condition that is evaluated for each element in
+			the collection. If the expression evaluates to true for an element, the query processor
+			passes that element on to the SELECT projection list. This example uses the WHERE clause
+			to return the portfolio objects in the region that have a type xyz . </p>
+		<codeblock>SELECT DISTINCT * FROM /portfolios WHERE "type" = 'xyz'</codeblock>
+		<p>The next query returns the set of all portfolios with a type of xyz and active status. </p>
+		<codeblock>SELECT DISTINCT * FROM /portfolios WHERE "type" = 'xyz' AND status = 'active'</codeblock>
+	</conbody>
+</concept>

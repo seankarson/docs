@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<!-- Created with XMetaL (http://www.xmetal.com) -->
+<concept id="concept_30129C6062184350BCBEB3E13D61682B"> 
+  <title>.NET Application Domains</title> 
+  <shortdesc>Application domains, or 
+	 <codeph>AppDomain</codeph>s, are units of isolation, security boundaries,
+	 and loading and unloading for applications in the .NET runtime. Multiple
+	 application domains can run in a single process. Each can have one or many
+	 threads, and a thread can switch application domains at runtime.
+  </shortdesc> 
+  <conbody>
+	 <note>Before you use application domains with GemFire, make sure you
+		understand how to use them generally in your .NET programming.
+		<p>The .NET managed assemblies require interface methods invoked by the
+		  native C++ layer to be in the same 
+		  <codeph>AppDomain</codeph> as that of the .NET DLL. If not, an
+		  exception is thrown because the thread is unable to cross 
+		  <codeph>AppDomain</codeph> boundaries.
+		</p> 
+	 </note>
+  </conbody> 
+</concept>

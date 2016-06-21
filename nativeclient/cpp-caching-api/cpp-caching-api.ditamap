@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE bookmap PUBLIC "-//OASIS//DTD DITA BookMap//EN" "bookmap.dtd">
+<!-- Created with XMetaL (http://www.xmetal.com) -->
+<bookmap
+	id="cpp-caching-api">
+	<booktitle>
+		<mainbooktitle>The C++ Caching API</mainbooktitle>
+	</booktitle>
+	<bookmeta>
+		<bookid>
+			<bookpartno><?xm-replace_text Book Part Number?></bookpartno>
+			<isbn><?xm-replace_text ISBN Number?>
+			</isbn>
+		</bookid>
+		<bookrights>
+			<copyrfirst>
+				<year><?xm-replace_text First Year?></year>
+			</copyrfirst>
+			<copyrlast>
+				<year><?xm-replace_text Last Year?></year>
+			</copyrlast>
+			<bookowner>
+				<person><?xm-replace_text Copyright owner?>
+				</person>
+			</bookowner>
+		</bookrights>
+	</bookmeta>
+	<part
+		format="dita"
+		href="cpp-caching-api.xml"
+		navtitle="Pivotal GemFire Native Client C++ API"
+		scope="local"
+		type="concept">
+		<topicref
+			format="dita"
+			href="gfe-cpp-api.xml"
+			navtitle="About the Native Client C++ API"
+			scope="local"
+			type="concept"/>
+		<topicref
+			format="dita"
+			href="creating-cache.xml"
+			navtitle="Creating a Cache"
+			scope="local"
+			type="concept"/>
+		<topicref
+			format="dita"
+			href="creating-region.xml"
+			navtitle="Creating a Proxy Client-Side Region"
+			scope="local"
+			type="concept"/>
+		<topicref
+			format="dita"
+			href="add-entry-to-cache.xml"
+			navtitle="Adding an Entry to the Cache"
+			scope="local"
+			type="concept"/>
+		<topicref
+			format="dita"
+			href="accessing-entry.xml"
+			navtitle="Accessing an Entry"
+			scope="local"
+			type="concept"/>
+		<topicref
+			href="removing-entry.xml"/>
+		<topicref
+			format="dita"
+			href="serialization_overview.xml"
+			navtitle="Serializing Data"
+			scope="local"
+			type="concept">
+			<topicref
+				format="dita"
+				href="region_data_requiring_serialization.xml"
+				navtitle="Region Data Requiring Serialization"
+				scope="local"
+				type="concept"/>
+			<topicref
+				format="dita"
+				href="serialization_options.xml"
+				navtitle="Data Serialization Options"
+				scope="local"
+				type="concept"/>
+			<topicref
+				format="dita"
+				href="pdx_serialization.xml"
+				navtitle="Serializing Data with GemFire PDX Serialization"
+				scope="local"
+				type="concept">
+				<topicref
+					format="dita"
+					href="using_pdxserializer.xml"
+					navtitle="Serialize Your Domain Objects with PdxSerializer and PdxWrapper"
+					scope="local"
+					type="topic"/>
+				<topicref
+					format="dita"
+					href="pdxserializable_interface.xml"
+					navtitle="Serialize Using the GemFire PdxSerializable Class"
+					scope="local"
+					type="concept">
+					<topicref
+						format="dita"
+						href="performing_ops_with_pdx_object.xml"
+						navtitle="Performing put, get, and localDestroy Operations with a PDX Domain Object"
+						scope="local"
+						type="topic"/>
+				</topicref>
+				<topicref
+					href="pdx_auto_serialization.xml"
+					type="topic"/>
+				<topicref
+					format="dita"
+					href="using_pdxinstance.xml"
+					navtitle="Programming Your Application to Use PdxInstances"
+					scope="local"
+					type="topic"/>
+				<topicref
+					format="dita"
+					href="pdx_ignore_unread_fields.xml"
+					navtitle="Configuring PDX to Ignore Unread Fields During Deserialization"
+					scope="local"
+					type="concept"/>
+				<topicref
+					format="dita"
+					href="using_pdxinstancefactory.xml"
+					navtitle="Using PdxInstanceFactory to Create PdxInstances"
+					scope="local"
+					type="concept"/>
+				<topicref
+					format="dita"
+					href="using_enum_type_with_pdx.xml"
+					navtitle="Using C++ Enum Type with PDX Serialization"
+					scope="local"
+					type="concept"/>
+				<topicref
+					format="dita"
+					href="pdx_with_delta_propagation.xml"
+					navtitle="Using PDX Serialization with Delta Propagation"
+					scope="local"
+					type="concept"/>
+			</topicref>
+			<topicref
+				format="dita"
+				href="serialization_using_serializable.xml"
+				navtitle="Serializing Data with the GemFire Serializable Interface"
+				scope="local"
+				type="concept"/>
+			<topicref
+				format="dita"
+				href="object-graphs.xml"
+				navtitle="Serializing Object Graphs"
+				scope="local"
+				type="concept"/>
+			<topicref
+				format="dita"
+				href="data-as-blob.xml"
+				navtitle="Serializing and Accessing Data as a Blob"
+				scope="local"
+				type="concept"/>
+		</topicref>
+		<topicref
+			format="dita"
+			href="user-defined-objects.xml"
+			navtitle="Implementing User-Defined Objects in Java Clients"
+			scope="local"
+			type="topic"/>
+		<topicref
+			format="dita"
+			href="using-custom-class.xml"
+			navtitle="Using a Custom Class"
+			scope="local"
+			type="concept"/>
+		<topicref
+			format="dita"
+			href="creating-new-statistics.xml"
+			navtitle="Creating New Statistics"
+			scope="local"
+			type="concept"/>
+	</part>
+</bookmap>

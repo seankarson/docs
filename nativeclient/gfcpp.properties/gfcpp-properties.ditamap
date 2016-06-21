@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE bookmap PUBLIC "-//OASIS//DTD DITA BookMap//EN" "bookmap.dtd">
+<!-- Created with XMetaL (http://www.xmetal.com) -->
+<bookmap id="gfcpp-properties-example"><booktitle>
+		<mainbooktitle>Appendix B: gfcpp.properties Example File</mainbooktitle>
+	</booktitle>
+	<bookmeta>
+		<bookid>
+			<bookpartno><?xm-replace_text Book Part Number?></bookpartno>
+			<isbn><?xm-replace_text ISBN Number?>
+			</isbn>
+		</bookid>
+		<bookrights>
+			<copyrfirst><year><?xm-replace_text First Year?></year>
+			</copyrfirst>
+			<copyrlast><year><?xm-replace_text Last Year?></year>
+			</copyrlast>
+			<bookowner>
+				<person><?xm-replace_text Copyright owner?>
+				</person>
+			</bookowner>
+		</bookrights>
+	</bookmeta>
+	<appendix format="dita" href="chapter_overview.xml" navtitle="Appendix B: gfcpp.properties Example File" scope="local" type="concept">
+		<topicref format="dita" href="default_sample_file.xml" navtitle="Using the Default Sample File" scope="local" type="concept"/>
+		<topicref format="dita" href="gfcpp.properties_search_path.xml" navtitle="Search Path for Multiple gfcpp.properties Files" scope="local" type="concept"/>
+		<topicref format="dita" href="overriding_gfcpp.properties.xml" navtitle="Overriding gfcpp.properties Settings" scope="local" type="concept"/>
+	</appendix>
+</bookmap>

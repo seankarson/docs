@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept
+	id="security">
+	<title
+		id="title_9717E51087B346988389138843E158C4">Using Iterator Variables</title>
+	<conbody>
+		<p>For each collection expressed in the <codeph>FROM</codeph> clause, you can associate an
+			explicit variable. The variable is added to the current scope and becomes the iterator
+			variable bound to the elements of the collection as they are iterated over. In this
+			example, <codeph>pflo</codeph> and <codeph>posnVal</codeph> are both explicit iterator
+			variables. </p>
+		<p>
+			<b>Query Using Explicit Iterator Variables</b></p>
+			<codeblock>IMPORT javaobject.Position;
+SELECT DISTINCT pflo."type", posnVal.qty
+FROM /portfolios pflo, positions.values posnVal TYPE Position
+WHERE pflo.status = 'active' and posnVal.mktValue &gt; 25.00</codeblock>
+	</conbody>
+</concept>

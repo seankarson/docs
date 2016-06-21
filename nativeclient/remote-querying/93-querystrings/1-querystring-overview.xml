@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept
+	id="security">
+	<title
+		id="title_9717E51087B346988389138843E158C4">Using Query Strings in the Native Client </title>
+	<shortdesc>To use a query string in a native client, specify the string as a parameter in a
+			<codeph>QueryService::newQuery</codeph> method, then execute the query using
+			<codeph>Query::execute</codeph>, passing in the required parameters. </shortdesc>
+	<conbody>
+		<p>
+			
+
+Alternatively, if an expression evaluates to a boolean
+			value, you can specify it using the region shortcut methods
+				<codeph>Region::existsValue</codeph>, <codeph>Region::selectValue</codeph>, and
+				<codeph>Region::query</codeph>. These shortcut methods evaluate whether given
+			expressions return any entries and return a single value entry, respectively. See <xref
+				href="../95-remotequeryapi/2-create-manage-queries.xml#running-native-client-xact/section_0F92AD1BDB29426BB24CD41F5A0FAB78"
+				type="section"
+				format="dita"
+				scope="local"> Region Shortcut Query Methods</xref> for more information about these
+			shortcut methods. </p>
+		<p> If your query requires any <codeph>IMPORT</codeph> statements, 
+you must include these before
+			the <codeph>SELECT</codeph> statement in the query string that is passed to the query
+			engine. It should be a fully qualified package name relative to the cache server. The
+			Java class definition must exist and have the exact footprint as the native client C++
+			class. </p>
+	</conbody>
+</concept>

@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE bookmap PUBLIC "-//OASIS//DTD DITA BookMap//EN" "bookmap.dtd">
+<!-- Created with XMetaL (http://www.xmetal.com) -->
+<bookmap
+	id="transactions">
+	<booktitle>
+		<mainbooktitle>Transactions</mainbooktitle>
+	</booktitle>
+	<bookmeta>
+		<bookid>
+			<bookpartno><?xm-replace_text Book Part Number?></bookpartno>
+			<isbn><?xm-replace_text ISBN Number?>
+			</isbn>
+		</bookid>
+		<bookrights>
+			<copyrfirst>
+				<year><?xm-replace_text First Year?></year>
+			</copyrfirst>
+			<copyrlast>
+				<year><?xm-replace_text Last Year?></year>
+			</copyrlast>
+			<bookowner>
+				<person><?xm-replace_text Copyright owner?>
+				</person>
+			</bookowner>
+		</bookrights>
+	</bookmeta>
+	<part
+		format="dita"
+		href="transactions.xml"
+		navtitle="Transactions"
+		scope="local"
+		type="concept">
+		<topicref
+			format="dita"
+			href="how-native-client-xacts-work.xml"
+			navtitle="How Native Client Transactions Work"
+			scope="local"
+			type="concept"> </topicref>
+		<topicref
+			format="dita"
+			href="running-native-client-xact.xml"
+			navtitle="Running a Native Client Transaction"
+			scope="local"
+			type="concept"/>
+		<topicref
+			format="dita"
+			href="suspend-resume-xacts.xml"
+			navtitle="Suspending and Resuming Transactions"
+			scope="local"
+			type="concept"/>
+	</part>
+</bookmap>

@@ -1,0 +1,49 @@
+<?xml version="1.0"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept
+	id="concept_ED99AFD78BBC4554BE65038A1C0F279F">
+	<title>Creating a Cache</title>
+	<shortdesc>You create a cache using the <keyword keyref="product_name"/>
+		<codeph>CacheFactory.Create</codeph> call. Cache creation initializes the distributed system
+		and creates the cache using your <codeph>gfcpp.properties</codeph> and
+			<codeph>cache.xml</codeph> file settings and any additional properties you provide to
+		the call. </shortdesc>
+	<conbody>
+		<p>See <xref
+				href="../setting-properties/chapter-overview.xml#system_and_cache_properties"
+				type="concept"
+				format="dita"
+				scope="local">Setting System and Cache Properties</xref> and see <xref
+				href="../cache-init-file/chapter-overview.xml#chapter-overview"
+				type="concept"
+				format="dita"
+				scope="local">Cache Initialization File</xref>. </p>
+		<example
+			id="example_83A26ED124044FCBA45E88A9EEDDFDA1">
+			<title>Connecting and Creating the Cache</title>
+			<p>In this example, the application connects to the distributed system and creates the
+				cache using the available configuration files. </p>
+			<p>The application becomes a distributed system member in the cache Create call. </p>
+			<codeblock>CacheFactory cacheFactory = CacheFactory.CreateCacheFactory();
+Cache cache = cacheFactory.Create();</codeblock>
+		</example>
+		<example
+			id="example_DEDA9B5B329D4712BEB6EB6C4773610F">
+			<title>Providing Properties to the Cache Creation</title>
+			<p>You can also create a cache by referencing a <codeph>cache.xml</codeph> file, as
+				shown in the following example. You can use the <codeph>Properties</codeph> object
+				to change any of the <codeph>gfcpp.properties</codeph> settings.</p>
+				<codeblock>Properties prop = Properties.Create();
+prop.Insert("cache-xml-file", "cache.xml");
+CacheFactory cacheFactory = CacheFactory.CreateCacheFactory(prop);
+Cache cache = cacheFactory.Create();</codeblock>
+			<p>For systems with security enabled, the credentials for a joining member are
+				authenticated when the cache is created and the system connection is made. For more
+				information about secure connections to a distributed system, see <xref
+					href="../security/overviewsecurity.xml#security"
+					type="concept"
+					format="dita"
+					scope="local">Security</xref>. </p>
+		</example>
+	</conbody>
+</concept>

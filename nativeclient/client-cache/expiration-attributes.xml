@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "http://docs.oasis-open.org/dita/v1.1/OS/dtd/concept.dtd">
+<concept
+	id="expiration-attributes">
+	<title>Specifying Expiration Attributes</title>
+	<conbody>
+		<section
+			id="section_4901B92DE7EB408F81792920C9E4ED7C">
+			<p>Expiration attributes govern the automatic eviction of regions and region entries
+				from the cache. Eviction is based on the time elapsed since the last update or
+				access to the object. This is referred to as the least-recently-used (LRU) eviction
+				process. Expiration options range from marking the expired object as invalid to
+				completely removing it from the distributed cache. Eviction can help keep data
+				current by removing outdated entries, prompting a reload the next time they are
+				requested. Eviction may also be used to recover space in the cache by clearing out
+				unaccessed entries and regions. </p>
+			<p>Similar to application plug-ins, expiration activities are hosted by each application
+				that defines a region in its cache. </p>
+			<p>The following example shows a declaration that causes the region's entries to be
+				invalidated in the local cache after they have not been accessed for one minute.</p>
+				<codeblock>&lt;region-attributes&gt;
+    &lt;entry-idle-time&gt;
+        &lt;expiration-attributes timeout="60" action="local-invalidate"/&gt;
+    &lt;/entry-idle-time&gt;
+&lt;/region-attributes&gt;</codeblock>
+			<p>Region and region entry expiration attributes are set at the region level. By
+				default, regions and entries do not expire. The following attributes cover two types
+				of expiration: time-to-live (TTL) and idle timeout. </p>
+			<table
+				id="table_3DBD357EE28342A580352C1F3282E29F">
+				<tgroup
+					cols="2">
+					<colspec
+						colnum="1"/>
+					<colspec
+						colnum="2"/>
+					<tbody>
+						<row>
+							<entry>
+								<codeph>RegionTimeToLive</codeph>
+							</entry>
+							<entry>Number of seconds that the region remains in the cache after the
+								last creation or update before the expiration action occurs.
+							</entry>
+						</row>
+						<row>
+							<entry>
+								<codeph>EntryTimeToLive</codeph>
+							</entry>
+							<entry>For entries, the counter is set to zero for
+									<codeph>create</codeph> and <codeph>put</codeph> operations.
+									
+
+Region counters are reset when the region is created
+								and when an entry has its counter reset. An update to an entry
+								causes the time-to-live (TTL) counters to be reset for the entry and
+								its region. </entry>
+						</row>
+						<row>
+							<entry>
+								<codeph>RegionIdleTimeout</codeph>
+							</entry>
+							<entry>Number of seconds that the region remains in the cache after the
+								last access before the expiration action occurs. </entry>
+						</row>
+						<row>
+							<entry>
+								<codeph>EntryIdleTimeout</codeph>
+							</entry>
+							<entry>
+								
+
+The idle timeout counter for an object is reset when
+								its TTL counter is reset. An entry's idle timeout counter is also
+								reset whenever the entry is accessed through a <codeph>get</codeph>
+								operation. <p>The idle timeout counter for a region is reset
+									whenever the idle timeout is reset for one of its entries. </p>
+							</entry>
+						</row>
+					</tbody>
+				</tgroup>
+			</table>
+		</section>
+		<section
+			id="section_F338C1117B7B44398F59523B881EDD55">
+			<title>Using Statistics to Measure Expiration</title>
+			<p>Expiration is measured by comparing expiration attribute settings with the last
+				accessed time and last modified time statistics. These statistics are directly
+				available to applications through the <codeph>CacheStatistics</codeph> object that
+				is returned by the <codeph>Region::getStatistics</codeph> and
+					<codeph>RegionEntry::getStatistics</codeph> functions. The
+					<codeph>CacheStatistics</codeph> object also provides a function for resetting
+				the statistics counters. </p>
+		</section>
+		<section
+			id="section_6B402F97ECD8492A8798AC838D0BB606">
+			<title>Expiration Actions</title>
+			<p>You can specify one of the following actions for each expiration attribute: </p>
+			<ul
+				id="ul_47F8225FD176490080BA9B542666080D">
+				<li
+					id="li_26C41FE3BA3344EBAFF899541872BFCC"><b>Destroy</b>. Removes the object
+					completely from the cache. For regions, all entries are destroyed as well.
+					Destroy actions are distributed according to the region's distribution settings. </li>
+				<li
+					id="li_8DBBE65D1F5B45B6B203EDBA44227BE4"><b>Invalidate</b>. Marks the object as
+					invalid. For entries, the value is set to <codeph>NULL</codeph>. You invalidate
+					a region by invalidating all its entries. Invalidate actions are distributed
+					according to the region's distribution settings. When an entry is invalid, a
+						<codeph>get</codeph> causes the cache to retrieve the entry according to the
+					steps described in <xref
+						scope="local"
+						href="accessing-entries.xml#accessing-entries/section_AD6AFD842C144C128FA1C7F0B9283372"
+						type="section"
+						format="dita">Entry Retrieval</xref>. </li>
+				<li
+					id="li_E6502FF0DA81465D911C2135585202EA"><b>Local destroy</b>. Destroys the
+					object in the local cache but does not distribute the operation. </li>
+				<li
+					id="li_C7D9D69C40D94F3CAC7FAF2EDDD721F4"><b>Local invalidate</b>. Invalidates
+					the object in the local cache but does not distribute the operation.
+					<note>
+						<p>Destruction and invalidation cause the same event notification
+							activities whether carried out explicitly or through expiration
+							activities.
+						</p>
+					</note>
+				</li>
+			</ul>
+		</section>
+		<section
+			id="section_57F5B32CE9B34F29907E8697F51817F9">
+			<title>Region Expiration</title>
+			<p>Expiration activities in distributed regions can be distributed or performed only in
+				the local cache. So one cache could control region expiration for a number of caches
+				in the distributed system. </p>
+		</section>
+	</conbody>
+</concept>

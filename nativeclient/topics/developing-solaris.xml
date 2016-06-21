@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept id="developing-solaris">
+  <title id="title_8A5C3F5B2C4645809F9D523E1344916D">Developing C++ Programs on Solaris</title>
+
+  <conbody id="conbody_A7496C3B6E3B445BB1FFF0792E83AB03">
+    <section id="section_B518757C7D7A405F9E43C1232C2D6B56"><title>Setting the GemFire Environment Variables</title><p id="p_AD49E1F95A99411A91ED261A1A6E8B69">Before
+    you begin, set the native client environment variables on each Solaris
+    host. For each case, <varname>productDir</varname> is the path to the
+    native client product directory.</p><p id="p_DCA9A85C7588460AB84136C0527761D4"><b>For Bourne and Korn shells (sh,
+    ksh, bash)</b></p><codeblock id="codeblock_C8B407DECE3F499485A85AC3517E52AF">GFCPP= productDir ; export GFCPP
+PATH=$GFCPP/bin:$PATH;export PATH
+LD_LIBRARY_PATH=$GFCPP/lib:$LD_LIBRARY_PATH;export LD_LIBRARY_PATH</codeblock></section>
+
+    <section><title id="title_07F198349DD642B4970F8B00041E69B3">Compiling and Linking</title><p id="p_D1AE28407B574308A28C92333878119E">Version 5.9 of the
+    <i>SUNpro</i> compiler is supported on Solaris. The linker switches vary
+    according to whether you are statically linking to the GemFire
+    library.</p><p id="p_28F376475CB64825BD4E32C03AF8DE2E">To build and link a C++ client to GemFire on Solaris, the
+    compilation command line must include the appropriate arguments from this
+    table.</p><table>
+        <title id="title_29A23DDC6A334F64AF3F3E6C29C8A0A1">Compiler Arguments on Solaris</title>
+
+        <tgroup cols="2">
+          <thead>
+            <row id="row_A3232D72809E4841BA7857B88E1A1D74">
+              <entry>Argument</entry>
+
+              <entry>Explanation</entry>
+            </row>
+          </thead>
+
+          <tbody>
+            <row id="row_A3EEC1AEC70E49B3959E3132CAF80706">
+              <entry><codeph>-D_REENTRANT</codeph></entry>
+
+              <entry>Required to compile Solaris programs in a thread-safe
+              way.</entry>
+            </row>
+
+            <row>
+              <entry><codeph>-xarch=v8plus</codeph></entry>
+
+              <entry>Enables 32-bit compilation.</entry>
+            </row>
+
+            <row id="row_119B0D1801424FBA8FF860FB405FAF84">
+              <entry><codeph>-xarch=v9</codeph></entry>
+
+              <entry>Enables 64-bit compilation.</entry>
+            </row>
+
+            <row id="row_D9E1ABC46D8848E0BC9BAD0B7C3BFB4F">
+              <entry><codeph>-ldl</codeph>; <codeph>-lpthread</codeph>;
+              <codeph>-lc</codeph>; <codeph>-lm</codeph>;
+              <codeph>-lsocket</codeph>; <codeph>-lrt</codeph>;
+              <codeph>-lnsl</codeph>; <codeph>-ldemangle</codeph>;
+              <codeph>-lkstat</codeph>; <codeph>-lz</codeph></entry>
+
+              <entry>Additional libraries.</entry>
+            </row>
+
+            <row id="row_4057408ADC2C4BCBA4FE575A812C6241">
+              <entry><codeph><codeph>-library=stlport4</codeph></codeph></entry>
+
+              <entry>Solaris library compilation.</entry>
+            </row>
+
+            <row>
+              <entry><codeph><codeph>-I$ GFCPP
+              /include</codeph></codeph></entry>
+
+              <entry>Specifies the GemFire include directory.</entry>
+            </row>
+          </tbody>
+        </tgroup>
+      </table></section>
+
+    <section id="section_81557A11797047A7941B47D44D1566AA"><title id="title_627EA5B918C2475AA24DE4F5F2FB4BAF">Loading the GemFire Library</title><p id="p_1BEEE6FE2D2948E0B3936C5F4D28D206">When a C++
+    application is not statically linked to the GemFire library, the library
+    must be dynamically loadable. To make the GemFire library available for
+    load, add the path <codeph><varname>GemFireDir</varname>/lib</codeph> to
+    <varname>LD_LIBRARY_PATH</varname>, where <varname>GemFireDir</varname> is
+    the path to the GemFire product directory. </p></section>
+  </conbody>
+</concept>

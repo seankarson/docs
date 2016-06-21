@@ -1,0 +1,43 @@
+<?xml version="1.0"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept
+	id="concept_BCBB75CA11334D4F9B8ACDF2A54EE54C">
+	<title>Creating a Region</title>
+	<shortdesc>To create a region, you create a <codeph>RegionFactory</codeph> using the
+			<codeph>RegionShortcut</codeph> that most closely fits your region configuration. </shortdesc>
+	<conbody>
+		<p>From that point, you customize the settings for region attributes as needed. </p>
+		<p>Creating a region using the native client API only creates a proxy client side region. A
+			corresponding region with the same name and path must also exist on the servers that
+			have been configured for client connections and upon which the client will perform its
+			operations. </p>
+		<example
+			id="example_0B7004B8E5B745C3877CCE68D0061A6A">
+			<title>Creating a CACHING_PROXY Region</title>
+			<p>This example creates a region using a CACHING_PROXY RegionShortcut with no further
+				modifications:</p>
+				<codeblock>RegionFactory regionFactory =
+cache.CreateRegionFactory(RegionShortcut.CACHING_PROXY);
+ 
+IRegion&lt;string, string&gt; region = regionFactory
+.Create&lt;string, string&gt;("exampleRegion");</codeblock>
+		</example>
+		<example
+			id="example_D42CE1B1446B468787E0ABC92DBA90C1">
+			<title>Creating a CACHING_PROXY Region with LRU</title>
+			<p>This example creates a region based on the CACHING_PROXY RegionShortcut with two
+				additional region attributes settings. For information on the settings, see <xref
+					href="../client-cache/region-attributes-desc.xml#region-attributes-desc"
+					type="concept"
+					format="dita"
+					scope="local">Region Attributes Descriptions</xref>.</p>
+				<codeblock>RegionFactory regionFactory =
+cache.CreateRegionFactory(RegionShortcut.CACHING_PROXY);
+// Create the example Region programmatically.
+IRegion&lt;string, string&gt; region = regionFactory
+.SetLruEntriesLimit(20000)
+.SetInitialCapacity(20000)
+.Create&lt;string, string&gt;("exampleRegion");</codeblock>
+		</example>
+	</conbody>
+</concept>

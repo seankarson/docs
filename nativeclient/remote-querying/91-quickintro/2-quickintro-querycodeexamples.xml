@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept
+	id="security">
+	<title
+		id="title_9717E51087B346988389138843E158C4">Executing a Query from the
+		Native Client</title>
+	<shortdesc>C#/.NET and C++ examples show how to execute a query from the
+		native client. </shortdesc>
+	<conbody
+		id="conbody_D74C4342289846619E028149A8920946">
+		<note>
+			<p>In all queries that use the example data, it is assumed that the
+				<codeph>/portfolios</codeph> region has
+				<codeph>javaobject.Portfolio</codeph> objects on the cache
+			server.
+			</p>
+		</note>
+		<ol
+			id="ol_DB7B1EE310BD4F2CA558F71028DFC8B3">
+			<li
+				id="li_303D803ABB1A4D2BBA9B7EB5A15D7FC8">
+				
+
+
+
+If you are using the C++ native client, get a
+				pointer to the <codeph>QueryService</codeph> method. </li>
+			<li id="li_E16CCC03949942F5A66D8A19FFBB8366">Create a <codeph>QueryPtr</codeph> to a query (C++)
+				or create a query instance (C# .NET) that is compatible with the OQL specification. </li>
+			<li
+				id="li_5842C9EA86324FEA9A05F0785659E4C6">Use the
+					<codeph>execute</codeph> method for the
+					<codeph>Query</codeph> interface to submit the query string
+				to the cache server. The server remotely evaluates the query
+				string and returns the results to the client. </li>
+			<li
+				id="li_3BD085E12C334E2D86E05CB9CDE57976">You can iterate through
+				the returned objects as part of the query process. </li>
+		</ol>
+		<section
+			id="section_15C6689C363B469B947B177E1DE73208">
+			<title>C#/.NET Example</title>
+			<codeblock id="codeblock_E8BA26FFF5AB4038AFB9AC1FA64B4694">Query&lt;Portfolio&gt; qry = qrySvc.NewQuery("SELECT DISTINCT * FROM /Portfolios");
+ISelectResults&lt;Portfolio&gt; results = qry.Execute();
+SelectResultsIterator&lt;Portfolio&gt; iter = results.GetIterator(); 
+while (iter.MoveNext()) {
+    Console.WriteLine( iter.Current.ToString()); }</codeblock>
+		</section>
+		<section
+			id="section_79FEE9FE8530496A8FD984C6D6D03894">
+			<title>C++ Example</title>
+				<note>
+					<p>The C++ examples in this chapter all assume that you have
+					already obtained a pointer to the
+						<codeph>QueryService</codeph>.
+					</p>
+				</note>
+			<codeblock>QueryServicePtr qrySvcPtr = cachePtr-&gt;getQueryService("examplePool");
+QueryPtr qry = qrySvcPtr-&gt;newQuery(
+               "SELECT DISTINCT * FROM /Portfolios WHERE status = ‘active’");
+SelectResultsPtr resultsPtr = qry-&gt;execute(10);
+SelectResultsIterator iter = resultsPtr-&gt;getIterator();
+while (iter.hasNext()) {
+    PortfolioPtr portfolio = dynCast&lt;PortfolioPtr &gt; (iter.next());
+}</codeblock>
+		</section>
+	</conbody>
+</concept>

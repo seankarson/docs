@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept
+	id="concept_A3334FB1175D433396A24AEBF174D91C">
+	<title>ConcurrencyChecksEnabled</title>
+	<conbody>
+		<p>This attribute determines whether members perform checks to provide consistent handling
+			for concurrent or out-of-order updates to distributed regions. </p>
+		<p>A client cache can disable consistency checking for a region even if server caches enable
+			consistency checking for the same region. This configuration ensures that the client
+			sees all events for the region, but it does not prevent the client cache region from
+			becoming out-of-sync with the server cache. </p>
+		<p>Optionally enable concurrency checks for the region. Example:</p>
+			<codeblock>&lt;region-attributes concurrency-checks-enabled="true"&gt; 
+&lt;/region-attributes&gt;</codeblock><p>
+			See <xref
+				href="consistency_checking_in_regions.xml#concept_77340A4999AC4861972A0EE10303E557"
+				type="concept"
+				format="dita"
+				scope="local"><?xm-replace_text Consistency for Region Updates?></xref> for more
+			information. </p>
+	</conbody>
+</concept>

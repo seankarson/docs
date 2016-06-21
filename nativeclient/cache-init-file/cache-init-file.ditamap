@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE bookmap PUBLIC "-//OASIS//DTD DITA BookMap//EN" "bookmap.dtd">
+<!-- Created with XMetaL (http://www.xmetal.com) -->
+<bookmap id="cache-init-file-book"><booktitle>
+		<mainbooktitle>Cache Initializiation File</mainbooktitle></booktitle>
+	<bookmeta>
+		<bookid>
+			<bookpartno><?xm-replace_text Book Part Number?></bookpartno>
+			<isbn><?xm-replace_text ISBN Number?>
+			</isbn>
+		</bookid>
+		<bookrights>
+			<copyrfirst><year><?xm-replace_text First Year?></year>
+			</copyrfirst>
+			<copyrlast><year><?xm-replace_text Last Year?></year>
+			</copyrlast>
+			<bookowner>
+				<person><?xm-replace_text Copyright owner?>
+				</person>
+			</bookowner>
+		</bookrights>
+	</bookmeta>
+	<chapter format="dita" href="chapter-overview.xml" navtitle="Cache Initialization File" scope="local" type="concept">
+		<topicref format="dita" href="file-basics.xml" navtitle="Cache Initialization File Basics" scope="local" type="concept"/>
+		<topicref format="dita" href="example-cache-file.xml" navtitle="Example cache.xml File" scope="local" type="concept"/>
+		<topicref format="dita" href="cache-dtd.xml" navtitle="Native Client Cache XML DTD" scope="local" type="concept"/>
+	</chapter>
+</bookmap>

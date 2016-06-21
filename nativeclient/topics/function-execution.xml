@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN"
+"concept.dtd">
+<concept id="function-execution">
+  <title id="title_261966608351443E9C01D32A7714BAA2">Function
+  Execution</title>
+
+  <conbody id="conbody_10D17FEA49F2447A86C9C5505B3328AD">
+    <p id="p_F8008F67EB1242B0A90CC179240DB35E">Using the vFabric GemFire
+    function execution service, you can execute application functions on a
+    single server member, in parallel on a subset of server members, or in
+    parallel on all server members of a distributed system. Achieving linear
+    scalability is predicated upon being able to horizontally partition the
+    application data such that concurrent operations by distributed
+    applications can be done independently across partitions. In other words,
+    if the application requirements for transactions can be restricted to a
+    single partition, and all data required for the transaction can be
+    colocated to a single server member or a small subset of server members,
+    then true parallelism can be achieved by vectoring the concurrent
+    accessors to the ever-growing number of partitions.</p>
+
+    <p id="p_920934E68EC04255A417847279C7496B">Most scalable enterprise
+    applications grow in terms of data volume, where the number of data items
+    managed rather than each item grows over time. If the above logic holds
+    (especially true for OLTP class applications), then we can derive sizable
+    benefits by routing the data dependent application code to the fabric
+    member hosting the data. The term we use to describe this routing of
+    application code to the data of interest is aptly called data-aware
+    function routing, or behavior routing.</p>
+
+    <p id="p_986625B7FFEC4E3FAB8CA722DF978CC3">Function Execution can be used
+    only along with the pool functionality. For more information about the
+    pool API, see <xref href="../connection-pools/chapter-overview.xml">Using
+    Connection Pools</xref>.</p>
+
+    <note id="note_78B51B0C88204A93AA0EEFE5F456AEC9">Only C++ versions of
+    Function Execution API interfaces, classes, and methods are shown
+    throughout the text in this chapter (like FunctionService::onRegion ) .
+    The code examples show C++ and C#.</note>
+  </conbody>
+</concept>

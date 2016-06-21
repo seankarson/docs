@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept
+	id="security">
+	<title
+		id="title_9717E51087B346988389138843E158C4">Server Authentication Errors</title>
+	<conbody
+		id="conbody_D74C4342289846619E028149A8920946">
+		<p>An <codeph>AuthenticationRequiredException</codeph> is thrown when the server is
+			configured with security and the client does not present its credentials while
+			attempting to connect. This can occur if the
+				<codeph>securityclient-auth-factory</codeph> and
+				<codeph>security-client-auth-library</codeph> properties are not configured on the
+			client. </p>
+	</conbody>
+</concept>

@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept id="suspend-resume-xacts">
+  <title id="title_052F77DEF74948C68171854261C49C95">Suspending and Resuming Transactions</title>
+
+  <conbody id="conbody_4774A70126D34E6B9A79C33C1C0A9F55">
+    <p id="p_47E885E9454C4902BDFE107BFF4658EC">vFabric GemFire APIs provide the ability to suspend and resume
+    transactions.</p>
+
+    <p id="p_AF16D82CCEBF4F19A3D60B5212112203">The ability to suspend and resume is useful when a thread must perform
+    some operations that should not be part of the transaction before the
+    transaction can complete.</p>
+
+    <p id="p_F4B322265890421FB03569E78A317021">When a transaction is suspended, it loses the transactional view of the
+    cache. None of the previous operations (before calling suspend) are
+    visible to the thread. Subsequently any operations that are performed by
+    the thread do not participate in the suspended transaction.</p>
+
+    <p id="p_716E172661CC44A98BDA5EE78EA881F0">When a transaction is resumed, the resuming thread assumes the
+    transactional view. A transaction that is suspending on a member must be
+    resumed on the same member. Before resuming a transaction, you may want to
+    check if the transaction exists on the member and whether it is suspended.
+    You may optionally use the <codeph>tryResume</codeph> method.</p>
+
+    <p id="p_A0566600603045EFB17DD9D894D23990">If the member with the primary copy of the data crashes, the
+    transactional view that applied to that data is lost. The secondary member
+    for the data will not be able to resume any transactions suspended on the
+    crashed member. You will need to take remedial steps to retry the
+    transaction on a new primary copy of the data.</p>
+
+    <p>If a suspended transaction is not touched for a period of time, GemFire
+    cleans it up automatically. By default, the timeout for a suspended
+    transaction is 30 minutes and can be configured by using the
+    <codeph>suspended-tx-timeout</codeph> property of the
+    <codeph>gfcpp.properties</codeph> file. The suspended transaction timeout
+    value is specified in milliseconds.</p>
+
+    <p id="p_393151BE74D8461B8176E1068F6033E4">See <xref href="running-native-client-xact.xml">Running a Native Client
+    Transaction</xref> for code examples of how to suspend and resume a
+    transaction.</p>
+  </conbody>
+</concept>

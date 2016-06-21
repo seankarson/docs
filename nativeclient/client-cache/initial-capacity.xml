@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "http://docs.oasis-open.org/dita/v1.1/OS/dtd/concept.dtd">
+<concept
+	id="initial-capacity">
+	<title>InitialCapacity</title>
+	<conbody>
+		<section
+			id="section_AB0163B072DA4DA0B858293CA02E91A1">
+			<p>Use this attribute, together with the <codeph>LoadFactor</codeph> attribute, to set
+				the initial parameters on the underlying hashmap that stores region entries. This is
+				the number of entries that the region map will be ready to hold when it is created. </p>
+			<p>This declaration sets the region's initial capacity to <codeph>10000</codeph>: </p>
+			<codeblock>&lt;region-attributes initial-capacity="10000"&gt;
+&lt;/region-attributes&gt;</codeblock>
+		</section>
+	</conbody>
+</concept>

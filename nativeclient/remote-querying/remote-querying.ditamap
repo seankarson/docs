@@ -1,0 +1,233 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE bookmap PUBLIC "-//OASIS//DTD DITA BookMap//EN" "bookmap.dtd">
+<!-- Created with XMetaL (http://www.xmetal.com) -->
+<bookmap
+	id="remote-querying-book">
+	<booktitle>
+		<mainbooktitle>Remote Querying</mainbooktitle>
+	</booktitle>
+	<bookmeta>
+		<bookid>
+			<bookpartno><?xm-replace_text Book Part Number?></bookpartno>
+			<isbn><?xm-replace_text ISBN Number?>
+			</isbn>
+		</bookid>
+		<bookrights>
+			<copyrfirst>
+				<year><?xm-replace_text First Year?></year>
+			</copyrfirst>
+			<copyrlast>
+				<year><?xm-replace_text Last Year?></year>
+			</copyrlast>
+			<bookowner>
+				<person><?xm-replace_text Copyright owner?>
+				</person>
+			</bookowner>
+		</bookrights>
+	</bookmeta>
+	<part
+		format="dita"
+		href="remote-querying.xml"
+		navtitle="Remote Querying"
+		scope="local"
+		type="concept">
+		<topicref
+			format="dita"
+			href="91-quickintro/1-quickintro-overview.xml"
+			navtitle="Remote Querying Basics"
+			scope="local"
+			type="concept">
+			<topicref
+				format="dita"
+				href="91-quickintro/4-quickintro-exampleportfolioregion.xml"
+				navtitle="Examples Data and Class Definitions"
+				scope="local"
+				type="concept"/>
+			<topicref
+				format="dita"
+				href="91-quickintro/2-quickintro-querycodeexamples.xml"
+				navtitle="Executing a Query from the Native Client"
+				scope="local"
+				type="concept"/>
+			<topicref
+				format="dita"
+				href="91-quickintro/41-quickintro-query-portfolioregion.xml"
+				navtitle="Querying the Portfolios Region"
+				scope="local"
+				type="concept"/>
+			<topicref
+				format="dita"
+				href="91-quickintro/42-quickintro-modify-cachecontents.xml"
+				navtitle="Modifying Cache Contents"
+				scope="local"
+				type="concept"/>
+			<topicref
+				format="dita"
+				href="94-indexes/indexes-overview.xml"
+				navtitle="Creating Indexes"
+				scope="local"
+				type="concept"/>
+			<topicref
+				format="dita"
+				href="91-quickintro/3-quickintro-requirements.xml"
+				navtitle="Remote Querying Requirements"
+				scope="local"
+				type="concept"/>
+		</topicref>
+		<topicref
+			format="dita"
+			href="93-querystrings/1-querystring-overview.xml"
+			navtitle="Using Query Strings in the Native Client"
+			scope="local"
+			type="concept">
+			<topicref
+				format="dita"
+				href="93-querystrings/3-from-clause.xml"
+				navtitle="FROM Clause"
+				scope="local"
+				type="concept">
+				<topicref
+					format="dita"
+					href="93-querystrings/3a-iterator-variables.xml"
+					navtitle="Using Iterator Variables"
+					scope="local"
+					type="concept"/>
+				<topicref
+					format="dita"
+					href="93-querystrings/3b-importing-using-object-classes.xml"
+					navtitle="Importing and Using Object Classes"
+					scope="local"
+					type="concept"/>
+				<topicref
+					format="dita"
+					href="93-querystrings/3c-predefined-class-types.xml"
+					navtitle="Predefined Class Types"
+					scope="local"
+					type="concept"/>
+				<topicref
+					format="dita"
+					href="93-querystrings/3d-specify-object-types.xml"
+					navtitle="Specifying the Object Types of FROM Clause Collections"
+					scope="local"
+					type="concept"/>
+			</topicref>
+			<topicref
+				format="dita"
+				href="93-querystrings/6-select-projection-list.xml"
+				navtitle="SELECT Projection List"
+				scope="local"
+				type="concept"/>
+			<topicref
+				format="dita"
+				href="93-querystrings/7-select-statement-query-results.xml"
+				navtitle="SELECT Statement Query Results"
+				scope="local"
+				type="concept"/>
+			<topicref
+				format="dita"
+				href="93-querystrings/4-where-clause.xml"
+				navtitle="WHERE Clause"
+				scope="local"
+				type="concept"/>
+			<topicref
+				format="dita"
+				href="93-querystrings/5-joins.xml"
+				navtitle="Joins"
+				scope="local"
+				type="concept"/>
+		</topicref>
+		<topicref
+			format="dita"
+			href="92-querylanguage/2-accessingdata.xml"
+			navtitle="Accessing Cached Data"
+			scope="local"
+			type="concept">
+			<topicref
+				format="dita"
+				href="92-querylanguage/21-basic-region-access.xml"
+				navtitle="Basic Region Access"
+				scope="local"
+				type="concept"/>
+			<topicref
+				format="dita"
+				href="92-querylanguage/23-attribute-visibility.xml"
+				navtitle="Attribute Visibility"
+				scope="local"
+				type="concept"/>
+			<topicref
+				format="dita"
+				href="92-querylanguage/22-drilldown-modify-query-scope.xml"
+				navtitle="Modifying Query Scope"
+				scope="local"
+				type="concept"/>
+			<topicref
+				format="dita"
+				href="92-querylanguage/24-nested-query-scope.xml"
+				navtitle="Nested Query Scopes"
+				scope="local"
+				type="concept"/>
+			<topicref
+				format="dita"
+				href="92-querylanguage/25-when-names-cant-resolve.xml"
+				navtitle="When Names Cannot Be Resolved"
+				scope="local"
+				type="concept"/>
+		</topicref>
+		<topicref
+			format="dita"
+			href="93-querystrings/8-query-language-elements.xml"
+			navtitle="Query Language Elements"
+			scope="local"
+			type="concept">
+			<topicref
+				format="dita"
+				href="93-querystrings/8a-method-invocation.xml"
+				navtitle="Method Invocation"
+				scope="local"
+				type="concept"/>
+			<topicref
+				format="dita"
+				href="93-querystrings/8b-query-lang-literals.xml"
+				navtitle="Query Language Literals Supported by Native Client"
+				scope="local"
+				type="concept"/>
+			<topicref
+				format="dita"
+				href="93-querystrings/8c-type-conversions.xml"
+				navtitle="Type Conversions"
+				scope="local"
+				type="concept"/>
+		</topicref>
+		<topicref
+			format="dita"
+			href="95-remotequeryapi/1-remote-query-api-overview.xml"
+			navtitle="Remote Query API"
+			scope="local"
+			type="concept">
+			<topicref
+				format="dita"
+				href="95-remotequeryapi/2-create-manage-queries.xml"
+				navtitle="Creating and Managing Queries"
+				scope="local"
+				type="concept"/>
+			<topicref
+				format="dita"
+				href="95-remotequeryapi/3-query-result-sets.xml"
+				navtitle="Query Result Sets"
+				scope="local"
+				type="concept"/>
+			<topicref
+				format="dita"
+				href="96-progexamples/2-query-code-examples-resultset.xml"
+				navtitle="Query Code Samples Returning ResultSet"
+				scope="local"
+				type="concept"/>
+			<topicref
+				format="dita"
+				href="96-progexamples/3-query-code-examples-structset.xml"
+				navtitle="Query Code Samples Returning StructSet"
+				scope="local"
+				type="concept"/>
+		</topicref>
+	</part>
+</bookmap>

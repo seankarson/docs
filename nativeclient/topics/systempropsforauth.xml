@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN"
+"concept.dtd">
+<concept id="security">
+  <title id="title_9717E51087B346988389138843E158C4">System Properties for
+  Authentication</title>
+
+  <shortdesc>The native client uses system properties to configure
+  authentication. These properties are defined in
+  the<codeph>gfcpp.properties</codeph> file, which the native client accesses
+  during startup.</shortdesc>
+
+  <conbody id="conbody_D74C4342289846619E028149A8920946">
+    <section
+    id="section_E1835A3B22D44D47A4C9DB54A3590B71"><title>security-client-auth-factory</title><p>This
+    is the system property for the factory function of the class implementing
+    the AuthInitialize interface (IAuthInitialize in .NET). The .NET clients
+    can load both C++ and .NET implementations. For .NET implementations, this
+    property is the fully qualified name of the static factory function
+    (including the namespace and class). </p></section>
+
+    <section
+    id="section_15C6689C363B469B947B177E1DE73208"><title>security-client-auth-library</title><p>This
+    is the system property for the library where the factory methods reside.
+    The library is loaded explicitly and the factory functions are invoked
+    dynamically, returning an object of the class implementing the
+    AuthInitialize interface. </p><p>Other implementations of the
+    <codeph>AuthInitialize</codeph> interface may be required to build
+    credentials using properties that are also passed as system properties.
+    These properties also start with the security- prefix. For example, the
+    PKCS implementation requires an alias name and the corresponding keystore
+    path, which are specified as <codeph>security-alias</codeph> and
+    <codeph>security-keystorepath</codeph>, respectively. Similarly,
+    <codeph>UserPasswordAuthInit </codeph>requires a username specified in
+    <codeph>security-username</codeph>, and the corresponding password is
+    specified in the <codeph>security-password</codeph> system property.
+    </p><p>The <codeph>getCredentials</codeph> function for the
+    <codeph>AuthInitialize</codeph> interface is called to obtain the
+    credentials. All system properties starting with security- are passed to
+    this callback as the first argument to the <codeph>getCredentials</codeph>
+    function, as shown in the following code snippet: </p><p>
+    <codeph>PropertiesPtr getCredentials(PropertiesPtr&amp; securityprops,
+    const char *server);</codeph> </p><p> <xref/>The following example shows
+    how to implement the factory method in both C++ and .NET: </p><fig
+        id="fig_F7BBA12DA07343A79896E40D2187B0CE">
+        <title>Implementing the Factory Method for Authentication (C++ and
+        .NET)</title>
+
+        <codeblock id="codeblock_E8BA26FFF5AB4038AFB9AC1FA64B4694"><b>C++ Implementation</b>
+LIBEXP AuthInitialize* createPKCSAuthInitInstance()
+{
+return new PKCSAuthInit( );
+}
+<b>.NET Implementation</b>
+public static IAuthInitialize Create()
+{
+return new UserPasswordAuthInit();
+}</codeblock>
+      </fig><p>Implementations of the factory method are user-provided.
+    Credentials in the form of properties returned by this function are sent
+    by the client to the server for authentication during the client’s
+    handshake process with the server. </p><p>The GemFire native client
+    installation provides sample security implementations in its
+    <codeph>templates/security</codeph> folder. </p></section>
+  </conbody>
+</concept>

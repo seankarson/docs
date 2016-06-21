@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept
+	id="running-native-client-xact">
+	<title
+		id="title_9717E51087B346988389138843E158C4">Running a Native Client Transaction</title>
+	<shortdesc>Before you can run a native client transaction, you must configure your clients and
+		servers; define your server regions for your transactions; and define your client regions. </shortdesc>
+	<conbody
+		id="conbody_D74C4342289846619E028149A8920946">
+		<ol
+			id="ol_C07B2C97ED4942198D2C69CC8619B0AA">
+			<li id="li_F6109E270B8D4AA4B0D51DD852FF3FBC"> Retrieve the <keyword keyref="product_name"/> cache
+				transaction manager. <p><b>C++ example</b></p>
+				<codeblock id="codeblock_E8BA26FFF5AB4038AFB9AC1FA64B4694">CacheTransactionManagerPtr txManager = 
+      cache-&gt;getCacheTransactionManager(); </codeblock>
+				<p><b>C# .NET example</b>
+				</p>
+				<codeblock id="codeblock_560E9FB11530473199E5E48D6E264144">CacheTransactionManager txManager =
+      cache.CacheTransactionManager;</codeblock>
+			</li>
+			<li id="li_42CD155D5353451F862CD23907408B4B"> Run your transaction. (Detailed steps follow the
+				examples.) <p><b>C++ example</b>
+				</p>
+				<codeblock id="codeblock_86236E9ED77642F887E8F1CB0ADCF6E1">TransactionIdPtr tid;
+txManager-&gt;begin();
+// ..do work
+tid = txManager-&gt;suspend();
+// following code can be run from another
+// thread that has access to tid
+try {
+  txManager-&gt;resume(tid);
+  // ..do work
+  tid = txManager-&gt;commit();
+}  catch (const CommitConflictException&amp; e) {
+  // ..on exception 
+}</codeblock>
+				<p><b>C# .NET example</b></p>
+				<codeblock id="codeblock_BFE7485AF958458D9FFE5372E569577B">TransactionId tid;
+txManager.Begin();
+// ..do work
+tid = txManager.Suspend();
+// following code can be run from another
+// thread that has access to tid
+try {
+  txManager.Resume(tid);
+  // ..do work
+  txManager.Commit();
+} catch (CommitConflictException e)</codeblock>
+				<ul id="ul_1BAFE2A7CBED4F7686ED2175144F7C9A">
+					<li id="li_D30468BC0470407BAA55BB2D63CDA508">Start each transaction with a
+							<codeph>begin</codeph> operation. </li>
+					<li id="li_2D6AFB6BED504514B890CDF5203A2D8D">If your transaction runs on server
+						regions that are a mix of partitioned and replicated regions, perform your
+						first transaction operation on a partitioned region. This sets the server
+						data host for the entire transaction. If you are using PR single-hop,
+						single-hop will be applied as usual to this first operation. </li>
+					<li id="li_256AC72C43C84B73B4BA48F15AA39EF4">Run the <keyword
+							keyref="product_name"/> operations and other operations that you want
+						included in the transaction. </li>
+					<li id="li_C37077FF0D8B48F5AB902632FE31792C"> End each transaction with a
+							<codeph>commit</codeph> or a <codeph>rollback</codeph>. <note
+							id="note_56215AA771CC40099629892A6DD20FF8">
+							<p>Do not leave any transaction in an uncommitted and unrolled back
+								state unless you have suspended the transaction. Transactions that
+								have not been explicitly suspended do not time out, so will remain
+								in the system for the life of your application. </p>
+						</note>
+					</li>
+				</ul>
+			</li>
+			<li
+				id="li_A0DDFA0E9F5D493EBA169F6F9ED29181">Review all of your client code for
+				compatibility with transactions. </li>
+		</ol>
+		<p>When you commit a transaction, while the commit is taking place, the changes are visible
+			in the cache. This is also known as transition commits. This provides better performance
+			than locking everything to do the transaction updates, but it means that another process
+			accessing data used in the transaction might get some data in the pre-transaction state
+			and some in the post-transaction state. </p>
+		<p>For example, key 1 and 2 are written to in a transaction so both of their values change from A
+			to B. In another thread, it is possible to read key 1 with value B and key 2 with value
+			A, while the transaction is being committed. This can happen because of how <keyword
+				keyref="product_name"/> performs reads. This choice sacrifices atomic visibility in
+			favor of performance. Reads do not block writes. Writes do not block reads. </p>
+		<p
+			id="p_AE1CE53BB4EF42D18F275B6EEE47957D">Because the client cache waits during
+			transaction execution, and client regions are not distributed, the only activities that
+			interact with a client transaction are those that occur on the server. </p>
+	</conbody>
+</concept>

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "http://docs.oasis-open.org/dita/v1.1/OS/dtd/concept.dtd">
+<concept
+	id="cache-ownership">
+	<title>Local, Remote, and Distributed Caches</title>
+	<shortdesc>The <i>distributed system</i> defines how native client and cache server processes
+		find each other. </shortdesc>
+	<conbody>
+		<p>The distributed system keeps track of its membership list and makes its members aware of the
+			identities of the other members in the distributed system. </p>
+		<p>A cache for a native client is referred to as its <i>local cache</i>. All other caches in the
+			distributed system are considered <i>remote caches</i> to the application. Every cache
+			server and application process has its own cache. The term <i>distributed cache</i> is
+			used to describe the union of all caches in a <keyword keyref="product_name"/>
+			distributed system. </p>
+	</conbody>
+</concept>

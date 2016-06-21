@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept
+	id="running-connection-pool-code">
+	<title>Running the Connection Pool Code</title>
+	<shortdesc>Examples demonstrate a simple procedure to create a pool factory
+		and then create a pool instance in C++ and C#. They also help you to
+		execute a query. </shortdesc>
+	<conbody>
+		<p>The examples create a pool with locators. Ensure that you create a
+			pool with locators or endpoints, but not both. The first example
+			demonstrates creating a pool by adding locators. The second example
+			demonstrates creating a pool by adding servers. For more
+			information, see the example in the QuickStart Guide. </p>
+		<example
+			id="example_CBF2C9DD1EF04AE9BA2902B494426542">
+			<title>Connection Pool Creation and Execution Using C++</title>
+			<codeblock>PropertiesPtr prptr = Properties::create();
+systemPtr = CacheFactory::createCacheFactory(prptr);
+
+cachePtr = systemPtr-&gt;create();
+PoolFactoryPtr poolFacPtr = PoolManager::createFactory();
+//to create pool add either endpoints or add locators or servers
+//pool with endpoint, adding to pool factory
+//poolFacPtr-&gt;addServer("localhost", 12345 /*port number*/);
+//pool with locator, adding to pool factory
+poolFacPtr-&gt;addLocator("localhost", 34756 /*port number*/);
+PoolPtr pptr = NULLPTR;
+if ((PoolManager::find("examplePool")) == NULLPTR) {
+  // Pool does not exist with the same name.
+  pptr = poolFacPtr-&gt;create("examplePool");
+}
+RegionFactoryPtr regionFactory =
+    cachePtr-&gt;createRegionFactory(CACHING_PROXY);
+regionPtr = regionFactory
+    -&gt;setPoolName("examplePool")
+    -&gt;create("regionName");
+QueryServicePtr qs = cachePtr-&gt;getQueryService("examplePool");</codeblock>
+		</example>
+		<example
+			id="example_C628288469204AC3ABE3EA6447EC5056">
+			<title>Connection Pool Creation and Execution Using (C#
+				.NET)</title>
+			<codeblock>Properties prop = Properties.Create();
+CacheFactory cacheFactory = CacheFactory.CreateCacheFactory(prop);
+Cache cache = cacheFactory.Create();
+
+PoolFactory poolFact = PoolManager.CreateFactory();
+//to create pool add either endpoints or add locators
+//pool with endpoint, adding to pool factory.
+poolFact.AddServer("localhost", 40404 /*port number*/);
+//pool with locator, adding to pool factory
+//poolFact.AddLocator("hostname", 15000 /*port number*/);
+Pool pool = null;
+if (PoolManager.Find("poolName") == null) {
+  pool = poolFact.Create("poolName");
+}
+int loadConditInterval = pool.LoadConditioningInterval;
+RegionFactory regionFactory =
+    cache.CreateRegionFactory(RegionShortcut.CACHING_PROXY);
+IRegion&lt;string, string&gt; region =
+    regionFactory.SetPoolName(poolName).Create&lt;string, string&gt;(regionName);</codeblock>
+		</example>
+	</conbody>
+</concept>

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept
+	id="security">
+	<title
+		id="title_9717E51087B346988389138843E158C4">Step 3. Configure environment variables</title>
+	<shortdesc>Configure your system environment to build and run OpenSSL. Follow the environment
+		setup that applies to your operating system. </shortdesc>
+	<conbody
+		id="conbody_D74C4342289846619E028149A8920946">
+		<p>For all references to the Pivotal_GemFire_NativeClient_<i>64bit</i>_<i>xxxx</i> directory,
+			replace <i>64bit</i> with the appropriate architecture and <i>xxxx</i> with the actual
+			four-digit product build number. </p>
+		<section
+			id="section_6C173D0D8C8343EA92961C954032E2CA">
+			<title>Bourne and Korn shells (sh, ksh, bash)</title>
+			<codeblock>% OPENSSL=<i>&lt;parent folder for OpenSSL binaries</i>&gt;; export OPENSSL
+% GFCPP=<i>&lt;path to installation, typically C:\Pivotal_GemFire_NativeClient_64bit_xxxx</i>&gt;; export GFCPP
+% LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$GFCPP/lib:$GFCPP/ssl_libs:$OPENSSL/lib
+% export LD_LIBRARY_PATH
+% CLASSPATH=$GEMFIRE/lib/gfSecurityImpl.jar:$CLASSPATH</codeblock>
+		</section>
+		<section
+			id="section_76CF86EDC2234BA6BF7DA6E253C71F61">
+			<title>Windows</title>
+			<codeblock>&gt; set GFCPP=<i>&lt;path to installation, typically C:\Pivotal_GemFire_NativeClient_32or64bit_xxxx&gt;</i>
+&gt; set OPENSSL=<i>&lt;path to installed OpenSSL, typically C:\OpenSSL&gt;</i>
+&gt; set PATH=<i>&lt;path to Java JDK or JRE&gt;</i>\bin;%GFCPP%\bin;%GFCPP%\ssl_libs;%OPENSSL%\bin;%PATH%
+&gt; set CLASSPATH=<i>&lt;path to GemFire installation&gt;</i>\lib\gfSecurityImpl.jar;%CLASSPATH%</codeblock>
+		</section>
+	</conbody>
+</concept>

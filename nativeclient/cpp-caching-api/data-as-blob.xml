@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept
+	id="concept_C0A613390E364347AA3C6E4361972116">
+	<title>Serializing and Accessing Data as a Blob</title>
+	<shortdesc>If you have data that is best handled as a blob, such as structs that do not contain
+		pointers, use the serializable type <codeph>CacheableBytes</codeph> .
+			<codeph>CacheableBytes</codeph> is a blob class that implements the serialization for
+		you. </shortdesc>
+	<conbody>
+		<p><codeph>CacheableBytes</codeph> also provides direct access to the blob data. Because it
+			is not derived from the <codeph>CacheableKey</codeph> interface,
+				<codeph>CacheableBytes</codeph> enables you to modify data in place and then put it
+			into the region again to distribute the change. </p>
+		<p>For more information, see the API documentation for <codeph>CacheableBytes.</codeph>
+		</p>
+	</conbody>
+</concept>

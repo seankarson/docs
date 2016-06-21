@@ -1,0 +1,44 @@
+<?xml version="1.0"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept
+	id="concept_F377BC314A2E4E198C99123EE2866187">
+	<title>Accessing an Entry</title>
+	<shortdesc>The region entry retrieval methods return the value associated with the specified
+		key, and pass the callback argument to any cache loaders or cache writers that are invoked
+		during the operation. </shortdesc>
+	<conbody>
+		<p>If the value is not available locally, it is requested from the server. If the server
+			request is unsuccessful, a local cache loader is invoked, if one is available. The
+			operation throws <codeph>keyNotFoundException</codeph> if the <codeph>Region</codeph> is
+			unable to retrieve a value through any of these means. </p>
+		<example
+			id="example_CD00539F33364898A635E1B57F574D92">
+			<title>Using the Region API to Retrieve Values From the Cache</title>
+			<p>Here, the program retrieves two entries from the region.</p>
+				<codeblock>string value1 = region1["Key1"];
+string value2 = region1["Key2"];
+ 
+int valueA = region2["KeyA"];
+int valueB = region2["KeyB"];
+ 
+string valueQ = region.Get(111, null);
+string valueR = region.Get(222, null);</codeblock>
+		</example>
+		<section>
+			<title>Batch Operations—Using getAll to Return Values from Multiple Entries</title>
+			<p>The <codeph>GetAll</codeph> region API returns values for collection of keys from the
+				local cache or server.</p>
+			<p>If value for a key is not present locally, then it is requested from the Java server.
+				The value returned is not copied, so multi-threaded applications should not modify
+				the value directly but should use the update methods.</p>
+			<p
+				dir="ltr">This method is not applicable to local region instances.</p>
+			<p
+				dir="ltr">This operation updates the
+					<codeph>CacheStatistics.LastAccessedTime</codeph>,
+					<codeph>CacheStatistics.HitCount</codeph> statistics and
+					<codeph>CacheStatistics.MissCount</codeph> for this region and the returned
+				entries.</p>
+		</section>
+	</conbody>
+</concept>

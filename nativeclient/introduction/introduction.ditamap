@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE bookmap PUBLIC "-//OASIS//DTD DITA BookMap//EN" "bookmap.dtd">
+<!-- Created with XMetaL (http://www.xmetal.com) -->
+<bookmap id="introduction">
+	<booktitle>
+		<mainbooktitle>Getting Started</mainbooktitle>
+	</booktitle>
+	<bookmeta>
+		<bookid>
+			<bookpartno><?xm-replace_text Book Part Number?></bookpartno>
+			<isbn><?xm-replace_text ISBN Number?>
+			</isbn>
+		</bookid>
+		<bookrights>
+			<copyrfirst>
+				<year><?xm-replace_text First Year?></year>
+			</copyrfirst>
+			<copyrlast>
+				<year><?xm-replace_text Last Year?></year>
+			</copyrlast>
+			<bookowner>
+				<person><?xm-replace_text Copyright owner?>
+				</person>
+			</bookowner>
+		</bookrights>
+	</bookmeta>
+	<part format="dita" href="native-client-intro.xml"
+		scope="local" type="concept">
+		<topicref format="dita" href="native-client-overview.xml"
+			scope="local" type="concept"/>
+		<topicref format="dita" href="install-overview.xml"
+			scope="local" type="concept">
+			<topicref format="dita" href="install-unix.xml"
+				scope="local" type="concept"/>
+			<topicref format="dita" href="install-windows.xml"
+				scope="local" type="concept"/>
+			<topicref format="dita" href="uninstall.xml"
+				scope="local" type="concept"/>
+		</topicref>
+		<topicref format="dita" href="runnng-client-apps.xml"
+			scope="local" type="concept">
+			<topicref format="dita" href="developing-linux.xml"
+				scope="local" type="concept"/>
+			<topicref format="dita" href="developing-solaris.xml"
+				scope="local" type="concept"/>
+			<topicref format="dita" href="developing-windows.xml"
+				scope="local" type="concept"/>
+		</topicref>
+		<topicref format="dita" href="examples-quickstart.xml"
+			scope="local" type="concept">
+			<topicref format="dita" href="product-examples.xml"
+				scope="local" type="concept"/>
+			<topicref format="dita" href="quickstart.xml"
+				scope="local" type="concept"/>
+		</topicref>
+	</part>
+</bookmap>

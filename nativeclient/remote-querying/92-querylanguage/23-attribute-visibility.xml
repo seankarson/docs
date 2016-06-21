@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept
+	id="security">
+	<title
+		id="title_9717E51087B346988389138843E158C4">Attribute Visibility </title>
+	<shortdesc>Within the current query scope, you can access any available object or object
+		attribute. </shortdesc>
+	<conbody>
+		<p>In querying, an object's attribute is any identifier that can be mapped to a public field
+			or method in the object. </p>
+		<p>In the <codeph>FROM</codeph> specification, any object that is in scope is valid, so at
+			the beginning of a query all cached regions and their attributes on the cache server are
+			in scope. </p>
+		<p>This query is valid because name resolves to the Region method <codeph>getName</codeph>:</p>
+			<codeblock>/portfolios.name</codeblock>
+		<p>This query is valid because <codeph>toArray</codeph> resolves to the
+				<codeph>Collection</codeph> method with the same name: </p>
+		<codeblock>SELECT DISTINCT * FROM /portfolios.toArray</codeblock>
+		<section id="section_611591AEA6084A5ABB00DE3E19984498">You cannot, however, refer to the attribute
+			of a collection object in the region path expression where the collection itself is
+			specified. The following statement is invalid because neither
+				<codeph>Collection</codeph> nor <codeph>Region</codeph> contain an attribute named
+				<codeph>positions</codeph>. The entry values collection (specified by
+				<codeph>/portfolios</codeph>) that does contain an attribute named positions is not
+			yet part of the query name space. <codeblock>/* INCORRECT: positions is not an attribute of Region or of Collection */
+SELECT DISTINCT * FROM /portfolios.positions</codeblock>
+			<p>The following <codeph>SELECT</codeph> statement is valid, because
+					<codeph>positions</codeph> is an element of the entry value collection that is
+				specified by <codeph>/portfolios</codeph>. The entry value collection is in scope as
+				soon as the specification in the FROM expression is complete (before
+					<codeph>WHERE</codeph> or <codeph>SELECT</codeph> are evaluated). </p>
+			<codeblock>SELECT DISTINCT positions FROM /portfolios</codeblock>You can also refer to
+			positions inside the FROM clause after the <codeph>/portfolios</codeph> entry value
+			collection is created. In this example, positions is an element of the
+				<codeph>/portfolios</codeph> entry value collection and values is an attribute of
+			positions: <codeblock>IMPORT javaobject.Position;
+SELECT DISTINCT posnVal
+FROM /portfolios, positions.values posnVal TYPE Position
+WHERE posnVal.mktValue &gt;= 25.00</codeblock>
+			<p>After the comma in the FROM clause, <codeph>/portfolios</codeph> is in scope, so its
+				value collection can be iterated. In this case, this is done with the second FROM
+				clause specification, <codeph>positions.values</codeph>. </p>
+		</section>
+	</conbody>
+</concept>

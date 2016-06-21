@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN"
+"concept.dtd">
+<concept id="security">
+  <title id="title_9717E51087B346988389138843E158C4">System Properties</title>
+
+  <shortdesc>The following table describes the security-related system
+  properties in the <codeph>gfcpp.properties</codeph> file for native client
+  authentication and authorization.</shortdesc>
+
+  <conbody id="conbody_D74C4342289846619E028149A8920946">
+    <section id="section_6DC4C72A2EEB432AA40DE97D438FD1E7"><table
+        id="table_92A6A66523764199A19BCD66BA189921">
+        <title>System Properties for Client Authentication and
+        Authorization</title>
+
+        <tgroup cols="2">
+          <colspec colname="col01" colnum="1" colwidth="2*"/>
+
+          <colspec colname="col1" colnum="2" colwidth="3*"/>
+
+          <tbody>
+            <row>
+              <entry><codeph>security-client-auth-factory</codeph></entry>
+
+              <entry>Sets the key for the <codeph>AuthInitialize</codeph>
+              factory function.</entry>
+            </row>
+
+            <row>
+              <entry
+              colname="col01"><codeph>security-client-auth-library</codeph></entry>
+
+              <entry colname="col1">Registers the path to the
+              <codeph>securityImpl.dll</codeph> library.</entry>
+            </row>
+
+            <row>
+              <entry
+              colname="col01"><codeph>security-client-dhalgo</codeph></entry>
+
+              <entry colname="col1">Returns the Diffie-Hellman secret key
+              cipher algorithm.</entry>
+            </row>
+
+            <row>
+              <entry
+              colname="col01"><codeph>security-client-kspath</codeph></entry>
+
+              <entry colname="col1"><p>Specifies the path to a .pem file,
+              which contains the public certificates for all GemFire cache
+              servers to which the client can connect through specified
+              endpoints. </p></entry>
+            </row>
+
+            <row>
+              <entry
+              colname="col01"><codeph>security-client-kspasswd</codeph></entry>
+
+              <entry colname="col1"><p>Specifies the password for the public
+              key file store on the client. </p></entry>
+            </row>
+
+            <row>
+              <entry
+              colname="col01"><codeph>security-keystorepath</codeph></entry>
+
+              <entry colname="col1">Specifies the path to the public
+              keystore.</entry>
+            </row>
+
+            <row>
+              <entry colname="col01"><codeph>security-alias</codeph></entry>
+
+              <entry colname="col1">Specifies the alias name for the key in
+              the keystore.</entry>
+            </row>
+
+            <row>
+              <entry
+              colname="col01"><codeph>security-keystorepass</codeph></entry>
+
+              <entry colname="col1">Sets the password for the
+              password-protected keystore.</entry>
+            </row>
+
+            <row>
+              <entry colname="col01"><codeph>ssl-enabled</codeph></entry>
+
+              <entry colname="col1"><p>Enables SSL-based client/server
+              communication when set to true. The default is false, which
+              causes communication to use plain socket connections. When this
+              is set to true, the other ssl-* settings are required.
+              </p></entry>
+            </row>
+
+            <row>
+              <entry colname="col01"><codeph>ssl-keystore</codeph></entry>
+
+              <entry colname="col1"><p>Specifies the name of the .PEM keystore
+              file, containing the client’s private key. Not set by default.
+              Required if <codeph>ssl-enabled</codeph> is true. </p></entry>
+            </row>
+
+            <row>
+              <entry><codeph>ssl-keystore</codeph></entry>
+
+              <entry><p>Specifies the name of the .PEM truststore file,
+              containing the servers’ public certificate. Not set by default.
+              Required if <codeph>ssl-enabled </codeph>is true. </p></entry>
+            </row>
+          </tbody>
+        </tgroup>
+      </table></section>
+  </conbody>
+</concept>

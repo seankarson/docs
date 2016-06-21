@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept
+	id="concept_CEC658A999414AC3A494578C214BF64E">
+	<title>Pivotal GemFire Native Client C++ API</title>
+	<shortdesc> This sectiondescribes the primary classes, and usage conventions for the native client
+		C++ API. It demonstrates how to use the API to create caches and perform data serialization. </shortdesc>
+	<conbody>
+		<p>The native client C++ API allows C++ and .NET developers to programmatically create, populate,
+			and manage a <keyword keyref="product_name"/> distributed system. The C++ library is
+			thread-safe, except where specified otherwise in the online API documentation. </p>
+		<p>The online C++ API documentation is included in the <codeph>docs/cppdocs</codeph> directory of
+			the native client product installation. It provides extensive implementation details for
+			the C++ structures and functions. </p>
+		<p>
+			Several example API
+			programs are included in the <codeph>SampleCode</codeph> directory. See <xref
+				href="../introduction/examples-quickstart.xml#examples-quickstart"
+				type="concept"
+				format="dita"
+				scope="local"><?xm-replace_text Product Examples and   QuickStart Guide?></xref>. </p>
+	</conbody>
+</concept>

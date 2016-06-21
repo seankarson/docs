@@ -1,0 +1,42 @@
+<?xml version="1.0"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept
+	id="concept_5D520C87F65B48AFA4240615190B0150">
+	<title> Generic and Custom Serializable Types</title>
+	<shortdesc> All built-in generics are automatically registered at initialization. You have a
+		couple of options for complex key types. </shortdesc>
+	<conbody>
+		<p>
+			
+
+
+If your application uses more complex key types that
+			you want to make more accessible or easier to handle, you can derive a new class from
+				<codeph>IGFSerializable</codeph>. Another option is for the application to do its
+			own object serialization using <codeph>Byte[]</codeph> or a custom type. </p>
+		<section
+			id="section_DA3BCFFFCB974C65BEE953DF3FAA8442">
+			<title>Blobs</title>
+			<p>If you have data that is best handled as a blob, such as structs that do not contain pointers,
+				use a <codeph>Byte[]</codeph> or, if you need something more complex than
+					<codeph>Byte[]</codeph>, implement a custom type using either
+					<codeph>IPdxSerializable</codeph> or <codeph>IGFSerializable</codeph>. </p>
+		</section>
+		<section
+			id="section_D49865F1CF5F467A9FFAD244D990F3F5">
+			<title>Object Graphs</title>
+			<p>If you have a graph of objects in which each node can be serializable, the parent
+				node calls <codeph>DataOutput.WriteObject</codeph> to delegate the serialization
+				responsibility to its child nodes. Similarly, your application calls
+					<codeph>DataInput.ReadObject</codeph> to deserialize the object graph. </p>
+			<note>
+				<p>The <keyword keyref="product_name"/>
+					<codeph>IGFSerializable</codeph> interface does not support object graphs with
+					multiple references to the same object. If your application uses these types of
+					circular graphs, you must address this design concern explicitly. </p>
+			</note>
+			<p>For more information, see the online API documentation for <codeph>DataOutput</codeph> and
+					<codeph>DataInput</codeph>. </p>
+		</section>
+	</conbody>
+</concept>

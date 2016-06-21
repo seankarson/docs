@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept id="developing-linux">
+  <title id="title_AC29CC3E829142CA807BD6D17A1D745E">Developing C++ Programs on Linux</title>
+
+  <conbody id="conbody_CBDB21155DA54799AC64D7F75680BD16">
+    <section id="section_4AD6E18611AE42E9942C77DF91347768"><title>Setting the GemFire Environment Variables</title><p id="p_EF45D7A431CE4FED8C2E02CAA3D70FB1">Before
+    you begin, set the native client environment variables on each Linux host.
+    For each case, <varname>productDir</varname> is the path to the native
+    client product directory.</p><b>For Bourne and Korn shells (sh, ksh,
+    bash)</b><codeblock id="codeblock_F7D12678C7394CD2A31DB2CE3D973889">GFCPP= productDir ; export GFCPP
+PATH=$GFCPP/bin:$PATH;export PATH
+LD_LIBRARY_PATH=$GFCPP/lib:$LD_LIBRARY_PATH;export LD_LIBRARY_PATH</codeblock></section>
+
+    <section id="section_EFE9D42B05B44F2F958054224BCC5F76"><title>Compiling and Linking</title><p id="p_66CD7D1D9E3249F9AEE8E7626BE40AE5">On Linux, the
+    <cmdname id="cmdname_6E4F6946ACF444DF8D5FFE253B74A102">g++</cmdname> compiler is supported. To build and link a C++
+    client to GemFire on Linux, the compilation command line must include the
+    arguments listed in <xref format="dita" href="#developing-linux/compiler-arguments-linux" scope="local">Compiler
+    Arguments (Linux)</xref>.</p><table id="compiler-arguments-linux">
+        <title id="title_82B429A4B3BF4C118DD672799DAB1071">Compiler Arguments (Linux)</title>
+
+        <tgroup cols="2">
+          <thead>
+            <row>
+              <entry>Argument</entry>
+
+              <entry>Explanation</entry>
+            </row>
+          </thead>
+
+          <tbody>
+            <row id="row_321508A7FE6E450980B04D0E9AECBD65">
+              <entry><codeph>-D_REENTRANT</codeph></entry>
+
+              <entry>Required to compile Linux programs in a thread-safe
+              way.</entry>
+            </row>
+
+            <row id="row_F9DF546595F549B39D3A5442A7AA21ED">
+              <entry><codeph>-m32</codeph></entry>
+
+              <entry>Enables 32-bit compilation.</entry>
+            </row>
+
+            <row id="row_706EEFB5E84D4DA0909EA67D11805090">
+              <entry><codeph>-m64</codeph></entry>
+
+              <entry>Enables 64-bit compilation.</entry>
+            </row>
+
+            <row>
+              <entry><codeph>-I$ GFCPP /include</codeph></entry>
+
+              <entry>Specifies the native client <i>include</i>
+              directory.</entry>
+            </row>
+          </tbody>
+        </tgroup>
+      </table></section>
+
+    <section id="section_EBB9ECF2EA5B4279A161CD68B8C7C537"><title id="title_6F749071973049C29233DF200F2DE19E">Dynamically Linking</title><p id="p_9866CB3507E14907851CF95C7DBE15AD">The following table lists
+    the linker switches that must be present on the command line when
+    dynamically linking to the GemFire library.</p><table>
+        <title id="title_D0768692276147F3A3ADFE55289392FB">Linker Switches (Dynamically Linking on Linux)</title>
+
+        <tgroup cols="2">
+          <thead>
+            <row id="row_127D77F0B9ED47A3AAD2A9129A8DAA53">
+              <entry>Argument</entry>
+
+              <entry>Explanation</entry>
+            </row>
+          </thead>
+
+          <tbody>
+            <row id="row_9477A3A6E7D14C4784FE497F1409EC5B">
+              <entry><codeph>-rpath $GFCPP/lib</codeph></entry>
+
+              <entry>Tells the linker to look in <codeph>$GFCPP/lib</codeph>
+              for libraries on which the GemFire library depends </entry>
+            </row>
+
+            <row>
+              <entry><codeph>-L$GFCPP/lib</codeph></entry>
+
+              <entry>Tells the linker where to find the named
+              libraries.</entry>
+            </row>
+
+            <row id="row_C8F32775F5A24B268C514F8FF54050F7">
+              <entry><codeph>-lgfcppcache</codeph></entry>
+
+              <entry>Links the GemFire C++ cache library to the compiled
+              executable.</entry>
+            </row>
+          </tbody>
+        </tgroup>
+      </table><p id="p_591176B500934A2A9FBB521DDED50625">The following example compiles and links the
+    <codeph>$GFCPP/examples/cacheRunner/CacheRunner</codeph> .cpp client to
+    <codeph>a.out</codeph>.</p><fig id="fig_C88A071AC4C9409FAE165EFFCD56F90B">
+        <title>Compiling and Dynamically Linking on Linux for 32-bit</title>
+
+        <codeblock id="codeblock_5B5253E728B54BF39A199EA8BAC92C96">g++ -D_REENTRANT -m32 -I$GFCPP/include -rpath \
+$GFCPP/lib -L$GFCPP/lib \
+$GFCPP/examples/cacheRunner/CacheRunner.cpp -o cacherunner -lgfcppcache</codeblock>
+      </fig><fig id="fig_1A546020DBA8425498E67502D1A445BA">
+        <title id="title_DA2CDB17819E4F68A6DC0FE503A54A48">Compiling and Dynamically Linking on Linux for 64-bit</title>
+
+        <codeblock>g++ -D_REENTRANT -m64 -I$GFCPP/include -rpath \
+$GFCPP/lib -L$GFCPP/lib \
+$GFCPP/examples/cacheRunner/CacheRunner.cpp -o cacherunner -lgfcppcache</codeblock>
+      </fig></section>
+
+    <section id="section_60711FB51F0546D48C0BE84C1EB1D379"><title id="title_53BF1ACEC1DC416F9D9361EC9946D530">Loading the GemFire Library</title><p id="p_275AB71C257342D690B7B1FC52C2A240">When the C++
+    application is dynamically linked to the GemFire library, the library must
+    be dynamically loadable. To make the GemFire library available for load,
+    add the path <varname>GemFireDir</varname><codeph>/lib</codeph> to the
+    <varname>LD_LIBRARY_PATH</varname> environment variable, where
+    <varname>GemFireDir</varname> is the path to the GemFire product
+    directory.</p></section>
+  </conbody>
+</concept>

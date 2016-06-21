@@ -1,0 +1,58 @@
+<?xml version="1.0"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<!-- Created with XMetaL (http://www.xmetal.com) -->
+<concept id="concept_F88B659FB4324F599924F3F2933452B4"> 
+  <title>Durable Client Messaging</title> 
+  <shortdesc>Clients can configure the redundancy level for their queues that
+	 are stored on cache servers. This ensures that the client will not lose
+	 messages if it loses the connection to its primary server. Durable messaging
+	 allows a disconnected client application to recover its subscribed data when it
+	 reconnects to the cache server because the server continues to queue messages
+	 for which the client has registered interest.
+  </shortdesc> 
+  <conbody>
+	 <p>The messaging queues used for durable messaging are the same regular
+		messaging queues used for basic server-to-client messaging, with all of the
+		requirements, options and functionality described in the GemFire User’s Guide.
+		If you are using highly available servers, see High Availability for Client-to-
+		Server Communication on page 152 for additional requirements.
+	 </p>
+	 <p>For durable messaging, you also need the following:
+	 <ul id="ul_01A75BF4B6DC4D9F93F793D41987F495">
+		<li id="li_E13518BB6FA444EAB7D8BF9D1F65480D">
+		  <p><b>Durable clients</b>—If the client is durable, the server
+			 continues to maintain the client queues when the client disconnects.
+		  </p>
+		</li>
+		<li id="li_91D06E78D9304BC78206AC733C8178AC">
+		  <p><b>Durable interest registration</b>—A durable client’s interest
+			 registrations specify whether its interest in a key is durable. If it is, the
+			 servers continue queuing messages for that key while the client is
+			 disconnected.
+		  </p>
+		</li>
+		<li id="li_6712B5BA682947F7AC18B7070FD45FE7">
+		  <p><b>Cache ready message</b>—When it is ready to receive the stored
+			 messages, a durable client must call 
+			 <codeph>Cache.readyForEvents</codeph> to send a cache ready message
+			 to the server.
+		  </p>
+		</li>
+		<li id="li_9559221519414313A43A438C1565A6A3">
+		  <p><b>Disconnect keepalive specification</b>—When a durable client
+			 disconnects normally it must tell the server whether to maintain the message
+			 queue or delete it.
+		  </p>
+		</li>
+		<li id="li_FB981CD52B174853AF81AD56CF3C208C">
+		  <p><b>Durable client callback method</b>—If you use cache listeners on
+			 the durable clients, you have the option to implement the 
+			 <codeph>afterRegionLive</codeph> callback method. This callback is
+			 invoked after the durable client connects to its servers, when it has received
+			 all of its stored messages and replayed the events.
+		  </p>
+		</li>
+	 </ul>
+	 </p>
+  </conbody> 
+</concept>

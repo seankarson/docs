@@ -1,0 +1,317 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE bookmap PUBLIC "-//OASIS//DTD DITA BookMap//EN" "bookmap.dtd">
+<!-- Created with XMetaL (http://www.xmetal.com) -->
+<bookmap
+	id="native-client-cache">
+	<booktitle>
+		<mainbooktitle>Native Client Cache</mainbooktitle>
+	</booktitle>
+	<bookmeta>
+		<bookid>
+			<bookpartno><?xm-replace_text Book Part Number?></bookpartno>
+			<isbn><?xm-replace_text ISBN Number?>
+			</isbn>
+		</bookid>
+		<bookrights>
+			<copyrfirst>
+				<year><?xm-replace_text First Year?></year>
+			</copyrfirst>
+			<copyrlast>
+				<year><?xm-replace_text Last Year?></year>
+			</copyrlast>
+			<bookowner>
+				<person><?xm-replace_text Copyright owner?>
+				</person>
+			</bookowner>
+		</bookrights>
+	</bookmeta>
+	<part
+		format="dita"
+		href="chapter-overview.xml"
+		navtitle="Configuring the Native Client Cache"
+		scope="local"
+		type="concept">
+		<topicref
+			format="dita"
+			href="caches.xml"
+			navtitle="Caches"
+			scope="local"
+			type="concept">
+			<topicref
+				format="dita"
+				href="overview-client-cache.xml"
+				navtitle="About the Native Client Cache"
+				scope="local"
+				type="concept"/>
+			<topicref
+				format="dita"
+				href="caching-apis.xml"
+				navtitle="Cache APIs"
+				scope="local"
+				type="concept"/>
+			<topicref
+				format="dita"
+				href="cache-ownership.xml"
+				navtitle="Local, Remote, and Distributed Caches"
+				scope="local"
+				type="concept"/>
+			<topicref
+				format="dita"
+				href="create-access-cache.xml"
+				navtitle="Creating and Accessing a Cache"
+				scope="local"
+				type="concept"/>
+			<topicref
+				format="dita"
+				href="closing-cache.xml"
+				navtitle="Closing the Cache"
+				scope="local"
+				type="concept"/>
+		</topicref>
+		<topicref
+			format="dita"
+			href="../cache-init-file/chapter-overview.xml"
+			navtitle="Cache Initialization File (cache.xml)"
+			scope="local"
+			type="concept">
+			<topicref
+				format="dita"
+				href="../cache-init-file/file-basics.xml"
+				navtitle="Cache Initialization File Basics"
+				scope="local"
+				type="concept"/>
+			<topicref
+				format="dita"
+				href="../cache-init-file/example-cache-file.xml"
+				navtitle="Example cache.xml File"
+				scope="local"
+				type="concept"/>
+			<topicref
+				format="dita"
+				href="../cache-init-file/cache-dtd.xml"
+				navtitle="Native Client Cache XML DTD"
+				scope="local"
+				type="concept"/>
+		</topicref>
+		<topicref
+			format="dita"
+			href="regions.xml"
+			navtitle="Regions"
+			scope="local"
+			type="concept">
+			<topicref
+				format="dita"
+				href="declarative-region-creation.xml"
+				navtitle="Declarative Region Creation"
+				scope="local"
+				type="concept"/>
+			<topicref
+				format="dita"
+				href="programmatic-region-creation.xml"
+				navtitle="Programmatic Region Creation"
+				scope="local"
+				type="concept"/>
+			<topicref
+				format="dita"
+				href="invalidating-region.xml"
+				navtitle="Invalidating and Destroying Regions"
+				scope="local"
+				type="concept"/>
+			<topicref
+				format="dita"
+				href="region-access.xml"
+				navtitle="Region Access"
+				scope="local"
+				type="concept"/>
+			<topicref
+				format="dita"
+				href="getting-the-region-size.xml"
+				navtitle="Getting the Region Size"
+				scope="local"
+				type="concept"/>
+		</topicref>
+		<topicref
+			format="dita"
+			href="entries.xml"
+			navtitle="Region Entries"
+			scope="local"
+			type="concept">
+			<topicref
+				format="dita"
+				href="requirements-for-distrib.xml"
+				navtitle="Entry Distribution Requirements"
+				scope="local"
+				type="concept"/>
+			<topicref
+				format="dita"
+				href="registering-interest-for-entries.xml"
+				navtitle="Registering Interest for Entries"
+				scope="local"
+				type="concept"/>
+			<topicref
+				format="dita"
+				href="using-serverkeys-to-retrieve.xml"
+				navtitle="Using serverKeys to Retrieve a Set of Region Keys"
+				scope="local"
+				type="concept"/>
+			<topicref
+				format="dita"
+				href="adding-entries-to-cache.xml"
+				navtitle="Adding Entries to the Cache"
+				scope="local"
+				type="concept"/>
+			<topicref
+				format="dita"
+				href="updating-entries.xml"
+				navtitle="Updating Entries"
+				scope="local"
+				type="concept"/>
+			<topicref
+				format="dita"
+				href="accessing-entries.xml"
+				navtitle="Accessing Entries"
+				scope="local"
+				type="concept"/>
+			<topicref
+				format="dita"
+				href="invalidating-cached-entries.xml"
+				navtitle="Invalidating or Destroying Cached Entries"
+				scope="local"
+				type="concept"/>
+			<topicref
+				format="dita"
+				href="notification-for-operations.xml"
+				navtitle="Notification for Operations"
+				scope="local"
+				type="concept"/>
+		</topicref>
+		<topicref
+			format="dita"
+			href="consistency_checking_in_regions.xml"
+			navtitle="Region Consistency"
+			scope="local"
+			type="concept"/>
+		<topicref
+			format="dita"
+			href="region-attributes.xml"
+			navtitle="Region Attributes"
+			scope="local"
+			type="concept">
+			<topicref
+				format="dita"
+				href="specify-region-attributes.xml"
+				navtitle="Specifying Region Attributes"
+				scope="local"
+				type="concept"/>
+			<topicref
+				format="dita"
+				href="region-shortcuts.xml"
+				navtitle="RegionShortcuts"
+				scope="local"
+				type="concept"/>
+			<topicref
+				format="dita"
+				href="region-attributes-desc.xml"
+				navtitle="Mutable and Immutable Region Attributes"
+				scope="local"
+				type="concept"/>
+			<topicref
+				format="dita"
+				href="caching-enabled.xml"
+				navtitle="CachingEnabled"
+				scope="local"
+				type="concept"/>
+			<topicref
+				format="dita"
+				href="initial-capacity.xml"
+				navtitle="InitialCapacity"
+				scope="local"
+				type="concept"/>
+			<topicref
+				format="dita"
+				href="load-factor.xml"
+				navtitle="LoadFactor"
+				scope="local"
+				type="concept"/>
+			<topicref
+				format="dita"
+				href="concurrency-level.xml"
+				navtitle="ConcurrencyLevel"
+				scope="local"
+				type="concept"/>
+			<topicref
+				format="dita"
+				href="concurrency-checks-enabled.xml"
+				navtitle="ConcurrencyChecksEnabled"
+				scope="local"
+				type="concept"/>
+			<topicref
+				format="dita"
+				href="lru-entries-limit.xml"
+				navtitle="LruEntriesLimit"
+				scope="local"
+				type="concept"/>
+			<topicref
+				format="dita"
+				href="disk-policy.xml"
+				navtitle="DiskPolicy"
+				scope="local"
+				type="concept"/>
+			<topicref
+				format="dita"
+				href="persistence-manager.xml"
+				navtitle="PersistenceManager"
+				scope="local"
+				type="concept"/>
+			<topicref
+				format="dita"
+				href="application-plugins.xml"
+				navtitle="Specifying Application Plug-In Attributes"
+				scope="local"
+				type="concept"/>
+			<topicref
+				format="dita"
+				href="expiration-attributes.xml"
+				navtitle="Specifying Expiration Attributes"
+				scope="local"
+				type="concept"/>
+		</topicref>
+		<topicref
+			format="dita"
+			href="cache-management.xml"
+			navtitle="Cache Management"
+			scope="local"
+			type="concept">
+			<topicref
+				format="dita"
+				href="client-to-server-connection.xml"
+				navtitle="Client-to-Server Connection Process"
+				scope="local"
+				type="concept"/>
+			<topicref
+				format="dita"
+				href="controlling-cache-size.xml"
+				navtitle="Controlling Cache Size"
+				scope="local"
+				type="concept"/>
+			<topicref
+				format="dita"
+				href="managing-lifetime-cached-object.xml"
+				navtitle="Managing the Lifetime of a Cached Object"
+				scope="local"
+				type="concept"/>
+			<topicref
+				format="dita"
+				href="using-thread-safety.xml"
+				navtitle="Using Thread Safety in Cache Management"
+				scope="local"
+				type="concept"/>
+			<topicref
+				format="dita"
+				href="troubleshooting.xml"
+				navtitle="Troubleshooting"
+				scope="local"
+				type="concept"/>
+		</topicref>
+	</part>
+</bookmap>

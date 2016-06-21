@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept
+	id="developing-windows">
+	<title
+		id="title_E0C6B28FF1A244E189DC216461EF07B9">Developing C++ Programs on Windows</title>
+	<shortdesc><keyword keyref="product_name"/> uses the Visual Studio 2010 Service Pack 1 compiler for
+		C++ programs on Windows, which invokes <tm tmtype="reg">Microsoft</tm>
+		<cmdname>cl.exe</cmdname> from the command line at compile time. </shortdesc>
+	<conbody
+		id="conbody_B30195DE5A31482A87DDA064002DE6FA">
+		<p id="p_5669768265254BCFAD6B48A63DE8B9F5">The <keyword keyref="product_name"/> native client
+			supports .NET 4.0 and Visual Studio 2010. For advantages and more information on the
+			features of .NET 4.0 and Visual Studio 2010 SP1, see <xref
+				href="http://msdn.microsoft.com/en-us/library/dd831853(v=vs.100).aspx"
+				scope="external" format="html"
+				><?xm-replace_text http://msdn.microsoft.com/en-us/library/dd831853(v=vs.100).aspx?></xref>
+			and <xref href="http://msdn.microsoft.com/en-us/library/vstudio/w0x726c2(v=vs.100).aspx"
+				scope="external" format="html"
+				><?xm-replace_text http://msdn.microsoft.com/en-us/library/vstudio/w0x726c2(v=vs.100).aspx?></xref>. </p>
+		<p>Visual Studio 2010 SP1 is the recommended compiler. If you are using any other compiler,
+			contact technical support for assistance. </p>
+			<note> When compiling external projects or applications that are used or referenced by the native
+				client, make sure that you compile them for the same target architecture as your
+				native client installation. For example, if you installed the 32-bit (x86) version
+				of the native client, compile your external projects for 32-bit (x86) architecture. </note>
+		<section
+			id="section_6BFD4982A7144301A03F948CFF953AFD">
+			<title
+				id="title_0B8A02A13AE44BC6B7F902E0183D7F1F">Step 1. Installer Sets Up Environment
+				Variables</title>
+			<p
+				id="p_04F3219C95804F2F89E9B423A1C92E10"> When you install on Windows, the installer
+				performs these tasks:</p>
+				<ul
+					id="ul_A84C5868EBA54B868491FE710D96C5A7">
+					<li
+						id="li_E1F48C6991B44242B96DDC131F3C5B1C">Sets the <varname>GFCPP</varname>
+						environment variable to <varname>&lt;productDir></varname>, where
+							<varname>&lt;productDir></varname> is the path to the native client
+						product directory. </li>
+					<li
+						id="li_7A3DB5F126ED4E3E9E1BB36234A88D8D">Adds the
+							<varname>%GFCPP%\bin</varname> executable directory to the Windows
+							<varname>PATH</varname>. </li>
+				</ul>
+		</section>
+		<section
+			id="section_0BF2BE9A38BC40D1B9FAD2AC8DBFAB0E">
+			<title>Step 2. Choose 32-bit or 64-bit Command-line Prompt</title>
+			<p> For 32-bit: </p>
+			<p>Start > Programs > Microsoft Visual Studio > 2010 > Visual Studio Tools > Visual Studio 2010 Command Prompt
+			</p>
+			<p>For 64-bit: </p>
+			<p>Start > Programs > Microsoft Visual Studio 2010 > Visual Studio Tools > Visual Studio 2010 x64 Win64 Command Prompt
+			</p>
+			<p
+				id="p_ACF3CA4DCEF84BD79DB11BB6D6FEBB8A">To build using the Microsoft Visual Studio
+				Interface, from the Solutions Platform, choose <b>Win32</b> or <b>x86</b> from the
+				Build menu for 32-bit builds or x64 for a 64-bit build. </p>
+		</section>
+		<section
+			id="section_597B20DBE5FD4F66A6BCB2A09C04C9C9">
+			<title id="title_DA0397322C2744CD978499E99BF8E8D6">Step 3. Compile C++ Clients and Dynamically
+				Link Them to Native Client Library</title>
+			<p
+				id="p_DB0353FE5A8F4841977E726F2012754E"> The following table lists the compiler and
+				linker switches that must be present on the <codeph
+					id="cmdname_B4C6ED60C8BE4F0D8EBCF214B5263AC6">cl.exe</codeph> command line. </p>
+			<note>
+				<p>If you want to use the Visual Studio user interface instead of invoking
+					<codeph>cl.exe</codeph> from the command line, be sure to supply these
+				parameters. 
+				</p>
+			</note>
+			<table
+				id="table_1FE5C01E91424CE9906CA1D0210B1237">
+				<title
+					id="title_8AA003B778094F5788349084CB9A2F15">Compiler and Linker Switches for
+					Windows</title>
+				<tgroup
+					cols="2">
+					<thead>
+						<row
+							id="row_6FFFCB4AD450483CAF6841396E9F48A9">
+							<entry>Argument </entry>
+							<entry>Explanation </entry>
+						</row>
+					</thead>
+					<tbody>
+						<row>
+							<entry>
+								<codeph>/MD</codeph>
+							</entry>
+							<entry>Memory model. </entry>
+						</row>
+						<row
+							id="row_55EDEFAC4EC94273AD690171D5EA0BAF">
+							<entry>
+								<codeph>/EHsc</codeph>
+							</entry>
+							<entry>Catches C++ exceptions only and tells the compiler to assume that
+								*extern* C functions never throw a C++ exception. </entry>
+						</row>
+						<row
+							id="row_B7A6E005125C413CA9895C4948EFE149">
+							<entry>
+								<codeph>/GR</codeph>
+							</entry>
+							<entry>Runtime type information. </entry>
+						</row>
+						<row
+							id="row_E4A8E3973A5840CC9F6952DDC1E1A94A">
+							<entry>
+								<codeph>-I%GFCPP%\include</codeph>
+							</entry>
+							<entry>Specifies the <keyword keyref="product_name"/>
+								<codeph>include</codeph> directory. </entry>
+						</row>
+						<row>
+							<entry>
+								<codeph>%GFCPP%\lib\gfcppcache.lib</codeph>
+							</entry>
+							<entry>Specifies the library file for the shared library. </entry>
+						</row>
+						<row
+							id="row_0978B692BA90434487CE8AAEA2791809">
+							<entry>
+								<codeph>/D_CRT_SECURE_NO_DEPRECATE</codeph>
+							</entry>
+							<entry>Suppresses warnings. Required for Visual Studio 2010. </entry>
+						</row>
+						<row
+							id="row_ACB4DD3B0D6C41A0B96EA8DE01AF5B16">
+							<entry>
+								<codeph>/D_CRT_NON_CONFORMING_SWPRINTFS</codeph>
+							</entry>
+							<entry>Suppresses warnings. Required for Visual Studio 2010. </entry>
+						</row>
+					</tbody>
+				</tgroup>
+			</table>
+		</section>
+		<section
+			id="section_B66588EC7C6F4D9BA772406CFD5F3EAE">
+			<title>Step 4. Verify that You Can Load the Native Client Library</title>
+			<p id="p_C83C111479354F169C4359B158AAE869"> Because <keyword keyref="product_name"/> does not
+				provide a library that can be linked statically into an application on Windows, you
+				must dynamically link to the native client library. </p>
+			<p id="p_688EC0F4626F424CAB8E351A3309FF25">To make the native client library available for
+				loading, verify that the directory
+					<codeph><varname>productDir</varname>/bin</codeph> is included in the
+					<varname>PATH</varname> environment variable, where
+					<varname>productDir</varname> is the path to the <keyword keyref="product_name"
+				/> product directory. </p>
+		</section>
+	</conbody>
+</concept>

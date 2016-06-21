@@ -1,0 +1,284 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE bookmap PUBLIC "-//OASIS//DTD DITA BookMap//EN" "bookmap.dtd">
+<!-- Created with XMetaL (http://www.xmetal.com) -->
+<bookmap
+	id="dotnet-caching-api">
+	<booktitle>
+		<mainbooktitle>The .NET Caching API</mainbooktitle>
+	</booktitle>
+	<bookmeta>
+		<bookid>
+			<bookpartno><?xm-replace_text Book Part Number?></bookpartno>
+			<isbn><?xm-replace_text ISBN Number?>
+			</isbn>
+		</bookid>
+		<bookrights>
+			<copyrfirst>
+				<year><?xm-replace_text First Year?></year>
+			</copyrfirst>
+			<copyrlast>
+				<year><?xm-replace_text Last Year?></year>
+			</copyrlast>
+			<bookowner>
+				<person><?xm-replace_text Copyright owner?>
+				</person>
+			</bookowner>
+		</bookrights>
+	</bookmeta>
+	<part
+		format="dita"
+		href="dotnet-caching-api.xml"
+		navtitle="Pivotal GemFire Native Client C# .NET API"
+		scope="local"
+		type="concept">
+		<topicref
+			format="dita"
+			href="gemfire-csharp-dotnet-api.xml"
+			navtitle="About the Native Client C# .NET API"
+			scope="local"
+			type="concept">
+			<topicref
+				format="dita"
+				href="csharp-dotnet-naming-conventions.xml"
+				navtitle="C# .NET Naming and Usage Conventions"
+				scope="local"
+				type="concept"/>
+			<topicref
+				format="dita"
+				href="primary-apis-cache-generic.xml"
+				navtitle="Primary APIs in GemStone::GemFire::Cache::Generic"
+				scope="local"
+				type="concept">
+				<topicref
+					format="dita"
+					href="cache-apis.xml"
+					navtitle="Cache APIs"
+					scope="local"
+					type="concept"/>
+				<topicref
+					format="dita"
+					href="region-entry-apis.xml"
+					navtitle="Region and Entry APIs"
+					scope="local"
+					type="concept"/>
+				<topicref
+					format="dita"
+					href="data-serialization-apis.xml"
+					navtitle="Data Serialization APIs"
+					scope="local"
+					type="concept"/>
+				<topicref
+					format="dita"
+					href="event-handling-apis.xml"
+					navtitle="Event Handling APIs"
+					scope="local"
+					type="concept"/>
+				<topicref
+					format="dita"
+					href="other-apis.xml"
+					navtitle="Property Collections and Logging APIs"
+					scope="local"
+					type="concept"/>
+			</topicref>
+		</topicref>
+		<topicref
+			format="dita"
+			href="cpp-class-to-dotnet-class-mappings.xml"
+			navtitle="C++ Class to .NET Class Mappings"
+			scope="local"
+			type="concept"/>
+		<topicref
+			format="dita"
+			href="java-to-dotnet-type-mapping.xml"
+			navtitle="Java to .NET Type Mapping Table"
+			scope="local"
+			type="concept"/>
+		<topicref
+			format="dita"
+			href="object-lifetimes.xml"
+			navtitle="Object Lifetimes"
+			scope="local"
+			type="concept"/>
+		<topicref
+			format="dita"
+			href="dotnet-application-domains.xml"
+			navtitle=".NET Application Domains"
+			scope="local"
+			type="concept">
+			<topicref
+				format="dita"
+				href="problem-scenarios.xml"
+				navtitle="Problem Scenarios"
+				scope="local"
+				type="concept"/>
+		</topicref>
+		<topicref
+			format="dita"
+			href="creating-a-cache.xml"
+			navtitle="Creating a Cache"
+			scope="local"
+			type="concept"/>
+		<topicref
+			format="dita"
+			href="creating-a-region.xml"
+			navtitle="Creating a Region"
+			scope="local"
+			type="concept"/>
+		<topicref
+			format="dita"
+			href="dotnet-adding-entry-to-cache.xml"
+			navtitle="Adding an Entry to the Cache"
+			scope="local"
+			type="concept"/>
+		<topicref
+			format="dita"
+			href="dotnet-accessing-an-entry.xml"
+			navtitle="Accessing an Entry"
+			scope="local"
+			type="concept"/>
+		<topicref
+			href="removing-entry.xml"/>
+		<topicref
+			format="dita"
+			href="dotnet-data-serialization.xml"
+			navtitle="Data Serialization"
+			scope="local"
+			type="concept">
+			<topicref
+				format="dita"
+				href="dotnet-data-serialization-options.xml"
+				navtitle="Data Serialization Options"
+				scope="local"
+				type="concept"/>
+			<topicref
+				format="dita"
+				href="dotnet-gemfire-pdx-serialization.xml"
+				navtitle="Serialize with GemFire PDX Serialization"
+				scope="local"
+				type="concept">
+				<topicref
+					format="dita"
+					href="dotnet-pdx-serialization-features.xml"
+					navtitle="GemFire PDX Serialization Features"
+					scope="local"
+					type="concept"/>
+				<topicref
+					format="dita"
+					href="dotnet-pdx-autoserializer.xml"
+					navtitle="Serialize Using the GemFire Pdx Autoserializer"
+					scope="local"
+					type="concept"> </topicref>
+				<topicref
+					format="dita"
+					href="extending-pdx-autoserializer.xml"
+					navtitle="Extend the PDX Autoserializer"
+					scope="local"
+					type="concept"/>
+				<topicref
+					format="dita"
+					href="serializing-domain-objects.xml"
+					navtitle="Serialize Your Domain Objects with IPdxSerializer"
+					scope="local"
+					type="concept"/>
+				<topicref
+					format="dita"
+					href="serialize-using-ipdxserializable.xml"
+					navtitle="Serialize Using the GemFire IPdxSerializable Interface"
+					scope="local"
+					type="concept"/>
+				<topicref
+					format="dita"
+					href="programming-ipdxinstance.xml"
+					navtitle="Program Your Application to Use IPdxInstance"
+					scope="local"
+					type="concept"/>
+				<topicref
+					format="dita"
+					href="using-ipdxinstancefactory.xml"
+					navtitle="Use the IPdxInstanceFactory to Create IPdxInstances"
+					scope="local"
+					type="concept"/>
+				<topicref
+					format="dita"
+					href="mapping-dotnet-domain-type-names.xml"
+					navtitle="Map .NET Domain Type Names to PDX Type Names with IPdxTypeMapper"
+					scope="local"
+					type="concept"/>
+			</topicref>
+			<topicref
+				format="dita"
+				href="serialize-using-igfserializable.xml"
+				navtitle="Serialize with the GemFire IGFSerializable Interface"
+				scope="local"
+				type="concept">
+				<topicref
+					format="dita"
+					href="serializable-types.xml"
+					navtitle="Generic and Custom Serializable Types"
+					scope="local"
+					type="concept"/>
+				<topicref
+					format="dita"
+					href="how-igfserializable-works.xml"
+					navtitle="How Serialization Works with IGFSerializable"
+					scope="local"
+					type="concept"/>
+				<topicref
+					format="dita"
+					href="implementing-igfserializable.xml"
+					navtitle="Implement the IGFSerializable Interface"
+					scope="local"
+					type="concept"/>
+				<topicref
+					format="dita"
+					href="registering-the-type.xml"
+					navtitle="Register the Type"
+					scope="local"
+					type="concept"/>
+			</topicref>
+			<topicref
+				format="dita"
+				href="custom-class-igfserializable.xml"
+				navtitle="Using a Custom Class With IGFSerializable"
+				scope="local"
+				type="concept"/>
+		</topicref>
+		<topicref
+			format="dita"
+			href="application-callbacks.xml"
+			navtitle="Application Callbacks"
+			scope="local"
+			type="concept"/>
+		<topicref
+			format="dita"
+			href="simple-csharp-example.xml"
+			navtitle="A Simple C# Example"
+			scope="local"
+			type="concept"/>
+		<topicref
+			format="dita"
+			href="troubleshooting-dotnet-applications.xml"
+			navtitle="Troubleshooting .NET Applications"
+			scope="local"
+			type="concept">
+			<topicref
+				format="dita"
+				href="resolving-the-error.xml"
+				navtitle="Resolving the Error"
+				scope="local"
+				type="concept"/>
+			<topicref
+				format="dita"
+				href="private-assembly.xml"
+				navtitle="Using GemStone.GemFire.Cache.dll As a Private Assembly"
+				scope="local"
+				type="concept"/>
+			<topicref
+				format="dita"
+				href="implementing-shared-assembly.xml"
+				navtitle="Implementing the Shared Assembly"
+				scope="local"
+				type="concept"/>
+		</topicref>
+	</part>
+</bookmap>

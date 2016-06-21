@@ -1,0 +1,464 @@
+<?xml version="1.0"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept
+	id="concept_FD847E19497C4985ACB247C0FA2C2AD5">
+	<title>C++ Class to .NET Class Mappings</title>
+	<shortdesc>Wherever the native C++ class methods use pass-by-reference semantics to return data,
+		the corresponding .NET methods return the object instead of using pass-by-reference
+		semantics. </shortdesc>
+	<conbody>
+		<table
+			id="table_8D8D228E223E4E89A313A17DB5C38652">
+			<title>C++ Class to .NET Class Mappings</title>
+			<tgroup
+				cols="2">
+				<colspec
+					colnum="1"
+					colname="col1"
+					colwidth="*"/>
+				<colspec
+					colnum="2"
+					colname="col2"
+					colwidth="*"/>
+				<thead>
+					<row>
+						<entry
+							colname="col1">
+							<p>C++ Class </p>
+						</entry>
+						<entry
+							colname="col2">
+							<p>.NET Class </p>
+						</entry>
+					</row>
+				</thead>
+				<tbody>
+					<row>
+						<entry
+							colname="col1">class <codeph>gemfire::AttributesFactory</codeph>
+						</entry>
+						<entry
+							colname="col2">Sealed class <codeph>AttributesFactory</codeph>
+						</entry>
+					</row>
+					<row>
+						<entry
+							colname="col1">
+							<p>class <codeph>gemfire::AttributesMutator</codeph>
+							</p>
+						</entry>
+						<entry
+							colname="col2">Sealed class <codeph>AttributesMutator</codeph>
+						</entry>
+					</row>
+					<row>
+						<entry
+							colname="col1">class <codeph>gemfire::Cache</codeph>
+						</entry>
+						<entry
+							colname="col2">Sealed class <codeph>Cache</codeph>
+						</entry>
+					</row>
+					<row>
+						<entry
+							colname="col1">
+							<p>abstract class <codeph>gemfire:: Cacheable</codeph>
+							</p>
+						</entry>
+						<entry
+							colname="col2">
+							<p>Interface <codeph>IPdxSerializable</codeph> or interface
+									<codeph>IGFSerializable</codeph>
+							</p>
+						</entry>
+					</row>
+					<row>
+						<entry
+							colname="col1">
+							<p>class <codeph>gemfire::CacheableBytes</codeph>
+							</p>
+						</entry>
+						<entry
+							colname="col2">
+							<p><codeph>Byte[]</codeph> or <codeph>ArrayList&lt;Byte&gt;</codeph>
+							</p>
+						</entry>
+					</row>
+					<row>
+						<entry
+							colname="col1">
+							<p>class <codeph>gemfire::Cacheableint32</codeph>
+							</p>
+						</entry>
+						<entry
+							colname="col2">
+							<p>
+								<codeph>Int32</codeph>
+							</p>
+						</entry>
+					</row>
+					<row>
+						<entry
+							colname="col1">
+							<p>class <codeph>gemfire:: CacheableString</codeph>
+							</p>
+						</entry>
+						<entry
+							colname="col2">
+							<p>
+								<codeph>String</codeph>
+							</p>
+						</entry>
+					</row>
+					<row>
+						<entry
+							colname="col1">
+							<p>abstract class <codeph>gemfire:: CacheableKey</codeph>
+							</p>
+						</entry>
+						<entry
+							colname="col2">
+							<p>You can use any type that implements <codeph>hashcode</codeph> and
+									<codeph>equals</codeph>. The generic .NET built-in types are all
+								suitable. </p>
+						</entry>
+					</row>
+					<row>
+						<entry
+							colname="col1">
+							<p>abstract class <codeph>gemfire::CacheListener</codeph>
+							</p>
+						</entry>
+						<entry
+							colname="col2">
+							<p>Interface <codeph>ICacheListener</codeph>
+							</p>
+						</entry>
+					</row>
+					<row>
+						<entry
+							colname="col1">
+							<p>class <codeph>gemfire:: CacheLoader</codeph>
+							</p>
+						</entry>
+						<entry
+							colname="col2">
+							<p>Interface <codeph>ICacheLoader</codeph> plus static class
+									<codeph>CacheLoader</codeph>
+							</p>
+						</entry>
+					</row>
+					<row>
+						<entry
+							colname="col1">
+							<p>class <codeph>gemfire:: CacheWriter</codeph>
+							</p>
+						</entry>
+						<entry
+							colname="col2">
+							<p>Interface class <codeph>ICacheWriter</codeph>
+							</p>
+						</entry>
+					</row>
+					<row>
+						<entry
+							colname="col1">
+							<p>class <codeph>gemfire::CacheFactory</codeph>
+							</p>
+						</entry>
+						<entry
+							colname="col2">
+							<p>Sealed class <codeph>CacheFactory</codeph>
+							</p>
+						</entry>
+					</row>
+					<row>
+						<entry
+							colname="col1">
+							<p>class <codeph>gemfire::DataInput</codeph>
+							</p>
+						</entry>
+						<entry
+							colname="col2">
+							<p>With <codeph>IPdxSerializable</codeph>, <codeph>IPdxReader.</codeph>
+							</p>
+							<p>With <codeph>IGFSerializable</codeph>, sealed class
+									<codeph>DataInput</codeph>. </p>
+						</entry>
+					</row>
+					<row>
+						<entry
+							colname="col1">
+							<p>class <codeph>gemfire:: DataOutput</codeph>
+							</p>
+						</entry>
+						<entry
+							colname="col2">
+							<p>With <codeph>IPdxSerializable</codeph>, <codeph>IPdxWriter.</codeph>
+							</p>
+							<p>With <codeph>IGFSerializable</codeph>, sealed class
+									<codeph>DataOutput</codeph> . </p>
+						</entry>
+					</row>
+					<row>
+						<entry
+							colname="col1">
+							<p>class <codeph>gemfire:: DiskPolicyType</codeph>
+							</p>
+						</entry>
+						<entry
+							colname="col2">
+							<p>enum <codeph>DiskPolicyType</codeph> plus static class
+									<codeph>DiskPolicy</codeph> containing convenience methods for
+									<codeph>DiskPolicyType</codeph> enumeration </p>
+						</entry>
+					</row>
+					<row>
+						<entry
+							colname="col1">
+							<p>class <codeph>gemfire:: DistributedSystem</codeph>
+							</p>
+						</entry>
+						<entry
+							colname="col2">
+							<p>Sealed class <codeph>Distr<codeph/>ibutedSystem</codeph>
+							</p>
+						</entry>
+					</row>
+					<row>
+						<entry
+							colname="col1">
+							<p>class <codeph>gemfire:: EntryEvent</codeph>
+							</p>
+						</entry>
+						<entry
+							colname="col2">
+							<p>Sealed class <codeph>EntryEvent</codeph>
+							</p>
+						</entry>
+					</row>
+					<row>
+						<entry
+							colname="col1">
+							<p>class <codeph>gemfire:: Exception</codeph>
+							</p>
+						</entry>
+						<entry
+							colname="col2">
+							<p>Class <codeph>GemfireException</codeph>
+							</p>
+						</entry>
+					</row>
+					<row>
+						<entry
+							colname="col1">
+							<p>all other exceptions deriving from <codeph>gemfire::
+									Exception</codeph>
+							</p>
+						</entry>
+						<entry
+							colname="col2">
+							<p>Corresponding exceptions deriving from
+									<codeph>GemfireException</codeph>
+							</p>
+						</entry>
+					</row>
+					<row>
+						<entry
+							colname="col1">
+							<p>class <codeph>gemfire:: ExpirationAction</codeph>
+							</p>
+						</entry>
+						<entry
+							colname="col2">
+							<p>enum <codeph>ExpirationAction</codeph> plus static class
+									<codeph>Expiration</codeph> containing convenience methods for
+									<codeph>ExpirationAction</codeph> enumeration </p>
+						</entry>
+					</row>
+					<row>
+						<entry
+							colname="col1">
+							<p>class <codeph>gemfire:: Log</codeph>
+							</p>
+						</entry>
+						<entry
+							colname="col2">
+							<p>Static class <codeph>Log</codeph>. The native
+									<codeph>Log::log</codeph> method is mapped to
+									<codeph>Log.Write</codeph> to avoid the conflict with the class
+								name which is reserved for the constructors of Log class. The
+								various loglevel <codeph>Throw</codeph> or <codeph>Catch</codeph>
+								methods are not implemented, since they are redundant to
+									<codeph>Log::Log</codeph> , <codeph>Log::LogThrow</codeph>, and
+									<codeph>Log::LogCatch</codeph> methods that take
+									<codeph>LogLevel</codeph> as a parameter. </p>
+						</entry>
+					</row>
+					<row>
+						<entry
+							colname="col1">
+							<p>enum <codeph>gemfire:: MemberType</codeph>
+							</p>
+						</entry>
+						<entry
+							colname="col2">
+							<p>enum <codeph>MemberType</codeph>
+							</p>
+						</entry>
+					</row>
+					<row>
+						<entry
+							colname="col1">
+							<p>abstract class <codeph>gemfire:: PersistanceManager</codeph>
+							</p>
+						</entry>
+						<entry
+							colname="col2">
+							<p>Not provided. You can register a C++ implementation using
+									<codeph>AttributesFactory.SetPersistenceManager</codeph> but you
+								cannot implement a new one in .NET </p>
+						</entry>
+					</row>
+					<row>
+						<entry
+							colname="col1">
+							<p>class <codeph>gemfire:: Properties</codeph>
+							</p>
+						</entry>
+						<entry
+							colname="col2">
+							<p>Sealed class <codeph>Properties</codeph>
+							</p>
+						</entry>
+					</row>
+					<row>
+						<entry
+							colname="col1">
+							<p>class <codeph>gemfire:: Properties::Visitor</codeph>
+							</p>
+						</entry>
+						<entry
+							colname="col2">
+							<p>Delegate <codeph>PropertiesVisitor</codeph>
+							</p>
+						</entry>
+					</row>
+					<row>
+						<entry
+							colname="col1">
+							<p>abstract class <codeph>gemfire:: Region</codeph>
+							</p>
+						</entry>
+						<entry
+							colname="col2">
+							<p>Class <codeph>IRegion</codeph>
+							</p>
+						</entry>
+					</row>
+					<row>
+						<entry
+							colname="col1">
+							<p>class <codeph>gemfire:: RegionAttributes</codeph>
+							</p>
+						</entry>
+						<entry
+							colname="col2">
+							<p>Sealed class <codeph>RegionAttributes</codeph>
+							</p>
+						</entry>
+					</row>
+					<row>
+						<entry
+							colname="col1">
+							<p>class <codeph>gemfire:: ScopeType</codeph>
+							</p>
+						</entry>
+						<entry
+							colname="col2">
+							<p>enum <codeph>ScopeType</codeph> plus static class
+									<codeph>Scope</codeph> containing convenience methods for
+									<codeph>ScopeType</codeph> enumeration+ </p>
+						</entry>
+					</row>
+					<row>
+						<entry
+							colname="col1">
+							<p>abstract class <codeph>gemfire:: Serializable</codeph>
+							</p>
+						</entry>
+						<entry
+							colname="col2">
+							<p>Two options:</p>
+								<ul
+									id="ul_89C882FBC76644A7BB5A0C950562D959">
+									<li
+										id="li_4730965D9CEF4039AA7884A277910562">
+										<p>Interface <codeph>IPdxSerializable</codeph>
+										</p>
+									</li>
+									<li
+										id="li_E154C7DD931D4C1FBD0A4FB7BFC639AC">
+										<p>Interface <codeph>IGFSerializable</codeph> plus wrapper
+												<codeph>Serializable</codeph> class for native
+												<codeph>Serializable</codeph> and
+												<codeph>UserData</codeph> objects. The native
+												<codeph>toString</codeph> method is not provided,
+											since the <codeph>ToString</codeph> method of the base
+											object class provides the same functionality. </p>
+									</li>
+								</ul>
+						</entry>
+					</row>
+					<row>
+						<entry
+							colname="col1">
+							<p>class <codeph>gemfire:: SystemProperties</codeph>
+							</p>
+						</entry>
+						<entry
+							colname="col2">
+							<p>Sealed class <codeph>SystemProperties</codeph>
+							</p>
+						</entry>
+					</row>
+					<row>
+						<entry
+							colname="col1">
+							<p>class <codeph>gemfire:: UserData</codeph>
+							</p>
+						</entry>
+						<entry
+							colname="col2">
+							<p>Two options:</p>
+								<ul
+									id="ul_F0C56ADFF1CD4E9BB863BEE94E6FB6D5">
+									<li
+										id="li_4D7C1FA4CD6A4072B0DFC3FA11EBAFD2">
+										<p>Interface <codeph>IPdxSerializable</codeph>
+										</p>
+									</li>
+									<li
+										id="li_03AB8C763C4F4D3F8C93E978B83B9F1E">
+										<p>Interface <codeph>IGFSerializable</codeph>
+										</p>
+									</li>
+								</ul>
+						</entry>
+					</row>
+					<row>
+						<entry
+							colname="col1">
+							<p>class <codeph>gemfire:: VectorT&lt;T&gt;</codeph>
+							</p>
+						</entry>
+						<entry
+							colname="col2">
+							<p>Array of the given type, such as T[] </p>
+						</entry>
+					</row>
+				</tbody>
+			</tgroup>
+		</table>
+	</conbody>
+</concept>

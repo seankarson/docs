@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept
+	id="install-windows">
+	<title>Installing on Windows</title>
+	<shortdesc>Install the native client by using the Windows installer GUI interface or the command-line. </shortdesc>
+	<prolog>
+		<metadata>
+			<keywords>
+				<keyword>gemfire native client windows install</keyword>
+				<keyword>gemfire native client windows installation</keyword>
+				<keyword>gemfire native client windows</keyword>
+			</keywords>
+		</metadata>
+	</prolog>
+	<conbody>
+		<p> This installation topic contains the following sections: </p>
+		<ul
+			id="ul_18D40751D6684CE99C46C8E91952FB04">
+			<li
+				id="li_21E4644924574AF1AEC1B7F8A7030A9B"><xref
+					href="install-windows.xml#install-windows/section_B7EABDDDA7B94F2DBB0E1C6D98FFECBD"
+					type="section"
+					format="dita"
+					scope="local"/></li>
+			<li
+				id="li_D39A21C3352445989BAC2A783A13259E"><xref
+					href="install-windows.xml#install-windows/section_891A3F2E92114707BC493D322F9B7BA7"
+					type="section"
+					format="dita"
+					scope="local"/></li>
+			<li
+				id="li_492E4C212A594366B62D2B25833E1885"><xref
+					href="install-windows.xml#install-windows/section_7186EF9239D4470C92CDA16E17F51367"
+					type="section"
+					format="dita"
+					scope="local"/></li>
+			<li
+				id="li_5C7A5E7E70A1496990119A39B2B958A9"><xref
+					href="install-windows.xml#install-windows/section_93E5390751F442BB8A3377814A81B105"
+					type="section"
+					format="dita"
+					scope="local"/></li>
+		</ul>
+		<section
+			id="section_B7EABDDDA7B94F2DBB0E1C6D98FFECBD">
+			<title>Prerequisites</title>
+			<p>Before you install the Pivotal GemFire native client, you must complete the following prerequisites: </p>
+			<ul
+				id="ul_D07CD91A7ABC422BBEA4EC8F484AE25A">
+				<li
+					id="li_77454C94B7984BF391D50BD6331E2E1B">Confirm that your system meets the hardware and
+					software requirements described in <xref
+						scope="local"
+						href="../../getting_started/system_requirements/gemfire_native_client_requirements.xml#concept_7AE0C1CB11244095A50CCB52A09A09A1/section_3A8A0684D68E467EBA498D939E91C5AA"/>. </li>
+				<li
+					id="li_F97833C3CC0340F5974F27249A32C84B">From the <xref
+						href="https://network.pivotal.io/products/pivotal-gemfire"
+						scope="external"
+						format="html">Pivotal GemFire download page</xref>, select <b>Download</b>. </li>
+				<li
+					id="li_41512B7691FB41A5A9B63298B4EE5ED9">On the Pivotal GemFire product download page,
+					select and download the Pivotal GemFire native client .msi file appropriate for your
+					hardware architecture. </li>
+			</ul>
+				<note>
+					<p>If you do not install the native client using the .msi installer or the msiexec
+					command-line, then you will need to manually perform the configuration steps (such as
+					configure your GFCPP and PATH environment variables) and install the Microsoft Visual C++
+					2010 Redistributable Package described in the next section.
+					</p>
+				</note>
+		</section>
+		<section
+			id="section_891A3F2E92114707BC493D322F9B7BA7">
+			<title
+				id="title_025E0DE875794BABB450EB38B98747FE">Install with the Windows Installer</title>
+			<p
+				id="p_242890FFA70B4A9E9FD9A7C409B016BC">The native client can be installed on Windows by using
+				the
+						<codeph>Pivotal_GemFire_NativeClient_<varname>architecture</varname>_<varname>xxxx</varname>_b<i>NNNN</i>.msi</codeph>
+				Windows installer, where <i>architecture</i> is <b>32bit</b> or <b>64bit</b>,
+					<varname>xxxx</varname> represents the four-digit version of the product and b<i>NNNN</i>
+				corresponds to the build number for the release. The installer requires <codeph
+					id="cmdname_2CAED847D797434494D31971535C3D8C">msiexec</codeph> version 3.0 or higher. </p>
+				<note
+					id="note_6382431E8F254F75A6D3AFD7C7179DF2">
+					<p>You must be logged in with administrative
+					privileges or the MSI installation will fail.
+					</p>
+				</note>
+			<p
+				id="p_244F5DFB11144216B74B053AAEB701A4">Double-click the MSI file to start the installation.
+				You are prompted to enter the installation location of the native client. </p>
+			<p
+				id="p_FEC86F2A316B48C2B0BF53579BD75E6B">To complete the installation, the MSI installer
+				automatically configures these native client system environment settings: </p>
+			<ul
+				id="ul_54ED585F2D004EC58C1272276EF310EF">
+				<li
+					id="li_F0B79521F1DA4669A465A50877738396">Sets the <varname>GFCPP</varname> environment
+					variable to <varname>productDir</varname>, where <varname>productDir</varname> represents
+					the location where you installed the native client. </li>
+				<li
+					id="li_7E9642CAE0E74D78A9F082FB7E5CA630">Adds <codeph>%GFCPP%\bin</codeph> to the Windows
+						<varname>PATH.</varname>
+				</li>
+				<li>Installs Microsoft Visual C++ 2010 Redistributable Package for your platform architecture (<xref
+						href="http://www.microsoft.com/en-us/download/details.aspx?id=5555"
+						format="aspx"
+						scope="external">x86</xref> or <xref
+						href="http://www.microsoft.com/en-us/download/details.aspx?id=14632"
+						format="aspx"
+						scope="external">x64</xref>). This package contains runtime libraries required by the
+					native client. </li>
+			</ul>
+		</section>
+		<section
+			id="section_7186EF9239D4470C92CDA16E17F51367">
+			<title>Install from the MSI Command-Line</title>
+			<p>In addition to the standard Windows installer interface, the
+						<codeph>Pivotal_GemFire_NativeClient_<varname>architecture</varname>_<varname>xxxx</varname>_b<i>NNNN</i>.msi</codeph>
+				file provides a set of command-line installer options. This is an example of the installer
+				command-line syntax: </p>
+			<codeblock>msiexec /q /i <codeph>Pivotal_GemFire_NativeClient_<varname>architecture</varname>_<varname>xxxx</varname>_b<i>NNNN</i>.msi</codeph> 
+DEFAULT_INSTALLDIR=&lt;path&gt;</codeblock>
+			<p>The following table lists common <codeph>msiexec</codeph> command-line options for use with
+						<codeph>NativeClient_<i>architecture</i>_<i>xxxx</i>.msi</codeph>, along with an
+				explanation of their usage. For a list of all command-line options, enter
+				<codeph>msiexec/?</codeph>.</p>
+			<table
+					id="tbl-msi-options">
+					<title>MSI Command-Line Options</title>
+					<tgroup
+						cols="2">
+						<thead>
+							<row>
+								<entry>Option </entry>
+								<entry>Explanation </entry>
+							</row>
+						</thead>
+						<tbody>
+							<row>
+								<entry><codeph>/q</codeph>
+								</entry>
+								<entry>Creates a quiet installation with no interface or prompts. </entry>
+							</row>
+							<row>
+								<entry><codeph>/i</codeph>
+								</entry>
+								<entry>Indicates that the product is to be installed or configured. </entry>
+							</row>
+							<row>
+								<entry><codeph>DEFAULT_INSTALLDIR=&lt;path&gt;</codeph>
+								</entry>
+								<entry>Specifies the destination directory, if different from the default.
+								</entry>
+							</row>
+							<row>
+								<entry><codeph>/x</codeph>
+								</entry>
+								<entry>Indicates a product uninstall procedure. </entry>
+							</row>
+						</tbody>
+					</tgroup>
+				</table>
+		</section>
+		<section
+			id="section_93E5390751F442BB8A3377814A81B105">
+			<title
+				id="title_4A975275F3384A1EBEC2002E7A4A8216">Repair a Windows Installation</title>
+			<p
+				id="p_3A96079FF4804BF9BAE02CD1840AD8DB"> If problems occur with your Windows native client
+				installation you can initiate a repair operation to restore any missing elements or registry
+				settings. </p>
+			<ol
+				id="ul_521A77390CF947618F681CC7CFB7EF17">
+				<li
+					id="li_18806C1B26C74112BEF92941D8A371BF">Double-click the MSI file, then click Next in the
+					Setup Wizard screen. </li>
+				<li
+					id="li_6F4D7B79F99045049E9C48C44E7F4DEC">In the following screen, click the Repair button. </li>
+				<li
+					id="li_C8CFD6F7513B4466B9CF7ED880E0FB34">In the next screen, click the Repair button.
+				</li>
+			</ol>
+		</section>
+	</conbody>
+</concept>

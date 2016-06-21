@@ -1,0 +1,93 @@
+<?xml version="1.0"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<!-- Created with XMetaL (http://www.xmetal.com) -->
+<concept id="concept_025AAAF8896C4F4CB4530EE9CEEF4BAE"> 
+  <title>Problem Scenarios</title> 
+  <shortdesc>These scenarios describe processes and implementations that should
+	 be avoided when using 
+	 <codeph>AppDomains</codeph>.
+  </shortdesc> 
+  <conbody>
+	 <ul id="ul_30DD34774F9342A6A062EAB81FEF9AEC">
+		<li id="li_EF446FEE0904422B9FAE490408D53D39"><xref
+		  href="problem-scenarios.xml#concept_025AAAF8896C4F4CB4530EE9CEEF4BAE/section_FFC3E18AD8F042DA9EFB42852242AAE0"
+		  type="section" format="dita" scope="local"></xref>
+		</li>
+		<li id="li_0661F85A80EA44ECB39F6151A16CC256"><xref scope="local"
+		  href="problem-scenarios.xml#concept_025AAAF8896C4F4CB4530EE9CEEF4BAE/section_9FEC4666F4FD467AA57AD70943703F00"
+		  type="section" format="dita"></xref>
+		</li>
+		<li id="li_FFA192BD6EA3488287DAEF00B3B9BFC9"><xref scope="local"
+		  href="problem-scenarios.xml#concept_025AAAF8896C4F4CB4530EE9CEEF4BAE/section_646373554C764DD3A919A906A5F05EE9"
+		  type="section" format="dita"></xref>
+		</li>
+	 </ul>
+	 <section id="section_FFC3E18AD8F042DA9EFB42852242AAE0">
+		<title>Using Application Callbacks</title>
+		<p>In this scenario, a .NET thread loads the GemFire DLL in application
+		  domain 
+		  <codeph>AD1</codeph>. This thread may have access to the other domains
+		  in the application if code access security allows it. This thread can then call
+		  
+		  <codeph>AppDomain.CreateInstance</codeph> to create a callback object (
+		  
+		  <codeph>ICacheListener</codeph>, 
+		  <codeph>ICacheLoader</codeph>, or 
+		  <codeph>ICacheWriter</codeph>) in another domain called 
+		  <codeph>AD2</codeph>. If the callback object is marshalled by
+		  reference, then the callback is executed in the domain where it is created
+		  (<codeph>AD2</codeph>). The thread that loads the GemFire DLL in domain 
+		  <codeph>AD1</codeph> runs the callback methods in the second domain, 
+		  <codeph>AD2</codeph>. An exception is thrown when the callback method
+		  is invoked because the native code that invokes the callback is not allowed to
+		  cross the 
+		  <codeph>AppDomain</codeph> boundary.
+		</p>
+		<p>Resolution: When an application creates and unloads application
+		  domains it should ensure that the application domain where the GemFire .NET DLL
+		  is loaded is the same domain where the application callback and 
+		  <codeph>IGFSerializable</codeph> objects are created.
+		</p>
+	 </section>
+	 <section id="section_9FEC4666F4FD467AA57AD70943703F00">
+		<title>Loading an Application DLL in Multiple AppDomains</title>
+		<p>In this scenario, the application loads the GemFire DLL in one
+		  application domain, then reloads the GemFire DLL in another application domain
+		  (with or without unloading the previous 
+		  <codeph>AppDomain</codeph> ). The callbacks, as well as other interface
+		  implementations, like 
+		  <codeph>IPdxSerializable</codeph> and 
+		  <codeph>IGFSerializable</codeph>, throw exceptions because the native
+		  C++ code does not know about 
+		  <codeph>AppDomains</codeph> and is loaded only once in the initial 
+		  <codeph>AppDomain</codeph>.
+		</p>
+		<p>Resolution: The application should always use the first 
+		  <codeph>AppDomain</codeph> to load the GemFire DLL, or it should not
+		  load the GemFire DLL multiple times.
+		</p>
+	 </section>
+	 <section id="section_646373554C764DD3A919A906A5F05EE9">
+		<title>Native Client inside IIS</title>
+		<p>When you deploy more than one web application inside an Internet
+		  Information Service (IIS), the IIS creates an appdomain subprocess for each web
+		  application in the single process, but the native client C++ cache instance
+		  remains a singleton in the process. Because of this, you can run into conflicts
+		  between cache creation and closure by the different appdomains. For example, if
+		  one appdomain calls 
+		  <codeph>cache.close</codeph>, it closes the cache for the entire
+		  process. Any further cache access operations by the other appdomains return
+		  cache closed exceptions. To manage this, 
+		  <codeph>Cache create</codeph>/<codeph>close</codeph> provides reference
+		  counting of 
+		  <codeph>Cache</codeph> 
+		  <codeph>create</codeph> and 
+		  <codeph>close</codeph>. Each process can use the counter to make sure
+		  it creates the 
+		  <codeph>Cache</codeph> once and closes it once. To enable this, set the
+		  GemFire system property, 
+		  <codeph>appdomain-enabled</codeph> to true .
+		</p>
+	 </section>
+  </conbody> 
+</concept>

@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept id="delta-propagation-properties">
+  <title id="title_4AD65B938663441DA62E3EDCDE6988C2">Delta Propagation Properties</title>
+
+  <conbody id="conbody_637A6AA451E44E3A9E8C1C0BF763BB42">
+    <p id="p_272D2748ABB7458CA42E425C8DE51073">Delta propagation is configured on the server side as well as client.
+    For information on the server and delta propagation, see the delta
+    propagation chapter in the GemFire <i>User’s Guide</i>.</p>
+
+    <section id="section_4096D0697BD24A04867B8555B3D1843F"><title id="title_61305E28295D44A7AC3321C323B13753">cloning-enabled </title><p id="p_A65D23C0D3E04140B9E1D2D68B3BE0F3">A region attributes boolean,
+    configured in the <codeph>cache.xml</codeph>, that affects how
+    <codeph>fromDelta</codeph> applies deltas to the local client cache. When
+    <codeph>true</codeph>, the updates are applied to a clone of the value and
+    then the clone is saved to the cache. When <codeph>false</codeph>, the
+    value is modified in place in the cache. The default value is
+    <codeph>false</codeph>.</p><p id="p_862EB2563A1E4500BCFC0AA73F140575">Cloning can be expensive, but it ensures
+    that the new object is fully initialized with the delta before any
+    application code sees it. </p><p>When cloning is enabled, by default
+    GemFire does a deep copy of the object, using serialization. You may be
+    able to improve performance by implementing the appropriate
+    <codeph>clone</codeph> method for your API, making a deep copy of anything
+    to which a delta may be applied. The goal is to significantly reduce the
+    overhead of copying the object while still retaining the isolation needed
+    for your deltas. </p><p id="p_1488D6B8EAD840E388E398B0BDA814C4">Without cloning:</p><ul id="ul_E07A7AB818CC4B0792113EAD57C6F6B1">
+        <li id="li_504B7B9FF9B44B3EBA59BCB6E83684A2">It is possible for application code to read the entry value as it
+        is being modified, possibly seeing the value in an intermediate,
+        inconsistent state, with just part of the delta applied. You may
+        choose to resolve this issue by having your application code
+        synchronize on reads and writes.</li>
+
+        <li id="li_F2C1779DEF194F7CBF24ABF4BB84FB59">GemFire loses any reference to the old value because the old value
+        is transformed in place into the new value. Because of this, your
+        <codeph>CacheListener</codeph> sees the same new value returned for
+        <codeph>EntryEvent.getOldValue</codeph> and
+        <codeph>EntryEvent.getNewValue</codeph>. </li>
+
+        <li id="li_D20932264E8846AA92C906CA2ADEFA0A">Exceptions thrown from <codeph>fromDelta</codeph> may leave your
+        cache in an inconsistent state. Without cloning, any interruption of
+        the delta application could leave you with some of the fields in your
+        cached object changed and others unchanged. If you do not use cloning,
+        keep this in mind when you program your error handling in your
+        <codeph>fromDelta</codeph> implementation. </li>
+      </ul></section>
+
+    <example id="example_44B5880F9AC14177B6F3934D15FD9379"><title id="title_78186F67FA524F5392F99FC0EF840B6E">Enabling Cloning in cache.xml</title><codeblock>&lt;region name="exampleRegion"&gt;
+  &lt;region-attributes refid="CACHING_PROXY" cloning-enabled="true"
+     pool-name="examplePool"/&gt;
+&lt;/region&gt;</codeblock></example>
+
+    <example id="example_6DB3FF1D2D7145D5815ED840D778A4AE"><title id="title_5F6DB75A9F4245C2936C5E75A54BFC0A">Enabling Cloning (C++) </title><codeblock id="codeblock_24E7A6F37FE84A1DB441C874202DB0D6">RegionFactoryPtr regionFactory =
+    cachePtr-&gt;createRegionFactory(CACHING_PROXY);
+RegionPtr regionPtr = regionFactory
+    -&gt;setCloningEnabled(true)
+    -&gt;create("myRegion");</codeblock></example>
+  </conbody>
+</concept>

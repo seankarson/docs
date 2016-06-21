@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept id="executing-functions-in-gemfire">
+  <title id="title_D7BAA54427E5446289C339A964E780EB">Executing Functions in GemFire</title>
+
+  <conbody id="conbody_2CE69B58710C4B22AA34D3F8B4D79E71">
+    <p id="p_C8D12DA67E074959BD1CA4CA6E75C792">This assumes you have your client and server regions defined and you
+    have coded and configured your servers to run your functions. See the
+    function execution information for the server side in the GemFire
+    <i>User’s Guide</i>.</p>
+
+    <note id="note_6441ACC3CDF34F928F8EA6BC37200114">All functions must be written in Java.</note>
+
+    <ul id="ul_DCB2C33B24054737AA0EE6ED995E2156">
+      <li id="li_5C7FECBA9E5D42F4856B7AAF26C385CB">If your function returns results and you need special results
+      handling, code a custom <codeph>ResultsCollector</codeph> implementation
+      to replace the default provided by GemFire. Use the
+      <codeph>Execution::withCollector</codeph> method to define your custom
+      collector. </li>
+
+      <li id="li_3364460CB333470E8D001092FF68F040">Write the application code to run the function and, if the function
+      returns results, to get the results from the collector. For high
+      availability, the function must return results.</li>
+    </ul>
+  </conbody>
+</concept>

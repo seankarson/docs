@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept
+	id="security">
+	<title
+		id="title_9717E51087B346988389138843E158C4">FROM Clause</title>
+	<shortdesc>The <codeph>FROM</codeph> clause establishes collections of objects that are iterated
+		over by the remainder of the query. </shortdesc>
+	<conbody>
+		<p>The attributes of the objects in these collections are added to the name space scope for
+			the remainder of the <codeph>FROM</codeph> clause as well as for the
+				<codeph>WHERE</codeph> clause and the <codeph>SELECT</codeph> projection list. </p>
+		<p>Each <codeph>FROM</codeph> clause expression must evaluate to a collection. The
+			expression <codeph>/portfolios.keySet</codeph> is valid because it evaluates to a
+				<codeph>Collection</codeph>, but <codeph>/portfolios.name</codeph>, which evaluates
+			to a <codeph>String</codeph> , causes an exception to be thrown. </p>
+		<p> Like the SQL query, which iterates over the tables named in its <codeph>FROM</codeph> clause,
+			the <codeph>OQL</codeph> query iterates over the <codeph>Collections</codeph>
+			established in its <codeph>FROM</codeph> clause. </p>
+		<p> In the following query, <codeph>positions.values</codeph> evaluates to a
+				<codeph>Collection</codeph> because <codeph>positions</codeph> is a Map, and the
+			method values on <codeph>Map</codeph> returns a <codeph>Collection</codeph>. </p>
+		<codeblock>IMPORT javaobject.Position;
+SELECT DISTINCT "type"
+FROM /portfolios, positions.values posnVal TYPE Position
+WHERE posnVal.qty &gt; 1000.00</codeblock>
+		<p>Every expression in the <codeph>FROM</codeph> clause must evaluate to a
+				<codeph>Collection</codeph>. For a Map, the values method returns a
+				<codeph>Collection</codeph>. </p>
+		<p> If positions were a List instead of a Map , this query could be used to retrieve the
+			data: </p>
+		<codeblock>IMPORT javaobject.Position;
+SELECT DISTINCT "type"
+FROM /portfolios, positions posnVal TYPE Position
+WHERE posnVal.qty &gt;= 1000.00</codeblock>
+		<p>A List is a <codeph>Collection</codeph>, so you can access it directly or through its
+				<codeph>toArray</codeph> method. </p>
+		<p>For each object type accessed in your <codeph>FROM</codeph> clause, use the method that
+			returns a <codeph>Collection</codeph> for that object. </p>
+		<p>Each expression in the <codeph>FROM</codeph> clause can be any expression that evaluates
+			to a <codeph>Collection</codeph>. An expression in the <codeph>FROM </codeph>clause is
+			typically a path expression that resolves to a region in the cache so that the values in
+			the region become the collection of objects to filter. </p>
+		<p>For example, this is a simple <codeph>SELECT</codeph> statement that evaluates to a set
+			of all the entry value objects of the <codeph>region /portfolios</codeph> with active
+			status. The collection of entry values provided by the <codeph>FROM</codeph> clause is
+			traversed by the <codeph>WHERE</codeph> clause, which accesses each element’s status
+			attribute for comparison. </p>
+		<codeblock>SELECT DISTINCT * FROM /portfolios WHERE status = 'active'</codeblock>
+		<p>If the <codeph>FROM</codeph> clause has only one expression in it, the result of the
+			clause is the single collection that the expression evaluates to. If the clause has more
+			than one expression in it, the result is a collection of structs that contain a member
+			for each of those collection expressions. For example, if the <codeph>FROM</codeph>
+			clause contains three expressions that evaluate to collections <codeph>C1, C2,</codeph>
+			and <codeph>C3</codeph>, the <codeph>FROM</codeph> clause generates a set of
+				<codeph>struct(x1, x2, x3)</codeph> where <codeph>x1, x2</codeph>, and
+				<codeph>x3</codeph> represent nested iterations over the collections specified. </p>
+		<p>If the collections are independent of each other, this <codeph>struct</codeph> represents
+			their cartesian 
+product. </p>
+		<p>In this query, the <codeph>FROM</codeph> clause produces a <codeph>struct</codeph> of
+				<codeph>portfolio</codeph> and position pairs to be iterated. Each element in the
+			struct contains the portfolio and one of its contained positions. </p>
+		<codeblock>IMPORT javaobject.Position;
+SELECT DISTINCT "type" FROM /portfolios, positions TYPE Position
+WHERE qty &gt; 1000.00</codeblock>
+		<p>To understand the effects of <codeph>FROM</codeph> expressions on query scope, see <xref
+				href="../92-querylanguage/22-drilldown-modify-query-scope.xml#security"
+				type="concept"
+				format="dita"
+				scope="local"> Drilling Down for Modifying Query Scope</xref>. </p>
+	</conbody>
+</concept>

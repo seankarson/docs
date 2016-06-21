@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept
+	id="security">
+	<title
+		id="title_9717E51087B346988389138843E158C4">CQ API and Main Features</title>
+	<shortdesc>This chapter documents the primary native client API for CQ management.</shortdesc>
+	<conbody
+		id="conbody_D74C4342289846619E028149A8920946">
+		<p>The <keyword keyref="product_name_long"/> native client API allows your clients to create and
+			manage CQs. (The server side does not have an API.) Continuous querying provides native
+			client query syntax, events-based management, integration with client/server
+			architecture, active query execution, and interest criteria based on data values. For
+			complete information on the classes and interfaces described here, see the online API
+			documentation. </p>
+		<ul
+			id="ul_C649DE1800824DDCA8B0D2132D7729CF">
+			<li
+				id="li_4FF48913F71D45DA8CB108BA5661C1D9"><xref
+					href="3-native-client-cq-api.xml"
+					type="section"
+					format="dita"
+					scope="local"><?xm-replace_text Gemstone::GemFire::Cache?></xref>
+			</li>
+			<li
+				id="li_8855E96B89EF42398BBDC9DAEADB2BF5"><xref
+					href="3-native-client-cq-api.xml#security/section_74A3A0ECC2B645CEAEFDF68350E55EB4"
+					type="section"
+					format="dita"
+					scope="local"><?xm-replace_text Main Features of Continuous Querying?></xref>
+			</li>
+		</ul>
+		<p><b>Gemstone::GemFire::Cache</b></p>
+			<p> Only C# versions of CQ API interfaces, classes, and methods are shown here (example:
+					<codeph>CqQuery.execute</codeph>). The code examples demonstrate both C++ and C#
+				versions. </p>
+			<ul
+				id="ul_3C44F58FA77844EB9EBFCCB1B0C87F07">
+				<li
+					id="li_6582C842CFC34AC6A159B980C8043F3A"><codeph>QueryService</codeph>
+					interface. Provides methods that enable you to: <ul
+						id="ul_9A2BE0E14D36418D9069FE829AC5C44C">
+						<li
+							id="li_B3E580C8C4CB435588C6CD74A673BA8C">Create a new CQ and specify
+							whether it is durable (available for durable clients) </li>
+						<li
+							id="li_C3A18ECCD1E0484E83C67D89531FB87B"> Execute a CQ with or without
+							an initial result </li>
+						<li
+							id="li_8B1D35989C8847A3BF27F8C9931907A7"> List all the CQs registered by
+							the client </li>
+						<li
+							id="li_81394D99A28E4B23A986C5DC551819F5"> Close and stop CQs </li>
+						<li
+							id="li_43FF169AFAAC4C6F9B81F842199E3B91"> Get a handle on
+								<codeph>CqStatistics</codeph> for the client </li>
+					</ul> You run <codeph>QueryService</codeph> CQ methods against the server cache.
+					The QueryService can be obtained from the cache or from a pool. </li>
+				<li
+					id="li_7CAD3A9849DF42C6AA6E5B4DC7C1C37B"><codeph>CqQuery</codeph>interface.
+					Provides methods for managing a continuous query after it is created through the
+						<codeph>QueryService</codeph>. This interface is used typically to begin and
+					end CQ execution and to retrieve other CQ-related objects such as CQ attributes,
+					CQ statistics, and CQ state. </li>
+				<li
+					id="li_0DCE62E79695436B8960A69920842834">
+					<codeph>CqListener</codeph> application plug-in interface. Handles continuous
+					query events after they occur. You program this interface. </li>
+				<li
+					id="li_FF9A232788BC4C469422C7E35CF28C5F"><codeph>CqEvent</codeph>interface.
+					Provides all information sent from the server about the CQ event, which is
+					passed to the CQ's <codeph>CqListener</codeph> methods. </li>
+				<li
+					id="li_60A12ADE1BA94C098F64453BAE3511EC">
+					<codeph>CqState</codeph> interface. Provides information on the state of a
+						<codeph>CqQuery</codeph>, through the getState method of the
+						<codeph>CqQuery</codeph> instance. </li>
+				<li
+					id="li_993BD17FE98846F1949E346B4EF321C5">
+					<codeph>CqAttributes, CqAttributesFactory, CqAttributesMutator</codeph>
+					interfaces. Allow you to manage CQ attributes. The attributes consist of
+						<codeph>CqListener </codeph>plug-in specifications. </li>
+				<li
+					id="li_D901E7D55F88417E9529F1C8F0FF2CF0">
+					<codeph>CqStatistics, CqServiceStatistics</codeph> interfaces. Allow you to
+					access statistics information for a single CQ and for the query service's
+					management of CQs as a whole. For details on statistics, see <xref
+						scope="local"
+						href="../cpp-caching-api/gfe-cpp-api.xml#concept_AB12290E89CA4724AC9F51EFF7B8B8EA/section_42764C6327944514AE4A26684D7EBCB0"
+						type="section"
+						format="dita"> Statistics API</xref>. </li>
+			</ul>
+		<section
+			id="section_74A3A0ECC2B645CEAEFDF68350E55EB4">
+			<title>Main Features of Continuous Querying</title>
+			<p> Continuous querying in the native client has the following features: </p>
+				<ul
+					id="ul_06E777DCC99C471783767BEF85325D02">
+					<li id="li_18D07C5393AF4D6588B6BF91CED54B40">
+					<b>Standard <keyword keyref="product_name"/> native client query syntax and
+						semantics</b>. CQ queries are expressed in the same language used for other
+					native client queries (see <xref
+						href="../remote-querying/remote-querying.xml#security" type="concept"
+						format="dita" scope="local">Remote Querying.</xref>). </li>
+					<li id="li_794057FB82464080A04412CB71CAF044">
+					<b>Standard <keyword keyref="product_name"/> events-based management of CQ
+						events</b>. The event handling used to process CQ events is based on the
+					standard <keyword keyref="product_name"/> event handling framework. The
+					CQListener interface is similar to <xref
+						href="../client-cache/application-plugins.xml#application-plugins"
+						type="concept" format="dita" scope="local"> Application Plug-Ins</xref> and
+						<xref
+						href="../dotnet-caching-api/application-callbacks.xml#concept_E66738BC9B3B4E239D19ABFB198BE754"
+						type="concept" format="dita" scope="local"> Application Callbacks</xref>. </li>
+					<li
+						id="li_9EAD9BD165CB4959B4024853C7A6C195">
+						<b>Complete integration with the client/server architecture</b>. CQ
+						functionality uses existing server-to-client messaging mechanisms to send
+						events. All tuning of your server-to-client messaging also tunes the
+						messaging of your CQ events. If your system is configured for high
+						availability then your CQs are highly available, with seamless failover
+						provided in case of server failure (see <xref
+							href="../preserving-data/high-availability-client-server.xml#concept_F7A143F51EEA46B28AC612DEB7849D99"
+							type="concept"
+							format="dita"
+							scope="local"> High Availability for Client-to-Server
+							Communication</xref>). If your clients are durable, you can also define
+						any of your CQs as durable (see <xref
+							href="../preserving-data/durable-client-messaging.xml#concept_F88B659FB4324F599924F3F2933452B4"
+							type="concept"
+							format="dita"
+							scope="local"> Durable Client Messaging</xref>). </li>
+					<li
+						id="li_D12A22342E564E88A28462AAC4C6D29A">
+						<b>Interest criteria based on data values</b>. CQ queries are run against
+						the region's entry values. Compare this to register interest by reviewing <xref
+							href="../client-cache/registering-interest-for-entries.xml#registering-interest-for-entries"
+							type="concept"
+							format="dita"
+							scope="local"> Registering Interest for Entries</xref>. </li>
+					<li
+						id="li_6EFE08942A6D4C82B9A6E043481B4DF0">
+						<b>Active query execution</b>. Once initialized, the queries only operate on
+						new events instead of on the entire region data set. Events that change the
+						query result are sent to the client immediately. </li>
+				</ul>
+		</section>
+	</conbody>
+</concept>

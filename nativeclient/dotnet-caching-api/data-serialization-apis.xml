@@ -1,0 +1,64 @@
+<?xml version="1.0"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept
+	id="concept_F966E8E2C45A44389DD63603202B77BA">
+	<title>Data Serialization APIs</title>
+	<shortdesc>Use either <codeph>IPdxSerializable</codeph> or <codeph>IGFSerializable</codeph> for
+		each region. Do not mix the two. </shortdesc>
+	<conbody>
+		<p>For more information on these options, see <xref
+				href="dotnet-data-serialization.xml#concept_28A7797A0342447ABF6A5014E0DCB05F"
+				type="concept"
+				format="dita"
+				scope="local">Data Serialization</xref>.</p>
+			<ul
+				id="ul_76DF99E4C80F4AFD8FD16FFCDDFBEF2D">
+				<li id="li_9EA4F491B56B4331A9F51CCFC554B262"><b>IPdxSerializable interface</b>. Provides a
+				flexible way to serialize your domain objects for cache storage and transfer to the
+				servers. This is a <keyword keyref="product_name"/> built-in serialization
+				framework. See <xref
+					href="dotnet-data-serialization.xml#concept_28A7797A0342447ABF6A5014E0DCB05F"
+					type="concept" format="dita" scope="local">Data Serialization</xref>. </li>
+				<li id="li_AE1FD285065F4C599757859073903590"><b>IPdxReader</b>. Supplies operations for reading
+				data from <keyword keyref="product_name"/> IPDXSerializable types. </li>
+				<li id="li_3C006C37BEC34E9884FDB505651A4CCE"><b>IPdxWriter</b>. Provides operations for writing
+				data into <keyword keyref="product_name"/> IPDXSerializable types. </li>
+				<li
+					id="li_3AB13F55359140D29AA4BB8711A1C2D9"><b>IPdxInstance</b>. Instance of a PDX
+					serialized object that you can use to access the object’s data without having to
+					deserialize the object first. </li>
+				<li
+					id="li_82209F6EA6C4409B86063CB113E3D066"><b>IPdxInstanceFactory</b>. Allows you
+					to build an IPdxInstance using raw data. </li>
+				<li
+					id="li_8B7A02C6A50E44B0B17463DE28660152"><b>IPdxTypeMapper interface</b>. Allows
+					you to map .NET type names to Java type names when using PDX serialization. </li>
+				<li id="li_F8535D4888FF421D92A970333B6DE878"><b>IGFSerializable interface</b>. Superclass of one
+				set of user objects that can be serialized and stored in the cache. These are
+					<keyword keyref="product_name"/> built-in serializable types. See <xref
+					href="dotnet-data-serialization.xml#concept_28A7797A0342447ABF6A5014E0DCB05F"
+					type="concept" format="dita" scope="local">Data Serialization</xref>. </li>
+				<li
+					id="li_372D38A635674BF0A5131943C179CBFD">
+					<p><b>Serializable class</b>. Wraps the native C++
+							<codeph>gemfire::Serializable</codeph> objects as managed
+							<codeph>IGFSerializable</codeph> objects. Whenever native C++ clients
+						and .NET clients interoperate and are part of the same distributed system,
+						the user-defined types that are put by the native C++ clients that have not
+						been defined in .NET are returned as objects of this class. </p>
+					<p>The API contains overloads for most Region methods and other methods that
+						take <codeph>Serializable</codeph> as a value and that are more optimized
+						than the more generic <codeph>IGFSerializable</codeph> overloads. The
+						application prefers using these overloads whenever the base class of an
+						object is <codeph>Serializable</codeph>. </p>
+				</li>
+				<li
+					id="li_A0B971A39F03461A983797EDA6556491"><b>DataInput</b>. Supplies operations
+					for reading primitive data values and user-defined objects from a byte stream. </li>
+				<li
+					id="li_21204D80833D49A1B7C8C1D207027E20"><b>DataOutput</b>. Provides operations
+					for writing primitive data values and user-defined objects implementing
+						<codeph>IGFSerializable</codeph> to an integer. </li>
+			</ul>
+	</conbody>
+</concept>

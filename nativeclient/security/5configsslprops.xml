@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept
+	id="security">
+	<title
+		id="title_9717E51087B346988389138843E158C4">Step 4. Configure SSL properties in
+		gfcpp.properties and gemfire.properties</title>
+	<shortdesc>Configure SSL properties. </shortdesc>
+	<conbody
+		id="conbody_D74C4342289846619E028149A8920946">
+		<ol
+			id="ol_C07B2C97ED4942198D2C69CC8619B0AA">
+			<li
+				id="li_F6109E270B8D4AA4B0D51DD852FF3FBC"> In <codeph>gfcpp.properties</codeph>, set
+					<codeph>ssl-enabled</codeph> to true and set <codeph>ssl-keystore</codeph> and
+					<codeph>ssl-truststore</codeph> to point to your keystore files. See <xref
+					href="security-systemprops.xml#security"
+					type="concept"
+					format="dita"
+					scope="local"><?xm-replace_text System Properties   (gfcpp.properties)?></xref>
+				for a description of these properties. </li>
+			<li
+				id="li_42CD155D5353451F862CD23907408B4B">On each locator, set the following SSL
+				properties in the locator’s <codeph>gemfire.properties</codeph> file:
+				<codeblock>server-ssl-enabled=true
+server-ssl-protocols=any
+server-ssl-require-authentication=true
+server-ssl-ciphers=SSL_RSA_WITH_NULL_SHA</codeblock>
+			</li>
+		</ol>
+	</conbody>
+</concept>

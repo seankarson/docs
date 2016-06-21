@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN"
+"concept.dtd">
+<concept id="native-client-pool-api">
+  <title>The Native Client Pool API</title>
+
+  <conbody>
+    <p>The GemFire native client API allows your clients to create and manage
+    connection pools. The server side does not have an API. This section lists
+    the primary native client API for pool management. For complete
+    information on the classes and interfaces described here, see the online
+    API documentation. </p>
+
+    <note>Only C# versions of Pool API interfaces, classes, and methods are
+    shown throughout the text in this chapter (example:
+    <codeph>Pool.GetQueryService()</codeph>) . The code examples demonstrate
+    both C++ and C# versions.</note>
+
+    <section><title>Gemstone::GemFire::Cache</title><ul>
+        <li>Pool—This interface provides the API to retrieve pool
+        attributes.</li>
+
+        <li>PoolFactory—This interface provides the API to configure pool
+        attributes.</li>
+
+        <li>PoolManager—This interface provides API to create a
+        <codeph>PoolFactory</codeph> object and to find the pool objects.</li>
+
+        <li>The <codeph>AttributesFactory</codeph> class has a new method
+        <codeph>setPoolname</codeph> which assigns a pool to a region.
+        Operations performed on the configured region use connections from the
+        pool.</li>
+      </ul><note>A region can have a pool attached to it. A pool may have
+    multiple regions attached to it.</note></section>
+  </conbody>
+</concept>
