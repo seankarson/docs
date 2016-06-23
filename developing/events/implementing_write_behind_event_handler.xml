@@ -56,18 +56,28 @@
 			<p>An <codeph>AsyncEventQueue</codeph> distributes these operations: </p>
 				<ul
 					id="ul_DC75782339D3488A9D9FF2B98F174CFC">
-					<li id="li_F225A61F17DF400797A11DA88A29D431">entry create </li>
-					<li id="li_B32BD108DAD34BC1A30CD569F1B6B4B8">entry put </li>
-					<li id="li_3B531CE5372F42018EEB713A763C0A5F">entry distributed destroy,
-						providing the operation is not an expiration action </li>
+					<li id="li_F225A61F17DF400797A11DA88A29D431">Entry create </li>
+					<li id="li_B32BD108DAD34BC1A30CD569F1B6B4B8">Entry put </li>
+					<li id="li_3B531CE5372F42018EEB713A763C0A5F">Entry distributed destroy, providing the operation
+					is not an expiration action </li>
+				<li>Expiration destroy, if the <codeph>forward-expiration-destroy</codeph> attribute
+					is set to <codeph>true</codeph>. By default, this attribute is
+						<codeph>false</codeph>, but you can set it to <codeph>true</codeph> using
+						<codeph>cache.xml</codeph> or <codeph>gfsh</codeph>. To set this attribute
+					in the Java API, use
+						<codeph>AsyncEventQueueFactory.setForwardExpirationDestroy()</codeph>. See
+					the javadocs for details.</li>
 				</ul>
 			<p>These operations are not distributed: </p>
 				<ul id="ul_FD9333E370844759BA0F4F745886E5E8">
-					<li id="li_E54D442DB71646BABC2AA11C3EA52BDF">get </li>
-					<li id="li_6010372CF5E64C9C8B0D6D70329D0AEB">invalidate </li>
-					<li id="li_6C7FB97083364ED884FE5898A3BFC272">local destroy </li>
-					<li id="li_4ABF093BC7EA47BDAD6EA601CF4B0323">expiration actions of any kind </li>
-					<li id="li_58882AF2BFDC4221B8D69D6B5C8CFFE8">region operations </li>
+					<li id="li_E54D442DB71646BABC2AA11C3EA52BDF">Get </li>
+					<li id="li_6010372CF5E64C9C8B0D6D70329D0AEB">Invalidate </li>
+					<li id="li_6C7FB97083364ED884FE5898A3BFC272">Local destroy </li>
+				<li id="li_58882AF2BFDC4221B8D69D6B5C8CFFE8">Region operations </li>
+					<li id="li_4ABF093BC7EA47BDAD6EA601CF4B0323">Expiration actions </li>
+				<li>Expiration destroy, if the <codeph>forward-expiration-destroy</codeph> attribute
+					is set to <codeph>false</codeph>. The default value is
+					<codeph>false</codeph>.</li>
 				</ul>
 		</section>
 		<section id="section_6FDBAFCB9C194EB0AF0822A509F2F9F2">
