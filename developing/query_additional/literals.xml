@@ -18,12 +18,12 @@
 						Optionally, it can have a suffix of an ASCII letter D. A double or floating
 						point literal can optionally include an exponent suffix of E or e, followed
 						by a signed or unsigned number. </li>
-					<li id="li_AE529ABC2E844799B7351FAB1B7E5524"><b>string</b>. String literals are
-						delimited by single quotation marks. Embedded single-quotation marks are
-						doubled. For example, the character string 'Hello' evaluates to the value
-							<codeph>Hello</codeph>, while the character string 'He said, ''Hello'''
-						evaluates to <codeph>He said, 'Hello'</codeph>. Embedded newlines are kept
-						as part of the string literal. </li>
+					<li id="li_AE529ABC2E844799B7351FAB1B7E5524"><b>string</b>. String literals are delimited by
+					single quotation marks. Embedded single-quotation marks are doubled. For
+					example, the character string <codeph>'Hello'</codeph> evaluates to the value
+						<codeph>Hello</codeph>, while the character string <codeph>'He said,
+						''Hello'''</codeph> evaluates to <codeph>He said, 'Hello'</codeph>. Embedded
+					newlines are kept as part of the string literal. </li>
 					<li id="li_8111ADE044534CF1894367704DD9ED90"><b>char</b>. A literal is of type
 							<codeph>char</codeph> if it is a string literal prefixed by the keyword
 						CHAR, otherwise it is of type string. The CHAR literal for the

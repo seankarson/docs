@@ -4,15 +4,6 @@
 	<title>Supported Keywords</title>
 	<shortdesc><?xm-replace_text Short Description?>
 	</shortdesc>
-	<prolog>
-		<metadata>
-			<keywords>
-				<keyword> query keywords</keyword>
-				<keyword> query language</keyword>
-				<keyword> query language reference</keyword>
-			</keywords>
-		</metadata>
-	</prolog>
 	<refbody>
 		<properties id="properties_459A2BD90B3C446FA08B9AAD5FDDA50C">
 			<prophead>
@@ -26,7 +17,7 @@
 					more expressions to produce a Boolean result. When you combine two conditional
 					expressions using the AND operator, both conditions must evaluate to true for
 					the entire expression to be true. </propvalue>
-				<propdesc>See <xref href="operators.xml#operators"/>
+				<propdesc>See <xref href="operators.xml"/>
 				</propdesc>
 			</property>
 			<property>
@@ -34,7 +25,7 @@
 				<propvalue>Used to provide a label for a path expression so you can refer to the
 					path by the label later.</propvalue>
 				<propdesc>See <xref
-						href="../query_select/the_from_clause.xml#the_from_clause/section_AB1734C16DC348479C00FD6829B933AA"
+						href="../query_select/the_from_clause.xml#section_AB1734C16DC348479C00FD6829B933AA"
 						type="section" format="dita" scope="local"/></propdesc>
 			</property>
 			<property>
@@ -42,7 +33,7 @@
 				<propvalue> Returns the number of results that match the provided
 					criteria.</propvalue>
 				<propdesc>See <xref
-						href="../query_select/the_select_statement.xml#concept_85AE7D6B1E2941ED8BD2A8310A81753E/section_B2CBA00EB83F463DAF4769D7859C64C8"
+						href="../query_select/the_select_statement.xml#section_B2CBA00EB83F463DAF4769D7859C64C8"
 						type="section" format="dita" scope="local"/></propdesc>
 			</property>
 			<property>
@@ -50,7 +41,7 @@
 				<propvalue>Restricts the select statement to unique results (eliminates
 					duplicates).</propvalue>
 				<propdesc>See <xref
-						href="../query_select/the_select_statement.xml#concept_85AE7D6B1E2941ED8BD2A8310A81753E/section_972EE73A6F3E4427B6A99DB4EDF5860D"
+						href="../query_select/the_select_statement.xml#section_972EE73A6F3E4427B6A99DB4EDF5860D"
 						type="section" format="dita" scope="local"/>
 				</propdesc>
 			</property>
@@ -60,14 +51,14 @@
 					This function throws a <codeph>FunctionDomainException </codeph> if the argument
 					is not a collection or array with exactly one element. </propvalue>
 				<propdesc>See <xref
-						href="../query_select/the_select_statement.xml#concept_85AE7D6B1E2941ED8BD2A8310A81753E/section_69DCAD624E9640028BC86FD67649DEB2"
+						href="../query_select/the_select_statement.xml#section_69DCAD624E9640028BC86FD67649DEB2"
 						type="section" format="dita" scope="local"/></propdesc>
 			</property>
 			<property>
 				<proptype>FROM</proptype>
 				<propvalue>You can access any object or object attribute that is available in the
 					current scope of the query.</propvalue>
-				<propdesc>See <xref href="../query_select/the_from_clause.xml#the_from_clause" type="concept"
+				<propdesc>See <xref href="../query_select/the_from_clause.xml" type="concept"
 						format="dita" scope="local"/>
 				</propdesc>
 			</property>
@@ -81,7 +72,7 @@
 				<proptype>IMPORT</proptype>
 				<propvalue>Used to establish the namescope for objects.</propvalue>
 				<propdesc>See <xref
-						href="../query_select/the_import_statement.xml#concept_2E9F15B2FE9041238B54736103396BF7"
+						href="../query_select/the_import_statement.xml"
 						type="concept" format="dita" scope="local"/></propdesc>
 			</property>
 			<property>
@@ -89,7 +80,7 @@
 				<propvalue>The IN expression is a Boolean indicating whether one expression is
 					present inside a collection of expressions of a compatible type.</propvalue>
 				<propdesc>See <xref
-						href="../query_select/the_where_clause.xml#the_where_clause/section_AC12146509F141378E493078540950C7"
+						href="../query_select/the_where_clause.xml#section_AC12146509F141378E493078540950C7"
 						type="section" format="dita" scope="local"/></propdesc>
 			</property>
 			<property>
@@ -97,7 +88,7 @@
 				<propvalue>Query function. Returns TRUE if the expression does not evaluate to
 					UNDEFINED.</propvalue>
 				<propdesc> See <xref
-						href="../query_select/the_select_statement.xml#concept_85AE7D6B1E2941ED8BD2A8310A81753E/section_69DCAD624E9640028BC86FD67649DEB2"
+						href="../query_select/the_select_statement.xml#section_69DCAD624E9640028BC86FD67649DEB2"
 						type="section" format="dita" scope="local"/></propdesc>
 			</property>
 			<property>
@@ -107,7 +98,7 @@
 					IS_UNDEFINED function allows undefined values to be included, so you can
 					identify element with undefined values.</propvalue>
 				<propdesc> See <xref
-						href="../query_select/the_select_statement.xml#concept_85AE7D6B1E2941ED8BD2A8310A81753E/section_69DCAD624E9640028BC86FD67649DEB2"
+						href="../query_select/the_select_statement.xml#section_69DCAD624E9640028BC86FD67649DEB2"
 						type="section" format="dita" scope="local"/></propdesc>
 			</property>
 			<property>
@@ -117,16 +108,16 @@
 					summary activities. For example trying to run add or addAll or a SelectResult
 					from a query with a LIMIT clause throws an exception.</propvalue>
 				<propdesc>See <xref
-						href="../query_select/the_select_statement.xml#concept_85AE7D6B1E2941ED8BD2A8310A81753E/section_25D7055B33EC47B19B1B70264B39212F"
+						href="../query_select/the_select_statement.xml#section_25D7055B33EC47B19B1B70264B39212F"
 						type="section" format="dita" scope="local"/></propdesc>
 			</property>
 			<property>
 				<proptype>LIKE</proptype>
-				<propvalue>LIKE can be used to mean 'equals to', or if you terminate the string with
-					a wildcard character ('%'), it behaves like 'starts with'. Note that the
+				<propvalue>LIKE can be used to mean 'equals to', or if you terminate the string with a wildcard
+					character (<codeph>%</codeph>), it behaves like 'starts with'. Note that the
 					wildcard can only be used at the end of the comparison string. You can escape
-					the wildcard character to represent the % character. You can also use the LIKE
-					predicate if an index is present.</propvalue>
+					the wildcard character to represent the <codeph>%</codeph> character. You can
+					also use the LIKE predicate if an index is present.</propvalue>
 				<propdesc>See <xref
 						href="../query_select/the_where_clause.xml#the_where_clause/section_D91E0B06FFF6431490CC0BFA369425AD"
 						type="section" format="dita" scope="local"/></propdesc>
@@ -135,7 +126,7 @@
 				<proptype>NOT</proptype>
 				<propvalue>The example returns the set of portfolios that have positions. Note that
 					NOT cannot use an index.</propvalue>
-				<propdesc> See <xref href="operators.xml#operators"/>
+				<propdesc> See <xref href="operators.xml"/>
 				</propdesc>
 			</property>
 			<property>
@@ -143,21 +134,21 @@
 				<propvalue> Returns expr2 if expr1 is null. The expressions can be query parameters
 					(bind arguments), path expressions, or literals.</propvalue>
 				<propdesc>See <xref
-						href="../query_select/the_select_statement.xml#concept_85AE7D6B1E2941ED8BD2A8310A81753E/section_69DCAD624E9640028BC86FD67649DEB2"
+						href="../query_select/the_select_statement.xml#section_69DCAD624E9640028BC86FD67649DEB2"
 						type="section" format="dita" scope="local"/></propdesc>
 			</property>
 			<property>
 				<proptype>OR</proptype>
 				<propvalue>If an expression uses both AND and OR operators, the AND expression has
 					higher precedence than OR.</propvalue>
-				<propdesc>See <xref href="operators.xml#operators"/></propdesc>
+				<propdesc>See <xref href="operators.xml"/></propdesc>
 			</property>
 			<property>
 				<proptype>ORDER BY</proptype>
 				<propvalue>Allows you to order query results (either in ascending or descending
 					order).</propvalue>
 				<propdesc>See <xref
-						href="../query_select/the_select_statement.xml#concept_85AE7D6B1E2941ED8BD2A8310A81753E/section_D9DF0F785CA94EF8B367C3326CC12990"
+						href="../query_select/the_select_statement.xml#section_D9DF0F785CA94EF8B367C3326CC12990"
 						type="section" format="dita" scope="local"/></propdesc>
 			</property>
 			<property>
@@ -180,7 +171,7 @@
 				<proptype>&lt;TRACE&gt;</proptype>
 				<propvalue>Enables debugging on the following query string.</propvalue>
 				<propdesc>See <xref
-						href="query_debugging.xml#concept_2D557E24AAB24044A3DB36B3124F6748"
+						href="query_debugging.xml"
 						type="concept" format="dita" scope="local"/></propdesc>
 			</property>
 			<property>
@@ -190,7 +181,7 @@
 					date_str. The format_str you provide is parsed using
 					java.text.SimpleDateFormat.</propvalue>
 				<propdesc>See <xref
-						href="../query_select/the_select_statement.xml#concept_85AE7D6B1E2941ED8BD2A8310A81753E/section_69DCAD624E9640028BC86FD67649DEB2"
+						href="../query_select/the_select_statement.xml#section_69DCAD624E9640028BC86FD67649DEB2"
 						type="section" format="dita" scope="local"/></propdesc>
 			</property>
 			<property>
@@ -198,7 +189,7 @@
 				<propvalue> Specifying object type in the FROM clause helps the query engine to
 					process the query at optimal speed.</propvalue>
 				<propdesc>See <xref
-						href="../query_select/the_from_clause.xml#the_from_clause/section_A5B42CCB7C924949954AEC2DAAD51134"
+						href="../query_select/the_from_clause.xml#section_A5B42CCB7C924949954AEC2DAAD51134"
 						type="section" format="dita" scope="local"/></propdesc>
 			</property>
 			<property>

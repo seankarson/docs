@@ -15,13 +15,13 @@
 						expected application behavior to determine which regions can benefit from
 						using delta propagation. Delta propagation does not improve performance for
 						all data and data modification scenarios. See <xref
-							href="when_to_use_delta_prop.xml#when_to_use_delta_prop" type="concept"
+							href="when_to_use_delta_prop.xml" type="concept"
 							format="dita" scope="local"/>. </li>
 					<li id="li_15C3CF649B9744FBAF71F32EB2DEFBBD">For each region where you are using
 						delta propagation, choose whether to enable cloning using the delta
 						propagation property <codeph>cloning-enabled</codeph>. Cloning is disabled
 						by default. See <xref
-							href="delta_propagation_properties.xml#delta_propagation_properties"
+							href="delta_propagation_properties.xml"
 							type="concept" format="dita" scope="local"/>. </li>
 					<li id="li_190303E1160D48C5AED671E63B97697E">If you do not enable cloning,
 						review all associated listener code for dependencies on

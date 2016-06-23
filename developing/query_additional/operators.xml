@@ -59,16 +59,16 @@
 		</section>
 		<section id="section_E78FB4FB3703471C8186A0E26D25F01F">
 			<title>Map and Index Operators </title>
-			<p>Map and index operators access elements in key/value collections (such as maps and
-				regions) and ordered collections (such as arrays, lists, and
-				<codeph>String</codeph>s). The operator is represented by a set of square brackets
-				"[ ]" immediately following the name of the collection. The mapping or indexing
+			<p>Map and index operators access elements in key/value collections (such as maps and regions)
+				and ordered collections (such as arrays, lists, and <codeph>String</codeph>s). The
+				operator is represented by a set of square brackets (<codeph>[ ]</codeph>)
+				immediately following the name of the collection. The mapping or indexing
 				specification is provided inside these brackets. </p>
-			<p>Array, list, and <codeph>String</codeph> elements are accessed using an index value.
-				Indexing starts from zero for the first element, 1 for the second element and so on.
-				If <codeph>myList</codeph> is an array, list, or String and <codeph>index</codeph>
+			<p>Array, list, and <codeph>String</codeph> elements are accessed using an index value. Indexing
+				starts from zero for the first element, 1 for the second element and so on. If
+					<codeph>myList</codeph> is an array, list, or String and <codeph>index</codeph>
 				is an expression that evaluates to a non-negative integer, then
-					<codeph>myList[index]</codeph> represents the (<codeph>index</codeph>+1)th
+					<codeph>myList[index]</codeph> represents the (<codeph>index + 1</codeph>)th
 				element of <codeph>myList</codeph>. The elements of a <codeph>String</codeph> are
 				the list of characters that make up the string. </p>
 			<p>Map and region values are accessed by key using the same syntax. The key can be any
@@ -79,10 +79,10 @@
 		</section>
 		<section id="section_6C0BB787B2324B85AA02AA19D4822A83">
 			<title>Dot, Right Arrow, and Forward Slash Operators </title>
-			<p>The dot operator '.' separates attribute names in a path expression, and specifies
-				the navigation through object attributes. An alternate equivalent to the dot is the
-				right arrow, "<codeph>-&gt;</codeph>". The forward slash is used to separate region
-				names when navigating into subregions. </p>
+			<p>The dot operator (<codeph>.</codeph>) separates attribute names in a path expression, and
+				specifies the navigation through object attributes. An alternate equivalent to the
+				dot is the right arrow, (<codeph>-&gt;</codeph>). The forward slash is used to
+				separate region names when navigating into subregions. </p>
 		</section>
 	</conbody>
 </concept>

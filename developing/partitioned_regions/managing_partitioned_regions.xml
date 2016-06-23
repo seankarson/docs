@@ -22,12 +22,12 @@
 						secondary copies stored in the member. For example, with redundancy of one,
 						each region data entry requires twice the space than with no redundancy,
 						because the entry is stored twice. See <xref format="dita"
-							href="../../reference/topics/memory_requirements_for_cache_data.xml#calculating_memory_requirements"
+							href="../../reference/topics/memory_requirements_for_cache_data.xml"
 							scope="local"/>. </li>
 					<li id="li_8D696F238AB744E49B2B7B2973AA0EF6">Configure the total number of
 						buckets for the region. This number must be the same for colocated regions.
 						See <xref format="dita"
-							href="configuring_bucket_for_pr.xml#configuring_total_buckets"
+							href="configuring_bucket_for_pr.xml"
 							scope="local"/>. </li>
 					<li id="li_52EBFD279CA84269912A302ED182F159">Configure your members' data
 						storage and data loading for the region: <ol
@@ -45,7 +45,7 @@
 							<li id="li_582453D5C71C44B088331FBF7FD0E35C">For members that store data
 								for the region (<codeph>local-max-memory</codeph> greater than 0),
 								define a data loader. See <xref format="dita"
-									href="../outside_data_sources/implementing_data_loaders.xml#implementing_data_loaders"
+									href="../outside_data_sources/implementing_data_loaders.xml"
 									scope="local" type="concept"/>. </li>
 							<li id="li_C281BEE04EA841C08B581DA59C105A34">If you have members with no
 								local data storage (<codeph>local-max-memory</codeph> set to 0),
@@ -66,7 +66,7 @@
 				</ol>
 			<note>
 				<p>To configure a partitioned region using gfsh, see <xref
-						href="../../tools_modules/gfsh/gfsh_command_index.xml#concept_C291647179C5407A876CC7FCF91CF756"
+						href="../../tools_modules/gfsh/gfsh_command_index.xml"
 					/>.
 				</p>
 			</note>

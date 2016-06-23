@@ -201,7 +201,7 @@ com.gemstone.gemfire.distributed.LocatorLauncher.start(LocatorLauncher.java:596)
 							<codeph>gfsh</codeph> command line:
 						<codeblock>gfsh&gt;start server --name=<varname>server_name</varname> --max-heap=1024m</codeblock>
 						For details, see <xref
-							href="../monitor_tune/system_member_performance_jvm_mem_settings.xml#sys_mem_perf"
+							href="../monitor_tune/system_member_performance_jvm_mem_settings.xml"
 							type="concept" format="dita" scope="local"
 							><?xm-replace_text JVM Memory Settings and System Performance?></xref>. </li>
 					<li id="li_AAD98591B44D48EDA3E7F4E37C587906">If this doesn’t work, try
@@ -244,7 +244,7 @@ com.gemstone.gemfire.distributed.LocatorLauncher.start(LocatorLauncher.java:596)
 								host. When you specify the bind address, use the IP address rather
 								than the host name. Sometimes multiple network adapters are
 								configured with the same hostname. See <xref
-									href="../../topologies_and_comm/topology_concepts/chapter_overview.xml#concept_7628F498DB534A2D8A99748F5DA5DC94"
+									href="../../topologies_and_comm/topology_concepts/chapter_overview.xml"
 								/> for more information about using bind addresses. </li>
 						</ul>
 					</li>
@@ -481,7 +481,7 @@ created at timestamp 1270834766733 version 0]</codeblock>
 					<li id="li_01C0699B91A34B6F8A751131E1B6E524">If you suspect your heap size is
 						set too low, you can increase direct memory by resetting the maximum heap
 						size, using -Xmx. For details, see <xref
-							href="../monitor_tune/system_member_performance_jvm_mem_settings.xml#sys_mem_perf"
+							href="../monitor_tune/system_member_performance_jvm_mem_settings.xml"
 							type="concept" format="dita" scope="local"
 							><?xm-replace_text JVM Memory Settings and System Performance?></xref>. </li>
 					<li id="li_6ED3C0978E9A4EB79C911E39FBD687A2">You may need to lower the thread
@@ -523,7 +523,7 @@ created at timestamp 1270834766733 version 0]</codeblock>
 						<row>
 							<entry>
 								<xref
-									href="../monitor_tune/system_member_performance_jvm_mem_settings.xml#sys_mem_perf"
+									href="../monitor_tune/system_member_performance_jvm_mem_settings.xml"
 									type="concept" format="dita" scope="local"
 									><?xm-replace_text JVM Memory Settings and System Performance?></xref>
 							</entry>
@@ -623,7 +623,7 @@ created at timestamp 1270834766733 version 0]</codeblock>
 						<row>
 							<entry>
 								<xref
-									href="../monitor_tune/system_member_performance_jvm_mem_settings.xml#sys_mem_perf"
+									href="../monitor_tune/system_member_performance_jvm_mem_settings.xml"
 									type="concept" format="dita" scope="local"
 									><?xm-replace_text JVM Memory Settings and System Performance?></xref>
 							</entry>
@@ -702,7 +702,7 @@ within member-timeout milliseconds</codeblock>
 					<li id="li_2DD4858435F44F0B95D14D57DA8BA4E5">If you are using multi-homed hosts, make sure a
 						bind address is set and consistent for all system members. For details about
 						using bind addresses, see <xref
-							href="../../topologies_and_comm/topology_concepts/chapter_overview.xml#concept_7628F498DB534A2D8A99748F5DA5DC94"
+							href="../../topologies_and_comm/topology_concepts/chapter_overview.xml"
 						/>. </li>
 					<li id="li_56CC57760306415DBFE1F1A8D1B6094E">Check that all the applications and cache servers
 						are using the same locator address. </li>
@@ -794,7 +794,7 @@ within member-timeout milliseconds</codeblock>
 				to take a long time to complete. </p>
 			<p>Response: </p>
 			<p>For information on alleviating this problem, see <xref
-					href="../monitor_tune/slow_messages.xml#slow_mess" type="concept" format="dita"
+					href="../monitor_tune/slow_messages.xml" type="concept" format="dita"
 					scope="local"><?xm-replace_text Slow distributed-ack Messages?></xref>. </p>
 		</section>
 		<section id="section_E5DB25F2CC454510A9E58790C09C8CE3">

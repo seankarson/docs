@@ -27,7 +27,7 @@
 			<p> Use the following steps to configure a multi-site system: </p>
 			<ol id="ol_495EB54803E04F879EF4F3B5E559E9B8">
 				<li id="li_3E6FAAFC60F84C0E9977DAFFFDD11BAE">Plan the topology of your multi-site
-					system. See <xref href="multisite_topologies.xml#multisite_topologies"
+					system. See <xref href="multisite_topologies.xml"
 						type="concept" format="dita" scope="local"/> for a description of different
 					multi-site topologies. </li>
 				<li id="li_90F2864FA39E4E238233DEFD9D3D1794">Configure membership and communication for each
@@ -65,12 +65,12 @@ remote-locators=&lt;remote-locator-addr1&gt;[&lt;port1&gt;],&lt;remote-locator-a
 				<li id="li_2049427436B24E70924BFA74132221EE">(Optional.) Deploy custom conflict
 					resolvers to handle resolve potential conflicts that are detected when applying
 					events from over a WAN. See <xref
-						href="../../developing/events/resolving_multisite_conflicts.xml#topic_E97BB68748F14987916CD1A50E4B4542"
+						href="../../developing/events/resolving_multisite_conflicts.xml"
 						type="topic" format="dita" scope="local"/>. </li>
 				<li id="li_72709AE104BB4DC99C2D99D382E6F361">(Optional.) Deploy WAN filters to
 					determine which events are distributed over the WAN, or to modify events as they
 					are distributed over the WAN. See <xref
-						href="../../developing/events/filtering_multisite_events.xml#topic_E97BB68748F14987916CD1A50E4B4542"
+						href="../../developing/events/filtering_multisite_events.xml"
 						type="topic" format="dita" scope="local"/>. </li>
 				<li id="li_D201081B8D3C4E83A111E2F73CB4776C">(Optional.) Configure persistence,
 					conflation, and/or dispatcher threads for gateway sender queues using the
