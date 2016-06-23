@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept
+	id="security">
+	<title
+		id="title_9717E51087B346988389138843E158C4">How Continuous Querying Works</title>
+	<shortdesc>C++ and C# .NET clients register interest in events using simple query expressions.
+		Events are sent to client listeners that you can program to do whatever your application
+		requires. </shortdesc>
+	<conbody
+		id="conbody_D74C4342289846619E028149A8920946">
+			<ul
+				id="ul_F1955E9117114D0F90745CF89B38DD27">
+				<li
+					id="li_89663FDF8B544BC1B5B7EC76032C709C"><xref
+						href="1-how-cont-query-works.xml#security/section_D4F0FAC4880A49A18D6E11B777C2716A"
+						type="section"
+						format="dita"
+						scope="local"><?xm-replace_text Overview of CQ Operations?></xref>
+				</li>
+				<li
+					id="li_C04E3D37FAEE406E9AE52155BCA06330"><xref
+						href="1-how-cont-query-works.xml#security/section_9FEA0CFD3DA64BF5B42B37F5CE05C993"
+						type="section"
+						format="dita"
+						scope="local"><?xm-replace_text Logical Architecture and Data Flow?></xref>
+				</li>
+				<li
+					id="li_C70540AB528B442D8A2206391F8F8528"><xref
+						href="1-how-cont-query-works.xml#security/section_677EB38AB60E4410A8A60980CD3BAACB"
+						type="section"
+						format="dita"
+						scope="local"><?xm-replace_text State and Life Cycle?></xref>
+				</li>
+			</ul>
+		<section
+			id="section_D4F0FAC4880A49A18D6E11B777C2716A">
+			<title>Overview of CQ Operations</title>
+			<p>You subscribe to server-side events using SQL-type query filtering. The native client
+				sends a query to the server side for execution and receives the events that satisfy
+				the criteria. </p>
+			<p>For example, in a region storing stock market trade orders, you can retrieve all
+				orders over a certain price by running a CQ with a query like this:</p>
+				<codeblock>SELECT * FROM /tradeOrder t WHERE t.price &gt; 100.00</codeblock>
+			<p>When the CQ is running, the server sends the client all new events that affect the
+				results of the query. On the native client side, listeners programmed by you receive
+				and process incoming events. For the example query on <codeph>/tradeOrder</codeph>,
+				you might program a listener to push events to a GUI where higher-priced orders are
+				displayed. CQ event delivery uses the client/server subscription framework described
+				in <xref
+					href="../client-cache/client-to-server-connection.xml#client-to-server-connection"
+					type="concept"
+					format="dita"
+					scope="local"> Client to Server Connection Process</xref>. </p>
+			<p>CQs do not update the native client region. This is in contrast to other
+				server-to-client messaging, like the updates sent to satisfy interest registration
+				and responses to get requests from the client. CQs are notification tools for the CQ
+				listeners, which can be programmed in any way your application requires. </p>
+			<p> When a CQ is running against a server region, each entry event is evaluated against
+				the CQ query by the thread that updates the server cache. If either the old or the
+				new entry value satisfies the query, the thread puts a <codeph>CqEvent</codeph> in
+				the client's queue. The <codeph>CqEvent</codeph> contains information from the
+				original cache event, plus information specific to the CQ's execution. Once received
+				by the client, the <codeph>CqEvent</codeph> is passed to the
+					<codeph>onEvent</codeph> method of all <codeph>CqListeners</codeph> defined for
+				the CQ. </p>
+		</section>
+		<section
+			id="section_9FEA0CFD3DA64BF5B42B37F5CE05C993">
+			<title>Logical Architecture and Data Flow</title>
+			<p>Clients can execute any number of CQs, with each CQ given any number of listeners.
+				This figure shows the logical architecture of continuous querying.
+					
+			</p>
+			<image
+				id="image_7B1C48755BE541BDBCD7DCD442728754"
+				href="../common/images/10-Continuous_Querying-1.gif"/>
+			<p> The next figure shows the typical CQ data flow when entries are updated in the
+				server cache. A description of the data flow follows, along with a description of CQ
+				state and life cycle. </p>
+			<image
+				id="image_F5E03A24E29C41B683EC6E85B3B64977"
+				href="../common/images/10-Continuous_Querying-3.gif"/>
+			<ol
+				id="ol_9CBE4D57E00E4DFC8B34B75DC5591160">
+				<li
+					id="li_B8CB27254EFD484E894527FA7C34544C">Entry events come to the server's cache
+					from any source: the server or its peers, distribution from remote sites, or
+					updates from a client. </li>
+				<li
+					id="li_73021D567B234665BDA9409F49FA6ABB">For each event, the server's CQ
+					executor framework checks for a match with the CQs it has running. </li>
+				<li
+					id="li_B7DE335A848E49F2A02A73FDDF617467">If the old or new entry value satisfies
+					a CQ query, a CQ event is sent to the CQ's listeners on the client side. Each
+					listener for the CQ gets the event. In the preceding figure: <ul
+						id="ul_406BC1BD93314AE4AF743F8C31E85E6A">
+						<li
+							id="li_5B5FBEB632FD42949745D6622E2ED25B"> Both new and old prices for
+							entry X satisfy the CQ query, so that event is sent indicating an update
+							to the query results. </li>
+						<li
+							id="li_B2C7D985575E4FFA91675BE4C22F32D2"> The old price for entry Y
+							satisfied the query, so it was part of the query results. The
+							invalidation of entry Y means that it does not satisfy the query.
+							Because of this, the event is sent indicating that it is destroyed in
+							the query results. </li>
+						<li
+							id="li_C06BDD8BBCBB4229A25CD186E7317971"> The price for the newly
+							created entry Z does not satisfy the query, so no event is sent. </li>
+					</ul>
+				</li>
+			</ol>
+			<p>The region operations do not translate directly to specific query operations, and the
+				query operations do not specifically describe the region events. Instead, each query
+				operation describes how its corresponding region event affects the query results.
+				For more information, see <xref
+					href="5c-cq-event-object.xml#security"
+					type="concept"
+					format="dita"
+					scope="local">CqEvent Object</xref>. </p>
+		</section>
+		<section
+			id="section_677EB38AB60E4410A8A60980CD3BAACB">
+			<title>State and Life Cycle</title>A CQ has three possible states that can be accessed
+			from the client by calling <codeph>CqQuery.getState</codeph>. <ul
+				id="ul_F090F281B74A4BBB9EAE8BBB2ECF564D">
+				<li
+					id="li_E641403D1AE34CE596AABDC8312668D1"><codeph>STOPPED</codeph>. The CQ has
+					been created but not yet executed, or it has been explicitly stopped from
+					executing. The stopped CQ uses system resources. You start or restart the CQ by
+					calling the execute method on <codeph>CqQuery</codeph>. </li>
+				<li
+					id="li_46CE8ECC26FF4DF18DDFAAF879589E1D">
+					<codeph>RUNNING</codeph>. The CQ is being executed on the server for all events
+					in the region referenced by the query. Results are sent to all client listeners
+					associated with the <codeph>CqQuery</codeph>. </li>
+				<li
+					id="li_2A68FD4E182040B5A7EB8CEBD30D9C64">
+					<codeph>CLOSED</codeph>. The CQ is closed and is not using system resources.
+					Invoking an execute or stop method on closed <codeph>CqQuery</codeph> throws an
+					exception. </li>
+			</ul>
+			<p><b>Typical CQ life cycle </b></p>
+				<ol
+					id="ol_C07B2C97ED4942198D2C69CC8619B0AA">
+					<li
+						id="li_F6109E270B8D4AA4B0D51DD852FF3FBC">The client creates the CQ. This
+						sets up everything for running the query and provides the client with a
+							<codeph>CqQuery</codeph> object, but does not execute the CQ. At this
+						point, the query is in a <codeph>STOPPED </codeph>state, ready to be closed
+						or run. </li>
+					<li
+						id="li_42CD155D5353451F862CD23907408B4B">The client runs the CQ with an API
+						call to one of the <codeph>CqQuery execute*</codeph> methods. This puts the
+						query into a <codeph>RUNNING</codeph> state on the client and on the server. </li>
+					<li
+						id="li_A0DDFA0E9F5D493EBA169F6F9ED29181">The CQ is closed by a client call
+						to <codeph>CqQuery.close</codeph>. This de-allocates all resources in use
+						for the CQ on the client and server. At this point, the cycle could begin
+						again with the creation of a new <codeph>CqQuery</codeph> instance. </li>
+				</ol>
+		</section>
+	</conbody>
+</concept>

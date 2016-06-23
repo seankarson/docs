@@ -1,0 +1,323 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "http://docs.oasis-open.org/dita/v1.1/OS/dtd/concept.dtd">
+<concept
+	id="glossary">
+	<title>Glossary</title>
+	<shortdesc>This glossary defines terms used in the documentation.</shortdesc>
+	<conbody>
+		<section>
+			<title>API </title>
+			<p>Application Programming Interface. <keyword keyref="product_name"/> provides APIs to cached
+				data for C++ and .NET applications.</p>
+		</section>
+		<section>
+			<title>application program </title>
+			<p>A program designed to perform a specific function directly for the user or, in some cases, for
+				another application program. <keyword keyref="product_name"/> applications use the
+					<keyword keyref="product_name"/> application programming interfaces (APIs) to
+				modify cached data.</p>
+		</section>
+		<section>
+			<title>cache </title>
+			<p>A cache created by an application or cache server process. For the process, its cache
+				is the point of access to all caching features and the only view of the cache that
+				is available. Cache creation requires membership in the distributed system. See also
+					<b>local cache</b> and <b>remote cache</b>.</p>
+		</section>
+		<section>
+			<title>cache configuration file</title>
+			<p>An XML file that declares the initial configuration of a cache, commonly named
+					<codeph>cache.xml</codeph>. C++ and .NET applications can configure the cache
+				additionally through the <keyword keyref="product_name"/> programming APIs.</p>
+		</section>
+		<section>
+			<title>cache listener </title>
+			<p>User-implemented plug-in for receiving and handling region entry events. A region's
+				cache listener is called after an entry in the local cache is modified.</p>
+		</section>
+		<section>
+			<title>cache loader </title>
+			<p>User-implemented plug-in for loading data into a region. A region's cache loader is
+				used to load data that is requested of the region but is not available in the
+				distributed system. For a distributed region, the loader that is used can be in a
+				different cache from the one where the data-request operation originated. See also
+					<b>cache writer</b> and <b>netSearch</b>.</p>
+		</section>
+		<section>
+			<title>cache server </title>
+			<p>A long-running, configurable caching process, generally used to serve cached data to
+				the applications. Usually, cache servers are configured to operate as servers in a
+				client-server typology and their regions are configured to be replicates. See also
+					<b>server</b>.</p>
+		</section>
+		<section>
+			<title>cache writer </title>
+			<p>User-implemented plug-in intended for synchronizing the cache with an outside data
+				source. A region's cache writer is a synchronous listener to cache data events. The
+				cache writer has the ability to abort a data modification. See also <b>cache
+					loader</b>. </p>
+		</section>
+		<section>
+			<title>caching enabled </title>
+			<p>Specifies whether data is cached in the region. <keyword keyref="product_name"/> gives you the
+				option of running applications without entry caching. For example, you can configure
+				a distributed system as a simple messaging service.</p>
+		</section>
+		<section>
+			<title>client </title>
+			<p>In a client-server topology, clients can connect to cache servers, create new regions
+				on the cache server, and store data in the cache server region. Clients can also
+				connect to existing regions on a cache server and do directed gets and puts on the
+				cache server. Clients do not track membership information about other clients, nor
+				do they share information with other clients.</p>
+		</section>
+		<section>
+			<title>concurrency level </title>
+			<p>An estimate of the number of threads expected to concurrently modify values in the
+				region. The actual concurrency may vary; this value is used to optimize the
+				allocation of system resources.</p>
+		</section>
+		<section>
+			<title>connection </title>
+			<p>What an application uses to access a <keyword keyref="product_name"/> distributed system. An
+				application can connect to a <keyword keyref="product_name"/> system by calling the
+					<codeph>DistributedSystem::connect</codeph> function with the appropriate
+				parameter settings. An application must connect to a distributed system to gain
+				access to <keyword keyref="product_name"/> functionality.</p>
+		</section>
+		<section>
+			<title>destroy </title>
+			<p>Remove an entry from a region or remove a region from a cache.</p>
+		</section>
+		<section>
+			<title>disk policy </title>
+			<p>Determines whether LRU entries exceeding the entries limit for a caching region are
+				destroyed or written to disk.</p>
+		</section>
+		<section>
+			<title>distributed scope </title>
+			<p>Enables a region to automatically send entry value updates to remote caches and
+				incorporate updates received from remote caches. The scope identifies whether
+				distribution operations must wait for acknowledgement from other caches before
+				continuing. A distributed region's <b>cache loader</b> and <b>cache writer</b>
+				(defined in the local cache) can be invoked for operations originating in remote
+				caches.</p>
+		</section>
+		<section>
+			<title>distributed system </title>
+			<p>One or more <keyword keyref="product_name"/> system members that have been configured to
+				communicate with each other, forming a single, logical system. Also used for the
+				object that is instantiated to create the connection between the distributed system
+				members.</p>
+		</section>
+		<section>
+			<title>DTD </title>
+			<p>Document Type Definition. A language that describes the contents of a Standard
+				Generalized Markup Language (SGML) document. The DTD is also used with XML. The DTD
+				definitions can be embedded within an XML document or in a separate file.</p>
+		</section>
+		<section>
+			<title>entry </title>
+			<p>A data object in a region. A region entry consists of a key and a value. The value is
+				either null (invalid) or an object. A region entry knows what region it is in. See
+				also <b>region data</b>, <b>entry key</b>, and <b>entry value</b>.</p>
+		</section>
+		<section>
+			<title>entry key </title>
+			<p>The unique identifier for an entry in a region.</p>
+		</section>
+		<section>
+			<title>entry value </title>
+			<p>The data contained in an entry. </p>
+		</section>
+		<section>
+			<title>expiration </title>
+			<p>A cached object expires when its time-to-live or idle timeout counters are exhausted.
+				A region has one set of expiration attributes for itself and one set for all region
+				entries.</p>
+		</section>
+		<section>
+			<title>expiration action </title>
+			<p>The action to be taken when a cached object expires. The expiration action specifies
+				whether the object is to be invalidated or destroyed, and whether the action is to
+				be performed only in the local cache or throughout the distributed system. A
+				destroyed object is completely removed from the cache. A region is invalidated by
+				invalidating all entries contained in the region. An entry is invalidated by having
+				its value marked as invalid. </p>
+			<p>Expiration attributes are set at the region level for the region and at the entry
+				level for entries. See also <b>idle timeout</b> and <b>time-to-live</b>.</p>
+		</section>
+		<section>
+			<title>factory method </title>
+			<p>An interface for creating an object which at creation time can let its subclasses
+				decide which class to instantiate. The factory method helps instantiate the
+				appropriate subclass by creating the correct object from a group of related
+				classes.</p>
+		</section>
+		<section>
+			<title>idle timeout </title>
+			<p>The amount of time a region or region entry may remain in the cache unaccessed before
+				being expired. Access to an entry includes any <codeph>get</codeph> operation and
+				any operation that resets the entry's time-to-live counter. Region access includes
+				any operation that resets an entry idle timeout, and any operation that resets the
+				region's time-to-live. </p>
+			<p>Idle timeout attributes are set at the region level for the region and at the entry
+				level for entries. See also <b>time-to-live</b> and <b>expiration action</b>.</p>
+		</section>
+		<section>
+			<title>interest list </title>
+			<p>A mechanism that allows a region to maintain information about receivers for a
+				particular key-value pair in the region, and send out updates only to those nodes.
+				Interest lists are particularly useful when you expect a large number of updates on
+				a key as part of the entry life cycle.</p>
+		</section>
+		<section>
+			<title>invalid </title>
+			<p>The state of an object when the cache holding it does not have the current value of
+				the object.</p>
+		</section>
+		<section>
+			<title>invalidate </title>
+			<p>Remove only the value of an entry in a cache, not the entry itself.</p>
+		</section>
+		<section>
+			<title>listener </title>
+			<p>An event handler. The listener registers its interest in one or more events and is
+				notified when the events occur.</p>
+		</section>
+		<section>
+			<title>load factor </title>
+			<p>A region attribute that sets initial parameters on the underlying hashmap used for
+				storing region entries.</p>
+		</section>
+		<section>
+			<title>local cache </title>
+			<p>The part of the distributed cache that is resident in the current process. This term
+				is used to differentiate the cache where a specific operation is being performed
+				from other caches in the distributed system. See also <b>remote cache</b>.</p>
+		</section>
+		<section>
+			<title>local scope </title>
+			<p>Enables a region to hold a private data set that is not visible to other caches. See
+				also <b>scope</b>. </p>
+		</section>
+		<section>
+			<title>LRU </title>
+			<p>Least Recently Used. Refers to a region entry or entries most eligible for eviction
+				due to lack of interest by client applications.</p>
+		</section>
+		<section>
+			<title>LRU entries limit </title>
+			<p>A region attribute that sets the maximum number of entries to hold in a caching
+				region. When the capacity of the caching region is exceeded, LRU is used to evict
+				entries.</p>
+		</section>
+		<section>
+			<title>membership </title>
+			<p>Applications and cache servers connect to a <keyword keyref="product_name"/> distributed
+				system by invoking the static function <codeph>DistributedSystem::connect</codeph>.
+				Through this connection, the application gains access to the APIs for distributed
+				data caches. When a C++ or .NET application connects to a distributed system, it
+				specifies the system it is connecting to by indicating the communication protocol
+				and address to use to find other system members.</p>
+		</section>
+		<section>
+			<title>netSearch </title>
+			<p>The method used by <keyword keyref="product_name"/> to search remote caches for a data entry
+				that is not found in the local cache region. This operates only on distributed
+				regions.</p>
+		</section>
+		<section>
+			<title>overflows </title>
+			<p>An eviction option that causes the values of LRU entries to be moved to disk when the
+				region reaches capacity. See <b>disk policy</b>.</p>
+		</section>
+		<section>
+			<title>persistence manager </title>
+			<p>The persistence manager manages the memory-to-disk and disk-to-memory actions for LRU
+				entries. See <b>overflows</b>.</p>
+		</section>
+		<section>
+			<title>region </title>
+			<p>A logical grouping of data within a cache. Regions are used to store data entries
+				(see <b>entry</b>). Each region has a set of attributes governing activities such as
+				expiration, distribution, data loading, events, and eviction control.</p>
+		</section>
+		<section>
+			<title>region attributes </title>
+			<p>The class of attributes governing the creation, location, distribution, and
+				management of a region and its entries.</p>
+		</section>
+		<section>
+			<title>region data </title>
+			<p>All of the entries directly contained in the region.</p>
+		</section>
+		<section>
+			<title>region entry </title>
+			<p>See <b>entry</b>.</p>
+		</section>
+		<section>
+			<title>remote cache </title>
+			<p>Any part of the distributed cache that is resident in a process other than the
+				current one. If an application or cache server does not have a data entry in the
+				region in its local cache, it can do a <codeph>netSearch</codeph> in an attempt to
+				retrieve the entry from the region in a remote cache. See also <b>local
+				cache</b>.</p>
+		</section>
+		<section>
+			<title>scope </title>
+			<p>Region attribute. Identifies whether a region keeps its entries private or
+				automatically sends entry value updates to remote caches and incorporates updates
+				received from remote caches. The scope also identifies whether distribution
+				operations must wait for acknowledgement from other caches before continuing. See
+				also <b>distributed scope</b> and <b>local scope</b>.</p>
+		</section>
+		<section>
+			<title>serialization </title>
+			<p>The process of converting an object graph to a stream of bytes. </p>
+		</section>
+		<section>
+			<title>server </title>
+			<p>In a client-server topology, the server manages membership and allows remote
+				operations. The server maintains membership information for its clients in the
+				distributed system, along with information about peer applications and other servers
+				in the system. See also <b>cache server</b>.</p>
+		</section>
+		<section>
+			<title>system member </title>
+			<p>A process that has established a connection to a distributed system.</p>
+		</section>
+		<section>
+			<title>time-to-live </title>
+			<p>The amount of time a region or region entry may remain in the cache without being
+				modified before being expired. Entry modification includes creation, update, and
+				removal. Region modification includes creation, update, or removal of the region or
+				any of its entries. </p>
+			<p>Time-to-live attributes are set at the region level for the region, and at the entry
+				level for entries. See also <b>idle timeout</b> and <b>expiration action</b>.</p>
+		</section>
+		<section>
+			<title>XML </title>
+			<p>EXtensible Markup Language. An open standard for describing data from the W3C, XML is a markup
+				language similar to HTML. Both are designed to describe and transform data, but
+				where HTML uses predefined tags, XML allows tags to be defined inside the XML
+				document itself. Using XML, virtually any data item can be identified. The XML
+				programmer creates and implements data-appropriate tags whose syntax is defined in a
+				DTD file or an XSD (XML schema definition.)</p>
+		</section>
+		<section
+			id="section_B65D71221D6F4F02B829EE4DB12FFCAB">
+			<title>XML schema definition</title>
+			<p>The definition of the structure, content, and semantics used in an XML document. The
+				definition can be used to verify that each item of content in a document adheres to
+				the specification of the element in which the content is placed. The XML schema is a
+				superset of DTD. Unlike DTD, XML schemas are written in XML syntax, which, although
+				more verbose than DTD, are more descriptive and can have stronger typing. Files
+				containing XML schema definitions generally have the XSD extension. </p>
+		</section>
+		<section>
+			<title>XSD</title>
+			<p>See XML schema definition.</p>
+		</section>
+	</conbody>
+</concept>

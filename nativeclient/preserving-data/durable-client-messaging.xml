@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept
+	id="concept_F88B659FB4324F599924F3F2933452B4">
+	<title>Durable Client Messaging</title>
+	<shortdesc>You can configure the redundancy level for client queues that are stored on cache
+		servers. This ensures that the client will not lose messages if it loses the connection to
+		its primary server. </shortdesc>
+	<conbody>
+		<p>Durable messaging allows a disconnected client application to recover its subscribed data
+			when it reconnects to the cache server because the server continues to queue messages
+			for which the client has registered interest. </p>
+	</conbody>
+</concept>

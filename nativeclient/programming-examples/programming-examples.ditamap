@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE bookmap PUBLIC "-//OASIS//DTD DITA BookMap//EN" "bookmap.dtd">
+<!-- Created with XMetaL (http://www.xmetal.com) -->
+<bookmap
+	id="programming-examples">
+	<booktitle>
+		<mainbooktitle>Programming Examples</mainbooktitle>
+	</booktitle>
+	<bookmeta>
+		<bookid>
+			<bookpartno><?xm-replace_text Book Part Number?></bookpartno>
+			<isbn><?xm-replace_text ISBN Number?>
+			</isbn>
+		</bookid>
+		<bookrights>
+			<copyrfirst>
+				<year><?xm-replace_text First Year?></year>
+			</copyrfirst>
+			<copyrlast>
+				<year><?xm-replace_text Last Year?></year>
+			</copyrlast>
+			<bookowner>
+				<person><?xm-replace_text Copyright owner?>
+				</person>
+			</bookowner>
+		</bookrights>
+	</bookmeta>
+	<part
+		format="dita"
+		href="programming-examples.xml"
+		navtitle="Programming Examples"
+		scope="local"
+		type="concept">
+		<chapter
+			format="dita"
+			href="native-client-region.xml"
+			navtitle="Declaring a Native Client Region"
+			scope="local"
+			type="concept"/>
+		<chapter
+			format="dita"
+			href="csharp-example.xml"
+			navtitle="API Programming Example – C#"
+			scope="local"
+			type="concept"/>
+		<chapter
+			format="dita"
+			href="cpp-example.xml"
+			navtitle="API Programming Example – C++"
+			scope="local"
+			type="concept"/>
+		<chapter
+			format="dita"
+			href="serialization-overview.xml"
+			navtitle="Data Serialization Examples"
+			scope="local"
+			type="concept">
+			<topicref
+				format="dita"
+				href="serialization-cpp.xml"
+				navtitle="C++ Example"
+				scope="local"
+				type="concept"/>
+			<topicref
+				format="dita"
+				href="serialization-csharp.xml"
+				navtitle="C# Example"
+				scope="local"
+				type="concept"/>
+			<topicref
+				format="dita"
+				href="serialization-java.xml"
+				navtitle="Java Serialization Example"
+				scope="local"
+				type="concept"/>
+		</chapter>
+	</part>
+</bookmap>

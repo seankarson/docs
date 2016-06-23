@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE bookmap PUBLIC "-//OASIS//DTD DITA BookMap//EN" "bookmap.dtd">
+<!-- Created with XMetaL (http://www.xmetal.com) -->
+<bookmap
+	id="security-bookmap">
+	<booktitle>
+		<mainbooktitle>Security</mainbooktitle>
+	</booktitle>
+	<bookmeta>
+		<bookid>
+			<bookpartno><?xm-replace_text Book Part Number?></bookpartno>
+			<isbn><?xm-replace_text ISBN Number?>
+			</isbn>
+		</bookid>
+		<bookrights>
+			<copyrfirst>
+				<year><?xm-replace_text First Year?></year>
+			</copyrfirst>
+			<copyrlast>
+				<year><?xm-replace_text Last Year?></year>
+			</copyrlast>
+			<bookowner>
+				<person><?xm-replace_text Copyright owner?>
+				</person>
+			</bookowner>
+		</bookrights>
+	</bookmeta>
+	<part
+		format="dita"
+		href="overviewsecurity.xml"
+		navtitle="Security"
+		scope="local"
+		type="concept">
+		<topicref
+			format="dita"
+			href="overviewauthentication.xml"
+			navtitle="Authentication"
+			scope="local"
+			type="concept">
+			<topicref
+				format="dita"
+				href="authentication-levels.xml"
+				navtitle="Process and Multiuser Authentication"
+				scope="local"
+				type="concept"/>
+			<topicref
+				format="dita"
+				href="systempropsforauth.xml"
+				navtitle="Configuring Credentials for Authentication"
+				scope="local"
+				type="concept"/>
+			<topicref
+				format="dita"
+				href="authforcacheserver.xml"
+				navtitle="Configuring Authentication by the Cache Server"
+				scope="local"
+				type="concept"> </topicref>
+			<topicref
+				format="dita"
+				href="handling-serv-auth-errors.xml"
+				navtitle="Server Authentication Errors"
+				scope="local"
+				type="concept"/>
+			<topicref
+				format="dita"
+				href="createsecureconnregionservice.xml"
+				navtitle="Creating Multiple Secure User Connections"
+				scope="local"
+				type="concept">
+				<topicref
+					format="dita"
+					href="caveatregionservice.xml"
+					navtitle="Requirements and Caveats for RegionService"
+					scope="local"
+					type="concept"/>
+			</topicref>
+			<topicref
+				format="dita"
+				href="LDAPserverauth.xml"
+				navtitle="Using an LDAP Server for Client Authentication"
+				scope="local"
+				type="concept"/>
+		</topicref>
+		<topicref
+			format="dita"
+			href="encrypted-auth.xml"
+			navtitle="Encrypted Authentication"
+			scope="local"
+			type="concept">
+			<topicref
+				format="dita"
+				href="overviewencryptcred.xml"
+				navtitle="Encrypt Credentials with Diffe-Hellman"
+				scope="local"
+				type="concept"/>
+			<topicref
+				format="dita"
+				href="PKCS.xml"
+				navtitle="Using PKCS for Encrypted Authentication"
+				scope="local"
+				type="concept"/>
+		</topicref>
+		<topicref
+			format="dita"
+			href="overviewclientauthorization.xml"
+			navtitle="Client Authorization"
+			scope="local"
+			type="concept">
+			<topicref
+				format="dita"
+				href="config-clientauthorization.xml"
+				navtitle="Configuring Client Authorization"
+				scope="local"
+				type="concept"/>
+			<topicref
+				format="dita"
+				href="postopauthorization.xml"
+				navtitle="Post-Operative Authorization"
+				scope="local"
+				type="concept"> </topicref>
+			<topicref
+				format="dita"
+				href="usingoperationcontext.xml"
+				navtitle="Determining Pre- or Post-Operation Authorization"
+				scope="local"
+				type="concept"/>
+		</topicref>
+		<topicref
+			format="dita"
+			href="security-systemprops.xml"
+			navtitle="Security-Related System Properties (gfcpp.properties)"
+			scope="local"
+			type="concept"/>
+		<topicref
+			format="dita"
+			href="overviewsslclientserver.xml"
+			navtitle="SSL Client/Server Communication"
+			scope="local"
+			type="concept">
+			<topicref
+				format="dita"
+				href="1downloadinstallopenssl.xml"
+				navtitle="Step 1: Download and install OpenSSL"
+				scope="local"
+				type="concept"/>
+			<topicref
+				format="dita"
+				href="3createkeystores.xml"
+				navtitle="Step 2: Create keystores"
+				scope="local"
+				type="concept"/>
+			<topicref
+				format="dita"
+				href="4configenvvariables.xml"
+				navtitle="Step 3: Configure environment variables"
+				scope="local"
+				type="concept"/>
+			<topicref
+				format="dita"
+				href="5configsslprops.xml"
+				navtitle="Step 4: Configure SSL properties in gfcpp.properties and gemfire.properties"
+				scope="local"
+				type="concept"/>
+			<topicref
+				format="dita"
+				href="6startstopclientserver.xml"
+				navtitle="Step 5: Start and stop the client and server"
+				scope="local"
+				type="concept"/>
+			<topicref
+				format="dita"
+				href="limitations.xml"
+				navtitle="Limitations"
+				scope="local"
+				type="concept"/>
+		</topicref>
+	</part>
+</bookmap>

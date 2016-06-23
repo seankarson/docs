@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "http://docs.oasis-open.org/dita/v1.1/OS/dtd/concept.dtd">
+<concept
+	id="adding-entries-to-cache">
+	<title>Adding Entries to the Cache</title>
+	<conbody>
+		<section
+			id="section_57CE90DC5C694CB79F05C943DE6F5E4B">
+			<p>A region is populated with cached entries in several ways: </p>
+			<ul
+				id="ul_D8E79544BD024DAB82CA1347C6A68850">
+				<li
+					id="li_C356E5D11BFF43348A7B9C9EBFC77F16">Explicitly, when an application
+					executes a <codeph>create</codeph> or a <codeph>put</codeph> operation for a
+					single entry or for multiple entries that do not already exist in the cache. </li>
+				<li id="li_E5724F295B584E339206A2A3EF21A9D5">Implicitly, when a client does a get on a single
+					entry or on multiple entries that do not already exist in the cache. In this
+					case, the entry is retrieved from a remote cache or through a cache loader.
+					Under <xref href="application-plugins.xml#application-plugins" type="concept"
+						format="dita" scope="local"
+						><?xm-replace_text Specifying Application Plug-In Attributes?></xref>, see
+					the portion on a cache loader. A client can also use <codeph>getAll</codeph> to
+					populate a region with all values for an array of keys. See <xref scope="local"
+						href="accessing-entries.xml#accessing-entries" type="concept" format="dita"
+						>Accessing Entries</xref>. </li>
+				<li
+					id="li_3799E090CDE1401A8C373415593BE849">Automatically, when entries are created
+					in remote caches. </li>
+			</ul>
+			<p>If any cache writer is available in the distributed region, it is called before the
+				entry is created and it can abort the creation process. </p>
+			<note>
+				<p>For more information on how to create entries, see <xref
+						href="../cpp-caching-api/cpp-caching-api.xml#concept_CEC658A999414AC3A494578C214BF64E"
+						type="concept" format="dita" scope="local"
+						><?xm-replace_text The C++ Caching API?></xref>, <xref
+						href="../dotnet-caching-api/dotnet-caching-api.xml#concept_FC6776DCE6ED48B887A6137761104AA4"
+						type="concept" format="dita" scope="local"
+						><?xm-replace_text GemFire C# .NET Cache API?></xref>, and the native client
+					API reference. </p>
+			</note>
+		</section>
+		<section
+			id="section_873FFF2CAC804B8E9676AB8098CF2434">
+			<title>Adding Entries to the Local Cache</title>
+			<p>If just the local cache is to be populated, you can either <codeph>create</codeph> an
+				entry using the <codeph>localCreate</codeph> Region API, or <codeph>put</codeph> an
+				entry using <codeph>localPut</codeph>. See the C++ and .NET online API documentation
+				for details about <codeph>localCreate</codeph> and <codeph>localPut</codeph>. </p>
+			<p><codeph>DateTime</codeph> objects must be stored in the cache in UTC, so that times
+				correspond between client and server. If you use a date with a different time zone,
+				convert it when storing into and retrieving from the cache. This example converts a
+				local time to UTC for a put operation: </p>
+			<codeblock>DateTime t1( 2009, 8, 13, 4, 11, 0, DateTimeKind.Local);
+region0.Put( 1, t1.ToUniversalTime() );</codeblock>
+		</section>
+		<section
+			id="section_7CFEB263E2FE4775A3C9A29351A33911">
+			<title>Adding Multiple Entries Using PutAll</title>
+			<p>If you need to add many cache entries to a region at one time, you can improve cache
+				performance by using the <codeph>putAll</codeph> function to add them in a single
+				distributed operation. Multiple key/value pairs are stored in a hashmap, then the
+				hashmap contents are processed on the server as either new entries, updates, or
+				invalidates for existing entries. </p>
+			<p>Under <xref
+					href="../cpp-caching-api/add-entry-to-cache.xml#concept_26D4E6C6BC6F4AB8884E33119999656D"
+					type="concept"
+					format="dita"
+					scope="local"><?xm-replace_text Adding an Entry to the Cache?></xref> see "Bulk
+				Put Operations Using putAll" for more information about the <codeph>putAll</codeph>
+				API. Additional details are available in the online API documentation for
+					<codeph>Region::putAll</codeph> (C++), or <codeph>Region.PutAll</codeph> (.NET).
+			</p>
+		</section>
+	</conbody>
+</concept>

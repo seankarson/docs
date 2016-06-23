@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept id="errors-in-delta-propagation">
+  <title id="title_633EDBB0709745C5BE626A28E1893012">Errors in Delta Propagation</title>
+
+  <conbody id="conbody_E19C5EE369BA406F97FA1F4BE3E2D4FB">
+    <p id="p_26563964E8BA4EBF93F4504FA752A25D">Errors in delta propagation fall into two categories based on how they
+    are handled: </p>
+
+    <ol>
+      <li id="li_A8D39303D7B44D9CBDA2EC4077E62EA1"><p id="p_A63F10EC6E3F4EB88E3D53615B9E4DC5">Problems applying the delta that can be remedied by having the
+      originating member send the full value in place of the delta. Your put
+      operation does not see errors or exceptions related to the failed delta
+      propagation. The system automatically does a full value distribution to
+      the receiver where the problem occurs. This type of error
+      includes:</p><ul id="ul_01AA34A2F1A24E64989D2ADCCFB432D3">
+          <li>Unavailable entry value in the receiving cache, either because
+          the entry is missing or its value is null. In both cases, there is
+          nothing to apply the delta to and the full value must be sent. This
+          is most likely to occur if you destroy or invalidate your entries
+          locally, either through application calls or through configured
+          actions like eviction or entry expiration. </li>
+
+          <li id="li_D358C947A8A44B208193DE425EFC7C00"><codeph>InvalidDeltaException</codeph> thrown by
+          <codeph>fromDelta</codeph> method, programmed by you. This exception
+          enables you to avoid applying deltas that would violate data
+          consistency checks or other application requirements. Throwing this
+          exception causes GemFire to send the full value.</li>
+
+          <li id="li_51DE3F7274364B02AD8518B896863048">Any error applying the delta in a client in server-to-client
+          propagation. The client retrieves the full value from the
+          server.</li>
+        </ul></li>
+
+      <li id="li_B230F1D8100D4E1EAD0322F80D6372DD">Problems creating or distributing the delta that cannot be fixed by
+      distributing the full value. These problems are caused by errors or
+      exceptions in <codeph>hasDelta</codeph> or <codeph>toDelta</codeph>. In
+      these cases, your <codeph>put</codeph> operation fails with an
+      exception. </li>
+    </ol>
+  </conbody>
+</concept>

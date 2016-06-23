@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE bookmap PUBLIC "-//OASIS//DTD DITA BookMap//EN" "bookmap.dtd">
+<!-- Created with XMetaL (http://www.xmetal.com) -->
+<bookmap
+	id="language_type_map">
+	<booktitle>
+		<mainbooktitle>Interoperability of Language Types</mainbooktitle>
+	</booktitle>
+		<part format="dita" href="chapter_overview.xml"
+			navtitle="Interoperability of Language Classes and Types" scope="local" type="concept">
+			<topicref format="dita" href="cpp-class-to-dotnet-class-mappings.xml"
+				navtitle="C++ Class to .NET Class Mappings" scope="local" type="concept">
+				<topicref format="dita" href="../cpp-caching-api/type_interoperability.xml"
+					navtitle="Interoperability of C++ Types When Using PDX Serialization"
+					scope="local" type="topic"/>
+			</topicref>
+			<topicref format="dita" href="java-to-dotnet-type-mapping.xml"
+				navtitle="Java to .NET Type Mapping Table" scope="local" type="concept"/>
+		</part>
+</bookmap>

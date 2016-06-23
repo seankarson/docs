@@ -1,0 +1,234 @@
+<?xml version="1.0"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<!-- Created with XMetaL (http://www.xmetal.com) -->
+<concept id="concept_696AB5206C3E45898CC1A24CDD93D003"> 
+  <title>Built-in Serializable Types and Complex Types</title> 
+  <shortdesc>A set of built-in serializable types are automatically registered
+	 at initialization. You can also implement custom types. 
+  </shortdesc> 
+  <conbody> 
+	 <section id="section_461C4286BF6B41FE882FD0E273FD9276"> 
+		<title>Built-In Types</title> 
+		<table id="table_231A11D885BF4FCBAB85EAE51A6B8CEB"> 
+		  <tgroup cols="2"><colspec colnum="1" colname="col1"
+			 colwidth="*"/><colspec colnum="2" colname="col2" colwidth="*"/><thead> 
+				<row> 
+				  <entry colname="col1">Cacheable Type 
+				  </entry> 
+				  <entry colname="col2">Description 
+				  </entry> 
+				</row></thead> 
+			 <tbody> 
+				<row> 
+				  <entry colname="col1"><codeph>CacheableString</codeph> 
+				  </entry> 
+				  <entry colname="col2"> Holds both 
+					 <codeph>char*</codeph>strings and wide-character 
+					 <codeph>wchar_t*</codeph> strings. The maximum length of the
+					 packed string is 64 kilobytes. An exception is thrown if this size limit is
+					 exceeded. 
+				  </entry> 
+				</row> 
+				<row> 
+				  <entry colname="col1"> 
+					 <codeph>CacheableByte</codeph> 
+				  </entry> 
+				  <entry colname="col2"> For single byte values. 
+				  </entry> 
+				</row> 
+				<row> 
+				  <entry colname="col1"> 
+					 <codeph>CacheableBytes</codeph> 
+				  </entry> 
+				  <entry colname="col2"> For multiple byte values. 
+				  </entry> 
+				</row> 
+				<row> 
+				  <entry colname="col1"> 
+					 <codeph>CacheableBoolean</codeph> 
+				  </entry> 
+				  <entry colname="col2"> For boolean values. 
+				  </entry> 
+				</row> 
+				<row> 
+				  <entry colname="col1"> 
+					 <codeph>CacheableDouble</codeph> 
+				  </entry> 
+				  <entry colname="col2"> For double values. 
+				  </entry> 
+				</row> 
+				<row> 
+				  <entry colname="col1"> 
+					 <codeph>CacheableFloat</codeph> 
+				  </entry> 
+				  <entry colname="col2"> For float values. 
+				  </entry> 
+				</row> 
+				<row> 
+				  <entry colname="col1"> 
+					 <codeph>CacheableInt16</codeph> 
+				  </entry> 
+				  <entry colname="col2"> For 16-bit short integers. 
+				  </entry> 
+				</row> 
+				<row> 
+				  <entry colname="col1"> 
+					 <codeph>CacheableInt32</codeph> 
+				  </entry> 
+				  <entry colname="col2"> For 32-bit integers. 
+				  </entry> 
+				</row> 
+				<row> 
+				  <entry colname="col1"> 
+					 <codeph>CacheableInt64</codeph> 
+				  </entry> 
+				  <entry colname="col2"> For 64-bit long integers. 
+				  </entry> 
+				</row> 
+				<row> 
+				  <entry colname="col1"> 
+					 <codeph>CacheableWideChar</codeph> 
+				  </entry> 
+				  <entry colname="col2"> For 
+					 <codeph>wchar_t</codeph> wide characters. 
+				  </entry> 
+				</row> 
+				<row> 
+				  <entry colname="col1"> 
+					 <codeph>CacheableDoubleArray</codeph> 
+				  </entry> 
+				  <entry colname="col2"> For arrays of double values. 
+				  </entry> 
+				</row> 
+				<row> 
+				  <entry colname="col1"> 
+					 <codeph>CacheableFloatArray</codeph> 
+				  </entry> 
+				  <entry colname="col2"> For arrays of float values. 
+				  </entry> 
+				</row> 
+				<row> 
+				  <entry colname="col1"> 
+					 <codeph>CacheableInt16Array</codeph> 
+				  </entry> 
+				  <entry colname="col2"> For arrays of 16-bit short integers. 
+				  </entry> 
+				</row> 
+				<row> 
+				  <entry colname="col1"> 
+					 <codeph>CacheableInt32Array</codeph> 
+				  </entry> 
+				  <entry colname="col2"> For arrays of 32-bit integers. 
+				  </entry> 
+				</row> 
+				<row> 
+				  <entry colname="col1"> 
+					 <codeph>CacheableInt64Array</codeph> 
+				  </entry> 
+				  <entry colname="col2"> For arrays of 64-bit long integers. 
+				  </entry> 
+				</row> 
+				<row> 
+				  <entry colname="col1"> 
+					 <codeph>CacheableStringArray</codeph> 
+				  </entry> 
+				  <entry colname="col2"> For arrays of 
+					 <codeph>CacheableString</codeph> values. 
+				  </entry> 
+				</row> 
+				<row> 
+				  <entry colname="col1"> 
+					 <codeph>CacheableVector</codeph> 
+				  </entry> 
+				  <entry colname="col2"> For a 
+					 <codeph>VectorT&lt;&gt;</codeph> of 
+					 <codeph>CacheablePtr</codeph> . 
+				  </entry> 
+				</row> 
+				<row> 
+				  <entry colname="col1"> 
+					 <codeph>CacheableHashMap</codeph> 
+				  </entry> 
+				  <entry colname="col2"> For a 
+					 <codeph>HashMapT&lt;&gt;</codeph> of 
+					 <codeph>CacheableKeyPtr</codeph> (key in the map) to 
+					 <codeph>CacheablePtr</codeph> (value in the map). 
+				  </entry> 
+				</row> 
+				<row> 
+				  <entry colname="col1"> 
+					 <codeph>CacheableHashSet</codeph> 
+				  </entry> 
+				  <entry colname="col2"> For a 
+					 <codeph>HashSetT&lt;&gt;</codeph> of 
+					 <codeph>CacheableKeyPtr</codeph> (hashset must have keys for a
+					 uniqueness check and for calculating hashcodes). 
+				  </entry> 
+				</row> 
+				<row> 
+				  <entry colname="col1"> 
+					 <codeph>CacheableObjectArray</codeph> 
+				  </entry> 
+				  <entry colname="col2"> For arrays of 
+					 <codeph>CacheablePtr</codeph> . This is actually a vector
+					 similar to 
+					 <codeph>CacheableVector</codeph> , except for the 
+					 <codeph>typeId</codeph> and 
+					 <codeph>toData</codeph> or 
+					 <codeph>fromData</codeph> which match the corresponding Java
+					 ones. 
+				  </entry> 
+				</row> 
+			 </tbody> 
+		  </tgroup> 
+		</table> 
+	 </section> 
+	 <section id="section_D5D2BA4DA34F443FA38E3416A327D8AE"> 
+		<title>HashMapT&lt;&gt; and HashSetT&lt;&gt; Template Classes</title> 
+		<p>Both 
+		  <codeph>HashMapT&lt;&gt;</codeph> and 
+		  <codeph>HashSetT&lt;&gt;</codeph> template classes require that the 
+		  <codeph>hashcode</codeph> function and equality operator be defined for
+		  the key type. Additionally, the key type and value type for 
+		  <codeph>HashMapT&lt;&gt;</codeph> should derive from 
+		  <codeph>SharedBase</codeph>. 
+		</p> 
+		<p>To implement a 
+		  <codeph>hashcode</codeph> function and 
+		  <codeph>equality</codeph> operator for a new type, overload the global
+		  functions as shown in the following example for new type 
+		  <codeph>TKey</codeph>: 
+		  <codeblock>size_t gemfire::hashFunction(const TKey&amp; k) , and 
+bool gemfire::equalToFunction(const TKey&amp; x, const TVal&amp; y)</codeblock> 
+		</p> 
+		<p>Alternatively, you can implement a 
+		  <codeph>hashcode</codeph> function and == operator in class 
+		  <codeph>TKey</codeph> (for the hashcode and equality operator,
+		  respectively), since that is the default implementation of the 
+		  <codeph>hashFunction</codeph> and 
+		  <codeph>equalToFunction</codeph> methods. 
+		</p> 
+	 </section> 
+	 <section id="section_CBFEA7B91935482EA37FFBEC7E09AA0C"> 
+		<title>Complex Types</title> 
+		<p>If your application uses more complex key types that you want to make
+		  more accessible or easier to handle, you can derive a new class from 
+		  <codeph>CacheableKey</codeph>. For details, see 
+		  <xref
+			href="serialization.xml#concept_696AB5206C3E45898CC1A24CDD93D003/section_311C3661023C46328B406F26F4F16808"
+			type="section" format="dita" scope="local">Custom Key Types</xref>. 
+		</p> 
+		<p>Another option is for the application to do its own object
+		  serialization using the GemFire 
+		  <codeph>CacheableBytes</codeph> type or a custom type. See 
+		  <xref href="data-as-blob.xml#concept_C0A613390E364347AA3C6E4361972116"
+			type="concept" format="dita" scope="local">Handling Data as a Blob</xref>. 
+		</p> 
+		<note>The GemFire 
+		  <codeph>Serializable</codeph> interface does not support object graphs
+		  with multiple references to the same object. If your application uses such
+		  circular graphs, you must address this design concern explicitly. 
+		</note> 
+	 </section> 
+  </conbody> 
+</concept> 

@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept
+	id="security">
+	<title
+		id="title_9717E51087B346988389138843E158C4">Predefined Class Types</title>
+	<conbody>
+		<p>The <codeph>FROM</codeph> clause establishes collections of objects that are iterated
+			over by the remainder of the query. The attributes of the objects in these collections
+			are added to the name space scope for the remainder of the <codeph>FROM</codeph> clause
+			as well as for the <codeph>WHERE</codeph> clause and the <codeph>SELECT</codeph>
+			projection list. 
+
+		</p>
+		<p>The type specification can be an imported type or any of these predefined types. </p>
+		<table
+				id="table_5A0BBCB81ABB4866AAAFBC8B81AE0B72">
+				<tgroup
+					cols="4">
+					<colspec
+						colnum="1"
+						colname="col1"
+						colwidth="1.11*"/>
+					<colspec
+						colnum="2"
+						colname="col2"
+						colwidth="1.00*"/>
+					<colspec
+						colnum="3"
+						colname="col3"
+						colwidth="1.28*"/>
+					<colspec
+						colnum="4"
+						colname="col4"
+						colwidth="1.04*"/>
+					<tbody>
+						<row>
+							<entry
+								colname="col1"><b>Type </b>
+							</entry>
+							<entry
+								colname="col2"><b>Java </b>
+							</entry>
+							<entry
+								colname="col3"><b>C++ </b>
+							</entry>
+							<entry
+								colname="col4"><b>.NET </b>
+							</entry>
+						</row>
+						<row>
+							<entry> short </entry>
+							<entry> short </entry>
+							<entry> CacheableInt16 </entry>
+							<entry> Int16 </entry>
+						</row>
+						<row>
+							<entry> long </entry>
+							<entry> long </entry>
+							<entry> CacheableInt64 </entry>
+							<entry> Int64 </entry>
+						</row>
+						<row>
+							<entry> int </entry>
+							<entry> int </entry>
+							<entry> CacheableInt32 </entry>
+							<entry> Int32 </entry>
+						</row>
+						<row>
+							<entry> float </entry>
+							<entry> float </entry>
+							<entry> CacheableFloat </entry>
+							<entry> Single </entry>
+						</row>
+						<row>
+							<entry> double </entry>
+							<entry> double </entry>
+							<entry> CacheableDouble </entry>
+							<entry> Double </entry>
+						</row>
+						<row>
+							<entry> char </entry>
+							<entry> char </entry>
+							<entry> CacheableWideChar </entry>
+							<entry> Char </entry>
+						</row>
+						<row>
+							<entry> string </entry>
+							<entry> java.lang.String </entry>
+							<entry> CacheableString </entry>
+							<entry> String </entry>
+						</row>
+						<row>
+							<entry> boolean </entry>
+							<entry> boolean </entry>
+							<entry> CacheableBoolean </entry>
+							<entry> Boolean </entry>
+						</row>
+						<row>
+							<entry> byte or octet </entry>
+							<entry> byte </entry>
+							<entry> CacheableByte </entry>
+							<entry> Byte </entry>
+						</row>
+						<row>
+							<entry> date </entry>
+							<entry> java.sql.Date </entry>
+							<entry> CacheableDate </entry>
+							<entry> DateTime </entry>
+						</row>
+						<row>
+							<entry> time </entry>
+							<entry> java.sql.Time </entry>
+							<entry> Unsupported </entry>
+							<entry> Unsupported </entry>
+						</row>
+						<row>
+							<entry> timestamp </entry>
+							<entry> java.sql.Timestamp </entry>
+							<entry> Unsupported </entry>
+							<entry> Unsupported </entry>
+						</row>
+						<row>
+							<entry> set&lt;type&gt; </entry>
+							<entry> java.util.Set </entry>
+							<entry> CacheableHashSet </entry>
+							<entry> HashSet&lt;type&gt; </entry>
+						</row>
+						<row>
+							<entry> list&lt;type&gt; </entry>
+							<entry> java.util.List </entry>
+							<entry> CacheableVector </entry>
+							<entry> List&lt;type&gt; </entry>
+						</row>
+						<row>
+							<entry> array&lt;type&gt; </entry>
+							<entry> java.lang.Object[] </entry>
+							<entry> CacheableArray </entry>
+							<entry> ArrayList&lt;type&gt; </entry>
+						</row>
+						<row>
+							<entry> map&lt;type,type&gt; or dictionary&lt;type,type&gt; </entry>
+							<entry> java.lang.Map </entry>
+							<entry> CacheableHashMapp </entry>
+							<entry> Dictionary&lt;type, type&gt; or HashTable </entry>
+						</row>
+					</tbody>
+				</tgroup>
+			</table>
+	</conbody>
+</concept>

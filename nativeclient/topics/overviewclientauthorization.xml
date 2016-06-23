@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN"
+"concept.dtd">
+<concept id="security">
+  <title id="title_9717E51087B346988389138843E158C4">Client
+  Authorization</title>
+
+  <shortdesc>Each server can be configured to authorize some or all cache
+  operations using a provided callback that implements the
+  <codeph>AccessControl </codeph>interface. The callback can also modify or
+  even disallow the data being provided by the client in the operation, such
+  as a put or a <codeph>putAll</codeph> operation. The callback can also
+  register itself as a post-processing filter that is passed operation results
+  like <codeph>get</codeph>, <codeph>getAll</codeph>, and
+  <codeph>query</codeph>.</shortdesc>
+
+  <conbody>
+    <p>Authorization can be done on a per-client basis for various cache
+    operations such as creates, gets, puts, query invalidations, interest
+    registration, and region destroys. On the server side, the
+    <codeph>securityclient-accessor</codeph> system property in the server’s
+    <codeph>gemfire.properties</codeph> file specifies the authorization
+    callback. For example:</p>
+
+    <p><codeph>security-client-accessor=templates.security.XmlAuthorization.create</codeph></p>
+
+    <p>In the previous system property setting,
+    <codeph>XmlAuthorization</codeph> is the callback class which implements
+    the <codeph>AccessControl </codeph>interface. The
+    <codeph>XmlAuthorization</codeph> sample implementation provided with
+    GemFire expects an XML file that defines authorization privileges for the
+    clients. For details of this sample implementation and the
+    <codeph>AccessControl </codeph>interface, see the<!--BEVLINK-->
+    "Authorization Using the XmlAuthorization Sample" section in the Security
+    chapter for the <i>GemFire User's Guide</i>.</p>
+  </conbody>
+</concept>

@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept
+	id="running-native-client-xact">
+	<title
+		id="title_9717E51087B346988389138843E158C4">Creating and Managing Queries</title>
+	<shortdesc>You create queries on the cache server by obtaining a <codeph>QueryService</codeph>
+		method and manage them through the resulting <codeph>Query</codeph> object. The
+			<codeph>Region</codeph> interface has several shortcut query methods. </shortdesc>
+	<conbody
+		id="conbody_D74C4342289846619E028149A8920946">
+		<p
+			id="p_73C402816B974E4B9D904000F996DD2E">
+			
+
+
+			
+
+The
+				<codeph>newQuery</codeph> method for the <codeph>Query</codeph> interface binds a
+			query string. By invoking the <codeph>execute</codeph> method, the query is submitted to
+			the cache server and returns<codeph> SelectResults</codeph>, which is either a
+				<codeph>ResultSet</codeph> or a <codeph>StructSet</codeph>. </p>
+		<p>The <codeph>QueryService</codeph> method is the entry point to the query package. It is
+			retrieved from the Cache instance through <codeph>Cache::getQueryService</codeph>. If
+			you are using the Pool API you must obtain the <codeph>QueryService</codeph> from the
+			pools and not from the cache. </p>
+		<section
+			id="section_41564A36A1DE4EEDA8F3E00992F8D02B">
+			<title>Query</title>
+			<p>A <codeph>Query</codeph> is obtained from a <codeph>QueryService</codeph> method,
+				which is obtained from the 
+cache. The <codeph>Query</codeph> interface provides methods for
+				managing the compilation and execution of queries, and for retrieving an existing
+				query string. </p>
+			<p>You must obtain a <codeph>Query</codeph> object for each new query. The following
+				example demonstrates the method used to obtain a new instance of
+				<codeph>Query</codeph>:</p>
+				<codeblock id="codeblock_E8BA26FFF5AB4038AFB9AC1FA64B4694">QueryPtr newQuery(const char * querystr); </codeblock>
+		</section>
+		<section
+			id="section_0F92AD1BDB29426BB24CD41F5A0FAB78">
+			<title>Region Shortcut Query Methods</title>
+			<p>The <codeph>Region</codeph> interface has several shortcut query methods. All take a
+					<codeph>query</codeph> predicate which is used in the <codeph>WHERE</codeph>
+				clause of a standard query. See <xref
+					href="../93-querystrings/4-where-clause.xml#security"
+					type="concept"
+					format="dita"
+					scope="local">WHERE Clause</xref> for more information. Each of the following
+				examples also set the query response timeout to 10 seconds to allow sufficient time
+				for the operation to succeed. </p>
+			<ul
+				id="ul_8FD7063B1E04433E86F61A7CAA596B1B">
+				<li
+					id="li_C93BBF0EA71A4A8A87BFF7D915165026">The <codeph>query</codeph> method
+					retrieves a collection of values satisfying the query predicate. This call
+					retrieves active portfolios, which in the sample data are the portfolios with
+					keys <codeph>111, 222, and 333</codeph>:
+					<codeblock>SelectResultsPtr
+results = regionPtr-&gt;query("status 'active' ");</codeblock>
+				</li>
+				<li
+					id="li_47A22708849B4C349AECF05FADFAD422"> The <codeph>selectValue</codeph>
+					method retrieves one value object. In this call, you request the portfolio with
+						<codeph>ID ABC-1</codeph> :
+					<codeblock>SerializablePtr
+port = region-&gt;selectValue("ID='ABC-1'");</codeblock>
+				</li>
+				<li
+					id="li_D5A6496D7EBC4A22BDB8DA041DF9FEF9">The <codeph>existsValue</codeph> method
+					returns a boolean indicating if any entry exists that satisfies the predicate.
+					This call returns false because there is no entry with the indicated type:
+					<codeblock>bool entryExists
+= region-&gt;existsValue("'type' = 'QQQ' ");</codeblock>
+				</li>
+			</ul>
+			<p> For more information about these shortcut query methods, see the Region class description in
+				the native client API documentation. </p>
+		</section>
+	</conbody>
+</concept>

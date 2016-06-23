@@ -1,0 +1,215 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept
+	id="running-native-client-xact">
+	<title
+		id="title_9717E51087B346988389138843E158C4">Examples Data and Class
+		Definitions</title>
+	<shortdesc> Examples show C++ and corresponding Java class definitions and sample data for the
+		example <codeph>/portfolios</codeph> region. The region's keys are the portfolio ID. </shortdesc>
+	<conbody
+		id="conbody_D74C4342289846619E028149A8920946">
+		<p>User-defined data types must implement the <codeph>Serializable</codeph> interface on the
+			native client side, while corresponding Java classes must implement the
+				<codeph>DataSerializable</codeph> interface. The C++ objects for the native client
+			must correspond to the Java objects for the <keyword keyref="product_name"/> cache
+			server. This means that an object on one side should deserialize correctly at the other
+			side. </p>
+		<p>
+			
+
+			<b>Sample C++ class definition</b></p>
+			<codeblock>
+class Portfolio : public Serializable {
+   int ID;
+   char * type;
+   char * status;
+   Map&lt;Position&gt; positions;
+}
+class Position : public Serializable {
+   char * secId;
+   double mktValue;
+   double qty;
+}
+
+</codeblock>
+		<p>
+			<b>Corresponding Java class definition</b></p>
+			<codeblock>class Portfolio implements DataSerializable {
+    int ID;
+    String type;
+    String status;
+    Map positions;
+}
+class Position implements DataSerializable {
+    String secId;
+    double mktValue;
+    double qty;
+}</codeblock>
+		<p>The following table lists the sample data in the /portfolios region.</p>
+		<table
+				id="table_92A6A66523764199A19BCD66BA189921">
+				<title>Entry values in /portfolios</title>
+				<tgroup
+					cols="6">
+					<colspec
+						colname="col01"
+						colnum="1"
+						colwidth="1.52*"/>
+					<colspec
+						colname="col1"
+						colnum="2"
+						colwidth="1.52*"/><colspec
+						colname="col3"
+						colnum="3"
+						colwidth="1.36*"/><colspec
+						colname="col4"
+						colnum="4"
+						colwidth="1.22*"/><colspec
+						colname="col5"
+						colnum="5"
+						colwidth="1.13*"/><colspec
+						colname="col6"
+						colnum="6"
+						colwidth="1.00*"/>
+					<tbody>
+						<row>
+							<entry><b>id</b>
+							</entry>
+							<entry><b>type</b>
+							</entry>
+							<entry
+								colname="col3"><b>Statusted</b>
+							</entry>
+							<entry
+								colname="col4"><b>Position: secID</b>
+							</entry>
+							<entry
+								colname="col5"><b>Position: mktValue</b>
+							</entry>
+							<entry
+								colname="col6"><b>Position: qty</b>
+							</entry>
+						</row>
+						<row>
+							<entry
+								colname="col01">111 </entry>
+							<entry
+								colname="col1">xyz </entry>
+							<entry
+								colname="col3">active </entry>
+							<entry
+								colname="col4">xxx </entry>
+							<entry
+								colname="col5">27.34 </entry>
+							<entry
+								colname="col6">1000.00 </entry>
+						</row>
+						<row>
+							<entry
+								colname="col01"> </entry>
+							<entry
+								colname="col1"> </entry>
+							<entry
+								colname="col3"> </entry>
+							<entry
+								colname="col4">xxy </entry>
+							<entry
+								colname="col5">26.31 </entry>
+							<entry
+								colname="col6">1200.00 </entry>
+						</row>
+						<row>
+							<entry
+								colname="col01"> </entry>
+							<entry
+								colname="col1"> </entry>
+							<entry
+								colname="col3"> </entry>
+							<entry
+								colname="col4">xxz </entry>
+							<entry
+								colname="col5">24.30 </entry>
+							<entry
+								colname="col6">1500.00 </entry>
+						</row>
+						<row>
+							<entry
+								colname="col01">222 </entry>
+							<entry
+								colname="col1">xyz </entry>
+							<entry
+								colname="col3">active </entry>
+							<entry
+								colname="col4">yyy </entry>
+							<entry
+								colname="col5">18.29 </entry>
+							<entry
+								colname="col6">5000.00 </entry>
+						</row>
+						<row>
+							<entry
+								colname="col01">333 </entry>
+							<entry
+								colname="col1">abc </entry>
+							<entry
+								colname="col3">active </entry>
+							<entry
+								colname="col4">aaa </entry>
+							<entry
+								colname="col5">24.30 </entry>
+							<entry
+								colname="col6">10.00 </entry>
+						</row>
+						<row>
+							<entry
+								colname="col01">333 </entry>
+							<entry
+								colname="col1">abc </entry>
+							<entry
+								colname="col3">active </entry>
+							<entry
+								colname="col4">aab </entry>
+							<entry
+								colname="col5">23.10 </entry>
+							<entry
+								colname="col6">15.00 </entry>
+						</row>
+						<row>
+							<entry
+								colname="col01">444 </entry>
+							<entry
+								colname="col1">abc </entry>
+							<entry
+								colname="col3">inactive </entry>
+							<entry
+								colname="col4">bbb </entry>
+							<entry
+								colname="col5">50.41 </entry>
+							<entry
+								colname="col6">100.00 </entry>
+						</row>
+						<row>
+							<entry
+								colname="col01">444 </entry>
+							<entry
+								colname="col1">abc </entry>
+							<entry
+								colname="col3">inactive </entry>
+							<entry
+								colname="col4">bbc </entry>
+							<entry
+								colname="col5">55.00 </entry>
+							<entry
+								colname="col6">90.00 </entry>
+						</row>
+					</tbody>
+				</tgroup>
+			</table>
+		<p
+			id="p_AE1CE53BB4EF42D18F275B6EEE47957D">Because the client cache
+			waits during transaction execution, and client regions are not
+			distributed, the only activities that interact with a client
+			transaction are those that occur on the server. </p>
+	</conbody>
+</concept>

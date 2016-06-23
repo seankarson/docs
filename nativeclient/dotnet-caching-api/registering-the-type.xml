@@ -1,0 +1,52 @@
+<?xml version="1.0"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept
+	id="concept_FFFB0AAA131E46D09065F910EFF218CB">
+	<title>Register the Type</title>
+	<shortdesc>To use the <codeph>BankAccount</codeph> type, you must register it with the type
+		system. Then, when an incoming stream contains a <codeph>BankAccount</codeph>, it can be
+		manufactured from the associated <codeph>TypeFactoryMethod.</codeph>
+	</shortdesc>
+	<conbody>
+		<codeblock>Serializable.RegisterType(BankAccount.CreateInstance);</codeblock>
+		<p>Typically, you would register the type before creating the system. </p>
+		<section
+			id="section_1B68CDA7392E45CAA413362F42CCF829">
+			<title>Using ClassId</title>
+			<p>A <codeph>ClassId</codeph> is an integer that returns the <codeph>ClassId</codeph> of
+				the instance being serialized. The <codeph>ClassId</codeph> is used by
+				deserialization to determine what instance type to create and deserialize into. </p>
+		</section>
+		<section
+			id="section_8A63DBA039744DCCB6840A7F1F5734DA">
+			<title>Using DSFID</title>
+			<p>A <codeph>DSFID</codeph> is an integer that returns the data serialization fixed ID
+				type. <codeph>DSFID</codeph> is used to determine what instance type to create and
+				deserialize into. <codeph>DSFID</codeph> should not be overridden by custom
+				implementations, and it is reserved only for built-in serializable types. </p>
+		</section>
+		<section
+			id="section_A02B5E61D03B4B0893DFF3D21F2346F9">
+			<title>Using Custom Key Types</title>
+			<p>If your application uses its own key types that are too complex to easily force into
+				string, you can probably improve performance by using a custom type and implementing
+					<codeph>HashCode</codeph> and <codeph>Equals</codeph> functions. For example, if
+				you have hybrid data types such as floating point numbers, you can implement your
+				own type that encapsulates the floating point number. Comparing floating point
+				numbers in this way provides greater performance than comparing a string
+				representation of the floating point numbers, with such noticeable improvements as
+				faster cache access and smaller payloads. </p>
+			<p>See <xref
+					href="../cpp-caching-api/serialization_using_serializable.xml#concept_696AB5206C3E45898CC1A24CDD93D003/section_AFB685227E4048BF9FB4FD7C55AED274"
+					type="section"
+					format="dita"
+					scope="local"><?xm-replace_text Serialization in Native Client Mode with a Java Server?></xref>
+				for information about implementing key types for a native client that is used with a
+				Java cache server. </p>
+			<p>To extend a type that implements <codeph>IPdxSerializable</codeph> or
+					<codeph>IGFSerializable</codeph> for your key, override and implement the
+					<codeph>HashCode</codeph> and <codeph>Equals</codeph> methods in the key as
+				needed. </p>
+		</section>
+	</conbody>
+</concept>

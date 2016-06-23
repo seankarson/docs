@@ -1,0 +1,50 @@
+<?xml version="1.0"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept
+	id="concept_A97823CFEA20400BBB135AC964746850">
+	<title>About the Native Client C# .NET API</title>
+	<shortdesc> The Microsoft .NET Framework interface for the <keyword keyref="product_name_long"/>
+		native client provides complete access to the native client C++ functionality from any .NET
+		Framework language (C#, C++/CLI, VB.NET, and J#). This enables clients using C# and other
+		.NET languages to use the capabilities provided by the <keyword keyref="product_name"/> C++
+		API. </shortdesc>
+	<conbody>
+		<p>The <keyword keyref="product_name"/> native client uses a set of assemblies managed by the C++
+			Common Language Infrastructure (C++ CLI). C++ CLI includes the libraries and objects
+			necessary for common language types, and it is the framework for .NET applications. </p>
+		<p>The .NET API for the native client adds .NET Framework CLI language binding for the <keyword
+				keyref="product_name"/> native client product. </p>
+		<p>Using C#, you can write callbacks and define user objects in the cache. The following
+			figure shows an overview of how a C# application accesses the native client C++ API
+			functionality through C++/CLI . 
+
+		</p>
+		<fig
+			id="fig_D025097BFCEA4D7ABDB173AD6ABE099D">
+			<title>C# .NET Application Accessing the C++ API</title>
+			<image
+				placement="break"
+				align="center"
+				id="image_D91728696A7B4E03A04712EF32C5FBEC"
+				href="../common/images/6-DotNet_API-1.gif"/>
+		</fig>
+			<note>
+				<p>This chapter uses C# as the reference language, but other .NET languages work the
+				same way.
+				</p>
+			</note>
+		<p>The <keyword keyref="product_name"/> C# .NET API is provided in the
+			GemStone::GemFire::Cache::Generic namespace. This namespace allows you to manage your
+			cache, regions, and data using the .NET Generics APIs. </p>
+		<p>Use the <keyword keyref="product_name"/> C# .NET API to programmatically create, populate, and
+			manage a <keyword keyref="product_name"/> distributed system. </p>
+		<note>
+			<p>The C# .NET library is thread-safe except where otherwise indicated in the online
+				API documentation.
+			</p>
+		</note>
+		<p>For complete and current information on the <keyword keyref="product_name"/> APIs, see the
+			online .NET API documentation. For general information on .NET, see the Microsoft
+			developer’s network website. </p>
+	</conbody>
+</concept>

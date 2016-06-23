@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<!-- Created with XMetaL (http://www.xmetal.com) -->
+<concept id="concept_A2AD3FEA2DA84F97A708D58226895D7A"> 
+  <title>Preserving Data</title> 
+  <shortdesc> The vFabric GemFire native client can be configured for data loss
+	 prevention in cases where either the cache server that the client is
+	 communicating with loses its connection, or if the native client is temporarily
+	 disconnected or abnormally terminated from the distributed system.
+  </shortdesc> 
+  <conbody>
+	 <p otherprops="pdf"> The vFabric GemFire native client can be configured
+		for data loss prevention in cases where either the cache server that the client
+		is communicating with loses its connection, or if the native client is
+		temporarily disconnected or abnormally terminated from the distributed system.
+	 </p>
+	 <p>Data preservation is accomplished by ensuring that reliable event
+		messaging is maintained between the client and the cache server. Any lost
+		messages intended to be sent to a client as create , update or invalidate
+		events for cached entries can quickly cause the data in the client cache to be
+		unsynchronized and out of date with the rest of the distributed system.
+	 </p> 
+	 <p> 
+		<xref></xref>This chapter describes the configuration and operation of
+		native clients to prevent data loss in the event of client or server failure.
+	 </p> 
+  </conbody> 
+</concept>

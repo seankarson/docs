@@ -1,0 +1,40 @@
+<?xml version="1.0"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept
+	id="concept_77661803ACB741F88D59A4CAE23DCA52">
+	<title> How Serialization Works with IGFSerializable</title>
+	<shortdesc> When your application puts an object into the cache for distribution, <keyword
+			keyref="product_name"/> serializes the data by taking these steps. </shortdesc>
+	<conbody>
+		<ol
+			id="ol_F468C4B7A87D4D98BA82E2E0F63DFE75">
+			<li
+				id="li_C3A7808B9FDB4B84AC12AAFE254984B2">Calls the appropriate
+					<codeph>ClassId</codeph> function and creates the <codeph>TypeId</codeph> from
+				it. </li>
+			<li
+				id="li_914F6DC4CB7446E1A9A946BBEF730576">Writes the <codeph>TypeId</codeph> for the
+				instance. </li>
+			<li
+				id="li_8F262E1C2726456E9BA6D50686D6A024">Invokes the <codeph>ToData</codeph>
+				function for the instance. </li>
+		</ol>
+		<p>When your application subsequently receives a byte array, <keyword keyref="product_name"/>
+			takes the following steps: </p>
+		<ol
+			id="ol_B412049A6D97460497AB6605F363A8C6">
+			<li
+				id="li_5F60A4B51E7A40509E04DD01C63150C9"> Decodes the <codeph>TypeId</codeph> and
+				creates an object of the designated type, using the registered factory functions. </li>
+			<li
+				id="li_FA4F3350762D4B48B9127CFC25128EB1">Invokes the <codeph>FromData</codeph>
+				function with input from the data stream. </li>
+			<li
+				id="li_7558CE1292954302B1C9EC7715FC73DA">Decodes the data and then populates the
+				data fields. </li>
+		</ol>
+		<p>The <codeph>TypeId</codeph> is an integer of four bytes, which is a combination of
+				<codeph>ClassId</codeph> integer and <codeph>0x27</codeph>, which is an indicator of
+			user-defined type. </p>
+	</conbody>
+</concept>

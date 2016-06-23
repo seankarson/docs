@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept
+	id="running-native-client-xact">
+	<title
+		id="title_9717E51087B346988389138843E158C4">Query Result Sets</title>
+	<conbody
+		id="conbody_D74C4342289846619E028149A8920946">
+		<ul
+			id="ul_8BD01A5B1048429C9B31871567CEF435">
+			<li id="li_BD95975698944FD79B01F4C720FE01F6"><b>SelectResults</b>. Executes the query on the
+				cache server and returns the results as either a <codeph>ResultSet</codeph> or a
+				StructSet. </li>
+			<li
+				id="li_B25F00C55F1145AEBB21E16D08A842FD"><b>SelectResultsIterator</b>. Iterates over
+				the items available in a <codeph>ResultSet</codeph> or <codeph>StructSet</codeph>. </li>
+			<li
+				id="li_0A1660A9F94B40DCAB34A02EBA32AC0E"><b>ResultSet</b>. Obtained after executing
+				a <codeph>Query</codeph>, which is obtained from a <codeph>QueryService</codeph>
+				that is obtained from a Cache class. </li>
+			<li
+				id="li_71A998B91C774CE2B77BB468BC7B7834"><b>StructSet</b>. Used when a
+					<codeph>SELECT</codeph> statement returns more than one set of results. This is
+				accompanied by a <codeph>Struct</codeph>, which provides the
+					<codeph>StructSet</codeph> definition and contains its field values. </li>
+		</ul>
+	</conbody>
+</concept>

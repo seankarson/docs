@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<!-- Created with XMetaL (http://www.xmetal.com) -->
+<concept id="concept_F377BC314A2E4E198C99123EE2866187"> 
+  <title>Accessing an Entry</title> 
+  <shortdesc>The region entry retrieval methods return the value associated
+	 with the specified key, and pass the callback argument to any cache loaders or
+	 cache writers that are invoked during the operation.
+  </shortdesc> 
+  <conbody>
+	 <p>If the value is not available locally, it is requested from the server.
+		If the server request is unsuccessful, a local cache loader is invoked, if one
+		is available. The operation throws 
+		<codeph>keyNotFoundException</codeph> if the 
+		<codeph>Region</codeph> is unable to retrieve a value through any of
+		these means.
+	 </p>
+	 <example id="example_CD00539F33364898A635E1B57F574D92">
+		<title>Using the Region API to Retrieve Values From the Cache</title>
+		<p>Here, the program retrieves two entries from the region.
+		  <codeblock>string value1 = region1["Key1"];
+string value2 = region1["Key2"];
+ 
+int valueA = region2["KeyA"];
+int valueB = region2["KeyB"];
+ 
+string valueQ = region.Get(111, null);
+string valueR = region.Get(222, null);</codeblock>
+		</p>
+	 </example>
+  </conbody> 
+</concept>

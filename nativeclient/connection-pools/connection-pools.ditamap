@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE bookmap PUBLIC "-//OASIS//DTD DITA BookMap//EN" "bookmap.dtd">
+<!-- Created with XMetaL (http://www.xmetal.com) -->
+<bookmap
+	id="connection-pools">
+	<booktitle>
+		<mainbooktitle>Connection Pools</mainbooktitle>
+	</booktitle>
+	<bookmeta>
+		<bookid>
+			<bookpartno><?xm-replace_text Book Part Number?></bookpartno>
+			<isbn><?xm-replace_text ISBN Number?>
+			</isbn>
+		</bookid>
+		<bookrights>
+			<copyrfirst>
+				<year><?xm-replace_text First Year?></year>
+			</copyrfirst>
+			<copyrlast>
+				<year><?xm-replace_text Last Year?></year>
+			</copyrlast>
+			<bookowner>
+				<person><?xm-replace_text Copyright owner?>
+				</person>
+			</bookowner>
+		</bookrights>
+	</bookmeta>
+	<part
+		format="dita"
+		href="connection-pools.xml"
+		navtitle="Using Connection Pools"
+		scope="local"
+		type="concept">
+		<topicref
+			format="dita"
+			href="client-load-balancing.xml"
+			navtitle="How Client Load Balancing Works"
+			scope="local"
+			type="concept">
+			<topicref
+				format="dita"
+				href="about-server-locators.xml"
+				navtitle="Server Locators"
+				scope="local"
+				type="concept"/>
+			<topicref
+				format="dita"
+				href="about-connection-pools.xml"
+				navtitle="Connection Pools"
+				scope="local"
+				type="concept"/>
+			<topicref
+				format="dita"
+				href="discovering-locators-dynamically.xml"
+				navtitle="Discovering Locators Dynamically"
+				scope="local"
+				type="concept"/>
+		</topicref>
+		<topicref
+			format="dita"
+			href="configuring-pools.xml"
+			navtitle="Configuring Pools"
+			scope="local"
+			type="concept">
+			<topicref
+				format="dita"
+				href="native-client-pool-api.xml"
+				navtitle="Native Client Pool API"
+				scope="local"
+				type="concept"/>
+			<topicref
+				format="dita"
+				href="configuring-pools-attributes-example.xml"
+				navtitle="Pool Configuration Example and Settings"
+				scope="local"
+				type="concept"/>
+			<topicref
+				format="dita"
+				href="subscription-properties.xml"
+				navtitle="Subscription Properties"
+				scope="local"
+				type="concept"/>
+			<topicref
+				href="running-connection-pool-code.xml"
+				navtitle="Running the Connection Pool Code"
+				scope="local"
+				type="concept"/>
+		</topicref>
+	</part>
+</bookmap>

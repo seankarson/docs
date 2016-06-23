@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<!-- Created with XMetaL (http://www.xmetal.com) -->
+<concept id="concept_5D520C87F65B48AFA4240615190B0150"> 
+  <title> Serializable Types</title> 
+  <shortdesc> All of the build-in generics are automatically registered at
+	 initialization.
+  </shortdesc> 
+  <conbody>
+	 <p>If your application uses more complex key types that you want to make
+		more accessible or easier to handle, you can derive a new class from 
+		<codeph>IGFSerializable</codeph>. Another option is for the application
+		to do its own object serialization using 
+		<codeph>Byte[] 
+		</codeph>or a custom type.
+	 </p> 
+	 <note><xref></xref>The GemFire 
+		<codeph>IGFSerializable</codeph> interface does not support object graphs
+		with multiple references to the same object. If your application uses these
+		types of circular graphs, you must address this design concern explicitly.
+	 </note> 
+  </conbody> 
+</concept>

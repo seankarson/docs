@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept
+	id="security">
+	<title
+		id="title_9717E51087B346988389138843E158C4">Post-Operative Authorization</title>
+	<shortdesc>Authorization in the post-operation phase occurs on the server after the operation is
+		complete and before the results are sent to the client. </shortdesc>
+	<conbody>
+		<p>
+			
+
+The callback can modify the results of certain
+			operations, such as <codeph>query</codeph>, <codeph>get</codeph> and
+				<codeph>keySet</codeph>, or even completely disallow the operation. For example, a
+			post-operation callback for a query operation can filter out sensitive data or data that
+			the client should not receive, or even completely fail the operation. </p>
+		<p>The <codeph>security-client-accessor-pp</codeph> system property in the server’s
+				<codeph>gemfire.properties</codeph> file specifies the callback to invoke in the
+			post-operation phase. For example: </p>
+		<p>
+			<codeph>security-client-accessor-pp=templates.security.XmlAuthorization.create</codeph>
+
+		</p>
+	</conbody>
+</concept>

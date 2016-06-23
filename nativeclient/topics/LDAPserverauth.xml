@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN"
+"concept.dtd">
+<concept id="security">
+  <title id="title_9717E51087B346988389138843E158C4">Using an LDAP Server for
+  Client Authentication</title>
+
+  <shortdesc>An LDAP server can be used by a GemFire cache server using the
+  sample LDAP implementation provided in GemFire server product. See the
+  Security chapter in the GemFire User's Guide to verify authentication
+  credentials for native clients attempting to connect to the GemFire servers
+  and sending username and passwords using the sample UserPassword scheme.
+  </shortdesc>
+
+  <conbody id="conbody_D74C4342289846619E028149A8920946">
+    <p><i>The username and password with this sample implementation is sent
+    out in plaintext. For better security, either turn on credential
+    encryption using Diffie-Hellman key exchange, or use a scheme like
+    PKCS.</i></p>
+
+    <p>When a client initiates a connection to a cache server, the client
+    submits its credentials to the server and the server submits those
+    credentials to the LDAP server. To be authenticated, the credentials for
+    the client need to match one of the valid entries in the LDAP server. The
+    credentials can consist of the entry name and the corresponding password.
+    If the submitted credentials result in a connection to the LDAP server
+    because the credentials match the appropriate LDAP entries, then the
+    client is authenticated and granted a connection to the server. If the
+    server fails to connect to the LDAP server with the supplied credentials
+    then an AuthenticationFailedException is sent to the client and its
+    connection with the cache server is closed.</p>
+
+    <p><b>Configuration Settings</b></p>
+
+    <p>In the gfcpp.properties file for the client, you need to specify the
+    UserPasswordAuthInit callback, the username, and the password, like
+    this:</p>
+
+    <p><codeph>security-client-auth-library=securityImpl</codeph></p>
+
+    <p><codeph>security-client-auth-factory=createUserPasswordAuthInitInstance</codeph></p>
+
+    <p><codeph>security-username=&lt;username&gt;</codeph></p>
+
+    <p><codeph>security-password=&lt;password&gt;</codeph></p>
+
+    <p>For server side settings and LDAP server configuration, see the
+    Security chapter in the <i><!--BEVLINK-->GemFire User's Guide</i>.</p>
+  </conbody>
+</concept>

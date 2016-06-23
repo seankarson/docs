@@ -1,0 +1,98 @@
+<?xml version="1.0"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept
+   id="concept_E66738BC9B3B4E239D19ABFB198BE754">
+   <title>Application Callbacks</title>
+   <shortdesc>For region-level events, an application can use
+         <codeph>AttributesFactory.SetCache*</codeph> methods to implement and
+      register the <codeph>ICacheLoader</codeph>, <codeph>ICacheWriter</codeph>,
+      and <codeph>ICacheListener</codeph> interfaces to perform custom actions. </shortdesc>
+   <conbody>
+      <p>You can use <codeph>Region.Put</codeph> for simple caching situations.
+         For more complex needs, you should implement the
+            <codeph>ICacheLoader</codeph> interface and allow the cache to
+         manage the creation and loading of objects. When a <codeph>Region.Get
+         </codeph>is called for a region entry with a value of null, the
+            <codeph>ICacheLoader::Load</codeph> method of the cache loader (if
+         any) for the region is invoked. A static
+            <codeph>CacheLoader::NetSearch</codeph> method is provided which can
+         be used by <codeph>ICacheLoader</codeph> implementations to locate the
+         requested key in the distributed system. The
+            <codeph>ICacheListener</codeph> interface can be used to listen to
+         various region events after events such as create, update, or
+         invalidate of region entries have occurred. The
+            <codeph>ICacheWriter</codeph> interface is invoked before the events
+         have occurred. </p>
+      <example
+         id="example_E00EFED457BD43569ADBAC8BBDCE9479">
+         <title>Using ICacheLoader to Load New Integers in the Region</title>
+         <p>This example demonstrates an <codeph>ICacheLoader</codeph>
+            implementation for loading new integers into a region.</p>
+            <codeblock>class SimpleCacheLoader&lt;TKey, TVal&gt; : ICacheLoader&lt;TKey, TVal&gt;
+   {
+      #region ICacheLoader Members
+      public TVal Load(IRegion&lt;TKey, TVal&gt; region, TKey key, object helper)
+      {
+         Console.WriteLine("SimpleCacheLoader: Received Load event for region:
+         {0} and key: {1}", region.Name, key);
+         return default(TVal);
+      }
+      public void Close(IRegion&lt;TKey, TVal&gt; region)
+      {
+         Console.WriteLine("SimpleCacheLoader: Received Close event of region:
+         {0}", region.Name);
+      }
+      #endregion
+   }</codeblock>
+      </example>
+      <example
+         id="example_097D3DAC150F492EAE22585C4A0C6152">
+         <title>Using ICacheWriter to Track Creates and Updates for a
+            Region</title>
+         <p>This example implements <codeph>ICacheWriter</codeph> to track
+            region entry <codeph>create</codeph> and <codeph>update</codeph>
+            events. This example just reports the events to the screen, but you
+            can do whatever you need to do with the events.</p>
+            <codeblock>class SimpleCacheWriter&lt;TKey, TVal&gt; : ICacheWriter&lt;TKey, TVal&gt;
+   {
+      #region ICacheWriter&lt;TKey, TVal&gt; Members
+      public bool BeforeUpdate(EntryEvent&lt;TKey, TVal&gt; ev)
+      {
+         Console.WriteLine("SimpleCacheWriter: Received BeforeUpdate event for: {0}", ev.Key);
+         return true;
+      }
+      // ... handle other entry events as needed
+      public bool BeforeRegionClear(RegionEvent&lt;TKey, TVal&gt; ev)
+      {
+         Console.WriteLine("SimpleCacheWriter: Received BeforeRegionClear event of region: {0}",
+         ev.Region.Name);
+         return true;
+      }
+      // ... handle other region events as needed
+      #endregion
+   }</codeblock>
+      </example>
+      <example
+         id="example_A7A15750F1FC4F6B80F15B26030EFA57">
+         <title>A Sample ICacheListener Implementation</title>
+         <p>This example implements <codeph>ICacheListener</codeph>.</p>
+            <codeblock>class SimpleCacheListener&lt;TKey, TVal&gt; : ICacheListener&lt;TKey, TVal&gt;
+   {
+      #region ICacheListener&lt;TKey, TVal&gt; Members
+      public void AfterCreate(EntryEvent&lt;TKey, TVal&gt; ev)
+      {
+         Console.WriteLine("SimpleCacheListener: Received AfterCreate event
+         for: {0}", ev.Key);
+      }
+      // ... handle other entry events as needed
+      public void AfterRegionDestroy(RegionEvent&lt;TKey, TVal&gt; ev)
+      {
+         Console.WriteLine("SimpleCacheListener: Received AfterRegionDestroy
+         event of region: {0}", ev.Region.Name);
+      }
+      // ... handle other region events as needed
+      #endregion
+   }</codeblock>
+      </example>
+   </conbody>
+</concept>

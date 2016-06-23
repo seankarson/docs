@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept id="supported-topologies">
+  <title id="title_B2F5188FA2534FAC82FA31137AA8D934">Supported Topologies and Limitations</title>
+
+  <conbody id="conbody_B56870B8B2474F84AD8160D22ECDB088">
+    <section id="section_2767204E1914425BB8160E4347615B71"><title id="title_40FAAAD982ED4B5F9CAFFFF309F29D0C">General Notes and Limitations</title><p id="p_8475B0BC9C7C4ED48E9972C66324D716">Sometimes
+    <codeph>fromDelta</codeph> cannot be invoked because there is no object to
+    apply the delta to in the receiving cache. When this happens, the system
+    sends the full value. There are two possible scenarios:</p><ul id="ul_2FEC933237774BBFAD49893DA5ACDE69">
+        <li id="li_9C8566BFAB9147A6A7E23F2EEA4689FD">If the system can determine beforehand that the receiver does not
+        have a local copy, it sends the initial message with the full value.
+        This is possible when regions are configured with no local data
+        storage, like when you are using them to provide data update
+        information to listeners.</li>
+
+        <li>In the less obvious cases, like when an entry has been locally
+        deleted, first the delta is sent, then the receiver requests a full
+        value and that is sent. Whenever the full value is received, any
+        further distributions to the receiver’s peers or clients uses the full
+        value.</li>
+      </ul><p id="p_C024260C1CD8404184E0C4C37C1C693D">GemFire does not propagate deltas for:</p><ul id="ul_38DDB19E4F904EBDB8D27E4A25BFF220">
+        <li id="li_582CF574DABC4F7DA6822FAB03A72574">Transactional commit on the server</li>
+
+        <li id="li_DFF1E0D63C544263B9F2EB0C8DA707AD">The <codeph>putAll</codeph> operation</li>
+
+        <li id="li_CD343BBD4DAE422C9C506351181DF504">Server VMs running GemFire versions 6.0 and earlier</li>
+      </ul><p id="p_2C15926DEB9D4DE591E67F305555B416">GemFire clients can always send deltas to the servers, and
+    servers can usually sent deltas to clients. These configurations require
+    the servers to send full values to the clients, instead of deltas:</p><ul id="ul_850245D5314246B78146B1C7C4A4027F">
+        <li>When the client's <codeph>gemfire.properties</codeph> setting
+        <codeph>conflate-events</codeph> is set to <codeph>true</codeph>, the
+        servers send full values for all regions.</li>
+
+        <li id="li_C8F089442F274018932BAD332F1D1E39">When the server region attribute
+        <codeph>enable-subscription-conflation</codeph> is set to
+        <codeph>true</codeph> and the client
+        <codeph>gemfire.properties</codeph> setting
+        <codeph>conflate-events</codeph> is set to <codeph>server</codeph>,
+        the servers send full values for the region. </li>
+
+        <li id="li_A73EA0D60B5D408F9ED5886F3F659547">Servers send full values to client regions that are configured to
+        not cache data—with the <codeph>PROXY RegionShortcut</codeph> in their
+        region attributes <codeph>refid</codeph>.</li>
+      </ul><p id="p_88F6DF51DE774C628713EA34482C7A81">To use the delta propagation feature, all updates on a key in a
+    region must have value types that implement the <codeph>Delta</codeph>
+    interface. You cannot mix object types for an entry key where some of the
+    types implement delta and some do not. This is because, when a type
+    implementing the delta interface is received for an update, the existing
+    value for the key is cast to a <codeph>Delta</codeph> type to apply the
+    received delta. </p></section>
+  </conbody>
+</concept>

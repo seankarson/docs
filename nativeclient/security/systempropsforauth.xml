@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept
+	id="security">
+	<title
+		id="title_9717E51087B346988389138843E158C4"> Configuring Credentials for
+		Authentication</title>
+	<shortdesc>The native client uses system properties to acquire valid credentials for
+		authentication by the server. You define these properties in the
+			<codeph>gfcpp.properties</codeph> file, which the native client accesses during startup. </shortdesc>
+	<conbody
+		id="conbody_D74C4342289846619E028149A8920946">
+		<section
+			id="section_E1835A3B22D44D47A4C9DB54A3590B71">
+			
+
+
+
+
+
+
+
+			<title>security-client-auth-factory</title>
+			<p>System property for the factory function of the class implementing the
+					<codeph>AuthInitialize</codeph> interface (<codeph>IAuthInitialize</codeph> in
+				.NET). The .NET clients can load both C++ and .NET implementations. For .NET
+				implementations, this property is the fully qualified name of the static factory
+				function (including the namespace and class). </p>
+		</section>
+		<section
+			id="section_15C6689C363B469B947B177E1DE73208">
+			<title>security-client-auth-library</title>
+			<p>System property for the library where the factory methods reside. The library is
+				loaded explicitly and the factory functions are invoked dynamically, returning an
+				object of the class implementing the <codeph>AuthInitialize</codeph> interface. </p>
+			<p>Other implementations of the <codeph>AuthInitialize</codeph> interface may be
+				required to build credentials using properties that are also passed as system
+				properties. These properties also start with the security- prefix. For example, the
+				PKCS implementation requires an alias name and the corresponding keystore path,
+				which are specified as <codeph>security-alias</codeph> and
+					<codeph>security-keystorepath</codeph>, respectively. Similarly,
+					<codeph>UserPasswordAuthInit </codeph>requires a username specified in
+					<codeph>security-username</codeph>, and the corresponding password is specified
+				in the <codeph>security-password</codeph> system property. </p>
+			<p>The <codeph>getCredentials</codeph> function for the <codeph>AuthInitialize</codeph> interface
+				is called to obtain the credentials. All system properties starting with security-
+				are passed to this callback as the first argument to the
+					<codeph>getCredentials</codeph> function, using this prototype: </p>
+			<p>
+				<codeph>PropertiesPtr getCredentials(PropertiesPtr&amp; securityprops, const char
+					*server);</codeph>
+			</p>
+		</section>
+		<section id="section_869DD42F1B23450D9425712EBBD5CB1C">
+			<title>Implementing the Factory Method for Authentication (C++ and .NET)</title>
+			<p> The following examples show how to implement the factory method in both C++ and
+				.NET. <b>C++ Implementation</b></p>
+			<codeblock>LIBEXP AuthInitialize* createPKCSAuthInitInstance()
+{
+    return new PKCSAuthInit( );
+}</codeblock><b>.NET
+				Implementation</b>
+			<codeblock id="codeblock_E8BA26FFF5AB4038AFB9AC1FA64B4694">
+public static IAuthInitialize Create()
+{
+    return new UserPasswordAuthInit();
+}</codeblock>
+			<p>Implementations of the factory method are user-provided. Credentials in the form of
+				properties returned by this function are sent by the client to the server for
+				authentication during the client’s handshake process with the server. </p>
+			<p>The <keyword keyref="product_name"/> native client installation provides sample
+				security implementations in its <codeph>templates/security</codeph> folder. </p>
+		</section>
+		<section
+			id="section_9DEC6B55C76D446FB0821AF3B3922BD6">
+			<title>Acquiring Credentials Programmatically (C++ and .NET)</title>
+			<p>This example shows a C++ client connecting with credentials.</p> 
+				<codeblock>PropertiesPtr secProp = Properties::create();
+secProp-&gt;insert("security-client-auth-factory", "createPKCSAuthInitInstance");
+secProp-&gt;insert("security-client-auth-library", "securityImpl");
+secProp-&gt;insert("security-keystorepath", "keystore/gemfire6.keystore");
+secProp-&gt;insert("security-alias", "gemfire6");
+secProp-&gt;insert("security-zkeystorepass", "gemfire");
+CacheFactoryPtr cacheFactoryPtr = CacheFactory::createCacheFactory(secProp);</codeblock><p>
+				This example shows a .NET client.</p> 
+				<codeblock>Properties secProp = Properties.Create();
+secProp.Insert("security-client-auth-factory", 
+   "GemStone.GemFire.Templates.Cache.Security.UserPasswordAuthInit.Create");
+secProp.Insert("security-client-auth-library", "securityImpl");
+secProp.Insert("security-username"," gemfire6");
+secProp.Insert("security-password"," gemfire6Pass);</codeblock>
+		</section>
+	</conbody>
+</concept>

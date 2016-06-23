@@ -1,0 +1,139 @@
+<?xml version="1.0"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept
+   id="concept_0ABAAE8AE063432598B815FC65FFDC1F">
+   <title>Using a Custom Class With IGFSerializable</title>
+   <shortdesc>An example shows how to use the <codeph>BankAccount</codeph>
+      custom key type and the <codeph>AccountHistory</codeph> value type that
+      were previously defined. </shortdesc>
+   <conbody>
+      <example
+         id="example_1E4EBC0CFF664FD88ACA9C2990A8178D">
+         <title>Using a BankAccount Object</title>
+         <codeblock>class AccountHistory : IGFSerializable   
+   {
+      #region Private members
+      private List&lt;string&gt; m_history;
+      #endregion
+      public AccountHistory()
+      {
+         m_history = new List&lt;string&gt;();
+      }
+      public void ShowAccountHistory()
+      {
+         Console.WriteLine("AccountHistory:");
+         foreach (string hist in m_history) {
+           Console.WriteLine("\t{0}", hist);
+         }
+      }
+      public void AddLog(string entry)
+      {
+         m_history.Add(entry);
+      }
+         public static IGFSerializable CreateInstance()
+      {
+         return new AccountHistory();
+      }
+      #region IGFSerializable Members
+      public IGFSerializable FromData(DataInput input)
+      {
+         int len = input.ReadInt32();
+         m_history.Clear();
+         for (int i = 0; i &lt; len; i++) {
+            m_history.Add(input.ReadUTF());
+         }
+         return this;
+      }
+      public void ToData(DataOutput output)
+      {
+         output.WriteInt32(m_history.Count);
+         foreach (string hist in m_history) {
+            output.WriteUTF(hist);
+         }
+      }
+         public UInt32 ClassId
+      {
+         get
+         {
+            return 0x05;
+         }
+      }
+      public UInt32 ObjectSize
+      {
+         get
+         {
+            UInt32 objectSize = 0;
+            foreach (string hist in m_history) {
+               objectSize += (UInt32)(hist == null ? 0 : sizeof(char) * hist.Length);
+            }
+            return objectSize;
+         }
+      }
+      #endregion
+   }
+      public class TestBankAccount
+      {
+         public static void Main()
+         {
+            // Register the user-defined serializable type.
+            Serializable.RegisterType(AccountHistory.CreateInstance);
+            Serializable.RegisterType(BankAccountKey.CreateInstance);
+            // Create a cache.
+            CacheFactory cacheFactory = CacheFactory.CreateCacheFactory(null);
+            Cache cache = cacheFactory.Create();
+            // Create a region.
+            RegionFactory regionFactory =
+            cache.CreateRegionFactory(RegionShortcut.CACHING_PROXY);
+            Region region = regionFactory.Create("BankAccounts");
+            // Place some instances of BankAccount cache region.
+            BankAccountKey baKey = new BankAccountKey(2309, 123091);
+            AccountHistory ahVal = new AccountHistory();
+            ahVal.AddLog("Created account");
+            region.Put(baKey, ahVal);
+            Console.WriteLine("Put an AccountHistory in cache keyed with
+            BankAccount.");
+            // Display the BankAccount information.
+            Console.WriteLine(baKey.ToString());
+            // Call custom behavior on instance of AccountHistory.
+            ahVal.ShowAccountHistory();
+            // Get a value out of the region.
+            AccountHistory history = region.Get(baKey) as AccountHistory;
+            if (history != null)
+            {
+               Console.WriteLine("Found AccountHistory in the cache.");
+               history.ShowAccountHistory();
+               history.AddLog("debit $1,000,000.");
+               region.Put(baKey, history);
+               Console.WriteLine("Updated AccountHistory in the cache.");
+            }
+            // Look up the history again.
+            history = region.Get(baKey) as AccountHistory;
+            if (history != null)
+            {
+               Console.WriteLine("Found AccountHistory in the cache.");
+               history.ShowAccountHistory();
+            }
+            // Close the cache.
+            cache.Close();
+         }
+      }
+
+      //Example 5.12 Using ICacheLoader to Load New Integers in the Region
+      class ExampleLoaderCallback : ICacheLoader
+      {
+         #region Private members
+         private int m_loads = 0;
+         #endregion
+         #region Public accessors
+         public int Loads
+         {
+            get
+            {
+               return m_loads;
+            }
+         }
+         #endregion
+      }</codeblock>
+      </example>
+   </conbody>
+</concept>

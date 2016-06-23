@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN"
+"concept.dtd">
+<concept id="security">
+  <title id="title_9717E51087B346988389138843E158C4">Using Operation Context
+  to Determine Pre- or Post-Operation</title>
+
+  <shortdesc>The <codeph>OperationContext</codeph> object that is passed to
+  the <codeph>authorizeOperation</codeph> method of the callback as the second
+  argument provides a <codeph>isPostOperation</codeph> method which returns
+  true when the callback is invoked in the post-operation phase. </shortdesc>
+
+  <conbody id="conbody_D74C4342289846619E028149A8920946">
+    <p>This is demonstrated in the following example.</p>
+
+    <fig id="fig_F7BBA12DA07343A79896E40D2187B0CE">
+      <title>Determining Pre-Operation or Post-Operation Authorization</title>
+
+      <codeblock id="codeblock_E8BA26FFF5AB4038AFB9AC1FA64B4694">bool authorizeOperation(Region region, OperationContext context)
+{
+If(context.isPostOperation())
+{
+//It's a post-operation
+}
+else
+{
+//it's a pre-operation
+}
+}</codeblock>
+    </fig>
+
+    <p>If an authorization failure occurs in a pre-operation or post-operation
+    callback on the server, the operation throws a
+    <codeph>NotAuthorizedException</codeph> on the client.</p>
+
+    <p>For more information, see the information on <!--BEVLINK-->Configuring
+    Authorization in the GemFire User’s Guide.</p>
+  </conbody>
+</concept>

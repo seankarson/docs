@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "http://docs.oasis-open.org/dita/v1.1/OS/dtd/concept.dtd">
+<concept
+	id="load-factor">
+	<title>LoadFactor</title>
+	<conbody>
+		<section
+			id="section_D4102F0D396E4E2DA05654A20FA0723D">
+			<p>Use this attribute, together with the <codeph>InitialCapacity</codeph> attribute, to
+				set the initial parameters on the underlying hashmap that stores region entries.
+				When the number of entries in the map exceeds the <codeph>LoadFactor</codeph> times
+				current capacity, the capacity is increased and the map is rehashed. You get the
+				best performance if you configure a properly sized region at the start and do not
+				have to rehash it. </p>
+			<p>This declaration sets the region's load factor to <codeph>0.75</codeph> : </p>
+			<codeblock>&lt;region-attributes load-factor="0.75"&gt;
+&lt;/region-attributes&gt;</codeblock>
+		</section>
+	</conbody>
+</concept>

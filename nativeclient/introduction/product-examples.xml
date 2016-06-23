@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept
+	id="product-examples">
+	<title
+		id="title_7881D9081EB94D7EA2257E28D84C9E38">Running the QuickStart Examples</title>
+	<shortdesc>The QuickStart examples demonstrate the capabilities of the native client, and they
+		provide source code so you can examine how each example is designed. C++ and C# examples
+		demonstrate how the native client performs as a C++ or C# client. </shortdesc>
+	<conbody
+		id="conbody_E454BD44F1C54502A9A3F6B001E881F1">
+		<p
+			id="p_439B272E4F8F4B1FAEBBA52ADFC0F6C6">Read the QuickStart Guide first (the
+				<codeph>README.HTML</codeph> file included with the QuickStart examples) to learn
+			more about running the QuickStart examples. </p>
+		<p>QuickStart examples are packaged as part of the native client product download. Product
+			examples are installed into the following directory when you install the <keyword
+				keyref="product_name"/> native client:</p>
+			<codeblock>&lt;native_client_installdir&gt;/SampleCode/quickstart</codeblock> 
+		<p>where
+				<i>native_client_installdir</i> is the location where you installed the <keyword
+				keyref="product_name"/> native client.</p>
+			<note
+				id="note_42A2923A73AB4C24A0CF343D4080EEBD">
+				The C# examples have a
+					<codeph>.config</codeph> file that should not be modified or deleted. The file
+				provides references to support files for running the example. 
+			</note>
+	</conbody>
+</concept>

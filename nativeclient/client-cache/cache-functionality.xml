@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "http://docs.oasis-open.org/dita/v1.1/OS/dtd/concept.dtd">
+<concept id="cache-functionality"> 
+  <title>Cache Functionality</title> 
+  <prolog> 
+	 <metadata> 
+		<keywords> 
+		  <keyword>gemfire native client</keyword> 
+		</keywords> </metadata>
+  </prolog> 
+  <conbody> 
+	 <section id="section_F0057137B38D4FFBA3D3325168CC2B1F"> 
+		<p>The 
+		  <codeph>Cache</codeph> instance allows your process to do the
+		  following: 
+		</p> 
+		<ul id="ul_E6611CEC8B964B3CABF1D1B7A55885AB"> 
+		  <li id="li_EECD3BDABE174051B7880D016D0A2AC2">Set general parameters for
+			 communication between a cache and other caches in the distributed system. 
+		  </li> 
+		  <li id="li_72021C26801C434DB464A804E1EAC9E5">Create and access any
+			 region in the cache. 
+			 <draft-comment>BT Don't you (a human) create a region? This indicates
+				that a "process" does it. 
+			 </draft-comment>This provides the entry point to region and entry
+			 management in the cache. 
+		  </li> 
+		</ul> 
+	 </section> 
+  </conbody> 
+</concept> 

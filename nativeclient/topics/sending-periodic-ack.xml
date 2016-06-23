@@ -1,0 +1,43 @@
+<?xml version="1.0"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<!-- Created with XMetaL (http://www.xmetal.com) -->
+<concept id="concept_868B8082463846DE9F35BBEA56105C82"> 
+  <title>Sending Periodic Acknowledgement</title> 
+  <shortdesc>When redundancy is enabled for high availability and 
+	 <codeph>redundancy-level</codeph> is set to 1 or higher, clients send (and
+	 servers expect) periodic acknowledgment messages at configurable intervals for
+	 notifications they have received. A periodic ack is not sent by the client if
+	 there are no unacknowledged notifications at the time. Servers use this
+	 periodic acknowledgment to help reduce the likelihood of sending duplicate
+	 notifications, and to reduce resource usage.
+  </shortdesc> 
+  <conbody>
+	 <section id="section_D4375BCCF8A2426BA58073B9549B6F04">
+		<p> The following system properties in the 
+		  <filepath>gfcpp.properties</filepath> file are used to configure
+		  periodic ack.
+		</p>
+		<simpletable id="simpletable_488DA1918DCF49BC98103C1F61A8B171">
+		  <strow><stentry><codeph>notify-ack-interval</codeph> 
+			 </stentry><stentry>
+				<p>Sets the minimum period between two consecutive acknowledgement
+				  messages sent from the client to the server. The default setting (in seconds)
+				  is 10.
+				</p></stentry>
+		  </strow>
+		  <strow><stentry><codeph>notify-dupcheck-life</codeph></stentry><stentry>
+				<p>Sets the minimum time a client continues to track a notification
+				  source for duplicates when no new notifications arrive before expiring it. The
+				  default setting (in seconds) is 300.
+				</p></stentry>
+		  </strow>
+		</simpletable>
+		<p>The Pool API also provides attributes to configure periodic ack and
+		  duplicate message tracking timeout. See 
+		  <codeph>subscription-message-tracking-timeout</codeph> and 
+		  <codeph>subscription-ack-interval</codeph> in the list of pool
+		  attributes at Configuring Pools for Servers or Locators on page 230.
+		</p>
+	 </section>
+  </conbody> 
+</concept>

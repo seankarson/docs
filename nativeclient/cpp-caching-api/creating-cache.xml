@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept
+	id="concept_B38E72E761D84B35B2CDF7EBFE8A842B">
+	<title>Creating a Cache</title>
+	<shortdesc>The code snippets in this section show cache creation. </shortdesc>
+	<conbody>
+		<p>When you create your cache, the system automatically connects your process to the server
+			tier. For systems with security enabled, the credentials for a connecting client are
+			authenticated when it creates the cache. See <xref
+				href="../security/overviewsecurity.xml#security"
+				type="concept"
+				format="dita"
+				scope="local"><?xm-replace_text Security?></xref> for more information about
+			authenticated connections. </p>
+		<example
+			id="example_C2D737828E9E44DFB72DDD3F8FC443AA">
+			<title>Creating the System Connection and the Cache</title>
+			<p>In this example, the application creates the cache by calling the
+					<codeph>CacheFactory::create</codeph> function, specifying the servers to
+				connect to:</p>
+				<codeblock>CacheFactoryPtr cacheFactory = CacheFactory::createCacheFactory();
+    CachePtr cachePtr = cacheFactory  
+                        -&gt;addServer("localhost", 40404)
+                        -&gt;addServer("localhost", 40405)
+                        -&gt;setSubscriptionEnabled(true)
+                        -&gt;create();</codeblock>
+		</example>
+	</conbody>
+</concept>

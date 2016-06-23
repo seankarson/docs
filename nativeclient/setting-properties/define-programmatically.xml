@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "http://docs.oasis-open.org/dita/v1.1/OS/dtd/concept.dtd">
+<concept
+	id="define-programmatically">
+	<title>Defining Properties Programmatically</title>
+	<shortdesc>You can pass in specific gfcpp properties programmatically by using a
+			<codeph>Properties</codeph> object to define the non-default properties. </shortdesc>
+	<conbody>
+		<p> Example:</p>
+			<codeblock>
+PropertiesPtr systemProps = Properties::create();
+systemProps-&gt;insert( "statistic-archive-file", "stats.gfs" );
+systemProps-&gt;insert( "cache-xml-file", "./myapp-cache.xml" );
+systemProps-&gt;insert( "stacktrace-enabled", "true" );
+CacheFactoryPtr systemPtr = CacheFactory::createCacheFactory(systemProps);
+	</codeblock>
+	</conbody>
+</concept>

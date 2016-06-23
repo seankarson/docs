@@ -1,0 +1,53 @@
+<?xml version="1.0"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<!-- Created with XMetaL (http://www.xmetal.com) -->
+<concept id="concept_B191A5B213F647CD875A97A5563FAB17"> 
+  <title>Serializing Your Domain Objects with IPdxSerializer</title> 
+  <shortdesc>For domain objects that you cannot or do not want to modify, use
+	 the 
+	 <codeph>IPdxSerializer</codeph> class to serialize and deserialize the
+	 object's fields. You use one 
+	 <codeph>IPdxSerializer</codeph> implementation for the entire cache,
+	 programming it for all of the domain objects that you handle in this way. This
+	 way you do not have to implement the 
+	 <codeph>IPdxSerializable</codeph> interface for each domain class. 
+  </shortdesc> 
+  <conbody> 
+	 <p>With 
+		<codeph>IPdxSerializer</codeph>, you leave your domain object as-is and
+		handle the serialization and deserialization in the separate serializer. You
+		register the serializer in your cache PDX configuration. Then program the
+		serializer to handle all of the domain objects you need. 
+	 </p> 
+	 <p>If you write your own 
+		<codeph>IPdxSerializer</codeph> and you also use the 
+		<codeph>ReflectionBasedAutoSerializer</codeph>, then the 
+		<codeph>IPdxSerializer</codeph> needs to own the 
+		<codeph>ReflectionBasedAutoSerializer</codeph> and delegate to it. A
+		cache can only have a single 
+		<codeph>IPdxSerializer</codeph> instance. 
+	 </p> 
+	 <note>The 
+		<codeph>IPdxSerializer</codeph> 
+		<codeph>toData</codeph> and 
+		<codeph>fromData</codeph> methods differ from those for 
+		<codeph>IPdxSerializable</codeph>. They have different parameters and
+		results. 
+	 </note> 
+	 <p>To register an 
+		<codeph>IPdxSerializer</codeph>, you can use the following code. Note
+		that you can only register the 
+		<codeph>IPdxSerializer</codeph> in the application code. It cannot be
+		configured declaratively in 
+		<filepath>cache.xml</filepath>. 
+	 </p> 
+	 <p>Example:
+		<codeblock>using GemStone.GemFire.Cache.Generic;
+...
+// Register a PdxSerializer to serialize
+// domain objects using PDX serialization
+ 
+Serializable.RegisterPdxSerializer(new MyPdxSerializer());</codeblock>
+	 </p> 
+  </conbody> 
+</concept> 

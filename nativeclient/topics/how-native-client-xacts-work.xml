@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN"
+"concept.dtd">
+<concept id="how-native-client-xacts-work">
+  <title>How Native Client Transactions Work</title>
+
+  <conbody>
+    <p>The syntax for writing client transactions is the same as with server
+    or peer transactions, but when a client performs a transaction, the
+    transaction is delegated to a server that brokers the transaction. For
+    information on transaction requirements and activities on the server side,
+    see the <i>Transactions</i> chapter in the <i>GemFire User’s Guide</i>.
+    </p>
+
+    <note>The client cache blocks until the transaction is successfully
+    committed. However, the client cache block is removed if the transaction
+    is suspended.</note>
+
+    <p>Depending on where the data resides, the server transaction delegate
+    may or not be the same member that hosts the transaction. This is the same
+    as for transactions run by the servers, but for server-run transactions,
+    there is no delegate. There is just the member that is directly running
+    its own transaction code. </p>
+
+    <p>In this figure, the application code on client makes changes to data
+    entries Y and Z within a transaction. The server delegate that performs
+    the transaction, M1, does not host the primary copy of the data being
+    modified. The transaction takes place on server M2, where the data
+    resides. </p>
+
+    <fig>
+      <title>Transaction Run From a Client</title>
+
+      <image href="../common/images/xact-run-from-client.gif"/>
+
+      <p>To maintain cache consistency, the local client cache is not
+      accessible during a transaction as it may reflect information
+      inconsistent with the transaction in progress. When the transaction
+      completes, the local cache is accessible again. </p>
+
+      <p>In addition to the failure conditions common to all transactions,
+      client transactions can also fail if the transaction delegate fails. If
+      the delegate performing the transaction fails, the transaction code will
+      throw a <codeph>TransactionException</codeph>. </p>
+    </fig>
+  </conbody>
+</concept>

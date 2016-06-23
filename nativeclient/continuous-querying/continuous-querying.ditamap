@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE bookmap PUBLIC "-//OASIS//DTD DITA BookMap//EN" "bookmap.dtd">
+<!-- Created with XMetaL (http://www.xmetal.com) -->
+<bookmap
+	id="continuous-querying">
+	<booktitle>
+		<mainbooktitle>Continuous Querying</mainbooktitle>
+	</booktitle>
+	<bookmeta>
+		<bookid>
+			<bookpartno><?xm-replace_text Book Part Number?></bookpartno>
+			<isbn><?xm-replace_text ISBN Number?>
+			</isbn>
+		</bookid>
+		<bookrights>
+			<copyrfirst>
+				<year><?xm-replace_text First Year?></year>
+			</copyrfirst>
+			<copyrlast>
+				<year><?xm-replace_text Last Year?></year>
+			</copyrlast>
+			<bookowner>
+				<person><?xm-replace_text Copyright owner?>
+				</person>
+			</bookowner>
+		</bookrights>
+	</bookmeta>
+	<part
+		format="dita"
+		href="continuous-querying.xml"
+		navtitle="Continuous Querying"
+		scope="local"
+		type="concept">
+		<topicref
+			format="dita"
+			href="1-how-cont-query-works.xml"
+			navtitle="How Continuous Querying Works"
+			scope="local"
+			type="concept"/>
+		<topicref
+			format="dita"
+			href="5-implementing-cq.xml"
+			navtitle="Implementing a Continuous Query"
+			scope="local"
+			type="concept">
+			<topicref
+				format="dita"
+				href="2-config-for-continuous-querying.xml"
+				navtitle="Configuring Your System for Continuous Querying"
+				scope="local"
+				type="concept"/>
+			<topicref
+				format="dita"
+				href="5a-writing-cq.xml"
+				navtitle="Writing the Continuous Query"
+				scope="local"
+				type="concept"/>
+			<topicref
+				format="dita"
+				href="5b-writing-cq-listener.xml"
+				navtitle="Writing the CQ Listener"
+				scope="local"
+				type="concept"/>
+			<topicref
+				format="dita"
+				href="5c-cq-event-object.xml"
+				navtitle="CqEvent Object"
+				scope="local"
+				type="concept"/>
+			<topicref
+				format="dita"
+				href="5e-running-cq-code.xml"
+				navtitle="Running the Continuous Query Code"
+				scope="local"
+				type="concept"/>
+			<topicref
+				format="dita"
+				href="5f-cq-execution-options.xml"
+				navtitle="CQ Execution Options"
+				scope="local"
+				type="concept"/>
+			<topicref
+				format="dita"
+				href="5d-when-error-occurs.xml"
+				navtitle="When an Error Occurs in a Running CQ"
+				scope="local"
+				type="concept"/>
+		</topicref>
+		<topicref
+			format="dita"
+			href="6-managing-cqs.xml"
+			navtitle="Managing Continuous Queries"
+			scope="local"
+			type="concept"/>
+		<topicref
+			format="dita"
+			href="3-native-client-cq-api.xml"
+			navtitle="CQ API and Main Features"
+			scope="local"
+			type="concept"/>
+	</part>
+</bookmap>

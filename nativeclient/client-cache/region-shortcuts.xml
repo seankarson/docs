@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "http://docs.oasis-open.org/dita/v1.1/OS/dtd/concept.dtd">
+<concept
+	id="region-shortcuts">
+	<title>RegionShortcuts</title>
+	<conbody>
+		<section
+			id="section_62D2AB580EDB4165970E4FC42A35C80B">
+			<p><keyword keyref="product_name"/> provides a number of predefined, shortcut region attributes
+				settings for your use, in <codeph>RegionShortcut</codeph>. </p>
+			<p>Shortcut attributes are a convenience only. They are named attributes that <keyword
+					keyref="product_name"/> has already stored for you. You can override their
+				settings by storing new attributes with the same <codeph>id</codeph> as the
+				predefined attributes. </p>
+			<p>You can also create custom region attributes and store them with an identifier for
+				later retrieval. Both types of stored attributes are referred to as named region
+				attributes. You can create and store your attribute settings in the
+					<codeph>cache.xml</codeph> file and through the API. </p>
+			<p>Retrieve named attributes by providing the ID to the region creation. This example
+				uses the shortcut 
+				<codeph>CACHING_PROXY</codeph> attributes to create a region: </p>
+			<codeblock>&lt;region name="testRegion" refid="CACHING_PROXY"/&gt;</codeblock>
+			<p>You can modify named attributes as needed. For example, this adds a cache listener to
+				the region: </p>
+			<codeblock>&lt;region name="testRegion" refid="CACHING_PROXY"&gt;
+    &lt;region-attributes&gt;
+        &lt;cache-listener library-name="myAppLib"
+            library-function-name ="myCacheListener" /&gt;
+    &lt;/region-attributes&gt;
+&lt;/region&gt;</codeblock>
+			<p>In this example, the modified region shortcut is saved to the cache using the region
+				attribute id, for retrieval and use by a second region: </p>
+			<codeblock>&lt;region name="testRegion" refid="CACHING_PROXY"&gt;
+    &lt;region-attributes id="Caching_Proxy_With_Listener"&gt;
+        &lt;cache-listener library-name="myAppLib"
+            library-function-name ="myCacheListener" /&gt;
+    &lt;/region-attributes&gt;
+&lt;/region&gt;
+&lt;region name="newTestRegion" refid="Caching_Proxy_With_Listener"/&gt;</codeblock>
+		</section>
+		<section
+			id="section_49150358B8F443E8AF027E4E920E820A">
+			<title>Shortcut Attribute Options</title>
+			<p>You can select the most common region attributes settings from
+				<codeph>RegionShortcut</codeph>, the predefined named region attributes. </p>
+			<p>This section provides an overview of the options available in the region shortcut
+				settings. </p>
+				<note>
+					<p>For complete listings and descriptions, including information on the
+					underlying <codeph>RegionAttributes</codeph> settings for each shortcut, see the
+					online documentation for <codeph>RegionShortcut</codeph>.
+					</p>
+				</note>
+			<p>These are the options available in <codeph>RegionShortcut</codeph>. </p>
+			<p>
+				<b>Communication with Servers and Data Storage</b>
+			</p>
+			<ul
+				id="ul_0F7C6E5F9B4A4D098EB0B93AEB56C9CA">
+				<li
+					id="li_8926A1A8470F433FB46BF4B70177C3FC"><codeph>PROXY</codeph> does not store
+					data in the client cache, but connects the region to the servers for data
+					requests and updates, interest registrations, and so on. </li>
+				<li
+					id="li_53EF55B082D1466C91D3615C08ECB6CA"><codeph>CACHING_PROXY</codeph> stores
+					data in the client cache and connects the region to the servers for data
+					requests and updates, interest registrations, and so on. </li>
+				<li
+					id="li_7A92DFA1DCFB48238507673222A90142">LOCAL stores data in the client cache
+					and does not connect the region to the servers. This is a client-side-only
+					region. </li>
+			</ul>
+			<p>
+				<b>Data Eviction</b>
+			</p>
+			<p>For the non-<codeph>PROXY</codeph> regions--the regions that store data in the client
+				cache--you can add data eviction: </p>
+			<ul
+				id="ul_56130A47D71740B0A56B57CAD466044C">
+				<li
+					id="li_282020397E194B79ADB4110B59F8A1F9"><codeph>ENTRY_LRU</codeph> causes least
+					recently used data to be evicted from memory when the region reaches the entry
+					count limit. </li>
+			</ul>
+		</section>
+	</conbody>
+</concept>

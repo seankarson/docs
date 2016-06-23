@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept
+	id="using-connection-pools">
+	<title>Server Locators</title>
+	<shortdesc>Server locators continuously monitor server availability and server load information.
+		The client is configured with a list of server locators and consults a server locator to
+		request a connection to a server in the distributed system. </shortdesc>
+	<conbody>
+		<p>Locators provide clients with dynamic server discovery and server load balancing. They
+			give clients connection information for the server with the least load at any given
+			time. </p>
+		<p>Server locators provide these main features: </p>
+		<ul
+			id="ul_8B9CA14A767C4CFC83BBDC3FAC016F19">
+			<li
+				id="li_718BBE82E4904F65AA41B9C7C031A245"><b>Automated discovery of servers and
+					locators</b>. Adding and removing servers or locators is made easy as each
+				client does not require a list of servers to be configured at the time of pool
+				creation. </li>
+			<li
+				id="li_D08E0693067248FD95684434FC5433DE"><b>Client load rebalancing</b>. Server
+				locators give clients dynamic server information and provide server load rebalancing
+				after servers depart or join the system. </li>
+			<li
+				id="li_DED12F808E0A4F62960F437598D5D96B"><b>High availability</b>. When a
+				client/server connection receives an exception, the connection is automatically
+				failed over to another available connection in the pool. Redundancy is also provided
+				for client subscriptions. </li>
+		</ul>
+		<p>Alternatively, you can configure a pool statically with a list of endpoints. When the
+			pools are statically configured, a round-robin load balancing policy is used to
+			distribute connections across the servers. </p>
+	</conbody>
+</concept>

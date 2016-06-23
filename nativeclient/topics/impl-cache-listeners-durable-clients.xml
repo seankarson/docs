@@ -1,0 +1,49 @@
+<?xml version="1.0"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<!-- Created with XMetaL (http://www.xmetal.com) -->
+<concept id="concept_3BD651087FC4470C8BAB6AFD97AEA689"> 
+  <title>Implementing Cache Listeners for Durable Clients</title> 
+  <shortdesc>Designing a cache listener for durable clients has two unique
+	 aspects. First, you must implement all the callback methods to behave properly
+	 when stored events are replayed. Second, a cache listener has a callback
+	 method, 
+	 <codeph>afterRegionLive</codeph>, specifically for durable clients.
+  </shortdesc> 
+  <conbody>
+	 <p> For general instructions on implementing a cache listener, see
+		CacheListener on page 74.
+	 </p>
+	 <section id="section_EC28F9769A554CA28B0E9D2F924BA4C3">
+		<title>Writing Callbacks for Use With Durable Messaging</title>
+		<p>Durable clients require special attention to cache callbacks generated
+		  by the cache listener. During the initialization window when a reconnecting
+		  client has a functioning cache but is still receiving the stored messages from
+		  the queue, the client can replay events that are long past. These events are
+		  not applied to the cache, but they are sent to the cache listener. If the
+		  listener’s callbacks invoked by these events make changes to the cache, that
+		  could conflict with current operations and create data inconsistencies.
+		</p>
+		<p>Consequently, you need to keep your callback implementations
+		  lightweight and not do anything in the cache that could produce incorrect
+		  results during this window. For details on implementing callbacks for GemFire
+		  event handlers, see the GemFire User’s Guide.
+		</p>
+	 </section>
+	 <section id="section_F39E695D88E94D518F3E1778F37FAF11">
+		<title>Implementing the afterRegionLive Method</title>
+		<p>If you are using cache listeners, you can implement the 
+		  <codeph>afterRegionLive</codeph> callback method provided for durable
+		  clients. This callback is invoked when the client has received all the old
+		  messages that were stored in its queue while it was disconnected. Implementing
+		  this method enables you to do application-specific operations when the client
+		  has replayed all of these old events.
+		</p>
+		<p>If you do not wish to use this callback, and your listener is an
+		  instance of 
+		  <codeph>CacheListener</codeph> (not a 
+		  <codeph>CacheListenerAdapter</codeph>), you must implement 
+		  <codeph>afterRegionLive</codeph> as a non-operational method.
+		</p>
+	 </section>
+  </conbody> 
+</concept>

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept id="security">
+	<title id="title_9717E51087B346988389138843E158C4">Authentication</title>
+	<shortdesc>A client is authenticated when it connects, with valid credentials, to a <keyword
+			keyref="product_name"/> cache server that is configured with the client
+			<codeph>Authenticator</codeph> callback. </shortdesc>
+	<conbody id="conbody_D74C4342289846619E028149A8920946">
+		<p id="p_73C402816B974E4B9D904000F996DD2E"> Once the client is authenticated, the server assigns
+			the client a unique ID and principal, used to authorize operations. The client must
+			trust all cache servers in the server system as it may connect to any one of them. For
+			information on configuring client/server , see <xref
+				href="../../topologies_and_comm/cs_configuration/chapter_overview.xml"
+				type="concept" format="dita" scope="local"
+				><?xm-replace_text Client/Server Configuration?></xref>. </p>
+	</conbody>
+</concept>

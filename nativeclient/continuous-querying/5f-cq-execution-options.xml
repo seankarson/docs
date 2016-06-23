@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept
+	id="security">
+	<title
+		id="title_9717E51087B346988389138843E158C4">CQ Execution Options</title>
+	<shortdesc>CQ execution can be done with or without an initial result set by calling
+			<codeph>CqQuery.Execute</codeph> or <codeph>CqQuery.ExecuteWithInitialResults</codeph>.
+		The initial <codeph>SelectResults</codeph> returned from
+			<codeph>ExecuteWithInitialResult</codeph>s is the same as the one you would get if you
+		ran the query ad hoc by calling <codeph>QueryService.NewQuery.Execute</codeph> on the server
+		cache, but with the key added. </shortdesc>
+	<prolog>
+		<metadata>
+			<keywords/>
+		</metadata>
+	</prolog>
+	<conbody>
+		<p>Individual CQs are executed using<codeph> CqQueryexecute*</codeph> methods. You can also
+			execute all CQs for the client or for a region through the client
+				<codeph>QueryService</codeph>. CQs that are running can be stopped or closed. </p>
+		<p>If you are managing a data set from the CQ results, you can initialize the set by
+			iterating over the result set and then updating it from your listeners as events arrive.
+			For example, you might populate a new screen with initial results and then update the
+			screen from a listener. </p>
+		<p>Just as with the standalone query, the initial results represents a possibly moving snapshot of
+			the cache. If there are updates to the server region while the result set is being
+			created, the result set and the subsequent event-by-event CQ query execution might miss
+			some events. </p>
+	</conbody>
+</concept>

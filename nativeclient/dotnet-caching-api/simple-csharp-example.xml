@@ -1,0 +1,45 @@
+<?xml version="1.0"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept
+   id="concept_9BFA69594256410EB7AD1C29865A821A">
+   <title>A Simple C# Example</title>
+   <shortdesc>An example shows how to connect to <keyword keyref="product_name"/>, create a cache
+      and region, put and get keys and values, and disconnect. </shortdesc>
+   <conbody>
+      <example
+         id="example_11CC0EFD1B6D4BEB8CA3D2D20DC8B960">
+         <title>Simple C# Code</title>
+         <codeblock>class BasicOperations
+{
+   public static void Main(string[] args)
+   {
+      try
+      {
+         // 1. Create a cache
+         CacheFactory cacheFactory = CacheFactory.CreateCacheFactory();
+         Cache cache = cacheFactory.Create();
+
+         // 2. Create default region attributes using region factory
+         RegionFactory regionFactory =
+            cache.CreateRegionFactory(RegionShortcut.CACHING_PROXY);
+
+         // 3. Create a region
+         IRegion&lt;int, string&gt; region =
+            regionFactory.Create&lt;int, string&gt;("exampleRegion");
+
+         // 4. Put some entries
+         region[111] = "Value1";
+         region[123] = "123";
+
+         // 5. Get the entries
+         string result1 = region[111];
+         string result2 = region[123];
+
+         // 6. Close cache
+         cache.Close();
+      }
+   }
+}</codeblock>
+      </example>
+   </conbody>
+</concept>

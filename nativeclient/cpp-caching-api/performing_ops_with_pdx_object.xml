@@ -1,0 +1,42 @@
+<?xml version="1.0"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept
+	id="concept_1098834984904785A17E48EF9DCC5A35">
+	<title>Performing put, get, and localDestroy Operations with a PDX Domain Object</title>
+	<shortdesc>This topic demonstrates how you can perform operations on a PDX domain object after
+		you have implemented PDX serializable in your domain class. </shortdesc>
+	<conbody>
+		<p>For example, you can perform operations like put, get, and localDestroy with the domain
+			class you defined for PDX serialization in the <xref
+				scope="local"
+				href="pdxserializable_interface.xml#concept_79E4C10E5F634A7F84F96633694B3D69/example_70237026967A42898584AE644D437E69"
+				type="example"
+				format="dita"><?xm-replace_text PdxSerializable Example?></xref>. </p>
+		<p>To perform operations, you could write the following application code: </p>
+		<ol
+			id="ol_D9715D87F7F048F0BAEAD2640137E929">
+			<li
+				id="li_72451E02F9D54DB8B7815D24422DB951">Register the PDX domain class.
+				<codeblock>Serializable::registerPdxType(PdxObject::createDeserializable);</codeblock>
+			</li>
+			<li
+				id="li_52843127C9094117B5860D754A0016B4">Create the PDX domain object
+					<codeph>PdxObject</codeph>.
+				<codeblock>CacheablePtr pdxobj(new PdxObject(100, "Value-1"));
+CacheableKeyPtr keyport = CacheableKey::create("ABC");</codeblock>
+			</li>
+			<li
+				id="li_24FD0B4A87FA4D77AF553BA6C98683BC">Here's an example of a put operation.
+				<codeblock>rptr-&gt;put(keyport, pdxobj);</codeblock>
+			</li>
+			<li
+				id="li_CBC74430168D4CABA4AEEFAE7FD3A222">Here's an example of locally destroying the
+				entry. <codeblock>rptr-&gt;localDestroy(keyport);</codeblock>
+			</li>
+			<li id="li_6EF5CF47042C4F27AB832CBD0ACFF87F">Here's an example of a get operation.
+				<codeblock>PdxObject *obj2 = dynamic_cast&lt;PdxObject *&gt; ((rptr-&gt;get(keyport)).ptr());
+LOGINFO("Debug:Returned ID = %d", obj2-&gt;getID());</codeblock>
+			</li>
+		</ol>
+	</conbody>
+</concept>

@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "http://docs.oasis-open.org/dita/v1.1/OS/dtd/concept.dtd">
+<concept
+	id="controlling-cache-size">
+	<title>Controlling Cache Size</title>
+	<shortdesc>You can control cache size through region size limits, cache size limits, or a
+		combination of the two. </shortdesc>
+	<conbody>
+		<section
+			id="section_A0C25D6D1D5243778800AE67CAD8CB2C">
+			<p><keyword keyref="product_name"/> controls region size by moving least recently used (LRU)
+				entries from the region or from all cache regions. </p>
+		</section>
+		<section
+			id="section_3C7994A4C9D9468F860D99C0ED086D74">
+			<title>Controlling Region Size</title>
+			<p>You can cap the size of any region with the region attribute <xref
+					href="lru-entries-limit.xml#concept_75D723D60E044FF9AE97C939699AB10A"
+					type="concept"
+					format="dita"
+					scope="local"><?xm-replace_text LruEntriesLimit?></xref>. You can specify
+				whether to destroy the entries or overflow them to disk in the attribute <xref
+					scope="local"
+					href="disk-policy.xml#disk-policy"
+					type="concept"
+					format="dita">DiskPolicy</xref>. If you overflow entries to disk, you must also
+				specify the attribute <xref
+					scope="local"
+					href="persistence-manager.xml#persistence-manager"
+					type="concept"
+					format="dita">PersistenceManager</xref>. </p>
+		</section>
+		<section
+			id="section_E59CA4D5724147DC83E8991E654AC155">
+			<title>Controlling Cache Size</title>
+			<p>You can control overall cache size with the <xref scope="local"
+					href="../setting-properties/attributes-gfcpp.xml#attributes-gfcpp"
+					type="concept" format="dita">heap-lru-limit</xref>, which is set in
+					<codeph>gfcpp.properties</codeph>. This property sets the maximum amount of
+				memory used for the cache, in megabytes. If a new entry causes memory to grow past
+				this limit, the LRU algorithm is called to evict entries. Heap LRU causes eviction
+				to occur on all regions in the cache, overriding region-level <xref
+					href="lru-entries-limit.xml#concept_75D723D60E044FF9AE97C939699AB10A"
+					type="concept" format="dita" scope="local"
+					><?xm-replace_text LruEntriesLimit?></xref> settings when it needs to reclaim
+				memory. </p>
+			<p>For each region, evictions are performed according to the region's
+					<codeph>DiskPolicy</codeph> and <codeph>PersistenceManager</codeph> settings. If
+				you use <codeph>heap-lru-limit</codeph>, review these region attributes for all your
+				caching regions, to be sure you are evicting the way you want to. </p>
+			<p>The related <xref
+					scope="local"
+					href="../setting-properties/attributes-gfcpp.xml#attributes-gfcpp"
+					type="concept"
+					format="dita">heap-lru-delta</xref> property, also set in
+					<codeph>gfcpp.properties</codeph>, is the amount of memory to free up once the
+				LRU evictions have begun. Memory is reclaimed until the amount of memory used is
+				below <codeph>heap-lru-limit</codeph> minus <codeph>heap-lru-delta</codeph>. </p>
+		</section>
+	</conbody>
+</concept>

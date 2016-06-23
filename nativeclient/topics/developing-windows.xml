@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept id="developing-windows">
+  <title id="title_E0C6B28FF1A244E189DC216461EF07B9">Developing C++ Programs on Windows</title>
+
+  <conbody id="conbody_B30195DE5A31482A87DDA064002DE6FA">
+    <p id="p_5669768265254BCFAD6B48A63DE8B9F5">GemFire uses the Visual Studio 2005 Service Pack 1 compiler for C++
+    programs on Windows, which invokes <tm tmtype="reg">Microsoft</tm>
+    <cmdname>cl.exe</cmdname> from the command line at compile time. Visual
+    Studio 2005 SP1 is the recommended compiler. If you are using any other
+    compiler, contact technical support for assistance.</p>
+
+    <section id="section_6BFD4982A7144301A03F948CFF953AFD"><title id="title_0B8A02A13AE44BC6B7F902E0183D7F1F">GemFire Environment Variables</title><p id="p_04F3219C95804F2F89E9B423A1C92E10">When you install
+    on Windows, the installer performs these tasks:</p><ul>
+        <li id="li_E1F48C6991B44242B96DDC131F3C5B1C">Sets the <varname>GFCPP</varname> environment variable to
+        <varname>productDir</varname>, where <varname>productDir</varname> is
+        the path to the native client product directory. </li>
+
+        <li id="li_7A3DB5F126ED4E3E9E1BB36234A88D8D">Adds the <varname>%GFCPP%\bin</varname> executable directory to
+        the Windows <varname>PATH</varname>. </li>
+      </ul></section>
+
+    <section id="section_0BF2BE9A38BC40D1B9FAD2AC8DBFAB0E"><title>Choosing a 32-bit or 64-bit Command-line
+    Prompt</title><p id="p_ACE584CA642F45EFAE7189E4C0B33BD4">For 32-bit: </p><menucascade id="menucascade_A0D217AEE1AB416B907FE177E48A99DC">
+        <uicontrol id="uicontrol_931F9E8014C643A2AE5A7DC9FEC6B6FF">Start</uicontrol>
+
+        <uicontrol>Programs</uicontrol>
+
+        <uicontrol id="uicontrol_445A5019797141BE93B3B466D3581D04">Microsoft Visual Studio 2005</uicontrol>
+
+        <uicontrol id="uicontrol_6F316A7F32EF4AD4B0624C4661951591">Visual Studio Tools</uicontrol>
+
+        <uicontrol id="uicontrol_E663BA43A5B2443FA68F2F8623D55DCD">Visual Studio 2005 Command Prompt</uicontrol>
+      </menucascade><p>For 64-bit:</p><menucascade id="menucascade_F4B1C7CDB1D54AF1BD3A45110F5FACFD">
+        <uicontrol id="uicontrol_D8C3701356634063AE43CFC894627D69">Start</uicontrol>
+
+        <uicontrol id="uicontrol_47F3877A660B443995930CFEB91645BD">Programs</uicontrol>
+
+        <uicontrol>Microsoft Visual Studio 2005</uicontrol>
+
+        <uicontrol id="uicontrol_F2467B9C7E7B46329789173471CF696D">Visual Studio Tools</uicontrol>
+
+        <uicontrol id="uicontrol_2B9E3EB860AA48168AFCFB56A70C4213">Visual Studio 2005 x64 Win64 Command Prompt</uicontrol>
+      </menucascade><p id="p_ACF3CA4DCEF84BD79DB11BB6D6FEBB8A">To build using the Microsoft Visual Studio Interface,
+    from the Solutions Platform, choose Win32 from the for 32-bit build or x64
+    for the 64-bit build. </p></section>
+
+    <section><title id="title_DA0397322C2744CD978499E99BF8E8D6">Compiling and Linking</title><p id="p_DB0353FE5A8F4841977E726F2012754E">The following table lists
+    the compiler and linker switches that must be present on the
+    <cmdname id="cmdname_B4C6ED60C8BE4F0D8EBCF214B5263AC6">cl.exe</cmdname> command line.</p><note>If you want to use the
+    Visual Studio user interface instead of invoking cl.exe from the command
+    line, be sure to supply these parameters.</note><table id="table_1FE5C01E91424CE9906CA1D0210B1237">
+        <title id="title_8AA003B778094F5788349084CB9A2F15">Compiler and Linker Switches for Windows</title>
+
+        <tgroup cols="2">
+          <thead>
+            <row id="row_6FFFCB4AD450483CAF6841396E9F48A9">
+              <entry>Argument</entry>
+
+              <entry>Explanation</entry>
+            </row>
+          </thead>
+
+          <tbody>
+            <row>
+              <entry><codeph>/MD</codeph></entry>
+
+              <entry>Memory model. </entry>
+            </row>
+
+            <row id="row_55EDEFAC4EC94273AD690171D5EA0BAF">
+              <entry><codeph>/EHsc</codeph></entry>
+
+              <entry>Catches C++ exceptions only and tells the compiler to
+              assume that *extern* C functions never throw a C++
+              exception.</entry>
+            </row>
+
+            <row id="row_B7A6E005125C413CA9895C4948EFE149">
+              <entry><codeph>/GR</codeph></entry>
+
+              <entry>Runtime type information.</entry>
+            </row>
+
+            <row id="row_E4A8E3973A5840CC9F6952DDC1E1A94A">
+              <entry><codeph>-I%GFCPP%\include</codeph></entry>
+
+              <entry>Specifies the GemFire <codeph>include</codeph>
+              directory.</entry>
+            </row>
+
+            <row>
+              <entry><codeph>%GFCPP%\lib\gfcppcache.lib</codeph></entry>
+
+              <entry>Specifies the library file for the shared
+              library.</entry>
+            </row>
+
+            <row id="row_0978B692BA90434487CE8AAEA2791809">
+              <entry><codeph>/D_CRT_SECURE_NO_DEPRECATE</codeph></entry>
+
+              <entry>Suppresses warnings. Required for Visual Studio
+              2005.</entry>
+            </row>
+
+            <row id="row_ACB4DD3B0D6C41A0B96EA8DE01AF5B16">
+              <entry><codeph>/D_CRT_NON_CONFORMING_SWPRINTFS</codeph></entry>
+
+              <entry>Suppresses warnings. Required for Visual Studio
+              2005.</entry>
+            </row>
+          </tbody>
+        </tgroup>
+      </table></section>
+
+    <section id="section_B66588EC7C6F4D9BA772406CFD5F3EAE"><title>Loading the GemFire Library</title><p id="p_C83C111479354F169C4359B158AAE869">Because GemFire does
+    not provide a library that can be linked statically into an application,
+    on Windows you must dynamically link to the GemFire library. </p><p id="p_688EC0F4626F424CAB8E351A3309FF25">To
+    make the GemFire library available for loading, verify that the directory
+    <codeph><varname>GemFireDir</varname>/bin</codeph> is included in the
+    <varname>PATH</varname> environment variable, where
+    <varname>GemFireDir</varname> is the path to the GemFire product
+    directory. </p></section>
+  </conbody>
+</concept>

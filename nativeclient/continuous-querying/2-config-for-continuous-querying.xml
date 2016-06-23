@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept id="security">
+	<title id="title_9717E51087B346988389138843E158C4">Configuring Your System for Continuous
+		Querying</title>
+	<shortdesc>The continuous query (CQ) functionality requires standard client/server distributed
+		system and cache configuration settings. </shortdesc>
+	<conbody id="conbody_D74C4342289846619E028149A8920946">
+		<ul id="ul_3C44F58FA77844EB9EBFCCB1B0C87F07">
+			<li id="li_6582C842CFC34AC6A159B980C8043F3A">
+				
+
+The client region must use a pool with subscription-enabled set to
+				true . </li>
+			<li id="li_C41BECC49E224CFFB384E1B5405A719E"> If you want your CQs to be highly available,
+				configure your servers for high availability as described in <xref
+					href="../../developing/events/configuring_highly_available_servers.xml"
+					type="concept" format="dita" scope="local"
+					><?xm-replace_text Configuring Highly Available Servers?></xref> in the
+					<i>User's Guide</i>. When your servers are highly available, CQs are registered
+				on primary and secondary servers, and server failover is performed without any
+				interruption to CQ messaging. CQ events messaging uses the same queues used for
+				server-to-client messaging. <note>
+					<p>When CQ is used with high availability, the overhead for CQs is higher than
+						for the key-based interest list registration. CQs are executed on the
+						primary and all secondary servers, so they require more overall server
+						processing. </p>
+				</note>
+			</li>
+			<li id="li_F2A008309C0E4837B759B61137357769">To obtain a list of all durable CQs
+				registered on the server, use the
+					<codeph>QueryService.getAllDurableCqsFromServer</codeph> API.
+					
+			</li>
+			<li id="li_F27F28A5EA93416280F8230701B15EAA">If you want your CQs to be durable,
+				configure your native clients for durable messaging. When your clients are durable,
+				you can create durable CQs whose events are maintained during client disconnects and
+				replayed for the client when it reconnects. The process and data flow particular to
+				durable CQs is described in <xref
+					href="../preserving-data/durable-client-messaging.xml#concept_F88B659FB4324F599924F3F2933452B4"
+					type="concept" format="dita" scope="local"> Durable Client Messaging</xref>.
+			</li>
+		</ul>
+	</conbody>
+</concept>

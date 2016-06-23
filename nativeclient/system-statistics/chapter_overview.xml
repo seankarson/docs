@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<!-- Created with XMetaL (http://www.xmetal.com) -->
+<concept
+	id="concept_3BE5237AF2D34371883453E6A9474A79">
+	<title>System Statistics</title>
+	<shortdesc><i>System Statistics</i> provides information on the Pivotal GemFire installation and
+		includes standard statistics for caching and distribution activities. </shortdesc>
+	<conbody>
+		<p>Statistics that end with "time" are time-based statistics. For performance reasons, by
+			default, the system does not collect these. 
+
+To enable time-based statistics gathering, set the system
+				property<codeph> enable-time-statistics</codeph> in <xref
+				href="../setting-properties/attributes-gfcpp.xml#attributes-gfcpp/table_E1A0EDBA67CD41319E1E5FD0A0BB2723"
+				type="table"
+				format="dita"
+				scope="local"><?xm-replace_text Attributes in gfcpp.properties: Statistics Archiving     Properties?></xref>.
+		</p>
+	</conbody>
+</concept>

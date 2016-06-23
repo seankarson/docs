@@ -1,0 +1,108 @@
+<?xml version="1.0"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept
+	id="concept_BB064B56AB6E4D168A83B23204011FD7">
+	<title>Serialize Using the <keyword keyref="product_name"/> PDX Autoserializer</title>
+	<shortdesc>When you register the reflection-based serializer, <keyword keyref="product_name"/> uses
+		it to serialize all objects that do not implement <codeph>IPdxSerializable</codeph> or
+			<codeph>IGFSerializable</codeph>. You can customize the auto-serialization behavior for
+		your domain objects by adding serialization attributes to your object’s fields. </shortdesc>
+	<conbody>
+		<p>
+			<b>Procedure</b>
+		</p>
+			<ol
+				id="ol_4E7F72AE999145C29566D3CB4F8851BE">
+				<li
+					id="li_2A9044744BD0402B9DCA645B04B1E0F2">If you have not already registered the
+					PDX reflection-based autoserializer, add the registration code to your
+					application.
+					<p>For example:</p>
+						<codeblock>using GemStone.GemFire.Cache.Generic;
+...
+// Register reflection-based autoserializer to serialize
+// domain objects using PDX serialization
+Serializable.RegisterPdxSerializer(new ReflectionBasedAutoSerializer());</codeblock>
+						This can only be configured in the application code. It cannot be configured
+						declaratively in <codeph>cache.xml</codeph>.
+				</li>
+				<li
+					id="li_7C6343346AE54992BD011CEB1D729E85">(Optional) For each object you intend
+					to have autoserialized, customize the serialization as needed.
+					<note>
+						<p>If you also use PDX serialization in Java for the object, customize your serialization
+						the same for both languages.
+						</p>
+					</note>
+					<ol
+						id="ol_AF29EC94D61946E080F06F008BAD4BFB">
+						<li
+							id="li_E3BBA958B3AA4B13955AFF0B8814DE81">The following extension methods
+							apply to autoserialization:
+							<ul
+								id="ul_F1DA94C7915E4979A7184184A09EB849">
+								<li
+									id="li_F195B73FA8BD445785287B5AE6D7A75C"><b>WriteTransform</b>.
+									Controls what field value is written during auto serialization. </li>
+								<li
+									id="li_11C8EAC9B2E84A4AA167D20C834705C1"><b>ReadTransform</b>.
+									Controls what field value is read during auto deserialization. </li>
+								<li
+									id="li_B0043891147C450F99682D15287504C5"><b>GetFieldType</b>.
+									Defines the specific field names that will be generated during
+									autoserialization. </li>
+								<li
+									id="li_5668601AC4DB4B7A99EBED223626D3D9"><b>IsIdentityField</b>.
+									Controls which field is marked as the identity field. Identity
+									fields are used when a <codeph>PdxInstance</codeph> computes its
+									hash code to determine whether it is equal to another object. </li>
+								<li
+									id="li_82273EC8B2134CE19D5B2DB8E5010B23"><b>GetFieldType</b>.
+									Determines the field type that will be used when autoserializing
+									the given field. </li>
+								<li
+									id="li_ABB984F845D544168644C6A5C2085746"><b>IsFieldIncluded</b>.
+									Specifies which fields of a class to autoserialize. </li>
+							</ul>
+							<p>See <xref
+									href="extending-pdx-autoserializer.xml#concept_87701FF3FAE74F3193BE3FB349CE0086"
+									type="concept"
+									format="dita"
+									scope="local">Extending the Autoserializer</xref> for sample
+								usage. </p>
+						</li>
+						<li
+							id="li_4AD7A8D89FE3433C8F4C2F768411F70B">If you are writing a Java
+							application, you can use the <codeph>IPdxType</codeph> Mapper to map
+							Java types to .NET types. Note that you only need to use the
+								<codeph>IPdxTypeMapper</codeph> if you are writing Java
+							applications. <p>See <xref
+									href="mapping-dotnet-domain-type-names.xml#concept_63F4164F1AE242A9BA309738F484182D"
+									type="concept"
+									format="dita"
+									scope="local"><?xm-replace_text Mapping .NET Domain Type Names to PDX Type Names with   IPdxTypeMapper?></xref>
+								for sample usage. </p>
+						</li>
+						<li
+							id="li_EE097676D67C45F5991DA7FF1491F907">
+							<p>To specify an identifier field in your domain object, add the
+								attribute <codeph>PdxIdentityField</codeph> to the field. </p>
+							<p>For example:</p>
+								<codeblock>[PdxIdentityField] private int id;</codeblock>
+						</li>
+						<li
+							id="li_6AFC4D7A50E64F2897B3A7EE48DD9731">
+							<p>To exclude a field from serialization, add the .NET attribute
+									<codeph>NonSerialized</codeph> to the field. </p>
+							<p>For example:</p>
+								<codeblock>[NonSerialized] private int myLocalData;</codeblock>
+						</li>
+					</ol>
+				</li>
+			</ol>
+		<p>For each domain class <keyword keyref="product_name"/> serializes using the autoserializer, all
+			fields are considered for serialization except those defined as <codeph>static</codeph>,
+				<codeph>literal</codeph> or <codeph>readonly</codeph> and those you explicitly
+			exclude using the .NET <codeph>NonSerialized</codeph> attribute. </p>
+	</conbody>
+</concept>

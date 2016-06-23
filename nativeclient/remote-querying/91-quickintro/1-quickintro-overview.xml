@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept id="security">
+	<title id="title_9717E51087B346988389138843E158C4">Remote Querying Basics</title>
+	<shortdesc>Use the <keyword keyref="product_name"/> native client query API to query your cached
+		data stored on a <keyword keyref="product_name"/> cache server. The query is evaluated and
+		executed on the cache server, and the results are returned to the native client. </shortdesc>
+	<conbody>
+		<p otherprops="pdf">Use the native client query API to query your cached data stored on a <keyword
+				keyref="product_name"/> cache server. The query is evaluated and executed on the
+			cache server, and the results are returned to the native client. </p>
+		<p id="p_73C402816B974E4B9D904000F996DD2E">You can also optimize your queries by defining
+			indexes on the cache server. </p>
+		<p>The query language for the native client is essentially a subset of OQL (ODMG 3.0 Object
+			Data Management Group, <xref href="http://www.odmg.org" scope="external" format="html"
+				>http://www.odmg.org</xref>.), which is based on SQL-92. OQL is a SQL-like language
+			with extended functionality for querying complex objects, object attributes, and
+			methods. </p>
+		<p>It is assumed that you have general familiarity with SQL querying and indexing, and with the
+			information on the native client cache. </p>
+		<p>The online C++ and .NET API documentation for the native client provides extensive details for
+			all of the querying interfaces, classes and methods. </p>
+		<p>Query language features and grammar are described at <xref
+				href="../../../developing/querying_basics/chapter_overview.xml" type="concept"
+				format="dita" scope="local">Querying</xref>. This section describes areas that are
+			unique to the native client. </p>
+		<p> If you are using the pool API, you should obtain the QueryService from the pool . For
+			information about the pool API, see <xref
+				href="../../connection-pools/native-client-pool-api.xml#native-client-pool-api"
+				type="concept" format="dita" scope="local"
+				><?xm-replace_text Native Client Pool API?></xref>. </p>
+	</conbody>
+</concept>

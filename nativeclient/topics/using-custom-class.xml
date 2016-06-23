@@ -1,0 +1,72 @@
+<?xml version="1.0"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<!-- Created with XMetaL (http://www.xmetal.com) -->
+<concept id="concept_B0F263728DD6407987AE28EDA5C106B7"> 
+  <title>Using a Custom Class</title> 
+  <shortdesc>This example shows how to use the defined 
+	 <codeph>BankAccount</codeph> custom key type and the 
+	 <codeph>AccountHistory</codeph> value type. The following example takes you
+	 through these basic operations: registering, creating a cache, connecting to
+	 the distributed system, putting data, getting data, and closing the cache. 
+  </shortdesc> 
+  <conbody> 
+	 <example id="example_95A62B07B8A34EFA8A026E421CC19151">
+		<title>Using a BankAccount Object</title>
+		<codeblock>#include &lt;gfcpp/GemfireCppCache.hpp&gt;
+#include "BankAccount.hpp"
+#include "AccountHistory.hpp"
+using namespace gemfire;
+/*
+This example connects, registers types, creates the cache, creates a
+region, and then puts and gets user defined type BankAccount.
+*/
+int main( int argc, char** argv )
+{
+// Register the user-defined serializable type.
+Serializable::registerType( AccountHistory::createDeserializable );
+Serializable::registerType( BankAccount::createDeserializable );
+ 
+CacheFactoryPtr cacheFactory = CacheFactory::createCacheFactory();
+// Create a cache.
+CachePtr cachePtr = cacheFactory-&gt;setSubscriptionEnabled(true)
+-&gt;addServer("localhost", 24680)
+-&gt;create();
+ 
+// Create a region.
+RegionFactoryPtr regionFactory = 
+cachePtr-&gt;createRegionFactory(CACHING_PROXY);
+RegionPtr regionPtr = regionFactory-&gt;create("BankAccounts");
+ 
+// Place some instances of BankAccount cache region.
+BankAccountPtr KeyPtr(new BankAccount(2309, 123091));
+AccountHistoryPtr ValPtr(new AccountHistory());
+ValPtr-&gt;addLog( "Created account" );
+regionPtr-&gt;put( KeyPtr, ValPtr );
+printf( "Put an AccountHistory in cache keyed with BankAccount.\n" );
+// Call custom behavior on instance of BankAccount.
+KeyPtr-&gt;showAccountIdentifier();
+// Call custom behavior on instance of AccountHistory.
+ValPtr-&gt;showAccountHistory();
+// Get a value out of the region.
+AccountHistoryPtr historyPtr =
+dynCast&lt;AccountHistoryPtr&gt;( regionPtr-&gt;get( KeyPtr ) );
+if ( historyPtr != NULLPTR ) {
+printf( "Found AccountHistory in the cache.\n" );
+historyPtr-&gt;showAccountHistory();
+historyPtr-&gt;addLog( "debit $1,000,000." );
+regionPtr-&gt;put( KeyPtr, historyPtr );
+printf( "Updated AccountHistory in the cache.\n" );
+}
+// Look up the history again.
+historyPtr = dynCast&lt;AccountHistoryPtr&gt;( regionPtr-&gt;get( KeyPtr ) );
+if ( historyPtr != NULLPTR ) {
+printf( "Found AccountHistory in the cache.\n" );
+historyPtr-&gt;showAccountHistory();
+}
+// Close the cache and disconnect from the servers
+cachePtr-&gt;close();
+return 0;
+}</codeblock>
+	 </example> 
+  </conbody> 
+</concept> 

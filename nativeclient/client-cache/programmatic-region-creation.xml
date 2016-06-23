@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "http://docs.oasis-open.org/dita/v1.1/OS/dtd/concept.dtd">
+<concept
+	id="programmatic-region-creation">
+	<title>Programmatic Region Creation</title>
+	<shortdesc>You create regions programmatically with the <codeph>regionFactory</codeph> class. </shortdesc>
+	<conbody>
+		<note>
+			<p>Before creating a region, specify region attributes. See <xref
+				href="region-attributes.xml#region-attributes"
+				type="concept"
+				format="dita"
+				scope="local"><?xm-replace_text Region Attributes?></xref>.
+			</p>
+		</note>
+		<p>Create your regions using the <codeph>regionFactory</codeph> class.</p>
+		<p>
+			<b>C++ RegionFactory Example</b></p>
+			<codeblock>
+RegionFactoryPtr regionFactory =
+    cachePtr-&gt;createRegionFactory(CACHING_PROXY);
+RegionPtr regPtr0 = regionFactory-&gt;setLruEntriesLimit(20000)
+        -&gt;create("exampleRegion0");
+	</codeblock>
+		<note>For more information on how to create a region, see <xref
+				href="../cpp-caching-api/cpp-caching-api.xml#concept_CEC658A999414AC3A494578C214BF64E"
+				type="concept" format="dita" scope="local"
+				><?xm-replace_text vFabric GemFire Native Client C++ API?></xref>, <xref
+				href="../dotnet-caching-api/dotnet-caching-api.xml#concept_FC6776DCE6ED48B887A6137761104AA4"
+				type="concept" format="dita" scope="local"
+				><?xm-replace_text vFabric GemFire Native Client C# .NET API?></xref>, and the
+			native client API reference. </note>
+	</conbody>
+</concept>

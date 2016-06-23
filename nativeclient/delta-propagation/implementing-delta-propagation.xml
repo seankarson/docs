@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept
+	id="implementing-delta-propagation">
+	<title
+		id="title_7969E8015B314FFCB01ACFE4E4B19772">Implementing Delta Propagation</title>
+	<shortdesc>By default, delta propagation is enabled in your distributed system and is used for
+		objects that implement the delta interface. You program the client-side methods to extract
+		delta information for your entries and to apply received delta information. </shortdesc>
+	<conbody
+		id="conbody_9CE12524178A4FA988341F953795DF49">
+		<p>For more information, see <xref
+				href="delta-propagation-api.xml#delta-propagation-api"
+				type="concept"
+				format="dita"
+				scope="local">Delta Propagation API</xref>. </p>
+		<p>
+			<b>Prerequisites</b></p>
+			<ul
+				id="ol_1420D0AC31C341588E1850E0F1A274A9">
+				<li
+					id="li_BF938E5D15104B299DD74853A908B4B0">Study your object types and expected
+					application behavior to determine which objects should use delta propagation.
+					Delta propagation is not beneficial for all data and data modification
+					scenarios. See <xref
+						href="performance.xml#performance"
+						type="concept"
+						format="dita"
+						scope="local"><?xm-replace_text Exceptions and Limitations   ?></xref>. </li>
+				<li id="li_A0E992F60192401A9EC8658DC6CA3DBC">Decide whether to enable cloning. Cloning is
+				disabled by default. See <xref scope="local"
+					href="delta-propagation-properties.xml#delta-propagation-properties"
+					type="concept" format="dita">cloning-enabled</xref>.</li>
+				<li id="li_3F25C2D482804DEF932FCD65CF899F1B">If you enable cloning, consider
+							providing your own implementation, to optimize performance. </li>
+				<li id="li_702CC6FE95044EA3A41F576746D94B6B">If you do not enable cloning,
+							be sure to synchronize your delta code. </li>
+				<li id="li_C7F36AD82BB0497F99AE8FBF5C9B69B7">If you do not enable cloning, review all associated
+				listener code for dependencies on the entry event old value. Without cloning,
+					<keyword keyref="product_name"/> modifies the entry in place and so loses its
+				reference to the old value. For delta events, the <codeph>EntryEvent</codeph>
+				methods to retrieve the old and new values both return the new value. </li>
+			</ul>
+		<p>
+			<b>Procedure</b>
+		</p>
+		<p>For every class in which you want delta propagation, implement the delta interface and
+			update your methods to support delta propagation. Exactly how you do this depends on
+			your application and object needs, but these steps describe the basic approach.</p>			
+			<ol
+				id="ol_E87A912B84764F76BEC669118C118293">
+				<li
+					id="li_F652D59AFE224FB8B10CD7C87F5766DE">Study the object contents to decide how
+					to handle delta changes. <p>Delta propagation has the same issues of distributed
+						concurrency control as the distribution of full objects, but on a more
+						detailed level. Some parts of your objects may be able to change independent
+						of one another while others may always need to change together. Send deltas
+						large enough to keep your data logically consistent. If, for example, field
+						A and field B depend on each other, then your delta distributions should
+						either update both fields or neither. As with regular updates, the fewer
+						producers you have on a data region, the lower your likelihood of
+						concurrency issues. </p>
+				</li>
+				<li id="li_F74B0C91493042A7AB42A52F4051F009">In the application code that puts entries, put the
+				fully populated object into the local cache. This usually means doing a
+					<codeph>get</codeph> on the entry, unless you are sure it does not already exist
+				anywhere in the distributed region. <p>Even though you are planning to send only
+					deltas, errors on the receiving end could cause <keyword keyref="product_name"/>
+					to request the full object, so you must provide it to the originating put
+					method. Do this even in empty producers, with regions configured for no local
+					data storage. </p>
+			</li>
+				<li
+					id="li_A2AD70EC801F431499CF37DD2B52173F">Change each field’s update method to
+					record information about the update. <p>The information must be sufficient for
+							<codeph>toDelta</codeph> to encode the delta and any additional required
+						delta information when it is invoked. </p>
+				</li>
+				<li
+					id="li_8E21845E3E844AE992DE1B0649A480D6">Write <codeph>hasDelta</codeph> to
+					report on whether a delta is available. </li>
+				<li
+					id="li_EF53E58B35504A66AADEEA26AF85FEF8">When writing your serialization
+					methods, <codeph>toDelta</codeph>, <codeph>fromDelta</codeph>,
+						<codeph>toData</codeph>, <codeph>fromData</codeph>, be sure to exclude any
+					fields used to manage delta state, which do not need to be sent. </li>
+				<li
+					id="li_85842697E9374C47A236F028FE70916D">Write <codeph>toDelta</codeph> to
+					create a byte stream with the changes to the object and any other information
+					that <codeph>fromDelta</codeph> will need to apply the changes. Before returning
+					from <codeph>toDelta</codeph>, reset your delta state to indicate that there are
+					no delta changes waiting to be sent. </li>
+				<li
+					id="li_54F4533308754ED58C13604EC375D531">Write <codeph>fromDelta</codeph> to
+					decode the byte stream that <codeph>toDelta</codeph> creates and update the
+					object. </li>
+				<li
+					id="li_E755698CCE38462990510F1DD491054C">Make sure you provide adequate
+					synchronization to your object to maintain a consistent object state. <p>If you
+						do not use cloning, you will probably need to synchronize on reads and
+						writes to avoid reading partially written updates from the cache. This might
+						involve <codeph>toDelta</codeph>, <codeph>fromDelta</codeph>, and other
+						object access and update methods. Additionally, your implementation should
+						take into account the possibility of concurrent invocations of
+							<codeph>fromDelta</codeph> and one or more of the object's update
+						methods. </p>
+				</li>
+			</ol>
+	</conbody>
+</concept>

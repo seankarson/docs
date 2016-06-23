@@ -1,0 +1,337 @@
+<?xml version="1.0"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept
+	id="concept_696AB5206C3E45898CC1A24CDD93D003">
+	<title>Serializing Data with the Serializable Interface</title>
+	<shortdesc>The native client C++ API provides a <codeph>Serializable</codeph> interface that you
+		can use for fast and compact data serialization. This section discusses the <keyword
+			keyref="product_name"/> serializable interface, and presents implementation examples. </shortdesc>
+	<conbody>
+		<section
+			id="section_8143F965A8C6495E8AB104FD36DA366A">
+			<title>How Serialization Works</title>
+			<p>When your application puts an object into the cache for subsequent distribution, <keyword
+					keyref="product_name"/> serializes the data by taking these steps: </p>
+			<ol
+				id="ol_6188A606014D4D1193FCDE39848267EF">
+				<li
+					id="li_7E1C6E2E178042269472613CFA84FB6D">Calls the
+					appropriate <codeph>classId</codeph> function. </li>
+				<li
+					id="li_39DDFE6B13B44F4FBA39EA99BBD73C81">Writes the full
+						<codeph>typeId</codeph> using the
+						<codeph>classId</codeph> for the instance. </li>
+				<li
+					id="li_B28D1860DE72461A823917BA37F89A08">Invokes the
+					instance’s <codeph>toData</codeph> function. </li>
+			</ol>
+			<p>When your application subsequently receives a byte array, <keyword keyref="product_name"/>
+				takes the following steps: </p>
+			<ol
+				id="ol_1C0412DF186F407F95379F7ED851C5C6">
+				<li
+					id="li_59D797F64A014FE7910B7D1514CCA12A">
+					<p>Decodes the <codeph>typeId</codeph>, extracts the
+							<codeph>classId</codeph> from the
+							<codeph>typeId</codeph>, then creates an object of
+						the designated type using the registered factory
+						functions. </p>
+				</li>
+				<li
+					id="li_CCE6544C13E04503A34C936914D067FD">Invokes the
+						<codeph>fromData</codeph> function with input from the
+					data stream. </li>
+				<li
+					id="li_2F895750B18C4F7CA62F0602B645DD36">Decodes the data,
+					then populates the data fields. </li>
+			</ol>
+		</section>
+		<section
+			id="section_786CF85FD80E4FE391135460E04D46CC">
+			<title>Implementing the Serializable Interface</title>
+			<p>To store your own data types in the cache, you need to derive a new
+				subclass from the <codeph>Serializable</codeph> interface. In
+				practical terms, this means that you need to implement a small
+				set of helper functions: </p>
+			<ol
+				id="ol_2E9EFA772E524C7A8CEEE2AA7983C503">
+				<li id="li_F52E5DEBD3E4466CA542E8467B88D88A">Write a <codeph>toData</codeph> function that
+					serializes your data. <codeblock>void toData (DataOutput&amp; output)</codeblock>
+					<p>The <codeph>toData</codeph> function is responsible for copying all of the
+						object’s data fields to the object stream. </p>
+					<p>The <codeph>DataOutput</codeph> class represents the output stream and
+						provides methods for writing the primitives in a network byte order. For
+						more about this, see the API documentation for <codeph>DataOutput</codeph> . </p>
+					<p>The <codeph>toData</codeph> function is responsible for copying all of the
+						object’s data fields to the object stream. </p>
+					<p>The <codeph>DataOutput</codeph> class represents the output stream and
+						provides methods for writing the primitives in a network byte order. For
+						more about this, see the API documentation for <codeph>DataOutput</codeph> .
+					</p>
+				</li>
+				<li id="li_CE21628A16D740219781E629DBBA0D16">Write a <codeph>fromData</codeph> function that
+					consumes a data input stream and repopulates the object’s data fields. <codeblock>void fromData (DataInput&amp; input)</codeblock>
+					<p>The <codeph>DataInput</codeph> class represents the input stream and provides
+						methods for reading input elements. The <codeph>fromData</codeph> function
+						must read the elements of the input stream in the same order that they were
+						written by <codeph>toData</codeph> . For more about this, see the API
+						documentation for <codeph>DataInput</codeph>. </p>
+				</li>
+			</ol>
+		</section>
+		<example
+			id="example_30F34E014A1B4811A377031E0BF7101A">
+			<title>Example 1. The Simple Class BankAccount</title>
+			<p>This example demonstrates a simple <codeph>BankAccount</codeph>
+				class that encapsulates two <codeph>ints</codeph>:
+				<codeph>ownerId</codeph> and <codeph>accountId</codeph>:</p>
+				<codeblock>class BankAccount
+{
+   private:
+ 
+   int m_ownerId;
+   int m_accountId;
+ 
+   public:
+ 
+   BankAccount( int owner, int account ): m_ownerId( owner ),
+     m_accountId( account ) {}
+ 
+   int getOwner( )
+   {
+      return m_ownerId;
+   }
+ 
+   int getAccount( )
+   {
+      return m_accountId;
+   }
+ 
+};</codeblock>
+			<p>To make <codeph>BankAccount</codeph> serializable, you would need to
+				derive the class from <codeph>Serializable</codeph> and
+				implement the following: </p>
+			<ul
+				id="ul_2AE7C22D11FB43DDB1719F49A5DE5323">
+				<li
+					id="li_647FDBCD365E425E99A8791C5D8F8B74"><codeph>toData</codeph>—a
+					function to serialize the data. </li>
+				<li
+					id="li_7AB764F3E1DE4F02A5EF783C7A0B474E"><codeph>fromData</codeph>—a
+					function to deserialize the data. </li>
+				<li
+					id="li_A8E994DF9DA54DD1BC8CC4C736731AD2"><codeph>classId</codeph>—a
+					function to provide a unique integer for the class. </li>
+				<li
+					id="li_6222DDDFD9BE46BDB2FA3EC93AB62ABE">
+					<p><codeph>TypeFactoryMethod</codeph>—a pointer to a
+						function that returns a <codeph>Serializable*</codeph>
+						to an uninitialized instance of the type. </p>
+				</li>
+			</ul>
+		</example>
+		<example
+			id="example_0318DC7C9E614BB081ABA0B7D41D2BA5">
+			<title>Example 2. Implementing a Serializable Class</title>
+			<p>This example shows a code sample that demonstrates how to
+				implement a serializable class.</p>
+				<codeblock>class BankAccount : public Serializable
+{
+   private:
+   int m_ownerId; 
+   int m_accountId;
+   public:
+   BankAccount( int owner, int account ) : m_ownerId( owner ),
+      m_accountId( account ) {}
+
+int getOwner( )
+{
+    return m_ownerId;
+}
+
+int getAccount( )
+{
+    return m_accountId;
+}
+
+// Add the following for the Serializable interface
+// Our TypeFactoryMethod
+static Serializable* createInstance( )
+{
+    return new BankAccount( 0, 0 );
+}
+
+int32_t classId( )
+{
+    return 10; // must be unique per class.
+}
+
+virtual uint32_t objectSize() const
+{
+    return 10;
+}
+
+void toData( DataOutput&amp; output )
+{
+    output.writeInt( m_ownerId );
+    output.writeInt( m_accountId );
+}
+
+Serializable* fromData( DataInput&amp; input )
+{
+    input.readInt( &amp;m_ownerId );
+    input.readInt( &amp;m_accountId );
+    return this;
+}
+};</codeblock>
+		</example>
+		<section
+			id="section_108942E549CE4DE68FF3956712DEC7AF">
+			<title>Registering the Type</title>
+			<p>To be able to use the <codeph>BankAccount</codeph> type, you must register it with the type
+				system so that when an incoming stream contains a <codeph>BankAccount</codeph> , it
+				can be manufactured from the associated <codeph>TypeFactoryMethod</codeph>.</p>
+				<codeblock>Serializable::registerType( BankAccount::createInstance );</codeblock>
+			<p>Typically, you would register the type before calling the
+				function <codeph>DistributedSystem::connect</codeph>.</p>
+			<note>
+				<p>Type IDs must be unique to only one class.
+				</p>
+			</note>
+		</section>
+		<section
+			id="section_311C3661023C46328B406F26F4F16808">
+			<title>Custom Key Types</title>
+			<p>If your application uses key types that are too complex to easily
+				force into <codeph>CacheableString</codeph>, you can likely
+				improve performance by deriving a new class from
+					<codeph>CacheableKey</codeph>. If you have hybrid data types
+				you can implement your own derivation of
+					<codeph>CacheableKey</codeph> that encapsulates the data
+				type. </p>
+			<p>See <xref
+					scope="local"
+					href="serialization_using_serializable.xml#concept_696AB5206C3E45898CC1A24CDD93D003/section_AFB685227E4048BF9FB4FD7C55AED274"
+					type="section"
+					format="dita">Serialization in Native Client Mode with a
+					Java Server</xref> for information about implementing key
+				types for a native client that is used with a Java cache server. </p>
+			<p>To extend a <codeph>Serializable</codeph> class to be a
+					<codeph>CacheableKey</codeph>, you need to modify the class
+				definition as follows:  </p>
+			<ul
+				id="ul_20E8784A36314C43BA5FA10029C503E0">
+				<li
+					id="li_BAF4879967F8436EAB7658D57D8F3206">Change the class so
+					that it derives from <codeph>CacheableKey</codeph> rather
+					than <codeph>Serializable</codeph>. </li>
+				<li
+					id="li_3676E2C759854B05B0E73210BD53E9E1">Implement
+						<codeph>operator==</codeph> and
+						<codeph>hashcode</codeph> functions. </li>
+			</ul>
+			<p>The next example demonstrates how to extend a
+					<codeph>serializable</codeph> class to be a cacheable key.
+			</p>
+		</section>
+		<example
+			id="example_7C805B26702E4012AA1175B4D1A56222">
+			<title>Example 3. Extending a Serializable Class To Be a
+				CacheableKey</title>
+			<p>This example shows how to extend a serializable class to be a
+				cacheable key.</p>
+				<codeblock>class BankAccount
+: public CacheableKey
+{
+   private:
+   int m_ownerId;
+   int m_accountId;
+   public:
+   BankAccount( int owner, int account ) : m_ownerId( owner ),
+      m_accountId( account ) {}
+
+int getOwner( )
+{
+    return m_ownerId;
+}
+
+int getAccount( )
+{
+    return m_accountId;
+}
+
+// Our TypeFactoryMethod
+static Serializable* createInstance( )
+{
+    return new BankAccount( 0, 0 );
+}
+
+int32_t typeId( )
+{
+    return 1000; // must be unique per class.
+}
+
+void toData( DataOutput&amp; output )
+{
+    output.writeInt( m_ownerId );
+    output.writeInt( m_accountId );
+}
+
+Serializable* fromData( DataInput&amp; input )
+{
+    input.readInt( &amp;m_ownerId );
+    input.readInt( &amp;m_accountId );
+    return this;
+}
+
+// Add the following for the CacheableKey interface
+bool operator== ( const CacheableKey&amp; other ) const
+{
+    const BankAccount&amp; otherBA =
+    static_cast&lt;const BankAccount&amp;&gt;( other );
+    return (m_ownerId == otherBA.m_ownerId) &amp;&amp; (m_accountId == otherBA.m_accountId);
+}
+
+uint32_t hashcode( ) const
+{
+    return m_ownerId;
+}
+
+virtual int32_t classId( )const
+{
+    return 10; // must be unique per class.
+}
+ 
+virtual uint32_t objectSize() const
+{
+    return 10;
+} 
+};</codeblock>
+		</example>
+		<section
+			id="section_AFB685227E4048BF9FB4FD7C55AED274">
+			<title>Serialization in Native Client Mode with a Java
+				Server</title>
+			<p>Primitive object types supported in all languages
+					(<codeph>CacheableInt32</codeph>,
+					<codeph>CacheableString</codeph>,
+					<codeph>CacheableBytes</codeph>) function without requiring
+				custom definitions with the Java cache server. For the keys, the
+				Java cache server has to deserialize them and locate the
+				hashcode to be able to insert the internal maps. Because of
+				this, key types for C++ and .NET native clients used with a Java
+				server are required to be registered on the Java server, but the
+				value types do not need to be registered. This needs to be done
+				even if there are no Java clients. The Java serializable type
+				should have the same <codeph>classId</codeph> as the .NET class,
+				and it should serialize and deserialize the type in the same
+				manner as the .NET implementation. </p>
+			<p>See <xref
+					href="../dotnet-caching-api/dotnet-data-serialization.xml#concept_28A7797A0342447ABF6A5014E0DCB05F"
+					type="concept"
+					format="dita"
+					scope="local"> Data Serialization</xref> for more
+				information about .NET data serialization. </p>
+		</section>
+	</conbody>
+</concept>

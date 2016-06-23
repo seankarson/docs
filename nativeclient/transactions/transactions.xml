@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept id="transactions">
+	<title>Transactions</title>
+	<shortdesc><i>Transactions</i> describes how transactions work on the client side. It provides
+		examples for running, suspending, and resuming transactions. </shortdesc>
+	<conbody>
+			<note>
+				<p><keyword keyref="product_name"/> client transactions run on the server tier. The client uses
+				a server delegate that runs the transaction as it would a local transaction. Thus,
+				the key to running client transactions lies in making sure the server is properly
+				configured and programmed. For complete information about <keyword
+					keyref="product_name"/> transactions in the Java server, see <xref
+					href="../../developing/transactions/chapter_overview.xml" type="concept"
+					format="dita" scope="local"><?xm-replace_text Transactions?></xref>. It provides
+				detailed information including server data requirements, interactions of <keyword
+					keyref="product_name"/> transactions with other operations running on the server
+				tier, server-side application plug-ins with transactions, and querying with
+				transactions. </p>
+			</note>
+	</conbody>
+</concept>

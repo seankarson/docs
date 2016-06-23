@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "http://docs.oasis-open.org/dita/v1.1/OS/dtd/concept.dtd">
+<concept
+	id="notification-for-operations">
+	<title>Notification for Operations</title>
+	<conbody>
+		<section
+			id="section_53F43C51118C4087915CB954CA3439E0">
+			<p>
+				Listeners are
+				invoked for client-initiated operations only after the client operation succeeds on
+				the server. Listener invocation on the client indicates that the server has the same
+				data as the client. </p>
+			<p>If a client operation fails on the server, the operation is rolled back, assuming
+				that no other thread has modified the data in the intervening period. Rollback may
+				not be possible in cases where the entry has been evicted by LRU or expiration
+				during this period. Thus when an exception is received from the server for an
+				operation, local changes may not have been rolled back </p>
+		</section>
+		<section
+			id="section_48240559E20D4FAF8FDEC8D62C098357">
+			<title>Event Notification Sequence</title>
+			<p>Events received on the clients that originated on the server invoke the subscription
+				for the event as seen by the server. Events originating on the client invoke the
+				subscription as seen by the client. </p>
+			<p>For example, a client that receives a <codeph>create</codeph> and an
+					<codeph>update</codeph> from the server fires a <codeph>create</codeph> event
+				and an <codeph>update</codeph> event because that is how the server saw it. A
+				cacheless client that does two consecutive put operations has two
+					<codeph>afterCreate</codeph> events invoked on the originating client because
+				the client does not have any history about the first put , since it is cacheless. </p>
+			<p>For the same sequence, the server sees an <codeph>afterCreate</codeph> and an
+					<codeph>afterUpdate</codeph> event, and a remote client receiving the event sees
+				an <codeph>afterCreate</codeph> followed by an <codeph>afterUpdate</codeph> event. A
+				client that caches locally sees an <codeph>afterCreate</codeph> and an
+					<codeph>afterUpdate</codeph> for the same scenario (as will the server and
+				remote clients). </p>
+		</section>
+	</conbody>
+</concept>

@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept
+	id="install-unix">
+	<title>Installing on Linux and Solaris</title>
+	<shortdesc>You install the native client on Linux and Solaris by extracting the contents of a
+		ZIP file. After installation, you add environment settings. </shortdesc>
+	<conbody>
+		<section
+			id="section_DE129AB896AB4C9DBDB858AF736D9F43">
+			<title>Installation Prerequisites</title>
+			<p>Before you install the <keyword keyref="product_name"/>native client, you must complete the
+				following prerequisites: </p>
+			<ul
+				id="ul_2F61143824B94F84945101730A1487B5">
+				<li
+					id="li_D8F622E9AA2847ADB6567C802CB06202">Confirm that your system meets the
+					hardware and software requirements described in <xref
+						scope="local"
+						href="../../getting_started/system_requirements/gemfire_native_client_requirements.xml#concept_7AE0C1CB11244095A50CCB52A09A09A1"
+						type="concept"
+						format="dita"><?xm-replace_text vFabric GemFire Native Client Supported Configurations?></xref>. </li>
+				<li
+					id="li_F97833C3CC0340F5974F27249A32C84B">From the <xref
+						href="https://network.pivotal.io/products/pivotal-gemfire"
+						scope="external"
+						format="html">Pivotal GemFire download page</xref>, select <b>Download</b>. </li>
+				<li
+					id="li_39CAFCC1FD4B4F3CAB81F16F84232887">Under File Groups, select and download
+					the Pivotal GemFire native client .zip file appropriate for your operating
+					system and hardware architecture. <ul
+						id="ul_6A371A7A26614FB9AB8C8F04D6F59A06">
+						<li
+							id="li_E30EF8991D5A4D32A153A36517581D51">For Linux platforms, download
+									<codeph>Pivotal_GemFire_NativeClient_Linux_<varname>architecture</varname>_<varname>xxxx</varname>_b<i>NNNN</i>.zip</codeph>
+							where <varname>architecture</varname> equals either <b>32bit</b> or
+								<b>64bit</b>,<varname> xxxx</varname> represents the four-digit
+							version of the product and b<i>NNNN</i> corresponds to the build number
+							for the release. </li>
+						<li
+							id="li_0243A5A52F6547E5B4814003C6790C38">For Solaris platforms, download
+									<codeph>Pivotal_GemFire_NativeClient_Solaris_<varname>architecture</varname>_<varname>xxxx</varname>_b<i>NNNN</i>.zip</codeph>
+							where <varname>architecture</varname> equals either <b>32bit</b> or
+								<b>64bit,</b>
+							<varname>xxxx</varname> represents the four-digit version of the product
+							and b<i>NNNN</i> corresponds to the build number for the release. </li>
+					</ul>
+				</li>
+			</ul>
+		</section>
+		<section
+			id="section_059DDB01A700429AAA8317E8EBE866FA">
+			<title>Installation Path for Linux</title>
+			<p
+				id="p_5BDE5452365C4879A5DD2ECCEBDD71E0">    The default installation path is
+						<codeph>NativeClient_Linux_<varname>architecture</varname>_<varname>xxxx</varname>_b<i>NNNN</i></codeph>
+				and reflects the architecture, product version and build number identified in the
+				filename of the installer .zip file. </p>
+		</section>
+		<section
+			id="section_FED8DF82F37F4A5E933AAC79EAFEDEC3">
+			<title>Installation Path for Solaris</title>
+			<p
+				id="p_9A34E3DE41C14F0BAE627E429D2F7B92">The default installation path is
+						<codeph>NativeClient_Solaris_<varname>architecture</varname>_<varname>xxxx</varname>_b<i>NNNN</i></codeph>
+				and reflects the architecture, product version and build number identified in the
+				filename of the installer .zip file. </p>
+		</section>
+		<section
+			id="section_C6784F3878ED4A04BEC85CF7C0B7D14C">
+			<title>Environment Settings</title>
+			<p
+				id="p_38060D4CD64D4698AB66264912DDD14C">When the installation is complete, you add
+				these environment settings: </p>
+			<ul
+				id="ul_36D785CD9CC741C1B4D3899BAC81C968">
+				<li
+					id="li_BBA9952EDBEF4F8496875D4722488F82">Set the <varname>GFCPP</varname>
+					environment variable to <varname>productDir</varname>, where
+						<varname>productDir</varname> represents the
+							<codeph>NativeClient__<varname>platform</varname>_<varname>architecture</varname>_<varname>xxxx</varname></codeph>
+					directory (where <varname>platform</varname> is the OS you are installing upon,
+						<varname>architecture</varname> is <b>32bit</b> or <b>64bit</b>,
+						and<varname> xxxx</varname> is the four-digit product version) </li>
+				<li
+					id="li_28E40AB73243460E8983E0DF8BBD32CA">Add <codeph>$GFCPP/bin</codeph> to the
+							<codeph><varname>PATH</varname></codeph>
+				</li>
+				<li
+					id="li_47E8E94FF18444B68B8A8F6E8BF0B3DF">Add <codeph>$GFCPP/lib</codeph> to the
+							<codeph><varname>LD_LIBRARY_PATH</varname></codeph>.</li>
+			</ul>
+		</section>
+	</conbody>
+</concept>

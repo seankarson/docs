@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept id="security"> 
+  <title id="title_9717E51087B346988389138843E158C4">Authentication</title> 
+  <shortdesc>A client is authenticated when it connects to a GemFire cache
+	 server that is configured with the client 
+	 <codeph>Authenticator</codeph> callback. The connection request must
+	 contain valid credentials for the client. Once authenticated, the server
+	 assigns the client a unique ID and principal, used to authorize operations.
+  </shortdesc> 
+  <conbody id="conbody_D74C4342289846619E028149A8920946"> 
+	 <p id="p_73C402816B974E4B9D904000F996DD2E">The client must trust all cache
+		servers in the server system as it may connect to any one of them. For
+		information on configuring client/server, see
+		<draft-comment>BEVLINK
+		</draft-comment> "Client/Server Configuration" in the 
+		<i>Topologies and Communication</i> section of the 
+		<i>GemFire User's Guide</i>.
+	 </p> 
+	 <section id="section_E5205FC406B444678253FAEE36C398F1">
+		<p> GemFire has two types of client authentication: 
+		</p>
+		<p>
+		<ul id="ul_6C06551081394C089F9F8993BCC00E3E"> 
+		  <li id="li_FBCB9492EC3747C7BE9C0ED738374729">Process level-- Each pool
+			 creates a configured minimum number of connections across the server group. The
+			 pool accesses the least loaded server for each cache operation 
+			 <p>Process level connections represent the overall client process and
+				are the standard way a client accesses the server cache. 
+			 </p>
+		  </li> 
+		  <li id="li_BE75E88CA9A24E8E9DA0AD41333F8AE9">Multi-user--Each user/pool
+			 pair creates a connection to one server and then sticks with it for operations.
+			 If the server is unable to respond to a request, the pool selects a new one for
+			 the user. 
+			 <p>Multi-user connections are generally used by application servers
+				or web servers that act as clients to GemFire servers. Multi-user allows a
+				single app or web server process to service a large number of users with varied
+				access permissions. 
+			 </p>
+		  </li> 
+		</ul>
+		</p>
+		<p>By default, server pools use process level authentication. You can
+		  enable multi-user authentication by setting a pool's 
+		  <codeph>multi-user-secure-mode-enabled</codeph> attribute to 
+		  <codeph>true</codeph>. 
+		</p><image href="../common/images/security-client-connections.gif"
+		id="image_85B98E185AD84C59AC22974A63080559"/> 
+		<p>Credentials can be sent in encrypted form using the Diffie-Hellman key
+		  exchange algorithm. See<!--BEVLINK-->
+		  <xref format="dita"
+			href="security.xml#security/section_71BD018CE1124F2F80D985DB66051FC8"
+			scope="local" type="section"><?xm-replace_text Encrypting Credentials Using Diffie-Hellman ?></xref>for
+		  more information. 
+		</p>
+		<p>This example shows a C++ client connecting with credentials. 
+		</p>
+		<fig id="fig_F7BBA12DA07343A79896E40D2187B0CE"> 
+		  <title>C++ Client Acquiring Credentials Programmatically</title> 
+		  <codeblock id="codeblock_E8BA26FFF5AB4038AFB9AC1FA64B4694">PropertiesPtr secProp = Properties::create();
+secProp-&gt;insert("security-client-auth-factory",
+"createPKCSAuthInitInstance");
+secProp-&gt;insert("security-client-auth-library", "securityImpl");
+secProp-&gt;insert("security-keystorepath", "keystore/gemfire6.keystore");
+secProp-&gt;insert("security-alias", "gemfire6");
+secProp-&gt;insert("security-zkeystorepass", "gemfire");
+CacheFactoryPtr cacheFactoryPtr = CacheFactory::createCacheFactory(secProp);</codeblock> 
+		</fig>This example shows a .NET client. 
+		<fig id="fig_1F25FA1BE4194406B51F900A3F4F0679"> 
+		  <title>.NET Client Acquiring Credentials Programmatically</title> 
+		  <codeblock>Properties secProp = Properties.Create();
+secProp.Insert("security-client-auth-factory",
+"GemStone.GemFire.Templates.Cache.Security.
+UserPasswordAuthInit.Create");
+secProp.Insert("security-client-auth-library", "securityImpl");
+secProp.Insert("security-username"," gemfire6");
+secProp.Insert("security-password"," gemfire6Pass);</codeblock> 
+		</fig>
+	 </section> 
+  </conbody>
+</concept>

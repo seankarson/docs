@@ -1,0 +1,50 @@
+<?xml version="1.0"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept
+	id="concept_915EAD135DD942F28A38513097ACB1F1">
+	<title>Disconnection</title>
+	<shortdesc>While the client and servers are disconnected, their operation varies depending on
+		the circumstances. </shortdesc>
+	<conbody>
+		<section
+			id="section_6AB8F4B8993F4EF9B32A93A100F07BEC">
+			<title>Normal disconnect</title>
+			<p> When a durable client disconnects normally, the <codeph>Cache.close</codeph> request
+				states whether to maintain the client's message queue and durable subscriptions. The
+				servers stop sending messages to the client and release its connection. See<xref
+					href="disconnecting-from-server.xml#concept_3A9AC62F96FA44DBBB5CCBFD3EA19B56"
+					type="concept"
+					format="dita"
+					scope="local">Disconnecting From the Server</xref> for more information. </p>
+			<p> If requested, the servers maintain the queues and durable interest list until the
+				client reconnects or times out. The non-durable interest list is discarded. The
+				servers continue to queue up incoming messages for entries on the durable interest
+				list. All messages that were in the queue when the client disconnected remain in the
+				queue, including messages for entries on the non-durable list. </p>
+			<p> If the client requests to not have its subscriptions maintained, or if there are no
+				durable subscriptions, the servers unregister the client and perform the same
+				cleanup as for a non-durable client. </p>
+		</section>
+		<section>
+			<title>Abnormal disconnect</title>
+			<p> If the client crashes or loses its connections to all servers, the servers
+				automatically maintain its message queue and durable subscriptions until the client
+				reconnects or times out. </p>
+		</section>
+		<section>
+			<title>Client disconnected but operational</title>
+			<p> If the client operates while it is disconnected, it gets what data it can from the
+				local cache. Since updates are not allowed, the data can become stale. An
+					<codeph>UnconnectedException</codeph> occurs if an update is attempted. </p>
+		</section>
+		<section>
+			<title>Timing out while disconnected</title>
+			<p> The servers track how long to keep a durable client queue alive based on the
+					<codeph>durable-client-timeout</codeph> setting. If the client remains
+				disconnected longer than the timeout, the servers unregister the client and do the
+				same cleanup that is performed for a non-durable client. The servers also log an
+				alert. When a timed-out client reconnects, the servers treat it as a new client
+				making its initial connection. </p>
+		</section>
+	</conbody>
+</concept>

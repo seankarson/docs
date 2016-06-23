@@ -1,0 +1,203 @@
+<?xml version="1.0"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept
+	id="concept_458BEDEEC03945A7B7C4EB6FBF2A1200">
+	<title>Pool Statistics</title>
+	<shortdesc>Use the pool object to get statistics on connection pools. </shortdesc>
+	<conbody>
+		<table
+			id="table_74C2E3B9086F42AEA098158AE030DD07">
+			<tgroup
+				cols="2">
+				<colspec
+					colnum="1"
+					colname="col1"
+					colwidth="*"/>
+				<colspec
+					colnum="2"
+					colname="col2"
+					colwidth="*"/>
+				<tbody>
+					<row>
+						<entry
+							colname="col1">
+							
+							<codeph>locators</codeph>
+						</entry>
+						<entry
+							colname="col2">Current number of locators discovered. </entry>
+					</row>
+					<row>
+						<entry
+							colname="col1">
+							<codeph>servers</codeph>
+							
+
+</entry>
+						<entry
+							colname="col2">Current number of servers discovered. </entry>
+					</row>
+					<row>
+						<entry
+							colname="col1">
+							<codeph>locatorRequests</codeph>
+						</entry>
+						<entry
+							colname="col2">Number of requests from this connection pool to a
+							locator. </entry>
+					</row>
+					<row>
+						<entry
+							colname="col1">
+							<codeph>locatorResponses</codeph>
+						</entry>
+						<entry
+							colname="col2">Number of responses from the locator to this connection
+							pool. </entry>
+					</row>
+					<row>
+						<entry
+							colname="col1">
+							<codeph>poolConnections</codeph>
+						</entry>
+						<entry
+							colname="col2">Current number of pool connections. </entry>
+					</row>
+					<row>
+						<entry
+							colname="col1">
+							<codeph>connects</codeph>
+						</entry>
+						<entry
+							colname="col2">Total number of times a connection has been created.
+						</entry>
+					</row>
+					<row>
+						<entry
+							colname="col1">
+							<codeph>ConnectionWaitTime</codeph>
+						</entry>
+						<entry
+							colname="col2">Total time (nanoseconds) spent waiting for a connection.
+						</entry>
+					</row>
+					<row>
+						<entry
+							colname="col1">
+							<codeph>disconnects</codeph>
+						</entry>
+						<entry
+							colname="col2">Total number of times a connection has been destroyed.
+						</entry>
+					</row>
+					<row>
+						<entry
+							colname="col1">
+							<codeph>minPoolSizeConnect</codeph>
+						</entry>
+						<entry
+							colname="col2">Total number of connects done to maintain minimum pool
+							size. </entry>
+					</row>
+					<row>
+						<entry
+							colname="col1">
+							<codeph>loadConditioningConnects</codeph>
+						</entry>
+						<entry
+							colname="col2">Total number of connects done due to load conditioning.
+						</entry>
+					</row>
+					<row>
+						<entry
+							colname="col1">
+							<codeph>idleDisconnects</codeph>
+						</entry>
+						<entry
+							colname="col2">Total number of disconnects done due to idle expiration.
+						</entry>
+					</row>
+					<row>
+						<entry
+							colname="col1">
+							<codeph>loadConditioningDisconnects</codeph>
+						</entry>
+						<entry
+							colname="col2">Total number of disconnects done due to load conditioning
+							expiration. </entry>
+					</row>
+					<row>
+						<entry
+							colname="col1">
+							<codeph>connectionWaitsInProgress</codeph>
+						</entry>
+						<entry
+							colname="col2">Current number of threads waiting for a connection.
+						</entry>
+					</row>
+					<row>
+						<entry
+							colname="col1">
+							<codeph>connectionWaits</codeph>
+						</entry>
+						<entry
+							colname="col2">Total number of times a thread completed waiting for a
+							connection (by timing out or by getting a connection). </entry>
+					</row>
+					<row>
+						<entry
+							colname="col1">
+							<codeph>clientOpsInProgress</codeph>
+						</entry>
+						<entry
+							colname="col2">Current number of clientOps being executed. </entry>
+					</row>
+					<row>
+						<entry
+							colname="col1">
+							<codeph>clientOps</codeph>
+						</entry>
+						<entry
+							colname="col2">Total number of clientOps completed successfully.
+						</entry>
+					</row>
+					<row>
+						<entry
+							colname="col1">
+							<codeph>clientOpFailures</codeph>
+						</entry>
+						<entry
+							colname="col2">Total number of clientOp attempts that have failed.
+						</entry>
+					</row>
+					<row>
+						<entry
+							colname="col1">
+							<codeph>clientOpTimeouts</codeph>
+						</entry>
+						<entry
+							colname="col2">Total number of clientOp attempts that have timed out.
+						</entry>
+					</row>
+					<row>
+						<entry
+							colname="col1">
+							<codeph>QueryExecutions</codeph>
+						</entry>
+						<entry
+							colname="col2">Total number of queryExecutions. </entry>
+					</row>
+					<row>
+						<entry
+							colname="col1">
+							<codeph>QueryExecutionTime</codeph>
+						</entry>
+						<entry
+							colname="col2">Total time spent while processing queryExecution.
+						</entry>
+					</row>
+				</tbody>
+			</tgroup>
+		</table>
+	</conbody>
+</concept>

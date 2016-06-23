@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept id="concept_F7A143F51EEA46B28AC612DEB7849D99">
+	<title>High Availability for Client-Server Communication</title>
+	<shortdesc> The <keyword keyref="product_name"/> native client provides reliable event messaging
+		from cache server to client to prevent data loss during server failover operations. High
+		availability is implemented in the cache server and is configured in the native client. </shortdesc>
+	<conbody>
+		<p> See <xref href="../../developing/events/configuring_highly_available_servers.xml"
+				type="concept" format="dita" scope="local"
+				><?xm-replace_text Configuring Highly Available Servers?></xref> for details about
+			configuring a Java cache server for high availability.</p>
+			<note>
+				<p>High availability functions the same whether the region is partitioned or not. See <xref
+					href="../../developing/partitioned_regions/chapter_overview.xml" type="concept"
+					format="dita" scope="local"><?xm-replace_text Partitioned Regions?></xref> for
+				information about partitioned regions. </p>
+			</note>
+	</conbody>
+</concept>

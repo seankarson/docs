@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept
+	id="security">
+	<title
+		id="title_9717E51087B346988389138843E158C4">Method Invocation</title>
+	<shortdesc>The query language supports method invocation inside query expressions. </shortdesc>
+	<conbody>
+		<section
+			id="section_9EB15A373E8C41E1A1C40981588A4DFB">The query processor maps attributes in
+			query strings using the attribute rules described in <xref
+				href="../92-querylanguage/21-basic-region-access.xml#security/section_789E081192A74B00B0E726EDC1C574C4"
+				type="section"
+				format="dita"
+				scope="local">Object attributes</xref>. Methods declared to return
+				<codeph>void</codeph> evaluate to <codeph>null</codeph> when invoked through the
+			query processor. <p>If you know that the attribute name maps to a public method that
+				takes no parameters, you can simply include the method name in the query string as
+				an attribute. For example, <codeph>emps.isEmpty</codeph> is equivalent to
+					<codeph>emps.isEmpty</codeph>() . In the following example, the query invokes
+					<codeph>isEmpty</codeph> on positions, and returns the set of all portfolios
+				with no positions.
+				</p><codeblock>SELECT DISTINCT * FROM /portfolios WHERE positions.isEmpty</codeblock><p>The
+				native client also supports the invocation of public methods with parameters. To
+				invoke methods with parameters, include the method name as an attribute in the query
+				string and provide the method arguments between parentheses. You can only use
+				constants in the query strings.</p>
+		</section>
+	</conbody>
+</concept>

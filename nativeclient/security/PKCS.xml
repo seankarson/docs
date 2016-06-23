@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept
+	id="security">
+	<title
+		id="title_9717E51087B346988389138843E158C4">Using PKCS for Encrypted Authentication</title>
+	<shortdesc>This section discusses the concepts and configurations for the sample UserPassword and
+		PKCS implementations. Descriptions of their interfaces, classes, and methods are available
+		in the API. </shortdesc>
+	<conbody
+		id="conbody_D74C4342289846619E028149A8920946">
+			<note>
+				<p>Native client samples are provided in source form only in the "templates"
+				directory within the product directory.
+				</p>
+			</note>
+		<p>With PKCS, clients send encrypted authentication credentials in the form of standard PKCS
+			signatures to a <keyword keyref="product_name"/> cache server when they connect to the
+			server. The credentials consist of the alias name and digital signature created using
+			the private key that is retrieved from the provided keystore. The server uses a
+			corresponding public key to decrypt the credentials. If decryption is successful then
+			the client is authenticated and it connects to the cache server. For unsuccessful
+			decryption, the server sends an <codeph>AuthenticationFailedException</codeph> to the
+			client, and the client connection to the cache server is closed. </p>
+		<p>When clients require authentication to connect to a cache server, they use the
+				<codeph>PKCSAuthInit</codeph> class implementing the <codeph>AuthInitialize</codeph>
+			interface to obtain their credentials. For the PKCS sample provided by <keyword
+				keyref="product_name"/>, the credentials consist of an alias and an encrypted byte
+			array. The private key is obtained from the PKCS#12 keystore file. To accomplish
+				this,<codeph> PKCSAuthInit</codeph> gets the alias retrieved from the
+				<codeph>security-alias </codeph>property, and the keystore path from the
+				<codeph>security-keystorepath</codeph> property. <codeph>PKCSAuthInit</codeph> also
+			gets the password for the password-protected keystore file from the
+				<codeph>security-keystorepass</codeph> property so the keystore can be opened. </p>
+		<p>
+			<b>Building the securityImpl Library</b>
+		</p>
+		<p>To use the PKCS sample implementation, you need to build OpenSSL and then build the
+			securityImpl library. In the <codeph>gfcpp.properties </codeph>file for the client,
+			specify the <codeph>PKCSAuthInit</codeph> callback, the keystore path, the security
+			alias, and the keystore password, like this:</p>
+			<codeblock>security-client-auth-library=securityImpl
+security-client-auth-factory=createPKCSAuthInitInstance
+security-keystorepath=&lt;PKCS#12 keystore path&gt;
+security-alias=&lt;alias&gt;
+security-keystorepass=&lt;keystore password&gt;</codeblock>
+		<p>For server side settings, see the description of PKCS sample in <xref
+				href="../../managing/security/chapter_overview.xml#security" type="concept"
+				format="dita" scope="local">Security</xref>. </p>
+	</conbody>
+</concept>

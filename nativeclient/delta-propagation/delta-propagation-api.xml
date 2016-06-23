@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept
+	id="delta-propagation-api">
+	<title
+		id="title_E7581107F8EB47D9B8D3CA4917E880C8">Delta Propagation API </title>
+	<shortdesc>Delta propagation uses configuration properties and a simple API to send and receive
+		deltas. </shortdesc>
+	<conbody
+		id="conbody_6E3240AE27554515AB0FD9677D68564A">
+		<section
+			id="section_5787FD2053544B2AB6E7DCC3CEC14204">
+			<title
+				id="title_636D1B9A9C144AC19E137CDF217FBBE8">.NET - for C#</title>
+			<p>Your application class must implement: </p>
+			<ul
+				id="ul_5C5D1DE9887A42D7B28705B5A3EAEE4B">
+				<li
+					id="li_C54F66FB108549D5A613848C1E773834">
+					<codeph>GemStone::GemFire::Cache::IGFDelta </codeph>
+				</li>
+				<li
+					id="li_583C23441FFE4913A2975C6A88B02D70">
+					<codeph>GemStone::GemFire::Cache::IGFSerializable </codeph>
+				</li>
+			</ul>
+			<p
+				id="p_577450A44F824A458EE50E14B793BE19"><codeph>IGFDelta</codeph> provides the
+				methods, <codeph>HasDelta</codeph>, <codeph>ToDelta</codeph>, and
+					<codeph>FromDelta</codeph>, which you program to report on, send, and receive
+				deltas for your class. </p>
+			<p
+				id="p_FA118F2862A44E20BB6356950D015368">Additionally, for cloning, your class must
+				implement the standard .NET <codeph>IClonable</codeph> interface and its
+					<codeph>Clone</codeph> method. See <xref
+					href="delta-propagation-properties.xml#delta-propagation-properties"
+					type="concept"
+					format="dita"
+					scope="local"><?xm-replace_text Delta Propagation   Properties?></xref>. </p>
+		</section>
+		<section
+			id="section_F3F89A01A4084D3092B88D16E43D8B37">
+			<title
+				id="title_8D500BBC7AA34408897F47EBB002B73D">C++ </title>
+			<p>Your application must publicly derive from: </p>
+			<ul
+				id="ul_5A2B5A6CDC074468841CBBCAEDB6D49A">
+				<li
+					id="li_EA99FE1A982F4AFAB2DA8D383EA84C46">
+					<codeph>gemfire::Delta </codeph>
+				</li>
+				<li
+					id="li_F7CF9804585247809300A919EB7E1780">
+					<codeph>gemfire::Cacheable </codeph>
+				</li>
+			</ul>
+			<p
+				id="p_48B13391853C460EA75EB1D254BBBE5D"><codeph>Delta</codeph> provides the methods,
+					<codeph>hasDelta</codeph>, <codeph>toDelta</codeph>, <codeph>fromDelta</codeph>,
+				which you program to report on, send, and receive deltas for your class. </p>
+			<p
+				id="p_33507B4F0DE04DD6A76FFAFED2AA66CF">For cloning, use the <codeph>clone</codeph>
+				method provided in the Delta interface. See <xref
+					href="delta-propagation-properties.xml#delta-propagation-properties"
+					type="concept"
+					format="dita"
+					scope="local"><?xm-replace_text Delta Propagation   Properties?></xref>. </p>
+		</section>
+	</conbody>
+</concept>

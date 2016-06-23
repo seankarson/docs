@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "http://docs.oasis-open.org/dita/v1.1/OS/dtd/concept.dtd">
+<concept
+	id="concept_75D723D60E044FF9AE97C939699AB10A">
+	<title>LruEntriesLimit</title>
+	<conbody>
+		<section
+			id="section_B0174EA802CB47C9981EF3BDF4B7D169">
+			<p>This attribute sets the maximum number of entries to hold in a caching region. When
+				the capacity of the caching region is exceeded, a least-recently-used (LRU)
+				algorithm is used to evict entries. </p>
+				<note>
+					<p>This is a tuning parameter that affects system performance.
+					</p>
+				</note>
+			<p>When eviction is configured, memory consumption or entry count is monitored and, when capacity
+				is reached, <keyword keyref="product_name"/> makes way for new entries by removing
+				or overflowing the stalest LRU entries to disk. </p>
+			<p>If you use disk data overflow to supplement memory for your data cache, make sure you
+				have enough disk space to store the data. </p>
+			<p>This declaration limits the region to 20,000 entries: </p>
+			<codeblock>&lt;region-attributes lru-entries-limit="20000"
+     initial-capacity="20000"
+     load-factor="1"&gt;
+&lt;/region-attributes&gt;</codeblock>
+			<p>Evicted entries can be destroyed or moved to disk as an extension of the cache. See <xref
+					scope="local"
+					href="disk-policy.xml#disk-policy"
+					type="concept"
+					format="dita">DiskPolicy</xref>. </p>
+				<note>
+					<p>When <codeph>CachingEnabled</codeph> is <codeph>false</codeph>, do not set the
+						<codeph>LruEntriesLimit</codeph> attribute. An
+						<codeph>IllegalStateException</codeph> is thrown if the attribute is set.
+					</p>
+				</note>
+			<p>See also <xref
+					scope="local"
+					href="controlling-cache-size.xml#controlling-cache-size"
+					type="concept"
+					format="dita">Controlling Cache Size</xref>. </p>
+		</section>
+	</conbody>
+</concept>

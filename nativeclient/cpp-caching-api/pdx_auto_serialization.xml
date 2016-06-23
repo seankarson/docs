@@ -1,0 +1,386 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE dita PUBLIC "-//OASIS//DTD DITA Composite//EN" "ditabase.dtd">
+<dita>
+  <topic
+    id="topic_bzj_wnw_dl">
+    <title>Using Automatic PDX Serialization</title>
+    <shortdesc>You can allow your native client C++ applications to
+      automatically PDX serialize and deserialize domain objects without having
+      to add any extra code by using the <codeph>pdxautoserializer</codeph>
+      command line tool provided with the native client. </shortdesc>
+    <body>
+      <p>When using the native client C++ API, you can automatically serialize and deserialize
+        domain objects without making any code changes to those objects or having to implement a
+          <codeph>PdxSerializer</codeph> or <codeph>PdxSerializable</codeph> interface and their
+        related <codeph>fromData</codeph> and <codeph>toData</codeph> methods. The <keyword
+          keyref="product_name"/> native client includes a command-line utility,
+          <codeph>pdxautoserializer</codeph>, that allows you to generate C++ code that will
+        serialize your domain objects in the PDX format for you.</p>
+    </body>
+  </topic>
+  <task
+    id="task_czj_wnw_dl">
+    <title>How to Use Automatic PDX Serialization</title>
+    <taskbody>
+      <prereq>
+        <b>Prerequisites:</b>
+        <ul
+          id="ul_qjd_f4w_dl">
+          <li>Understand generally how to configure the <keyword keyref="product_name"/> cache.</li>
+          <li>Understand how PDX serialization works and how to configure your
+            application to use PdxSerializer. </li>
+        </ul>
+        <p>The procedure below uses the following sample
+          class:</p>
+        <codeblock>class PortfolioPdx 
+{
+  private:
+    int32_t id;
+    char* pkid;
+    PositionPdxPtr position1;
+    PositionPdxPtr position2;
+    CacheableHashMapPtr positions;
+    char** names;    
+    int8_t* newVal;
+    CacheableDatePtr creationDate;
+    int8_t* arrayNull;
+    int8_t* arrayZeroSize;
+  public:
+    // CTOR
+    // DTORS
+    // Other Methods declarations</codeblock>
+        <p>
+
+For each domain class you provide,
+          all fields are considered for serialization except those defined as
+          static or transient and those you explicitly exclude using macros.
+        </p>
+      </prereq>
+      <steps>
+        <step>
+          <cmd>Inherit your class from
+            <codeph>gemfire::PdxSerializable</codeph>.</cmd>
+          <info>
+            <codeblock>class PortfolioPdx : public PdxSerializable</codeblock>
+          </info>
+        </step>
+        <step>
+          <cmd>Add the following method declarations in the public part of the
+            class.</cmd>
+          <info>
+            <codeblock>const char* getClassName() const;
+virtual void toData(gemfire::PdxWriterPtr pw);
+virtual void fromData(gemfire::PdxReaderPtr pr);
+static PdxSerializable* createDeserializable();</codeblock>
+          </info>
+        </step>
+        <step>
+          <cmd>In your pre-build environment (for example in your
+              <b>makefiles</b>), call <codeph>pdxautoserializer</codeph> as
+            follows:</cmd>
+          <info>
+            <codeblock>&lt;GFCPP&gt;/bin/pdxautoserializer.exe --outDir=&lt;location to generate files> &lt;SOURCE_DIR&gt;/PortfolioPdx.hpp</codeblock>
+          </info>
+        </step>
+        <step>
+          <cmd>Include the generated file in your project and compile.</cmd>
+        </step>
+      </steps>
+      <example>The following is an example of a generated
+        file:<codeblock>#include "PortfolioPdx.hpp"
+#include &lt;gfcpp/PdxWriter.hpp&gt;
+#include &lt;gfcpp/PdxReader.hpp&gt;
+#include &lt;gfcpp/PdxAutoSerializer.hpp&gt;
+namespace testobject
+{
+  void PortfolioPdx::toData(gemfire::PdxWriterPtr var)
+  {
+    gemfire::PdxAutoSerializable::writePdxObject(var, "id", id);
+    gemfire::PdxAutoSerializable::writePdxObject(var, "pkid", pkid);
+    gemfire::PdxAutoSerializable::writePdxObject(var, "position1", position1);
+    gemfire::PdxAutoSerializable::writePdxObject(var, "position2", position2);
+    gemfire::PdxAutoSerializable::writePdxObject(var, "positions", positions);
+    gemfire::PdxAutoSerializable::writePdxObject(var, "status", status);
+    gemfire::PdxAutoSerializable::writePdxObject(var, "creationDate", creationDate);
+  }
+
+  void PortfolioPdx::fromData(PdxReaderPtr var)
+  {
+    gemfire::PdxAutoSerializable::readPdxObject(var, "id", id);
+    gemfire::PdxAutoSerializable::readPdxObject(var, "pkid", pkid);
+    gemfire::PdxAutoSerializable::readPdxObject(var, "position1", position1);
+    gemfire::PdxAutoSerializable::readPdxObject(var, "position2", position2);
+    gemfire::PdxAutoSerializable::readPdxObject(var, "positions", positions);
+    gemfire::PdxAutoSerializable::readPdxObject(var, "status", status);
+    gemfire::PdxAutoSerializable::readPdxObject(var, "creationDate", creationDate);
+  }
+  
+  const char* PortfolioPdx::getClassName()  const
+  {
+     return "PortfolioPdx";
+  }
+}</codeblock></example>
+    </taskbody>
+  </task>
+  <task
+    id="task_fs4_vkj_2l">
+    <title>Handling Arrays</title>
+    <taskbody>
+      <steps
+        id="steps_scd_njk_2l">
+        <step>
+          <cmd>Define the following macro in your header file:</cmd>
+          <info>
+            <codeblock>#define GFARRAYSIZE(x)</codeblock>
+          </info>
+        </step>
+        <step>
+          <cmd>Assuming that the following is the class member of type
+            array:</cmd>
+          <info><codeblock>int8_t* newVal;</codeblock>Then define a new variable
+            which sets the length of the
+            array:<codeblock>int32_t newValSize;</codeblock></info>
+        </step>
+        <step>
+          <cmd>Tag the new variable with the <codeph>GFARRAYSIZE</codeph> macro
+            as follows:</cmd>
+          <info>
+            <codeblock>GFARRAYSIZE(newVal) int32_t newValSize;</codeblock>
+          </info>
+        </step>
+      </steps>
+    </taskbody>
+  </task>
+  <concept
+    id="concept_oxl_xrb_w4">
+    <title>Using a Single Variable as Length for Multiple Arrays </title>
+    <conbody>
+      <p>You can use the GFARRAYSIZES to have single length for multiple arrays. </p>
+      <p>Define the GFARRAYSIZES macro as
+        follows:</p>
+        <codeblock>#define GFARRAYSIZES(x)</codeblock>
+      <p>The following is an example usage:</p>
+        <codeblock>class ArrayOfSizes?
+    {
+    public:
+    int32_t* array1;
+    int32_t* array2;
+    int32_t* array3;
+    int32_t* array4;
+    int32_t* array5;
+
+    GFARRAYSIZE(array1) int32_t singleSize; 
+    GFARRAYSIZES("array2,array3,array4,array5") int32_t SingleSizeToMultipleArrays?;
+  };​</codeblock>
+    </conbody>
+  </concept>
+  <task
+    id="task_hph_mrw_dl">
+    <title>Excluding Member Variables from Serialization</title>
+    <taskbody>
+      <context/>
+      <steps
+        id="steps_krk_lgl_2l">
+        <step>
+          <cmd>Define the following macro in your header file:</cmd>
+          <info>
+            <codeblock>#define GFEXCLUDE</codeblock>
+          </info>
+        </step>
+        <step>
+          <cmd>Tag your member variable with this macro:</cmd>
+          <info>
+            <codeblock>GFEXCLUDE char* type;</codeblock>
+          </info>
+        </step>
+      </steps>
+    </taskbody>
+  </task>
+  <task
+    id="task_en2_4rw_dl">
+    <title>Marking Identity Fields</title>
+    <taskbody>
+      <context>Identity fields are used when comparing objects using the
+          <codeph>hashCode</codeph> and <codeph>equals</codeph>
+        methods.</context>
+      <steps
+        id="steps_wnl_nlj_2l">
+        <step>
+          <cmd>Define the following macro in your header file.</cmd>
+          <info>
+            <codeblock>#define GFID(x)</codeblock>
+          </info>
+        </step>
+        <step>
+          <cmd>Assuming that the following is the class member you want to use
+            as IdentityField:</cmd>
+          <info><codeblock>int8_t* newVal;</codeblock>Tag the member with the
+            GFID macro as
+            follows:<codeblock>GFID(newVal)int8_t* newVal;</codeblock></info>
+        </step>
+      </steps>
+    </taskbody>
+  </task>
+  <concept
+    id="concept_oks_wdl_2l">
+    <title>Ignoring User Defined Keywords</title>
+    <conbody>
+      <p>You might have certain user defined keywords after the class name.
+        Current C++ grammar does not support this. If you have some keywords
+        user will have to ignore them by using GFIGNORE macro.</p>
+      <p>For example, consider the following class
+        definition:</p>
+      <codeblock>#ifdef _WIN32
+#ifdef BUILD_TESTOBJECT
+#define TESTOBJECT_EXPORT LIBEXP
+#else
+#define TESTOBJECT_EXPORT LIBIMP
+#endif
+#else
+#define TESTOBJECT_EXPORT
+#endif
+
+namespace PdxAutoTests {
+  class TESTOBJECT_EXPORT PdxAutoMegaType :  public PdxSerializable {
+  }</codeblock>
+      <p>Currently, the <codeph>pdxautoserializer</codeph> tool will fail to
+        recognize <codeph>TESTOBJECT_EXPORT</codeph>. Change your class by
+        adding <codeph>GFIGNORE</codeph> macro as
+        follows:</p>
+      <codeblock>#ifdef _WIN32
+#ifdef BUILD_TESTOBJECT
+#define TESTOBJECT_EXPORT LIBEXP
+#else
+#define TESTOBJECT_EXPORT LIBIMP
+#endif
+#else
+#define TESTOBJECT_EXPORT
+#endif
+
+using namespace gemfire;
+
+#define GFIGNORE(X) X
+#define GFID
+
+namespace PdxAutoTests {
+  class GFIGNORE(TESTOBJECT_EXPORT) PdxAutoMegaType :  public PdxSerializable {</codeblock>
+    </conbody>
+  </concept>
+  <topic
+    id="topic_d3q_v3c_2l">
+    <title>Additional Usage Information for the pdxautoserializer Tool</title>
+    <body>
+      <p>The <codeph>pdxautoserializer</codeph> tool takes classes as input and
+        generates code that will serialize the class into the PDX format for
+        you.</p>
+      <p>The pdxautoserializer tool is located in <codeph>$GFCPP/bin</codeph>
+        where <codeph>$GFCPP</codeph> corresponds to the installation location
+        of the native client.</p>
+      <p>Some additional notes about using the pdxautoserializer tool:</p>
+        <ul
+          id="ul_asv_4pb_w4">
+          <li>Any const type in the class members are ignored by the
+              <codeph>pdxserializer</codeph> tool.</li>
+          <li>Generated files will have namespace in the file name.</li>
+        </ul>
+      <p>To view the command-line help for the tool,
+        type:</p>
+      <codeblock>prompt> pdxautoserializer.exe --help</codeblock>
+      <p>Help returns the following syntax and usage information:</p>
+      <codeblock>Usage: pdxautoserializer.exe [OPTIONS] &lt;resources e.g. header> ...
+
+Resource name should be the path to the header containing the classes to be 
+auto-serialized.
+
+[OPTIONS] may be one of those given below.
+
+SINGLE denotes that the option should be specified only once.
+MULTIPLE denotes that the option can be specified more than once.
+OPTIONAL denotes that the option may be skipped in which case the default 
+for that shall be chosen.
+
+--className=VALUE       Name of the class for which to generate auto-serialization code (MULTIPLE,OPTIONAL)
+--classNameStr=VALUE    Name of the class in string (MULTIPLE,OPTIONAL)
+--help                  This help message.
+--outDir                The output directory of the generated files (SINGLE,OPTIONAL)
+--suffix                The suffix of the generated filenames -- default is 'Serializable' (SINGLE,OPTIONAL)
+--usage                 This usage message.
+
+Examples:
+pdxautoserializer -outDir=&lt;DIR NAME&gt; &lt;RESOURCE&gt;
+pdxautoserializer -outDir=&lt;DIR NAME&gt; --className=&lt;CLASSNAME1&gt; --className=&lt;CLASSNAME2&gt; &lt;RESOURCE&gt;
+pdxautoserializer -outDir=&lt;DIR NAME&gt; --classNameStr=&lt;CLASSNAME1:User defined String&gt; --classNameStr=&lt;CLASSNAME:User defined String&gt; &lt;RESOURCE&gt;
+
+Helper Macros to be defined in Input Header File :
+GFINCLUDE        for including a specific member for serialization
+GFEXCLUDE        for excluding a specific member for serialization
+GFID             for considering a member as Identify Field
+GFARRAYSIZE      for specifying a array length member
+GFIGNORE         for ignoring certain keywords
+For more details refer to documentation on this utility.</codeblock>
+      <section>
+        <title>Generating Automatic Code for Single Class</title>
+        <p>Many times there are multiple classes in a single header file. For
+          example:</p>
+        <codeblock>#ifndef HEADER_HEADER
+#define HEADER_HEADER
+
+class class1{
+};
+class class2{
+};
+class class3 : public PdxSerializable{
+};
+#endif</codeblock>If
+          you want to generate code for only one of the classes, then use the
+            <codeph>--className</codeph> option. For example, if you only want
+          to generate code for class3, then you would use the following
+          command:<codeblock>pdxautoserializer --outDir=&lt;outDir&gt; --className=class3</codeblock>
+      </section>
+      <section>
+        <title>Choosing Your Own Suffix to identify the generated files.</title>
+        <p>The <codeph>pdxserializer</codeph> tool also provides the option to
+          choose your own suffix for the generated C++ files. This can help you
+          write less code in your makefiles. Here's an example
+          command:</p><codeblock>pdxautoserializer --outDir=&lt;outDir&gt; --className=CharTypes --suffix="generated"</codeblock>
+      </section>
+    </body>
+  </topic>
+  <topic
+    id="topic_f33_fsw_dl">
+    <title>Example of Using PDX Serialization in Your Application</title>
+    <body>
+        <codeblock>CacheFactoryPtr cacheFactory = CacheFactory::createCacheFactory();
+    // Create a GemFire Cache with the "clientPdxRemoteQuery.xml" Cache XML file.
+    CachePtr cachePtr = cacheFactory-&gt;set("cache-xml-file", "XMLs\\clientPdxRemoteQuery.xml")
+                        -&gt;create();
+
+    LOGINFO("Created the Cache");
+
+    // Get the example Region from the Cache which is declared in the Cache XML file.
+    RegionPtr regionPtr = cachePtr-&gt;getRegion( "Portfolios");
+
+    LOGINFO( "Obtained the Region from the Cache");
+
+    // Register our Serializable/Cacheable Query objects, viz. PortfolioPdx and PositionPdx.
+    Serializable::registerPdxType(PortfolioPdx::createDeserializable);
+    PortfolioPdxPtr port1Ptr(new PortfolioPdx(1 /*ID*/, 10 /*size*/));
+    PortfolioPdxPtr port2Ptr(new PortfolioPdx(2 /*ID*/, 20 /*size*/));
+    PortfolioPdxPtr port3Ptr(new PortfolioPdx(3 /*ID*/, 30 /*size*/));
+    regionPtr-&gt;put("Key1", port1Ptr);
+    regionPtr-&gt;put("Key2", port2Ptr);
+    regionPtr-&gt;put("Key3", port3Ptr);
+    
+    // Get the QueryService from the Cache.
+    QueryServicePtr qrySvcPtr = cachePtr-&gt;getQueryService( "examplePool");
+
+    LOGINFO( "Got the QueryService from the Cache");
+
+    // Execute a Query which returns a ResultSet.
+    QueryPtr qryPtr = qrySvcPtr-&gt;newQuery("SELECT DISTINCT * FROM /Portfolios");
+    SelectResultsPtr resultsPtr = qryPtr-&gt;execute();
+
+    LOGINFO( "ResultSet Query returned %d rows", resultsPtr-&gt;size());</codeblock>
+    </body>
+  </topic>
+</dita>

@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept
+	id="security">
+	<title
+		id="title_9717E51087B346988389138843E158C4">CqEvent Object</title>
+	<shortdesc>The <codeph>CqEvent</codeph> object contains information about the CQ event. </shortdesc>
+	<conbody
+		id="conbody_D74C4342289846619E028149A8920946">
+		<ul
+			id="ul_CF778DAAD46541028D7430FCA677684A">
+			<li
+				id="li_B9660741ECE146E99299CD7B0C2309B2">Entry key and new value. </li>
+			<li
+				id="li_66493A24A1494C86A606EF64EC648FE2">Base operation that triggered the CQ event
+				in the server. </li>
+			<li
+				id="li_B1A885CFF1D64EB187921255E1CB6AF2"><codeph>CqQuery</codeph> object associated
+				with this CQ event. </li>
+			<li
+				id="li_C1F2BAD518D847959EAB832DF0E638CB">Query operation associated with this CQ
+				event. This operation describes the change affected to the query results by the
+				cache event. Possible values are: <ul
+					id="ul_77CC4C4ECA7E4C64AACEC9C743F27DB4">
+					<li
+						id="li_574331715180483D8BE883D4F3A8F59E"><codeph>CREATE</codeph>, which
+						corresponds to the standard database <codeph>INSERT</codeph> operation. </li>
+					<li
+						id="li_FA8C75BDCFFC4697AE54626A6A9EA415"><codeph> UPDATE</codeph>
+					</li>
+					<li
+						id="li_1999DDC3A7454F63BAD6E3AE5AEF2E0E">
+						<codeph>DESTROY</codeph>, which corresponds to the standard database
+							<codeph>DELETE</codeph> operation. </li>
+				</ul>
+			</li>
+		</ul>
+		<section
+			id="section_A619799378B14214AF922D819907FF38">
+			<p>This table describes the query operation based on whether the old and new entry
+				values in the region entry event satisfy the query criteria.</p> 
+				<table
+					id="table_92A6A66523764199A19BCD66BA189921">
+					<title>Query Operation Based on Old and New Entry Values</title>
+					<tgroup
+						cols="3">
+						<colspec
+							colname="col01"
+							colnum="1"
+							colwidth="1.28*"/>
+						<colspec
+							colname="col1"
+							colnum="2"
+							colwidth="1.18*"/><colspec
+							colname="col3"
+							colnum="3"
+							colwidth="1.00*"/>
+						<tbody>
+							<row>
+								<entry><b>Old Entry Value </b>
+								</entry>
+								<entry><b>New Entry Value </b>
+								</entry>
+								<entry
+									colname="col3"><b>Query Operation </b>
+								</entry>
+							</row>
+							<row>
+								<entry
+									colname="col01">No value or value does not satisfy the query
+									criteria. </entry>
+								<entry
+									colname="col1">No value (operation is
+										<codeph>invalidate</codeph> or <codeph>destroy</codeph>) or
+									value does not satisfy the query. <p> </p>
+									<p>Value satisfies the query. </p>
+								</entry>
+								<entry
+									colname="col3">N/A - no event <p> </p>
+									<p> </p>
+									<p><codeph>create</codeph>
+									</p>
+								</entry>
+							</row>
+							<row>
+								<entry
+									colname="col01">Value satisfies the query </entry>
+								<entry
+									colname="col1">No value (operation is
+										<codeph>invalidate</codeph> or <codeph>destroy</codeph>) or
+									value does not satisfy the query.
+										<p><?xm-replace_text Paragraph?>
+									</p>
+									<p>Value satisfies the query. </p>
+								</entry>
+								<entry
+									colname="col3"><codeph>destroy</codeph>
+									<p><?xm-replace_text Paragraph?>
+									</p>
+									<p><?xm-replace_text Paragraph?>
+									</p>
+									<p><codeph>update</codeph>
+									</p>
+								</entry>
+							</row>
+						</tbody>
+					</tgroup>
+				</table>
+			<p>You can use the query operation to decide what to do with the
+					<codeph>CqEvent</codeph> in your listeners. For example, a
+					<codeph>CqListener</codeph> that displays query results on screen might stop
+				displaying the entry, start displaying the entry, or update the entry display
+				depending on the query operation. </p>
+		</section>
+	</conbody>
+</concept>

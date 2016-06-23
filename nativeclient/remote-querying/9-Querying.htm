@@ -1,0 +1,4170 @@
+<!DOCTYPE HTML FM_PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 10.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="9-Querying.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE> 	9	Remote Querying</TITLE></HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV>
+<H3 CLASS="Chapter">
+<A NAME="pgfId-1297389"></A><A NAME="86606"></A>Remote Querying</H3>
+<P CLASS="Body">
+<A NAME="pgfId-1297391"></A>You can use the vFabric GemFire native client query API to query your cached data stored on a GemFire cache server. The query is evaluated and executed on the cache server, then the results are returned to the native client. You can also optimize your queries by defining indexes on the cache server.</P>
+<P CLASS="Body">
+<A NAME="pgfId-1297105"></A><A NAME="marker-1316303"></A>The query language for the native client is essentially a subset of OQL (ODMG 3.0 Object Data Management Group, <EM CLASS="URL">
+<A HREF="www.odmg.org" CLASS="URL">www.odmg.org</A></EM>
+). OQL is an SQL-like language with extended functionality for querying complex objects, object attributes and methods.</P>
+<DIV>
+<H6 CLASS="BodyPrintOnly">
+<A NAME="pgfId-1326969"></A>In this chapter:</H6>
+<UL>
+<LI CLASS="BulletedPrintOnly">
+<A NAME="pgfId-1279828"></A><A HREF="9-Querying.htm#57952" CLASS="XRef">See Quick Introduction to Remote Querying.</A></LI>
+<LI CLASS="BulletedPrintOnly">
+<A NAME="pgfId-1288349"></A><A HREF="9-Querying.htm#11536" CLASS="XRef">See Query Language Considerations for the Native Client.</A></LI>
+<LI CLASS="BulletedPrintOnly">
+<A NAME="pgfId-1305706"></A><A HREF="9-Querying.htm#79087" CLASS="XRef">See Indexes.</A></LI>
+<LI CLASS="BulletedPrintOnly">
+<A NAME="pgfId-1288352"></A><A HREF="9-Querying.htm#72112" CLASS="XRef">See The Remote Query API.</A></LI>
+<LI CLASS="BulletedPrintOnly">
+<A NAME="pgfId-1288353"></A><A HREF="9-Querying.htm#53840" CLASS="XRef">See Programming Examples.</A></LI>
+</UL>
+<P CLASS="Body">
+<A NAME="pgfId-1301071"></A>The online C++ and .NET API documentation located in the <EM CLASS="Code9">
+docs</EM>
+ directory for the native client provides extensive details for all of the querying interfaces, classes and methods. </P>
+<P CLASS="Body">
+<A NAME="pgfId-1288550"></A>It is assumed that you have general familiarity with SQL querying and indexing, and with the information on the native client cache provided in the previous chapters of this manual.</P>
+<P CLASS="Body">
+<A NAME="pgfId-1323466"></A>If you are using the new pool API, you should obtain the <EM CLASS="Code9">
+QueryService</EM>
+ from the <EM CLASS="Code9">
+pool</EM>
+. For information about the pool API, see <A HREF="Client_Load_Balancing.htm#46075" CLASS="XRef">Using Connection Pools</A>.</P>
+</DIV>
+</DIV>
+<DIV>
+<H1 CLASS="Head-A">
+<A NAME="pgfId-1288473"></A><A NAME="57952"></A>Quick Introduction to Remote Querying</H1>
+<P CLASS="Body">
+<A NAME="pgfId-1279856"></A>This discussion provides a quick look at native client remote querying to the GemFire cache server. It provides querying examples and shows how the APIs are used to run queries against cached data. It also introduces the data that is used in the examples.</P>
+<DIV>
+<H2 CLASS="Head-B">
+<A NAME="pgfId-1310145"></A>Query Code Examples</H2>
+<P CLASS="Body">
+<A NAME="pgfId-1327220"></A>To execute a query from the native client: </P>
+<DIV>
+<H6 CLASS="Numbered-1st">
+<A NAME="pgfId-1327054"></A>If you are using the C++ native client, get a pointer to the <EM CLASS="Code9">
+QueryService</EM>
+. </H6>
+<OL>
+<LI CLASS="Numbered">
+<A NAME="pgfId-1338703"></A>Create a <EM CLASS="Code9">
+QueryPtr</EM>
+ to a query (C++) or create a query instance (C# .NET) that is compatible with the OQL specification. </LI>
+<LI CLASS="Numbered">
+<A NAME="pgfId-1338708"></A>Use the <EM CLASS="Code9">
+execute</EM>
+ method for the <EM CLASS="Code9">
+Query</EM>
+ interface to submit the query string to the cache server. </LI>
+<P CLASS="Indented">
+<A NAME="pgfId-1327126"></A><EM CLASS="Code9">
+	</EM>
+The server remotely evaluates the query string and returns the results to the client. </P>
+<LI CLASS="Numbered">
+<A NAME="pgfId-1327251"></A>You can iterate through the returned objects as part of the query process. </LI>
+</OL>
+<P CLASS="Body">
+<A NAME="pgfId-1339071"></A>&nbsp;</P>
+</DIV>
+<DIV>
+<H6 CLASS="Head-C">
+<A NAME="pgfId-1338514"></A>C#/.NET Example</H6>
+<P CLASS="Code">
+<A NAME="pgfId-1338544"></A>Query&lt;Portfolio&gt; qry = qrySvc.NewQuery(&quot;SELECT DISTINCT * FROM /Portfolios&quot;); </P>
+<P CLASS="Code">
+<A NAME="pgfId-1338545"></A>ISelectResults&lt;Portfolio&gt; results = qry.Execute();</P>
+<P CLASS="Code">
+<A NAME="pgfId-1338546"></A>SelectResultsIterator&lt;Portfolio&gt; iter = results.GetIterator(); while (iter.MoveNext()) {</P>
+<P CLASS="Code">
+<A NAME="pgfId-1338540"></A>   Console.WriteLine( iter.Current.ToString()); }</P>
+</DIV>
+<DIV>
+<H6 CLASS="Head-C">
+<A NAME="pgfId-1338680"></A>C++ Example</H6>
+<P CLASS="Code">
+<A NAME="pgfId-1339083"></A>QueryServicePtr qrySvcPtr = </P>
+<P CLASS="Code">
+<A NAME="pgfId-1339084"></A>   cachePtr-&gt;getQueryService(&#8220;examplePool&#8221;);</P>
+<P CLASS="Code">
+<A NAME="pgfId-1339085"></A>QueryPtr qry = qrySvcPtr-&gt;newQuery(</P>
+<P CLASS="Code">
+<A NAME="pgfId-1339086"></A>   &#8220;SELECT DISTINCT * FROM /Portfolios WHERE status = &#8216;active&#8217;&#8221;);</P>
+<P CLASS="Code">
+<A NAME="pgfId-1339087"></A>SelectResultsPtr resultsPtr = qry-&gt;execute(10);</P>
+<P CLASS="Code">
+<A NAME="pgfId-1339088"></A>SelectResultsIterator iter = resultsPtr-&gt;getIterator();</P>
+<P CLASS="Code">
+<A NAME="pgfId-1339089"></A>while(iter.hasNext())</P>
+<P CLASS="Code">
+<A NAME="pgfId-1339090"></A>{</P>
+<P CLASS="Code">
+<A NAME="pgfId-1339091"></A>   PortfolioPtr portfolio = dynCast&lt;PortfolioPtr &gt; (iter.next());</P>
+<P CLASS="Code">
+<A NAME="pgfId-1339079"></A>}</P>
+<P CLASS="Note">
+<A NAME="pgfId-1339244"></A>The C++ examples in this chapter all assume that you have already obtained a pointer to the <EM CLASS="Code9">
+QueryService</EM>
+.</P>
+</DIV>
+</DIV>
+<DIV>
+<H2 CLASS="Head-B">
+<A NAME="pgfId-1310154"></A>The Query Example Data Used in This Chapter</H2>
+<P CLASS="Body">
+<A NAME="pgfId-1327219"></A>All queries that use this example data assume that the <EM CLASS="Code9">
+/portfolios</EM>
+ region has <EM CLASS="Code9">
+javaobject.Portfolio</EM>
+ objects on the cache server.</P>
+</DIV>
+<DIV>
+<H2 CLASS="Head-B">
+<A NAME="pgfId-1308482"></A>Requirements for Remote Querying</H2>
+<P CLASS="Body">
+<A NAME="pgfId-1328535"></A>Remote querying for the native client has the following requirements:</P>
+<UL>
+<LI CLASS="Bulleted">
+<A NAME="pgfId-1328536"></A>When you are using region endpoints, at least one region must exist on the native client before a query can be executed through the client.</LI>
+<LI CLASS="Bulleted">
+<A NAME="pgfId-1328538"></A>All objects in the region belong to the same class hierarchy (homogeneous types).</LI>
+</UL>
+<DIV>
+<H6 CLASS="Head-C">
+<A NAME="pgfId-1310689"></A>Setting Server Region Data Policy and Scope</H6>
+<P CLASS="Body">
+<A NAME="pgfId-1311101"></A>Native client remote querying only accesses the data that is available in the remote cache server region, so no local cache loading operations are performed. Depending on the cache server region&#8217;s <EM CLASS="Code9">
+scope</EM>
+ and <EM CLASS="Code9">
+data-policy</EM>
+ attribute settings, this could mean that your queries and indexes only see a part of the data available for the server region in the distributed cache.</P>
+<P CLASS="Note">
+<A NAME="pgfId-1311102"></A>To ensure a complete data set for your queries and indexes, your cache server region must use one of the <EM CLASS="Code9">
+REPLICATE</EM>
+ region shortcut settings in the region attribute <EM CLASS="Code9">
+refid</EM>
+ or it must explicitly have its data policy set to <EM CLASS="Code9">
+replicate</EM>
+ or <EM CLASS="Code9">
+persistent-replicate</EM>
+. </P>
+<P CLASS="Body">
+<A NAME="pgfId-1311103"></A>For a cache server region, setting its data policy to <EM CLASS="Code9">
+replicate</EM>
+ or <EM CLASS="Code9">
+persistent-replicate</EM>
+ ensures that it reflects the state of the entire distributed region. Without replication, some server cache entries may not be available.</P>
+<P CLASS="Body">
+<A NAME="pgfId-1311104"></A>Depending on your use of the server cache, the non-global distributed scopes <EM CLASS="Code9">
+distributed-ack</EM>
+ and <EM CLASS="Code9">
+distributed-no-ack</EM>
+ may encounter race conditions during entry distribution that cause the data set to be out of sync with the distributed region. The <EM CLASS="Code9">
+global</EM>
+ scope guarantees data consistency across the distributed system, but at the cost of reduced performance.</P>
+<P CLASS="Body">
+<A NAME="pgfId-1311105"></A><A HREF="9-Querying.htm#42152" CLASS="XRef">See The Effects of Cache Server Region Scope and Data Policy on the Data Available for Querying.</A> summarizes the effects of cache server region scope and data policy settings on the data available to your querying and indexing operations.</P>
+</DIV>
+<DIV>
+<H6 CLASS="TableTitle">
+<A NAME="pgfId-1311603"></A><A NAME="42152"></A>The Effects of Cache Server Region Scope and Data Policy on the Data Available for Querying<DIV>
+<IMG SRC="9-Querying-1.gif">
+</DIV>
+</H6>
+<TABLE BORDER="1">
+<TR>
+<TH ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellHeading">
+<A NAME="pgfId-1311580"></A><EM CLASS="Bold">
+Region type</EM>
+</P>
+<P CLASS="CellHeading">
+<A NAME="pgfId-1311581"></A><EM CLASS="Bold">
+Scope</EM>
+</P>
+</TH>
+<TH ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellHeading">
+<A NAME="pgfId-1311583"></A><EM CLASS="Bold">
+Not replicated</EM>
+</P>
+<P CLASS="CellHeading">
+<A NAME="pgfId-1311584"></A>&nbsp;</P>
+</TH>
+<TH ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellHeading">
+<A NAME="pgfId-1311586"></A><EM CLASS="Bold">
+Replicated</EM>
+</P>
+<P CLASS="CellHeading">
+<A NAME="pgfId-1334518"></A>&nbsp;</P>
+</TH>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellHeading">
+<A NAME="pgfId-1311590"></A><EM CLASS="Code9">
+distributed-ack</EM>
+<A NAME="marker-1311589"></A><EM CLASS="Body">
+ or </EM>
+<EM CLASS="Code9">
+distributed-no-ack</EM>
+<A NAME="marker-1311591"></A></P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-1311593"></A>N/A</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-1311595"></A>FULL data set (if no race conditions)</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellHeading">
+<A NAME="pgfId-1311598"></A> <EM CLASS="Code9">
+global</EM>
+<A NAME="marker-1311597"></A></P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-1311600"></A>N/A</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-1311602"></A>FULL data set</P>
+</TD>
+</TR>
+</TABLE>
+<P CLASS="Body">
+<A NAME="pgfId-1311604"></A>For more information, see the Scope and Data Policy discussions in the GemFire User&#8217;s Guide.</P>
+<DIV>
+<H6 CLASS="Head-C">
+<A NAME="pgfId-1310651"></A>Implementing the equals and hashCodes methods</H6>
+<P CLASS="Body">
+<A NAME="pgfId-1308490"></A>The <EM CLASS="Code9">
+Portfolio</EM>
+ and <EM CLASS="Code9">
+Position</EM>
+ query objects for the cache server must have the <EM CLASS="Code9">
+equals</EM>
+ and <EM CLASS="Code9">
+hashCode</EM>
+ methods implemented, and those methods must provide the properties and behavior mentioned in the online documentation for <EM CLASS="Code9">
+Object.equals</EM>
+ and <EM CLASS="Code9">
+Object.hashCode</EM>
+. Inconsistent query results can occur if these methods are absent.</P>
+<P CLASS="Body">
+<A NAME="pgfId-1308486"></A>See the <EM CLASS="Code9">
+Object</EM>
+ class description in the GemFire online Java API documentation for more information about the <EM CLASS="Code9">
+equals</EM>
+ and <EM CLASS="Code9">
+hashCode</EM>
+ methods.</P>
+</DIV>
+<DIV>
+<H6 CLASS="Head-C">
+<A NAME="pgfId-1312249"></A><A NAME="32251"></A>Setting Object Type Constraints</H6>
+<P CLASS="Body">
+<A NAME="pgfId-1312250"></A>Performing queries on cache server regions containing heterogeneous objects, which are objects of different data types, may produce undesirable results. Queries should be performed only on regions that contain homogeneous objects of the same object type, although subtypes are allowed. </P>
+<P CLASS="Body">
+<A NAME="pgfId-1312254"></A>So your queries will address homogeneous data types, you need to be aware of the values that the client adds to the server. You can set the <EM CLASS="Code9">
+key-constraint</EM>
+ and <EM CLASS="Code9">
+value-constraint</EM>
+ region attributes to restrict region entry keys and values to a specific object type. However, since objects put from the client remain in serialized form in the server cache and don&#8217;t get deserialized until a query is executed, it is still possible to put heterogeneous objects from the client.</P>
+<P CLASS="Body">
+<A NAME="pgfId-1312255"></A>See the GemFire User&#8217;s Guide for descriptions of the <EM CLASS="Code9">
+key-constraint</EM>
+ and <EM CLASS="Code9">
+value-constraint</EM>
+ attributes for the cache server. See <A HREF="9-Querying.htm#34883" CLASS="XRef">Specifying the object types of FROM clause collections</A> for more information on associating object types with queries.</P>
+</DIV>
+</DIV>
+</DIV>
+<DIV>
+<H2 CLASS="Head-B">
+<A NAME="pgfId-1289163"></A>The Example portfolios Region</H2>
+<P CLASS="Body">
+<A NAME="pgfId-1289333"></A>Most of the examples in this discussion use the <EM CLASS="Code9">
+/portfolios</EM>
+<EM CLASS="Body">
+ region</EM>
+, whose keys are the portfolio ID and whose values contain the summarized data shown in the following example.</P>
+<DIV>
+<H6 CLASS="Example-Title">
+<A NAME="pgfId-1289334"></A><A NAME="79108"></A>C++ Class Definition and Corresponding Java Class Definition<DIV>
+<IMG SRC="9-Querying-1.gif">
+</DIV>
+</H6>
+<P CLASS="Body">
+<A NAME="pgfId-1289421"></A>Sample C++ class definition</P>
+<P CLASS="Code">
+<A NAME="pgfId-1295107"></A>class Portfolio : public Serializable {</P>
+<P CLASS="Code">
+<A NAME="pgfId-1289422"></A>	int ID;</P>
+<P CLASS="Code">
+<A NAME="pgfId-1289423"></A>	char * type;</P>
+<P CLASS="Code">
+<A NAME="pgfId-1289424"></A>	char * status;</P>
+<P CLASS="Code">
+<A NAME="pgfId-1289425"></A>	Map&lt;Position&gt; positions;</P>
+<P CLASS="Code">
+<A NAME="pgfId-1289426"></A>}</P>
+<P CLASS="Code">
+<A NAME="pgfId-1289427"></A>class Position : public Serializable { </P>
+<P CLASS="Code">
+<A NAME="pgfId-1289428"></A>	char * secId;</P>
+<P CLASS="Code">
+<A NAME="pgfId-1289429"></A>	double mktValue;</P>
+<P CLASS="Code">
+<A NAME="pgfId-1289430"></A>	double qty;</P>
+<P CLASS="Code">
+<A NAME="pgfId-1289335"></A>}</P>
+<P CLASS="Code">
+<A NAME="pgfId-1295136"></A>&nbsp;</P>
+<P CLASS="Body">
+<A NAME="pgfId-1295147"></A>Corresponding Java class definition</P>
+<P CLASS="Code">
+<A NAME="pgfId-1295148"></A>class Portfolio implements DataSerializable {</P>
+<P CLASS="Code">
+<A NAME="pgfId-1295149"></A>	int ID;</P>
+<P CLASS="Code">
+<A NAME="pgfId-1295150"></A>	String type;</P>
+<P CLASS="Code">
+<A NAME="pgfId-1295151"></A>	String status;</P>
+<P CLASS="Code">
+<A NAME="pgfId-1295152"></A>	Map positions;</P>
+<P CLASS="Code">
+<A NAME="pgfId-1295153"></A>}</P>
+<P CLASS="Code">
+<A NAME="pgfId-1295173"></A>class Position implements DataSerializable { </P>
+<P CLASS="Code">
+<A NAME="pgfId-1295174"></A>	String secId;</P>
+<P CLASS="Code">
+<A NAME="pgfId-1295175"></A>	double mktValue;</P>
+<P CLASS="Code">
+<A NAME="pgfId-1295176"></A>	double qty;</P>
+<P CLASS="Code">
+<A NAME="pgfId-1295177"></A>}</P>
+<DIV>
+<H6 CLASS="Example-End">
+<A NAME="pgfId-1289402"></A><DIV>
+<IMG SRC="9-Querying-1.gif">
+</DIV>
+&nbsp;</H6>
+<P CLASS="Body">
+<A NAME="pgfId-1289411"></A>User-defined data types must implement the <EM CLASS="Code9">
+Serializable</EM>
+ interface on the native client side, while corresponding Java classes must implement the <EM CLASS="Code9">
+DataSerializable</EM>
+ interface. The C++ objects for the native client must correspond to the Java objects for the GemFire cache server. This means that an object on one side should deserialize correctly to the other side. The following table lists the sample data in the <EM CLASS="Code9">
+/portfolios</EM>
+ region:</P>
+<P CLASS="Body">
+<A NAME="pgfId-1309187"></A>&nbsp;</P>
+</DIV>
+</DIV>
+<DIV>
+<H6 CLASS="TableTitle">
+<A NAME="pgfId-1324034"></A><A NAME="81527"></A>Entry values in /portfolios<DIV>
+<IMG SRC="9-Querying-1.gif">
+</DIV>
+</H6>
+<TABLE BORDER="1">
+<TR>
+<TH ROWSPAN="2" COLSPAN="1">
+<P CLASS="CellHeading">
+<A NAME="pgfId-1324065"></A>id </P>
+<P CLASS="CellHeading">
+<A NAME="pgfId-1324066"></A>&nbsp;</P>
+<P CLASS="CellHeading">
+<A NAME="pgfId-1324067"></A>&nbsp;</P>
+</TH>
+<TH ROWSPAN="2" COLSPAN="1">
+<P CLASS="CellHeading">
+<A NAME="pgfId-1324069"></A>type</P>
+<P CLASS="CellHeading">
+<A NAME="pgfId-1324070"></A>&nbsp;</P>
+<P CLASS="CellHeading">
+<A NAME="pgfId-1324071"></A>&nbsp;</P>
+</TH>
+<TH ROWSPAN="2" COLSPAN="1">
+<P CLASS="CellHeading">
+<A NAME="pgfId-1324073"></A>status</P>
+<P CLASS="CellHeading">
+<A NAME="pgfId-1324074"></A>&nbsp;</P>
+<P CLASS="CellHeading">
+<A NAME="pgfId-1324075"></A>&nbsp;</P>
+</TH>
+<TH ROWSPAN="1" COLSPAN="3">
+<P CLASS="CellHeading">
+<A NAME="pgfId-1324077"></A>Positions</P>
+</TH>
+</TR>
+<TR>
+<TH ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellHeading">
+<A NAME="pgfId-1324089"></A>secId</P>
+</TH>
+<TH ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellHeading">
+<A NAME="pgfId-1324091"></A>mktValue</P>
+</TH>
+<TH ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellHeading">
+<A NAME="pgfId-1324093"></A>qty</P>
+</TH>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-1324095"></A>111</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-1324097"></A>xyz</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-1324099"></A>active</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-1324101"></A>xxx</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-1324103"></A>27.34</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-1324105"></A>1000.00</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-1324107"></A>&nbsp;</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-1324109"></A>&nbsp;</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-1324111"></A>&nbsp;</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-1324113"></A>xxy</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-1324115"></A>26.31</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-1324117"></A>1200.00</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-1324119"></A>&nbsp;</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-1324121"></A>&nbsp;</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-1324123"></A>&nbsp;</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-1324125"></A>xxz</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-1324127"></A>24.30</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-1324129"></A>1500.00</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-1324131"></A>222</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-1324133"></A>xyz</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-1324135"></A>active</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-1324137"></A>yyy</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-1324139"></A>18.29</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-1324141"></A>5000.00</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="2" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-1324143"></A>333</P>
+</TD>
+<TD ROWSPAN="2" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-1324145"></A>abc</P>
+</TD>
+<TD ROWSPAN="2" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-1324147"></A>active</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-1324149"></A>aaa</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-1324151"></A>24.30</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-1324153"></A>10.00</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-1324161"></A>aab</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-1324163"></A>23.10</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-1324165"></A>15.00</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="2" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-1324167"></A>444</P>
+</TD>
+<TD ROWSPAN="2" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-1324169"></A>abc</P>
+</TD>
+<TD ROWSPAN="2" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-1324171"></A>inactive</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-1324173"></A>bbb</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-1324175"></A>50.41</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-1324177"></A>100.00</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-1324185"></A>bbc</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-1324187"></A>55.00</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-1324189"></A>90.00</P>
+</TD>
+</TR>
+</TABLE>
+<P CLASS="Body">
+<A NAME="pgfId-1324035"></A>&nbsp;</P>
+</DIV>
+</DIV>
+<DIV>
+<H2 CLASS="Head-B">
+<A NAME="pgfId-1324036"></A>Querying the portfolios Region</H2>
+<P CLASS="Body">
+<A NAME="pgfId-1289887"></A>The following examples provide a sampling of the queries that you could run against <EM CLASS="Code9">
+/portfolios</EM>
+ on the server. The query results for the data are listed in the previous table. For the first several, the coding examples are included as well to show how you can execute the queries using the API.</P>
+<DIV>
+<H6 CLASS="Example-Title">
+<A NAME="pgfId-1325114"></A>Retrieve all active portfolios<DIV>
+<IMG SRC="9-Querying-1.gif">
+</DIV>
+</H6>
+<TABLE>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-1325089"></A>Query</P>
+<P CLASS="CellBody">
+<A NAME="pgfId-1325090"></A>string</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Code">
+<A NAME="pgfId-1325092"></A>SELECT DISTINCT * FROM /portfolios WHERE status = &#8216;active&#8217;</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-1325094"></A>Results</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Code">
+<A NAME="pgfId-1325096"></A>A collection of <EM CLASS="Code9">
+Portfolio</EM>
+ objects for IDs <EM CLASS="Code9">
+111</EM>
+, <EM CLASS="Code9">
+222</EM>
+ and <EM CLASS="Code9">
+333</EM>
+<EM CLASS="Body">
+.</EM>
+</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-1325098"></A>Code</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Code">
+<A NAME="pgfId-1329855"></A>QueryServicePtr qrySvcPtr = </P>
+<P CLASS="Code">
+<A NAME="pgfId-1329908"></A>	cachePtr-&gt;getQueryService(&quot;examplePool&quot;);</P>
+<P CLASS="Code">
+<A NAME="pgfId-1329926"></A>QueryPtr qry = qrySvcPtr-&gt;newQuery(</P>
+<P CLASS="Code">
+<A NAME="pgfId-1329940"></A>	&quot;select distinct * from /Portfolios where status = 'active'&quot;);</P>
+<P CLASS="Code">
+<A NAME="pgfId-1329857"></A>SelectResultsPtr resultsPtr = qry-&gt;execute(10);</P>
+<P CLASS="Code">
+<A NAME="pgfId-1329858"></A>SelectResultsIterator iter = resultsPtr-&gt;getIterator();</P>
+<P CLASS="Code">
+<A NAME="pgfId-1329859"></A>while(iter.hasNext())</P>
+<P CLASS="Code">
+<A NAME="pgfId-1329860"></A>{</P>
+<P CLASS="Code">
+<A NAME="pgfId-1329861"></A>	PortfolioPtr portfolio = dynCast&lt;PortfolioPtr &gt;(iter.next());</P>
+<P CLASS="Code">
+<A NAME="pgfId-1325567"></A>}</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-1325110"></A>Notes</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Code">
+<A NAME="pgfId-1325113"></A><EM CLASS="Body">
+A query response timeout parameter of 10 seconds is specified for the </EM>
+<A NAME="marker-1325112"></A><EM CLASS="Code9">
+execute</EM>
+<EM CLASS="Body">
+ method </EM>
+to allow sufficient time for the operation to succeed.</P>
+</TD>
+</TR>
+</TABLE>
+<DIV>
+<H6 CLASS="Example-End">
+<A NAME="pgfId-1325666"></A><DIV>
+<IMG SRC="9-Querying-1.gif">
+</DIV>
+&nbsp;</H6>
+<P CLASS="Body">
+<A NAME="pgfId-1325667"></A>&nbsp;</P>
+</DIV>
+</DIV>
+<DIV>
+<H6 CLASS="Example-Title">
+<A NAME="pgfId-1325695"></A>Retrieve all portfolios that are active and have type xyz <DIV>
+<IMG SRC="9-Querying-1.gif">
+</DIV>
+</H6>
+<TABLE>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-1325670"></A>Query </P>
+<P CLASS="CellBody">
+<A NAME="pgfId-1325671"></A>string</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Code">
+<A NAME="pgfId-1325673"></A>SELECT DISTINCT * FROM /portfolios</P>
+<P CLASS="Code">
+<A NAME="pgfId-1325674"></A>WHERE status = 'active' AND &quot;type&quot; = 'xyz'</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-1325676"></A>Results</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-1325678"></A>A collection of <EM CLASS="Code9">
+Portfolio</EM>
+ objects for<EM CLASS="Body">
+ IDs </EM>
+<EM CLASS="Code9">
+111</EM>
+<EM CLASS="Body">
+ and </EM>
+<EM CLASS="Code9">
+222</EM>
+</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-1325680"></A>Code</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Code">
+<A NAME="pgfId-1330440"></A>QueryServicePtr qrySvcPtr = </P>
+<P CLASS="Code">
+<A NAME="pgfId-1330459"></A>	cachePtr-&gt;getQueryService(&quot;examplePool&quot;);</P>
+<P CLASS="Code">
+<A NAME="pgfId-1330441"></A>QueryPtr qry = qrySvcPtr-&gt;newQuery(&quot;select distinct * from /Portfolios where status = 'active' and &#92;&quot;type&#92;&quot;='xyz'&quot;);</P>
+<P CLASS="Code">
+<A NAME="pgfId-1330442"></A>SelectResultsPtr results = qry-&gt;execute(10);</P>
+<P CLASS="Code">
+<A NAME="pgfId-1330443"></A>SelectResultsIterator iter = results-&gt;getIterator();</P>
+<P CLASS="Code">
+<A NAME="pgfId-1330444"></A>while(iter.hasNext())</P>
+<P CLASS="Code">
+<A NAME="pgfId-1330445"></A>{</P>
+<P CLASS="Code">
+<A NAME="pgfId-1330446"></A>	PortfolioPtr portfolio = dynCast&lt;PortfolioPtr &gt;(iter.next());</P>
+<P CLASS="Code">
+<A NAME="pgfId-1330447"></A>}</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-1325691"></A>Notes</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-1325693"></A>The <EM CLASS="Code9">
+type</EM>
+ attribute is passed to the query engine in double quotes to distinguish it from the query keyword of the same name.</P>
+<P CLASS="CellBody">
+<A NAME="pgfId-1325694"></A><EM CLASS="Body">
+A query response timeout parameter of 10 seconds is specified for the </EM>
+<EM CLASS="Code9">
+execute</EM>
+<EM CLASS="Body">
+ method </EM>
+to allow sufficient time for the operation to succeed.</P>
+</TD>
+</TR>
+</TABLE>
+<DIV>
+<H6 CLASS="Example-End">
+<A NAME="pgfId-1290041"></A><DIV>
+<IMG SRC="9-Querying-1.gif">
+</DIV>
+&nbsp;</H6>
+<DIV>
+<H6 CLASS="z-Top-of-Form">
+<A NAME="pgfId-1290042"></A>&nbsp;</H6>
+</DIV>
+</DIV>
+</DIV>
+<DIV>
+<H6 CLASS="Example-Title">
+<A NAME="pgfId-1290075"></A>Get the ID and status of all portfolios with positions in secId &#8216;yyy&#8217;<DIV>
+<IMG SRC="9-Querying-1.gif">
+</DIV>
+</H6>
+<TABLE>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-1290045"></A>Query </P>
+<P CLASS="CellBody">
+<A NAME="pgfId-1290046"></A>string</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Code">
+<A NAME="pgfId-1290049"></A>SELECT DISTINCT id, status FROM /portfolios <BR>
+WHERE NOT (SELECT DISTINCT * FROM positions.values posnVal TYPE Position WHERE posnVal.secId='yyy').isEmpty</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-1290051"></A>Results</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-1290053"></A><EM CLASS="Body">
+A collection</EM>
+ of <EM CLASS="Code9">
+Struct</EM>
+ instances, each containing an <EM CLASS="Code9">
+id</EM>
+ field and a <EM CLASS="Code9">
+status</EM>
+ field. For this data, the collection length is 1 and the <EM CLASS="Code9">
+Struct</EM>
+ contains data from the entry with id <EM CLASS="Code9">
+222</EM>
+.</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-1290055"></A>Code</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Code">
+<A NAME="pgfId-1330997"></A>QueryServicePtr qrySvcPtr = cachePtr-&gt;getQueryService(&quot;examplePool&quot;);</P>
+<P CLASS="Code">
+<A NAME="pgfId-1330998"></A>QueryPtr qry = qrySvcPtr-&gt;newQuery(</P>
+<P CLASS="Code">
+<A NAME="pgfId-1330999"></A>	&quot;import javaobject.Position; SELECT DISTINCT ID, status FROM &quot;</P>
+<P CLASS="Code">
+<A NAME="pgfId-1331000"></A>	&quot;/Portfolios WHERE NOT (SELECT DISTINCT * FROM positions.values &quot;</P>
+<P CLASS="Code">
+<A NAME="pgfId-1331001"></A>	&quot;posnVal TYPE Position WHERE posnVal.secId='DELL').isEmpty&quot;);</P>
+<P CLASS="Code">
+<A NAME="pgfId-1331002"></A>SelectResultsPtr results = qry-&gt;execute(10);</P>
+<P CLASS="Code">
+<A NAME="pgfId-1331003"></A>SelectResultsIterator iter = results-&gt;getIterator();</P>
+<P CLASS="Code">
+<A NAME="pgfId-1331004"></A>while(iter.hasNext())</P>
+<P CLASS="Code">
+<A NAME="pgfId-1331005"></A>{</P>
+<P CLASS="Code">
+<A NAME="pgfId-1331006"></A>	Struct * si = (Struct*) iter.next().ptr();</P>
+<P CLASS="Code">
+<A NAME="pgfId-1331007"></A>	SerializablePtr id = si-&gt;operator[](&quot;ID&quot;);</P>
+<P CLASS="Code">
+<A NAME="pgfId-1331008"></A>	SerializablePtr status = si-&gt;operator[](&quot;status&quot;);</P>
+<P CLASS="Code">
+<A NAME="pgfId-1331009"></A>	printf(&quot;&#92;nID=%s, status=%s&quot;, id-&gt;toString()-&gt;asChar(), status-&gt;toString()-&gt;asChar());</P>
+<P CLASS="Code">
+<A NAME="pgfId-1331010"></A>}</P>
+</TD>
+</TR>
+</TABLE>
+<DIV>
+<H6 CLASS="Example-End">
+<A NAME="pgfId-1290076"></A><DIV>
+<IMG SRC="9-Querying-1.gif">
+</DIV>
+&nbsp;</H6>
+<P CLASS="Code">
+<A NAME="pgfId-1325717"></A>&nbsp;</P>
+</DIV>
+</DIV>
+<DIV>
+<H6 CLASS="Example-Title">
+<A NAME="pgfId-1290092"></A>Get distinct positions from all active portfolios with at least a $25.00 market value <DIV>
+<IMG SRC="9-Querying-1.gif">
+</DIV>
+</H6>
+<TABLE>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-1290079"></A>Query </P>
+<P CLASS="CellBody">
+<A NAME="pgfId-1290080"></A>string</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Code">
+<A NAME="pgfId-1290083"></A>SELECT DISTINCT posnVal </P>
+<P CLASS="Code">
+<A NAME="pgfId-1317032"></A>FROM /portfolios qryP, qryP.positions.values posnVal TYPE Position</P>
+<P CLASS="Code">
+<A NAME="pgfId-1317033"></A>WHERE qryP.status = 'active' AND posnVal.mktValue &gt;= 25.00</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-1290085"></A>Results</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-1290087"></A>Collection of <EM CLASS="Code9">
+Position</EM>
+ instances with <EM CLASS="Code9">
+secId</EM>
+: <EM CLASS="Code9">
+xxx</EM>
+, <EM CLASS="Code9">
+xxy</EM>
+</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-1290089"></A>Notes</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Body">
+<A NAME="pgfId-1290091"></A>This query assigns iterator variable names to the collections in the <EM CLASS="Code9">
+FROM</EM>
+ clause. For example, the variable <EM CLASS="Code9">
+qryP</EM>
+ is the iterator for the entry values in the <EM CLASS="Code9">
+/portfolios </EM>
+region. This variable is used in the second part of the <EM CLASS="Code9">
+FROM</EM>
+ clause to access the values of the <EM CLASS="Code9">
+positions</EM>
+<EM CLASS="Body">
+ map </EM>
+for each entry value. </P>
+</TD>
+</TR>
+</TABLE>
+<DIV>
+<H6 CLASS="Example-End">
+<A NAME="pgfId-1290093"></A><DIV>
+<IMG SRC="9-Querying-1.gif">
+</DIV>
+&nbsp;</H6>
+</DIV>
+</DIV>
+<DIV>
+<H6 CLASS="Example-Title">
+<A NAME="pgfId-1290105"></A>Get distinct positions from portfolios with at least a $25.00 market value <DIV>
+<IMG SRC="9-Querying-1.gif">
+</DIV>
+</H6>
+<TABLE>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-1290096"></A>Query </P>
+<P CLASS="CellBody">
+<A NAME="pgfId-1290097"></A>string</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Code">
+<A NAME="pgfId-1290100"></A>SELECT DISTINCT posnVal </P>
+<P CLASS="Code">
+<A NAME="pgfId-1317030"></A>FROM /portfolios, positions.values posnVal TYPE Position</P>
+<P CLASS="Code">
+<A NAME="pgfId-1317031"></A>WHERE posnVal.mktValue &gt;= 25.00</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-1290102"></A>Results</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-1290104"></A>Collection of <EM CLASS="Code9">
+Position</EM>
+ instances with <EM CLASS="Code9">
+secId</EM>
+: <EM CLASS="Code9">
+xxx</EM>
+, <EM CLASS="Code9">
+xxy</EM>
+, <EM CLASS="Code9">
+bbb</EM>
+, <EM CLASS="Code9">
+bbc</EM>
+</P>
+</TD>
+</TR>
+</TABLE>
+<DIV>
+<H6 CLASS="Example-End">
+<A NAME="pgfId-1290106"></A><DIV>
+<IMG SRC="9-Querying-1.gif">
+</DIV>
+&nbsp;</H6>
+</DIV>
+</DIV>
+</DIV>
+<DIV>
+<H2 CLASS="Head-B">
+<A NAME="pgfId-1302467"></A>Modifying <A NAME="marker-1302466"></A>Cache Contents</H2>
+<P CLASS="Body">
+<A NAME="pgfId-1302468"></A>The query service is a data access tool, so it does not provide any cache update functionality. To modify the cache based on information retrieved through querying, retrieve the entry keys and use them in the standard entry update methods. For an example of entry key retrieval, see the next example.</P>
+<DIV>
+<H6 CLASS="Example-Title">
+<A NAME="pgfId-1313535"></A><A NAME="42452"></A>Get distinct entry keys and positions from active portfolios with at least a $25.00 market value <DIV>
+<IMG SRC="9-Querying-1.gif">
+</DIV>
+</H6>
+<TABLE>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-1313523"></A>Query </P>
+<P CLASS="CellBody">
+<A NAME="pgfId-1313524"></A>string</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Code">
+<A NAME="pgfId-1313526"></A>SELECT DISTINCT key, posnVal </P>
+<P CLASS="Code">
+<A NAME="pgfId-1317034"></A>FROM /portfolios.entrySet, value.positions.values posnVal TYPE Position</P>
+<P CLASS="Code">
+<A NAME="pgfId-1317035"></A>WHERE posnVal.mktValue &gt;= 25.00</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-1313528"></A>Results</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-1313530"></A>A <EM CLASS="Code9">
+SelectResults</EM>
+ of <EM CLASS="Code9">
+Struct</EM>
+ instances containing <EM CLASS="Code9">
+key</EM>
+, <EM CLASS="Code9">
+Position</EM>
+ pairs:</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-1313532"></A>Notes</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-1313534"></A>Retrieving the entry keys allows you to access the cached region entries for update. You cannot update the cache through the query engine.</P>
+</TD>
+</TR>
+</TABLE>
+<DIV>
+<H6 CLASS="Example-End">
+<A NAME="pgfId-1313536"></A><DIV>
+<IMG SRC="9-Querying-1.gif">
+</DIV>
+&nbsp;</H6>
+</DIV>
+</DIV>
+</DIV>
+</DIV>
+<DIV>
+<H1 CLASS="Head-A">
+<A NAME="pgfId-1279755"></A><A NAME="44391"></A><A NAME="11536"></A>Query Language Considerations for the Native Client</H1>
+<P CLASS="Body">
+<A NAME="pgfId-1290991"></A>The query language supported in the GemFire native client is essentially a subset of <A NAME="marker-1290990"></A>OQL (ODMG 3.0 Object Data Management Group, <EM CLASS="URL">
+<A HREF="www.odmg.org" CLASS="URL">www.odmg.org</A></EM>
+), which is based on <A NAME="marker-1290992"></A>SQL-92. The query language provides the basic set of clauses, expressions, and operators used to retrieve elements from objects stored in cache regions. </P>
+<P CLASS="Body">
+<A NAME="pgfId-1340387"></A>Query language features and grammar are described in detail in the GemFire User&#8217;s Guide. This section describes areas that are unique to the native client.</P>
+<DIV>
+<H6 CLASS="BodyPrintOnly">
+<A NAME="pgfId-1326991"></A>In this section:</H6>
+<UL>
+<LI CLASS="BulletedPrintOnly">
+<A NAME="pgfId-1291009"></A><A HREF="9-Querying.htm#11515" CLASS="XRef">See Accessing Cached Data.</A></LI>
+<LI CLASS="BulletedPrintOnly">
+<A NAME="pgfId-1341050"></A><A HREF="9-Querying.htm#57866" CLASS="XRef">See Query Strings in the Native Client.</A></LI>
+<LI CLASS="BulletedPrintOnly">
+<A NAME="pgfId-1341054"></A><A HREF="9-Querying.htm#50606" CLASS="XRef">See Native Client Notes on Query Language Elements.</A></LI>
+</UL>
+</DIV>
+<DIV>
+<H2 CLASS="Head-B">
+<A NAME="pgfId-1290979"></A><A NAME="11515"></A>Accessing Cached Data</H2>
+<P CLASS="Body">
+<A NAME="pgfId-1290980"></A>Accessing your cached data through the querying service is similar to how you would access database contents through SQL queries, but with differences. How you specify your regions and region contents is particular to the native client. The query language supports drilling down into nested object structures. Regions can contain nested data collections that are unavailable until referenced in the <EM CLASS="Code9">
+FROM</EM>
+ clause. </P>
+<P CLASS="Body">
+<A NAME="pgfId-1340378"></A>This discussion describes how to navigate to your cached data through the native client query service.</P>
+<P CLASS="Note">
+<A NAME="pgfId-1291045"></A>Querying and indexing only operate on remote cache server contents.</P>
+<DIV>
+<H6 CLASS="Head-C">
+<A NAME="pgfId-1291038"></A>Basic <A NAME="marker-1291063"></A>Region Access</H6>
+<P CLASS="Body">
+<A NAME="pgfId-1291039"></A>In the context of a query, the name of a region is specified by its full path starting with a forward slash (<EM CLASS="Code9">
+/</EM>
+). </P>
+<DIV>
+<H6 CLASS="Head-D">
+<A NAME="pgfId-1288190"></A><A NAME="92682"></A>Object attributes</H6>
+<P CLASS="Body">
+<A NAME="pgfId-1291067"></A>You can access the <EM CLASS="Code9">
+Region</EM>
+ object&#8217;s public fields and methods from a region path, referred to as the region&#8217;s attributes. Using this method, <EM CLASS="Code9">
+/portfolios.name</EM>
+ returns &#8220;<EM CLASS="Code9">
+portfolios</EM>
+&#8221; and <EM CLASS="Code9">
+/portfolios.name.length</EM>
+ returns <EM CLASS="Code9">
+10</EM>
+. An attribute is mapped to a Java class member in three possible ways with the following priority until a match is found. If the attribute is named <EM CLASS="Code9">
+x</EM>
+, then:</P>
+<P CLASS="Code-Indented">
+<A NAME="pgfId-1301608"></A>public method getX()</P>
+<P CLASS="Code-Indented">
+<A NAME="pgfId-1301615"></A>public method x()</P>
+<P CLASS="Code-Indented">
+<A NAME="pgfId-1301616"></A>public field x</P>
+<P CLASS="Code-Indented">
+<A NAME="pgfId-1301651"></A>&nbsp;</P>
+<P CLASS="Note">
+<A NAME="pgfId-1301617"></A>The term <EM CLASS="Body">
+attribute </EM>
+in this context is not the same as a region attribute.</P>
+</DIV>
+<DIV>
+<H6 CLASS="Head-D">
+<A NAME="pgfId-1291110"></A>Region data</H6>
+<P CLASS="Body">
+<A NAME="pgfId-1291111"></A>You can also access entry keys and entry data through the region:</P>
+<UL>
+<LI CLASS="Bulleted">
+<A NAME="pgfId-1291112"></A><EM CLASS="Code9">
+/portfolios.keySet</EM>
+ returns the <EM CLASS="Code9">
+Set</EM>
+ of entry keys in the region</LI>
+<LI CLASS="Bulleted">
+<A NAME="pgfId-1291113"></A><EM CLASS="Code9">
+/portfolios.entrySet</EM>
+ returns the <EM CLASS="Code9">
+Set</EM>
+ of <EM CLASS="Code9">
+Region.Entry</EM>
+ objects</LI>
+<LI CLASS="Bulleted">
+<A NAME="pgfId-1291114"></A><EM CLASS="Code9">
+/portfolios.values</EM>
+ returns the <EM CLASS="Code9">
+Collection</EM>
+ of entry values</LI>
+<LI CLASS="Bulleted">
+<A NAME="pgfId-1291115"></A><EM CLASS="Code9">
+/portfolios</EM>
+ returns the <EM CLASS="Code9">
+Collection</EM>
+ of entry values</LI>
+</UL>
+<P CLASS="Note">
+<A NAME="pgfId-1313567"></A>These collections are immutable. Invoking modifier methods on them, such as <EM CLASS="Code9">
+add</EM>
+ and <EM CLASS="Code9">
+remove</EM>
+, result in an <EM CLASS="Code9">
+UnsupportedOperationException</EM>
+.</P>
+<P CLASS="Body">
+<A NAME="pgfId-1313565"></A>For the last two bullets, the <EM CLASS="Code9">
+FROM</EM>
+ clause <EM CLASS="Code9">
+/portfolios.values</EM>
+ and <EM CLASS="Code9">
+/portfolios</EM>
+ return the same thing.</P>
+</DIV>
+</DIV>
+<DIV>
+<H6 CLASS="Head-C">
+<A NAME="pgfId-1291160"></A><A NAME="18044"></A>Drilling Down for Modifying Query <A NAME="marker-1291198"></A>Scope</H6>
+<P CLASS="Body">
+<A NAME="pgfId-1291206"></A>The query engine resolves names and path expressions according to the name space that is currently in scope in the query. This is not the region <EM CLASS="Code9">
+scope</EM>
+ attribute, but the scope of the query statement. The initial name space for any query is composed of the region paths of the cache on the cache server and the attributes of those paths. New name spaces are brought into scope based on the <EM CLASS="Code9">
+FROM</EM>
+ clause in the <EM CLASS="Code9">
+SELECT</EM>
+ statement. For example, in this query the <EM CLASS="Code9">
+FROM</EM>
+ expression evaluates to the collection of entry values in <EM CLASS="Code9">
+/portfolios</EM>
+. This is added to the initial scope of the query and <EM CLASS="Code9">
+status</EM>
+ is resolved within the new scope.</P>
+<P CLASS="Code-Indented">
+<A NAME="pgfId-1291210"></A>SELECT DISTINCT * </P>
+<P CLASS="Code-Indented">
+<A NAME="pgfId-1291211"></A>   FROM /portfolios</P>
+<P CLASS="Code-Indented">
+<A NAME="pgfId-1291212"></A>   WHERE status = 'active'</P>
+<P CLASS="Body">
+<A NAME="pgfId-1291221"></A>Each <A NAME="marker-1291220"></A><EM CLASS="Code9">
+FROM</EM>
+ clause expression must resolve to a collection of objects available for iteration in the query expressions that follow. In the example above, <EM CLASS="Code9">
+/portfolios</EM>
+ resolves to the <EM CLASS="Code9">
+Collection</EM>
+ of entry values in the region. The entry value collection is iterated by the <EM CLASS="Code9">
+WHERE</EM>
+ clause, comparing the <EM CLASS="Code9">
+status</EM>
+ field to the string <EM CLASS="Code9">
+active</EM>
+<EM CLASS="Body">
+. </EM>
+When a match is found, the value object is added to the return set.</P>
+<P CLASS="Body">
+<A NAME="pgfId-1291225"></A>In the following query, the collection specified in the first <EM CLASS="Code9">
+FROM</EM>
+ clause expression is used by the second <EM CLASS="Code9">
+FROM</EM>
+ clause expression and by the projections of the <EM CLASS="Code9">
+SELECT</EM>
+ statement.</P>
+<P CLASS="Code-Indented">
+<A NAME="pgfId-1291226"></A>IMPORT cacheRunner.Position;</P>
+<P CLASS="Code-Indented">
+<A NAME="pgfId-1291227"></A>SELECT DISTINCT &quot;type&quot;</P>
+<P CLASS="Code-Indented">
+<A NAME="pgfId-1291228"></A>   FROM /portfolios, positions.values posnVal TYPE Position</P>
+<P CLASS="Code-Indented">
+<A NAME="pgfId-1291229"></A>   WHERE posnVal.qty &gt; 1000.00</P>
+<P CLASS="Code-Indented">
+<A NAME="pgfId-1291230"></A><EM CLASS="Code9">
+</EM>
+&nbsp;</P>
+<P CLASS="Note">
+<A NAME="pgfId-1291231"></A>You cannot change the order of the expressions in this <EM CLASS="Code9">
+FROM</EM>
+ clause. The second expression depends on the scope created by the first expression. </P>
+</DIV>
+<DIV>
+<H6 CLASS="Head-C">
+<A NAME="pgfId-1291068"></A><A NAME="53167"></A>Attribute <A NAME="marker-1291246"></A>Visibility</H6>
+<P CLASS="Body">
+<A NAME="pgfId-1291251"></A>Within the current query scope, you can access any available object or object attribute. In querying, an object&#8217;s attribute is any identifier that can be mapped to a public field or method in the object. In the <EM CLASS="Code9">
+FROM</EM>
+ specification, any object that is in scope is valid, so at the beginning of a query all cached regions and their attributes on the cache server are in scope.</P>
+<P CLASS="Body">
+<A NAME="pgfId-1291262"></A>This query is valid because <EM CLASS="Code9">
+name</EM>
+ resolves to the <EM CLASS="Code9">
+Region</EM>
+ method <EM CLASS="Code9">
+getName</EM>
+:</P>
+<P CLASS="Code-Indented">
+<A NAME="pgfId-1291263"></A>/portfolios.name</P>
+<P CLASS="Body">
+<A NAME="pgfId-1291264"></A>This query is valid because <EM CLASS="Code9">
+toArray</EM>
+ resolves to the <EM CLASS="Code9">
+Collection</EM>
+ method with the same name:</P>
+<P CLASS="Code-Indented">
+<A NAME="pgfId-1291265"></A>SELECT DISTINCT * FROM /portfolios.toArray</P>
+<P CLASS="Body">
+<A NAME="pgfId-1291269"></A>You cannot, however, refer to the attribute of a collection object in the region path expression where the collection itself is specified. The following statement is invalid because neither <EM CLASS="Code9">
+Collection</EM>
+ nor <EM CLASS="Code9">
+Region</EM>
+ contain an attribute named <EM CLASS="Code9">
+positions</EM>
+. The entry values collection (specified by <EM CLASS="Code9">
+/portfolios</EM>
+) that <EM CLASS="Italic">
+does</EM>
+ contain an attribute named <EM CLASS="Code9">
+positions</EM>
+ is not yet part of the query name space.</P>
+<P CLASS="Code">
+<A NAME="pgfId-1291270"></A>/* <EM CLASS="Italic">
+INCORRECT: positions is not an attribute of Region or of Collection</EM>
+ */ </P>
+<P CLASS="Code-Indented">
+<A NAME="pgfId-1291271"></A>SELECT DISTINCT * FROM /portfolios.positions </P>
+<P CLASS="Body">
+<A NAME="pgfId-1291272"></A>This following <EM CLASS="Code9">
+SELECT</EM>
+ statement is valid because <EM CLASS="Code9">
+positions</EM>
+ is an element of the entry value collection that is specified by <EM CLASS="Code9">
+/portfolios</EM>
+. The entry value collection is in scope as soon as the specification in the <EM CLASS="Code9">
+FROM</EM>
+ expression is complete (before <EM CLASS="Code9">
+WHERE</EM>
+ or <EM CLASS="Code9">
+SELECT</EM>
+ are evaluated).</P>
+<P CLASS="Code-Indented">
+<A NAME="pgfId-1291273"></A>SELECT DISTINCT positions FROM /portfolios</P>
+<P CLASS="Body">
+<A NAME="pgfId-1291274"></A>You can also refer to <EM CLASS="Code9">
+positions</EM>
+ inside the <EM CLASS="Code9">
+FROM</EM>
+ clause after the <EM CLASS="Code9">
+/portfolios</EM>
+ entry value collection is created. In this example, <EM CLASS="Code9">
+positions</EM>
+ is an element of the <EM CLASS="Code9">
+/portfolios</EM>
+ entry value collection and <EM CLASS="Code9">
+values</EM>
+ is an attribute of <EM CLASS="Code9">
+positions</EM>
+:</P>
+<P CLASS="Code-Indented">
+<A NAME="pgfId-1291282"></A>IMPORT javaobject.Position;</P>
+<P CLASS="Code-Indented">
+<A NAME="pgfId-1291283"></A>SELECT DISTINCT posnVal <BR>
+		FROM /portfolios, positions.values posnVal TYPE Position</P>
+<P CLASS="Code-Indented">
+<A NAME="pgfId-1291284"></A>		WHERE posnVal.mktValue &gt;= 25.00</P>
+<P CLASS="Body">
+<A NAME="pgfId-1291285"></A>After the comma in the <EM CLASS="Code9">
+FROM</EM>
+ clause, <EM CLASS="Code9">
+/portfolios</EM>
+ is in scope, so its value collection can be iterated. In this case, this is done with the second <EM CLASS="Code9">
+FROM</EM>
+ clause specification, <EM CLASS="Code9">
+positions.values</EM>
+. </P>
+</DIV>
+<DIV>
+<H6 CLASS="Head-C">
+<A NAME="pgfId-1291202"></A>Nested <A NAME="marker-1291299"></A>Query <A NAME="marker-1291304"></A>Scopes</H6>
+<P CLASS="Body">
+<A NAME="pgfId-1301633"></A>Scopes can be nested using nested <EM CLASS="Code9">
+SELECT</EM>
+ statements, and names in an inner scope hide identical names in an outer scope. In the query below, the inner <EM CLASS="Code9">
+SELECT</EM>
+ creates a new scope, the <EM CLASS="Code9">
+positions</EM>
+ of the current portfolio, inside the outer <EM CLASS="Code9">
+SELECT</EM>
+&#8217;s scope, <EM CLASS="Code9">
+/portfolios</EM>
+. This inner scope (the collection of entry values from the <EM CLASS="Code9">
+/portfolios</EM>
+ region) is first searched for the <EM CLASS="Code9">
+secId</EM>
+ element. The outer scope is searched only if the <EM CLASS="Code9">
+secId</EM>
+ element is not found in the inner scope.</P>
+<P CLASS="Code-Indented">
+<A NAME="pgfId-1301634"></A>IMPORT javaobject.Position;</P>
+<P CLASS="Code-Indented">
+<A NAME="pgfId-1291343"></A>SELECT DISTINCT * FROM /portfolios </P>
+<P CLASS="Code-Indented">
+<A NAME="pgfId-1317148"></A>   WHERE NOT </P>
+<P CLASS="Code-Indented">
+<A NAME="pgfId-1291344"></A>   (SELECT DISTINCT * FROM positions.values TYPE Position</P>
+<P CLASS="Code-Indented">
+<A NAME="pgfId-1291345"></A>      WHERE secId='YYY').isEmpty</P>
+<P CLASS="Code-Indented">
+<A NAME="pgfId-1313611"></A>&nbsp;</P>
+<P CLASS="Body">
+<A NAME="pgfId-1291346"></A>This statement shows the outer scope in bold. The outer scope has all the attributes of a <EM CLASS="Code9">
+Portfolio</EM>
+ in it.</P>
+<P CLASS="Code-Indented">
+<A NAME="pgfId-1291351"></A>IMPORT javaobject.Position;</P>
+<P CLASS="Code-Indented">
+<A NAME="pgfId-1291352"></A><EM CLASS="Bold">
+SELECT DISTINCT * FROM /portfolios</EM>
+</P>
+<P CLASS="Code-Indented">
+<A NAME="pgfId-1317149"></A>   <EM CLASS="Bold">
+WHERE NOT </EM>
+</P>
+<P CLASS="Code-Indented">
+<A NAME="pgfId-1291353"></A>   (SELECT DISTINCT * FROM positions.values TYPE Position</P>
+<P CLASS="Code-Indented">
+<A NAME="pgfId-1291354"></A>      WHERE secId='YYY')<EM CLASS="Bold">
+.isEmpty</EM>
+</P>
+<P CLASS="Code-Indented">
+<A NAME="pgfId-1313616"></A>&nbsp;</P>
+<P CLASS="Body">
+<A NAME="pgfId-1291356"></A>Now the statement with the inner scope is shown in bold. The inner scope has all the attributes of a <EM CLASS="Code9">
+Portfolio</EM>
+ in it (inherited from the outer scope), and all the attributes of a <EM CLASS="Code9">
+Position</EM>
+ as well.</P>
+<P CLASS="Code-Indented">
+<A NAME="pgfId-1291358"></A>IMPORT javaobject.Position;</P>
+<P CLASS="Code-Indented">
+<A NAME="pgfId-1291359"></A>SELECT DISTINCT * FROM /portfolios</P>
+<P CLASS="Code-Indented">
+<A NAME="pgfId-1317150"></A>   WHERE NOT </P>
+<P CLASS="Code-Indented">
+<A NAME="pgfId-1291360"></A>   (<EM CLASS="Bold">
+SELECT DISTINCT * FROM positions.values TYPE Position</EM>
+</P>
+<P CLASS="Code-Indented">
+<A NAME="pgfId-1291361"></A>      <EM CLASS="Bold">
+WHERE secId=</EM>
+'<EM CLASS="Bold">
+YYY</EM>
+').isEmpty</P>
+</DIV>
+<DIV>
+<H6 CLASS="Head-C">
+<A NAME="pgfId-1291203"></A>When Names Cannot Be Resolved</H6>
+<P CLASS="Body">
+<A NAME="pgfId-1291329"></A>When a query is executed and a name or path expression resolves to more than one region name in the scope, or if it cannot be resolved at all, then the client receives a <EM CLASS="Code9">
+QueryException</EM>
+. The <EM CLASS="Code9">
+QueryException</EM>
+ contains the message that is generated for the exception that occurs on the server.</P>
+</DIV>
+</DIV>
+</DIV>
+<DIV>
+<H1 CLASS="Head-A">
+<A NAME="pgfId-1291331"></A><A NAME="57866"></A>Query Strings in the Native Client</H1>
+<P CLASS="Body">
+<A NAME="pgfId-1291490"></A>To use a query string in a native client, specify the string as a parameter in a <A NAME="marker-1291491"></A><EM CLASS="Code9">
+QueryService::newQuery</EM>
+ method, then execute the query using <EM CLASS="Code9">
+Query::execute</EM>
+, passing in the required parameters.</P>
+<P CLASS="Body">
+<A NAME="pgfId-1314162"></A>Alternatively, if an expression evaluates to a boolean value then you can specify it using the region shortcut methods <EM CLASS="Code9">
+Region::existsValue</EM>
+, <EM CLASS="Code9">
+Region::selectValue</EM>
+, and <EM CLASS="Code9">
+Region::query</EM>
+. These shortcut methods evaluate whether given expressions return any entries and return a single value entry, respectively. See <A HREF="9-Querying.htm#48680" CLASS="XRef">Region Shortcut Query Methods</A> for more information about these shortcut methods.</P>
+<P CLASS="Note">
+<A NAME="pgfId-1291492"></A>If your query requires any <EM CLASS="Code9">
+IMPORT</EM>
+ statements, these must be included before the <EM CLASS="Code9">
+SELECT</EM>
+ statement in the query string that is passed to the query engine. It should be a fully qualified package name relative to the cache server. The Java class definition must exist and have the exact footprint as the native client C++ class.</P>
+<DIV>
+<H6 CLASS="Head-C">
+<A NAME="pgfId-1291610"></A><A NAME="68131"></A>SELECT <A NAME="marker-1291609"></A>Statement Result</H6>
+<P CLASS="Body">
+<A NAME="pgfId-1291611"></A>The result of a <EM CLASS="Code9">
+SELECT</EM>
+ statement is either <EM CLASS="Code9">
+UNDEFINED</EM>
+ or is a collection that implements the <EM CLASS="Code9">
+SelectResults</EM>
+ interface (for details, see the online native client API documentation provided in the <EM CLASS="Code9">
+docs</EM>
+ directory). Since a <EM CLASS="Code9">
+SELECT</EM>
+ statement returns a result, it can be composed with other expressions like the following example: </P>
+<P CLASS="Code-Indented">
+<A NAME="pgfId-1291612"></A>(SELECT DISTINCT * FROM /portfolios WHERE status = 'active').iterator</P>
+<P CLASS="Body">
+<A NAME="pgfId-1291616"></A>Query results are discussed further in <A HREF="9-Querying.htm#29029" CLASS="XRef">SELECT Statement Query Results</A>.</P>
+<P CLASS="Body">
+<A NAME="pgfId-1291624"></A>The rest of this section explores the <EM CLASS="Code9">
+SELECT</EM>
+ statement elements in greater detail. The subsections are: </P>
+<UL>
+<LI CLASS="Bulleted-Indented">
+<A NAME="pgfId-1291628"></A><A HREF="9-Querying.htm#64095" CLASS="XRef">See The FROM Clause.</A></LI>
+<LI CLASS="Bulleted-Indented">
+<A NAME="pgfId-1291632"></A><A HREF="9-Querying.htm#15287" CLASS="XRef">See The WHERE Clause.</A></LI>
+<LI CLASS="Bulleted-Indented">
+<A NAME="pgfId-1291636"></A><A HREF="9-Querying.htm#35790" CLASS="XRef">See Joins.</A></LI>
+<LI CLASS="Bulleted-Indented">
+<A NAME="pgfId-1291640"></A><A HREF="9-Querying.htm#46710" CLASS="XRef">See The SELECT Projection List.</A></LI>
+<LI CLASS="Bulleted-Indented">
+<A NAME="pgfId-1291644"></A><A HREF="9-Querying.htm#29029" CLASS="XRef">See SELECT Statement Query Results.</A></LI>
+</UL>
+</DIV>
+<DIV>
+<H6 CLASS="Head-C">
+<A NAME="pgfId-1291650"></A><A NAME="64095"></A>The F<A NAME="marker-1291649"></A>ROM Clause</H6>
+<P CLASS="Body">
+<A NAME="pgfId-1291651"></A>The <EM CLASS="Code9">
+FROM</EM>
+ clause establishes collections of objects that are iterated over by the remainder of the query. The attributes of the objects in these collections are added to the name space <A NAME="marker-1291652"></A>scope for the remainder of the <EM CLASS="Code9">
+FROM</EM>
+ clause as well as for the <EM CLASS="Code9">
+WHERE</EM>
+ clause and the <EM CLASS="Code9">
+SELECT</EM>
+ projection list. For a discussion of the effects of the <EM CLASS="Code9">
+FROM</EM>
+ expressions on query scope, see <A HREF="9-Querying.htm#18044" CLASS="XRef">Drilling Down for Modifying Query Scope</A>.</P>
+<P CLASS="Body">
+<A NAME="pgfId-1291656"></A>Each <EM CLASS="Code9">
+FROM</EM>
+ clause expression must evaluate to a collection. The expression <EM CLASS="Code9">
+/portfolios.keySet</EM>
+ is valid because it evaluates to a <EM CLASS="Code9">
+Collection</EM>
+, but <EM CLASS="Code9">
+/portfolios.name</EM>
+, which evaluates to a <EM CLASS="Code9">
+String</EM>
+, causes an exception to be thrown. </P>
+<P CLASS="Note">
+<A NAME="pgfId-1291657"></A>Like the SQL query, which iterates over the tables named in its <EM CLASS="Code9">
+FROM</EM>
+ clause, the OQL query iterates over the <EM CLASS="Code9">
+Collections</EM>
+ established in its <EM CLASS="Code9">
+FROM</EM>
+ clause. </P>
+<P CLASS="Body">
+<A NAME="pgfId-1291658"></A>In the following query, <EM CLASS="Code9">
+positions.values</EM>
+ evaluates to a Collection because <EM CLASS="Code9">
+positions</EM>
+ is a <EM CLASS="Code9">
+Map</EM>
+, and the method <EM CLASS="Code9">
+values</EM>
+ on <EM CLASS="Code9">
+Map</EM>
+ returns a <EM CLASS="Code9">
+Collection</EM>
+. </P>
+<P CLASS="Code-Indented">
+<A NAME="pgfId-1291659"></A>IMPORT javaobject.Position; </P>
+<P CLASS="Code-Indented">
+<A NAME="pgfId-1291660"></A>SELECT DISTINCT &quot;type&quot;</P>
+<P CLASS="Code-Indented">
+<A NAME="pgfId-1291661"></A>   FROM /portfolios, positions.values posnVal TYPE Position</P>
+<P CLASS="Code-Indented">
+<A NAME="pgfId-1291662"></A>   WHERE posnVal.qty &gt; 1000.00</P>
+<P CLASS="Code-Indented">
+<A NAME="pgfId-1291663"></A>&nbsp;</P>
+<P CLASS="Note">
+<A NAME="pgfId-1291664"></A>Every expression in the <EM CLASS="Code9">
+FROM</EM>
+ clause must evaluate to a <EM CLASS="Code9">
+Collection</EM>
+. For a <EM CLASS="Code9">
+Map</EM>
+, the <EM CLASS="Code9">
+values</EM>
+ method returns a <EM CLASS="Code9">
+Collection</EM>
+.</P>
+<P CLASS="Body">
+<A NAME="pgfId-1291669"></A>If <A NAME="marker-1291668"></A><EM CLASS="Code9">
+positions</EM>
+ were a <EM CLASS="Code9">
+List</EM>
+ instead of a <EM CLASS="Code9">
+Map</EM>
+, this query could be used to retrieve the data: </P>
+<P CLASS="Code-Indented">
+<A NAME="pgfId-1291670"></A>IMPORT javaobject.Position; </P>
+<P CLASS="Code-Indented">
+<A NAME="pgfId-1291671"></A>SELECT DISTINCT &quot;type&quot; </P>
+<P CLASS="Code-Indented">
+<A NAME="pgfId-1291672"></A>FROM /portfolios, positions posnVal TYPE Position </P>
+<P CLASS="Code-Indented">
+<A NAME="pgfId-1291673"></A>WHERE posnVal.qty &gt;= 1000.00</P>
+<P CLASS="Code-Indented">
+<A NAME="pgfId-1291674"></A>&nbsp;</P>
+<P CLASS="Note">
+<A NAME="pgfId-1291675"></A>A <EM CLASS="Code9">
+List</EM>
+ is a <EM CLASS="Code9">
+Collection</EM>
+, so it can be accessed directly or through its <EM CLASS="Code9">
+toArray</EM>
+ method. </P>
+<P CLASS="Note">
+<A NAME="pgfId-1291676"></A>For each object type accessed in your <EM CLASS="Code9">
+FROM</EM>
+ clause, use the method that returns a <EM CLASS="Code9">
+Collection</EM>
+ for that object. </P>
+<P CLASS="Body">
+<A NAME="pgfId-1291695"></A>Each expression in the <EM CLASS="Code9">
+FROM</EM>
+ clause can be any expression that evaluates to a <EM CLASS="Code9">
+Collection</EM>
+. An expression in the <EM CLASS="Code9">
+FROM</EM>
+ clause is typically a path expression that resolves to a region in the cache so that the values in the region become the collection of objects to filter.</P>
+<P CLASS="Body">
+<A NAME="pgfId-1291696"></A>For example, this is a simple <EM CLASS="Code9">
+SELECT</EM>
+ statement that evaluates to a set of all the entry value objects of the region <EM CLASS="Code9">
+/portfolios</EM>
+ with active status. The collection of entry values provided by the <EM CLASS="Code9">
+FROM</EM>
+ clause is traversed by the <EM CLASS="Code9">
+WHERE</EM>
+ clause, which accesses each element&#8217;s <EM CLASS="Code9">
+status</EM>
+ attribute for comparison. </P>
+<P CLASS="Code-Indented">
+<A NAME="pgfId-1291697"></A>SELECT DISTINCT * FROM /portfolios WHERE status = 'active' </P>
+<P CLASS="Body">
+<A NAME="pgfId-1291424"></A>If the <EM CLASS="Code9">
+FROM</EM>
+ clause has just one expression in it, the result of the clause is the single collection that the expression evaluates to. If the clause has more than one expression in it, the result is a collection of structs that contain a member for each of those collection expressions. For example, if the <EM CLASS="Code9">
+FROM</EM>
+ clause contains three expressions that evaluate to collections <EM CLASS="Code9">
+C1</EM>
+, <EM CLASS="Code9">
+C2</EM>
+, and <EM CLASS="Code9">
+C3</EM>
+, then the <EM CLASS="Code9">
+FROM</EM>
+ clause generates a set of <EM CLASS="Code9">
+struct(x1, x2, x3)</EM>
+ where <EM CLASS="Code9">
+x1</EM>
+, <EM CLASS="Code9">
+x2</EM>
+, and <EM CLASS="Code9">
+x3</EM>
+ represent nested iterations over the collections specified. If the collections are independent of each other, this struct represents their cartesian product.</P>
+<P CLASS="Body">
+<A NAME="pgfId-1291702"></A>In this query, the <EM CLASS="Code9">
+FROM</EM>
+ clause produces a struct of portfolio and position pairs to be iterated. Each element in the struct contains the portfolio and one of its contained positions.</P>
+<P CLASS="Code-Indented">
+<A NAME="pgfId-1291703"></A>IMPORT javaobject.Position; </P>
+<P CLASS="Code-Indented">
+<A NAME="pgfId-1291704"></A>SELECT DISTINCT &quot;type&quot; FROM /portfolios, positions TYPE Position</P>
+<P CLASS="Code-Indented">
+<A NAME="pgfId-1291705"></A>   WHERE qty &gt; 1000.00</P>
+<P CLASS="Code-Indented">
+<A NAME="pgfId-1291706"></A><EM CLASS="Code9">
+</EM>
+&nbsp;</P>
+<DIV>
+<H6 CLASS="Head-D">
+<A NAME="pgfId-1291718"></A>Iterator <A NAME="marker-1291717"></A>variables</H6>
+<P CLASS="Body">
+<A NAME="pgfId-1291719"></A>For each collection expressed in the <EM CLASS="Code9">
+FROM</EM>
+ clause, you can associate an explicit variable. The variable is added to the current scope and becomes the iterator variable bound to the elements of the collection as they are iterated over. In this example, <EM CLASS="Code9">
+pflo</EM>
+ and <EM CLASS="Code9">
+posnVal</EM>
+ are both explicit iterator variables. </P>
+</DIV>
+</DIV>
+<DIV>
+<H6 CLASS="Example-Title">
+<A NAME="pgfId-1291720"></A>Query Using Explicit Iterator Variables<DIV>
+<IMG SRC="9-Querying-1.gif">
+</DIV>
+</H6>
+<P CLASS="Code-Indented">
+<A NAME="pgfId-1291721"></A>IMPORT javaobject.Position; </P>
+<P CLASS="Code-Indented">
+<A NAME="pgfId-1291722"></A>SELECT DISTINCT pflo.&quot;type&quot;, posnVal.qty </P>
+<P CLASS="Code-Indented">
+<A NAME="pgfId-1291723"></A>   FROM /portfolios pflo, positions.values posnVal TYPE Position</P>
+<P CLASS="Code-Indented">
+<A NAME="pgfId-1291724"></A>   WHERE pflo.status = 'active' and posnVal.mktValue &gt; 25.00</P>
+<DIV>
+<H6 CLASS="Example-End">
+<A NAME="pgfId-1291725"></A><DIV>
+<IMG SRC="9-Querying-1.gif">
+</DIV>
+&nbsp;</H6>
+<DIV>
+<H6 CLASS="Head-D">
+<A NAME="pgfId-1291738"></A>Importing <A NAME="marker-1291737"></A>object classes</H6>
+<P CLASS="Body">
+<A NAME="pgfId-1291739"></A>To facilitate the specification of type in variable type declarations and in typecasting expressions, a query string can have <EM CLASS="Code9">
+IMPORT</EM>
+ statements preceding the declarations. By using <EM CLASS="Code9">
+IMPORT</EM>
+ in the query string, the client can tell the cache server about the class definition of the serialized object that is present in the cache server region.</P>
+<P CLASS="Body">
+<A NAME="pgfId-1302397"></A>The only place you can have a package name in a query is in an import statement. These are valid: </P>
+<P CLASS="Code-Indented">
+<A NAME="pgfId-1291740"></A>IMPORT com.myFolder.Portfolio;</P>
+<P CLASS="Code-Indented">
+<A NAME="pgfId-1291741"></A>&nbsp;</P>
+<P CLASS="Code-Indented">
+<A NAME="pgfId-1291742"></A>IMPORT com.myFolder.Portfolio AS MyPortfolio;</P>
+<P CLASS="Code-Indented">
+<A NAME="pgfId-1291743"></A>&nbsp;</P>
+<P CLASS="Body">
+<A NAME="pgfId-1291744"></A>The first form of the import statement allows <EM CLASS="Code9">
+Portfolio</EM>
+ to be used as the name of the class, <EM CLASS="Code9">
+com.myFolder.Portfolio</EM>
+. The second form provides an alternative class name, <EM CLASS="Code9">
+MyPortfolio</EM>
+, to be used. This is useful when a class name is not unique across packages and classes in a single query. The following example uses imported classes: </P>
+</DIV>
+</DIV>
+</DIV>
+<DIV>
+<H6 CLASS="Example-Title">
+<A NAME="pgfId-1291745"></A>Using Imported Classes<DIV>
+<IMG SRC="9-Querying-1.gif">
+</DIV>
+</H6>
+<P CLASS="Code">
+<A NAME="pgfId-1291746"></A>IMPORT com.commonFolder.Portfolio;</P>
+<P CLASS="Code">
+<A NAME="pgfId-1291747"></A>IMPORT com.myFolder.Portfolio AS MyPortfolio;</P>
+<P CLASS="Code">
+<A NAME="pgfId-1291748"></A>SELECT DISTINCT mpflo.status</P>
+<P CLASS="Code">
+<A NAME="pgfId-1291749"></A>FROM /portfolios pflo TYPE Portfolio, </P>
+<P CLASS="Code">
+<A NAME="pgfId-1291750"></A>   /myPortfolios mpflo TYPE MyPortfolio, </P>
+<P CLASS="Code">
+<A NAME="pgfId-1291751"></A>WHERE pflo.status = 'active' and mpflo.id = pflo.id </P>
+<DIV>
+<H6 CLASS="Example-End">
+<A NAME="pgfId-1291752"></A><DIV>
+<IMG SRC="9-Querying-1.gif">
+</DIV>
+&nbsp;</H6>
+<P CLASS="Body">
+<A NAME="pgfId-1291764"></A>This entire query string must be passed to the query engine, including the <EM CLASS="Code9">
+IMPORT</EM>
+ statements.</P>
+<P CLASS="Body">
+<A NAME="pgfId-1291765"></A>Common type names do not require an <EM CLASS="Code9">
+IMPORT</EM>
+ statement. The following table lists the types that are defined by the system and the Java types they represent.</P>
+</DIV>
+</DIV>
+<DIV>
+<H6 CLASS="TableTitle">
+<A NAME="pgfId-1291847"></A>Pre<A NAME="marker-1291846"></A>defined Class Types<DIV>
+<IMG SRC="9-Querying-1.gif">
+</DIV>
+</H6>
+<TABLE BORDER="1">
+<TR>
+<TH ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellHeading">
+<A NAME="pgfId-1336727"></A>Type</P>
+</TH>
+<TH ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellHeading">
+<A NAME="pgfId-1336729"></A>Java Representation</P>
+</TH>
+<TH ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellHeading">
+<A NAME="pgfId-1336731"></A>C++ Representation</P>
+</TH>
+<TH ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellHeading">
+<A NAME="pgfId-1336733"></A>.NET Representation</P>
+</TH>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-1336735"></A><EM CLASS="Code9">
+short</EM>
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-1336737"></A><EM CLASS="Code9">
+short</EM>
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-1336739"></A><EM CLASS="Code9">
+CacheableInt16</EM>
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-1336741"></A><EM CLASS="Code9">
+Int16</EM>
+</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-1336743"></A><EM CLASS="Code9">
+long</EM>
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-1336745"></A><EM CLASS="Code9">
+long</EM>
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-1336747"></A><EM CLASS="Code9">
+CacheableInt64</EM>
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-1336749"></A><EM CLASS="Code9">
+Int64</EM>
+</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-1336751"></A><EM CLASS="Code9">
+int</EM>
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-1336753"></A><EM CLASS="Code9">
+int</EM>
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-1336755"></A><EM CLASS="Code9">
+CacheableInt32</EM>
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-1336757"></A><EM CLASS="Code9">
+Int32</EM>
+</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-1336759"></A><EM CLASS="Code9">
+float</EM>
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-1336761"></A><EM CLASS="Code9">
+float</EM>
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-1336763"></A><EM CLASS="Code9">
+CacheableFloat</EM>
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-1336765"></A><EM CLASS="Code9">
+Single</EM>
+</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-1336767"></A><EM CLASS="Code9">
+double</EM>
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-1336769"></A><EM CLASS="Code9">
+double</EM>
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-1336771"></A><EM CLASS="Code9">
+CacheableDouble</EM>
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-1336773"></A><EM CLASS="Code9">
+Double</EM>
+</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-1336775"></A><EM CLASS="Code9">
+char</EM>
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-1336777"></A><EM CLASS="Code9">
+char</EM>
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-1336779"></A><EM CLASS="Code9">
+CacheableWideChar</EM>
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-1336781"></A><EM CLASS="Code9">
+Char</EM>
+</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-1336783"></A><EM CLASS="Code9">
+string</EM>
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-1336785"></A><EM CLASS="Code9">
+java.lang.String</EM>
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-1336787"></A><EM CLASS="Code9">
+CacheableString</EM>
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-1336789"></A><EM CLASS="Code9">
+String </EM>
+</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-1336791"></A><EM CLASS="Code9">
+boolean</EM>
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-1336793"></A><EM CLASS="Code9">
+boolean</EM>
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-1336795"></A><EM CLASS="Code9">
+CacheableBoolean</EM>
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-1336797"></A><EM CLASS="Code9">
+Boolean</EM>
+</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-1336799"></A><EM CLASS="Code9">
+byte</EM>
+ or <EM CLASS="Code9">
+octet</EM>
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-1336801"></A><EM CLASS="Code9">
+byte</EM>
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-1336803"></A><EM CLASS="Code9">
+CacheableByte</EM>
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-1336805"></A><EM CLASS="Code9">
+Byte</EM>
+</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-1336807"></A><EM CLASS="Code9">
+date</EM>
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-1336809"></A><EM CLASS="Code9">
+java.sql.Date</EM>
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-1336811"></A><EM CLASS="Code9">
+CacheableDate</EM>
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-1336813"></A><EM CLASS="Code9">
+DateTime</EM>
+</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-1336815"></A>time</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-1336817"></A>java.sql.Time</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-1336819"></A><EM CLASS="Body">
+Unsupported</EM>
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-1336821"></A><EM CLASS="Body">
+Unsupported</EM>
+</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-1336823"></A>timestamp</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-1336825"></A>java.sql.Timestamp</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-1336827"></A><EM CLASS="Body">
+Unsupported</EM>
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-1336829"></A><EM CLASS="Body">
+Unsupported</EM>
+</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-1336831"></A><EM CLASS="Code9">
+set&lt;</EM>
+<EM CLASS="Italic">
+type</EM>
+<EM CLASS="Code9">
+&gt;</EM>
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-1336833"></A><EM CLASS="Code9">
+java.util.Set</EM>
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-1336835"></A><EM CLASS="Code9">
+CacheableHashSet</EM>
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-1336837"></A><EM CLASS="Code9">
+HashSet&lt;</EM>
+<EM CLASS="Italic">
+type</EM>
+<EM CLASS="Code9">
+&gt;</EM>
+</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-1336839"></A><EM CLASS="Code9">
+list&lt;</EM>
+<EM CLASS="Italic">
+type</EM>
+<EM CLASS="Code9">
+&gt;</EM>
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-1336841"></A><EM CLASS="Code9">
+java.util.List</EM>
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-1336843"></A><EM CLASS="Code9">
+CacheableVector</EM>
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-1336845"></A><EM CLASS="Code9">
+List&lt;</EM>
+<EM CLASS="Italic">
+type</EM>
+<EM CLASS="Code9">
+&gt;</EM>
+</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-1336847"></A><EM CLASS="Code9">
+array&lt;</EM>
+<EM CLASS="Italic">
+type</EM>
+<EM CLASS="Code9">
+&gt;</EM>
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-1336849"></A><EM CLASS="Code9">
+java.lang.Object[]</EM>
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-1336851"></A><EM CLASS="Code9">
+CacheableArray</EM>
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-1336853"></A><EM CLASS="Code9">
+ArrayList&lt;</EM>
+<EM CLASS="Italic">
+type</EM>
+<EM CLASS="Code9">
+&gt;</EM>
+</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-1336855"></A><EM CLASS="Code9">
+map&lt;</EM>
+<EM CLASS="Italic">
+type</EM>
+<EM CLASS="Code9">
+,</EM>
+<EM CLASS="Italic">
+type</EM>
+<EM CLASS="Code9">
+&gt;</EM>
+ or <EM CLASS="Code9">
+dictionary&lt;</EM>
+<EM CLASS="Italic">
+type</EM>
+<EM CLASS="Code9">
+,</EM>
+<EM CLASS="Italic">
+type</EM>
+<EM CLASS="Code9">
+&gt;</EM>
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-1336857"></A><EM CLASS="Code9">
+java.lang.Map</EM>
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-1336859"></A><EM CLASS="Code9">
+CacheableHashMap</EM>
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-1336861"></A><EM CLASS="Code9">
+Dictionary&lt;</EM>
+<EM CLASS="Italic">
+type, type</EM>
+<EM CLASS="Code9">
+&gt; or HashTable</EM>
+</P>
+</TD>
+</TR>
+</TABLE>
+<P CLASS="Body">
+<A NAME="pgfId-1291848"></A>The type specification can be an imported type or any of these predefined types. </P>
+<DIV>
+<H6 CLASS="Head-D">
+<A NAME="pgfId-1291568"></A><A NAME="34883"></A>Specifying <A NAME="marker-1291865"></A>the object types of FROM clause collections</H6>
+<P CLASS="Body">
+<A NAME="pgfId-1291870"></A>To resolve implicit attribute names, the query engine must be able to associate each attribute or method name to a single iterator expression in the <EM CLASS="Code9">
+FROM</EM>
+ clause. Depending on the complexity of the query, the engine may be able to discover the proper associations on its own, but providing the specifications described here increases the chances for success.</P>
+<P CLASS="Note">
+<A NAME="pgfId-1300388"></A>The server region being queried should contain only homogeneous objects of the same type. See <A HREF="9-Querying.htm#32251" CLASS="XRef">Setting Object Type Constraints</A> for more information.</P>
+<P CLASS="Body">
+<A NAME="pgfId-1300393"></A>The object type information must be available when the query is created. To provide the appropriate information to the query engine, specify the type for each of your <EM CLASS="Code9">
+FROM</EM>
+ clause collection objects by importing the object&#8217;s class before running the query and typing the object inside the query. For the example region, this query is valid (all of the examples in this chapter assume that this <EM CLASS="Code9">
+IMPORT</EM>
+ statement is provided):</P>
+</DIV>
+</DIV>
+<DIV>
+<H6 CLASS="Example-Title">
+<A NAME="pgfId-1291915"></A><A NAME="87784"></A>Query Using<A NAME="marker-1291914"></A> IMPORT and TYPE for Object Typing<DIV>
+<IMG SRC="9-Querying-1.gif">
+</DIV>
+</H6>
+<P CLASS="Code-Indented">
+<A NAME="pgfId-1291916"></A>IMPORT javaobject.Position;</P>
+<P CLASS="Code-Indented">
+<A NAME="pgfId-1291917"></A>SELECT DISTINCT mktValue </P>
+<P CLASS="Code-Indented">
+<A NAME="pgfId-1291918"></A>   FROM /portfolios, positions.values TYPE Position </P>
+<P CLASS="Code-Indented">
+<A NAME="pgfId-1291919"></A>   WHERE mktValue &gt; 25.00</P>
+<DIV>
+<H6 CLASS="Example-End">
+<A NAME="pgfId-1291920"></A><DIV>
+<IMG SRC="9-Querying-1.gif">
+</DIV>
+&nbsp;</H6>
+<P CLASS="Body">
+<A NAME="pgfId-1291921"></A>This entire query string must be passed to the query engine, including the <EM CLASS="Code9">
+IMPORT</EM>
+ statement. Import the object&#8217;s class before running the query and typecast the object inside the query. For the example region, both of these queries are valid:</P>
+</DIV>
+</DIV>
+<DIV>
+<H6 CLASS="Example-Title">
+<A NAME="pgfId-1291935"></A><A NAME="54689"></A>Query Using IMPORT and Typecasting for Object Typing<DIV>
+<IMG SRC="9-Querying-1.gif">
+</DIV>
+</H6>
+<P CLASS="Code-Indented">
+<A NAME="pgfId-1291936"></A>IMPORT javaobject.Position;</P>
+<P CLASS="Code-Indented">
+<A NAME="pgfId-1291937"></A>SELECT DISTINCT value.mktValue </P>
+<P CLASS="Code-Indented">
+<A NAME="pgfId-1291938"></A>   FROM /portfolios, (map&lt;string,Position&gt;)positions</P>
+<P CLASS="Code-Indented">
+<A NAME="pgfId-1291939"></A>   WHERE value.mktValue &gt; 25.00</P>
+<P CLASS="Code-Indented">
+<A NAME="pgfId-1291940"></A>&nbsp;</P>
+<P CLASS="Code-Indented">
+<A NAME="pgfId-1291941"></A>IMPORT cacheRunner.Position;</P>
+<P CLASS="Code-Indented">
+<A NAME="pgfId-1291942"></A>SELECT DISTINCT mktValue </P>
+<P CLASS="Code-Indented">
+<A NAME="pgfId-1291943"></A>   FROM /portfolios, (collection&lt;Position&gt;)positions.values</P>
+<P CLASS="Code-Indented">
+<A NAME="pgfId-1291944"></A>   WHERE mktValue &gt; 25.00</P>
+<DIV>
+<H6 CLASS="Example-End">
+<A NAME="pgfId-1291945"></A><DIV>
+<IMG SRC="9-Querying-1.gif">
+</DIV>
+&nbsp;</H6>
+<P CLASS="Body">
+<A NAME="pgfId-1291946"></A>This entire query string must be passed to the query engine, including the <EM CLASS="Code9">
+IMPORT</EM>
+ statement. Use named iterators in the <EM CLASS="Code9">
+FROM</EM>
+ clause and explicitly prefix the path expression with iterator names.</P>
+</DIV>
+</DIV>
+<DIV>
+<H6 CLASS="Example-Title">
+<A NAME="pgfId-1291958"></A>Query Using Named Iterators for Object Typing<DIV>
+<IMG SRC="9-Querying-1.gif">
+</DIV>
+</H6>
+<P CLASS="Code-Indented">
+<A NAME="pgfId-1291959"></A>SELECT DISTINCT posnVal</P>
+<P CLASS="Code-Indented">
+<A NAME="pgfId-1291960"></A>FROM /portfolios pflo, pflo.positions.values posnVal </P>
+<P CLASS="Code-Indented">
+<A NAME="pgfId-1291961"></A>WHERE posnVal.mktValue &gt;= 25.00</P>
+<DIV>
+<H6 CLASS="Example-End">
+<A NAME="pgfId-1291962"></A><DIV>
+<IMG SRC="9-Querying-1.gif">
+</DIV>
+&nbsp;</H6>
+<P CLASS="Body">
+<A NAME="pgfId-1291963"></A>The <EM CLASS="Code9">
+IMPORT</EM>
+ statements in these examples assume that <EM CLASS="Code9">
+$GEMFIRE/examples/dist/classes</EM>
+ is in the <EM CLASS="Code9">
+CLASSPATH</EM>
+. This is required so the cache server can process <EM CLASS="Code9">
+IMPORT</EM>
+ statements. The class&#8217;s package name cannot be used in the <EM CLASS="Code9">
+FROM</EM>
+ clause. The package name must be specified in an <EM CLASS="Code9">
+IMPORT</EM>
+ statement.</P>
+<P CLASS="Body">
+<A NAME="pgfId-1291569"></A>There is one exception to these typing guidelines. If one <EM CLASS="Code9">
+FROM</EM>
+ expression lacks explicit typing, the query engine associates all unresolved attributes with that expression and creates the query. An exception is thrown if any of these attributes are not found at execution time.</P>
+<DIV>
+<H6 CLASS="Head-C">
+<A NAME="pgfId-1291974"></A><A NAME="15287"></A>The <A NAME="marker-1291973"></A>WHERE Clause</H6>
+<P CLASS="Body">
+<A NAME="pgfId-1291975"></A>The optional <EM CLASS="Code9">
+WHERE</EM>
+ clause defines the search criteria for the selection. The <EM CLASS="Code9">
+WHERE</EM>
+ clause refines the search to filter the set of elements specified by the <EM CLASS="Code9">
+FROM</EM>
+ clause. Without a <EM CLASS="Code9">
+WHERE</EM>
+ clause, the <EM CLASS="Code9">
+SELECT</EM>
+ projection list receives the entire collection or set of collections as specified in the <EM CLASS="Code9">
+FROM</EM>
+ clause. </P>
+<P CLASS="Body">
+<A NAME="pgfId-1307029"></A>The query processor searches the collection for elements that match the conditions specified in the <EM CLASS="Code9">
+WHERE</EM>
+ clause conditions.<EM CLASS="Body">
+ If there is an index on an expression matched by the WHERE clause, then the query processor may use the index to optimize the search and avoid iterating over the entire collection. For more information on indexes, see the </EM>
+<EM CLASS="Italic">
+Advanced </EM>
+<EM CLASS="Body">
+Querying chapter in the </EM>
+GemFire User&#8217;s Guide<EM CLASS="Body">
+.</EM>
+</P>
+<P CLASS="Body">
+<A NAME="pgfId-1307032"></A><EM CLASS="Body">
+A </EM>
+<EM CLASS="Code9">
+WHERE</EM>
+ clause expression is a boolean condition that is evaluated for each element in the collection. If the expression evaluates to <EM CLASS="Code9">
+true</EM>
+ for an element, the query processor passes that element on to the <EM CLASS="Code9">
+SELECT</EM>
+ projection list. This example uses the <EM CLASS="Code9">
+WHERE</EM>
+ clause to return the portfolio objects in the region that have a type <EM CLASS="Code9">
+xyz</EM>
+. </P>
+<P CLASS="Code-Indented">
+<A NAME="pgfId-1291980"></A>SELECT DISTINCT * FROM /portfolios WHERE &quot;type&quot; = 'xyz'</P>
+<P CLASS="Body">
+<A NAME="pgfId-1291981"></A>The next query returns the set of all portfolios with a type of <EM CLASS="Code9">
+xyz</EM>
+ and active status.   </P>
+<P CLASS="Code-Indented">
+<A NAME="pgfId-1291982"></A>SELECT DISTINCT * FROM /portfolios WHERE &quot;type&quot; = 'xyz' AND status = 'active'</P>
+</DIV>
+<DIV>
+<H6 CLASS="Head-C">
+<A NAME="pgfId-1291996"></A><A NAME="35790"></A>J<A NAME="marker-1291995"></A>oins</H6>
+<P CLASS="Body">
+<A NAME="pgfId-1291997"></A>If collections in the <EM CLASS="Code9">
+FROM</EM>
+ clause are not related to each other, the <EM CLASS="Code9">
+WHERE</EM>
+ clause can be used to join them. The statement below returns all the<EM CLASS="Body">
+ persons </EM>
+from the <EM CLASS="Code9">
+/Persons</EM>
+ region with the same name as a <EM CLASS="Body">
+flower </EM>
+in the <EM CLASS="Code9">
+/Flowers</EM>
+ region. </P>
+<P CLASS="Code-Indented">
+<A NAME="pgfId-1291998"></A>SELECT DISTINCT p FROM /Persons p, /Flowers f WHERE p.name = f.name</P>
+<P CLASS="Body">
+<A NAME="pgfId-1307134"></A>Indexes are supported for region joins. To create indexes for region joins, you create single-region indexes for both sides of the join condition. These are used during query execution for the join condition.</P>
+</DIV>
+<DIV>
+<H6 CLASS="Head-C">
+<A NAME="pgfId-1292006"></A><A NAME="46710"></A>The <A NAME="marker-1292005"></A>SELECT Projection List</H6>
+<P CLASS="Body">
+<A NAME="pgfId-1292007"></A>The projections in the <EM CLASS="Code9">
+SELECT</EM>
+ project list are used to transform the results of the <EM CLASS="Code9">
+WHERE</EM>
+ search operation. The projection list is either specified as * or as a comma delimited list of expressions. For *,  the interim results of the <EM CLASS="Code9">
+WHERE</EM>
+ clause are returned from the query. Otherwise, the set of objects in the interim results are iterated and the projections applied to each of the objects. During the application of the projection list, the attributes of the objects being traversed are in scope for name resolution. </P>
+<P CLASS="Body">
+<A NAME="pgfId-1292008"></A>You can also specify retrieval of the entry keys in your projection list. This allows you to access the associated cached entries for modification and other purposes. The following example shows how the <EM CLASS="Code9">
+Region</EM>
+ entry key can be obtained by using the region entries in the <EM CLASS="Code9">
+FROM</EM>
+ clause and using appropriate projections. This query runs on the <EM CLASS="Code9">
+/portfolios</EM>
+ region, returning a set of <EM CLASS="Code9">
+struct&lt;key:string, id:string, secId:string&gt;</EM>
+ where <EM CLASS="Code9">
+key</EM>
+ is the key of the region entry, <EM CLASS="Code9">
+id</EM>
+ is an entry ID, and <EM CLASS="Code9">
+secId</EM>
+ is a secId of a <EM CLASS="Code9">
+positions</EM>
+ <EM CLASS="Body">
+map</EM>
+ for the entry: </P>
+<P CLASS="Code-Indented">
+<A NAME="pgfId-1292009"></A>SELECT DISTINCT key, entry.value.id, posnVal.secId</P>
+<P CLASS="Code-Indented">
+<A NAME="pgfId-1292010"></A>   FROM /portfolios.entrySet entry, entry.value.positions.values posnVal</P>
+<P CLASS="Code-Indented">
+<A NAME="pgfId-1292011"></A>   WHERE entry.value.&quot;type&quot; = 'xyz' AND posnVal.secId = 'XXX'</P>
+<P CLASS="Body">
+<A NAME="pgfId-1292013"></A>You can assign arbitrary names to the return values by using the <A NAME="marker-1292012"></A><EM CLASS="Code9">
+fieldname:expression</EM>
+ syntax in the projection list. This modification to the query results in a set of <EM CLASS="Code9">
+struct&lt;newKey:string, newId:string, newSecId:string&gt;:</EM>
+ </P>
+<P CLASS="Code-Indented">
+<A NAME="pgfId-1292014"></A>SELECT DISTINCT newKey: entry.key, newId: entry.value.id, </P>
+<P CLASS="Code-Indented">
+<A NAME="pgfId-1317287"></A>      newSecId: posnVal.secId</P>
+<P CLASS="Code-Indented">
+<A NAME="pgfId-1292015"></A>   FROM /portfolios.entrySet entry, </P>
+<P CLASS="Code-Indented">
+<A NAME="pgfId-1317288"></A>      entry.value.positions.values posnVal</P>
+<P CLASS="Code-Indented">
+<A NAME="pgfId-1292016"></A>   WHERE entry.value.&quot;type&quot; = 'xyz' AND posnVal.secId = 'XXX'</P>
+</DIV>
+<DIV>
+<H6 CLASS="Head-C">
+<A NAME="pgfId-1292022"></A><A NAME="29029"></A>SELECT <A NAME="marker-1292021"></A>Statement Query Results</H6>
+<P CLASS="Body">
+<A NAME="pgfId-1292023"></A>The result of a <EM CLASS="Code9">
+SELECT</EM>
+ statement is a collection that implements the <EM CLASS="Code9">
+SelectResults</EM>
+ interface (see the online API documentation for <EM CLASS="Code9">
+Query</EM>
+) or it is <EM CLASS="Code9">
+UNDEFINED</EM>
+. The <EM CLASS="Code9">
+SelectResults</EM>
+ returned from the <EM CLASS="Code9">
+SELECT</EM>
+ statement is either a collection of objects or a <EM CLASS="Code9">
+Struct</EM>
+<EM CLASS="Body">
+ </EM>
+collection containing the objects. </P>
+<P CLASS="Body">
+<A NAME="pgfId-1292024"></A>A <EM CLASS="Code9">
+Collection</EM>
+ of objects is returned in two cases: </P>
+<UL>
+<LI CLASS="Bulleted">
+<A NAME="pgfId-1292025"></A>When only one expression is specified by the projection list and that expression is not explicitly specified using the <EM CLASS="Code9">
+fieldname:expression</EM>
+ syntax</LI>
+<LI CLASS="Bulleted">
+<A NAME="pgfId-1292026"></A>When the <EM CLASS="Code9">
+SELECT</EM>
+ list is <EM CLASS="Code9">
+*</EM>
+ and a single collection is specified in the <EM CLASS="Code9">
+FROM</EM>
+ clause</LI>
+</UL>
+<P CLASS="Body">
+<A NAME="pgfId-1292027"></A>In all other cases, a <EM CLASS="Code9">
+Struct</EM>
+ is generated with a field for each expression in the <EM CLASS="Code9">
+SELECT</EM>
+ projection list. This table describes the contents of the <EM CLASS="Code9">
+SelectResults</EM>
+ based on the <EM CLASS="Code9">
+SELECT</EM>
+ projection list and the expressions in the <EM CLASS="Code9">
+FROM</EM>
+ clause. </P>
+</DIV>
+</DIV>
+</DIV>
+<DIV>
+<H6 CLASS="TableTitle">
+<A NAME="pgfId-1292077"></A>Matrix of <A NAME="marker-1292076"></A>SelectResults Contents Based on SELECT and FROM Clause Specifications<DIV>
+<IMG SRC="9-Querying-1.gif">
+</DIV>
+</H6>
+<TABLE BORDER="1">
+<TR>
+<TH ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellHeading">
+<A NAME="pgfId-1324763"></A>SELECT</P>
+<P CLASS="CellHeading">
+<A NAME="pgfId-1324764"></A>FROM</P>
+</TH>
+<TH ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellHeading">
+<A NAME="pgfId-1324766"></A>*</P>
+<P CLASS="CellHeading">
+<A NAME="pgfId-1324767"></A>&nbsp;</P>
+</TH>
+<TH ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellHeading">
+<A NAME="pgfId-1324769"></A>Single Expression</P>
+<P CLASS="CellHeading">
+<A NAME="pgfId-1324770"></A>&nbsp;</P>
+</TH>
+<TH ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellHeading">
+<A NAME="pgfId-1324772"></A>Multiple Expressions</P>
+<P CLASS="CellHeading">
+<A NAME="pgfId-1324773"></A>&nbsp;</P>
+</TH>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellHeading">
+<A NAME="pgfId-1324775"></A>single expression</P>
+<P CLASS="CellHeading">
+<A NAME="pgfId-1324776"></A>&nbsp;</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-1324778"></A>Objects</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-1324780"></A>Objects. (<EM CLASS="Code9">
+Struct</EM>
+ if the projection specifies a field name.) </P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-1324782"></A><EM CLASS="Code9">
+Struct</EM>
+</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellHeading">
+<A NAME="pgfId-1324784"></A>multiple expressions</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-1324786"></A><EM CLASS="Code9">
+Struct</EM>
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-1324788"></A>Objects. (<EM CLASS="Code9">
+Struct</EM>
+ if the projection specifies a field name.)</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-1324790"></A><EM CLASS="Code9">
+Struct</EM>
+</P>
+</TD>
+</TR>
+</TABLE>
+<P CLASS="Body">
+<A NAME="pgfId-1292078"></A>&nbsp;</P>
+<P CLASS="Body">
+<A NAME="pgfId-1292079"></A>When a <EM CLASS="Code9">
+Struct</EM>
+ is returned, the name of each field in the <EM CLASS="Code9">
+Struct</EM>
+ is determined as follows:</P>
+<UL>
+<LI CLASS="Bulleted">
+<A NAME="pgfId-1292080"></A>If a field is specified explicitly using the <EM CLASS="Code9">
+fieldname:expression</EM>
+ syntax, the <EM CLASS="Code9">
+fieldname</EM>
+ is used. </LI>
+<LI CLASS="Bulleted">
+<A NAME="pgfId-1292081"></A>If the <EM CLASS="Code9">
+SELECT</EM>
+ projection list is * and an explicit iterator expression is used in the <EM CLASS="Code9">
+FROM</EM>
+ clause, the iterator variable name is used as the field name.</LI>
+<LI CLASS="Bulleted">
+<A NAME="pgfId-1292082"></A>If the field is associated with a region or attribute path expression, the last attribute name in the expression is used.</LI>
+</UL>
+<P CLASS="Body">
+<A NAME="pgfId-1292083"></A>If names can not be decided based on these rules, arbitrary unique names are generated by the query processor. </P>
+<P CLASS="Body">
+<A NAME="pgfId-1292146"></A>These examples show how the projections and <EM CLASS="Code9">
+FROM</EM>
+ clause expressions are applied: </P>
+<TABLE BORDER="1">
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Code">
+<A NAME="pgfId-1314726"></A>SELECT &lt;*&gt; FROM &lt;single</P>
+<P CLASS="Code">
+<A NAME="pgfId-1324902"></A>expression&gt;</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Code">
+<A NAME="pgfId-1292098"></A>SELECT DISTINCT * </P>
+<P CLASS="Code">
+<A NAME="pgfId-1292099"></A>	FROM /portfolios </P>
+<P CLASS="Code">
+<A NAME="pgfId-1292100"></A>	WHERE status ='active'</P>
+<P CLASS="Code">
+<A NAME="pgfId-1292101"></A><EM CLASS="Code9">
+</EM>
+&nbsp;</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-1292103"></A>Returns the <EM CLASS="Code9">
+Collection</EM>
+ of</P>
+<P CLASS="CellBody">
+<A NAME="pgfId-1324930"></A>active portfolios objects. </P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Code">
+<A NAME="pgfId-1314764"></A>SELECT &lt;single</P>
+<P CLASS="Code">
+<A NAME="pgfId-1324904"></A>expression&gt; FROM</P>
+<P CLASS="Code">
+<A NAME="pgfId-1324906"></A>&lt;multiple expression&gt;</P>
+<P CLASS="Code">
+<A NAME="pgfId-1314765"></A>(<EM CLASS="Body">
+without </EM>
+fieldName</P>
+<P CLASS="Code">
+<A NAME="pgfId-1324907"></A><EM CLASS="Body">
+mentioned</EM>
+)</P>
+<P CLASS="Code">
+<A NAME="pgfId-1314728"></A>&nbsp;</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Code">
+<A NAME="pgfId-1292105"></A>IMPORT javaobject.Position; </P>
+<P CLASS="Code">
+<A NAME="pgfId-1292106"></A>SELECT DISTINCT secId </P>
+<P CLASS="Code">
+<A NAME="pgfId-1292107"></A>	FROM /portfolios,</P>
+<P CLASS="Code">
+<A NAME="pgfId-1324909"></A>positions.values TYPE</P>
+<P CLASS="Code">
+<A NAME="pgfId-1324911"></A>Position</P>
+<P CLASS="Code">
+<A NAME="pgfId-1292108"></A>	WHERE status ='active'</P>
+<P CLASS="Code">
+<A NAME="pgfId-1292109"></A><EM CLASS="Code9">
+</EM>
+&nbsp;</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-1292111"></A>Returns the <EM CLASS="Code9">
+Collection</EM>
+ of</P>
+<P CLASS="CellBody">
+<A NAME="pgfId-1324932"></A><EM CLASS="Code9">
+secId</EM>
+s (<EM CLASS="Code9">
+CacheableString</EM>
+</P>
+<P CLASS="CellBody">
+<A NAME="pgfId-1324934"></A>objects) from the positions of</P>
+<P CLASS="CellBody">
+<A NAME="pgfId-1324936"></A>active portfolios. </P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Code">
+<A NAME="pgfId-1314770"></A>SELECT &lt;single</P>
+<P CLASS="Code">
+<A NAME="pgfId-1324928"></A>expression&gt; FROM</P>
+<P CLASS="Code">
+<A NAME="pgfId-1324926"></A>&lt;multiple expression&gt;</P>
+<P CLASS="Code">
+<A NAME="pgfId-1314771"></A>(<EM CLASS="Body">
+with </EM>
+fieldName<EM CLASS="Body">
+ mentioned</EM>
+)</P>
+<P CLASS="Code">
+<A NAME="pgfId-1314730"></A>&nbsp;</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Code">
+<A NAME="pgfId-1324917"></A>IMPORT javaobject.Position; </P>
+<P CLASS="Code">
+<A NAME="pgfId-1324918"></A>SELECT DISTINCT</P>
+<P CLASS="Code">
+<A NAME="pgfId-1324921"></A>secIdFieldName:secId</P>
+<P CLASS="Code">
+<A NAME="pgfId-1292115"></A>	FROM /portfolios,</P>
+<P CLASS="Code">
+<A NAME="pgfId-1324923"></A>positions.values TYPE</P>
+<P CLASS="Code">
+<A NAME="pgfId-1324925"></A>Position</P>
+<P CLASS="Code">
+<A NAME="pgfId-1292116"></A>	WHERE status ='active'</P>
+<P CLASS="Code">
+<A NAME="pgfId-1292117"></A><EM CLASS="Code9">
+</EM>
+&nbsp;</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-1292119"></A>Returns <EM CLASS="Code9">
+struct&lt;secIdField:</EM>
+</P>
+<P CLASS="CellBody">
+<A NAME="pgfId-1324938"></A><EM CLASS="Code9">
+CacheableString&gt;</EM>
+ for the</P>
+<P CLASS="CellBody">
+<A NAME="pgfId-1324940"></A>active portfolios. (Compare to</P>
+<P CLASS="CellBody">
+<A NAME="pgfId-1324942"></A>the results for the prior</P>
+<P CLASS="CellBody">
+<A NAME="pgfId-1324944"></A>query.)</P>
+<P CLASS="CellBody">
+<A NAME="pgfId-1292120"></A>&nbsp;</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Code">
+<A NAME="pgfId-1314732"></A>SELECT &lt;multiple</P>
+<P CLASS="Code">
+<A NAME="pgfId-1324970"></A>expression&gt; FROM &lt;single</P>
+<P CLASS="Code">
+<A NAME="pgfId-1324972"></A>expression&gt;</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Code">
+<A NAME="pgfId-1292122"></A>SELECT DISTINCT &quot;type&quot;,</P>
+<P CLASS="Code">
+<A NAME="pgfId-1324968"></A>positions </P>
+<P CLASS="Code">
+<A NAME="pgfId-1292123"></A>	FROM /portfolios </P>
+<P CLASS="Code">
+<A NAME="pgfId-1292124"></A>	WHERE status ='active'</P>
+<P CLASS="Code-Indented">
+<A NAME="pgfId-1292125"></A>&nbsp;</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-1292127"></A>Returns <EM CLASS="Code9">
+struct&lt;type:</EM>
+</P>
+<P CLASS="CellBody">
+<A NAME="pgfId-1324946"></A><EM CLASS="Code9">
+CacheableString,</EM>
+</P>
+<P CLASS="CellBody">
+<A NAME="pgfId-1324947"></A><EM CLASS="Code9">
+positions:</EM>
+</P>
+<P CLASS="CellBody">
+<A NAME="pgfId-1324949"></A><EM CLASS="Code9">
+CacheableHashMap</EM>
+</P>
+<P CLASS="CellBody">
+<A NAME="pgfId-1324951"></A><EM CLASS="Code9">
+Position&gt;</EM>
+ for the active</P>
+<P CLASS="CellBody">
+<A NAME="pgfId-1324953"></A>portfolios. The second field of</P>
+<P CLASS="CellBody">
+<A NAME="pgfId-1324955"></A>the <EM CLASS="Code9">
+struct</EM>
+ is a</P>
+<P CLASS="CellBody">
+<A NAME="pgfId-1324960"></A><EM CLASS="Code9">
+CacheableHashMap</EM>
+<EM CLASS="Body">
+ </EM>
+object,</P>
+<P CLASS="CellBody">
+<A NAME="pgfId-1324962"></A>which contains <EM CLASS="Code9">
+secId</EM>
+<EM CLASS="Body">
+s</EM>
+ as</P>
+<P CLASS="CellBody">
+<A NAME="pgfId-1324964"></A>keys and <EM CLASS="Code9">
+Position</EM>
+ objects</P>
+<P CLASS="CellBody">
+<A NAME="pgfId-1324966"></A>as values.</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Code">
+<A NAME="pgfId-1314734"></A>SELECT &lt;*&gt; FROM &lt;multiple</P>
+<P CLASS="Code">
+<A NAME="pgfId-1324974"></A>expression&gt;</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Body">
+<A NAME="pgfId-1292129"></A>&nbsp;</P>
+<P CLASS="Code">
+<A NAME="pgfId-1292130"></A>IMPORT javaobject.Position;</P>
+<P CLASS="Code">
+<A NAME="pgfId-1292131"></A>SELECT DISTINCT *</P>
+<P CLASS="Code">
+<A NAME="pgfId-1292132"></A>FROM /portfolios,</P>
+<P CLASS="Code">
+<A NAME="pgfId-1324976"></A>positions.values TYPE</P>
+<P CLASS="Code">
+<A NAME="pgfId-1324978"></A>Position</P>
+<P CLASS="Code">
+<A NAME="pgfId-1292133"></A>WHERE status = 'active'</P>
+<P CLASS="Code">
+<A NAME="pgfId-1292134"></A><EM CLASS="Code9">
+</EM>
+&nbsp;</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-1292136"></A>Returns a <EM CLASS="Code9">
+Collection</EM>
+ of</P>
+<P CLASS="CellBody">
+<A NAME="pgfId-1324980"></A><EM CLASS="Code9">
+struct&lt;portfolios:</EM>
+</P>
+<P CLASS="CellBody">
+<A NAME="pgfId-1324982"></A><EM CLASS="Code9">
+Portfolio, values:</EM>
+</P>
+<P CLASS="CellBody">
+<A NAME="pgfId-1324984"></A><EM CLASS="Code9">
+Position&gt;</EM>
+ for the active</P>
+<P CLASS="CellBody">
+<A NAME="pgfId-1324986"></A>portfolios.</P>
+<P CLASS="CellBody">
+<A NAME="pgfId-1292137"></A>&nbsp;</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Code">
+<A NAME="pgfId-1314736"></A>SELECT &lt;multiple</P>
+<P CLASS="Code">
+<A NAME="pgfId-1325000"></A>expression&gt; FROM</P>
+<P CLASS="Code">
+<A NAME="pgfId-1324999"></A>&lt;multiple expression&gt;</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Code">
+<A NAME="pgfId-1292139"></A>IMPORT javaobject.Position; </P>
+<P CLASS="Code">
+<A NAME="pgfId-1292140"></A>SELECT DISTINCT pflo, posn</P>
+<P CLASS="Code">
+<A NAME="pgfId-1292141"></A>	FROM /portfolios</P>
+<P CLASS="Code">
+<A NAME="pgfId-1324995"></A>pflo, positions posn TYPE</P>
+<P CLASS="Code">
+<A NAME="pgfId-1324997"></A>Position</P>
+<P CLASS="Code">
+<A NAME="pgfId-1292142"></A>	WHERE pflo.status ='active'</P>
+<P CLASS="Code">
+<A NAME="pgfId-1292143"></A><EM CLASS="Code9">
+</EM>
+&nbsp;</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-1292145"></A>Returns a <EM CLASS="Code9">
+Collection</EM>
+ of</P>
+<P CLASS="CellBody">
+<A NAME="pgfId-1324988"></A><EM CLASS="Code9">
+struct&lt;pflo:</EM>
+</P>
+<P CLASS="CellBody">
+<A NAME="pgfId-1324990"></A><EM CLASS="Code9">
+Portfolio, posn:</EM>
+</P>
+<P CLASS="CellBody">
+<A NAME="pgfId-1324992"></A><EM CLASS="Code9">
+Position&gt;</EM>
+ for the active</P>
+<P CLASS="CellBody">
+<A NAME="pgfId-1324994"></A>portfolios. </P>
+</TD>
+</TR>
+</TABLE>
+</DIV>
+<DIV>
+<H2 CLASS="Head-B">
+<A NAME="pgfId-1292148"></A><A NAME="50606"></A>Native Client Notes on Query Language Elements</H2>
+<P CLASS="Body">
+<A NAME="pgfId-1292170"></A>This section discusses various aspects and tools of the native client query engine. The sections are:</P>
+<UL>
+<LI CLASS="Bulleted">
+<A NAME="pgfId-1292174"></A><A HREF="9-Querying.htm#85960" CLASS="XRef">See Method Invocation.</A></LI>
+<LI CLASS="Bulleted">
+<A NAME="pgfId-1292178"></A><A HREF="9-Querying.htm#83027" CLASS="XRef">See Query Language Literals Supported by the Native Client.</A></LI>
+<LI CLASS="Bulleted">
+<A NAME="pgfId-1315801"></A><A HREF="9-Querying.htm#49494" CLASS="XRef">See Type Conversions.</A></LI>
+</UL>
+<DIV>
+<H6 CLASS="Head-C">
+<A NAME="pgfId-1292213"></A><A NAME="85960"></A>Method<A NAME="marker-1292212"></A> Invocation</H6>
+<P CLASS="Body">
+<A NAME="pgfId-1292214"></A>The query language supports method invocation inside query expressions. The query processor maps attributes in query strings using the attribute rules described in <A HREF="9-Querying.htm#92682" CLASS="XRef">Object attributes</A>. </P>
+<P CLASS="Note">
+<A NAME="pgfId-1292218"></A>Methods declared to return <EM CLASS="Code9">
+void</EM>
+ evaluate to <EM CLASS="Code9">
+null</EM>
+ when invoked through the query processor. </P>
+<DIV>
+<H6 CLASS="Head-D">
+<A NAME="pgfId-1292229"></A>Invoking methods without parameters</H6>
+<P CLASS="Body">
+<A NAME="pgfId-1292230"></A>If you know that the attribute name maps to a public method that takes no parameters, you can simply include the method name in the query string as an attribute. For example, <EM CLASS="Code9">
+emps.isEmpty</EM>
+ is equivalent to <EM CLASS="Code9">
+emps.isEmpty()</EM>
+. In the following example, the query invokes <EM CLASS="Code9">
+isEmpty</EM>
+ on <EM CLASS="Code9">
+positions</EM>
+, and returns the set of all portfolios with no positions.</P>
+<P CLASS="Code-Indented">
+<A NAME="pgfId-1292231"></A>SELECT DISTINCT * FROM /portfolios WHERE positions.isEmpty</P>
+</DIV>
+<DIV>
+<H6 CLASS="Head-D">
+<A NAME="pgfId-1292239"></A>Invoking methods with parameters</H6>
+<P CLASS="Body">
+<A NAME="pgfId-1291570"></A>The native client also supports the invocation of public methods with parameters. To invoke methods with parameters, include the method name as an attribute in the query string and provide the method arguments between parentheses. You can only use constants in the query strings.</P>
+</DIV>
+<DIV>
+<H6 CLASS="Head-D">
+<A NAME="pgfId-1341068"></A>&nbsp;</H6>
+</DIV>
+</DIV>
+<DIV>
+<H6 CLASS="Head-C">
+<A NAME="pgfId-1341070"></A><A NAME="83027"></A>Query Language Lite<A NAME="marker-1341069"></A>rals Supported by the Native Client</H6>
+<P CLASS="Body">
+<A NAME="pgfId-1292661"></A>Query language e<A NAME="marker-1292660"></A>xpressions can contain literals as well as operators and attribute names. These are the literal types that the native client supports.</P>
+<UL>
+<P CLASS="Indented">
+<A NAME="pgfId-1292665"></A><EM CLASS="Code9">
+boolean</EM>
+--A boolean value, either <EM CLASS="Code9">
+TRUE</EM>
+ or <EM CLASS="Code9">
+FALSE</EM>
+ </P>
+<P CLASS="Indented">
+<A NAME="pgfId-1292666"></A><EM CLASS="Code9">
+integer</EM>
+ and <EM CLASS="Code9">
+long</EM>
+--An integer literal is of type <EM CLASS="Code9">
+long</EM>
+ if it is suffixed with the ASCII letter <EM CLASS="Code9">
+L</EM>
+. Otherwise it is of type <EM CLASS="Code9">
+int</EM>
+. </P>
+<P CLASS="Indented">
+<A NAME="pgfId-1292667"></A><EM CLASS="Code9">
+floating point</EM>
+--A floating-point literal is of type <EM CLASS="Code9">
+float</EM>
+ if it is suffixed with an ASCII letter <EM CLASS="Code9">
+F</EM>
+. Otherwise its type is <EM CLASS="Code9">
+double</EM>
+ and it can optionally be suffixed with an ASCII letter <EM CLASS="Code9">
+D</EM>
+. A double or floating point literal can optionally include an exponent suffix of <EM CLASS="Code9">
+E</EM>
+ or <EM CLASS="Code9">
+e</EM>
+, followed by a signed or unsigned number. </P>
+<P CLASS="Indented">
+<A NAME="pgfId-1292668"></A><EM CLASS="Code9">
+string</EM>
+--String literals are delimited by single quotation marks. Embedded single quotation marks are doubled. For example, the character string <EM CLASS="Code9">
+'Hello'</EM>
+ evaluates to the value <EM CLASS="Code9">
+Hello</EM>
+, while the character string <EM CLASS="Code9">
+'He said, ''Hello'''</EM>
+ evaluates to <EM CLASS="Code9">
+He said, 'Hello'</EM>
+. Embedded newlines are kept as part of the string literal. </P>
+<P CLASS="Indented">
+<A NAME="pgfId-1292669"></A><EM CLASS="Code9">
+char</EM>
+--A literal is of type <EM CLASS="Code9">
+char</EM>
+ if it is a string literal prefixed by the keyword <EM CLASS="Code9">
+CHAR</EM>
+, otherwise it is of type <EM CLASS="Code9">
+string</EM>
+. The <EM CLASS="Code9">
+CHAR</EM>
+ literal for the single quotation mark character is <EM CLASS="Code9">
+CHAR ''''</EM>
+ (four single quotation marks). </P>
+<P CLASS="Indented">
+<A NAME="pgfId-1292670"></A><EM CLASS="Code9">
+date</EM>
+--A <EM CLASS="Code9">
+java.sql.Date</EM>
+ object that uses the JDBC format prefixed with the <EM CLASS="Code9">
+DATE</EM>
+ keyword: <EM CLASS="Code9">
+DATE yyyy-mm-dd</EM>
+ In the <EM CLASS="Code9">
+Date</EM>
+, <EM CLASS="Code9">
+yyyy</EM>
+ represents the year, <EM CLASS="Code9">
+mm</EM>
+ represents the month, and <EM CLASS="Code9">
+dd</EM>
+ represents the day. The year must be represented by four digits; a two-digit shorthand for the year is not allowed. </P>
+<P CLASS="Indented">
+<A NAME="pgfId-1314817"></A><EM CLASS="Code9">
+time</EM>
+--Not supported.</P>
+<P CLASS="Indented">
+<A NAME="pgfId-1314818"></A><EM CLASS="Code9">
+timestamp</EM>
+--Not supported.</P>
+<P CLASS="Indented">
+<A NAME="pgfId-1292673"></A><EM CLASS="Code9">
+NIL</EM>
+--Equivalent alternative of <EM CLASS="Code9">
+NULL</EM>
+.</P>
+<P CLASS="Indented">
+<A NAME="pgfId-1292674"></A><EM CLASS="Code9">
+NULL</EM>
+--The same as <EM CLASS="Code9">
+null</EM>
+ in Java.</P>
+<P CLASS="Indented">
+<A NAME="pgfId-1341451"></A><EM CLASS="Code9">
+UNDEFINED</EM>
+--A special literal that is a valid value for any data type. An <EM CLASS="Code9">
+UNDEFINED</EM>
+ value is the result of accessing an attribute of a null-valued attribute. Note that if you access an attribute that has an explicit value of <EM CLASS="Code9">
+null</EM>
+, then it is not undefined. For example if a query accesses the attribute <EM CLASS="Code9">
+address.city</EM>
+ and <EM CLASS="Code9">
+address</EM>
+ is <EM CLASS="Code9">
+null</EM>
+, then the result is undefined. If the query accesses <EM CLASS="Code9">
+address</EM>
+, then the result is not undefined, it is null.</P>
+</UL>
+<DIV>
+<H6 CLASS="Head-D">
+<A NAME="pgfId-1341455"></A>Comparing values with java.util.Date</H6>
+<P CLASS="Body">
+<A NAME="pgfId-1292693"></A>You can compare the temporal literal value <EM CLASS="Code9">
+DATE</EM>
+ with <EM CLASS="Code9">
+java.util.Date</EM>
+ values. However, there is no literal for <EM CLASS="Code9">
+java.util.Date</EM>
+ in the query language.</P>
+<P CLASS="Note">
+<A NAME="pgfId-1314841"></A>No literal exists in the case of a data string mentioned inside a query string as constants. However, doing a comparison using the native client built-in object <EM CLASS="Code9">
+CacheableDate</EM>
+ results in a comparison of the date portions of the objects.</P>
+</DIV>
+</DIV>
+<DIV>
+<H6 CLASS="Head-C">
+<A NAME="pgfId-1292565"></A><A NAME="49494"></A>Type Conve<A NAME="marker-1292787"></A>rsions</H6>
+<P CLASS="Body">
+<A NAME="pgfId-1292792"></A>Java rules used within a query string dictate that the query processor performs implicit conversions and promotions under certain cases in order to evaluate expressions that contain different types. The query processor performs binary numeric promotion, method invocation conversion, and temporal type conversion.</P>
+<DIV>
+<H6 CLASS="Head-D">
+<A NAME="pgfId-1292797"></A>Binary <A NAME="marker-1292796"></A>numeric promotion</H6>
+<P CLASS="Body">
+<A NAME="pgfId-1292798"></A>Binary numeric promotion widens all operands in a numeric expression to the widest representation used by any of the operands. In each expression, the query processor applies the following rules in order: </P>
+<UL>
+<LI CLASS="Bulleted">
+<A NAME="pgfId-1292799"></A>If either operand is of type <EM CLASS="Code9">
+double</EM>
+, the other is converted to <EM CLASS="Code9">
+double</EM>
+.</LI>
+<LI CLASS="Bulleted">
+<A NAME="pgfId-1292800"></A>If either operand is of type <EM CLASS="Code9">
+float</EM>
+, the other is converted to <EM CLASS="Code9">
+float</EM>
+.</LI>
+<LI CLASS="Bulleted">
+<A NAME="pgfId-1292801"></A>If either operand is of type <EM CLASS="Code9">
+long</EM>
+, the other is converted to <EM CLASS="Code9">
+long</EM>
+. </LI>
+<LI CLASS="Bulleted">
+<A NAME="pgfId-1292802"></A>Both operands are converted to type <EM CLASS="Code9">
+int</EM>
+. </LI>
+</UL>
+<P CLASS="Body">
+<A NAME="pgfId-1292803"></A>&nbsp;</P>
+<P CLASS="Body">
+<A NAME="pgfId-1316025"></A>The query processor performs binary numeric promotion on the operands of the following operators:</P>
+<UL>
+<LI CLASS="Bulleted">
+<A NAME="pgfId-1292804"></A>comparison operators &lt;, &lt;=, &gt;, and &gt;= </LI>
+<LI CLASS="Bulleted">
+<A NAME="pgfId-1292805"></A>equality operators = and &lt;&gt; </LI>
+</UL>
+<P CLASS="Body">
+<A NAME="pgfId-1292806"></A>This is essentially the same behavior as in Java, except that chars are not considered to be numeric in the native client query language. </P>
+</DIV>
+<DIV>
+<H6 CLASS="Head-D">
+<A NAME="pgfId-1292566"></A><A NAME="51736"></A>Method <A NAME="marker-1292834"></A>invocation conversion</H6>
+<P CLASS="Body">
+<A NAME="pgfId-1292839"></A>Method invocation conversion in the query language follows the same rules as Java method invocation conversion, except that the query language uses runtime types instead of compile time types, and handles null arguments differently than in Java. One aspect of using runtime types is that an argument with a null value has no typing information, and so can be matched with any type parameter. When a <EM CLASS="Code9">
+null</EM>
+ argument is used, if the query processor cannot determine the proper method to invoke based on the non-null arguments, it throws an <EM CLASS="Code9">
+AmbiguousNameException</EM>
+. For more information on method invocation in query strings, see <A HREF="9-Querying.htm#85960" CLASS="XRef">Method Invocation</A>.</P>
+</DIV>
+<DIV>
+<H6 CLASS="Head-D">
+<A NAME="pgfId-1292813"></A><A NAME="29717"></A>Temporal <A NAME="marker-1292858"></A>type conversion</H6>
+<P CLASS="Body">
+<A NAME="pgfId-1341057"></A>The temporal types that the query language supports on the cache server include the Java types <EM CLASS="Code9">
+java.util.Date</EM>
+ and <EM CLASS="Code9">
+java.sql.Date</EM>
+, which are treated the same and can be freely compared and used in indexes. When compared with each other, these types are all treated as nanosecond quantities.</P>
+<P CLASS="Code-Indented">
+<A NAME="pgfId-1341058"></A>&nbsp;</P>
+</DIV>
+</DIV>
+</DIV>
+</DIV>
+<DIV>
+<H1 CLASS="Head-A">
+<A NAME="pgfId-1341060"></A><A NAME="79087"></A>Indexes</H1>
+<P CLASS="Body">
+<A NAME="pgfId-1305947"></A>Indexes are created and maintained on the cache server. An index can provide significant performance gains for query execution. A query run without the aid of an index iterates through every object in the collection on the cache server. If an index is available that matches part or all of the query specification, the query iterates only over the indexed set, and query processing time can be reduced.</P>
+<P CLASS="Body">
+<A NAME="pgfId-1306971"></A>When you create your indexes on the cache server, remember that indexes incur maintenance costs as they must be updated when the indexed data changes. An index that requires many updates and is not used very often may require more system resources than no index at all. Indexes also consume memory. For information on the amount of memory used for indexes, see the system configuration information in the GemFire <EM CLASS="Italic">
+User&#8217;s Guide</EM>
+.</P>
+<P CLASS="Body">
+<A NAME="pgfId-1306972"></A>An index for remote querying can be declaratively created on the cache server using a <EM CLASS="Code9">
+cache.xml</EM>
+ file, as shown in the next example:</P>
+<DIV>
+<H6 CLASS="Example-Title">
+<A NAME="pgfId-1306974"></A><A NAME="44258"></A>Creating an Index on a Cache Server Using a Server XML File<DIV>
+<IMG SRC="9-Querying-1.gif">
+</DIV>
+</H6>
+<P CLASS="Code">
+<A NAME="pgfId-1331865"></A>&lt;region name=&quot;portfolios&quot;&gt;</P>
+<P CLASS="Code">
+<A NAME="pgfId-1331866"></A>	&lt;region-attributes . . . &gt;</P>
+<P CLASS="Code">
+<A NAME="pgfId-1331867"></A>		&lt;value-constraint&gt;cacheRunner.Portfolio&lt;/value-constraint&gt;</P>
+<P CLASS="Code">
+<A NAME="pgfId-1331868"></A>	&lt;/region-attributes&gt;</P>
+<P CLASS="Code">
+<A NAME="pgfId-1331869"></A>	&lt;index name=&quot;myFuncIndex&quot;&gt;</P>
+<P CLASS="Code">
+<A NAME="pgfId-1331870"></A>		&lt;functional from-clause=&quot;/portfolios&quot; expression=&quot;status&quot;/&gt;</P>
+<P CLASS="Code">
+<A NAME="pgfId-1331871"></A>	&lt;/index&gt;</P>
+<P CLASS="Code">
+<A NAME="pgfId-1331872"></A>	&lt;index name=&quot;myPrimIndex&quot;&gt;</P>
+<P CLASS="Code">
+<A NAME="pgfId-1331873"></A>		&lt;primary-key field=&quot;id&quot;/&gt;</P>
+<P CLASS="Code">
+<A NAME="pgfId-1331874"></A>	&lt;/index&gt;</P>
+<P CLASS="Code">
+<A NAME="pgfId-1306112"></A>	&lt;entry&gt; . . . </P>
+<DIV>
+<H6 CLASS="Example-End">
+<A NAME="pgfId-1305993"></A><DIV>
+<IMG SRC="9-Querying-1.gif">
+</DIV>
+&nbsp;</H6>
+<P CLASS="Body">
+<A NAME="pgfId-1305998"></A>For detailed information about working with indexes configured on a cache server, see the Advanced Querying chapter in the GemFire User&#8217;s Guide.</P>
+</DIV>
+</DIV>
+</DIV>
+<DIV>
+<H1 CLASS="Head-A">
+<A NAME="pgfId-1288246"></A><A NAME="72112"></A>The Remote Query API</H1>
+<P CLASS="Body">
+<A NAME="pgfId-1293823"></A>The native client querying API allows you to access all the querying functionality discussed in the previous sections. This section gives a general overview of the interfaces and classes that are provided by the <EM CLASS="Code9">
+Query</EM>
+ package API, and the shortcut methods provided in the <EM CLASS="Code9">
+Region</EM>
+ interface. Complete, current information on the classes and interfaces listed here is available in the native client online API documentation.</P>
+<DIV>
+<H2 CLASS="Head-B">
+<A NAME="pgfId-1293832"></A>Creating and Managing Queries</H2>
+<DIV>
+<H6 CLASS="Head-C">
+<A NAME="pgfId-1297522"></A><EM CLASS="Bold">
+QueryService</EM>
+<A NAME="marker-1297521"></A></H6>
+<P CLASS="Body">
+<A NAME="pgfId-1305047"></A>This method is the entry point to the query package. To execute a query you must obtain a <EM CLASS="Code9">
+QueryService</EM>
+ from the <EM CLASS="Code9">
+cache</EM>
+. It is retrieved from the <EM CLASS="Code9">
+Cache</EM>
+ instance through <EM CLASS="Code9">
+Cache::getQueryService</EM>
+. If you are using the <EM CLASS="Code9">
+Pool</EM>
+ API you must obtain the <EM CLASS="Code9">
+QueryService</EM>
+ from the pools and not from the cache.</P>
+</DIV>
+<DIV>
+<H6 CLASS="Head-C">
+<A NAME="pgfId-1297516"></A>Query</H6>
+<P CLASS="Body">
+<A NAME="pgfId-1293838"></A>A <EM CLASS="Code9">
+Query</EM>
+ is obtained from a <EM CLASS="Code9">
+QueryService</EM>
+, which is obtained from the <EM CLASS="Code9">
+Cache</EM>
+. The <EM CLASS="Code9">
+Query</EM>
+ interface provides methods for managing the compilation and execution of queries, and for retrieving an existing query string.</P>
+<P CLASS="Body">
+<A NAME="pgfId-1305066"></A><EM CLASS="Body">
+A </EM>
+<EM CLASS="Code9">
+Query</EM>
+ object must be obtained for each new query. The following example demonstrates the method used to obtain a new instance of <EM CLASS="Code9">
+Query</EM>
+:</P>
+<P CLASS="Code-Indented">
+<A NAME="pgfId-1305067"></A>QueryPtr newQuery(const char * querystr);</P>
+</DIV>
+<DIV>
+<H6 CLASS="Head-C">
+<A NAME="pgfId-1305129"></A><A NAME="48680"></A>Region Shortcut Query Methods</H6>
+<P CLASS="Body">
+<A NAME="pgfId-1305130"></A><EM CLASS="Body">
+The </EM>
+<EM CLASS="Code9">
+Region</EM>
+<EM CLASS="Body">
+ interface has several query shortcut methods. All take a query predicate which is used in the </EM>
+<EM CLASS="Code9">
+WHERE</EM>
+<EM CLASS="Body">
+ clause of a standard query. See <A HREF="9-Querying.htm#15287" CLASS="XRef">The WHERE Clause</A> for more information. Each of the following examples also set the query response timeout to 10 seconds to allow sufficient time for the operation to succeed.</EM>
+</P>
+<UL>
+<LI CLASS="Bulleted">
+<A NAME="pgfId-1305124"></A>The <EM CLASS="Code9">
+query</EM>
+ method retrieves a collection of values satisfying the query predicate. This call retrieves active portfolios, which in the sample data are the portfolios with keys 111, 222, and 333:</LI>
+</UL>
+<P CLASS="Code-Indented">
+<A NAME="pgfId-1305159"></A>SelectResultsPtr results = regionPtr-&gt;query(&quot;status  'active' &quot;);</P>
+<P CLASS="Code-Indented">
+<A NAME="pgfId-1305174"></A>&nbsp;</P>
+<UL>
+<LI CLASS="Bulleted">
+<A NAME="pgfId-1305158"></A>The <EM CLASS="Code9">
+selectValue</EM>
+ method retrieves one value object. In this call, you request the portfolio with ID <EM CLASS="Code9">
+ABC-1</EM>
+:</LI>
+</UL>
+<P CLASS="Code-Indented">
+<A NAME="pgfId-1305175"></A>SerializablePtr port = region-&gt;selectValue(&quot;ID='ABC-1'&quot;);</P>
+<P CLASS="Code-Indented">
+<A NAME="pgfId-1305184"></A>&nbsp;</P>
+<UL>
+<LI CLASS="Bulleted">
+<A NAME="pgfId-1305176"></A>The <EM CLASS="Code9">
+existsValue</EM>
+ method returns a boolean indicating if any entry exists that satisfies the predicate. This call returns <EM CLASS="Code9">
+false</EM>
+ because there is no entry with the indicated <EM CLASS="Code9">
+type</EM>
+:</LI>
+</UL>
+<P CLASS="Code-Indented">
+<A NAME="pgfId-1305193"></A>bool entryExists = region-&gt;existsValue(&quot;'type' = 'QQQ' &quot;);</P>
+<P CLASS="Body">
+<A NAME="pgfId-1305194"></A>For more information about these shortcut query methods, see the <EM CLASS="Code9">
+Region</EM>
+ class description in the native client online API documentation.</P>
+</DIV>
+</DIV>
+<DIV>
+<H2 CLASS="Head-B">
+<A NAME="pgfId-1293848"></A>Query Result Sets</H2>
+<DIV>
+<H6 CLASS="Head-C">
+<A NAME="pgfId-1305502"></A><EM CLASS="Bold">
+</EM>
+<A NAME="marker-1305568"></A>SelectResults</H6>
+<P CLASS="Body">
+<A NAME="pgfId-1293850"></A>This method executes the query on the cache server and returns the results as either a <EM CLASS="Code9">
+ResultSet</EM>
+ or a <EM CLASS="Code9">
+StructSet</EM>
+.</P>
+</DIV>
+<DIV>
+<H6 CLASS="Head-C">
+<A NAME="pgfId-1305594"></A><EM CLASS="Bold">
+</EM>
+<A NAME="marker-1305601"></A>SelectResultsIterator</H6>
+<P CLASS="Body">
+<A NAME="pgfId-1293852"></A>This method iterates over the items available in a <EM CLASS="Code9">
+ResultSet</EM>
+ or <EM CLASS="Code9">
+StructSet</EM>
+.</P>
+</DIV>
+<DIV>
+<H6 CLASS="Head-C">
+<A NAME="pgfId-1305608"></A>ResultSet</H6>
+<P CLASS="Body">
+<A NAME="pgfId-1305609"></A>A ResultSet is obtained after executing a Query, which is obtained from a QueryService that is obtained from a Cache class.</P>
+</DIV>
+<DIV>
+<H6 CLASS="Head-C">
+<A NAME="pgfId-1305610"></A>StructSet</H6>
+<P CLASS="Body">
+<A NAME="pgfId-1305611"></A>This is used when a <EM CLASS="Code9">
+SELECT</EM>
+ statement returns more than one set of results. This is accompanied by a <EM CLASS="Code9">
+Struct</EM>
+, which provides the <EM CLASS="Code9">
+StructSet</EM>
+ definition and contains its field values.</P>
+</DIV>
+</DIV>
+</DIV>
+<DIV>
+<H1 CLASS="Head-A">
+<A NAME="pgfId-1288262"></A><A NAME="53840"></A>Programming Examples</H1>
+<DIV>
+<H6 CLASS="BodyPrintOnly">
+<A NAME="pgfId-1327004"></A>In this section:</H6>
+<UL>
+<LI CLASS="BulletedPrintOnly">
+<A NAME="pgfId-1293944"></A><EM CLASS="Bold">
+<A HREF="9-Querying.htm#15702" CLASS="XRef">See Query Management.</A></EM>
+</LI>
+<LI CLASS="BulletedPrintOnly">
+<A NAME="pgfId-1305664"></A><EM CLASS="Bold">
+<A HREF="9-Querying.htm#80734" CLASS="XRef">See Query Code Samples Returning ResultSet.</A></EM>
+</LI>
+<LI CLASS="BulletedPrintOnly">
+<A NAME="pgfId-1293948"></A><EM CLASS="Bold">
+<A HREF="9-Querying.htm#53170" CLASS="XRef">See Query Code Samples Returning StructSet.</A></EM>
+</LI>
+</UL>
+</DIV>
+<DIV>
+<H2 CLASS="Head-BNoBreakInHTML">
+<A NAME="pgfId-1294162"></A><A NAME="15702"></A>Query Management</H2>
+<P CLASS="Body">
+<A NAME="pgfId-1294163"></A>Queries are created on the cache server through <EM CLASS="Code9">
+QueryService</EM>
+ and then managed through the resulting <EM CLASS="Code9">
+Query</EM>
+ object. The <EM CLASS="Code9">
+newQuery</EM>
+ method for the <EM CLASS="Code9">
+Query</EM>
+ interface binds a query string. By invoking the <EM CLASS="Code9">
+execute</EM>
+ method, the query is submitted to the cache server and returns <EM CLASS="Code9">
+SelectResults,</EM>
+<EM CLASS="Body">
+ which is either a </EM>
+<EM CLASS="Code9">
+ResultSet</EM>
+<EM CLASS="Body">
+ or a </EM>
+<EM CLASS="Code9">
+StructSet</EM>
+.</P>
+</DIV>
+<DIV>
+<H2 CLASS="Head-B">
+<A NAME="pgfId-1294175"></A><A NAME="80734"></A>Query Code Samples Returning ResultSet</H2>
+<P CLASS="Body">
+<A NAME="pgfId-1298003"></A>The following API examples demonstrate methods for returning <EM CLASS="Code9">
+ResultSet</EM>
+<EM CLASS="Body">
+ </EM>
+for both built-in and user-fined data types.</P>
+<DIV>
+<H6 CLASS="Example-Title">
+<A NAME="pgfId-1298004"></A>Query Returning a ResultSet for a Built-In Data Type<DIV>
+<IMG SRC="9-Querying-1.gif">
+</DIV>
+</H6>
+<P CLASS="Code">
+<A NAME="pgfId-1331881"></A>QueryServicePtr qrySvcPtr = cachePtr-&gt;getQueryService(&quot;examplePool&quot;);</P>
+<P CLASS="Code">
+<A NAME="pgfId-1331882"></A>QueryPtr query = </P>
+<P CLASS="Code">
+<A NAME="pgfId-1331900"></A>	qrySvcPtr-&gt;newQuery(&quot;select distinct pkid from /Portfolios&quot;);</P>
+<P CLASS="Code">
+<A NAME="pgfId-1331883"></A>//specify 10 seconds for the query timeout period</P>
+<P CLASS="Code">
+<A NAME="pgfId-1331884"></A>SelectResultsPtr results = query-&gt;execute(10);</P>
+<P CLASS="Code">
+<A NAME="pgfId-1331885"></A>if (results == NULLPTR) </P>
+<P CLASS="Code">
+<A NAME="pgfId-1331905"></A>{ </P>
+<P CLASS="Code">
+<A NAME="pgfId-1331904"></A>	printf( &quot;&#92;nNo results returned from the server&quot;); </P>
+<P CLASS="Code">
+<A NAME="pgfId-1331906"></A>}</P>
+<P CLASS="Code">
+<A NAME="pgfId-1331886"></A>//obtaining a handle to resultset</P>
+<P CLASS="Code">
+<A NAME="pgfId-1331887"></A>ResultSetPtr rs(dynamic_cast&lt;ResultSet*&gt; (results.ptr()));</P>
+<P CLASS="Code">
+<A NAME="pgfId-1331888"></A>if (rs == NULLPTR) </P>
+<P CLASS="Code">
+<A NAME="pgfId-1331910"></A>{ </P>
+<P CLASS="Code">
+<A NAME="pgfId-1331911"></A>printf (&quot;&#92;nResultSet is not obtained &#92;n&quot;); return; </P>
+<P CLASS="Code">
+<A NAME="pgfId-1331912"></A>}</P>
+<P CLASS="Code">
+<A NAME="pgfId-1331889"></A>//iterating through the resultset using row index.</P>
+<P CLASS="Code">
+<A NAME="pgfId-1331890"></A>for (int32_t row=0; row &lt; rs-&gt;size(); row++) </P>
+<P CLASS="Code">
+<A NAME="pgfId-1331915"></A>{</P>
+<P CLASS="Code">
+<A NAME="pgfId-1331891"></A>	SerializablePtr ser((*rs)[row]);</P>
+<P CLASS="Code">
+<A NAME="pgfId-1331892"></A>	CacheableStringPtr str(dynamic_cast&lt;CacheableString*&gt; (ser.ptr()));</P>
+<P CLASS="Code">
+<A NAME="pgfId-1331893"></A>	if (str != NULLPTR) </P>
+<P CLASS="Code">
+<A NAME="pgfId-1332143"></A>	{</P>
+<P CLASS="Code">
+<A NAME="pgfId-1331934"></A>		printf(&quot;&#92;n string column contains - %s &#92;n&quot;, str-&gt;asChar() );</P>
+<P CLASS="Code">
+<A NAME="pgfId-1331935"></A>	}</P>
+<P CLASS="Code">
+<A NAME="pgfId-1331936"></A>}</P>
+<DIV>
+<H6 CLASS="Example-End">
+<A NAME="pgfId-1297697"></A><DIV>
+<IMG SRC="9-Querying-1.gif">
+</DIV>
+&nbsp;</H6>
+</DIV>
+</DIV>
+<DIV>
+<H6 CLASS="Example-Title">
+<A NAME="pgfId-1297910"></A>Query Returning a ResultSet for a User-Defined Data Type<DIV>
+<IMG SRC="9-Querying-1.gif">
+</DIV>
+</H6>
+<P CLASS="Code">
+<A NAME="pgfId-1332019"></A>QueryServicePtr qrySvcPtr = cachePtr-&gt;getQueryService(&quot;examplePool&quot;);</P>
+<P CLASS="Code">
+<A NAME="pgfId-1332020"></A>const char * querystring = &quot;select distinct * from /Portfolios&quot;;</P>
+<P CLASS="Code">
+<A NAME="pgfId-1332021"></A>QueryPtr query = qrySvcPtr-&gt;newQuery(querystring);</P>
+<P CLASS="Code">
+<A NAME="pgfId-1332022"></A>//specify 10 seconds for the query timeout period</P>
+<P CLASS="Code">
+<A NAME="pgfId-1332023"></A>SelectResultsPtr results = query-&gt;execute(10);</P>
+<P CLASS="Code">
+<A NAME="pgfId-1332024"></A>if (results == NULLPTR) </P>
+<P CLASS="Code">
+<A NAME="pgfId-1332068"></A>{ </P>
+<P CLASS="Code">
+<A NAME="pgfId-1332073"></A>	printf( &quot;&#92;nNo results returned from the server&quot;); </P>
+<P CLASS="Code">
+<A NAME="pgfId-1332078"></A>}</P>
+<P CLASS="Code">
+<A NAME="pgfId-1332025"></A>//obtaining a handle to resultset</P>
+<P CLASS="Code">
+<A NAME="pgfId-1332026"></A>ResultSetPtr rs(dynamic_cast&lt;ResultSet*&gt; (results.ptr()));</P>
+<P CLASS="Code">
+<A NAME="pgfId-1332027"></A>if (rs == NULLPTR) </P>
+<P CLASS="Code">
+<A NAME="pgfId-1332128"></A>{ </P>
+<P CLASS="Code">
+<A NAME="pgfId-1332091"></A>	printf (&quot;&#92;nResultSet is not obtained &#92;n&quot;); return; </P>
+<P CLASS="Code">
+<A NAME="pgfId-1332096"></A>}</P>
+<P CLASS="Code">
+<A NAME="pgfId-1332028"></A>//iterating through the resultset using iterators.</P>
+<P CLASS="Code">
+<A NAME="pgfId-1332029"></A>SelectResultsIterator iter = rs-&gt;getIterator();</P>
+<P CLASS="Code">
+<A NAME="pgfId-1332030"></A>while (iter.hasNext()) </P>
+<P CLASS="Code">
+<A NAME="pgfId-1332133"></A>{</P>
+<P CLASS="Code">
+<A NAME="pgfId-1332031"></A>	SerializablePtr ser = iter.next();</P>
+<P CLASS="Code">
+<A NAME="pgfId-1332032"></A>	PortfolioPtr port(dynamic_cast&lt;Portfolio*&gt; (ser.ptr()));</P>
+<P CLASS="Code">
+<A NAME="pgfId-1332033"></A>	if (port != NULLPTR) </P>
+<P CLASS="Code">
+<A NAME="pgfId-1332138"></A>	{</P>
+<P CLASS="Code">
+<A NAME="pgfId-1332034"></A>		printf(&quot;&#92;nPortfolio object is - %s &#92;n&quot;, port-&gt;toString()-&gt;asChar() );</P>
+<P CLASS="Code">
+<A NAME="pgfId-1332035"></A>	}</P>
+<P CLASS="Code">
+<A NAME="pgfId-1332766"></A>} // end of rows</P>
+<DIV>
+<H6 CLASS="Example-End">
+<A NAME="pgfId-1297937"></A><DIV>
+<IMG SRC="9-Querying-1.gif">
+</DIV>
+&nbsp;</H6>
+</DIV>
+</DIV>
+</DIV>
+<DIV>
+<H2 CLASS="Head-B">
+<A NAME="pgfId-1300084"></A><A NAME="53170"></A>Query Code Samples Returning StructSet</H2>
+<P CLASS="Body">
+<A NAME="pgfId-1315044"></A>The following examples return a <EM CLASS="Code9">
+StructSet</EM>
+ for built-in and user-defined data types, <EM CLASS="Code9">
+Struct</EM>
+ objects, and collections.</P>
+<DIV>
+<H6 CLASS="Example-Title">
+<A NAME="pgfId-1315045"></A>Query Returning a StructSet for a Built-In Data Type<DIV>
+<IMG SRC="9-Querying-1.gif">
+</DIV>
+</H6>
+<P CLASS="Code">
+<A NAME="pgfId-1332149"></A>QueryServicePtr qrySvcPtr = cachePtr-&gt;getQueryService(&quot;examplePool&quot;);</P>
+<P CLASS="Code">
+<A NAME="pgfId-1332150"></A>const char * querystring = </P>
+<P CLASS="Code">
+<A NAME="pgfId-1332412"></A>	&quot;select distinct ID, pkid, status, getType from /Portfolios&quot;;</P>
+<P CLASS="Code">
+<A NAME="pgfId-1332151"></A>QueryPtr query = qrySvcPtr-&gt;newQuery(querystring);</P>
+<P CLASS="Code">
+<A NAME="pgfId-1332152"></A>//specify 10 seconds for the query timeout period</P>
+<P CLASS="Code">
+<A NAME="pgfId-1332153"></A>SelectResultsPtr results = query-&gt;execute(10);</P>
+<P CLASS="Code">
+<A NAME="pgfId-1332154"></A>if (results == NULLPTR) </P>
+<P CLASS="Code">
+<A NAME="pgfId-1332433"></A>{ </P>
+<P CLASS="Code">
+<A NAME="pgfId-1332450"></A>	printf( &quot;&#92;nNo results returned from the server&quot;); </P>
+<P CLASS="Code">
+<A NAME="pgfId-1332467"></A>}</P>
+<P CLASS="Code">
+<A NAME="pgfId-1332155"></A>//obtaining a handle to resultset</P>
+<P CLASS="Code">
+<A NAME="pgfId-1332156"></A>StructSetPtr ss(dynamic_cast&lt;StructSet*&gt; (results.ptr()));</P>
+<P CLASS="Code">
+<A NAME="pgfId-1332157"></A>if (ss == NULLPTR) </P>
+<P CLASS="Code">
+<A NAME="pgfId-1332487"></A>{ </P>
+<P CLASS="Code">
+<A NAME="pgfId-1332504"></A>	printf (&quot;&#92;nStructSet is not obtained &#92;n&quot;); </P>
+<P CLASS="Code">
+<A NAME="pgfId-1332521"></A>	return; </P>
+<P CLASS="Code">
+<A NAME="pgfId-1332538"></A>}</P>
+<P CLASS="Code">
+<A NAME="pgfId-1332158"></A>//iterating through the resultset using indexes.</P>
+<P CLASS="Code">
+<A NAME="pgfId-1332159"></A>for ( int32_t row=0; row &lt; ss-&gt;size();  row++) </P>
+<P CLASS="Code">
+<A NAME="pgfId-1332557"></A>{</P>
+<P CLASS="Code">
+<A NAME="pgfId-1332160"></A>	Struct * siptr = (Struct*) dynamic_cast&lt;Struct*&gt; ( ((*ss)[row]).ptr() );</P>
+<P CLASS="Code">
+<A NAME="pgfId-1332161"></A>	if (siptr == NULL) </P>
+<P CLASS="Code">
+<A NAME="pgfId-1332580"></A>	{ </P>
+<P CLASS="Code">
+<A NAME="pgfId-1332597"></A>		printf(&quot;&#92;nstruct is empty &#92;n&quot;); </P>
+<P CLASS="Code">
+<A NAME="pgfId-1332614"></A>		continue;</P>
+<P CLASS="Code">
+<A NAME="pgfId-1332631"></A>	}</P>
+<P CLASS="Code">
+<A NAME="pgfId-1332162"></A>	//iterate through fields now</P>
+<P CLASS="Code">
+<A NAME="pgfId-1332163"></A>	for( int32_t field=0; field &lt; siptr-&gt;length(); field++) </P>
+<P CLASS="Code">
+<A NAME="pgfId-1332655"></A>	{</P>
+<P CLASS="Code">
+<A NAME="pgfId-1332164"></A>		SerializablePtr fieldptr((*siptr)[field]);</P>
+<P CLASS="Code">
+<A NAME="pgfId-1332165"></A>		if(fieldptr == NULLPTR ) </P>
+<P CLASS="Code">
+<A NAME="pgfId-1332718"></A>		{ </P>
+<P CLASS="Code">
+<A NAME="pgfId-1332735"></A>			printf(&quot;&#92;nnull data received&#92;n&quot;); </P>
+<P CLASS="Code">
+<A NAME="pgfId-1332752"></A>		}</P>
+<P CLASS="Code">
+<A NAME="pgfId-1332166"></A>		CacheableStringPtr </P>
+<P CLASS="Code">
+<A NAME="pgfId-1332389"></A>			str(dynamic_cast&lt;CacheableString*&gt;(fieldptr.ptr()));</P>
+<P CLASS="Code">
+<A NAME="pgfId-1332167"></A>		if (str == NULLPTR) </P>
+<P CLASS="Code">
+<A NAME="pgfId-1332340"></A>		{ </P>
+<P CLASS="Code">
+<A NAME="pgfId-1332323"></A>			printf(&quot;&#92;n field is of some other type &#92;n&quot;); </P>
+<P CLASS="Code">
+<A NAME="pgfId-1332301"></A>		}</P>
+<P CLASS="Code">
+<A NAME="pgfId-1332168"></A>		else </P>
+<P CLASS="Code">
+<A NAME="pgfId-1332284"></A>		{</P>
+<P CLASS="Code">
+<A NAME="pgfId-1332194"></A>			printf(&quot;&#92;n Data for %s is %s &quot;, siptr-&gt;getFieldName(field), str-&gt;asChar() );</P>
+<P CLASS="Code">
+<A NAME="pgfId-1332227"></A>		}</P>
+<P CLASS="Code">
+<A NAME="pgfId-1332169"></A>	} //end of columns</P>
+<P CLASS="Code">
+<A NAME="pgfId-1315080"></A>} // end of rows</P>
+<DIV>
+<H6 CLASS="Example-End">
+<A NAME="pgfId-1315081"></A><DIV>
+<IMG SRC="9-Querying-1.gif">
+</DIV>
+&nbsp;</H6>
+<P CLASS="Body">
+<A NAME="pgfId-1315082"></A>&nbsp;</P>
+</DIV>
+</DIV>
+<DIV>
+<H6 CLASS="Example-Title">
+<A NAME="pgfId-1315083"></A>Query Returning a StructSet for a User-Defined Data Type<DIV>
+<IMG SRC="9-Querying-1.gif">
+</DIV>
+</H6>
+<P CLASS="Code">
+<A NAME="pgfId-1332774"></A>QueryServicePtr qrySvcPtr = cachePtr-&gt;getQueryService(&quot;examplePool&quot;);</P>
+<P CLASS="Code">
+<A NAME="pgfId-1332775"></A>const char * querystring =</P>
+<P CLASS="Code">
+<A NAME="pgfId-1332776"></A>	&quot;select distinct port.ID, port from /Portfolios port&quot;;</P>
+<P CLASS="Code">
+<A NAME="pgfId-1332777"></A>QueryPtr query = qrySvcPtr-&gt;newQuery(querystring);</P>
+<P CLASS="Code">
+<A NAME="pgfId-1332779"></A>SelectResultsPtr results = query-&gt;execute(10);</P>
+<P CLASS="Code">
+<A NAME="pgfId-1332780"></A>if (results == NULLPTR) </P>
+<P CLASS="Code">
+<A NAME="pgfId-1332827"></A>{ </P>
+<P CLASS="Code">
+<A NAME="pgfId-1332840"></A>	printf( &quot;&#92;nNo results returned from the server&quot;); </P>
+<P CLASS="Code">
+<A NAME="pgfId-1332853"></A>}</P>
+<P CLASS="Code">
+<A NAME="pgfId-1332781"></A>//obtaining a handle to resultset</P>
+<P CLASS="Code">
+<A NAME="pgfId-1332782"></A>StructSetPtr ss(dynamic_cast&lt;StructSet*&gt; (results.ptr()));</P>
+<P CLASS="Code">
+<A NAME="pgfId-1332783"></A>if (ss == NULLPTR) </P>
+<P CLASS="Code">
+<A NAME="pgfId-1332869"></A>{ </P>
+<P CLASS="Code">
+<A NAME="pgfId-1332882"></A>	printf (&quot;&#92;nStructSet is not obtained &#92;n&quot;); </P>
+<P CLASS="Code">
+<A NAME="pgfId-1332895"></A>	return; </P>
+<P CLASS="Code">
+<A NAME="pgfId-1332908"></A>}</P>
+<P CLASS="Code">
+<A NAME="pgfId-1332784"></A>//iterating through the resultset using indexes.</P>
+<P CLASS="Code">
+<A NAME="pgfId-1332785"></A>for ( int32_t row=0; row &lt; ss-&gt;size();  row++) </P>
+<P CLASS="Code">
+<A NAME="pgfId-1332923"></A>{</P>
+<P CLASS="Code">
+<A NAME="pgfId-1332786"></A>	Struct * siptr = (Struct*) dynamic_cast&lt;Struct*&gt; ( ((*ss)[row]).ptr() );</P>
+<P CLASS="Code">
+<A NAME="pgfId-1332787"></A>	if (siptr == NULL) </P>
+<P CLASS="Code">
+<A NAME="pgfId-1332942"></A>	{ </P>
+<P CLASS="Code">
+<A NAME="pgfId-1332955"></A>		printf(&quot;&#92;nstruct is empty &#92;n&quot;); </P>
+<P CLASS="Code">
+<A NAME="pgfId-1332968"></A>		continue; </P>
+<P CLASS="Code">
+<A NAME="pgfId-1332981"></A>	}</P>
+<P CLASS="Code">
+<A NAME="pgfId-1333001"></A>	//iterate through fields now</P>
+<P CLASS="Code">
+<A NAME="pgfId-1333002"></A>	for( int32_t field=0; field &lt; siptr-&gt;length(); field++) </P>
+<P CLASS="Code">
+<A NAME="pgfId-1333021"></A>	{</P>
+<P CLASS="Code">
+<A NAME="pgfId-1333003"></A>		SerializablePtr fieldptr((*siptr)[field]);</P>
+<P CLASS="Code">
+<A NAME="pgfId-1332791"></A>		if(fieldptr == NULLPTR ) </P>
+<P CLASS="Code">
+<A NAME="pgfId-1333044"></A>		{ </P>
+<P CLASS="Code">
+<A NAME="pgfId-1333057"></A>			printf(&quot;&#92;nnull data received&#92;n&quot;); </P>
+<P CLASS="Code">
+<A NAME="pgfId-1333070"></A>		}</P>
+<P CLASS="Code">
+<A NAME="pgfId-1332792"></A>		CacheableStringPtr </P>
+<P CLASS="Code">
+<A NAME="pgfId-1333168"></A>			str(dynamic_cast&lt;CacheableString*&gt;(fieldptr.ptr()));</P>
+<P CLASS="Code">
+<A NAME="pgfId-1332793"></A>		if (str != NULLPTR) </P>
+<P CLASS="Code">
+<A NAME="pgfId-1333186"></A>		{</P>
+<P CLASS="Code">
+<A NAME="pgfId-1332794"></A>			printf(&quot;&#92;n Data for %s is %s &quot;, siptr-&gt;getFieldName(field), str-&gt;asChar() );</P>
+<P CLASS="Code">
+<A NAME="pgfId-1332795"></A>		}</P>
+<P CLASS="Code">
+<A NAME="pgfId-1332796"></A>		else </P>
+<P CLASS="Code">
+<A NAME="pgfId-1333256"></A>		{</P>
+<P CLASS="Code">
+<A NAME="pgfId-1332797"></A>			PortfolioPtr port(dynamic_cast&lt;Portfolio*&gt; (fieldptr.ptr()));</P>
+<P CLASS="Code">
+<A NAME="pgfId-1332798"></A>			if (port == NULLPTR) </P>
+<P CLASS="Code">
+<A NAME="pgfId-1333323"></A>			{ </P>
+<P CLASS="Code">
+<A NAME="pgfId-1333336"></A>				printf(&quot;&#92;n field is of some other type &#92;n&quot;); </P>
+<P CLASS="Code">
+<A NAME="pgfId-1333345"></A>			}</P>
+<P CLASS="Code">
+<A NAME="pgfId-1332799"></A>			else</P>
+<P CLASS="Code">
+<A NAME="pgfId-1333361"></A>			{</P>
+<P CLASS="Code">
+<A NAME="pgfId-1333387"></A>				printf(&quot;&#92;nPortfolio data for %s is %s &#92;n&quot;, siptr-&gt;getFieldName(field),port-&gt;toString()-&gt;asChar());</P>
+<P CLASS="Code">
+<A NAME="pgfId-1333404"></A>			}</P>
+<P CLASS="Code">
+<A NAME="pgfId-1332801"></A>		} //end of columns</P>
+<P CLASS="Code">
+<A NAME="pgfId-1315126"></A>	}//end of rows</P>
+<P CLASS="Code">
+<A NAME="pgfId-1333425"></A>}</P>
+<DIV>
+<H6 CLASS="Example-End">
+<A NAME="pgfId-1333518"></A><DIV>
+<IMG SRC="9-Querying-1.gif">
+</DIV>
+&nbsp;</H6>
+</DIV>
+</DIV>
+<DIV>
+<H6 CLASS="Example-Title">
+<A NAME="pgfId-1315129"></A>Returning Struct Objects<DIV>
+<IMG SRC="9-Querying-1.gif">
+</DIV>
+</H6>
+<P CLASS="Code">
+<A NAME="pgfId-1333578"></A>QueryServicePtr qrySvcPtr = cachePtr-&gt;getQueryService(&quot;examplePool&quot;);</P>
+<P CLASS="Code">
+<A NAME="pgfId-1333579"></A>const char * querystring =</P>
+<P CLASS="Code">
+<A NAME="pgfId-1333580"></A>	&quot;select distinct derivedProjAttrbts, key: p.key from &quot;</P>
+<P CLASS="Code">
+<A NAME="pgfId-1333581"></A>	&quot;/Portfolios.entries p, (select distinct x.ID, myPos.secId from &quot;</P>
+<P CLASS="Code">
+<A NAME="pgfId-1333582"></A>	&quot;/Portfolios x, x.positions.values as myPos) derivedProjAttrbts where &quot;</P>
+<P CLASS="Code">
+<A NAME="pgfId-1333583"></A>	&quot;p.value.ID = derivedProjAttrbts.ID and derivedProjAttrbts.secId = 'IBM'&quot;;</P>
+<P CLASS="Code">
+<A NAME="pgfId-1333584"></A>QueryPtr query = qrySvcPtr-&gt;newQuery(querystring);</P>
+<P CLASS="Code">
+<A NAME="pgfId-1333585"></A>//specify 10 seconds for the query timeout period</P>
+<P CLASS="Code">
+<A NAME="pgfId-1333586"></A>SelectResultsPtr results = query-&gt;execute(10);</P>
+<P CLASS="Code">
+<A NAME="pgfId-1333587"></A>if (results == NULLPTR) </P>
+<P CLASS="Code">
+<A NAME="pgfId-1333708"></A>{ </P>
+<P CLASS="Code">
+<A NAME="pgfId-1333713"></A>	printf( &quot;&#92;nNo results returned from the server&quot;); </P>
+<P CLASS="Code">
+<A NAME="pgfId-1333718"></A>}</P>
+<P CLASS="Code">
+<A NAME="pgfId-1333588"></A>//obtaining a handle to resultset</P>
+<P CLASS="Code">
+<A NAME="pgfId-1333589"></A>StructSetPtr ss(dynamic_cast&lt;StructSet*&gt; (results.ptr()));</P>
+<P CLASS="Code">
+<A NAME="pgfId-1333590"></A>if (ss == NULLPTR) </P>
+<P CLASS="Code">
+<A NAME="pgfId-1333726"></A>{ </P>
+<P CLASS="Code">
+<A NAME="pgfId-1333727"></A>	printf (&quot;&#92;nStructSet is not obtained &#92;n&quot;); </P>
+<P CLASS="Code">
+<A NAME="pgfId-1333728"></A>	return;</P>
+<P CLASS="Code">
+<A NAME="pgfId-1333730"></A>}</P>
+<P CLASS="Code">
+<A NAME="pgfId-1333591"></A>//iterating through the resultset using indexes.</P>
+<P CLASS="Code">
+<A NAME="pgfId-1333592"></A>for ( int32_t row=0; row &lt; ss-&gt;size();  row++) </P>
+<P CLASS="Code">
+<A NAME="pgfId-1333737"></A>{</P>
+<P CLASS="Code">
+<A NAME="pgfId-1333593"></A>	Struct * siptr = (Struct*) dynamic_cast&lt;Struct*&gt; ( ((*ss)[row]).ptr() );</P>
+<P CLASS="Code">
+<A NAME="pgfId-1333594"></A>	if (siptr == NULL) { printf(&quot;&#92;nstruct is empty &#92;n&quot;); }</P>
+<P CLASS="Code">
+<A NAME="pgfId-1333595"></A>	//iterate through fields now</P>
+<P CLASS="Code">
+<A NAME="pgfId-1333596"></A>	for( int32_t field=0; field &lt; siptr-&gt;length(); field++) {</P>
+<P CLASS="Code">
+<A NAME="pgfId-1333597"></A>		SerializablePtr fieldptr((*siptr)[field]);</P>
+<P CLASS="Code">
+<A NAME="pgfId-1333598"></A>		if(fieldptr == NULLPTR ) </P>
+<P CLASS="Code">
+<A NAME="pgfId-1333763"></A>		{ </P>
+<P CLASS="Code">
+<A NAME="pgfId-1333764"></A>			printf(&quot;&#92;nnull data received&#92;n&quot;); </P>
+<P CLASS="Code">
+<A NAME="pgfId-1333766"></A>		}</P>
+<P CLASS="Code">
+<A NAME="pgfId-1333599"></A>		CacheableStringPtr </P>
+<P CLASS="Code">
+<A NAME="pgfId-1333784"></A>			str(dynamic_cast&lt;CacheableString*&gt;(fieldptr.ptr()));</P>
+<P CLASS="Code">
+<A NAME="pgfId-1333600"></A>		if (str != NULLPTR) {</P>
+<P CLASS="Code">
+<A NAME="pgfId-1333601"></A>			printf(&quot;&#92;n Data for %s is %s &quot;, siptr-&gt;getFieldName(field), </P>
+<P CLASS="Code">
+<A NAME="pgfId-1333808"></A>				str-&gt;asChar() );</P>
+<P CLASS="Code">
+<A NAME="pgfId-1333603"></A>		}</P>
+<P CLASS="Code">
+<A NAME="pgfId-1333604"></A>		else </P>
+<P CLASS="Code">
+<A NAME="pgfId-1333819"></A>		{</P>
+<P CLASS="Code">
+<A NAME="pgfId-1333605"></A>			StructPtr simpl(dynamic_cast&lt;Struct*&gt; (fieldptr.ptr()));</P>
+<P CLASS="Code">
+<A NAME="pgfId-1333606"></A>			if (simpl == NULLPTR) </P>
+<P CLASS="Code">
+<A NAME="pgfId-1333841"></A>			{ </P>
+<P CLASS="Code">
+<A NAME="pgfId-1333842"></A>				printf(&quot;&#92;n field is of some other type &#92;n&quot;); continue; </P>
+<P CLASS="Code">
+<A NAME="pgfId-1333847"></A>			}</P>
+<P CLASS="Code">
+<A NAME="pgfId-1333607"></A>			printf( &quot;&#92;n struct received %s &#92;n&quot;, siptr-&gt;getFieldName(field) );</P>
+<P CLASS="Code">
+<A NAME="pgfId-1333608"></A>			for( int32_t inner_field=0; inner_field &lt; simpl-&gt;length(); inner_field++ ) </P>
+<P CLASS="Code">
+<A NAME="pgfId-1333882"></A>			{</P>
+<P CLASS="Code">
+<A NAME="pgfId-1333609"></A>				SerializablePtr innerfieldptr((*simpl)[inner_field]);</P>
+<P CLASS="Code">
+<A NAME="pgfId-1333610"></A>				if (innerfieldptr == NULLPTR) </P>
+<P CLASS="Code">
+<A NAME="pgfId-1333913"></A>				{ </P>
+<P CLASS="Code">
+<A NAME="pgfId-1333914"></A>					printf(&quot;&#92;nfield of struct is NULL&#92;n&quot;); </P>
+<P CLASS="Code">
+<A NAME="pgfId-1333919"></A>				}</P>
+<P CLASS="Code">
+<A NAME="pgfId-1333611"></A>				CacheableStringPtr </P>
+<P CLASS="Code">
+<A NAME="pgfId-1333941"></A>					str(dynamic_cast&lt;CacheableString*&gt;(innerfieldptr.ptr()));</P>
+<P CLASS="Code">
+<A NAME="pgfId-1333612"></A>				if (str != NULLPTR) </P>
+<P CLASS="Code">
+<A NAME="pgfId-1333951"></A>				{</P>
+<P CLASS="Code">
+<A NAME="pgfId-1333613"></A>					printf(&quot;&#92;n Data for %s is %s &quot;,</P>
+<P CLASS="Code">
+<A NAME="pgfId-1333614"></A>						simpl-&gt;getFieldName(inner_field),str-&gt;asChar() );</P>
+<P CLASS="Code">
+<A NAME="pgfId-1333615"></A>				}</P>
+<P CLASS="Code">
+<A NAME="pgfId-1333989"></A>				else </P>
+<P CLASS="Code">
+<A NAME="pgfId-1334009"></A>				{ </P>
+<P CLASS="Code">
+<A NAME="pgfId-1334014"></A>					printf(&quot;&#92;n some other object type inside struct&#92;n&quot;); </P>
+<P CLASS="Code">
+<A NAME="pgfId-1334019"></A>				}</P>
+<P CLASS="Code">
+<A NAME="pgfId-1333617"></A>			}</P>
+<P CLASS="Code">
+<A NAME="pgfId-1333618"></A>		}</P>
+<P CLASS="Code">
+<A NAME="pgfId-1333619"></A>	} //end of columns</P>
+<P CLASS="Code">
+<A NAME="pgfId-1333620"></A>}//end of rows</P>
+<DIV>
+<H6 CLASS="Example-End">
+<A NAME="pgfId-1333660"></A><DIV>
+<IMG SRC="9-Querying-1.gif">
+</DIV>
+&nbsp;</H6>
+</DIV>
+</DIV>
+<DIV>
+<H6 CLASS="Example-Title">
+<A NAME="pgfId-1315188"></A>Returning Collections<DIV>
+<IMG SRC="9-Querying-1.gif">
+</DIV>
+</H6>
+<P CLASS="Code">
+<A NAME="pgfId-1334053"></A>QueryServicePtr qrySvcPtr = cachePtr-&gt;getQueryService(&quot;examplePool&quot;);</P>
+<P CLASS="Code">
+<A NAME="pgfId-1334054"></A>const char * querystring = &quot;select distinct ID, names from /Portfolios&quot;;</P>
+<P CLASS="Code">
+<A NAME="pgfId-1334055"></A>QueryPtr query = qrySvcPtr-&gt;newQuery(querystring);</P>
+<P CLASS="Code">
+<A NAME="pgfId-1334057"></A>SelectResultsPtr results = query-&gt;execute(10);</P>
+<P CLASS="Code">
+<A NAME="pgfId-1334058"></A>if (results == NULLPTR) { </P>
+<P CLASS="Code">
+<A NAME="pgfId-1334121"></A>	printf( &quot;&#92;nNo results returned from the server&quot;); </P>
+<P CLASS="Code">
+<A NAME="pgfId-1334126"></A>}</P>
+<P CLASS="Code">
+<A NAME="pgfId-1334059"></A>//obtaining a handle to resultset</P>
+<P CLASS="Code">
+<A NAME="pgfId-1334060"></A>StructSetPtr ss(dynamic_cast&lt;StructSet*&gt; (results.ptr()));</P>
+<P CLASS="Code">
+<A NAME="pgfId-1334061"></A>if (ss == NULLPTR) { </P>
+<P CLASS="Code">
+<A NAME="pgfId-1334142"></A>	printf (&quot;&#92;nStructSet is not obtained &#92;n&quot;); </P>
+<P CLASS="Code">
+<A NAME="pgfId-1334147"></A>	return; </P>
+<P CLASS="Code">
+<A NAME="pgfId-1334152"></A>}</P>
+<P CLASS="Code">
+<A NAME="pgfId-1334062"></A>//iterating through the resultset using indexes.</P>
+<P CLASS="Code">
+<A NAME="pgfId-1334063"></A>for ( int32_t row=0; row &lt; ss-&gt;size();  row++) </P>
+<P CLASS="Code">
+<A NAME="pgfId-1334425"></A>{</P>
+<P CLASS="Code">
+<A NAME="pgfId-1334064"></A>	Struct * siptr = dynamic_cast&lt;Struct*&gt; ( ((*ss)[row]).ptr() );</P>
+<P CLASS="Code">
+<A NAME="pgfId-1334065"></A>	if (siptr == NULL) </P>
+<P CLASS="Code">
+<A NAME="pgfId-1334430"></A>	{ </P>
+<P CLASS="Code">
+<A NAME="pgfId-1334186"></A>		printf(&quot;&#92;nstruct is empty &#92;n&quot;); </P>
+<P CLASS="Code">
+<A NAME="pgfId-1334191"></A>		continue; </P>
+<P CLASS="Code">
+<A NAME="pgfId-1334196"></A>	}</P>
+<P CLASS="Code">
+<A NAME="pgfId-1334066"></A>	//iterate through fields now</P>
+<P CLASS="Code">
+<A NAME="pgfId-1334067"></A>	for( int32_t field=0; field &lt; siptr-&gt;length(); field++) </P>
+<P CLASS="Code">
+<A NAME="pgfId-1334435"></A>	{</P>
+<P CLASS="Code">
+<A NAME="pgfId-1334068"></A>		SerializablePtr fieldptr((*siptr)[field]);</P>
+<P CLASS="Code">
+<A NAME="pgfId-1334069"></A>		if(fieldptr == NULLPTR ) </P>
+<P CLASS="Code">
+<A NAME="pgfId-1334445"></A>		{ </P>
+<P CLASS="Code">
+<A NAME="pgfId-1334450"></A>			printf(&quot;&#92;nnull data received&#92;n&quot;); </P>
+<P CLASS="Code">
+<A NAME="pgfId-1334440"></A>		}</P>
+<P CLASS="Code">
+<A NAME="pgfId-1334070"></A>		CacheableStringPtr </P>
+<P CLASS="Code">
+<A NAME="pgfId-1334254"></A>			str(dynamic_cast&lt;CacheableString*&gt;(fieldptr.ptr()));</P>
+<P CLASS="Code">
+<A NAME="pgfId-1334071"></A>		if (str != NULLPTR) </P>
+<P CLASS="Code">
+<A NAME="pgfId-1334470"></A>		{</P>
+<P CLASS="Code">
+<A NAME="pgfId-1334072"></A>			printf(&quot;&#92;n Data for %s is %s &quot;, siptr-&gt;getFieldName(field), </P>
+<P CLASS="Code">
+<A NAME="pgfId-1334286"></A>					str-&gt;asChar() );</P>
+<P CLASS="Code">
+<A NAME="pgfId-1334074"></A>		}</P>
+<P CLASS="Code">
+<A NAME="pgfId-1334075"></A>		else </P>
+<P CLASS="Code">
+<A NAME="pgfId-1334455"></A>		{</P>
+<P CLASS="Code">
+<A NAME="pgfId-1334076"></A>			CacheableObjectArrayPtr </P>
+<P CLASS="Code">
+<A NAME="pgfId-1334308"></A>					coa(dynamic_cast&lt;CacheableObjectArray*&gt;(fieldptr.ptr()));</P>
+<P CLASS="Code">
+<A NAME="pgfId-1334077"></A>			if (coa == NULLPTR) </P>
+<P CLASS="Code">
+<A NAME="pgfId-1334461"></A>			{ </P>
+<P CLASS="Code">
+<A NAME="pgfId-1334325"></A>				printf(&quot;&#92;n field is of some other type&#92;n&quot;); continue; </P>
+<P CLASS="Code">
+<A NAME="pgfId-1334336"></A>			}</P>
+<P CLASS="Code">
+<A NAME="pgfId-1334078"></A>			printf( &quot;&#92;n objectArray received %s &#92;n&quot;, siptr-&gt;getFieldName(field) );</P>
+<P CLASS="Code">
+<A NAME="pgfId-1334356"></A>			for(unsigned arrlen=0; arrlen &lt; (uint32_t)coa-&gt;length(); arrlen++)</P>
+<P CLASS="Code">
+<A NAME="pgfId-1334080"></A>			{</P>
+<P CLASS="Code">
+<A NAME="pgfId-1334081"></A>				printf(&quot;&#92;n Data for %s is %s &quot;,siptr-&gt;getFieldName(field),</P>
+<P CLASS="Code">
+<A NAME="pgfId-1334082"></A>						coa-&gt;operator[](arrlen)-&gt;toString()-&gt;asChar());</P>
+<P CLASS="Code">
+<A NAME="pgfId-1334083"></A>			}</P>
+<P CLASS="Code">
+<A NAME="pgfId-1334084"></A>		}</P>
+<P CLASS="Code">
+<A NAME="pgfId-1334085"></A>	} //end of columns</P>
+<P CLASS="Code">
+<A NAME="pgfId-1334086"></A>}//end of rows</P>
+<DIV>
+<H6 CLASS="Example-End">
+<A NAME="pgfId-1315236"></A><DIV>
+<IMG SRC="9-Querying-1.gif">
+</DIV>
+&nbsp;</H6>
+<P CLASS="Body">
+<A NAME="pgfId-1288278"></A>&nbsp;</P>
+</DIV>
+</DIV>
+</DIV>
+</DIV>
+</BODY>
+</HTML>

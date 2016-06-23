@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN"
+"concept.dtd">
+<concept id="security">
+  <title id="title_9717E51087B346988389138843E158C4">Encrypt Credentials Using
+  Diffe-Hellman</title>
+
+  <shortdesc>For secure transmission of sensitive credentials like passwords,
+  you can encrypt credentials using the Diffie-Hellman key exchange algorithm.
+  You do this by setting the <codeph>security-client-dhalgo</codeph> system
+  property to the name of a valid symmetric key cipher supported by the JDK.
+  Valid <codeph>security-clientdhalgo</codeph> property values are DESede,
+  AES, and Blowfish, which enable the Diffie-Hellman algorithm with the
+  specified cipher to encrypt the credentials.</shortdesc>
+
+  <conbody id="conbody_D74C4342289846619E028149A8920946">
+    <p id="p_73C402816B974E4B9D904000F996DD2E">For the AES and Blowfish
+    algorithms, you can also optionally specify the key size for the
+    <codeph>securityclient- dhalgo</codeph> property. Valid key size settings
+    for the AES algorithm are AES:128, AES:192, and AES:256. The colon
+    separates the algorithm name and the key size. For the Blowfish algorithm,
+    key sizes from 128 to 448 bits are supported.</p>
+
+    <p id="p_73C402816B974E4B9D904000F996DD2E">For the AES and Blowfish
+    algorithms, you can also optionally specify the key size for the
+    <codeph>securityclient- dhalgo</codeph> property. Valid key size settings
+    for the AES algorithm are AES:128, AES:192, and AES:256. The colon
+    separates the algorithm name and the key size. For the Blowfish algorithm,
+    key sizes from 128 to 448 bits are supported.</p>
+
+    <p>For AES algorithms, you may need Java Cryptography Extension (JCE)
+    Unlimited Strength Jurisdiction Policy Files from Sun or equivalent for
+    your JDK.</p>
+
+    <p id="p_73C402816B974E4B9D904000F996DD2E">Adding settings for
+    Diffie-Hellman on clients also enables challenge response from server to
+    client in addition to encryption of crendentials using the exchanged key
+    to avoid replay attacks from clients to servers. Clients can also enable
+    authentication of servers, with challenge-response from client to server
+    to avoid server side replay attacks.</p>
+  </conbody>
+</concept>

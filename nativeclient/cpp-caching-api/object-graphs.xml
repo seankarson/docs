@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept
+	id="concept_DDE5EEED9ABE4AB08FD797A2B773A5C8">
+	<title>Serializing Object Graphs</title>
+	<shortdesc>If you have a graph of objects where each node can be serializable, the parent node
+		can call <codeph>DataOutput::writeObject</codeph> to delegate the serialization
+		responsibility to its child nodes. Similarly, your application can call
+			<codeph>DataInput::readObject</codeph> to deserialize the object graph. </shortdesc>
+	<conbody>
+		<p>For more information, see the API documentation for <codeph>DataOutput</codeph> and
+				<codeph>DataInput</codeph>. </p>
+	</conbody>
+</concept>

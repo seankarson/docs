@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept
+	id="security">
+	<title>Query Language Literals Supported by Native Client</title>
+	<shortdesc>Query language expressions can contain literals as well as operators and attribute
+		names. The native client supports many types of literals. </shortdesc>
+	<conbody>
+		<ul
+			id="ul_9863DF71FD034194B5D804D7DA164F4D">
+			<li
+				id="li_7EEE0B8D1BFF42E3BF8DDEF037B56B01"><codeph>boolean</codeph>. Boolean value,
+				either <codeph>TRUE</codeph> or <codeph>FALSE</codeph>. </li>
+			<li
+				id="li_BFAADEBA52E945CF9A05FFF4AB9983F7"><codeph>integer</codeph> and
+					<codeph>long</codeph>. Type <codeph>long</codeph> if it is suffixed with the
+				ASCII letter L. Otherwise it is of type <codeph>int</codeph>. </li>
+			<li id="li_DB979662420949A78E347BF351B72190"><codeph>floating point</codeph>.Type float if it is
+				suffixed with an ASCII letter F. Otherwise its type is double and it can optionally
+				be suffixed with an ASCII letter D . A double or floating point literal can
+				optionally include an exponent suffix of E or e, followed by a signed or unsigned
+				number. </li>
+			<li
+				id="li_37471DBD993F46879BC61D707F202E08"><codeph>string</codeph>. Delimited by
+				single quotation marks. Embedded single quotation marks are doubled. For example,
+				the character string <codeph>'Hello'</codeph> evaluates to the value
+					<codeph>Hello</codeph>, while the character string <codeph>'He said,
+					''Hello'''</codeph> evaluates to <codeph>He said, 'Hello'</codeph>. Embedded
+				newlines are kept as part of the string literal. </li>
+			<li
+				id="li_6A24B3EFAD7448CD8D72A04BECFD447E"><codeph>char</codeph>. Type
+					<codeph>char</codeph> if it is a string literal prefixed by the keyword
+					<codeph>CHAR</codeph>; otherwise it is of type <codeph>string </codeph>. The
+				CHAR literal for the single quotation mark character is <codeph>CHAR ''''</codeph>
+				(four single quotation marks). </li>
+			<li id="li_1A058AB5F3DE4D8292243082BCDDB1EC"><codeph>date</codeph>.
+					<codeph>java.sql.Date</codeph> object that uses the JDBC format prefixed with
+				the <codeph>DATE</codeph> keyword: <codeph>DATE yyyy-mm-dd</codeph>. In the Date,
+						<codeph><codeph>yyyy</codeph></codeph> represents the year,
+					<codeph>mm</codeph> represents the month, and
+					<codeph><codeph>dd</codeph></codeph> represents the day. The year must be
+				represented by four digits; a two-digit shorthand for the year is not allowed. </li>
+			<li
+				id="li_45969C44CB6A4C3592A21B94D16B5369"><codeph>time</codeph>. Not supported. </li>
+			<li
+				id="li_8B6A442D2DBB4302A2DFF6BA1CDC11A2"><codeph>timestamp</codeph>. Not supported. </li>
+			<li
+				id="li_216AFB27EAD24720ADD86C3AB72E4AB5"><codeph>NIL</codeph>. Equivalent
+				alternative of <codeph>NULL</codeph>. </li>
+			<li
+				id="li_4C6FB21515814B238EC63D9295DBEEC2"><codeph>NULL</codeph>. Same as
+					<codeph>null</codeph> in Java. </li>
+			<li
+				id="li_238704737B2F43A4A74E937FE2833DA1"><codeph>UNDEFINED</codeph>. Special literal
+				that is a valid value for any data type. An <codeph>UNDEFINED</codeph> value is the
+				result of accessing an attribute of a null-valued attribute. If you access an
+				attribute that has an explicit value of null, then it is not undefined.
+					
+For example, if a query accesses the attribute
+					<codeph>address.city</codeph> and address is null, then the result is undefined.
+				If the query accesses <codeph>address</codeph>, then the result is not undefined, it
+				is null. </li>
+		</ul>
+	</conbody>
+</concept>

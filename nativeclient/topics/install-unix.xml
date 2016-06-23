@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN"
+"concept.dtd">
+<concept id="install-unix">
+  <title>Installing on Linux and Solaris</title>
+
+  <conbody>
+    <p id="p_BE81B615C96D46778FCDDA9DC29CE0B5">For Linux and Solaris, the
+    native client is installed by extracting the contents of a ZIP file.</p>
+
+    <p id="p_38060D4CD64D4698AB66264912DDD14C">When the installation is
+    complete, you will need to add these environment settings:</p>
+
+    <ul id="ul_36D785CD9CC741C1B4D3899BAC81C968">
+      <li id="li_BBA9952EDBEF4F8496875D4722488F82">Set the
+      <varname>GFCPP</varname> environment variable to
+      <varname>productDir</varname>, where <varname>productDir</varname>
+      represents the <codeph>NativeClient_<varname>xxxx</varname></codeph>
+      directory (<varname>xxxx</varname> is the four-digit product
+      version).</li>
+
+      <li id="li_28E40AB73243460E8983E0DF8BBD32CA">Add
+      <codeph>$GFCPP/bin</codeph> to the
+      <codeph><varname>PATH</varname>.</codeph></li>
+
+      <li id="li_47E8E94FF18444B68B8A8F6E8BF0B3DF">Add
+      <codeph>$GFCPP/lib</codeph> to the
+      <codeph><varname>LD_LIBRARY_PATH</varname></codeph>.</li>
+    </ul>
+
+    <p id="p_5BDE5452365C4879A5DD2ECCEBDD71E0">The Linux installer is
+    <codeph>NativeClient_<varname>xxxx</varname>_Lin.zip</codeph>. The default
+    installation path is
+    <codeph>NativeClient_<varname>xxxx</varname></codeph>, where
+    <varname>xxxx</varname> represents the four-digit product version.</p>
+
+    <p id="p_9A34E3DE41C14F0BAE627E429D2F7B92">The Solaris installer is
+    <codeph>NativeClient_<varname>xxxx</varname>_Sol.zip</codeph>. The default
+    installation path is
+    <codeph>NativeClient_<varname>xxxx</varname></codeph>, where
+    <varname>xxxx</varname> represents the four-digit product version.</p>
+  </conbody>
+</concept>

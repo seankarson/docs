@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept
+	id="running-native-client-xact">
+	<title
+		id="title_9717E51087B346988389138843E158C4">Modifying Cache Contents</title>
+	<shortdesc>To modify the cache based on information retrieved through querying, retrieve the
+		entry keys and use them in the standard entry update methods. </shortdesc>
+	<conbody
+		id="conbody_D74C4342289846619E028149A8920946">
+		<p>The query service is a data access tool, so it does not provide any cache update
+			functionality. </p>
+		<p>The next example shows entry key retrieval. </p>
+		<example
+			id="example_10B4645AF51F49438A6C43FD8CA499FC">
+			<title>Get distinct entry keys and positions from active portfolios with at least a
+				$25.00 market value</title>
+			<p>In the following example, retrieving the entry keys allows you to access the cached
+				region entries for update. You cannot update the cache through the query engine. </p>
+			<codeblock><i>Query string:</i> 
+SELECT DISTINCT key, posnVal
+FROM /portfolios.entrySet, value.positions.values posnVal TYPE Position
+WHERE posnVal.mktValue &gt;= 25.00
+
+<i>Results:</i> 
+<i>A SelectResults of Struct instances containing key, Position pairs.
+</i>
+</codeblock>
+		</example>
+	</conbody>
+</concept>

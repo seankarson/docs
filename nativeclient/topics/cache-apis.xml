@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<!-- Created with XMetaL (http://www.xmetal.com) -->
+<concept id="concept_2A282BB5C7FE455497992825AADB3D5E"> 
+  <title>Cache APIs</title> 
+  <shortdesc>The 
+	 <codeph>CacheFactory</codeph> and 
+	 <codeph>Cache</codeph> classes.
+  </shortdesc> 
+  <conbody>
+	 <ul id="ul_D6E1FCBA7CE5422A99BFD64FB5232AB5">
+		<li id="li_314EADD6266244C68955BE175031AB73"><b>CacheFactory</b>—This
+		  class creates a Cache instance based on the provided distributed system and
+		  cache configuration. Any gfcpp.properties and cache.xml files provided to the
+		  application are used to initialize the system and cache. See Chapter 2, Setting
+		  System and Cache Properties, on page 37. If a cache.xml file is used to create
+		  a cache and some of the regions already exist, then a warning states that the
+		  regions exist and the cache is created.
+		</li>
+		<li id="li_C41BA98F9EAB44B2BDFFA46F740E8329">
+		  <p><b>Cache</b>—This class is the entry point to the GemFire caching
+			 API. This class allows you to create regions. The cache is created by calling
+			 the 
+			 <codeph>create</codeph> function of the 
+			 <codeph>CacheFactory</codeph> class. When creating a cache, you
+			 specify a 
+			 <codeph>DistributedSystem</codeph> that tells the new cache where to
+			 find other caches on the network and how to communicate with them.
+		  </p>
+		</li>
+	 </ul>
+  </conbody> 
+</concept>

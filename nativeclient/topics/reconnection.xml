@@ -1,0 +1,78 @@
+<?xml version="1.0"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<!-- Created with XMetaL (http://www.xmetal.com) -->
+<concept id="concept_38C027837216434CB5DEC84DF56B807E"> 
+  <title>Reconnection</title> 
+  <shortdesc>During initialization, operations on the client cache can come
+	 from multiple sources 
+  </shortdesc> 
+  <conbody> 
+	 <ul id="ul_F4BFF2156FDA46D0A12FCBE067831BCB"> 
+		<li id="li_E17266679D83412B83E8D6C9D68455AD">Cache operations by the
+		  application. 
+		</li> 
+		<li id="li_4AFB1DD1F5A842148D35B27370945948">Results returned by the
+		  cache server in response to the client’s interest registrations. 
+		</li> 
+		<li id="li_CBE31A4205B34FA1AD62E79F579FCAC9">Callbacks triggered by
+		  replaying old events from the queue. 
+		</li> 
+	 </ul> 
+	 <p>These procedures can act on the cache concurrently, and the cache is
+		never blocked from doing 
+	 </p> 
+	 <p>operations. 
+	 </p> 
+	 <p>GemFire handles the conflicts between the application and interest
+		registration, but you need to prevent the callback problem. Writing callback
+		methods that do cache operations is never recommended, but it is a particularly
+		bad idea for durable clients, as explained in Implementing Cache Listeners for
+		Durable Clients on page 161. 
+	 </p> 
+	 <p>Program the durable client to perform these steps, in order, when it
+		reconnects: 
+	 <ol id="ol_5687134DD2734E6B8AAAA4EB1702EFC3"> 
+		<li id="li_FA670E4515B240D98B0A02DD4EFE3531">Create the cache and
+		  regions. This ensures that all cache listeners are ready. At this point, the
+		  application hosting the client can begin cache operations. 
+		</li> 
+		<li id="li_B8BED4F721754538A268679990C9635D">Issue its register interest
+		  requests. This allows the client cache to be populated with the initial
+		  interest registration results. The primary server responds with the current
+		  state of those entries if they still exist in the server’s cache. 
+		</li> 
+		<li id="li_91C52475C3F943FF90263B7146EB2DB4"> Call 
+		  <codeph>Cache.readyForEvents</codeph>. This tells the servers that all
+		  regions and listeners on the client are now ready to process messages from the
+		  servers. The cache ready message triggers the queued message replay process on
+		  the primary server. 
+		</li> 
+	 </ol> 
+	 </p> 
+	 <p>For an example that demonstrates 
+		<codeph>Cache.readyForEvents</codeph>, see Sending the Cache Ready
+		Message to the Server on page 156. 
+	 </p> 
+	 <p>This figure shows the concurrent procedures that occur during the
+		initialization process. The application begins operations immediately on the
+		client (step 1), while the client's cache ready message (also step 1) triggers
+		a series of queue operations on the cache servers (starting with step 2 on the
+		primary server). At the same time, the client registers interest (step 2 on the
+		client) and receives a response from the server.
+	 </p> 
+	 <p> Message B2 applies to an entry in Region A, so the cache listener
+		handles B2's event. Because B2 comes before the marker, the client does not
+		apply the update to the cache.
+	 </p> 
+	 <fig id="fig_5A5566FB9EBE4A6D906E9D8FA687B4C5">
+		<title> Initialization of a Reconnected Durable Client</title><image
+		id="image_1B3693DB90D041F193496BA24849D114"
+		href="../common/images/7-Preserving_Data-2.gif"></image>
+	 </fig>
+	 <p> Only one region is shown for simplicity, but the messages in the queue
+		could apply to multiple regions. Also, the figure omits the concurrent cache
+		updates on the servers, which would normally be adding more messages to the
+		client's message queue.
+	 </p>
+  </conbody> 
+</concept> 

@@ -1,0 +1,80 @@
+<?xml version="1.0"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept
+	id="concept_6F1DD07623ED49D1B8225727305E2F7A">
+	<title>Program Your Application to Use IPdxInstance</title>
+	<shortdesc>An <codeph>IPdxInstance</codeph> is a lightweight wrapper around PDX serialized
+		bytes. It provides applications with run-time access to fields of a PDX serialized object. </shortdesc>
+	<conbody>
+		<p>You can configure your cache to return an <codeph>IPdxInstance</codeph> when a PDX
+			serialized object is deserialized instead of deserializing the object to a domain class.
+			You can then program your application code that reads your entries to handle
+				<codeph>IPdxInstances</codeph> fetched from the cache. </p>
+			<note>
+				<p>This option applies only to entry retrieval that you explicitly code using methods
+				like <codeph>EntryEvent.getNewValue</codeph> and <codeph>Region.get</codeph>, as you
+				do inside functions or in cache listener code. This does not apply to querying
+				because the query engine retrieves the entries and handles object access for you.
+				</p>
+			</note>
+		<note>
+			<p><codeph>IPdxInstance</codeph> overrides any custom implementation you might have coded
+			for your object's <codeph>equals</codeph> and <codeph>hashcode</codeph> methods.
+			</p>
+		</note>
+		<p>
+			<b>Procedure</b>
+		</p>
+			<ol
+				id="ol_B89BECB4C2864ACAA03DAE4C656C297B">
+				<li
+					id="li_2E442BD7FB17456D929BAE4ED4D81DD6">In the <codeph>cache.xml</codeph>
+					file of the server member where entry fetches are run, set the
+						<codeph>&lt;pdx&gt;</codeph> read-serialized attribute to true. <p>Data is
+						not necessarily accessed on the member that you have coded for it. For
+						example, if a client application runs a function on a server, the actual
+						data access is done on the server, so you set read-serialized to true on the
+						server. </p><p>For example:</p>
+						<codeblock>// Cache configuration setting PDX read behavior
+              &lt;cache&gt;
+                &lt;pdx read-serialized="true" /&gt;
+... &lt;/cache&gt;</codeblock>
+				</li>
+				<li
+					id="li_4E281EFA9A5C4D52811D14B74417EC66">
+					<p>Write the application code that fetches data from the cache to handle a
+							<codeph>IPdxInstance</codeph>. If you are sure you will only retrieve
+							<codeph>IPdxInstances</codeph> from the cache, you can code only for
+						that. In many cases, a <codeph>IPdxInstance</codeph> or a domain object may
+						be returned from your cache entry retrieval operation, so you should check
+						the object type and handle each possible type. </p>
+					<p>See <xref
+							href="using-ipdxinstancefactory.xml#concept_8FA31D0D022146CE8DE2197006507AFF/example_89B7EDD2BE27423BA0CAB9B0270348B5"
+							type="example"
+							format="dita"
+							scope="local"><?xm-replace_text Creating an IPdxInstance with IPdxInstanceFactory?></xref>
+						for an example of this. </p>
+				</li>
+			</ol>
+		<p>If you configure your cache to allow PDX serialized reads, cache fetches return the data
+			in the form it is found. If the object is not serialized, the fetch returns the domain
+			object. If the object is serialized, the fetch returns the <codeph>PdxInstance</codeph>
+			for the object. </p>
+			<note>
+				<p>If you are using <codeph>IPdxInstances</codeph>, you cannot use delta propagation
+				to apply changes to PDX serialized objects.
+				</p>
+			</note>
+		<p>For example, in client/server applications that are programmed and configured to handle
+			all data activity from the client, PDX serialized reads done on the server side will
+			always return the <codeph>IPdxInstance</codeph>. This is because all of data is
+			serialized for transfer from the client and you are not performing any server-side
+			activities that would deserialize the objects in the server cache. </p>
+		<p>In mixed situations, such as where a server cache is populated from client operations and
+			also from data loads done on the server side, fetches done on the server can return a
+			mix of <codeph>IPdxInstances</codeph> and domain objects. </p>
+		<p>When fetching data in a cache with PDX serialized reads enabled, the safest approach is
+			to code to handle both types, receiving an Object from the fetch operation, checking the
+			type and casting as appropriate. </p>
+	</conbody>
+</concept>

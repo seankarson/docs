@@ -1,0 +1,77 @@
+<?xml version="1.0"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<!-- Created with XMetaL (http://www.xmetal.com) -->
+<concept id="concept_F0F783EFDD4F42CFB05BB7F7FEAAC5E9"> 
+  <title>Region and Entry APIs</title> 
+  <shortdesc>Classes for working with GemFire regions and region entries.
+  </shortdesc> 
+  <conbody>
+	 <ul id="ul_4ED2074D6D43462A96CB75A3401F3AEC">
+		<li id="li_5DE283C321BF4E7B89F8E948F2DF5C38"><b>RegionFactory</b>—This
+		  class creates a 
+		  <codeph>Region</codeph> instance based on the provided configuration.
+		</li>
+		<li id="li_171206AEB4DD4DDB841CE9C597A668B4">
+		  <p><b>IRegion</b>—This class provides functions for managing regions
+			 and cached data. The 
+			 <codeph>Region</codeph> interface implements the generic .NET 
+			 <codeph>IDictionary</codeph> interface. In the GemFire APIs, 
+			 <codeph>IRegion</codeph> implements 
+			 <codeph>IDictionary</codeph> and 
+			 <codeph>Region</codeph> inherits 
+			 <codeph>IRegion</codeph>, giving you access to the full range of .NET
+			 
+			 <codeph>Generic</codeph> collection functions. The functions for this
+			 class allow you to perform the following actions:
+		  <ul id="ul_E48874A4A1664CD197BD45A546790A9A">
+			 <li id="li_D69DD9C04C2845BEA4A378EFCE9B81B2">
+				<p>Retrieve information about the region, such as its parent region
+				  and region attribute objects.
+				</p>
+			 </li>
+			 <li id="li_B92879F8B570436CAE2CBA403A4238C7">
+				<p>Invalidate or destroy the region.
+				</p>
+			 </li>
+			 <li id="li_DAACE338ACF749A68D7D55DDE12FA094">
+				<p>Add, update, invalidate and remove region entries.
+				</p>
+			 </li>
+			 <li id="li_0D995D478CD844518395741D476BED72">
+				<p>Determine, individually or as entire sets, the region's entry
+				  keys, entry values and 
+				  <codeph>RegionEntry</codeph> objects.
+				</p>
+			 </li>
+		  </ul>
+		  </p>
+		</li>
+		<li id="li_CC173FDDF2104F90A8C0CD628F0658B2"><b>RegionEntry</b>—This
+		  class contains the key and value for the entry, and provides all
+		  non-distributed entry operations. The operations of this object are not
+		  distributed and do not affect statistics.
+		</li>
+		<li id="li_312612EE9B7C4B32A396D3B398562BF6"><b>RegionShortcut</b>—This
+		  class holds 
+		  <codeph>enum</codeph> definitions for the most common region
+		  configurations. Start your region configuration with a shortcut setting in the
+		  region attribute, 
+		  <codeph>refid</codeph>. Then customize further using the 
+		  <codeph>RegionAttributes.</codeph>
+		</li>
+		<li id="li_A5E117D1D41B4E10A2145C1E65F003D6"><b>RegionAttributes</b>—This
+		  class holds all attribute values for a region and provides functions for
+		  retrieving all attribute settings. This class can only be modified by the 
+		  <codeph>AttributesFactory</codeph> class before region creation, and
+		  the 
+		  <codeph>AttributesMutator</codeph> class after region creation.
+		</li>
+		<li
+		id="li_A97F4F5D24864456BC48AEFFF75BA2D8"><b>AttributesMutator</b>—This class
+		  allows modification of an existing region's attributes for application plug-ins
+		  and expiration actions. Each region has an 
+		  <codeph>AttributesMutator</codeph> instance.
+		</li>
+	 </ul>
+  </conbody> 
+</concept>

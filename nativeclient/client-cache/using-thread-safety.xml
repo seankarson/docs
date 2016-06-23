@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "http://docs.oasis-open.org/dita/v1.1/OS/dtd/concept.dtd">
+<concept
+	id="using-thread-safety">
+	<title>Using Thread Safety in Cache Management</title>
+	<shortdesc>When you perform structural changes on your cache, such as creating or closing a
+			<codeph>Cache</codeph>, <codeph>Pool</codeph>, or <codeph>Region</codeph>, synchronize
+		your operations or do them in a single thread. </shortdesc>
+	<conbody>
+		<p>Other non-structural operations, like region gets, puts, and queries, are thread safe,
+			and you can perform them in a multithreaded way. There are caveats to this, for example,
+			when two threads update the same key simultaneously, there is no way to determine which
+			thread's operation will prevail. </p>
+		<p>You may need to protect cached objects from concurrent usage and modification. The native
+			client does not guard cached objects themselves from concurrent access. </p>
+		<p>Always catch and handle exceptions that may be thrown, for problems like trying to create
+			a <codeph>Pool</codeph> with the same name more than once. </p>
+	</conbody>
+</concept>

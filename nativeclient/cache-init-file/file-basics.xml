@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "http://docs.oasis-open.org/dita/v1.1/OS/dtd/concept.dtd">
+<concept
+	id="file-basics">
+	<title>Cache Initialization File Basics</title>
+	<shortdesc>The contents of the cache initialization file are used to populate or update a cache. </shortdesc>
+	<conbody>
+		<p>This occurs when a cache server starts up, when a client application explicitly creates
+			its cache, or when a client explicitly loads a new structure into an existing cache. </p>
+		<p>The initialization file can have any name, but is generally referred to as
+				<codeph>cache.xml</codeph>. Both client applications and cache servers can use an
+			optional <codeph>cache.xml</codeph> file to ease the initialization process. </p>
+		<section
+			id="section_E54BF7911C224016B822768B537FA464">
+			<title>File Contents</title>
+			<p>The contents of a declarative XML file correspond to APIs declared in the
+					<codeph>Cache.hpp</codeph> and <codeph>Region.hpp</codeph> header files. The
+				cache initialization file allows you to accomplish declaratively many of the cache
+				management activities that you can program through the API. </p>
+			<ul
+				id="ul_39B4A7BE85BA482FB98DBE365A830C16">
+				<li
+					id="li_C768282BB91746279F6794CC29E48BEA">The contents of the cache
+					initialization file must conform to the XML definition in
+							<codeph><varname>productDir</varname>/dtd/gfcpp-cache8000.dtd</codeph>
+					(see <xref
+						scope="local"
+						href="cache-dtd.xml#cache-dtd"
+						type="concept"
+						format="dita">Native Client Cache XML DTD</xref>). </li>
+				<li
+					id="li_A9CA0B8E10834857A1078C04BD974CB2">The name of the declarative XML file is
+					specified when establishing a connection to the distributed system. You can
+					define it by setting the <codeph>cache-xml-file</codeph> configuration attribute
+					in the <codeph>gfcpp.properties</codeph> file for the native client. For details
+					about the <codeph>gfcpp.properties</codeph> file, see <xref
+						scope="local"
+						href="../setting-properties/chapter-overview.xml#system_and_cache_properties"
+						type="concept"
+						format="dita">Setting System and Cache Properties</xref>. </li>
+			</ul>
+		</section>
+	</conbody>
+</concept>

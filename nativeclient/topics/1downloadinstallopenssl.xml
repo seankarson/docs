@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN"
+"concept.dtd">
+<concept id="security">
+  <title id="title_9717E51087B346988389138843E158C4">Step 1: Download and
+  install OpenSSL</title>
+
+  <shortdesc>This section lists the web sites where you can download OpenSSL,
+  and additional packages for each supported platform. For Linux and Solaris,
+  you can download the latest tarball archive from the OpenSSL web site at
+  <!--BEVLINK-->http://www.openssl.org/source/. Follow these instructions to
+  build or install OpenSSL for your specific operating system.</shortdesc>
+
+  <conbody id="conbody_D74C4342289846619E028149A8920946">
+    <p>Follow these instructions to build or install OpenSSL for your specific
+    operating system.</p>
+
+    <section><title>Linux</title>OpenSSL is installed on Linux by default, but
+    the OpenSSL development package may need to be installed to successfully
+    compile the security templates. <p>To build OpenSSL on Linux, copy the
+    downloaded tarball file into
+    <codeph>NativeClient_xxxx/templates/security/openssl/Linux</codeph> and
+    run <codeph>buildit.sh</codeph>.</p></section>
+
+    <section><title>Solaris</title><p>To build OpenSSL on Solaris, copy the
+    downloaded tarball file into
+    <codeph>NativeClient_xxxx/templates/security/openssl/SunOS</codeph> and
+    run <codeph>buildit.sh</codeph>.</p></section>
+
+    <section><title>Pre-Built OpenSSL (Solaris)</title><p>If you do not want
+    to build OpenSSL, you can download a pre-built archive of OpenSSL for
+    Solaris at <!--BEVLINK-->http://www.sunfreeware.com/. Follow the links for
+    your specific Solaris operating system to download a compatible version of
+    OpenSSL and install it. To complete the installation, you may need to
+    install some additional listed support files.</p></section>
+
+    <section><title>Windows</title><p>An OpenSSL installer can be downloaded
+    for Windows from <!--BEVLINK-->http://www.openssl.org/related/binaries.html
+    </p><p>Use the downloaded OpenSSL installer to install it on Windows. You
+    can usually accept the default installation path
+    (<codeph>C:\OpenSSL</codeph>).</p></section>
+  </conbody>
+</concept>

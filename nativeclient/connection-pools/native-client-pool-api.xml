@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept
+	id="native-client-pool-api">
+	<title>Native Client Pool API</title>
+	<shortdesc>The <keyword keyref="product_name"/> native client API allows your clients to create and
+		manage connection pools. The server side does not have an API. </shortdesc>
+	<conbody>
+		<p>This section lists the primary native client API for pool management. For complete information
+			on the classes and interfaces described here, see the API documentation. </p>
+		<note>
+			<p>Only C# versions of Pool API interfaces, classes, and methods are shown throughout the text in
+				this section (example: <codeph>Pool.GetQueryService()</codeph>) . The code examples
+				demonstrate both C++ and C# versions. </p>
+		</note>
+		<p><b>Gemstone::GemFire::Cache</b></p>
+			<ul
+				id="ul_29040A36A5B6469894F03676C168EA96">
+				<li
+					id="li_4B417BDFDC324003B763C51D22CD8C1D"><codeph>Pool</codeph> interface. API to
+					retrieve pool attributes. </li>
+				<li
+					id="li_F62EB04AC02C4467A494A8E5E8AADEA5"><codeph>PoolFactory</codeph> interface.
+					API to configure pool attributes. </li>
+				<li
+					id="li_364DCED1DB35467288070907BD8DA60A"><codeph>PoolManager</codeph> interface.
+					API to create a <codeph>PoolFactory</codeph> object and to find the pool
+					objects. </li>
+				<li
+					id="li_8135FE406AF746C787102BD949AAAC06">
+					<codeph>AttributesFactory</codeph> class. Has a new method
+						<codeph>setPoolname</codeph> which assigns a pool to a region. Operations
+					performed on the configured region use connections from the pool. </li>
+			</ul>
+			<note>
+				<p>A region can have a pool attached to it. A pool may have multiple regions attached
+				to it.
+				</p>
+			</note>
+	</conbody>
+</concept>

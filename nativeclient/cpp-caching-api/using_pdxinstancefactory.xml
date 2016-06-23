@@ -1,0 +1,128 @@
+<?xml version="1.0"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept
+  id="concept_090C249E1D224FC3B82DB6E2B1A515DD">
+  <title>Using PdxInstanceFactory to Create PdxInstances</title>
+  <shortdesc>You can use the <codeph>PdxInstanceFactory</codeph> API to create a
+      <codeph>PdxInstance</codeph> from raw data when the domain class in not
+    available on the server. </shortdesc>
+  <conbody>
+    <p>Creating a <codeph>PdxInstance</codeph> can be particularly useful when
+      you need an instance of a domain class for plug-in code such as a function
+      or a loader. If you have raw data for the domain object (the class name
+      and each field's type and data), then you can explicitly create a
+        <codeph>PdxInstance</codeph>. The <codeph>PdxInstanceFactory</codeph>
+      API is very similar to the <codeph>PdxWriter</codeph> API except that
+      after writing each field, you need to call the create method which returns
+      the created <codeph>PdxInstance</codeph>. </p>
+    <example
+      id="example_FD20723EE04941BDA4A0E8F187D48056">
+      <title>PdxInstance Example</title>
+      <p>The following is a code example of creating a
+        <codeph>PdxInstance</codeph>.</p>
+        <codeblock>
+class Person
+{
+private:
+  char* m_name;    
+  int m_id;
+  int m_age;
+
+public:
+  Person() { }
+
+  Person(char* name, int id, int age)
+  {
+    m_name = name;
+    m_id = id;
+    m_age = age;
+  }
+
+  char* getName() const
+  {
+    return m_name;
+  }
+  int getID()
+  {
+    return m_id;
+  }
+  int getAge()
+  {
+    return m_age;
+  }
+};
+
+int main(int argc, char ** argv)
+{
+  try
+  {
+    // Create a Cache.
+    CacheFactoryPtr cacheFactory = CacheFactory::createCacheFactory();
+
+    CachePtr cachePtr = cacheFactory-&gt;set("cache-xml-file", 
+                "XMLs/clientPdxInstance.xml")-&gt;create();          
+
+    LOGINFO("Created the GemFire Cache");
+
+    // Get the example Region from the Cache which is declared in the 
+    // Cache XML file.
+    RegionPtr regionPtr = cachePtr-&gt;getRegion("Person");       
+
+    LOGINFO("Obtained the Region from the Cache.");
+ 
+    Person* p = new Person("Jack", 7, 21);
+
+    //PdxInstanceFactory for Person class
+    PdxInstanceFactoryPtr pif = cachePtr-&gt;createPdxInstanceFactory("Person");
+    LOGINFO("Created PdxInstanceFactory for Person class");
+
+    pif-&gt;writeString("m_name", p-&gt;getName());
+    pif-&gt;writeInt("m_id", p-&gt;getID());
+    pif-&gt;markIdentityField("m_id");
+    pif-&gt;writeInt("m_age", p-&gt;getAge());
+
+    PdxInstancePtr pdxInstance = pif-&gt;create();
+
+    LOGINFO("Created PdxInstance for Person class");
+
+    regionPtr-&gt;put("Key1", pdxInstance);    
+
+    LOGINFO("Populated PdxInstance Object");
+
+    PdxInstancePtr retPdxInstance = regionPtr-&gt;get("Key1");
+
+    LOGINFO("Got PdxInstance Object");
+
+    int id = 0;
+    retPdxInstance-&gt;getField("m_id", id);
+
+    int age = 0;
+    retPdxInstance-&gt;getField("m_age", age);
+
+    char* name = NULL;
+    retPdxInstance-&gt;getField("m_name", &amp;name);
+
+    if (id == p-&gt;getID()&amp;&amp; age == p-&gt;getAge() &amp;&amp; strcmp(name, p-&gt;getName()) == 0
+      &amp;&amp; retPdxInstance-&gt;isIdentityField("m_id") == true)
+      LOGINFO("PdxInstance returns all fields value expected");
+    else
+      LOGINFO("PdxInstance doesn't returns all fields value expected");
+
+    delete p;
+
+    // Close the Cache.
+    cachePtr-&gt;close();
+
+    LOGINFO("Closed the Cache");
+
+  }
+  // An exception should not occur
+  catch(const Exception &amp; gemfireExcp)
+  {    
+    LOGERROR("PdxInstance Exception: %s", gemfireExcp.getMessage());
+  }
+}
+</codeblock>
+    </example>
+  </conbody>
+</concept>

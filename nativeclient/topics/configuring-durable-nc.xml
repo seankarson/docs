@@ -1,0 +1,79 @@
+<?xml version="1.0"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<!-- Created with XMetaL (http://www.xmetal.com) -->
+<concept id="concept_B110DFD72B7E439ABF84CC044EED38F0"> 
+  <title>Configuring a Durable Native Client</title> 
+  <shortdesc><?xm-replace_text Short Description?>The durable native client can
+	 be configured in the 
+	 <filepath>gfcpp.properties</filepath> file, or in the 
+	 <filepath>CacheFactory::set(name, value)</filepath> call. 
+  </shortdesc> 
+  <conbody> 
+	 <ul id="ul_32BE4B181EA64F1E83BBE632E287D619"> 
+		<li id="li_CB894B25E0D143229373FB88B7304348"> 
+		  <p><b>Durable client ID</b>—You indicate that the client is durable by
+			 giving it a 
+			 <codeph>durable-client-ID</codeph>. The servers use this ID to
+			 identify the client. For a non-durable client, the 
+			 <codeph>durable-client-ID</codeph> is an empty string. The ID can be
+			 any number that is unique among the clients attached to servers in the same
+			 distributed system. 
+		  </p> 
+		</li> 
+		<li id="li_B8E8101235DA4E7E9FE467FCB2E8820B"> 
+		  <p><b>Durable timeout</b>—The 
+			 <codeph>durable-timeout</codeph> setting specifies how long this
+			 client’s servers should wait after the client disconnects before terminating
+			 its message queue. During that time, the servers consider the client alive and
+			 continue to accumulate messages for it. The default is 300 seconds. 
+		  </p> 
+		</li> 
+	 </ul> 
+	 <p>The 
+		<codeph>durable-timeout</codeph> setting is a tuning parameter. When
+		setting the timeout, take into account the normal activity of your application,
+		the average size of your messages, and the level of risk you can handle.
+		Assuming that no messages are being removed from the queue, how long can the
+		application run before the queue reaches the maximum message count? In
+		addition, how long can it run before the queued messages consume all the memory
+		on the client host? How serious is each of those failures to your operation? 
+	 </p> 
+	 <p> 
+		<xref></xref>To assist with tuning, GemFire provides statistics that
+		track message queues for durable clients through the disconnect and reconnect
+		cycles. The statistics are documented in the GemFire User's Guide. 
+	 </p> 
+	 <p> 
+		<xref></xref>When the queue is full it blocks further operations that add
+		messages until the queue size drops to an acceptable level. The action to take
+		is specified on the server. For details on configuring the queue, see the
+		GemFire User's Guide. 
+	 </p> 
+	 <p> 
+		<xref></xref>The following example shows 
+		<filepath>gfcpp.properties</filepath> settings to make the client durable
+		and set the durable timeout to 200 seconds . 
+	 </p> 
+	 <example id="example_5510ABAAD40E41D3964C4D7D7D8FA518"> 
+		<title> Configuring a Durable Native Client Using
+		  gfcpp.properties</title> 
+		<p>The following example shows 
+		  <filepath>gfcpp.properties</filepath> settings to make the client
+		  durable and set the durable timeout to 200seconds. 
+		  <codeblock>durable-client-id=31
+durable-timeout=200</codeblock> 
+		</p> 
+	 </example> 
+	 <example id="example_22D32B751C6F4401BC7F3886807015EF"> 
+		<title> Configuring a Durable Client Through the API (C++)</title> 
+		<p>This programmatic example creates a durable client using the 
+		  <codeph>CacheFactory::set(name, value)</codeph>. 
+		  <codeblock>// Create durable client's properties using the C++ api
+PropertiesPtr pp = Properties::create();
+pp-&gt;insert("durable-client-id", "DurableClientId");
+pp-&gt;insert("durable-timeout", 200);
+cacheFactoryPtr = CacheFactory::createCacheFactory(pp);</codeblock> 
+		</p> 
+	 </example> 
+  </conbody> 
+</concept> 

@@ -1,0 +1,41 @@
+<?xml version="1.0"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<!-- Created with XMetaL (http://www.xmetal.com) -->
+<concept id="concept_2B85EC4AB9FA446998147A1539D818CC"> 
+  <title>Accessing an Entry</title> 
+  <shortdesc>The standard Region::get API method returns the value associated
+	 with the specified key, and passes the callback argument to any cache loaders
+	 or cache writers that are invoked in the operation. If the value is not present
+	 locally then it is requested from the cache server. If the cache server request
+	 is unsuccessful then a local cache loader is invoked. 
+  </shortdesc> 
+  <conbody>
+	 <section id="section_802F2C45751C4B66A3FAE428C1A66334">
+		<p>The entry value is either retrieved from the local cache or fetched by
+		  the region’s locally defined cache loader. 
+		</p>
+		<p>In the following example, the program uses the API to do a get for
+		  each entry that was put into the cache:
+		  <codeblock>for ( int32_t i=0; i&lt; 100; i++) {
+CacheableInt32Ptr res = dynCast&lt;CacheableInt32Ptr&gt;(regionPtr-&gt;get(i));
+}</codeblock>
+		</p>
+	 </section>
+	 <section id="section_80F9A9E8F8514A9FBA19106C2473B370">
+		<title>Bulk Get Operations Using getAll</title>
+		<p>You can use the 
+		  <codeph>Region::getAll</codeph> API ( 
+		  <codeph>Region.GetAll</codeph> for .NET) to gets values for an array of
+		  keys from the local cache or server. If the value for a key is not present
+		  locally, then it is requested from the server.
+		</p>
+		<note>The value returned is not copied, so multi-threaded applications
+		  should not modify the value directly, but should instead use the update
+		  methods.
+		</note>
+		<p>See the Region online API documentation for more information about
+		  using getAll 
+		</p>
+	 </section>
+  </conbody> 
+</concept>

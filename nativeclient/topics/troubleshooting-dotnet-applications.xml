@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<!-- Created with XMetaL (http://www.xmetal.com) -->
+<concept id="concept_A0C8085817E34D33A78C175E78E33195"> 
+  <title>Troubleshooting .NET Applications</title> 
+  <shortdesc>The .NET Framework does not find managed DLLs using the
+	 conventional 
+	 <codeph>PATH</codeph> environment variable. In order for your assembly to
+	 find and load a managed DLL, it must either be loaded as a private assembly
+	 using 
+	 <codeph>assemblyBinding</codeph>, or it must be installed into the Global
+	 Assembly Cache (GAC). The GAC utility must be run on every machine that runs
+	 the .NET code.
+  </shortdesc> 
+  <conbody>
+	 <p>If an assembly attempts to load the 
+		<codeph>GemStone.GemFire.Cache.dll</codeph> without meeting this
+		requirement, you receive this 
+		<codeph>System.IO.FileNotFoundException</codeph>:
+		<codeblock>{{
+
+Unhandled Exception: System.IO.FileNotFoundException: Could not load file
+or assembly 'GemStone.GemFire.Cache, Version=1.2.0.0, Culture=neutral,
+PublicKeyToken= 126e6338d9f55e0c' or one of its dependencies. The system
+cannot find the file specified.
+File name: 'GemStone.GemFire.Cache, Version=1.2.0.0, Culture=neutral,
+PublicKeyT oken=126e6338d9f55e0c'
+at HierarchicalClient.Main()
+
+}}</codeblock>
+	 </p>
+  </conbody> 
+</concept>

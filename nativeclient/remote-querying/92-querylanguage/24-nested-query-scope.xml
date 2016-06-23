@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept
+	id="security">
+	<title
+		id="title_9717E51087B346988389138843E158C4">Nested Query Scopes </title>
+	<shortdesc>You can nest scopes by using nested <codeph>SELECT</codeph> statements. Names in an
+		inner scope hide identical names in an outer scope. </shortdesc>
+	<conbody>
+		<p>In the query below, the inner <codeph>SELECT</codeph> creates a new scope, the positions
+			of the current portfolio, inside the outer <codeph>SELECT</codeph> 's scope,
+				<codeph>/portfolios</codeph>. This inner scope (the collection of entry values from
+			the <codeph>/portfolios</codeph> region) is first searched for the
+				<codeph>secId</codeph> element. The outer scope is searched only if the
+			<codeph>secId</codeph> element is not found in the inner scope.</p>
+			<codeblock>IMPORT javaobject.Position;
+SELECT DISTINCT * FROM /portfolios
+   WHERE NOT
+    (SELECT DISTINCT * FROM positions.values TYPE Position
+       WHERE secId='YYY').isEmpty</codeblock>
+		<p>This statement shows the outer scope in bold. The outer scope has all the attributes of a
+			Portfolio in it. </p>
+		<codeblock>IMPORT javaobject.Position;
+<b>SELECT DISTINCT * FROM /portfolios
+      WHERE NOT</b>
+        (SELECT DISTINCT * FROM positions.values TYPE Position
+            WHERE secId='YYY').<b>isEmpty</b></codeblock>
+		<section
+			id="section_611591AEA6084A5ABB00DE3E19984498">
+			<p>Now the statement with the inner scope is shown in bold. The inner scope has all the
+				attributes of a <codeph>Portfolio</codeph> in it (inherited from the outer scope),
+				and all the attributes of a <codeph>Position</codeph> as well. </p>
+			<codeblock>IMPORT javaobject.Position;
+SELECT DISTINCT * FROM /portfolios
+   WHERE NOT
+     (<b>SELECT DISTINCT * FROM positions.values TYPE Position</b>
+         <b>WHERE secId='YYY</b>).isEmpty</codeblock>
+		</section>
+	</conbody>
+</concept>

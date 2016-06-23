@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "http://docs.oasis-open.org/dita/v1.1/OS/dtd/concept.dtd">
+<concept
+	id="example-cache-file">
+	<title>Example cache.xml File</title>
+	<shortdesc>An example <codeph>cache.xml</codeph> file shows cache and region initialization for a
+		client, presenting a subset of the possible data configurations. </shortdesc>
+	<conbody>
+		<p> For detailed information about cache and region configuration,
+			including the default attribute settings, see <xref
+				scope="local"
+				href="../client-cache/chapter-overview.xml#native-client-cache"
+				type="concept"
+				format="dita">The Native Client Cache</xref>. Also see the
+			online API documentation for <codeph>Cache</codeph> and
+				<codeph>RegionAttributes</codeph>. </p>
+		<p>For information a cache with server pool, see <xref
+				scope="local"
+				href="../connection-pools/connection-pools.xml#using-connection-pools"
+				type="concept"
+				format="dita">Using Connection Pools</xref>. The example below
+			shows a <codeph>cache.xml</codeph> file that creates two regions. </p>
+			<ul
+				id="ul_34B7779C028A4AA8A917FB575BCB8805">
+				<li
+					id="li_60B31DEACBC54D4FAE68587A166DF196">Region
+						<codeph>region1</codeph> is defined with a full set of
+					region attributes and application plug-ins. The region's
+					entries have <codeph>RegionTimeToLive</codeph> and
+						<codeph>RegionIdleTimeout</codeph> expiration attributes
+					set (<xref
+						scope="local"
+						href="../client-cache/expiration-attributes.xml#expiration-attributes"
+						type="concept"
+						format="dita">Expiration Attributes</xref>). </li>
+				<li
+					id="li_0334C59C3140475092AFAD2F1F9D31DF">Region
+						<codeph>region2</codeph> uses mostly default values.
+				</li>
+			</ul>
+		<codeblock>&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;!DOCTYPE cache PUBLIC
+    "-//GemStone Systems, Inc.//GemFire Declarative Caching 8.0//EN"
+    "http://www.gemstone.com/dtd/gfcpp-cache8000.dtd"&gt;
+&lt;!-- Sample cache.xml file --&gt;
+&lt;!-- Example Declarative Cache Initialization with cache.xml --&gt;
+&lt;cache&gt;
+    &lt;pool name="examplePool" subscription-enabled="true"&gt;
+        &lt;server host="localhost" port="24680" /&gt;
+    &lt;/pool&gt;
+    &lt;region name="root1" refid="CACHING_PROXY"&gt;
+        &lt;region-attributes pool-name="examplePool"
+            initial-capacity="25"
+            load-factor="0.32"
+            concurrency-level="10"
+            lru-entries-limit="35"&gt;
+            &lt;region-idle-time&gt;
+                &lt;expiration-attributes timeout="20" action="destroy"/&gt;
+            &lt;/region-idle-time&gt;
+            &lt;entry-idle-time&gt;
+                &lt;expiration-attributes timeout="10" action="invalidate"/&gt;
+            &lt;/entry-idle-time&gt;
+            &lt;region-time-to-live&gt;
+                &lt;expiration-attributes timeout="5" action="local-destroy"/&gt;
+            &lt;/region-time-to-live&gt;
+            &lt;entry-time-to-live&gt;
+                &lt;expiration-attributes timeout="10" action="local-invalidate"/&gt;
+            &lt;/entry-time-to-live&gt;
+        &lt;/region-attributes&gt;
+    &lt;/region&gt;
+&lt;/cache&gt;</codeblock>
+		<p>For details about the individual region attributes, see <xref
+				scope="local"
+				href="../client-cache/region-attributes.xml#region-attributes"
+				type="concept"
+				format="dita">Region Attributes</xref>. </p>
+	</conbody>
+</concept>

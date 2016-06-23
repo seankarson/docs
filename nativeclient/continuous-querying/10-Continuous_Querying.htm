@@ -1,0 +1,937 @@
+<!DOCTYPE HTML FM_PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 10.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="10-Continuous_Querying.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE> 	10	Continuous Querying</TITLE></HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV>
+<H3 CLASS="Chapter">
+<A NAME="pgfId-1313377"></A><A NAME="46075"></A>Continuous Querying</H3>
+<P CLASS="Body">
+<A NAME="pgfId-1323778"></A>Continuous querying in vFabric GemFire native client gives C++ and C# .NET clients a way to run queries against events in the GemFire cache server region. The clients register interest in events using simple query expressions. Events are sent to client listeners that you can program to do whatever your application requires.</P>
+<P CLASS="Body">
+<A NAME="pgfId-1327390"></A>Continuous queries (CQs) provide these main features:</P>
+<UL>
+<LI CLASS="Bulleted">
+<A NAME="pgfId-1327401"></A>Standard GemFire Enterprise native client query syntax and semantics--CQ queries are expressed in the same language used for other native client queries (see <A HREF="Querying.htm#86606" CLASS="XRef">See Remote Querying.</A>). </LI>
+<LI CLASS="Bulleted">
+<A NAME="pgfId-1330908"></A>Standard GemFire Enterprise events-based management of CQ events--The event handling used to process CQ events is based on the standard GemFire Enterprise event handling framework. The CQListener interface is similar to <A HREF="CPP_API.htm#16219" CLASS="XRef">Application Plug-Ins</A> and <A HREF="DotNet_API.htm#79553" CLASS="XRef">Application Callbacks</A>.</LI>
+<LI CLASS="Bulleted">
+<A NAME="pgfId-1330915"></A>Complete integration with the client/server architecture-- CQ functionality uses existing server-to-client messaging mechanisms to send events. All tuning of your server-to-client messaging also tunes the messaging of your CQ events. If your system is configured for high availability then your CQs are highly available, with seamless failover provided in case of server failure (see <A HREF="Preserving_Data.htm#10409" CLASS="XRef">High Availability for Client-to-Server Communication</A>). If your clients are durable, you can also define any of your CQs as durable (see <A HREF="Preserving_Data.htm#53151" CLASS="XRef">Durable Client Messaging</A>).</LI>
+<LI CLASS="Bulleted">
+<A NAME="pgfId-1323822"></A>Interest criteria based on data values--CQ queries are run against the region&#8217;s entry values. Compare this to register interest by reviewing <A HREF="NativeClientCache.htm#26599" CLASS="XRef">Registering Interest for Entries</A>.</LI>
+<LI CLASS="Bulleted">
+<A NAME="pgfId-1323827"></A>Active query execution--Once initialized, the queries only operate on new events instead of on the entire region data set. Events that change the query result are sent to the client immediately.</LI>
+</UL>
+<DIV>
+<H6 CLASS="BodyPrintOnly">
+<A NAME="pgfId-1331418"></A>In this chapter:</H6>
+<UL>
+<LI CLASS="BulletedPrintOnly">
+<A NAME="pgfId-1317816"></A><A HREF="10-Continuous_Querying.htm#12364" CLASS="XRef">See How Continuous Querying Works.</A></LI>
+<LI CLASS="BulletedPrintOnly">
+<A NAME="pgfId-1317820"></A><A HREF="10-Continuous_Querying.htm#86939" CLASS="XRef">See Configuring for Continuous Querying.</A></LI>
+<LI CLASS="BulletedPrintOnly">
+<A NAME="pgfId-1320358"></A><A HREF="10-Continuous_Querying.htm#15698" CLASS="XRef">See The Native Client CQ API.</A></LI>
+<LI CLASS="BulletedPrintOnly">
+<A NAME="pgfId-1323881"></A><A HREF="10-Continuous_Querying.htm#84581" CLASS="XRef">See State and Life Cycle of a CQ.</A></LI>
+<LI CLASS="BulletedPrintOnly">
+<A NAME="pgfId-1323886"></A><A HREF="10-Continuous_Querying.htm#70022" CLASS="XRef">See Implementing Continuous Queries.</A></LI>
+</UL>
+</DIV>
+</DIV>
+<DIV>
+<H1 CLASS="Head-A">
+<A NAME="pgfId-1323935"></A><A NAME="12364"></A>How Continuous Querying Works</H1>
+<P CLASS="Body">
+<A NAME="pgfId-1324028"></A><A NAME="marker-1323936"></A>Continuous querying allows you to subscribe to server-side events using SQL-type query filtering. With continuous querying (CQ), the native client sends a query to the server side for execution and receives the events that satisfy the criteria. For example, in a region storing stock market trade orders, you can retrieve all orders over a certain price by running a CQ with a query like this: </P>
+<P CLASS="Code-Indented">
+<A NAME="pgfId-1324029"></A>SELECT * FROM /tradeOrder t WHERE t.price &gt; 100.00</P>
+<P CLASS="Body">
+<A NAME="pgfId-1324030"></A>When the CQ is running, the server sends the client all new events that affect the results of the query. On the native client side, listeners programmed by you receive and process incoming events. For the example query on <EM CLASS="Code9">
+/tradeOrder</EM>
+, you might program a listener to push events to a GUI where higher-priced orders are displayed. CQ event delivery uses the client/server subscription framework described in <A HREF="NativeClientCache.htm#19285" CLASS="XRef">Client to Server Connection Process</A>.</P>
+<P CLASS="Body">
+<A NAME="pgfId-1324022"></A>Clients can execute any number of CQs, with each CQ given any number of listeners. This figure shows the logical architecture of continuous querying. </P>
+<DIV>
+<H6 CLASS="Figure-Title">
+<A NAME="pgfId-1324576"></A>Logical Architecture of Continuous Querying<DIV>
+<IMG SRC="10-Continuous_Querying-2.gif">
+</DIV>
+</H6>
+<DIV>
+<MAP NAME="10-Continuous_Querying-1">
+</MAP>
+<IMG SRC="10-Continuous_Querying-1.gif" USEMAP="#10-Continuous_Querying-1">
+</DIV>
+<DIV>
+<H6 CLASS="Figure-End">
+<A NAME="pgfId-1324578"></A><DIV>
+<IMG SRC="10-Continuous_Querying-2.gif">
+</DIV>
+&nbsp;</H6>
+<P CLASS="Body">
+<A NAME="pgfId-1324207"></A>CQs do not update the native client region. This is in contrast to other server-to-client messaging, like the updates sent to satisfy interest registration and responses to <EM CLASS="Code9">
+get</EM>
+ requests from the client. CQs serve as notification tools for the CQ listeners, which can be programmed in any way your application requires. </P>
+<P CLASS="Body">
+<A NAME="pgfId-1324775"></A>When a CQ is running against a server region, each entry event is evaluated against the CQ query by the thread that updates the server cache. If either the old or the new entry value satisfies the query, the thread puts a <EM CLASS="Code9">
+CqEvent</EM>
+ in the client&#8217;s queue. The <EM CLASS="Code9">
+CqEvent</EM>
+ contains information from the original cache event, plus information specific to the CQ&#8217;s execution. Once received by the client, the <EM CLASS="Code9">
+CqEvent</EM>
+ is passed to the <EM CLASS="Code9">
+onEvent</EM>
+ method of all <EM CLASS="Code9">
+CqListeners</EM>
+ defined for the CQ. </P>
+<P CLASS="Body">
+<A NAME="pgfId-1324772"></A>The following figure shows the typical CQ data flow when entries are updated in the server cache. The steps are: </P>
+<OL>
+<LI CLASS="Numbered">
+<A NAME="pgfId-1324789"></A>Entry events come to the server&#8217;s cache from any source: the server or its peers, distribution from remote sites, or updates from a client.</LI>
+<LI CLASS="Numbered">
+<A NAME="pgfId-1324823"></A>For each event, the server&#8217;s CQ executor framework checks for a match with the CQs it has running. </LI>
+<LI CLASS="Numbered">
+<A NAME="pgfId-1324826"></A>If the old or new entry value satisfies a CQ query, a CQ event is sent to the CQ&#8217;s listeners on the client side. Each listener for the CQ gets the event. In the following figure: </LI>
+<LI CLASS="Bulleted-Indented">
+<A NAME="pgfId-1324792"></A>Both the new and old prices for entry X satisfy the CQ query, so that event is sent indicating an update to the query results. </LI>
+<LI CLASS="Bulleted-Indented">
+<A NAME="pgfId-1324793"></A>The old price for entry Y satisfied the query, so it was part of the query results. The invalidation of entry Y makes it not satisfy the query. Because of this, the event is sent indicating that it is destroyed in the query results. </LI>
+<LI CLASS="Bulleted-Indented">
+<A NAME="pgfId-1324794"></A>The price for the newly created entry Z does not satisfy the query, so no event is sent. </LI>
+</OL>
+<P CLASS="Note">
+<A NAME="pgfId-1324773"></A>The region operations do not translate directly to specific query operations, and the query operations do not specifically describe the region events. Instead, each query operation describes how its corresponding region event affects the query results. For more information on this, see <A HREF="10-Continuous_Querying.htm#12711" CLASS="XRef">The CqEvent Object</A>.</P>
+</DIV>
+</DIV>
+<DIV>
+<H6 CLASS="Figure-Title">
+<A NAME="pgfId-1324786"></A>Data Flow of a Continuous Query<DIV>
+<IMG SRC="10-Continuous_Querying-2.gif">
+</DIV>
+</H6>
+<DIV>
+<MAP NAME="10-Continuous_Querying-3">
+</MAP>
+<IMG SRC="10-Continuous_Querying-3.gif" USEMAP="#10-Continuous_Querying-3">
+</DIV>
+<DIV>
+<H6 CLASS="Figure-End">
+<A NAME="pgfId-1324833"></A><DIV>
+<IMG SRC="10-Continuous_Querying-2.gif">
+</DIV>
+&nbsp;</H6>
+</DIV>
+</DIV>
+</DIV>
+<DIV>
+<H1 CLASS="Head-A">
+<A NAME="pgfId-1324834"></A><A NAME="86939"></A>Configuring for Continuous Querying</H1>
+<P CLASS="Body">
+<A NAME="pgfId-1325183"></A>The continuous query (CQ) functionality requires standard client/server distributed system and cache configuration settings. These are all of the things to consider:</P>
+<UL>
+<LI CLASS="Bulleted">
+<A NAME="pgfId-1325184"></A>The client region must use a pool with <EM CLASS="Code9">
+subscription-enabled</EM>
+ set to <EM CLASS="Code9">
+true</EM>
+.</LI>
+<LI CLASS="Bulleted">
+<A NAME="pgfId-1325205"></A>If you want your CQs to be highly available, configure your servers for high availability as described in the <EM CLASS="Italic">
+GemFire Enterprise Developer&#8217;s Guide</EM>
+. When your servers are highly available, CQs are registered on primary and secondary servers and server failover is performed without any interruption to CQ messaging. CQ events messaging uses the same queues used for server-to-client messaging. </LI>
+</UL>
+<P CLASS="Note">
+<A NAME="pgfId-1325187"></A>When CQ is used with high availability, the overhead for CQs is higher than for the key-based interest list registration. CQs are executed on the primary and all secondary servers, so they require more overall server processing. </P>
+<UL>
+<LI CLASS="Bulleted">
+<A NAME="pgfId-1325188"></A>If you want your CQs to be durable, configure your native clients for durable messaging. When your clients are durable, you can create durable CQs whose events are maintained during client disconnects and replayed for the client when it reconnects. The process and data flow particular to durable CQs is described in <A HREF="Preserving_Data.htm#53151" CLASS="XRef">Durable Client Messaging</A>. </LI>
+</UL>
+<P CLASS="Body">
+<A NAME="pgfId-1325169"></A>&nbsp;</P>
+</DIV>
+<DIV>
+<H1 CLASS="Head-A">
+<A NAME="pgfId-1325174"></A><A NAME="15698"></A>The Native Client CQ API</H1>
+<P CLASS="Body">
+<A NAME="pgfId-1325240"></A>The GemFire Enterprise native client API allows your clients to create and manage CQs. The server side does not have an API. This section lists the primary native client API for CQ management. For complete information on the classes and interfaces described here, see the online API documentation.</P>
+<P CLASS="Note">
+<A NAME="pgfId-1330091"></A>Only C# versions of CQ API interfaces, classes, and methods are shown throughout the text in this chapter (example: <EM CLASS="Code9">
+CqQuery.execute)</EM>
+. The code examples demonstrate both C++ and C# versions.</P>
+<DIV>
+<H6 CLASS="Head-C">
+<A NAME="pgfId-1325241"></A>Gemstone::GemFire::Cache</H6>
+<UL>
+<LI CLASS="Bulleted">
+<A NAME="pgfId-1325242"></A>QueryService--This interface provides methods to: </LI>
+<LI CLASS="Bulleted-Indented">
+<A NAME="pgfId-1325243"></A>create a new CQ and specify whether it is durable (available for durable clients) </LI>
+<LI CLASS="Bulleted-Indented">
+<A NAME="pgfId-1325244"></A>execute a CQ with or without an initial result</LI>
+<LI CLASS="Bulleted-Indented">
+<A NAME="pgfId-1325245"></A>list all the CQs registered by the client</LI>
+<LI CLASS="Bulleted-Indented">
+<A NAME="pgfId-1325246"></A>close and stop CQs</LI>
+<LI CLASS="Bulleted-Indented">
+<A NAME="pgfId-1325247"></A>get a handle on <EM CLASS="Code9">
+CqStatistics</EM>
+ for the client</LI>
+</UL>
+<P CLASS="Note">
+<A NAME="pgfId-1325175"></A>The <EM CLASS="Code9">
+QueryService</EM>
+ CQ methods are run against the server cache.</P>
+<UL>
+<P CLASS="Indented">
+<A NAME="pgfId-1330597"></A>The <EM CLASS="Code9">
+QueryService</EM>
+ may be obtained from the cache or from a pool.</P>
+<LI CLASS="Bulleted">
+<A NAME="pgfId-1325261"></A>CqQuery--This interface provides methods for managing a continuous query once it is created through the <EM CLASS="Code9">
+QueryService</EM>
+. This is the interface that is normally used to begin and end CQ execution and to retrieve other CQ-related objects such as the CQ attributes, CQ statistics, and the CQ state.</LI>
+<LI CLASS="Bulleted">
+<A NAME="pgfId-1325299"></A>CqListener--This application plug-in interface is programmed by you to handle continuous query events after they occur.</LI>
+<LI CLASS="Bulleted">
+<A NAME="pgfId-1325302"></A>CqEvent--This interface provides all the information sent from the server about the CQ event, which is passed to the CQ&#8217;s <EM CLASS="Code9">
+CqListener</EM>
+ methods.</LI>
+<LI CLASS="Bulleted">
+<A NAME="pgfId-1330118"></A>CqState--This interface gives information on the state of a <EM CLASS="Code9">
+CqQuery</EM>
+. It is provided by the <EM CLASS="Code9">
+getState</EM>
+ method of the <EM CLASS="Code9">
+CqQuery</EM>
+ instance.</LI>
+<LI CLASS="Bulleted">
+<A NAME="pgfId-1325305"></A>CqAttributes, CqAttributesFactory, CqAttributesMutator--These interfaces allow you to manage CQ attributes. The attributes are composed of <EM CLASS="Code9">
+CqListener</EM>
+ plug-in specifications.</LI>
+<LI CLASS="Bulleted">
+<A NAME="pgfId-1325308"></A>CqStatistics, CqServiceStatistics--These interfaces allow you to access statistics information for a single CQ and for the query service&#8217;s management of CQs as a whole. For details on statistics, see <A HREF="CPP_API.htm#30906" CLASS="XRef">Statistics API</A>.</LI>
+</UL>
+</DIV>
+</DIV>
+<DIV>
+<H1 CLASS="Head-A">
+<A NAME="pgfId-1325238"></A><A NAME="84581"></A>State and Life Cycle of a CQ</H1>
+<P CLASS="Body">
+<A NAME="pgfId-1325322"></A>A CQ has three possible states that can be accessed from the client by calling <EM CLASS="Code9">
+CqQuery.getState</EM>
+. </P>
+<UL>
+<LI CLASS="Bulleted">
+<A NAME="pgfId-1325323"></A><EM CLASS="Code9">
+STOPPED</EM>
+--The CQ has been created but not yet executed, or it has been explicitly stopped from executing. The stopped CQ uses system resources. The CQ can be started or restarted by calling the <EM CLASS="Code9">
+execute</EM>
+ method on <EM CLASS="Code9">
+CqQuery</EM>
+.</LI>
+<LI CLASS="Bulleted">
+<A NAME="pgfId-1325345"></A><EM CLASS="Code9">
+RUNNING</EM>
+--The CQ is being executed on the server for all events in the region referenced by the query. Results are sent to all client listeners associated with the <EM CLASS="Code9">
+CqQuery</EM>
+. </LI>
+<LI CLASS="Bulleted">
+<A NAME="pgfId-1325348"></A><EM CLASS="Code9">
+CLOSED</EM>
+--The CQ is closed and is not using system resources. Invoking an execute or stop method on closed <EM CLASS="Code9">
+CqQuery</EM>
+ throws an exception. </LI>
+</UL>
+<P CLASS="Body">
+<A NAME="pgfId-1325327"></A>A CQ life cycle usually flows like this:</P>
+<OL>
+<LI CLASS="Numbered-1st">
+<A NAME="pgfId-1325328"></A>The client creates the CQ. This sets up everything for running the query and provides the client with a <EM CLASS="Code9">
+CqQuery</EM>
+ object, but does not execute the CQ. At this point, the query is in a <EM CLASS="Code9">
+STOPPED</EM>
+ state, ready to be closed or run. </LI>
+<LI CLASS="Numbered">
+<A NAME="pgfId-1325357"></A>The client runs the CQ with an API call to one of the <EM CLASS="Code9">
+CqQuery</EM>
+ execute* methods. This puts the query into a <EM CLASS="Code9">
+RUNNING</EM>
+ state on the client and on the server. </LI>
+<LI CLASS="Numbered">
+<A NAME="pgfId-1328352"></A>The CQ is closed by a client call to <EM CLASS="Code9">
+CqQuery.close</EM>
+. This de-allocates all resources in use for the CQ on the client and server. At this point, the cycle could begin again with the creation of a new <EM CLASS="Code9">
+CqQuery</EM>
+ instance. </LI>
+</OL>
+<P CLASS="Body">
+<A NAME="pgfId-1328353"></A>&nbsp;</P>
+</DIV>
+<DIV>
+<H1 CLASS="Head-A">
+<A NAME="pgfId-1325363"></A><A NAME="70022"></A>Implementing Continuous Queries</H1>
+<P CLASS="Body">
+<A NAME="pgfId-1325395"></A>You can specify CQs for any of your client regions. To implement a CQ, follow these basic steps:</P>
+<OL>
+<LI CLASS="Numbered-1st">
+<A NAME="pgfId-1325396"></A>Make sure your system is configured properly to run CQs. See the configuration guidelines in <A HREF="10-Continuous_Querying.htm#86939" CLASS="XRef">Configuring for Continuous Querying</A>.</LI>
+<LI CLASS="Numbered">
+<A NAME="pgfId-1325398"></A>Decide what data to track on the server and write your queries. Use your criteria for tracking data changes to write your CQ queries. For information on this, see <A HREF="10-Continuous_Querying.htm#34299" CLASS="XRef">See Writing the Continuous Query.</A>. </LI>
+<LI CLASS="Numbered">
+<A NAME="pgfId-1325400"></A>Determine how to handle the CQ events on the client and write your listeners. </LI>
+<P CLASS="Indented">
+<A NAME="pgfId-1325401"></A>Each of your CQs can have any number of listeners. In addition to your core CQ listeners, you might have listeners that you use for all CQs to track statistics or other general information. For information on writing your listeners, see <A HREF="10-Continuous_Querying.htm#32463" CLASS="XRef">Writing the CQ Listener</A>.</P>
+<LI CLASS="Numbered">
+<A NAME="pgfId-1325402"></A>Write the client code to put the queries and their listeners into named CQ queries and execute the queries. Make sure to close the queries if your client no longer needs them and when the client exits. For information and examples, see <A HREF="10-Continuous_Querying.htm#55899" CLASS="XRef">Running the Continuous Query Code</A>.</LI>
+<LI CLASS="Numbered">
+<A NAME="pgfId-1325403"></A>Write any code you need for monitoring and managing your CQ query. For information on the tools available, see <A HREF="10-Continuous_Querying.htm#15128" CLASS="XRef">Managing Your CQs</A>.</LI>
+<LI CLASS="Numbered">
+<A NAME="pgfId-1325390"></A>Run your code, monitor and tune as needed. </LI>
+</OL>
+<DIV>
+<H2 CLASS="Head-B">
+<A NAME="pgfId-1325392"></A><A NAME="34299"></A>Writing the Continuous Query</H2>
+<P CLASS="Body">
+<A NAME="pgfId-1325449"></A>Each CQ uses a query and any number of listeners. The query filters the events on the server and the listener handles the events that make it through the query filter. With the query and the listener in hand, you can create and execute your query through the API.</P>
+<DIV>
+<H6 CLASS="Head-C">
+<A NAME="pgfId-1325393"></A>Query Syntax</H6>
+<P CLASS="Body">
+<A NAME="pgfId-1325462"></A>This is the basic syntax for the CQ query:</P>
+<P CLASS="Code-Indented">
+<A NAME="pgfId-1325463"></A>SELECT * FROM /fullRegionPath [iterator] [WHERE clause]</P>
+<P CLASS="Body">
+<A NAME="pgfId-1325464"></A>The CQ query must satisfy the standard GemFire Enterprise native client querying specifications described in <A HREF="Querying.htm#11536" CLASS="XRef">Query Language Considerations for the Native Client</A>. It also must satisfy these restrictions:</P>
+<UL>
+<LI CLASS="Bulleted">
+<A NAME="pgfId-1325466"></A>The <EM CLASS="Code9">
+FROM</EM>
+ clause must contain only a single region specification, with optional <EM CLASS="Code9">
+iterator</EM>
+ variable.</LI>
+<LI CLASS="Bulleted">
+<A NAME="pgfId-1325467"></A>The query must be a <EM CLASS="Code9">
+SELECT</EM>
+ expression only, preceded by zero or more <EM CLASS="Code9">
+IMPORT</EM>
+ statements. This means the query cannot be a statement like <EM CLASS="Code9">
+/tradeOrder.name</EM>
+ or <EM CLASS="Code9">
+(SELECT * from /tradeOrder).size</EM>
+.</LI>
+<LI CLASS="Bulleted">
+<A NAME="pgfId-1325468"></A>The CQ query cannot use:</LI>
+<LI CLASS="Bulleted-Indented">
+<A NAME="pgfId-1325469"></A>Cross region joins</LI>
+<LI CLASS="Bulleted-Indented">
+<A NAME="pgfId-1325470"></A>Drill-downs into nested collections</LI>
+<LI CLASS="Bulleted-Indented">
+<A NAME="pgfId-1325471"></A><EM CLASS="Code9">
+DISTINCT</EM>
+ </LI>
+<LI CLASS="Bulleted-Indented">
+<A NAME="pgfId-1325472"></A>Projections </LI>
+<LI CLASS="Bulleted-Indented">
+<A NAME="pgfId-1325473"></A>Bind parameters</LI>
+</UL>
+<P CLASS="Body">
+<A NAME="pgfId-1325475"></A>Queries not meeting these constraints generate an <EM CLASS="Code9">
+UnsupportedOperationException</EM>
+ from the <EM CLASS="Code9">
+QueryService</EM>
+ <EM CLASS="Code9">
+newCq</EM>
+ method.</P>
+</DIV>
+<DIV>
+<H6 CLASS="Head-C">
+<A NAME="pgfId-1325441"></A><A NAME="32463"></A>Writing the CQ Listener</H6>
+<P CLASS="Body">
+<A NAME="pgfId-1325442"></A>The following two C++ and C# .NET examples show how you might program a simple <EM CLASS="Code9">
+CqListener</EM>
+ to update a display screen based on the CQ events it receives. The listener retrieves the <EM CLASS="Code9">
+queryOperation</EM>
+ and entry key and value from the <EM CLASS="Code9">
+CqEvent</EM>
+, then updates the screen according to the operation type provided in <EM CLASS="Code9">
+queryOperation</EM>
+. </P>
+</DIV>
+<DIV>
+<H6 CLASS="Example-Title">
+<A NAME="pgfId-1325520"></A>CqListener Implementation (C++)<DIV>
+<IMG SRC="10-Continuous_Querying-2.gif">
+</DIV>
+</H6>
+<P CLASS="Code">
+<A NAME="pgfId-1325555"></A>// CqListener class</P>
+<P CLASS="Code">
+<A NAME="pgfId-1325557"></A>class TradeEventListener : public CqListener {</P>
+<P CLASS="Code">
+<A NAME="pgfId-1325692"></A>	public:</P>
+<P CLASS="Code">
+<A NAME="pgfId-1325694"></A>  void onEvent(const CqEvent&amp; cqEvent) {</P>
+<P CLASS="Code">
+<A NAME="pgfId-1325563"></A>    // Operation associated with the query op</P>
+<P CLASS="Code">
+<A NAME="pgfId-1325565"></A>    CqOperation::CqOperationType queryOperation =     cqEvent.getQueryOperation();</P>
+<P CLASS="Code">
+<A NAME="pgfId-1325567"></A>    // key and new value from the event</P>
+<P CLASS="Code">
+<A NAME="pgfId-1325569"></A>    CacheableKeyPtr key = cqEvent.getKey();</P>
+<P CLASS="Code">
+<A NAME="pgfId-1325571"></A>    TradeOrderPtr tradeOrder =     dynCast&lt;TradeOrderPtr&gt;(cqEvent.getNewValue());</P>
+<P CLASS="Code">
+<A NAME="pgfId-1325573"></A>    if (queryOperation==CqOperation::OP_TYPE_UPDATE) {</P>
+<P CLASS="Code">
+<A NAME="pgfId-1325575"></A>      // update data on the screen for the trade order</P>
+<P CLASS="Code">
+<A NAME="pgfId-1325577"></A>      . . .</P>
+<P CLASS="Code">
+<A NAME="pgfId-1325579"></A>    }</P>
+<P CLASS="Code">
+<A NAME="pgfId-1325581"></A>    else if (queryOperation==CqOperation::OP_TYPE_CREATE) {</P>
+<P CLASS="Code">
+<A NAME="pgfId-1325583"></A>      // add the trade order to the screen</P>
+<P CLASS="Code">
+<A NAME="pgfId-1325585"></A>      . . .</P>
+<P CLASS="Code">
+<A NAME="pgfId-1325587"></A>    }</P>
+<P CLASS="Code">
+<A NAME="pgfId-1325589"></A>    else if (queryOperation==CqOperation::OP_TYPE_DESTROY) {</P>
+<P CLASS="Code">
+<A NAME="pgfId-1325591"></A>      // remove the trade order from the screen</P>
+<P CLASS="Code">
+<A NAME="pgfId-1325593"></A>      . . .</P>
+<P CLASS="Code">
+<A NAME="pgfId-1325595"></A>    }</P>
+<P CLASS="Code">
+<A NAME="pgfId-1325597"></A>  }</P>
+<P CLASS="Code">
+<A NAME="pgfId-1325599"></A>  void onError(const CqEvent&amp; cqEvent) {</P>
+<P CLASS="Code">
+<A NAME="pgfId-1325601"></A>    // handle the error</P>
+<P CLASS="Code">
+<A NAME="pgfId-1325603"></A>  }</P>
+<P CLASS="Code">
+<A NAME="pgfId-1326074"></A>  void close() {</P>
+<P CLASS="Code">
+<A NAME="pgfId-1325609"></A>    // close the output screen for the trades</P>
+<P CLASS="Code">
+<A NAME="pgfId-1325611"></A>    . . .</P>
+<P CLASS="Code">
+<A NAME="pgfId-1325613"></A>  }</P>
+<P CLASS="Code">
+<A NAME="pgfId-1325615"></A>}</P>
+<DIV>
+<H6 CLASS="Example-End">
+<A NAME="pgfId-1325542"></A><DIV>
+<IMG SRC="10-Continuous_Querying-2.gif">
+</DIV>
+&nbsp;</H6>
+<P CLASS="Body">
+<A NAME="pgfId-1326174"></A>&nbsp;</P>
+</DIV>
+</DIV>
+<DIV>
+<H6 CLASS="Example-Title">
+<A NAME="pgfId-1328806"></A>CqListener Implementation (C# .NET)<DIV>
+<IMG SRC="10-Continuous_Querying-2.gif">
+</DIV>
+</H6>
+<P CLASS="Code">
+<A NAME="pgfId-1328836"></A>// CqListener class </P>
+<P CLASS="Code">
+<A NAME="pgfId-1328838"></A>public class TradeEventListener : ICqListener { </P>
+<P CLASS="Code">
+<A NAME="pgfId-1328840"></A>	public void onEvent(CqEvent cqEvent) { </P>
+<P CLASS="Code">
+<A NAME="pgfId-1328842"></A>		// Operation associated with the query op </P>
+<P CLASS="Code">
+<A NAME="pgfId-1328844"></A>		CqOperationType queryOperation = cqEvent.getQueryOperation(); </P>
+<P CLASS="Code">
+<A NAME="pgfId-1328846"></A>		// key and new value from the event </P>
+<P CLASS="Code">
+<A NAME="pgfId-1328848"></A>		ICacheableKey key = cqEvent.getKey(); </P>
+<P CLASS="Code">
+<A NAME="pgfId-1328850"></A>		CacheableString keyStr = key as CacheableString; </P>
+<P CLASS="Code">
+<A NAME="pgfId-1328852"></A>		IGFSerializable val = cqEvent.getNewValue(); </P>
+<P CLASS="Code">
+<A NAME="pgfId-1328854"></A>		TradeOrder tradeOrder = val as TradeOrder; </P>
+<P CLASS="Code">
+<A NAME="pgfId-1328856"></A>		if (queryOperation==CqOperationType.OP_TYPE_UPDATE) { </P>
+<P CLASS="Code">
+<A NAME="pgfId-1328858"></A>			// update data on the screen for the trade order </P>
+<P CLASS="Code">
+<A NAME="pgfId-1328860"></A>			// . . . </P>
+<P CLASS="Code">
+<A NAME="pgfId-1328862"></A>			} </P>
+<P CLASS="Code">
+<A NAME="pgfId-1328864"></A>		else if (queryOperation== CqOperationType.OP_TYPE_CREATE) { </P>
+<P CLASS="Code">
+<A NAME="pgfId-1328866"></A>			// add the trade order to the screen </P>
+<P CLASS="Code">
+<A NAME="pgfId-1328868"></A>			// . . . </P>
+<P CLASS="Code">
+<A NAME="pgfId-1328870"></A>			} </P>
+<P CLASS="Code">
+<A NAME="pgfId-1328872"></A>		else if (queryOperation== CqOperationType.OP_TYPE_DESTROY) { </P>
+<P CLASS="Code">
+<A NAME="pgfId-1328874"></A>			// remove the trade order from the screen </P>
+<P CLASS="Code">
+<A NAME="pgfId-1328876"></A>			// . . . </P>
+<P CLASS="Code">
+<A NAME="pgfId-1328878"></A>		} </P>
+<P CLASS="Code">
+<A NAME="pgfId-1328880"></A>	} </P>
+<P CLASS="Code">
+<A NAME="pgfId-1328882"></A>	public void onError(CqEvent cqEvent) { </P>
+<P CLASS="Code">
+<A NAME="pgfId-1328884"></A>		// handle the error </P>
+<P CLASS="Code">
+<A NAME="pgfId-1328886"></A>	} </P>
+<P CLASS="Code">
+<A NAME="pgfId-1328888"></A>	// From CacheCallback </P>
+<P CLASS="Code">
+<A NAME="pgfId-1328890"></A>	public void close() { </P>
+<P CLASS="Code">
+<A NAME="pgfId-1328892"></A>		// close the output screen for the trades </P>
+<P CLASS="Code">
+<A NAME="pgfId-1328894"></A>		// . . . </P>
+<P CLASS="Code">
+<A NAME="pgfId-1328896"></A>	} </P>
+<P CLASS="Code">
+<A NAME="pgfId-1328898"></A>} </P>
+<DIV>
+<H6 CLASS="Example-End">
+<A NAME="pgfId-1328825"></A><DIV>
+<IMG SRC="10-Continuous_Querying-2.gif">
+</DIV>
+&nbsp;</H6>
+<P CLASS="Body">
+<A NAME="pgfId-1328815"></A>CQ events do not change your client cache. They are provided as an event service only. This allows you to have any collection of CQs without storing large amounts of data in your regions. If you need to persist information from CQ events, program your listener to store the information where it makes the most sense for your application.</P>
+<P CLASS="Note">
+<A NAME="pgfId-1325543"></A>Be very careful if you choose to update your cache from your <EM CLASS="Code9">
+CqListener</EM>
+. If your listener updates the region that is queried in its own CQ, the update may be forwarded to the server. If the update on the server satisfies the same CQ, it may be returned to the same listener that did the update, which could put your application into an infinite loop. This same scenario could be played out with multiple regions and multiple CQs if the listeners are programmed to update each other&#8217;s regions. </P>
+<DIV>
+<H6 CLASS="Head-C">
+<A NAME="pgfId-1326317"></A><A NAME="12711"></A>The CqEvent Object</H6>
+<P CLASS="Body">
+<A NAME="pgfId-1326388"></A>The <EM CLASS="Code9">
+CqEvent</EM>
+ contains this information: </P>
+<UL>
+<LI CLASS="Bulleted">
+<A NAME="pgfId-1326389"></A>Entry key and new value.</LI>
+<LI CLASS="Bulleted">
+<A NAME="pgfId-1326390"></A>Base operation that triggered the CQ event in the server.</LI>
+<LI CLASS="Bulleted">
+<A NAME="pgfId-1326391"></A><EM CLASS="Code9">
+CqQuery</EM>
+ object associated with this CQ event. </LI>
+<LI CLASS="Bulleted">
+<A NAME="pgfId-1326392"></A>Query operation associated with this CQ event. This operation describes the change affected to the query results by the cache event. Possible values are </LI>
+<LI CLASS="Bulleted-Indented">
+<A NAME="pgfId-1326393"></A><EM CLASS="Code9">
+CREATE</EM>
+, which corresponds to the standard database <EM CLASS="Code9">
+INSERT</EM>
+ operation</LI>
+<LI CLASS="Bulleted-Indented">
+<A NAME="pgfId-1326394"></A><EM CLASS="Code9">
+UPDATE</EM>
+</LI>
+<LI CLASS="Bulleted-Indented">
+<A NAME="pgfId-1326395"></A><EM CLASS="Code9">
+DESTROY</EM>
+, which corresponds to the standard database <EM CLASS="Code9">
+DELETE</EM>
+ operation</LI>
+</UL>
+<P CLASS="Body">
+<A NAME="pgfId-1326386"></A>This table describes the query operation based on whether the old and new entry values in the region entry event satisfy the query criteria.</P>
+</DIV>
+</DIV>
+</DIV>
+<DIV>
+<H6 CLASS="TableTitle">
+<A NAME="pgfId-1326433"></A>Query Operation Based on Old and New Entry Values<DIV>
+<IMG SRC="10-Continuous_Querying-2.gif">
+</DIV>
+</H6>
+<TABLE BORDER="1">
+<TR>
+<TH ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellHeading">
+<A NAME="pgfId-1326643"></A>Old Entry Value</P>
+</TH>
+<TH ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellHeading">
+<A NAME="pgfId-1326645"></A>New Entry Value</P>
+</TH>
+<TH ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellHeading">
+<A NAME="pgfId-1326647"></A>Query Operation</P>
+</TH>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-1326649"></A>No value or value does not satisfy the query criteria</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-1326651"></A>No value (operation is invalidate or destroy) or value does not satisfy the query</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-1326653"></A>N/A - no event</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-1326655"></A>&nbsp;</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-1326657"></A>Value satisfies the query</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-1326659"></A>create</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-1326661"></A>&nbsp;</P>
+<P CLASS="CellBody">
+<A NAME="pgfId-1326662"></A>Value satisfies the query</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-1326664"></A>No value (operation is invalidate or destroy) or value does not satisfy the query</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-1326666"></A>destroy</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-1326668"></A>&nbsp;</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-1326670"></A>Value satisfies the query</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-1326672"></A>update</P>
+</TD>
+</TR>
+</TABLE>
+<P CLASS="Body">
+<A NAME="pgfId-1326520"></A>You can use the query operation to decide what to do with the <EM CLASS="Code9">
+CqEvent</EM>
+ in your listeners. For example, a <EM CLASS="Code9">
+CqListener</EM>
+ that displays query results on screen might stop displaying the entry, start displaying the entry, or update the entry display depending on the query operation. </P>
+<DIV>
+<H6 CLASS="Head-C">
+<A NAME="pgfId-1326692"></A>When an Error Occurs in a Running CQ</H6>
+<P CLASS="Body">
+<A NAME="pgfId-1326704"></A>When an error occurs in CQ execution on the server, specific information on the error itself is stored in the server&#8217;s log file. An exception is passed to the client, then the client throws an exception.</P>
+<P CLASS="Body">
+<A NAME="pgfId-1330262"></A>The server log will contain an error with <EM CLASS="Code9">
+Error while processing CQ</EM>
+, like this:</P>
+<P CLASS="Code-Indented">
+<A NAME="pgfId-1326707"></A>[error 2007/12/18 12:03:18.903 PST gemfire1 &lt;RMI TCP Connection(2)-</P>
+<P CLASS="Code-Indented">
+<A NAME="pgfId-1326708"></A>10.80.10.91&gt; tid=0x18] Error while processing CQ on the event, key : </P>
+<P CLASS="Code-Indented">
+<A NAME="pgfId-1326709"></A>key-1, CqName :testCQEvents_0, ClientId :</P>
+<P CLASS="Code-Indented">
+<A NAME="pgfId-1326710"></A>identity(carlos(3249):52623/35391,connection=1,durableAttributes=null)</P>
+<P CLASS="Code-Indented">
+<A NAME="pgfId-1326733"></A>Error :No public attribute named 'ID' was found in class java.lang.Object</P>
+<P CLASS="Body">
+<A NAME="pgfId-1326734"></A>Errors in CQ execution are usually caused by data errors, like invalid object types that are stored in the server region. In this case, the query is trying to read into an object of type <EM CLASS="Code9">
+Portfolio</EM>
+ for an entry where an empty object has been stored. You can avoid these types of errors by placing constraints on the region entries, or by otherwise controlling the types of objects stored in your server regions.</P>
+</DIV>
+</DIV>
+</DIV>
+<DIV>
+<H2 CLASS="Head-B">
+<A NAME="pgfId-1326738"></A><A NAME="55899"></A>Running the Continuous Query Code</H2>
+<P CLASS="Body">
+<A NAME="pgfId-1322974"></A>Create your CQ from an instance of the <EM CLASS="Code9">
+QueryService</EM>
+. Once created, the CQ is maintained primarily through the <EM CLASS="Code9">
+CqQuery</EM>
+ interface. The following two C++ and C# examples show the basic calls in the CQ life cycle.</P>
+<DIV>
+<H6 CLASS="Example-Title">
+<A NAME="pgfId-1326767"></A>CQ Creation, Execution, and Close (C++)<DIV>
+<IMG SRC="10-Continuous_Querying-2.gif">
+</DIV>
+</H6>
+<P CLASS="Code">
+<A NAME="pgfId-1326796"></A>// Get cache and qrySvcPtr - refs to local cache and QueryService</P>
+<P CLASS="Code">
+<A NAME="pgfId-1326798"></A>// Create client /tradeOrder region configured to talk to the server</P>
+<P CLASS="Code">
+<A NAME="pgfId-1326800"></A>// Create CqAttribute using CqAttributeFactory</P>
+<P CLASS="Code">
+<A NAME="pgfId-1326802"></A>CqAttributesFactory cqf;</P>
+<P CLASS="Code">
+<A NAME="pgfId-1326804"></A>// Create a listener and add it to the CQ attributes</P>
+<P CLASS="Code">
+<A NAME="pgfId-1326806"></A>//callback defined below</P>
+<P CLASS="Code">
+<A NAME="pgfId-1331179"></A>CqListenerPtr tradeEventListener (new TradeEventListener());</P>
+<P CLASS="Code">
+<A NAME="pgfId-1326810"></A>QueryServicePtr qrySvcPtr = cachePtr-&gt;getQueryService();&quot; cqf.addCqListener(tradeEventListener);</P>
+<P CLASS="Code">
+<A NAME="pgfId-1326812"></A>CqAttributesPtr cqa = cqf.create();</P>
+<P CLASS="Code">
+<A NAME="pgfId-1326814"></A>// Name of the CQ and its query</P>
+<P CLASS="Code">
+<A NAME="pgfId-1326816"></A>char* cqName = &quot;priceTracker&quot;;</P>
+<P CLASS="Code">
+<A NAME="pgfId-1326818"></A>char* queryStr = &quot;SELECT * FROM /tradeOrder t where t.price &gt; 100.00&quot;;</P>
+<P CLASS="Code">
+<A NAME="pgfId-1326820"></A>// Create the CqQuery</P>
+<P CLASS="Code">
+<A NAME="pgfId-1326824"></A>CqQueryPtr priceTracker = qrySvcPtr-&gt;newCq(cqName, queryStr, cqa); try {</P>
+<P CLASS="Code">
+<A NAME="pgfId-1326826"></A>  // Execute CQ</P>
+<P CLASS="Code">
+<A NAME="pgfId-1326828"></A>  priceTracker-&gt;execute();</P>
+<P CLASS="Code">
+<A NAME="pgfId-1326830"></A>} catch (Exception&amp; ex){</P>
+<P CLASS="Code">
+<A NAME="pgfId-1326832"></A>  ex.printStackTrace();</P>
+<P CLASS="Code">
+<A NAME="pgfId-1326834"></A>}</P>
+<P CLASS="Code">
+<A NAME="pgfId-1326836"></A>// Now the CQ is running on the server, sending CqEvents to the listener</P>
+<P CLASS="Code">
+<A NAME="pgfId-1326838"></A>. . .</P>
+<P CLASS="Code">
+<A NAME="pgfId-1326840"></A>}</P>
+<P CLASS="Code">
+<A NAME="pgfId-1326842"></A>// End of life for the CQ - clear up resources by closing</P>
+<P CLASS="Code">
+<A NAME="pgfId-1326844"></A>priceTracker-&gt;close()</P>
+<DIV>
+<H6 CLASS="Example-End">
+<A NAME="pgfId-1326770"></A><DIV>
+<IMG SRC="10-Continuous_Querying-2.gif">
+</DIV>
+&nbsp;</H6>
+</DIV>
+</DIV>
+<DIV>
+<H6 CLASS="Example-Title">
+<A NAME="pgfId-1329506"></A>CQ Creation, Execution, and Close (C# .NET)<DIV>
+<IMG SRC="10-Continuous_Querying-2.gif">
+</DIV>
+</H6>
+<P CLASS="Code">
+<A NAME="pgfId-1329535"></A>// Get cache and queryService - refs to local cache and QueryService </P>
+<P CLASS="Code">
+<A NAME="pgfId-1329537"></A>// Create client /tradeOrder region configured to talk to the server </P>
+<P CLASS="Code">
+<A NAME="pgfId-1329539"></A>// Create CqAttribute using CqAttributeFactory </P>
+<P CLASS="Code">
+<A NAME="pgfId-1329541"></A>CqAttributesFactory cqf = new CqAttributesFactory(); </P>
+<P CLASS="Code">
+<A NAME="pgfId-1329543"></A>// Create a listener and add it to the CQ attributes </P>
+<P CLASS="Code">
+<A NAME="pgfId-1329545"></A>//callback defined below </P>
+<P CLASS="Code">
+<A NAME="pgfId-1329719"></A>ICqListener tradeEventListener = new TradeEventListener(); </P>
+<P CLASS="Code">
+<A NAME="pgfId-1329721"></A>cqf.addCqListener(tradeEventListener); </P>
+<P CLASS="Code">
+<A NAME="pgfId-1329551"></A>CqAttributes cqa = cqf.create(); </P>
+<P CLASS="Code">
+<A NAME="pgfId-1329553"></A>// Name of the CQ and its query </P>
+<P CLASS="Code">
+<A NAME="pgfId-1329555"></A>String cqName = &quot;priceTracker &quot;; </P>
+<P CLASS="Code">
+<A NAME="pgfId-1331476"></A>String queryStr = &quot;SELECT * FROM /tradeOrder t where t.price &gt;100.00 &quot;; </P>
+<P CLASS="Code">
+<A NAME="pgfId-1331477"></A>QueryService queryService = cache.GetQueryService();</P>
+<P CLASS="Code">
+<A NAME="pgfId-1331478"></A>// Create the CqQuery </P>
+<P CLASS="Code">
+<A NAME="pgfId-1329561"></A>CqQuery priceTracker = queryService.newCq(cqName, queryStr, cqa, true); </P>
+<P CLASS="Code">
+<A NAME="pgfId-1329563"></A>try { </P>
+<P CLASS="Code">
+<A NAME="pgfId-1329565"></A>  // Execute CQ </P>
+<P CLASS="Code">
+<A NAME="pgfId-1329567"></A>  priceTracker.execute(); </P>
+<P CLASS="Code">
+<A NAME="pgfId-1329569"></A>  }catch (Exception ex){ </P>
+<P CLASS="Code">
+<A NAME="pgfId-1329571"></A>  //handle exception </P>
+<P CLASS="Code">
+<A NAME="pgfId-1329573"></A>  } </P>
+<P CLASS="Code">
+<A NAME="pgfId-1329575"></A>// Now the CQ is running on the server, sending CqEvents to the listener </P>
+<P CLASS="Code">
+<A NAME="pgfId-1329577"></A>// . . . </P>
+<P CLASS="Code">
+<A NAME="pgfId-1329579"></A>} </P>
+<P CLASS="Code">
+<A NAME="pgfId-1329581"></A>// End of life for the CQ - clear up resources by closing</P>
+<P CLASS="Code">
+<A NAME="pgfId-1329583"></A>priceTracker.close();</P>
+<DIV>
+<H6 CLASS="Example-End">
+<A NAME="pgfId-1329512"></A><DIV>
+<IMG SRC="10-Continuous_Querying-2.gif">
+</DIV>
+&nbsp;</H6>
+</DIV>
+</DIV>
+</DIV>
+<DIV>
+<H2 CLASS="Head-B">
+<A NAME="pgfId-1322995"></A>CQ Execution Options</H2>
+<P CLASS="Body">
+<A NAME="pgfId-1327159"></A>CQ execution can be done with or without an initial result set by calling <EM CLASS="Code9">
+CqQuery.Execute</EM>
+ or <EM CLASS="Code9">
+CqQuery.ExecuteWithInitialResults</EM>
+. The initial <EM CLASS="Code9">
+SelectResults</EM>
+ returned from <EM CLASS="Code9">
+ExecuteWithInitialResults</EM>
+ is the same as the one you would get if you ran the query ad hoc by calling <EM CLASS="Code9">
+QueryService.NewQuery.Execute</EM>
+ on the server cache, but with the key added. </P>
+<P CLASS="Body">
+<A NAME="pgfId-1331390"></A>If you are managing a data set from the CQ results, you can initialize the set by iterating over the result set and then updating it from your listeners as events arrive. For example, you might populate a new screen with initial results and then update the screen from a listener. </P>
+<P CLASS="Body">
+<A NAME="pgfId-1327162"></A>Just as with the standalone query, the initial results represents a possibly moving snapshot of the cache. If there are updates to the server region while the result set is being created, the result set and the subsequent event-by-event CQ query execution might miss some events. </P>
+</DIV>
+<DIV>
+<H2 CLASS="Head-B">
+<A NAME="pgfId-1317929"></A><A NAME="15128"></A>Managing Your CQs</H2>
+<P CLASS="Body">
+<A NAME="pgfId-1327271"></A>This section discusses how to access and manage your CQs from your client. The calls discussed here are all executed specifically for the calling client. A client cannot access or modify the CQs belonging to another client. For detailed method usage, see the online API documentation.</P>
+<DIV>
+<H6 CLASS="Head-C">
+<A NAME="pgfId-1327272"></A>Accessing Your CQs</H6>
+<P CLASS="Body">
+<A NAME="pgfId-1327273"></A>You can access a single named CQ, an array of all CQs registered, and an array of all CQs registered in the client using the <EM CLASS="Code9">
+QueryService</EM>
+ <EM CLASS="Code9">
+getCq*</EM>
+ methods. You can also access the CQ used to produce a <EM CLASS="Code9">
+CqEvent</EM>
+ through the <EM CLASS="Code9">
+CqEvent.getCq</EM>
+ method.</P>
+</DIV>
+<DIV>
+<H6 CLASS="Head-C">
+<A NAME="pgfId-1327274"></A>Accessing CQ Statistics </H6>
+<P CLASS="Body">
+<A NAME="pgfId-1327275"></A>CQ runtime statistics are available for the client through the <EM CLASS="Code9">
+CqServiceStatistics</EM>
+ and <EM CLASS="Code9">
+CqStatistics</EM>
+ interfaces described under <A HREF="10-Continuous_Querying.htm#15698" CLASS="XRef">The Native Client CQ API</A>. You can get information on the events generated by a specific CQ from the <EM CLASS="Code9">
+CqStatistics</EM>
+ object returned by <EM CLASS="Code9">
+CqQuery.GetStatistics</EM>
+. You can get higher-level information about the CQs the client has registered, running, and so on, from the <EM CLASS="Code9">
+CqServiceStatistics</EM>
+ object returned by <EM CLASS="Code9">
+QueryService.GetCqStatistics</EM>
+. </P>
+<P CLASS="Body">
+<A NAME="pgfId-1327276"></A>For both the client and server, you can access these statistics by loading the statistics archive file into VSD. The optional VSD (Visual Statistics Display) tool can be acquired from GemStone Technical Support. See <A HREF="Preface.htm#51766" CLASS="XRef">Contacting Technical Support</A> for details.</P>
+<P CLASS="Body">
+<A NAME="pgfId-1330488"></A>Client statistics are for the single client only. The server&#8217;s pertain to all clients with CQs on this server. </P>
+</DIV>
+<DIV>
+<H6 CLASS="Head-C">
+<A NAME="pgfId-1327277"></A>Modifying CQ Attributes </H6>
+<P CLASS="Body">
+<A NAME="pgfId-1327278"></A>You can modify the attributes for an existing CQ using the methods provided by <EM CLASS="Code9">
+CqQuery.GetCqAttributesMutator</EM>
+. The attributes consist of a list of listeners. </P>
+</DIV>
+<DIV>
+<H6 CLASS="Head-C">
+<A NAME="pgfId-1327279"></A>Executing CQs</H6>
+<P CLASS="Body">
+<A NAME="pgfId-1327280"></A>Individual CQs are executed using <EM CLASS="Code9">
+CqQuery</EM>
+ <EM CLASS="Code9">
+execute*</EM>
+ methods. You can also execute all CQs for the client or for a region through the client <EM CLASS="Code9">
+QueryService</EM>
+. CQs that are running can be stopped or closed.</P>
+</DIV>
+<DIV>
+<H6 CLASS="Head-C">
+<A NAME="pgfId-1327281"></A>Stopping CQs</H6>
+<P CLASS="Body">
+<A NAME="pgfId-1317931"></A>Individual CQs are stopped using the <EM CLASS="Code9">
+CqQuery</EM>
+ <EM CLASS="Code9">
+stop</EM>
+ method. You can also stop all CQs for the client through the <EM CLASS="Code9">
+QueryService</EM>
+. Stopped CQs are in the same state as new CQs that have not yet been executed. You can close or execute a stopped CQ.</P>
+</DIV>
+<DIV>
+<H6 CLASS="Head-C">
+<A NAME="pgfId-1327301"></A>Closing CQs</H6>
+<P CLASS="Body">
+<A NAME="pgfId-1327302"></A>Individual CQs are closed using the <EM CLASS="Code9">
+CqQuery</EM>
+ <EM CLASS="Code9">
+close</EM>
+ method. You can also close all CQs for the client through the <EM CLASS="Code9">
+QueryService</EM>
+. Closed CQs cannot be executed. CQs are also closed in the following cases: </P>
+<UL>
+<LI CLASS="Bulleted">
+<A NAME="pgfId-1327303"></A>The client closes its cache after closing all of its CQs--Closing the client cache closes the <EM CLASS="Code9">
+QueryService</EM>
+ and all associated CQs on the client and server.</LI>
+<LI CLASS="Bulleted">
+<A NAME="pgfId-1327304"></A>The client disconnects from its server--This might be because of a network outage or some other failure. When a client disconnects, all CQs created by the client are removed from the server and put into a <EM CLASS="Code9">
+CLOSED</EM>
+ state on the client.</LI>
+<LI CLASS="Bulleted">
+<A NAME="pgfId-1330483"></A>The server region is destroyed--When a server region is destroyed, all associated CQs are also cleaned up on the server and the region <EM CLASS="Code9">
+destroy</EM>
+ event is sent to the client. On the client, the <EM CLASS="Code9">
+CqListener.Close</EM>
+ method is called for all CQs on the region.</LI>
+</UL>
+</DIV>
+</DIV>
+</DIV>
+</BODY>
+</HTML>

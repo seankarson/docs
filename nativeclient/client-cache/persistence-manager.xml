@@ -1,0 +1,351 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "http://docs.oasis-open.org/dita/v1.1/OS/dtd/concept.dtd">
+<concept
+	id="persistence-manager">
+	<title>PersistenceManager</title>
+	<conbody>
+		<p>For each region, if the disk-policy attribute is set to overflows, a
+			persistence-manager plug-in must perform cache-to-disk and
+			disk-to-cache operations. See <xref
+				scope="local"
+				href="application-plugins.xml#application-plugins"
+				type="concept"
+				format="dita">Application Plug-Ins</xref>. </p>
+		<p>Persistence manager declaration: </p>
+		<codeblock>&lt;region-attributes lru-entries-limit="nnnnn"
+        disk-policy="overflows"&gt;
+    &lt;persistence-manager library-name="libraryName"
+            library-function-name="functionName"&gt;
+        &lt;properties&gt;
+            &lt;property name="propertyName" value="propertyValue" /&gt;
+        &lt;/properties&gt;
+    &lt;/persistence-manager&gt;
+&lt;/region-attributes&gt;</codeblock>
+		<p>The optional properties set parameters for the plug-in. </p>
+		<ul
+			id="ul_C35E2898AEDD40D382B93F51354A162C">
+			<li
+				id="li_0A5BF0650E0C4B1F95CA9CC8B2FEB812"><xref
+					href="persistence-manager.xml#persistence-manager/section_9FC7089FDF8044868F17A2659397402A"
+					type="section"
+					format="dita"
+					scope="local"><?xm-replace_text Using SQLite as a Persistence Manager?></xref>
+			</li>
+			<li
+				id="li_A87E7E2E082F43AD936EB335D4B0993D"><xref
+					href="persistence-manager.xml#persistence-manager/section_3C6991A39C5F4FB8A945EF15FB089287"
+					type="section"
+					format="dita"
+					scope="local"><?xm-replace_text SQLite Persistence Manager Region Attributes?></xref>
+			</li>
+			<li
+				id="li_795BF1E1B0534C17B4B1CF7395B032D7"><xref
+					href="persistence-manager.xml#persistence-manager/section_A9583FBEB5D74B92AD61CB6158AE2B4C"
+					type="section"
+					format="dita"
+					scope="local"><?xm-replace_text Configuring the SQLite Persistence Manager Plug-In for C++     Applications?></xref>
+			</li>
+			<li
+				id="li_ABB0D94E8AD34A709710FF08291061EA"><xref
+					href="persistence-manager.xml#persistence-manager/section_7410F68E0BB144A584A9AFE7E8CDBE22"
+					type="section"
+					format="dita"
+					scope="local"><?xm-replace_text Configuring the SQLite Persistence Manager Plug-In for .NET     Applications?></xref>
+			</li>
+			<li
+				id="li_9CA4A41AFDCB4C17BEE33ED914EE6ACB"><xref
+					href="persistence-manager.xml#persistence-manager/section_9D038C438E01415EA4D32000D5CB5596"
+					type="section"
+					format="dita"
+					scope="local"><?xm-replace_text Implementing a PersistenceManager with the IPersistenceManager     Interface ?></xref>
+			</li>
+		</ul>
+		<section
+			id="section_9FC7089FDF8044868F17A2659397402A">
+			<title>Using SQLite as a Persistence Manager</title>
+			<p>The <keyword keyref="product_name"/> native client distribution includes a persistence manager
+				that uses the open-source SQLite library. </p>
+			<p>SQLite is a software library that implements a self-contained
+				transactional SQL database. SQLite does not require its own
+				server or separate configuration, and the source code for SQLite
+				is in the public domain. For more information on SQLite, see <xref
+					href="http://www.sqlite.org"
+					scope="external"
+					format="html"><?xm-replace_text http://www.sqlite.org?></xref>. </p>
+			<p>Each SQLite persistence manager persists its region data in a
+				SQLite database that is stored in disk files. In a given native
+				client application process, each region must have a unique
+				persistence (overflow) directory. </p>
+				<fig
+					id="fig_6A0C9F1A29134ACBA0FDD8236CD836B6">
+					<title>SQLite Database Persistence Manager Directory
+						Structure</title>
+					<image
+						placement="inline"
+						href="../../common/images/SQLite_Persistence_Mgr.png"
+						id="image_BD1AF915E09548D68D9307E2F52737F9"><?xm-replace_text Paragraph?></image>
+
+				</fig>
+		</section>
+		<section
+			id="section_3C6991A39C5F4FB8A945EF15FB089287">
+			<title>SQLite Persistence Manager Region Attributes</title>
+			<p>The following table describes the region attributes that can be
+				configured for the SQLite persistence manager. </p>
+			<table
+					id="table_5C2629E5677043AEB9F1E6FAEEEC1EDC">
+					<tgroup
+						cols="3"><colspec
+							colnum="1"
+							colname="col1"
+							colwidth="1.00*"/><colspec
+							colnum="2"
+							colname="col2"
+							colwidth="2.03*"/><colspec
+							colnum="3"
+							colname="col3"
+							colwidth="1.47*"/><thead>
+							<row>
+								<entry
+									colname="col1">Property </entry>
+								<entry
+									colname="col2">Description </entry>
+								<entry
+									colname="col3">Default Setting </entry>
+							</row></thead>
+						<tbody>
+							<row>
+								<entry
+									colname="col1">PersistenceDirectory </entry>
+								<entry
+									colname="col2">Directory where each region's
+									database files are stored. This setting must
+									be different for each region including
+									regions in different processes. This
+									directory is created by the persistence
+									manager. The persistence manager fails to
+									initialize if this directory already exists
+									or cannot be created. </entry>
+								<entry
+									colname="col3">Default is to create a
+									subdirectory named GemFireRegionData in the
+									directory where the process using the region
+									was started. </entry>
+							</row>
+							<row>
+								<entry
+									colname="col1">PageSize </entry>
+								<entry
+									colname="col2">Maximum page size of the
+									SQLite database. SQLite can limit the size
+									of a database file to prevent the database
+									file from growing too large and consuming
+									too much disk space. </entry>
+								<entry
+									colname="col3">Ordinarily, if no value is
+									explicitly provided, SQLite creates a
+									database with the page size set to
+									SQLITE_DEFAULT_PAGE_SIZE (default is 1024).
+									However, based on certain device
+									characteristics (for example, sector-size
+									and atomic write() support) SQLite may
+									choose a larger value. PageSize specifies
+									the maximum value that SQLite will be able
+									to choose on its own. See <xref
+										href="http://www.sqlite.org/compile.html#default_page_size"
+										scope="external"
+										format="html">http://www.sqlite.org/compile.html#default_page_size</xref>
+									for more details on
+									SQLITE_DEFAULT_PAGE_SIZE. </entry>
+							</row>
+							<row>
+								<entry
+									colname="col1">MaxPageCount </entry>
+								<entry
+									colname="col2">Maximum number of pages in
+									one database file. </entry>
+								<entry
+									colname="col3">SQLite default, which is
+									1073741823. </entry>
+							</row>
+						</tbody>
+					</tgroup>
+				</table>
+		</section>
+		<section
+			id="section_A9583FBEB5D74B92AD61CB6158AE2B4C">
+			<title>Configuring the SQLite Persistence Manager Plug-In for C++
+				Applications</title>
+			<p>To load the SQLite persistence manager plug-in for C++ applications, you can configure it
+				either in your client's <codeph>cache.xml</codeph> or programmatically using the
+				native client C++ API. </p>
+			<p>The following is an example of how to specify the following
+				region attributes in your client's cache.xml:</p>
+				<codeblock>&lt;region-attributes&gt;
+   &lt;persistence-manager library-name="libSqLiteImpl.so" library-function-name="createSqLiteInstance"&gt;
+      &lt;properties&gt;
+         &lt;property name="PersistenceDirectory" value="/xyz"/&gt;
+         &lt;property name="PageSize" value="65536"/&gt;
+         &lt;property name="MaxPageCount" value="1073741823"/&gt;
+      &lt;/properties&gt;
+   &lt;/persistence-manager&gt;
+&lt;/region-attributes&gt;</codeblock>
+		</section>
+		<example
+			id="example_373CACDF3B1A4A879EFFB7BAFD578332">
+			<title>C++ API Example</title>
+			<p>To use the native client C++ API, set SQLite persistence manager
+				attributes programmatically as follows:</p>
+				<codeblock>PropertiesPtr sqliteProperties = Properties::create();
+sqliteProperties-&gt;insert("MaxPagecount""5");
+sqliteProperties-&gt;insert("PageSize","1024");
+sqliteProperties-&gt;insert("PersistenceDirectory","SqLite-Test779");
+regionFactory-&gt;setPersistenceManager("SqLiteImpl","createSqLiteInstance",sqliteProperties);</codeblock>
+		</example>
+		<section
+			id="section_7410F68E0BB144A584A9AFE7E8CDBE22">
+			<title>Configuring the SQLite Persistence Manager Plug-In for .NET
+				Applications</title>
+			<p>To load the SQLite persistence manager plug-in for .NET
+				applications, you can configure it either in your client's
+				cache.xml or programmatically using the .NET API:</p>
+				<codeblock>&lt;persistence-manager library-name="Gemstone.Gemfire.Plugins.SqLite" 
+   library-function-name="GemStone.GemFire.Plugins.SqLite.SqLiteImpl&amp;lt;System.Object, System.Object&amp;gt;.Create"&gt; 
+    &lt;properties&gt;
+       &lt;property name="PersistenceDirectory" value="SqLite"/&gt;
+       &lt;property name="MaxPageCount" value="1073741823"/&gt;
+       &lt;property name="PageSize" value="65536"/&gt;
+    &lt;/properties&gt;
+&lt;/persistence-manager&gt;</codeblock>
+		</section>
+		<example
+			id="example_5C25D21272424FA081B9703EBC564C9D">
+			<title>.NET API Example</title>
+			<p>To use the native client .NET API, set the SQLite persistence
+				manager attributes programmatically as follows:</p>
+				<codeblock>Properties&lt;string, string&gt; sqliteProperties = new Properties&lt;string, string&gt;();
+sqliteProperties.Insert("PageSize", "65536");
+sqliteProperties.Insert("MaxFileSize", "51200000");
+sqliteProperties.Insert("PersistenceDirectory", SqLiteDir);
+rf.SetPersistenceManager("Gemstone.Gemfire.Plugins.SqLite", 
+"Gemstone.Gemfire.Plugins.SqLiteSqLiteImpl&lt;System.Object,System.Object&gt;.Create",
+sqliteProperties);</codeblock>
+			<p>You can also use and configure the C++ SQLite persistence manager
+				library from your .NET application as follows:</p>
+				<codeblock>rf.SetPersistenceManager("SqliteImpl", "createSqLiteInstance", sqliteProperties);</codeblock>
+		</example>
+		<section
+			id="section_9D038C438E01415EA4D32000D5CB5596">
+			<title>Implementing a PersistenceManager with the
+				IPersistenceManager Interface </title>
+			<p>When developing .NET managed applications, you can use the
+				IPersistenceManager managed interface to implement your own
+				persistence manager. The following code sample provides the
+				IPersistenceManager interface:</p>
+				<codeblock>/// &lt;summary&gt; 
+/// IPersistenceManager interface for persistence and overflow. 
+/// This class abstracts the disk-related operations in case of persistence or overflow to disk. 
+/// A specific disk storage implementation will implement all the methods described here. 
+/// &lt;/summary&gt; 
+generic&lt;class TKey, class TValue&gt; 
+public interface class IPersistenceManager 
+ { 
+   public: 
+   /// &lt;summary&gt; 
+   /// Called after an implementation object is created. Initializes all the implementation specific environments needed. 
+   /// &lt;/summary&gt; 
+   /// &lt;param name="region"&gt; 
+   /// Region for which this PersistenceManager is initialized. 
+   /// &lt;/param&gt; 
+   /// &lt;param name="diskProperties"&gt; 
+   /// Configuration Properties used by PersistenceManager implementation. 
+   /// &lt;/param&gt; 
+   void Init(IRegion&lt;TKey, TValue&gt;^ region, Properties&lt;String^, String^&gt;^ diskProperties); 
+   
+   /// &lt;summary&gt; 
+   /// Writes a key, value pair of region to the disk. The actual file or database related write operations should be implemented in this method. 
+   /// &lt;/summary&gt; 
+   /// &lt;param name="key"&gt; 
+   /// the key to write. 
+   /// &lt;/param&gt; 
+   /// &lt;param name="value"&gt; 
+   /// the value to write. 
+   /// &lt;/param&gt; 
+   void Write(TKey key, TValue value); 
+
+   /// &lt;summary&gt; 
+   /// This method is not used. 
+   /// &lt;/summary&gt; 
+   bool WriteAll(); 
+
+   /// &lt;summary&gt; 
+   /// Reads the value for the key from the disk. 
+   /// &lt;/summary&gt; 
+   /// &lt;param name="key"&gt; 
+   /// key for which the value has to be read. 
+   /// &lt;/param&gt; 
+   TValue Read(TKey key); 
+
+   /// &lt;summary&gt; 
+   /// This method is not used. 
+   /// &lt;/summary&gt; 
+   bool ReadAll(); 
+
+   /// &lt;summary&gt; 
+   /// Destroys the entry specified by the key in the argument. 
+   /// &lt;/summary&gt; 
+   /// &lt;param name="key"&gt; 
+   /// key of the entry which is being destroyed. 
+   /// &lt;/param&gt;
+   void Destroy(TKey key); 
+
+   /// &lt;summary&gt; 
+   /// Closes the persistence manager instance. 
+   /// &lt;/summary&gt; 
+   void Close(); 
+}
+
+</codeblock>
+			<p>The following is a sample interface implementation:</p>
+				<codeblock>class MyPersistenceManager&lt;TKey, TValue&gt; : IPersistenceManager&lt;TKey, TValue&gt; 
+   { 
+      #region IPersistenceManager&lt;TKey,TValue&gt; Members
+      public void Close() 
+      { 
+         throw new NotImplementedException(); 
+      } 
+
+      public void Destroy(TKey key) 
+      { 
+         throw new NotImplementedException(); 
+      } 
+
+      public void Init(IRegion&lt;TKey, TValue&gt; region, Properties&lt;string, string&gt; disk Properties) 
+      { 
+         throw new NotImplementedException(); 
+      } 
+
+      public TValue Read(TKey key) 
+      { 
+         throw new NotImplementedException(); 
+      } 
+
+      public void Write(TKey key, TValue value) 
+      { 
+         throw new NotImplementedException(); 
+      } 
+
+      public bool ReadAll() 
+      { 
+         throw new NotImplementedException(); 
+      } 
+
+      public bool WriteAll() 
+      {
+         throw new NotImplementedException(); 
+      } 
+      #endregion 
+   }</codeblock>
+		</section>
+	</conbody>
+</concept>

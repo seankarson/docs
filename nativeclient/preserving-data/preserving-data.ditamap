@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE bookmap PUBLIC "-//OASIS//DTD DITA BookMap//EN" "bookmap.dtd">
+<!-- Created with XMetaL (http://www.xmetal.com) -->
+<bookmap
+	id="preserving-data">
+	<booktitle>
+		<mainbooktitle>Preserving Data</mainbooktitle>
+	</booktitle>
+	<bookmeta>
+		<bookid>
+			<bookpartno><?xm-replace_text Book Part Number?></bookpartno>
+			<isbn><?xm-replace_text ISBN Number?>
+			</isbn>
+		</bookid>
+		<bookrights>
+			<copyrfirst>
+				<year><?xm-replace_text First Year?></year>
+			</copyrfirst>
+			<copyrlast>
+				<year><?xm-replace_text Last Year?></year>
+			</copyrlast>
+			<bookowner>
+				<person><?xm-replace_text Copyright owner?>
+				</person>
+			</bookowner>
+		</bookrights>
+	</bookmeta>
+	<part
+		format="dita"
+		href="preserving-data.xml"
+		navtitle="Preserving Data"
+		scope="local"
+		type="concept">
+		<topicref
+			format="dita"
+			href="high-availability-client-server.xml"
+			navtitle="High Availability for Client-Server Communication"
+			scope="local"
+			type="concept">
+			<topicref
+				format="dita"
+				href="configuring-nc-ha.xml"
+				navtitle="Configuring Native Clients for High Availability"
+				scope="local"
+				type="concept"> </topicref>
+			<topicref
+				format="dita"
+				href="sending-periodic-ack.xml"
+				navtitle="Sending Periodic Acknowledgment"
+				scope="local"
+				type="concept"/>
+		</topicref>
+		<topicref
+			format="dita"
+			href="using-queue-conflation.xml"
+			navtitle="Enabling Queue Conflation to Improve Update Performance"
+			scope="local"
+			type="concept"/>
+		<topicref
+			format="dita"
+			href="durable-client-messaging.xml"
+			navtitle="Durable Client Messaging"
+			scope="local"
+			type="concept">
+			<topicref
+				format="dita"
+				href="durable-client-messaging-req.xml"
+				navtitle="Durable Client Messaging Requirements"
+				scope="local"
+				type="concept"/>
+			<topicref
+				format="dita"
+				href="client-side-config.xml"
+				navtitle="Client-Side Configuration"
+				scope="local"
+				type="concept">
+				<topicref
+					format="dita"
+					href="configuring-durable-nc.xml"
+					navtitle="Configuring a Durable Native Client"
+					scope="local"
+					type="concept"/>
+				<topicref
+					format="dita"
+					href="config-durable-interest-keys.xml"
+					navtitle="Configuring Durable Interest in Keys"
+					scope="local"
+					type="concept"/>
+				<topicref
+					href="config-durable-reconnect.xml"
+					type="topic"/>
+			</topicref>
+			<topicref
+				format="dita"
+				href="sending-cache-ready-message.xml"
+				navtitle="Sending Cache Ready Messages to the Server"
+				scope="local"
+				type="concept"/>
+			<topicref
+				format="dita"
+				href="disconnecting-from-server.xml"
+				navtitle="Disconnecting from the Server"
+				scope="local"
+				type="concept"/>
+			<topicref
+				format="dita"
+				href="durable-client-life-cycle.xml"
+				navtitle="Life Cycle of a Durable Client"
+				scope="local"
+				type="concept">
+				<topicref
+					format="dita"
+					href="initial-operation.xml"
+					navtitle="Initial Operation"
+					scope="local"
+					type="concept"/>
+				<topicref
+					format="dita"
+					href="disconnection.xml"
+					navtitle="Disconnection"
+					scope="local"
+					type="concept"/>
+				<topicref
+					format="dita"
+					href="reconnection.xml"
+					navtitle="Reconnection"
+					scope="local"
+					type="concept"/>
+				<topicref
+					format="dita"
+					href="durable-message-replay.xml"
+					navtitle="Durable Message Replay"
+					scope="local"
+					type="concept"/>
+				<topicref
+					format="dita"
+					href="app-ops-during-int-reg.xml"
+					navtitle="Application Operations During Interest Registration"
+					scope="local"
+					type="concept"/>
+			</topicref>
+			<topicref
+				format="dita"
+				href="impl-cache-listeners-durable-clients.xml"
+				navtitle="Implementing Cache Listeners for Durable Clients"
+				scope="local"
+				type="concept"/>
+		</topicref>
+	</part>
+</bookmap>

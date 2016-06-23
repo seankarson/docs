@@ -1,0 +1,526 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "http://docs.oasis-open.org/dita/v1.1/OS/dtd/concept.dtd">
+<concept
+	id="attributes-gfcpp">
+	<title>Attributes in gfcpp.properties</title>
+	<shortdesc>A variety of <codeph>gfcpp.properties</codeph> settings can be used when a native
+		client connects to a distributed system. </shortdesc>
+	<conbody>
+		<p>The following settings can be configured:</p>
+			<ul
+				id="ul_D2AAAB9FDF1E45DD92800BA4B8C34CBD">
+				<li
+					id="li_507382C823F6423BA66003CFC90FDB3C"><b><xref
+							href="attributes-gfcpp.xml#attributes-gfcpp/table_21004C9E93294F03BE3469C13EA33262"
+							type="table"
+							format="dita"
+							scope="local">General Properties</xref></b> Basic information for the
+					process, such as cache creation parameters. </li>
+				<li
+					id="li_8CEC269D83704F7C9F4CFC76A447F5AB"><b><xref
+							href="attributes-gfcpp.xml#attributes-gfcpp/table_D42627049FD6432494BDE5170AF1BCCF"
+							type="table"
+							format="dita"
+							scope="local">Logging Properties</xref></b> How and where to log system
+					messages. </li>
+				<li
+					id="li_C6C15E5FF1FE4176B0CF8410DAED22E6"><b><xref
+							href="attributes-gfcpp.xml#attributes-gfcpp/table_E1A0EDBA67CD41319E1E5FD0A0BB2723"
+							type="table"
+							format="dita"
+							scope="local">Statistics Archiving Properties</xref></b> How to collect
+					and archive statistics information. </li>
+				<li
+					id="li_66D9769F9E294DE3AA45B260C58AE7EB"><b><xref
+							href="attributes-gfcpp.xml#attributes-gfcpp/table_BA6DAF27947B4A9488787E6BDCFC15B9"
+							type="table"
+							format="dita"
+							scope="local">Durable Client Properties</xref></b> Information about the
+					durable clients connected to the system. </li>
+				<li
+					id="li_D43C58BADBB34C5E94FA65887AC44997"><b><xref
+							href="attributes-gfcpp.xml#attributes-gfcpp/table_B3A8E9EB44A94557A97BB700E2BA1EF1"
+							type="table"
+							format="dita"
+							scope="local">Security Properties</xref></b> Information about various
+					security parameters. 
+
+
+
+				</li>
+			</ul>
+		<section
+			id="section_655789BCC46642789F91CDA8AE03CD9B">
+			<title>Attribute Definitions</title>
+			<p>The following tables list <keyword keyref="product_name"/> configuration attributes that can
+				be stored in the <codeph>gfcpp.properties</codeph> file to be read by a native
+				client. </p>
+			<p>For the system properties that relate to high availability, see <xref
+					scope="local"
+					href="../preserving-data/sending-periodic-ack.xml#concept_868B8082463846DE9F35BBEA56105C82"
+					type="concept"
+					format="dita">Sending Periodic Acknowledgement</xref>. For a list of
+				security-related system properties and their descriptions, see the table <xref
+					scope="local"
+					href="../security/security-systemprops.xml#security/table_92A6A66523764199A19BCD66BA189921"
+					type="table"
+					format="dita">System Properties for Client Authentication and
+					Authorization</xref>. </p>
+			<table
+					id="table_21004C9E93294F03BE3469C13EA33262">
+				<title>Attributes in gfcpp.properties—General Properties</title>
+					<tgroup
+						cols="3">
+						<colspec
+							colname="1"
+							colnum="1"/>
+						<colspec
+							colname="2"
+							colnum="2"/>
+						<colspec
+							colname="3"
+							colnum="3"/>
+						<thead>
+							<row>
+								<entry>gfcpp.properties Attribute </entry>
+								<entry>Description </entry>
+								<entry>Default </entry>
+							</row>
+						</thead>
+						<tbody>
+							<row
+								id="appdomain-enabled">
+								<entry>appdomain-enabled </entry>
+								<entry>If <codeph>true</codeph>, allows native client to work when multiple .NET appdomains
+								are in use. </entry>
+								<entry>false </entry>
+							</row>
+							<row
+								id="cache-xml-file">
+								<entry>cache-xml-file </entry>
+								<entry>Name and path of the file whose contents are used by default
+									to initialize a cache if one is created. If not specified, the
+									native client starts with an empty cache, which is populated at
+									runtime. <p>See <xref
+											scope="local"
+											href="../cache-init-file/chapter-overview.xml#chapter-overview"
+											type="concept"
+											format="dita">Cache Initialization File</xref> for more
+										information on the cache initialization file. </p>
+								</entry>
+								<entry>no default </entry>
+							</row>
+							<row
+								id="heap-lru-delta">
+								<entry>heap-lru-delta </entry>
+								<entry>When heap LRU is triggered, this is the amount that gets
+									added to the percentage that is above the
+										<codeph>heap-lru-limit</codeph> amount. LRU continues until
+									the memory usage is below <codeph>heap-lru-limit</codeph> minus
+									this percentage. This property is only used if
+										<codeph>heap-lru-limit</codeph> is greater than 0 . </entry>
+								<entry>10 </entry>
+							</row>
+							<row
+								id="heap-lru-limit">
+								<entry>heap-lru-limit </entry>
+								<entry>Maximum amount of memory, in megabytes, used by the cache for all regions. If this
+								limit is exceeded by <codeph>heap-lru-delta</codeph> percent, LRU
+								reduces the memory footprint as necessary. If not specified, or set
+								to 0, memory usage is governed by each region's LRU entries limit,
+								if any. </entry>
+								<entry>0 </entry>
+							</row>
+							<row
+								id="conflate-events">
+								<entry>conflate-events </entry>
+								<entry>Client side conflation setting, which is sent to the server. </entry>
+								<entry>server </entry>
+							</row>
+							<row
+								id="connect-timeout">
+								<entry>connect-timeout </entry>
+								<entry>Amount of time (in seconds) to wait for a response after a
+									socket connection attempt. </entry>
+								<entry>59 </entry>
+							</row>
+							<row
+								id="connection-pool-size">
+								<entry>connection-pool-size </entry>
+								<entry>Number of connections per endpoint </entry>
+								<entry>5 </entry>
+							</row>
+							<row
+								id="crash-dump-enabled">
+								<entry>crash-dump-enabled </entry>
+								<entry>Whether crash dump generation for unhandled fatal errors is
+									enabled. True is enabled, false otherwise. </entry>
+								<entry>true </entry>
+							</row>
+							<row
+								id="disable-shuffling-of-endpoints">
+								<entry>disable-chunk-handler-thread </entry>
+								<entry> When set to false, each application thread processes its own
+									response. If set to true, the chunk-handler-thread processes the
+									response for each application thread. </entry>
+								<entry>false </entry>
+							</row>
+							<row>
+								<entry
+									colname="1">disable-shuffling-of-endpoints </entry>
+								<entry
+									colname="2">If true, prevents server endpoints that are
+									configured in pools from being shuffled before use. </entry>
+								<entry
+									colname="3">false </entry>
+							</row>
+							<row
+								id="grid-client">
+								<entry>grid-client </entry>
+								<entry>If true, the client does not start various internal threads,
+									so that startup and shutdown time is reduced. </entry>
+								<entry>false </entry>
+							</row>
+							<row
+								id="max-fe-threads">
+								<entry>max-fe-threads </entry>
+								<entry>Thread pool size for parallel function execution. An example
+									of this is the GetAll operations. </entry>
+								<entry>2 * number of CPU cores </entry>
+							</row>
+							<row
+								id="max-socket-buffer-size">
+								<entry>max-socket-buffer-size </entry>
+								<entry>Maximum size of the socket buffers, in bytes, that the native
+									client will try to set for client-server connections. </entry>
+								<entry>65 * 1024 </entry>
+							</row>
+							<row
+								id="notify-ack-interval">
+								<entry>notify-ack-interval </entry>
+								<entry>Interval, in seconds, in which client sends acknowledgments
+									for subscription notifications. </entry>
+								<entry>1 </entry>
+							</row>
+							<row
+								id="notify-dupcheck-life">
+								<entry>notify-dupcheck-life </entry>
+								<entry>Amount of time, in seconds, the client tracks subscription
+									notifications before dropping the duplicates. </entry>
+								<entry>300 </entry>
+							</row>
+							<row
+								id="ping-interval">
+								<entry>ping-interval </entry>
+								<entry>Interval, in seconds, between communication attempts with the
+									server to show the client is alive. Pings are only sent when the
+										<codeph>ping-interval</codeph> elapses between normal client
+									messages. This must be set lower than the server's
+										<codeph>maximum-time-between-pings</codeph>. </entry>
+								<entry>10 </entry>
+							</row>
+							<row
+								id="redundancy-monitor-interval">
+								<entry>redundancy-monitor-interval </entry>
+								<entry>Interval, in seconds, at which the subscription HA
+									maintenance thread checks for the configured redundancy of
+									subscription servers. </entry>
+								<entry>10 </entry>
+							</row>
+							<row
+								id="stacktrace-enabled">
+								<entry>stacktrace-enabled </entry>
+								<entry>If <codeph>true</codeph>, the exception classes capture a stack trace that can be
+								printed with their <codeph>printStackTrace</codeph> function. If
+								false, the function prints a message that the trace is unavailable. </entry>
+								<entry>false </entry>
+							</row>
+							<row>
+								<entry>tombstone-timeout </entry>
+								<entry>Time in milliseconds used to timeout tombstone entries when
+									region consistency checking is enabled. 
+									<note>
+										<p>Do not modify this
+										property unless instructed by technical support.
+										</p>
+									</note>
+								</entry>
+								<entry>480000</entry>
+							</row>
+						</tbody>
+					</tgroup>
+				</table>
+				<table id="table_D42627049FD6432494BDE5170AF1BCCF">
+					<title>Attributes in gfcpp.properties—Logging Properties</title>
+					<tgroup
+						cols="3">
+						<colspec
+							colname="1"
+							colnum="1"/>
+						<colspec
+							colname="2"
+							colnum="2"/>
+						<colspec
+							colname="3"
+							colnum="3"/>
+						<thead>
+							<row>
+								<entry>gfcpp.properties Attribute </entry>
+								<entry>Description </entry>
+								<entry>Default </entry>
+							</row>
+						</thead>
+						<tbody>
+							<row
+								id="log-disk-space-limit">
+								<entry>log-disk-space-limit </entry>
+								<entry>Maximum amount of disk space, in megabytes, allowed for all log files, current, and
+								rolled. If set to 0, the space is unlimited. </entry>
+								<entry>0 </entry>
+							</row>
+							<row
+								id="log-file">
+								<entry>log-file </entry>
+								<entry>Name and full path of the file where a running client writes
+									log messages. If not specified, logging goes to
+										<codeph>stdout</codeph>. </entry>
+								<entry>no default file </entry>
+							</row>
+							<row
+								id="log-file-size-limit">
+								<entry>log-file-size-limit </entry>
+								<entry>Maximum size, in megabytes, of a single log file. Once this limit is exceeded, a new
+								log file is created and the current log file becomes inactive. If
+								set to 0, the file size is unlimited. </entry>
+								<entry>0 </entry>
+							</row>
+							<row
+								id="log-level">
+								<entry>log-level </entry>
+								<entry>Controls the types of messages that are written to the
+									application's log. These are the levels, in descending order of
+									severity and the types of message they provide:
+									<ul
+										id="ul_9CE6CF3B7BF746399C432442181876C7">
+										<li
+											id="li_47393BE0E9AB4080AA2DD426AD968C8F"><b>Error</b>
+											(highest severity) is a serious failure that will
+											probably prevent program execution. </li>
+										<li
+											id="li_1AE2BE8AE2D54F6286C202784DA54EB7"><b>Warning</b>
+											is a potential problem in the system. </li>
+										<li
+											id="li_04AC02A1B5004CA891B1AE87D3ECD49A"><b>Info</b> is
+											an informational message of interest to the end user and
+											system administrator. </li>
+										<li
+											id="li_478D731E740F4B089D1F64407B629671"><b>Config</b>
+											is a static configuration message, often used to debug
+											problems with particular configurations. </li>
+										<li
+											id="li_6EAB88C200DC4145B08E9F2DC68DE006"><b>Fine, Finer,
+												Finest, and Debug</b> provide tracing information.
+											Only use these with guidance from technical support.
+										</li>
+									</ul>
+									<p>Enabling logging at any level enables logging for all higher
+										levels. </p>
+								</entry>
+								<entry>config </entry>
+							</row>
+						</tbody>
+					</tgroup>
+				</table>
+				<table
+					id="table_E1A0EDBA67CD41319E1E5FD0A0BB2723">
+					<title>Attributes in gfcpp.properties—Statistics Archiving Properties</title>
+					<tgroup
+						cols="3">
+						<colspec
+							colname="1"
+							colnum="1"/>
+						<colspec
+							colname="2"
+							colnum="2"/>
+						<colspec
+							colname="3"
+							colnum="3"/>
+						<thead>
+							<row>
+								<entry>gfcpp.properties Attribute </entry>
+								<entry>Description </entry>
+								<entry>Default </entry>
+							</row>
+						</thead>
+						<tbody>
+							<row
+								id="statistic-sampling-enabled">
+								<entry>statistic-sampling-enabled </entry>
+								<entry>Controls whether the process creates a statistic archive
+									file. </entry>
+								<entry>true </entry>
+							</row>
+							<row
+								id="statistic-archive-file">
+								<entry>statistic-archive-file </entry>
+								<entry>Name and full path of the file where a running system member writes archives
+								statistics. If <codeph>archive-disk-space-limit</codeph> is not set,
+								the native client appends the process ID to the configured file
+								name, like <codeph>statArchive-<varname>PID</varname>.gfs</codeph>.
+								If the space limit is set, the process ID is not appended but each
+								rolled file name is renamed to statArchive-ID.gfs, where ID is the
+								rolled number of the file. </entry>
+								<entry>./statArchive.gfs </entry>
+							</row>
+							<row
+								id="archive-disk-space-limit">
+								<entry>archive-disk-space-limit </entry>
+								<entry>Maximum amount of disk space, in megabytes, allowed for all archive files, current,
+								and rolled. If set to 0, the space is unlimited. </entry>
+								<entry>0 </entry>
+							</row>
+							<row
+								id="archive-file-size-limit">
+								<entry>archive-file-size-limit </entry>
+								<entry>Maximum size, in bytes, of a single statistic archive file. Once this limit is
+								exceeded, a new statistic archive file is created and the current
+								archive file becomes inactive. If set to 0, the file size is
+								unlimited. </entry>
+								<entry>0 </entry>
+							</row>
+							<row
+								id="statistic-sample-rate">
+								<entry>statistic-sample-rate </entry>
+								<entry>Rate, in seconds, that statistics are sampled. Operating
+									system statistics are updated only when a sample is taken. If
+									statistic archival is enabled, then these samples are written to
+									the archive. <p>Lowering the sample rate for statistics reduces
+										system resource use while still providing some statistics
+										for system tuning and failure analysis. </p>
+									<p>You can view archived statistics with the optional VSD
+										utility. </p>
+								</entry>
+								<entry>1 </entry>
+							</row>
+							<row
+								id="enable-time-statistics">
+								<entry>enable-time-statistics </entry>
+								<entry>Enables time-based statistics for the distributed system and
+									caching. For performance reasons, time-based statistics are
+									disabled by default. See <xref
+										scope="local"
+										href="../system-statistics/chapter_overview.xml#concept_3BE5237AF2D34371883453E6A9474A79"
+										type="concept"
+										format="dita">System Statistics</xref>. </entry>
+								<entry>false </entry>
+							</row>
+						</tbody>
+					</tgroup>
+				</table>
+				<table
+					id="table_BA6DAF27947B4A9488787E6BDCFC15B9">
+					<title>Attributes in gfcpp.properties—Durable Client Properties</title>
+					<tgroup
+						cols="3">
+						<colspec
+							colname="1"
+							colnum="1"/>
+						<colspec
+							colname="2"
+							colnum="2"/>
+						<colspec
+							colname="3"
+							colnum="3"/>
+						<thead>
+							<row>
+								<entry>gfcpp.properties Attribute </entry>
+								<entry>Description </entry>
+								<entry>Default </entry>
+							</row>
+						</thead>
+						<tbody>
+							<row
+								id="auto-ready-for-events">
+								<entry>auto-ready-for-events </entry>
+								<entry>Whether client subscriptions automatically receive events when declaratively
+								configured via XML. If set to <codeph>false</codeph>, event startup
+								is not automatic and you need to call the
+									<codeph>Cache.ReadyForEvents()</codeph> method API after
+								subscriptions for the server to start delivering events. </entry>
+								<entry>true </entry>
+							</row>
+							<row
+								id="durable-client-id">
+								<entry>durable-client-id </entry>
+								<entry>Identifier to specify if you want the client to be durable. </entry>
+								<entry>empty </entry>
+							</row>
+							<row
+								id="durable-timeout">
+								<entry>durable-timeout </entry>
+								<entry>Time, in seconds, a durable client's subscription is maintained when it is not
+								connected to the server before being dropped. </entry>
+								<entry>300 </entry>
+							</row>
+						</tbody>
+					</tgroup>
+				</table>
+				<table
+					id="table_B3A8E9EB44A94557A97BB700E2BA1EF1">
+					<title>Attributes in gfcpp.properties—Security Properties</title>
+					<tgroup
+						cols="3">
+						<colspec
+							colname="1"
+							colnum="1"/>
+						<colspec
+							colname="2"
+							colnum="2"/>
+						<colspec
+							colname="3"
+							colnum="3"/>
+						<thead>
+							<row>
+								<entry>gfcpp.properties Attribute </entry>
+								<entry>Description </entry>
+								<entry>Default </entry>
+							</row>
+						</thead>
+						<tbody>
+							<row
+								id="security-client-dhalgo">
+								<entry>security-client-dhalgo </entry>
+								<entry>Diffie-Hellman secret key algorithm. </entry>
+								<entry>null </entry>
+							</row>
+							<row
+								id="security-client-kspath">
+								<entry>security-client-kspath </entry>
+								<entry>keystore (.pem file ) path. </entry>
+								<entry>null </entry>
+							</row>
+							<row
+								id="security-client-auth-factory">
+								<entry>security-client-auth-factory </entry>
+								<entry>Factory method for the security
+										<codeph>AuthInitialize</codeph> module. </entry>
+								<entry>empty </entry>
+							</row>
+							<row
+								id="security-client-auth-library">
+								<entry>security-client-auth-library </entry>
+								<entry>Path to the client security library for the
+										<codeph>AuthInitialize</codeph> module. </entry>
+								<entry>empty </entry>
+							</row>
+							<row>
+								<entry>ssl-keystore-password </entry>
+								<entry>Keystore password. </entry>
+								<entry>null </entry>
+							</row>
+						</tbody>
+					</tgroup>
+				</table>
+		</section>
+	</conbody>
+</concept>

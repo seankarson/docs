@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept
+	id="running-native-client-xact">
+	<title
+		id="title_9717E51087B346988389138843E158C4">Querying the Portfolios
+		Region</title>
+	<shortdesc>Examples show a sampling of specific queries that you can run
+		against <codeph>/portfolios</codeph> on the server. </shortdesc>
+	<conbody
+		id="conbody_D74C4342289846619E028149A8920946">
+		<p>The query results for the data are listed in the  table. For the first several, the coding
+			examples are included as well to show how you can execute the queries using the API. </p>
+		<section
+			id="section_2EA54E860ACB48259484B555CA065E98">
+			<title>Get distinct positions from portfolios with at least a $25.00
+				market value</title>
+			<p>This query assigns iterator variable names to the collections in
+				the FROM clause. For example, the variable <codeph>qryP</codeph>
+				is the iterator for the entry values in the
+					<codeph>/portfolios</codeph> region. This variable is used
+				in the second part of the FROM clause to access the values of
+				the positions map for each entry value.</p>
+				<codeblock><i>Query string:</i> 
+SELECT DISTINCT posnVal
+FROM /portfolios, positions.values posnVal TYPE Position
+WHERE posnVal.mktValue &gt;= 25.00
+
+<i>Results:</i> 
+<i>Collection of Position instances with secId: xxx, xxy, bbb, bbc
+</i>
+
+</codeblock>
+		</section>
+		<section
+			id="section_F9C4640459F0406A922818B717D3EDB9">
+			<title>Retrieve all active portfolios</title>
+			<p>In the following example, a query response timeout parameter of
+				10 seconds is specified for the execute method to allow
+				sufficient time for the operation to succeed. </p>
+			<codeblock><i>Query string:</i> 
+SELECT DISTINCT * FROM /portfolios WHERE status = ‘active’
+
+<i>Results:</i> 
+<i>A collection of Portfolio objects for IDs 111, 222, and 333</i>
+
+<i>Code:</i> 
+QueryServicePtr qrySvcPtr = cachePtr-&gt;getQueryService("examplePool");
+QueryPtr qry = qrySvcPtr-&gt;newQuery(
+               "SELECT DISTINCT * FROM /Portfolios WHERE status = ‘active’");
+SelectResultsPtr resultsPtr = qry-&gt;execute(10);
+SelectResultsIterator iter = resultsPtr-&gt;getIterator();
+while (iter.hasNext()) {
+    PortfolioPtr portfolio = dynCast&lt;PortfolioPtr &gt;(iter.next());
+}</codeblock>
+		</section>
+		<section
+			id="section_71ED0337A0964501A6AE552B758058FC">
+			<title>Retrieve all active portfolios that have type xyz</title>
+			<p>The <codeph>type</codeph> attribute is passed to the query engine
+				in double quotes to distinguish it from the query keyword of the
+				same name. A query response timeout parameter of 10 seconds is
+				specified for the execute method to allow sufficient time for
+				the operation to succeed.</p>
+				<codeblock><i>Query string:</i> 
+SELECT DISTINCT * FROM /portfolios
+WHERE status = 'active' AND "type" = 'xyz'
+
+<i>Results:</i> 
+<i>A collection of Portfolio objects for IDs 111 and 222</i>
+
+<i>Code:</i> 
+QueryServicePtr qrySvcPtr = cachePtr-&gt;getQueryService("examplePool");
+QueryPtr qry = qrySvcPtr-&gt;newQuery("SELECT DISTINCT * FROM
+               /Portfolios WHERE status = 'active' and \"type\"='xyz'");
+SelectResultsPtr results = qry-&gt;execute(10);
+SelectResultsIterator iter = results-&gt;getIterator();
+while (iter.hasNext()) {
+    PortfolioPtr portfolio = dynCast&lt;PortfolioPtr &gt;(iter.next());
+}</codeblock>
+		</section>
+		<section
+			id="section_4F13C92EDBCA4F04BE37C87D44AD7D49">
+			<title>Get the ID and status of all portfolios with positions in
+				secId 'yyy'</title>
+			<codeblock><i>Query string:</i> 
+SELECT DISTINCT id, status FROM /portfolios
+WHERE NOT (SELECT DISTINCT * FROM positions.values posnVal TYPE
+Position WHERE posnVal.secId='yyy').isEmpty
+
+<i>Results:</i> 
+<i>A collection of Struct instances, each containing an id field and a status field. 
+For this data, the collection length is 1 and the Struct contains data
+from the entry with id 222.
+</i>
+
+<i>Code:</i> 
+QueryServicePtr qrySrvPtr = cachePtr-&gt;getQueryService("examplePool");
+QueryPtr qry = qrySvcPtr-&gt;newQuery(
+   "import javaobject.Position; SELECT DISTINCT ID, status FROM "
+   "/Portfolios WHERE NOT (SELECT DISTINCT * FROM positions.values"
+   "posnVal TYPE Position WHERE posnVal.secId='DELL').isEmpty");
+SelectResultsPtr results = qry-&gt;execute(10);
+SelectResultsIterator iter = results-&gt;getIterator();
+while (iter.hasNext()) {
+    Struct * si = (Struct *) iter.next().ptr();
+    SerializablePtr id = si-&gt;operator[]("ID");
+    SerializablePtr status = si-&gt;operator[]("status");
+    printf("\nID=%s, status=%s", id-&gt;toString()-&gt;asChar(), status-&gt;toString()-&gt;asChar());
+}</codeblock>
+		</section>
+	</conbody>
+</concept>

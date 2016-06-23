@@ -1,0 +1,34 @@
+<?xml version="1.0"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept
+  id="concept_63F4164F1AE242A9BA309738F484182D">
+  <title>Map .NET Domain Type Names to PDX Type Names with
+    IPdxTypeMapper</title>
+  <shortdesc>PDX serialized instances in Java map to .NET types with the same
+    name. If you need to adjust the .NET name, then you need to use the
+    IPdxTypeMapper. </shortdesc>
+  <conbody>
+    <p>See the <xref
+        href="java-to-dotnet-type-mapping.xml#concept_24D0AAC71FF1483AB47A7772DA018966"
+        type="concept"
+        format="dita"
+        scope="local">Java to .NET Type Mapping Table</xref> for current
+      mappings. </p>
+    <example
+      id="example_61735F2A72354AE7B01E55FDFCC03446">
+      <title>Using IPdxTypeMapper</title>
+      <codeblock>//This demonstrates, how to map .NET type to pdx type or java type
+            public class PdxTypeMapper : IPdxTypeMapper
+            {
+              public string ToPdxTypeName(string localTypeName)
+              {
+                return "pdx_" + localTypeName;
+              }
+              public string FromPdxTypeName(string pdxTypeName)
+              {
+                return pdxTypeName.Substring(4);//need to extract "pdx_"
+              }
+}</codeblock>
+    </example>
+  </conbody>
+</concept>

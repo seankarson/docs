@@ -1,0 +1,68 @@
+<?xml version="1.0"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept
+	id="concept_C07CEE5C50304FB381DD408249D9721B">
+	<title>Using GemStone.GemFire.Cache.dll As a Private Assembly</title>
+	<shortdesc> To access <codeph>GemStone.GemFire.Cache.dll</codeph> as a
+		private assembly, you need to specify a <codeph>.config</codeph>
+		file for your application. </shortdesc>
+	<conbody>
+		<p>
+			
+
+
+
+The file needs to be the same name as your
+			application, with a <codeph>.config</codeph> suffix. For
+			example, the <codeph>.config</codeph> file for
+				<codeph>main.exe</codeph> would be
+				<codeph>main.exe.config</codeph>. The two files must reside
+			in the same directory. </p>
+		<p>Follow these steps to create a <codeph>.config</codeph> file: </p>
+		<ol
+			id="ol_FB616C74F3EC4790AE6675969B1193A0">
+			<li
+				id="li_4DC73C6AF3F347B48D53987FA750CFE3">Copy
+					<codeph>%GFCPP%/docs/default.exe.config</codeph> to the
+				appropriate location. </li>
+			<li
+				id="li_DEC6A0F9775F4ACC9A332D55E939467D">Rename
+					<codeph>default.exe.config</codeph> to the name of your
+				application. </li>
+			<li id="li_06E235015BF7440EB1BEF4B309ACD894">Change the <codeph>href</codeph> attribute of the
+					<codeph>CodeBase</codeph> element to point to your
+					<codeph>GemStone.GemFire.Cache.dll</codeph> file. Any of three path types –
+				http, relative, or absolute – will work. </li>
+		</ol>
+		<example
+			id="example_193A14743BB545F781675CDC20247B80">
+			<title>A Sample .config File</title>
+			<p>The following example shows an excerpt of a
+					<codeph>.config</codeph> file. The
+					<codeph>PublicKeyToken</codeph> value is only an example,
+				and the codebase version value is not set correctly. See
+					<codeph>%GFCPP%/docs/default.exe.config</codeph> for an
+				actual example for this release. </p>
+			<codeblock>&lt;configuration&gt;
+   &lt;runtime&gt;
+      &lt;assemblyBinding
+         xmlns="urn:schemas-microsoft-com:asm.v1"&gt;
+         &lt;dependentAssembly&gt;
+            &lt;assemblyIdentity name="GemStone.GemFire.Cache"
+               publicKeyToken="126e6338d9f55e0c"
+               culture="neutral" /&gt;
+            &lt;codeBase version="0.0.0.0"
+               href="../../bin/GemStone.GemFire.Cache.dll"/&gt;
+         &lt;/dependentAssembly&gt;
+      &lt;/assemblyBinding&gt;
+   &lt;/runtime&gt;
+&lt;/configuration&gt;</codeblock>
+				<note>
+					<p>If the <codeph>.config</codeph> file contain errors,
+					no warning or error messages are issued. The application
+					runs as if no <codeph>.config</codeph> file is present.
+					</p>
+				</note>
+		</example>
+	</conbody>
+</concept>

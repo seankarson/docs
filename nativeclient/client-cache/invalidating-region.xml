@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "http://docs.oasis-open.org/dita/v1.1/OS/dtd/concept.dtd">
+<concept
+	id="invalidating-region">
+	<title>Invalidating and Destroying Regions</title>
+	<shortdesc>Invalidation marks all entries contained in the region as invalid (with null values).
+		Destruction removes the region and all of its contents from the cache. </shortdesc>
+	<conbody>
+		<section
+			id="section_6F7E304D1D5743F1B53FCBD4F82651D0">
+			<p>
+				
+You can execute these operations explicitly in the local cache in
+				the following ways: </p>
+			<ul
+				id="ul_184BF582FCC9469C8C2255B3D01AB39C">
+				<li
+					id="li_071971EF0C60489B814C6C4C3706D8D8">Through direct API calls from the
+					native client. </li>
+				<li
+					id="li_29E20B6CB3F447B1B3E460E5B215C5E7">Through expiration activities based on
+					the region's statistics and attribute settings. </li>
+			</ul>
+			<p>In either case, you can perform invalidation and destruction as a local or a distributed
+				operation.  </p>
+			<ul
+				id="ul_C58AA857F021466BB603667E8D4302F3">
+				<li
+					id="li_1147568D0E5E45D79DD750D14CD39F87">A local operation affects the region
+					only in the local cache. </li>
+				<li
+					id="li_89194864AFF5410C808F9795F0CC8CFD">A distributed operation works first on
+					the region in the local cache and then distributes the operation to all other
+					caches where the region is defined. This is the proper choice when the region is
+					no longer needed, or valid, for any application in the distributed system. </li>
+				<li
+					id="li_DB59467843144D97897A3C548CCE5361">If the region on the server is
+					configured as a partitioned region, it cannot be cleared using API calls from
+					the native client. </li>
+			</ul>
+			<p>A user-defined cache writer can abort a region destroy operation. Cache writers are
+				synchronous listeners with the ability to abort operations. If a cache writer is
+				defined for the region anywhere in the distributed system, it is invoked before the
+				region is explicitly destroyed. </p>
+			<p>Region invalidation and destruction can cause other user-defined application plug-ins
+				to be invoked as well. These plug-ins are described in detail in <xref
+					scope="local"
+					href="application-plugins.xml#application-plugins"
+					type="concept"
+					format="dita">Application Plug-Ins</xref>. </p>
+			<p>Whether carried out explicitly or through expiration activities, invalidation and
+				destruction cause event notification. </p>
+		</section>
+	</conbody>
+</concept>

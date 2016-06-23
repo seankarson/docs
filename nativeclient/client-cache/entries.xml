@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "http://docs.oasis-open.org/dita/v1.1/OS/dtd/concept.dtd">
+<concept
+	id="entries">
+	<title>Region Entries</title>
+	<shortdesc>Region entries hold cached application data. Entries are automatically managed
+		according to region attribute settings. </shortdesc>
+	<conbody>
+		<p>You can create, update, invalidate, and destroy entries through explicit API calls or
+			through operations distributed from other caches. </p>
+		<p> When the number of entries is very large, a partitioned region can provide the required data
+			management capacity if the total size of the data is greater than the heap in any single
+			JVM.  </p>
+		<p>When an entry is created, a new object is instantiated in the region containing: </p>
+		<ul
+			id="ul_B5282E56FDDD41798380E72E56F974B6">
+			<li
+				id="li_0D11F7303427416BA80B8B934EFB39F3">The entry key. </li>
+			<li id="li_2DF785CAC280414BB419D39A54D0749D">The entry value. This is the application data
+				object. The entry value may be set to <codeph>NULL</codeph>, which is the equivalent
+				of an invalid value. </li>
+		</ul>
+		<p>Entry operations invoke callbacks to user-defined application plug-ins. In this chapter,
+			the calls that may affect the entry operation itself (by providing a value or aborting
+			the operation, for example) are highlighted, but all possible interactions are not
+			listed. For details, see <xref
+				scope="local"
+				href="application-plugins.xml#application-plugins"
+				type="concept"
+				format="dita">Application Plug-Ins</xref>. </p>
+		<p><codeph>DateTime</codeph> objects must be stored in the cache in UTC, so that times
+			correspond between client and server. If you use a date with a different time zone,
+			convert it when storing into and retrieving from the cache. </p>
+	</conbody>
+</concept>

@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE bookmap PUBLIC "-//OASIS//DTD DITA BookMap//EN" "bookmap.dtd">
+<!-- Created with XMetaL (http://www.xmetal.com) -->
+<bookmap
+	id="system-statistics">
+	<booktitle>
+		<mainbooktitle>System Statistics Book</mainbooktitle>
+	</booktitle>
+	<part
+		format="dita"
+		href="chapter_overview.xml"
+		navtitle="System Statistics"
+		scope="local"
+		type="concept">
+		<topicref
+			format="dita"
+			href="sampling_statistics.xml"
+			navtitle="Sampling Statistics"
+			scope="local"
+			type="concept"/>
+		<topicref
+			format="dita"
+			href="system_performance_statistics.xml"
+			navtitle="System Performance Statistics"
+			scope="local"
+			type="concept">
+			<topicref
+				format="dita"
+				href="region_statistics.xml"
+				navtitle="Region Statistics"
+				scope="local"
+				type="concept"/>
+			<topicref
+				format="dita"
+				href="cache_performance_statistics.xml"
+				navtitle="Cache Performance Statistics"
+				scope="local"
+				type="concept"/>
+			<topicref
+				format="dita"
+				href="continuous_query_statistics.xml"
+				navtitle="Continuous Query Statistics"
+				scope="local"
+				type="concept"/>
+			<topicref
+				format="dita"
+				href="cq_service_statistics.xml"
+				navtitle="CQ Service Statistics"
+				scope="local"
+				type="concept"/>
+			<topicref
+				format="dita"
+				href="pool_statistics.xml"
+				navtitle="Pool Statistics"
+				scope="local"
+				type="concept"/>
+			<topicref
+				format="dita"
+				href="delta_statistics.xml"
+				navtitle="Delta Statistics"
+				scope="local"
+				type="concept"/>
+		</topicref>
+		<topicref
+			format="dita"
+			href="operating_system_statistics.xml"
+			navtitle="Operating System Statistics"
+			scope="local"
+			type="concept">
+			<topicref
+				format="dita"
+				href="linux_os_statistics.xml"
+				navtitle="Linux Process Statistics"
+				scope="local"
+				type="concept"/>
+			<topicref
+				format="dita"
+				href="solaris_os_statistics.xml"
+				navtitle="Solaris Process Statistics"
+				scope="local"
+				type="concept"/>
+			<topicref
+				format="dita"
+				href="windows_os_statistics.xml"
+				navtitle="Windows Process Statistics"
+				scope="local"
+				type="concept"/>
+		</topicref>
+	</part>
+</bookmap>

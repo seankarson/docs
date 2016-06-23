@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept
+	id="security">
+	<title
+		id="title_9717E51087B346988389138843E158C4">Using an LDAP Server for Client
+		Authentication</title>
+	<shortdesc>An LDAP server can be used by a <keyword keyref="product_name"/> cache server using the
+		sample LDAP implementation provided in <keyword keyref="product_name"/> server product. </shortdesc>
+	<conbody
+		id="conbody_D74C4342289846619E028149A8920946">
+		<p> See the <xref href="../../managing/security/chapter_overview.xml#security" type="concept"
+				format="dita" scope="local">Security</xref> to verify authentication credentials for
+			native clients attempting to connect to the <keyword keyref="product_name"/> servers and
+			sending user name and passwords using the sample UserPassword scheme. </p>
+			<note>
+				<p>The user name and password with this sample implementation is sent out in plaintext. For
+				better security, either turn on credential encryption using Diffie-Hellman key
+				exchange, or use a scheme like PKCS. </p>
+			</note>
+		<p>When a client initiates a connection to a cache server, the client submits its credentials to
+			the server and the server submits those credentials to the LDAP server. To be
+			authenticated, the credentials for the client need to match one of the valid entries in
+			the LDAP server. The credentials can consist of the entry name and the corresponding
+			password. If the submitted credentials result in a connection to the LDAP server because
+			the credentials match the appropriate LDAP entries, then the client is authenticated and
+			granted a connection to the server. If the server fails to connect to the LDAP server
+			with the supplied credentials then an <codeph>AuthenticationFailedException</codeph> is
+			sent to the client and its connection with the cache server is closed. </p>
+		<p>
+			<b>Configuration Settings</b>
+		</p>
+		<p>In the <codeph>gfcpp.properties</codeph> file for the client, specify the
+				<codeph>UserPasswordAuthInit</codeph> callback, the user name, and the password,
+			like this:</p>
+			<codeblock>security-client-auth-library=securityImpl
+security-client-auth-factory=createUserPasswordAuthInitInstance
+security-username=&lt;username&gt;
+security-password=&lt;password&gt;</codeblock>
+		<p>For server side settings and LDAP server configuration, see <xref
+				href="../../managing/security/chapter_overview.xml#security" type="concept"
+				format="dita" scope="local">Security</xref>. </p>
+	</conbody>
+</concept>

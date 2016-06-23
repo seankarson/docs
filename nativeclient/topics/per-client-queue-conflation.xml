@@ -1,0 +1,26 @@
+<?xml version="1.0"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<!-- Created with XMetaL (http://www.xmetal.com) -->
+<concept id="concept_E285B9CF0E4444D0BC558734DD7A7A58"> 
+  <title>Per-Client Queue Conflation</title> 
+  <shortdesc>Conflation can be overridden on a per-client basis by setting the
+	 conflate-events property in the native client’s 
+	 <filepath>gfcpp.properties</filepath> file.
+  </shortdesc> 
+  <conbody>
+	 <p>Valid settings are:
+	 <ul id="ul_0D518989C24047768358A4DC04952392">
+		<li id="li_8768B191B99944A4B56C981A99458C3A"><codeph>server</codeph>—Uses
+		  the server settings
+		</li>
+		<li
+		 id="li_654E1DE7814C44B5889B624BEC88C1DA"><codeph>true</codeph>—Conflates
+		  everything sent to the client
+		</li>
+		<li id="li_31E43C020F4F4BA6BDCEDFB28E249895"><codeph>false</codeph>—Does
+		  not conflate anything sent to the client
+		</li>
+	 </ul>
+	 </p>
+  </conbody> 
+</concept>

@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<!-- Created with XMetaL (http://www.xmetal.com) -->
+<concept id="concept_D549AA8ECEB24EB0B420CF164C0A04C0"> 
+  <title>C# .NET Naming and Usage Conventions</title> 
+  <shortdesc>Unless noted, the .NET API classes and functions have the same
+	 names as their C++ counterparts in the namespace 
+	 <codeph>GemStone::GemFire::Cache</codeph>. In .NET, all method names start
+	 with a capital letter.
+  </shortdesc> 
+  <conbody>
+	 <p>The .NET interface names match those of comparable C++ interfaces, but
+		with an ’I’ prepended to satisfy .NET naming conventions. For example, the .NET
+		equivalent of the C++ 
+		<codeph>CacheLoader</codeph> interface is 
+		<codeph>ICacheLoader</codeph>.
+	 </p>
+	 <p>The name of the GemFire 
+		<codeph>Serializable</codeph> interface is 
+		<codeph>IGFSerializable</codeph> because 
+		<codeph>ISerializable</codeph> is a .NET built-in type.
+	 </p>
+	 <p>Where possible, get* and set* functions are replaced by .NET properties.
+	 </p>
+	 <p>You can implement the GemFire .NET interfaces. You cannot extend any of
+		the classes because they are marked as sealed.
+	 </p>
+  </conbody> 
+</concept>

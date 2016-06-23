@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept
+ id="concept_q2m_wwr_3q">
+ <title>Removing an Entry</title>
+ <shortdesc>The standard <codeph>Region::remove</codeph> API removes the entry with specified key
+  and provides a user-defined parameter object to any <codeph>CacheWriter</codeph> or
+   <codeph>CacheListener</codeph> invoked in the process. </shortdesc>
+ <conbody>
+  <p>The <codeph>remove</codeph> call not only removes the value, but also the key and entry from
+      this region. The remove operation is propagated to the <keyword keyref="product_name"/> cache
+      server that the native client is connected to. If the destroy operation fails due to an
+      exception on the server (for example, a <codeph>CacheServerException</codeph> or security
+      exception), then the local entry is still removed. </p>
+  <p>The <codeph>remove</codeph> operation updates
+    <codeph>CacheStatistics::getLastAccessedTime</codeph> and
+    <codeph>CacheStatistics::getLastModifiedTime</codeph> for this region and the entry.</p>
+  <p>The <codeph>remove</codeph> API returns true if the entry (key, value) has been removed or
+   false if the entry (key, value) has not been removed.</p>
+  <section>
+   <title>Bulk Remove Operations Using removeAll</title>
+   <p>You can use the <codeph>Region::removeAll</codeph> API  to remove all entries for a colleciton
+    of specified keys from the region. The effect of this call is equivalent to that of calling
+     <codeph>destroy</codeph> on this region once for each key in the specified collection. If an
+    entry does not exist, then that key is skipped. Note that an
+     <codeph>EntryNotFoundException</codeph> is not thrown.</p>
+   <p>The <codeph>removeAll</codeph> API also supports providing a callback argument to any cache
+        loaders or cache writers that are invoked in the operation. See the Region API documentation
+        for more information about using <codeph>removeAll</codeph>. </p>
+  </section>
+ </conbody>
+</concept>

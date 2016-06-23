@@ -1,0 +1,271 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "http://docs.oasis-open.org/dita/v1.1/OS/dtd/concept.dtd">
+<concept
+  id="cache-dtd">
+  <title>Native Client Cache XML DTD</title>
+  <shortdesc>The contents of the cache initialization file must conform to the
+    data type definitions in <codeph>gfcpp-cache8000.dtd</codeph>. </shortdesc>
+  <conbody>
+    <p>The <codeph>gfcpp-cache8000.dtd</codeph> file is in the
+          <codeph><varname>productDir</varname>/dtd</codeph> directory of your
+      native client installation. </p>
+    <p>The following example presents the file <codeph>gfcpp-cache8000.dtd</codeph>, which defines
+      the XML used by the native client for declarative caching. The DTD file identifies the valid
+      element tags that may be present in your XML file, the attributes that correspond to each
+      element, and the valid values for the elements and attributes.</p>
+      <codeblock>&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+
+&lt;!--
+
+This is the XML DTD for the GemFire Native Client declarative caching XML file.  
+
+The contents of a declarative XML file correspond to APIs found in the
+Gemfire Native Client product, more specifically in the
+Cache.hpp and Region.hpp files in the product include directory
+
+A declarative caching XML file is used to populate a Cache
+when it is created.
+
+--&gt;
+
+
+&lt;!--
+The "client-cache" element is the root element of the declarative cache file.
+This element configures a GemFire Native Client Cache and describes the 
+root regions it contains, if any.
+--&gt;
+
+&lt;!ELEMENT client-cache (pool*, root-region*, region*, pdx?)&gt;
+&lt;!ATTLIST client-cache
+  endpoints CDATA #IMPLIED
+  redundancy-level CDATA #IMPLIED
+&gt;
+
+&lt;!--
+A "locator" element specifies the host and port that a server locator is listening on
+--&gt;
+&lt;!ELEMENT locator EMPTY&gt;
+&lt;!ATTLIST locator
+  host  CDATA #REQUIRED
+  port  CDATA #REQUIRED
+&gt;
+
+&lt;!--
+A "server" element specifies the host and port that a cache server is listening on
+--&gt;
+&lt;!ELEMENT server EMPTY&gt;
+&lt;!ATTLIST server
+  host  CDATA #REQUIRED
+  port  CDATA #REQUIRED
+&gt;
+
+&lt;!-- A "pdx" element specifies the properties related to pdx types --&gt;
+&lt;!ELEMENT pdx EMPTY&gt;
+&lt;!ATTLIST 
+  ignore-unread-fields  (false | true) #IMPLIED
+  read-serialized (false | true) #IMPLIED
+  &gt;
+
+&lt;!--
+A "pool" element specifies a client-server connection pool.
+--&gt;
+&lt;!ELEMENT pool (locator+|server+)&gt;
+&lt;!ATTLIST pool
+  free-connection-timeout        CDATA #IMPLIED
+  load-conditioning-interval     CDATA #IMPLIED
+  min-connections                CDATA #IMPLIED
+  max-connections                CDATA #IMPLIED
+  retry-attempts                 CDATA #IMPLIED
+  idle-timeout                   CDATA #IMPLIED
+  ping-interval                  CDATA #IMPLIED
+  name                           CDATA #REQUIRED
+  read-timeout                   CDATA #IMPLIED
+  server-group                   CDATA #IMPLIED
+  socket-buffer-size             CDATA #IMPLIED
+  subscription-enabled                  (false | true) #IMPLIED
+  subscription-message-tracking-timeout CDATA #IMPLIED
+  subscription-ack-interval             CDATA #IMPLIED
+  subscription-redundancy        CDATA #IMPLIED
+  statistic-interval             CDATA #IMPLIED
+  pr-single-hop-enabled          (true | false) #IMPLIED
+  thread-local-connections       (false | true) #IMPLIED
+  multiuser-authentication          (false | true) #IMPLIED
+&gt;
+
+&lt;!--
+A root-region" element describes a root region whose entries and
+subregions will be stored in memory.
+Note that the "name" attribute specifies the simple name of the region;
+it cannot contain a "/".
+--&gt;
+
+&lt;!ELEMENT root-region (region-attributes?, region*)&gt;
+&lt;!ATTLIST root-region
+  name CDATA #REQUIRED
+&gt;
+
+
+&lt;!--
+A "region" element describes a region (and its entries) in GemFire
+Native Client cache. Note that the "name" attribute specifies the simple
+name of the region; it cannot contain a "/".
+--&gt;
+
+&lt;!ELEMENT region (region-attributes?, region*)&gt;
+&lt;!ATTLIST region
+  name CDATA #REQUIRED
+  refid CDATA #IMPLIED
+&gt;
+
+
+
+&lt;!--
+A "region-attributes" element describes the attributes of a region to
+be created. For more details see the RegionFactory header in the
+product include directory
+--&gt;
+
+&lt;!ELEMENT region-attributes ((region-time-to-live |
+  region-idle-time | entry-time-to-live | entry-idle-time |
+  partition-resolver |
+  cache-loader | cache-listener | cache-writer | persistence-manager)*)&gt;
+&lt;!ATTLIST region-attributes
+  caching-enabled (true | TRUE | false | FALSE) #IMPLIED
+  cloning-enabled (true | TRUE | false | FALSE) #IMPLIED
+  scope (local | distributed-no-ack | distributed-ack ) #IMPLIED
+  initial-capacity CDATA #IMPLIED
+  load-factor CDATA #IMPLIED
+  concurrency-level CDATA #IMPLIED
+  lru-entries-limit CDATA #IMPLIED
+  disk-policy (none | overflows | persist ) #IMPLIED
+  endpoints CDATA #IMPLIED
+  client-notification (true | TRUE | false | FALSE) #IMPLIED
+  pool-name CDATA #IMPLIED
+  concurrency-checks-enabled (true | TRUE | false | FALSE) #IMPLIED
+  id CDATA #IMPLIED
+  refid CDATA #IMPLIED
+&gt;
+
+
+
+
+
+
+&lt;!--
+A "region-time-to-live" element specifies a Region's time to live
+--&gt;
+
+&lt;!ELEMENT region-time-to-live (expiration-attributes)&gt;
+
+
+
+&lt;!--
+A "region-idle-time" element specifies a Region's idle time
+--&gt;
+
+&lt;!ELEMENT region-idle-time (expiration-attributes)&gt;
+
+
+
+&lt;!--
+A "entry-time-to-live" element specifies a Region's entries' time to
+live
+--&gt;
+
+&lt;!ELEMENT entry-time-to-live (expiration-attributes)&gt;
+
+
+
+&lt;!--
+A "entry-idle-time" element specifies a Region's entries' idle time
+--&gt;
+
+&lt;!ELEMENT entry-idle-time (expiration-attributes)&gt;
+
+
+&lt;!--
+A "properties" element specifies a persistence properties 
+--&gt;
+
+&lt;!ELEMENT properties (property*)&gt;
+
+&lt;!-- 
+An "expiration-attributes" element describes expiration 
+--&gt;
+
+&lt;!ELEMENT expiration-attributes EMPTY&gt;
+&lt;!ATTLIST expiration-attributes
+  timeout CDATA #REQUIRED
+  action (invalidate | destroy | local-invalidate | local-destroy) #IMPLIED
+&gt;
+
+
+
+&lt;!--
+A "cache-loader" element describes a region's CacheLoader
+--&gt;
+
+&lt;!ELEMENT cache-loader  EMPTY &gt;
+&lt;!ATTLIST cache-loader 
+ library-name CDATA #IMPLIED
+ library-function-name CDATA #REQUIRED
+&gt;
+
+
+
+&lt;!--
+A "cache-listener" element describes a region's CacheListener
+--&gt;
+
+&lt;!ELEMENT cache-listener EMPTY&gt;
+&lt;!ATTLIST cache-listener 
+ library-name CDATA #IMPLIED
+ library-function-name CDATA #REQUIRED
+&gt;
+
+
+
+&lt;!--
+A "cache-writer" element describes a region's CacheListener
+--&gt;
+
+&lt;!ELEMENT cache-writer EMPTY&gt;
+&lt;!ATTLIST cache-writer 
+ library-name CDATA #IMPLIED
+ library-function-name CDATA #REQUIRED
+&gt;
+
+&lt;!--
+A "partition-resolver" element describes a region's PartitionResolver
+--&gt;
+
+&lt;!ELEMENT partition-resolver EMPTY&gt;
+&lt;!ATTLIST partition-resolver 
+ library-name CDATA #IMPLIED
+ library-function-name CDATA #REQUIRED
+&gt;
+
+&lt;!--
+A "persistence-manager" element describes a region's persistence feature
+--&gt;
+
+&lt;!ELEMENT persistence-manager (properties)&gt;
+&lt;!ATTLIST persistence-manager 
+ library-name CDATA #IMPLIED
+ library-function-name CDATA #REQUIRED
+&gt;
+
+
+
+&lt;!--
+A "property" element describes a persistence property
+--&gt;
+
+&lt;!ELEMENT property EMPTY&gt;
+&lt;!ATTLIST property 
+ name CDATA #REQUIRED
+ value CDATA #REQUIRED
+&gt;
+</codeblock>
+  </conbody>
+</concept>

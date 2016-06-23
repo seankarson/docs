@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<!-- Created with XMetaL (http://www.xmetal.com) -->
+<concept id="concept_411A11FED627497E95CD5611C01AC5A6"> 
+  <title>Implementation Notes</title> 
+  <conbody> 
+	 <p>Redundancy management is handled by the client, so when the client is
+		disconnected from the server the redundancy of client events is not maintained.
+		Even if the servers fail one at a time, so that running clients have time to
+		fail over and pick new secondary servers, an offline durable client cannot fail
+		over. As a result, the client loses its queued messages. 
+	 </p>
+  </conbody> 
+</concept> 

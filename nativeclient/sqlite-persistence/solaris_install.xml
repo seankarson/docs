@@ -1,0 +1,88 @@
+<?xml version="1.0"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept
+	id="concept_613BCAD15D9C4B3C94BBA3C1A26B6166">
+	<title>Solaris Installation</title>
+	<shortdesc>This topic describes how to install the SQLite Persistence Manager on Solaris for use
+		with the <keyword keyref="product_name"/> native client. </shortdesc>
+	<conbody>
+		<p>The <i><codeph>productDir</codeph></i> directory refers to the path to the native client
+			product directory. </p>
+		<p>The following libraries must be present in the runtime linking path: </p>
+			<ul
+				id="ul_009A881B7871465B9E62AEBFF6D5513E">
+				<li
+					id="li_C57631231EF14FDFBF58ED824941E82D"><codeph>libSqLiteImpl.so</codeph> is
+					provided in <codeph><i>productDir</i>/lib</codeph>, so it is already present in
+					the runtime linking path. </li>
+				<li
+					id="li_C2FAA9573AB74E6F91516D56DDBC996D">
+					<codeph>libsqlite3.so</codeph> is the SQLite Library. You need to create this
+					library and make available in the runtime linking path, or copied to
+							<codeph><i>productDir</i>/lib</codeph>, as described below. </li>
+			</ul>
+		<p>The <keyword keyref="product_name"/> Native Client has been tested with SQLite version
+			3.7.14.1. </p>
+		<section
+			id="section_FAB703D706D54311963399A714D466F9">
+			<title>Downloading, Building, and Installing the Library</title>
+			<p>You create the SQLite database library by downloading the latest .zip file and compiling the
+				source code. </p>
+				<ol
+					id="ol_0486E6AF14CD4CFD9572C49A988E7D05">
+					<li
+						id="li_B764AF9241F84BCD898E89066B3ED616">Download the source code
+								<codeph>sqlite-autoconf-<varname>NNNNNNN</varname>.tar.gz</codeph>
+						file (where <varname>NNNNNNN</varname> corresponds to the version) for
+						SQLite version 3.7.14.1 or later from <xref
+							href="http://www.sqlite.org/download.html"
+							scope="external"
+							format="html">http://www.sqlite.org/download.html</xref>. </li>
+					<li
+						id="li_A6761A456BD544ADB5FB8A568C20FBDA">Update your PATH environment
+						variable to include the location of the Solaris <codeph>ar</codeph> command.
+						<codeblock>export PATH=/usr/css/bin:$PATH</codeblock>
+					</li>
+					<li
+						id="li_85D4FB429E2D4E9BB983CDA1195FD5D5">Extract the source code from the
+						.tar.gz file. First unzip: <codeblock>gzip -d sqlite-autoconf-3071401.tar.gz</codeblock>
+						<p>Then untar the file:</p>
+							<codeblock>tar -xvf sqlite-autoconf-3071401.tar</codeblock>
+					</li>
+					<li
+						id="li_FE9C9655C48041B289D07CDC09257588"> Change directories to the
+						extracted source files, and follow the install instructions located in the
+						"INSTALL" file. <ol
+							id="ol_C8D77F387CE444BD8FD47B9A8CAF0CC2">
+							<li
+								id="li_B27E461C60B940628135A4491976D8F8">Run the
+									<codeph>configure</codeph> command for 32-bit or 64-bit Solaris
+								systems with the following options, all entered on a single command
+								line. Change the<codeph> --prefix</codeph> directory specification
+								to the location where you want the libraries: <ul
+									id="ul_C878A8A0225C423B99E9CD418639BB01">
+									<li
+										id="li_BAFEA23198574CD4B08AA26174BB577B"><b>32-bit:</b>
+										<codeblock>CC=cc CFLAGS="-xarch=v8plus -code=pic32" ./configure --prefix=/<i>desired_binary_location</i>/sqlite-binaries</codeblock>
+									</li>
+									<li
+										id="li_840BA43776904EFDB37DBA0C8E6CD992"><b>64-bit:</b>
+										<codeblock>CC=cc CFLAGS="-xarch=v9 -code=pic32" ./configure --prefix=/<i>desired_binary_location</i>/sqlite-binaries 	CFLAGS="-m64"</codeblock>
+									</li>
+								</ul>
+							</li>
+							<li
+								id="li_9AB78C64B1CB49C494180347DECC3A9E">Run <codeph>gmake
+									install</codeph>. The libraries will be available in the
+									<codeph>sqlite-binaries</codeph> directory that you specified.
+							</li>
+						</ol>
+					</li>
+					<li
+						id="li_A723671EDA1748D09061707176C7703D">Copy
+								<codeph>/<i>desired_binary_location</i>/sqlite-binaries/lib/libsqlite3.so</codeph>
+						file to <codeph><i>productDir</i>/lib</codeph>. </li>
+				</ol>
+		</section>
+	</conbody>
+</concept>

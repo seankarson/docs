@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN"
+"concept.dtd">
+<concept
+  id="cpp-example">
+  <title>API Programming Example – C++</title>
+
+  <conbody>
+    <p>The next example uses the C++ API to implement a cache loader, which is
+      generally used to retrieve data from an outside source.</p>
+
+    <fig>
+      <title>Implementing a Cache Loader (C++)</title>
+
+      <codeblock>CacheablePtr TestCacheLoader::load(
+                                   const RegionPtr&amp; region,
+                                   const CacheableKeyPtr&amp; key,
+                                   const UserDataPtr&amp; aCallbackArgument)
+{
+  m_bInvoked = true;
+  printf("CacheLoader.load : %s\n", printEvent(region, key,
+          aCallbackArgument).c_str());
+  CacheablePtr value = NULLPTR;
+  try {
+    value = region-&gt;get(key, aCallbackArgument);
+  } catch(Exception&amp; ex) {
+    fprintf(stderr, "Exception in TestCacheCallback::printEvent [%s]\n", ex.getMessage());
+  }
+  if (value != NULLPTR) {
+    printf( "Loader found value: ");
+    std::string formatValue = printEntryValue(value);
+    printf( "%s\n",formatValue.c_str());
+  } else {
+    printf( " Loader did not find a value");
+  }
+ 
+  return value;
+}</codeblock>
+    </fig>
+  </conbody>
+</concept>

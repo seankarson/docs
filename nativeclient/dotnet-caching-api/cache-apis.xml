@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept
+	id="concept_2A282BB5C7FE455497992825AADB3D5E">
+	<title>Cache APIs</title>
+	<shortdesc>This section describes the <codeph>CacheFactory</codeph> and <codeph>Cache</codeph>
+		classes. </shortdesc>
+	<conbody>
+		<ul
+			id="ul_D6E1FCBA7CE5422A99BFD64FB5232AB5">
+			<li
+				id="li_314EADD6266244C68955BE175031AB73"><b>CacheFactory class</b>. Creates a
+					<codeph>Cache</codeph> instance based on the provided distributed system and
+				cache configuration. Any <codeph>gfcpp</codeph>.properties and
+					<codeph>cache.xml</codeph> files provided to the application are used to
+				initialize the system and cache. See <xref
+					href="../setting-properties/chapter-overview.xml#system_and_cache_properties"
+					type="concept"
+					format="dita"
+					scope="local">Setting System and Cache Properties</xref>. If a
+					<codeph>cache.xml</codeph> file is used to create a cache and some of the
+				regions already exist, a warning states that the regions exist and the cache is
+				created. </li>
+			<li id="li_C41BA98F9EAB44B2BDFFA46F740E8329"><b>Cache class</b>. Entry point to the <keyword
+					keyref="product_name"/> caching API. This class allows you to create regions.
+				The cache is created by calling the <codeph>create</codeph> function of the
+					<codeph>CacheFactory</codeph> class. When creating a cache, you specify a
+					<codeph>DistributedSystem</codeph> that tells the new cache where to find other
+				caches on the network and how to communicate with them. </li>
+		</ul>
+	</conbody>
+</concept>

@@ -1,0 +1,38 @@
+<?xml version="1.0"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<!-- Created with XMetaL (http://www.xmetal.com) -->
+<concept id="concept_55883B4A655B4195B02E3CEE9B93D22A"> 
+  <title>Other APIs</title> 
+  <shortdesc>Classes for property collections and logging. 
+  </shortdesc> 
+  <conbody> 
+	 <ul id="ul_62D37E0510154195B3E470499A0DE87A"> 
+		<li id="li_3CC868FDCAC14996BA8A58A62A7575D0"><b>Properties</b>—Provides a
+		  collection of properties, each of which is a key/value pair. Each key is a
+		  string, and the value can be a string or an integer. 
+		</li> 
+		<li id="li_0A49D2EDD577434BBBAC7F0280D3E9CE"><b>Log</b>—Defines methods
+		  available to clients that want to write a log message to their GemFire system
+		  shared log file. Any attempt to use an instance after its connection is
+		  disconnected throws a 
+		  <b>NotConnectedException</b>. For any logged message the log file will
+		  contain: 
+		  <ul id="ul_6420BE6DF0C04834AE25FA78AA8D4A57"> 
+			 <li id="li_ED85226DCDC34BC494E86796CBAC7E44"> 
+				<p>The log level of the message. 
+				</p> 
+			 </li> 
+			 <li id="li_9EFC9E7F1ECF4118836DCB70A60135BE">The time the message was
+				logged. 
+			 </li> 
+			 <li id="li_47E77BB3603D4C14863F761D4113FAB3">The ID of the connection
+				and thread that logged the message. 
+			 </li> 
+			 <li id="li_5808678D56A44A6D8B1C15E53D1A7B77">The message itself,
+				possibly with an exception including its stack trace. 
+			 </li> 
+		  </ul> 
+		</li> 
+	 </ul> 
+  </conbody> 
+</concept> 

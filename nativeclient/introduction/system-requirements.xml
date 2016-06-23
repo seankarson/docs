@@ -1,0 +1,220 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept id="system-requirements">
+  <title id="title_91361A2C09EA4416A277B8912AC0A0AC">System Requirements</title>
+
+  <conbody id="conbody_A2AF4C28FC8D46D89602B0453EC44044">
+    <p id="p_B29D1103C86E4DAF84F5E1A2026B9EDE">The GemFire native client operates on platforms running Microsoft
+    Windows, Linux (Intel), and Sun Solaris, as listed in the chart below.</p>
+
+    <table id="table_A0EF548BFCD04B36A36BF5330797E4D7">
+      <title id="title_B6D1809575164AFAB795F97C3EF52473">GemFire Native Client System Requirements</title>
+
+      <tgroup cols="5">
+        <thead>
+          <row id="row_5365FE28A1ED4D7399C635DF5BF15AD9">
+            <entry>Operating System</entry>
+
+            <entry>Minimum Platform Requirements</entry>
+
+            <entry>RAM</entry>
+
+            <entry>Swap Space</entry>
+
+            <entry>Disk Space Required</entry>
+          </row>
+        </thead>
+
+        <tbody>
+          <row id="row_185FC9B056164D5698DE6AAC10D59F24">
+            <entry><p id="p_A22E7C30B0B04B48ADC5DFF0967BC2DF">Windows XP Professional</p><p id="p_662327FB55ED4882AA38D4D73EE82708">Windows 2003
+            Server</p></entry>
+
+            <entry>Intel® Pentium® IV 2 GHz (or equivalent)</entry>
+
+            <entry>2 GB</entry>
+
+            <entry>256 MB of virtual memory</entry>
+
+            <entry>80 MB</entry>
+          </row>
+
+          <row id="row_8C9C267C55784B79B72E3042E706B25E">
+            <entry>Linux</entry>
+
+            <entry>Intel® Pentium® IV 2 GHz (or equivalent)</entry>
+
+            <entry>2 GB</entry>
+
+            <entry>256 MB of virtual memory</entry>
+
+            <entry>70 MB</entry>
+          </row>
+
+          <row id="row_2CED952F4A084D2EB8C68BB0DEF92138">
+            <entry>Solaris</entry>
+
+            <entry>Sun SPARC Blade 1000 with V9 instruction set</entry>
+
+            <entry>2 GB</entry>
+
+            <entry>256 MB of virtual memory</entry>
+
+            <entry>70 MB</entry>
+          </row>
+        </tbody>
+      </tgroup>
+    </table>
+
+    <section id="section_278B23604FD944C7BE5111F5B983211D"><title id="title_920000BFA8B146E9A93F8535C86A7963">Windows</title><ul id="ul_0306305C57CB465EB5C9B64AB2D2BB33">
+        <li id="li_429C98D1F833430DB3D640F66ADCABB7">The native client is built and tested on Windows XP Professional,
+        Service Pack 2.</li>
+
+        <li>The native client is not supported on Windows NT 4.0.</li>
+
+        <li id="li_7A602EBC9BD44535B2EB156555D1754F">The native client is supported with Microsoft .NET Framework 2.0,
+        3.0, and 3.5.</li>
+
+        <li id="li_B5C7D09C0D1044BBBCE3276C1C64CB85">Microsoft .NET Framework Version 2.0 must be installed to support
+        C++/CLI (Common Language Infrastructure) for the native client.</li>
+      </ul>You can download the .NET Framework Version 2.0 Redistributable
+    Package (x86 for 32bit or x64 for 64bit) from <xref href="http://www.microsoft.com/downloads" scope="external">http://www.microsoft.com/downloads</xref>. If it isn’t
+    listed on the Download Center page, use the Search tool to search for
+    ‘.NET Framework Version 2.0’.</section>
+
+    <section id="section_CB310222FCE34CC8AACA2026EFAFA1CD"><title id="title_ADADCA42A2BC4337A99A67F04B565A2D">Linux</title><p id="p_1A9CF8607A8A42A9B66E27620A6B31AD">The GemFire native client is built on Red
+    Hat Enterprise ES 3, kernel version 2.4.21-47.EL.</p><p id="p_36DA38F5C55346F09A970690C8BB62FF">The native client
+    is tested on the following Linux versions:</p><ul id="ul_56A67DB76EFA4586B646E06DD2366417">
+        <li id="li_74AD88442E8540DE98EC17D01964F066">SLES 9 SP3, kernel version 2.6.5-7.244-smp</li>
+
+        <li id="li_E7028159995E43D69C67261A4A5ACABB">SLES 10 SP1, kernel version 2.6.16.27-0.9-smp</li>
+
+        <li id="li_13B445D112D542C28C7FA10C2AFAAF78">Red Hat Enterprise ES 4, kernel version 2.6.9-27.ELsmp. Update 3
+        (Nahant) or later is recommended.</li>
+
+        <li id="li_BD1CB925E6AD49969671C34299296F5D">Red Hat Enterprise 5 release 5 (Tikanga), kernel version
+        2.6.18-8.EL5</li>
+
+        <li id="li_FB9D2A87C2A34304A1C957E97D1B1EB0">Red Hat Enterprise WS 3 and WS 4, kernel version
+        2.4.21-40.ELsmp</li>
+      </ul><p id="p_33192821A4DA4FF59FC2EE0F666A607D">If you are not sure of the kernel version on your system, use
+    this command to list it: </p><codeblock id="codeblock_7C6CADBAA9E74C6086E9D08644C98598">prompt&gt; uname -r</codeblock><p id="p_A695B3CB544E44B98799F6BB983CF44B">The
+    following table lists the RPM package dependencies for several Linux
+    distributions. The i386 or i686 after the package name indicates that you
+    must install the package for that particular architecture regardless of
+    the native operating system architecture. All of the packages listed are
+    available with the default media for each distribution.</p><table>
+        <title id="title_E8A07A7158454B4EB0321EA260C6BCAD">GemFire Dependencies on Linux RPM Packages</title>
+
+        <tgroup cols="3">
+          <thead>
+            <row id="row_EA12364E4C2345CC8D129DB1E47F2947">
+              <entry>Linux Version</entry>
+
+              <entry>glibc</entry>
+
+              <entry>libgcc</entry>
+            </row>
+          </thead>
+
+          <tbody>
+            <row id="row_80CB39C04C7A498988FAEE1043A6C9A8">
+              <entry>Red Hat Enterprise Linux ES release 3 (i686)</entry>
+
+              <entry>glibc</entry>
+
+              <entry>libgcc</entry>
+            </row>
+
+            <row id="row_CD201F56D08D44C4ADA44F7DD8BE9CE1">
+              <entry>Red Hat Enterprise Linux ES release 3 (x86_64)</entry>
+
+              <entry>glibc (i686)</entry>
+
+              <entry>libgcc (i686)</entry>
+            </row>
+
+            <row id="row_0552D5E76E00450FA3266ACF4BCF3631">
+              <entry>Red Hat Enterprise Linux ES release 4 (i686)</entry>
+
+              <entry>glibc</entry>
+
+              <entry>libgcc</entry>
+            </row>
+
+            <row id="row_76C9027D172047B283D2EEA5B6617BD0">
+              <entry>Red Hat Enterprise Linux ES release 4 (x86_64)</entry>
+
+              <entry>glibc (i686)</entry>
+
+              <entry>libgcc (i386)</entry>
+            </row>
+
+            <row id="row_28E95A4E93A34AC59ADC3FF841BD59E9">
+              <entry>Red Hat Enterprise Linux Server release 5 (i686)</entry>
+
+              <entry>glibc</entry>
+
+              <entry>libgcc</entry>
+            </row>
+
+            <row id="row_264FD53B196440DCA89FDBA3265EE5D8">
+              <entry>Red Hat Enterprise Linux Server release 5
+              (x86_64)</entry>
+
+              <entry>glibc (i686)</entry>
+
+              <entry>libgcc (i386)</entry>
+            </row>
+
+            <row id="row_0C0D65AB7C4C4527A4F740A72F912B94">
+              <entry>SUSE LINUX Enterprise Server 9 (i586)</entry>
+
+              <entry>glibc</entry>
+
+              <entry>libgcc</entry>
+            </row>
+
+            <row id="row_365FA118D53A43188227C470C588CE1F">
+              <entry>SUSE LINUX Enterprise Server 9 (x86_64)</entry>
+
+              <entry>glibc-32bit</entry>
+
+              <entry>libgcc</entry>
+            </row>
+
+            <row id="row_4B7DCB707DE44985A0C825A94560CFB6">
+              <entry>SUSE Linux Enterprise Server 10 (x86_64)</entry>
+
+              <entry>glibc-32bit</entry>
+
+              <entry>libgcc</entry>
+            </row>
+          </tbody>
+        </tgroup>
+      </table><p id="p_8B9A54CACF004B0E93BEA75FBCCCDEE3">For versions of Linux not listed in the table, you can verify
+    that you meet the native client dependencies at the library level by using
+    the <cmdname id="cmdname_AB3950A2E3A54AB69B79601BCF91AD25">ldd</cmdname> tool and entering this command:</p><codeblock id="codeblock_35B0B1CC778D47B08433B9510C690D8E">prompt&gt; ldd $GFCPP/lib/libgfcppcache.so</codeblock><p id="p_A41F267D58C3463BBB854EDEA9B63EE2">The
+    following libraries are external dependencies of the native library,
+    <codeph>libgfcppcache.so</codeph>. Verify that the <cmdname>ldd</cmdname>
+    tool output includes all of these:</p><sl>
+        <sli><codeph>libdl.so.2</codeph> </sli>
+
+        <sli><codeph>libm.so.6</codeph> </sli>
+
+        <sli><codeph>libpthread.so.0</codeph> </sli>
+
+        <sli><codeph>libc.so.6</codeph> </sli>
+
+        <sli><codeph>libz.so.1</codeph></sli>
+      </sl><p id="p_A3B0715E0D3B4B808035BAA2CDB5ABDC">For details on the <cmdname id="cmdname_ECAA0438B6A448F5ADEBF96E27A68FD9">ldd</cmdname> tool, see its Linux
+    online man page.</p></section>
+
+    <section id="section_E3719D97B6B14E358AFCB5D97C4B581A"><title id="title_EA83681CB321480188148F5A1E9DCF90">Solaris</title><p id="p_5F6E06A33F7340028FB368898013F989">The native client is supported on the
+    following Solaris versions:</p><ul id="ul_34ED22AEF4604288B4C2D103E286BCE9">
+        <li id="li_0EB9C5F0D31B45EA85B969F14DFC0231">Solaris 9 kernel update 118558-38</li>
+
+        <li id="li_11B117A56FF742689D8985EA5162DE54">Solaris 10 kernel update 118833-24</li>
+      </ul></section>
+  </conbody>
+</concept>

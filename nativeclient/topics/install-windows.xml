@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN"
+"concept.dtd">
+<concept id="install-windows">
+  <title>Installing on Windows</title>
+
+  <conbody>
+    <p>The native client can be installed on Windows by using the Windows
+    installer GUI interface or the command-line.</p>
+
+    <section id="section_891A3F2E92114707BC493D322F9B7BA7"><title
+    id="title_025E0DE875794BABB450EB38B98747FE">Installing on Windows Using
+    the Installer</title><p id="p_242890FFA70B4A9E9FD9A7C409B016BC">The native
+    client can be installed on Windows by using the
+    <codeph>NativeClient_<varname>xxxx</varname>.msi</codeph> Windows
+    installer, where <varname>xxxx</varname> represents the four-digit version
+    of the product. The installer requires <cmdname
+    id="cmdname_2CAED847D797434494D31971535C3D8C">msiexec</cmdname> version
+    3.0 or higher. Version 3.0 is standard on Windows XP SP2.</p><p
+    id="p_244F5DFB11144216B74B053AAEB701A4"> Double-click the MSI file to
+    start the installation. You can accept the default installation path, or
+    install to a different location. The product is installed in <filepath
+    id="filepath_D922007C7AB34FF8A977F37A9FBB6AC8">NativeClient_<varname>xxxx</varname></filepath>,
+    where <varname>xxxx</varname> represents the four-digit product
+    version.</p><note id="note_6382431E8F254F75A6D3AFD7C7179DF2">You must be
+    logged in with administrative privileges or the MSI installation will
+    fail.</note><p id="p_FEC86F2A316B48C2B0BF53579BD75E6B"> To complete the
+    installation, the MSI installer automatically configures these native
+    client system environment settings:</p><ul
+        id="ul_54ED585F2D004EC58C1272276EF310EF">
+        <li id="li_F0B79521F1DA4669A465A50877738396">Sets the
+        <varname>GFCPP</varname> environment variable to
+        <varname>productDir</varname>, where <varname>productDir</varname>
+        represents the <codeph>NativeClient_<varname>xxxx</varname></codeph>
+        directory (<varname>xxxx</varname> is the four-digit product
+        version).</li>
+
+        <li id="li_7E9642CAE0E74D78A9F082FB7E5CA630">Adds
+        <codeph>%GFCPP%\bin</codeph> to the Windows
+        <varname>PATH.</varname></li>
+      </ul></section>
+
+    <section><title>Installing Using the MSI Command-Line</title><p>In
+    addition to the standard Windows installer interface, the
+    <codeph>NativeClient_xxxx.msi</codeph> file provides a set of command-line
+    installer options. This is an example of the installer command-line
+    syntax:</p><codeblock>msiexec /q /i NativeClient_xxxx.msi DEFAULT_INSTALLDIR=&lt;path&gt;</codeblock><p>The
+    following table lists common <codeph>msiexec</codeph> command-line options
+    for use with <codeph>NativeClient_xxxx.msi</codeph>, along with an
+    explanation of their usage. For a list of all command-line options, enter
+    <codeph>msiexec/?</codeph>.</p><table id="tbl-msi-options">
+        <title>MSI Command-Line Options</title>
+
+        <tgroup cols="2">
+          <thead>
+            <row>
+              <entry>Option</entry>
+
+              <entry>Explanation</entry>
+            </row>
+          </thead>
+
+          <tbody>
+            <row>
+              <entry><codeph>/q</codeph></entry>
+
+              <entry>Creates a quiet installation with no interface or
+              prompts.</entry>
+            </row>
+
+            <row>
+              <entry><codeph>/i</codeph></entry>
+
+              <entry>Indicates that the product is to be installed or
+              configured.</entry>
+            </row>
+
+            <row>
+              <entry><codeph>DEFAULT_INSTALLDIR=&lt;path&gt;</codeph></entry>
+
+              <entry>Specifies the destination directory, if different from
+              the default.</entry>
+            </row>
+
+            <row>
+              <entry><codeph>/x</codeph></entry>
+
+              <entry>Indicates a product uninstall procedure.</entry>
+            </row>
+          </tbody>
+        </tgroup>
+      </table></section>
+
+    <section id="section_93E5390751F442BB8A3377814A81B105"><title
+    id="title_4A975275F3384A1EBEC2002E7A4A8216">Repairing a Windows
+    Installation</title><p id="p_3A96079FF4804BF9BAE02CD1840AD8DB"> If
+    problems occur with your Windows native client installation you can
+    initiate a repair operation to restore any missing elements or registry
+    settings. Follow these steps:</p><ol
+        id="ul_521A77390CF947618F681CC7CFB7EF17">
+        <li id="li_18806C1B26C74112BEF92941D8A371BF">Double-click the MSI
+        file, then click Next in the Setup Wizard screen.</li>
+
+        <li id="li_6F4D7B79F99045049E9C48C44E7F4DEC">In the following screen,
+        click the Repair button.</li>
+
+        <li id="li_C8CFD6F7513B4466B9CF7ED880E0FB34">In the next screen, click
+        the Repair button.</li>
+      </ol></section>
+  </conbody>
+</concept>

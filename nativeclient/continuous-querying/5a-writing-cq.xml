@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept
+	id="security">
+	<title
+		id="title_9717E51087B346988389138843E158C4">Writing the Continuous Query</title>
+	<shortdesc>Each CQ uses a query and any number of listeners. The query filters the events on the
+		server and the listener handles the events that make it through the query filter. With the
+		query and the listener in hand, you can create and execute your query through the API. </shortdesc>
+	<conbody>
+		<p>This is the basic syntax for the CQ query: </p>
+		<codeblock>SELECT * FROM /fullRegionPath [iterator] [WHERE clause]</codeblock>
+		<p> The CQ query must satisfy the standard <keyword keyref="product_name"/> native client querying
+			specifications described in <xref href="../remote-querying/remote-querying.xml#security"
+			/>. It also must satisfy these restrictions: </p>
+		<ul
+			id="ul_3C93AEE880A944A6BDE83367B2118455">
+			<li
+				id="li_3D8E74132AD24A51AC5289C52124B65F">The <codeph>FROM</codeph> clause must
+				contain only a single region specification, with optional iterator variable. </li>
+			<li
+				id="li_BBA5CB9C3C2D40D5AFC89FED740861AC">The query must be a <codeph>SELECT</codeph>
+				expression only, preceded by zero or more <codeph>IMPORT</codeph> statements.
+					
+ This means the query cannot be a statement
+				like <codeph>/tradeOrder.name</codeph> or <codeph>(SELECT * from
+					/tradeOrder).size</codeph>. </li>
+			<li
+				id="li_02FA18698D5E46028AF51F211EA4F542">The CQ query cannot use: <ul
+					id="ul_19CD5D7505024306A05201C841D3DD08">
+					<li
+						id="li_CC818C52F70B4E71A39389833664889E">Cross region joins </li>
+					<li
+						id="li_8AB26A1E98AA4E68A9C4156668F8B1DB">Drill-downs into nested collections </li>
+					<li
+						id="li_3520599650CF4E17A38FFBB42154162E"><codeph>DISTINCT</codeph>
+					</li>
+					<li
+						id="li_C18422B69FE64FAA9D5028F9B1646AFF">Projections </li>
+					<li
+						id="li_6BE5D884201049DDAFD9B7E9072C2B0D">Bind parameters </li>
+				</ul>
+			</li>
+		</ul>
+		<p>Queries not meeting these constraints generate an
+				<codeph>UnsupportedOperationException</codeph> from the
+				<codeph>QueryServicenewCq</codeph> method. </p>
+	</conbody>
+</concept>

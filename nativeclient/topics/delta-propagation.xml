@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN"
+"concept.dtd">
+<concept id="delta-propagation">
+  <title id="title_92EBF520A2EA4B41B9AB59832279299A">Delta Propagation</title>
+
+  <conbody id="conbody_546CA71DD3C94D3AAE1DD2E8CD074991">
+    <p id="p_01A422420B7A414193A3FB9218E2DF24">In most distributed data
+    management systems, the data stored in the system tends to be created once
+    and then updated frequently. These updates are sent to other members for
+    event propagation, redundancy management, and cache consistency in
+    general. Tracking only the changes in an updated object and sending only
+    the updates, or deltas, mean lower network transmission costs and lower
+    object serialization/deserialization costs. Performance improvements can
+    be significant, especially when changes to an object instance are
+    relatively small compared to the overall size of the instance.</p>
+  </conbody>
+</concept>

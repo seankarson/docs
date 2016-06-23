@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN"
+"concept.dtd">
+<concept id="security">
+  <title id="title_9717E51087B346988389138843E158C4">SSL Client/Server
+  Communication</title>
+
+  <shortdesc>This section describes the steps required to implement SSL-based
+  communication between your clients and servers. It also provides information
+  about how to configure your environment to run OpenSSL, where to download
+  the OpenSSL source files, and how to build or install OpenSSL.</shortdesc>
+
+  <conbody id="conbody_D74C4342289846619E028149A8920946">
+    <p id="p_73C402816B974E4B9D904000F996DD2E">This chapter describes the
+    security framework for the vFabric GemFire native client, and explains its
+    authentication and authorization processes with the GemFire distributed
+    system.</p>
+
+    <p id="p_73C402816B974E4B9D904000F996DD2E">The open-source OpenSSL toolkit
+    provides a full-strength general purpose cryptography library to operate
+    along with the PKCS sample implementation for encrypted authentication of
+    native client credentials. </p>
+
+    <p id="p_73C402816B974E4B9D904000F996DD2E"><i>If you use Cygwin, it is
+    recommended that you do not use the OpenSSL library that comes with Cygwin
+    because it is built with cygwin.dll as a dependency.</i></p>
+  </conbody>
+</concept>

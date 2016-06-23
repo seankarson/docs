@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "http://docs.oasis-open.org/dita/v1.1/OS/dtd/concept.dtd">
+<concept
+	id="troubleshooting">
+	<title>Troubleshooting</title>
+	<shortdesc>This section provides troubleshooting information for the native client. </shortdesc>
+	<conbody>
+		<section id="section_32E817A073B8408F8FEDB5599C5CCEF6">
+			<title>Cannot Acquire Windows Performance Data</title>
+			<p> When you attempt to run performance measurements for the native client on Windows,
+				you may encounter the following error message in the run logs:</p>
+			<codeblock>Can't get Windows performance data. RegQueryValueEx returned 5</codeblock>This
+			can occur because incorrect information is returned when a Win32 application calls the
+			ANSI version of <codeph>RegQueryValueEx</codeph> Win32 API with
+				<codeph>HKEY_PERFORMANCE_DATA</codeph>. This error is described in Microsoft KB
+			article ID 226371 at <xref href="http://support.microsoft.com/kb/226371/en-us"
+				format="html" scope="external">http://support.microsoft.com/kb/226371/en-us</xref>.
+				<p>To successfully acquire Windows performance data, you need to verify that you
+				have the proper registry key access permissions in the system registry. In
+				particular, make sure that <codeph>Perflib</codeph> in the following registry path
+				is readable (<codeph>KEY_READ</codeph> access) by the <keyword keyref="product_name"
+				/> process:</p>
+			<codeblock>HKEY_LOCAL_MACHINE\
+    SOFTWARE\
+    Microsoft\
+    Windows NT\
+    CurrentVersion\
+    Perflib</codeblock>
+			<p>An example of reasonable security on the performance data would be to grant
+				administrators <codeph>KEY_ALL_ACCESS</codeph> and interactive users
+					<codeph>KEY_READ</codeph> access. This particular configuration prevents
+				non-administrator remote users from querying performance data. </p>
+			<p>See <xref href="http://support.microsoft.com/kb/310426" format="html"
+					scope="external">http://support.microsoft.com/kb/310426</xref> and <xref
+					href="http://support.microsoft.com/kb/146906" format="html" scope="external"
+					>http://support.microsoft.com/kb/146906</xref> for instructions about how to
+				ensure that <keyword keyref="product_name"/> processes have access to the registry
+				keys associated with performance. </p>
+		</section>
+		<section
+			id="section_65EC3B1EAC55421BB734E72E7BFEBFFC">
+			<title>Generating a Process Memory Dump Image for Fatal Errors</title>
+			<p>You can generate a process memory dump image (core files in Unix systems and
+				minidumps in Windows). The image is produced when a fatal error occurs that normally
+				terminates the program. </p>
+			<p>When the system property <codeph>crash-dump-enabled</codeph> is set to
+					<codeph>true</codeph>, a dump image is generated (the default is
+					<codeph>true</codeph>). The dump file is generated in the same location as the
+					<codeph>log-file</codeph> directory, and has the same prefix as the log file.
+				The name is <codeph>&lt;prefix&gt;-&lt;time&gt;.core.&lt;pid&gt;</codeph> in Unix,
+				and <codeph>&lt;prefix&gt;-&lt;time&gt;-&lt;pid&gt;.dmp</codeph> in Windows). </p>
+			<p>Unix systems generate core files automatically for such errors, but this option is
+				useful for providing a custom location and name, as well as for systems where core
+				dump generation is disabled. For Unix, when system core dump generation is turned on
+					(<codeph>ulimit -c</codeph>) this property can be set to <codeph>false</codeph>. </p>
+			<p>For .NET clients, when this property is set then <codeph>AccessViolation</codeph>
+				exceptions are trapped and a crash dump is created to assist with further analysis.
+				Applications receive a <codeph>FatalInternalException</codeph> for this case, with
+				the <codeph>InnerException</codeph> set to the originating
+					<codeph>AccessViolationException</codeph>. </p>
+			<p>This requires the availability of <codeph>dbghelp.dll</codeph> on Windows, either in
+				the same directory as <codeph>gfcppcache.dll</codeph> or in the system
+					<codeph>PATH</codeph>. The file is installed by default, though for Windows 2000
+				a newer version may be required for minidumps. For Unix systems, the
+					<codeph>gcore</codeph> command should be available (gdb &gt; 5.2 on Linux;
+				available by default in Solaris). </p>
+		</section>
+	</conbody>
+</concept>

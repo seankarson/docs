@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept id="security">
+	<title id="title_9717E51087B346988389138843E158C4"> Determining Pre- or Post-Operation
+		Authorization</title>
+	<shortdesc>The <codeph>OperationContext</codeph> object that is passed to the
+			<codeph>authorizeOperation</codeph> method of the callback as the second argument
+		provides an <codeph>isPostOperation</codeph> method that returns true when the callback is
+		invoked in the post-operation phase. </shortdesc>
+	<conbody id="conbody_D74C4342289846619E028149A8920946">
+		<p>
+			For example:</p>
+			<codeblock id="codeblock_E8BA26FFF5AB4038AFB9AC1FA64B4694">bool authorizeOperation(Region region, OperationContext context)
+{
+If(context.isPostOperation())
+{
+    //It's a post-operation
+}
+else
+{
+    //It's a pre-operation
+}
+}</codeblock>
+		<p>
+			
+If an authorization failure occurs in a pre-operation
+			or post-operation callback on the server, the operation throws a
+				<codeph>NotAuthorizedException</codeph> on the client. </p>
+		<p>For more information, see <xref href="../../managing/security/authorization_overview.xml"
+				type="concept" format="dita" scope="local"><?xm-replace_text Authorization?></xref>. </p>
+	</conbody>
+</concept>

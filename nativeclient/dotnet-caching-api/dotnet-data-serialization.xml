@@ -1,0 +1,42 @@
+<?xml version="1.0"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept
+	id="concept_28A7797A0342447ABF6A5014E0DCB05F">
+	<title>Data Serialization</title>
+	<shortdesc>All data that <keyword keyref="product_name"/> moves out of the local cache must be
+		serializable. </shortdesc>
+	<conbody>
+		<p>Region data that must be serializable falls under the following categories: </p>
+		<ul
+			id="ul_4E957D3B85154054A725F2A772669AD5">
+			<li
+				id="li_6E3B7EE7D2544455842D471AC20ADB3A">Partitioned regions (except functions that
+				add data locally to a partitioned region use the deserialized form). </li>
+			<li
+				id="li_0CA82B9A53484E5E913BC4D74D9039BC">Distributed regions. </li>
+			<li
+				id="li_B13960CF13E24BC6AE71E30B623E20B8">Regions that are persisted or overflowed to
+				disk. </li>
+			<li
+				id="li_AF3E9BB63595437C8FC7E215D1C2BD93">Server or client regions in a client/server
+				installation. </li>
+			<li
+				id="li_91A70971E0504014A0509A176685B537">Regions distributed between gateways in a
+				multi-site installation. </li>
+			<li
+				id="li_092BE2E037AB4CF2BF7C1BE76E996D3B">Regions that receive events from remote
+				caches. </li>
+			<li
+				id="li_19AA1B82D4EF4FD09DB1FF5E17EA8370">Regions that provide function arguments and
+				results. </li>
+		</ul>
+		<p>To minimize the cost of serialization and deserialization, <keyword keyref="product_name"/>
+			avoids changing the data format whenever possible. This means your data may be stored in
+			the cache in serialized or deserialized form, depending on how you use it. For example,
+			if a server acts only as a storage location for data distribution between clients, it
+			makes sense to leave the data in serialized form, ready to be transmitted to clients
+			that request it. Partitioned region data is always stored in serialized form with one
+			exception—functions that add data to a partitioned region locally use the deserialized
+			form. </p>
+	</conbody>
+</concept>

@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "http://docs.oasis-open.org/dita/v1.1/OS/dtd/concept.dtd">
+<concept
+	id="caching-apis">
+	<title>Cache APIs</title>
+	<shortdesc>The native client has two cache APIs, <codeph>RegionService</codeph> and
+			<codeph>Cache</codeph>. </shortdesc>
+	<conbody>
+		<section
+			id="section_8F81996678B64BBE94EF352527F7F006">
+			<title>RegionService API</title>
+			<p><codeph>RegionService</codeph> provides:</p>
+				<ul id="ul_C51DF75CCEB248AC85F6D4CCAFFD198D">
+					<li
+						id="li_3CD21189A3934B769EC19508F9FD536E">Access to existing cache regions. </li>
+					<li
+						id="li_EE90372C8C1E46B09CC71AF9EF35110E">Access to the standard query
+						service for the cache, which sends queries to the servers. See <xref
+							scope="local"
+							href="../remote-querying/remote-querying.xml#security"
+							type="concept"
+							format="dita">Remote Querying</xref> and <xref
+							scope="local"
+							href="../continuous-querying/continuous-querying.xml#security"
+							type="concept"
+							format="dita">Continuous Querying</xref>. </li>
+				</ul>
+			<p><codeph>RegionService</codeph> is inherited by <codeph>Cache</codeph>. </p>
+			<p>You do not use instances of <codeph>RegionService</codeph> except for secure client
+				applications with many users. See <xref
+					scope="local"
+					href="../security/createsecureconnregionservice.xml#security"
+					type="concept"
+					format="dita">Creating Multiple Secure User Connections with
+					RegionService</xref>. </p>
+		</section>
+		<section
+			id="section_403383B9B5044A939A89A5BBB4915452">
+			<title>Cache API</title>
+			<p>Use the <codeph>Cache</codeph> to manage your client caches. You have one
+					<codeph>Cache</codeph> per client. </p>
+			<p>The <codeph>Cache</codeph> inherits <codeph>RegionService</codeph> and adds
+				management of these client caching features: </p>
+				<ul
+					id="ul_824D3B8C773142AAB8D615AA0F976B02">
+					<li
+						id="li_43F14ACBC62047BDB7FA65BD3B8C677B">Region creation. </li>
+					<li
+						id="li_72FFB12742404B7A81F0B627786A1F21">Subscription keepalive management
+						for durable clients. </li>
+					<li
+						id="li_6440BAE7EA1B4FF88A41479287BA960C">Access to the underlying
+						distributed system. </li>
+					<li
+						id="li_7BAEC29BE12E46B8BE01927BA1016236"><codeph>RegionService</codeph>
+						creation for secure access by multiple users. </li>
+				</ul>
+		</section>
+	</conbody>
+</concept>

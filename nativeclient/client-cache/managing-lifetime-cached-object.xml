@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "http://docs.oasis-open.org/dita/v1.1/OS/dtd/concept.dtd">
+<concept
+	id="managing-lifetime-cached-object">
+	<title>Managing the Lifetime of a Cached Object</title>
+	<shortdesc>All cacheable objects derive from <codeph>SharedBase</codeph> , which provides
+		reference counting. Cacheable objects are referenced using <codeph>SharedPtr</codeph> types. </shortdesc>
+	<conbody>
+		<section
+			id="section_5F8E6FE4F9AB4C658516DB0D31DD4FF8">
+			<p>When <codeph>SharedPtr</codeph> retrieves a cached object, the object remains alive
+				as long as that pointer or the cache itself references the object. </p>
+			<p>A native client may have many pointers that reference an object. Regardless of how
+				many pointers to the object are deleted, the object remains alive until the last
+				remaining pointer is deleted. At that point the object is deleted. </p>
+			<p>This is a very simple example:</p>
+				<codeblock>CacheableStringPtr p = CacheableString::create ("string");
+region.put ("key", p) ;</codeblock>
+			<p>In the example: </p>
+			<ul
+				id="ul_D04408C8B9294A0AA64D718BDD26E1DA">
+				<li
+					id="li_21E52820C34C4719961A9514D389F95A">The act of object creation allocates
+					memory and initializes the object. </li>
+				<li
+					id="li_85AAAAC1F02642A4B273A037363064C9">When you assign the object to a
+						<codeph>SharedPtr</codeph> , you relinquish control of the lifetime of that
+					object to the reference counting mechanism for the cache. </li>
+				<li
+					id="li_AB90D4ADB1544F71A538CD826339DF1E">The put operation does not actually
+					copy the object into the cache. Rather, it copies a <codeph>SharedPtr</codeph>
+					into the cache's hashmap. Consequently, the object remains alive in the cache
+					when the original <codeph>SharedPtr</codeph> goes away. </li>
+			</ul>
+			<p>The client can make use of an object after you have initialized the object. For
+				example, another <codeph>SharedPtr</codeph> might issue a <codeph>get</codeph> to
+				retrieve the object from the cache:</p>
+				<codeblock>CacheableStringPtr p2 = region.get ("key") ;</codeblock>
+			<p>Because <codeph>p</codeph> (the original <codeph>SharedPtr</codeph> ) and
+					<codeph>p2</codeph> point to the same object in memory, it is possible under
+				some circumstances for multiple <codeph>SharedPtr</codeph> types to work on the same
+				object in data storage. </p>
+				<note>
+					<p>Once you have put an object into the cache, do not delete it explicitly.
+					Attempting to do so can produce undesirable results.
+					</p>
+				</note>
+		</section>
+		<section
+			id="section_8753DE6DF3864BEC806D39F623CBE3E0">
+			<title>Changed Objects</title>
+			<p>If an object update is received, the cache no longer holds the same object. Rather,
+				it holds a completely different instance of the object. The client does not see the
+				updates until it calls a <codeph>get</codeph> to fetch the object again from the
+				local cache, or (in a cache plug-in) calls <codeph>EntryEvent::getNewValue</codeph>. </p>
+			<p>For more about plug-ins, see <xref
+					scope="local"
+					href="application-plugins.xml#application-plugins"
+					type="concept"
+					format="dita">Application Plug-Ins</xref>. </p>
+		</section>
+		<section
+			id="section_065526A7FFBB464591A5E119EB8D6CA6">
+			<title>Object Expiration</title>
+			<p>When a cache automatically deletes an object as a result of an expiration action, the
+				reference counting pointers protect the client from situations that might otherwise
+				result if the cache actually freed the object's memory. Instead, the client
+				disconnects the object from the cache by deleting the cache's
+					<codeph>SharedPtr</codeph> reference, while leaving untouched any client threads
+				with a <codeph>SharedPtr</codeph> to that object. </p>
+		</section>
+		<section
+			id="section_6D700999EE534BD7999D5B428301F5A6">
+			<title>Object Lifetime Across the Distributed Cache</title>
+			<p>An object remains alive until every copy of the object is gone. In distributed
+				regions, expiration activities can be local or distributed, depending on a region's
+				distribution settings. One cache could control the expiration of all copies of an
+				object in all the caches in the distributed system. Alternatively, each cache could
+				control the expiration of its own local copy of the object. If the configuration
+				gives each cache local control, and the expiration parameters are set to different
+				lengths of time in different caches, some copies of an object may still exist after
+				it has disappeared in other caches. See <xref
+					scope="local"
+					href="expiration-attributes.xml#expiration-attributes"
+					type="concept"
+					format="dita">Expiration Attributes</xref> for more information. </p>
+		</section>
+	</conbody>
+</concept>

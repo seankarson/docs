@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept
+   id="running-native-client-xact">
+   <title
+      id="title_9717E51087B346988389138843E158C4">Query Code Samples Returning
+      StructSet</title>
+   <shortdesc>These examples return a <codeph>StructSet</codeph> for built-in
+      and user-defined data types, <codeph>Struct</codeph> objects, and
+      collections. </shortdesc>
+   <conbody
+      id="conbody_D74C4342289846619E028149A8920946">
+      <example
+         id="example_F54AE0B24F324C8597C655B365115AA3">
+         <title>Query Returning a StructSet for a Built-In Data Type</title>
+         <codeblock>QueryServicePtr qrySvcPtr = cachePtr-&gt;getQueryService("examplePool");
+const char * querystring =
+   "SELECT DISTINCT ID, pkid, status, getType FROM /Portfolios";
+QueryPtr query = qrySvcPtr-&gt;newQuery(querystring);
+//specify 10 seconds for the query timeout period
+SelectResultsPtr results = query-&gt;execute(10);
+if (results == NULLPTR)
+{
+   printf( "\nNo results returned from the server");
+}
+//obtaining a handle to resultset
+StructSetPtr ss(dynamic_cast&lt;StructSet*&gt; (results.ptr()));
+if (ss == NULLPTR)
+{
+   printf ("\nStructSet is not obtained \n");
+   return;
+}
+//iterating through the resultset using indexes.
+for ( int32_t row=0; row &lt; ss-&gt;size(); row++)
+{
+   Struct * siptr = (Struct*) dynamic_cast&lt;Struct*&gt; ( ((*ss)[row]).ptr() );
+   if (siptr == NULL)
+   {
+      printf("\nstruct is empty \n");
+      continue;
+ 
+    }
+    //iterate through fields now
+    for( int32_t field=0; field &lt; siptr-&gt;length(); field++)
+    {
+       SerializablePtr fieldptr((*siptr)[field]);
+       if(fieldptr == NULLPTR )
+       {
+          printf("\nnull data received\n");
+       }
+       CacheableStringPtr
+          str(dynamic_cast&lt;CacheableString*&gt;(fieldptr.ptr()));
+       if (str == NULLPTR)
+       {
+          printf("\n field is of some other type \n");
+       }
+       else
+       {
+          printf("\n Data for %s is %s ", siptr-&gt;getFieldName(field), str-&gt;asChar() );
+       }
+    } //end of columns
+ } // end of rows</codeblock>
+      </example>
+      <example
+         id="example_B4A4E11F81794036B7EC80824A80AB1D">
+         <title>Returning Struct Objects</title>
+         <codeblock>
+QueryServicePtr qrySvcPtr = cachePtr-&gt;getQueryService("examplePool");
+const char * querystring =
+   "SELECT DISTINCT derivedProjAttrbts, key: p.key FROM "
+   "/Portfolios.entries p, (SELECT DISTINCT x.ID, myPos.secId FROM "
+   "/Portfolios x, x.positions.values AS myPos) derivedProjAttrbts WHERE "
+   "p.value.ID = derivedProjAttrbts.ID AND derivedProjAttrbts.secId = 'IBM'";
+QueryPtr query = qrySvcPtr-&gt;newQuery(querystring);
+//specify 10 seconds for the query timeout period
+SelectResultsPtr results = query-&gt;execute(10);
+if (results == NULLPTR)
+{
+   printf( "\nNo results returned from the server");
+}
+//obtaining a handle to resultset
+StructSetPtr ss(dynamic_cast&lt;StructSet*&gt; (results.ptr()));
+if (ss == NULLPTR)
+{
+   printf ("\nStructSet is not obtained \n");
+   return;
+}
+//iterating through the resultset using indexes.
+for (int32_t row=0; row &lt; ss-&gt;size(); row++)
+{
+   Struct * siptr = (Struct*) dynamic_cast&lt;Struct*&gt; ( ((*ss)[row]).ptr() );
+   if (siptr == NULL) { printf("\nstruct is empty \n"); }
+   //iterate through fields now
+   for (int32_t field=0; field &lt; siptr-&gt;length(); field++) {
+       SerializablePtr fieldptr((*siptr)[field]);
+       if (fieldptr == NULLPTR )
+       {
+          printf("\nnull data received\n");
+       }
+       CacheableStringPtr
+          str(dynamic_cast&lt;CacheableString*&gt;(fieldptr.ptr()));
+       if (str != NULLPTR) {
+          printf("\n Data for %s is %s ", siptr-&gt;getFieldName(field),
+              str-&gt;asChar() );
+       }
+       else
+       {
+          StructPtr simpl(dynamic_cast&lt;Struct*&gt; (fieldptr.ptr()));
+          if (simpl == NULLPTR)
+          {
+              printf("\n field is of some other type \n"); continue;
+          }
+          printf( "\n struct received %s \n", siptr-&gt;getFieldName(field) );
+          for (int32_t inner_field=0; inner_field &lt; simpl-&gt;length(); inner_field++)
+          {
+              SerializablePtr innerfieldptr((*simpl)[inner_field]);
+              if (innerfieldptr == NULLPTR)
+              {
+                  printf("\nfield of struct is NULL\n");
+              }
+              CacheableStringPtr str(dynamic_cast&lt;CacheableString*&gt;
+                 (innerfieldptr.ptr()));
+              if (str != NULLPTR)
+              {
+                  printf("\n Data for %s is %s ",
+                      simpl-&gt;getFieldName(inner_field),str-&gt;asChar() );
+              }
+              else
+              {
+                  printf("\n some other object type inside struct\n");
+              }
+           }
+        }
+    } //end of columns
+ }//end of rows</codeblock>
+      </example>
+      <example
+         id="example_63D468FB492142B9998213478C0A5247">
+         <title>Returning Collections</title>
+         <codeblock>
+QueryServicePtr qrySvcPtr = cachePtr-&gt;getQueryService("examplePool");
+const char * querystring = "select distinct ID, names from /Portfolios";
+QueryPtr query = qrySvcPtr-&gt;newQuery(querystring);
+SelectResultsPtr results = query-&gt;execute(10);
+if (results == NULLPTR) {
+   printf( "\nNo results returned from the server");
+}
+//obtain a handle to resultset
+StructSetPtr ss(dynamic_cast&lt;StructSet*&gt; (results.ptr()));
+if (ss == NULLPTR) {
+   printf ("\nStructSet is not obtained \n");
+   return;
+}
+//iterate through the resultset using indexes.
+for (int32_t row=0; row &lt; ss-&gt;size(); row++)
+{
+   Struct * siptr = dynamic_cast&lt;Struct*&gt; ( ((*ss)[row]).ptr() );
+   if (siptr == NULL)
+   {
+      printf("\nstruct is empty \n");
+      continue;
+    }
+    //iterate through fields now
+    for (int32_t field=0; field &lt; siptr-&gt;length(); field++)
+    {
+       SerializablePtr fieldptr((*siptr)[field]);
+       if (fieldptr == NULLPTR)
+       {
+          printf("\nnull data received\n");
+       }
+       CacheableStringPtr
+          str(dynamic_cast&lt;CacheableString*&gt;(fieldptr.ptr()));
+       if (str != NULLPTR)
+       {
+          printf("\n Data for %s is %s ", siptr-&gt;getFieldName(field),
+              str-&gt;asChar() );
+       }
+       else
+       {
+          CacheableObjectArrayPtr
+              coa(dynamic_cast&lt;CacheableObjectArray*&gt;(fieldptr.ptr()));
+          if (coa == NULLPTR)
+          {
+              printf("\n field is of some other type\n"); continue;
+          }
+          printf( "\n objectArray received %s \n", 
+                 siptr-&gt;getFieldName(field) );
+          for (unsigned arrlen=0; arrlen &lt; (uint32_t)coa-&gt;length(); arrlen++)
+          {
+              printf("\n Data for %s is %s ",siptr-&gt;getFieldName(field),
+                  coa-&gt;operator[](arrlen)-&gt;toString()-&gt;asChar());
+          }
+       }
+    } //end of columns
+ }//end of rows</codeblock>
+      </example>
+   </conbody>
+</concept>

@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept
+   id="running-native-client-xact">
+   <title
+      id="title_9717E51087B346988389138843E158C4">Query Code Samples Returning
+      ResultSet</title>
+   <shortdesc>API examples demonstrate methods for returning
+         <codeph>ResultSet</codeph> for both built-in and user-fined data types. </shortdesc>
+   <conbody
+      id="conbody_D74C4342289846619E028149A8920946">
+      <p>
+         <b>Query Returns a ResultSet for a Built-In Data Type</b></p>
+         <codeblock>
+QueryServicePtr qrySvcPtr = cachePtr-&gt;getQueryService("examplePool");
+QueryPtr query = qrySvcPtr-&gt;newQuery("select distinct pkid from /Portfolios");
+//specify 10 seconds for the query timeout period
+SelectResultsPtr results = query-&gt;execute(10);
+if (results == NULLPTR)
+{
+   printf( "\nNo results returned from the server");
+}
+
+//obtaining a handle to resultset
+ResultSetPtr rs(dynamic_cast&lt;ResultSet*&gt; (results.ptr()));
+if (rs == NULLPTR)
+{
+   printf ("\nResultSet is not obtained \n"); return;
+}
+//iterating through the resultset using row index.
+for (int32_t row=0; row &lt; rs-&gt;size(); row++)
+{
+   SerializablePtr ser((*rs)[row]);
+   CacheableStringPtr str(dynamic_cast&lt;CacheableString*&gt; (ser.ptr()));
+   if (str != NULLPTR)
+   {
+      printf("\n string column contains - %s \n", str-&gt;asChar() );
+   }
+}</codeblock>
+      <p>
+         <b>Query Returns a ResultSet for a User-Defined Data Type</b></p>
+         <codeblock>
+QueryServicePtr qrySvcPtr = cachePtr-&gt;getQueryService("examplePool");
+const char * querystring = "select distinct * from /Portfolios";
+QueryPtr query = qrySvcPtr-&gt;newQuery(querystring);
+//specify 10 seconds for the query timeout period
+SelectResultsPtr results = query-&gt;execute(10);
+if (results == NULLPTR)
+{
+   printf( "\nNo results returned from the server");
+}
+//obtaining a handle to resultset
+ResultSetPtr rs(dynamic_cast&lt;ResultSet*&gt; (results.ptr()));
+if (rs == NULLPTR)
+{
+   printf ("\nResultSet is not obtained \n"); return;
+}
+//iterating through the resultset using iterators.
+SelectResultsIterator iter = rs-&gt;getIterator();
+while (iter.hasNext())
+{
+   SerializablePtr ser = iter.next();
+   PortfolioPtr port(dynamic_cast&lt;Portfolio*&gt; (ser.ptr()));
+   if (port != NULLPTR)
+   {
+      printf("\nPortfolio object is - %s \n", port-&gt;toString()-&gt;asChar() );
+   }
+} // end of rows</codeblock>
+   </conbody>
+</concept>

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "http://docs.oasis-open.org/dita/v1.1/OS/dtd/concept.dtd">
+<concept
+	id="region-access">
+	<title>Region Access</title>
+	<shortdesc>You can use <codeph>Cache::getRegion</codeph> to retrieve a reference to a specified
+		region. </shortdesc>
+	<conbody>
+		<p>
+			<codeph>RegionPtr</codeph> returns <codeph>NULL</codeph> if the region is not already
+			present in the application's cache. A server region must already exist. </p>
+		<p>A region name <i>cannot</i> contain these characters: </p>
+		<ul
+			id="ul_C31D6B6B73CB4480A10CC56F18397187">
+			<li
+				id="li_02F63971C13E4827B4AEAA4E1CB9BD77">&lt; </li>
+			<li
+				id="li_1205EDEB4507429E8592AD1C520B0979">&gt; </li>
+			<li
+				id="li_1455D1E3B92846EFB60931A2A166C637">: </li>
+			<li
+				id="li_DB243048F2C64ECFAF47D3433BA31EFE">" </li>
+			<li
+				id="li_C442D92082064E9FB9C2497AD6EEA74B">/ </li>
+			<li
+				id="li_3A7DA12E5CFA4014B195188B9EFAABA7">\ </li>
+			<li
+				id="li_6CFC093F457140F8A818A0620066334A">| </li>
+			<li
+				id="li_8F1C20BE59824E49B89E6169B9784D65">? </li>
+			<li
+				id="li_B89C07DD63174CD1B4F9E5F17997B72E">* </li>
+		</ul>
+	</conbody>
+</concept>

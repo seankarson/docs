@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<!-- Created with XMetaL (http://www.xmetal.com) -->
+<concept id="concept_AEFA04AF9ABD42C0A37ED31806596D24"> 
+  <title>Using Queue Conflation to Improve Update Performance</title> 
+  <shortdesc> The client queues on the cache server can be configured to
+	 conflate queued messages so the native client receives only the latest update
+	 for a particular entry key. Queue conflation is performed when an entry update
+	 is added to the queue. If the last operation queued for that key is also an 
+	 <codeph>update</codeph> operation, the previously enqueued update is
+	 removed, leaving only the latest update to be sent to the client when event
+	 distribution occurs. For high availability, the conflation process is also
+	 performed on any secondary queues.
+  </shortdesc> 
+  <conbody>
+	 <p> Only entry 
+		<codeph>update</codeph> messages in a cache server region with 
+		<codeph>distributed-no-ack</codeph> scope are conflated. Region
+		operations and entry operations other than updates are not conflated. 
+	 </p>
+	 <p>Conflation is enabled in the cache server region, so all clients
+		interested in updates in a particular region either get the updates conflated
+		or not. To enable conflation, set the cache server’s 
+		<codeph>enable-bridge-conflation</codeph> region attribute to true.
+		Conflation is set to 
+		<codeph>false</codeph> by default
+	 </p>
+	 <p>See the queue conflation discussion in the GemFire User’s Guide for more
+		information about using conflation.
+	 </p>
+  </conbody> 
+</concept>

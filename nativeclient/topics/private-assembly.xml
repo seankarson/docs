@@ -1,0 +1,67 @@
+<?xml version="1.0"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<!-- Created with XMetaL (http://www.xmetal.com) -->
+<concept id="concept_C07CEE5C50304FB381DD408249D9721B"> 
+  <title>Using GemStone.GemFire.Cache.dll As a Private Assembly</title> 
+  <shortdesc>To access 
+	 <codeph>GemStone.GemFire.Cache.dll</codeph> as a private assembly, you need
+	 to specify a 
+	 <filepath>.config</filepath> file for your application. The file needs to
+	 be the same name as your application, with a 
+	 <filepath>.config</filepath> suffix. For example, the 
+	 <filepath>.config</filepath> file for 
+	 <filepath>main.exe</filepath> would be 
+	 <filepath>main.exe.config</filepath>. The two files must reside in the same
+	 directory.
+  </shortdesc> 
+  <conbody>
+	 <p>Follow these steps to create a 
+		<filepath>.config</filepath> file:
+	 <ol id="ol_FB616C74F3EC4790AE6675969B1193A0">
+		<li id="li_4DC73C6AF3F347B48D53987FA750CFE3">Copy 
+		  <filepath>%GFCPP%/docs/default.exe.config</filepath> to the appropriate
+		  location.
+		</li>
+		<li id="li_DEC6A0F9775F4ACC9A332D55E939467D">Rename 
+		  <filepath>default.exe.config</filepath> to the name of your
+		  application.
+		</li>
+		<li id="li_06E235015BF7440EB1BEF4B309ACD894">Change the 
+		  <codeph>href</codeph> attribute of the 
+		  <codeph>CodeBase</codeph> element to point to your 
+		  <filepath>GemStone.GemFire.Cache.dll</filepath> file. Either http,
+		  relative, or absolute paths will work.
+		</li>
+	 </ol>
+	 </p>
+	 <example id="example_193A14743BB545F781675CDC20247B80">
+		<title>A Sample .config File</title>
+		<p>The following example shows an excerpt of a 
+		  <filepath>.config</filepath> file. The 
+		  <codeph>PublicKeyToken</codeph> value is only an example, and the
+		  codebase version value is not set correctly. See 
+		  <filepath>%GFCPP%/docs/default.exe.config</filepath> for an actual
+		  example for this release.
+		</p>
+		<codeblock>&lt;configuration&gt;
+   &lt;runtime&gt;
+      &lt;assemblyBinding
+         xmlns="urn:schemas-microsoft-com:asm.v1"&gt;
+         &lt;dependentAssembly&gt;
+            &lt;assemblyIdentity name="GemStone.GemFire.Cache"
+               publicKeyToken="126e6338d9f55e0c"
+               culture="neutral" /&gt;
+            &lt;codeBase version="0.0.0.0"
+               href="../../bin/GemStone.GemFire.Cache.dll"/&gt;
+         &lt;/dependentAssembly&gt;
+      &lt;/assemblyBinding&gt;
+   &lt;/runtime&gt;
+&lt;/configuration&gt;</codeblock>
+		<note>If the 
+		  <filepath>.config</filepath> file contain errors, no warning or error
+		  messages are issued. The application runs as if no 
+		  <filepath>.config</filepath> file is present.
+		</note>
+	 </example>
+  </conbody> 
+</concept>

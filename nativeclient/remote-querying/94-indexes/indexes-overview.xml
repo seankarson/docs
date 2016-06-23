@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept id="security">
+	<title id="title_9717E51087B346988389138843E158C4">Creating Indexes</title>
+	<shortdesc> An index can provide significant performance gains for query execution. You create
+		and maintain indexes on the cache server. </shortdesc>
+	<conbody>
+		<p>
+			
+A query run without an index iterates through
+			every object in the collection on the cache server. If an index is available that
+			matches part or all of the query specification, the query iterates only over the indexed
+			set, and query processing time can be reduced. </p>
+		<p>When you create your indexes on the cache server, remember that indexes incur maintenance costs
+			as they must be updated when the indexed data changes. An index that requires many
+			updates and is not used very often may require more system resources than no index at
+			all. Indexes also consume memory. For information on the amount of memory used for
+			indexes, see the system configuration information. </p>
+		<p> You can create an index for remote querying declaratively on the cache server in a
+				<codeph>cache.xml</codeph> file, as shown in this example. </p>
+		<p>
+			<b>Creating an Index on a Cache Server Using a Server XML File</b></p>
+			<codeblock>&lt;region name="portfolios"&gt;
+   &lt;region-attributes . . . &gt;
+     &lt;value-constraint&gt;cacheRunner.Portfolio&lt;/value-constraint&gt;
+   &lt;/region-attributes&gt;
+   &lt;index name="myFuncIndex"&gt;
+      &lt;functional from-clause="/portfolios" expression="status"/&gt;
+   &lt;/index&gt;
+   &lt;index name="myPrimIndex"&gt;
+      &lt;primary-key field="id"/&gt;
+   &lt;/index&gt;
+   &lt;entry&gt; . . . </codeblock><p> For detailed information about working with indexes configured on a cache server, see the
+			section <xref href="../../../developing/query_index/query_index.xml" type="concept"
+				format="dita" scope="local">Working with Indexes</xref>. </p>
+	</conbody>
+</concept>

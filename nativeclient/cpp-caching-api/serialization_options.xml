@@ -1,0 +1,118 @@
+<?xml version="1.0"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept
+	id="concept_7B6F272ACEA14753A723CB73B858ADBE">
+	<title>Data Serialization Options</title>
+	<shortdesc>The native client C++ API gives you two serialization options: the
+			<codeph>GemFire::Serializable</codeph> interface and GemFire PDX serialization. </shortdesc>
+	<conbody>
+		<p><keyword keyref="product_name"/> Portable Data eXchange (PDX) serialization is the recommended
+			option. PDX serialization provides portability for PDX serializable objects so that
+			clients can share data with Java servers and other non-C++ clients. PDX is a
+			cross-language data format that can reduce the cost of distributing and serializing your
+			objects. PDX stores data in named fields that you can access individually in order to
+			avoid the cost of deserializing the entire data object. PDX also allows you to mix
+			versions of objects where you have added or removed fields. </p>
+		<p>When using PDX serialization, you can either use the <codeph>PdxSerializer</codeph> (for
+			all your domain objects) or <codeph>PdxSerializable</codeph> (for a specific domain
+			object). </p>
+		<p><codeph>PdxSerializer</codeph> is used when a user has registered a domain class for
+			serialization in the cache using the <codeph>registerPdxSerializer</codeph> API. </p>
+		<p><codeph>PdxSerializable</codeph> is used when the domain class that a user wants to
+			serialize/deserialize is inherited from <codeph>PdxSerializable</codeph> interface, and
+			the user has registered domain class using <codeph>registerPdxType(domainClass)</codeph>
+			API. </p>
+		<p>The non-PDX serialization option is to use the <codeph>GemFire::Serializable</codeph>
+			interface. The <codeph>GemFire::Serializable</codeph> interface can be a good option
+			performance-wise if the size of your objects is small. The
+				<codeph>GemFire::Serializable</codeph> is used whenever a user domain class is not
+			inherited by <codeph>PdxSerializable</codeph> but the user has registered his or her
+			class with the <codeph>registerType</codeph> API. See <xref
+				href="serialization_using_serializable.xml#concept_696AB5206C3E45898CC1A24CDD93D003"
+				type="concept" format="dita" scope="local"
+				><?xm-replace_text Serializing Data with the GemFire Serializable Interface?></xref>
+			for more information. </p>
+			<table
+				id="table_D61A94C4BFBE4712835F632F30BB488E">
+				<title>Serialization Options—Comparison of Features</title>
+				<tgroup
+					cols="3">
+					<colspec
+						colnum="1"
+						colname="col1"
+						colwidth="*"/>
+					<colspec
+						colnum="2"
+						colname="col2"
+						colwidth="*"/>
+					<colspec
+						colname="col3"
+						colnum="3"
+						colwidth="1.50*"/>
+					<thead>
+						<row>
+							<entry
+								colname="col1">Capability </entry>
+							<entry
+								colname="col2">GemFire::Serializable </entry>
+							<entry
+								colname="col3">GemFire::PdxSerializable </entry>
+						</row>
+					</thead>
+					<tbody>
+						<row>
+							<entry
+								colname="col1">
+								<p>Handles multiple versions of domain objects* </p>
+							</entry>
+							<entry
+								colname="col2"> </entry>
+							<entry
+								colname="col3">X </entry>
+						</row>
+						<row>
+							<entry
+								colname="col1">
+								<p>Provides single field access on servers of serialized data,
+									without full deserialization. Supported also for OQL queries.
+								</p>
+							</entry>
+							<entry
+								colname="col2"> </entry>
+							<entry
+								colname="col3">X </entry>
+						</row>
+						<row>
+							<entry
+								colname="col1">
+								<p>Automatically ported to other languages by <keyword keyref="product_name"/> - no need to
+								program Java-side implementation </p>
+							</entry>
+							<entry
+								colname="col2"> </entry>
+							<entry
+								colname="col3">X </entry>
+						</row>
+						<row>
+							<entry
+								colname="col1">
+								<p>Works with GemFire delta propagation </p>
+							</entry>
+							<entry
+								colname="col2">X </entry>
+							<entry
+								colname="col3">X (See <xref
+									href="pdx_with_delta_propagation.xml#concept_F33AC930A8F14F0A9EE07AC31FFD8C8F"
+									type="concept"
+									format="dita"
+									scope="local"><?xm-replace_text Using PDX Serialization with Delta Propagation?></xref>
+								for requirements.) </entry>
+						</row>
+					</tbody>
+				</tgroup>
+			</table>
+		<p>*You can mix domain object versions where the differences between versions are the
+			addition and removal of object fields. </p>
+		<p>For detailed information on the interfaces, see the API documentation. </p>
+	</conbody>
+</concept>

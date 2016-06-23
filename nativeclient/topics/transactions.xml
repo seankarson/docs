@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN"
+"concept.dtd">
+<concept id="transactions">
+  <title>Transactions</title>
+
+  <conbody>
+    <p>The vFabric GemFire native client can run transactions on the Java
+    cache server, using a server delegate to actually run the transaction
+    code.</p>
+
+    <p>The GemFire API for distributed transactions has the familiar
+    relational database methods, <codeph>begin</codeph> ,
+    <codeph>commit</codeph> , and <codeph>rollback</codeph> . There are also
+    APIs available to suspend and resume transactions.</p>
+
+    <p>GemFire client transactions run on the server tier. The client uses a
+    server delegate that runs the transaction as it would a local transaction.
+    Because of this, most of the work involved in running client transactions
+    lies in making sure the server is properly configured and programmed. For
+    complete information about GemFire transactions in the Java server, see
+    the <i>Transactions</i> chapter in the <i>GemFire User’s Guide</i>. The
+    <i>User’s Guide</i> provides detailed information including server data
+    requirements, interactions of GemFire transactions with other operations
+    running on the server tier, server-side application plug-ins with
+    transactions, and querying with transactions.</p>
+  </conbody>
+</concept>

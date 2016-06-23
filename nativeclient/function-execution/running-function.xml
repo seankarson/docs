@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept
+	id="running-function">
+	<title
+		id="title_162999654BB048CD9D888BB44418874F">Running the Function</title>
+	<shortdesc>In this section you create an <codeph>Execution</codeph> object
+		and use its methods to define and run the function. To run a function
+		with high availability, you call <codeph>getResult</codeph> from the
+		results collector returned from the <codeph>execute</codeph> method. </shortdesc>
+	<conbody
+		id="conbody_5AD6F86A78FE470AA6DE1580BC2C3B97">
+		<section
+			id="section_8BC7F999141A40E389B8DC276EAB9F7E">
+			<title>Configuring and Running a Function</title>
+			<p>
+				
+
+
+
+
+
+
+
+You specify the members that run the
+				function and, optionally, the data set over which the functions
+				run. </p>
+				<ul
+					id="ul_8E48439F05CF4ACEB0BA0B47D3BBA4F2">
+					<li
+						id="li_8EEF1A2B7116423A98D8C0E1D2DCBF2A"><b>Servers</b>.
+						Execute the function in a single server or a set of
+						servers, specified by the server pool. To specify data
+						sets for this type of function, pass arguments in to the
+						function. </li>
+					<li
+						id="li_263BA063A2F54E6DBBDA5B141CCCD1B7"><b>Data
+						set</b>. Specify a region and possibly a set of keys on
+						which to run. </li>
+				</ul>
+			<p
+				id="p_B437A3E0B07449EA9CD24603931F8E19">In every client where
+				you want to execute the function and process the results:
+					
+
+
+
+
+			</p>
+			<ol
+				id="ol_AEB95389DF004924B3372FEDEA62AC58">
+				<li
+					id="li_24AF45E357714EA188E19E6D2348CED2">
+					<p
+						id="p_535533900FBF4C9B943B22688B6108F6">Use one of the
+							<codeph>FunctionService on*</codeph> methods to
+						create an <codeph>Execution</codeph> object. The
+							<codeph>on*</codeph> methods,
+							<codeph>onRegion</codeph>, <codeph>onServer</codeph>
+						and <codeph>onServers</codeph>, define the highest level
+						where the function is run. If you use
+							<codeph>onRegion</codeph> you can further narrow
+						your run scope by setting key filters. The function run
+						using <codeph>onRegion</codeph> is a data dependent
+						function – the others are data-independent functions. </p>
+					<p id="p_CDF2066371B5422989A3236582608838"> You can run a data dependent function against
+						custom partitioned and colocated partitioned regions. From the client,
+						provide the appropriate key sets to the function call. </p>
+				</li>
+				<li
+					id="li_DB72D1287FDC4D8F891ABCE21FB6FA9E">
+					<p
+						id="p_C81F66EE63CD4079A90A0CE985004B15">Use the
+							<codeph>Execution</codeph> object as needed for
+						additional function configuration. You can: </p>
+					<ul
+						id="ul_A31DA25C6023422B84CD089CF4C3338E">
+						<li
+							id="li_2DE451ACBC844AE5ABD53A1DE40852E8">Provide a
+							set of data keys to <codeph>withFilter</codeph> to
+							narrow the execution scope. This works only for
+								<codeph>onRegion Execution</codeph> objects. </li>
+						<li
+							id="li_A87DAA4C5D2F43C0ABE2D56321C8548B">Provide
+							function arguments to <codeph>withArgs</codeph>. </li>
+						<li
+							id="li_33D7F5BE3F6A47DAB0EE2D52AA0BC0C5">Define a
+							custom <codeph>ResultCollector</codeph> to
+								<codeph>withCollector</codeph>. See <xref
+								href="handling-function-results.xml#handling-function-results"
+								type="concept"
+								format="dita"
+								scope="local"><?xm-replace_text Programming to Get   Function Results?></xref>.
+								
+
+						</li>
+					</ul>
+				</li>
+				<li
+					id="li_AAF87C6257184A9F8F4D793C873AD255">Call the
+						<codeph>Execution</codeph> object execute method to run
+					the function. </li>
+				<li
+					id="li_2BB041DCF8494C0E81D733902E70E6CD">To run a function
+					with high availability, call <codeph>getResult</codeph> from
+					the results collector returned from
+					<codeph>execute</codeph>. Calling a highly available
+					function without using <codeph>getResult</codeph> disables
+					the high availability functionality. </li>
+			</ol>
+		</section>
+		<example
+			id="example_FB60C246B7D142AC96AD1B077467498C">
+			<title
+				id="title_94508E49D60949309E43132E66D370E5">Running a Function
+				on a Region (C++)</title>
+			<codeblock id="codeblock_81EB57CB660347488574117CA6B7552F">regPtr0 = initRegion();
+ExecutionPtr exc = FunctionService::onRegion(regPtr0);
+CacheableVectorPtr routingObj = CacheableVector::create();
+char buf[128];
+bool getResult = true;
+ 
+sprintf(buf, "VALUE--%d", 10);
+CacheablePtr value(CacheableString::create(buf));
+ 
+sprintf(buf, "KEY--%d", 100);
+CacheableKeyPtr key = CacheableKey::create(buf);
+regPtr0-&gt;put(key, value);
+ 
+sprintf(buf, "KEY--%d", 100);
+CacheableKeyPtr key1 = CacheableKey::create(buf);
+routingObj-&gt;push_back(key1);
+ 
+CacheablePtr args = routingObj;
+CacheableVectorPtr executeFunctionResult = exc-&gt;withFilter(routingObj)-&gt;
+    withArgs(args)-&gt;execute(func)-&gt;getResult();</codeblock>
+		</example>
+		<example
+			id="example_D1F03C8DEF63416C8834356C28BC378A">
+			<title
+				id="title_A72F13CAF55846769E43071C028E79E9">Running a Function
+				on a Server Pool (C++)</title>
+			<codeblock>pptr = PoolManager::find(poolName);
+ExecutionPtr exc = FunctionService::onServer(cache);
+CacheableVectorPtr routingObj = CacheableVector::create();
+char buf[128];
+bool getResult = true;
+sprintf(buf, "VALUE--%d", 10);
+CacheablePtr value(CacheableString::create(buf));
+ 
+sprintf(buf, "KEY--%d", 100);
+CacheableKeyPtr key = CacheableKey::create(buf);
+regPtr0-&gt;put(key, value);
+ 
+sprintf(buf, "KEY--%d", 100);
+CacheableKeyPtr key1 = CacheableKey::create(buf);
+routingObj-&gt;push_back(key1);
+ 
+CacheablePtr args = routingObj;
+CacheableVectorPtr executeFunctionResult =
+exc-&gt;withArgs(args)-&gt;execute(func)-&gt;getResult();</codeblock>
+		</example>
+		<example
+			id="example_B1676027063643D18F1F31FD8D8F4777">
+			<title
+				id="title_45FED7F512464F129CB5442A942DBEB2">Running a Function
+				on a Region (C# .NET) </title>
+			<codeblock id="codeblock_EC6222BA61044704B053B497A62C2853">IRegion&lt;string, string&gt; fregion =
+    regionFactory.Create&lt;string, string&gt;("exampleRegion");
+for (int i = 0; i &lt; 34; i++)
+{
+  fregion.Put("KEY--" + i, "VALUE--" + i, null);
+}
+ 
+object[] routingObj = new object[17];
+int j = 0;
+for (int i = 0; i &lt; 34; i++)
+{
+  if (i % 2 == 0) continue;
+  routingObj[j] = "KEY--" + i;
+  j++;
+}
+object args0 = true;
+Boolean getResult = true;
+// data dependent function execution -- get function with result
+Execution&lt;object&gt; exc =
+    Generic.FunctionService.OnRegion&lt;string, string, object&gt;(fregion);
+Generic.IResultCollector rc =
+    exc.WithArgs((IGFSerializable)args0).WithFilter(
+        (IGFSerializable[])routingObj).Execute(getFuncName);
+object[] executeFunctionResult = rc.GetResult();</codeblock>
+		</example>
+		<example
+			id="example_D76E852F52EE45769DA018333C1FA9F0">
+			<title
+				id="title_5969DBB3EDD84CD88DE2EC5D70ED6562">Running a Function
+				on a Server Pool (C# .NET) </title>
+			<codeblock id="codeblock_4A7F9C0BA7D44FB2AE7F31416BFB253B">exc = Generic.FunctionService.OnServer&lt;object&gt;(cache);
+List&lt;object&gt; args1 = new List&lt;object&gt;();
+for (int i = 0; i &lt; routingObj.Length; i++)
+{
+  Console.WriteLine("routingObj[{0}]={1}.", i, (routingObj[i] as string));
+  args1.Add(routingObj[i]);
+}
+rc = exc.WithArgs((IGFSerializable)args1).Execute(getFuncIName);
+executeFunctionResult = rc.GetResult();
+Console.WriteLine("on one server: result count= {0}.",
+    executeFunctionResult.Length);</codeblock>
+		</example>
+	</conbody>
+</concept>

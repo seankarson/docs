@@ -1,0 +1,26 @@
+<?xml version="1.0"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<!-- Created with XMetaL (http://www.xmetal.com) -->
+<concept id="concept_F7A143F51EEA46B28AC612DEB7849D99"> 
+  <title>High Availability for Client-to-Server Communication</title> 
+  <shortdesc> The GemFire native client provides reliable event messaging from
+	 cache server to client to prevent data loss during server failover operations.
+	 High availability is implemented in the cache server and is configured in the
+	 native client. High availability functions the same whether the region is
+	 partitioned or not. See the GemFire User's Guide for information about
+	 partitioned regions.
+  </shortdesc> 
+  <conbody>
+	 <p> Native clients can specify the number of secondary servers where the
+		client registers interest and maintains subscription channels, in addition to
+		the subscription channel with the primary server. The secondary servers
+		maintain redundant update queues for the client. If the primary server fails,
+		one of the secondaries steps in as primary to provide uninterrupted messaging
+		to the client. If possible, another secondary is then initialized so the total
+		number of secondaries is not reduced by the failover.
+	 </p>
+	 <p> See the GemFire User's Guide for details about configuring a Java cache
+		server for high availability.
+	 </p>
+  </conbody> 
+</concept>
