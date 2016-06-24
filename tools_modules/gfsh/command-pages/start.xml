@@ -680,7 +680,8 @@ start pulse --url=http://gemfire.mycompany.com:7070/pulse</codeblock>
 				<codeblock id="start-server-syntax">start server --name=value [--assign-buckets(=value)] [--bind-address=value]
     [--cache-xml-file=value] [--classpath=value] [--disable-default-server(=value)]
     [--disable-exit-when-out-of-memory(=value)] [--enable-time-statistics(=value)]
-    [--force(=value)] [--properties-file=value] [--security-properties-file=value]
+    [--force(=value)] [--include-system-classpath(=value)] [--properties-file=value]
+    [--security-properties-file=value]
     [--group=value] [--locators=value] [--locator-wait-time=value] [--log-level=value]
     [--mcast-address=value] [--mcast-port=value] [--memcached-port=value]
     [--memcached-protocol=value] [--rebalance(=value)] [--server-bind-address=value]
@@ -746,6 +747,13 @@ start pulse --url=http://gemfire.mycompany.com:7070/pulse</codeblock>
 								<entry colname="col2">Location of user classes required by the Cache
 									Server. This path is appended to the current CLASSPATH. </entry>
 								<entry/>
+							</row>
+							<row>
+								<entry><parmname>--include-system-classpath</parmname></entry>
+								<entry>When true, include the System CLASSPATH on the Server's
+									CLASSPATH, as the System CLASSPATH is not included by default.
+									If specified without a value, the value is set to true.</entry>
+								<entry>false</entry>
 							</row>
 							<row>
 								<entry colname="col1">
