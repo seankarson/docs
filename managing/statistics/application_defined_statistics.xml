@@ -20,10 +20,11 @@
 						by a <codeph>StatisticsType</codeph> are each assigned a unique ID within
 						the list. <codeph>StatisticsType</codeph> is used to create a
 							<codeph>Statistics</codeph> instance. </li>
-					<li id="li_897E2785C5DA40A89BD68D3FCC42EC86"><b>Statistics</b>. Instantiation of
-						an existing <codeph>StatisticsType</codeph> object with methods for setting,
-						incrementing, and getting individual <codeph>StatisticDescriptor</codeph>
-						values. </li>
+					<li id="li_897E2785C5DA40A89BD68D3FCC42EC86"><b>Statistics</b>. Instantiation of an existing
+						<codeph>StatisticsType</codeph> object with methods for setting,
+					incrementing, getting individual <codeph>StatisticDescriptor</codeph> values,
+					and setting a callback which will recompute the statistic's value at configured
+					sampling intervals. </li>
 					<li id="li_7B204D4958224EE199ECCC96B9BEB84F"><b>StatisticsFactory</b>. Creates
 						instances of <codeph>Statistics</codeph>. You can also use it to create
 						instances of <codeph>StatisticDescriptor</codeph> and
