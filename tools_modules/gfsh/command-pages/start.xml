@@ -567,11 +567,13 @@ JDK installation or the JDK bin directory is in the system PATH.</codeblock>
 								<entry colname="col2">Argument passed to the JVM on which the
 									Locator will run. For example, specifying
 										<codeph>--J=-Dfoo.bar=true</codeph> sets property "foo.bar"
-									to "true".<note>
+									to "true".
+									<note>
 										<p>If the argument you are passing contains spaces or
 											commas, enclose the option in single quotes. For
-											example:<codeblock>start locator --name=locator1 --port=9009 --mcast-port=0\
---J=<b>'-Dgemfire.remote-locators=10.116.34.222[9009],10.116.35.225[9009]'</b></codeblock></p>
+											example:</p>
+										<codeblock>start locator --name=locator1 --port=9009 --mcast-port=0\
+--J=<b>'-Dgemfire.remote-locators=10.116.34.222[9009],10.116.35.225[9009]'</b></codeblock>
 									</note>
 								</entry>
 								<entry>none</entry>

@@ -23,9 +23,10 @@
                     URL used when connecting from your local system to the HTTP service in the
                     remote cluster. For example:</cmd>
                 <stepresult>
-                    <p><codeblock>gfsh>start server --name=server1 --J=-Dgemfire.jmx-manager=true \
+                    <codeblock>gfsh>start server --name=server1 --J=-Dgemfire.jmx-manager=true \
 --J=-Dgemfire.jmx-manager-start=true -J=-Dgemfire.http-service-port=8080 \
---J=-Dgemfire.http-service-bind-address=my.remote.cluster</codeblock>This
+--J=-Dgemfire.http-service-bind-address=my.remote.cluster</codeblock>
+                    <p>This
                         command must be executed directly on the host machine that will ultimately
                         act as the remote GemFire server that hosts the HTTP service for remote
                         administration. (You cannot launch a GemFire server remotely.)</p>

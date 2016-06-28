@@ -18,15 +18,12 @@
 				install and run JVSD: </p>
 					<p> 1. Make sure that you have a recent checkout of <keyword keyref="product_name"/> and that
 				you are on the JVSD branch, <codeph>feature/GEODE-78</codeph>. </p>
-			<p>
 				<codeblock>$ git status 
 On branch feature/GEODE-78
 Your branch is up-to-date with 'origin/feature/GEODE-78'.
 nothing to commit, working directory clean
 </codeblock>
-			</p>
 			<p> 2. Build the MultiAxisChart: </p>
-			<p>
 				<codeblock>$ ./gradlew geode-jvsd:clean geode-jvsd:MultiAxisChart
 :geode-jvsd:clean
 :clean UP-TO-DATE
@@ -37,14 +34,10 @@ Installing MultiAxisChartFX into local maven repository...
 Installing MultiAxisChartFX into local maven repository... Done!  
 
 BUILD SUCCESSFUL </codeblock>
-			</p>
 			<p> At this point you should have the MultiAxisChart JAR file: </p>
-			<p>
 				<codeblock>$ ls -la geode-jvsd/build/MultiAxisChartFX/target/MultiAxisChart-1.0-SNAPSHOT.jar  
 -rw-r--r-- 1 jvuser staff 69979 Apr 1 07:21 geode-jvsd/build/MultiAxisChartFX/target/MultiAxisChart-1.0-SNAPSHOT.jar </codeblock>
-			</p>
 			<p> This JAR file should also now be installed in your local maven repository: </p>
-			<p>
 				<codeblock> $ ls -la ~/.m2/repository/com/pivotal/javafx/MultiAxisChart/1.0-SNAPSHOT
 total 168 
 drwxr-xr-x 6 jvuser staff   204   Apr 1 07:14 . 
@@ -53,9 +46,7 @@ drwxr-xr-x 4 jvuser staff   136   Apr 1 07:14 ..
 -rw-r--r-- 1 jvuser staff  1751  Apr 1 07:20 MultiAxisChart-1.0-SNAPSHOT.pom 
 -rw-r--r-- 1 jvuser staff   201   Apr 1 07:21 _remote.repositories 
 -rw-r--r-- 1 jvuser staff   712   Apr 1 07:21 maven-metadata-local.xml</codeblock>
-			</p>
 			<p> 3. Build JVSD: </p>
-			<p>
 				<codeblock>$ ./gradlew -x test geode-jvsd:installDist 
 :geode-jvsd:MultiAxisChartFX SKIPPED 
 :geode-jvsd:compileJava 
@@ -68,11 +59,8 @@ Note: Recompile with -Xlint:unchecked for details.
 :geode-jvsd:installDist 
 
 BUILD SUCCESSFUL</codeblock>
-			</p>
 			<p> 4. Invoke JVSD from the command line: </p>
-			<p>
 				<codeblock>$ ./geode-jvsd/build/install/geode-jvsd/bin/geode-jvsd</codeblock>
-			</p>
 			<image href="../images/jVSD-startup.png"/>
 		</conbody>
 			</concept>
@@ -80,9 +68,10 @@ BUILD SUCCESSFUL</codeblock>
 		<title>Configure Statistics Sampling in <keyword keyref="product_name"/></title>
 		<conbody>
 			<p>Before you use JVSD, you must enable the collection of <keyword keyref="product_name"/>
-				statistics at runtime. Set the following configurations in gemfire.properties:
+				statistics at runtime. Set the following configurations in gemfire.properties:</p>
 				<codeblock>statistic-sampling-enabled=true
-statistic-archive-file=myStats.gfs</codeblock>Since
+statistic-archive-file=myStats.gfs</codeblock>
+			<p>Since
 				collecting statistics at the default sampling rate of once every second does not
 				affect performance, we recommend that sampling should always be enabled, including
 				during development, testing, and in production.</p>
@@ -90,8 +79,9 @@ statistic-archive-file=myStats.gfs</codeblock>Since
 				in troubleshooting and assessing the performance of some <keyword
 					keyref="product_name"/> operations, but they should be used with caution because
 				their collection can affect performance. These statistics can be enabled using the
-				following gemfire.properties configuration:
-				<codeblock>enable-time-statistics=true</codeblock>When the distributed system is up
+				following gemfire.properties configuration:</p>
+				<codeblock>enable-time-statistics=true</codeblock>
+			<p>When the distributed system is up
 				and running, every <keyword keyref="product_name"/> instance generates a statistics
 				file. To simplify browsing these statistics in JVSD, you may want to copy all the
 				statistics files from all members into one directory so that you can easily load the

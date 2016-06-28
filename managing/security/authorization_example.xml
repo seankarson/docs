@@ -26,10 +26,9 @@
 			<title>Server Settings</title>
 			<p>These are the <codeph>gemfire.properties</codeph> file (or
 					<codeph>gfsecurity.properties</codeph> file if you are creating a special
-				restricted access file for security configuration) settings for each server:
+				restricted access file for security configuration) settings for each server:</p>
 				<codeblock>security-client-accessor=templates.security.XmlAuthorization.create
 security-authz-xml-uri=&lt;URI of XML file&gt; </codeblock>
-			</p>
 		</section>
 		<section id="section_85F79DD53FD7453D87DF915A91595218">
 			<title>XML File Sample Settings</title>
@@ -56,7 +55,8 @@ security-authz-xml-uri=&lt;URI of XML file&gt; </codeblock>
 					</li>
 				</ol>
 			</p>
-			<p>The listing below is a sample XML file: <ul id="ul_16829264085F4197B09F0887E6E68C1A">
+			<p>The listing below is a sample XML file:</p>
+			<ul id="ul_16829264085F4197B09F0887E6E68C1A">
 					<li id="li_58F5C6A7A929411DA96A0894BE4AF5D8">The permissions for each of the
 						roles are described in the permission tags. </li>
 					<li id="li_37433F22BD3E457280985475EEDC2214">The <codeph>reader</codeph>,
@@ -127,7 +127,6 @@ security-authz-xml-uri=&lt;URI of XML file&gt; </codeblock>
     optimizeForWrite="false" keySet="KEY-0,KEY-1"&gt;EXECUTE_FUNCTION&lt;/operation&gt;
 &lt;/permission&gt;
 &lt;/acl&gt;</codeblock>
-			</p>
 		</section>
 	</conbody>
 </concept>
