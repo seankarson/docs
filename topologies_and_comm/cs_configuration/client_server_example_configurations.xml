@@ -61,10 +61,10 @@ locators=localhost[41111]</codeblock>
 				and the client pool and region. </p>
 			<codeblock outputclass="language-java">public static ClientCacheFactory connectStandalone(String name) {
 	return new ClientCacheFactory()
-		.set("log-file", name + ".log")
-		.set("statistic-archive-file", name + ".gfs")
-		.set("statistic-sampling-enabled", "true")
-		.set("cache-xml-file", "")
+		.set(LOG_FILE, name + ".log")
+		.set(STATISTIC_ARCHIVE_FILE, name + ".gfs")
+		.set(STATISTIC_SAMPLING_ENABLED, "true")
+		.set(CACHE_XML_FILE, "")
 		.addPoolLocator("localhost", LOCATOR_PORT);
 }
 

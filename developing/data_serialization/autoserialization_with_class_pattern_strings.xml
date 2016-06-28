@@ -56,14 +56,13 @@ com.company.special.Patient#identity=ssn&lt;/string&gt;
 					<codeblock>classPatterns.add("com.company.DomainObject.*#identity=id.*#exclude=creationDate,
    com.company.special.Patient#identity=ssn");</codeblock>
 				</li>
-				<li id="li_ABE350BD927B45CF900218B2AB66DCCA">This application code has the same
-					effect:
-					<codeblock> Cache c = new CacheFactory().set("cache-xml-file", cacheXmlFileName)
+				<li id="li_ABE350BD927B45CF900218B2AB66DCCA">This application code has the same effect:
+				<codeblock> Cache c = new CacheFactory().set(CACHE_XML_FILE, cacheXmlFileName)
      .setPdxSerializer(new ReflectionBasedAutoSerializer("com.foo.DomainObject*#identity=id.*",
          "com.company.DomainObject.*#exclude=creationDate","com.company.special.Patient#identity=ssn"))
      .create();
 </codeblock>
-				</li>
+			</li>
 			</ul>
 	</conbody>
 </concept>

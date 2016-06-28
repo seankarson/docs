@@ -65,14 +65,14 @@ Cache cache = new CacheFactory().create();</codeblock>
 							<ul
 								id="ul_AE06E9A10FB544DC9DE09F4173AB9490">
 								<li id="li_B5B301A8FF954417A8E5C0DB169480B8">In the API, create a
-										<codeph>Properties</codeph> object and pass it to the cache
-									create method. Example:
-									<codeblock>Properties properties= new Properties();
-properties.setProperty("log-level", "warning");
-properties.setProperty("name", "testMember2");
+								<codeph>Properties</codeph> object and pass it to the cache create
+							method. Example:
+							<codeblock>Properties properties= new Properties();
+properties.setProperty(LOG_LEVEL, "warning");
+properties.setProperty(NAME, "testMember2");
 ClientCache userCache = 
 	new ClientCacheFactory(properties).create();</codeblock>
-								</li>
+						</li>
 								<li id="li_970F2266AD8847EF9BD9F2298599254D">For the cache server,
 									pass the properties files on the <codeph>gfsh</codeph> command
 									line as command-line options. Example:

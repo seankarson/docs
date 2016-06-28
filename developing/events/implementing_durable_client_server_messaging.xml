@@ -29,11 +29,11 @@
 durable-client-timeout=200 </codeblock>
 					</li>
 					<li id="li_7418B8B60AE44F8E976BB44928005DCD">Java:
-						<codeblock>Properties props = new Properties(); 
-props.setProperty("durable-client-id", "31"); 
-props.setProperty("durable-client-timeout", "" + 200); 
+					<codeblock>Properties props = new Properties(); 
+props.setProperty(DURABLE_CLIENT_ID, "31"); 
+props.setProperty(DURABLE_CLIENT_TIMEOUT, "" + 200); 
 CacheFactory cf = new CacheFactory(props);</codeblock>
-					</li>
+				</li>
 				</ul>
 		</section>
 		<section id="section_B8E01FE4B5A347EB96085DA3194F6AE8">

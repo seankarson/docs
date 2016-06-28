@@ -197,9 +197,9 @@ FrameworkServlet 'gemfire-api': initialization started</codeblock>
 
     public static void main(String[] args){
         ServerLauncher serverLauncher  = new ServerLauncher.Builder()
-          .set("start-dev-rest-api", "true")
-          .set("http-service-port", "8080")
-          .set("http-service-bind-address", "localhost")
+          .set(START_DEV_REST_API, "true")
+          .set(HTTP_SERVICE_PORT, "8080")
+          .set(HTTP_SERVICE_BIND_ADDRESS, "localhost")
           .setPdxReadSerialized(true)
           .build();
 
