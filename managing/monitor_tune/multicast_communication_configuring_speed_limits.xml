@@ -10,7 +10,8 @@
 				machines and each process should have at least one CPU dedicated to it. The
 				following is a list of configuration changes that can improve multicast performance.
 				Check with your system administrator about changing any of the limits discussed
-				here. <ul id="ul_EFB8774E9797404BA78E2CD4246A5D89">
+				here.</p>
+				<ul id="ul_EFB8774E9797404BA78E2CD4246A5D89">
 					<li id="li_3544A1CF2CCD4B7E8092C1A11E476BD3">Increase the default datagram size
 						for systems running Microsoft Windows from 1024 bytes to a value that
 						matches your network’s maximum transmission unit (MTU), which is typically
@@ -20,12 +21,11 @@
 						time probes are disabled by default to increase multicast performance. To
 						reduce multicast speed, you can enable time statistics by setting the
 							gemfire.<codeph>enable-time-statistics</codeph> property to true.
-							<p>This enables time statistics for a Java application:
+						<p>This enables time statistics for a Java application:</p>
 							<codeblock>-Dgemfire.enable-time-statistics=true</codeblock> The time
 							statistics properties are passed to the cache server on the
 								<codeph>gfsh</codeph> the command line:
 							<codeblock>gfsh&gt;start server --name=<varname>server_name</varname> --enable-time-statistics=true</codeblock>
-						</p>
 					</li>
 					<li id="li_6F09E7D5F35349208CE0B92E34AAFFEB">Monitor the members that receive data for signs of
 						data loss. A few data loss messages can happen normally during region
@@ -48,7 +48,6 @@
 						<codeblock>gfsh&gt;start server --name=<varname>server_name</varname> --J=-Dp2p.disableBatching=true</codeblock>
 					</li>
 				</ul>
-			</p>
 		</section>
 	</conbody>
 </concept>

@@ -79,18 +79,18 @@
 			</table>
 			<p>For the <codeph>gfsh start server</codeph> command, pass these settings with the
 				<codeph>--J</codeph> switch, for example: <codeph>&#x2011;&#x2011;J=&#x2011;XX:+UseConcMarkSweepGC</codeph>. </p>
-			<p>The following is an example of setting JVM for an application:<codeblock>$ java app.MyApplication -Xms=30m -Xmx=30m -XX:+UseConcMarkSweepGC -XX:CMSInitiatingOccupancyFraction=60</codeblock>
+			<p>The following is an example of setting JVM for an application:</p>
+			<codeblock>$ java app.MyApplication -Xms=30m -Xmx=30m -XX:+UseConcMarkSweepGC -XX:CMSInitiatingOccupancyFraction=60</codeblock>
 				<note>Do not use the <codeph>-XX:+UseCompressedStrings</codeph> and
 						<codeph>-XX:+UseStringCache</codeph> JVM configuration properties when
 					starting up servers. These JVM options can cause issues with data corruption and
-					compatibility.</note></p>
+					compatibility.</note>
 			<p>Or, using
-				<codeph>gfsh</codeph>:<codeblock>$ gfsh start server --name=app.MyApplication --initial-heap=30m --max-heap=30m \
+				<codeph>gfsh</codeph>:</p>
+			<codeblock>$ gfsh start server --name=app.MyApplication --initial-heap=30m --max-heap=30m \
 --J=-XX:+UseConcMarkSweepGC --J=-XX:CMSInitiatingOccupancyFraction=60</codeblock>
-			</p>
 		</conbody>
 	</concept>
-
 <concept id="how_the_resource_manager_works">
 	<title>Using the <keyword keyref="product_name"/> Resource Manager</title>
 	<shortdesc>The <keyword keyref="product_name"/> resource manager works with your JVM's tenured
@@ -249,15 +249,17 @@
 			</section>
 			<section id="section_5D88064B75C643B0849BBD4345A6671B">
 				<p>gfsh
-					example:<codeblock>gfsh&gt;start server --name=server1 --initial-heap=30m --max-heap=30m \
---critical-heap-percentage=80 --eviction-heap-percentage=60</codeblock></p>
-				<p>cache.xml example: <codeblock>&lt;cache>
+					example:</p>
+				<codeblock>gfsh&gt;start server --name=server1 --initial-heap=30m --max-heap=30m \
+--critical-heap-percentage=80 --eviction-heap-percentage=60</codeblock>
+				<p>cache.xml example:</p>
+				<codeblock>&lt;cache>
 &lt;region refid="REPLICATE_HEAP_LRU" /&gt;
 ...
 &lt;resource-manager critical-heap-percentage="80" eviction-heap-percentage="60"/>
 &lt;/cache></codeblock>
 					<note>The <codeph>resource-manager</codeph> specification must appear after the
-						region declarations in your cache.xml file.</note></p>
+						region declarations in your cache.xml file.</note>
 			</section>
 			<section><title>Set the JVM GC Tuning Parameters</title>If your JVM allows, configure it to
 				initiate concurrent mark-sweep (CMS) garbage collection when heap use is at least
@@ -319,7 +321,8 @@
 			<section id="section_B50C552B114D47F3A63FC906EB282024">
 				<p>These examples set the critical threshold to 85 percent of the tenured heap and
 					the eviction threshold to 75 percent. The region <codeph>bigDataStore</codeph> is configured to participate in the resource
-					manager's eviction activities. <ul id="ul_3AB02B56AA364E25867FC3A9446F5CC9">
+					manager's eviction activities.</p>
+					<ul id="ul_3AB02B56AA364E25867FC3A9446F5CC9">
 						<li>gfsh
 							Example:
 							<codeblock>gfsh&gt;start server --name=server1 --initial-heap=30MB --max-heap=30MB \
@@ -345,7 +348,6 @@ RegionFactory rf =
   Region region = rf.create("bigDataStore");</codeblock>
 						</li>
 					</ul>
-				</p>
 			</section>
 			<section id="section_95497FDF114A4DC8AC5D899E05E324E5">
 				<title>Use Case for the Example Code</title>
