@@ -33,11 +33,22 @@
 								tools that read the system statistics and log files. </li>
 						</ul>
 					</li>
-					<li id="li_D3A8BDF2C64C4345828D6ACDAFA44A26"> The host name and host files are properly
-						configured for the machine. The host name and host file configuration can
-						affect <codeph>gfsh</codeph> and Pulse functionality. For Unix/Linux hosts,
-						see the system man pages for more information on setting the host name and
-						hosts. </li>
+					<li> The host name and host files are properly configured for the machine. The
+						host name and host file configuration can affect <codeph>gfsh</codeph> and
+						Pulse functionality. For Unix/Linux hosts, see the system man pages for more
+						information on setting the host name and hosts. </li>
+					<li>Many default Linux installations use SYN cookies to protect the system
+						against malicious attacks that flood TCP SYN packets. The use of SYN cookies
+						dramatically reduces network bandwidth, and can be triggered by a running
+							<keyword keyref="product_name"/> distributed system.<p>To disable SYN
+							cookies permanently:</p><ol id="ol_fyb_dlb_tw">
+							<li>Edit the <codeph>/etc/sysctl.conf</codeph> file to include the
+								following
+									line:<codeblock>net.ipv4.tcp_syncookies = 0</codeblock><p>Setting
+									this value to zero disables SYN cookies.</p></li>
+							<li>Reload
+								<codeph>sysctl.conf</codeph>:<codeblock>sysctl -p</codeblock></li>
+						</ol></li>
 				</ul>
 			</p>
 		</section>
