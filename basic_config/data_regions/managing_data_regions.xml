@@ -158,23 +158,21 @@ Region pfloRegion = rf.create("Portfolios");</codeblock>
 		</section>
 		<section id="section_jn1_sry_5m">
 			<title>Create and Access Data Subregions</title>
-			<p>An individual region can contain multiple subregions. You can use subregions to
-				create a hierarchical namespace within your cache or to group cached objects for
-				management purposes. The use of subregions is subject to the following
-				restrictions:</p>
+			<p>An individual region can contain multiple subregions. Subregions are an older feature that
+				will not be useful in new designs and applications. They are used to create a
+				hierarchical namespace within a cache, providing naming that feels like paths in a
+				file system. Here are limitations on the use of subregions:</p>
 			<p>
 				<ul id="ul_kyk_xwx_5m">
 					<li>A region with LOCAL scope can only have subregions with LOCAL scope.</li>
-					<li>You cannot create a subregion under a partitioned region or create a
-						subregion with type PARTITION.</li>
-					<li>You cannot create a subregion that has different scope (GLOBAL,
-						DISTRIBUTED_ACK, DISTRIBUTED_NO_ACK) settings than a region of the same name
-						in another cache or than the parent region.</li>
-					<li>You cannot reuse an existing region or subregion name.</li>
+					<li>Partitioned region types may not be used with subregions. A subregion may not have a parent
+						that is a partitioned region, and a subregion may not be of  type
+						PARTITION.</li>
+					<li>A subregion must have the same scope (GLOBAL, DISTRIBUTED_ACK, DISTRIBUTED_NO_ACK) as its
+						parent region.</li>
+					<li>Subregion names must be unique within the cache.</li>
 				</ul>
 			</p>
-			<p>If the subregion is a distributed replicated region, it will be initialized with data
-				from all other caches in this distributed system that have the same region.</p>
 			<p>You can create subregions using one of the following methods:</p>
 			<p>
 				<ul id="ul_fpd_1zx_5m">
@@ -206,11 +204,9 @@ Region pfloRegion = rf.create("Portfolios");</codeblock>
 									<codeblock outputclass="language-java">RegionFactory rf = cache.createRegionFactory(REPLICATE);
 Region pfloRegion = rf.create("Portfolios");
    .createSubregion("Portfolios", "Private");</codeblock>
-								</p><p>With <codeph>RegionFactory</codeph>, if the cache does not
-									already exist, the cache is created and then the region and
-									subregion are created. The <codeph>RegionFactory</codeph>
-									constructor is overloaded to accept member connection properties
-									and region attributes. </p>
+								</p><p><codeph>Region</codeph> method calls with a
+										<codeph>recursive</codeph> parameter operate on the given
+									region(s) and then recursively on all contained subregions. </p>
 							</li>
 						</ul>
 					</li>
